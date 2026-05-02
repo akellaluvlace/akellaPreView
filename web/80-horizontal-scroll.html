@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Format Studio - We craft structural narratives and spatial identities for the built environment."/>
+    <title>Format Studio</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-on-surface": "#f8f0de",
+                        "error": "#ba1a1a",
+                        "on-background": "#1e1c11",
+                        "on-secondary-container": "#686456",
+                        "on-primary-fixed": "#1c1b1b",
+                        "outline": "#747878",
+                        "primary": "#000000",
+                        "surface-container-highest": "#e9e2d0",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "surface-bright": "#fff9ed",
+                        "on-tertiary-container": "#c86a39",
+                        "secondary-fixed-dim": "#ccc6b5",
+                        "surface-dim": "#e0dac8",
+                        "surface-container-low": "#faf3e1",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-tint": "#5f5e5e",
+                        "primary-fixed": "#e5e2e1",
+                        "error-container": "#ffdad6",
+                        "background": "#fff9ed",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#e9e2d0",
+                        "on-tertiary-fixed": "#351000",
+                        "on-surface": "#1e1c11",
+                        "secondary-container": "#e9e2d0",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#858383",
+                        "on-secondary-fixed-variant": "#4a473a",
+                        "secondary": "#625e50",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#c8c6c5",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e9e2d0",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#351000",
+                        "primary-container": "#1c1b1b",
+                        "surface-container": "#f5eddb",
+                        "inverse-surface": "#343024",
+                        "surface-container-high": "#efe8d6",
+                        "on-surface-variant": "#444748",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline-variant": "#c4c7c7",
+                        "on-primary-fixed-variant": "#474746",
+                        "surface": "#fff9ed",
+                        "on-secondary-fixed": "#1e1c11"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        unit: "8px",
+                        "section-gap": "160px",
+                        gutter: "32px",
+                        "margin-edge": "64px",
+                        "container-max": "none"
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        serif: ["Newsreader", "serif"],
+                        "headline-md": ["Newsreader", "serif"],
+                        "display-xl": ["Newsreader", "serif"],
+                        "display-lg": ["Newsreader", "serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-md": ["clamp(2rem, 4vw, 3rem)", { lineHeight: "120%", letterSpacing: "-0.01em", fontWeight: "400" }],
+                        "display-xl": ["clamp(3.5rem, 8vw, 7.5rem)", { lineHeight: "110%", letterSpacing: "-0.04em", fontWeight: "300" }],
+                        "display-lg": ["clamp(2.5rem, 6vw, 4.5rem)", { lineHeight: "115%", letterSpacing: "-0.02em", fontWeight: "400" }],
+                        "label-sm": ["0.75rem", { lineHeight: "100%", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "body-md": ["1rem", { lineHeight: "160%", letterSpacing: "0", fontWeight: "400" }],
+                        "body-lg": ["clamp(1rem, 1.5vw, 1.125rem)", { lineHeight: "160%", letterSpacing: "0", fontWeight: "400" }]
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .horizontal-scroll-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            width: 100dvw;
+            height: 100dvh;
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+        }
+        .horizontal-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        .scene {
+            flex: 0 0 100dvw;
+            width: 100dvw;
+            height: 100dvh;
+            scroll-snap-align: start;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .plate-track {
+            display: flex;
+            gap: 18px;
+            width: max-content;
+            animation: plate-x 70s linear infinite;
+            padding: 6px 24px;
+        }
+        .plate-track:hover { animation-play-state: paused; }
+        @keyframes plate-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 9px)); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .plate-track { animation: none; }
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background overflow-hidden selection:bg-on-tertiary-container selection:text-surface antialiased">
+
+    <!-- Top Navigation / Controls -->
+    <header class="fixed top-0 left-0 w-full z-50 flex flex-col md:flex-row justify-between items-center px-4 md:px-margin-edge py-6 md:py-8 pointer-events-none gap-4 md:gap-0 transition-all duration-300">
+        <div class="pointer-events-auto text-xl md:text-2xl font-serif font-medium tracking-tight text-on-background">
+            Format Studio
+        </div>
+        <!-- Explicit Visual Scroll Controls -->
+        <div class="pointer-events-auto flex items-center bg-background/90 backdrop-blur-md px-2 py-1.5 rounded-full border border-outline-variant/30 shadow-sm" role="group" aria-label="Horizontal scroll controls">
+            <button aria-label="Scroll Left" class="scroll-btn p-1.5 flex items-center justify-center text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full transition-all hover:-translate-x-0.5" data-dir="-1">
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_left_alt</span>
+            </button>
+            <span class="font-label-sm text-label-sm text-on-background uppercase tracking-[0.2em] px-3 select-none">Scroll</span>
+            <button aria-label="Scroll Right" class="scroll-btn p-1.5 flex items-center justify-center text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full transition-all hover:translate-x-0.5" data-dir="1">
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_right_alt</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Horizontal Canvas -->
+    <main class="horizontal-scroll-container" tabindex="-1">
+        
+        <!-- Scene 1: Intro -->
+        <section id="intro" class="scene flex flex-col justify-center items-center px-6 md:px-margin-edge">
+            <h1 class="font-display-xl text-display-xl text-primary text-center italic mb-8 md:mb-gutter text-balance">
+                Format Studio
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-[65ch] text-center text-pretty">
+                We craft structural narratives and spatial identities for the built environment. 
+                Our approach merges architectural minimalism with digital editorial precision.
+            </p>
+        </section>
+
+        <!-- Scene 2: Project 1 -->
+        <section id="project-1" class="scene relative bg-surface-container-highest">
+            <img alt="Modern minimalist concrete architecture with expansive glass windows and warm interior lighting at dusk" 
+                 class="w-full h-full object-cover opacity-90 mix-blend-multiply" 
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU2D_aIS2okNkP2ONPOQjwUSBw0DH4euLQnDBZObmoc7DA8xJrYVAYovksVz6wFZFLhia5rlQAXr0KQJ7-w50SGhCQYima0KHsRbtyXigYX1p2H7v_ZrCWt22CDKFce_mBNoIl9yQOO0MCnEUfoqORnJ5LGcQlpCN1Ol5liIq8u_YRP0sdMOChhbLUlgQmhKgwlh8scK_MXvWWD4EdargTH-vdh4Edq6O1NDxrwHoYGsXcoHISFGIJt1K4h96WVqo8HHfN50hgn7Fl"
+                 width="1920" height="1080" loading="lazy" decoding="async"/>
+            <div class="absolute inset-0 flex items-end p-6 md:p-margin-edge pb-32 md:pb-section-gap">
+                <div>
+                    <span class="inline-block px-3 py-1 border border-on-background text-on-background font-label-sm text-label-sm uppercase mb-4 bg-background/90 backdrop-blur-sm rounded">Spatial</span>
+                    <h2 class="font-display-lg text-display-lg text-background drop-shadow-md text-balance">Project Alpha</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 3: Project 2 -->
+        <section id="project-2" class="scene relative flex flex-col md:flex-row items-center justify-center p-6 md:p-margin-edge bg-surface-container">
+            <div class="w-full max-w-5xl h-auto md:h-[716px] relative flex flex-col md:block">
+                <img alt="Abstract interior detail showing light reflecting off curved white plaster walls creating soft shadows" 
+                     class="w-full md:w-3/4 h-[50vh] md:h-full object-cover md:ml-auto rounded-lg md:rounded-none shadow-lg md:shadow-none" 
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6DjKoPvm1uBNQyPbW0C1CLP4bNs43TrTPH7mhmXfZG3B_IlvUJwyDVL4dqzIU0HTqle0csBUWZcsJgMDP_7F6-RFJWOTPv_2zMEwmdpRkJylaS9JPOFEa8EDX9_RlUkAZf-sbLYk_veAAAmn2BBZOT3m1nO34Jy6te9WJGdUm1KeWSDZF7m8wuAqC_xqzhb-ac_zuT1v7eSmhuoz162aakc58oWslOTzVixSmq4ImfenSCKZemIpu6WuXuiNFsNDM4DL3zWHJ5eem"
+                     width="1200" height="1600" loading="lazy" decoding="async"/>
+                <div class="relative md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 bg-background p-6 md:p-8 border border-primary/20 md:max-w-md shadow-xl -mt-12 md:mt-0 mx-4 md:mx-0 z-10 rounded">
+                    <span class="inline-block px-3 py-1 border border-primary font-label-sm text-label-sm uppercase mb-4 rounded">Editorial</span>
+                    <h2 class="font-headline-md text-headline-md text-primary mb-4 italic text-balance">Project Beta</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty">
+                        A study in light and negative space, redefining the digital gallery experience.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 4: Services -->
+        <section id="services" class="scene flex flex-col justify-center px-6 md:px-margin-edge bg-inverse-on-surface">
+            <div class="max-w-4xl mx-auto w-full">
+                <h2 class="font-label-sm text-label-sm uppercase tracking-[0.2em] mb-8 md:mb-gutter text-on-surface-variant">Capabilities</h2>
+                <div class="flex flex-col gap-4">
+                    <h3 tabindex="0" class="font-display-lg text-display-lg text-primary hover:text-on-tertiary-container focus-visible:text-on-tertiary-container focus-visible:outline-none focus-visible:pl-4 transition-all duration-300 cursor-default border-b border-primary/20 pb-2">Identity</h3>
+                    <h3 tabindex="0" class="font-display-lg text-display-lg text-primary hover:text-on-tertiary-container focus-visible:text-on-tertiary-container focus-visible:outline-none focus-visible:pl-4 transition-all duration-300 cursor-default border-b border-primary/20 pb-2">Digital</h3>
+                    <h3 tabindex="0" class="font-display-lg text-display-lg text-primary hover:text-on-tertiary-container focus-visible:text-on-tertiary-container focus-visible:outline-none focus-visible:pl-4 transition-all duration-300 cursor-default border-b border-primary/20 pb-2 italic">Editorial</h3>
+                    <h3 tabindex="0" class="font-display-lg text-display-lg text-primary hover:text-on-tertiary-container focus-visible:text-on-tertiary-container focus-visible:outline-none focus-visible:pl-4 transition-all duration-300 cursor-default border-b border-primary/20 pb-2">Spatial</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 4.5: Manifesto — five numbered tenets -->
+        <section id="manifesto" class="scene flex flex-col justify-center px-6 md:px-margin-edge bg-surface-container">
+            <div class="max-w-5xl mx-auto w-full">
+                <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-tertiary-container block mb-6">— Manifesto · 04</span>
+                <h2 class="font-headline-md text-headline-md text-primary mb-12 italic max-w-2xl text-balance">Five working notes pinned above the table.</h2>
+                <ol class="divide-y divide-primary/15 border-y border-primary/15">
+                    <li class="grid grid-cols-12 gap-4 py-6 hover:bg-background/40 transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-serif text-3xl text-on-tertiary-container italic tabular-nums leading-none">I</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-serif text-xl md:text-2xl italic text-primary">Begin in plan.</h3>
+                            <p class="text-on-surface-variant text-sm mt-1">Section first. Renderings second. The plan tells you whether it deserves the photograph.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-on-surface-variant self-center lg:text-right">[ tenet_01 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-6 hover:bg-background/40 transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-serif text-3xl text-on-tertiary-container italic tabular-nums leading-none">II</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-serif text-xl md:text-2xl italic text-primary">Negative space is structure.</h3>
+                            <p class="text-on-surface-variant text-sm mt-1">The walls you choose not to draw carry the building. Every project gets at least one carved-out room.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-on-surface-variant self-center lg:text-right">[ tenet_02 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-6 hover:bg-background/40 transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-serif text-3xl text-on-tertiary-container italic tabular-nums leading-none">III</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-serif text-xl md:text-2xl italic text-primary">Choose a single material.</h3>
+                            <p class="text-on-surface-variant text-sm mt-1">Concrete or oak or limestone. Pick one, repeat it through the volume; the second material is the lighting.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-on-surface-variant self-center lg:text-right">[ tenet_03 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-6 hover:bg-background/40 transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-serif text-3xl text-on-tertiary-container italic tabular-nums leading-none">IV</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-serif text-xl md:text-2xl italic text-primary">Photograph at four o'clock.</h3>
+                            <p class="text-on-surface-variant text-sm mt-1">North-light projects in the morning, south-light projects in the late afternoon. The hour decides the silhouette.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-on-surface-variant self-center lg:text-right">[ tenet_04 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-6 hover:bg-background/40 transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-serif text-3xl text-on-tertiary-container italic tabular-nums leading-none">V</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-serif text-xl md:text-2xl italic text-primary">Hand-fold the spec book.</h3>
+                            <p class="text-on-surface-variant text-sm mt-1">Print the bind. Cut the paper. The client meets the studio in the binding before they meet the building.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-on-surface-variant self-center lg:text-right">[ tenet_05 ]</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Scene 4.6: Plates — paused-on-hover image marquee strip -->
+        <section id="plates" class="scene relative bg-inverse-surface text-inverse-on-surface flex flex-col justify-center overflow-hidden">
+            <div class="absolute top-1/4 -translate-y-1/2 px-6 md:px-margin-edge max-w-3xl">
+                <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-tertiary-fixed-dim block mb-4">— Plates · 05</span>
+                <h2 class="font-display-lg text-display-lg text-inverse-on-surface italic mb-4 text-balance">The studio table.</h2>
+                <p class="text-inverse-on-surface/70 max-w-md text-sm md:text-base">Six structural studies pinned to the wall this month. Hover to halt the procession.</p>
+            </div>
+            <div class="mt-auto pb-16 md:pb-24 overflow-hidden relative">
+                <div class="plate-track">
+                    <figure class="shrink-0 w-72 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden">
+                        <img alt="Plate I" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-inverse-surface/30 to-transparent"></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-inverse-on-surface">
+                            <span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · I</span>
+                            <span class="font-serif italic text-2xl block mt-1">Concrete bay.</span>
+                            <span class="text-xs text-inverse-on-surface/70 block mt-1">Berlin · 11/24</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden">
+                        <img alt="Plate II" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-bl from-inverse-surface/60 via-transparent to-tertiary-fixed-dim/15"></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5">
+                            <span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · II</span>
+                            <span class="font-serif italic text-2xl block mt-1">North light.</span>
+                            <span class="text-xs text-inverse-on-surface/70 block mt-1">Lisbon · 12/24</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-64 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden">
+                        <img alt="Plate III" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5">
+                            <span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · III</span>
+                            <span class="font-serif italic text-2xl block mt-1">Stair, mid-day.</span>
+                            <span class="text-xs text-inverse-on-surface/70 block mt-1">Madrid · 02/25</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden">
+                        <img alt="Plate IV" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-inverse-surface via-transparent to-tertiary-fixed-dim/10"></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5">
+                            <span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · IV</span>
+                            <span class="font-serif italic text-2xl block mt-1">Vault & fold.</span>
+                            <span class="text-xs text-inverse-on-surface/70 block mt-1">Paris · 03/25</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-72 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden">
+                        <img alt="Plate V" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5">
+                            <span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · V</span>
+                            <span class="font-serif italic text-2xl block mt-1">Cornice study.</span>
+                            <span class="text-xs text-inverse-on-surface/70 block mt-1">Rome · 04/25</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden">
+                        <img alt="Plate VI" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-r from-inverse-surface via-transparent to-tertiary-fixed-dim/15"></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5">
+                            <span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · VI</span>
+                            <span class="font-serif italic text-2xl block mt-1">Studio interior.</span>
+                            <span class="text-xs text-inverse-on-surface/70 block mt-1">Geneva · 05/25</span>
+                        </figcaption>
+                    </figure>
+                    <!-- duplicate -->
+                    <figure aria-hidden="true" class="shrink-0 w-72 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-inverse-surface/30 to-transparent"></div><figcaption class="absolute bottom-5 left-5 right-5"><span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · I</span><span class="font-serif italic text-2xl block mt-1">Concrete bay.</span><span class="text-xs text-inverse-on-surface/70 block mt-1">Berlin · 11/24</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-80 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-bl from-inverse-surface/60 via-transparent to-tertiary-fixed-dim/15"></div><figcaption class="absolute bottom-5 left-5 right-5"><span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · II</span><span class="font-serif italic text-2xl block mt-1">North light.</span><span class="text-xs text-inverse-on-surface/70 block mt-1">Lisbon · 12/24</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-64 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-transparent to-transparent"></div><figcaption class="absolute bottom-5 left-5 right-5"><span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · III</span><span class="font-serif italic text-2xl block mt-1">Stair, mid-day.</span><span class="text-xs text-inverse-on-surface/70 block mt-1">Madrid · 02/25</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-80 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tr from-inverse-surface via-transparent to-tertiary-fixed-dim/10"></div><figcaption class="absolute bottom-5 left-5 right-5"><span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · IV</span><span class="font-serif italic text-2xl block mt-1">Vault & fold.</span><span class="text-xs text-inverse-on-surface/70 block mt-1">Paris · 03/25</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-72 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-transparent"></div><figcaption class="absolute bottom-5 left-5 right-5"><span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · V</span><span class="font-serif italic text-2xl block mt-1">Cornice study.</span><span class="text-xs text-inverse-on-surface/70 block mt-1">Rome · 04/25</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-80 h-96 relative bg-surface-container-highest border border-tertiary-fixed-dim/40 overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-r from-inverse-surface via-transparent to-tertiary-fixed-dim/15"></div><figcaption class="absolute bottom-5 left-5 right-5"><span class="text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim block">Plate · VI</span><span class="font-serif italic text-2xl block mt-1">Studio interior.</span><span class="text-xs text-inverse-on-surface/70 block mt-1">Geneva · 05/25</span></figcaption></figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 4.7: Atelier — image+content row scene -->
+        <section id="atelier" class="scene flex items-center bg-surface-bright">
+            <div class="w-full max-w-7xl mx-auto px-6 md:px-margin-edge grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                <figure class="md:col-span-7 relative">
+                    <div class="absolute -top-3 -left-3 w-8 h-8 border-t border-l border-on-tertiary-container"></div>
+                    <div class="absolute -bottom-3 -right-3 w-8 h-8 border-b border-r border-on-tertiary-container"></div>
+                    <img alt="Atelier interior" class="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=85&auto=format&fit=crop"/>
+                    <span class="absolute top-5 left-5 inline-block px-3 py-1 border border-on-background bg-background/90 backdrop-blur-sm font-label-sm text-label-sm uppercase tracking-widest text-on-background">Studio · 06</span>
+                </figure>
+                <div class="md:col-span-5">
+                    <span class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-tertiary-container block mb-3">— Atelier · 06</span>
+                    <h2 class="font-headline-md text-headline-md text-primary italic mb-6 text-balance">A working room, fourteen years.</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-8 text-pretty">Format Studio occupies the second floor of a 1928 print works in central Geneva. The drafting table is older than the studio. The plotter is a plotter, not an inkjet. Visitors are admitted by appointment.</p>
+                    <dl class="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-primary/15 pt-5 text-sm">
+                        <div><dt class="text-[10px] tracking-[0.3em] uppercase text-on-surface-variant">Founded</dt><dd class="font-serif italic text-primary mt-1">2010 · Geneva</dd></div>
+                        <div><dt class="text-[10px] tracking-[0.3em] uppercase text-on-surface-variant">Practice</dt><dd class="font-serif italic text-primary mt-1">Spatial · Editorial · Digital</dd></div>
+                        <div><dt class="text-[10px] tracking-[0.3em] uppercase text-on-surface-variant">Press</dt><dd class="font-serif italic text-primary mt-1">PIN-UP · Apartamento · Wallpaper*</dd></div>
+                        <div><dt class="text-[10px] tracking-[0.3em] uppercase text-on-surface-variant">Studio</dt><dd class="font-serif italic text-on-tertiary-container mt-1">Open · Mon–Thu · by appointment</dd></div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scene 5: Contact -->
+        <section id="contact" class="scene flex flex-col justify-center items-center px-6 md:px-margin-edge bg-surface relative">
+            <div class="text-center w-full max-w-3xl">
+                <h2 class="font-display-xl text-display-xl text-primary mb-8 md:mb-gutter leading-none text-balance">Let's Build</h2>
+                <div class="flex flex-col items-center gap-8 mt-16 md:mt-section-gap">
+                    <a class="font-headline-md text-headline-md text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded transition-colors border-b border-transparent hover:border-primary pb-1" href="mailto:hello@formatstudio.com">
+                        hello@formatstudio.com
+                    </a>
+                    <div class="flex gap-6 md:gap-8 font-label-sm text-label-sm uppercase tracking-[0.1em] flex-wrap justify-center">
+                        <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-2 py-1 transition-colors" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+                        <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-2 py-1 transition-colors" href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+                        <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-2 py-1 transition-colors" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Navigation Tabs -->
+    <nav aria-label="Section navigation" class="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 md:px-16 pb-6 md:pb-12 bg-background/90 backdrop-blur-md border-t border-outline-variant/30 font-label-sm text-label-sm uppercase transition-colors duration-300">
+        <a href="#intro" class="nav-item flex flex-col items-center gap-2 group text-on-background border-t-2 border-on-tertiary-container -mt-[1px] pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="material-symbols-outlined text-[16px] hidden">fiber_manual_record</span>
+            <span>Intro</span>
+        </a>
+        <a href="#project-1" class="nav-item flex flex-col items-center gap-2 group text-on-surface-variant border-t-2 border-transparent hover:text-on-background pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="material-symbols-outlined text-[16px] hidden">fiber_manual_record</span>
+            <span class="hidden sm:inline">Project 1</span>
+            <span class="sm:hidden">01</span>
+        </a>
+        <a href="#project-2" class="nav-item flex flex-col items-center gap-2 group text-on-surface-variant border-t-2 border-transparent hover:text-on-background pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="material-symbols-outlined text-[16px] hidden">fiber_manual_record</span>
+            <span class="hidden sm:inline">Project 2</span>
+            <span class="sm:hidden">02</span>
+        </a>
+        <a href="#services" class="nav-item flex flex-col items-center gap-2 group text-on-surface-variant border-t-2 border-transparent hover:text-on-background pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="material-symbols-outlined text-[16px] hidden">fiber_manual_record</span>
+            <span>Services</span>
+        </a>
+        <a href="#manifesto" class="nav-item flex flex-col items-center gap-2 group text-on-surface-variant border-t-2 border-transparent hover:text-on-background pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="hidden sm:inline">Manifesto</span>
+            <span class="sm:hidden">M</span>
+        </a>
+        <a href="#plates" class="nav-item flex flex-col items-center gap-2 group text-on-surface-variant border-t-2 border-transparent hover:text-on-background pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="hidden sm:inline">Plates</span>
+            <span class="sm:hidden">P</span>
+        </a>
+        <a href="#atelier" class="nav-item flex flex-col items-center gap-2 group text-on-surface-variant border-t-2 border-transparent hover:text-on-background pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="hidden sm:inline">Atelier</span>
+            <span class="sm:hidden">A</span>
+        </a>
+        <a href="#contact" class="nav-item flex flex-col items-center gap-2 group text-on-surface-variant border-t-2 border-transparent hover:text-on-background pt-4 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">
+            <span class="material-symbols-outlined text-[16px] hidden">fiber_manual_record</span>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollContainer = document.querySelector('.horizontal-scroll-container');
+            const sections = document.querySelectorAll('.scene');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            // --- 1. Intersection Observer for Active Nav Tabs ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navItems.forEach(item => {
+                            if (item.getAttribute('href') === `#${id}`) {
+                                item.classList.add('text-on-background', 'border-on-tertiary-container');
+                                item.classList.remove('text-on-surface-variant', 'border-transparent');
+                            } else {
+                                item.classList.remove('text-on-background', 'border-on-tertiary-container');
+                                item.classList.add('text-on-surface-variant', 'border-transparent');
+                            }
+                        });
+                    }
+                });
+            }, {
+                root: scrollContainer,
+                threshold: 0.5
+            });
+
+            sections.forEach(sec => observer.observe(sec));
+
+            // --- 2. Smooth Scrolling for Anchor Links ---
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = item.getAttribute('href');
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                    }
+                });
+            });
+
+            // --- 3. Translate Vertical Wheel to Horizontal Scroll ---
+            scrollContainer.addEventListener('wheel', (evt) => {
+                // Ignore if the user is swiping horizontally natively (e.g. trackpad)
+                if (Math.abs(evt.deltaX) > Math.abs(evt.deltaY)) return;
+
+                if (evt.deltaY !== 0) {
+                    evt.preventDefault();
+                    scrollContainer.scrollBy({
+                        left: evt.deltaY,
+                        behavior: 'auto' // Preserves 1:1 trackpad feel
+                    });
+                }
+            }, { passive: false });
+
+            // --- 4. Top Header Arrow Controls ---
+            document.querySelectorAll('.scroll-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const dir = parseInt(btn.getAttribute('data-dir'));
+                    scrollContainer.scrollBy({ 
+                        left: dir * window.innerWidth, 
+                        behavior: 'smooth' 
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

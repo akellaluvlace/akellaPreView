@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" class="light scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hennessey & Okafor - Serving our community with integrity and precision for over thirty years. Practical counsel. Local roots." />
+    <meta property="og:title" content="Hennessey & Okafor Law Firm" />
+    <meta property="og:description" content="Serving our community with integrity and precision for over thirty years. We deliver sophisticated legal solutions." />
+    <meta property="og:type" content="website" />
+    <title>Hennessey &amp; Okafor | Practical Counsel. Local Roots.</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0..1&display=swap" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline": "#74777e",
+                        "tertiary-fixed": "#ffddb4",
+                        "error": "#ba1a1a",
+                        "primary-container": "#102a43",
+                        "secondary": "#7c571d",
+                        "on-primary-fixed": "#011d35",
+                        "background": "#f7f9ff",
+                        "inverse-on-surface": "#e8f1ff",
+                        "tertiary": "#201100",
+                        "on-tertiary-fixed-variant": "#5d4119",
+                        "surface-dim": "#c1ddfc",
+                        "surface-container": "#e3efff",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#edf4ff",
+                        "inverse-primary": "#b0c9e8",
+                        "on-secondary-fixed": "#291800",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#e8c08c",
+                        "surface": "#f7f9ff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#ffcc86",
+                        "outline-variant": "#c3c6ce",
+                        "surface-tint": "#49607c",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#43474d",
+                        "on-tertiary-fixed": "#291800",
+                        "tertiary-container": "#3b2400",
+                        "primary-fixed": "#d1e4ff",
+                        "on-surface": "#001d33",
+                        "primary": "#00152a",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#614004",
+                        "on-background": "#001d33",
+                        "on-tertiary-container": "#ad8a5a",
+                        "inverse-surface": "#15324b",
+                        "surface-container-highest": "#cfe5ff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#7a92b0",
+                        "surface-bright": "#f7f9ff",
+                        "on-secondary-container": "#79541a",
+                        "secondary-fixed": "#ffddb2",
+                        "surface-variant": "#cfe5ff",
+                        "on-primary-fixed-variant": "#314863",
+                        "secondary-fixed-dim": "#efbe79",
+                        "surface-container-high": "#d9eaff",
+                        "primary-fixed-dim": "#b0c9e8"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "system-ui", "sans-serif"],
+                        "serif": ["Newsreader", "Georgia", "serif"],
+                        "body-md": ["Inter", "system-ui", "sans-serif"],
+                        "h2": ["Newsreader", "Georgia", "serif"],
+                        "h3": ["Newsreader", "Georgia", "serif"],
+                        "body-lg": ["Inter", "system-ui", "sans-serif"],
+                        "label-caps": ["Inter", "system-ui", "sans-serif"],
+                        "h1": ["Newsreader", "Georgia", "serif"]
+                    },
+                    fontSize: {
+                        "body-md": ["clamp(1rem, 0.96rem + 0.2vw, 1.125rem)", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+                        "h2": ["clamp(2rem, 1.6rem + 2vw, 2.75rem)", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "500" }],
+                        "h3": ["clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)", { lineHeight: "1.3", letterSpacing: "0", fontWeight: "500" }],
+                        "body-lg": ["clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem)", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+                        "label-caps": ["0.75rem", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "h1": ["clamp(2.5rem, 2rem + 2.5vw, 4rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" }]
+                    },
+                    spacing: {
+                        "gutter": "clamp(1rem, 5vw, 2rem)",
+                        "container-max": "1200px",
+                        "section-padding": "clamp(4rem, 8vw, 6rem)",
+                        "unit": "8px"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        ::selection {
+            background-color: #ffcc86; /* secondary-container */
+            color: #79541a; /* on-secondary-container */
+        }
+        .text-balance { text-wrap: balance; }
+        .text-pretty { text-wrap: pretty; }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        html, body { overflow-x: clip; }
+        .full-bleed-law { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); max-width: none; }
+        .law-track { display: flex; gap: 24px; width: max-content; animation: law-x 70s linear infinite; padding: 8px 0; }
+        .law-track:hover { animation-play-state: paused; }
+        @keyframes law-x { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+        .law-faq summary { list-style: none; cursor: pointer; }
+        .law-faq summary::-webkit-details-marker { display: none; }
+        .law-faq summary .law-chevron { transition: transform 250ms ease; }
+        .law-faq[open] summary .law-chevron { transform: rotate(180deg); }
+        @media (prefers-reduced-motion: reduce) {
+            .law-track { animation: none; }
+            .law-faq summary .law-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased flex flex-col min-h-screen">
+
+    <!-- TopNavBar -->
+    <header class="bg-surface/95 backdrop-blur-md border-b border-outline-variant sticky top-0 z-50 transition-all duration-300">
+        <div class="flex justify-between items-center px-gutter py-4 lg:py-6 max-w-container-max mx-auto w-full">
+            <a href="#" class="font-serif font-bold text-xl md:text-2xl text-primary uppercase tracking-widest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-opacity hover:opacity-80">
+                Hennessey &amp; Okafor
+            </a>
+            
+            <nav class="hidden md:flex gap-8 items-center font-serif text-lg tracking-tight" aria-label="Primary Navigation">
+                <a href="#practice-areas" class="text-on-surface-variant font-medium hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Practice Areas</a>
+                <a href="#attorneys" class="text-on-surface-variant font-medium hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Attorneys</a>
+                <a href="#news" class="text-on-surface-variant font-medium hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">News</a>
+                <a href="#contact" class="text-on-surface-variant font-medium hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Contact</a>
+            </nav>
+            
+            <div class="hidden lg:block font-serif text-lg text-primary font-semibold tabular-nums">
+                <a href="tel:+15550123456" class="hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">
+                    (555) 012-3456
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu" class="md:hidden text-primary p-2 -mr-2 rounded-lg hover:bg-surface-container-highest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="max-w-container-max mx-auto px-gutter py-section-padding">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="space-y-6 md:space-y-8">
+                    <h1 class="font-h1 text-h1 text-primary text-balance">Practical counsel. Local roots.</h1>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-[55ch] text-pretty">
+                        Serving our community with integrity and precision for over thirty years. We deliver sophisticated legal solutions tailored to the unique challenges of businesses and individuals, ensuring your legacy and interests are rigorously protected.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#contact" class="inline-flex items-center justify-center bg-primary text-on-primary px-8 py-4 rounded-lg hover:bg-secondary transition-all duration-300 font-label-caps text-label-caps uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 active:scale-[0.98] shadow-sm hover:shadow-md">
+                            Schedule a consultation
+                        </a>
+                        <a href="#practice-areas" class="inline-flex items-center justify-center border-2 border-primary text-primary px-8 py-4 rounded-lg hover:bg-surface-container hover:border-surface-tint transition-all duration-300 font-label-caps text-label-caps uppercase tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 active:scale-[0.98]">
+                            Our practice areas
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="relative h-[400px] md:h-[500px] w-full rounded-xl overflow-hidden border border-outline-variant shadow-lg group">
+                    <img 
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB87HWlL9gJvpy5DS5cue2wcphf4u1gHJKoeUJvWSSdtZFFMFnBuK-eYvJsVSKMNSWQM2akUvSX88zcXvab7fIBgjDh9vFNl9XKpD-mfw8XoOnWW4V996OqpVYkvnitrehjf2ho6pSX08KDz4l1_z2KILkDLssXVFT1BJaEjTNEkt-IaE_eZYYEjHhF_loqiigJzubTnpxVINTSV55gV9-zogIKFfmgrmXnLsnJX_j3zV6viHsD7WecdR5FrfHVeLP5CrDzaL8lzvo" 
+                        alt="Professional portrait of a senior law partner standing confidently in a warmly lit, wood-paneled historic law library with leather-bound books." 
+                        width="800"
+                        height="1000"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="eager"
+                        decoding="async"
+                    />
+                    <div class="absolute inset-0 rounded-xl ring-1 ring-inset ring-black/10 pointer-events-none"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Areas -->
+        <section id="practice-areas" class="bg-surface-container-low py-section-padding border-y border-outline-variant scroll-mt-20">
+            <div class="max-w-container-max mx-auto px-gutter">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="font-h2 text-h2 text-primary mb-4 text-balance">Our Core Practice Areas</h2>
+                    <p class="font-body-md text-body-lg text-on-surface-variant max-w-[65ch] mx-auto text-pretty">
+                        Dedicated expertise across key legal disciplines to provide you with comprehensive and uncompromising representation.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Area Card 1 -->
+                    <article class="relative bg-surface p-8 lg:p-10 rounded-xl border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col h-full">
+                        <span class="material-symbols-outlined text-4xl text-secondary mb-6 group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true">business_center</span>
+                        <h3 class="font-h3 text-h3 text-primary mb-3">Corporate Law</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant text-pretty mb-8">
+                            Strategic legal guidance for businesses of all sizes, from initial formation and corporate governance to complex mergers, acquisitions, and dispute resolution.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="#" class="inline-flex items-center gap-2 font-label-caps text-secondary uppercase tracking-widest group-hover:text-primary transition-colors focus-visible:outline-none rounded-sm before:absolute before:inset-0 before:z-10 before:rounded-xl focus-visible:before:ring-2 focus-visible:before:ring-secondary focus-visible:before:ring-offset-2">
+                                Learn more <span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Area Card 2 -->
+                    <article class="relative bg-surface p-8 lg:p-10 rounded-xl border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col h-full">
+                        <span class="material-symbols-outlined text-4xl text-secondary mb-6 group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true">account_balance</span>
+                        <h3 class="font-h3 text-h3 text-primary mb-3">Estate Planning</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant text-pretty mb-8">
+                            Comprehensive wealth preservation, wills, trusts, and probate administration tailored to your family's needs to ensure generational wealth is protected.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="#" class="inline-flex items-center gap-2 font-label-caps text-secondary uppercase tracking-widest group-hover:text-primary transition-colors focus-visible:outline-none rounded-sm before:absolute before:inset-0 before:z-10 before:rounded-xl focus-visible:before:ring-2 focus-visible:before:ring-secondary focus-visible:before:ring-offset-2">
+                                Learn more <span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Area Card 3 -->
+                    <article class="relative bg-surface p-8 lg:p-10 rounded-xl border border-outline-variant hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col h-full">
+                        <span class="material-symbols-outlined text-4xl text-secondary mb-6 group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true">family_restroom</span>
+                        <h3 class="font-h3 text-h3 text-primary mb-3">Family Law</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant text-pretty mb-8">
+                            Compassionate and resolute representation in divorce, custody disputes, adoption proceedings, and the navigation of complex asset division.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="#" class="inline-flex items-center gap-2 font-label-caps text-secondary uppercase tracking-widest group-hover:text-primary transition-colors focus-visible:outline-none rounded-sm before:absolute before:inset-0 before:z-10 before:rounded-xl focus-visible:before:ring-2 focus-visible:before:ring-secondary focus-visible:before:ring-offset-2">
+                                Learn more <span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- Counsel image strip — paused-on-hover marquee -->
+        <section class="full-bleed-law bg-surface border-y border-outline-variant py-section-padding overflow-hidden" id="attorneys">
+            <div class="max-w-container-max mx-auto px-gutter mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+                <div>
+                    <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-3">— Counsel · 03</span>
+                    <h2 class="font-h2 text-h2 text-primary text-balance">Eight names on the door.</h2>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">Hover the strip to halt the procession. Every plate is a partner or counsel of record at Hennessey &amp; Okafor.</p>
+            </div>
+            <div class="overflow-hidden relative">
+                <div class="law-track">
+                    <figure class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="Sarah Hennessey" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · I</span><span class="opacity-70">SINCE 1994</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Sarah Hennessey</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Corporate &amp; M&amp;A · Managing Partner</span></figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-80 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="Adaeze Okafor" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary/65 via-transparent to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · II</span><span class="opacity-70">SINCE 1996</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Adaeze Okafor</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Estate &amp; Trust · Founding Partner</span></figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="Mateo Reyes" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · III</span><span class="opacity-70">SINCE 2002</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Mateo Reyes</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Family &amp; Custody</span></figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-96 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="Eleanor Vance" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary/70 via-transparent to-secondary/15"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>COUNSEL · IV</span><span class="opacity-70">SINCE 2008</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Eleanor Vance</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Tax &amp; Compliance · Of Counsel</span></figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="Daniel Park" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · V</span><span class="opacity-70">SINCE 2011</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Daniel Park</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Litigation</span></figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-80 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="Rachel Stein" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-bl from-secondary/15 via-transparent to-primary"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>SENIOR · VI</span><span class="opacity-70">SINCE 2016</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Rachel Stein</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Real Estate &amp; Land</span></figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="James Bellamy" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>SENIOR · VII</span><span class="opacity-70">SINCE 2019</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">James Bellamy</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Probate &amp; Trust</span></figcaption>
+                    </figure>
+                    <figure class="shrink-0 w-80 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl">
+                        <img alt="Priya Iyer" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-tl from-primary/70 via-transparent to-secondary/15"></div>
+                        <div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>ASSOC. · VIII</span><span class="opacity-70">SINCE 2022</span></div>
+                        <figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Priya Iyer</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Corporate · Senior Associate</span></figcaption>
+                    </figure>
+                    <!-- duplicate -->
+                    <figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · I</span><span class="opacity-70">SINCE 1994</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Sarah Hennessey</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Corporate &amp; M&amp;A · Managing Partner</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-r from-primary/65 via-transparent to-transparent"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · II</span><span class="opacity-70">SINCE 1996</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Adaeze Okafor</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Estate &amp; Trust · Founding Partner</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · III</span><span class="opacity-70">SINCE 2002</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Mateo Reyes</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Family &amp; Custody</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-96 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tr from-primary/70 via-transparent to-secondary/15"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>COUNSEL · IV</span><span class="opacity-70">SINCE 2008</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Eleanor Vance</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Tax &amp; Compliance · Of Counsel</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>PARTNER · V</span><span class="opacity-70">SINCE 2011</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Daniel Park</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Litigation</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-bl from-secondary/15 via-transparent to-primary"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>SENIOR · VI</span><span class="opacity-70">SINCE 2016</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Rachel Stein</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Real Estate &amp; Land</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>SENIOR · VII</span><span class="opacity-70">SINCE 2019</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">James Bellamy</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Probate &amp; Trust</span></figcaption></figure>
+                    <figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative bg-primary overflow-hidden rounded-xl"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tl from-primary/70 via-transparent to-secondary/15"></div><div class="absolute top-4 left-4 right-4 flex justify-between font-label-caps text-label-caps text-on-primary"><span>ASSOC. · VIII</span><span class="opacity-70">SINCE 2022</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-on-primary"><span class="font-h3 text-h3 italic block">Priya Iyer</span><span class="block font-label-caps text-label-caps text-secondary mt-2">Corporate · Senior Associate</span></figcaption></figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Counsel — 3 alternating image+content rows -->
+        <section class="max-w-container-max mx-auto px-gutter py-section-padding">
+            <div class="text-center mb-12 md:mb-16">
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-3">— Recent Counsel · 04</span>
+                <h2 class="font-h2 text-h2 text-primary text-balance">Three matters, in detail.</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-[60ch] mx-auto mt-4 text-pretty">Names redacted, outcomes preserved. Every matter below is a representation of record from the past eighteen months.</p>
+            </div>
+            <div class="flex flex-col gap-20 md:gap-28">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <figure class="md:col-span-7 relative">
+                        <div class="relative aspect-[16/10] overflow-hidden rounded-xl border border-outline-variant shadow-lg">
+                            <img alt="Matter I" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=85&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary/55 via-transparent to-transparent"></div>
+                            <span class="absolute top-5 left-5 bg-surface text-primary font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 rounded-md border border-outline-variant">MATTER · 01</span>
+                            <span class="absolute bottom-5 right-5 bg-secondary text-on-secondary font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 rounded-md">$72M · DECIDED</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5">
+                        <span class="font-label-caps text-label-caps text-secondary uppercase block mb-3">CASE 01 · CORPORATE</span>
+                        <h3 class="font-h2 text-h2 text-primary mb-4 text-balance">Cross-border merger, two regulators.</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 text-pretty">A 14-month engagement representing a regional industrial group through a cross-border acquisition. We negotiated regulatory consent in two jurisdictions and closed at the original price after one round of revision.</p>
+                        <dl class="grid grid-cols-3 gap-3 border-t border-outline-variant pt-5">
+                            <div><dt class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Deal size</dt><dd class="font-h3 text-h3 text-primary mt-1">$72M</dd></div>
+                            <div><dt class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Duration</dt><dd class="font-h3 text-h3 text-primary mt-1">14m</dd></div>
+                            <div><dt class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">Closing</dt><dd class="font-h3 text-h3 text-secondary mt-1">At Bid</dd></div>
+                        </dl>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <div class="md:col-span-5 md:order-1 order-2">
+                        <span class="font-label-caps text-label-caps text-secondary uppercase block mb-3">CASE 02 · ESTATE</span>
+                        <h3 class="font-h2 text-h2 text-primary mb-4 text-balance">A four-generation trust, restructured.</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 text-pretty">A family with operating businesses on three continents asked for a unified succession plan. We rewrote the trust deed, married it to the operating agreements, and held two family meetings before signature.</p>
+                        <ul class="space-y-2.5 text-sm border-l-2 border-secondary pl-5">
+                            <li class="text-on-surface-variant">3 jurisdictions · 4 generations</li>
+                            <li class="text-on-surface-variant">2 family-meeting facilitations</li>
+                            <li class="text-on-surface-variant">Closed without a single contested clause</li>
+                        </ul>
+                    </div>
+                    <figure class="md:col-span-7 md:order-2 order-1 relative">
+                        <div class="relative aspect-[16/10] overflow-hidden rounded-xl border border-outline-variant shadow-lg">
+                            <img alt="Matter II" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=1400&q=85&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-bl from-primary/60 via-transparent to-secondary/15"></div>
+                            <span class="absolute top-5 right-5 bg-surface text-primary font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 rounded-md border border-outline-variant">MATTER · 02</span>
+                            <span class="absolute bottom-5 left-5 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 rounded-md">FOUR GENERATIONS</span>
+                        </div>
+                    </figure>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <figure class="md:col-span-7 relative">
+                        <div class="relative aspect-[16/10] overflow-hidden rounded-xl border border-outline-variant shadow-lg">
+                            <img alt="Matter III" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1400&q=85&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary/55 via-transparent to-transparent"></div>
+                            <span class="absolute top-5 left-5 bg-surface text-primary font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 rounded-md border border-outline-variant">MATTER · 03</span>
+                            <span class="absolute bottom-5 right-5 bg-secondary text-on-secondary font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 rounded-md">RESTORED · WITHIN 9 MONTHS</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5">
+                        <span class="font-label-caps text-label-caps text-secondary uppercase block mb-3">CASE 03 · FAMILY</span>
+                        <h3 class="font-h2 text-h2 text-primary mb-4 text-balance">A custody arrangement, re-drawn quietly.</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6 text-pretty">A complex custody negotiation across two states. We secured an arrangement that placed the children first, kept both parents in the room, and avoided the courthouse altogether. Nine months from first call to filing.</p>
+                        <a class="inline-flex items-center gap-2 font-label-caps text-label-caps text-secondary uppercase tracking-widest border-b-2 border-secondary pb-1 hover:text-primary hover:border-primary transition-colors" href="#contact">Discuss your matter <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Five principles of counsel — numbered doctrine -->
+        <section class="full-bleed-law py-section-padding bg-primary text-on-primary">
+            <div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+                <aside class="lg:col-span-4">
+                    <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-4">— Standard · 05</span>
+                    <h2 class="font-h2 text-h2 text-on-primary leading-tight">Five principles<br/>of counsel.</h2>
+                    <p class="font-body-md text-body-md text-on-primary/80 mt-6">Adopted by the partnership at founding. Re-affirmed each January at the partners' retreat. Bent twice, broken never.</p>
+                    <a class="mt-8 inline-flex items-center gap-2 font-label-caps text-label-caps uppercase border border-on-primary/30 px-5 py-2.5 rounded-md hover:bg-secondary hover:border-secondary hover:text-on-secondary transition-colors" href="#contact">Read the engagement letter →</a>
+                </aside>
+                <ol class="lg:col-span-8 divide-y divide-on-primary/15 border-y border-on-primary/15">
+                    <li class="grid grid-cols-12 gap-4 py-7 hover:bg-on-primary/[0.03] transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-h2 text-4xl text-secondary tabular-nums leading-none">I</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-h3 text-h3 mb-1">The client tells the story.</h3>
+                            <p class="font-body-md text-body-md text-on-primary/70">We listen until the question is fully formed before we open the brief. The first hour is always free, and always spent listening.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-primary/40 self-center lg:text-right">[ canon_01 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 hover:bg-on-primary/[0.03] transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-h2 text-4xl text-secondary tabular-nums leading-none">II</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-h3 text-h3 mb-1">A flat fee where one is fair.</h3>
+                            <p class="font-body-md text-body-md text-on-primary/70">For matters with a known shape — a will, an LLC formation, a closing — we quote a flat fee. The hourly meter goes off the moment we agree.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-primary/40 self-center lg:text-right">[ canon_02 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 hover:bg-on-primary/[0.03] transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-h2 text-4xl text-secondary tabular-nums leading-none">III</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-h3 text-h3 mb-1">The partner of record reads every brief.</h3>
+                            <p class="font-body-md text-body-md text-on-primary/70">No filing leaves the firm without a partner's signature beside the associate's. The cover page is two names, every time.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-primary/40 self-center lg:text-right">[ canon_03 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 hover:bg-on-primary/[0.03] transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-h2 text-4xl text-secondary tabular-nums leading-none">IV</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-h3 text-h3 mb-1">Settle when settling is right; try when it is not.</h3>
+                            <p class="font-body-md text-body-md text-on-primary/70">A trial costs the firm time and the client a great deal more. We recommend trial when nothing else will close the matter — and we recommend settlement when it will.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-primary/40 self-center lg:text-right">[ canon_04 ]</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 hover:bg-on-primary/[0.03] transition-colors">
+                        <span class="col-span-2 lg:col-span-1 font-h2 text-4xl text-secondary tabular-nums leading-none">V</span>
+                        <div class="col-span-10 lg:col-span-9">
+                            <h3 class="font-h3 text-h3 mb-1">Keep the door open after the file closes.</h3>
+                            <p class="font-body-md text-body-md text-on-primary/70">A first matter is half the relationship. The second one — five years later — is the test, and we open the file the same week.</p>
+                        </div>
+                        <span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-primary/40 self-center lg:text-right">[ canon_05 ]</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- FAQ accordion -->
+        <section class="max-w-3xl mx-auto px-gutter py-section-padding" id="news">
+            <div class="text-center mb-12">
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-3">— Pre-engagement · 06</span>
+                <h2 class="font-h2 text-h2 text-primary text-balance">Questions clients ask first.</h2>
+            </div>
+            <div class="divide-y divide-outline-variant border-y border-outline-variant rounded-xl bg-surface">
+                <details class="law-faq group p-5 md:p-7" open>
+                    <summary class="flex items-center gap-6">
+                        <span class="font-h3 text-2xl text-secondary tabular-nums shrink-0 w-12">01</span>
+                        <h3 class="flex-1 font-h3 text-lg md:text-xl text-primary">What does an initial consultation look like?</h3>
+                        <svg class="law-chevron w-5 h-5 text-on-surface-variant shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="pl-16 mt-3 font-body-md text-body-md text-on-surface-variant">A 60-minute conversation, in person or by telephone, free of charge. We listen, take notes, and at the end either propose an engagement or refer you elsewhere. No filing, no charge, no obligation.</p>
+                </details>
+                <details class="law-faq group p-5 md:p-7">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-h3 text-2xl text-secondary tabular-nums shrink-0 w-12">02</span>
+                        <h3 class="flex-1 font-h3 text-lg md:text-xl text-primary">How are fees structured?</h3>
+                        <svg class="law-chevron w-5 h-5 text-on-surface-variant shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="pl-16 mt-3 font-body-md text-body-md text-on-surface-variant">Flat fee for predictable work — wills, formations, closings. Hourly for litigation and transactional work with unknown scope. Engagement letters quote both options whenever the matter permits.</p>
+                </details>
+                <details class="law-faq group p-5 md:p-7">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-h3 text-2xl text-secondary tabular-nums shrink-0 w-12">03</span>
+                        <h3 class="flex-1 font-h3 text-lg md:text-xl text-primary">Do you handle matters outside the state?</h3>
+                        <svg class="law-chevron w-5 h-5 text-on-surface-variant shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="pl-16 mt-3 font-body-md text-body-md text-on-surface-variant">Three of our partners are admitted in neighbouring jurisdictions. For matters further afield we co-counsel with one of seventeen firms in our reciprocal network — the relationship is yours, the local hands are theirs.</p>
+                </details>
+                <details class="law-faq group p-5 md:p-7">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-h3 text-2xl text-secondary tabular-nums shrink-0 w-12">04</span>
+                        <h3 class="flex-1 font-h3 text-lg md:text-xl text-primary">Will my matter be staffed by an associate?</h3>
+                        <svg class="law-chevron w-5 h-5 text-on-surface-variant shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="pl-16 mt-3 font-body-md text-body-md text-on-surface-variant">Every matter has a named partner of record who reads every filing. Associates draft and prepare; the partner reviews and signs. The cover page always carries two names.</p>
+                </details>
+                <details class="law-faq group p-5 md:p-7">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-h3 text-2xl text-secondary tabular-nums shrink-0 w-12">05</span>
+                        <h3 class="flex-1 font-h3 text-lg md:text-xl text-primary">What happens if the matter ends in trial?</h3>
+                        <svg class="law-chevron w-5 h-5 text-on-surface-variant shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="pl-16 mt-3 font-body-md text-body-md text-on-surface-variant">Roughly one engagement in twenty reaches a courtroom. When it does, the partner of record argues the case. Trial preparation begins six months before the trial date and includes one mock examination.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface border-t border-outline-variant py-12 lg:py-16 mt-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center md:items-start px-gutter max-w-container-max mx-auto w-full gap-8">
+            <div class="text-center md:text-left">
+                <a href="#" class="font-serif font-bold text-xl text-primary uppercase tracking-widest block mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm inline-block">
+                    Hennessey &amp; Okafor
+                </a>
+                <p class="font-serif text-sm italic text-on-surface-variant mb-1">
+                    Stability. Prestige. Integrity.
+                </p>
+                <p class="font-sans text-sm text-on-surface-variant tabular-nums">
+                    &copy; 2024 Hennessey &amp; Okafor LLP. All rights reserved.
+                </p>
+            </div>
+            
+            <nav class="flex flex-wrap gap-x-8 gap-y-4 justify-center md:justify-end font-serif text-sm italic" aria-label="Footer Navigation">
+                <a href="#contact" class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Contact Info</a>
+                <a href="#hours" class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Office Hours</a>
+                <a href="#map" class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Location Map</a>
+                <a href="#privacy" class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Privacy Policy</a>
+                <a href="#terms" class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm transition-colors duration-200">Terms of Service</a>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+</html>

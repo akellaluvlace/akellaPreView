@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="VOLUME - The elite 3D asset marketplace for motion designers. Discover high-fidelity, production-ready models, materials, and environments." />
+    <title>VOLUME - High-Fidelity 3D Asset Marketplace</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0..1&display=swap" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container": "#1e1f24",
+                        "surface-dim": "#121317",
+                        "surface-container-lowest": "#0d0e12",
+                        "error-container": "#93000a",
+                        "tertiary": "#c6c6c8",
+                        "primary-container": "#a078ff",
+                        "surface-container-highest": "#343439",
+                        "on-secondary-fixed": "#001f26",
+                        "surface": "#121317",
+                        "on-error": "#690005",
+                        "outline-variant": "#494454",
+                        "tertiary-fixed": "#e2e2e4",
+                        "secondary-fixed": "#acedff",
+                        "outline": "#958ea0",
+                        "on-background": "#e3e2e8",
+                        "background": "#121317",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "on-primary-fixed-variant": "#5516be",
+                        "on-secondary": "#003640",
+                        "primary-fixed-dim": "#d0bcff",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#282a2c",
+                        "on-tertiary": "#2f3132",
+                        "surface-container-low": "#1a1b20",
+                        "on-surface-variant": "#cbc3d7",
+                        "surface-bright": "#38393e",
+                        "tertiary-container": "#909193",
+                        "on-primary": "#3c0091",
+                        "surface-container-high": "#292a2e",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#03b5d3",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "primary": "#d0bcff",
+                        "inverse-surface": "#e3e2e8",
+                        "surface-variant": "#343439",
+                        "on-secondary-container": "#00424e",
+                        "inverse-on-surface": "#2f3035",
+                        "secondary": "#4cd7f6",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-primary-fixed": "#23005c",
+                        "inverse-primary": "#6d3bd7",
+                        "on-primary-container": "#340080",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "on-surface": "#e3e2e8",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "surface-tint": "#d0bcff"
+                    },
+                    spacing: {
+                        "gutter": "clamp(1rem, 4vw, 1.5rem)",
+                        "unit": "8px",
+                        "container-max": "1440px",
+                        "margin": "clamp(1.5rem, 5vw, 4rem)"
+                    },
+                    fontFamily: {
+                        "display-xl": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "price-lg": ["Space Grotesk", "sans-serif"],
+                        "label-mono": ["Space Grotesk", "monospace"],
+                        "headline-md": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "display-xl": ["clamp(3rem, 5vw + 1rem, 4.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg": ["clamp(2rem, 3vw + 0.5rem, 2.5rem)", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "body-md": ["clamp(1rem, 1vw + 0.5rem, 1.125rem)", { lineHeight: "1.6", fontWeight: "400" }],
+                        "price-lg": ["1.25rem", { lineHeight: "1.0", fontWeight: "700" }],
+                        "label-mono": ["0.875rem", { lineHeight: "1.0", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "headline-md": ["clamp(1.25rem, 2vw + 0.5rem, 1.5rem)", { lineHeight: "1.4", fontWeight: "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(30, 31, 36, 0.4) 0%, rgba(18, 19, 23, 0.2) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .chromatic-glow:hover {
+            box-shadow: 0 0 40px rgba(76, 215, 246, 0.15), inset 0 0 20px rgba(160, 120, 255, 0.05);
+            border-color: rgba(76, 215, 246, 0.3);
+        }
+        ::selection {
+            background-color: #4cd7f6;
+            color: #003640;
+        }
+        .text-balance { text-wrap: balance; }
+        .text-pretty { text-wrap: pretty; }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes pipeline-pulse {
+            0% { transform: translateX(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(400%); opacity: 0; }
+        }
+        @keyframes pipeline-node-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(76, 215, 246, 0.4), inset 0 0 0 0 rgba(76, 215, 246, 0.2); }
+            50% { box-shadow: 0 0 24px 4px rgba(76, 215, 246, 0.5), inset 0 0 18px 0 rgba(76, 215, 246, 0.3); }
+        }
+        .pipeline-pulse-bar { animation: pipeline-pulse 4.5s linear infinite; }
+        .pipeline-node-1 { animation: pipeline-node-pulse 4.5s ease-in-out infinite; animation-delay: 0s; }
+        .pipeline-node-2 { animation: pipeline-node-pulse 4.5s ease-in-out infinite; animation-delay: 0.9s; }
+        .pipeline-node-3 { animation: pipeline-node-pulse 4.5s ease-in-out infinite; animation-delay: 1.8s; }
+        .pipeline-node-4 { animation: pipeline-node-pulse 4.5s ease-in-out infinite; animation-delay: 2.7s; }
+        .pipeline-node-5 { animation: pipeline-node-pulse 4.5s ease-in-out infinite; animation-delay: 3.6s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased overflow-x-hidden flex flex-col min-h-screen">
+    
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/10 bg-[#08090D]/80 backdrop-blur-[20px] transition-all">
+        <div class="flex items-center justify-between px-6 md:px-16 h-20 w-full max-w-[1600px] mx-auto">
+            <div class="flex items-center gap-12">
+                <a href="#" class="text-2xl font-black tracking-[0.2em] text-white uppercase font-label-mono antialiased focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                    VOLUME
+                </a>
+                <div class="hidden md:flex items-center gap-8 font-label-mono antialiased" aria-label="Primary Navigation">
+                    <a href="#assets" class="text-slate-400 font-medium hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-[#08090D] rounded-sm">Assets</a>
+                    <a href="#artists" class="text-slate-400 font-medium hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-[#08090D] rounded-sm">Artists</a>
+                    <a href="#collections" class="text-slate-400 font-medium hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-[#08090D] rounded-sm">Collections</a>
+                    <a href="#studio" class="text-slate-400 font-medium hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-[#08090D] rounded-sm">Studio</a>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 md:gap-6">
+                <button aria-label="Search assets" class="text-primary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-full p-1">
+                    <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                </button>
+                <button aria-label="View cart" class="text-primary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-full p-1">
+                    <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
+                </button>
+                <a href="#browse" class="hidden sm:inline-flex relative overflow-hidden bg-gradient-to-r from-primary-container to-secondary text-on-primary-container px-6 py-2.5 rounded-full font-label-mono text-label-mono uppercase hover:scale-[0.98] transform transition-transform shadow-[0_0_20px_rgba(160,120,255,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090D]">
+                    <span class="absolute top-0 left-0 w-full h-[20%] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></span>
+                    Browse
+                </a>
+                <button aria-label="Open mobile menu" aria-expanded="false" class="md:hidden text-primary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-full p-1">
+                    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative w-full min-h-screen flex items-center md:items-end pb-20 md:pb-32 pt-32 px-margin max-w-container-max mx-auto overflow-hidden">
+        <!-- Floor Grid Graphic -->
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-20" aria-hidden="true" style="background-image: linear-gradient(to right, #343439 1px, transparent 1px), linear-gradient(to bottom, #343439 1px, transparent 1px); background-size: 64px 64px; transform: perspective(1000px) rotateX(60deg) scale(2); transform-origin: bottom;"></div>
+        
+        <!-- Large 3D Hero Element -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-1/3 -translate-y-1/2 w-[500px] h-[500px] md:w-[800px] md:h-[800px] z-0 pointer-events-none" aria-hidden="true">
+            <img
+                src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=1920&q=90&auto=format&fit=crop"
+                alt=""
+                width="800" height="800"
+                class="w-full h-full object-cover mix-blend-screen opacity-90 md:opacity-100 rounded-full blur-[2px]"
+                loading="eager"
+                decoding="async"
+            />
+            <!-- Volumetric Glows -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary-container/20 rounded-full blur-[80px] md:blur-[120px] mix-blend-screen"></div>
+            <div class="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-secondary/20 rounded-full blur-[60px] md:blur-[100px] mix-blend-screen"></div>
+        </div>
+
+        <div class="relative z-10 w-full grid grid-cols-1 md:grid-cols-12 gap-gutter text-center md:text-left mt-20 md:mt-0">
+            <div class="col-span-1 md:col-span-8 lg:col-span-7 flex flex-col items-center md:items-start gap-6 md:gap-8">
+                <h1 class="font-display-xl text-display-xl text-on-surface text-balance">
+                    The 3D asset marketplace, for motion designers
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-[55ch] text-pretty">
+                    Discover high-fidelity, production-ready 3D models, materials, and environments curated exclusively for elite digital artists.
+                </p>
+                <div class="pt-4">
+                    <a href="#browse" class="inline-block relative overflow-hidden bg-gradient-to-r from-primary-container to-secondary text-on-primary-container px-8 py-4 rounded-full font-label-mono text-label-mono uppercase tracking-widest hover:brightness-110 transition-all shadow-[0_0_30px_rgba(160,120,255,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest">
+                        <span class="absolute top-0 left-0 w-full h-[20%] bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></span>
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-container-max mx-auto w-full px-margin flex flex-col gap-24 lg:gap-[120px] pb-24 lg:pb-[120px]">
+        
+        <!-- Browse Categories -->
+        <section id="browse" class="flex flex-col gap-10 scroll-mt-32">
+            <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">Browse by category</h2>
+            
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[280px]">
+                
+                <!-- Tile 1 -->
+                <a href="#category-abstract" class="group glass-panel rounded-xl overflow-hidden relative flex items-end p-8 chromatic-glow transition-all duration-500 col-span-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest">
+                    <img 
+                        src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=800" 
+                        alt="Abstract flowing 3D geometric liquid shapes in deep metallic tones." 
+                        width="600" height="600"
+                        class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal"
+                        loading="lazy" decoding="async"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/20 to-transparent pointer-events-none"></div>
+                    <span class="relative z-10 font-headline-md text-headline-md text-on-surface group-hover:text-secondary transition-colors">Abstract</span>
+                </a>
+
+                <!-- Tile 2 -->
+                <a href="#category-characters" class="group glass-panel rounded-xl overflow-hidden relative flex items-end p-8 chromatic-glow transition-all duration-500 col-span-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest">
+                    <img 
+                        src="https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&q=80&w=800" 
+                        alt="High detail 3D cyberpunk character helmet render with neon accents on dark background." 
+                        width="600" height="600"
+                        class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal"
+                        loading="lazy" decoding="async"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/20 to-transparent pointer-events-none"></div>
+                    <span class="relative z-10 font-headline-md text-headline-md text-on-surface group-hover:text-secondary transition-colors">Characters</span>
+                </a>
+
+                <!-- Tile 3 -->
+                <a href="#category-environments" class="group glass-panel rounded-xl overflow-hidden relative flex items-end p-8 chromatic-glow transition-all duration-500 lg:col-span-1 lg:row-span-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest">
+                    <img 
+                        src="https://images.unsplash.com/photo-1614732484003-ef9881555dc3?auto=format&fit=crop&q=80&w=800" 
+                        alt="Vast sci-fi interior environment 3D render with massive scale, atmospheric fog and dramatic cinematic lighting." 
+                        width="600" height="1200"
+                        class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal"
+                        loading="lazy" decoding="async"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/40 to-transparent pointer-events-none"></div>
+                    <span class="relative z-10 font-headline-md text-headline-md text-on-surface group-hover:text-secondary transition-colors">Environments</span>
+                </a>
+
+                <!-- Tile 4 -->
+                <a href="#category-vehicles" class="group glass-panel rounded-xl overflow-hidden relative flex items-end p-8 chromatic-glow transition-all duration-500 col-span-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest">
+                    <img 
+                        src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80&w=800" 
+                        alt="Futuristic hovering vehicle 3D model with intricate mechanical details and glowing engine parts." 
+                        width="600" height="600"
+                        class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal"
+                        loading="lazy" decoding="async"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/20 to-transparent pointer-events-none"></div>
+                    <span class="relative z-10 font-headline-md text-headline-md text-on-surface group-hover:text-secondary transition-colors">Vehicles</span>
+                </a>
+
+                <!-- Tile 5 -->
+                <a href="#category-props" class="group glass-panel rounded-xl overflow-hidden relative flex items-end p-8 chromatic-glow transition-all duration-500 col-span-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest">
+                    <img 
+                        src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800" 
+                        alt="Close up of stylized 3D vintage camera prop with highly detailed textures and depth of field." 
+                        width="600" height="600"
+                        class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal"
+                        loading="lazy" decoding="async"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/20 to-transparent pointer-events-none"></div>
+                    <span class="relative z-10 font-headline-md text-headline-md text-on-surface group-hover:text-secondary transition-colors">Props</span>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Trending Section -->
+        <section class="flex flex-col gap-10">
+            <div class="flex items-end justify-between border-b border-outline-variant/30 pb-4">
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Trending this week</h2>
+                <a href="#trending" class="font-label-mono text-label-mono text-secondary hover:text-white transition-colors uppercase tracking-widest flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                    View All <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
+                
+                <!-- Card 1 (Aether Core - REPLACED) -->
+                <article class="group relative rounded-xl transition-all duration-500 border border-transparent hover:border-outline-variant/50 hover:bg-surface-container/20 p-4 -m-4">
+                    <a href="#item-1" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset rounded-xl" aria-label="View Aether Core details"></a>
+                    <div class="relative w-full aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-6">
+                        <!-- NEW HIGHLY RELIABLE UNSPLASH URL FOR AETHER CORE -->
+                        <img 
+                            src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&q=80&w=600" 
+                            alt="Abstract 3D rendering of a glowing geometric sphere resembling a futuristic energy core." 
+                            width="400" height="400"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            loading="lazy" decoding="async"
+                        />
+                        <div class="absolute top-4 left-4 bg-secondary/10 backdrop-blur-md border border-secondary/30 text-secondary px-2 py-1 rounded font-label-mono text-[11px] uppercase tracking-wider z-20">.OBJ</div>
+                    </div>
+                    <div class="flex flex-col gap-1 relative z-20 pointer-events-none">
+                        <h3 class="font-body-md text-body-md text-on-surface font-medium truncate group-hover:text-secondary transition-colors">Aether Core</h3>
+                        <p class="font-body-md text-sm text-on-surface-variant truncate">by SYNTHTECH</p>
+                        <span class="absolute bottom-0 right-0 font-price-lg text-price-lg text-on-surface">$45</span>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="group relative rounded-xl transition-all duration-500 border border-transparent hover:border-outline-variant/50 hover:bg-surface-container/20 p-4 -m-4">
+                    <a href="#item-2" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset rounded-xl" aria-label="View Mecha Organism 01 details"></a>
+                    <div class="relative w-full aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-6">
+                        <img 
+                            src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&q=80&w=600" 
+                            alt="Detailed 3D render of a futuristic mechanical heart with glowing red elements." 
+                            width="400" height="400"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            loading="lazy" decoding="async"
+                        />
+                        <div class="absolute top-4 left-4 bg-primary-container/10 backdrop-blur-md border border-primary-container/30 text-primary-fixed px-2 py-1 rounded font-label-mono text-[11px] uppercase tracking-wider z-20">.BLEND</div>
+                    </div>
+                    <div class="flex flex-col gap-1 relative z-20 pointer-events-none">
+                        <h3 class="font-body-md text-body-md text-on-surface font-medium truncate group-hover:text-secondary transition-colors">Mecha Organism 01</h3>
+                        <p class="font-body-md text-sm text-on-surface-variant truncate">by NXO</p>
+                        <span class="absolute bottom-0 right-0 font-price-lg text-price-lg text-on-surface">$120</span>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="group relative rounded-xl transition-all duration-500 border border-transparent hover:border-outline-variant/50 hover:bg-surface-container/20 p-4 -m-4">
+                    <a href="#item-3" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset rounded-xl" aria-label="View Data Silo Asset Pack details"></a>
+                    <div class="relative w-full aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-6">
+                        <img 
+                            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600" 
+                            alt="Row of high-tech server racks with glowing blue lights in a data center." 
+                            width="400" height="400"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            loading="lazy" decoding="async"
+                        />
+                        <div class="absolute top-4 left-4 bg-secondary/10 backdrop-blur-md border border-secondary/30 text-secondary px-2 py-1 rounded font-label-mono text-[11px] uppercase tracking-wider z-20">.FBX</div>
+                    </div>
+                    <div class="flex flex-col gap-1 relative z-20 pointer-events-none">
+                        <h3 class="font-body-md text-body-md text-on-surface font-medium truncate group-hover:text-secondary transition-colors">Data Silo Asset Pack</h3>
+                        <p class="font-body-md text-sm text-on-surface-variant truncate">by Environmentals</p>
+                        <span class="absolute bottom-0 right-0 font-price-lg text-price-lg text-on-surface">$89</span>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="group relative rounded-xl transition-all duration-500 border border-transparent hover:border-outline-variant/50 hover:bg-surface-container/20 p-4 -m-4">
+                    <a href="#item-4" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset rounded-xl" aria-label="View Iridescent Scales material details"></a>
+                    <div class="relative w-full aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-6">
+                        <img 
+                            src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=600" 
+                            alt="Iridescent and holographic 3D wave texture showing smooth, colorful gradient surfaces." 
+                            width="400" height="400"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            loading="lazy" decoding="async"
+                        />
+                        <div class="absolute top-4 left-4 bg-tertiary/10 backdrop-blur-md border border-tertiary/30 text-tertiary px-2 py-1 rounded font-label-mono text-[11px] uppercase tracking-wider z-20">MAT</div>
+                    </div>
+                    <div class="flex flex-col gap-1 relative z-20 pointer-events-none">
+                        <h3 class="font-body-md text-body-md text-on-surface font-medium truncate group-hover:text-secondary transition-colors">Iridescent Scales</h3>
+                        <p class="font-body-md text-sm text-on-surface-variant truncate">by Materialize</p>
+                        <span class="absolute bottom-0 right-0 font-price-lg text-price-lg text-on-surface">$15</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Trending Assets Strip (STATIC - side-by-side grid, NOT animated) -->
+        <section class="glass-panel rounded-2xl p-8 md:p-10 flex flex-col gap-8 relative overflow-hidden border border-white/5">
+            <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[60%] h-40 bg-primary-container/10 rounded-full blur-[100px] pointer-events-none" aria-hidden="true"></div>
+            <div class="flex items-end justify-between gap-6 relative z-10">
+                <div class="flex flex-col gap-2">
+                    <span class="font-label-mono text-label-mono uppercase tracking-[0.25em] text-secondary">VOL · LEDGER 04</span>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">Trending assets &middot; this week</h2>
+                </div>
+                <a href="#ledger" class="hidden md:inline-flex font-label-mono text-label-mono text-secondary hover:text-white transition-colors uppercase tracking-widest items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                    Open ledger <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 relative z-10">
+                <a href="#strip-01" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=400" alt="Iridescent chromatic surface — material study volume one." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-014 &middot; MATERIAL</span>
+                    </div>
+                </a>
+                <a href="#strip-02" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=400" alt="Circuit-board macro photograph used as PCB micro-detail reference." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-022 &middot; ENV PACK</span>
+                    </div>
+                </a>
+                <a href="#strip-03" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=400" alt="High-tech server racks bathed in cyan LED — referenced for data-silo asset pack." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-031 &middot; INTERIOR</span>
+                    </div>
+                </a>
+                <a href="#strip-04" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&q=80&w=400" alt="Industrial mechanical cluster — dense pipe geometry reference." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-046 &middot; HARDSURFACE</span>
+                    </div>
+                </a>
+                <a href="#strip-05" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&q=80&w=400" alt="Macro detail of polished metal manifold — surface scuff library." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-058 &middot; SCUFF KIT</span>
+                    </div>
+                </a>
+                <a href="#strip-06" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&q=80&w=400" alt="Glowing geometric sphere render — referenced for energy-core preset." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-067 &middot; LIGHTRIG</span>
+                    </div>
+                </a>
+                <a href="#strip-07" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=400" alt="Iridescent chromatic wave texture — used as default look-dev shader." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-073 &middot; SHADER</span>
+                    </div>
+                </a>
+                <a href="#strip-08" class="group relative aspect-square rounded-lg overflow-hidden chromatic-glow border border-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary">
+                    <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=400" alt="Abstract chrome liquid 3D forms — flagship abstract preset." width="400" height="400" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-container/30 to-secondary/30 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-2 bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/40 to-transparent">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.18em] text-on-surface block leading-tight">VOL-088 &middot; CHROME</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- VOL · DOCTRINE — Pipeline diagram + trimmed stage notes (merged) -->
+        <section class="rounded-2xl p-10 md:p-16 flex flex-col gap-12 relative overflow-hidden border border-white/10 bg-surface-container-low/85">
+            <div class="absolute -top-32 right-1/3 w-[28rem] h-[28rem] bg-secondary/8 rounded-full blur-[140px] pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute -bottom-32 left-1/4 w-[24rem] h-[24rem] bg-primary-container/8 rounded-full blur-[140px] pointer-events-none" aria-hidden="true"></div>
+            <div class="flex flex-col gap-4 max-w-[60ch] relative z-10">
+                <span class="font-label-mono text-label-mono uppercase tracking-[0.25em] text-secondary">VOL &middot; DOCTRINE</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">Five-pass QA, every submission</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant text-pretty">Submitted at the left, shipped at the right. Topology, materials, LODs, and metadata each measured against published specifications — not vibes.</p>
+            </div>
+
+            <!-- Animated 5-node diagram -->
+            <div class="relative w-full pt-4 pb-2 z-10">
+                <div class="absolute left-[6%] right-[6%] top-[3.25rem] md:top-[3.75rem] h-px bg-gradient-to-r from-transparent via-on-surface-variant/25 to-transparent pointer-events-none"></div>
+                <div class="absolute left-[6%] right-[6%] top-[3.25rem] md:top-[3.75rem] h-[2px] overflow-hidden pointer-events-none">
+                    <div class="absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-secondary to-transparent shadow-[0_0_24px_rgba(76,215,246,0.9)] pipeline-pulse-bar"></div>
+                </div>
+                <div class="relative grid grid-cols-5 gap-2 sm:gap-4 md:gap-8">
+                    <div class="flex flex-col items-center gap-3">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant text-center">Submitted</span>
+                        <div class="pipeline-node-1 relative w-16 h-16 md:w-24 md:h-24 rounded-full border border-secondary/30 bg-surface-container-lowest/80 flex items-center justify-center backdrop-blur">
+                            <span class="material-symbols-outlined text-secondary text-[28px] md:text-[36px]" aria-hidden="true">cloud_upload</span>
+                        </div>
+                        <span class="font-label-mono text-[10px] tabular-nums text-secondary/80">T+0</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant text-center">Topology</span>
+                        <div class="pipeline-node-2 relative w-16 h-16 md:w-24 md:h-24 rounded-full border border-secondary/30 bg-surface-container-lowest/80 flex items-center justify-center backdrop-blur">
+                            <span class="material-symbols-outlined text-secondary text-[28px] md:text-[36px]" aria-hidden="true">polyline</span>
+                        </div>
+                        <span class="font-label-mono text-[10px] tabular-nums text-secondary/80">T+40m</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant text-center">Material</span>
+                        <div class="pipeline-node-3 relative w-16 h-16 md:w-24 md:h-24 rounded-full border border-secondary/30 bg-surface-container-lowest/80 flex items-center justify-center backdrop-blur">
+                            <span class="material-symbols-outlined text-secondary text-[28px] md:text-[36px]" aria-hidden="true">palette</span>
+                        </div>
+                        <span class="font-label-mono text-[10px] tabular-nums text-secondary/80">T+2h</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant text-center">LOD &middot; Docs</span>
+                        <div class="pipeline-node-4 relative w-16 h-16 md:w-24 md:h-24 rounded-full border border-secondary/30 bg-surface-container-lowest/80 flex items-center justify-center backdrop-blur">
+                            <span class="material-symbols-outlined text-secondary text-[28px] md:text-[36px]" aria-hidden="true">stacked_line_chart</span>
+                        </div>
+                        <span class="font-label-mono text-[10px] tabular-nums text-secondary/80">T+3h</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-secondary text-center">Shipped</span>
+                        <div class="pipeline-node-5 relative w-16 h-16 md:w-24 md:h-24 rounded-full border border-primary-container/40 bg-surface-container-lowest/80 flex items-center justify-center backdrop-blur">
+                            <span class="material-symbols-outlined text-primary-container text-[28px] md:text-[36px]" aria-hidden="true">rocket_launch</span>
+                        </div>
+                        <span class="font-label-mono text-[10px] tabular-nums text-primary-container/80">T+5h</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trimmed 4-stage notes — text-only columns, no card chrome -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 relative z-10">
+                <div class="flex flex-col gap-3 border-t border-primary-container/40 pt-5">
+                    <div class="flex items-baseline justify-between">
+                        <span class="font-price-lg text-[1.25rem] leading-none text-primary-container tabular-nums">01</span>
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60">Topology</span>
+                    </div>
+                    <h3 class="font-headline-md text-[18px] text-on-surface leading-snug">N-gons rejected</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty">Quads on deformers, triangles on hard-surface only. Forty-minute audit per submission with a screen-recorded report sent back to the author either way.</p>
+                </div>
+                <div class="flex flex-col gap-3 border-t border-secondary/40 pt-5">
+                    <div class="flex items-baseline justify-between">
+                        <span class="font-price-lg text-[1.25rem] leading-none text-secondary tabular-nums">02</span>
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60">Material</span>
+                    </div>
+                    <h3 class="font-headline-md text-[18px] text-on-surface leading-snug">ACES color space</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty">Every PBR set rebuilt in ACEScg against an 18% grey card. Identical look in Octane, Redshift, Cycles, and Karma — no re-keying.</p>
+                </div>
+                <div class="flex flex-col gap-3 border-t border-primary-container/40 pt-5">
+                    <div class="flex items-baseline justify-between">
+                        <span class="font-price-lg text-[1.25rem] leading-none text-primary-container tabular-nums">03</span>
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60">LOD ladder</span>
+                    </div>
+                    <h3 class="font-headline-md text-[18px] text-on-surface leading-snug">4 tiers, 2k → 64-vert</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty">Hero, beauty, mid, billboard. Pre-baked transitions in JSON. Silhouette breakage held under three percent between tiers.</p>
+                </div>
+                <div class="flex flex-col gap-3 border-t border-secondary/40 pt-5">
+                    <div class="flex items-baseline justify-between">
+                        <span class="font-price-lg text-[1.25rem] leading-none text-secondary tabular-nums">04</span>
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant/60">Documentation</span>
+                    </div>
+                    <h3 class="font-headline-md text-[18px] text-on-surface leading-snug">USD-validated metadata</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty">Real-world scale, renderer, license, deterministic build hash. Human-readable PDF with shading networks ships in every pack.</p>
+                </div>
+            </div>
+
+            <!-- Telemetry strip -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 relative z-10 pt-6 border-t border-white/5">
+                <div class="flex flex-col gap-1">
+                    <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Avg. cycle</span>
+                    <span class="font-price-lg text-[1.5rem] text-on-surface tabular-nums">5h 12m</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Pass rate</span>
+                    <span class="font-price-lg text-[1.5rem] text-secondary tabular-nums">42%</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Reviewers</span>
+                    <span class="font-price-lg text-[1.5rem] text-on-surface tabular-nums">7</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <span class="font-label-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Q3 throughput</span>
+                    <span class="font-price-lg text-[1.5rem] text-primary-container tabular-nums">312</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- VOL · AUDIENCE — three tiers, no nested cards, big icons + bullets -->
+        <section class="flex flex-col gap-12 relative">
+            <div class="flex items-end justify-between gap-6 flex-wrap relative z-10">
+                <div class="flex flex-col gap-3 max-w-[50ch]">
+                    <span class="font-label-mono text-label-mono uppercase tracking-[0.25em] text-secondary">VOL &middot; AUDIENCE</span>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">For motion designers, by motion designers</h2>
+                </div>
+                <span class="font-label-mono text-[10px] uppercase tracking-[0.25em] text-on-surface-variant/60">Three tiers &middot; one library</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-14 relative z-10">
+                <!-- Tier 01 -->
+                <div class="flex flex-col gap-6 border-t border-secondary/40 pt-6">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.25em] text-secondary/80">Tier 01</span>
+                        <span class="material-symbols-outlined text-secondary text-[44px] md:text-[52px]" aria-hidden="true">corporate_fare</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <h3 class="font-headline-md text-[22px] text-on-surface leading-tight">Studios</h3>
+                        <p class="font-label-mono text-[11px] uppercase tracking-[0.18em] text-secondary/80">Agency-grade rights</p>
+                    </div>
+                    <ul class="flex flex-col gap-3 font-body-md text-sm text-on-surface-variant">
+                        <li class="flex gap-3"><span class="text-secondary mt-[2px]">→</span><span>Single contract covers all staff and freelancers</span></li>
+                        <li class="flex gap-3"><span class="text-secondary mt-[2px]">→</span><span>Broadcast, cinema, OOH — no per-spot fees</span></li>
+                        <li class="flex gap-3"><span class="text-secondary mt-[2px]">→</span><span>Exclusivity windows on hero assets</span></li>
+                    </ul>
+                </div>
+                <!-- Tier 02 -->
+                <div class="flex flex-col gap-6 border-t border-primary-container/40 pt-6">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.25em] text-primary-container/80">Tier 02</span>
+                        <span class="material-symbols-outlined text-primary-container text-[44px] md:text-[52px]" aria-hidden="true">person</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <h3 class="font-headline-md text-[22px] text-on-surface leading-tight">Solo creators</h3>
+                        <p class="font-label-mono text-[11px] uppercase tracking-[0.18em] text-primary-container/80">Per-asset licenses</p>
+                    </div>
+                    <ul class="flex flex-col gap-3 font-body-md text-sm text-on-surface-variant">
+                        <li class="flex gap-3"><span class="text-primary-container mt-[2px]">→</span><span>Predictable per-unit pricing &mdash; no subscription</span></li>
+                        <li class="flex gap-3"><span class="text-primary-container mt-[2px]">→</span><span>Commercial use up to revenue ceiling</span></li>
+                        <li class="flex gap-3"><span class="text-primary-container mt-[2px]">→</span><span>Free monthly drop for verified portfolios</span></li>
+                    </ul>
+                </div>
+                <!-- Tier 03 -->
+                <div class="flex flex-col gap-6 border-t border-secondary/40 pt-6">
+                    <div class="flex items-center justify-between">
+                        <span class="font-label-mono text-[10px] uppercase tracking-[0.25em] text-secondary/80">Tier 03</span>
+                        <span class="material-symbols-outlined text-secondary text-[44px] md:text-[52px]" aria-hidden="true">school</span>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <h3 class="font-headline-md text-[22px] text-on-surface leading-tight">Educators</h3>
+                        <p class="font-label-mono text-[11px] uppercase tracking-[0.18em] text-secondary/80">Classroom packs</p>
+                    </div>
+                    <ul class="flex flex-col gap-3 font-body-md text-sm text-on-surface-variant">
+                        <li class="flex gap-3"><span class="text-secondary mt-[2px]">→</span><span>Unlimited student seats</span></li>
+                        <li class="flex gap-3"><span class="text-secondary mt-[2px]">→</span><span>Annual flat institutional rate</span></li>
+                        <li class="flex gap-3"><span class="text-secondary mt-[2px]">→</span><span>Coursework license stays perpetual</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- VOL · ETHOS — separated editorial section -->
+        <section class="flex flex-col gap-10 relative">
+            <div class="flex flex-col gap-3 max-w-[60ch] relative z-10">
+                <span class="font-label-mono text-label-mono uppercase tracking-[0.25em] text-secondary">VOL &middot; ETHOS</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">Two lines we won&rsquo;t cross</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 relative z-10">
+                <div class="flex flex-col gap-4">
+                    <span class="font-label-mono text-[11px] uppercase tracking-[0.25em] text-secondary">01 &middot; Curation</span>
+                    <h3 class="font-headline-md text-[22px] text-on-surface leading-tight">The moat is the editorial pass.</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty">Every drop is sequenced by working motion designers — does it solve a real production problem, or is it another high-poly demo? Assets that don&rsquo;t earn the front page get shelved into the craft archive, never quietly slipped into search to pad inventory.</p>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <span class="font-label-mono text-[11px] uppercase tracking-[0.25em] text-primary-container">02 &middot; Pricing</span>
+                    <h3 class="font-headline-md text-[22px] text-on-surface leading-tight">Hero assets cost what they cost.</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty">The artist who spent the days takes home <span class="text-primary-container font-semibold">70%</span> of every sale. No vanity discounts, no subscription holding your library hostage. Buy the asset, own the asset, ship the project.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion -->
+        <section class="glass-panel rounded-2xl p-10 md:p-16 flex flex-col gap-10 relative overflow-hidden border border-white/5">
+            <div class="absolute -top-32 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
+            <div class="flex flex-col gap-4 max-w-[60ch] relative z-10">
+                <span class="font-label-mono text-label-mono uppercase tracking-[0.25em] text-secondary">VOL &middot; SUPPORT</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">Frequently asked questions</h2>
+            </div>
+            <div class="flex flex-col gap-3 relative z-10 max-w-5xl">
+                <details class="group rounded-xl border border-outline-variant/30 bg-surface-container/30 overflow-hidden transition-all">
+                    <summary class="flex items-center justify-between gap-6 p-6 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-xl">
+                        <span class="font-headline-md text-headline-md text-on-surface">What&rsquo;s included in a license?</span>
+                        <span class="material-symbols-outlined text-primary-container transition-transform duration-300 group-open:rotate-90" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty px-6 pb-6 -mt-1">Every purchase includes the source mesh in its native authoring format, the complete PBR texture set at full resolution, the four-tier LOD ladder, the USD payload with validated metadata, and a human-readable PDF that documents shading networks, scale, and intended camera setup. Licenses cover commercial use up to the revenue ceiling listed on the asset page, derivative work in your own portfolio in perpetuity, and version pinning so a project shipped today can be rebuilt unchanged five years from now.</p>
+                </details>
+                <details class="group rounded-xl border border-outline-variant/30 bg-surface-container/30 overflow-hidden transition-all">
+                    <summary class="flex items-center justify-between gap-6 p-6 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-xl">
+                        <span class="font-headline-md text-headline-md text-on-surface">Can I use assets in commercial work?</span>
+                        <span class="material-symbols-outlined text-primary-container transition-transform duration-300 group-open:rotate-90" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty px-6 pb-6 -mt-1">Yes, every asset on the marketplace ships with a commercial license by default. Solo and indie creators are covered up to a generous annual revenue ceiling, agencies and production studios upgrade to a studio bundle that removes the ceiling entirely, and broadcast or theatrical placements are covered automatically without per-spot fees. Re-selling the asset itself or redistributing it as part of another asset pack is the only carve-out, and the boundary is documented in plain language inside every download.</p>
+                </details>
+                <details class="group rounded-xl border border-outline-variant/30 bg-surface-container/30 overflow-hidden transition-all">
+                    <summary class="flex items-center justify-between gap-6 p-6 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-xl">
+                        <span class="font-headline-md text-headline-md text-on-surface">Are textures 8K?</span>
+                        <span class="material-symbols-outlined text-primary-container transition-transform duration-300 group-open:rotate-90" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty px-6 pb-6 -mt-1">Hero assets ship with 8K texture sets at full sixteen-bit-per-channel precision for albedo, normal, roughness, metallic, and displacement, plus 2K downsampled variants pre-baked for the lower LOD tiers. Background and set-dressing assets default to 4K at the hero tier because the silhouette never carries close-up detail, but every artist can opt into 8K delivery during submission and the marketplace flags the resolution clearly on every product page so you never download more pixels than the shot needs.</p>
+                </details>
+                <details class="group rounded-xl border border-outline-variant/30 bg-surface-container/30 overflow-hidden transition-all">
+                    <summary class="flex items-center justify-between gap-6 p-6 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-xl">
+                        <span class="font-headline-md text-headline-md text-on-surface">Do you support Cinema 4D, Blender, and Houdini?</span>
+                        <span class="material-symbols-outlined text-primary-container transition-transform duration-300 group-open:rotate-90" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty px-6 pb-6 -mt-1">Cinema 4D, Blender, and Houdini are first-class targets, and every hero asset is opened, validated, and shading-network-rebuilt in all three before it ships. Maya and 3ds Max scenes are produced from the same USD payload via our internal converter and are functionally identical at render time. We also publish a small command-line tool that re-bakes shading networks for Octane, Redshift, Cycles, Karma, and Arnold so a single license never requires you to re-author look-dev when you change renderer halfway through a project.</p>
+                </details>
+                <details class="group rounded-xl border border-outline-variant/30 bg-surface-container/30 overflow-hidden transition-all">
+                    <summary class="flex items-center justify-between gap-6 p-6 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-xl">
+                        <span class="font-headline-md text-headline-md text-on-surface">Is there a free trial?</span>
+                        <span class="material-symbols-outlined text-primary-container transition-transform duration-300 group-open:rotate-90" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty px-6 pb-6 -mt-1">A free monthly drop ships to anyone with a verified motion-design portfolio &mdash; one curated hero asset every thirty days, the same asset that paying members receive, with an identical commercial license attached. Studios and educators can request an extended evaluation that unlocks a full classroom-grade pack for thirty days inside a sandboxed account, and our team will run a private walkthrough on a video call so the right people on your pipeline see the asset perform before any contract is signed.</p>
+                </details>
+                <details class="group rounded-xl border border-outline-variant/30 bg-surface-container/30 overflow-hidden transition-all">
+                    <summary class="flex items-center justify-between gap-6 p-6 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-xl">
+                        <span class="font-headline-md text-headline-md text-on-surface">How are assets versioned?</span>
+                        <span class="material-symbols-outlined text-primary-container transition-transform duration-300 group-open:rotate-90" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty px-6 pb-6 -mt-1">Every asset carries a deterministic hash and a semantic version number that increments on any change to topology, materials, or the LOD ladder. Older revisions remain available forever from the same product page, never silently overwritten, and a changelog explains exactly what moved between versions so a producer can decide whether to rebuild a project. Studios that need to pin a specific revision through a multi-year campaign can do so with a single line in the included USD payload, and our pipeline tooling will warn before any in-place upgrade.</p>
+                </details>
+                <details class="group rounded-xl border border-outline-variant/30 bg-surface-container/30 overflow-hidden transition-all">
+                    <summary class="flex items-center justify-between gap-6 p-6 cursor-pointer list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-xl">
+                        <span class="font-headline-md text-headline-md text-on-surface">Refund policy?</span>
+                        <span class="material-symbols-outlined text-primary-container transition-transform duration-300 group-open:rotate-90" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p class="font-body-md text-sm text-on-surface-variant text-pretty px-6 pb-6 -mt-1">Every individual asset and every studio bundle is refundable in full within fourteen days of purchase, no questions asked &mdash; you keep the QA report we ran during curation, you delete the source files, and the refund posts to the original payment method inside three business days. After fourteen days we still review case-by-case for technical defects discovered in production, and on the rare occasion we ship something that doesn&rsquo;t match its product page we always issue a credit toward a replacement asset of equal or greater hero tier on top of the refund.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- CTA Block -->
+        <section class="glass-panel rounded-2xl p-10 md:p-16 lg:p-24 flex flex-col items-center justify-center text-center gap-8 relative overflow-hidden mt-8 border border-white/5 shadow-2xl">
+            <!-- Background Glows -->
+            <div class="absolute -top-32 -left-32 w-96 h-96 bg-primary-container/20 rounded-full blur-[100px] pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] pointer-events-none" aria-hidden="true"></div>
+            
+            <h2 class="font-display-xl text-display-xl text-on-surface leading-tight relative z-10 text-balance">
+                Join the marketplace
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-[60ch] text-pretty relative z-10">
+                Are you a top-tier 3D artist? Open a studio on Volume and sell your high-fidelity assets to the world's best motion designers and studios.
+            </p>
+            <div class="pt-6 relative z-10">
+                <a href="#apply" class="inline-block relative overflow-hidden bg-surface-container-highest border border-outline-variant text-on-surface px-8 py-4 rounded-full font-label-mono text-label-mono uppercase tracking-widest hover:bg-surface-bright transition-all chromatic-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-highest">
+                    Apply as Creator
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-white/5 py-10 bg-[#08090D] shadow-none mt-auto">
+        <div class="max-w-[1600px] mx-auto px-6 md:px-16 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 text-center md:text-left">
+                <a href="#" class="text-xl font-bold text-white font-label-mono tracking-widest uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                    VOLUME
+                </a>
+                <span class="font-label-mono text-xs tracking-widest uppercase text-slate-500">
+                    &copy; 2024 VOLUME. PRECISION DIGITAL ASSETS.
+                </span>
+            </div>
+            
+            <nav class="flex flex-wrap items-center justify-center gap-4 md:gap-6 font-label-mono text-xs tracking-widest uppercase" aria-label="Footer Navigation">
+                <a href="#docs" class="text-slate-500 hover:text-secondary transition-colors opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Documentation</a>
+                <a href="#discord" class="text-slate-500 hover:text-secondary transition-colors opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Discord</a>
+                <a href="#twitter" class="text-slate-500 hover:text-secondary transition-colors opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Twitter</a>
+                <a href="#license" class="text-slate-500 hover:text-secondary transition-colors opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">License</a>
+                <a href="#privacy" class="text-slate-500 hover:text-secondary transition-colors opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Privacy</a>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+</html>

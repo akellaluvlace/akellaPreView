@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ALCHMY | Transmutation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@800;900&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#745cff",
+                        "inverse-surface": "#e5e2e1",
+                        "secondary": "#c6c6c7",
+                        "on-background": "#e5e2e1",
+                        "inverse-primary": "#5f5e5e",
+                        "tertiary-fixed-dim": "#c8bfff",
+                        "on-surface-variant": "#c4c7c7",
+                        "tertiary-container": "#040024",
+                        "surface-tint": "#c9c6c5",
+                        "on-secondary": "#2f3131",
+                        "background": "#141313",
+                        "surface-container-low": "#1c1b1b",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "surface-bright": "#3a3939",
+                        "on-secondary-fixed-variant": "#454747",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-fixed": "#190064",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "surface-container-high": "#2b2a2a",
+                        "on-primary-container": "#797777",
+                        "primary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "surface-container": "#201f1f",
+                        "surface": "#141313",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "outline": "#8e9192",
+                        "surface-container-highest": "#353434",
+                        "primary": "#c9c6c5",
+                        "on-tertiary": "#2c009e",
+                        "tertiary": "#c8bfff",
+                        "outline-variant": "#444748",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary": "#313030",
+                        "surface-variant": "#353434",
+                        "on-secondary-container": "#b4b5b5",
+                        "on-primary-fixed-variant": "#474646",
+                        "surface-dim": "#141313",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#4100db",
+                        "secondary-fixed": "#e2e2e2",
+                        "tertiary-fixed": "#e5deff",
+                        "primary-container": "#050505",
+                        "secondary-container": "#454747",
+                        "on-surface": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin": "40px",
+                        "iso_offset": "32px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-fixed": ["Space Grotesk"],
+                        "label-mono": ["Space Grotesk"],
+                        "display-xl": ["Epilogue"],
+                        "headline-lg": ["Epilogue"],
+                        "headline-md": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-fixed": ["16px", { "lineHeight": "150%", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "100%", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "display-xl": ["120px", { "lineHeight": "100%", "letterSpacing": "-0.05em", "fontWeight": "900" }],
+                        "headline-lg": ["64px", { "lineHeight": "110%", "fontWeight": "800" }],
+                        "headline-md": ["32px", { "lineHeight": "120%", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .isometric-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: rotateX(60deg) rotateZ(-45deg);
+            transform-style: preserve-3d;
+        }
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #141313;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 red;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 blue;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        html, body { overflow-x: clip; }
+        .full-bleed-grunge { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); max-width: none; }
+        .grunge-track {
+            display: flex; gap: 22px; width: max-content;
+            animation: grunge-x 70s linear infinite;
+            padding: 8px 0;
+        }
+        .grunge-track:hover { animation-play-state: paused; }
+        @keyframes grunge-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 11px)); }
+        }
+        .grunge-faq summary { list-style: none; cursor: pointer; }
+        .grunge-faq summary::-webkit-details-marker { display: none; }
+        .grunge-faq summary .grunge-glyph { transition: transform 250ms ease; }
+        .grunge-faq[open] summary .grunge-glyph { transform: rotate(45deg); }
+        .grunge-pulse { animation: grunge-ring 2.6s ease-out infinite; }
+        @keyframes grunge-ring {
+            0% { box-shadow: 0 0 0 0 rgba(116,92,255,0.55); }
+            70% { box-shadow: 0 0 0 12px rgba(116,92,255,0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .grunge-track { animation: none; }
+            .grunge-pulse { animation: none; }
+            .grunge-faq summary .grunge-glyph { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-fixed text-body-fixed antialiased overflow-x-hidden relative">
+<!-- Global Noise Floor -->
+<div class="fixed inset-0 z-0 noise-bg"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] bg-neutral-950/90 backdrop-blur-md flex justify-between items-center px-6 py-4 z-50">
+<div class="text-3xl font-black italic tracking-tighter text-white font-display-xl">ALCHMY</div>
+<div class="hidden md:flex gap-8 items-center font-epilogue font-black tracking-tighter uppercase text-white">
+<a class="text-white border-b-4 border-white hover:bg-white hover:text-black transition-all duration-75 px-2 py-1" href="#arsenal">ARSENAL</a>
+<a class="text-neutral-500 hover:bg-white hover:text-black transition-all duration-75 px-2 py-1" href="#archive">ARCHIVE</a>
+<a class="text-neutral-500 hover:bg-white hover:text-black transition-all duration-75 px-2 py-1" href="#process">PROCESS</a>
+<a class="text-neutral-500 hover:bg-white hover:text-black transition-all duration-75 px-2 py-1" href="#portal">PORTAL</a>
+</div>
+<button class="border-2 border-white px-4 py-2 font-epilogue font-black tracking-tighter uppercase text-white shadow-[4px_4px_0px_0px_#ffffff] hover:bg-white hover:text-black active:translate-x-1 active:translate-y-1 active:shadow-none transition-all duration-75">
+            TRANSMUTE
+        </button>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center pt-32 overflow-hidden z-10 border-b-4 border-white/20">
+<!-- Isometric Background -->
+<div class="absolute inset-0 z-0 overflow-hidden flex items-center justify-center opacity-30">
+<div class="w-[200vw] h-[2048px] isometric-grid absolute"></div>
+</div>
+<!-- Mesh Gradients -->
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-on-tertiary-container rounded-full mix-blend-screen filter blur-[100px] opacity-60"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-error rounded-full mix-blend-screen filter blur-[120px] opacity-40"></div>
+<!-- Content -->
+<div class="relative z-20 text-center px-4 w-full max-w-7xl mx-auto flex flex-col items-center">
+<div class="bg-surface-container-low/60 backdrop-blur-3xl border border-white/10 p-12 md:p-24 w-full shadow-[20px_20px_0px_0px_rgba(255,255,255,0.05)] relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-on-tertiary-container via-white to-error"></div>
+<h1 class="font-display-xl text-display-xl text-white mb-6 uppercase glitch-text" data-text="TRANSMUTATION">TRANSMUTATION</h1>
+<p class="font-headline-md text-headline-md text-secondary max-w-3xl mx-auto uppercase tracking-widest border-l-4 border-on-tertiary-container pl-6 text-left">
+                    Ordered Anarchy. <br/>
+                    Tactile Digitalism.
+                </p>
+</div>
+</div>
+</section>
+<!-- Arsenal Section (Bento Grid) -->
+<section class="relative py-32 px-gutter z-10 border-b-4 border-dashed border-surface-variant" id="arsenal">
+<div class="max-w-7xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg text-white mb-16 uppercase tracking-tighter border-l-8 border-white pl-6">ARSENAL</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-iso_offset">
+<!-- Card 1 -->
+<div class="bg-surface-container border-2 border-outline p-8 shadow-[8px_8px_0px_0px_#8e9192] hover:translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#ffffff] transition-all duration-200 group relative overflow-hidden h-[400px] flex flex-col justify-end">
+<div class="absolute top-4 right-4 bg-white text-black font-label-mono text-label-mono px-3 py-1">01</div>
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity grayscale group-hover:grayscale-0 z-0" data-alt="Abstract fluid 3d shapes in monochrome metallic finish with harsh directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzKOLR0AuyY1Twf_38H90bMuz4qb3ld29iLuHUHm1ZAs1F5c0JAym3jx7eoOTc2gQ_RFNFLMy88OBYl3z8soEeSTTeHvriZHVOJ3IWe9XUw7UDIJvlrRs4fwFkoDMn0wVr6-aoNe4QTgo0TyXF81CEwbhIyJ_WPxKKYbC7pDiVoUhz0mfH1b2zOZS8pym-wvq3dwO7P_dh0UO663ueT0OFVi_QLdTvQo1PGYE-NKNW3hAAyYtyHzew_3gkyzL9aLgq8kj4mJ4lv5M"/>
+<div class="relative z-10 bg-black/80 p-6 border-l-4 border-on-tertiary-container backdrop-blur-sm">
+<h3 class="font-headline-md text-headline-md text-white uppercase mb-2">Identity</h3>
+<p class="font-body-fixed text-body-fixed text-secondary">Raw conceptual extraction.</p>
+</div>
+</div>
+<!-- Card 2 (Spans 2 cols on md) -->
+<div class="md:col-span-2 bg-surface-container border-2 border-outline p-8 shadow-[8px_8px_0px_0px_#8e9192] hover:translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#745cff] transition-all duration-200 group relative overflow-hidden h-[400px] flex flex-col justify-end">
+<div class="absolute top-4 right-4 bg-on-tertiary-container text-white font-label-mono text-label-mono px-3 py-1">02</div>
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity grayscale group-hover:grayscale-0 z-0" data-alt="Close up of heavily textured concrete brutalist architecture with deep angular shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4aR-XtVZr1TPLBi-wZcVGaYDuYtMbwbvSXTnYh57hLudUY7zJE3nR0nC-NPvJ04oURg9akH-pAC1gGs4wScLnlmp5j9XVUnP-MrsY2j71bTZJ-NUYkOy6rrE-EOwNmH6rKDRkHAmWIC8hJ55gc4P9eH63j8KY2u09EEcpUrq2-X-PyjddWMa2Z3aOS8e7qOGJCXrSslpLc8lZZ4X1Dww8P892zP0Vhtim7Dq28UFiO-yQ-Z4ZQ2SznynpfbvpyLteFqnrWYeLCTU"/>
+<div class="relative z-10 bg-black/80 p-6 border-t-4 border-white backdrop-blur-sm">
+<h3 class="font-headline-md text-headline-md text-white uppercase mb-2">Interface</h3>
+<p class="font-body-fixed text-body-fixed text-secondary">Tactile friction systems.</p>
+</div>
+</div>
+<!-- Card 3 (Spans 2 cols on md) -->
+<div class="md:col-span-2 bg-surface-container border-2 border-outline p-8 shadow-[8px_8px_0px_0px_#8e9192] hover:translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#ffb4ab] transition-all duration-200 group relative overflow-hidden h-[400px] flex flex-col justify-end">
+<div class="absolute top-4 right-4 bg-error text-error-container font-label-mono text-label-mono px-3 py-1">03</div>
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity grayscale group-hover:grayscale-0 z-0" data-alt="Macro shot of intricate circuit board routing with stark high contrast lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNJAL0lZJWy-kiwzaXequXh-L3Kr9LGFMoefCn4zHSeD9MH5IDUXu0yUX8NFdaMUgUtEN5a51NTD2qp7dco1WaKRc0Sf6-Hu0DjuRLBs3mh_HNoqYs-snyn-NreYSYx8KiZEnWfxqLMKG2DZNjrCXZrvaGl5UfNKera7ntlVBi5V_Ijklttl_bka2eFLzqfHCVxZBe9dzXVq72T9dimBRnkPRBYKNN2R6LmkQkh1pwiwLTIXSUdgTQ42gpaDqkt6FcOBpnNVHZGMQ"/>
+<div class="relative z-10 bg-black/80 p-6 border-r-4 border-error backdrop-blur-sm">
+<h3 class="font-headline-md text-headline-md text-white uppercase mb-2">Innovation</h3>
+<p class="font-body-fixed text-body-fixed text-secondary">Algorithmic destruction.</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-on-tertiary-container border-2 border-white p-8 shadow-[8px_8px_0px_0px_#ffffff] hover:translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#000000] transition-all duration-200 group relative overflow-hidden h-[400px] flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-6xl text-white mb-4" style="font-variation-settings: 'FILL' 1;">terminal</span>
+<h3 class="font-headline-md text-headline-md text-white uppercase">Execute</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Archive marquee — paused-on-hover image strip -->
+<section class="full-bleed-grunge bg-black border-y-4 border-white/20 py-20 md:py-28 overflow-hidden relative z-10" id="archive">
+<div class="absolute inset-0 noise-bg pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-gutter mb-12 relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+<div>
+<span class="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">// ARCHIVE_04</span>
+<h2 class="font-headline-lg text-headline-lg text-white uppercase tracking-tighter border-l-8 border-white pl-6">Eight artefacts.<br/>Live now.</h2>
+</div>
+<p class="text-secondary max-w-md md:text-right text-sm border-l-4 border-on-tertiary-container pl-4 md:border-l-0 md:border-r-4 md:pl-0 md:pr-4">Each tile is a real production. Hover to halt the procession. <span class="bg-white text-black px-1 font-bold">SCROLL DOES NOT REWIND.</span></p>
+</div>
+<div class="overflow-hidden relative">
+<div class="absolute top-0 bottom-0 left-0 w-24 md:w-40 bg-gradient-to-r from-black to-transparent pointer-events-none z-10"></div>
+<div class="absolute top-0 bottom-0 right-0 w-24 md:w-40 bg-gradient-to-l from-black to-transparent pointer-events-none z-10"></div>
+<div class="grunge-track">
+<figure class="shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden">
+<img alt="Archive 01" class="absolute inset-0 w-full h-full object-cover grayscale opacity-70" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_01</span><span class="bg-on-tertiary-container text-white px-2 py-0.5">LIVE</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Trace · Δ-22</span>
+<span class="font-label-mono text-[10px] tracking-widest text-secondary block mt-2">CIRCUIT · 41 NODES · BERLIN</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 md:w-96 h-96 relative bg-on-tertiary-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(116,92,255,1)] overflow-hidden">
+<img alt="Archive 02" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 mix-blend-multiply" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1100&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-bl from-on-tertiary-container/70 via-transparent to-black/60"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-on-tertiary-container px-2 py-0.5">ITEM_02</span><span class="bg-black text-tertiary-fixed-dim px-2 py-0.5">FACADE</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Pillar Run B</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">BRUTALIST · WEST WING · MMXXIV</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 md:w-80 h-96 relative bg-error border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,180,171,1)] overflow-hidden">
+<img alt="Archive 03" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-error/70 via-transparent to-black/40"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-error px-2 py-0.5">ITEM_03</span><span class="bg-black text-error px-2 py-0.5">FORGE</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Heavy Press 11</span>
+<span class="font-label-mono text-[10px] tracking-widest block mt-2">FOUNDRY · 9.2 TONNE · DETROIT</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 md:w-96 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden">
+<img alt="Archive 04" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1100&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-on-tertiary-container/40"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_04</span><span class="bg-on-tertiary-container text-white px-2 py-0.5">RACK</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Server Stack 04</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">LAB-B · 14:22 · DUBLIN</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden">
+<img alt="Archive 05" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_05</span><span class="bg-error text-error-container px-2 py-0.5">DRAFT</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Atelier Light</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">PLATE IX · COPENHAGEN</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 md:w-96 h-96 relative bg-black border-2 border-on-tertiary-container shadow-[6px_6px_0px_0px_rgba(116,92,255,1)] overflow-hidden">
+<img alt="Archive 06" class="absolute inset-0 w-full h-full object-cover grayscale opacity-55" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1100&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-bl from-on-tertiary-container/40 via-transparent to-black/80"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-on-tertiary-container text-white px-2 py-0.5">ITEM_06</span><span class="bg-white text-black px-2 py-0.5">VAULT</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Marble Run 02</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">VESTIBULE · 9 STEPS · OSLO</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden">
+<img alt="Archive 07" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-on-tertiary-container/15"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_07</span><span class="bg-on-tertiary-container text-white px-2 py-0.5">CORNICE</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Heritage 33</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">DETAIL · GILT · LISBON</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 md:w-96 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden">
+<img alt="Archive 08" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-error/20"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_08</span><span class="bg-error text-error-container px-2 py-0.5">HALL</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-white">
+<span class="font-headline-md text-2xl uppercase tracking-tighter block">Vault MMXXIV</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">CENTENNIAL · ROME</span>
+</figcaption>
+</figure>
+<!-- duplicate -->
+<figure aria-hidden="true" class="shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-70" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_01</span><span class="bg-on-tertiary-container text-white px-2 py-0.5">LIVE</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Trace · Δ-22</span><span class="font-label-mono text-[10px] tracking-widest text-secondary block mt-2">CIRCUIT · 41 NODES · BERLIN</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-80 md:w-96 h-96 relative bg-on-tertiary-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(116,92,255,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50 mix-blend-multiply" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1100&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-bl from-on-tertiary-container/70 via-transparent to-black/60"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-on-tertiary-container px-2 py-0.5">ITEM_02</span><span class="bg-black text-tertiary-fixed-dim px-2 py-0.5">FACADE</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Pillar Run B</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">BRUTALIST · WEST WING · MMXXIV</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-72 md:w-80 h-96 relative bg-error border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,180,171,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-error/70 via-transparent to-black/40"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-error px-2 py-0.5">ITEM_03</span><span class="bg-black text-error px-2 py-0.5">FORGE</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Heavy Press 11</span><span class="font-label-mono text-[10px] tracking-widest block mt-2">FOUNDRY · 9.2 TONNE · DETROIT</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-80 md:w-96 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1100&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-on-tertiary-container/40"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_04</span><span class="bg-on-tertiary-container text-white px-2 py-0.5">RACK</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Server Stack 04</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">LAB-B · 14:22 · DUBLIN</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_05</span><span class="bg-error text-error-container px-2 py-0.5">DRAFT</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Atelier Light</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">PLATE IX · COPENHAGEN</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-80 md:w-96 h-96 relative bg-black border-2 border-on-tertiary-container shadow-[6px_6px_0px_0px_rgba(116,92,255,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-55" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1100&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-bl from-on-tertiary-container/40 via-transparent to-black/80"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-on-tertiary-container text-white px-2 py-0.5">ITEM_06</span><span class="bg-white text-black px-2 py-0.5">VAULT</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Marble Run 02</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">VESTIBULE · 9 STEPS · OSLO</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-on-tertiary-container/15"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_07</span><span class="bg-on-tertiary-container text-white px-2 py-0.5">CORNICE</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Heritage 33</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">DETAIL · GILT · LISBON</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-80 md:w-96 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-error/20"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-white text-black px-2 py-0.5">ITEM_08</span><span class="bg-error text-error-container px-2 py-0.5">HALL</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-white"><span class="font-headline-md text-2xl uppercase tracking-tighter block">Vault MMXXIV</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">CENTENNIAL · ROME</span></figcaption></figure>
+</div>
+</div>
+</section>
+
+<!-- Process — 3 alternating image+content rows -->
+<section class="relative py-32 px-gutter z-10 border-b-4 border-dashed border-surface-variant" id="process">
+<div class="max-w-7xl mx-auto">
+<div class="flex justify-between items-end mb-16 border-b-4 border-white pb-6">
+<div>
+<span class="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">// PROCESS_05</span>
+<h2 class="font-headline-lg text-headline-lg text-white uppercase tracking-tighter">The transmutation rite.</h2>
+</div>
+<span class="font-label-mono text-label-mono text-secondary hidden md:block">3 STEPS · 11 DAYS · IRREVERSIBLE</span>
+</div>
+<div class="flex flex-col gap-24 md:gap-32">
+<!-- Row 1 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+<figure class="md:col-span-7 relative">
+<div class="absolute -top-4 -left-4 w-12 h-12 bg-on-tertiary-container -z-10"></div>
+<div class="absolute -bottom-4 -right-4 w-12 h-12 border-4 border-white -z-10"></div>
+<div class="relative aspect-[16/10] overflow-hidden border-2 border-white shadow-[10px_10px_0px_0px_rgba(255,255,255,1)]">
+<img alt="Phase I" class="absolute inset-0 w-full h-full object-cover grayscale opacity-75" src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=1400&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-black/70 via-transparent to-on-tertiary-container/30"></div>
+<span class="absolute top-5 left-5 bg-white text-black font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5">PHASE · I</span>
+<span class="absolute bottom-5 right-5 bg-on-tertiary-container text-white font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border border-white">11:42:00</span>
+</div>
+</figure>
+<div class="md:col-span-5">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">STEP 01</span>
+<h3 class="font-headline-md text-headline-md text-white uppercase mb-5">Charge the matrix.</h3>
+<p class="text-secondary mb-6">Drop a raw fragment — a half-formed feed, a typo'd headline, a forgotten draft. The matrix grips it, drops a 41-track halftone, and runs it through the calibration wheel.</p>
+<ul class="font-label-mono text-label-mono text-white space-y-2 border-l-4 border-on-tertiary-container pl-4">
+<li>// VOLTAGE_LOCK · ARMED</li>
+<li>// HALFTONE_GRADE · MEDIUM</li>
+<li>// FRAGMENT_INTEGRITY · 87%</li>
+</ul>
+</div>
+</div>
+<!-- Row 2 reversed -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+<div class="md:col-span-5 md:order-1 order-2">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">STEP 02</span>
+<h3 class="font-headline-md text-headline-md text-white uppercase mb-5">Crank the knobs.</h3>
+<p class="text-secondary mb-6">Twist Creativity past 8. Logic to 4. Spirit somewhere between mischief and belief. The console screams; the operator sips coffee. The dials lock when you're warm.</p>
+<div class="grid grid-cols-3 gap-3">
+<div class="border-2 border-white bg-surface-container p-3 text-center"><span class="font-display-xl text-3xl text-on-tertiary-container block">8.4</span><span class="font-label-mono text-[10px] uppercase tracking-widest text-secondary">Creativity</span></div>
+<div class="border-2 border-white bg-surface-container p-3 text-center"><span class="font-display-xl text-3xl text-tertiary-fixed-dim block">4.0</span><span class="font-label-mono text-[10px] uppercase tracking-widest text-secondary">Logic</span></div>
+<div class="border-2 border-on-tertiary-container bg-surface-container p-3 text-center"><span class="font-display-xl text-3xl text-error block">7.7</span><span class="font-label-mono text-[10px] uppercase tracking-widest text-secondary">Spirit</span></div>
+</div>
+</div>
+<figure class="md:col-span-7 md:order-2 order-1 relative">
+<div class="absolute -top-4 -right-4 w-12 h-12 bg-error -z-10"></div>
+<div class="absolute -bottom-4 -left-4 w-12 h-12 border-4 border-white -z-10"></div>
+<div class="relative aspect-[16/10] overflow-hidden border-2 border-white shadow-[10px_10px_0px_0px_rgba(116,92,255,1)]">
+<img alt="Phase II" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-70" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-bl from-on-tertiary-container/40 via-transparent to-black/70"></div>
+<span class="absolute top-5 right-5 bg-white text-black font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5">PHASE · II</span>
+<span class="absolute bottom-5 left-5 bg-black text-tertiary-fixed-dim font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border border-tertiary-fixed-dim">14:08:00</span>
+</div>
+</figure>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+<figure class="md:col-span-7 relative">
+<div class="absolute -top-4 -left-4 w-12 h-12 bg-tertiary-fixed-dim -z-10"></div>
+<div class="absolute -bottom-4 -right-4 w-12 h-12 border-4 border-error -z-10"></div>
+<div class="relative aspect-[16/10] overflow-hidden border-2 border-white shadow-[10px_10px_0px_0px_rgba(255,180,171,1)]">
+<img alt="Phase III" class="absolute inset-0 w-full h-full object-cover grayscale opacity-70" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1400&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-error/15"></div>
+<span class="absolute top-5 left-5 bg-error text-error-container font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5">PHASE · III</span>
+<span class="absolute bottom-5 right-5 bg-tertiary-fixed-dim text-black font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5">21:00:00</span>
+<div class="absolute bottom-5 left-5 bg-on-tertiary-container text-white font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border border-tertiary-fixed-dim animate-pulse">GOLD · LIVE</div>
+</div>
+</figure>
+<div class="md:col-span-5">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">STEP 03</span>
+<h3 class="font-headline-md text-headline-md text-white uppercase mb-5">Pour the gold.</h3>
+<p class="text-secondary mb-6">When the bench hums B-flat the bath is ready. Tip the matrix. Let the warm metal find its mould. Stamp it: <span class="bg-white text-black px-2 font-bold">FOLIO · OK</span>. Close the lab.</p>
+<div class="border-t-4 border-white pt-4 flex items-center justify-between">
+<span class="font-label-mono text-[10px] uppercase tracking-[0.3em] text-secondary">Yield · 0.41 oz / fragment</span>
+<a class="font-label-mono text-sm uppercase tracking-widest text-on-tertiary-container border-b-4 border-on-tertiary-container hover:text-white hover:border-white transition-colors" href="#portal">Read the log →</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Manifesto — numbered doctrines -->
+<section class="full-bleed-grunge py-32 px-gutter bg-surface-container-lowest border-y-4 border-white relative z-10" id="manifesto-grunge">
+<div class="absolute inset-0 noise-bg pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-gutter relative grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+<aside class="lg:col-span-4">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-4">// MANIFEST_06</span>
+<h2 class="font-headline-lg text-headline-lg text-white uppercase tracking-tighter leading-[0.95]">Five doctrines<br/><span class="text-on-tertiary-container">of ordered anarchy.</span></h2>
+<p class="text-secondary mt-6 max-w-md">Spray-stenciled in the lab in 2014. Every fragment passes them on the way out. Print, fold, mount above the matrix.</p>
+<div class="mt-8 border-2 border-white p-6 bg-on-tertiary-container relative shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]">
+<span class="material-symbols-outlined absolute -top-5 -left-3 text-error text-5xl bg-surface-container-lowest px-2">format_quote</span>
+<blockquote class="font-headline-md text-xl italic text-white">"The matrix takes what it is given. The operator takes the blame."</blockquote>
+<cite class="font-label-mono text-label-mono not-italic uppercase tracking-[0.3em] text-tertiary-fixed-dim block mt-4">— BENCH NOTE 014</cite>
+</div>
+</aside>
+<ol class="lg:col-span-8 border-t-4 border-white">
+<li class="grid grid-cols-12 gap-4 py-7 border-b-4 border-white hover:bg-white/[0.03] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-on-tertiary-container tabular-nums leading-none">I</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl text-white uppercase mb-2">Begin where the dust collects.</h3>
+<p class="text-secondary text-sm">A spotless bench yields nothing. Find the corner the apprentice forgot to sweep. That is the substrate.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ LEX_01 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-7 border-b-4 border-white hover:bg-white/[0.03] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-tertiary-fixed-dim tabular-nums leading-none">II</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl text-white uppercase mb-2">Halftone is honesty.</h3>
+<p class="text-secondary text-sm">The pixel hides nothing. The dot lies less. When in doubt, scale up the screen and let the audience read the texture.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ LEX_02 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-7 border-b-4 border-white hover:bg-white/[0.03] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-error tabular-nums leading-none">III</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl text-white uppercase mb-2">A red shadow is a promise.</h3>
+<p class="text-secondary text-sm">Drop the eight-pixel offset and the page reads as flat. Keep it; the page reads as sworn. Pop is a covenant.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ LEX_03 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-7 border-b-4 border-white hover:bg-white/[0.03] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-on-tertiary-container tabular-nums leading-none">IV</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl text-white uppercase mb-2">The knob remembers.</h3>
+<p class="text-secondary text-sm">Whatever you set yesterday is still set today. Re-zero before you crank. The bench rewards memory, punishes optimism.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ LEX_04 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-7 hover:bg-white/[0.03] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-tertiary-fixed-dim tabular-nums leading-none">V</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl text-white uppercase mb-2">Stamp the work, leave the room.</h3>
+<p class="text-secondary text-sm">Every folio gets one stamp and one signature. Don't return to retouch. The page closes when the press closes.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ LEX_05 ]</span>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- FAQ — Portal accordion -->
+<section class="relative py-32 px-gutter z-10 border-b-4 border-dashed border-surface-variant" id="portal">
+<div class="max-w-5xl mx-auto">
+<div class="text-center mb-16">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">// PORTAL_07</span>
+<h2 class="font-headline-lg text-headline-lg text-white uppercase tracking-tighter">Pre-flight checks.</h2>
+<p class="text-secondary mt-4">Five mutters from the queue. Answered by the operator.</p>
+</div>
+<div class="divide-y-4 divide-white border-y-4 border-white bg-surface-container">
+<details class="grunge-faq group p-6 md:p-8" open="">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-on-tertiary-container tabular-nums shrink-0 w-12 leading-none">01</span>
+<h3 class="font-headline-md text-xl md:text-2xl text-white uppercase flex-1">Does the matrix actually transmute, or is it just a printer?</h3>
+<span class="grunge-glyph text-on-tertiary-container text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<div class="pl-16 mt-4 text-secondary">It transmutes. The print head is decorative. Every fragment in returns at 0.41 oz of usable yield, plus or minus what you forget to clean off the rollers.</div>
+</details>
+<details class="grunge-faq group p-6 md:p-8">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-tertiary-fixed-dim tabular-nums shrink-0 w-12 leading-none">02</span>
+<h3 class="font-headline-md text-xl md:text-2xl text-white uppercase flex-1">Can I run two fragments in parallel?</h3>
+<span class="grunge-glyph text-on-tertiary-container text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<div class="pl-16 mt-4 text-secondary">Yes, if your bench is grade-B or higher. The kettle holds three; the calibration wheel holds two. The third one waits in the rack and gets a halftone tan.</div>
+</details>
+<details class="grunge-faq group p-6 md:p-8">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-error tabular-nums shrink-0 w-12 leading-none">03</span>
+<h3 class="font-headline-md text-xl md:text-2xl text-white uppercase flex-1">What if my fragment is corrupted?</h3>
+<span class="grunge-glyph text-on-tertiary-container text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<div class="pl-16 mt-4 text-secondary">Corruption is a feature. The terminal logs the breach as <span class="bg-white text-black px-1 font-label-mono">[ANOMALY · KEEP]</span> and routes it to the gallery wall. Critics call this our most honest output.</div>
+</details>
+<details class="grunge-faq group p-6 md:p-8">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-on-tertiary-container tabular-nums shrink-0 w-12 leading-none">04</span>
+<h3 class="font-headline-md text-xl md:text-2xl text-white uppercase flex-1">Why are there four screws on every panel?</h3>
+<span class="grunge-glyph text-on-tertiary-container text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<div class="pl-16 mt-4 text-secondary">Three would suggest hesitation. Five would suggest neurosis. Four screws says: this panel was meant to be opened, but rarely.</div>
+</details>
+<details class="grunge-faq group p-6 md:p-8">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-tertiary-fixed-dim tabular-nums shrink-0 w-12 leading-none">05</span>
+<h3 class="font-headline-md text-xl md:text-2xl text-white uppercase flex-1">Is the warning at the bottom serious?</h3>
+<span class="grunge-glyph text-on-tertiary-container text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<div class="pl-16 mt-4 text-secondary">Catastrophically. Once the big red button is hit the matrix consumes the source fragment, the operator's previous lunch, and any unsaved drafts opened on the same network. Print twice. Save once.</div>
+</details>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="w-full border-t-4 border-dashed border-neutral-800 py-16 px-10 flex flex-col md:flex-row justify-between items-center gap-12 bg-black z-10 relative mt-32">
+<div class="text-xl font-black text-white font-display-xl italic">ALCHMY</div>
+<div class="flex gap-8 font-epilogue text-[10px] tracking-[0.3em] font-bold uppercase">
+<a class="text-neutral-600 hover:text-white hover:line-through transition-all" href="#">MANIFESTO</a>
+<a class="text-neutral-600 hover:text-white hover:line-through transition-all" href="#">ENCRYPT</a>
+<a class="text-neutral-600 hover:text-white hover:line-through transition-all" href="#">TERMINAL</a>
+</div>
+<div class="font-epilogue text-[10px] tracking-[0.3em] font-bold uppercase text-neutral-500">
+            ALCHMY COLLECTIVE // ORDERED ANARCHY © MMXXIV
+        </div>
+</footer>
+</body></html>

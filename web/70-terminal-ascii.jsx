@@ -1,0 +1,660 @@
+export default function T70TerminalAscii() {
+  return (
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=VT323&display=swap" rel="stylesheet" />
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        :root {
+          --neon-green: #39ff14;
+          --dim-green: #1a6b0a;
+          --bg-black: #050505;
+          --scanline-color: rgba(0, 0, 0, 0.5);
+          --crt-flicker: rgba(57, 255, 20, 0.02);
+        }
+        body {
+          background-color: var(--bg-black);
+          color: var(--neon-green);
+          font-family: 'Fira Code', monospace;
+          overflow-x: hidden;
+          margin: 0; padding: 0;
+          text-shadow: 0 0 2px var(--dim-green), 0 0 8px rgba(57, 255, 20, 0.4);
+          -webkit-font-smoothing: none;
+        }
+        .scanlines {
+          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+          background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, var(--scanline-color) 3px);
+          pointer-events: none; z-index: 50;
+        }
+        .vignette {
+          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+          background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%);
+          pointer-events: none; z-index: 51;
+        }
+        .flicker-overlay {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background: var(--crt-flicker);
+          opacity: 0; z-index: 49;
+          animation: flicker 0.15s infinite;
+          pointer-events: none;
+        }
+        @keyframes flicker { 0% { opacity: 0.05; } 5% { opacity: 0.1; } 10% { opacity: 0.05; } }
+        .cursor {
+          display: inline-block; width: 10px; height: 1.1em;
+          background-color: var(--neon-green);
+          animation: blink 1s steps(2, start) infinite;
+          vertical-align: middle; margin-left: 2px;
+        }
+        @keyframes blink { to { visibility: hidden; } }
+        ::selection { background: var(--neon-green); color: #000; text-shadow: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .ascii-art { font-family: 'VT323', monospace; line-height: 0.8; white-space: pre; overflow: hidden; }
+        .boot-line { opacity: 0; animation: fadeIn 0s forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .custom-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #001100; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #005500; border: 1px solid #00ff00; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #00ff00; }
+        @media (max-width: 640px) {
+          .mobile-font-xs { font-size: 0.7rem; }
+          .ascii-art { font-size: 8px; line-height: 8px; }
+        }
+        .deploy-line { opacity: 0; animation: deploy-line-in 12s ease-in-out infinite; display: block; margin-bottom: 0.4em; }
+        .deploy-line.l1 { animation-delay: 0s; } .deploy-line.l2 { animation-delay: 1.2s; }
+        .deploy-line.l3 { animation-delay: 2.4s; } .deploy-line.l4 { animation-delay: 3.6s; }
+        .deploy-line.l5 { animation-delay: 4.8s; } .deploy-line.l6 { animation-delay: 6.0s; }
+        .deploy-line.l7 { animation-delay: 7.2s; } .deploy-line.l8 { animation-delay: 8.4s; }
+        @keyframes deploy-line-in {
+          0% { opacity: 0; transform: translateY(4px); }
+          6% { opacity: 1; transform: translateY(0); }
+          85% { opacity: 1; } 95% { opacity: 0; } 100% { opacity: 0; }
+        }
+        .deploy-event { opacity: 0; animation: deploy-event-in 12s ease-in-out infinite; display: block; }
+        .deploy-event.e1 { animation-delay: 0.6s; } .deploy-event.e2 { animation-delay: 1.8s; }
+        .deploy-event.e3 { animation-delay: 3.0s; } .deploy-event.e4 { animation-delay: 4.2s; }
+        .deploy-event.e5 { animation-delay: 5.4s; } .deploy-event.e6 { animation-delay: 6.6s; }
+        .deploy-event.e7 { animation-delay: 7.8s; } .deploy-event.e8 { animation-delay: 9.0s; }
+        @keyframes deploy-event-in {
+          0% { opacity: 0; transform: translateX(-6px); }
+          5% { opacity: 1; transform: translateX(0); }
+          85% { opacity: 1; } 95% { opacity: 0; } 100% { opacity: 0; }
+        }
+        @keyframes deploy-bar-pulse {
+          0%, 100% { width: var(--bar-min, 12%); }
+          50% { width: var(--bar-max, 64%); }
+        }
+        .deploy-bar {
+          animation: deploy-bar-pulse 6s ease-in-out infinite;
+          background: linear-gradient(to right, #1a6b0a, #39ff14);
+          box-shadow: 0 0 6px rgba(57,255,20,0.6);
+          height: 100%;
+        }
+        .deploy-bar.b1 { --bar-min: 18%; --bar-max: 42%; animation-delay: 0s; }
+        .deploy-bar.b2 { --bar-min: 8%; --bar-max: 71%; animation-delay: 1s; }
+        .deploy-bar.b3 { --bar-min: 32%; --bar-max: 88%; animation-delay: 2s; }
+        .deploy-bar.b4 { --bar-min: 22%; --bar-max: 56%; animation-delay: 3s; }
+        .deploy-bar.b5 { --bar-min: 14%; --bar-max: 47%; animation-delay: 4s; }
+        @media (prefers-reduced-motion: reduce) {
+          .deploy-line, .deploy-event { animation: none; opacity: 1; }
+          .deploy-bar { animation: none; width: 50% !important; }
+        }
+      ` }} />
+
+      <div className="min-h-screen flex flex-col font-mono selection:bg-green-500 selection:text-black">
+        <div className="scanlines"></div>
+        <div className="vignette"></div>
+        <div className="flicker-overlay"></div>
+
+        <main className="relative z-10 w-full max-w-5xl mx-auto p-4 md:p-8 flex flex-col gap-14 md:gap-20 pb-32">
+
+          <header className="flex flex-col md:flex-row justify-between text-xs md:text-sm text-green-700 font-bold border-b border-green-900 pb-2 mb-2 uppercase tracking-widest">
+            <div>
+              <span className="mr-4">SYS.STATUS: <span className="text-[#39ff14]">ONLINE</span></span>
+              <span>CPU: <span className="text-[#39ff14]">12%</span></span>
+            </div>
+            <div className="mt-1 md:mt-0">
+              <span id="timestamp"></span>
+            </div>
+          </header>
+
+          <div id="boot-sequence" className="text-xs text-green-800 mb-4 h-16 overflow-hidden hidden md:block">
+            <div className="boot-line" style={{ animationDelay: "0.1s" }}>Loading kernel modules... OK</div>
+            <div className="boot-line" style={{ animationDelay: "0.2s" }}>Mounting file systems... OK</div>
+            <div className="boot-line" style={{ animationDelay: "0.3s" }}>Initializing network interfaces... OK</div>
+            <div className="boot-line" style={{ animationDelay: "0.4s" }}>Starting sshd... OK</div>
+            <div className="boot-line" style={{ animationDelay: "0.5s" }}>Bypassing mainframe security... DONE</div>
+          </div>
+
+          <section>
+            <div className="ascii-art text-[#39ff14] mb-4 select-none transform scale-90 origin-top-left md:scale-100">{`  _____  ____   ____ _______            __
+ |  __ \\|  _ \\ / __ \\__   __|          /_ |
+ | |__) | |_) | |  | | | |      __   __ | |
+ |  _  /|  _ <| |  | | | |      \\ \\ / / | |
+ | | \\ \\| |_) | |__| | | |       \\ V /  | |__
+ |_|  \\_\\____/_\\____/__|_|__      \\_/   |____|
+     / \\  / ____/ ____| ____|/ ____|/ ____|
+    / _ \\| |   | |    |  _| | (___ | (___
+   / ___ \\ |___| |____| |___ \\___ \\ \\___ \\
+  /_/   \\_\\_____\\_____|_____|_____/ |_____/    `}</div>
+
+            <div className="mt-6 md:mt-8 border-l-2 border-[#39ff14] pl-4">
+              <p className="text-xs text-green-600 font-bold mb-1">/usr/bin/message_of_the_day</p>
+              <h1 className="text-xl md:text-2xl font-bold mb-2 text-white">
+                <span id="typewriter"></span><span className="cursor"></span>
+              </h1>
+              <p className="text-sm md:text-base text-green-400 max-w-2xl leading-relaxed opacity-90">
+                Bypass the GUI. Root_Access is the command-line interface for your entire development workflow. Deploy, monitor, and scale without leaving your terminal window.
+              </p>
+            </div>
+          </section>
+
+          <section className="bg-gray-900 bg-opacity-50 border border-green-800 p-4 rounded hover:border-[#39ff14] transition-colors group cursor-pointer">
+            <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+              <span>INSTALLATION</span>
+              <span className="group-hover:text-white transition-colors">[ COPY ]</span>
+            </div>
+            <code className="text-sm md:text-base break-all">
+              <span className="text-[#39ff14]">$</span> curl -sL https://root-access.dev/install.sh | bash
+            </code>
+          </section>
+
+          <section>
+            <div className="text-xs text-green-600 font-bold mb-2">root@server:~$ htop --filter=modules</div>
+            <div className="bg-black border border-green-900 p-2 md:p-4 rounded shadow-[0_0_15px_rgba(0,50,0,0.5)]">
+              <div className="grid grid-cols-12 gap-2 text-xs bg-green-900 text-black font-bold p-1 mb-2">
+                <div className="col-span-2">PID</div>
+                <div className="col-span-2">USER</div>
+                <div className="col-span-2">CPU%</div>
+                <div className="col-span-2">MEM%</div>
+                <div className="col-span-4">COMMAND</div>
+              </div>
+              <div className="grid grid-cols-12 gap-2 text-xs md:text-sm text-green-400 hover:bg-green-900 hover:text-black p-1 transition-colors border-b border-green-900 border-opacity-30">
+                <div className="col-span-2">8341</div>
+                <div className="col-span-2">root</div>
+                <div className="col-span-2">24.0</div>
+                <div className="col-span-2">2.1</div>
+                <div className="col-span-4 font-bold text-white">./deploy_pipeline --auto</div>
+              </div>
+              <div className="col-span-12 text-[10px] text-gray-500 pl-2 mb-2 hidden md:block">
+                ↳ Automated CI/CD pipeline triggering on git push events with 0ms latency.
+              </div>
+              <div className="grid grid-cols-12 gap-2 text-xs md:text-sm text-green-400 hover:bg-green-900 hover:text-black p-1 transition-colors border-b border-green-900 border-opacity-30">
+                <div className="col-span-2">1192</div>
+                <div className="col-span-2">root</div>
+                <div className="col-span-2">12.5</div>
+                <div className="col-span-2">8.4</div>
+                <div className="col-span-4 font-bold text-white">./db_tunnel --encrypted</div>
+              </div>
+              <div className="col-span-12 text-[10px] text-gray-500 pl-2 mb-2 hidden md:block">
+                ↳ Secure, ephemeral database tunneling without exposing ports.
+              </div>
+              <div className="grid grid-cols-12 gap-2 text-xs md:text-sm text-green-400 hover:bg-green-900 hover:text-black p-1 transition-colors">
+                <div className="col-span-2">4402</div>
+                <div className="col-span-2">www</div>
+                <div className="col-span-2">0.2</div>
+                <div className="col-span-2">0.5</div>
+                <div className="col-span-4 font-bold text-white">./logs --realtime</div>
+              </div>
+              <div className="col-span-12 text-[10px] text-gray-500 pl-2 hidden md:block">
+                ↳ Live stream of infrastructure logs directly to your CLI.
+              </div>
+            </div>
+            <div className="flex justify-between text-[10px] text-green-800 mt-1 px-1">
+              <span>F1Help  F2Setup  F3Search  F10Quit</span>
+              <span>Tasks: 42 total, 1 running</span>
+            </div>
+          </section>
+
+          <section>
+            <div className="text-xs text-green-600 font-bold mb-2">root@server:~$ tail -n 3 /var/log/user_feedback.log</div>
+            <div className="font-mono text-xs md:text-sm bg-[#0a0a0a] p-4 rounded border-l-4 border-green-700 space-y-3">
+              <p>
+                <span className="text-blue-400">Jan 23 10:14:22</span>{" "}
+                <span className="text-yellow-500">[INFO]</span>{" "}
+                <span className="text-gray-300">@sarah_dev: "Finally a tool that respects my terminal setup. Deployment time cut by 400%."</span>
+              </p>
+              <p>
+                <span className="text-blue-400">Jan 23 10:45:01</span>{" "}
+                <span className="text-yellow-500">[INFO]</span>{" "}
+                <span className="text-gray-300">@fullstack_io: "The sudo-level control is insane. I feel like a hacker again."</span>
+              </p>
+              <p>
+                <span className="text-blue-400">Jan 23 11:02:55</span>{" "}
+                <span className="text-red-500">[WARN]</span>{" "}
+                <span className="text-gray-300">@CTO_mike: "Warning: Your team will refuse to use GUI consoles after this."</span>
+              </p>
+            </div>
+          </section>
+
+          <section className="grid md:grid-cols-2 gap-8">
+            <div>
+              <div className="text-xs text-green-600 font-bold mb-2">root@server:~$ cat config.json</div>
+              <pre className="text-xs md:text-sm text-amber-500 bg-gray-900 bg-opacity-40 p-4 rounded border border-amber-900 overflow-x-auto custom-scroll">{`{
+  "plan": "DEVELOPER",
+  "price": 0,
+  "features": {
+    "projects": "unlimited",
+    "deployments": "unlimited",
+    "support": "community"
+  },
+  "status": "active"
+}`}</pre>
+            </div>
+            <div>
+              <div className="text-xs text-green-600 font-bold mb-2">root@server:~$ cat enterprise.yaml</div>
+              <pre className="text-xs md:text-sm text-pink-500 bg-gray-900 bg-opacity-40 p-4 rounded border border-pink-900 overflow-x-auto custom-scroll">{`plan: PRO_ACCESS
+price: $29/mo
+features:
+  - priority_queue: true
+  - sso_integration: true
+  - audit_logs: 1_year
+status: available
+`}</pre>
+            </div>
+          </section>
+
+          {/* Section 6: Repo / open files — STATIC SIDE-BY-SIDE GRID (no animation) */}
+          <section>
+            <div className="text-xs text-green-600 font-bold mb-2">root@server:~$ ls -la /var/lib/root_access/captures/ | head -8</div>
+            <div className="border border-green-900 bg-black p-3 rounded shadow-[0_0_15px_rgba(0,50,0,0.3)]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=70" alt="dev/sda capture" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>/dev/sda · 014</div>
+                </div>
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=400&q=70" alt="kern.log capture" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>kern.log · tail</div>
+                </div>
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=400&q=70" alt="proc cpuinfo" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>proc · cpuinfo</div>
+                </div>
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=400&q=70" alt="rack 04 capture" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>rack-04 · psu</div>
+                </div>
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=70&sat=-100" alt="bootimg" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.55) sepia(60%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "30% 70%" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>boot.img · 002</div>
+                </div>
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=400&q=70" alt="auth.log capture" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(150%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "70% 30%" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>auth.log · 09</div>
+                </div>
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=400&q=70" alt="thermal" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "80% 50%" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>thermal · 78c</div>
+                </div>
+                <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
+                  <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=400&q=70" alt="rack 12" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "20% 50%" }} />
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>rack-12 · uplink</div>
+                </div>
+              </div>
+              <div className="text-[10px] text-green-800 mt-2 px-1 flex justify-between">
+                <span>8 files · 2.1 MiB total · phosphor-tinted captures</span>
+                <span>read-only · 0644</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 7: Architecture / boot sequence — sticky-photo + scrolling text (NOVEL #8) */}
+          <section className="grid md:grid-cols-12 gap-6 md:gap-8">
+            <div className="md:col-span-5 md:sticky md:top-8 md:self-start">
+              <div className="text-xs text-green-600 font-bold mb-2">root@server:~$ dmesg | head -200</div>
+              <div className="relative overflow-hidden border border-[rgba(57,255,20,0.4)] aspect-[3/4]" style={{ backgroundColor: "rgba(57, 255, 20, 0.12)" }}>
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=75" alt="circuit detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(150%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.4) 3px)" }}></div>
+                <div className="absolute top-2 left-2 text-[10px] text-[#39ff14]" style={{ fontFamily: "'VT323', monospace" }}>PHOSPHOR_CAP · 0x7F</div>
+              </div>
+              <div className="text-[10px] text-green-800 mt-2 px-1">/dev/circuit · 16 lanes · 78°C nominal</div>
+            </div>
+            <div className="md:col-span-7 space-y-8">
+              <div className="border-l-2 border-[#39ff14] pl-4">
+                <div className="text-xs text-green-600 font-bold mb-1" style={{ fontFamily: "'Fira Code', monospace" }}>step_01 · 00:00.012s</div>
+                <h3 className="text-2xl text-white mb-2" style={{ fontFamily: "'VT323', monospace" }}>POST · firmware/uefi handoff</h3>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">Power flips on, the southbridge wakes, and the UEFI firmware walks every lane on the bus checking for response. Memory is sized in two passes: a fast presence detect and a slower SPD timing read. Once the chipset reports green, the firmware looks for a bootable signature on the configured boot order — typically NVMe namespace 1, GPT partition 1, the EFI system partition. Microcode patches are applied to every core before the bootloader is mapped into memory. Hand-off to GRUB or systemd-boot happens at exactly the moment the firmware abdicates control of the IDT and stops servicing legacy interrupts.</p>
+              </div>
+              <div className="border-l-2 border-[#39ff14] pl-4">
+                <div className="text-xs text-green-600 font-bold mb-1" style={{ fontFamily: "'Fira Code', monospace" }}>step_02 · 00:00.840s</div>
+                <h3 className="text-2xl text-white mb-2" style={{ fontFamily: "'VT323', monospace" }}>kernel · ring 0 init</h3>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">The bootloader unpacks the compressed kernel image and a small initramfs containing exactly the modules required to mount the real root: the storage driver, the LUKS unlock binary, and the filesystem module. The kernel takes over at ring 0, sets up the page tables, identity-maps the low memory region, and starts probing PCI devices in DFS order. Each driver registered as a built-in announces itself via printk, which is exactly what you see when you run dmesg. ACPI tables are parsed, the scheduler is brought online, and the kernel clocksource is selected — usually TSC if it is invariant, HPET as a fallback.</p>
+              </div>
+              <div className="border-l-2 border-[#39ff14] pl-4">
+                <div className="text-xs text-green-600 font-bold mb-1" style={{ fontFamily: "'Fira Code', monospace" }}>step_03 · 00:01.910s</div>
+                <h3 className="text-2xl text-white mb-2" style={{ fontFamily: "'VT323', monospace" }}>userland · pid 1 → init.d</h3>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">After the real root is mounted, the kernel execs /sbin/init as PID 1. On modern systems this is systemd, which reads its unit graph and walks dependencies in topological order, spawning everything that does not have an explicit ordering constraint in parallel. cgroups are created, namespaces are isolated, and journald begins absorbing every byte that any service writes to its stderr or syslog socket. The service tree is fanned out aggressively: udev populates /dev, dbus comes up, and getty agetty sessions are spawned on the configured tty devices, ready for local login.</p>
+              </div>
+              <div className="border-l-2 border-[#39ff14] pl-4">
+                <div className="text-xs text-green-600 font-bold mb-1" style={{ fontFamily: "'Fira Code', monospace" }}>step_04 · 00:04.220s</div>
+                <h3 className="text-2xl text-white mb-2" style={{ fontFamily: "'VT323', monospace" }}>runlevel 3 · network up, login spawned</h3>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">Network interfaces are brought up by systemd-networkd or NetworkManager, DHCP leases are negotiated, and resolved publishes the new search domain over the local stub resolver at 127.0.0.53. sshd binds port 22, listens on the configured ListenAddress, and refuses anything below TLS 1.2 on the management vlan. At this point the system is multi-user but headless: no greeter, no desktop. agetty spits the issue file at any attached console — neon green hostname, kernel build, the prompt. Boot has settled. Anything that comes next is a workload, not a kernel concern.</p>
+              </div>
+              <div className="border-l-2 border-[#39ff14] pl-4">
+                <div className="text-xs text-green-600 font-bold mb-1" style={{ fontFamily: "'Fira Code', monospace" }}>step_05 · steady_state</div>
+                <h3 className="text-2xl text-white mb-2" style={{ fontFamily: "'VT323', monospace" }}>steady state · root@host:~#</h3>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">From here the loadavg drifts down toward whatever the workload demands. The OOM killer is armed but idle, the journal is rotating cleanly at 50 MB per file, and the kernel is reclaiming page cache as pressure rises. ROOT_ACCESS attaches itself as a long-running supervisor, watching for git push events on its inotify watcher, ready to fire deploy hooks the instant a tag lands on the configured branch. There is no GUI to click through. There is the prompt, your hostname, your shell history, and forty years of accumulated Unix wisdom to call on. Welcome back to ring 0.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 8: Memory layout / man page — alt-rows (3 rows) */}
+          <section className="space-y-10">
+            <div className="text-xs text-green-600 font-bold">root@server:~$ man -k mem | xargs -I {"{}"} man {"{}"} | tee /tmp/section.txt</div>
+
+            {/* Row 1: image left */}
+            <div className="grid md:grid-cols-12 gap-6 items-start">
+              <div className="md:col-span-5">
+                <div className="relative overflow-hidden border border-[rgba(57,255,20,0.4)] aspect-[4/3]" style={{ backgroundColor: "rgba(57, 255, 20, 0.12)" }}>
+                  <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=700&q=75" alt="machinery detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.45) 3px)" }}></div>
+                  <div className="absolute top-2 left-2 text-[10px] text-[#39ff14]" style={{ fontFamily: "'VT323', monospace" }}>/proc/meminfo · capture</div>
+                </div>
+              </div>
+              <div className="md:col-span-7">
+                <h3 className="text-3xl text-white mb-3" style={{ fontFamily: "'VT323', monospace" }}>/proc/meminfo</h3>
+                <p className="text-xs text-green-700 mb-2" style={{ fontFamily: "'Fira Code', monospace" }}>SECTION 5 · file formats</p>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">The meminfo pseudo-file is your first stop on any incident. It is the kernel's running ledger of every page in the system, classified by what it is being used for. MemTotal is fixed at boot; MemFree drops as workloads start and almost never recovers without explicit reclaim; MemAvailable is the honest number — what the kernel believes you could allocate without thrashing. Buffers and Cached look like waste but are not: they are page cache the kernel will surrender the instant pressure arrives. SwapCached, Active(anon), Inactive(file) — these are the receipts. Read them before you reach for free or top.</p>
+              </div>
+            </div>
+
+            {/* Row 2: image right */}
+            <div className="grid md:grid-cols-12 gap-6 items-start">
+              <div className="md:col-span-7 md:order-1">
+                <h3 className="text-3xl text-white mb-3" style={{ fontFamily: "'VT323', monospace" }}>/etc/fstab</h3>
+                <p className="text-xs text-green-700 mb-2" style={{ fontFamily: "'Fira Code', monospace" }}>SECTION 5 · file formats</p>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">The filesystem table is the boot-time contract between the kernel and your storage. Each row is a single mount, six space-separated fields, no exceptions. UUID over device path — always. The fourth field is the option list and it is where every subtle mistake is made: noatime if you want IO back, nofail if you want the boot to succeed when an external disk is missing, x-systemd.automount if you want lazy mounts on a NAS share. The fifth field controls dump, the sixth controls fsck pass order. Get pass order wrong and your root fsck blocks every other recovery on a dirty boot.</p>
+              </div>
+              <div className="md:col-span-5 md:order-2">
+                <div className="relative overflow-hidden border border-[rgba(57,255,20,0.4)] aspect-[4/3]" style={{ backgroundColor: "rgba(57, 255, 20, 0.12)" }}>
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=75" alt="server detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.45) 3px)" }}></div>
+                  <div className="absolute top-2 left-2 text-[10px] text-[#39ff14]" style={{ fontFamily: "'VT323', monospace" }}>/etc/fstab · capture</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 3: image left */}
+            <div className="grid md:grid-cols-12 gap-6 items-start">
+              <div className="md:col-span-5">
+                <div className="relative overflow-hidden border border-[rgba(57,255,20,0.4)] aspect-[4/3]" style={{ backgroundColor: "rgba(57, 255, 20, 0.12)" }}>
+                  <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=700&q=75" alt="rack detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.45) 3px)" }}></div>
+                  <div className="absolute top-2 left-2 text-[10px] text-[#39ff14]" style={{ fontFamily: "'VT323', monospace" }}>/var/log/auth.log</div>
+                </div>
+              </div>
+              <div className="md:col-span-7">
+                <h3 className="text-3xl text-white mb-3" style={{ fontFamily: "'VT323', monospace" }}>/var/log/auth.log</h3>
+                <p className="text-xs text-green-700 mb-2" style={{ fontFamily: "'Fira Code', monospace" }}>SECTION 5 · file formats</p>
+                <p className="text-sm text-green-300 leading-relaxed opacity-90">Authentication and authorization events all funnel through this log. Successful sudo invocations, failed ssh attempts, pam session opens and closes, every su to a privileged shell — they all leave a line here, written by syslog from the auth facility. The pattern to watch is not single failures, it is bursts: ten failed root logins in twelve seconds, one accepted publickey, then a sudo to root inside the same second. fail2ban reads this file with a tail follower and bans on regex match. ROOT_ACCESS does the same, but ships the matches to the supervisor in real time so the on-call sees the burst as it happens, not after the post-mortem.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 9: Field deployments — content left, image right contained */}
+          <section className="grid md:grid-cols-12 gap-8 md:gap-14 items-center">
+            <div className="md:col-span-7">
+              <div className="text-xs text-green-600 font-bold mb-2" style={{ fontFamily: "'Fira Code', monospace" }}>root@server:~$ cat /var/lib/root_access/field-notes.md</div>
+              <h3 className="text-3xl md:text-4xl text-white mb-4" style={{ fontFamily: "'VT323', monospace" }}>Field deployments · 2003 — present</h3>
+              <p className="text-sm text-green-300 leading-relaxed opacity-90 mb-4" style={{ fontFamily: "'Fira Code', monospace" }}>We ran this on a 4U Sun Fire v480 in 2003 for a community-radio station in Lisbon that had no business being on the open internet. Two ISDN lines, a homemade web stream, a sysadmin who slept in the studio for the first six weeks because the kernel panicked every time the fridge compressor cycled. We patched the EDAC driver, swapped the PSU, and the box ran for nine straight years before the building was sold and someone unplugged it without asking.</p>
+              <p className="text-sm text-green-300 leading-relaxed opacity-90" style={{ fontFamily: "'Fira Code', monospace" }}>It runs now on a Raspberry Pi 4 in a yurt in Mongolia, a colocated 1U at Hetzner, a forty-year-old VAX emulator that an academic in Vienna refuses to retire, and a fleet of bare-metal nodes in a Helsinki data centre that ROOT_ACCESS supervises through a single tmux session. The terminal is the longest-running interface in computing. Every deployment is a love letter to that fact — to the prompt, to the hostname, to the cursor blinking patiently while the kernel does the unglamorous work.</p>
+            </div>
+            <div className="md:col-span-5">
+              <div className="relative overflow-hidden border border-[rgba(57,255,20,0.4)] aspect-[4/3] md:aspect-[5/6]" style={{ backgroundColor: "rgba(57, 255, 20, 0.12)" }}>
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=75" alt="circuit-board macro from a field deployment" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(150%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "50% 50%" }} />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.45) 3px)" }}></div>
+                <div className="absolute bottom-2 left-2 text-[10px] text-[#39ff14] bg-black bg-opacity-60 px-2 py-1" style={{ fontFamily: "'VT323', monospace" }}>FIELD · HEL-DC-04 · 2026</div>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 9b: Live deploy — split-screen animated terminal */}
+          <section>
+            <div className="text-xs text-green-600 font-bold mb-2" style={{ fontFamily: "'Fira Code', monospace" }}>root@server:~$ tmux attach -t live-deploy</div>
+            <div className="border border-green-900 bg-black p-3 md:p-4 rounded shadow-[0_0_15px_rgba(0,50,0,0.4)]">
+              <div className="flex items-center justify-between text-[10px] mb-3 px-2 py-1 bg-green-900/40 border-b border-green-900" style={{ fontFamily: "'Fira Code', monospace" }}>
+                <span className="text-[#39ff14]">[live-deploy]</span>
+                <span className="text-green-400">0:typer*  1:monitor  2:logs</span>
+                <span className="text-green-600">"hel-dc-04" <span className="text-[#39ff14]">●</span> 17:42</span>
+              </div>
+              <div className="grid md:grid-cols-2 gap-3 md:gap-4">
+                <div className="border border-green-900/60 bg-black/80 p-4 min-h-[300px] md:min-h-[340px] relative overflow-hidden">
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-green-900/50">
+                    <span className="w-2 h-2 rounded-full bg-red-500/70"></span>
+                    <span className="w-2 h-2 rounded-full bg-yellow-500/70"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#39ff14]/80"></span>
+                    <span className="text-[10px] text-green-700 ml-2" style={{ fontFamily: "'Fira Code', monospace" }}>root@hel-dc-04 :: pane 0/typer</span>
+                  </div>
+                  <div className="text-xs leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                    <span className="deploy-line l1"><span className="text-[#39ff14]">$</span> <span className="text-white">ssh root@hel-dc-04</span></span>
+                    <span className="deploy-line l2"><span className="text-green-700">→ key accepted, session 0x3f opened</span></span>
+                    <span className="deploy-line l3"><span className="text-[#39ff14]">$</span> <span className="text-white">systemctl status root_access</span></span>
+                    <span className="deploy-line l4"><span className="text-green-700">  ● active (running) since 2026-04-12 — uptime 21d 4h</span></span>
+                    <span className="deploy-line l5"><span className="text-[#39ff14]">$</span> <span className="text-white">tail -f /var/log/root_access/audit.log</span></span>
+                    <span className="deploy-line l6"><span className="text-green-700">  watching 14 file descriptors, 3 sockets, 1 cgroup</span></span>
+                    <span className="deploy-line l7"><span className="text-[#39ff14]">$</span> <span className="text-white">deploy --target=arctic-04 --strategy=rolling</span></span>
+                    <span className="deploy-line l8"><span className="text-green-700">  staged · canary · promoting in 14s ...</span><span className="cursor inline-block w-2 h-3 bg-[#39ff14] align-middle ml-1"></span></span>
+                  </div>
+                </div>
+                <div className="border border-green-900/60 bg-black/80 p-4 min-h-[300px] md:min-h-[340px] relative overflow-hidden">
+                  <div className="flex items-center gap-2 mb-3 pb-2 border-b border-green-900/50">
+                    <span className="w-2 h-2 rounded-full bg-red-500/70"></span>
+                    <span className="w-2 h-2 rounded-full bg-yellow-500/70"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#39ff14]/80"></span>
+                    <span className="text-[10px] text-green-700 ml-2" style={{ fontFamily: "'Fira Code', monospace" }}>root@hel-dc-04 :: pane 1/monitor</span>
+                  </div>
+                  <div className="space-y-2 mb-4" style={{ fontFamily: "'Fira Code', monospace" }}>
+                    {[
+                      { label: "CPU", val: "42%", cls: "b1" },
+                      { label: "MEM", val: "68%", cls: "b2" },
+                      { label: "NET ↓", val: "88%", cls: "b3" },
+                      { label: "DISK", val: "31%", cls: "b4" },
+                      { label: "IRQ/s", val: "14k", cls: "b5" }
+                    ].map(b => (
+                      <div key={b.label} className="flex items-center gap-3 text-[10px]">
+                        <span className="text-green-700 w-12">{b.label}</span>
+                        <div className="flex-1 h-2 bg-green-900/30 relative overflow-hidden border border-green-900/50">
+                          <div className={`deploy-bar ${b.cls} absolute inset-y-0 left-0`}></div>
+                        </div>
+                        <span className="text-[#39ff14] tabular-nums w-10 text-right">{b.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t border-green-900/50 pt-3">
+                    <div className="text-[10px] text-green-700 mb-2" style={{ fontFamily: "'Fira Code', monospace" }}>EVENT STREAM ―</div>
+                    <div className="text-[10px] leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                      <span className="deploy-event e1"><span className="text-[#39ff14]">[OK]</span> <span className="text-green-300">handshake :: arctic-04 — 142ms</span></span>
+                      <span className="deploy-event e2"><span className="text-[#39ff14]">[OK]</span> <span className="text-green-300">manifest pulled :: rev 0xe7</span></span>
+                      <span className="deploy-event e3"><span className="text-yellow-400">[..]</span> <span className="text-green-300">canary booting on 2/8 nodes</span></span>
+                      <span className="deploy-event e4"><span className="text-[#39ff14]">[OK]</span> <span className="text-green-300">health probe :: 200 OK / 50ms</span></span>
+                      <span className="deploy-event e5"><span className="text-[#39ff14]">[OK]</span> <span className="text-green-300">promoting canary → fleet</span></span>
+                      <span className="deploy-event e6"><span className="text-yellow-400">[..]</span> <span className="text-green-300">draining old fleet :: 4/8</span></span>
+                      <span className="deploy-event e7"><span className="text-[#39ff14]">[OK]</span> <span className="text-green-300">drain complete :: 0 in flight</span></span>
+                      <span className="deploy-event e8"><span className="text-[#39ff14]">[DONE]</span> <span className="text-green-300">rev 0xe7 live :: 8/8 nodes</span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-[10px] mt-3 px-2 py-1 text-green-700 border-t border-green-900" style={{ fontFamily: "'Fira Code', monospace" }}>
+                <span>[ alt+→ next pane | alt+← prev pane | alt+d detach ]</span>
+                <span>peer · 2 attached</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 10: FAQ accordion — terminal man page entries */}
+          <section>
+            <div className="text-xs text-green-600 font-bold mb-2" style={{ fontFamily: "'Fira Code', monospace" }}>root@server:~$ man root_access | grep -A 2 "FAQ"</div>
+            <div className="border border-green-900 bg-black p-4 md:p-6 rounded shadow-[0_0_15px_rgba(0,50,0,0.3)] space-y-2">
+              <details className="group border-b border-green-900 border-opacity-50 pb-2">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> What does ROOT_ACCESS license include?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> The DEVELOPER tier covers personal and small-team production use under a permissive BSD-style grant. You may fork, patch, redistribute, and embed ROOT_ACCESS in commercial work without royalty. The license does not include the trademark; you may not ship a hosted product calling itself "Root Access" without written permission. Patents granted alongside the source are non-revocable for the configured patch level. PRO_ACCESS adds an indemnity clause and a dedicated CVE notification channel.
+                </div>
+              </details>
+              <details className="group border-b border-green-900 border-opacity-50 pb-2">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> Is there a man page?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> Yes. The package installs man pages in sections 1 (root_access), 5 (root_access.conf), and 8 (root_accessd) under /usr/share/man. Run "man root_access" after install. The pages are written in mdoc, generated from the same canonical source as the online docs, and they version with your installed binary — so the documentation always reflects the patch level you are actually running, not whatever HEAD happens to ship today on the web.
+                </div>
+              </details>
+              <details className="group border-b border-green-900 border-opacity-50 pb-2">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> Will it run on raspberry pi?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> Pi 3 model B and newer, yes. The arm64 build is first-class — same supervisor, same plugin loader, same systemd unit. Pi Zero 2 W works at the cost of slower deploy hooks because the single core gets hammered when many event watchers fire at once. Pi 1 and the original Pi Zero are not supported; the kernel features ROOT_ACCESS relies on for cgroup v2 and io_uring landed long after armv6 fell out of mainline support. We keep the binary under 6 MiB stripped.
+                </div>
+              </details>
+              <details className="group border-b border-green-900 border-opacity-50 pb-2">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> How do I contribute patches?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> Patches are sent to the development mailing list as plain-text emails generated by git format-patch. No web UI, no PR queue, no review bot. Subject lines must follow the [PATCH N/M subsystem] convention. Maintainers reply inline with a Reviewed-by, Acked-by, or a polite request for a v2. Once accepted, your patch lands on the master branch with your authorship preserved. The CONTRIBUTING file documents the cadence; merge windows open every six weeks.
+                </div>
+              </details>
+              <details className="group border-b border-green-900 border-opacity-50 pb-2">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> When are CVEs published?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> CVEs are filed with MITRE within 24 hours of confirmation, then embargoed until distros and PRO_ACCESS subscribers have had 14 days to roll the patched binary. Publication happens on the security@ list and on the public advisories page simultaneously. Each advisory includes the affected version range, a CVSS v3 vector, the patch commit hash, a reproducer where safe to share, and an attribution line for the reporter unless they have asked to remain anonymous.
+                </div>
+              </details>
+              <details className="group border-b border-green-900 border-opacity-50 pb-2">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> Mailing list etiquette?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> Plain text only, hard-wrapped at 72 columns, bottom-posted with trimmed quotes. No HTML, no signatures longer than four lines, no top-posting, no top-posted reply chains that quote the entire thread back at the list. Use a meaningful subject. Reply-to-list, not reply-to-sender, unless the conversation has clearly gone private. The archive is public and indexed by search engines, so write as if the next reader is a stranger working through your problem at three in the morning years from now.
+                </div>
+              </details>
+              <details className="group border-b border-green-900 border-opacity-50 pb-2">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> Why no graphical config?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> Because configuration that lives in a database the user cannot grep is not configuration, it is captivity. ROOT_ACCESS reads /etc/root_access.conf, a single declarative file with a documented schema, and it reloads on SIGHUP. You can diff it across releases. You can put it under version control. You can copy it from one host to another with scp and have a working system in seconds. A graphical config layer would have to serialise to that file anyway, and would lie about what was actually applied between writes.
+                </div>
+              </details>
+              <details className="group">
+                <summary className="flex items-start justify-between cursor-pointer list-none text-white py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-sm md:text-base"><span className="text-[#39ff14] mr-2">Q$</span> How do I uninstall?</span>
+                  <span className="text-[#39ff14] text-xl ml-3 group-open:hidden">+</span>
+                  <span className="text-[#39ff14] text-xl ml-3 hidden group-open:inline">×</span>
+                </summary>
+                <div className="pt-2 pl-6 text-sm text-green-300 leading-relaxed" style={{ fontFamily: "'Fira Code', monospace" }}>
+                  <span className="text-[#39ff14] mr-2">A&gt;</span> Run "sudo root_access uninstall --purge". The supervisor is stopped, its systemd unit is removed, /etc/root_access.conf and /var/lib/root_access are wiped to zero, and the binary deletes itself last. No leftover daemons, no orphan cgroups, no dangling firewall rules, no stale entries in nsswitch. We treat clean uninstall as a feature, not an afterthought. The exit code is 0 on success and a documented non-zero on each failure mode, so you can wire the command into any decommissioning playbook without parsing stdout.
+                </div>
+              </details>
+            </div>
+          </section>
+
+        </main>
+
+        <footer className="fixed bottom-0 left-0 w-full bg-[#050505] border-t border-green-900 p-3 md:p-4 z-40 shadow-[0_-5px_20px_rgba(0,0,0,0.9)]">
+          <div className="max-w-5xl mx-auto w-full">
+            <div className="flex flex-col gap-2" id="terminal-history"></div>
+            <div className="flex items-center text-sm md:text-base font-bold mt-2">
+              <span className="text-[#39ff14] mr-2 whitespace-nowrap">visitor@root_access:~$</span>
+              <div className="relative flex-grow">
+                <span id="cmd-display" className="break-all text-white"></span><span className="cursor"></span>
+                <input type="text" id="cmd-input" className="absolute top-0 left-0 w-full h-full opacity-0 cursor-text" autoComplete="off" spellCheck="false" />
+              </div>
+            </div>
+            <div className="flex gap-2 mt-3 md:hidden overflow-x-auto no-scrollbar pb-1">
+              <button data-cmd="ls" className="text-[10px] border border-green-800 px-2 py-1 rounded hover:bg-green-900 text-green-400">ls</button>
+              <button data-cmd="help" className="text-[10px] border border-green-800 px-2 py-1 rounded hover:bg-green-900 text-green-400">help</button>
+              <button data-cmd="signup" className="text-[10px] border border-green-800 px-2 py-1 rounded hover:bg-green-900 text-green-400">signup</button>
+              <button data-cmd="clear" className="text-[10px] border border-green-800 px-2 py-1 rounded hover:bg-green-900 text-green-400">clear</button>
+            </div>
+            <div className="hidden md:block text-[10px] text-gray-600 mt-2">
+              Try: 'help', 'ls', 'whoami', 'signup'
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <script dangerouslySetInnerHTML={{ __html: `
+        function updateTime() {
+          const t = document.getElementById('timestamp');
+          if (!t) return;
+          const now = new Date();
+          t.innerText = now.toISOString().replace('T', ' ').substring(0, 19);
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        const textToType = "Gain Full Control.";
+        const tw = document.getElementById('typewriter');
+        let i = 0;
+        function typeWriter() {
+          if (!tw) return;
+          if (i < textToType.length) {
+            tw.innerHTML += textToType.charAt(i);
+            i++;
+            setTimeout(typeWriter, 100 + Math.random() * 50);
+          }
+        }
+        setTimeout(typeWriter, 800);
+
+        const input = document.getElementById('cmd-input');
+        const display = document.getElementById('cmd-display');
+        const historyContainer = document.getElementById('terminal-history');
+        if (input && display && historyContainer) {
+          document.addEventListener('click', (e) => { if(e.target.tagName !== 'BUTTON') input.focus(); });
+          input.addEventListener('input', () => { display.innerText = input.value; window.scrollTo(0, document.body.scrollHeight); });
+          document.querySelectorAll('[data-cmd]').forEach(btn => btn.addEventListener('click', () => { input.value = btn.dataset.cmd; display.innerText = btn.dataset.cmd; processCommand(btn.dataset.cmd); }));
+          input.addEventListener('keydown', (e) => { if (e.key === 'Enter') processCommand(input.value); });
+
+          function processCommand(rawCmd) {
+            const cmd = rawCmd.trim().toLowerCase();
+            const entry = document.createElement('div');
+            entry.className = "text-sm text-gray-400 mb-1";
+            entry.innerHTML = '<span class="text-green-600">visitor@root_access:~$</span> <span class="text-white">' + rawCmd + '</span>';
+            const response = document.createElement('div');
+            response.className = "text-sm mb-3 ml-2 border-l border-green-900 pl-2";
+            let output = "";
+            switch(cmd) {
+              case 'help': output = '<div class="grid grid-cols-2 gap-4 max-w-sm text-green-300"><div>ls</div><div>List available modules</div><div>signup</div><div>Create account</div><div>whoami</div><div>Current user info</div><div>clear</div><div>Clear terminal</div><div>sudo</div><div>Execute as superuser</div></div>'; break;
+              case 'ls': output = '<span class="text-blue-400">config.json</span>&nbsp;&nbsp;<span class="text-blue-400">enterprise.yaml</span>&nbsp;&nbsp;<span class="text-white">install.sh</span>&nbsp;&nbsp;<span class="text-white">README.md</span>'; break;
+              case 'whoami': output = 'visitor (uid=1000 gid=1000)'; break;
+              case 'sudo': output = '<span class="text-red-500 font-bold">PERMISSION DENIED.</span> Are you trying to hack the hackers?'; break;
+              case 'signup': output = 'Initiating secure handshake... <br><span class="text-yellow-400">Redirecting to auth provider... (Simulation)</span>'; break;
+              case 'clear': historyContainer.innerHTML = ''; input.value = ''; display.innerText = ''; return;
+              case '': output = ''; break;
+              default: output = '<span class="text-red-400">bash: ' + cmd + ': command not found. Try help.</span>';
+            }
+            if (cmd !== '') {
+              historyContainer.appendChild(entry);
+              if (output) { response.innerHTML = output; historyContainer.appendChild(response); }
+            }
+            input.value = ''; display.innerText = '';
+            window.scrollTo(0, document.body.scrollHeight);
+          }
+        }
+      ` }} />
+    </>
+  );
+}

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Maren K. - Independent Product Designer focused on digital architecture and high-fidelity user experiences."/>
+<meta name="theme-color" content="#ffffff"/>
+<meta property="og:title" content="Maren K. - Product Designer"/>
+<meta property="og:description" content="Independent Product Designer focusing on digital architecture and high-fidelity user experiences based in Berlin."/>
+<meta property="og:type" content="website"/>
+<title>Maren K. - Product Designer</title>
+
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-secondary-container": "#690004",
+          "error": "#ba1a1a",
+          "on-background": "#1a1c1c",
+          "inverse-on-surface": "#f0f1f1",
+          "surface-container-highest": "#e2e2e2",
+          "outline": "#747878",
+          "primary": "#000000",
+          "on-primary-fixed": "#1c1b1b",
+          "surface-tint": "#5f5e5e",
+          "primary-fixed-dim": "#c9c6c5",
+          "surface-dim": "#dadada",
+          "secondary-fixed-dim": "#ffb4aa",
+          "surface-container-low": "#f3f3f4",
+          "surface-bright": "#f9f9f9",
+          "on-tertiary-container": "#868381",
+          "tertiary-fixed-dim": "#cac6c3",
+          "secondary-fixed": "#ffdad5",
+          "background": "#f9f9f9",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed": "#e5e2e1",
+          "error-container": "#ffdad6",
+          "on-primary-container": "#858383",
+          "on-secondary-fixed-variant": "#8c1714",
+          "secondary-container": "#fc695b",
+          "on-surface": "#1a1c1c",
+          "on-tertiary-fixed": "#1d1b1a",
+          "on-error-container": "#93000a",
+          "on-error": "#ffffff",
+          "tertiary": "#000000",
+          "on-tertiary": "#ffffff",
+          "surface-variant": "#e2e2e2",
+          "on-primary": "#ffffff",
+          "secondary": "#ae3029",
+          "on-secondary": "#ffffff",
+          "inverse-primary": "#c9c6c5",
+          "surface-container-high": "#e8e8e8",
+          "on-surface-variant": "#444748",
+          "on-tertiary-fixed-variant": "#484645",
+          "primary-container": "#1c1b1b",
+          "surface-container": "#eeeeee",
+          "inverse-surface": "#2f3131",
+          "tertiary-container": "#1d1b1a",
+          "surface": "#f9f9f9",
+          "on-secondary-fixed": "#410002",
+          "on-primary-fixed-variant": "#474646",
+          "tertiary-fixed": "#e6e1df",
+          "outline-variant": "#c4c7c7"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "margin": "64px",
+          "gutter": "32px",
+          "section-gap": "128px",
+          "unit": "8px",
+          "column-count": "12"
+        },
+        "fontFamily": {
+          "label-bold": ["Inter"],
+          "display-xl": ["Inter"],
+          "headline-md": ["Inter"],
+          "headline-lg": ["Inter"],
+          "body-md": ["Inter"],
+          "label-sm": ["Inter"],
+          "body-lg": ["Inter"]
+        },
+        "fontSize": {
+          "label-bold": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+          "display-xl": ["80px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+          "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+          "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+          "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+          "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500" }],
+          "body-lg": ["18px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html, body { overflow-x: clip; }
+  body {
+    background-color: #ffffff;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Offset for sticky header when jumping to anchors */
+  :target {
+    scroll-margin-top: 5rem;
+  }
+  ::selection {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Full-bleed escape hatch for sections that need viewport-edge bg */
+  .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: none;
+  }
+
+  /* Marquee — paused on hover */
+  .mk-marquee-wrap { overflow: hidden; }
+  .mk-marquee-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: mk-marquee 60s linear infinite;
+  }
+  .mk-marquee-track:hover { animation-play-state: paused; }
+  @keyframes mk-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 12px)); }
+  }
+
+  /* Studio cycling image cross-fade — 4 stops × 4s = 16s loop */
+  @keyframes mk-cycle-fade {
+    0%, 4%   { opacity: 0; filter: blur(14px) saturate(0.85); transform: scale(1.04); }
+    8%, 22%  { opacity: 1; filter: blur(0) saturate(1); transform: scale(1); }
+    26%, 100%{ opacity: 0; filter: blur(14px) saturate(0.85); transform: scale(1.04); }
+  }
+  .mk-cycle-img {
+    animation: mk-cycle-fade 16s linear infinite;
+    opacity: 0;
+    filter: blur(14px) saturate(0.85);
+    transform: scale(1.04);
+    will-change: opacity, filter, transform;
+  }
+  @keyframes mk-cycle-cap {
+    0%, 4%   { opacity: 0; transform: translateY(6px); }
+    8%, 22%  { opacity: 1; transform: translateY(0); }
+    26%, 100%{ opacity: 0; transform: translateY(-6px); }
+  }
+  .mk-cycle-cap {
+    animation: mk-cycle-cap 16s linear infinite;
+    opacity: 0;
+  }
+  @keyframes mk-cycle-thumb {
+    0%, 4%   { opacity: 0.25; }
+    8%, 22%  { opacity: 1; }
+    26%, 100%{ opacity: 0.25; }
+  }
+  .mk-cycle-thumb {
+    animation: mk-cycle-thumb 16s linear infinite;
+    opacity: 0.25;
+  }
+  @keyframes mk-scrub {
+    0%   { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+  .mk-scrub {
+    animation: mk-scrub 16s linear infinite;
+    transform-origin: left;
+  }
+
+  /* FAQ accordion chevron rotation */
+  .mk-faq summary::-webkit-details-marker { display: none; }
+  .mk-faq summary { list-style: none; cursor: pointer; }
+  .mk-faq .mk-chevron { transition: transform 250ms ease; }
+  .mk-faq[open] summary .mk-chevron { transform: rotate(45deg); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .mk-marquee-track { animation: none; }
+    .mk-cycle-img { animation: none; }
+    .mk-cycle-cap { animation: none; }
+    .mk-cycle-thumb { animation: none; opacity: 1; }
+    .mk-scrub { animation: none; transform: scaleX(1); }
+    .mk-faq .mk-chevron { transition: none; }
+    /* Resting state for cycle: first image visible */
+    .mk-cycle-img:first-child { opacity: 1; filter: none; transform: none; }
+    .mk-cycle-cap:first-child { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="bg-surface-container-lowest text-primary antialiased font-['Inter']">
+
+<header class="sticky top-0 z-50 w-full border-b border-[#B0322A] bg-white">
+  <nav aria-label="Main Navigation" class="flex justify-between items-center gap-3 w-full px-4 py-4 max-w-[1440px] mx-auto sm:px-6 sm:py-6 md:px-8">
+    <div class="text-base font-black tracking-tighter text-neutral-900 uppercase sm:text-xl">MAREN K.</div>
+    <div class="flex gap-3 items-center sm:gap-5 md:gap-8">
+      <a class="text-[#B0322A] border-b-2 border-[#B0322A] pb-1 font-['Inter'] font-bold tracking-tighter uppercase text-xs hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-colors duration-200 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2 rounded-sm" href="#work">Work</a>
+      <a class="text-neutral-500 pb-1 font-['Inter'] font-bold tracking-tighter uppercase text-xs hover:bg-neutral-900 hover:text-white transition-colors duration-200 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2 rounded-sm hidden sm:inline-block" href="#tenets">Tenets</a>
+      <a class="text-neutral-500 pb-1 font-['Inter'] font-bold tracking-tighter uppercase text-xs hover:bg-neutral-900 hover:text-white transition-colors duration-200 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2 rounded-sm hidden md:inline-block" href="#studio">Studio</a>
+      <a class="text-neutral-500 pb-1 font-['Inter'] font-bold tracking-tighter uppercase text-xs hover:bg-neutral-900 hover:text-white transition-colors duration-200 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2 rounded-sm" href="#about">About</a>
+      <a class="text-neutral-500 pb-1 font-['Inter'] font-bold tracking-tighter uppercase text-xs hover:bg-neutral-900 hover:text-white transition-colors duration-200 sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2 rounded-sm" href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="max-w-[1440px] mx-auto px-4 w-full sm:px-6 md:px-8">
+  <!-- Hero Section -->
+  <section class="mt-16 mb-20 grid grid-cols-12 gap-gutter sm:mt-24 sm:mb-28 md:mt-32 md:mb-section-gap">
+    <div class="col-span-12 md:col-span-11">
+      <h1 class="text-balance font-display-xl text-[36px] leading-[1.05] text-primary sm:text-[56px] md:text-display-xl md:leading-none">
+        Product designer working on systems that feel calm to use.
+      </h1>
+    </div>
+    <div class="col-span-12 md:col-span-8 md:col-start-5 mt-10 sm:mt-16">
+      <p class="text-pretty max-w-[65ch] font-headline-md text-[20px] leading-tight text-on-surface-variant sm:text-[26px] md:text-headline-md">
+        Based in Berlin, focusing on digital architecture and high-fidelity user experiences.
+      </p>
+    </div>
+  </section>
+
+  <!-- Case Studies - 2024 -->
+  <section id="work" class="mb-20 sm:mb-28 md:mb-section-gap">
+    <div class="border-t border-[#B0322A] pt-4 mb-10 flex justify-between items-baseline sm:mb-16">
+      <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary">Selected Projects</h2>
+      <span class="font-label-bold text-label-bold text-secondary">2024</span>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-gutter gap-y-10 sm:gap-y-16">
+      <!-- Tile 1 -->
+      <a class="group block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-4" href="#work">
+        <div class="aspect-square w-full border border-primary bg-surface-container overflow-hidden relative">
+          <img 
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=800" 
+            alt="Minimalist dashboard interface for a financial technology application, stark black and white aesthetic" 
+            width="800" height="800"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover grayscale transition-transform duration-300 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
+          />
+          <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 group-focus-visible:bg-primary/5 transition-colors duration-300"></div>
+        </div>
+        <div class="mt-6 border-t border-primary pt-3 flex justify-between items-start">
+          <div>
+            <h3 class="text-balance font-label-bold text-label-bold text-primary uppercase">Omni Finance</h3>
+            <p class="text-pretty font-body-md text-body-md text-on-surface-variant mt-1">High-density trading interface</p>
+          </div>
+          <span class="font-label-sm text-label-sm text-outline tabular-nums">2024</span>
+        </div>
+      </a>
+
+      <!-- Tile 2 -->
+      <a class="group block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-4" href="#work">
+        <div class="aspect-square w-full border border-primary bg-surface-container overflow-hidden relative">
+          <img 
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800&h=800" 
+            alt="Data visualization dashboard showing complex graphs and tables in a clean, utilitarian layout" 
+            width="800" height="800"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover grayscale transition-transform duration-300 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
+          />
+          <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 group-focus-visible:bg-primary/5 transition-colors duration-300"></div>
+        </div>
+        <div class="mt-6 border-t border-primary pt-3 flex justify-between items-start">
+          <div>
+            <h3 class="text-balance font-label-bold text-label-bold text-primary uppercase">Nexus Logistics</h3>
+            <p class="text-pretty font-body-md text-body-md text-on-surface-variant mt-1">Global supply chain tracking</p>
+          </div>
+          <span class="font-label-sm text-label-sm text-outline tabular-nums">2024</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Case Studies - 2023 -->
+  <section class="mb-20 sm:mb-28 md:mb-section-gap">
+    <div class="border-t border-[#B0322A] pt-4 mb-10 flex justify-between items-baseline sm:mb-16">
+      <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary">Archive</h2>
+      <span class="font-label-bold text-label-bold text-secondary">2023</span>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-gutter gap-y-10 sm:gap-y-16">
+      <!-- Tile 3 -->
+      <a class="group block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-4" href="#work">
+        <div class="aspect-square w-full border border-primary bg-surface-container overflow-hidden relative">
+          <img 
+            src="https://images.unsplash.com/photo-1505682614136-0a12f9f7beea?auto=format&fit=crop&q=80&w=800&h=800" 
+            alt="Wireframe structure of a complex enterprise software application, showing structural hierarchy" 
+            width="800" height="800"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover grayscale transition-transform duration-300 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
+          />
+          <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 group-focus-visible:bg-primary/5 transition-colors duration-300"></div>
+        </div>
+        <div class="mt-6 border-t border-primary pt-3 flex justify-between items-start">
+          <div>
+            <h3 class="text-balance font-label-bold text-label-bold text-primary uppercase">Arbor Systems</h3>
+            <p class="text-pretty font-body-md text-body-md text-on-surface-variant mt-1">Design system architecture</p>
+          </div>
+          <span class="font-label-sm text-label-sm text-outline tabular-nums">2023</span>
+        </div>
+      </a>
+
+      <!-- Tile 4 -->
+      <a class="group block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-4" href="#work">
+        <div class="aspect-square w-full border border-primary bg-surface-container overflow-hidden relative">
+          <img 
+            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800&h=800" 
+            alt="Abstract geometric shapes representing modular software components on a white background" 
+            width="800" height="800"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover grayscale transition-transform duration-300 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]"
+          />
+          <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 group-focus-visible:bg-primary/5 transition-colors duration-300"></div>
+        </div>
+        <div class="mt-6 border-t border-primary pt-3 flex justify-between items-start">
+          <div>
+            <h3 class="text-balance font-label-bold text-label-bold text-primary uppercase">Vela Health</h3>
+            <p class="text-pretty font-body-md text-body-md text-on-surface-variant mt-1">Patient management portal</p>
+          </div>
+          <span class="font-label-sm text-label-sm text-outline tabular-nums">2023</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Five Tenets · Doctrine list -->
+  <section id="tenets" class="mb-20 sm:mb-28 md:mb-section-gap">
+    <div class="border-t border-[#B0322A] pt-4 mb-10 flex justify-between items-baseline sm:mb-16">
+      <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary">Five Tenets</h2>
+      <span class="font-label-bold text-label-bold text-secondary">Doctrine</span>
+    </div>
+    <div class="grid grid-cols-12 gap-gutter">
+      <div class="col-span-12 md:col-span-4 flex flex-col">
+        <div class="aspect-[3/4] w-full border border-primary bg-surface-container overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=900&h=1200"
+            alt="Hairline-paper architectural detail with strong perpendicular shadows"
+            width="900" height="1200"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover grayscale"
+          />
+        </div>
+        <p class="text-pretty mt-6 max-w-[42ch] font-body-md text-body-md text-on-surface-variant">
+          A small set of operating rules. Worked out across ten years of shipping interfaces for fintech, logistics, and health. Held loosely. Reviewed often.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
+        <ol class="border-t border-b border-on-surface-variant/25 divide-y divide-on-surface-variant/25">
+          <li class="grid grid-cols-12 gap-4 py-6 items-baseline sm:py-8">
+            <span class="col-span-2 md:col-span-1 font-label-sm text-label-sm uppercase text-[#B0322A] tracking-widest tabular-nums">I</span>
+            <div class="col-span-10 md:col-span-9">
+              <h3 class="font-headline-md text-[22px] leading-tight text-primary tracking-tight sm:text-[26px] md:text-headline-md">Utility before ornament.</h3>
+              <p class="text-pretty mt-2 max-w-[55ch] font-body-md text-body-md text-on-surface-variant">If a detail does not serve the task, it is not earning its place on the screen.</p>
+            </div>
+            <span class="col-span-12 md:col-span-2 md:text-right font-label-sm text-label-sm text-outline tabular-nums uppercase tracking-widest">— 01</span>
+          </li>
+          <li class="grid grid-cols-12 gap-4 py-6 items-baseline sm:py-8">
+            <span class="col-span-2 md:col-span-1 font-label-sm text-label-sm uppercase text-[#B0322A] tracking-widest tabular-nums">II</span>
+            <div class="col-span-10 md:col-span-9">
+              <h3 class="font-headline-md text-[22px] leading-tight text-primary tracking-tight sm:text-[26px] md:text-headline-md">Hierarchy through scale, not colour.</h3>
+              <p class="text-pretty mt-2 max-w-[55ch] font-body-md text-body-md text-on-surface-variant">Three sizes of type and one accent are usually enough. Decide what the eye should reach first.</p>
+            </div>
+            <span class="col-span-12 md:col-span-2 md:text-right font-label-sm text-label-sm text-outline tabular-nums uppercase tracking-widest">— 02</span>
+          </li>
+          <li class="grid grid-cols-12 gap-4 py-6 items-baseline sm:py-8">
+            <span class="col-span-2 md:col-span-1 font-label-sm text-label-sm uppercase text-[#B0322A] tracking-widest tabular-nums">III</span>
+            <div class="col-span-10 md:col-span-9">
+              <h3 class="font-headline-md text-[22px] leading-tight text-primary tracking-tight sm:text-[26px] md:text-headline-md">Whitespace is a primary material.</h3>
+              <p class="text-pretty mt-2 max-w-[55ch] font-body-md text-body-md text-on-surface-variant">A grid that breathes lets dense data sit calmly. Pack only when the user is hunting.</p>
+            </div>
+            <span class="col-span-12 md:col-span-2 md:text-right font-label-sm text-label-sm text-outline tabular-nums uppercase tracking-widest">— 03</span>
+          </li>
+          <li class="grid grid-cols-12 gap-4 py-6 items-baseline sm:py-8">
+            <span class="col-span-2 md:col-span-1 font-label-sm text-label-sm uppercase text-[#B0322A] tracking-widest tabular-nums">IV</span>
+            <div class="col-span-10 md:col-span-9">
+              <h3 class="font-headline-md text-[22px] leading-tight text-primary tracking-tight sm:text-[26px] md:text-headline-md">Components stay honest.</h3>
+              <p class="text-pretty mt-2 max-w-[55ch] font-body-md text-body-md text-on-surface-variant">A button looks like a button. A link looks like a link. A loading state announces itself without theatre.</p>
+            </div>
+            <span class="col-span-12 md:col-span-2 md:text-right font-label-sm text-label-sm text-outline tabular-nums uppercase tracking-widest">— 04</span>
+          </li>
+          <li class="grid grid-cols-12 gap-4 py-6 items-baseline sm:py-8">
+            <span class="col-span-2 md:col-span-1 font-label-sm text-label-sm uppercase text-[#B0322A] tracking-widest tabular-nums">V</span>
+            <div class="col-span-10 md:col-span-9">
+              <h3 class="font-headline-md text-[22px] leading-tight text-primary tracking-tight sm:text-[26px] md:text-headline-md">Ship, then sand.</h3>
+              <p class="text-pretty mt-2 max-w-[55ch] font-body-md text-body-md text-on-surface-variant">Get the structure right, put it in front of users, polish under daylight. Studio time alone never resolves the awkward edges.</p>
+            </div>
+            <span class="col-span-12 md:col-span-2 md:text-right font-label-sm text-label-sm text-outline tabular-nums uppercase tracking-widest">— 05</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Clients -->
+  <section class="mb-20 border-y border-[#B0322A] py-10 sm:mb-28 sm:py-16 md:mb-section-gap">
+    <div class="grid grid-cols-12 gap-gutter items-start md:items-center">
+      <div class="col-span-12 md:col-span-3 mb-4 md:mb-0">
+        <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary tracking-widest">Selected Clients</h2>
+      </div>
+      <div class="col-span-12 md:col-span-9 flex flex-wrap gap-x-6 gap-y-4 text-on-surface-variant font-headline-md text-[22px] uppercase tracking-tighter items-center sm:gap-x-10 sm:gap-y-6 sm:text-[26px] md:gap-x-12 md:gap-y-8 md:justify-between md:text-headline-md">
+        <span class="hover:text-primary transition-colors cursor-default">Figma</span>
+        <span class="hover:text-primary transition-colors cursor-default">Linear</span>
+        <span class="hover:text-primary transition-colors cursor-default">Vercel</span>
+        <span class="hover:text-primary transition-colors cursor-default">Stripe</span>
+        <span class="hover:text-primary transition-colors cursor-default">Raycast</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Now Reading · Image marquee -->
+  <section id="reading" class="mb-20 sm:mb-28 md:mb-section-gap">
+    <div class="border-t border-[#B0322A] pt-4 mb-10 flex justify-between items-baseline sm:mb-16">
+      <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary">Now Reading</h2>
+      <span class="font-label-bold text-label-bold text-secondary">Notebook · 04</span>
+    </div>
+    <p class="text-pretty max-w-[60ch] font-body-md text-body-md text-on-surface-variant mb-10 sm:mb-14">
+      A rolling list of monographs, archive plates and field photographs that have been on the studio desk this season.
+    </p>
+
+    <div class="full-bleed mk-marquee-wrap py-2">
+      <div class="mk-marquee-track px-4 sm:px-6 md:px-8">
+        <!-- Set A -->
+        <figure class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=600&h=800" alt="Brutalist concrete corner under raking light" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Concrete · Vol. II</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 001</span>
+          </div>
+        </figure>
+        <figure class="relative shrink-0 w-80 aspect-[16/10] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=800&h=500" alt="Open monograph spread on a hairline-paper desk" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Müller-Brockmann</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 002</span>
+          </div>
+        </figure>
+        <figure class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600&h=800" alt="Archival fashion plate, high-contrast monochrome" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Plate · Helvetica</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 003</span>
+          </div>
+        </figure>
+        <figure class="relative shrink-0 w-96 aspect-[16/10] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=900&h=560" alt="Minimal interior with raking shadow line across the wall" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Atrium · Berlin</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 004</span>
+          </div>
+        </figure>
+        <figure class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=600&h=800" alt="Long-shadow study, single figure, urban concrete" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Field Note · 12</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 005</span>
+          </div>
+        </figure>
+        <figure class="relative shrink-0 w-80 aspect-[16/10] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=800&h=500" alt="Concrete stair geometry with hard diagonal shadow" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Sequence · Stair</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 006</span>
+          </div>
+        </figure>
+        <figure class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=80&w=600&h=800" alt="Hairline-perpendicular interior detail" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Detail · Mute</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 007</span>
+          </div>
+        </figure>
+
+        <!-- Set B (duplicate for seamless loop) -->
+        <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=600&h=800" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Concrete · Vol. II</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 001</span>
+          </div>
+        </figure>
+        <figure aria-hidden="true" class="relative shrink-0 w-80 aspect-[16/10] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=800&h=500" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Müller-Brockmann</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 002</span>
+          </div>
+        </figure>
+        <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600&h=800" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Plate · Helvetica</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 003</span>
+          </div>
+        </figure>
+        <figure aria-hidden="true" class="relative shrink-0 w-96 aspect-[16/10] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=900&h=560" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Atrium · Berlin</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 004</span>
+          </div>
+        </figure>
+        <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=600&h=800" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Field Note · 12</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 005</span>
+          </div>
+        </figure>
+        <figure aria-hidden="true" class="relative shrink-0 w-80 aspect-[16/10] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=800&h=500" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Sequence · Stair</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 006</span>
+          </div>
+        </figure>
+        <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=80&w=600&h=800" alt="" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale"/>
+          <div class="absolute bottom-0 left-0 right-0 px-3 py-2 flex justify-between items-baseline bg-white/90 border-t border-[#B0322A]">
+            <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Detail · Mute</span>
+            <span class="font-label-sm text-label-sm tabular-nums text-[#B0322A]">№ 007</span>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="mb-20 sm:mb-28 md:mb-section-gap">
+    <div class="border-t border-[#B0322A] pt-4 mb-16">
+      <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary">About</h2>
+    </div>
+    <div class="grid grid-cols-12 gap-gutter">
+      <div class="col-span-12 md:col-span-4">
+        <div class="aspect-[3/4] w-full border border-primary bg-surface-container overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800&h=1066" 
+            alt="High contrast black and white portrait of a female designer in a minimalist studio setting" 
+            width="800" height="1066"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover grayscale"
+          />
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-7 md:col-start-6 flex flex-col justify-end pb-0 md:pb-8 mt-8 md:mt-0">
+        <p class="text-pretty max-w-[65ch] font-headline-lg text-[26px] leading-tight text-primary tracking-tight sm:text-[38px] md:text-headline-lg">
+          Maren is an independent product designer dedicated to creating logical, scalable structures for complex software. Drawing heavily from International Typographic Style, she believes that utility and clarity are the highest forms of aesthetics.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio / Process · Cycling image with sticky rail -->
+  <section id="studio" class="mb-20 sm:mb-28 md:mb-section-gap">
+    <div class="border-t border-[#B0322A] pt-4 mb-10 flex justify-between items-baseline sm:mb-16">
+      <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary">Studio · Process</h2>
+      <span class="font-label-bold text-label-bold text-secondary">04 frames · 16s</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+      <div class="col-span-12 md:col-span-5 md:sticky md:top-32 md:self-start">
+        <p class="font-label-sm text-label-sm uppercase tracking-widest text-[#B0322A] mb-4">— Methodology</p>
+        <h3 class="font-headline-lg text-[28px] leading-tight text-primary tracking-tight sm:text-[36px] md:text-headline-lg max-w-[18ch]">
+          Four moves, repeated until the page goes quiet.
+        </h3>
+        <p class="text-pretty mt-6 max-w-[42ch] font-body-md text-body-md text-on-surface-variant">
+          Research is the longest stretch. Wireframes resolve in pencil before they meet a Figma frame. The system is finalised after the first build, never before.
+        </p>
+
+        <!-- Synced indicator strip -->
+        <div class="grid grid-cols-4 gap-3 mt-8 max-w-sm">
+          <div class="aspect-square border border-primary overflow-hidden bg-surface-container">
+            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=200&h=200" alt="" loading="lazy" decoding="async" class="mk-cycle-thumb w-full h-full object-cover grayscale" style="animation-delay: 0s;"/>
+          </div>
+          <div class="aspect-square border border-primary overflow-hidden bg-surface-container">
+            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=200&h=200" alt="" loading="lazy" decoding="async" class="mk-cycle-thumb w-full h-full object-cover grayscale" style="animation-delay: 4s;"/>
+          </div>
+          <div class="aspect-square border border-primary overflow-hidden bg-surface-container">
+            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=200&h=200" alt="" loading="lazy" decoding="async" class="mk-cycle-thumb w-full h-full object-cover grayscale" style="animation-delay: 8s;"/>
+          </div>
+          <div class="aspect-square border border-primary overflow-hidden bg-surface-container">
+            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=200&h=200" alt="" loading="lazy" decoding="async" class="mk-cycle-thumb w-full h-full object-cover grayscale" style="animation-delay: 12s;"/>
+          </div>
+        </div>
+
+        <!-- Synced scrubber -->
+        <div class="flex items-center gap-4 mt-6 max-w-sm">
+          <div class="flex-1 h-px bg-on-surface-variant/30 relative overflow-hidden">
+            <div class="mk-scrub absolute inset-0 origin-left bg-[#B0322A]"></div>
+          </div>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant tabular-nums">04 / 16s</span>
+        </div>
+      </div>
+
+      <div class="col-span-12 md:col-span-7 mt-10 md:mt-0">
+        <figure class="relative w-full aspect-[3/4] md:aspect-[4/5] border border-primary bg-surface-container overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=1200&h=1500" alt="Stage 01 · Research — desk with paper notes and reference plates" loading="lazy" decoding="async" class="mk-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 0s;"/>
+          <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=1200&h=1500" alt="Stage 02 · Wireframe — annotated low-fidelity layouts" loading="lazy" decoding="async" class="mk-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 4s;"/>
+          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1200&h=1500" alt="Stage 03 · System — design tokens and component library" loading="lazy" decoding="async" class="mk-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 8s;"/>
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=1200&h=1500" alt="Stage 04 · Build — production handover and shipping cycles" loading="lazy" decoding="async" class="mk-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 12s;"/>
+
+          <!-- Caption stack -->
+          <div class="absolute bottom-0 left-0 right-0 min-h-[88px] bg-white border-t border-[#B0322A] px-5 py-4">
+            <span class="mk-cycle-cap absolute inset-x-5 top-4" style="animation-delay: 0s;">
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-[#B0322A] tabular-nums">Stage 01 — Research</span>
+              <span class="block mt-1 font-body-md text-body-md text-primary">Field interviews, archive review, audit of the existing surface.</span>
+            </span>
+            <span class="mk-cycle-cap absolute inset-x-5 top-4" style="animation-delay: 4s;">
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-[#B0322A] tabular-nums">Stage 02 — Wireframe</span>
+              <span class="block mt-1 font-body-md text-body-md text-primary">Pencil first, Figma second. Information architecture is decided here.</span>
+            </span>
+            <span class="mk-cycle-cap absolute inset-x-5 top-4" style="animation-delay: 8s;">
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-[#B0322A] tabular-nums">Stage 03 — System</span>
+              <span class="block mt-1 font-body-md text-body-md text-primary">Tokens, primitives, and the smallest set of components that carry the work.</span>
+            </span>
+            <span class="mk-cycle-cap absolute inset-x-5 top-4" style="animation-delay: 12s;">
+              <span class="block font-label-sm text-label-sm uppercase tracking-widest text-[#B0322A] tabular-nums">Stage 04 — Build</span>
+              <span class="block mt-1 font-body-md text-body-md text-primary">Pairing with engineering. Polishing under daylight and real data.</span>
+            </span>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="mb-20 sm:mb-28 md:mb-section-gap">
+    <div class="border-t border-[#B0322A] pt-4 mb-10 flex justify-between items-baseline sm:mb-16">
+      <h2 class="text-balance font-label-bold text-label-bold uppercase text-primary">Common Questions</h2>
+      <span class="font-label-bold text-label-bold text-secondary">FAQ</span>
+    </div>
+    <div class="grid grid-cols-12 gap-gutter">
+      <div class="col-span-12 md:col-span-4">
+        <div class="aspect-[4/5] w-full border border-primary bg-surface-container overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=800&h=1000"
+            alt="Quiet desk corner with paper, ruler and a single pencil"
+            width="800" height="1000"
+            loading="lazy" decoding="async"
+            class="w-full h-full object-cover grayscale"
+          />
+        </div>
+        <p class="text-pretty mt-6 max-w-[40ch] font-body-md text-body-md text-on-surface-variant">
+          Practical answers, kept short. For anything not covered, the studio replies inside two working days.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-7 md:col-start-6">
+        <div class="border-t border-b border-on-surface-variant/25 divide-y divide-on-surface-variant/25">
+          <details class="mk-faq group py-5 sm:py-6">
+            <summary class="flex justify-between items-baseline gap-6">
+              <h3 class="font-headline-md text-[20px] leading-tight text-primary tracking-tight sm:text-[22px]">What kind of work do you take on?</h3>
+              <span class="mk-chevron font-headline-md text-[24px] leading-none text-[#B0322A] tabular-nums select-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="text-pretty mt-4 max-w-[60ch] font-body-md text-body-md text-on-surface-variant">
+              End-to-end product design for tools that involve density, structure, or repeated tasks. Trading interfaces, logistics dashboards, design systems, internal admin. Marketing sites only when they share a system with a product.
+            </p>
+          </details>
+          <details class="mk-faq group py-5 sm:py-6">
+            <summary class="flex justify-between items-baseline gap-6">
+              <h3 class="font-headline-md text-[20px] leading-tight text-primary tracking-tight sm:text-[22px]">How are engagements structured?</h3>
+              <span class="mk-chevron font-headline-md text-[24px] leading-none text-[#B0322A] tabular-nums select-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="text-pretty mt-4 max-w-[60ch] font-body-md text-body-md text-on-surface-variant">
+              Two shapes. Either a fixed six-week sprint with a defined deliverable, or a recurring weekly retainer for embedded work. Both bill at the same effective rate; the choice is about cadence.
+            </p>
+          </details>
+          <details class="mk-faq group py-5 sm:py-6">
+            <summary class="flex justify-between items-baseline gap-6">
+              <h3 class="font-headline-md text-[20px] leading-tight text-primary tracking-tight sm:text-[22px]">Do you collaborate with engineering?</h3>
+              <span class="mk-chevron font-headline-md text-[24px] leading-none text-[#B0322A] tabular-nums select-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="text-pretty mt-4 max-w-[60ch] font-body-md text-body-md text-on-surface-variant">
+              Always. Final tokens and component decisions are made beside the team that will ship them. Static Figma exports without a build conversation tend to drift inside a quarter.
+            </p>
+          </details>
+          <details class="mk-faq group py-5 sm:py-6">
+            <summary class="flex justify-between items-baseline gap-6">
+              <h3 class="font-headline-md text-[20px] leading-tight text-primary tracking-tight sm:text-[22px]">Where are you based and which timezones?</h3>
+              <span class="mk-chevron font-headline-md text-[24px] leading-none text-[#B0322A] tabular-nums select-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="text-pretty mt-4 max-w-[60ch] font-body-md text-body-md text-on-surface-variant">
+              Berlin · CET. Comfortable overlapping with London, New York and Sao Paulo. Asia-Pacific clients are taken case-by-case with at least one weekly synchronous block.
+            </p>
+          </details>
+          <details class="mk-faq group py-5 sm:py-6">
+            <summary class="flex justify-between items-baseline gap-6">
+              <h3 class="font-headline-md text-[20px] leading-tight text-primary tracking-tight sm:text-[22px]">When are you next available?</h3>
+              <span class="mk-chevron font-headline-md text-[24px] leading-none text-[#B0322A] tabular-nums select-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="text-pretty mt-4 max-w-[60ch] font-body-md text-body-md text-on-surface-variant">
+              The studio is currently booked into Q2. Two slots open from June onward. Early conversations welcomed for the autumn cohort.
+            </p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer id="contact" class="w-full border-t border-[#B0322A] bg-white">
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center w-full px-4 py-8 gap-6 max-w-[1440px] mx-auto sm:px-6 sm:py-12 sm:gap-8 md:px-8">
+    <div class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-neutral-900 tabular-nums">
+      © 2024 MAREN K. DESIGN OFFICE
+    </div>
+    <nav aria-label="Social Links" class="flex flex-wrap gap-x-6 gap-y-2 sm:gap-8">
+      <a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-neutral-500 hover:text-[#B0322A] transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2" href="mailto:hello@example.com">Email</a>
+      <a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-neutral-500 hover:text-[#B0322A] transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-neutral-500 hover:text-[#B0322A] transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a class="font-['Inter'] text-xs font-medium uppercase tracking-widest text-neutral-500 hover:text-[#B0322A] transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B0322A] focus-visible:ring-offset-2" href="#" target="_blank" rel="noopener noreferrer">Dribbble</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

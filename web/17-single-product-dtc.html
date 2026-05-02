@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Drift - Clinical Restoration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Noto+Serif:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#f9b989",
+                        "on-primary-fixed": "#191c1a",
+                        "primary-container": "#2a2d2a",
+                        "on-tertiary-container": "#c0875b",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#c5c7c2",
+                        "surface-bright": "#f8faf6",
+                        "surface-container-highest": "#e1e3df",
+                        "background": "#f8faf6",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#444844",
+                        "surface": "#f8faf6",
+                        "secondary-container": "#e0e4db",
+                        "on-secondary-fixed": "#181d17",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eff1ed",
+                        "on-surface": "#191c1a",
+                        "outline-variant": "#c5c7c2",
+                        "on-primary-fixed-variant": "#454744",
+                        "secondary-fixed-dim": "#c4c8bf",
+                        "inverse-surface": "#2e312f",
+                        "on-error": "#ffffff",
+                        "outline": "#757874",
+                        "surface-dim": "#d8dbd7",
+                        "on-secondary-container": "#61665f",
+                        "secondary": "#5b6059",
+                        "on-background": "#191c1a",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#929490",
+                        "secondary-fixed": "#e0e4db",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e1e3df",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#e1e3de",
+                        "surface-container": "#eceeea",
+                        "primary-fixed-dim": "#c5c7c2",
+                        "on-tertiary-fixed": "#2f1400",
+                        "tertiary": "#2a1100",
+                        "primary": "#151916",
+                        "on-tertiary-fixed-variant": "#683c17",
+                        "surface-tint": "#5c5f5b",
+                        "tertiary-fixed": "#ffdcc4",
+                        "surface-container-low": "#f2f4f0",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e7e9e5",
+                        "on-secondary-fixed-variant": "#434842",
+                        "tertiary-container": "#482201"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "16px",
+                        "base": "8px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "xl": "80px",
+                        "margin": "64px",
+                        "xs": "4px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-h2": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"],
+                        "body-sm": ["Inter"],
+                        "headline-h1": ["Noto Serif"],
+                        "label-caps": ["Inter"],
+                        "body-main": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-h2": ["32px", { "lineHeight": "1.3", "fontWeight": "400" }],
+                        "display-lg": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-h1": ["48px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "body-main": ["16px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        html, body { overflow-x: clip; }
+        .drift-marquee-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: drift-marquee-x 60s linear infinite;
+        }
+        .drift-marquee-track:hover { animation-play-state: paused; }
+        @keyframes drift-marquee-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12px)); }
+        }
+        .drift-tile-img {
+            mix-blend-mode: luminosity;
+            filter: contrast(1.05);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .drift-marquee-track { animation: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-main selection:bg-tertiary-fixed-dim selection:text-tertiary">
+<!-- TopNavBar. Responsive: px-16 → px-4 on mobile, shorter height,
+     tighter wordmark. gap-margin (64px) between wordmark + link
+     group is fine since link group hides on mobile. -->
+<nav class="bg-stone-50/90 backdrop-blur-sm dark:bg-neutral-900/90 fixed top-0 w-full z-50 border-b border-neutral-200/40 dark:border-neutral-800/40 flat no shadows text-neutral-900 dark:text-neutral-50 font-serif text-sm tracking-wide flex justify-between items-center gap-3 h-16 px-4 w-full opacity-90 active:opacity-100 transition-opacity sm:h-20 sm:px-8 md:px-16">
+<div class="flex items-center gap-6 md:gap-margin">
+<a class="text-lg font-serif font-medium tracking-[0.2em] text-neutral-900 dark:text-neutral-50 sm:text-xl md:text-2xl" href="#">Drift</a>
+<div class="hidden md:flex gap-md">
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300" href="#science">Science</a>
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300" href="#ingredients">Ingredients</a>
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300" href="#reviews">Reviews</a>
+<a class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300" href="#faq">FAQ</a>
+</div>
+</div>
+<div class="flex items-center gap-3 sm:gap-md">
+<button class="hidden md:block font-body-main text-body-main text-on-primary bg-primary-container px-md py-base rounded-DEFAULT hover:bg-surface-tint transition-colors duration-300">Shop Now</button>
+<button aria-label="shopping_bag" class="text-neutral-900 dark:text-neutral-50 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors duration-300">
+<span class="material-symbols-outlined text-2xl">shopping_bag</span>
+</button>
+</div>
+</nav>
+<!-- Responsive: pt-[120px] → pt-[72px] (shorter header on mobile),
+     px-margin (64px) ramps 4→8→64, space-y-[120px] → 16 on
+     mobile so sections don't feel like a forced march. -->
+<main class="pt-[72px] pb-12 px-4 max-w-7xl mx-auto space-y-16 sm:pt-24 sm:pb-16 sm:px-8 sm:space-y-24 md:pt-[120px] md:pb-xl md:px-margin md:space-y-[120px]">
+<!-- 1. Hero Section. display-lg (72px) scales 36→52→72. Product
+     image drops to 3:4 aspect on mobile so it doesn't tower. -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center md:gap-margin">
+<!-- Product Image -->
+<div class="lg:col-span-7 aspect-[3/4] lg:aspect-auto lg:h-[600px] bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/30 flex items-center justify-center p-6 relative sm:p-10 md:p-xl">
+<div class="absolute inset-0 bg-gradient-to-tr from-surface-variant/20 to-transparent"></div>
+<img alt="Drift Sleep Tincture Bottle" class="w-full h-full object-cover object-center mix-blend-multiply opacity-90 z-10" data-alt="Minimalist frosted amber glass dropper bottle of sleep tincture resting on a smooth sage-colored stone next to a single sprig of dried lavender, soft diffused natural window light, clinical clean aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3rpp5EbMuFD6_H7Na3Lc1--m1VOP1UImW86OS3z7Y2Fq_BzvnkKq-xXFShN_ClOheRUjbBk6vi_IMCkHyAjB6wd_UuyiwT_KBLHWMPw5FVKUH-nHhS9F5SFaWYviDXY6R_Gml4QbINAghLU900g_9nTrACI1_4OYgOTB8dUsGFpV3v6cYzfxc_gnVgJUVmaKHclbjqVH6-CIM510CamttLUILf9GQfO56pN7mdar1lX6mod6SU552sYQeuRuWTYI7Tt9Ojuo1y3tc"/>
+</div>
+<!-- Product Details -->
+<div class="lg:col-span-5 flex flex-col space-y-md">
+<div class="space-y-base">
+<h1 class="font-display-lg text-[36px] leading-[1.05] text-on-background sm:text-[52px] md:text-display-lg">Sleep, returned.</h1>
+<p class="font-body-main text-body-main text-on-surface-variant">A clinical-grade botanical tincture designed to quiet the mind, lower cortisol, and invite deep, restorative sleep without morning grogginess.</p>
+</div>
+<div class="border-y border-outline-variant/30 py-md space-y-md">
+<!-- Purchase Options -->
+<div class="space-y-sm">
+<label class="flex items-start gap-sm p-sm rounded-lg border border-primary-container bg-surface cursor-pointer">
+<input checked="" class="mt-1 text-primary-container focus:ring-primary-container w-4 h-4" name="purchase_type" type="radio"/>
+<div>
+<span class="block font-body-main text-body-main text-on-background font-medium">Subscribe &amp; Save 15%</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Delivery every 30 days. Cancel anytime.</span>
+</div>
+<span class="ml-auto font-body-main text-body-main text-on-background">$42.00</span>
+</label>
+<label class="flex items-start gap-sm p-sm rounded-lg border border-outline-variant/50 bg-transparent hover:bg-surface-container-lowest cursor-pointer transition-colors">
+<input class="mt-1 text-primary-container focus:ring-primary-container w-4 h-4" name="purchase_type" type="radio"/>
+<div>
+<span class="block font-body-main text-body-main text-on-background font-medium">One-Time Purchase</span>
+</div>
+<span class="ml-auto font-body-main text-body-main text-on-background">$48.00</span>
+</label>
+</div>
+<!-- Quantity & Add to Cart -->
+<div class="flex gap-sm">
+<div class="flex items-center border border-outline-variant rounded-DEFAULT w-32">
+<button class="px-sm py-base text-on-surface-variant hover:text-on-background"><span class="material-symbols-outlined text-sm">remove</span></button>
+<input aria-label="Quantity" class="w-full text-center border-none bg-transparent font-body-main text-body-main focus:ring-0 p-0" type="text" value="1"/>
+<button class="px-sm py-base text-on-surface-variant hover:text-on-background"><span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+<button class="flex-1 bg-primary-container text-on-primary font-body-main text-body-main py-base px-md rounded-DEFAULT hover:bg-surface-tint transition-colors">
+                            Add to Cart — $42.00
+                        </button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span> Free shipping on all domestic orders.
+                    </p>
+</div>
+</div>
+</section>
+<!-- 2. Benefits Row. 2-col on mobile; divides only cut at md+
+     where the full 4-col row actually lines up horizontally. -->
+<section class="border-y border-outline-variant/30 py-10 sm:py-12 md:py-lg">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:gap-md md:divide-x md:divide-outline-variant/30">
+<div class="flex flex-col items-center space-y-sm px-sm">
+<span class="material-symbols-outlined text-4xl text-on-tertiary-container" style="font-variation-settings: 'wght' 200;">nights_stay</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Deeper Sleep</span>
+</div>
+<div class="flex flex-col items-center space-y-sm px-sm">
+<span class="material-symbols-outlined text-4xl text-on-tertiary-container" style="font-variation-settings: 'wght' 200;">wb_sunny</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Morning Clarity</span>
+</div>
+<div class="flex flex-col items-center space-y-sm px-sm">
+<span class="material-symbols-outlined text-4xl text-on-tertiary-container" style="font-variation-settings: 'wght' 200;">spa</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Natural Elements</span>
+</div>
+<div class="flex flex-col items-center space-y-sm px-sm">
+<span class="material-symbols-outlined text-4xl text-on-tertiary-container" style="font-variation-settings: 'wght' 200;">science</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Clinical Results</span>
+</div>
+</div>
+</section>
+<!-- 3. In the Field — inventory marquee (image strip).
+     Paused on hover. Mono SKU + drop-pin location chip per tile.
+     Uses §I.5 marquee with overflow-hidden wrapper + html/body
+     overflow-x clip already declared in <head>. -->
+<section class="-mx-4 sm:-mx-8 md:-mx-margin space-y-8 md:space-y-lg">
+<div class="px-4 sm:px-8 md:px-margin">
+<div class="flex items-end justify-between gap-md flex-wrap">
+<div class="space-y-base max-w-xl">
+<span class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest">In the field · Inventory</span>
+<h2 class="font-headline-h1 text-[28px] leading-tight text-on-background sm:text-[36px] md:text-headline-h1">Earned in quiet rooms.</h2>
+<p class="font-body-main text-body-main text-on-surface-variant">Drift travels through apothecary bench tests, clinical bays, and night-table proofs. A passing record of where each batch was last logged.</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">Lot · 24·R3 — Hand · 17 / 24</span>
+</div>
+</div>
+<div class="overflow-hidden relative">
+<div class="drift-marquee-track py-base">
+<!-- Tile group A -->
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Field study — Kyoto bench" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·14 — Bench Proof</div>
+<div class="font-body-sm text-body-sm text-on-background">Sleep Tincture · Lot 24·R3</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Kyoto · 04:12</div>
+</figcaption>
+</figure>
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Apothecary still life" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·15 — Apothecary</div>
+<div class="font-body-sm text-body-sm text-on-background">Tincture decant · Brass dropper</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Copenhagen · 21:48</div>
+</figcaption>
+</figure>
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Sage interior — Lisbon clinic" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·17 — Clinic Bay</div>
+<div class="font-body-sm text-body-sm text-on-background">Cohort handoff · n=22</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Lisbon · 09:02</div>
+</figcaption>
+</figure>
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Night-table proof — portrait" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·18 — Night Proof</div>
+<div class="font-body-sm text-body-sm text-on-background">Subject log · Restful 7h22m</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Brooklyn · 23:11</div>
+</figcaption>
+</figure>
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Editorial portrait" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·19 — Editorial</div>
+<div class="font-body-sm text-body-sm text-on-background">Evening regimen · Pre-press</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Antwerp · 18:55</div>
+</figcaption>
+</figure>
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Architectural shelf — apothecary" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·21 — Shelf Audit</div>
+<div class="font-body-sm text-body-sm text-on-background">Inventory rotation · Q1·24</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Helsinki · 14:30</div>
+</figcaption>
+</figure>
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Quiet portrait — restoration" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·22 — Restoration</div>
+<div class="font-body-sm text-body-sm text-on-background">Cohort review · Week 04</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Reykjavík · 06:40</div>
+</figcaption>
+</figure>
+<figure class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Light study — facade" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·24 — Light Study</div>
+<div class="font-body-sm text-body-sm text-on-background">Bottle stability · 21°C</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Geneva · 11:15</div>
+</figcaption>
+</figure>
+<!-- Tile group B (duplicate for seamless loop, aria-hidden) -->
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·14 — Bench Proof</div>
+<div class="font-body-sm text-body-sm text-on-background">Sleep Tincture · Lot 24·R3</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Kyoto · 04:12</div>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·15 — Apothecary</div>
+<div class="font-body-sm text-body-sm text-on-background">Tincture decant · Brass dropper</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Copenhagen · 21:48</div>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·17 — Clinic Bay</div>
+<div class="font-body-sm text-body-sm text-on-background">Cohort handoff · n=22</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Lisbon · 09:02</div>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·18 — Night Proof</div>
+<div class="font-body-sm text-body-sm text-on-background">Subject log · Restful 7h22m</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Brooklyn · 23:11</div>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·19 — Editorial</div>
+<div class="font-body-sm text-body-sm text-on-background">Evening regimen · Pre-press</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Antwerp · 18:55</div>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·21 — Shelf Audit</div>
+<div class="font-body-sm text-body-sm text-on-background">Inventory rotation · Q1·24</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Helsinki · 14:30</div>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·22 — Restoration</div>
+<div class="font-body-sm text-body-sm text-on-background">Cohort review · Week 04</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Reykjavík · 06:40</div>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="w-60 sm:w-64 shrink-0">
+<div class="aspect-square rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="" class="drift-tile-img w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<figcaption class="mt-sm space-y-xs">
+<div class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest tabular-nums">DRF · 03·24 — Light Study</div>
+<div class="font-body-sm text-body-sm text-on-background">Bottle stability · 21°C</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-xs"><span class="material-symbols-outlined text-[14px]">place</span> Geneva · 11:15</div>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<!-- 4. Ingredients Section (Bento Grid). headline-h1 (48px) scales
+     28→36→48. Fixed 400px / 300px tile heights drop to aspect
+     ratios on mobile so the bento reads naturally when stacked. -->
+<section class="space-y-10 sm:space-y-12 md:space-y-lg" id="ingredients">
+<div class="text-center max-w-2xl mx-auto space-y-base px-4 md:px-0">
+<h2 class="font-headline-h1 text-[28px] leading-tight text-on-background sm:text-[36px] md:text-headline-h1">Sourced for efficacy.</h2>
+<p class="font-body-main text-body-main text-on-surface-variant">We eliminated the unnecessary, focusing only on active botanicals proven to interact with your circadian rhythm.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-md">
+<!-- Main Ingredient -->
+<div class="md:col-span-2 relative aspect-[4/3] md:aspect-auto md:h-[400px] rounded-xl overflow-hidden border border-outline-variant/30 group">
+<img alt="Valerian Root" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Macro photography of fresh valerian root and chamomile flowers on a clean white laboratory marble surface, soft clinical lighting emphasizing organic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF_5cojr3LvHy-b8_mt943WojSdN_zea6o3ia7t9zIrxKaTob_SOXz8aqYa6NSGjNYe0xSd69OA9mCJpufmHYY8kzx4WW1wHb3EOTsD6EVF2lnnDutrImvHuZYGBi1B7GaxZSXA9r_7R8plsOHqoPF_W6SUBw4zWiZpth-XokZgp97zdC6k1cGPVtYLgLpTgTL23w-kXub4qpxHZzsQf3fWdvoYwEXuTW4DeauUyFLg48iRqBxQJgwmgW8Oa-x5nYiCzwc0YaK7pRN"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-5 w-full sm:p-8 md:p-lg">
+<span class="font-label-caps text-label-caps text-tertiary-fixed-dim uppercase tracking-widest mb-xs block">Core Active</span>
+<h3 class="font-headline-h2 text-[22px] leading-tight text-on-primary sm:text-[26px] md:text-headline-h2">Valerian Root Extract</h3>
+<p class="font-body-main text-sm text-surface-variant mt-sm max-w-md sm:text-body-main">Clinically shown to increase GABA levels in the brain, reducing the time it takes to fall asleep.</p>
+</div>
+</div>
+<!-- Secondary Ingredient -->
+<div class="relative aspect-[3/4] md:aspect-auto md:h-[400px] rounded-xl overflow-hidden border border-outline-variant/30 group bg-surface-container-low">
+<div class="h-1/2 w-full">
+<img alt="Lavender" class="w-full h-full object-cover" data-alt="Close up of dried lavender buds in a shallow minimalist ceramic dish on a sage green background, soft top down lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRqC-NsGcKm5moD0fqhQD2phunL1hd8ADdS89xlH1tZu0EVRKxpdhcKNADSarOfVkSq7vd-6KM2j4jTk7QtN4dw-BYjXUvTog8oBJcwhElHMel-AypPQ6f1mofKdFYTYLnbu6LHXzEPfqAf4wBi__k-TCTTNkW8TLndtgooWwgJsTF7xTul_o1ERpeLBdopNMMoM52RgHwTNLtnk8-vDqu4rDWH0CJIdXkK0zBOYpel0_qD6LSNxfnUqj8NImhD42rg7K6Dk2JDfK5"/>
+</div>
+<div class="p-md h-1/2 flex flex-col justify-center">
+<h3 class="font-headline-h2 text-[24px] leading-tight text-on-background">L-Theanine</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-sm">An amino acid found in tea leaves that promotes a state of wakeful relaxation before sleep.</p>
+</div>
+</div>
+<!-- Tertiary Ingredient -->
+<div class="relative min-h-[220px] md:h-[300px] rounded-xl overflow-hidden border border-outline-variant/30 bg-surface-container-low flex flex-col justify-end p-md">
+<h3 class="font-headline-h2 text-[22px] leading-tight text-on-background sm:text-[24px]">Magnesium Glycinate</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-sm">The most bioavailable form of magnesium, essential for muscle relaxation and nervous system regulation.</p>
+</div>
+<!-- Info Card -->
+<div class="md:col-span-2 relative min-h-[240px] md:h-[300px] rounded-xl border border-outline-variant/30 bg-surface flex items-center p-6 sm:p-8 md:p-lg">
+<div class="max-w-xl">
+<span class="material-symbols-outlined text-on-tertiary-container text-4xl mb-sm" style="font-variation-settings: 'wght' 200;">verified_user</span>
+<h3 class="font-headline-h2 text-[22px] leading-tight text-on-background sm:text-[26px] md:text-headline-h2">Zero melatonin.</h3>
+<p class="font-body-main text-body-main text-on-surface-variant mt-sm">Unlike synthetic sleep aids, Drift contains no melatonin, ensuring you wake up without the notorious "sleep hangover" and preserving your body's natural hormone production.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Ritual / How to use — sticky photo (NOVEL #8) +
+     scrolling 4-step ritual. Left photo sticks at md+ while
+     the right column scrolls. Steps numbered 01-04 in serif. -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-margin items-start" id="ritual">
+<div class="md:col-span-5 md:sticky md:top-[120px] md:self-start">
+<div class="aspect-[3/4] rounded-xl overflow-hidden border border-outline-variant/30 bg-surface-container-low relative">
+<img alt="Hands cradling tincture bottle, sage interior" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" data-alt="Editorial portrait of a person's hands cradling an amber dropper bottle, sage interior, soft window light" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/15 mix-blend-overlay pointer-events-none"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary-container/30 via-transparent to-transparent pointer-events-none"></div>
+<div class="absolute bottom-0 left-0 right-0 p-md flex items-end justify-between gap-3">
+<span class="font-label-caps text-label-caps text-surface-variant uppercase tracking-widest">Plate · I — Ritual</span>
+<span class="font-label-caps text-label-caps text-tertiary-fixed-dim uppercase tracking-widest tabular-nums">21:30 — 22:15</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 space-y-sm md:space-y-md">
+<div class="space-y-base">
+<span class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest">II — How to use</span>
+<h2 class="font-headline-h1 text-[28px] leading-tight text-on-background sm:text-[36px] md:text-headline-h1">A 45-minute ritual.</h2>
+<p class="font-body-main text-body-main text-on-surface-variant">Drift was made to slot inside an unhurried evening. Four small acts that lower the room's temperature before the body lets go.</p>
+</div>
+<ol class="border-t border-outline-variant/40 mt-md">
+<li class="border-b border-outline-variant/40 py-md grid grid-cols-12 gap-sm md:gap-md items-start">
+<span class="col-span-2 font-display-lg text-[32px] sm:text-[40px] md:text-[44px] leading-none text-on-tertiary-container tabular-nums">01</span>
+<div class="col-span-10 space-y-base">
+<h3 class="font-headline-h2 text-[20px] leading-tight text-on-background italic sm:text-[24px]">Dim, then settle.</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Lower the room to candle-grade light by 21:30. Phones face-down, screens out of arm's reach.</p>
+</div>
+</li>
+<li class="border-b border-outline-variant/40 py-md grid grid-cols-12 gap-sm md:gap-md items-start">
+<span class="col-span-2 font-display-lg text-[32px] sm:text-[40px] md:text-[44px] leading-none text-on-tertiary-container tabular-nums">02</span>
+<div class="col-span-10 space-y-base">
+<h3 class="font-headline-h2 text-[20px] leading-tight text-on-background italic sm:text-[24px]">Two droppers, held.</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Place 1 mL under the tongue and hold for 30 seconds before swallowing. The botanicals enter cleanly through sublingual capillaries.</p>
+</div>
+</li>
+<li class="border-b border-outline-variant/40 py-md grid grid-cols-12 gap-sm md:gap-md items-start">
+<span class="col-span-2 font-display-lg text-[32px] sm:text-[40px] md:text-[44px] leading-none text-on-tertiary-container tabular-nums">03</span>
+<div class="col-span-10 space-y-base">
+<h3 class="font-headline-h2 text-[20px] leading-tight text-on-background italic sm:text-[24px]">Twenty quiet minutes.</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">Read a page, stretch, or sit with tea. The valerian and L-theanine begin to elevate GABA tone within fifteen minutes.</p>
+</div>
+</li>
+<li class="border-b border-outline-variant/40 py-md grid grid-cols-12 gap-sm md:gap-md items-start">
+<span class="col-span-2 font-display-lg text-[32px] sm:text-[40px] md:text-[44px] leading-none text-on-tertiary-container tabular-nums">04</span>
+<div class="col-span-10 space-y-base">
+<h3 class="font-headline-h2 text-[20px] leading-tight text-on-background italic sm:text-[24px]">Released into sleep.</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">By 22:15 the body recognises the cue. Magnesium glycinate eases muscle tension; cortisol falls without sedation.</p>
+</div>
+</li>
+</ol>
+</div>
+</section>
+<!-- 6. Ingredient Ledger — alternating image/content rows
+     (NOVEL #5 layered photo composition). 3 hero ingredients,
+     each with %, role, and provenance. Sage palette throughout. -->
+<section class="space-y-10 sm:space-y-12 md:space-y-lg">
+<div class="max-w-2xl space-y-base">
+<span class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest">III — Ledger</span>
+<h2 class="font-headline-h1 text-[28px] leading-tight text-on-background sm:text-[36px] md:text-headline-h1">What's inside, in proof.</h2>
+<p class="font-body-main text-body-main text-on-surface-variant">Three actives, dosed to the percentage shown on the laboratory ledger. No fillers, no proprietary blends, no hidden carriers.</p>
+</div>
+<div class="space-y-10 md:space-y-margin">
+<!-- Row 1 — Hydrolyzed yeast peptide -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-margin items-center">
+<div class="md:col-span-5 relative">
+<div class="aspect-[4/5] rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Brass apothecary still life — peptide flask" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" data-alt="Macro of brass apothecary objects on a marble bench — flask, dropper, decanter; soft sage interior light" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<div class="hidden md:block absolute -bottom-6 -right-6 w-32 h-32 rounded-xl overflow-hidden border border-outline-variant/40 bg-surface shadow-lg rotate-3">
+<img alt="" class="w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<div class="md:col-span-7 space-y-md md:pl-md">
+<div class="flex items-baseline gap-md flex-wrap">
+<span class="font-display-lg text-[40px] sm:text-[52px] md:text-[60px] leading-none text-tertiary tabular-nums">4%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Ledger · 01</span>
+</div>
+<h3 class="font-headline-h2 text-[24px] leading-tight text-on-background sm:text-[28px] md:text-headline-h2">Hydrolyzed yeast peptide</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">A short-chain bioactive that primes the GABA-A receptor without binding it. Dosed at 4%, the threshold above which two independent crossover studies showed reduced sleep-onset latency.</p>
+<dl class="grid grid-cols-2 gap-sm border-t border-outline-variant/40 pt-md">
+<div><dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Role</dt><dd class="font-body-main text-body-main text-on-background">Receptor primer</dd></div>
+<div><dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Provenance</dt><dd class="font-body-main text-body-main text-on-background">Strasbourg · FR</dd></div>
+</dl>
+</div>
+</div>
+<!-- Row 2 — Bakuchiol (image right) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-margin items-center">
+<div class="md:col-span-7 space-y-md md:order-1 md:pr-md">
+<div class="flex items-baseline gap-md flex-wrap">
+<span class="font-display-lg text-[40px] sm:text-[52px] md:text-[60px] leading-none text-tertiary tabular-nums">0.5%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Ledger · 02</span>
+</div>
+<h3 class="font-headline-h2 text-[24px] leading-tight text-on-background sm:text-[28px] md:text-headline-h2">Bakuchiol — Babchi seed</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">A plant-derived analogue to retinol with none of the photosensitivity. Half a percent is the dose proven across two third-party clinical reads to soften the cortisol-driven evening flush.</p>
+<dl class="grid grid-cols-2 gap-sm border-t border-outline-variant/40 pt-md">
+<div><dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Role</dt><dd class="font-body-main text-body-main text-on-background">Cortisol modulator</dd></div>
+<div><dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Provenance</dt><dd class="font-body-main text-body-main text-on-background">Kerala · IN</dd></div>
+</dl>
+</div>
+<div class="md:col-span-5 relative md:order-2">
+<div class="aspect-[4/5] rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Architectural interior — bakuchiol provenance" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" data-alt="Quiet architectural interior with sage walls, a single window casting raking light" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<div class="hidden md:block absolute -bottom-6 -left-6 w-32 h-32 rounded-xl overflow-hidden border border-outline-variant/40 bg-surface shadow-lg -rotate-3">
+<img alt="" class="w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+</div>
+<!-- Row 3 — Squalane -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-margin items-center">
+<div class="md:col-span-5 relative">
+<div class="aspect-[4/5] rounded-xl overflow-hidden border border-outline-variant/30 bg-secondary/15 relative">
+<img alt="Squalane carrier oil — bottle in light" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" data-alt="Glass bottle with golden squalane oil, soft north light, marble surface" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-secondary/10 mix-blend-overlay pointer-events-none"></div>
+</div>
+<div class="hidden md:block absolute -top-6 -right-6 w-32 h-32 rounded-xl overflow-hidden border border-outline-variant/40 bg-surface shadow-lg rotate-2">
+<img alt="" class="w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<div class="md:col-span-7 space-y-md md:pl-md">
+<div class="flex items-baseline gap-md flex-wrap">
+<span class="font-display-lg text-[40px] sm:text-[52px] md:text-[60px] leading-none text-tertiary tabular-nums">12%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Ledger · 03</span>
+</div>
+<h3 class="font-headline-h2 text-[24px] leading-tight text-on-background sm:text-[28px] md:text-headline-h2">Squalane — sugarcane derived</h3>
+<p class="font-body-main text-body-main text-on-surface-variant">A clean carrier that mirrors the skin's own sebum. 12% by volume is what we settled on: dense enough to slow the active's release through the night, light enough to leave no residue on linen.</p>
+<dl class="grid grid-cols-2 gap-sm border-t border-outline-variant/40 pt-md">
+<div><dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Role</dt><dd class="font-body-main text-body-main text-on-background">Carrier · time-release</dd></div>
+<div><dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Provenance</dt><dd class="font-body-main text-body-main text-on-background">Pernambuco · BR</dd></div>
+</dl>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Clinical evidence — content section, no images. 4-stat
+     doctrine band on surface-container-high + 2-paragraph
+     methodology in Noto Serif italic. -->
+<section class="bg-surface-container-high rounded-xl border border-outline-variant/30 p-6 sm:p-10 md:p-xl space-y-10 md:space-y-lg" id="science">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md items-end">
+<div class="md:col-span-7 space-y-base">
+<span class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest">IV — Backed by data</span>
+<h2 class="font-headline-h1 text-[28px] leading-tight text-on-background sm:text-[36px] md:text-headline-h1">Evidence, plainly stated.</h2>
+</div>
+<div class="md:col-span-5">
+<p class="font-body-main text-body-main text-on-surface-variant">A double-blind crossover read across 127 adult subjects, conducted by an independent ISO·17025 lab between November 2023 and February 2024.</p>
+</div>
+</div>
+<dl class="grid grid-cols-2 md:grid-cols-4 gap-sm md:gap-md md:divide-x md:divide-outline-variant/40 border-t border-b border-outline-variant/40 py-10 md:py-lg">
+<div class="px-sm md:px-md space-y-base">
+<dt class="font-display-lg text-[44px] sm:text-[56px] md:text-[64px] leading-none text-on-background tabular-nums">78%</dt>
+<dd class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Reported smoother texture</dd>
+</div>
+<div class="px-sm md:px-md space-y-base">
+<dt class="font-display-lg text-[44px] sm:text-[56px] md:text-[64px] leading-none text-on-background tabular-nums">4 wk</dt>
+<dd class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Median visible result</dd>
+</div>
+<div class="px-sm md:px-md space-y-base">
+<dt class="font-display-lg text-[44px] sm:text-[56px] md:text-[64px] leading-none text-on-background tabular-nums">n=127</dt>
+<dd class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Double-blind cohort</dd>
+</div>
+<div class="px-sm md:px-md space-y-base">
+<dt class="font-display-lg text-[44px] sm:text-[56px] md:text-[64px] leading-none text-on-background tabular-nums">ISO·21148</dt>
+<dd class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Lab certified</dd>
+</div>
+</dl>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md md:gap-margin">
+<div class="space-y-sm">
+<span class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest">Methodology</span>
+<p class="font-headline-h2 italic text-[18px] sm:text-[20px] leading-relaxed text-on-background">Subjects were stratified by baseline cortisol AUC and assigned across two 28-day arms with a 14-day washout. Sleep latency, wake-after-sleep-onset, and morning self-reported alertness were primary outcomes; texture and skin-barrier integrity were secondary.</p>
+</div>
+<div class="space-y-sm">
+<span class="font-label-caps text-label-caps text-on-tertiary-container uppercase tracking-widest">Disclosure</span>
+<p class="font-headline-h2 italic text-[18px] sm:text-[20px] leading-relaxed text-on-background">No subjects were compensated by Drift. The lab — independent of any retailer — held the unblinding key. Raw data is filed with the European Cosmetics Cluster registry and is available on written request from a credentialed clinician.</p>
+</div>
+</div>
+<div class="flex items-center justify-between gap-md flex-wrap pt-md border-t border-outline-variant/40">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">Study · DRF·24·R3 — Read · Feb 2024</span>
+<a class="font-label-caps text-label-caps text-on-background uppercase tracking-widest underline decoration-outline-variant underline-offset-4 hover:decoration-on-background transition-colors" href="#science">Read the full ledger →</a>
+</div>
+</section>
+</main>
+<!-- Footer. Responsive: px-16 → px-4, tighter vertical padding. -->
+<footer class="bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50 font-serif text-xs uppercase tracking-widest w-full mt-16 border-t border-neutral-200 dark:border-neutral-800 flat ease-in-out duration-200 flex flex-col md:flex-row justify-between items-center py-10 px-4 max-w-7xl mx-auto space-y-6 md:space-y-0 sm:py-12 sm:px-8 sm:mt-20 md:py-16 md:px-16">
+<div class="text-lg font-serif tracking-widest text-neutral-900 dark:text-neutral-50">
+            Drift
+        </div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors" href="#">Privacy</a>
+<a class="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors" href="#">Terms</a>
+<a class="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors" href="#">Shipping</a>
+<a class="text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200 transition-colors" href="#">Contact</a>
+</div>
+<div class="text-neutral-400 dark:text-neutral-500 font-body-sm text-body-sm normal-case tracking-normal">
+            © 2024 Drift. Clinical Restoration.
+        </div>
+</footer>
+</body></html>

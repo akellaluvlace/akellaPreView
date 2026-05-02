@@ -1,0 +1,808 @@
+
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Ordnance Architects - Structural integrity meets minimalist design. We draft spaces that respect the land and elevate the human experience."/>
+    <title>Ordnance Architects - Houses, drawn carefully</title>
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#93cef2",
+                        "on-tertiary-container": "#ffe1de",
+                        "primary-container": "#2f6e8e",
+                        "on-primary-fixed": "#001e2c",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "secondary-fixed-dim": "#afcbd7",
+                        "inverse-surface": "#313030",
+                        "on-primary-fixed-variant": "#004c69",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-surface": "#1c1b1b",
+                        "outline-variant": "#c0c7ce",
+                        "on-secondary-fixed": "#011f28",
+                        "error-container": "#ffdad6",
+                        "surface": "#fcf9f8",
+                        "secondary-container": "#c8e4f0",
+                        "on-surface-variant": "#40484d",
+                        "background": "#fcf9f8",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#a0111a",
+                        "on-tertiary-fixed-variant": "#920213",
+                        "primary": "#095674",
+                        "surface-container": "#f0edec",
+                        "primary-fixed-dim": "#93cef2",
+                        "on-tertiary-fixed": "#410004",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#c4e7ff",
+                        "surface-variant": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#4c6771",
+                        "secondary": "#48626d",
+                        "on-background": "#1c1b1b",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#cfebff",
+                        "secondary-fixed": "#cbe7f3",
+                        "outline": "#71787e",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-high": "#ebe7e7",
+                        "on-secondary-fixed-variant": "#304a54",
+                        "tertiary-container": "#c32e2f",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f6f3f2",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-tint": "#236584",
+                        "grid-line": "#BAD6E2",
+                        "revision-red": "#C93333",
+                        "ochre": "#D4A24A",
+                        "ochre-dark": "#A87E2E",
+                        "ochre-light": "#E8C281",
+                        "ochre-bg": "#FBF3DD"
+                    },
+                    spacing: {
+                        "base": "8px",
+                        "gutter": "clamp(1.5rem, 3vw, 2rem)",
+                        "margin": "clamp(3rem, 5vw, 4rem)",
+                        "grid-size": "32px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "technical-data": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "headline-md": ["Newsreader", "Georgia", "serif"],
+                        "display-xl": ["Newsreader", "Georgia", "serif"],
+                        "body-md": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "headline-lg": ["Newsreader", "Georgia", "serif"],
+                        "label-caps": ["Space Grotesk", "system-ui", "sans-serif"]
+                    },
+                    fontSize: {
+                        "body-lg": ["clamp(1.125rem, 2vw, 1.25rem)", { lineHeight: "1.6", fontWeight: "400" }],
+                        "technical-data": ["clamp(0.75rem, 1vw + 0.5rem, 0.875rem)", { lineHeight: "1.2", fontWeight: "400" }],
+                        "headline-md": ["clamp(1.5rem, 3vw, 2rem)", { lineHeight: "1.3", fontWeight: "400" }],
+                        "display-xl": ["clamp(3rem, 6vw + 1rem, 4.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" }],
+                        "body-md": ["clamp(1rem, 1.5vw + 0.5rem, 1.125rem)", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-lg": ["clamp(2rem, 4vw + 1rem, 2.5rem)", { lineHeight: "1.2", fontWeight: "500" }],
+                        "label-caps": ["0.75rem", { lineHeight: "1.0", letterSpacing: "0.1em", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            scroll-padding-top: 5rem;
+        }
+
+        /* Layered drafting-paper grid — medium 32px + fine 8px micro. The
+           heavy 128px major lines were dropped per design pass; the remaining
+           two registers are calmer and cleaner without the bold hierarchy. */
+        body {
+            background-color: #F4F6F5;
+            background-image:
+                linear-gradient(to right, rgba(186, 214, 226, 0.55) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(186, 214, 226, 0.55) 1px, transparent 1px),
+                linear-gradient(to right, rgba(186, 214, 226, 0.22) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(186, 214, 226, 0.22) 1px, transparent 1px);
+            background-size:
+                32px 32px,
+                32px 32px,
+                8px 8px,
+                8px 8px;
+            background-attachment: fixed;
+        }
+
+        /* Warm ochre register — medium 24px + fine 6px (no thick major). */
+        .bg-grid-warm {
+            background-color: #FBF3DD;
+            background-image:
+                linear-gradient(to right, rgba(212, 162, 74, 0.30) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(212, 162, 74, 0.30) 1px, transparent 1px),
+                linear-gradient(to right, rgba(212, 162, 74, 0.12) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(212, 162, 74, 0.12) 1px, transparent 1px);
+            background-size:
+                24px 24px,
+                24px 24px,
+                6px 6px,
+                6px 6px;
+        }
+
+        /* Dark editorial register — single ochre 48px register. */
+        .bg-grid-press {
+            background-color: #1c1b1b;
+            background-image:
+                linear-gradient(to right, rgba(212, 162, 74, 0.14) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(212, 162, 74, 0.14) 1px, transparent 1px),
+                linear-gradient(to right, rgba(147, 206, 242, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(147, 206, 242, 0.06) 1px, transparent 1px);
+            background-size:
+                48px 48px,
+                48px 48px,
+                12px 12px,
+                12px 12px;
+        }
+
+        /* Ochre annotation tag — used in material/press cards */
+        .ochre-stamp {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 3px 10px; border: 1px solid #D4A24A;
+            background: rgba(251, 243, 221, 0.85); backdrop-filter: blur(4px);
+            color: #A87E2E; font-size: 10px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        /* Award seal — circular ochre stamp */
+        .award-seal {
+            position: relative; width: 88px; height: 88px;
+            border: 2px solid #D4A24A; border-radius: 9999px;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 2px;
+            background: rgba(251, 243, 221, 0.95);
+            transform: rotate(-8deg);
+            box-shadow: 0 0 0 4px rgba(212, 162, 74, 0.15);
+        }
+        .award-seal::before {
+            content: ''; position: absolute; inset: 4px;
+            border: 1px dashed #D4A24A; border-radius: 9999px; pointer-events: none;
+        }
+
+        /* Respect User Preferences for Motion */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        
+        /* Flexible Intersection Ticks */
+        .tick-tl::before, .tick-tr::before, .tick-bl::after, .tick-br::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 2px;
+            background-color: #2f6e8e; /* primary-container */
+            transform: rotate(-45deg);
+            pointer-events: none;
+            z-index: 20;
+        }
+        
+        .tick-tl::before { top: -1px; left: -5px; }
+        .tick-tr::before { top: -1px; right: -5px; }
+        .tick-bl::after { bottom: -1px; left: -5px; }
+        .tick-br::after { bottom: -1px; right: -5px; }
+    </style>
+</head>
+<body class="text-on-surface min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-surface">
+    
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-container focus:text-surface focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-700">
+        Skip to content
+    </a>
+
+    <!-- TopNavBar -->
+    <header class="sticky top-0 z-50 w-full border-b-2 border-cyan-700 dark:border-cyan-500 bg-[#F4F6F5]/80 backdrop-blur-md tick-bl tick-br shadow-sm transition-all">
+        <nav class="flex justify-between items-center w-full px-6 lg:px-8 py-4 lg:py-6 max-w-full relative after:content-['/'] after:absolute after:right-6 lg:after:right-8 after:-bottom-[13px] lg:after:-bottom-[17px] after:text-cyan-700 after:font-mono after:font-bold">
+            <div class="font-mono font-bold border-2 border-cyan-700 dark:border-cyan-500 px-3 py-1.5 leading-none text-[10px] text-cyan-700 dark:text-cyan-400 bg-surface/50 backdrop-blur-sm">
+                ORDNANCE ARCHITECTS / DWG-001 / REV C
+            </div>
+            <div class="hidden md:flex gap-8">
+                <a class="font-mono uppercase tracking-widest text-xs text-cyan-900 dark:text-cyan-200 border-b border-cyan-700 dark:border-cyan-500 pb-1 px-2 rounded-t-sm hover:bg-cyan-700 hover:text-white dark:hover:bg-cyan-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5]" href="#projects">PROJECTS</a>
+                <a class="font-mono uppercase tracking-widest text-xs text-slate-500 dark:text-slate-400 pb-1 px-2 rounded-t-sm border-b border-transparent hover:border-cyan-700 hover:bg-cyan-700 hover:text-white dark:hover:bg-cyan-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5]" href="#studio">STUDIO</a>
+                <a class="font-mono uppercase tracking-widest text-xs text-slate-500 dark:text-slate-400 pb-1 px-2 rounded-t-sm border-b border-transparent hover:border-cyan-700 hover:bg-cyan-700 hover:text-white dark:hover:bg-cyan-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5]" href="#process">PROCESS</a>
+                <a class="font-mono uppercase tracking-widest text-xs text-slate-500 dark:text-slate-400 pb-1 px-2 rounded-t-sm border-b border-transparent hover:border-cyan-700 hover:bg-cyan-700 hover:text-white dark:hover:bg-cyan-600 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5]" href="#contact">CONTACT</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav" class="md:hidden text-cyan-700 p-2 -mr-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5]">
+                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
+        </nav>
+    </header>
+
+    <main id="main-content" class="w-full relative z-10">
+        <!-- Hero Section -->
+        <section class="min-h-[80vh] flex flex-col justify-center px-6 lg:px-margin pt-16 lg:pt-24 pb-12 lg:pb-16 relative">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 relative z-10 items-stretch">
+                <!-- Left Column: Content -->
+                <div class="bg-surface/70 backdrop-blur-md border-2 border-primary-container p-8 lg:p-12 relative tick-tl tick-br shadow-sm flex flex-col justify-center">
+                    <h1 class="font-display-xl text-display-xl text-on-surface mb-6 border-b border-primary-container pb-4 text-balance">
+                        Houses, drawn carefully
+                    </h1>
+                    <p class="font-technical-data text-technical-data text-on-surface-variant max-w-[65ch] text-pretty">
+                        // STRUCTURAL INTEGRITY MEETS MINIMALIST DESIGN. WE DRAFT SPACES THAT RESPECT THE LAND AND ELEVATE THE HUMAN EXPERIENCE THROUGH PRECISE ENGINEERING AND THOUGHTFUL PROPORTION.
+                    </p>
+                    <div class="mt-8 lg:mt-12 flex gap-4">
+                        <button class="border border-primary-container bg-surface/50 backdrop-blur-sm px-6 py-3 font-label-caps text-label-caps text-primary-container hover:bg-primary-container hover:text-surface transition-all duration-300 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5]">
+                            <span>VIEW FOLIO</span>
+                            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_right_alt</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Image Container -->
+                <div class="border-2 border-primary-container bg-surface/70 backdrop-blur-md relative min-h-[300px] lg:min-h-[500px] overflow-hidden group shadow-sm flex items-center justify-center p-4 lg:p-0">
+                    <div class="absolute top-0 right-0 bg-primary-container text-surface px-2 py-1 font-technical-data text-[10px] z-20">ELEV-01</div>
+                    <img 
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt3Ud3hjbkgkOFrUyuvNX06x_M_poFQZj6evuOVi_tgNvbsqdbj1vKVub1TkZbyihlo43Piac1HqHMwPtlnz3PHr0Vt23ploz_OFQlF_M-ZEmu1UwVv_nMOuX62CtwSbPiRnzLBj3QUfrqmfMU_lxw85ni9ZBPAqduZzbAVYS9YRc4CW5sKGNsL7NhzDkMh8AfMBBCULod_nnMQnMOIuoDQZyGLkRiJjEu4JNySGOPumvRMVbpWORvU3k_eRzQPHRdVSnTpU4zl60"
+                        alt="Blueprint style architectural line drawing of a modern minimalist house elevation in cyan ink on technical grid paper with precise dimension lines and technical callouts" 
+                        class="w-full h-full object-cover opacity-80 mix-blend-multiply filter grayscale contrast-125 sepia-[.2] hue-rotate-[180deg] saturate-[2]" 
+                        width="800" 
+                        height="600" 
+                        loading="eager" 
+                        decoding="async"
+                    />
+                    <!-- Faux Dimension Lines Overlay -->
+                    <div class="absolute inset-0 pointer-events-none z-10 hidden sm:block">
+                        <div class="absolute left-[10%] top-[20%] w-[1px] h-[60%] bg-primary-container before:content-[''] before:absolute before:-top-[5px] before:-left-[4px] before:w-2 before:h-[2px] before:bg-primary-container before:rotate-45 after:content-[''] after:absolute after:-bottom-[5px] after:-left-[4px] after:w-2 after:h-[2px] after:bg-primary-container after:rotate-45"></div>
+                        <div class="absolute left-[8%] top-[50%] -translate-y-1/2 -rotate-90 font-technical-data text-[10px] text-primary-container tracking-widest bg-surface/80 backdrop-blur-sm px-2">24'-0" V.I.F.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section — dark editorial register (matches Press) -->
+        <section id="projects" class="bg-grid-press py-16 lg:py-24 px-6 lg:px-margin border-t-2 border-ochre border-b-2 border-ochre relative overflow-hidden">
+            <!-- Decorative ochre rule top, mirrors Press section -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-ochre to-transparent"></div>
+
+            <div class="max-w-7xl mx-auto flex justify-between items-end mb-8 lg:mb-12 border-b border-ochre/40 pb-4">
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-light mb-2 block">// REGISTER 01 / FIELD</span>
+                    <h2 class="font-headline-lg text-headline-lg text-surface text-balance">SELECTED PROJECTS</h2>
+                </div>
+                <span class="font-technical-data text-technical-data text-ochre-light hidden sm:inline-block">SHT A-100</span>
+            </div>
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                
+                <!-- Project Card 1 -->
+                <article class="border border-primary-container bg-surface/70 backdrop-blur-md flex flex-col group relative tick-tl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus-within:ring-2 focus-within:ring-primary-container focus-within:ring-offset-2 focus-within:ring-offset-[#F4F6F5]">
+                    <div class="absolute top-2 right-2 font-technical-data text-[10px] text-primary-container border border-primary-container px-1 z-10 bg-surface/80 backdrop-blur-sm">PRJ.01</div>
+                    <div class="h-64 border-b border-primary-container overflow-hidden relative p-4 flex items-center justify-center">
+                        <img 
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxBkUw5_SULdhpgYJ5R6AQC7LS2PAJ9OESB-jOO5HijTsr2Kg8KgRIGIeZardO-PKGnkNvVhAtHRwveo3dD8WFKM-I52I93UPmCXD0zlo7-4RjNm4ohtQD9fmRtzGwaJWXYI0t99npQUgrEg0bmLVPpovClgtr0HFgyk1NM54-J8IAjZbkJS-6QYCVsy9evN_TRKpIgkSTMyRHRkq0jlLGq1l0EUwxD3rNsG-hLglmuSl99AcnioXPcBg5ylsOE83_27Q0qRQWzag"
+                            alt="Technical architectural floor plan top down view line drawing in cyan blueprint style showing interior layout walls doors and minimalist furniture on grid paper" 
+                            class="w-full h-full object-contain mix-blend-multiply opacity-80 filter grayscale sepia-[.2] hue-rotate-[180deg] saturate-[2] transition-transform duration-700 group-hover:scale-105" 
+                            width="600" 
+                            height="400" 
+                            loading="lazy" 
+                            decoding="async"
+                        />
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-body-lg font-bold mb-3 uppercase text-balance">The Ridge House</h3>
+                        <div class="font-technical-data text-[12px] text-on-surface-variant space-y-2 mb-8">
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>YEAR</span> <span class="tabular-nums">2023</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>LOC</span> <span>ASPEN, CO</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>AREA</span> <span class="tabular-nums">4,200 SQ FT</span>
+                            </div>
+                        </div>
+                        <a href="#" class="mt-auto font-label-caps text-[10px] text-primary-container flex items-center gap-1.5 hover:bg-primary-container hover:text-surface w-max px-3 py-2 border border-transparent hover:border-primary-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded-sm">
+                            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">description</span>
+                            VIEW DRAWING SET
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project Card 2 -->
+                <article class="border border-primary-container bg-surface/70 backdrop-blur-md flex flex-col group relative transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus-within:ring-2 focus-within:ring-primary-container focus-within:ring-offset-2 focus-within:ring-offset-[#F4F6F5]">
+                    <div class="absolute top-2 right-2 font-technical-data text-[10px] text-primary-container border border-primary-container px-1 z-10 bg-surface/80 backdrop-blur-sm">PRJ.02</div>
+                    <div class="h-64 border-b border-primary-container overflow-hidden relative p-4 flex items-center justify-center">
+                        <img 
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIQ-qsCET7Sg-CjYwfKNzMCWLXtsa8X8WRvhSQfj9BaEDEgc4CqRdnRxqeSc_EBbvNRPIYjjoi7TgnQhbyZRCLxtcvHl5WuUNVkQ1zDCSi-Sy9Pbw3ASDr4f0SWr5u-EJ16xOSyxD58WXY5Rg_BVMzwLWLby8_XQTtKcGaaLJ8z3Qgu08E3Q9gZgFTgnRmNRyiH9e3hS10HJjWoAhzLq0fZXTsCWHrzVR6AIMY-fYK8Xy3m2hdVMF-gO5NdBsNYJiJzBdXFkP88X8"
+                            alt="Architectural structural detail section line drawing in cyan ink showing foundation and wall assembly construction with technical annotations on graph paper background" 
+                            class="w-full h-full object-contain mix-blend-multiply opacity-80 filter grayscale sepia-[.2] hue-rotate-[180deg] saturate-[2] transition-transform duration-700 group-hover:scale-105" 
+                            width="600" 
+                            height="400" 
+                            loading="lazy" 
+                            decoding="async"
+                        />
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-body-lg font-bold mb-3 uppercase text-balance">Coastal Pavilion</h3>
+                        <div class="font-technical-data text-[12px] text-on-surface-variant space-y-2 mb-8">
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>YEAR</span> <span class="tabular-nums">2022</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>LOC</span> <span>BIG SUR, CA</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>AREA</span> <span class="tabular-nums">1,800 SQ FT</span>
+                            </div>
+                        </div>
+                        <a href="#" class="mt-auto font-label-caps text-[10px] text-primary-container flex items-center gap-1.5 hover:bg-primary-container hover:text-surface w-max px-3 py-2 border border-transparent hover:border-primary-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded-sm">
+                            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">description</span>
+                            VIEW DRAWING SET
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project Card 3 (In Progress - Revision state) -->
+                <article class="border-2 border-dashed border-revision-red bg-surface/70 backdrop-blur-md flex flex-col group relative transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus-within:ring-2 focus-within:ring-revision-red focus-within:ring-offset-2 focus-within:ring-offset-[#F4F6F5]">
+                    <div class="absolute -top-3 right-4 bg-surface/90 backdrop-blur-sm text-revision-red font-mono text-[10px] px-2 py-0.5 font-bold border border-revision-red z-20">REV</div>
+                    <div class="absolute top-2 right-2 font-technical-data text-[10px] text-revision-red border border-revision-red px-1 z-10 bg-surface/80 backdrop-blur-sm">PRJ.03</div>
+                    
+                    <div class="h-64 border-b border-revision-red overflow-hidden relative p-4 flex items-center justify-center">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none z-20">
+                            <span class="font-display-xl text-revision-red font-bold rotate-[-30deg] tracking-widest border-4 border-revision-red p-2">DRAFT</span>
+                        </div>
+                        <img 
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB25ih1H5euZn2vRYF36S2AKcu84ZVeBz_dbGh683lUGVKAyRp7cIz0xpC8YH2JYkClX54FrdkB_2bDT4yih3-sriVBJJCyQ0OdsF9ELEIcJgeZpV8rKB1p-ObtUdAGmcyZNf7CQ_ecKf7iMqLpTs62nGCrYxV906SRyd0aw9NpWzYwAiYjkBWIxESG04RaRaGAt7m6fMY0L0QenEUiH1uaiggFYP_enO2g-XakQR9gjm9qXUXOeTeATFKdJ1wO2NTPRme0g6lTbGQ"
+                            alt="Conceptual schematic massing model line drawing in cyan blueprint style showing urban infill context with rough dimension lines and notes" 
+                            class="w-full h-full object-contain mix-blend-multiply opacity-60 filter grayscale sepia-[.2] hue-rotate-[180deg] saturate-[2] transition-transform duration-700 group-hover:scale-105" 
+                            width="600" 
+                            height="400" 
+                            loading="lazy" 
+                            decoding="async"
+                        />
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-body-lg font-bold mb-3 uppercase text-balance">Urban Infill 04</h3>
+                        <div class="font-technical-data text-[12px] text-on-surface-variant space-y-2 mb-8">
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>YEAR</span> <span>IN PROG</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>LOC</span> <span>SEATTLE, WA</span>
+                            </div>
+                            <div class="flex justify-between border-b border-outline-variant/30 pb-1">
+                                <span>AREA</span> <span>TBD</span>
+                            </div>
+                        </div>
+                        <a href="#" class="mt-auto font-label-caps text-[10px] text-revision-red flex items-center gap-1.5 hover:bg-revision-red hover:text-surface w-max px-3 py-2 border border-transparent hover:border-revision-red transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-revision-red rounded-sm">
+                            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">warning</span>
+                            UNDER REVIEW
+                        </a>
+                    </div>
+                </article>
+                
+            </div>
+        </section>
+
+        <!-- Studio Section -->
+        <section id="studio" class="py-16 lg:py-24 px-6 lg:px-margin border-t-2 border-primary-container relative">
+            <div class="max-w-7xl mx-auto flex justify-between items-end mb-8 lg:mb-12 border-b border-primary-container pb-4">
+                <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">THE STUDIO</h2>
+                <span class="font-technical-data text-technical-data text-primary-container hidden sm:inline-block">SHT A-200</span>
+            </div>
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-margin items-stretch">
+                <!-- Left: Axonometric Visual -->
+                <div class="border border-primary-container p-4 bg-surface/70 backdrop-blur-md min-h-[400px] lg:min-h-[500px] relative flex items-center justify-center shadow-sm">
+                    <img 
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3MsAyBJgDFHCUxh303YUXC6ZGykkg8e2X1U-Rcs-aOCgHvYmf4ZnzBeoctw4-8Mj_bfwR_vB5smyReX-bGk7ac9wzv7NHEBugizQQEQ3CqOt25igHybh2jTqh-EYuA5J1ZZcfk1Afjvv7lkfrS2LBheZw2Wdjbpz9vzX4fJtJ_wrdu7mQ98WwUWeLLC3RDgliApKcfIHHrh98EpRhpZjFGmVWiPXHE5R0gMR01WCQoBlC_cbPtDCo8dzNudtvi0C0Grd5DUh-cdg"
+                        alt="Axonometric isometric architectural line drawing of a modern design studio workspace with drafting tables and models rendered in precise cyan blueprint style lines" 
+                        class="w-full h-full object-cover opacity-70 mix-blend-multiply filter grayscale sepia-[.2] hue-rotate-[180deg] saturate-[2]" 
+                        width="800" 
+                        height="800" 
+                        loading="lazy" 
+                        decoding="async"
+                    />
+                    <div class="absolute bottom-4 right-4 bg-surface/80 backdrop-blur-sm border border-primary-container px-3 py-2 font-technical-data text-[10px] text-primary-container flex items-center gap-2 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-primary-container inline-block" aria-hidden="true"></span>
+                        HQ / SEATTLE
+                    </div>
+                </div>
+                <!-- Right: Philosophy -->
+                <div class="space-y-6 lg:space-y-8 bg-surface/70 backdrop-blur-md p-8 lg:p-12 border border-primary-container relative tick-tr tick-bl shadow-sm flex flex-col justify-center">
+                    <div class="font-mono text-primary-container text-sm border-b border-primary-container pb-2 mb-4 lg:mb-6">
+                        // PHILOSOPHY_DOC_V2
+                    </div>
+                    <h3 class="font-headline-md text-on-surface leading-tight text-balance">
+                        Architecture as an act of precision, not decoration.
+                    </h3>
+                    <p class="font-body-md text-on-surface-variant max-w-prose text-pretty">
+                        At Ordnance Architects, we believe that the beauty of a structure lies in its logical assembly. Our practice strips away the superficial to reveal the underlying geometry and material honesty of a space.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant max-w-prose text-pretty">
+                        We view the blueprint not just as a set of instructions, but as the truest representation of intent. Every line drawn is a commitment to spatial integrity, environmental responsibility, and structural clarity.
+                    </p>
+                    <div class="pt-6 lg:pt-8 border-t border-outline-variant/30 mt-auto">
+                        <div class="flex items-center gap-4 text-primary-container font-technical-data text-sm flex-wrap">
+                            <span class="material-symbols-outlined" aria-hidden="true">architecture</span>
+                            <span>EST. <span class="tabular-nums">2018</span></span>
+                            <span class="hidden sm:inline-block w-px h-4 bg-primary-container" aria-hidden="true"></span>
+                            <span>LICENSED IN WA, OR, CA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materials Library Section (NEW) -->
+        <section id="materials" class="bg-grid-warm py-16 lg:py-24 px-6 lg:px-margin border-t-2 border-primary-container border-b-2 border-ochre relative">
+            <div class="max-w-7xl mx-auto flex justify-between items-end mb-8 lg:mb-12 border-b border-ochre-dark pb-4">
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-dark mb-2 block">// REGISTER 03 / WARM</span>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">MATERIAL LIBRARY</h2>
+                </div>
+                <span class="font-technical-data text-technical-data text-ochre-dark hidden sm:inline-block">SHT A-250</span>
+            </div>
+
+            <p class="max-w-2xl mx-auto text-center font-body-md text-on-surface-variant mb-10 lg:mb-14 text-balance">
+                Forty-two specimens kept in studio rotation. Each catalogued by source, finish, and structural class. We do not specify what we have not handled.
+            </p>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+                <!-- Material 01 — Concrete -->
+                <article class="border border-ochre-dark bg-surface/85 backdrop-blur-md flex flex-col group relative tick-tl tick-br transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <div class="absolute top-2 right-2 font-technical-data text-[10px] text-ochre-dark border border-ochre-dark px-1 z-10 bg-ochre-bg">MTL.01</div>
+                    <div class="aspect-[4/5] border-b border-ochre-dark overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Smooth poured concrete macro" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[15%]" loading="lazy"/>
+                        <!-- Sample card overlay -->
+                        <div class="absolute bottom-3 left-3 right-3 bg-ochre-bg/95 border border-ochre-dark px-3 py-2 backdrop-blur-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="font-mono text-[10px] text-ochre-dark uppercase tracking-widest">Sample · 3"×3"</span>
+                                <span class="ochre-stamp">In Stock</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-body-lg font-bold mb-3 uppercase">BOARD-FORMED CONCRETE</h3>
+                        <div class="font-technical-data text-[12px] text-on-surface-variant space-y-2 mb-4">
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>FINISH</span> <span>NATURAL CURE</span>
+                            </div>
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>DENSITY</span> <span class="tabular-nums">2,400 KG/M³</span>
+                            </div>
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>SOURCE</span> <span>CASCADIA AGGREGATES</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Material 02 — Oak (offset for editorial rhythm) -->
+                <article class="border border-ochre-dark bg-surface/85 backdrop-blur-md flex flex-col group relative tick-tr transition-all duration-300 hover:shadow-lg hover:-translate-y-1 md:translate-y-8 lg:translate-y-12">
+                    <div class="absolute top-2 right-2 font-technical-data text-[10px] text-ochre-dark border border-ochre-dark px-1 z-10 bg-ochre-bg">MTL.02</div>
+                    <div class="aspect-[4/5] border-b border-ochre-dark overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="White oak wood grain" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
+                        <div class="absolute bottom-3 left-3 right-3 bg-ochre-bg/95 border border-ochre-dark px-3 py-2 backdrop-blur-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="font-mono text-[10px] text-ochre-dark uppercase tracking-widest">Sample · 3"×3"</span>
+                                <span class="ochre-stamp">FSC Cert.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-body-lg font-bold mb-3 uppercase">RIFT-SAWN WHITE OAK</h3>
+                        <div class="font-technical-data text-[12px] text-on-surface-variant space-y-2 mb-4">
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>FINISH</span> <span>HARDWAX OIL</span>
+                            </div>
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>JANKA</span> <span class="tabular-nums">1,360 LBF</span>
+                            </div>
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>SOURCE</span> <span>OREGON COAST RANGE</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Material 03 — Copper -->
+                <article class="border border-ochre-dark bg-surface/85 backdrop-blur-md flex flex-col group relative tick-bl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <div class="absolute top-2 right-2 font-technical-data text-[10px] text-ochre-dark border border-ochre-dark px-1 z-10 bg-ochre-bg">MTL.03</div>
+                    <div class="aspect-[4/5] border-b border-ochre-dark overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Patinated copper sheet" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
+                        <div class="absolute bottom-3 left-3 right-3 bg-ochre-bg/95 border border-ochre-dark px-3 py-2 backdrop-blur-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="font-mono text-[10px] text-ochre-dark uppercase tracking-widest">Sample · 4"×6"</span>
+                                <span class="ochre-stamp">Patina · 5yr</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-body-lg font-bold mb-3 uppercase">PATINATED COPPER</h3>
+                        <div class="font-technical-data text-[12px] text-on-surface-variant space-y-2 mb-4">
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>FINISH</span> <span>NATURAL VERDIGRIS</span>
+                            </div>
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>GAUGE</span> <span class="tabular-nums">16 OZ / 0.55MM</span>
+                            </div>
+                            <div class="flex justify-between border-b border-ochre/30 pb-1">
+                                <span>SOURCE</span> <span>REVERE COPPER</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Sub-row: 4 micro material chips -->
+            <div class="max-w-7xl mx-auto mt-12 lg:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <figure class="group relative border border-ochre-dark bg-surface/70 backdrop-blur-md p-3 flex items-center gap-3 hover:bg-ochre-bg/60 transition-colors">
+                    <div class="w-12 h-12 shrink-0 overflow-hidden border border-ochre-dark">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Steel" class="w-full h-full object-cover grayscale"/>
+                    </div>
+                    <figcaption class="flex-1">
+                        <p class="font-mono text-[10px] text-ochre-dark uppercase tracking-widest">№ 04</p>
+                        <p class="font-bold text-sm uppercase tracking-tight">Cor-Ten Steel</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative border border-ochre-dark bg-surface/70 backdrop-blur-md p-3 flex items-center gap-3 hover:bg-ochre-bg/60 transition-colors">
+                    <div class="w-12 h-12 shrink-0 overflow-hidden border border-ochre-dark">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Limestone" class="w-full h-full object-cover"/>
+                    </div>
+                    <figcaption class="flex-1">
+                        <p class="font-mono text-[10px] text-ochre-dark uppercase tracking-widest">№ 11</p>
+                        <p class="font-bold text-sm uppercase tracking-tight">Honed Limestone</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative border border-ochre-dark bg-surface/70 backdrop-blur-md p-3 flex items-center gap-3 hover:bg-ochre-bg/60 transition-colors">
+                    <div class="w-12 h-12 shrink-0 overflow-hidden border border-ochre-dark">
+                        <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Cast bronze" class="w-full h-full object-cover sepia-[40%]"/>
+                    </div>
+                    <figcaption class="flex-1">
+                        <p class="font-mono text-[10px] text-ochre-dark uppercase tracking-widest">№ 18</p>
+                        <p class="font-bold text-sm uppercase tracking-tight">Cast Bronze</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative border border-ochre-dark bg-surface/70 backdrop-blur-md p-3 flex items-center gap-3 hover:bg-ochre-bg/60 transition-colors">
+                    <div class="w-12 h-12 shrink-0 overflow-hidden border border-ochre-dark">
+                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Stucco" class="w-full h-full object-cover"/>
+                    </div>
+                    <figcaption class="flex-1">
+                        <p class="font-mono text-[10px] text-ochre-dark uppercase tracking-widest">№ 27</p>
+                        <p class="font-bold text-sm uppercase tracking-tight">Smooth Stucco</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section id="process" class="py-16 lg:py-24 px-6 lg:px-margin border-t-2 border-primary-container relative">
+            <div class="max-w-7xl mx-auto flex justify-between items-end mb-8 lg:mb-12 border-b border-primary-container pb-4">
+                <h2 class="font-headline-lg text-headline-lg text-on-surface text-balance">METHODOLOGY</h2>
+                <span class="font-technical-data text-technical-data text-primary-container hidden sm:inline-block">SHT A-300</span>
+            </div>
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-gutter">
+                
+                <!-- Step 1 -->
+                <div tabindex="0" class="border border-primary-container bg-surface/70 backdrop-blur-md p-6 lg:p-8 flex flex-col relative group hover:bg-primary-container/85 hover:backdrop-blur-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5] rounded-sm cursor-default">
+                    <div class="font-display-xl text-[48px] text-primary-container opacity-20 absolute top-2 right-4 group-hover:text-surface transition-colors tabular-nums">01</div>
+                    <div class="h-24 lg:h-32 border-b border-primary-container mb-6 pb-4 flex items-end group-hover:border-surface transition-colors">
+                        <span class="material-symbols-outlined text-[48px] text-primary-container font-light group-hover:text-surface transition-colors" style="font-variation-settings: 'wght' 200;" aria-hidden="true">terrain</span>
+                    </div>
+                    <h4 class="font-label-caps text-label-caps text-on-surface mb-3 group-hover:text-surface transition-colors">SITE ANALYSIS</h4>
+                    <p class="font-technical-data text-[12px] text-on-surface-variant group-hover:text-surface/90 transition-colors text-pretty">Topographical mapping, solar studies, and contextual integration assessment.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div tabindex="0" class="border border-primary-container bg-surface/70 backdrop-blur-md p-6 lg:p-8 flex flex-col relative group hover:bg-primary-container/85 hover:backdrop-blur-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5] rounded-sm cursor-default">
+                    <div class="font-display-xl text-[48px] text-primary-container opacity-20 absolute top-2 right-4 group-hover:text-surface transition-colors tabular-nums">02</div>
+                    <div class="h-24 lg:h-32 border-b border-primary-container mb-6 pb-4 flex items-end group-hover:border-surface transition-colors">
+                        <span class="material-symbols-outlined text-[48px] text-primary-container font-light group-hover:text-surface transition-colors" style="font-variation-settings: 'wght' 200;" aria-hidden="true">draw</span>
+                    </div>
+                    <h4 class="font-label-caps text-label-caps text-on-surface mb-3 group-hover:text-surface transition-colors">SCHEMATIC DESIGN</h4>
+                    <p class="font-technical-data text-[12px] text-on-surface-variant group-hover:text-surface/90 transition-colors text-pretty">Massing studies, spatial flow diagrams, and initial structural concepts.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div tabindex="0" class="border border-primary-container bg-surface/70 backdrop-blur-md p-6 lg:p-8 flex flex-col relative group hover:bg-primary-container/85 hover:backdrop-blur-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5] rounded-sm cursor-default">
+                    <div class="font-display-xl text-[48px] text-primary-container opacity-20 absolute top-2 right-4 group-hover:text-surface transition-colors tabular-nums">03</div>
+                    <div class="h-24 lg:h-32 border-b border-primary-container mb-6 pb-4 flex items-end group-hover:border-surface transition-colors">
+                        <span class="material-symbols-outlined text-[48px] text-primary-container font-light group-hover:text-surface transition-colors" style="font-variation-settings: 'wght' 200;" aria-hidden="true">square_foot</span>
+                    </div>
+                    <h4 class="font-label-caps text-label-caps text-on-surface mb-3 group-hover:text-surface transition-colors">CONSTRUCTION DOCS</h4>
+                    <p class="font-technical-data text-[12px] text-on-surface-variant group-hover:text-surface/90 transition-colors text-pretty">Rigorous detailing, material specifications, and comprehensive drafting sets.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div tabindex="0" class="border border-primary-container bg-surface/70 backdrop-blur-md p-6 lg:p-8 flex flex-col relative group hover:bg-primary-container/85 hover:backdrop-blur-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F6F5] rounded-sm cursor-default">
+                    <div class="font-display-xl text-[48px] text-primary-container opacity-20 absolute top-2 right-4 group-hover:text-surface transition-colors tabular-nums">04</div>
+                    <div class="h-24 lg:h-32 border-b border-primary-container mb-6 pb-4 flex items-end group-hover:border-surface transition-colors">
+                        <span class="material-symbols-outlined text-[48px] text-primary-container font-light group-hover:text-surface transition-colors" style="font-variation-settings: 'wght' 200;" aria-hidden="true">engineering</span>
+                    </div>
+                    <h4 class="font-label-caps text-label-caps text-on-surface mb-3 group-hover:text-surface transition-colors">SITE VISIT</h4>
+                    <p class="font-technical-data text-[12px] text-on-surface-variant group-hover:text-surface/90 transition-colors text-pretty">Construction administration, quality control, and built-environment verification.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Press / Recognition Section (NEW) -->
+        <section id="press" class="bg-grid-press py-16 lg:py-24 px-6 lg:px-margin border-t-2 border-primary-container border-b-2 border-ochre relative overflow-hidden">
+            <!-- Decorative ochre rule top -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-ochre to-transparent"></div>
+
+            <div class="max-w-7xl mx-auto flex justify-between items-end mb-8 lg:mb-12 border-b border-ochre/40 pb-4">
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-light mb-2 block">// REGISTER 04 / EDITORIAL</span>
+                    <h2 class="font-headline-lg text-headline-lg text-surface text-balance">PRESS &amp; RECOGNITION</h2>
+                </div>
+                <span class="font-technical-data text-technical-data text-ochre-light hidden sm:inline-block">SHT A-400</span>
+            </div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
+
+                <!-- Featured Editorial — large image (col-span-7) -->
+                <article class="md:col-span-7 group relative">
+                    <div class="relative aspect-[4/3] overflow-hidden border-2 border-ochre/60">
+                        <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Editorial photograph of completed home interior" class="w-full h-full object-cover grayscale-[20%] transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy"/>
+                        <!-- Corner ochre stamp -->
+                        <div class="absolute top-4 left-4 award-seal" aria-hidden="true">
+                            <span class="font-mono font-bold text-[9px] tracking-widest text-ochre-dark uppercase">AIA</span>
+                            <span class="font-display text-base font-bold text-ochre-dark">2024</span>
+                            <span class="font-mono text-[8px] text-ochre-dark uppercase tracking-wider">HONOR</span>
+                        </div>
+                        <!-- Bottom caption plate -->
+                        <div class="absolute bottom-4 left-4 right-4 bg-ochre-bg/95 border border-ochre-dark px-5 py-4 flex items-end justify-between gap-4 backdrop-blur-sm">
+                            <div>
+                                <p class="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-dark mb-1">Architectural Record · Vol. 212</p>
+                                <h3 class="font-headline-md text-on-surface font-bold uppercase tracking-tight leading-tight">"A study in restraint."</h3>
+                            </div>
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-ochre-dark whitespace-nowrap">Cover · Mar 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Right column: Awards stack -->
+                <div class="md:col-span-5 flex flex-col gap-gutter">
+
+                    <!-- Award row 1 -->
+                    <article class="border border-ochre/60 bg-surface/8 backdrop-blur-md p-5 flex items-center gap-5 group hover:border-ochre transition-colors">
+                        <div class="award-seal shrink-0" aria-hidden="true">
+                            <span class="font-mono font-bold text-[9px] tracking-widest text-ochre-dark uppercase">RIBA</span>
+                            <span class="font-display text-base font-bold text-ochre-dark">'23</span>
+                            <span class="font-mono text-[8px] text-ochre-dark uppercase">SHORTLIST</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-light mb-1">Royal Institute</p>
+                            <h4 class="font-bold text-surface uppercase tracking-tight text-base leading-tight">Stephen Lawrence Prize Shortlist</h4>
+                            <p class="font-technical-data text-[12px] text-surface/70 mt-1">For The Ridge House · Aspen, CO</p>
+                        </div>
+                    </article>
+
+                    <!-- Award row 2 -->
+                    <article class="border border-ochre/60 bg-surface/8 backdrop-blur-md p-5 flex items-center gap-5 group hover:border-ochre transition-colors">
+                        <div class="award-seal shrink-0 rotate-3" aria-hidden="true" style="transform: rotate(6deg);">
+                            <span class="font-mono font-bold text-[9px] tracking-widest text-ochre-dark uppercase">DEZN</span>
+                            <span class="font-display text-base font-bold text-ochre-dark">'23</span>
+                            <span class="font-mono text-[8px] text-ochre-dark uppercase">PROJECT</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-light mb-1">Dezeen Magazine</p>
+                            <h4 class="font-bold text-surface uppercase tracking-tight text-base leading-tight">Project of the Day · Coastal Pavilion</h4>
+                            <p class="font-technical-data text-[12px] text-surface/70 mt-1">Featured · 14 May 2023</p>
+                        </div>
+                    </article>
+
+                    <!-- Award row 3 -->
+                    <article class="border border-ochre/60 bg-surface/8 backdrop-blur-md p-5 flex items-center gap-5 group hover:border-ochre transition-colors">
+                        <div class="award-seal shrink-0" aria-hidden="true" style="transform: rotate(-12deg);">
+                            <span class="font-mono font-bold text-[9px] tracking-widest text-ochre-dark uppercase">WALL</span>
+                            <span class="font-display text-base font-bold text-ochre-dark">'22</span>
+                            <span class="font-mono text-[8px] text-ochre-dark uppercase">PAPER*</span>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-light mb-1">Wallpaper* Magazine</p>
+                            <h4 class="font-bold text-surface uppercase tracking-tight text-base leading-tight">House of the Year · Honourable</h4>
+                            <p class="font-technical-data text-[12px] text-surface/70 mt-1">Issue 296 · November 2022</p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Bottom row: 3 small editorial clippings -->
+                <div class="md:col-span-12 grid grid-cols-1 sm:grid-cols-3 gap-gutter mt-4">
+
+                    <article class="border border-ochre/40 bg-surface/8 backdrop-blur-md group hover:border-ochre transition-colors">
+                        <div class="aspect-video overflow-hidden border-b border-ochre/40">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Magazine spread of architectural feature" class="w-full h-full object-cover grayscale-[15%] transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
+                        </div>
+                        <div class="p-4 flex items-center justify-between">
+                            <div>
+                                <p class="font-mono text-[10px] text-ochre-light uppercase tracking-widest">The New York Times</p>
+                                <h5 class="font-bold text-sm text-surface mt-1">"Quietly radical."</h5>
+                            </div>
+                            <span class="ochre-stamp">Read</span>
+                        </div>
+                    </article>
+
+                    <article class="border border-ochre/40 bg-surface/8 backdrop-blur-md group hover:border-ochre transition-colors">
+                        <div class="aspect-video overflow-hidden border-b border-ochre/40">
+                            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Drafting interview portrait" class="w-full h-full object-cover grayscale-[15%] transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
+                        </div>
+                        <div class="p-4 flex items-center justify-between">
+                            <div>
+                                <p class="font-mono text-[10px] text-ochre-light uppercase tracking-widest">Domus</p>
+                                <h5 class="font-bold text-sm text-surface mt-1">"On the line."</h5>
+                            </div>
+                            <span class="ochre-stamp">Read</span>
+                        </div>
+                    </article>
+
+                    <article class="border border-ochre/40 bg-surface/8 backdrop-blur-md group hover:border-ochre transition-colors">
+                        <div class="aspect-video overflow-hidden border-b border-ochre/40">
+                            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Studio interview reportage" class="w-full h-full object-cover grayscale-[15%] transition-transform duration-700 group-hover:scale-105" loading="lazy"/>
+                        </div>
+                        <div class="p-4 flex items-center justify-between">
+                            <div>
+                                <p class="font-mono text-[10px] text-ochre-light uppercase tracking-widest">Wallpaper*</p>
+                                <h5 class="font-bold text-sm text-surface mt-1">"Drawing first."</h5>
+                            </div>
+                            <span class="ochre-stamp">Read</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Footer ledger row -->
+            <div class="max-w-7xl mx-auto mt-14 pt-6 border-t border-ochre/40 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-widest text-ochre-light">
+                <span>Selected press · 2018 — 2024</span>
+                <span class="text-surface/60">42 features · 11 awards · 3 monographs</span>
+                <a href="#" class="ochre-stamp hover:bg-ochre hover:text-on-surface transition-colors">Press archive →</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Component -->
+    <footer class="border-t-2 border-cyan-700 dark:border-cyan-500 bg-[#F4F6F5]/90 backdrop-blur-md flex flex-col md:flex-row justify-between items-center w-full px-6 lg:px-8 py-8 lg:py-6 z-40 relative mt-12 lg:mt-24 tick-tl tick-tr gap-6">
+        <!-- Left: Project/Scale Info -->
+        <div class="flex flex-col gap-2 items-center md:items-start w-full md:w-auto">
+            <div class="text-cyan-800 dark:text-cyan-300 font-bold font-mono uppercase text-[10px] tracking-tight flex items-center gap-4 flex-wrap justify-center text-center">
+                <span>PROJECT NO. <span class="tabular-nums">2024</span>-OA / SCALE <span class="tabular-nums">1:100</span> / NORTH ARROW ↑</span>
+            </div>
+            <!-- Scale Bar Visual -->
+            <div class="w-48 h-2 border border-cyan-700 flex bg-surface/50" aria-hidden="true">
+                <div class="flex-1 bg-cyan-700"></div>
+                <div class="flex-1 border-r border-cyan-700"></div>
+                <div class="flex-1 border-r border-cyan-700"></div>
+                <div class="flex-1"></div>
+            </div>
+        </div>
+        
+        <!-- Right: Links -->
+        <div class="flex gap-6 lg:gap-8 justify-center flex-wrap">
+            <a class="font-mono uppercase text-[10px] tracking-tight text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 px-1 py-0.5" href="#">SPECIFICATIONS</a>
+            <a class="font-mono uppercase text-[10px] tracking-tight text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 px-1 py-0.5" href="#">LEGAL</a>
+            <a class="font-mono uppercase text-[10px] tracking-tight text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 px-1 py-0.5" href="#">ARCHIVE</a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MASTERPIECE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;family=Space+Grotesk:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#d1e4ff",
+                      "surface-dim": "#dbd9db",
+                      "tertiary-container": "#40000f",
+                      "tertiary": "#000000",
+                      "surface-variant": "#e4e2e4",
+                      "surface": "#fbf9fb",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffdadb",
+                      "surface-container": "#efedef",
+                      "secondary": "#605e5a",
+                      "on-tertiary-fixed": "#40000f",
+                      "surface-container-highest": "#e4e2e4",
+                      "on-secondary-container": "#666460",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#061d32",
+                      "on-secondary-fixed-variant": "#484743",
+                      "surface-bright": "#fbf9fb",
+                      "on-surface": "#1b1c1d",
+                      "outline-variant": "#c4c6cd",
+                      "on-background": "#1b1c1d",
+                      "surface-container-low": "#f5f3f5",
+                      "background": "#fbf9fb",
+                      "secondary-fixed-dim": "#c9c6c0",
+                      "on-primary-container": "#72859f",
+                      "inverse-surface": "#303032",
+                      "primary": "#000000",
+                      "secondary-fixed": "#e6e2dc",
+                      "on-secondary-fixed": "#1c1c18",
+                      "outline": "#74777d",
+                      "on-surface-variant": "#44474d",
+                      "on-tertiary-container": "#c96571",
+                      "tertiary-fixed-dim": "#ffb2b8",
+                      "surface-tint": "#4d6078",
+                      "on-tertiary-fixed-variant": "#7c2a37",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#35485f",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#b4c8e4",
+                      "inverse-on-surface": "#f2f0f2",
+                      "error": "#ba1a1a",
+                      "primary-container": "#061d32",
+                      "secondary-container": "#e6e2dc",
+                      "primary-fixed-dim": "#b4c8e4",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e9e7ea",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "128px",
+                      "gutter": "24px",
+                      "lg": "64px",
+                      "sm": "16px",
+                      "md": "32px",
+                      "unit": "4px",
+                      "xs": "8px",
+                      "margin": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Newsreader"
+                      ],
+                      "ui-technical": [
+                              "Space Grotesk"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-xl": [
+                              "Newsreader"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Newsreader"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "ui-technical": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl": [
+                              "84px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "300"
+                      }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>.bg-hero-image {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBBwOBi63mkZdvC5cYAjxxD2_fas9UcdzjOdeKbmEUr9Vlu9n2G5191A9U7fdykrBwPjAEv0QvXqOw7UOd75iMk-7rx1-1H88MCVTmWMpV6rGVtk6DF4sSh0Yc-mVhE2FRT606PdzWe5nS93ZXTTd3qJ8HKeNLLnlKUF1nvptmtJWdVwF5WHnMPJZxf_1HGFtk4Dur5QhMTxn0Qi1nVL12MQ_IVFnRcyveL17428QBihOJZOGdkb1pNrIIHRKNGO3bNs1hj3fWHJY0);
+    background-size: cover;
+    background-position: center
+    }
+html, body { overflow-x: clip; }
+.full-bleed { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); max-width: none; }
+
+/* Atelier cycling image — 4 cross-fading frames */
+@keyframes atelier-fade {
+  0%, 4%   { opacity: 0; filter: blur(18px) saturate(0.8); transform: scale(1.04); }
+  8%, 22%  { opacity: 1; filter: blur(0) saturate(1);    transform: scale(1); }
+  26%, 100%{ opacity: 0; filter: blur(18px) saturate(0.8); transform: scale(1.04); }
+}
+.atelier-cycle-img {
+  animation: atelier-fade 16s linear infinite;
+  opacity: 0;
+  filter: blur(18px) saturate(0.8);
+  transform: scale(1.04);
+  will-change: opacity, filter, transform;
+}
+@keyframes atelier-scrub {
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+.atelier-scrub-bar { animation: atelier-scrub 16s linear infinite; transform-origin: left; }
+
+/* Marquee — paused-on-hover */
+.marquee-track { display: flex; gap: 24px; width: max-content; }
+@keyframes marquee-x { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+.marquee-strip { animation: marquee-x 60s linear infinite; }
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-strip:hover { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .atelier-cycle-img { animation: none; }
+  .atelier-cycle-img:first-of-type { opacity: 1; filter: none; transform: none; }
+  .atelier-scrub-bar { animation: none; transform: scaleX(1); }
+  .marquee-strip { animation: none; }
+}</style>
+</head>
+<body class="bg-surface text-on-surface antialiased font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-800/50 flat no shadows smooth scrolling and subtle opacity shifts on scroll flex justify-between items-center px-8 md:px-16 py-6 w-full">
+<div class="text-2xl font-serif italic tracking-tighter text-slate-900 dark:text-slate-50 font-headline-md text-headline-md">MASTERPIECE</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-slate-900 dark:text-white border-b border-slate-900 dark:border-white pb-1 font-ui-technical text-ui-technical hover:opacity-70 transition-opacity" href="#">The Vision</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-300 font-ui-technical text-ui-technical hover:opacity-70 transition-opacity" href="#">Technique</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-300 font-ui-technical text-ui-technical hover:opacity-70 transition-opacity" href="#">Specifications</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors duration-300 font-ui-technical text-ui-technical hover:opacity-70 transition-opacity" href="#">Inquiry</a>
+</nav>
+<button class="hidden md:block bg-primary text-on-primary px-6 py-3 font-ui-technical text-ui-technical uppercase hover:opacity-70 transition-opacity rounded-none">Request Access</button>
+<button class="md:hidden">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+</button>
+</header>
+<main>
+<!-- Section 1: Hero -->
+<section class="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
+<div class="absolute inset-0 z-0" data-alt="High-contrast studio photograph of a luxury mechanical watch movement, sharp metallic details, extreme depth of field, dramatic lighting, pristine white background">
+<img alt="Luxury mechanical watch movement" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvcVRPGeEb6RQVOWXtrhWnADmsMNIqxbQ1d15EB6P7WaB76U5Z06IsIBmzysXl0jXfGPTFJ6EeC98GINJMnxNYimgTL1s8Db8p7PuBHXDgg6Ftw0-CBU7ocDhSrVfnpCKW_6osdguvrMtXlByGnlaqisl1d_OeM4OHPfkeFzU7ftBUdhg3zLirGT7NOljaTM7U3-SVtBkRFN9CGU76mxV1DKTTczZQsUUPMdj99jmlSxCAXlCpq3MXm4qVR-WoK37V6X6IOmGNDRY"/>
+<div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+</div>
+<div class="relative z-10 text-center px-gutter text-white">
+<h1 class="font-display-xl text-display-xl italic drop-shadow-[0_4px_24px_rgba(0,0,0,0.65)]">Form. Function. Soul.</h1>
+</div>
+<div class="absolute bottom-12 z-10 flex flex-col items-center gap-unit text-white">
+<span class="font-ui-technical text-ui-technical uppercase tracking-widest text-[10px]">Scroll</span>
+<div class="w-px h-12 bg-white/50"></div>
+</div>
+</section>
+<!-- Section 2: The Pedigree (Bento Grid) -->
+<section class="max-w-screen-2xl mx-auto px-gutter md:px-margin py-xl">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-px bg-outline-variant">
+<!-- Bento 1: Text -->
+<div class="col-span-1 md:col-span-8 bg-surface p-lg md:p-xl flex flex-col justify-between min-h-[400px]">
+<span class="font-ui-technical text-ui-technical text-on-surface-variant uppercase">[01_LEGACY]</span>
+<div class="max-w-2xl mt-lg">
+<h2 class="font-headline-lg text-headline-lg mb-md">An obsession with the unyielding pursuit of perfection.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">We do not manufacture; we distill. Every component is subjected to a rigorous evaluation of utility and aesthetic harmony. The result is an artifact that transcends its utilitarian purpose.</p>
+</div>
+</div>
+<!-- Bento 2: Image B&W -->
+<div class="col-span-1 md:col-span-4 bg-surface min-h-[400px] relative overflow-hidden group">
+<img alt="Grainy black and white photograph of an artisan's hands carefully adjusting a microscopic mechanism" class="absolute inset-0 w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105" data-alt="Grainy black and white photograph of an artisan's hands carefully adjusting a microscopic mechanism, high contrast, dramatic shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoxAsRwSdDt9pIakDdZOef1RPM6Wmc8j1fKH-dh1koHyQZd8YO8dY4i5S7ka4-I1jz-J6KWMwZjCmgUEMmAxMHXq0soRa17eDuqurp1BlMtgh4RV1I2oGc5vuL0tUE4ZPiuBSjbbnDpqKYrCiZl3Fr-hiqvlwcqiz3h0FxJtA50dRKBRecwWEMkqjg2NrWRWG6zWiO78qUeShPYma_b30GW5XWqERUqyD1_by16hnkex879BB8OJv3M4AqnnKGnRtk4x8Vw_Nqxh8"/>
+<div class="absolute inset-0 border border-outline-variant/30 pointer-events-none"></div>
+<span class="absolute top-sm right-sm bg-surface/80 backdrop-blur-sm px-2 py-1 font-ui-technical text-[10px] uppercase text-on-surface">Artisan</span>
+</div>
+<!-- Bento 3: Blueprint -->
+<div class="col-span-1 md:col-span-6 bg-surface p-lg min-h-[400px] relative border-t md:border-t-0 md:border-r border-outline-variant">
+<div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/blueprint.png')] mix-blend-multiply pointer-events-none"></div>
+<span class="font-ui-technical text-ui-technical text-on-surface-variant uppercase block mb-md">[02_SCHEMATIC]</span>
+<img alt="Technical blueprint of a mechanical device on a pristine white background" class="w-full h-auto object-cover opacity-80" data-alt="Technical blueprint lines of a complex mechanical device on a pristine white background, thin sharp blue lines, high precision" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwp0f9VCLogH5Sg6eA_zIa0z84lxwC6RdG_q235eTbIJvAfLKeIfEVc_YqBx2JwFjlw5NLYSnBb-06t-wkF5X69t9CCirPymcFhYlvAEVjRMjWci_xIBFJJfJ4seBHx6J2D0yrDKlR8mCpR12dgLuutDij-350kGGslF7Gabs-Ee1b048C_kq4VfdSr05IDAAw0wCj4hRqg89jM8qEV54vB01m9yVXV4ggk1R_zn5um1lePtrye8WEffnmGIp1F9XTySWfLreVAHE"/>
+</div>
+<!-- Bento 4: Material -->
+<div class="col-span-1 md:col-span-6 bg-surface p-lg min-h-[400px] border-t md:border-t-0 border-outline-variant flex flex-col justify-center items-center text-center">
+<span class="font-ui-technical text-ui-technical text-on-surface-variant uppercase mb-md">[03_MATERIAL]</span>
+<h3 class="font-headline-md text-headline-md italic mb-sm">Forged in Titanium.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Grade 5 Titanium provides exceptional strength-to-weight ratio, ensuring resilience without compromise.</p>
+</div>
+</div>
+</section>
+<!-- Section 2.5 (NEW): Atelier — sticky-rail + 16s cycling image -->
+<section class="max-w-screen-2xl mx-auto px-gutter md:px-margin py-xl border-t border-outline-variant/40">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg md:gap-xl">
+<div class="md:col-span-5 md:sticky md:top-32 md:self-start mb-md md:mb-0 flex flex-col gap-md">
+<span class="font-ui-technical text-ui-technical text-on-surface-variant uppercase">[II_ATELIER]</span>
+<h2 class="font-headline-lg text-headline-lg italic">Inside the bench, four <em>silences</em>.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">A working day at the Geneva atelier, observed without interruption. Hand-bevelling, polishing, microscopic regulation, final cleaning — each frame is the same room, three hours apart.</p>
+<div class="flex items-center gap-md max-w-sm">
+<div class="flex-1 h-px bg-outline-variant relative overflow-hidden">
+<div class="absolute inset-0 origin-left bg-on-surface atelier-scrub-bar"></div>
+</div>
+<span class="font-ui-technical text-[10px] uppercase tracking-widest text-on-surface-variant tabular-nums whitespace-nowrap">04 frames · 16s loop</span>
+</div>
+<div class="flex flex-wrap gap-md font-ui-technical text-[10px] uppercase tracking-widest text-on-surface-variant">
+<span>Atelier No. II</span><span class="opacity-30">·</span><span>Geneva</span><span class="opacity-30">·</span><span>MMXXIV</span>
+</div>
+<a href="#" class="inline-block self-start mt-sm border border-on-surface px-md py-3 font-ui-technical text-ui-technical uppercase hover:bg-on-surface hover:text-surface transition-colors">Visit the bench →</a>
+</div>
+<div class="md:col-span-7">
+<div class="relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden border border-outline-variant/60 bg-surface-container">
+<img alt="Watchmaker hand-bevelling a movement bridge under loupe" class="atelier-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 0s;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoxAsRwSdDt9pIakDdZOef1RPM6Wmc8j1fKH-dh1koHyQZd8YO8dY4i5S7ka4-I1jz-J6KWMwZjCmgUEMmAxMHXq0soRa17eDuqurp1BlMtgh4RV1I2oGc5vuL0tUE4ZPiuBSjbbnDpqKYrCiZl3Fr-hiqvlwcqiz3h0FxJtA50dRKBRecwWEMkqjg2NrWRWG6zWiO78qUeShPYma_b30GW5XWqERUqyD1_by16hnkex879BB8OJv3M4AqnnKGnRtk4x8Vw_Nqxh8"/>
+<img alt="Polished mainplate at the polishing station" class="atelier-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 4s;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATOAhumNxbylkmQyVdGwJg56zzpJCztfEK_lJxgeeQ-9uLXeuBK--esOZEfP9eTKsXsJDdjfSMmUpBWUmdxdpoh4NRHnkmDLDv0JIpCQ5058vGGR45zVe8wpFcDg61HHdP7nSgxnUpRiHBcZ2w7lQ7-T9Vf5Uo256wOAP6IUqusa-EyHGJX8LvCS9y0IRQOUVC4yRQlmgmlJGA9uTjyj_TL6gie1Alu-ptFuYqgz_-Mswd5rWqxGD_SNVBBudBUVCHtwskjGl1QKA"/>
+<img alt="Microscopic regulation of escapement frequency" class="atelier-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 8s;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJqYC7vEbN3YAADs-jPUcMEQFTXUW9RMdmyTncajSyo-gvHhFq6XLdC7dZyuDUqyF8USQBWyoOBSEu9nnU9ArkFSkHCwyVp7VSsqLAWvnw8QUKlLczg8E4GBACRlTHt68II4EhPopzq4yQ-gNsJazSqeDOZuI6el45clCIlnaR6gZQAzs-tjm3qgJHROnqti-c9GIyw6TgT-ba4oxmlQdNA6vfqImzP3qqM4h_qjBtsY_MucijJNexlsxAL0sHgQhF1lrC8yFHrQQ"/>
+<img alt="Final cleaning before assembly under sterile light" class="atelier-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 12s;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHPNubmbUzes4dINs3h9UMPOdR-hZXblnelMAoFdFnAlLnFfZYf72VbhzlKVc0e9Y6Yxul3BnUY3tUakTsEVvc_bm5tlK9CNTicvEAyXzYCXB7PLO5hceRvoENokH8SpDoxa438rSUj4victwYn5CWENQac8JLdrO0fFy_CbaTQNPQZci4wUsdUCMSDPjrgSUIqUAkdWxhaBhkJnD3h-1lICz_VyVrUvXSLxkqPkmSxJ6HPZAjRlNC5PQKkB7YmOLg8OTQtLYc9Uw"/>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none"></div>
+<span class="absolute top-md left-md font-ui-technical text-[10px] uppercase tracking-widest text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">Live · Atelier Cam</span>
+<span class="absolute top-md right-md font-ui-technical text-[10px] uppercase tracking-widest text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">Plate · I–IV</span>
+</div>
+<div class="grid grid-cols-4 gap-sm mt-md font-ui-technical text-[10px] uppercase tracking-widest text-on-surface-variant">
+<div class="flex flex-col gap-1 border-t border-outline-variant/60 pt-2"><span class="tabular-nums">I</span><span>Bevel</span></div>
+<div class="flex flex-col gap-1 border-t border-outline-variant/60 pt-2"><span class="tabular-nums">II</span><span>Polish</span></div>
+<div class="flex flex-col gap-1 border-t border-outline-variant/60 pt-2"><span class="tabular-nums">III</span><span>Regulate</span></div>
+<div class="flex flex-col gap-1 border-t border-outline-variant/60 pt-2"><span class="tabular-nums">IV</span><span>Clean</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Technical Precision -->
+<section class="bg-primary-container text-on-primary-container py-xl border-y border-outline-variant/30">
+<div class="max-w-screen-xl mx-auto px-gutter md:px-margin grid grid-cols-1 md:grid-cols-2 gap-lg relative">
+<div class="absolute top-0 bottom-0 left-1/2 w-px bg-outline-variant/20 hidden md:block"></div>
+<div class="flex flex-col gap-lg pr-0 md:pr-lg">
+<div class="border-b border-outline-variant/20 pb-md">
+<span class="font-ui-technical text-ui-technical text-primary-fixed-dim block mb-xs">[SPEC_01]</span>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-primary">Caliber Architecture</h4>
+<p class="font-body-md text-body-md mt-sm text-on-primary-container/80">324 discrete components, entirely hand-finished. Featuring a frictionless escapement mechanism designed for absolute chronometric precision.</p>
+</div>
+<div class="border-b border-outline-variant/20 pb-md">
+<span class="font-ui-technical text-ui-technical text-primary-fixed-dim block mb-xs">[SPEC_02]</span>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-primary">Acoustic Resonance</h4>
+<p class="font-body-md text-body-md mt-sm text-on-primary-container/80">Proprietary dampening alloys isolate the internal acoustic chamber, ensuring a pure, uninterrupted frequency response.</p>
+</div>
+</div>
+<div class="flex flex-col gap-lg pl-0 md:pl-lg">
+<div class="border-b border-outline-variant/20 pb-md">
+<span class="font-ui-technical text-ui-technical text-primary-fixed-dim block mb-xs">[SPEC_03]</span>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-primary">Thermal Stability</h4>
+<p class="font-body-md text-body-md mt-sm text-on-primary-container/80">Operates seamlessly within a temperature delta of -40°C to +85°C without deviation in structural integrity or performance.</p>
+</div>
+<div class="border-b border-outline-variant/20 pb-md">
+<span class="font-ui-technical text-ui-technical text-primary-fixed-dim block mb-xs">[SPEC_04]</span>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-primary">Haptic Feedback</h4>
+<p class="font-body-md text-body-md mt-sm text-on-primary-container/80">Engineered tactile resistance provides a definitive, satisfying mechanical click for every interaction point.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3.5 (NEW): Atmosphere — 5 framed image-strip tiles -->
+<section class="max-w-screen-2xl mx-auto px-gutter md:px-margin py-xl">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-md mb-lg">
+<div class="max-w-xl">
+<span class="font-ui-technical text-ui-technical text-on-surface-variant uppercase block mb-xs">[III_ATMOSPHERE]</span>
+<h2 class="font-headline-lg text-headline-lg italic">From the floor.</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Plates from the working space, photographed at noon. Hover to lift the grayscale.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-sm">
+<figure class="relative aspect-[3/4] overflow-hidden border border-outline-variant/60 group">
+<img alt="Loupe and pliers laid on a tan leather mat in soft side light" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md flex items-end justify-between text-white">
+<span class="font-headline-md text-[20px] italic leading-none">Tools</span>
+<span class="font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums">I</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-[3/4] overflow-hidden border border-outline-variant/60 group">
+<img alt="Brass screw assortment in a watchmaker's tray" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md flex items-end justify-between text-white">
+<span class="font-headline-md text-[20px] italic leading-none">Index</span>
+<span class="font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums">II</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-[3/4] overflow-hidden border border-outline-variant/60 group">
+<img alt="Architectural detail of the atelier ceiling cornice" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md flex items-end justify-between text-white">
+<span class="font-headline-md text-[20px] italic leading-none">Cornice</span>
+<span class="font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums">III</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-[3/4] overflow-hidden border border-outline-variant/60 group">
+<img alt="Window light catching the long bench at the atelier" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md flex items-end justify-between text-white">
+<span class="font-headline-md text-[20px] italic leading-none">Bench</span>
+<span class="font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums">IV</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-[3/4] overflow-hidden border border-outline-variant/60 group">
+<img alt="Stairwell receding into the upper floor of the workshop" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md flex items-end justify-between text-white">
+<span class="font-headline-md text-[20px] italic leading-none">Stair</span>
+<span class="font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums">V</span>
+</figcaption>
+</figure>
+</div>
+<p class="text-center mt-md font-ui-technical text-[10px] uppercase tracking-widest text-on-surface-variant">Photographs by House · Floor No. II · MMXXIV</p>
+</section>
+<!-- Section 4: The Gallery -->
+<section class="py-xl max-w-screen-2xl mx-auto px-gutter md:px-margin overflow-hidden">
+<h2 class="font-headline-lg text-headline-lg text-center mb-lg">Visual Archive.</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="flex flex-col gap-sm">
+<img alt="Close up of a textured dark metal surface with perfect geometric lines" class="w-full h-[500px] object-cover border border-outline-variant/50" data-alt="Close up macro shot of a dark textured titanium metal surface with perfect geometric machined lines, soft studio side lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATOAhumNxbylkmQyVdGwJg56zzpJCztfEK_lJxgeeQ-9uLXeuBK--esOZEfP9eTKsXsJDdjfSMmUpBWUmdxdpoh4NRHnkmDLDv0JIpCQ5058vGGR45zVe8wpFcDg61HHdP7nSgxnUpRiHBcZ2w7lQ7-T9Vf5Uo256wOAP6IUqusa-EyHGJX8LvCS9y0IRQOUVC4yRQlmgmlJGA9uTjyj_TL6gie1Alu-ptFuYqgz_-Mswd5rWqxGD_SNVBBudBUVCHtwskjGl1QKA"/>
+<p class="font-headline-md text-[24px] italic text-on-surface-variant">The geometry of strength.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<img alt="Abstract macro of polished glass and metal reflecting light" class="w-full h-[500px] object-cover border border-outline-variant/50" data-alt="Abstract macro photography of polished crystal glass and brushed steel reflecting cold white light, sharp focus, technical aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHPNubmbUzes4dINs3h9UMPOdR-hZXblnelMAoFdFnAlLnFfZYf72VbhzlKVc0e9Y6Yxul3BnUY3tUakTsEVvc_bm5tlK9CNTicvEAyXzYCXB7PLO5hceRvoENokH8SpDoxa438rSUj4victwYn5CWENQac8JLdrO0fFy_CbaTQNPQZci4wUsdUCMSDPjrgSUIqUAkdWxhaBhkJnD3h-1lICz_VyVrUvXSLxkqPkmSxJ6HPZAjRlNC5PQKkB7YmOLg8OTQtLYc9Uw"/>
+<p class="font-headline-md text-[24px] italic text-on-surface-variant">Refraction and clarity.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<img alt="A technician in a sterile environment working on a pristine component" class="w-full h-[500px] object-cover border border-outline-variant/50 grayscale" data-alt="A technician wearing white gloves in a sterile white laboratory environment carefully inspecting a pristine metallic component, cool lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJqYC7vEbN3YAADs-jPUcMEQFTXUW9RMdmyTncajSyo-gvHhFq6XLdC7dZyuDUqyF8USQBWyoOBSEu9nnU9ArkFSkHCwyVp7VSsqLAWvnw8QUKlLczg8E4GBACRlTHt68II4EhPopzq4yQ-gNsJazSqeDOZuI6el45clCIlnaR6gZQAzs-tjm3qgJHROnqti-c9GIyw6TgT-ba4oxmlQdNA6vfqImzP3qqM4h_qjBtsY_MucijJNexlsxAL0sHgQhF1lrC8yFHrQQ"/>
+<p class="font-headline-md text-[24px] italic text-on-surface-variant">Human calibration.</p>
+</div>
+</div>
+</section>
+<!-- Section 4.5 (NEW): References — paused-on-hover marquee strip -->
+<section class="full-bleed py-xl bg-primary-container text-on-primary-container border-y border-outline-variant/30 overflow-hidden">
+<div class="max-w-screen-2xl mx-auto px-gutter md:px-margin flex flex-col md:flex-row md:items-end md:justify-between gap-md mb-lg">
+<div>
+<span class="font-ui-technical text-ui-technical text-primary-fixed-dim uppercase block mb-xs">[IV_REFERENCES]</span>
+<h2 class="font-headline-lg text-headline-lg italic text-on-primary">The vault, in motion.</h2>
+</div>
+<p class="font-body-md text-body-md text-on-primary-container/80 max-w-md">Eight references currently held in the registry — hover to pause the strip.</p>
+</div>
+<div class="overflow-hidden py-3">
+<div class="marquee-track marquee-strip">
+<figure class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="Reference 01 — Calibre Noir" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvcVRPGeEb6RQVOWXtrhWnADmsMNIqxbQ1d15EB6P7WaB76U5Z06IsIBmzysXl0jXfGPTFJ6EeC98GINJMnxNYimgTL1s8Db8p7PuBHXDgg6Ftw0-CBU7ocDhSrVfnpCKW_6osdguvrMtXlByGnlaqisl1d_OeM4OHPfkeFzU7ftBUdhg3zLirGT7NOljaTM7U3-SVtBkRFN9CGU76mxV1DKTTczZQsUUPMdj99jmlSxCAXlCpq3MXm4qVR-WoK37V6X6IOmGNDRY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Calibre Noir</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-001 · 38mm</span>
+</figcaption>
+</figure>
+<figure class="relative w-80 aspect-[16/10] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="Reference 02 — Salle Argent" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATOAhumNxbylkmQyVdGwJg56zzpJCztfEK_lJxgeeQ-9uLXeuBK--esOZEfP9eTKsXsJDdjfSMmUpBWUmdxdpoh4NRHnkmDLDv0JIpCQ5058vGGR45zVe8wpFcDg61HHdP7nSgxnUpRiHBcZ2w7lQ7-T9Vf5Uo256wOAP6IUqusa-EyHGJX8LvCS9y0IRQOUVC4yRQlmgmlJGA9uTjyj_TL6gie1Alu-ptFuYqgz_-Mswd5rWqxGD_SNVBBudBUVCHtwskjGl1QKA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Salle Argent</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-002 · 41mm</span>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="Reference 03 — La Lumière" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHPNubmbUzes4dINs3h9UMPOdR-hZXblnelMAoFdFnAlLnFfZYf72VbhzlKVc0e9Y6Yxul3BnUY3tUakTsEVvc_bm5tlK9CNTicvEAyXzYCXB7PLO5hceRvoENokH8SpDoxa438rSUj4victwYn5CWENQac8JLdrO0fFy_CbaTQNPQZci4wUsdUCMSDPjrgSUIqUAkdWxhaBhkJnD3h-1lICz_VyVrUvXSLxkqPkmSxJ6HPZAjRlNC5PQKkB7YmOLg8OTQtLYc9Uw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">La Lumière</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-003 · 36mm</span>
+</figcaption>
+</figure>
+<figure class="relative w-96 aspect-[16/10] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="Reference 04 — Atelier Plaque" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJqYC7vEbN3YAADs-jPUcMEQFTXUW9RMdmyTncajSyo-gvHhFq6XLdC7dZyuDUqyF8USQBWyoOBSEu9nnU9ArkFSkHCwyVp7VSsqLAWvnw8QUKlLczg8E4GBACRlTHt68II4EhPopzq4yQ-gNsJazSqeDOZuI6el45clCIlnaR6gZQAzs-tjm3qgJHROnqti-c9GIyw6TgT-ba4oxmlQdNA6vfqImzP3qqM4h_qjBtsY_MucijJNexlsxAL0sHgQhF1lrC8yFHrQQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Atelier Plaque</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-004 · Limited 12</span>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="Reference 05 — Plein Soir" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoxAsRwSdDt9pIakDdZOef1RPM6Wmc8j1fKH-dh1koHyQZd8YO8dY4i5S7ka4-I1jz-J6KWMwZjCmgUEMmAxMHXq0soRa17eDuqurp1BlMtgh4RV1I2oGc5vuL0tUE4ZPiuBSjbbnDpqKYrCiZl3Fr-hiqvlwcqiz3h0FxJtA50dRKBRecwWEMkqjg2NrWRWG6zWiO78qUeShPYma_b30GW5XWqERUqyD1_by16hnkex879BB8OJv3M4AqnnKGnRtk4x8Vw_Nqxh8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Plein Soir</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-005 · 39mm</span>
+</figcaption>
+</figure>
+<figure class="relative w-80 aspect-[16/10] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="Reference 06 — Schémas" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwp0f9VCLogH5Sg6eA_zIa0z84lxwC6RdG_q235eTbIJvAfLKeIfEVc_YqBx2JwFjlw5NLYSnBb-06t-wkF5X69t9CCirPymcFhYlvAEVjRMjWci_xIBFJJfJ4seBHx6J2D0yrDKlR8mCpR12dgLuutDij-350kGGslF7Gabs-Ee1b048C_kq4VfdSr05IDAAw0wCj4hRqg89jM8qEV54vB01m9yVXV4ggk1R_zn5um1lePtrye8WEffnmGIp1F9XTySWfLreVAHE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Schémas</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-006 · Squelette</span>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="Reference 07 — Maison Onyx" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBwOBi63mkZdvC5cYAjxxD2_fas9UcdzjOdeKbmEUr9Vlu9n2G5191A9U7fdykrBwPjAEv0QvXqOw7UOd75iMk-7rx1-1H88MCVTmWMpV6rGVtk6DF4sSh0Yc-mVhE2FRT606PdzWe5nS93ZXTTd3qJ8HKeNLLnlKUF1nvptmtJWdVwF5WHnMPJZxf_1HGFtk4Dur5QhMTxn0Qi1nVL12MQ_IVFnRcyveL17428QBihOJZOGdkb1pNrIIHRKNGO3bNs1hj3fWHJY0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Maison Onyx</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-007 · 40mm</span>
+</figcaption>
+</figure>
+<!-- Duplicate set for seamless loop -->
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvcVRPGeEb6RQVOWXtrhWnADmsMNIqxbQ1d15EB6P7WaB76U5Z06IsIBmzysXl0jXfGPTFJ6EeC98GINJMnxNYimgTL1s8Db8p7PuBHXDgg6Ftw0-CBU7ocDhSrVfnpCKW_6osdguvrMtXlByGnlaqisl1d_OeM4OHPfkeFzU7ftBUdhg3zLirGT7NOljaTM7U3-SVtBkRFN9CGU76mxV1DKTTczZQsUUPMdj99jmlSxCAXlCpq3MXm4qVR-WoK37V6X6IOmGNDRY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Calibre Noir</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-001 · 38mm</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-80 aspect-[16/10] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATOAhumNxbylkmQyVdGwJg56zzpJCztfEK_lJxgeeQ-9uLXeuBK--esOZEfP9eTKsXsJDdjfSMmUpBWUmdxdpoh4NRHnkmDLDv0JIpCQ5058vGGR45zVe8wpFcDg61HHdP7nSgxnUpRiHBcZ2w7lQ7-T9Vf5Uo256wOAP6IUqusa-EyHGJX8LvCS9y0IRQOUVC4yRQlmgmlJGA9uTjyj_TL6gie1Alu-ptFuYqgz_-Mswd5rWqxGD_SNVBBudBUVCHtwskjGl1QKA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Salle Argent</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-002 · 41mm</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHPNubmbUzes4dINs3h9UMPOdR-hZXblnelMAoFdFnAlLnFfZYf72VbhzlKVc0e9Y6Yxul3BnUY3tUakTsEVvc_bm5tlK9CNTicvEAyXzYCXB7PLO5hceRvoENokH8SpDoxa438rSUj4victwYn5CWENQac8JLdrO0fFy_CbaTQNPQZci4wUsdUCMSDPjrgSUIqUAkdWxhaBhkJnD3h-1lICz_VyVrUvXSLxkqPkmSxJ6HPZAjRlNC5PQKkB7YmOLg8OTQtLYc9Uw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">La Lumière</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-003 · 36mm</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-96 aspect-[16/10] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJqYC7vEbN3YAADs-jPUcMEQFTXUW9RMdmyTncajSyo-gvHhFq6XLdC7dZyuDUqyF8USQBWyoOBSEu9nnU9ArkFSkHCwyVp7VSsqLAWvnw8QUKlLczg8E4GBACRlTHt68II4EhPopzq4yQ-gNsJazSqeDOZuI6el45clCIlnaR6gZQAzs-tjm3qgJHROnqti-c9GIyw6TgT-ba4oxmlQdNA6vfqImzP3qqM4h_qjBtsY_MucijJNexlsxAL0sHgQhF1lrC8yFHrQQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Atelier Plaque</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-004 · Limited 12</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoxAsRwSdDt9pIakDdZOef1RPM6Wmc8j1fKH-dh1koHyQZd8YO8dY4i5S7ka4-I1jz-J6KWMwZjCmgUEMmAxMHXq0soRa17eDuqurp1BlMtgh4RV1I2oGc5vuL0tUE4ZPiuBSjbbnDpqKYrCiZl3Fr-hiqvlwcqiz3h0FxJtA50dRKBRecwWEMkqjg2NrWRWG6zWiO78qUeShPYma_b30GW5XWqERUqyD1_by16hnkex879BB8OJv3M4AqnnKGnRtk4x8Vw_Nqxh8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Plein Soir</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-005 · 39mm</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-80 aspect-[16/10] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwp0f9VCLogH5Sg6eA_zIa0z84lxwC6RdG_q235eTbIJvAfLKeIfEVc_YqBx2JwFjlw5NLYSnBb-06t-wkF5X69t9CCirPymcFhYlvAEVjRMjWci_xIBFJJfJ4seBHx6J2D0yrDKlR8mCpR12dgLuutDij-350kGGslF7Gabs-Ee1b048C_kq4VfdSr05IDAAw0wCj4hRqg89jM8qEV54vB01m9yVXV4ggk1R_zn5um1lePtrye8WEffnmGIp1F9XTySWfLreVAHE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Schémas</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-006 · Squelette</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 overflow-hidden border border-primary-fixed-dim/40 group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBwOBi63mkZdvC5cYAjxxD2_fas9UcdzjOdeKbmEUr9Vlu9n2G5191A9U7fdykrBwPjAEv0QvXqOw7UOd75iMk-7rx1-1H88MCVTmWMpV6rGVtk6DF4sSh0Yc-mVhE2FRT606PdzWe5nS93ZXTTd3qJ8HKeNLLnlKUF1nvptmtJWdVwF5WHnMPJZxf_1HGFtk4Dur5QhMTxn0Qi1nVL12MQ_IVFnRcyveL17428QBihOJZOGdkb1pNrIIHRKNGO3bNs1hj3fWHJY0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+<figcaption class="absolute inset-x-md bottom-md text-white">
+<span class="block font-headline-md text-[18px] italic leading-tight">Maison Onyx</span>
+<span class="block font-ui-technical text-[10px] uppercase tracking-widest opacity-80 tabular-nums mt-1">Ref · MP-007 · 40mm</span>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<!-- Section 4.75 (NEW): By the Numbers — 4 stat tiles -->
+<section class="max-w-screen-xl mx-auto px-gutter md:px-margin py-xl">
+<div class="text-center mb-lg">
+<span class="font-ui-technical text-ui-technical text-on-surface-variant uppercase block mb-xs">[V_REGISTRY]</span>
+<h2 class="font-headline-lg text-headline-lg italic">By the numbers, since MMXII.</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 border-y border-on-surface/30 md:divide-x md:divide-on-surface/20">
+<div class="flex flex-col items-center text-center py-lg px-md gap-xs border-b md:border-b-0 border-on-surface/20">
+<span class="font-display-xl text-[64px] md:text-[84px] italic leading-none text-on-surface tabular-nums">XII</span>
+<div class="w-12 h-px bg-on-surface/40 my-xs"></div>
+<span class="font-ui-technical text-ui-technical uppercase tracking-widest text-on-surface-variant">Years on the bench</span>
+<span class="font-body-md italic text-on-surface-variant/80 text-sm">Founded MMXII · Geneva</span>
+</div>
+<div class="flex flex-col items-center text-center py-lg px-md gap-xs border-b md:border-b-0 border-on-surface/20"><span class="font-display-xl text-[64px] md:text-[84px] italic leading-none text-on-surface tabular-nums">324</span>
+<div class="w-12 h-px bg-on-surface/40 my-xs"></div>
+<span class="font-ui-technical text-ui-technical uppercase tracking-widest text-on-surface-variant">Components per calibre</span>
+<span class="font-body-md italic text-on-surface-variant/80 text-sm">Each hand-finished, indexed</span>
+</div>
+<div class="flex flex-col items-center text-center py-lg px-md gap-xs">
+<span class="font-display-xl text-[64px] md:text-[84px] italic leading-none text-on-surface tabular-nums">XLVII</span>
+<div class="w-12 h-px bg-on-surface/40 my-xs"></div>
+<span class="font-ui-technical text-ui-technical uppercase tracking-widest text-on-surface-variant">Pieces per year</span>
+<span class="font-body-md italic text-on-surface-variant/80 text-sm">Strictly allocated</span>
+</div>
+<div class="flex flex-col items-center text-center py-lg px-md gap-xs">
+<span class="font-display-xl text-[64px] md:text-[84px] italic leading-none text-on-surface tabular-nums">II</span>
+<div class="w-12 h-px bg-on-surface/40 my-xs"></div>
+<span class="font-ui-technical text-ui-technical uppercase tracking-widest text-on-surface-variant">Master watchmakers</span>
+<span class="font-body-md italic text-on-surface-variant/80 text-sm">No outsourced labour</span>
+</div>
+</div>
+</section>
+<!-- Section 5: The Inquiry (CTA) -->
+<section class="py-xl bg-surface border-t border-outline-variant/30 flex justify-center items-center">
+<div class="max-w-md w-full px-gutter text-center flex flex-col items-center gap-md">
+<span class="material-symbols-outlined text-4xl text-on-surface font-light">mail</span>
+<h2 class="font-headline-md text-headline-md">Join the registry.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Production is strictly limited. Submit your credentials to request an allocation.</p>
+<form class="w-full flex flex-col gap-md" onsubmit="event.preventDefault();">
+<div class="relative w-full">
+<input class="block w-full px-0 py-3 bg-transparent border-0 border-b border-primary appearance-none focus:outline-none focus:ring-0 focus:border-tertiary-container peer font-body-md text-body-md text-on-surface" id="email" placeholder=" " required="" type="email"/>
+<label class="absolute font-ui-technical text-ui-technical uppercase text-on-surface-variant duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-tertiary-container peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="email">Email Address</label>
+</div>
+<button class="w-full bg-tertiary-container text-on-tertiary px-lg py-4 font-ui-technical text-ui-technical uppercase tracking-widest hover:bg-tertiary-container/90 transition-colors rounded-none mt-sm" type="submit">Request Access</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-serif text-sm leading-relaxed w-full pt-32 pb-12 border-t border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-4">
+<span class="text-lg font-serif italic mb-4 block">MASTERPIECE</span>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white underline underline-offset-4 transition-colors" href="#">Archives</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white underline underline-offset-4 transition-colors" href="#">Sustainability</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white underline underline-offset-4 transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white underline underline-offset-4 transition-colors" href="#">Press Inquiry</a>
+</div>
+<div class="col-span-1 md:col-span-4 mt-8 pt-8 border-t border-slate-200/50 dark:border-slate-800/50">
+<p class="text-slate-500 dark:text-slate-400 text-xs tracking-widest uppercase">© 2024 MASTERPIECE COLLECTIVE. ENGINEERED PRECISION.</p>
+</div>
+</div>
+</footer>
+</body></html>

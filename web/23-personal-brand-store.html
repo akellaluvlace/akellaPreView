@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tessa Varga - Writer. Operator.</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "primary": "#4d0516",
+                        "on-surface": "#1b1c1c",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#40000f",
+                        "on-secondary-container": "#666460",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed": "#e6e2dc",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#76b093",
+                        "primary-container": "#6b1d2a",
+                        "on-tertiary-fixed": "#002114",
+                        "on-surface-variant": "#554243",
+                        "on-secondary-fixed": "#1c1c18",
+                        "on-primary-container": "#ef848f",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#ffb2b8",
+                        "secondary-container": "#e6e2dc",
+                        "background": "#fcf9f8",
+                        "tertiary-container": "#00432d",
+                        "surface-container": "#f0eded",
+                        "surface-container-high": "#eae7e7",
+                        "error-container": "#ffdad6",
+                        "secondary": "#605e5a",
+                        "on-primary-fixed-variant": "#7c2a36",
+                        "surface-variant": "#e5e2e1",
+                        "outline": "#877273",
+                        "on-background": "#1b1c1c",
+                        "on-secondary-fixed-variant": "#484743",
+                        "primary-fixed": "#ffdadb",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-surface": "#303030",
+                        "surface-dim": "#dcd9d9",
+                        "primary-fixed-dim": "#ffb2b8",
+                        "secondary-fixed-dim": "#c9c6c0",
+                        "tertiary-fixed-dim": "#98d3b5",
+                        "tertiary": "#002b1b",
+                        "surface-bright": "#fcf9f8",
+                        "surface-tint": "#9a414d",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#dac0c1",
+                        "tertiary-fixed": "#b4f0d0",
+                        "on-tertiary-fixed-variant": "#145039",
+                        "on-primary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "max-width": "1280px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "margin-mobile": "20px"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Newsreader", "serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-xl": ["Newsreader", "serif"],
+                        "headline-lg": ["Newsreader", "serif"],
+                        "label-caps": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "display-xl": ["64px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "headline-lg": ["48px", { lineHeight: "1.2", fontWeight: "500" }],
+                        "label-caps": ["12px", { lineHeight: "1.2", letterSpacing: "0.1em", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        html, body { overflow-x: clip; }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        .tv-marquee-track {
+            display: flex;
+            gap: 28px;
+            width: max-content;
+            animation: tv-marquee-x 60s linear infinite;
+        }
+        .tv-marquee-track:hover { animation-play-state: paused; }
+        @keyframes tv-marquee-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 14px)); }
+        }
+        .tv-faq summary::-webkit-details-marker { display: none; }
+        .tv-faq summary { list-style: none; cursor: pointer; }
+        .tv-faq summary .tv-chevron { transition: transform 250ms ease; }
+        .tv-faq[open] summary .tv-chevron { transform: rotate(180deg); }
+        @media (prefers-reduced-motion: reduce) {
+            .tv-marquee-track { animation: none; }
+            .tv-faq summary .tv-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-[#F8F4EE] text-on-surface antialiased">
+<!-- TopAppBar. Responsive: px-8 -> px-4, wordmark smaller on mobile. -->
+<header class="bg-[#F8F4EE] w-full border-b border-stone-200">
+<div class="flex justify-between items-center gap-3 w-full px-4 py-4 max-w-[1280px] mx-auto sm:px-6 sm:py-5 md:px-8 md:py-6">
+<div class="text-lg font-serif font-bold text-[#6B1D2A] sm:text-xl md:text-2xl">Tessa Varga</div>
+<nav class="hidden md:flex space-x-8">
+<a class="font-serif text-stone-900 uppercase tracking-widest text-sm text-[#6B1D2A] border-b-2 border-[#6B1D2A] pb-1 transition-colors duration-300 ease-in-out" href="#">About</a>
+<a class="font-serif text-stone-500 uppercase tracking-widest text-sm hover:text-[#6B1D2A] transition-colors duration-300 ease-in-out" href="#">Essays</a>
+<a class="font-serif text-stone-500 uppercase tracking-widest text-sm hover:text-[#6B1D2A] transition-colors duration-300 ease-in-out" href="#">Speaking</a>
+<a class="font-serif text-stone-500 uppercase tracking-widest text-sm hover:text-[#6B1D2A] transition-colors duration-300 ease-in-out" href="#">Consulting</a>
+</nav>
+<button class="hidden md:block font-label-caps text-label-caps text-on-primary bg-primary-container px-6 py-3 hover:bg-on-primary-fixed-variant transition-colors">
+                Get in Touch
+            </button>
+</div>
+</header>
+<!-- Main Content -->
+<main>
+<!-- Hero Section. -->
+<section class="max-w-[1280px] mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center lg:gap-16">
+<!-- Image Column -->
+<div class="lg:col-span-5 order-2 lg:order-1">
+<div class="relative w-full aspect-[3/4] bg-secondary-container">
+<img alt="Tessa Varga portrait" class="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-90" data-alt="Warm, professional portrait of a woman with direct gaze in a softly lit elegant room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1JizoArBLs9JyXP1EqwwMleDJc0gv2WVMmpXZJzh_HDmFHlxhv508V9b8MNQx8sTahXxG7uVb-xC13dgt7J0tERXWpHAtCOpog3M4LtKOrhBTCj22dUZN7vS5y39x31dc2B7M3SS5KfnJBaoWJtbS0_JPMH3WdPJndapdPNVgoz_AUlgDNw1-0LzJq8PlnhOrW06Ktijz4RCnA2lic8g3MgOC8L7-5wjM149pLk1xeWTVdjtdzoUaBdyu9lPtfiVaWlPbU2xUUl3v"/>
+</div>
+</div>
+<!-- Text Column -->
+<div class="lg:col-span-7 order-1 lg:order-2 space-y-8 lg:space-y-12">
+<div>
+<h1 class="font-display-xl text-[36px] leading-[1.05] text-primary-container mb-4 sm:text-[48px] sm:mb-6 md:text-display-xl">Tessa Varga</h1>
+<p class="font-headline-md text-[20px] leading-tight text-on-surface-variant max-w-2xl sm:text-[26px] md:text-headline-md">
+                            Writer. Operator. Previously at Stripe &amp; Andreessen Horowitz.
+                        </p>
+</div>
+<div class="space-y-6">
+<a class="flex items-center space-x-4 text-on-surface hover:text-primary-container group transition-colors" href="#">
+<span class="w-8 h-px bg-[#222] opacity-15 group-hover:bg-primary-container group-hover:opacity-100 transition-all"></span>
+<span class="font-body-lg text-body-lg">Read my newsletter</span>
+<span class="material-symbols-outlined text-sm opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">arrow_forward</span>
+</a>
+<a class="flex items-center space-x-4 text-on-surface hover:text-primary-container group transition-colors" href="#">
+<span class="w-8 h-px bg-[#222] opacity-15 group-hover:bg-primary-container group-hover:opacity-100 transition-all"></span>
+<span class="font-body-lg text-body-lg">Book me to speak</span>
+<span class="material-symbols-outlined text-sm opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">arrow_forward</span>
+</a>
+<a class="flex items-center space-x-4 text-on-surface hover:text-primary-container group transition-colors" href="#">
+<span class="w-8 h-px bg-[#222] opacity-15 group-hover:bg-primary-container group-hover:opacity-100 transition-all"></span>
+<span class="font-body-lg text-body-lg">Hire me to advise</span>
+<span class="material-symbols-outlined text-sm opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">arrow_forward</span>
+</a>
+</div>
+<div class="pt-8 border-t border-[#222]/10">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase tracking-widest sm:mb-6">Featured in</p>
+<div class="flex flex-wrap items-center gap-x-6 gap-y-2 opacity-60 grayscale sm:space-x-8 sm:gap-x-0">
+<span class="font-headline-md text-sm font-bold sm:text-base md:text-xl">The New York Times</span>
+<span class="font-headline-md text-sm font-bold sm:text-base md:text-xl">The Wall Street Journal</span>
+<span class="font-headline-md text-sm font-bold sm:text-base md:text-xl">The Atlantic</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- NEW: Manifesto / What I Make doctrine — tinted band (§K.3) -->
+<section class="full-bleed bg-surface-container-high py-20 md:py-28">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
+<div class="md:col-span-4">
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block mb-6">— II · Doctrine</span>
+<p class="font-body-md text-body-md text-on-surface-variant">A short list of things I believe about the work, kept in plain view so I can be held to them.</p>
+</div>
+<ol class="md:col-span-8 divide-y divide-[#222]/10 border-t border-[#222]/10">
+<li class="py-6 grid grid-cols-12 gap-4 items-baseline">
+<span class="col-span-2 sm:col-span-1 font-headline-md italic text-primary-container tabular-nums text-[24px]">I.</span>
+<div class="col-span-10 sm:col-span-11">
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-1 sm:text-[26px] md:text-headline-md">Plain language is a discipline.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">An idea you can't say without jargon is an idea you don't yet understand.</p>
+</div>
+</li>
+<li class="py-6 grid grid-cols-12 gap-4 items-baseline">
+<span class="col-span-2 sm:col-span-1 font-headline-md italic text-primary-container tabular-nums text-[24px]">II.</span>
+<div class="col-span-10 sm:col-span-11">
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-1 sm:text-[26px] md:text-headline-md">Operators write better than writers operate.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Drafts get sharper after a quarter inside the thing you're describing.</p>
+</div>
+</li>
+<li class="py-6 grid grid-cols-12 gap-4 items-baseline">
+<span class="col-span-2 sm:col-span-1 font-headline-md italic text-primary-container tabular-nums text-[24px]">III.</span>
+<div class="col-span-10 sm:col-span-11">
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-1 sm:text-[26px] md:text-headline-md">A reader is not a user.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Essays are for the person on the bus. Memos are for the person in the room.</p>
+</div>
+</li>
+<li class="py-6 grid grid-cols-12 gap-4 items-baseline">
+<span class="col-span-2 sm:col-span-1 font-headline-md italic text-primary-container tabular-nums text-[24px]">IV.</span>
+<div class="col-span-10 sm:col-span-11">
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-1 sm:text-[26px] md:text-headline-md">Most strategy is taste.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">The frameworks come later. Choose what you can defend without a slide.</p>
+</div>
+</li>
+<li class="py-6 grid grid-cols-12 gap-4 items-baseline">
+<span class="col-span-2 sm:col-span-1 font-headline-md italic text-primary-container tabular-nums text-[24px]">V.</span>
+<div class="col-span-10 sm:col-span-11">
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-1 sm:text-[26px] md:text-headline-md">Ship the essay.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A finished piece in public is worth four better drafts in a folder.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</section>
+
+<!-- Newsletter Section. -->
+<section class="bg-[#E8E2D8] py-16 sm:py-20 md:py-24">
+<div class="max-w-[800px] mx-auto px-4 text-center space-y-6 sm:px-6 sm:space-y-8 md:px-8">
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">A Sunday reflection on systems and stories.</h2>
+<form class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+<input class="w-full bg-transparent border-0 border-b border-[#222] px-0 py-3 font-body-md text-body-md focus:ring-0 focus:border-primary-container placeholder:text-on-surface-variant" placeholder="Email address" type="email"/>
+<button class="w-full sm:w-auto font-label-caps text-label-caps text-on-primary bg-primary-container px-8 py-3 hover:bg-on-primary-fixed-variant transition-colors whitespace-nowrap" type="submit">
+                        Join
+                    </button>
+</form>
+</div>
+</section>
+
+<!-- NEW: Featured product spotlight — NOVEL #2 vertical image columns parallel to text -->
+<section class="max-w-[1280px] mx-auto px-4 py-20 sm:px-6 sm:py-24 md:px-8 md:py-28">
+<div class="flex items-center gap-4 mb-10 sm:mb-14">
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em]">— IV · Featured</span>
+<div class="flex-1 h-px bg-[#222]/15"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">No. 04 · Pre-order</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-stretch">
+<div class="md:col-span-6 grid grid-cols-2 gap-4 md:gap-6">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden">
+<img alt="A long, brutalist concrete corridor lit from above" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · I</span>
+</div>
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mt-8 md:mt-16">
+<img alt="A pale interior with a single hanging light fixture" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · II</span>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col justify-between gap-10">
+<div>
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4 block">A 96-page essay collection</span>
+<h2 class="font-headline-lg text-[28px] leading-tight text-primary-container mb-6 sm:text-[40px] md:text-headline-lg">The Operator's Notebook</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">Twelve essays on the unglamorous middle of building a company. Drafted between 5am flights, edited inside Notes, set in Newsreader on uncoated cream stock.</p>
+<dl class="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-[#222]/15 pt-6">
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Format</dt>
+<dd class="font-body-md text-body-md text-on-surface">Hardcover · 96pp</dd>
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Edition</dt>
+<dd class="font-body-md text-body-md text-on-surface">First · 2,400 copies</dd>
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Ships</dt>
+<dd class="font-body-md text-body-md text-on-surface">May · 2026</dd>
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Price</dt>
+<dd class="font-headline-md text-[22px] text-primary-container">USD 38</dd>
+</dl>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+<a class="flex-1 text-center font-label-caps text-label-caps text-on-primary bg-primary-container px-8 py-4 hover:bg-on-primary-fixed-variant transition-colors uppercase tracking-widest" href="#">Pre-order · USD 38</a>
+<a class="flex-1 text-center font-label-caps text-label-caps text-primary-container border border-primary-container px-8 py-4 hover:bg-primary-container hover:text-on-primary transition-colors uppercase tracking-widest" href="#">Read a sample</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Recent Essays. -->
+<section class="max-w-[1280px] mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24">
+<div class="flex justify-between items-end mb-10 sm:mb-16">
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">Recent Essays</h2>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary-container uppercase tracking-widest transition-colors pb-1 border-b border-transparent hover:border-primary-container" href="#">View all</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<article class="group cursor-pointer">
+<div class="h-px w-full bg-[#222]/15 mb-6 group-hover:bg-primary-container transition-colors"></div>
+<time class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-4">October 12, 2024</time>
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-4 group-hover:text-primary-container transition-colors sm:text-[26px] md:text-headline-md">The Art of Operating</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">We often confuse execution with strategy. True operational excellence lies in the quiet spaces between decisions, where culture is built and sustained.</p>
+</article>
+<!-- Card 2 -->
+<article class="group cursor-pointer">
+<div class="h-px w-full bg-[#222]/15 mb-6 group-hover:bg-primary-container transition-colors"></div>
+<time class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-4">September 28, 2024</time>
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-4 group-hover:text-primary-container transition-colors sm:text-[26px] md:text-headline-md">On Narrative Complexity</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">In an age of simplified soundbites, defending nuance is an act of rebellion. Why the best leaders are comfortable living in the gray area.</p>
+</article>
+<!-- Card 3 -->
+<article class="group cursor-pointer">
+<div class="h-px w-full bg-[#222]/15 mb-6 group-hover:bg-primary-container transition-colors"></div>
+<time class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-4">August 15, 2024</time>
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-4 group-hover:text-primary-container transition-colors sm:text-[26px] md:text-headline-md">The Operator's Dilemma</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Scaling a company requires breaking the very processes that got you there. A reflection on knowing when to rebuild from the ground up.</p>
+</article>
+</div>
+</section>
+
+<!-- NEW: Editorial photo essay — NOVEL #11 wide cinema strip 21:9 full-bleed -->
+<section class="full-bleed py-12 md:py-16">
+<div class="relative w-full overflow-hidden aspect-[21/9] bg-surface-container">
+<img alt="A long modernist building photographed in soft daylight" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=2400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none"></div>
+<div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+<div>
+<p class="font-label-caps text-label-caps text-white/85 uppercase tracking-[0.25em] mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">From the studio · Spring 2026</p>
+<h3 class="font-headline-md text-[24px] leading-tight text-white max-w-2xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)] sm:text-[32px] md:text-headline-md">A week in Lisbon, written in margins.</h3>
+</div>
+<span class="font-label-caps text-label-caps text-white/80 uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · III</span>
+</div>
+</div>
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 mt-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-[#222]/15 pt-4">
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">A photo essay accompanying the May newsletter. Three days, two cafés, one stubborn paragraph.</p>
+<a class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest border-b border-primary-container pb-1 hover:opacity-70 transition-opacity self-start sm:self-auto" href="#">Read the dispatch</a>
+</div>
+</div>
+</section>
+
+<!-- NEW: Reading list / Library — horizontal marquee (§I.5) -->
+<section class="full-bleed bg-surface-container-low py-20 md:py-28 overflow-hidden">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 mb-10 md:mb-14">
+<div class="flex items-end justify-between gap-6">
+<div>
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block mb-3">— VI · Library</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">Currently on the desk.</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm hidden md:block">Eight books I'm reading, re-reading, or arguing with this season. Hover to pause.</p>
+</div>
+</div>
+<div class="overflow-hidden py-2">
+<div class="tv-marquee-track">
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="A library shelf, photographed in soft light" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 01</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">The Lonely City</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Olivia Laing</p>
+</a>
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="A pale interior corridor with classical detail" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 02</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">High Output Management</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Andy Grove</p>
+</a>
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="An architectural cornice photographed against a pale sky" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 03</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">Several short sentences about writing</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Verlyn Klinkenborg</p>
+</a>
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="A modernist staircase in a pale interior" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 04</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">A Field Guide to Getting Lost</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Rebecca Solnit</p>
+</a>
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="A brutalist concrete corridor" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 05</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">The Hard Thing About Hard Things</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Ben Horowitz</p>
+</a>
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="A pale interior with a hanging light fixture" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 06</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">On Writing Well</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">William Zinsser</p>
+</a>
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="An expansive modernist facade in soft light" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 07</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">Bird by Bird</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Anne Lamott</p>
+</a>
+<a class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="A still life of brass apothecary objects on dark wood" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 08</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">Status and Culture</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">W. David Marx</p>
+</a>
+<!-- duplicate set for seamless loop -->
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 01</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">The Lonely City</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Olivia Laing</p>
+</a>
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 02</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">High Output Management</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Andy Grove</p>
+</a>
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 03</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">Several short sentences about writing</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Verlyn Klinkenborg</p>
+</a>
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 04</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">A Field Guide to Getting Lost</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Rebecca Solnit</p>
+</a>
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 05</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">The Hard Thing About Hard Things</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Ben Horowitz</p>
+</a>
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 06</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">On Writing Well</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">William Zinsser</p>
+</a>
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 07</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">Bird by Bird</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Anne Lamott</p>
+</a>
+<a aria-hidden="true" class="shrink-0 w-56 group" href="#">
+<div class="relative aspect-[3/4] bg-surface-container overflow-hidden mb-3">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-3 left-3 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">No. 08</span>
+</div>
+<h3 class="font-headline-md text-[18px] leading-tight text-on-surface mb-1">Status and Culture</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">W. David Marx</p>
+</a>
+</div>
+</div>
+</section>
+
+<!-- Speaking Section. -->
+<section class="max-w-[1280px] mx-auto px-4 py-16 border-t border-[#222]/10 sm:px-6 sm:py-20 md:px-8 md:py-24">
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
+<div class="lg:col-span-1">
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container mb-6 sm:text-[36px] md:text-headline-lg">Speaking</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Selected appearances and keynotes on strategy, scaling, and leadership.</p>
+<a class="font-label-caps text-label-caps border border-[#222] px-6 py-3 hover:bg-[#222] hover:text-white transition-colors inline-block text-center w-full" href="#">Book Inquiry</a>
+</div>
+<div class="lg:col-span-3 space-y-8">
+<!-- Event 1 -->
+<div class="flex flex-col md:flex-row md:items-baseline justify-between border-b border-[#222]/15 pb-8 group">
+<div class="mb-2 md:mb-0">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface group-hover:text-primary-container transition-colors sm:text-[24px] md:text-headline-md">The Next 10 Years Summit</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">San Francisco, CA</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Keynote</span>
+</div>
+<!-- Event 2 -->
+<div class="flex flex-col md:flex-row md:items-baseline justify-between border-b border-[#222]/15 pb-8 group">
+<div class="mb-2 md:mb-0">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface group-hover:text-primary-container transition-colors sm:text-[24px] md:text-headline-md">Code &amp; Context</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">London, UK</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Panel</span>
+</div>
+<!-- Event 3 -->
+<div class="flex flex-col md:flex-row md:items-baseline justify-between border-b border-[#222]/15 pb-8 group">
+<div class="mb-2 md:mb-0">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface group-hover:text-primary-container transition-colors sm:text-[24px] md:text-headline-md">Oxford Union Debate</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Oxford, UK</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Guest Speaker</span>
+</div>
+<!-- Event 4 -->
+<div class="flex flex-col md:flex-row md:items-baseline justify-between border-b border-[#222]/15 pb-8 group">
+<div class="mb-2 md:mb-0">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface group-hover:text-primary-container transition-colors sm:text-[24px] md:text-headline-md">SXSW Panel</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Austin, TX</p>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Moderator</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- NEW: Process / How a piece is made — NOVEL #8 sticky photo + scrolling text -->
+<section class="max-w-[1280px] mx-auto px-4 py-20 sm:px-6 sm:py-24 md:px-8 md:py-28">
+<div class="flex items-end justify-between gap-6 mb-10 md:mb-14">
+<div>
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block mb-3">— IX · Process</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">How a piece is made.</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest hidden sm:block">Four stages · 6–10 weeks</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
+<div class="md:col-span-5">
+<div class="md:sticky md:top-24 self-start">
+<div class="relative w-full aspect-[3/4] bg-surface-container overflow-hidden">
+<img alt="A long, brutalist concrete corridor, soft daylight" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute bottom-4 left-4 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Studio · No. 02</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">A photograph from the working desk. The studio sits two streets from the Tagus, behind a green door.</p>
+</div>
+</div>
+<ol class="md:col-span-7 space-y-12 md:space-y-16">
+<li class="grid grid-cols-12 gap-4 items-start">
+<span class="col-span-2 font-headline-md italic text-primary-container tabular-nums text-[28px]">01.</span>
+<div class="col-span-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-2">Week 1 · 2</span>
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-3 sm:text-[26px] md:text-headline-md">Research</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Two weeks of reading, interviews, and walking the perimeter of the question. Notes go into a single folder; nothing gets thrown away yet.</p>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-4 items-start">
+<span class="col-span-2 font-headline-md italic text-primary-container tabular-nums text-[28px]">02.</span>
+<div class="col-span-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-2">Week 3 · 5</span>
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-3 sm:text-[26px] md:text-headline-md">Drafting</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A first draft, written quickly and badly on purpose. The point is to find the spine. Anything that sounds clever in week three is suspect.</p>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-4 items-start">
+<span class="col-span-2 font-headline-md italic text-primary-container tabular-nums text-[28px]">03.</span>
+<div class="col-span-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-2">Week 6 · 8</span>
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-3 sm:text-[26px] md:text-headline-md">Editing</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A pass for argument, a pass for line, a pass for cuts. Three trusted readers see it before anyone else does.</p>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-4 items-start">
+<span class="col-span-2 font-headline-md italic text-primary-container tabular-nums text-[28px]">04.</span>
+<div class="col-span-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-2">Week 9 · 10</span>
+<h3 class="font-headline-md text-[22px] leading-tight text-on-surface mb-3 sm:text-[26px] md:text-headline-md">Shipping</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A final read on paper, a typeset proof, and the piece goes out at 9am on a Sunday. The next folder opens on Monday.</p>
+</div>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- NEW: Testimonials — 3-card grid with portraits -->
+<section class="full-bleed bg-surface-container py-20 md:py-28">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+<div class="flex items-end justify-between gap-6 mb-10 md:mb-14">
+<div>
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block mb-3">— X · Readers</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">What readers tell me.</h2>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+<figure class="bg-surface-container-lowest p-8 flex flex-col gap-6">
+<span class="material-symbols-outlined text-primary-container text-3xl">format_quote</span>
+<blockquote class="font-headline-md italic text-[20px] leading-snug text-on-surface sm:text-[22px]">"The clearest writing on operating I read all year. I keep one essay open in a tab and re-read it before every board meeting."</blockquote>
+<figcaption class="flex items-center gap-4 mt-auto pt-6 border-t border-[#222]/10">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img alt="Portrait of Mara Kenji" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div>
+<p class="font-headline-md text-[16px] text-on-surface">Mara Kenji</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">COO · Linear Supply</p>
+</div>
+</figcaption>
+</figure>
+<figure class="bg-surface-container-lowest p-8 flex flex-col gap-6">
+<span class="material-symbols-outlined text-primary-container text-3xl">format_quote</span>
+<blockquote class="font-headline-md italic text-[20px] leading-snug text-on-surface sm:text-[22px]">"Tessa writes like an editor and thinks like an operator. The combination is rare and the essays are how I figure out what I think."</blockquote>
+<figcaption class="flex items-center gap-4 mt-auto pt-6 border-t border-[#222]/10">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img alt="Portrait of Henry Ahn" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div>
+<p class="font-headline-md text-[16px] text-on-surface">Henry Ahn</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Editor · Long Form Quarterly</p>
+</div>
+</figcaption>
+</figure>
+<figure class="bg-surface-container-lowest p-8 flex flex-col gap-6">
+<span class="material-symbols-outlined text-primary-container text-3xl">format_quote</span>
+<blockquote class="font-headline-md italic text-[20px] leading-snug text-on-surface sm:text-[22px]">"I sent the Operator's Notebook to every founder in our portfolio. Two of them sent it on to their boards within the week."</blockquote>
+<figcaption class="flex items-center gap-4 mt-auto pt-6 border-t border-[#222]/10">
+<div class="relative w-12 h-12 rounded-full overflow-hidden bg-surface-container-high shrink-0">
+<img alt="Portrait of Iris Vela" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div>
+<p class="font-headline-md text-[16px] text-on-surface">Iris Vela</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Partner · Threadwork Capital</p>
+</div>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- Featured In Logo Wall. -->
+<section class="bg-[#E8E2D8] py-16 sm:py-20 md:py-24">
+<div class="max-w-[1280px] mx-auto px-4 text-center sm:px-6 md:px-8">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-8 uppercase tracking-widest sm:mb-12">Featured In &amp; Trusted By</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 items-center opacity-50 grayscale mix-blend-multiply sm:gap-x-8 sm:gap-y-12 md:gap-x-12 md:gap-y-16">
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">Fast Company</span>
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">WIRED</span>
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">Harvard Business Review</span>
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">Forbes</span>
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">Bloomberg</span>
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">Monocle</span>
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">Vogue Business</span>
+<span class="font-headline-md text-sm font-bold sm:text-lg md:text-2xl">Financial Times</span>
+</div>
+</div>
+</section>
+
+<!-- NEW: FAQ accordion (§M.7 chevron-down variant) -->
+<section class="max-w-[1280px] mx-auto px-4 py-20 sm:px-6 sm:py-24 md:px-8 md:py-28">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
+<div class="md:col-span-4">
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block mb-3">— XII · Questions</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">Frequently asked.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-6">Five questions I hear most often. If yours is not here, the inbox is open.</p>
+</div>
+<div class="md:col-span-8 divide-y divide-[#222]/15 border-t border-b border-[#222]/15">
+<details class="tv-faq group py-6">
+<summary class="flex items-center justify-between gap-6">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface sm:text-[22px] md:text-[24px]">What's the refund policy?</h3>
+<span class="material-symbols-outlined tv-chevron text-primary-container shrink-0">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-2xl">Thirty days, no questions, no forms. Reply to the order email and the refund goes out the same week.</p>
+</details>
+<details class="tv-faq group py-6">
+<summary class="flex items-center justify-between gap-6">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface sm:text-[22px] md:text-[24px]">Do you offer team licences?</h3>
+<span class="material-symbols-outlined tv-chevron text-primary-container shrink-0">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-2xl">Yes. Bundles of 10, 25, and 50 are listed on the order page. Larger groups, write to me directly and we'll work something out.</p>
+</details>
+<details class="tv-faq group py-6">
+<summary class="flex items-center justify-between gap-6">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface sm:text-[22px] md:text-[24px]">Can I support without buying?</h3>
+<span class="material-symbols-outlined tv-chevron text-primary-container shrink-0">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-2xl">The newsletter is free and will stay that way. The single most useful thing you can do is forward an essay you liked to one person who'd disagree with it.</p>
+</details>
+<details class="tv-faq group py-6">
+<summary class="flex items-center justify-between gap-6">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface sm:text-[22px] md:text-[24px]">Are essays DRM-free?</h3>
+<span class="material-symbols-outlined tv-chevron text-primary-container shrink-0">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-2xl">Always. PDFs and ePubs ship without watermarks, expiry, or login walls. They're yours to keep, annotate, and re-read offline.</p>
+</details>
+<details class="tv-faq group py-6">
+<summary class="flex items-center justify-between gap-6">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface sm:text-[22px] md:text-[24px]">How do I get notified about new drops?</h3>
+<span class="material-symbols-outlined tv-chevron text-primary-container shrink-0">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-2xl">Newsletter subscribers see new books, courses, and limited drops 48 hours before anyone else. No social posts, no DMs — just the inbox.</p>
+</details>
+</div>
+</div>
+</section>
+
+<!-- Contact CTA. -->
+<section class="max-w-[800px] mx-auto px-4 py-20 text-center sm:px-6 sm:py-24 md:px-8 md:py-32">
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary-container mb-8 sm:text-[36px] md:text-headline-lg">For inquiries regarding speaking, writing, or advisory work.</h2>
+<a class="font-body-lg text-body-lg border-b border-[#222] pb-1 hover:text-primary-container hover:border-primary-container transition-colors break-all" href="mailto:hello@tessavarga.com">hello@tessavarga.com</a>
+</section>
+</main>
+<!-- Footer. -->
+<footer class="bg-[#F8F4EE] w-full border-t border-stone-200">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-4 py-8 max-w-7xl mx-auto gap-4 sm:px-8 sm:py-10 md:px-16 md:py-12 md:gap-0">
+<p class="font-serif text-xs uppercase tracking-tighter text-[#6B1D2A] text-center md:text-left">© 2024 Tessa Varga. All rights reserved.</p>
+<nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 sm:space-x-8 sm:gap-x-0">
+<a class="font-serif text-xs uppercase tracking-tighter text-stone-400 hover:text-[#6B1D2A] transition-colors focus:ring-1 focus:ring-[#6B1D2A]" href="#">Newsletter</a>
+<a class="font-serif text-xs uppercase tracking-tighter text-stone-400 hover:text-[#6B1D2A] transition-colors focus:ring-1 focus:ring-[#6B1D2A]" href="#">Privacy Policy</a>
+<a class="font-serif text-xs uppercase tracking-tighter text-stone-400 hover:text-[#6B1D2A] transition-colors focus:ring-1 focus:ring-[#6B1D2A]" href="#">LinkedIn</a>
+<a class="font-serif text-xs uppercase tracking-tighter text-stone-400 hover:text-[#6B1D2A] transition-colors focus:ring-1 focus:ring-[#6B1D2A]" href="#">Substack</a>
+</nav>
+</div>
+</footer>
+</body></html>

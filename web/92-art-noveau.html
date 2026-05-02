@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Maison Solène - Natural French Perfume House</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,300;0,400;0,600;1,300&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#5d2e46",
+                        "on-secondary-container": "#785808",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f9faf7",
+                        "tertiary-fixed-dim": "#f6b4d1",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#261900",
+                        "on-background": "#1a1c1b",
+                        "surface": "#f9faf7",
+                        "surface-container-high": "#e7e8e6",
+                        "primary-fixed-dim": "#a0d1bf",
+                        "tertiary-fixed": "#ffd8e7",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#002018",
+                        "surface-container-low": "#f3f4f1",
+                        "on-tertiary-fixed": "#350c23",
+                        "on-surface": "#1a1c1b",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#396758",
+                        "on-secondary-fixed-variant": "#5d4200",
+                        "on-tertiary-container": "#f9b7d5",
+                        "on-tertiary-fixed-variant": "#68374f",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f0f1ee",
+                        "surface-variant": "#e2e3e0",
+                        "primary-fixed": "#bceddb",
+                        "tertiary-container": "#78455e",
+                        "secondary-fixed-dim": "#ecc06b",
+                        "on-primary-fixed-variant": "#204f41",
+                        "outline": "#717975",
+                        "primary-container": "#2f5d4f",
+                        "inverse-primary": "#a0d1bf",
+                        "on-error": "#ffffff",
+                        "secondary": "#79590a",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "secondary-fixed": "#ffdea4",
+                        "secondary-container": "#fed17a",
+                        "on-primary-container": "#a3d4c2",
+                        "outline-variant": "#c0c8c4",
+                        "on-surface-variant": "#404945",
+                        "inverse-surface": "#2e312f",
+                        "primary": "#154538",
+                        "surface-dim": "#d9dad8",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9faf7",
+                        "surface-container-highest": "#e2e3e0",
+                        "gold": "#C39B4A",
+                        "ivory": "#EFE4C8",
+                        "rose": "#C9867A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "2rem",
+                        "unit": "8px",
+                        "margin-page": "4rem",
+                        "frame-padding": "3rem"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Newsreader", "serif"],
+                        "display-lg": ["Epilogue", "sans-serif"],
+                        "body-lg": ["Newsreader", "serif"],
+                        "headline-md": ["Epilogue", "sans-serif"],
+                        "body-md": ["Newsreader", "serif"],
+                        "headline-xl": ["Epilogue", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "display-lg": ["4.5rem", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300" }],
+                        "body-lg": ["1.25rem", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["2rem", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "body-md": ["1rem", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-xl": ["3rem", { "lineHeight": "1.2", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .whiplash-curve {
+            border-bottom: 1px solid #C39B4A;
+            border-radius: 0 0 50% 0;
+            padding-bottom: 2px;
+        }
+        .botanical-border {
+            border: 1px solid #C39B4A;
+            position: relative;
+        }
+        .botanical-border::before, .botanical-border::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #C39B4A;
+            border-radius: 50%;
+        }
+        .botanical-border::before { top: -10px; left: -10px; }
+        .botanical-border::after { bottom: -10px; right: -10px; }
+
+        /* === Art Nouveau additions === */
+        .an-wave {
+            background-image:
+                repeating-linear-gradient(45deg, transparent 0 28px, rgba(195,155,74,0.40) 28px 29px, transparent 29px 56px),
+                repeating-linear-gradient(-45deg, transparent 0 28px, rgba(195,155,74,0.32) 28px 29px, transparent 29px 56px),
+                radial-gradient(circle at 50% 50%, rgba(195,155,74,0.65) 1.4px, transparent 2.2px);
+            background-size: auto, auto, 56px 56px;
+        }
+        .an-pattern {
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(195,155,74,0.55) 1.6px, transparent 2.4px);
+            background-size: 28px 28px;
+        }
+        .gold-frame {
+            border: 1px solid #C39B4A;
+            box-shadow: inset 0 0 0 4px #EFE4C8, inset 0 0 0 5px rgba(195, 155, 74, 0.5);
+        }
+        .arch {
+            border-top-left-radius: 50% 30%;
+            border-top-right-radius: 50% 30%;
+        }
+        .rose-glow {
+            background: radial-gradient(circle at center, rgba(201, 134, 122, 0.18) 0%, transparent 70%);
+        }
+        .sage-glow {
+            background: radial-gradient(circle at center, rgba(21, 69, 56, 0.12) 0%, transparent 70%);
+        }
+        .gold-glow {
+            background: radial-gradient(circle at center, rgba(195, 155, 74, 0.22) 0%, transparent 65%);
+        }
+        @keyframes an-bloom { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.02); opacity: 1; } }
+        .an-bloom { animation: an-bloom 8s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-[#EFE4C8] text-primary min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-stone-50/90 dark:bg-stone-950/90 docked full-width top-0 z-50 border-b border-[#C39B4A]/30 flat no shadows gold-inlay-1px flex justify-between items-center px-16 py-10 w-full backdrop-blur-sm sticky">
+<div class="flex items-center gap-8 hidden md:flex">
+<a class="text-[#C39B4A] font-bold border-b border-[#C39B4A] pb-1 font-epilogue tracking-[0.2em] uppercase text-xs hover:text-[#C39B4A] transition-all duration-500 ease-in-out" href="#">Collection</a>
+<a class="text-emerald-900/70 dark:text-emerald-100/70 hover:text-[#C39B4A] font-epilogue tracking-[0.2em] uppercase text-xs hover:text-[#C39B4A] transition-all duration-500 ease-in-out" href="#">The Perfumer</a>
+<a class="text-emerald-900/70 dark:text-emerald-100/70 hover:text-[#C39B4A] font-epilogue tracking-[0.2em] uppercase text-xs hover:text-[#C39B4A] transition-all duration-500 ease-in-out" href="#">The Process</a>
+<a class="text-emerald-900/70 dark:text-emerald-100/70 hover:text-[#C39B4A] font-epilogue tracking-[0.2em] uppercase text-xs hover:text-[#C39B4A] transition-all duration-500 ease-in-out" href="#">Boutique</a>
+</div>
+<div class="text-3xl font-light italic tracking-tighter text-emerald-950 dark:text-emerald-50">
+            Maison Solène
+        </div>
+<div class="flex items-center gap-4">
+<button class="text-emerald-900 dark:text-emerald-50 hover:text-[#C39B4A] transition-all duration-500 ease-in-out">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+</header>
+<main class="flex-grow flex flex-col items-center w-full pb-32">
+<!-- ============================================================ -->
+<!-- HERO :: full-bleed art nouveau composition                    -->
+<!-- ============================================================ -->
+<section class="relative w-full min-h-[92vh] overflow-hidden">
+    <!-- LAYER 1 :: ivory→sage gradient -->
+    <div class="absolute inset-0 -z-30 bg-gradient-to-br from-[#EFE4C8] via-[#F2E8CF] to-[#D4DBC9]" aria-hidden="true"></div>
+    <!-- LAYER 2 :: art nouveau wave pattern -->
+    <div class="absolute inset-0 -z-20 an-wave pointer-events-none" aria-hidden="true"></div>
+    <!-- LAYER 3 :: peacock-feather radial halos -->
+    <div class="absolute -top-40 -left-32 w-[60vw] h-[60vw] gold-glow blur-3xl pointer-events-none -z-10" aria-hidden="true"></div>
+    <div class="absolute -bottom-48 -right-24 w-[55vw] h-[55vw] rose-glow blur-3xl pointer-events-none -z-10" aria-hidden="true"></div>
+    <div class="absolute top-1/3 left-1/2 w-[30vw] h-[30vw] sage-glow blur-3xl pointer-events-none -z-10" aria-hidden="true"></div>
+
+    <!-- CONTENT -->
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-24 md:pt-24 md:pb-28 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
+
+        <!-- LEFT :: editorial text -->
+        <div class="md:col-span-7 flex flex-col">
+            <!-- ornamental rule -->
+            <div class="flex items-center gap-3 mb-7">
+                <span class="w-12 h-px bg-gradient-to-r from-transparent to-gold"></span>
+                <svg class="w-3 h-3 text-gold" viewBox="0 0 12 12" aria-hidden="true">
+                    <circle cx="6" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1"/>
+                    <circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                </svg>
+                <span class="font-epilogue tracking-[0.4em] uppercase text-[10px] text-gold">Maison · Grasse · MCMXIV</span>
+                <svg class="w-3 h-3 text-gold" viewBox="0 0 12 12" aria-hidden="true">
+                    <circle cx="6" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1"/>
+                    <circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                </svg>
+                <span class="w-12 h-px bg-gradient-to-l from-transparent to-gold"></span>
+            </div>
+
+            <h1 class="font-display-lg text-primary italic leading-[0.95] mb-8 text-[clamp(48px,8vw,116px)] tracking-tight">
+                An hour <br/>
+                <span class="text-tertiary">in <span class="not-italic font-newsreader">Grasse</span>.</span>
+            </h1>
+
+            <p class="font-body-lg text-tertiary leading-relaxed max-w-xl mb-3 italic">
+                Twelve fields. Three thousand blossoms. One bottle, hand-poured at dawn.
+            </p>
+            <p class="font-body-md text-on-surface/70 leading-relaxed max-w-xl mb-10">
+                Each Maison Solène fragrance is composed of natural absolutes from our own valley — distilled in copper, blended in oak, and rested through a full season before the cap is set.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#collection" class="group inline-flex items-center justify-center bg-primary text-on-primary font-epilogue tracking-[0.3em] uppercase text-xs px-10 py-5 hover:bg-tertiary transition-colors duration-500">
+                    Enter the Atelier
+                    <span class="material-symbols-outlined ml-2 text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+                <a href="#perfumer" class="inline-flex items-center justify-center border border-gold text-gold font-epilogue tracking-[0.3em] uppercase text-xs px-10 py-5 hover:bg-gold/10 transition-colors duration-500">
+                    The Manifesto
+                </a>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[10px] tracking-[0.3em] uppercase font-epilogue text-tertiary/70">
+                <span>Spring Collection · MCMXCV</span>
+                <span class="w-px h-3 bg-gold/40"></span>
+                <span>By Hand · By Nose · By Season</span>
+                <span class="w-px h-3 bg-gold/40"></span>
+                <span class="text-rose">100% Natural Absolutes</span>
+            </div>
+        </div>
+
+        <!-- RIGHT :: arched botanical frame -->
+        <div class="md:col-span-5 relative">
+            <!-- arch frame -->
+            <div class="relative aspect-[4/5] arch overflow-hidden gold-frame bg-ivory shadow-[0_30px_80px_-20px_rgba(93,46,70,0.35)] an-bloom">
+                <!-- inner gold rule -->
+                <div class="absolute inset-3 arch border border-gold/50 z-10 pointer-events-none"></div>
+                <!-- image -->
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYaVWl9ZjLODwPa0hv6JpnnALOfqv07OesT5_fo5cohWRMltHoKkYLYBsP0-1uj0vyd0o9R5UYB0eBrQRcX-ZiBPUEocZPAny4BYblzwNiTRRZsmKlxPu--RA_nskAG_dTG7i-OKCan2WmLuyQ9HDhLpQBl-eEi0I9zunZxKT3p2o3zvFVNxUY91Sw1KOLUFXJ7Um5QjigkmMUmxkjDdKRTV0IQltUmB9KXdC4BPkcFHii5-1gtdJ6CX3ug8EmQ_wdGnF-52r6AQ"
+                     alt="Art Nouveau lithograph of a woman with flowing hair intertwined with stylized vines and lilies, Mucha inspired"
+                     class="absolute inset-0 w-full h-full object-cover" />
+                <!-- top gold gradient veil -->
+                <div class="absolute inset-0 bg-gradient-to-b from-ivory/20 via-transparent to-tertiary/30 pointer-events-none"></div>
+                <!-- bottom plate -->
+                <div class="absolute bottom-4 left-4 right-4 z-10 flex items-center justify-between border-t border-gold/40 pt-3">
+                    <span class="font-epilogue tracking-[0.3em] uppercase text-[9px] text-ivory">No. 01 — L'Iris</span>
+                    <span class="font-newsreader italic text-ivory text-sm">Hand-poured</span>
+                </div>
+            </div>
+
+            <!-- caption beneath arch -->
+            <div class="mt-8 flex items-center justify-between text-tertiary">
+                <span class="font-newsreader italic text-sm">Composé · Mai · MCMXCV</span>
+                <span class="font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/70">Grasse · Provence</span>
+            </div>
+
+            <!-- decorative side dots -->
+            <div class="absolute -left-3 top-1/4 hidden md:flex flex-col gap-3" aria-hidden="true">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold/60"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-gold/40"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-gold/20"></span>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!-- spacer between hero and constrained sections -->
+<div class="w-full h-20 md:h-32"></div>
+
+<!-- Constrained-content wrapper for the rest of the page -->
+<div class="w-full px-4 sm:px-gutter lg:px-margin-page flex flex-col items-center">
+<!-- The Collection Section -->
+<section class="w-full max-w-7xl mb-32">
+<div class="text-center mb-16">
+<h2 class="font-headline-xl text-primary italic relative inline-block">
+                    The Collection
+                    <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-[1px] bg-gold"></div>
+</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+<!-- Fragrance Card 1 -->
+<div class="flex flex-col items-center text-center botanical-border p-8 bg-surface-bright group hover:bg-rose/10 transition-colors duration-500">
+<div class="w-full h-64 mb-6 border-b border-gold/30 pb-4 relative overflow-hidden rounded-t-[50%]">
+<img alt="Perfume bottle illustration" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700" data-alt="Stylized Art Nouveau illustration of an elegant perfume bottle surrounded by blooming iris flowers, flat pastel colors, emerald and gold accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFkuXWAoEf8scCg6o39asJtt5H8PvjI0l3-BYew2Nl2D7lWbxXYXZ0aEuMorfb-l3zIkEkUGx6TnrNqe7gPwVuT5MA8jopK3A-1nlRkL-z8HAh1UTGynsrmBCvNz3ZKFw5PQ_iJP5FJcxF3pP0fI2iUhulVXdYadmSKnLpdHXEZLhNDPQZ4NQSOhLjFNwvK6tefGzYmG_g9Varo1dJNwjBVFrByrMMRhRtGXxCM07zBhjaOqe1jP0nVY55_U4Otu_AjTZMFifKTw"/>
+</div>
+<span class="bg-tertiary text-on-tertiary font-label-caps px-4 py-1 mb-4 rounded-sm" style="border: 1px solid #C39B4A;">Floral</span>
+<h3 class="font-headline-md text-primary mb-2">L'Iris Noir</h3>
+<p class="font-body-md text-outline mb-6">Midnight iris, vetiver, and crushed violet leaves.</p>
+<p class="font-label-caps text-gold">€185</p>
+</div>
+<!-- Fragrance Card 2 -->
+<div class="flex flex-col items-center text-center botanical-border p-8 bg-surface-bright group hover:bg-rose/10 transition-colors duration-500">
+<div class="w-full h-64 mb-6 border-b border-gold/30 pb-4 relative overflow-hidden rounded-t-[50%]">
+<img alt="Perfume bottle illustration" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700" data-alt="Stylized Art Nouveau illustration of an elegant perfume bottle surrounded by twisted ivy and oak leaves, flat earthy colors, emerald and gold accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS6pVbLl_68cF6jR9pLR5VEXVVFaW5eujYwYGjINOYhmJiNd3HtcC9CXdkDVM0AEivBONw_DNB70WdyvlqR4ckFoEfXBkCaNqF-5YTIhpYV-RXXXaMIgA901wKyhVrzyYWuxsPLVmA1cNgeIuU5znPgf_mC909_aWMiEMMoU-8La2wnqNeurMae6F0E_-05ewa78RaDf6ejVTShzXb595HLB8-SEzRN0ss6R9cWqQU-KZ7vNO9I15pdJcoTKut2AmQIshuzHP1Ww"/>
+</div>
+<span class="bg-tertiary text-on-tertiary font-label-caps px-4 py-1 mb-4 rounded-sm" style="border: 1px solid #C39B4A;">Woody</span>
+<h3 class="font-headline-md text-primary mb-2">Bois de Sylvan</h3>
+<p class="font-body-md text-outline mb-6">Ancient oakmoss, cedar, and wild ferns.</p>
+<p class="font-label-caps text-gold">€195</p>
+</div>
+<!-- Fragrance Card 3 -->
+<div class="flex flex-col items-center text-center botanical-border p-8 bg-surface-bright group hover:bg-rose/10 transition-colors duration-500">
+<div class="w-full h-64 mb-6 border-b border-gold/30 pb-4 relative overflow-hidden rounded-t-[50%]">
+<img alt="Perfume bottle illustration" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700" data-alt="Stylized Art Nouveau illustration of an elegant perfume bottle surrounded by cascading jasmine vines, flat warm colors, emerald and gold accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkoLmL4wQwxB_2kounPKoAHnghV24lrV8tG76pFHc3ApRasoEtX51TH9e4FQC56MhvDINKQVCWVXNjO-_OOlHFcKhMLXQuWUhuWylDEvKscFDxsxE_xEOoeLNXt8dEZ5dcNq5Y6IAz3MPKLmtCA5YP8nuekLi5mK1FfEU5uK-PS2BL4hc8pQCDls6ikSqWuy4JaHcLXqzt91UFwYrhUboxu3gSF0l_FVqjJA6o3GqpgY8bFO7TDY907Kh_cgnVv9hgmwC7Fg2hnw"/>
+</div>
+<span class="bg-tertiary text-on-tertiary font-label-caps px-4 py-1 mb-4 rounded-sm" style="border: 1px solid #C39B4A;">Citrus Floral</span>
+<h3 class="font-headline-md text-primary mb-2">Jardin d'Aube</h3>
+<p class="font-body-md text-outline mb-6">Neroli, morning jasmine, and green mandarin.</p>
+<p class="font-label-caps text-gold">€175</p>
+</div>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- THE PROCESS — 3 arches                                       -->
+<!-- ============================================================ -->
+<section id="process" class="w-full max-w-7xl mb-32">
+    <div class="text-center mb-16">
+        <span class="font-epilogue tracking-[0.4em] uppercase text-[10px] text-gold">II — Métier</span>
+        <h2 class="font-headline-xl text-primary italic relative inline-block mt-4">
+            The Process
+            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-[1px] bg-gold"></div>
+        </h2>
+        <p class="font-newsreader italic text-tertiary/85 max-w-xl mx-auto mt-10 leading-relaxed">
+            Three slow gestures, repeated since 1895. From the first cut at sunrise to the last drop set in oak.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+        <!-- I -->
+        <div class="flex flex-col items-center text-center group">
+            <div class="relative w-full aspect-[3/4] arch overflow-hidden gold-frame bg-surface-bright">
+                <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=900&q=85&auto=format&fit=crop"
+                     alt="Field of jasmine at dawn, Grasse"
+                     loading="lazy" decoding="async"
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                <div class="absolute inset-0 bg-gradient-to-t from-tertiary/40 via-transparent to-transparent"></div>
+                <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10 w-10 h-10 rounded-full border border-gold/70 bg-ivory/80 flex items-center justify-center font-newsreader italic text-gold text-lg">I</div>
+            </div>
+            <h3 class="font-headline-md text-primary italic mt-8">Harvest at Dawn</h3>
+            <div class="w-12 h-px bg-gold/60 my-4"></div>
+            <p class="font-body-md text-on-surface/70 leading-relaxed max-w-sm">
+                Before the sun lifts the dew, our cutters take only what is fully open. Twelve fields, hand-shears, no engines in the rows.
+            </p>
+            <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold mt-6">Mai · Juin · Juillet</span>
+        </div>
+
+        <!-- II -->
+        <div class="flex flex-col items-center text-center group">
+            <div class="relative w-full aspect-[3/4] arch overflow-hidden gold-frame bg-surface-bright">
+                <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop"
+                     alt="Aged copper distillation apparatus with brass apothecary still-life"
+                     loading="lazy" decoding="async"
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                <div class="absolute inset-0 bg-gradient-to-t from-tertiary/40 via-transparent to-transparent"></div>
+                <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10 w-10 h-10 rounded-full border border-gold/70 bg-ivory/80 flex items-center justify-center font-newsreader italic text-gold text-lg">II</div>
+            </div>
+            <h3 class="font-headline-md text-primary italic mt-8">Distill in Copper</h3>
+            <div class="w-12 h-px bg-gold/60 my-4"></div>
+            <p class="font-body-md text-on-surface/70 leading-relaxed max-w-sm">
+                Slow steam through hand-hammered copper. A six-hour cycle yields the absolute. Volatile. Honest. Never a synthetic top-up.
+            </p>
+            <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold mt-6">Atelier No. 02 · Cuivre</span>
+        </div>
+
+        <!-- III -->
+        <div class="flex flex-col items-center text-center group">
+            <div class="relative w-full aspect-[3/4] arch overflow-hidden gold-frame bg-surface-bright">
+                <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop"
+                     alt="Perfumer's workbench with vials and notes"
+                     loading="lazy" decoding="async"
+                     class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                <div class="absolute inset-0 bg-gradient-to-t from-tertiary/40 via-transparent to-transparent"></div>
+                <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10 w-10 h-10 rounded-full border border-gold/70 bg-ivory/80 flex items-center justify-center font-newsreader italic text-gold text-lg">III</div>
+            </div>
+            <h3 class="font-headline-md text-primary italic mt-8">Compose by Hand</h3>
+            <div class="w-12 h-px bg-gold/60 my-4"></div>
+            <p class="font-body-md text-on-surface/70 leading-relaxed max-w-sm">
+                Each formula rests in oak for ninety days before the cap is set. Twelve trials. One signature. One decanter at a time.
+            </p>
+            <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold mt-6">Repos · 90 Jours</span>
+        </div>
+    </div>
+</section>
+
+<!-- The Perfumer Section -->
+<section id="perfumer" class="w-full max-w-7xl mb-32 flex flex-col md:flex-row items-center gap-16 p-frame-padding botanical-border bg-surface-bright relative">
+<div class="w-full md:w-1/2 h-[500px] relative overflow-hidden rounded-t-full border border-gold">
+<img alt="The Perfumer" class="w-full h-full object-cover" data-alt="Art Nouveau portrait illustration of a female perfumer examining a blooming flower, delicate line art, flowing hair, muted plum and gold tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKNuPdxiNZe2xdkZOBIZowk1ih_shnXu-arVF437SfcHJT6PcorQryZIPKdqmHqflZjWQLZ4j1r0hX4bEf5xJT5kF24OBk8TZaetEgXEi31YXPbe8uIU_YObjhXUeoRiH75AtDqS1xPVr8MfOHL-nFt_LDVJRgoHrwLB1NyM5aenuUHJP0xIDZOxGTw_olhZhO-7yMKd4t7U7OdmXJe97N3d8b20ETRtDBfrEr4BHhkauNvR_qTC45R-BdwVHjc88yCitKXaVfag"/>
+</div>
+<div class="w-full md:w-1/2 flex flex-col gap-6 text-center md:text-left">
+<h2 class="font-headline-xl text-primary italic">The Perfumer</h2>
+<div class="w-16 h-[1px] bg-gold mx-auto md:mx-0"></div>
+<p class="font-body-lg text-outline leading-relaxed">
+                    "Perfumery is a dialogue with nature, a translation of ephemeral blooms into lasting memory."
+                </p>
+<p class="font-body-md text-on-surface">
+                    Trained in the historic fields of Grasse, our master perfumer seeks the most lyrical natural essences. Each creation is composed like a visual symphony, drawing inspiration from the curving lines of nature and the poetic heritage of the Fin de Siècle.
+                </p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ATELIER DE GRASSE — editorial 7/5 split                      -->
+<!-- ============================================================ -->
+<section id="atelier" class="w-full max-w-7xl mb-32 relative">
+    <!-- decorative top arch flourish -->
+    <svg class="absolute -top-10 left-1/2 -translate-x-1/2 w-32 h-12 text-gold/60 pointer-events-none" viewBox="0 0 200 60" aria-hidden="true">
+        <path d="M10 50 Q 100 0 190 50" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="100" cy="22" r="2" fill="currentColor"/>
+    </svg>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-stretch">
+        <!-- Left: Pull-quote panel -->
+        <div class="md:col-span-7 relative bg-gradient-to-br from-[#F5EBD0] via-[#EFE4C8] to-[#E8D9B5] p-10 md:p-16 botanical-border flex flex-col justify-center overflow-hidden">
+            <!-- subtle pattern -->
+            <div class="absolute inset-0 an-pattern opacity-10 pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute -top-8 -left-8 w-32 h-32 gold-glow blur-2xl pointer-events-none" aria-hidden="true"></div>
+
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="font-epilogue tracking-[0.4em] uppercase text-[10px] text-gold">IV — Atelier</span>
+                    <span class="w-12 h-px bg-gold/60"></span>
+                </div>
+                <h2 class="font-headline-xl text-primary italic leading-tight mb-8 text-[clamp(36px,4vw+1rem,56px)]">
+                    The atelier <br/>
+                    <span class="text-tertiary">at <span class="not-italic font-newsreader">Grasse</span>.</span>
+                </h2>
+                <blockquote class="border-l-2 border-gold pl-6 mb-8 max-w-xl">
+                    <p class="font-newsreader italic text-tertiary text-xl leading-relaxed">
+                        "We do not invent fragrance. We translate it — from a single dawn-cut petal into a thousand quiet evenings."
+                    </p>
+                    <cite class="not-italic font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold mt-4 block">— Solène, fondatrice · 1895</cite>
+                </blockquote>
+                <p class="font-body-md text-on-surface/75 leading-relaxed max-w-xl mb-8">
+                    Three rooms above a stone courtyard in old Grasse. Eighteen oak vats. Forty-seven distillations a year. No machine has ever crossed the threshold — every cap is set, every label is gilt, every note is pencilled by hand.
+                </p>
+                <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+                    <a href="#" class="group inline-flex items-center gap-2 text-gold whiplash-curve font-epilogue tracking-[0.3em] uppercase text-xs hover:text-rose transition-colors">
+                        Visite Privée
+                        <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                    <span class="font-newsreader italic text-tertiary/70 text-sm">Sur rendez-vous · Mardi → Vendredi</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Image stack -->
+        <div class="md:col-span-5 flex flex-col gap-6">
+            <div class="relative aspect-[4/5] arch overflow-hidden gold-frame">
+                <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
+                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"
+                     alt="Sun-lit atelier interior with vintage glassware"
+                     loading="lazy" decoding="async"
+                     class="absolute inset-0 w-full h-full object-cover" />
+                <div class="absolute bottom-3 left-3 right-3 z-10 bg-ivory/80 px-3 py-1.5 flex items-center justify-between">
+                    <span class="font-newsreader italic text-tertiary text-xs">Salle des Cuivres</span>
+                    <span class="font-epilogue tracking-[0.3em] uppercase text-[8px] text-gold">No. 02</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="border border-gold/40 p-4 bg-surface-bright/60 text-center">
+                    <span class="block font-newsreader italic text-tertiary text-3xl">XII</span>
+                    <span class="block font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/80 mt-2">Hectares</span>
+                </div>
+                <div class="border border-gold/40 p-4 bg-surface-bright/60 text-center">
+                    <span class="block font-newsreader italic text-tertiary text-3xl">XLVII</span>
+                    <span class="block font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/80 mt-2">Distillations</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ORIGINS — by the numbers                                     -->
+<!-- ============================================================ -->
+<section id="origins" class="w-full max-w-7xl mb-32">
+    <div class="text-center mb-12">
+        <span class="font-epilogue tracking-[0.4em] uppercase text-[10px] text-gold">V — Origines</span>
+        <h2 class="font-headline-xl text-primary italic relative inline-block mt-4">
+            By the numbers
+            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-[1px] bg-gold"></div>
+        </h2>
+    </div>
+
+    <div class="relative botanical-border p-8 md:p-12 bg-gradient-to-r from-[#F5EBD0] via-ivory to-[#F5EBD0]">
+        <div class="absolute inset-0 an-wave opacity-15 pointer-events-none" aria-hidden="true"></div>
+        <div class="relative grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 divide-gold/30 md:divide-x">
+            <div class="flex flex-col items-center text-center px-2">
+                <span class="font-newsreader italic text-primary text-5xl md:text-6xl mb-2">1895</span>
+                <span class="w-8 h-px bg-gold/60 my-3"></span>
+                <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-tertiary">Founded in Grasse</span>
+                <span class="font-newsreader italic text-tertiary/70 text-xs mt-2">Rue de la Fontaine, No. 14</span>
+            </div>
+            <div class="flex flex-col items-center text-center px-2">
+                <span class="font-newsreader italic text-primary text-5xl md:text-6xl mb-2">12</span>
+                <span class="w-8 h-px bg-gold/60 my-3"></span>
+                <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-tertiary">Hectares Cultivated</span>
+                <span class="font-newsreader italic text-tertiary/70 text-xs mt-2">Owned · Tended · Slept upon</span>
+            </div>
+            <div class="flex flex-col items-center text-center px-2">
+                <span class="font-newsreader italic text-primary text-5xl md:text-6xl mb-2">3,000</span>
+                <span class="w-8 h-px bg-gold/60 my-3"></span>
+                <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-tertiary">Blossoms per Bottle</span>
+                <span class="font-newsreader italic text-tertiary/70 text-xs mt-2">Hand-cut at first light</span>
+            </div>
+            <div class="flex flex-col items-center text-center px-2">
+                <span class="font-newsreader italic text-primary text-5xl md:text-6xl mb-2">47</span>
+                <span class="w-8 h-px bg-gold/60 my-3"></span>
+                <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-tertiary">Distillations / Year</span>
+                <span class="font-newsreader italic text-tertiary/70 text-xs mt-2">Copper alembic No. 02</span>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+</main>
+<!-- Footer (FULL WIDTH) -->
+<footer class="relative w-full bg-gradient-to-b from-[#F5EBD0] to-[#EFE4C8] border-t border-gold/40 pt-16 pb-10 overflow-hidden">
+    <div class="absolute inset-0 an-pattern opacity-15 pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+        <div class="md:col-span-4 flex flex-col gap-4">
+            <div class="text-3xl font-light italic tracking-tight text-primary font-newsreader">Maison Solène</div>
+            <div class="flex items-center gap-2">
+                <span class="w-8 h-px bg-gold/60"></span>
+                <span class="font-epilogue tracking-[0.4em] uppercase text-[10px] text-gold">Grasse · Provence</span>
+            </div>
+            <p class="font-newsreader italic text-tertiary/85 leading-relaxed text-sm max-w-xs">Une heure dans nos champs, un siècle dans une bouteille.</p>
+            <p class="font-body-md text-on-surface/70 text-sm leading-relaxed max-w-xs mt-1">Composing natural absolutes from twelve cultivated hectares since 1895. Every bottle stamped, sealed and signed by hand.</p>
+        </div>
+
+        <div class="md:col-span-4 grid grid-cols-2 gap-8">
+            <div>
+                <h4 class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold mb-4 border-b border-gold/30 pb-2">The House</h4>
+                <ul class="space-y-2.5 font-newsreader text-sm text-tertiary/85">
+                    <li><a href="#" class="hover:text-gold transition-colors">Collection</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">The Perfumer</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">The Atelier</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Origins</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Boutique</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold mb-4 border-b border-gold/30 pb-2">Le Service</h4>
+                <ul class="space-y-2.5 font-newsreader text-sm text-tertiary/85">
+                    <li><a href="#" class="hover:text-gold transition-colors">Press Inquiries</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Sustainability</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Sample Box</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Refill Programme</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="md:col-span-4 flex flex-col gap-4">
+            <h4 class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold border-b border-gold/30 pb-2">La Lettre</h4>
+            <p class="font-newsreader italic text-tertiary/85 text-sm leading-relaxed">Seasonal letters from Grasse — harvest dates, atelier visits, and one new fragrance each spring.</p>
+            <form class="flex border-b border-gold/60 focus-within:border-gold transition-colors">
+                <input type="email" placeholder="Votre adresse électronique" class="flex-1 bg-transparent py-2 font-newsreader italic text-tertiary text-sm placeholder-tertiary/40 focus:outline-none" />
+                <button type="button" class="text-gold hover:text-rose transition-colors px-2" aria-label="Subscribe">
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </button>
+            </form>
+            <p class="font-epilogue text-[9px] tracking-[0.3em] uppercase text-tertiary/50 leading-relaxed">Quatre lettres par an. Désabonnement instantané.</p>
+            <div class="flex items-center gap-3 mt-2">
+                <a href="#" class="text-tertiary/70 hover:text-gold transition-colors" aria-label="Instagram"><span class="material-symbols-outlined text-base">camera_alt</span></a>
+                <span class="w-px h-4 bg-gold/30"></span>
+                <a href="#" class="text-tertiary/70 hover:text-gold transition-colors" aria-label="Journal"><span class="material-symbols-outlined text-base">menu_book</span></a>
+                <span class="w-px h-4 bg-gold/30"></span>
+                <a href="#" class="text-tertiary/70 hover:text-gold transition-colors" aria-label="Boutique"><span class="material-symbols-outlined text-base">storefront</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-6 md:px-12 mt-12 mb-6">
+        <div class="flex items-center gap-3 opacity-70">
+            <div class="h-[1px] flex-grow bg-gradient-to-r from-transparent via-gold to-gold"></div>
+            <svg class="w-5 h-5 text-gold" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M10 3 Q 14 7 10 10 Q 6 13 10 17 Q 14 13 10 10 Q 6 7 10 3 Z" fill="none" stroke="currentColor" stroke-width="0.8"/>
+                <circle cx="10" cy="10" r="1" fill="currentColor"/>
+            </svg>
+            <div class="h-[1px] flex-grow bg-gradient-to-l from-transparent via-gold to-gold"></div>
+        </div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4 text-[9px] tracking-[0.3em] uppercase font-epilogue text-tertiary/60">
+        <span>© MCMXCV — MMXXIV · Maison Solène</span>
+        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <a href="#" class="hover:text-gold transition-colors">Privacy</a>
+            <a href="#" class="hover:text-gold transition-colors">Terms</a>
+            <a href="#" class="hover:text-gold transition-colors">Cookies</a>
+            <a href="#" class="hover:text-gold transition-colors">Mentions Légales</a>
+        </div>
+        <span>Composed · Bottled · Sealed in Grasse</span>
+    </div>
+</footer>
+</body></html>

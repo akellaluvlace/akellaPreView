@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANUAL_v1 | The Archive</title>
+    <meta name="description" content="Open source documentation for the raw web.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+
+    <!-- Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'win-gray': '#C0C0C0',
+                        'web-blue': '#0000EE',
+                        'web-purple': '#551A8B',
+                        'alert-yellow': '#FFFF00',
+                    },
+                    fontFamily: {
+                        serif: ['"Times New Roman"', 'Times', 'serif'],
+                        mono: ['"Courier New"', 'Courier', 'monospace'],
+                        sans: ['Arial', 'Helvetica', 'sans-serif'],
+                    },
+                    spacing: {
+                        'px-2': '2px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* BASE STYLES */
+        body {
+            background-color: #555555; /* Dark background outside the paper */
+            color: #000000;
+        }
+
+        /* HYPERLINKS - PRE 1996 STANDARD */
+        a {
+            text-decoration: underline;
+            color: #0000EE;
+            cursor: pointer;
+        }
+        a:visited {
+            color: #551A8B;
+        }
+        a:hover {
+            background-color: #0000EE;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        a:active {
+            color: #FF0000;
+        }
+
+        /* UTILITIES */
+        .win95-border {
+            border: 2px solid;
+            border-color: #FFFFFF #808080 #808080 #FFFFFF;
+            background-color: #C0C0C0;
+        }
+        
+        /* 3D Button Style */
+        .btn-brutal {
+            background-color: #C0C0C0;
+            border-top: 2px solid #FFFFFF;
+            border-left: 2px solid #FFFFFF;
+            border-right: 2px solid #000000;
+            border-bottom: 2px solid #000000;
+            display: inline-block;
+            text-decoration: none;
+            color: black !important;
+            cursor: pointer;
+        }
+        .btn-brutal:active {
+            border-top: 2px solid #000000;
+            border-left: 2px solid #000000;
+            border-right: 2px solid #FFFFFF;
+            border-bottom: 2px solid #FFFFFF;
+            transform: translateY(1px);
+        }
+
+        /* Hard Separator */
+        hr {
+            border: 0;
+            border-top: 2px solid #000000;
+            margin: 0;
+            height: 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 14px;
+            height: 14px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0; 
+            border: 1px solid black;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C0C0C0; 
+            border: 1px solid black;
+            box-shadow: inset 1px 1px white, inset -1px -1px gray;
+        }
+
+        /* Pattern for empty space */
+        .hatch-pattern {
+            background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000);
+            background-size: 4px 4px;
+            background-position: 0 0, 2px 2px;
+            opacity: 0.1;
+        }
+
+        /* Scroll-driven negative effect — applied to the OUTER container so
+           the whole FILE_HEADER box (image, text, borders, bg) flips together
+           as it slides through the manifesto section. The image inside is
+           just a static brutalist backdrop; only the container's `filter` is
+           animated, and everything inside inherits the inverted state. */
+        .manifesto-frame {
+            view-timeline-name: --manifesto;
+            view-timeline-axis: block;
+        }
+        .scroll-invert-container {
+            animation: container-negative linear both;
+            animation-timeline: --manifesto;
+            animation-range: cover 15% cover 95%;
+            will-change: filter;
+        }
+        @keyframes container-negative {
+            0%   { filter: none; }
+            45%  { filter: none; }
+            55%  { filter: invert(1) hue-rotate(180deg); }
+            100% { filter: invert(1) hue-rotate(180deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-invert-container { animation: none; }
+        }
+        /* Static brutalist treatment on the photo itself — no animation here. */
+        .file-header-img {
+            filter: grayscale(1) contrast(1.4) brightness(1.05);
+        }
+    </style>
+</head>
+<body class="font-serif text-base leading-snug antialiased min-h-screen flex flex-col items-center py-0 md:py-8">
+
+    <!-- PAGE CONTAINER -->
+    <div class="w-full max-w-[1024px] bg-white border-x-0 md:border-x-2 border-black min-h-screen shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] flex flex-col">
+
+        <!-- HEADER -->
+        <header>
+            <!-- Top Bar -->
+            <div class="bg-win-gray border-b-2 border-black p-3 flex flex-col md:flex-row justify-between items-start md:items-end gap-2">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-web-blue flex items-center justify-center text-white font-bold border-2 border-black">
+                        M
+                    </div>
+                    <div>
+                        <h1 class="font-sans font-black text-3xl md:text-4xl tracking-tighter uppercase leading-none">MANUAL_v1</h1>
+                        <span class="font-mono text-xs uppercase text-gray-600">Documentation Standard 1.0.4</span>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-auto flex justify-between md:justify-end items-center gap-4 font-mono text-xs">
+                    <span class="hidden md:inline">SERVER_TIME:</span>
+                    <div class="border-2 border-black bg-white px-2 py-1" id="clock">Loading...</div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Navigation -->
+            <nav class="bg-white p-2 border-b-2 border-black">
+                <ul class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm font-bold uppercase list-none">
+                    <li><a href="#">[00_Index]</a></li>
+                    <li><a href="#">[01_Install]</a></li>
+                    <li><a href="#">[02_Structure]</a></li>
+                    <li><a href="#">[03_Modules]</a></li>
+                    <li><a href="#">[04_Legacy]</a></li>
+                    <li><a href="#">[05_Help]</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- WARNING BANNER -->
+        <div class="bg-alert-yellow border-b-2 border-black p-2 flex items-start gap-3">
+            <span class="font-bold font-mono text-xl select-none">(!)</span>
+            <p class="font-sans text-sm font-bold">
+                NOTICE: API v0.9 is deprecated as of 2023-11-01. Please migrate all endpoints to v1.0 immediately to avoid data loss.
+            </p>
+        </div>
+
+        <!-- HERO SECTION -->
+        <section class="border-b-2 border-black grid grid-cols-1 lg:grid-cols-12">
+            <!-- Main Hero Text -->
+            <div class="lg:col-span-9 p-4 md:p-8 flex flex-col justify-center">
+                <h2 class="font-serif text-5xl md:text-7xl font-bold uppercase leading-[0.9] mb-6">
+                    Read the<br>Manual.
+                </h2>
+                <p class="font-serif text-lg md:text-xl max-w-2xl mb-6">
+                    A raw, anti-fragile documentation framework for the post-aesthetic web. 
+                    No JavaScript required. No cookies. No tracking. Just data in its purest form.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 items-start">
+                    <a href="#" class="btn-brutal px-6 py-2 font-mono text-sm uppercase font-bold">
+                        Download .TAR.GZ
+                    </a>
+                    <a href="#" class="font-mono text-sm self-center hover:bg-black hover:text-white px-1">
+                        > View Source Code
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar / Metadata -->
+            <div class="lg:col-span-3 border-t-2 lg:border-t-0 lg:border-l-2 border-black bg-gray-100 flex flex-col">
+                <div class="p-2 bg-black text-white font-mono text-xs font-bold uppercase">
+                    /SYS/INFO
+                </div>
+                <div class="p-3 font-mono text-xs flex-grow">
+                    <ul class="space-y-2">
+                        <li class="flex justify-between">
+                            <span>BUILD:</span>
+                            <span class="font-bold">#492A</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>SIZE:</span>
+                            <span>402KB</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>LICENSE:</span>
+                            <span>MIT</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>AUTHOR:</span>
+                            <span>@ROOT</span>
+                        </li>
+                    </ul>
+                    <hr class="border-gray-400 my-3">
+                    <div class="text-[10px] leading-tight text-gray-600">
+                        HASH: e4d909c290d0fb1ca068ffaddf22cbd0
+                    </div>
+                </div>
+                <!-- Graphic placeholder -->
+                <div class="h-24 border-t-2 border-black hatch-pattern relative">
+                    <span class="absolute bottom-1 right-1 font-mono text-[10px] bg-white px-1 border border-black">
+                        NO_IMG
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS STRIP — terminal-style metrics, replaces the previous "(/SYS/INFO)" with public-facing numbers -->
+        <section class="bg-black text-white border-b-2 border-black grid grid-cols-2 md:grid-cols-4 divide-x-2 divide-gray-700">
+            <div class="p-4 md:p-6">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">DOWNLOADS</div>
+                <div class="font-sans font-black text-2xl md:text-4xl tabular-nums text-alert-yellow leading-none">128,442</div>
+                <div class="font-mono text-[10px] text-gray-500 mt-2">+1.4k · 24h</div>
+            </div>
+            <div class="p-4 md:p-6">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">CONTRIBUTORS</div>
+                <div class="font-sans font-black text-2xl md:text-4xl tabular-nums leading-none">47</div>
+                <div class="font-mono text-[10px] text-gray-500 mt-2">across 11 nations</div>
+            </div>
+            <div class="p-4 md:p-6">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">LAST_BUILD</div>
+                <div class="font-sans font-black text-2xl md:text-4xl tabular-nums leading-none">04:18:22</div>
+                <div class="font-mono text-[10px] text-gray-500 mt-2">UTC · today</div>
+            </div>
+            <div class="p-4 md:p-6">
+                <div class="font-mono text-[10px] uppercase tracking-widest text-gray-400 mb-2">STARS</div>
+                <div class="font-sans font-black text-2xl md:text-4xl tabular-nums leading-none">★ 12.4k</div>
+                <div class="font-mono text-[10px] text-gray-500 mt-2">forks · 892</div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT LAYOUT -->
+        <main class="flex-grow bg-gray-100">
+            
+            <!-- SECTION HEADER -->
+            <div class="border-b-2 border-black bg-white p-2">
+                <h3 class="font-sans font-bold text-xl uppercase tracking-tight flex items-center gap-2">
+                    <span class="bg-black text-white px-2 text-sm">SEC_A</span>
+                    Documentation Library
+                </h3>
+            </div>
+
+            <!-- DOCUMENTATION GRID (Gap trick for borders) -->
+            <!-- We use a black background on the container and a 2px gap to create borders -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-black border-b-2 border-black">
+                
+                <!-- Card 01 -->
+                <div class="bg-white p-4 h-full flex flex-col relative group">
+                    <div class="absolute top-2 right-2 font-mono text-xs text-gray-400">01</div>
+                    <h4 class="font-bold text-lg mb-2 underline decoration-2">Getting Started</h4>
+                    <p class="text-sm font-serif mb-4 flex-grow">
+                        Essential setup instructions for Linux and BSD environments. Includes dependency mapping and compilation flags.
+                    </p>
+                    <a href="#" class="font-mono text-xs uppercase block bg-gray-100 p-1 border border-black text-center hover:bg-black hover:text-white">
+                        Open File ->
+                    </a>
+                </div>
+
+                <!-- Card 02 -->
+                <div class="bg-white p-4 h-full flex flex-col relative">
+                    <div class="absolute top-2 right-2 font-mono text-xs text-gray-400">02</div>
+                    <h4 class="font-bold text-lg mb-2 underline decoration-2">Core Concepts</h4>
+                    <p class="text-sm font-serif mb-4 flex-grow">
+                        Understanding the directory structure, immutable data patterns, and the "Raw Text" philosophy.
+                    </p>
+                    <a href="#" class="font-mono text-xs uppercase block bg-gray-100 p-1 border border-black text-center hover:bg-black hover:text-white">
+                        Open File ->
+                    </a>
+                </div>
+
+                <!-- Card 03 -->
+                <div class="bg-white p-4 h-full flex flex-col relative">
+                    <div class="absolute top-2 right-2 font-mono text-xs text-gray-400">03</div>
+                    <h4 class="font-bold text-lg mb-2 underline decoration-2">API Reference</h4>
+                    <p class="text-sm font-serif mb-4 flex-grow">
+                        Complete list of endpoints, response codes, and error handling protocols. 
+                    </p>
+                    <a href="#" class="font-mono text-xs uppercase block bg-gray-100 p-1 border border-black text-center hover:bg-black hover:text-white">
+                        Open File ->
+                    </a>
+                </div>
+
+                <!-- Card 04 -->
+                <div class="bg-white p-4 h-full flex flex-col relative">
+                    <div class="absolute top-2 right-2 font-mono text-xs text-gray-400">04</div>
+                    <h4 class="font-bold text-lg mb-2 underline decoration-2">CLI Tools</h4>
+                    <p class="text-sm font-serif mb-4 flex-grow">
+                        Command line arguments for batch processing and automated documentation generation.
+                    </p>
+                    <a href="#" class="font-mono text-xs uppercase block bg-gray-100 p-1 border border-black text-center hover:bg-black hover:text-white">
+                        Open File ->
+                    </a>
+                </div>
+
+                <!-- Card 05 -->
+                <div class="bg-white p-4 h-full flex flex-col relative">
+                    <div class="absolute top-2 right-2 font-mono text-xs text-gray-400">05</div>
+                    <h4 class="font-bold text-lg mb-2 underline decoration-2">Plugins</h4>
+                    <p class="text-sm font-serif mb-4 flex-grow">
+                        Community extensions for syntax highlighting, PDF export, and LaTeX conversion.
+                    </p>
+                    <a href="#" class="font-mono text-xs uppercase block bg-gray-100 p-1 border border-black text-center hover:bg-black hover:text-white">
+                        Open File ->
+                    </a>
+                </div>
+
+                <!-- Card 06 -->
+                <div class="bg-white p-4 h-full flex flex-col relative">
+                    <div class="absolute top-2 right-2 font-mono text-xs text-gray-400">06</div>
+                    <h4 class="font-bold text-lg mb-2 underline decoration-2">Troubleshoot</h4>
+                    <p class="text-sm font-serif mb-4 flex-grow">
+                        Common segmentation faults, memory leaks, and how to report bugs to the maintainers.
+                    </p>
+                    <a href="#" class="font-mono text-xs uppercase block bg-gray-100 p-1 border border-black text-center hover:bg-black hover:text-white">
+                        Open File ->
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- ============================== -->
+            <!-- VISUAL_REFERENCE / PLATES — 4 framed photos -->
+            <!-- ============================== -->
+            <div class="border-b-2 border-black bg-white p-2">
+                <h3 class="font-sans font-bold text-xl uppercase tracking-tight flex items-center gap-2">
+                    <span class="bg-black text-white px-2 text-sm">SEC_B</span>
+                    Visual Reference
+                </h3>
+            </div>
+            <div class="bg-win-gray border-b-2 border-black p-4 md:p-6">
+                <p class="font-mono text-xs mb-4 text-gray-700">/REF/PLATES/ — image manifest, 4 of 24. ASCII alt-text below each frame.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+                    <!-- Plate 001 — Terminal Circuit -->
+                    <figure class="win95-border p-2">
+                        <div class="aspect-square overflow-hidden border-2 border-black bg-black relative">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Macro photograph of a green circuit board" class="w-full h-full object-cover grayscale contrast-125 brightness-90"/>
+                            <span class="absolute top-1 left-1 bg-alert-yellow text-black font-mono font-bold text-[9px] px-1 border border-black">PLATE_001</span>
+                        </div>
+                        <figcaption class="font-mono text-[10px] mt-2 leading-tight">
+                            <span class="font-bold">circuit.jpg</span><br>
+                            <span class="text-gray-600">[ TRACES // 320×320 ]</span>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Plate 002 — Brutalist Form -->
+                    <figure class="win95-border p-2">
+                        <div class="aspect-square overflow-hidden border-2 border-black bg-black relative">
+                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Brutalist concrete architectural facade" class="w-full h-full object-cover grayscale contrast-125 brightness-95"/>
+                            <span class="absolute top-1 left-1 bg-alert-yellow text-black font-mono font-bold text-[9px] px-1 border border-black">PLATE_002</span>
+                        </div>
+                        <figcaption class="font-mono text-[10px] mt-2 leading-tight">
+                            <span class="font-bold">form.jpg</span><br>
+                            <span class="text-gray-600">[ CONCRETE // FACADE ]</span>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Plate 003 — Server Rack -->
+                    <figure class="win95-border p-2">
+                        <div class="aspect-square overflow-hidden border-2 border-black bg-black relative">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Server rack with status LEDs" class="w-full h-full object-cover grayscale contrast-125 brightness-90"/>
+                            <span class="absolute top-1 left-1 bg-alert-yellow text-black font-mono font-bold text-[9px] px-1 border border-black">PLATE_003</span>
+                        </div>
+                        <figcaption class="font-mono text-[10px] mt-2 leading-tight">
+                            <span class="font-bold">rack_42u.jpg</span><br>
+                            <span class="text-gray-600">[ MIRROR // EU_WEST ]</span>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Plate 004 — Technical Draft -->
+                    <figure class="win95-border p-2">
+                        <div class="aspect-square overflow-hidden border-2 border-black bg-black relative">
+                            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Technical drafting drawings on graph paper" class="w-full h-full object-cover grayscale contrast-125 brightness-95"/>
+                            <span class="absolute top-1 left-1 bg-alert-yellow text-black font-mono font-bold text-[9px] px-1 border border-black">PLATE_004</span>
+                        </div>
+                        <figcaption class="font-mono text-[10px] mt-2 leading-tight">
+                            <span class="font-bold">spec.jpg</span><br>
+                            <span class="text-gray-600">[ ANNOTATED // V1.0 ]</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="mt-4 pt-3 border-t border-black flex flex-col md:flex-row justify-between gap-2 font-mono text-[10px]">
+                    <span>// IMG_FORMAT=JPG · COMPRESSED · GRAYSCALE_BIAS=true</span>
+                    <a href="#" class="font-bold">[ VIEW ALL 24 PLATES → ]</a>
+                </div>
+            </div>
+
+            <!-- DETAILED CONTENT AREA -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 border-b-2 border-black">
+                
+                <!-- Left Column: Specs -->
+                <div class="lg:col-span-2 bg-white p-4 md:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-black">
+                    <h5 class="font-sans font-black text-2xl mb-4 uppercase">System Requirements</h5>
+                    
+                    <div class="overflow-x-auto border-2 border-black mb-6">
+                        <table class="w-full text-left font-mono text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-win-gray border-b-2 border-black">
+                                    <th class="p-2 border-r-2 border-black">Component</th>
+                                    <th class="p-2 border-r-2 border-black">Minimum</th>
+                                    <th class="p-2">Recommended</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-black">
+                                    <td class="p-2 border-r border-black font-bold">Processor</td>
+                                    <td class="p-2 border-r border-black">x86 300MHz</td>
+                                    <td class="p-2">x64 1GHz</td>
+                                </tr>
+                                <tr class="border-b border-black">
+                                    <td class="p-2 border-r border-black font-bold">Memory</td>
+                                    <td class="p-2 border-r border-black">64MB RAM</td>
+                                    <td class="p-2">512MB RAM</td>
+                                </tr>
+                                <tr class="border-b border-black">
+                                    <td class="p-2 border-r border-black font-bold">Storage</td>
+                                    <td class="p-2 border-r border-black">10MB HDD</td>
+                                    <td class="p-2">SSD</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 border-r border-black font-bold">OS</td>
+                                    <td class="p-2 border-r border-black">Linux 2.4+</td>
+                                    <td class="p-2">Linux 5.0+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h5 class="font-sans font-black text-2xl mb-2 uppercase">Configuration</h5>
+                    <p class="mb-2 font-serif">Edit the <code class="bg-gray-200 px-1 border border-gray-400 font-mono text-sm">config.json</code> file to set your global variables.</p>
+                    
+                    <div class="bg-black text-white p-3 font-mono text-xs md:text-sm overflow-x-auto shadow-[4px_4px_0px_0px_#C0C0C0]">
+<pre>{
+  "site_name": "MANUAL_v1",
+  "render_engine": "raw_html",
+  "cache_duration": 3600,
+  "features": {
+    "javascript": false,
+    "images": false
+  }
+}</pre>
+                    </div>
+                </div>
+
+                <!-- Right Column: Updates & Links -->
+                <div class="bg-white p-4 md:p-6 flex flex-col justify-between">
+                    <div>
+                        <h5 class="font-sans font-bold text-lg underline mb-4">LATEST_CHANGELOG</h5>
+                        <ul class="font-mono text-xs space-y-3">
+                            <li class="flex gap-2">
+                                <span class="font-bold shrink-0">[10-22]</span>
+                                <span>Refactored grid logic for mobile viewports.</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="font-bold shrink-0">[10-20]</span>
+                                <span>Removed decorative CSS. Added Times New Roman.</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="font-bold shrink-0">[10-15]</span>
+                                <span>Fixed memory leak in parser.c</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="font-bold shrink-0">[10-01]</span>
+                                <span>Initial stable release.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-8">
+                        <h5 class="font-sans font-bold text-lg underline mb-2">Mirrors</h5>
+                        <ul class="list-square pl-4 font-serif text-sm space-y-1">
+                            <li><a href="#">US_East (Virginia)</a></li>
+                            <li><a href="#">EU_West (Dublin)</a></li>
+                            <li><a href="#">Asia_Pacific (Tokyo)</a></li>
+                            <li><a href="#">FTP Archive (Slow)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- "AD" Section (Internal Promo) -->
+            <div class="bg-win-gray border-b-2 border-black p-4 text-center">
+                <div class="inline-block border-2 border-white border-r-black border-b-black p-1 bg-win-gray">
+                    <div class="border border-gray-500 p-2">
+                        <span class="font-bold font-sans text-sm">PRO TIP:</span>
+                        <span class="font-serif italic text-sm">Use key combination <span class="font-mono font-bold not-italic">CTRL+P</span> to print this manual on paper.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================== -->
+            <!-- THE_MANIFESTO — long-form editorial column -->
+            <!-- ============================== -->
+            <div class="border-b-2 border-black bg-white p-2">
+                <h3 class="font-sans font-bold text-xl uppercase tracking-tight flex items-center gap-2">
+                    <span class="bg-black text-white px-2 text-sm">SEC_C</span>
+                    The Manifesto
+                </h3>
+            </div>
+            <div class="manifesto-frame bg-white border-b-2 border-black p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left rail: file metadata. The FILE_HEADER box now carries
+                     a brutalist bg photograph that inverts to its negative as
+                     you scroll through the manifesto. Text uses mix-blend-mode
+                     difference so it auto-flips between black/white. -->
+                <!-- Aside (left rail) is the CONTAINER. It's tall — its height
+                     matches the manifesto article on the right. Below the small
+                     sticky FILE_HEADER box was a long blank stretch; now that
+                     stretch is filled with a brutalist photograph. As the user
+                     scrolls the section, the whole aside (image + FILE_HEADER
+                     box) flips to its negative via filter:invert. -->
+                <aside class="scroll-invert-container relative lg:col-span-3 border-r-0 lg:border-r-2 border-black lg:pr-6">
+
+                    <!-- Background image layer — fills the entire left rail
+                         vertically. Stays in normal-flow position; FILE_HEADER
+                         box sits on top via z-10. -->
+                    <div class="absolute inset-0 lg:right-6 overflow-hidden pointer-events-none">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&amp;q=85&amp;auto=format&amp;fit=crop"
+                             alt="" aria-hidden="true"
+                             class="w-full h-full object-cover file-header-img select-none"/>
+                        <!-- Hatched grid texture over the photo -->
+                        <div class="absolute inset-0"
+                             style="background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0 1px, transparent 1px 6px), repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0 1px, transparent 1px 6px); mix-blend-mode: multiply;"></div>
+                        <!-- Vertical soft scrim from top so the FILE_HEADER box reads cleanly -->
+                        <div class="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/10"></div>
+                    </div>
+
+                    <!-- FILE_HEADER box on top, sticky, original styling -->
+                    <div class="relative z-10 border-2 border-black bg-gray-100 p-3 font-mono text-[11px] mb-4 sticky top-0">
+                        <p class="font-bold mb-2 underline">FILE_HEADER</p>
+                        <ul class="space-y-1.5">
+                            <li class="flex justify-between"><span>NAME:</span><span class="font-bold">manifesto.txt</span></li>
+                            <li class="flex justify-between"><span>SIZE:</span><span>2.4 KB</span></li>
+                            <li class="flex justify-between"><span>VERSION:</span><span>1.0.4</span></li>
+                            <li class="flex justify-between"><span>DRAFTED:</span><span>1999-08-12</span></li>
+                            <li class="flex justify-between"><span>SIGNED:</span><span>@ROOT</span></li>
+                        </ul>
+                        <hr class="border-gray-400 my-3">
+                        <p class="text-[9px] text-gray-600 leading-relaxed">VERIFIED BY GPG. <br>Hash matches origin commit.</p>
+                    </div>
+                </aside>
+
+                <!-- Right column: editorial body -->
+                <article class="lg:col-span-9 max-w-3xl">
+                    <h4 class="font-serif text-3xl md:text-5xl font-bold leading-[0.95] mb-6 uppercase">
+                        Build for the<br>reader, not the<br>algorithm.
+                    </h4>
+                    <p class="font-serif text-base md:text-lg leading-relaxed mb-4">
+                        <span class="float-left font-sans font-black text-7xl leading-none mr-2 mt-1">T</span>he web does not require ornament. It requires legibility. It requires durability. It requires that data, once written, remains both readable and trustworthy a decade from now — without a runtime, without a CDN, without an account.
+                    </p>
+                    <p class="font-serif text-base md:text-lg leading-relaxed mb-6">
+                        We have spent twenty-five years adding chrome to a medium that was complete in 1995. MANUAL_v1 is a return to the principles that worked: hyperlinks. Plain text. Headings, paragraphs, tables. The browser as document reader. Anything more is an error introduced by us, not corrected by us.
+                    </p>
+
+                    <!-- Numbered tenets -->
+                    <h5 class="font-sans font-black text-lg uppercase mb-3 underline decoration-2">Five Tenets</h5>
+                    <ol class="space-y-3 list-none mb-6 border-2 border-black bg-gray-50">
+                        <li class="border-b border-black p-3 flex gap-4 items-baseline">
+                            <span class="font-mono font-bold text-2xl shrink-0 w-8">01</span>
+                            <div>
+                                <p class="font-bold mb-1">No JavaScript.</p>
+                                <p class="font-serif text-sm text-gray-700">If a feature requires JS to be readable, it is not a feature. It is a regression.</p>
+                            </div>
+                        </li>
+                        <li class="border-b border-black p-3 flex gap-4 items-baseline">
+                            <span class="font-mono font-bold text-2xl shrink-0 w-8">02</span>
+                            <div>
+                                <p class="font-bold mb-1">No Cookies.</p>
+                                <p class="font-serif text-sm text-gray-700">Reading should not require an exchange of identity. The reader is anonymous, by default.</p>
+                            </div>
+                        </li>
+                        <li class="border-b border-black p-3 flex gap-4 items-baseline">
+                            <span class="font-mono font-bold text-2xl shrink-0 w-8">03</span>
+                            <div>
+                                <p class="font-bold mb-1">No Tracking.</p>
+                                <p class="font-serif text-sm text-gray-700">We do not measure what we do not need to know. The server log records 200s and 404s. Nothing more.</p>
+                            </div>
+                        </li>
+                        <li class="border-b border-black p-3 flex gap-4 items-baseline">
+                            <span class="font-mono font-bold text-2xl shrink-0 w-8">04</span>
+                            <div>
+                                <p class="font-bold mb-1">Print Tested.</p>
+                                <p class="font-serif text-sm text-gray-700">Every page renders cleanly on A4 / Letter. The web should also live on paper.</p>
+                            </div>
+                        </li>
+                        <li class="p-3 flex gap-4 items-baseline">
+                            <span class="font-mono font-bold text-2xl shrink-0 w-8">05</span>
+                            <div>
+                                <p class="font-bold mb-1">Public Domain by Default.</p>
+                                <p class="font-serif text-sm text-gray-700">Documentation belongs to the people who read and write it. Not to a vendor.</p>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <p class="font-serif italic text-sm border-l-4 border-black pl-3">
+                        "If you cannot view this in <code class="font-mono not-italic font-bold">lynx</code>, we have failed."
+                        <br><span class="font-mono not-italic text-xs">— @ROOT, commit 1a2b3c4 · 2018-04-21</span>
+                    </p>
+                </article>
+            </div>
+
+            <!-- ============================== -->
+            <!-- MAINTAINERS — terminal-style contributor list -->
+            <!-- ============================== -->
+            <div class="border-b-2 border-black bg-white p-2">
+                <h3 class="font-sans font-bold text-xl uppercase tracking-tight flex items-center gap-2">
+                    <span class="bg-black text-white px-2 text-sm">SEC_D</span>
+                    Maintainers
+                </h3>
+            </div>
+            <div class="bg-gray-100 border-b-2 border-black grid grid-cols-1 lg:grid-cols-3">
+                <!-- Left: terminal-style commit log -->
+                <div class="lg:col-span-2 bg-black text-green-400 font-mono text-xs md:text-sm p-4 md:p-6 border-r-0 lg:border-r-2 border-black overflow-x-auto">
+                    <div class="flex items-center gap-2 pb-3 mb-3 border-b border-green-700/40 text-green-300">
+                        <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                        <span class="w-2 h-2 bg-alert-yellow rounded-full"></span>
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                        <span class="ml-3 text-[10px] uppercase tracking-widest opacity-70">// terminal — git log --format=%h%an%ad%s</span>
+                    </div>
+                    <div class="space-y-2 leading-relaxed">
+                        <div><span class="text-green-300">$ git shortlog -sn --no-merges</span></div>
+                        <div class="text-gray-300">  <span class="text-alert-yellow font-bold">1,284</span>  <span class="text-white">@ROOT</span> &lt;root@manual.txt&gt;</div>
+                        <div class="text-gray-300">    <span class="text-alert-yellow font-bold">412</span>  <span class="text-white">Maya K.</span> &lt;maya@kessler.io&gt;</div>
+                        <div class="text-gray-300">    <span class="text-alert-yellow font-bold">298</span>  <span class="text-white">Hiroshi N.</span> &lt;hiro@chiba.jp&gt;</div>
+                        <div class="text-gray-300">    <span class="text-alert-yellow font-bold">187</span>  <span class="text-white">Eimear B.</span> &lt;eb@dublin.ie&gt;</div>
+                        <div class="text-gray-300">    <span class="text-alert-yellow font-bold">142</span>  <span class="text-white">Sasha P.</span> &lt;sash@warsaw.pl&gt;</div>
+                        <div class="text-gray-300">    &nbsp;<span class="text-alert-yellow font-bold">+ 42 others</span></div>
+                        <div class="pt-3"><span class="text-green-300">$ git log --since="3 days ago" --oneline</span></div>
+                        <div class="text-gray-300"><span class="text-alert-yellow">a4b2e1c</span> <span class="text-white">@ROOT</span> docs: clarify cache_duration default to 3600s</div>
+                        <div class="text-gray-300"><span class="text-alert-yellow">9d3f817</span> <span class="text-white">Maya K.</span> fix: parser.c segfault on UTF-16 input</div>
+                        <div class="text-gray-300"><span class="text-alert-yellow">2e5c4a0</span> <span class="text-white">Hiroshi N.</span> i18n: japanese localisation for /02_Structure</div>
+                        <div class="text-gray-300"><span class="text-alert-yellow">f17b9d3</span> <span class="text-white">Eimear B.</span> chore: remove deprecated v0.9 endpoints</div>
+                        <div class="pt-2"><span class="text-green-300">$ <span class="bg-green-400 text-black animate-pulse w-2 h-4 inline-block">_</span></span></div>
+                    </div>
+                </div>
+
+                <!-- Right: leader-stack -->
+                <div class="bg-white p-4 md:p-6 flex flex-col">
+                    <h5 class="font-sans font-bold text-lg underline mb-4 uppercase">Top Contributors</h5>
+                    <ul class="flex flex-col gap-3">
+                        <li class="border-2 border-black p-3 flex items-center gap-3 bg-gray-50 hover:bg-alert-yellow transition-colors">
+                            <div class="w-10 h-10 bg-web-blue text-white font-mono font-bold flex items-center justify-center border-2 border-black shrink-0 text-sm">@R</div>
+                            <div class="flex-1 min-w-0 font-mono text-xs">
+                                <p class="font-bold truncate">@ROOT</p>
+                                <p class="text-gray-600">Maintainer · since 1999</p>
+                            </div>
+                            <span class="font-mono font-bold text-sm tabular-nums shrink-0">1,284</span>
+                        </li>
+                        <li class="border-2 border-black p-3 flex items-center gap-3 bg-gray-50 hover:bg-alert-yellow transition-colors">
+                            <div class="w-10 h-10 bg-web-purple text-white font-mono font-bold flex items-center justify-center border-2 border-black shrink-0 text-sm">MK</div>
+                            <div class="flex-1 min-w-0 font-mono text-xs">
+                                <p class="font-bold truncate">Maya K.</p>
+                                <p class="text-gray-600">Core · parser.c lead</p>
+                            </div>
+                            <span class="font-mono font-bold text-sm tabular-nums shrink-0">412</span>
+                        </li>
+                        <li class="border-2 border-black p-3 flex items-center gap-3 bg-gray-50 hover:bg-alert-yellow transition-colors">
+                            <div class="w-10 h-10 bg-black text-white font-mono font-bold flex items-center justify-center border-2 border-black shrink-0 text-sm">HN</div>
+                            <div class="flex-1 min-w-0 font-mono text-xs">
+                                <p class="font-bold truncate">Hiroshi N.</p>
+                                <p class="text-gray-600">i18n · 7 locales</p>
+                            </div>
+                            <span class="font-mono font-bold text-sm tabular-nums shrink-0">298</span>
+                        </li>
+                        <li class="border-2 border-black p-3 flex items-center gap-3 bg-gray-50 hover:bg-alert-yellow transition-colors">
+                            <div class="w-10 h-10 bg-alert-yellow text-black font-mono font-bold flex items-center justify-center border-2 border-black shrink-0 text-sm">EB</div>
+                            <div class="flex-1 min-w-0 font-mono text-xs">
+                                <p class="font-bold truncate">Eimear B.</p>
+                                <p class="text-gray-600">CLI tools</p>
+                            </div>
+                            <span class="font-mono font-bold text-sm tabular-nums shrink-0">187</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="mt-4 btn-brutal px-3 py-2 font-mono text-xs uppercase font-bold text-center">[ JOIN AS CONTRIBUTOR → ]</a>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-white p-4 md:p-6 flex flex-col gap-6">
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
+                <div>
+                    <h6 class="font-bold mb-2 underline">PROJECT</h6>
+                    <ul class="space-y-1">
+                        <li><a href="#" class="no-underline hover:underline">About</a></li>
+                        <li><a href="#" class="no-underline hover:underline">Manifesto</a></li>
+                        <li><a href="#" class="no-underline hover:underline">Sponsors</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="font-bold mb-2 underline">LEGAL</h6>
+                    <ul class="space-y-1">
+                        <li><a href="#" class="no-underline hover:underline">Privacy</a></li>
+                        <li><a href="#" class="no-underline hover:underline">Terms</a></li>
+                        <li><a href="#" class="no-underline hover:underline">License</a></li>
+                    </ul>
+                </div>
+                <div class="col-span-2 md:col-span-2">
+                    <h6 class="font-bold mb-2 underline">NEWSLETTER</h6>
+                    <form class="flex gap-2" onsubmit="event.preventDefault(); alert('SUBSCRIBED TO DB.');">
+                        <input type="email" placeholder="email@address.com" class="bg-gray-100 border-2 border-black p-1 w-full max-w-[200px] font-mono focus:bg-white outline-none rounded-none">
+                        <button class="btn-brutal px-3 py-1 font-bold">OK</button>
+                    </form>
+                </div>
+            </div>
+
+            <hr class="border-t-2 border-gray-300">
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-mono text-xs text-gray-500">
+                    &copy; 1999-2023 MANUAL_v1 OPEN SOURCE PROJECT. <br class="hidden md:block">
+                    RENDERED IN 0.002s. NO TRACKERS.
+                </p>
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="font-mono text-xs border-2 border-black px-2 py-1 bg-white hover:bg-black hover:text-white uppercase">
+                    [▲ Return to Top]
+                </button>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Simple JS for Clock -->
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+            const dateString = now.toISOString().split('T')[0];
+            document.getElementById('clock').innerText = `${dateString} ${timeString}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>

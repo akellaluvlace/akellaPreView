@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>42 Grosvenor Square - Aurelian &amp; Co.</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#584326",
+                        "on-tertiary-container": "#a88c69",
+                        "surface-variant": "#e4e2e3",
+                        "primary": "#041627",
+                        "secondary": "#605e58",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f2f0f2",
+                        "surface-container-highest": "#e4e2e3",
+                        "outline-variant": "#c4c6cd",
+                        "on-secondary-fixed-variant": "#484741",
+                        "secondary-container": "#e6e2da",
+                        "secondary-fixed-dim": "#c9c6bf",
+                        "surface-tint": "#4f6073",
+                        "tertiary-container": "#38260b",
+                        "surface-container": "#efedef",
+                        "on-surface-variant": "#44474c",
+                        "on-primary-fixed-variant": "#38485a",
+                        "on-primary-fixed": "#0b1d2d",
+                        "on-surface": "#1b1c1d",
+                        "on-tertiary-fixed": "#281802",
+                        "outline": "#74777d",
+                        "tertiary": "#211200",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#feddb5",
+                        "on-primary-container": "#8192a7",
+                        "primary-fixed-dim": "#b7c8de",
+                        "surface-dim": "#dbd9db",
+                        "surface-bright": "#fbf9fa",
+                        "on-secondary-container": "#66645e",
+                        "surface-container-low": "#f5f3f4",
+                        "surface-container-high": "#e9e7e9",
+                        "secondary-fixed": "#e6e2da",
+                        "surface": "#fbf9fa",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#e1c29b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf9fa",
+                        "on-secondary-fixed": "#1c1c17",
+                        "primary-container": "#1a2b3c",
+                        "inverse-primary": "#b7c8de",
+                        "inverse-surface": "#303032",
+                        "error": "#ba1a1a",
+                        "on-background": "#1b1c1d",
+                        "primary-fixed": "#d2e4fb",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "margin-edge": "64px",
+                        "gutter": "32px",
+                        "container-max": "1440px",
+                        "stack-md": "24px",
+                        "section-gap": "128px",
+                        "unit": "8px",
+                        "stack-lg": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Noto Serif"],
+                        "address-label": ["Noto Serif"],
+                        "display-xl": ["Noto Serif"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "body-md": ["Inter"],
+                        "caption": ["Inter"],
+                        "ui-label": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "400" }],
+                        "address-label": ["24px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "ui-label": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-[#FAF6EE] text-[#1A2B3C] antialiased selection:bg-[#B8904A] selection:text-white">
+<!-- TopAppBar -->
+<nav class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-200 transition-transform scale-100 active:scale-95">
+<div class="flex justify-between items-center w-full px-16 py-6 max-w-[1440px] mx-auto">
+<a class="text-2xl font-serif tracking-tight text-slate-900" href="#">AURELIAN &amp; CO.</a>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-ui-label text-ui-label uppercase tracking-widest text-slate-900 border-b border-slate-900 pb-1" href="#">Properties</a>
+<a class="font-ui-label text-ui-label uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors duration-300" href="#">Advisory</a>
+<a class="font-ui-label text-ui-label uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors duration-300" href="#">Heritage</a>
+<a class="font-ui-label text-ui-label uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors duration-300" href="#">Contact</a>
+</div>
+<button class="hidden md:block bg-primary text-white font-ui-label text-ui-label uppercase tracking-widest px-6 py-3 rounded-DEFAULT hover:bg-slate-800 transition-colors">
+                Book Viewing
+            </button>
+<button class="md:hidden">
+<span class="material-symbols-outlined text-slate-900" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero -->
+<section class="relative h-screen w-full pt-24">
+<div class="absolute inset-0 z-0">
+<img alt="Georgian townhouse exterior at dusk with warm interior lighting and classic brick facade" class="w-full h-full object-cover" data-alt="high-end real estate photography of a classic Georgian townhouse exterior at dusk, warm glowing lights inside, immaculate brickwork and formal garden path" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-771ofPprRqD2hyyiRLc_U74mhKdV3cwNQhqGf5riPiS4lTdHms3SJBGx59wViyfSMKdA2-G6Tf1TXbK-dNB76qf-gyyhG1klFg6Mw59jWQZtx1G_hzEP2YZjzVtztVDN2SvuM_Xh-aa9BhmCuRPM9JUoV_svZz8BXiUfddesnTpaNIGypBCmtG0G3wd8C9xUxYK7NvC1EusiEsxhev87AN5l3xqcnpEGH-DFlMlcQ2hyKtOCHqADKGbUhHvt5W-uVpoh42gA99ZD"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2B3C]/80 via-transparent to-transparent"></div>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-margin-edge z-10 flex flex-col md:flex-row justify-between items-end gap-stack-lg max-w-container-max mx-auto left-1/2 -translate-x-1/2">
+<div class="text-white">
+<h1 class="font-display-xl text-display-xl mb-stack-sm text-white">42 Grosvenor Square</h1>
+<p class="font-body-lg text-body-lg text-white/90">5 bed · 4 bath · 310 sqm · €1,850,000</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-[#B8904A] text-white font-ui-label text-ui-label uppercase tracking-widest px-8 py-4 rounded-DEFAULT hover:bg-[#a88241] transition-colors whitespace-nowrap">
+                    Book a viewing
+                </button>
+<button class="bg-transparent border border-white text-white font-ui-label text-ui-label uppercase tracking-widest px-8 py-4 rounded-DEFAULT hover:bg-white/10 transition-colors whitespace-nowrap">
+                    Download brochure
+                </button>
+</div>
+</div>
+</section>
+<!-- Content Canvas -->
+<main class="max-w-container-max mx-auto px-margin-edge py-section-gap space-y-section-gap">
+<!-- About & Specs -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-7 space-y-stack-md">
+<h2 class="font-headline-lg text-headline-lg">A Masterpiece of Georgian Elegance</h2>
+<div class="font-body-lg text-body-lg space-y-4 text-on-surface-variant">
+<p>Situated in the prestigious enclave of Dublin 4, 42 Grosvenor Square represents a rare opportunity to acquire a meticulously restored piece of architectural history. This imposing residence perfectly balances its grand heritage with contemporary luxury living.</p>
+<p>The property unfolds over four magnificent levels, characterized by soaring ceiling heights, intricate original cornicing, and an abundance of natural light pouring through magnificent sash windows. The recent renovation has thoughtfully integrated modern technological conveniences without compromising the home's historic integrity.</p>
+</div>
+</div>
+<div class="md:col-span-4 md:col-start-9 space-y-stack-md">
+<h3 class="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A] border-b border-[#1A2B3C]/20 pb-2">Key Features</h3>
+<ul class="space-y-4">
+<li class="flex justify-between items-end border-b border-[#1A2B3C]/10 pb-2">
+<span class="font-ui-label text-ui-label uppercase text-on-surface-variant">Period Details</span>
+<span class="font-headline-md text-headline-md text-sm">Original cornicing</span>
+</li>
+<li class="flex justify-between items-end border-b border-[#1A2B3C]/10 pb-2">
+<span class="font-ui-label text-ui-label uppercase text-on-surface-variant">Outdoor Space</span>
+<span class="font-headline-md text-headline-md text-sm">West-facing garden</span>
+</li>
+<li class="flex justify-between items-end border-b border-[#1A2B3C]/10 pb-2">
+<span class="font-ui-label text-ui-label uppercase text-on-surface-variant">Convenience</span>
+<span class="font-headline-md text-headline-md text-sm">Private parking</span>
+</li>
+<li class="flex justify-between items-end border-b border-[#1A2B3C]/10 pb-2">
+<span class="font-ui-label text-ui-label uppercase text-on-surface-variant">Energy</span>
+<span class="font-headline-md text-headline-md text-sm">B2 BER Rating</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Gallery (Bento Grid) -->
+<section>
+<h3 class="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A] mb-stack-md">Gallery</h3>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-unit h-[800px]">
+<div class="md:col-span-2 md:row-span-2 relative group overflow-hidden">
+<img alt="Grand living room with high ceilings, original fireplace, and contemporary furniture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="architectural interior photography of a luxurious living room in a heritage townhouse, high ceilings, large sash windows, minimal elegant furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZmkbY5cKTlmMdt0FTTpAVcLFZKBFYVTEc6-JXDG4195Z3CsSaMllXA6__fLeLD7TFT-Nnk0irTumcoD_BWSnNqh3hVoxzTR3tUglaXJWRuPFUaGS89qUvGNeqFQlzXEV9Vlh5tK1oodymL3A_V3Nl-SL9RJH-u-u3_RYFoH1EhBYHmeX6ygHM0wGsNyoXn3AypRcjg8-5QeBIwb_QolQgk2F02-rLsjlhxFw6USXdL21veXtcjgWpgH1FGEUJEJ6ZFj2aEv17T3NN"/>
+</div>
+<div class="relative group overflow-hidden">
+<img alt="Bespoke modern kitchen with marble island" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="minimalist bespoke kitchen interior with dark cabinetry and white marble island, soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa9oSyyxrky5TgD48ENsZAhSflbGwr7dmSB8X9IUVF6IgEQMhSuC1q8riAqMKopgOIJwGkegBxfhNlFYVBIC7ITcG9lanXoJKH3_OUdSew-mErERag5LIK7vMZEXujVekqqdI76Vnv_OFdUCLg7nXBhOXHlfOE2Spt216LiiimYH50Q6uRDRjNpDLJxVpcBQw83iaU3o18bz-J3-33FHM5-wKbX711xt-WCfB39-Ap4ouXZxbMpIy8QCZLNdB6Hi6TEgtQmbjU21AV"/>
+</div>
+<div class="relative group overflow-hidden">
+<img alt="Master suite detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="close up detail of a luxurious master bedroom with premium linens and neutral tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2cEXZqbbZS_gjQzQatn5n-8WfkgM8pEKszYJlMfGqkBlV2yEo20IFy66_E5pF0nDdS0RM3ojM7mr97agzjjbzg-X6MQMg1QYJJgX2qskSjbl18h35d6d0DPjS07b8L4qTMsn48j54mEXopJsAOdsZIJUpLJ82xYGmkwHJkYgv6kem2KoRv3BFjnyDOrtlNfvLy07pDID65AhbOC-nKWCrFXyftXSGDVyl5LdeP2SZcC7TQgSg3QnrDlo-cO2isp8muPYVH2196rcA"/>
+</div>
+<div class="md:col-span-2 md:row-span-1 relative group overflow-hidden">
+<img alt="West facing landscaped garden" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="elegant structured town garden with mature planting and stone patio at twilight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKEB1FLjdNLLGcqp2soK5e-PMpxSEE_0GunYsFWQThRjDOyvgTtF58EojuMzJWgapjOAobTZHbCnoVBZwam3S6K1s5TJ6CcXWECE7gBpijjhfz3AB1igJIOgmJajaC_BdqMjMQHiIEbAWu2Q_Q8HZD9AmRYy80FpqU3GZ55hp6WhljXZ52P41gYJqjr7xqLsjivbX8LODcL8w8qmQgGhNAsuku9IPVsvpzkhPWrC40EvH5lkcX6EpODbtUpCEQzEHIXxVQMuXZ-pzq"/>
+</div>
+<div class="relative group overflow-hidden">
+<img alt="Bathroom detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="high end bathroom interior featuring freestanding tub and subtle brass fixtures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA27MDuRqQSAtKLW680-4T27KQ_w-sjzgKT7vsMRpPBZHkRI2mmTye4Rux2gyTs2iaiS6Vs8y280D_j_rWsEgZh2z9MuVJSOo9q8sFGeQFEpA70DYMxMKAGFCq-vHnbBayrTvTVP0K6igN9DJa1Lr1KOGT5yX68IfTwvLLpn5NnO77-zdc5bKTPqAQ8KBX3KfN5WzNRAXXwR-wIpxhxGS-HibOKrhdetZwK0ItuYyOFOgC2cWc2YXd-HXSz9x6N0YvERHtAQRONjPz"/>
+</div>
+<div class="relative group overflow-hidden bg-primary flex items-center justify-center cursor-pointer hover:bg-slate-800 transition-colors">
+<span class="font-ui-label text-ui-label text-white uppercase tracking-widest flex items-center gap-2">
+                        View All 12 Photos
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</span>
+</div>
+</div>
+</section>
+<!-- Three-Row Image Stack: Studies in Form -->
+<section class="space-y-stack-lg">
+<div class="flex items-end justify-between border-b border-[#1A2B3C]/15 pb-stack-md">
+<div>
+<p class="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A] mb-stack-sm">Folio · 003</p>
+<h2 class="font-headline-lg text-headline-lg">Three Studies of the House</h2>
+</div>
+<p class="hidden md:block font-serif italic text-on-surface-variant max-w-sm">A measured portrait of the residence — facade, piano nobile, and rear mews — recorded in three sequential views.</p>
+</div>
+<figure class="space-y-stack-sm">
+<div class="relative w-full aspect-[16/9] overflow-hidden bg-surface-container-high">
+<img alt="Heritage exterior elevation of a classical European townhouse" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="flex items-center justify-between font-ui-label text-[11px] uppercase tracking-[0.2em] text-on-surface-variant">
+<span>I · Exterior · Grosvenor Facade · 1875</span>
+<span class="text-[#B8904A]">— PLATE I</span>
+</figcaption>
+</figure>
+<figure class="space-y-stack-sm">
+<div class="relative w-full aspect-[21/9] overflow-hidden bg-surface-container-high">
+<img alt="Light-filled interior salon with classical proportions" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="flex items-center justify-between font-ui-label text-[11px] uppercase tracking-[0.2em] text-on-surface-variant">
+<span>II · Piano Nobile · Drawing Room</span>
+<span class="text-[#B8904A]">— PLATE II</span>
+</figcaption>
+</figure>
+<figure class="space-y-stack-sm">
+<div class="relative w-full aspect-[16/9] overflow-hidden bg-surface-container-high">
+<img alt="Rear mews staircase and private garden entrance in soft daylight" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="flex items-center justify-between font-ui-label text-[11px] uppercase tracking-[0.2em] text-on-surface-variant">
+<span>III · Rear Mews · Garden Entrance</span>
+<span class="text-[#B8904A]">— PLATE III</span>
+</figcaption>
+</figure>
+</section>
+<!-- Provenance Timeline -->
+<section class="bg-surface-container-low -mx-margin-edge px-margin-edge py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-4 space-y-stack-md">
+<p class="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A]">Folio · 004</p>
+<h2 class="font-headline-lg text-headline-lg">A Provenance, Quietly Kept</h2>
+<p class="font-serif italic text-on-surface-variant text-body-md">Four owners across one hundred and forty-nine years. Each chapter recorded in the deeds at the Probate Office, Henrietta Street.</p>
+<div class="relative aspect-[4/5] overflow-hidden border border-[#1A2B3C]/15">
+<img alt="Archival interior detail of cornicing and shutter" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<ol class="md:col-span-7 md:col-start-6 space-y-stack-lg">
+<li class="grid grid-cols-12 gap-gutter border-b border-[#1A2B3C]/15 pb-stack-md">
+<div class="col-span-3"><span class="font-serif italic text-headline-md text-headline-md text-[#B8904A]">1875</span></div>
+<div class="col-span-9 space-y-stack-sm">
+<h3 class="font-headline-md text-headline-md">Built for the Whitcombe family</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Commissioned in early 1873 from the Dublin practice of Tate &amp; Hennessy, completed two winters later. The original sash glazing remains intact across the principal facade.</p>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-gutter border-b border-[#1A2B3C]/15 pb-stack-md">
+<div class="col-span-3"><span class="font-serif italic text-headline-md text-headline-md text-[#B8904A]">1924</span></div>
+<div class="col-span-9 space-y-stack-sm">
+<h3 class="font-headline-md text-headline-md">Acquired by Lord Sturridge</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Held by the family in continuous occupation through the inter-war and post-war decades. The first-floor library and its hand-leaded bookcases date from this stewardship.</p>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-gutter border-b border-[#1A2B3C]/15 pb-stack-md">
+<div class="col-span-3"><span class="font-serif italic text-headline-md text-headline-md text-[#B8904A]">1982</span></div>
+<div class="col-span-9 space-y-stack-sm">
+<h3 class="font-headline-md text-headline-md">Listed Grade II — Heritage Council</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Façade, fanlight, plasterwork, and original Portland-stone door surround all designated. Subsequent works conducted under conservation supervision.</p>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-gutter pb-stack-md">
+<div class="col-span-3"><span class="font-serif italic text-headline-md text-headline-md text-[#B8904A]">2024</span></div>
+<div class="col-span-9 space-y-stack-sm">
+<h3 class="font-headline-md text-headline-md">Discreetly available — by introduction only</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Following a five-year programme of conservation-led restoration, the residence is offered to a private purchaser through Aurelian &amp; Co. Off-market viewings on application.</p>
+</div>
+</li>
+</ol>
+</div>
+</section>
+<!-- Specification Sheet -->
+<section class="bg-surface-container-high -mx-margin-edge px-margin-edge py-section-gap">
+<div class="max-w-container-max mx-auto space-y-stack-lg">
+<div class="flex items-end justify-between border-b border-[#1A2B3C]/15 pb-stack-md">
+<div>
+<p class="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A] mb-stack-sm">Folio · 005</p>
+<h2 class="font-headline-lg text-headline-lg">Specification</h2>
+</div>
+<p class="hidden md:block font-serif italic text-on-surface-variant">Issued under Reference AC-GS-42 / 2024</p>
+</div>
+<dl class="grid grid-cols-1 md:grid-cols-2 gap-x-section-gap">
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Bedrooms</dt>
+<dd class="font-serif text-headline-md">Five</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Bathrooms</dt>
+<dd class="font-serif text-headline-md">Four (incl. en-suite)</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Reception Rooms</dt>
+<dd class="font-serif text-headline-md">Three</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Total Internal Area</dt>
+<dd class="font-serif text-headline-md">3,337 sq ft · 310 sq m</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Lot Size</dt>
+<dd class="font-serif text-headline-md">0.18 acres</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Year Built</dt>
+<dd class="font-serif text-headline-md">1875</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Tenure</dt>
+<dd class="font-serif text-headline-md">Freehold</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Listing Class</dt>
+<dd class="font-serif text-headline-md">Grade II Listed</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">EPC Rating</dt>
+<dd class="font-serif text-headline-md">B2 · 78</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Council Tax Band</dt>
+<dd class="font-serif text-headline-md">Band H</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Annual Service Charge</dt>
+<dd class="font-serif text-headline-md">Not applicable</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Parking</dt>
+<dd class="font-serif text-headline-md">Private gated · two cars</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Aspect</dt>
+<dd class="font-serif text-headline-md">South-east principal · west garden</dd>
+</div>
+<div class="flex items-baseline justify-between border-b border-[#1A2B3C]/15 py-stack-md gap-stack-md">
+<dt class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">Guide Price</dt>
+<dd class="font-serif text-headline-md">€1,850,000</dd>
+</div>
+</dl>
+</div>
+</section>
+<!-- Within Five Minutes -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-7 relative">
+<div class="relative aspect-[4/3] overflow-hidden border border-[#1A2B3C]/15">
+<img alt="Heritage district streetscape with classical facades" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div class="hidden md:block absolute -bottom-12 -right-8 w-48 h-60 overflow-hidden border-4 border-background shadow-2xl rotate-2">
+<img alt="Quiet heritage street corner at dusk" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div class="hidden md:block absolute top-12 -left-12 w-40 h-32 overflow-hidden border-4 border-background shadow-xl -rotate-3">
+<img alt="Wrought iron gate detail of a heritage residence" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=500&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<div class="md:col-span-4 md:col-start-9 space-y-stack-md self-center">
+<p class="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A]">Folio · 006</p>
+<h2 class="font-headline-lg text-headline-lg">Within five minutes</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">A walk through the quiet residential streets of Mayfair places the principal entrances of the West End within reach. The square is bordered by Embassy gardens to the north and the heritage mews to the south.</p>
+<ul class="space-y-stack-sm pt-stack-sm border-t border-[#1A2B3C]/15">
+<li class="flex items-baseline justify-between">
+<span class="font-headline-md text-headline-md text-sm">Hyde Park</span>
+<span class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">4 min walk</span>
+</li>
+<li class="flex items-baseline justify-between">
+<span class="font-headline-md text-headline-md text-sm">South Audley Street</span>
+<span class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">2 min</span>
+</li>
+<li class="flex items-baseline justify-between">
+<span class="font-headline-md text-headline-md text-sm">Connaught Hotel</span>
+<span class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">6 min</span>
+</li>
+<li class="flex items-baseline justify-between">
+<span class="font-headline-md text-headline-md text-sm">Mount Street Gardens</span>
+<span class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">3 min</span>
+</li>
+<li class="flex items-baseline justify-between">
+<span class="font-headline-md text-headline-md text-sm">Bond Street Underground</span>
+<span class="font-ui-label text-ui-label uppercase tracking-widest text-on-surface-variant">7 min</span>
+</li>
+</ul>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 border-t border-slate-200">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-16 py-24 max-w-[1440px] mx-auto">
+<div class="md:col-span-2 space-y-stack-md">
+<div class="font-serif text-xl uppercase tracking-[0.2em] text-slate-900">AURELIAN &amp; CO.</div>
+<p class="font-serif text-sm italic text-slate-900">© 2024 Aurelian &amp; Co. International Realty. All rights reserved.</p>
+</div>
+<div class="space-y-stack-sm flex flex-col">
+<a class="font-ui-label text-ui-label uppercase text-slate-500 hover:text-slate-900 transition-colors" href="#">Privacy Policy</a>
+<a class="font-ui-label text-ui-label uppercase text-slate-500 hover:text-slate-900 transition-colors" href="#">Terms of Service</a>
+<a class="font-ui-label text-ui-label uppercase text-slate-500 hover:text-slate-900 transition-colors" href="#">Accessibility</a>
+<a class="font-ui-label text-ui-label uppercase text-slate-500 hover:text-slate-900 transition-colors" href="#">Cookie Policy</a>
+</div>
+<div>
+<button class="bg-primary text-white font-ui-label text-ui-label uppercase tracking-widest px-6 py-3 rounded-DEFAULT w-full hover:bg-slate-800 transition-colors">
+                    Schedule Appointment
+                </button>
+</div>
+</div>
+</footer>
+</body></html>

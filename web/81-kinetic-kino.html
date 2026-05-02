@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KINETICA Type Foundry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e2e2e2",
+                      "inverse-surface": "#303030",
+                      "on-tertiary-container": "#848484",
+                      "on-background": "#1b1b1b",
+                      "on-secondary-fixed-variant": "#92001c",
+                      "on-error": "#ffffff",
+                      "primary": "#000000",
+                      "surface-container-high": "#e8e8e8",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "secondary-fixed-dim": "#ffb3b1",
+                      "on-primary-fixed-variant": "#474747",
+                      "surface-variant": "#e2e2e2",
+                      "secondary-fixed": "#ffdad8",
+                      "on-secondary-container": "#fffbff",
+                      "surface-bright": "#f9f9f9",
+                      "on-primary-container": "#848484",
+                      "secondary-container": "#db313f",
+                      "on-error-container": "#93000a",
+                      "surface": "#f9f9f9",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "on-surface": "#1b1b1b",
+                      "primary-fixed": "#e2e2e2",
+                      "tertiary-container": "#1b1b1b",
+                      "on-surface-variant": "#4c4546",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#5e5e5e",
+                      "outline-variant": "#cfc4c5",
+                      "inverse-primary": "#c6c6c6",
+                      "surface-container-low": "#f3f3f3",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#eeeeee",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#410007",
+                      "background": "#f4f3ee",
+                      "on-primary-fixed": "#1b1b1b",
+                      "secondary": "#e63946",
+                      "primary-container": "#1b1b1b",
+                      "outline": "#7e7576",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#e2e2e2",
+                      "surface-dim": "#dadada",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-on-surface": "#f1f1f1",
+                      "tertiary": "#000000"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "0px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "stack-xl": "96px",
+                      "stack-lg": "48px",
+                      "stack-sm": "8px",
+                      "margin-side": "64px",
+                      "stack-md": "24px",
+                      "gutter": "24px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Epilogue"
+                      ],
+                      "headline-lg": [
+                              "Epilogue"
+                      ],
+                      "label-mono": [
+                              "Space Grotesk"
+                      ],
+                      "body-lg": [
+                              "Epilogue"
+                      ],
+                      "headline-md": [
+                              "Epilogue"
+                      ],
+                      "display-xl": [
+                              "Epilogue"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "30px",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-xl": [
+                              "120px",
+                              {
+                                      "lineHeight": "110px",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { background-color: #F4F3EE; color: #000000; }
+        .bg-magenta { background-color: #E63946; }
+        .text-magenta { color: #E63946; }
+        .border-magenta { border-color: #E63946; }
+        .hover-magenta:hover { color: #E63946; }
+        .hover-bg-magenta:hover { background-color: #E63946; color: white; }
+        
+        /* Variable font utilities for demonstration */
+        .font-var-1 { font-variation-settings: 'wght' 200, 'ital' 0; }
+        .font-var-2 { font-variation-settings: 'wght' 900, 'ital' 0; }
+        .font-var-3 { font-variation-settings: 'wght' 500, 'ital' 1; }
+        .font-var-4 { font-variation-settings: 'wght' 100, 'ital' 1; }
+        .font-var-5 { font-variation-settings: 'wght' 800, 'ital' 0; }
+
+        html, body { overflow-x: clip; }
+        .full-bleed-kino { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); max-width: none; }
+        .specimen-track { display: flex; gap: 24px; width: max-content; animation: spec-x 65s linear infinite; padding: 8px 0; }
+        .specimen-track:hover { animation-play-state: paused; }
+        @keyframes spec-x { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+        .kino-faq summary { list-style: none; cursor: pointer; }
+        .kino-faq summary::-webkit-details-marker { display: none; }
+        .kino-faq summary .kino-glyph { transition: transform 250ms ease; }
+        .kino-faq[open] summary .kino-glyph { transform: rotate(45deg); }
+        @media (prefers-reduced-motion: reduce) {
+            .specimen-track { animation: none; }
+            .kino-faq summary .kino-glyph { transition: none; }
+        }
+      </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- TopNavBar Component -->
+<nav class="bg-[#F4F3EE] dark:bg-stone-950 text-black dark:text-white font-['Epilogue'] font-medium tracking-tight uppercase docked full-width top-0 border-b-2 border-black dark:border-white flat no shadows sticky z-50">
+<div class="flex justify-between items-center w-full px-16 h-20 max-w-[1440px] mx-auto">
+<div class="text-2xl font-black tracking-tighter text-black dark:text-white">
+                KINETICA
+            </div>
+<div class="hidden md:flex space-x-8">
+<a class="text-black dark:text-white font-mono text-xs hover:bg-[#E63946] hover:text-white transition-colors duration-150 py-2 px-3" href="#">Typefaces</a>
+<a class="text-black dark:text-white font-mono text-xs hover:bg-[#E63946] hover:text-white transition-colors duration-150 py-2 px-3" href="#">Variable</a>
+<a class="text-black dark:text-white font-mono text-xs hover:bg-[#E63946] hover:text-white transition-colors duration-150 py-2 px-3" href="#">Licensing</a>
+<a class="text-black dark:text-white font-mono text-xs hover:bg-[#E63946] hover:text-white transition-colors duration-150 py-2 px-3" href="#">About</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-black dark:text-white hover:text-[#E63946] transition-colors">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="min-h-[921px] flex flex-col justify-center px-margin-side max-w-container-max mx-auto border-b-2 border-primary">
+<div class="flex flex-col items-start gap-stack-lg w-full py-stack-xl">
+<div class="w-full">
+<h1 class="font-display-xl text-display-xl tracking-tighter leading-none break-words uppercase flex flex-wrap gap-2">
+<span class="font-var-2">L</span>
+<span class="font-var-4">I</span>
+<span class="font-var-1">V</span>
+<span class="font-var-5">I</span>
+<span class="font-var-3">N</span>
+<span class="font-var-2">G</span>
+<span class="ml-4 font-var-1">T</span>
+<span class="font-var-5">Y</span>
+<span class="font-var-3">P</span>
+<span class="font-var-4">E</span>
+</h1>
+</div>
+<div class="flex flex-col md:flex-row justify-between w-full items-start md:items-end gap-stack-md mt-stack-lg border-t-2 border-primary pt-stack-md">
+<p class="max-w-md font-body-lg text-body-lg">
+                        High-performance variable fonts for digital brutalism. Precision engineering meets expressive typographic scale.
+                    </p>
+<a class="font-label-mono text-label-mono text-magenta border-2 border-magenta px-6 py-3 uppercase hover:bg-magenta hover:text-white transition-colors" href="#">
+                        Browse fonts
+                    </a>
+</div>
+</div>
+</section>
+<!-- Featured Typefaces -->
+<section class="w-full border-b-2 border-primary">
+<!-- Strip 1 -->
+<div class="border-b-2 border-primary group relative overflow-hidden bg-background hover:bg-primary transition-colors duration-300">
+<div class="px-margin-side py-stack-lg max-w-container-max mx-auto flex flex-col justify-center min-h-[300px]">
+<h2 class="font-headline-lg text-[8vw] leading-none tracking-tighter uppercase group-hover:text-background transition-colors font-var-5">
+                        GROTESK NEUE
+                    </h2>
+<div class="flex justify-between items-center mt-stack-sm w-full group-hover:text-background transition-colors">
+<span class="font-label-mono text-label-mono uppercase">Kinetica Foundry / 3 Axes / Variable</span>
+<a class="font-label-mono text-label-mono text-magenta underline uppercase decoration-2 hover:text-white" href="#">Try it -&gt;</a>
+</div>
+</div>
+</div>
+<!-- Strip 2 -->
+<div class="border-b-2 border-primary group relative overflow-hidden bg-background hover:bg-primary transition-colors duration-300">
+<div class="px-margin-side py-stack-lg max-w-container-max mx-auto flex flex-col justify-center min-h-[300px]">
+<h2 class="font-headline-lg text-[8vw] leading-none tracking-tighter uppercase group-hover:text-background transition-colors font-var-1">
+                        MONO-X
+                    </h2>
+<div class="flex justify-between items-center mt-stack-sm w-full group-hover:text-background transition-colors">
+<span class="font-label-mono text-label-mono uppercase">Kinetica Foundry / 2 Axes / Variable Mono</span>
+<a class="font-label-mono text-label-mono text-magenta underline uppercase decoration-2 hover:text-white" href="#">Try it -&gt;</a>
+</div>
+</div>
+</div>
+<!-- Strip 3 -->
+<div class="group relative overflow-hidden bg-background hover:bg-primary transition-colors duration-300">
+<div class="px-margin-side py-stack-lg max-w-container-max mx-auto flex flex-col justify-center min-h-[300px]">
+<h2 class="font-headline-lg text-[8vw] leading-none tracking-tighter uppercase group-hover:text-background transition-colors font-var-3">
+                        SLANT PRO
+                    </h2>
+<div class="flex justify-between items-center mt-stack-sm w-full group-hover:text-background transition-colors">
+<span class="font-label-mono text-label-mono uppercase">Kinetica Foundry / Slant Axis Only / Display</span>
+<a class="font-label-mono text-label-mono text-magenta underline uppercase decoration-2 hover:text-white" href="#">Try it -&gt;</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Variable Fonts -->
+<section class="max-w-container-max mx-auto border-b-2 border-primary">
+<!-- Block 1 -->
+<div class="grid grid-cols-1 md:grid-cols-3 border-b-2 border-primary">
+<div class="col-span-1 p-margin-side border-b-2 md:border-b-0 md:border-r-2 border-primary flex items-start">
+<span class="font-label-mono text-label-mono bg-primary text-on-primary px-2 py-1 uppercase">01 / Concept</span>
+</div>
+<div class="col-span-2 p-margin-side">
+<h3 class="font-headline-lg text-headline-lg uppercase mb-stack-md font-var-5">Axis Variation</h3>
+<p class="font-body-lg text-body-lg max-w-xl">
+                        A single file containing infinite stylistic points. Seamlessly animate between weight, width, and optical size without loading multiple font weights.
+                    </p>
+</div>
+</div>
+<!-- Block 2 -->
+<div class="grid grid-cols-1 md:grid-cols-3 border-b-2 border-primary">
+<div class="col-span-1 p-margin-side border-b-2 md:border-b-0 md:border-r-2 border-primary flex items-start">
+<span class="font-label-mono text-label-mono bg-primary text-on-primary px-2 py-1 uppercase">02 / Tech</span>
+</div>
+<div class="col-span-2 p-margin-side">
+<h3 class="font-headline-lg text-headline-lg uppercase mb-stack-md font-var-1">Performance</h3>
+<p class="font-body-lg text-body-lg max-w-xl">
+                        Drastically reduce web payload. One 80kb file replaces a dozen static woff2 files, improving load times while expanding typographic capabilities.
+                    </p>
+</div>
+</div>
+<!-- Block 3 -->
+<div class="grid grid-cols-1 md:grid-cols-3">
+<div class="col-span-1 p-margin-side border-b-2 md:border-b-0 md:border-r-2 border-primary flex items-start">
+<span class="font-label-mono text-label-mono bg-primary text-on-primary px-2 py-1 uppercase">03 / Design</span>
+</div>
+<div class="col-span-2 p-margin-side">
+<h3 class="font-headline-lg text-headline-lg uppercase mb-stack-md font-var-3">Expression</h3>
+<p class="font-body-lg text-body-lg max-w-xl">
+                        Fine-tune typography to fit exact container widths. Respond to user input, viewport size, or scroll depth with dynamic typographic adjustments.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Specimen marquee — paused-on-hover image strip -->
+<section class="full-bleed-kino bg-primary text-background border-b-2 border-primary py-20 md:py-28 overflow-hidden relative">
+<div class="max-w-[1440px] mx-auto px-margin-side mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+<div>
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-magenta block mb-3">04 / SPECIMEN</span>
+<h2 class="font-headline-lg text-[8vw] md:text-[6vw] uppercase leading-none tracking-tighter font-var-2">In the wild.</h2>
+</div>
+<p class="text-tertiary-fixed-dim font-body-md max-w-md md:text-right">Eight specimens shot on press this quarter. Hover to halt the procession; pull a frame off the strip and reset the wheel.</p>
+</div>
+<div class="overflow-hidden relative">
+<div class="specimen-track">
+<figure class="shrink-0 w-72 h-96 relative bg-tertiary-container border-2 border-background overflow-hidden">
+<img alt="Specimen 01" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-background text-primary px-2 py-0.5">SP_01</span><span class="bg-magenta text-background px-2 py-0.5">PRESS</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-background">
+<span class="font-headline-md text-3xl uppercase tracking-tighter font-var-2 block">Aa</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">GROTESK NEUE · 240pt</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 h-96 relative bg-magenta border-2 border-background overflow-hidden">
+<img alt="Specimen 02" class="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-bl from-magenta/40 via-transparent to-primary/70"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-background text-magenta px-2 py-0.5">SP_02</span><span class="bg-primary text-background px-2 py-0.5">FACADE</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-background">
+<span class="font-headline-md text-3xl uppercase tracking-tighter font-var-1 block">Mm</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">MONO-X · 144pt · OFFSET</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 h-96 relative bg-background border-2 border-background overflow-hidden">
+<img alt="Specimen 03" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-primary text-background px-2 py-0.5">SP_03</span><span class="bg-magenta text-background px-2 py-0.5">SLANT</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-primary">
+<span class="font-headline-md text-3xl uppercase tracking-tighter font-var-3 block italic">Ss</span>
+<span class="font-label-mono text-[10px] tracking-widest block mt-2">SLANT PRO · 96pt · 14°</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-96 h-96 relative bg-tertiary-container border-2 border-background overflow-hidden">
+<img alt="Specimen 04" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1100&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-primary via-transparent to-magenta/30"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-magenta text-background px-2 py-0.5">SP_04</span><span class="bg-background text-primary px-2 py-0.5">TRACE</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-background">
+<span class="font-headline-md text-3xl uppercase tracking-tighter font-var-5 block">XX</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">GROTESK NEUE · 380pt · POSTER</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 h-96 relative bg-background border-2 border-background overflow-hidden">
+<img alt="Specimen 05" class="absolute inset-0 w-full h-full object-cover grayscale opacity-85" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/85 via-background/30 to-transparent"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-primary text-background px-2 py-0.5">SP_05</span><span class="bg-magenta text-background px-2 py-0.5">CORNICE</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-primary">
+<span class="font-headline-md text-3xl uppercase tracking-tighter font-var-4 block italic">Th</span>
+<span class="font-label-mono text-[10px] tracking-widest block mt-2">SLANT PRO · 60pt · LIGHT</span>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 h-96 relative bg-magenta border-2 border-background overflow-hidden">
+<img alt="Specimen 06" class="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-85" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-r from-magenta/30 via-transparent to-primary/60"></div>
+<div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-background text-magenta px-2 py-0.5">SP_06</span><span class="bg-primary text-background px-2 py-0.5">DRAFT</span></div>
+<figcaption class="absolute bottom-5 left-5 right-5 text-background">
+<span class="font-headline-md text-3xl uppercase tracking-tighter font-var-2 block">Gg</span>
+<span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">GROTESK NEUE · 180pt</span>
+</figcaption>
+</figure>
+<!-- duplicate set -->
+<figure aria-hidden="true" class="shrink-0 w-72 h-96 relative bg-tertiary-container border-2 border-background overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-65" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-background text-primary px-2 py-0.5">SP_01</span><span class="bg-magenta text-background px-2 py-0.5">PRESS</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-background"><span class="font-headline-md text-3xl uppercase tracking-tighter font-var-2 block">Aa</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">GROTESK NEUE · 240pt</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-80 h-96 relative bg-magenta border-2 border-background overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-bl from-magenta/40 via-transparent to-primary/70"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-background text-magenta px-2 py-0.5">SP_02</span><span class="bg-primary text-background px-2 py-0.5">FACADE</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-background"><span class="font-headline-md text-3xl uppercase tracking-tighter font-var-1 block">Mm</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">MONO-X · 144pt · OFFSET</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-72 h-96 relative bg-background border-2 border-background overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-primary text-background px-2 py-0.5">SP_03</span><span class="bg-magenta text-background px-2 py-0.5">SLANT</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-primary"><span class="font-headline-md text-3xl uppercase tracking-tighter font-var-3 block italic">Ss</span><span class="font-label-mono text-[10px] tracking-widest block mt-2">SLANT PRO · 96pt · 14°</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-96 h-96 relative bg-tertiary-container border-2 border-background overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1100&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tr from-primary via-transparent to-magenta/30"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-magenta text-background px-2 py-0.5">SP_04</span><span class="bg-background text-primary px-2 py-0.5">TRACE</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-background"><span class="font-headline-md text-3xl uppercase tracking-tighter font-var-5 block">XX</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">GROTESK NEUE · 380pt · POSTER</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-72 h-96 relative bg-background border-2 border-background overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-85" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-background/85 via-background/30 to-transparent"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-primary text-background px-2 py-0.5">SP_05</span><span class="bg-magenta text-background px-2 py-0.5">CORNICE</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-primary"><span class="font-headline-md text-3xl uppercase tracking-tighter font-var-4 block italic">Th</span><span class="font-label-mono text-[10px] tracking-widest block mt-2">SLANT PRO · 60pt · LIGHT</span></figcaption></figure>
+<figure aria-hidden="true" class="shrink-0 w-80 h-96 relative bg-magenta border-2 border-background overflow-hidden"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-85" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-r from-magenta/30 via-transparent to-primary/60"></div><div class="absolute top-3 left-3 right-3 flex justify-between font-label-mono text-[10px] uppercase tracking-widest"><span class="bg-background text-magenta px-2 py-0.5">SP_06</span><span class="bg-primary text-background px-2 py-0.5">DRAFT</span></div><figcaption class="absolute bottom-5 left-5 right-5 text-background"><span class="font-headline-md text-3xl uppercase tracking-tighter font-var-2 block">Gg</span><span class="font-label-mono text-[10px] tracking-widest text-tertiary-fixed-dim block mt-2">GROTESK NEUE · 180pt</span></figcaption></figure>
+</div>
+</div>
+</section>
+
+<!-- In Use — 3 alternating image+content rows -->
+<section class="max-w-container-max mx-auto border-b-2 border-primary">
+<div class="px-margin-side py-stack-xl">
+<div class="flex justify-between items-end mb-12 border-b-2 border-primary pb-stack-md">
+<div>
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-magenta block mb-2">05 / IN USE</span>
+<h2 class="font-headline-lg text-[6vw] uppercase tracking-tighter font-var-2">Set on the page.</h2>
+</div>
+<span class="font-label-mono text-label-mono uppercase hidden md:block">3 STUDIES · LICENSED · MMXXIV</span>
+</div>
+<div class="flex flex-col gap-stack-xl">
+<!-- Row 1: image-left -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md md:gap-stack-lg items-center">
+<figure class="md:col-span-7 relative">
+<div class="absolute -top-2 -left-2 w-8 h-8 bg-magenta -z-10"></div>
+<div class="absolute -bottom-2 -right-2 w-8 h-8 border-2 border-primary -z-10"></div>
+<div class="relative aspect-[16/10] overflow-hidden border-2 border-primary">
+<img alt="In Use 01" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/55 via-transparent to-transparent"></div>
+<span class="absolute top-5 left-5 bg-background text-primary font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border-2 border-primary">USE · 01</span>
+<span class="absolute bottom-5 right-5 bg-magenta text-background font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5">SUNDOWN GAZETTE</span>
+</div>
+</figure>
+<div class="md:col-span-5">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-magenta block mb-3">USE 01 — EDITORIAL</span>
+<h3 class="font-headline-md text-headline-md uppercase mb-stack-sm font-var-2">A weekly tabloid in two weights.</h3>
+<p class="font-body-md text-body-md mb-stack-md">Sundown Gazette runs Grotesk Neue at axis 200 for body and axis 900 for sirens. The same file. The whole specimen on a 96-page issue: 80 KB.</p>
+<dl class="grid grid-cols-3 gap-3 border-t-2 border-primary pt-stack-sm">
+<div><dt class="font-label-mono text-[10px] uppercase tracking-widest text-on-tertiary-container">Issues/yr</dt><dd class="font-display-xl text-3xl text-magenta mt-1 font-var-2">52</dd></div>
+<div><dt class="font-label-mono text-[10px] uppercase tracking-widest text-on-tertiary-container">Axes used</dt><dd class="font-display-xl text-3xl text-primary mt-1 font-var-2">2</dd></div>
+<div><dt class="font-label-mono text-[10px] uppercase tracking-widest text-on-tertiary-container">Payload</dt><dd class="font-display-xl text-3xl text-primary mt-1 font-var-2">80kb</dd></div>
+</dl>
+</div>
+</div>
+<!-- Row 2 reversed -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md md:gap-stack-lg items-center">
+<div class="md:col-span-5 md:order-1 order-2">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-magenta block mb-3">USE 02 — STAGE</span>
+<h3 class="font-headline-md text-headline-md uppercase mb-stack-sm font-var-1">Festival signage at 380pt.</h3>
+<p class="font-body-md text-body-md mb-stack-md">The Berlin biennial set MONO-X across 240 m² of vinyl. The plotter ran Mono-X axis 200 → 700 between cuts; the line never deviated.</p>
+<ul class="space-y-2 border-l-2 border-magenta pl-4">
+<li class="font-label-mono text-label-mono uppercase">240 m² · 14 panels</li>
+<li class="font-label-mono text-label-mono uppercase">Cut at 380pt · MONO-X</li>
+<li class="font-label-mono text-label-mono uppercase">12 nights · zero re-set</li>
+</ul>
+</div>
+<figure class="md:col-span-7 md:order-2 order-1 relative">
+<div class="absolute -top-2 -right-2 w-8 h-8 bg-magenta -z-10"></div>
+<div class="absolute -bottom-2 -left-2 w-8 h-8 border-2 border-primary -z-10"></div>
+<div class="relative aspect-[16/10] overflow-hidden border-2 border-primary">
+<img alt="In Use 02" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-bl from-primary/65 via-transparent to-magenta/15"></div>
+<span class="absolute top-5 right-5 bg-background text-primary font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border-2 border-primary">USE · 02</span>
+<span class="absolute bottom-5 left-5 bg-primary text-background font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5">BERLIN BIENNIAL</span>
+</div>
+</figure>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md md:gap-stack-lg items-center">
+<figure class="md:col-span-7 relative">
+<div class="absolute -top-2 -left-2 w-8 h-8 bg-magenta -z-10"></div>
+<div class="absolute -bottom-2 -right-2 w-8 h-8 border-2 border-primary -z-10"></div>
+<div class="relative aspect-[16/10] overflow-hidden border-2 border-primary">
+<img alt="In Use 03" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&q=85&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/55 via-transparent to-transparent"></div>
+<span class="absolute top-5 left-5 bg-background text-primary font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border-2 border-primary">USE · 03</span>
+<span class="absolute bottom-5 right-5 bg-magenta text-background font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5">VAULT MUSEUM</span>
+</div>
+</figure>
+<div class="md:col-span-5">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-magenta block mb-3">USE 03 — INSTITUTION</span>
+<h3 class="font-headline-md text-headline-md uppercase mb-stack-sm font-var-3 italic">Wayfinding in the Vault.</h3>
+<p class="font-body-md text-body-md mb-stack-md">Slant Pro at axis 1, weight 200, runs every door label and exhibit caption in the Vault Museum's seven floors. Italics that don't bend the eye.</p>
+<a class="font-label-mono text-label-mono text-magenta border-b-2 border-magenta uppercase pb-1 hover:text-primary hover:border-primary transition-colors" href="#">Read the case study →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Manifesto — numbered tenets -->
+<section class="full-bleed-kino bg-primary text-background py-stack-xl border-b-2 border-primary">
+<div class="max-w-[1440px] mx-auto px-margin-side grid grid-cols-1 lg:grid-cols-12 gap-stack-lg lg:gap-stack-xl">
+<aside class="lg:col-span-4">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-magenta block mb-4">06 / DOCTRINE</span>
+<h2 class="font-headline-lg text-[5vw] uppercase tracking-tighter leading-[0.95] font-var-2">Five rules<br/>the foundry runs on.</h2>
+<p class="text-tertiary-fixed-dim mt-stack-md max-w-md">Etched on the studio door in 2014. Bent twice. Broken thrice. Re-stencilled every ten years.</p>
+<a class="mt-stack-md inline-flex items-center gap-2 font-label-mono text-label-mono uppercase border-2 border-background px-5 py-3 hover:bg-magenta hover:border-magenta transition-colors" href="#">Read the manual →</a>
+</aside>
+<ol class="lg:col-span-8 border-t-2 border-background">
+<li class="grid grid-cols-12 gap-4 py-stack-md border-b-2 border-background hover:bg-background/[0.05] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-magenta tabular-nums leading-none font-var-2">I</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl uppercase mb-2 font-var-5">A typeface is software, not jewellery.</h3>
+<p class="text-tertiary-fixed-dim text-sm">Ship the variable file, not the licence call. The stylist comes second; the engineer comes first.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ TENET_01 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-stack-md border-b-2 border-background hover:bg-background/[0.05] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-tertiary-fixed-dim tabular-nums leading-none font-var-2">II</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl uppercase mb-2 font-var-5">Draw the axis before the alphabet.</h3>
+<p class="text-tertiary-fixed-dim text-sm">Decide what changes — width, slant, contrast — before you draw the A. The whole family follows the axis, not the other way around.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ TENET_02 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-stack-md border-b-2 border-background hover:bg-background/[0.05] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-magenta tabular-nums leading-none font-var-2">III</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl uppercase mb-2 font-var-5">Italics earn their slant.</h3>
+<p class="text-tertiary-fixed-dim text-sm">Auto-italics are an insult. Each italic glyph gets drawn from scratch — or you don't ship the italic.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ TENET_03 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-stack-md border-b-2 border-background hover:bg-background/[0.05] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-tertiary-fixed-dim tabular-nums leading-none font-var-2">IV</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl uppercase mb-2 font-var-5">If it doesn't load fast, it doesn't ship.</h3>
+<p class="text-tertiary-fixed-dim text-sm">The file is opened more often than it is read. Strip everything that doesn't serve the eye on a 3G connection.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ TENET_04 ]</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-stack-md hover:bg-background/[0.05] transition-colors">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-5xl text-magenta tabular-nums leading-none font-var-2">V</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-2xl uppercase mb-2 font-var-5">License once. Update forever.</h3>
+<p class="text-tertiary-fixed-dim text-sm">A buyer pays once for a font. The foundry repays them with five years of bug fixes and the next axis on the house.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim self-center lg:text-right">[ TENET_05 ]</span>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- FAQ accordion -->
+<section class="max-w-container-max mx-auto border-b-2 border-primary px-margin-side py-stack-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+<aside class="lg:col-span-4">
+<span class="font-label-mono text-label-mono uppercase tracking-[0.2em] text-magenta block mb-3">07 / SUPPORT</span>
+<h2 class="font-headline-lg text-[5vw] uppercase tracking-tighter leading-[0.95] font-var-2">Pre-licence questions.</h2>
+<p class="font-body-md text-body-md mt-stack-md">Asked by sixty-three studios this quarter. Answered by the foundry, in five lines or fewer.</p>
+</aside>
+<div class="lg:col-span-8 divide-y-2 divide-primary border-y-2 border-primary">
+<details class="kino-faq group p-6" open="">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-magenta tabular-nums shrink-0 w-12 leading-none font-var-2">01</span>
+<h3 class="font-headline-md text-xl uppercase flex-1 font-var-5">Is the variable file the only file you ship?</h3>
+<span class="kino-glyph text-magenta text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<p class="pl-16 mt-stack-sm font-body-md">Yes. One .woff2, every axis. The static cuts are sliced from the variable on demand if a buyer needs them — but the licence covers the whole space.</p>
+</details>
+<details class="kino-faq group p-6">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-primary tabular-nums shrink-0 w-12 leading-none font-var-2">02</span>
+<h3 class="font-headline-md text-xl uppercase flex-1 font-var-5">Can I license for a single project?</h3>
+<span class="kino-glyph text-magenta text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<p class="pl-16 mt-stack-sm font-body-md">Always. One-shot licences live in the studio panel; perpetual licences live in the foundry. Both ship within the hour, both come with the five-year update guarantee.</p>
+</details>
+<details class="kino-faq group p-6">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-magenta tabular-nums shrink-0 w-12 leading-none font-var-2">03</span>
+<h3 class="font-headline-md text-xl uppercase flex-1 font-var-5">What about variable in print?</h3>
+<span class="kino-glyph text-magenta text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<p class="pl-16 mt-stack-sm font-body-md">Adobe and Affinity both speak the variable axis as of 2024. We ship a `.glyphs` source plus the `.woff2`; print desks pick the slice they want, foundry signs the slice.</p>
+</details>
+<details class="kino-faq group p-6">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-primary tabular-nums shrink-0 w-12 leading-none font-var-2">04</span>
+<h3 class="font-headline-md text-xl uppercase flex-1 font-var-5">Do you do bespoke?</h3>
+<span class="kino-glyph text-magenta text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<p class="pl-16 mt-stack-sm font-body-md">Three commissions a year, six months minimum. Conversations begin with a single page of brief; the first axis cuts in week six.</p>
+</details>
+<details class="kino-faq group p-6">
+<summary class="flex items-center gap-6 list-none">
+<span class="font-display-xl text-3xl text-magenta tabular-nums shrink-0 w-12 leading-none font-var-2">05</span>
+<h3 class="font-headline-md text-xl uppercase flex-1 font-var-5">Why no decoration on the page?</h3>
+<span class="kino-glyph text-magenta text-3xl shrink-0 leading-none font-thin">+</span>
+</summary>
+<p class="pl-16 mt-stack-sm font-body-md">The typography is the decoration. Anything else competes with the specimen.</p>
+</details>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="bg-[#F4F3EE] dark:bg-stone-950 text-black dark:text-white font-mono text-xs tracking-widest uppercase docked full-width border-t-2 border-black dark:border-white thick 2px borders flat no shadows">
+<div class="flex flex-col w-full px-16 py-24 max-w-[1440px] mx-auto">
+<span class="text-[12vw] font-black leading-none tracking-tighter text-black dark:text-white block mb-12">
+                KINETICA
+            </span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg border-t-2 border-primary pt-stack-md">
+<div>
+<p>© 2024 KINETICA TYPE FOUNDRY. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="flex flex-col md:flex-row md:justify-end gap-stack-md md:gap-8">
+<a class="text-black dark:text-white opacity-80 hover:text-[#E63946] underline decoration-2 transition-colors" href="#">Technical Docs</a>
+<a class="text-black dark:text-white opacity-80 hover:text-[#E63946] underline decoration-2 transition-colors" href="#">End User License</a>
+<a class="text-black dark:text-white opacity-80 hover:text-[#E63946] underline decoration-2 transition-colors" href="#">Specimen PDF</a>
+<a class="text-black dark:text-white opacity-80 hover:text-[#E63946] underline decoration-2 transition-colors" href="#">Contact</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

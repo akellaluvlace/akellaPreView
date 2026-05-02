@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G_TASK | Productivity Dashboard</title>
+    
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js (For the Analytics Chart) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5', // Indigo (Primary Brand)
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        secondary: {
+                            400: '#2dd4bf',
+                            500: '#14b8a6', // Teal (Accent)
+                            600: '#0d9488',
+                        },
+                        background: '#f3f4f6', // Light Grey Background
+                    },
+                    boxShadow: {
+                        'md-1': '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06)', // Card Default
+                        'md-2': '0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)', // Card Hover
+                        'md-3': '0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)', // Floating
+                        'drawer': '4px 0 24px rgba(0,0,0,0.1)', // Sidebar
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+        html, body { overflow-x: clip; }
+
+        /* Full-bleed escape from constrained main */
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+
+        /* Custom Material Ripple Effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+            transform: translate3d(0, 0, 0);
+        }
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: 0.2;
+            transition: 0s;
+        }
+
+        /* Checkbox Customization */
+        .checkbox-wrapper input:checked + div {
+            background-color: #4f46e5;
+            border-color: #4f46e5;
+        }
+        .checkbox-wrapper input:checked + div svg {
+            display: block;
+        }
+
+        /* Showcase marquee */
+        .md-marquee-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: md-marquee 60s linear infinite;
+        }
+        .md-marquee-wrap:hover .md-marquee-track { animation-play-state: paused; }
+        @keyframes md-marquee {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 10px)); }
+        }
+
+        /* Pulse for current roadmap step */
+        .md-pulse-dot {
+            animation: md-pulse-ring 2s ease-out infinite;
+        }
+        @keyframes md-pulse-ring {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(20,184,166,0.55); }
+            50%      { box-shadow: 0 0 0 10px rgba(20,184,166,0); }
+        }
+
+        /* Cycling palette image cross-fade (§M.2) */
+        .md-cycle-img {
+            animation: md-cycle 16s linear infinite;
+            opacity: 0;
+            filter: blur(14px) saturate(0.8);
+            transform: scale(1.04);
+            will-change: opacity, filter, transform;
+        }
+        @keyframes md-cycle {
+            0%, 4%   { opacity: 0; filter: blur(14px) saturate(0.8); transform: scale(1.04); }
+            8%, 22%  { opacity: 1; filter: blur(0) saturate(1);      transform: scale(1); }
+            26%, 100%{ opacity: 0; filter: blur(14px) saturate(0.8); transform: scale(1.04); }
+        }
+
+        /* FAQ accordion */
+        .md-faq summary::-webkit-details-marker { display: none; }
+        .md-faq summary { list-style: none; cursor: pointer; }
+        .md-faq summary .md-chevron { transition: transform 250ms ease; }
+        .md-faq[open] summary .md-chevron { transform: rotate(180deg); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .md-marquee-track { animation: none; }
+            .md-pulse-dot { animation: none; }
+            .md-cycle-img { animation: none; opacity: 1; filter: none; transform: none; }
+            .md-faq summary .md-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-gray-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- OVERLAY (Mobile) -->
+    <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-gray-900/50 z-40 hidden transition-opacity opacity-0 lg:hidden"></div>
+
+    <!-- APP BAR (Header) -->
+    <header class="fixed top-0 left-0 w-full h-16 bg-primary-600 text-white shadow-md z-50 flex items-center justify-between px-4 lg:px-6 transition-all duration-300">
+        <div class="flex items-center gap-4">
+            <!-- Hamburger Menu (Mobile) -->
+            <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-full hover:bg-white/10 active:bg-white/20 transition-colors focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            
+            <!-- Brand -->
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 bg-white text-primary-600 rounded shadow-sm flex items-center justify-center font-bold text-lg">G</div>
+                <h1 class="text-xl font-medium tracking-wide">G_TASK</h1>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex items-center bg-primary-700/50 rounded-lg px-3 py-1.5 hover:bg-primary-700 transition-colors">
+                <svg class="w-4 h-4 text-primary-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input type="text" placeholder="Search tasks..." class="bg-transparent border-none text-sm text-white placeholder-primary-200 focus:outline-none ml-2 w-48">
+            </div>
+
+            <!-- Notifications -->
+            <button class="relative p-2 rounded-full hover:bg-white/10 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                <span class="absolute top-2 right-2.5 w-2 h-2 bg-secondary-400 rounded-full border border-primary-600"></span>
+            </button>
+
+            <!-- Profile Avatar -->
+            <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 border-2 border-primary-500 flex items-center justify-center font-bold text-sm cursor-pointer hover:shadow-lg transition-shadow">
+                AL
+            </div>
+        </div>
+    </header>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-72 bg-white shadow-drawer transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-40 overflow-y-auto">
+        <div class="p-4 space-y-8">
+            <!-- Nav Links -->
+            <div>
+                <p class="px-4 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Menu</p>
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 bg-primary-50 text-primary-700 rounded-lg font-medium transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        Dashboard
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg font-medium transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        My Tasks
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg font-medium transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Calendar
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg font-medium transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        Team
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Labels -->
+            <div>
+                <p class="px-4 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Projects</p>
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg text-sm transition-colors">
+                        <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> Mobile App Redesign
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg text-sm transition-colors">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Web Platform
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg text-sm transition-colors">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Marketing Q4
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Upgrade Banner -->
+            <div class="px-4 mt-auto">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 text-white shadow-lg">
+                    <p class="font-bold text-sm">Upgrade to Pro</p>
+                    <p class="text-xs text-white/80 mt-1 mb-3">Get unlimited projects and advanced analytics.</p>
+                    <button class="w-full bg-white text-indigo-600 text-xs font-bold py-2 rounded shadow hover:bg-gray-50 transition-colors">View Plans</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="lg:ml-72 pt-16 min-h-screen transition-all duration-300">
+        <main class="p-6 max-w-[1600px] mx-auto">
+            
+            <!-- HEADER SECTION -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <h2 class="text-3xl font-light text-gray-800">Hello, <span class="font-bold">Alex</span></h2>
+                    <p class="text-gray-500 mt-1">Here's your daily productivity overview.</p>
+                </div>
+                <div class="flex gap-3">
+                    <button class="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-md text-sm font-medium shadow-sm hover:bg-gray-50 transition-colors">
+                        Download Report
+                    </button>
+                    <button class="ripple px-4 py-2 bg-primary-600 text-white rounded-md text-sm font-medium shadow-md hover:bg-primary-700 hover:shadow-lg transition-all">
+                        + Add Task
+                    </button>
+                </div>
+            </div>
+
+            <!-- STATS CARDS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md-1 hover:shadow-md-2 transition-shadow cursor-pointer border-l-4 border-green-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Completed</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">12</h3>
+                        </div>
+                        <span class="p-2 bg-green-50 text-green-600 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </span>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md-1 hover:shadow-md-2 transition-shadow cursor-pointer border-l-4 border-orange-400">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Pending</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">5</h3>
+                        </div>
+                        <span class="p-2 bg-orange-50 text-orange-500 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </span>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md-1 hover:shadow-md-2 transition-shadow cursor-pointer border-l-4 border-primary-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Velocity</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">87%</h3>
+                        </div>
+                        <span class="p-2 bg-primary-50 text-primary-600 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </span>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-md-1 hover:shadow-md-2 transition-shadow cursor-pointer border-l-4 border-blue-400">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Hours</p>
+                            <h3 class="text-3xl font-bold text-gray-800 mt-2">32h</h3>
+                        </div>
+                        <span class="p-2 bg-blue-50 text-blue-500 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHART & TASK ROW -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+                
+                <!-- PRODUCTIVITY ANALYTICS CHART -->
+                <div class="bg-white p-6 rounded-xl shadow-md-1 xl:col-span-2 flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-800">Productivity Analytics</h3>
+                        <select class="text-xs border-none bg-gray-100 text-gray-600 rounded px-2 py-1 focus:ring-0 cursor-pointer">
+                            <option>This Week</option>
+                            <option>Last Week</option>
+                        </select>
+                    </div>
+                    <!-- Chart Container -->
+                    <div class="relative w-full h-72">
+                        <canvas id="productivityChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- TODAY'S TASKS -->
+                <div class="bg-white p-6 rounded-xl shadow-md-1 xl:col-span-1 flex flex-col h-full">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-800">Today's Tasks</h3>
+                        <button class="text-secondary-500 hover:bg-secondary-50 p-1.5 rounded-full transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto pr-2 space-y-2">
+                        <!-- Task Item -->
+                        <div class="group flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                            <label class="checkbox-wrapper flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="peer sr-only">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white peer-hover:border-primary-500 transition-colors flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+                            <div class="ml-3 flex-1">
+                                <p class="text-sm font-medium text-gray-700 group-hover:text-primary-600 transition-colors">Review Wireframes</p>
+                                <p class="text-xs text-pink-500">Design System</p>
+                            </div>
+                            <img class="w-6 h-6 rounded-full grayscale group-hover:grayscale-0 transition-all" src="https://i.pravatar.cc/100?img=10" alt="">
+                        </div>
+
+                        <!-- Task Item -->
+                        <div class="group flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                            <label class="checkbox-wrapper flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="peer sr-only" checked>
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white peer-hover:border-primary-500 transition-colors flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+                            <div class="ml-3 flex-1">
+                                <p class="text-sm font-medium text-gray-400 line-through">Team Standup</p>
+                                <p class="text-xs text-gray-300">General</p>
+                            </div>
+                        </div>
+
+                        <!-- Task Item -->
+                        <div class="group flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                            <label class="checkbox-wrapper flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="peer sr-only">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white peer-hover:border-primary-500 transition-colors flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+                            <div class="ml-3 flex-1">
+                                <p class="text-sm font-medium text-gray-700 group-hover:text-primary-600 transition-colors">Client Meeting</p>
+                                <p class="text-xs text-purple-500">Marketing</p>
+                            </div>
+                            <span class="text-[10px] font-bold text-orange-500 bg-orange-50 px-2 py-0.5 rounded">14:00</span>
+                        </div>
+
+                        <!-- Task Item -->
+                        <div class="group flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+                            <label class="checkbox-wrapper flex items-center cursor-pointer relative">
+                                <input type="checkbox" class="peer sr-only">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded bg-white peer-hover:border-primary-500 transition-colors flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white hidden pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </label>
+                            <div class="ml-3 flex-1">
+                                <p class="text-sm font-medium text-gray-700 group-hover:text-primary-600 transition-colors">Fix Navigation Bug</p>
+                                <p class="text-xs text-blue-500">Development</p>
+                            </div>
+                            <img class="w-6 h-6 rounded-full grayscale group-hover:grayscale-0 transition-all" src="https://i.pravatar.cc/100?img=4" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECTS & ACTIVITY -->
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <!-- Projects Grid -->
+                <div class="xl:col-span-2">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-gray-800">Active Projects</h3>
+                        <a href="#" class="text-sm text-primary-600 font-medium hover:text-primary-700">View All</a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Project 1 -->
+                        <div class="bg-white rounded-xl shadow-md-1 hover:shadow-md-2 transition-all p-6 relative overflow-hidden group">
+                            <div class="absolute top-0 left-0 w-1.5 h-full bg-pink-500"></div>
+                            <div class="flex justify-between mb-3">
+                                <span class="bg-pink-100 text-pink-700 text-xs font-bold px-2 py-1 rounded">DESIGN</span>
+                                <button class="text-gray-300 hover:text-gray-500">•••</button>
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-primary-600 transition-colors">Mobile App Redesign</h4>
+                            <p class="text-sm text-gray-500 mb-4">Overhauling the onboarding flow for better retention.</p>
+                            <div class="w-full bg-gray-100 rounded-full h-1.5 mb-4">
+                                <div class="bg-pink-500 h-1.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs text-gray-400">
+                                <div class="flex -space-x-2">
+                                    <img class="w-6 h-6 rounded-full border border-white" src="https://i.pravatar.cc/100?img=1" alt="">
+                                    <img class="w-6 h-6 rounded-full border border-white" src="https://i.pravatar.cc/100?img=2" alt="">
+                                </div>
+                                <span>2 days left</span>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="bg-white rounded-xl shadow-md-1 hover:shadow-md-2 transition-all p-6 relative overflow-hidden group">
+                            <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div>
+                            <div class="flex justify-between mb-3">
+                                <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded">DEV</span>
+                                <button class="text-gray-300 hover:text-gray-500">•••</button>
+                            </div>
+                            <h4 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-primary-600 transition-colors">API Integration</h4>
+                            <p class="text-sm text-gray-500 mb-4">Connecting frontend dashboard to the new Python backend.</p>
+                            <div class="w-full bg-gray-100 rounded-full h-1.5 mb-4">
+                                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 40%"></div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs text-gray-400">
+                                <div class="flex -space-x-2">
+                                    <img class="w-6 h-6 rounded-full border border-white" src="https://i.pravatar.cc/100?img=3" alt="">
+                                </div>
+                                <span class="text-red-500 font-medium">Due Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="xl:col-span-1">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Recent Activity</h3>
+                    <div class="bg-white rounded-xl shadow-md-1 p-6 h-full">
+                        <div class="border-l-2 border-gray-100 ml-2 space-y-6">
+                            <!-- Timeline Item -->
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 bg-secondary-400 border-2 border-white rounded-full"></span>
+                                <p class="text-sm font-semibold text-gray-800">New Task Added</p>
+                                <p class="text-xs text-gray-500">Sarah added "Update Icons" to Design</p>
+                                <p class="text-[10px] text-gray-400 mt-1">20 mins ago</p>
+                            </div>
+                            <!-- Timeline Item -->
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 bg-blue-500 border-2 border-white rounded-full"></span>
+                                <p class="text-sm font-semibold text-gray-800">File Uploaded</p>
+                                <p class="text-xs text-gray-500">Mike uploaded <span class="text-primary-600 font-medium cursor-pointer hover:underline">specs.pdf</span></p>
+                                <p class="text-[10px] text-gray-400 mt-1">1 hour ago</p>
+                            </div>
+                            <!-- Timeline Item -->
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 bg-purple-500 border-2 border-white rounded-full"></span>
+                                <p class="text-sm font-semibold text-gray-800">Meeting Scheduled</p>
+                                <p class="text-xs text-gray-500">Weekly Sync for tomorrow</p>
+                                <p class="text-[10px] text-gray-400 mt-1">3 hours ago</p>
+                            </div>
+                            <!-- Timeline Item -->
+                            <div class="relative pl-6">
+                                <span class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 bg-gray-300 border-2 border-white rounded-full"></span>
+                                <p class="text-sm font-semibold text-gray-800">Project Completed</p>
+                                <p class="text-xs text-gray-500">Archive cleanup finished</p>
+                                <p class="text-[10px] text-gray-400 mt-1">Yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- 04 — IN PRODUCTION (Showcase Marquee)                         -->
+            <!-- ============================================================ -->
+            <section id="showcase" class="mt-16 mb-4">
+                <div class="flex items-end justify-between mb-6 gap-4 flex-wrap">
+                    <div>
+                        <p class="text-[11px] font-bold text-secondary-600 uppercase tracking-[0.2em] mb-2">// Showcase · 04</p>
+                        <h3 class="text-2xl md:text-3xl font-light text-gray-800">Shipping in <span class="font-bold text-primary-600">production</span></h3>
+                        <p class="text-sm text-gray-500 mt-1 max-w-xl">Live products built on the G_TASK design system. Hover to pause the strip.</p>
+                    </div>
+                    <a href="#" class="text-sm text-primary-600 font-medium hover:text-primary-700 inline-flex items-center gap-1">
+                        Browse all 24 builds →
+                    </a>
+                </div>
+            </section>
+            <section class="full-bleed mb-16 overflow-hidden md-marquee-wrap py-3" aria-label="Showcase marquee">
+                <div class="md-marquee-track">
+                    <!-- Tile 1 -->
+                    <figure class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-emerald-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live</div>
+                        </div>
+                        <figcaption class="p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Sage · v3.2</p>
+                            <h4 class="text-sm font-bold text-gray-800 mt-1">Aurora Banking</h4>
+                            <p class="text-xs text-gray-500 mt-1">Shipped 2 days ago · 4 swatch palette</p>
+                            <div class="flex gap-1 mt-3">
+                                <span class="w-4 h-4 rounded-full bg-primary-600 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-secondary-500 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-pink-500 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-orange-400 border border-white"></span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <!-- Tile 2 -->
+                    <figure class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-orange-500 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span> Review</div>
+                        </div>
+                        <figcaption class="p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Concrete · v1.0</p>
+                            <h4 class="text-sm font-bold text-gray-800 mt-1">Halcyon Realty</h4>
+                            <p class="text-xs text-gray-500 mt-1">In review · 6 swatch palette</p>
+                            <div class="flex gap-1 mt-3">
+                                <span class="w-4 h-4 rounded-full bg-gray-700 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-orange-400 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-amber-300 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-200 border border-white"></span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <!-- Tile 3 -->
+                    <figure class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-primary-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> Beta</div>
+                        </div>
+                        <figcaption class="p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Volt · v0.9</p>
+                            <h4 class="text-sm font-bold text-gray-800 mt-1">Relay Telemetry</h4>
+                            <p class="text-xs text-gray-500 mt-1">Closed beta · 5 swatch palette</p>
+                            <div class="flex gap-1 mt-3">
+                                <span class="w-4 h-4 rounded-full bg-primary-600 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-blue-500 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-purple-500 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-cyan-400 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-slate-700 border border-white"></span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <!-- Tile 4 -->
+                    <figure class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-emerald-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live</div>
+                        </div>
+                        <figcaption class="p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Linen · v2.1</p>
+                            <h4 class="text-sm font-bold text-gray-800 mt-1">Atrium Health</h4>
+                            <p class="text-xs text-gray-500 mt-1">Shipped 1 week ago · 4 swatch palette</p>
+                            <div class="flex gap-1 mt-3">
+                                <span class="w-4 h-4 rounded-full bg-emerald-500 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-100 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-emerald-100 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-700 border border-white"></span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <!-- Tile 5 -->
+                    <figure class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-gray-500 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Draft</div>
+                        </div>
+                        <figcaption class="p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Field · v0.4</p>
+                            <h4 class="text-sm font-bold text-gray-800 mt-1">Wayland Logistics</h4>
+                            <p class="text-xs text-gray-500 mt-1">Drafting · 3 swatch palette</p>
+                            <div class="flex gap-1 mt-3">
+                                <span class="w-4 h-4 rounded-full bg-amber-700 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-300 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-900 border border-white"></span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <!-- Tile 6 -->
+                    <figure class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-emerald-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live</div>
+                        </div>
+                        <figcaption class="p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Atrium · v4.0</p>
+                            <h4 class="text-sm font-bold text-gray-800 mt-1">Cornice Studio</h4>
+                            <p class="text-xs text-gray-500 mt-1">Shipped 3 days ago · 5 swatch palette</p>
+                            <div class="flex gap-1 mt-3">
+                                <span class="w-4 h-4 rounded-full bg-rose-300 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-amber-200 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-teal-400 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-100 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-800 border border-white"></span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <!-- Tile 7 -->
+                    <figure class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-primary-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> Beta</div>
+                        </div>
+                        <figcaption class="p-4">
+                            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Heritage · v1.4</p>
+                            <h4 class="text-sm font-bold text-gray-800 mt-1">Kestrel Insurance</h4>
+                            <p class="text-xs text-gray-500 mt-1">Closed beta · 4 swatch palette</p>
+                            <div class="flex gap-1 mt-3">
+                                <span class="w-4 h-4 rounded-full bg-blue-900 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-amber-400 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-stone-100 border border-white"></span>
+                                <span class="w-4 h-4 rounded-full bg-rose-700 border border-white"></span>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <!-- Duplicate set for seamless loop (mirrors tiles 1-7) -->
+                    <figure aria-hidden="true" class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-emerald-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live</div>
+                        </div>
+                        <figcaption class="p-4"><p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Sage · v3.2</p><h4 class="text-sm font-bold text-gray-800 mt-1">Aurora Banking</h4><p class="text-xs text-gray-500 mt-1">Shipped 2 days ago · 4 swatch palette</p><div class="flex gap-1 mt-3"><span class="w-4 h-4 rounded-full bg-primary-600 border border-white"></span><span class="w-4 h-4 rounded-full bg-secondary-500 border border-white"></span><span class="w-4 h-4 rounded-full bg-pink-500 border border-white"></span><span class="w-4 h-4 rounded-full bg-orange-400 border border-white"></span></div></figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-orange-500 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span> Review</div>
+                        </div>
+                        <figcaption class="p-4"><p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Concrete · v1.0</p><h4 class="text-sm font-bold text-gray-800 mt-1">Halcyon Realty</h4><p class="text-xs text-gray-500 mt-1">In review · 6 swatch palette</p><div class="flex gap-1 mt-3"><span class="w-4 h-4 rounded-full bg-gray-700 border border-white"></span><span class="w-4 h-4 rounded-full bg-orange-400 border border-white"></span><span class="w-4 h-4 rounded-full bg-amber-300 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-200 border border-white"></span></div></figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-primary-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> Beta</div>
+                        </div>
+                        <figcaption class="p-4"><p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Volt · v0.9</p><h4 class="text-sm font-bold text-gray-800 mt-1">Relay Telemetry</h4><p class="text-xs text-gray-500 mt-1">Closed beta · 5 swatch palette</p><div class="flex gap-1 mt-3"><span class="w-4 h-4 rounded-full bg-primary-600 border border-white"></span><span class="w-4 h-4 rounded-full bg-blue-500 border border-white"></span><span class="w-4 h-4 rounded-full bg-purple-500 border border-white"></span><span class="w-4 h-4 rounded-full bg-cyan-400 border border-white"></span><span class="w-4 h-4 rounded-full bg-slate-700 border border-white"></span></div></figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-emerald-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live</div>
+                        </div>
+                        <figcaption class="p-4"><p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Linen · v2.1</p><h4 class="text-sm font-bold text-gray-800 mt-1">Atrium Health</h4><p class="text-xs text-gray-500 mt-1">Shipped 1 week ago · 4 swatch palette</p><div class="flex gap-1 mt-3"><span class="w-4 h-4 rounded-full bg-emerald-500 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-100 border border-white"></span><span class="w-4 h-4 rounded-full bg-emerald-100 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-700 border border-white"></span></div></figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-gray-500 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span> Draft</div>
+                        </div>
+                        <figcaption class="p-4"><p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Field · v0.4</p><h4 class="text-sm font-bold text-gray-800 mt-1">Wayland Logistics</h4><p class="text-xs text-gray-500 mt-1">Drafting · 3 swatch palette</p><div class="flex gap-1 mt-3"><span class="w-4 h-4 rounded-full bg-amber-700 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-300 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-900 border border-white"></span></div></figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-emerald-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live</div>
+                        </div>
+                        <figcaption class="p-4"><p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Atrium · v4.0</p><h4 class="text-sm font-bold text-gray-800 mt-1">Cornice Studio</h4><p class="text-xs text-gray-500 mt-1">Shipped 3 days ago · 5 swatch palette</p><div class="flex gap-1 mt-3"><span class="w-4 h-4 rounded-full bg-rose-300 border border-white"></span><span class="w-4 h-4 rounded-full bg-amber-200 border border-white"></span><span class="w-4 h-4 rounded-full bg-teal-400 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-100 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-800 border border-white"></span></div></figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="w-72 shrink-0 bg-white rounded-2xl shadow-md-1 overflow-hidden border border-gray-100">
+                        <div class="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                            <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/90 backdrop-blur text-[10px] font-bold text-primary-600 uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> Beta</div>
+                        </div>
+                        <figcaption class="p-4"><p class="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Heritage · v1.4</p><h4 class="text-sm font-bold text-gray-800 mt-1">Kestrel Insurance</h4><p class="text-xs text-gray-500 mt-1">Closed beta · 4 swatch palette</p><div class="flex gap-1 mt-3"><span class="w-4 h-4 rounded-full bg-blue-900 border border-white"></span><span class="w-4 h-4 rounded-full bg-amber-400 border border-white"></span><span class="w-4 h-4 rounded-full bg-stone-100 border border-white"></span><span class="w-4 h-4 rounded-full bg-rose-700 border border-white"></span></div></figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 05 — FOUNDATIONS (Alternating image+content rows)             -->
+            <!-- ============================================================ -->
+            <section id="foundations" class="full-bleed bg-white py-20 md:py-24 overflow-hidden">
+                <div class="max-w-[1280px] mx-auto px-6 md:px-12">
+                    <div class="max-w-2xl mb-14">
+                        <p class="text-[11px] font-bold text-secondary-600 uppercase tracking-[0.2em] mb-2">// Foundations · 05</p>
+                        <h3 class="text-3xl md:text-4xl font-light text-gray-800">The three foundations of <span class="font-bold text-primary-600">Material You</span></h3>
+                        <p class="text-sm md:text-base text-gray-500 mt-3">Color, type and motion are not decorative finishes. They are the layers your product is built on. Each one ships as a token, each token is documented, each documented token is themable.</p>
+                    </div>
+
+                    <div class="space-y-16 md:space-y-24">
+                        <!-- Row 1 — image left, content right -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+                            <figure class="md:col-span-7 relative rounded-2xl overflow-hidden shadow-md-2 aspect-[4/3] bg-gray-100">
+                                <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1400&q=85&auto=format&fit=crop" alt="Color foundation" loading="lazy" />
+                                <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                                    <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Foundation · I</span>
+                                    <span class="text-[10px] font-bold tracking-widest uppercase text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · I</span>
+                                </div>
+                            </figure>
+                            <div class="md:col-span-5">
+                                <span class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-primary-600 bg-primary-50 px-2 py-1 rounded mb-3">I — Color</span>
+                                <h4 class="text-2xl md:text-3xl font-light text-gray-800 mb-3">Tonal palettes, not <span class="font-bold">paint chips</span>.</h4>
+                                <p class="text-sm md:text-base text-gray-500 mb-4">Every brand colour expands into a 13-step tonal palette. Light surfaces, dark surfaces, contrast pairs, and on-state variants are derivations, not authored states. Pick one seed; ship the whole product.</p>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> 13 tones · 4 contrast pairs</li>
+                                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> Auto-derived dark mode</li>
+                                    <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span> WCAG AA pre-checked</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 — content left, image right (md:order swap) -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+                            <div class="md:col-span-5 md:order-1">
+                                <span class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-pink-600 bg-pink-50 px-2 py-1 rounded mb-3">II — Typography</span>
+                                <h4 class="text-2xl md:text-3xl font-light text-gray-800 mb-3">A type stack that <span class="font-bold">reads at every step</span>.</h4>
+                                <p class="text-sm md:text-base text-gray-500 mb-4">Display, headline, title, body, label — five rolls, one weight scale, four sizes each. Roboto loaded once, applied everywhere. The cascade is opinionated so designers don't have to be.</p>
+                                <div class="grid grid-cols-2 gap-3 text-sm">
+                                    <div class="border-l-2 border-pink-300 pl-3"><p class="text-xs text-gray-400 uppercase tracking-wider">Display</p><p class="text-2xl font-light text-gray-800">Aa</p></div>
+                                    <div class="border-l-2 border-pink-300 pl-3"><p class="text-xs text-gray-400 uppercase tracking-wider">Headline</p><p class="text-xl font-bold text-gray-800">Aa</p></div>
+                                    <div class="border-l-2 border-pink-300 pl-3"><p class="text-xs text-gray-400 uppercase tracking-wider">Body</p><p class="text-base text-gray-800">Aa</p></div>
+                                    <div class="border-l-2 border-pink-300 pl-3"><p class="text-xs text-gray-400 uppercase tracking-wider">Label</p><p class="text-xs font-medium uppercase tracking-widest text-gray-800">Aa</p></div>
+                                </div>
+                            </div>
+                            <figure class="md:col-span-7 md:order-2 relative rounded-2xl overflow-hidden shadow-md-2 aspect-[4/3] bg-gray-100">
+                                <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=85&auto=format&fit=crop" alt="Typography foundation" loading="lazy" />
+                                <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                                    <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Foundation · II</span>
+                                    <span class="text-[10px] font-bold tracking-widest uppercase text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · II</span>
+                                </div>
+                            </figure>
+                        </div>
+
+                        <!-- Row 3 — image left, content right -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+                            <figure class="md:col-span-7 relative rounded-2xl overflow-hidden shadow-md-2 aspect-[4/3] bg-gray-100">
+                                <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop" alt="Motion foundation" loading="lazy" />
+                                <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                                    <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Foundation · III</span>
+                                    <span class="text-[10px] font-bold tracking-widest uppercase text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · III</span>
+                                </div>
+                            </figure>
+                            <div class="md:col-span-5">
+                                <span class="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-secondary-600 bg-secondary-50 px-2 py-1 rounded mb-3">III — Motion</span>
+                                <h4 class="text-2xl md:text-3xl font-light text-gray-800 mb-3">Easing is a <span class="font-bold">design decision</span>, not a default.</h4>
+                                <p class="text-sm md:text-base text-gray-500 mb-4">Standard, decelerated, accelerated. Three curves, expressive variants for hero moments. Reduced-motion respected by default. Ripples, sheet transitions and FAB rotations all share one timing language.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-3 py-1 rounded-full bg-secondary-50 text-secondary-600 font-medium">cubic-bezier(.4,0,.2,1)</span>
+                                    <span class="text-xs px-3 py-1 rounded-full bg-secondary-50 text-secondary-600 font-medium">200ms · 300ms · 500ms</span>
+                                    <span class="text-xs px-3 py-1 rounded-full bg-secondary-50 text-secondary-600 font-medium">prefers-reduced-motion</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 06 — PROCESS ROADMAP (5-step horizontal w/ imagery)           -->
+            <!-- ============================================================ -->
+            <section id="process" class="mt-16 mb-20">
+                <div class="max-w-2xl mb-10">
+                    <p class="text-[11px] font-bold text-secondary-600 uppercase tracking-[0.2em] mb-2">// Process · 06</p>
+                    <h3 class="text-3xl md:text-4xl font-light text-gray-800">How a <span class="font-bold text-primary-600">G_TASK release</span> ships.</h3>
+                    <p class="text-sm md:text-base text-gray-500 mt-3">Five phases, one quarter, every release. Captured in tokens, documented in changesets, signed off by the design council.</p>
+                </div>
+
+                <ol class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+                    <!-- Track line -->
+                    <div class="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-gradient-to-r from-primary-200 via-secondary-300 to-gray-200" aria-hidden="true"></div>
+
+                    <!-- Step 1 — done -->
+                    <li class="relative flex flex-col items-start gap-3">
+                        <div class="w-14 h-14 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center z-10 shadow-md-1">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 tabular-nums">Q1 · Done</span>
+                        <div class="rounded-xl overflow-hidden w-full aspect-[16/10] bg-gray-100 shadow-md-1">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=85&auto=format&fit=crop" alt="Discovery" loading="lazy" />
+                        </div>
+                        <h4 class="text-base font-bold text-gray-800">Discovery</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">12 user interviews · 4 ecosystem audits</p>
+                    </li>
+
+                    <!-- Step 2 — done -->
+                    <li class="relative flex flex-col items-start gap-3">
+                        <div class="w-14 h-14 rounded-full bg-emerald-100 border-2 border-emerald-500 flex items-center justify-center z-10 shadow-md-1">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 tabular-nums">Q1 · Done</span>
+                        <div class="rounded-xl overflow-hidden w-full aspect-[16/10] bg-gray-100 shadow-md-1">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&q=85&auto=format&fit=crop" alt="Tokenize" loading="lazy" />
+                        </div>
+                        <h4 class="text-base font-bold text-gray-800">Tokenize</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">Color, type, spacing, motion · 412 tokens</p>
+                    </li>
+
+                    <!-- Step 3 — current (pulsing) -->
+                    <li class="relative flex flex-col items-start gap-3">
+                        <div class="w-14 h-14 rounded-full bg-secondary-100 border-2 border-secondary-500 flex items-center justify-center z-10 shadow-md-2">
+                            <span class="w-3.5 h-3.5 rounded-full bg-secondary-500 md-pulse-dot" aria-hidden="true"></span>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-secondary-600 tabular-nums">Q2 · In flight</span>
+                        <div class="rounded-xl overflow-hidden w-full aspect-[16/10] bg-gray-100 shadow-md-2 ring-2 ring-secondary-200 ring-offset-2 ring-offset-background">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=85&auto=format&fit=crop" alt="Compose" loading="lazy" />
+                        </div>
+                        <h4 class="text-base font-bold text-gray-800">Compose</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed">132 components live · 28 in review</p>
+                    </li>
+
+                    <!-- Step 4 — upcoming -->
+                    <li class="relative flex flex-col items-start gap-3">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center z-10 shadow-md-1">
+                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 tabular-nums">Q3 · Planned</span>
+                        <div class="rounded-xl overflow-hidden w-full aspect-[16/10] bg-gray-100 shadow-md-1 grayscale opacity-80">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop" alt="Validate" loading="lazy" />
+                        </div>
+                        <h4 class="text-base font-bold text-gray-700">Validate</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Council review · A11y audit · WCAG AA</p>
+                    </li>
+
+                    <!-- Step 5 — upcoming -->
+                    <li class="relative flex flex-col items-start gap-3">
+                        <div class="w-14 h-14 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center z-10 shadow-md-1">
+                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 tabular-nums">Q4 · Planned</span>
+                        <div class="rounded-xl overflow-hidden w-full aspect-[16/10] bg-gray-100 shadow-md-1 grayscale opacity-80">
+                            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85&auto=format&fit=crop" alt="Release" loading="lazy" />
+                        </div>
+                        <h4 class="text-base font-bold text-gray-700">Release</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">v4.0 · Migration guides · Office hours</p>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 07 — DYNAMIC COLOR (Sticky rail + cycling image cross-fade)   -->
+            <!-- ============================================================ -->
+            <section id="dynamic-color" class="full-bleed bg-gradient-to-br from-primary-50 via-white to-secondary-50/50 py-20 md:py-28 overflow-hidden">
+                <div class="max-w-[1280px] mx-auto px-6 md:px-12">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                        <!-- Sticky rail -->
+                        <div class="md:col-span-5 md:sticky md:top-24 md:self-start">
+                            <p class="text-[11px] font-bold text-secondary-600 uppercase tracking-[0.2em] mb-2">// Dynamic Color · 07</p>
+                            <h3 class="text-3xl md:text-4xl font-light text-gray-800 mb-4">One seed. <span class="font-bold text-primary-600">Four palettes.</span></h3>
+                            <p class="text-sm md:text-base text-gray-500 mb-6">Material You generates a complete tonal system from a single brand colour. Watch four products inherit identity from four seeds — the layout never changes, only the tones.</p>
+
+                            <!-- Indicator strip -->
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="flex gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-primary-500"></span>
+                                    <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                    <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+                                </div>
+                                <span class="text-[10px] uppercase tracking-widest text-gray-400 tabular-nums">04 seeds · 16s loop</span>
+                            </div>
+
+                            <a href="#" class="ripple inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-md text-sm font-medium shadow-md hover:bg-primary-700 hover:shadow-lg transition-all">
+                                Try the generator
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+
+                            <div class="mt-10 grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <p class="text-3xl font-light text-gray-800 tabular-nums">412</p>
+                                    <p class="text-xs text-gray-400 uppercase tracking-wider">Tokens / palette</p>
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-light text-gray-800 tabular-nums">13</p>
+                                    <p class="text-xs text-gray-400 uppercase tracking-wider">Tonal stops</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cycling image frame -->
+                        <div class="md:col-span-7">
+                            <div class="relative w-full aspect-[4/5] md:aspect-[16/12] rounded-3xl overflow-hidden shadow-md-3 bg-gray-100 border border-gray-100">
+                                <img class="md-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 0s;"  src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1400&q=85&auto=format&fit=crop" alt="Sage palette" loading="lazy" />
+                                <img class="md-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 4s;"  src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1400&q=85&auto=format&fit=crop" alt="Peach palette" loading="lazy" />
+                                <img class="md-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 8s;"  src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1400&q=85&auto=format&fit=crop" alt="Mint palette" loading="lazy" />
+                                <img class="md-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 12s;" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1400&q=85&auto=format&fit=crop" alt="Coral palette" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none"></div>
+                                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                                    <div>
+                                        <p class="text-[10px] uppercase tracking-[0.3em] text-white/80 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Auto-cycle</p>
+                                        <p class="text-base text-white font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Sage → Peach → Mint → Coral</p>
+                                    </div>
+                                    <span class="text-[10px] uppercase tracking-widest text-white/70 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] tabular-nums">04 / 04</span>
+                                </div>
+                            </div>
+
+                            <!-- Mini swatch palettes -->
+                            <div class="grid grid-cols-4 gap-3 mt-5">
+                                <div class="p-3 bg-white rounded-xl shadow-md-1 flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-primary-500"></span><span class="text-xs font-medium text-gray-700">Sage</span></div>
+                                <div class="p-3 bg-white rounded-xl shadow-md-1 flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-pink-500"></span><span class="text-xs font-medium text-gray-700">Peach</span></div>
+                                <div class="p-3 bg-white rounded-xl shadow-md-1 flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500"></span><span class="text-xs font-medium text-gray-700">Mint</span></div>
+                                <div class="p-3 bg-white rounded-xl shadow-md-1 flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-orange-400"></span><span class="text-xs font-medium text-gray-700">Coral</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 08 — VOICES (Testimonial cards w/ portraits)                  -->
+            <!-- ============================================================ -->
+            <section id="voices" class="mt-20 mb-20">
+                <div class="max-w-2xl mb-10">
+                    <p class="text-[11px] font-bold text-secondary-600 uppercase tracking-[0.2em] mb-2">// Voices · 08</p>
+                    <h3 class="text-3xl md:text-4xl font-light text-gray-800">From the <span class="font-bold text-primary-600">design council</span>.</h3>
+                    <p class="text-sm md:text-base text-gray-500 mt-3">Three notes from teams who shipped on G_TASK this quarter.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Voice 1 -->
+                    <figure class="bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow p-6 flex flex-col">
+                        <span class="text-5xl leading-none text-primary-200 font-serif">&ldquo;</span>
+                        <blockquote class="text-sm md:text-base text-gray-700 leading-relaxed mt-2 mb-6 flex-1">Tokens removed five rounds of theming back-and-forth from every release. Two weeks back, every quarter, in our pocket.</blockquote>
+                        <div class="flex items-center justify-between gap-3 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover border-2 border-primary-100" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                                <div>
+                                    <p class="text-sm font-bold text-gray-800">Sasha Linde</p>
+                                    <p class="text-xs text-gray-400">Head of Design · Aurora</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-primary-600 bg-primary-50 px-2 py-1 rounded">Sage</span>
+                        </div>
+                    </figure>
+
+                    <!-- Voice 2 -->
+                    <figure class="bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow p-6 flex flex-col">
+                        <span class="text-5xl leading-none text-pink-200 font-serif">&ldquo;</span>
+                        <blockquote class="text-sm md:text-base text-gray-700 leading-relaxed mt-2 mb-6 flex-1">The motion library is the part nobody mentions until it's gone. We swapped to G_TASK and three engineers stopped writing custom easing.</blockquote>
+                        <div class="flex items-center justify-between gap-3 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover border-2 border-pink-100" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                                <div>
+                                    <p class="text-sm font-bold text-gray-800">Marie-Rose Otieno</p>
+                                    <p class="text-xs text-gray-400">Principal Eng · Halcyon</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-pink-600 bg-pink-50 px-2 py-1 rounded">Peach</span>
+                        </div>
+                    </figure>
+
+                    <!-- Voice 3 -->
+                    <figure class="bg-white rounded-2xl shadow-md-1 hover:shadow-md-2 transition-shadow p-6 flex flex-col">
+                        <span class="text-5xl leading-none text-secondary-200 font-serif">&ldquo;</span>
+                        <blockquote class="text-sm md:text-base text-gray-700 leading-relaxed mt-2 mb-6 flex-1">Our brand colour got a 13-step palette overnight. The dashboard, the mobile app, the marketing site &mdash; all reading from the same seed.</blockquote>
+                        <div class="flex items-center justify-between gap-3 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <img class="w-10 h-10 rounded-full object-cover border-2 border-secondary-100" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                                <div>
+                                    <p class="text-sm font-bold text-gray-800">Daniel Ng</p>
+                                    <p class="text-xs text-gray-400">Director · Atrium Health</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-secondary-600 bg-secondary-50 px-2 py-1 rounded">Mint</span>
+                        </div>
+                    </figure>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 09 — FAQ (details accordion)                                  -->
+            <!-- ============================================================ -->
+            <section id="faq" class="full-bleed bg-white py-20 md:py-24 overflow-hidden">
+                <div class="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-10">
+                    <div class="md:col-span-5">
+                        <p class="text-[11px] font-bold text-secondary-600 uppercase tracking-[0.2em] mb-2">// FAQ · 09</p>
+                        <h3 class="text-3xl md:text-4xl font-light text-gray-800 mb-4">Common <span class="font-bold text-primary-600">questions</span>.</h3>
+                        <p class="text-sm md:text-base text-gray-500 mb-6">If your team is migrating from Material 2, has questions about token export, or wants to evaluate G_TASK against your existing system &mdash; start here.</p>
+                        <figure class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-gray-100 shadow-md-1">
+                            <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1000&q=85&auto=format&fit=crop" alt="Toolkit" loading="lazy" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary-900/40 to-transparent"></div>
+                            <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                                <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">The toolkit</span>
+                                <span class="text-[10px] uppercase tracking-widest text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · IX</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="md:col-span-7 divide-y divide-gray-100 border-t border-b border-gray-100">
+                        <details class="md-faq group py-5 px-1">
+                            <summary class="flex items-center justify-between gap-4">
+                                <h4 class="text-base md:text-lg font-medium text-gray-800">Can we adopt G_TASK gradually, system-by-system?</h4>
+                                <span class="md-chevron text-primary-500 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg></span>
+                            </summary>
+                            <p class="text-sm text-gray-500 leading-relaxed mt-3">Yes. Each token category (color, type, motion, spacing) is independent. Most teams start with color, ship two releases, then layer in type. The migration guides cover all four entry points.</p>
+                        </details>
+                        <details class="md-faq group py-5 px-1">
+                            <summary class="flex items-center justify-between gap-4">
+                                <h4 class="text-base md:text-lg font-medium text-gray-800">Does it work outside web — for iOS, Android, Flutter?</h4>
+                                <span class="md-chevron text-primary-500 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg></span>
+                            </summary>
+                            <p class="text-sm text-gray-500 leading-relaxed mt-3">Tokens export as JSON, Style Dictionary, Tailwind, CSS variables, Swift extensions, Kotlin objects, and Flutter ThemeData. One source, every platform.</p>
+                        </details>
+                        <details class="md-faq group py-5 px-1">
+                            <summary class="flex items-center justify-between gap-4">
+                                <h4 class="text-base md:text-lg font-medium text-gray-800">How is dark mode handled?</h4>
+                                <span class="md-chevron text-primary-500 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg></span>
+                            </summary>
+                            <p class="text-sm text-gray-500 leading-relaxed mt-3">Dark mode is derived from the same tonal palette as light. You don't author both — you author one, and dark falls out of tones 90 → 10 of the same hue. Manual overrides are still possible per token.</p>
+                        </details>
+                        <details class="md-faq group py-5 px-1">
+                            <summary class="flex items-center justify-between gap-4">
+                                <h4 class="text-base md:text-lg font-medium text-gray-800">What happens to our existing components during migration?</h4>
+                                <span class="md-chevron text-primary-500 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg></span>
+                            </summary>
+                            <p class="text-sm text-gray-500 leading-relaxed mt-3">A codemod ships with every release. It maps Material 2 token names to Material 3 equivalents, flags the ~6% of cases where there's no 1:1 (custom shades, deprecated states), and leaves your component shells untouched.</p>
+                        </details>
+                        <details class="md-faq group py-5 px-1">
+                            <summary class="flex items-center justify-between gap-4">
+                                <h4 class="text-base md:text-lg font-medium text-gray-800">Is there a free tier? Can solo designers use G_TASK?</h4>
+                                <span class="md-chevron text-primary-500 shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg></span>
+                            </summary>
+                            <p class="text-sm text-gray-500 leading-relaxed mt-3">Personal and student licenses are free, forever. The full council suite (governance, audit logs, signed releases) is the paid tier &mdash; needed for teams of 12+ designers.</p>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- 10 — TOOLKIT CTA (Full-bleed photographic)                    -->
+            <!-- ============================================================ -->
+            <section id="cta" class="full-bleed relative overflow-hidden">
+                <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1920&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-b from-primary-900/85 via-primary-700/75 to-primary-900/90"></div>
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 60% at 25% 80%, rgba(20,184,166,0.25) 0%, transparent 60%);"></div>
+
+                <div class="relative max-w-[1280px] mx-auto px-6 md:px-12 py-24 md:py-32 text-white">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur border border-white/20 text-[10px] font-bold uppercase tracking-widest mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-secondary-400 md-pulse-dot"></span>
+                        Open · Q1 cohort &middot; 4 seats left
+                    </span>
+                    <h3 class="text-4xl md:text-6xl font-light leading-tight max-w-3xl mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.4)]">Open the <span class="font-bold italic text-secondary-300">G_TASK</span> toolkit.</h3>
+                    <p class="text-base md:text-lg text-white/85 max-w-2xl mb-10 drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">Tokens, components, motion. One license, every platform, lifetime updates inside the cohort window.</p>
+
+                    <div class="flex flex-wrap gap-4 mb-12">
+                        <a href="#" class="ripple px-6 py-3 bg-white text-primary-700 rounded-md text-sm font-bold shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2">
+                            Request access
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                        <a href="#" class="px-6 py-3 bg-transparent border border-white/40 text-white rounded-md text-sm font-medium hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+                            Read the changelog
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 border-t border-white/15">
+                        <div>
+                            <p class="text-3xl md:text-4xl font-light tabular-nums">412</p>
+                            <p class="text-xs uppercase tracking-widest text-white/70 mt-1">Tokens shipped</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl md:text-4xl font-light tabular-nums">132</p>
+                            <p class="text-xs uppercase tracking-widest text-white/70 mt-1">Components live</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl md:text-4xl font-light tabular-nums">24</p>
+                            <p class="text-xs uppercase tracking-widest text-white/70 mt-1">Products in production</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="mt-8 py-6 text-center">
+            <p class="text-xs text-gray-400">&copy; 2023 G_TASK. Designed with Material Principles.</p>
+        </footer>
+    </div>
+
+    <!-- FLOATING ACTION BUTTON (FAB) -->
+    <button class="ripple fixed bottom-6 right-6 lg:bottom-10 lg:right-10 w-14 h-14 bg-secondary-500 text-white rounded-full shadow-md-3 hover:shadow-xl hover:bg-secondary-600 active:scale-95 transition-all duration-200 z-50 flex items-center justify-center group">
+        <svg class="w-8 h-8 transition-transform group-hover:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+        <div class="absolute right-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Create Task
+        </div>
+    </button>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- Mobile Sidebar Logic ---
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        let isSidebarOpen = false;
+
+        function toggleSidebar() {
+            isSidebarOpen = !isSidebarOpen;
+            if (isSidebarOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+                document.body.style.overflow = '';
+            }
+        }
+
+        // --- Chart.js Initialization ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('productivityChart').getContext('2d');
+            
+            // Gradient for the chart bars
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, '#6366f1'); // Primary 500
+            gradient.addColorStop(1, '#4338ca'); // Primary 700
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Tasks Completed',
+                        data: [12, 19, 15, 8, 22, 10, 6],
+                        backgroundColor: gradient,
+                        borderRadius: 4,
+                        barThickness: 24,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            padding: 10,
+                            cornerRadius: 4,
+                            titleFont: { family: 'Roboto', size: 13 },
+                            bodyFont: { family: 'Roboto', size: 13 },
+                            displayColors: false,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f3f4f6',
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                font: { family: 'Roboto' },
+                                color: '#94a3b8'
+                            },
+                            border: { display: false }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: 'Roboto' },
+                                color: '#64748b'
+                            },
+                            border: { display: false }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODUL | Swiss Architecture</title>
+    <meta name="description" content="Minimalist Architecture Firm based in Zurich. Form Follows Function.">
+    
+    <!-- Google Fonts: Inter (Helvetica Alternative) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'swiss-bg': '#F2F2F2',
+                        'swiss-red': '#DC2626',
+                        'swiss-black': '#111111',
+                        'swiss-gray': '#e5e5e5',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Courier New', 'Courier', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    },
+                    transitionDuration: {
+                        '400': '400ms',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styles for Swiss Typographic Rules */
+        body {
+            font-feature-settings: "ss01", "ss02", "case";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Selection Color */
+        ::selection {
+            background: #DC2626;
+            color: #F2F2F2;
+        }
+
+        /* Hide Scrollbar but allow scrolling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F2F2F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111111;
+        }
+
+        /* Typography Clamps */
+        .text-fluid-h1 { font-size: clamp(3rem, 14vw, 16rem); }
+        .text-fluid-h2 { font-size: clamp(2rem, 6vw, 5rem); }
+        
+        /* Image Hover Effect */
+        .img-reveal {
+            filter: grayscale(100%) contrast(110%);
+            transition: filter 0.5s ease-out;
+        }
+        .group:hover .img-reveal {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        /* Index marquee — paused on hover */
+        .swiss-marquee-track {
+            display: flex;
+            gap: 32px;
+            width: max-content;
+            animation: swiss-marquee-x 80s linear infinite;
+        }
+        .swiss-marquee-track:hover { animation-play-state: paused; }
+        @keyframes swiss-marquee-x {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 16px)); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .swiss-marquee-track { animation: none; }
+        }
+    </style>
+</head>
+<body class="bg-swiss-bg text-swiss-black font-sans leading-none">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-swiss-bg border-b border-swiss-black/10">
+        <div class="grid grid-cols-12 h-16 md:h-20">
+            <!-- Logo Area -->
+            <div class="col-span-6 md:col-span-3 border-r border-swiss-black/10 flex items-center pl-4 md:pl-8">
+                <a href="#" class="text-xl md:text-2xl font-black tracking-tighter uppercase hover:text-swiss-red transition-colors duration-400">
+                    MODUL<span class="text-swiss-red">.</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex col-span-6 justify-between items-center px-8 border-r border-swiss-black/10 text-xs font-bold uppercase tracking-widest">
+                <div class="flex gap-8">
+                    <a href="#work" class="hover:text-swiss-red transition-colors">Projects</a>
+                    <a href="#process" class="hover:text-swiss-red transition-colors">Process</a>
+                    <a href="#studio" class="hover:text-swiss-red transition-colors">Studio</a>
+                    <a href="#news" class="hover:text-swiss-red transition-colors">Journal</a>
+                </div>
+            </div>
+
+            <!-- Contact / CTA -->
+            <div class="col-span-6 md:col-span-3 flex items-center justify-end pr-4 md:pr-8">
+                <a href="#contact" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:text-swiss-red transition-colors">
+                    <span class="hidden md:inline">Get in touch</span>
+                    <i data-lucide="plus" class="w-4 h-4 text-swiss-red"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-20 md:pt-32 min-h-screen flex flex-col justify-between border-b border-swiss-black/10 overflow-hidden">
+        
+        <!-- Main Statement -->
+        <div class="grid grid-cols-12 px-4 md:px-0 h-full">
+            <div class="col-span-12 md:col-span-10 md:col-start-2 md:border-x border-swiss-black/10 md:p-8 flex flex-col justify-center">
+                <h1 class="text-fluid-h1 font-black tracking-tighter leading-[0.85] uppercase mb-8">
+                    Form<br>
+                    <span class="pl-[10vw] md:pl-[12vw]">Follows</span><br>
+                    <span class="text-swiss-red">Function</span>
+                </h1>
+            </div>
+        </div>
+
+        <!-- Hero Footer Info -->
+        <div class="grid grid-cols-12 border-t border-swiss-black/10">
+            <div class="col-span-6 md:col-span-3 border-r border-swiss-black/10 p-4 md:p-6">
+                <span class="block text-xs font-mono text-gray-500 mb-1">LOCATION</span>
+                <span class="text-sm font-bold uppercase">Zurich, CH</span>
+            </div>
+            <div class="col-span-6 md:col-span-3 md:border-r border-swiss-black/10 p-4 md:p-6">
+                <span class="block text-xs font-mono text-gray-500 mb-1">ESTABLISHED</span>
+                <span class="text-sm font-bold uppercase">2018</span>
+            </div>
+            <div class="hidden md:block col-span-3 border-r border-swiss-black/10 p-4 md:p-6">
+                <span class="block text-xs font-mono text-gray-500 mb-1">SPECIALTY</span>
+                <span class="text-sm font-bold uppercase">Brutalist / Minimal</span>
+            </div>
+            <div class="col-span-12 md:col-span-3 bg-swiss-black text-white flex items-center justify-between p-4 md:p-6 cursor-pointer hover:bg-swiss-red transition-colors duration-400 group">
+                <span class="text-sm font-bold uppercase">View Showreel</span>
+                <i data-lucide="play" class="w-4 h-4 fill-white group-hover:fill-white"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Project Index (01) -->
+        <section id="work" class="border-b border-swiss-black/10">
+            <!-- Header Row -->
+            <div class="grid grid-cols-12 border-b border-swiss-black/10">
+                <div class="col-span-12 md:col-span-2 p-4 md:p-6 border-r border-swiss-black/10">
+                    <span class="font-mono text-xs text-swiss-red">01 / PROJECTS</span>
+                </div>
+                <div class="col-span-12 md:col-span-10 p-4 md:p-6">
+                    <h2 class="text-xl md:text-3xl font-medium tracking-tight">Selected Works 2020—2025</h2>
+                </div>
+            </div>
+
+            <!-- Project Item 1: Residential -->
+            <article class="group grid grid-cols-12 border-b border-swiss-black/10">
+                <!-- Text Block -->
+                <div class="col-span-12 md:col-span-5 p-6 md:p-12 flex flex-col justify-between border-b md:border-b-0 md:border-r border-swiss-black/10 bg-swiss-bg relative overflow-hidden">
+                    <div class="z-10">
+                        <div class="flex items-baseline gap-4 mb-4">
+                            <span class="text-xs font-mono px-2 py-1 border border-swiss-black rounded-full">RESIDENTIAL</span>
+                            <span class="text-xs font-mono text-gray-500">LUCERNE</span>
+                        </div>
+                        <h3 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 group-hover:translate-x-2 transition-transform duration-500">
+                            Haus <br>Am See
+                        </h3>
+                        <p class="text-sm md:text-base max-w-sm leading-relaxed text-gray-700">
+                            A raw concrete volume embedded into the lakeside slope. The facade features expansive glazing to capture the Alpine panorama, while the interior maintains a monochromatic palette.
+                        </p>
+                    </div>
+                    <div class="mt-12 md:mt-0 z-10">
+                        <a href="#" class="inline-flex items-center gap-2 text-sm font-bold uppercase border-b border-swiss-black pb-1 hover:text-swiss-red hover:border-swiss-red transition-colors">
+                            Case Study <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- Image Block -->
+                <div class="col-span-12 md:col-span-7 h-[60vh] md:h-[90vh] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2574&auto=format&fit=crop" 
+                         alt="Concrete House" 
+                         class="w-full h-full object-cover img-reveal transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+            </article>
+
+            <!-- Project Item 2: Commercial (Reversed) -->
+            <article class="group grid grid-cols-12 border-b border-swiss-black/10">
+                <!-- Image Block -->
+                <div class="order-2 md:order-1 col-span-12 md:col-span-7 h-[60vh] md:h-[90vh] overflow-hidden border-r border-swiss-black/10">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop" 
+                         alt="Office Tower" 
+                         class="w-full h-full object-cover img-reveal transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <!-- Text Block -->
+                <div class="order-1 md:order-2 col-span-12 md:col-span-5 p-6 md:p-12 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-baseline gap-4 mb-4">
+                            <span class="text-xs font-mono px-2 py-1 border border-swiss-black rounded-full">COMMERCIAL</span>
+                            <span class="text-xs font-mono text-gray-500">BASEL</span>
+                        </div>
+                        <h3 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 group-hover:translate-x-2 transition-transform duration-500">
+                            Vertex<br>Tower
+                        </h3>
+                        <p class="text-sm md:text-base max-w-sm leading-relaxed text-gray-700">
+                            Redefining the corporate vertical. A structural exoskeleton allows for column-free interior floorplates. The building acts as a mirror to the surrounding industrial district.
+                        </p>
+                    </div>
+                    <div class="mt-12 md:mt-0">
+                        <a href="#" class="inline-flex items-center gap-2 text-sm font-bold uppercase border-b border-swiss-black pb-1 hover:text-swiss-red hover:border-swiss-red transition-colors">
+                            Case Study <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+             <!-- Project Item 3: Cultural -->
+             <article class="group grid grid-cols-12">
+                <div class="col-span-12 md:col-span-5 p-6 md:p-12 flex flex-col justify-between border-b md:border-b-0 md:border-r border-swiss-black/10">
+                    <div>
+                        <div class="flex items-baseline gap-4 mb-4">
+                            <span class="text-xs font-mono px-2 py-1 border border-swiss-black rounded-full">CULTURAL</span>
+                            <span class="text-xs font-mono text-gray-500">GENEVA</span>
+                        </div>
+                        <h3 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-6 group-hover:translate-x-2 transition-transform duration-500">
+                            Gallery <br>X
+                        </h3>
+                        <p class="text-sm md:text-base max-w-sm leading-relaxed text-gray-700">
+                            A minimalist exhibition space designed to disappear. Indirect top-lighting systems provide shadowless illumination for sculptures.
+                        </p>
+                    </div>
+                    <div class="mt-12 md:mt-0">
+                        <a href="#" class="inline-flex items-center gap-2 text-sm font-bold uppercase border-b border-swiss-black pb-1 hover:text-swiss-red hover:border-swiss-red transition-colors">
+                            Case Study <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-7 h-[60vh] md:h-[90vh] overflow-hidden">
+                    <!-- Updated Image: Minimalist Gallery Interior -->
+                    <img src="https://images.unsplash.com/photo-1594122230689-45899d9e6f69?q=80&w=2670&auto=format&fit=crop" 
+                         alt="Museum Interior" 
+                         class="w-full h-full object-cover img-reveal transform group-hover:scale-105 transition-transform duration-700">
+                </div>
+            </article>
+        </section>
+
+        <!-- Process / Services Grid -->
+        <section id="process" class="bg-swiss-bg border-b border-swiss-black/10">
+            <!-- Title -->
+            <div class="grid grid-cols-12 border-b border-swiss-black/10">
+                <div class="col-span-12 md:col-span-2 p-4 md:p-6 border-r border-swiss-black/10">
+                    <span class="font-mono text-xs text-swiss-red">02 / PROCESS</span>
+                </div>
+                <div class="col-span-12 md:col-span-10 p-4 md:p-6">
+                    <h2 class="text-xl md:text-3xl font-medium tracking-tight">Capabilities</h2>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4">
+                <!-- Service 1 -->
+                <div class="p-8 border-b md:border-b-0 border-r border-swiss-black/10 hover:bg-white transition-colors duration-300 min-h-[300px] flex flex-col justify-between">
+                    <i data-lucide="pen-tool" class="w-8 h-8 text-swiss-red mb-4"></i>
+                    <div>
+                        <h3 class="text-xl font-bold uppercase mb-2">Architecture</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Full scale architectural planning from concept to execution. We focus on structural honesty.</p>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div class="p-8 border-b md:border-b-0 border-r border-swiss-black/10 hover:bg-white transition-colors duration-300 min-h-[300px] flex flex-col justify-between">
+                    <i data-lucide="layers" class="w-8 h-8 text-swiss-red mb-4"></i>
+                    <div>
+                        <h3 class="text-xl font-bold uppercase mb-2">Interior</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Spatial design that complements the architectural shell. Bespoke furniture and lighting.</p>
+                    </div>
+                </div>
+                <!-- Service 3 -->
+                <div class="p-8 border-b md:border-b-0 border-r border-swiss-black/10 hover:bg-white transition-colors duration-300 min-h-[300px] flex flex-col justify-between">
+                    <i data-lucide="map" class="w-8 h-8 text-swiss-red mb-4"></i>
+                    <div>
+                        <h3 class="text-xl font-bold uppercase mb-2">Urbanism</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Master planning for complex environments. Integrating buildings into the city fabric.</p>
+                    </div>
+                </div>
+                <!-- Service 4 -->
+                <div class="p-8 hover:bg-white transition-colors duration-300 min-h-[300px] flex flex-col justify-between">
+                    <i data-lucide="box" class="w-8 h-8 text-swiss-red mb-4"></i>
+                    <div>
+                        <h3 class="text-xl font-bold uppercase mb-2">Research</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Material studies and sustainable technology integration. Forward thinking.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Manifesto Section -->
+        <section id="studio" class="bg-swiss-red text-white selection:bg-white selection:text-swiss-red">
+            <div class="grid grid-cols-12">
+                <div class="col-span-1 md:col-span-1 border-r border-white/20 hidden md:block"></div>
+                
+                <div class="col-span-12 md:col-span-10 p-8 md:p-24 md:border-r border-white/20">
+                    <span class="block text-sm font-mono uppercase mb-12 border-b border-white/40 pb-2 w-max">The Manifesto</span>
+                    
+                    <p class="text-3xl md:text-5xl lg:text-7xl font-bold leading-[0.9] tracking-tighter uppercase mb-16">
+                        We reject ornamentation.<br>
+                        <span class="opacity-70">We believe space is defined by light, proportion, and materiality.</span><br>
+                        Architecture is not art;<br>
+                        it is a strict discipline of solving problems through geometry.
+                    </p>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-sm font-mono border-t border-white/40 pt-12">
+                        <div>
+                            <h4 class="font-bold border-b border-white/40 mb-2 pb-1">01. SIMPLICITY</h4>
+                            <p class="opacity-80">Reduction to the absolute essential.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold border-b border-white/40 mb-2 pb-1">02. GEOMETRY</h4>
+                            <p class="opacity-80">Mathematical purity in every line.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold border-b border-white/40 mb-2 pb-1">03. UTILITY</h4>
+                            <p class="opacity-80">Function always dictates form.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold border-b border-white/40 mb-2 pb-1">04. TRUTH</h4>
+                            <p class="opacity-80">Honesty in materials and structure.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team / People -->
+        <section class="border-b border-swiss-black/10">
+            <div class="grid grid-cols-12">
+                <div class="col-span-12 md:col-span-2 p-4 md:p-6 border-r border-swiss-black/10 border-b md:border-b-0">
+                    <span class="font-mono text-xs text-swiss-red">03 / TEAM</span>
+                </div>
+                
+                <!-- Team Grid -->
+                <div class="col-span-12 md:col-span-10 grid grid-cols-2 md:grid-cols-4">
+                     <!-- Member 1 -->
+                     <div class="border-r border-b md:border-b-0 border-swiss-black/10 p-6 group hover:bg-white transition-colors">
+                        <div class="w-full aspect-square bg-gray-200 mb-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Portrait">
+                        </div>
+                        <h4 class="font-bold uppercase text-sm">J. Meier</h4>
+                        <span class="text-xs font-mono text-gray-500">Principal</span>
+                    </div>
+                    <!-- Member 2 -->
+                    <div class="border-r border-b md:border-b-0 border-swiss-black/10 p-6 group hover:bg-white transition-colors">
+                        <div class="w-full aspect-square bg-gray-200 mb-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Portrait">
+                        </div>
+                        <h4 class="font-bold uppercase text-sm">E. Rossi</h4>
+                        <span class="text-xs font-mono text-gray-500">Partner</span>
+                    </div>
+                    <!-- Member 3 -->
+                    <div class="border-r border-b md:border-b-0 border-swiss-black/10 p-6 group hover:bg-white transition-colors">
+                        <div class="w-full aspect-square bg-gray-200 mb-4 overflow-hidden grayscale group-hover:grayscale-0 transition-all">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" alt="Portrait">
+                        </div>
+                        <h4 class="font-bold uppercase text-sm">L. Weber</h4>
+                        <span class="text-xs font-mono text-gray-500">Senior Architect</span>
+                    </div>
+                    <!-- Join Us -->
+                    <div class="p-6 flex flex-col justify-center items-center text-center hover:bg-swiss-black hover:text-white transition-colors cursor-pointer group">
+                        <div class="w-12 h-12 border border-current rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="plus" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold uppercase text-sm">Join the Team</h4>
+                        <span class="text-xs font-mono opacity-60">Zurich Office</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Index Marquee (04) — Selected projects, 12 commissions -->
+        <section id="index" class="border-b border-swiss-black/10 bg-swiss-bg">
+            <!-- Header Row -->
+            <div class="grid grid-cols-12 border-b border-swiss-black/10">
+                <div class="col-span-12 md:col-span-2 p-4 md:p-6 border-r border-swiss-black/10">
+                    <span class="font-mono text-xs text-swiss-red">04 / INDEX</span>
+                </div>
+                <div class="col-span-12 md:col-span-8 p-4 md:p-6 md:border-r border-swiss-black/10">
+                    <h2 class="text-xl md:text-3xl font-medium tracking-tight">Selected projects — 12 commissions</h2>
+                </div>
+                <div class="hidden md:flex col-span-2 p-4 md:p-6 items-center justify-end">
+                    <span class="font-mono text-[11px] uppercase tracking-widest text-gray-500">Hover to pause</span>
+                </div>
+            </div>
+
+            <!-- Marquee strip — captions are content -->
+            <div class="overflow-hidden border-b border-swiss-black/10 py-12 md:py-16">
+                <div class="swiss-marquee-track">
+                    <!-- Tile 01 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="Project 01" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">01</span>
+                            <span class="text-sm font-medium tracking-tight">Haus am See</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2025</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>RESIDENTIAL · LU</span>
+                        </div>
+                    </article>
+                    <!-- Tile 02 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="Project 02" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">02</span>
+                            <span class="text-sm font-medium tracking-tight">Vertex Tower</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2024</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>COMMERCIAL · BS</span>
+                        </div>
+                    </article>
+                    <!-- Tile 03 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="Project 03" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">03</span>
+                            <span class="text-sm font-medium tracking-tight">Gallery X</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2024</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>CULTURAL · GE</span>
+                        </div>
+                    </article>
+                    <!-- Tile 04 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="Project 04" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">04</span>
+                            <span class="text-sm font-medium tracking-tight">Atelier Nord</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2024</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>STUDIO · ZH</span>
+                        </div>
+                    </article>
+                    <!-- Tile 05 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="Project 05" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">05</span>
+                            <span class="text-sm font-medium tracking-tight">Maison Rive</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2023</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>RESIDENTIAL · GE</span>
+                        </div>
+                    </article>
+                    <!-- Tile 06 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" alt="Project 06" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">06</span>
+                            <span class="text-sm font-medium tracking-tight">Stadtbibliothek</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2023</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>CIVIC · BE</span>
+                        </div>
+                    </article>
+                    <!-- Tile 07 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop" alt="Project 07" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">07</span>
+                            <span class="text-sm font-medium tracking-tight">Werkhof</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2023</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>INDUSTRIAL · ZH</span>
+                        </div>
+                    </article>
+                    <!-- Tile 08 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="Project 08" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">08</span>
+                            <span class="text-sm font-medium tracking-tight">Pavillon Léman</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2022</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>PAVILION · VD</span>
+                        </div>
+                    </article>
+                    <!-- Tile 09 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="Project 09" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">09</span>
+                            <span class="text-sm font-medium tracking-tight">Lager 12</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2022</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>ADAPTIVE · ZH</span>
+                        </div>
+                    </article>
+                    <!-- Tile 10 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="Project 10" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">10</span>
+                            <span class="text-sm font-medium tracking-tight">Schule Aspen</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2021</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>EDUCATION · GR</span>
+                        </div>
+                    </article>
+                    <!-- Tile 11 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="Project 11" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">11</span>
+                            <span class="text-sm font-medium tracking-tight">Höhenweg</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2021</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>RESIDENTIAL · VS</span>
+                        </div>
+                    </article>
+                    <!-- Tile 12 -->
+                    <article class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="Project 12" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3">
+                            <span class="text-3xl font-black tracking-tighter">12</span>
+                            <span class="text-sm font-medium tracking-tight">Kontor Nord</span>
+                        </div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                            <span>2020</span>
+                            <span class="w-1 h-1 rounded-full bg-swiss-red"></span>
+                            <span>OFFICE · SG</span>
+                        </div>
+                    </article>
+
+                    <!-- Duplicate set (aria-hidden) for seamless loop -->
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">01</span><span class="text-sm font-medium tracking-tight">Haus am See</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2025</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>RESIDENTIAL · LU</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">02</span><span class="text-sm font-medium tracking-tight">Vertex Tower</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2024</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>COMMERCIAL · BS</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">03</span><span class="text-sm font-medium tracking-tight">Gallery X</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2024</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>CULTURAL · GE</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">04</span><span class="text-sm font-medium tracking-tight">Atelier Nord</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2024</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>STUDIO · ZH</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">05</span><span class="text-sm font-medium tracking-tight">Maison Rive</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2023</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>RESIDENTIAL · GE</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">06</span><span class="text-sm font-medium tracking-tight">Stadtbibliothek</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2023</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>CIVIC · BE</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">07</span><span class="text-sm font-medium tracking-tight">Werkhof</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2023</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>INDUSTRIAL · ZH</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">08</span><span class="text-sm font-medium tracking-tight">Pavillon Léman</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2022</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>PAVILION · VD</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">09</span><span class="text-sm font-medium tracking-tight">Lager 12</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2022</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>ADAPTIVE · ZH</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">10</span><span class="text-sm font-medium tracking-tight">Schule Aspen</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2021</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>EDUCATION · GR</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">11</span><span class="text-sm font-medium tracking-tight">Höhenweg</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2021</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>RESIDENTIAL · VS</span></div>
+                    </article>
+                    <article aria-hidden="true" class="w-56 md:w-64 shrink-0">
+                        <div class="aspect-[4/5] overflow-hidden border border-swiss-black/10">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="" loading="lazy" class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="pt-4 flex items-baseline gap-3"><span class="text-3xl font-black tracking-tighter">12</span><span class="text-sm font-medium tracking-tight">Kontor Nord</span></div>
+                        <div class="pt-2 flex items-center gap-2 text-[11px] font-mono text-gray-500"><span>2020</span><span class="w-1 h-1 rounded-full bg-swiss-red"></span><span>OFFICE · SG</span></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Method (05) — sticky-photo + scrolling text (NOVEL #8) -->
+        <section id="method" class="border-b border-swiss-black/10">
+            <!-- Header Row -->
+            <div class="grid grid-cols-12 border-b border-swiss-black/10">
+                <div class="col-span-12 md:col-span-2 p-4 md:p-6 border-r border-swiss-black/10">
+                    <span class="font-mono text-xs text-swiss-red">05 / METHOD</span>
+                </div>
+                <div class="col-span-12 md:col-span-10 p-4 md:p-6">
+                    <h2 class="text-xl md:text-3xl font-medium tracking-tight">Process — five movements from site to reception</h2>
+                </div>
+            </div>
+
+            <!-- Sticky photo + scrolling text grid -->
+            <div class="grid grid-cols-12">
+                <!-- Left: sticky photo (cols 1-6) -->
+                <div class="col-span-12 md:col-span-6 md:border-r border-swiss-black/10 relative">
+                    <div class="md:sticky md:top-20 md:self-start">
+                        <div class="aspect-[4/5] md:aspect-auto md:h-[calc(100vh-5rem)] overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=85&auto=format&fit=crop"
+                                 alt="Architectural facade detail"
+                                 loading="lazy"
+                                 class="w-full h-full object-cover grayscale">
+                        </div>
+                        <div class="hidden md:flex items-center justify-between p-6 border-t border-swiss-black/10">
+                            <span class="text-[11px] font-mono uppercase tracking-widest text-gray-500">Plate · I — Stadtbibliothek, BE</span>
+                            <span class="text-[11px] font-mono uppercase tracking-widest text-gray-500">1:50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 5 steps (cols 7-12) -->
+                <div class="col-span-12 md:col-span-6">
+                    <!-- Step 01 -->
+                    <article class="grid grid-cols-12 border-b border-swiss-black/10">
+                        <div class="col-span-12 md:col-span-3 p-6 md:p-8 md:border-r border-swiss-black/10">
+                            <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-500 mb-2">Movement</span>
+                            <span class="text-2xl font-bold tracking-tighter">01</span>
+                        </div>
+                        <div class="col-span-12 md:col-span-9 p-6 md:p-8 border-t md:border-t-0 border-swiss-black/10">
+                            <h3 class="text-xl md:text-2xl font-semibold tracking-tight uppercase mb-4">Site reading</h3>
+                            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                                Before any line is drawn we walk the site at three different hours of the day. We measure the angles of incoming light, the prevailing wind, the acoustic footprint of neighbouring buildings, and the manner in which the surrounding street grid concedes to topography. This phase is documented exhaustively in a single bound volume of photographs, hand drawings, weather logs, and verbatim conversations with the eventual user. No design language is committed at this stage. The reading must precede the writing, or the building will simply repeat what was already there.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Step 02 -->
+                    <article class="grid grid-cols-12 border-b border-swiss-black/10">
+                        <div class="col-span-12 md:col-span-3 p-6 md:p-8 md:border-r border-swiss-black/10">
+                            <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-500 mb-2">Movement</span>
+                            <span class="text-2xl font-bold tracking-tighter">02</span>
+                        </div>
+                        <div class="col-span-12 md:col-span-9 p-6 md:p-8 border-t md:border-t-0 border-swiss-black/10">
+                            <h3 class="text-xl md:text-2xl font-semibold tracking-tight uppercase mb-4">Programmatic brief</h3>
+                            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                                From the site reading we draft a programmatic brief in plain prose, never in adjectives. Square metres, sequence of rooms, daily rhythm of the occupants, ratio of public to private hours, plumbing routes, and the maximum distance any inhabitant should ever walk from kitchen to threshold. The brief is reviewed by the client across two long sessions and revised until both parties can recite it from memory. A brief that needs marketing language to defend itself is a brief that has not yet been written. Clarity here erases ninety percent of the later disputes.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Step 03 -->
+                    <article class="grid grid-cols-12 border-b border-swiss-black/10">
+                        <div class="col-span-12 md:col-span-3 p-6 md:p-8 md:border-r border-swiss-black/10">
+                            <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-500 mb-2">Movement</span>
+                            <span class="text-2xl font-bold tracking-tighter">03</span>
+                        </div>
+                        <div class="col-span-12 md:col-span-9 p-6 md:p-8 border-t md:border-t-0 border-swiss-black/10">
+                            <h3 class="text-xl md:text-2xl font-semibold tracking-tight uppercase mb-4">Scheme</h3>
+                            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                                The scheme phase produces three competing parti diagrams, each fitted to the brief without ornament. We prototype them at one-to-two-hundred in basswood and at one-to-fifty in chipboard, and we live with the models for a fortnight. The scheme that survives is rarely the most beautiful at first sight — it is the one whose plan and section can be drawn from memory after a week. From this scheme we generate the structural grid, the envelope, and the principal openings. Materials are not yet specified; only proportion, mass, and circulation.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Step 04 -->
+                    <article class="grid grid-cols-12 border-b border-swiss-black/10">
+                        <div class="col-span-12 md:col-span-3 p-6 md:p-8 md:border-r border-swiss-black/10">
+                            <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-500 mb-2">Movement</span>
+                            <span class="text-2xl font-bold tracking-tighter">04</span>
+                        </div>
+                        <div class="col-span-12 md:col-span-9 p-6 md:p-8 border-t md:border-t-0 border-swiss-black/10">
+                            <h3 class="text-xl md:text-2xl font-semibold tracking-tight uppercase mb-4">Construction</h3>
+                            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                                Construction documentation runs to roughly four hundred sheets for a residential commission and twice that for a public building. Every detail is drawn at one-to-five, every junction is annotated, every fastener is named. We sit on site three days a week through the entire build, in steel-toed boots, and we revise the drawings in pencil when the conditions of the soil, the supplier, or the season require it. A drawing is a hypothesis; the building tests it. Our role is to listen to the test and to remain present until the last bolt is torqued.
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Step 05 -->
+                    <article class="grid grid-cols-12">
+                        <div class="col-span-12 md:col-span-3 p-6 md:p-8 md:border-r border-swiss-black/10">
+                            <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-500 mb-2">Movement</span>
+                            <span class="text-2xl font-bold tracking-tighter">05</span>
+                        </div>
+                        <div class="col-span-12 md:col-span-9 p-6 md:p-8 border-t md:border-t-0 border-swiss-black/10">
+                            <h3 class="text-xl md:text-2xl font-semibold tracking-tight uppercase mb-4">Reception</h3>
+                            <p class="text-sm md:text-base leading-relaxed text-gray-700">
+                                After handover we return to the building four times in the first year — once at each season — to measure how the occupants have arranged it, what has worn, what has been repainted, and which corners have been quietly amended by use. These visits inform the next commission far more than any award jury ever will. A building is finished only when the people who live in it stop noticing it, when its presence has dissolved into routine. We document this dissolution with the same care we gave the first site reading. The cycle then repeats.
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Doctrine (06) — 4-column manifesto principles, no image -->
+        <section id="doctrine" class="bg-swiss-gray border-b border-swiss-black/10">
+            <!-- Header Row -->
+            <div class="grid grid-cols-12 border-b border-swiss-black/40">
+                <div class="col-span-12 md:col-span-2 p-4 md:p-6 border-r border-swiss-black/40">
+                    <span class="font-mono text-xs text-swiss-red">06 / DOCTRINE</span>
+                </div>
+                <div class="col-span-12 md:col-span-10 p-4 md:p-6">
+                    <h2 class="text-xl md:text-3xl font-medium tracking-tight">Four principles that govern the studio</h2>
+                </div>
+            </div>
+
+            <!-- 4-column doctrine band -->
+            <div class="grid grid-cols-1 md:grid-cols-4">
+                <!-- Principle I -->
+                <article class="p-8 md:p-10 border-b md:border-b-0 md:border-r border-swiss-black/40 flex flex-col">
+                    <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-600 mb-6">Principle</span>
+                    <span class="text-7xl md:text-8xl font-black tracking-tighter leading-none mb-8">I</span>
+                    <h3 class="text-base md:text-lg font-bold uppercase tracking-tight mb-4 leading-tight">
+                        Form follows function<br>
+                        <span class="text-gray-700 font-medium normal-case">No idea is exempt</span>
+                    </h3>
+                    <p class="text-sm leading-relaxed text-gray-700">
+                        The phrase is older than the studio that coined it, but the obligation it places on the practitioner has not aged a day. Every massing, every fenestration, every acoustic decision, every routing of a service must be traceable to a function the building has agreed to perform. Aesthetic preference is not exempt; nostalgia is not exempt; the silhouette of the previous commission is not exempt. We hold every gesture against the brief and we cut what cannot defend itself. The result is rarely surprising and almost never decorative, but it is always honest about what it is.
+                    </p>
+                </article>
+
+                <!-- Principle II — the SOLE swiss-red use in this section -->
+                <article class="p-8 md:p-10 border-b md:border-b-0 md:border-r border-swiss-black/40 flex flex-col">
+                    <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-600 mb-6">Principle</span>
+                    <span class="text-7xl md:text-8xl font-black tracking-tighter leading-none mb-8 text-swiss-red">II</span>
+                    <h3 class="text-base md:text-lg font-bold uppercase tracking-tight mb-4 leading-tight">
+                        The grid is moral<br>
+                        <span class="text-gray-700 font-medium normal-case">Discipline reveals truth</span>
+                    </h3>
+                    <p class="text-sm leading-relaxed text-gray-700">
+                        A grid is not a stylistic choice. It is a contract between the architect, the builder, the client, and the eventual occupant that promises every dimension on the page can be located, measured, and reasoned about by anyone holding the drawing. Departures from the grid are permitted only when the program demands them and only after the departure has been argued in writing. The discipline appears austere from outside the studio, but inside it produces a continuous accumulation of clarity. The grid does not constrain creativity; it removes the noise against which creativity has to be heard.
+                    </p>
+                </article>
+
+                <!-- Principle III -->
+                <article class="p-8 md:p-10 border-b md:border-b-0 md:border-r border-swiss-black/40 flex flex-col">
+                    <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-600 mb-6">Principle</span>
+                    <span class="text-7xl md:text-8xl font-black tracking-tighter leading-none mb-8">III</span>
+                    <h3 class="text-base md:text-lg font-bold uppercase tracking-tight mb-4 leading-tight">
+                        Quiet is loud<br>
+                        <span class="text-gray-700 font-medium normal-case">Restraint is its own language</span>
+                    </h3>
+                    <p class="text-sm leading-relaxed text-gray-700">
+                        A building that whispers is heard for longer than a building that shouts. We avoid the heroic gesture, the cantilever performed for its own photograph, the material chosen for its press release rather than its weather. The decisions that read as restraint from across the street are usually the decisions that took the longest in the studio: which window to omit, which corner to soften by one millimetre, which threshold to drop by half a step. Restraint is a craft and a vocabulary, not an absence. It is the language we have chosen to speak fluently.
+                    </p>
+                </article>
+
+                <!-- Principle IV -->
+                <article class="p-8 md:p-10 flex flex-col">
+                    <span class="block text-[11px] font-mono uppercase tracking-widest text-gray-600 mb-6">Principle</span>
+                    <span class="text-7xl md:text-8xl font-black tracking-tighter leading-none mb-8">IV</span>
+                    <h3 class="text-base md:text-lg font-bold uppercase tracking-tight mb-4 leading-tight">
+                        Detail is doctrine<br>
+                        <span class="text-gray-700 font-medium normal-case">1:5 and 1:5000 answer to the same logic</span>
+                    </h3>
+                    <p class="text-sm leading-relaxed text-gray-700">
+                        There is no scale at which the discipline relaxes. The masterplan and the door pull are governed by the same rules of proportion, of material honesty, of programmatic answerability. When a project drifts at the small scale, the large scale will drift later; when the large scale is allowed to swagger, the small scale will be punished by it. We draw at five different scales simultaneously through every phase of every project, and we expect any one drawing, in any one scale, to survive being judged against the others. Coherence is not garnish; it is structure.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Journal / News List -->
+        <section id="news" class="bg-swiss-bg">
+            <div class="grid grid-cols-12 border-b border-swiss-black/10">
+                <div class="col-span-12 md:col-span-2 p-4 md:p-6 border-r border-swiss-black/10">
+                    <span class="font-mono text-xs text-swiss-red">07 / JOURNAL</span>
+                </div>
+                <div class="col-span-12 md:col-span-10">
+                    <!-- News Item -->
+                    <div class="group grid grid-cols-1 md:grid-cols-12 border-b border-swiss-black/10 hover:bg-white transition-colors cursor-pointer">
+                        <div class="md:col-span-2 p-4 md:p-6 border-b md:border-b-0 md:border-r border-swiss-black/10">
+                            <span class="text-xs font-mono text-gray-500">22.10.2025</span>
+                        </div>
+                        <div class="md:col-span-8 p-4 md:p-6 border-b md:border-b-0 md:border-r border-swiss-black/10">
+                            <h4 class="text-xl font-bold uppercase mb-2 group-hover:text-swiss-red transition-colors">Architecture Prize 2025</h4>
+                            <p class="text-sm text-gray-600">MODUL awarded for the Zurich Kunsthaus extension proposal.</p>
+                        </div>
+                        <div class="md:col-span-2 p-4 md:p-6 flex items-center justify-end">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                    </div>
+
+                    <!-- News Item -->
+                    <div class="group grid grid-cols-1 md:grid-cols-12 border-b border-swiss-black/10 hover:bg-white transition-colors cursor-pointer">
+                        <div class="md:col-span-2 p-4 md:p-6 border-b md:border-b-0 md:border-r border-swiss-black/10">
+                            <span class="text-xs font-mono text-gray-500">14.09.2025</span>
+                        </div>
+                        <div class="md:col-span-8 p-4 md:p-6 border-b md:border-b-0 md:border-r border-swiss-black/10">
+                            <h4 class="text-xl font-bold uppercase mb-2 group-hover:text-swiss-red transition-colors">Lecture at ETH</h4>
+                            <p class="text-sm text-gray-600">Principal Meier discusses 'The Death of Ornament' at ETH Zurich.</p>
+                        </div>
+                        <div class="md:col-span-2 p-4 md:p-6 flex items-center justify-end">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                    </div>
+
+                    <!-- News Item -->
+                    <div class="group grid grid-cols-1 md:grid-cols-12 hover:bg-white transition-colors cursor-pointer">
+                        <div class="md:col-span-2 p-4 md:p-6 border-b md:border-b-0 md:border-r border-swiss-black/10">
+                            <span class="text-xs font-mono text-gray-500">01.08.2025</span>
+                        </div>
+                        <div class="md:col-span-8 p-4 md:p-6 border-b md:border-b-0 md:border-r border-swiss-black/10">
+                            <h4 class="text-xl font-bold uppercase mb-2 group-hover:text-swiss-red transition-colors">Monograph Release</h4>
+                            <p class="text-sm text-gray-600">Our first 5 years of practice documented in a new hardcover book.</p>
+                        </div>
+                        <div class="md:col-span-2 p-4 md:p-6 flex items-center justify-end">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-swiss-black text-swiss-bg pt-16 border-t border-swiss-black">
+        <div class="grid grid-cols-12 border-b border-swiss-bg/20 pb-16">
+            
+            <!-- Address -->
+            <div class="col-span-12 md:col-span-4 p-8 border-r border-swiss-bg/20">
+                <h5 class="text-xs font-mono uppercase text-gray-500 mb-8">Office</h5>
+                <address class="not-italic text-lg md:text-xl font-medium leading-tight">
+                    MODUL Architekten<br>
+                    Langstrasse 200<br>
+                    8005 Zürich<br>
+                    Switzerland
+                </address>
+            </div>
+
+            <!-- Contact -->
+            <div class="col-span-12 md:col-span-4 p-8 border-r border-swiss-bg/20">
+                <h5 class="text-xs font-mono uppercase text-gray-500 mb-8">Contact</h5>
+                <ul class="text-lg md:text-xl font-medium leading-tight space-y-2">
+                    <li><a href="mailto:hello@modul.ch" class="hover:text-swiss-red transition-colors">hello@modul.ch</a></li>
+                    <li><a href="tel:+41440000000" class="hover:text-swiss-red transition-colors">+41 44 000 00 00</a></li>
+                </ul>
+            </div>
+
+            <!-- Social / Links -->
+            <div class="col-span-12 md:col-span-4 p-8">
+                <h5 class="text-xs font-mono uppercase text-gray-500 mb-8">Connect</h5>
+                <ul class="text-lg md:text-xl font-medium leading-tight space-y-2">
+                    <li><a href="#" class="hover:text-swiss-red transition-colors">Instagram</a></li>
+                    <li><a href="#" class="hover:text-swiss-red transition-colors">LinkedIn</a></li>
+                    <li><a href="#" class="hover:text-swiss-red transition-colors">ArchDaily</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Big Footer Logo -->
+        <div class="px-4 md:px-8 pt-4 flex flex-col md:flex-row justify-between items-end pb-4">
+            <p class="text-xs font-mono text-gray-500 mb-4 md:mb-2">© 2025 MODUL Architekten. All rights reserved.</p>
+            <h2 class="text-[18vw] leading-[0.75] font-black tracking-tighter text-swiss-bg select-none -mb-[1vw]">MODUL</h2>
+        </div>
+    </footer>
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

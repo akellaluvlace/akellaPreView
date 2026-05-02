@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHROME_HEARTS | Liquid Future</title>
+    <meta name="description" content="Digital armor for the post-human era.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        syncopate: ['Syncopate', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        'metal-dark': '#050505',
+                        'metal-dim': '#1a1a1a',
+                        'metal-light': '#e0e0e0',
+                        'neon-blue': '#4cc9f0',
+                        'deep-blue': '#001233',
+                    },
+                    backgroundImage: {
+                        'chrome-gradient': 'linear-gradient(180deg, #ffffff 0%, #d4d4d4 40%, #4e4e4e 50%, #a8a8a8 51%, #ffffff 100%)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --chrome-text: linear-gradient(180deg, #fff 0%, #ccc 40%, #444 50%, #999 51%, #fff 100%);
+        }
+
+        body {
+            background-color: #020202;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border: 1px solid #555;
+        }
+
+        /* Chrome Text Effect */
+        .chrome-text {
+            background: var(--chrome-text);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-stroke: 0.5px rgba(255,255,255,0.1);
+            filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.2));
+        }
+
+        /* Liquid Animation */
+        @keyframes liquid-morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        /* Float Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .liquid-blob {
+            animation: liquid-morph 8s ease-in-out infinite;
+        }
+
+        .float-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Mercury Button */
+        .mercury-btn {
+            background: radial-gradient(circle at 30% 30%, #fff 5%, #ccc 20%, #666 50%, #222 90%);
+            box-shadow: 
+                inset 2px 2px 5px rgba(255,255,255,0.9),
+                inset -2px -2px 5px rgba(0,0,0,0.5),
+                5px 5px 15px rgba(0,0,0,0.5),
+                0 0 15px rgba(76, 201, 240, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .mercury-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                inset 2px 2px 5px rgba(255,255,255,1),
+                inset -2px -2px 5px rgba(0,0,0,0.5),
+                0 0 30px rgba(76, 201, 240, 0.6);
+        }
+
+        /* Grid Background */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        /* Glitch/Distortion Utility */
+        .distort {
+            transform: skewX(-15deg);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Mercury photo treatment — turn any image into chrome/mercury */
+        .mercury-photo {
+            filter: grayscale(1) contrast(1.35) brightness(0.92) saturate(0);
+            mix-blend-mode: luminosity;
+        }
+        .mercury-photo-soft {
+            filter: grayscale(1) contrast(1.15) brightness(1) saturate(0);
+        }
+
+        /* Doubled marquee for Cast & Forge */
+        .forge-track { display: flex; gap: 24px; width: max-content; }
+        @keyframes forge-left  { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+        @keyframes forge-right { 0% { transform: translateX(calc(-50% - 12px)); } 100% { transform: translateX(0); } }
+        .forge-left  { animation: forge-left 60s linear infinite; }
+        .forge-right { animation: forge-right 70s linear infinite; }
+        .forge-track:hover { animation-play-state: paused; }
+
+        /* Cycling image (Atelier) */
+        @keyframes atelier-fade {
+            0%, 4%   { opacity: 0; filter: blur(18px) saturate(0.6); transform: scale(1.05); }
+            8%, 22%  { opacity: 1; filter: blur(0) saturate(0.9);    transform: scale(1); }
+            26%, 100%{ opacity: 0; filter: blur(18px) saturate(0.6); transform: scale(1.05); }
+        }
+        .atelier-cycle-img {
+            animation: atelier-fade 16s linear infinite;
+            opacity: 0;
+            filter: blur(18px) saturate(0.6);
+            transform: scale(1.05);
+            will-change: opacity, filter, transform;
+        }
+        @keyframes atelier-scrub {
+            0%   { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+        .atelier-scrub {
+            animation: atelier-scrub 16s linear infinite;
+            transform-origin: left;
+            will-change: transform;
+        }
+
+        /* FAQ accordion */
+        .lm-faq summary::-webkit-details-marker { display: none; }
+        .lm-faq summary { list-style: none; cursor: pointer; }
+        .lm-faq summary .lm-chevron { transition: transform 250ms ease; }
+        .lm-faq[open] summary .lm-chevron { transform: rotate(180deg); }
+
+        /* Studies — slanted chrome cards */
+        .study-tilt-l { transform: rotate(-2deg); }
+        .study-tilt-r { transform: rotate(2deg); }
+        .study-frame {
+            box-shadow:
+                0 18px 40px -10px rgba(0,0,0,0.7),
+                0 0 0 1px rgba(255,255,255,0.08),
+                12px 12px 0 0 rgba(76,201,240,0.12);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .liquid-blob, .float-element, .forge-left, .forge-right,
+            .atelier-cycle-img, .atelier-scrub { animation: none; }
+            .atelier-cycle-img:first-child { opacity: 1; filter: none; transform: none; }
+            .lm-faq summary .lm-chevron { transition: none; }
+            .study-tilt-l, .study-tilt-r { transform: none; }
+        }
+    </style>
+</head>
+<body class="font-orbitron">
+
+    <!-- Ambient Lighting -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div class="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] bg-blue-900/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-gray-800/20 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-5 border-b border-white/10 bg-black/50 backdrop-blur-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="font-syncopate font-bold text-lg md:text-xl tracking-tighter text-white relative z-50 group">
+                CHROME<span class="text-gray-500 group-hover:text-neon-blue transition-colors">_</span>HEARTS
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-12 font-bold tracking-widest text-[10px] lg:text-xs">
+                <a href="#collection" class="text-gray-400 hover:text-white hover:chrome-text transition-all uppercase">The_Drop</a>
+                <a href="#manifesto" class="text-gray-400 hover:text-white hover:chrome-text transition-all uppercase">Manifesto</a>
+                <a href="#specs" class="text-gray-400 hover:text-white hover:chrome-text transition-all uppercase">Specs</a>
+            </div>
+
+            <div class="flex items-center gap-6 relative z-50">
+                <span class="hidden md:block text-xs text-neon-blue animate-pulse">SYSTEM_ONLINE</span>
+                
+                <!-- Burger Icon -->
+                <button id="menu-btn" class="w-10 h-10 border border-white/20 rounded-full flex flex-col items-center justify-center gap-1.5 hover:bg-white/10 transition-colors md:hidden">
+                    <span class="w-5 h-[2px] bg-white transition-transform origin-center"></span>
+                    <span class="w-5 h-[2px] bg-white transition-transform origin-center"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-40 transform translate-x-full flex flex-col justify-center px-8">
+        <div class="flex flex-col space-y-8 font-syncopate text-3xl font-bold">
+            <a href="#collection" class="mobile-link text-transparent stroke-white" style="-webkit-text-stroke: 1px white;">01. COLLECTION</a>
+            <a href="#manifesto" class="mobile-link text-transparent stroke-white" style="-webkit-text-stroke: 1px white;">02. MANIFESTO</a>
+            <a href="#specs" class="mobile-link text-transparent stroke-white" style="-webkit-text-stroke: 1px white;">03. SPECS</a>
+            <a href="#" class="mobile-link text-neon-blue">04. CART (0)</a>
+        </div>
+        <div class="absolute bottom-10 left-8 text-xs text-gray-500 font-orbitron tracking-widest">
+            TOKYO / PARIS / METAVERSE
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col items-center justify-center pt-20 px-4 overflow-hidden">
+        
+        <!-- Background Grid -->
+        <div class="absolute inset-0 grid-bg opacity-50"></div>
+
+        <!-- Huge Back Text -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none">
+            <h1 class="font-syncopate text-[20vw] leading-none font-bold text-white/[0.03]">LIQUID</h1>
+        </div>
+
+        <!-- The Orb (CSS generated) -->
+        <div class="relative w-64 h-64 md:w-96 md:h-96 liquid-blob mb-12 flex items-center justify-center float-element transition-all duration-700">
+            <!-- Core -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,#fff,#a0a0a0_20%,#111_70%,#000_100%)] liquid-blob shadow-[0_0_60px_rgba(76,201,240,0.2)]"></div>
+            <!-- Highlight -->
+            <div class="absolute top-10 left-10 w-20 h-10 bg-white/40 blur-lg rounded-full transform -rotate-45"></div>
+            <!-- Orbit Ring -->
+            <div class="absolute inset-[-20px] border border-white/20 rounded-full animate-spin-slow" style="border-radius: 40% 60% 70% 30% / 50% 30% 60% 50%"></div>
+        </div>
+
+        <div class="relative z-10 text-center flex flex-col items-center gap-4">
+            <h2 class="font-syncopate font-bold text-4xl md:text-7xl lg:text-8xl uppercase chrome-text tracking-wide leading-tight">
+                Chrome<br>_Hearts
+            </h2>
+            
+            <p class="font-orbitron text-xs md:text-sm text-gray-400 tracking-[0.4em] uppercase max-w-xs md:max-w-md mx-auto mt-4">
+                Forged in the void. Polished by code.
+            </p>
+
+            <div class="mt-10 flex flex-col md:flex-row gap-6">
+                <a href="#collection" class="mercury-btn rounded-full px-10 py-4 text-black font-syncopate font-bold text-xs tracking-widest inline-flex items-center justify-center group">
+                    <span class="mr-2">Explore_V1</span>
+                    <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+            <span class="text-[10px] tracking-widest">SCROLL</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- Manifesto Section -->
+    <section id="manifesto" class="py-24 md:py-32 bg-metal-dark border-t border-white/10 relative overflow-hidden">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <!-- Typography Art -->
+            <div class="relative">
+                <h3 class="font-syncopate font-black text-6xl md:text-8xl leading-[0.8] text-transparent stroke-white" style="-webkit-text-stroke: 1px rgba(255,255,255,0.3);">
+                    HEAVY<br>METAL<br>SOFT<br>WARE
+                </h3>
+                <div class="absolute -z-10 top-0 right-0 w-48 h-48 bg-neon-blue/20 rounded-full blur-[80px]"></div>
+            </div>
+
+            <!-- Text Content -->
+            <div class="space-y-8">
+                <div class="border-l-2 border-neon-blue pl-6">
+                    <p class="font-orbitron text-sm md:text-base leading-relaxed text-gray-300 tracking-wide text-justify">
+                        We are not a clothing brand. We are a skin update. Inspired by the fluidity of mercury and the permanence of chrome, our artifacts are designed for the citizens of the simulation. 
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/5 p-4 border border-white/10 backdrop-blur-sm">
+                        <span class="block text-2xl font-bold font-syncopate text-white mb-1">99%</span>
+                        <span class="text-[10px] text-gray-400 tracking-widest">PURE DIGITAL</span>
+                    </div>
+                    <div class="bg-white/5 p-4 border border-white/10 backdrop-blur-sm">
+                        <span class="block text-2xl font-bold font-syncopate text-white mb-1">.925</span>
+                        <span class="text-[10px] text-gray-400 tracking-widest">STERLING SILVER</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Studies in Reflection — alternating image+content rows -->
+    <section id="studies" class="py-24 md:py-32 bg-black border-t border-white/10 relative overflow-hidden">
+        <!-- Ambient halos -->
+        <div class="absolute -top-20 left-1/3 w-[40vw] h-[40vw] bg-neon-blue/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-gray-700/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative">
+            <!-- Section header -->
+            <div class="flex items-center gap-4 mb-16">
+                <span class="text-[10px] uppercase tracking-[0.4em] text-neon-blue whitespace-nowrap">— II · Studies</span>
+                <div class="flex-1 h-px bg-white/15"></div>
+                <span class="text-[10px] uppercase tracking-[0.4em] text-gray-500 whitespace-nowrap">PLATES I — III</span>
+            </div>
+            <h2 class="font-syncopate text-3xl md:text-5xl lg:text-6xl font-bold chrome-text uppercase mb-20 max-w-3xl leading-[0.95]">
+                Studies in<br>Reflection
+            </h2>
+
+            <div class="space-y-24 md:space-y-32">
+
+                <!-- Row 1 — image left, content right -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <figure class="md:col-span-7 study-tilt-l study-frame relative bg-metal-dim overflow-hidden">
+                        <div class="aspect-[4/3] relative">
+                            <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop" alt="Foundry interior, molten flow"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
+                            <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                                <p class="font-syncopate text-white text-[10px] uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">01 — The Pour</p>
+                                <span class="font-orbitron text-white/70 text-[10px] uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">PLATE · I</span>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5 space-y-6">
+                        <span class="font-orbitron text-[10px] tracking-[0.4em] text-neon-blue uppercase">Serial // CH—001 / Reflective</span>
+                        <h3 class="font-syncopate font-bold text-2xl md:text-3xl text-white leading-tight">A Surface That<br>Remembers Light.</h3>
+                        <p class="font-orbitron text-sm leading-relaxed text-gray-400 text-justify">
+                            Each piece is poured at 1064°C and cooled in a vacuum chamber. The final mirror polish is achieved by hand over forty-eight hours — long enough to recall every photon that has ever touched its skin.
+                        </p>
+                        <div class="flex items-center gap-4 pt-2 border-t border-white/10">
+                            <span class="font-syncopate text-xs text-white">— ATELIER 07</span>
+                            <span class="font-orbitron text-[10px] tracking-widest text-gray-500 ml-auto">EDITION OF 200</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 — image right, content left (reversed) -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <div class="md:col-span-5 md:order-1 space-y-6">
+                        <span class="font-orbitron text-[10px] tracking-[0.4em] text-neon-blue uppercase">Serial // CH—002 / Permanence</span>
+                        <h3 class="font-syncopate font-bold text-2xl md:text-3xl text-white leading-tight">Forged for<br>The Long Quiet.</h3>
+                        <p class="font-orbitron text-sm leading-relaxed text-gray-400 text-justify">
+                            Our oxidation kiln pulls black tones out of the alloy without resorting to plating. The result is structural — the colour is the metal, not a coating, and it deepens by the decade.
+                        </p>
+                        <div class="flex items-center gap-4 pt-2 border-t border-white/10">
+                            <span class="font-syncopate text-xs text-white">— FORGE 02</span>
+                            <span class="font-orbitron text-[10px] tracking-widest text-gray-500 ml-auto">.925 · OXIDIZED</span>
+                        </div>
+                    </div>
+                    <figure class="md:col-span-7 md:order-2 study-tilt-r study-frame relative bg-metal-dim overflow-hidden">
+                        <div class="aspect-[4/3] relative">
+                            <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=85&auto=format&fit=crop" alt="Circuit-board macro, polished metal"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
+                            <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                                <p class="font-syncopate text-white text-[10px] uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">02 — Circuitry</p>
+                                <span class="font-orbitron text-white/70 text-[10px] uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">PLATE · II</span>
+                            </div>
+                        </div>
+                    </figure>
+                </div>
+
+                <!-- Row 3 — image left, content right -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <figure class="md:col-span-7 study-tilt-l study-frame relative bg-metal-dim overflow-hidden">
+                        <div class="aspect-[4/3] relative">
+                            <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop" alt="Brutalist concrete architecture"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
+                            <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                                <p class="font-syncopate text-white text-[10px] uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">03 — The Vault</p>
+                                <span class="font-orbitron text-white/70 text-[10px] uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">PLATE · III</span>
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5 space-y-6">
+                        <span class="font-orbitron text-[10px] tracking-[0.4em] text-neon-blue uppercase">Serial // CH—003 / Architecture</span>
+                        <h3 class="font-syncopate font-bold text-2xl md:text-3xl text-white leading-tight">Geometry as<br>Inheritance.</h3>
+                        <p class="font-orbitron text-sm leading-relaxed text-gray-400 text-justify">
+                            We treat each silhouette as an architectural problem. The volumes are subtractive — what remains is what survives the foundry, the file, and the wearer. Heirloom by deletion.
+                        </p>
+                        <div class="flex items-center gap-4 pt-2 border-t border-white/10">
+                            <span class="font-syncopate text-xs text-white">— STUDIO C</span>
+                            <span class="font-orbitron text-[10px] tracking-widest text-gray-500 ml-auto">SECTOR 7 / TOKYO</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection (The Drop) -->
+    <section id="collection" class="py-24 bg-black relative">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <h2 class="font-syncopate text-3xl md:text-5xl font-bold chrome-text">LATEST_DROP</h2>
+                <span class="hidden md:block font-orbitron text-xs text-neon-blue animate-pulse">LIVE STATUS: AVAILABLE</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Product 1 -->
+                <div class="group relative h-[500px] border border-white/10 bg-[#080808] overflow-hidden flex flex-col">
+                    <!-- Image Placeholder (CSS Art) -->
+                    <div class="h-3/4 w-full relative flex items-center justify-center bg-gradient-to-b from-gray-900 to-black overflow-hidden">
+                        <div class="absolute inset-0 grid-bg opacity-20"></div>
+                        <!-- The Ring Shape -->
+                        <div class="w-32 h-32 rounded-full border-[12px] border-[#d1d5db] shadow-[0_0_20px_rgba(255,255,255,0.4),inset_0_0_10px_rgba(0,0,0,0.8)] group-hover:scale-110 group-hover:rotate-12 transition-all duration-500 relative z-10 bg-gradient-to-tr from-gray-300 via-white to-gray-500">
+                            <div class="absolute inset-0 rounded-full border-[2px] border-black/20"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Details -->
+                    <div class="h-1/4 p-6 border-t border-white/10 flex flex-col justify-between bg-neutral-900 relative z-20">
+                        <div>
+                            <h3 class="font-syncopate font-bold text-white text-lg">CYBER_RING</h3>
+                            <p class="text-[10px] tracking-widest text-gray-500 mt-1">SIZE: ADAPTIVE</p>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="font-orbitron text-neon-blue text-sm">€350.00</span>
+                            <button class="text-[10px] uppercase font-bold tracking-wider hover:text-white text-gray-400 transition-colors">Add to Cart +</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group relative h-[500px] border border-white/10 bg-[#080808] overflow-hidden flex flex-col">
+                    <div class="h-3/4 w-full relative flex items-center justify-center bg-gradient-to-b from-gray-900 to-black overflow-hidden">
+                        <div class="absolute inset-0 grid-bg opacity-20"></div>
+                        <!-- The Choker Shape -->
+                        <div class="w-48 h-24 rounded-[100%] border-b-[8px] border-[#a0a0a0] shadow-[0_10px_20px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform duration-500 relative z-10">
+                            <div class="absolute top-full left-1/2 -translate-x-1/2 w-4 h-12 bg-gradient-to-b from-gray-300 to-transparent clip-path-dagger"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="h-1/4 p-6 border-t border-white/10 flex flex-col justify-between bg-neutral-900 relative z-20">
+                        <div>
+                            <h3 class="font-syncopate font-bold text-white text-lg">LIQUID_CHOKER</h3>
+                            <p class="text-[10px] tracking-widest text-gray-500 mt-1">SOLID .925</p>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="font-orbitron text-neon-blue text-sm">€550.00</span>
+                            <button class="text-[10px] uppercase font-bold tracking-wider hover:text-white text-gray-400 transition-colors">Add to Cart +</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group relative h-[500px] border border-white/10 bg-[#080808] overflow-hidden flex flex-col">
+                    <div class="h-3/4 w-full relative flex items-center justify-center bg-gradient-to-b from-gray-900 to-black overflow-hidden">
+                        <div class="absolute inset-0 grid-bg opacity-20"></div>
+                        <!-- The Blob Shape -->
+                        <div class="w-40 h-40 bg-gradient-to-br from-white via-gray-400 to-gray-800 rounded-full liquid-blob group-hover:scale-110 transition-transform duration-500 relative z-10 mix-blend-normal shadow-[0_0_30px_rgba(255,255,255,0.2)]"></div>
+                    </div>
+                    
+                    <div class="h-1/4 p-6 border-t border-white/10 flex flex-col justify-between bg-neutral-900 relative z-20">
+                        <div>
+                            <h3 class="font-syncopate font-bold text-white text-lg">MERCURY_EAR</h3>
+                            <p class="text-[10px] tracking-widest text-gray-500 mt-1">PAIR / SINGLE</p>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="font-orbitron text-neon-blue text-sm">€220.00</span>
+                            <button class="text-[10px] uppercase font-bold tracking-wider hover:text-white text-gray-400 transition-colors">Add to Cart +</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cast & Forge — doubled image marquee -->
+    <section id="forge" class="py-20 md:py-28 bg-metal-dark border-t border-white/10 relative overflow-hidden">
+        <div class="absolute inset-0 grid-bg opacity-40 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10 mb-12 md:mb-16">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="text-[10px] uppercase tracking-[0.4em] text-neon-blue whitespace-nowrap">— III · Atelier</span>
+                <div class="flex-1 h-px bg-white/15"></div>
+                <span class="font-orbitron text-[10px] text-gray-500 tracking-widest animate-pulse hidden md:inline">FEED // LIVE</span>
+            </div>
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                <h2 class="font-syncopate text-3xl md:text-5xl font-bold chrome-text uppercase leading-[0.95] max-w-2xl">Cast &amp; Forge</h2>
+                <p class="font-orbitron text-xs md:text-sm text-gray-400 max-w-md md:text-right tracking-wide">
+                    Twelve thousand hours per quarter. Recorded between Sector 7 and the metavault. Hover to hold a frame.
+                </p>
+            </div>
+        </div>
+
+        <!-- Top row, drifts left -->
+        <div class="overflow-hidden py-3 relative z-10">
+            <div class="forge-track forge-left">
+                <!-- Set 1 -->
+                <figure class="shrink-0 w-72 aspect-[3/4] relative border border-white/10 bg-black overflow-hidden group">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Pour_07</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">1064°C</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-96 aspect-[16/10] relative border border-white/10 bg-black overflow-hidden group">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1100&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Trace_03</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">SECTOR_7</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 aspect-[3/4] relative border border-white/10 bg-black overflow-hidden group">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Apothecary_11</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">.925</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-96 aspect-[16/10] relative border border-white/10 bg-black overflow-hidden group">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1100&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Vault_02</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">METAVAULT</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-72 aspect-[3/4] relative border border-white/10 bg-black overflow-hidden group">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Facade_05</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">PARIS</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 aspect-[16/10] relative border border-white/10 bg-black overflow-hidden group">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Rack_19</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">UPLINK</span>
+                    </figcaption>
+                </figure>
+
+                <!-- Duplicate set for seamless loop -->
+                <figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative border border-white/10 bg-black overflow-hidden">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Pour_07</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">1064°C</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-96 aspect-[16/10] relative border border-white/10 bg-black overflow-hidden">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1100&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Trace_03</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">SECTOR_7</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 aspect-[3/4] relative border border-white/10 bg-black overflow-hidden">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Apothecary_11</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">.925</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-96 aspect-[16/10] relative border border-white/10 bg-black overflow-hidden">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1100&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Vault_02</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">METAVAULT</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative border border-white/10 bg-black overflow-hidden">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Facade_05</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">PARIS</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative border border-white/10 bg-black overflow-hidden">
+                    <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=85&auto=format&fit=crop" alt=""/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                        <span class="font-syncopate text-white text-[10px] uppercase tracking-widest">Rack_19</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">UPLINK</span>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <!-- Bottom row, drifts right (round avatar tiles) -->
+        <div class="overflow-hidden py-3 mt-6 relative z-10">
+            <div class="forge-track forge-right">
+                <!-- Set 1 -->
+                <div class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">M. Aoki</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">FORGE_LEAD</span>
+                    </div>
+                </div>
+                <div class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">L. Reyes</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">POLISH_CHIEF</span>
+                    </div>
+                </div>
+                <div class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">S. Vidal</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">METALLURGY</span>
+                    </div>
+                </div>
+                <div class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">K. Halloran</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">CASTING</span>
+                    </div>
+                </div>
+                <div class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">D. Park</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">CRYO_OPS</span>
+                    </div>
+                </div>
+                <div class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">E. Mori</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">QC // SECTOR_7</span>
+                    </div>
+                </div>
+
+                <!-- Duplicate -->
+                <div aria-hidden="true" class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">M. Aoki</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">FORGE_LEAD</span>
+                    </div>
+                </div>
+                <div aria-hidden="true" class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">L. Reyes</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">POLISH_CHIEF</span>
+                    </div>
+                </div>
+                <div aria-hidden="true" class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">S. Vidal</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">METALLURGY</span>
+                    </div>
+                </div>
+                <div aria-hidden="true" class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">K. Halloran</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">CASTING</span>
+                    </div>
+                </div>
+                <div aria-hidden="true" class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">D. Park</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">CRYO_OPS</span>
+                    </div>
+                </div>
+                <div aria-hidden="true" class="shrink-0 flex items-center gap-4 pl-1 pr-5 py-1 border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-full">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/15 shrink-0">
+                        <img class="w-full h-full object-cover mercury-photo-soft" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&q=85&auto=format&fit=crop" alt=""/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-syncopate text-white text-xs uppercase tracking-widest">E. Mori</span>
+                        <span class="font-orbitron text-neon-blue text-[10px] tracking-widest">QC // SECTOR_7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Divider -->
+    <div class="py-4 bg-white border-y-4 border-gray-300 overflow-hidden select-none">
+        <div class="flex animate-[marquee_15s_linear_infinite] whitespace-nowrap">
+            <span class="text-4xl font-syncopate font-black text-black mx-4">FUTURE_PROOF</span>
+            <span class="text-4xl font-syncopate font-black text-transparent stroke-black mx-4" style="-webkit-text-stroke: 1px black;">LIQUID_METAL</span>
+            <span class="text-4xl font-syncopate font-black text-black mx-4">CHROME_HEARTS</span>
+            <span class="text-4xl font-syncopate font-black text-transparent stroke-black mx-4" style="-webkit-text-stroke: 1px black;">SYSTEM_UPDATE</span>
+            <span class="text-4xl font-syncopate font-black text-black mx-4">FUTURE_PROOF</span>
+            <span class="text-4xl font-syncopate font-black text-transparent stroke-black mx-4" style="-webkit-text-stroke: 1px black;">LIQUID_METAL</span>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
+
+    <!-- Technical Specs -->
+    <section id="specs" class="py-24 bg-metal-dim relative">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="font-syncopate text-2xl md:text-3xl font-bold mb-12 text-center text-white">TECHNICAL_SPECIFICATIONS</h2>
+            
+            <div class="border border-white/20 bg-black/50 backdrop-blur-sm">
+                <!-- Row 1 -->
+                <div class="grid grid-cols-2 border-b border-white/20 group hover:bg-white/5 transition-colors">
+                    <div class="p-4 md:p-6 font-orbitron text-xs text-gray-400 border-r border-white/20 uppercase tracking-widest">Base Material</div>
+                    <div class="p-4 md:p-6 font-syncopate text-sm md:text-base text-white">Sterling Silver .925</div>
+                </div>
+                <!-- Row 2 -->
+                <div class="grid grid-cols-2 border-b border-white/20 group hover:bg-white/5 transition-colors">
+                    <div class="p-4 md:p-6 font-orbitron text-xs text-gray-400 border-r border-white/20 uppercase tracking-widest">Finish</div>
+                    <div class="p-4 md:p-6 font-syncopate text-sm md:text-base text-white">Mirror Polish / Oxidized</div>
+                </div>
+                <!-- Row 3 -->
+                <div class="grid grid-cols-2 border-b border-white/20 group hover:bg-white/5 transition-colors">
+                    <div class="p-4 md:p-6 font-orbitron text-xs text-gray-400 border-r border-white/20 uppercase tracking-widest">Origin</div>
+                    <div class="p-4 md:p-6 font-syncopate text-sm md:text-base text-white">Earth / Sector 7</div>
+                </div>
+                <!-- Row 4 -->
+                <div class="grid grid-cols-2 group hover:bg-white/5 transition-colors">
+                    <div class="p-4 md:p-6 font-orbitron text-xs text-gray-400 border-r border-white/20 uppercase tracking-widest">Warranty</div>
+                    <div class="p-4 md:p-6 font-syncopate text-sm md:text-base text-white">Lifetime Digital Support</div>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <p class="font-orbitron text-[10px] text-gray-500 tracking-[0.5em] animate-pulse">
+                    ENCRYPTION KEY: VALID
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Atelier — cycling image + sticky rail -->
+    <section id="atelier" class="py-24 md:py-32 bg-black border-t border-white/10 relative overflow-hidden">
+        <div class="absolute -top-24 right-1/4 w-[40vw] h-[40vw] bg-neon-blue/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="text-[10px] uppercase tracking-[0.4em] text-neon-blue whitespace-nowrap">— V · The Atelier</span>
+                <div class="flex-1 h-px bg-white/15"></div>
+                <span class="font-orbitron text-[10px] text-gray-500 tracking-widest">16s LOOP</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+
+                <!-- Sticky left rail -->
+                <div class="lg:col-span-5 lg:sticky lg:top-28 lg:self-start space-y-8">
+                    <h2 class="font-syncopate text-3xl md:text-5xl font-bold chrome-text uppercase leading-[0.95]">
+                        In Motion,<br>Held Still.
+                    </h2>
+                    <p class="font-orbitron text-sm md:text-base leading-relaxed text-gray-400 text-justify">
+                        Four windows into the atelier — pour, file, polish, vault. Each frame is real-time documentation, recorded between Tokyo and the metavault. Hover the strip below to lock onto a single window.
+                    </p>
+
+                    <!-- Process steps -->
+                    <ol class="space-y-4 pt-4 border-t border-white/10">
+                        <li class="flex items-baseline gap-4">
+                            <span class="font-orbitron text-[10px] tracking-widest text-neon-blue tabular-nums w-10">01</span>
+                            <span class="font-syncopate text-sm text-white uppercase">The Pour</span>
+                            <span class="ml-auto font-orbitron text-[10px] tracking-widest text-gray-500">1064°C</span>
+                        </li>
+                        <li class="flex items-baseline gap-4">
+                            <span class="font-orbitron text-[10px] tracking-widest text-neon-blue tabular-nums w-10">02</span>
+                            <span class="font-syncopate text-sm text-white uppercase">The File</span>
+                            <span class="ml-auto font-orbitron text-[10px] tracking-widest text-gray-500">48 HRS</span>
+                        </li>
+                        <li class="flex items-baseline gap-4">
+                            <span class="font-orbitron text-[10px] tracking-widest text-neon-blue tabular-nums w-10">03</span>
+                            <span class="font-syncopate text-sm text-white uppercase">The Polish</span>
+                            <span class="ml-auto font-orbitron text-[10px] tracking-widest text-gray-500">MIRROR</span>
+                        </li>
+                        <li class="flex items-baseline gap-4">
+                            <span class="font-orbitron text-[10px] tracking-widest text-neon-blue tabular-nums w-10">04</span>
+                            <span class="font-syncopate text-sm text-white uppercase">The Vault</span>
+                            <span class="ml-auto font-orbitron text-[10px] tracking-widest text-gray-500">METAVAULT</span>
+                        </li>
+                    </ol>
+
+                    <!-- Scrub bar -->
+                    <div class="pt-4">
+                        <div class="h-px w-full bg-white/10 relative overflow-hidden">
+                            <div class="atelier-scrub absolute inset-y-0 left-0 w-full bg-neon-blue"></div>
+                        </div>
+                        <p class="font-orbitron text-[10px] text-gray-500 tracking-[0.3em] mt-2">FEED // CONTINUOUS</p>
+                    </div>
+                </div>
+
+                <!-- Cycling-image stack -->
+                <div class="lg:col-span-7">
+                    <div class="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden border border-white/10 bg-metal-dim">
+                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover mercury-photo" style="animation-delay: 0s;"  src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop" alt="Atelier — pour"/>
+                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover mercury-photo" style="animation-delay: 4s;"  src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=85&auto=format&fit=crop" alt="Atelier — file"/>
+                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover mercury-photo" style="animation-delay: 8s;"  src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1400&q=85&auto=format&fit=crop" alt="Atelier — polish"/>
+                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover mercury-photo" style="animation-delay: 12s;" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop" alt="Atelier — vault"/>
+
+                        <!-- Edge gradient for legibility -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none"></div>
+
+                        <!-- Synced caption rail -->
+                        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex items-end justify-between gap-4">
+                            <div class="relative min-h-[44px] flex-1">
+                                <span class="atelier-cycle-img absolute inset-0 font-syncopate font-bold text-white text-lg md:text-xl uppercase tracking-wide" style="animation-delay: 0s;">01 — The Pour</span>
+                                <span class="atelier-cycle-img absolute inset-0 font-syncopate font-bold text-white text-lg md:text-xl uppercase tracking-wide" style="animation-delay: 4s;">02 — The File</span>
+                                <span class="atelier-cycle-img absolute inset-0 font-syncopate font-bold text-white text-lg md:text-xl uppercase tracking-wide" style="animation-delay: 8s;">03 — The Polish</span>
+                                <span class="atelier-cycle-img absolute inset-0 font-syncopate font-bold text-white text-lg md:text-xl uppercase tracking-wide" style="animation-delay: 12s;">04 — The Vault</span>
+                            </div>
+                            <span class="font-orbitron text-[10px] tracking-widest text-neon-blue shrink-0">REC // LIVE</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ — Witnessed -->
+    <section id="faq" class="py-24 md:py-32 bg-metal-dark border-t border-white/10 relative overflow-hidden">
+        <div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 max-w-4xl relative z-10">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="text-[10px] uppercase tracking-[0.4em] text-neon-blue whitespace-nowrap">— VI · Reception</span>
+                <div class="flex-1 h-px bg-white/15"></div>
+                <span class="font-orbitron text-[10px] text-gray-500 tracking-widest">06 ENTRIES</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
+
+                <!-- Witness portrait column -->
+                <div class="md:col-span-4 space-y-6">
+                    <figure class="relative border border-white/10 bg-black overflow-hidden">
+                        <div class="aspect-[3/4] relative">
+                            <img class="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop" alt="Witness portrait"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            <figcaption class="absolute bottom-4 left-4 right-4">
+                                <p class="font-syncopate text-white text-xs uppercase tracking-widest">— H. Vance</p>
+                                <p class="font-orbitron text-[10px] text-neon-blue tracking-widest mt-1">CRITIC, METAL_QUARTERLY</p>
+                            </figcaption>
+                        </div>
+                    </figure>
+                    <blockquote class="font-orbitron text-sm leading-relaxed text-gray-300 italic border-l-2 border-neon-blue pl-5">
+                        "Chrome_Hearts has rewritten what it means for a metal to feel cold. Wearing it is closer to wearing a thought than wearing an object."
+                    </blockquote>
+                </div>
+
+                <!-- Accordion column -->
+                <div class="md:col-span-8">
+                    <h2 class="font-syncopate text-3xl md:text-4xl font-bold chrome-text uppercase mb-8 leading-[0.95]">Frequently<br>Transmitted.</h2>
+
+                    <div class="border-t border-white/10">
+                        <details class="lm-faq group py-5 border-b border-white/10">
+                            <summary class="flex items-center justify-between gap-6">
+                                <h3 class="font-syncopate text-sm md:text-base text-white uppercase tracking-wide">Are pieces made by hand?</h3>
+                                <svg class="lm-chevron w-4 h-4 text-neon-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <p class="font-orbitron text-sm leading-relaxed text-gray-400 mt-4 pl-1">Every Chrome_Hearts artifact is poured, filed, and polished by a small atelier of six. The vacuum cooling and oxidation steps are computer-monitored; everything else is touch.</p>
+                        </details>
+
+                        <details class="lm-faq group py-5 border-b border-white/10">
+                            <summary class="flex items-center justify-between gap-6">
+                                <h3 class="font-syncopate text-sm md:text-base text-white uppercase tracking-wide">What is the .925 standard?</h3>
+                                <svg class="lm-chevron w-4 h-4 text-neon-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <p class="font-orbitron text-sm leading-relaxed text-gray-400 mt-4 pl-1">.925 indicates 92.5% pure silver alloyed with 7.5% copper for structural memory. Our oxidized finish is a chemical reaction with the copper, not a coating — it cannot wear off.</p>
+                        </details>
+
+                        <details class="lm-faq group py-5 border-b border-white/10">
+                            <summary class="flex items-center justify-between gap-6">
+                                <h3 class="font-syncopate text-sm md:text-base text-white uppercase tracking-wide">How do I care for liquid finishes?</h3>
+                                <svg class="lm-chevron w-4 h-4 text-neon-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <p class="font-orbitron text-sm leading-relaxed text-gray-400 mt-4 pl-1">Wipe with a dry microfiber after wear. Do not use chemical polishers — they remove the patina that gives oxidized pieces their depth. The mirror finish self-restores in three to five wears.</p>
+                        </details>
+
+                        <details class="lm-faq group py-5 border-b border-white/10">
+                            <summary class="flex items-center justify-between gap-6">
+                                <h3 class="font-syncopate text-sm md:text-base text-white uppercase tracking-wide">Is metavault delivery covered?</h3>
+                                <svg class="lm-chevron w-4 h-4 text-neon-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <p class="font-orbitron text-sm leading-relaxed text-gray-400 mt-4 pl-1">Every artifact ships with both a physical certificate (engraved alloy plate) and a metavault token. Token storage is included for the lifetime of the wearer's wallet.</p>
+                        </details>
+
+                        <details class="lm-faq group py-5 border-b border-white/10">
+                            <summary class="flex items-center justify-between gap-6">
+                                <h3 class="font-syncopate text-sm md:text-base text-white uppercase tracking-wide">Can pieces be resized?</h3>
+                                <svg class="lm-chevron w-4 h-4 text-neon-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <p class="font-orbitron text-sm leading-relaxed text-gray-400 mt-4 pl-1">Yes. Our adaptive pieces flex within a 1.5-size range without reworking. For permanent resizing, send to Atelier 07 — the work is free for original owners across the lifetime of the artifact.</p>
+                        </details>
+
+                        <details class="lm-faq group py-5">
+                            <summary class="flex items-center justify-between gap-6">
+                                <h3 class="font-syncopate text-sm md:text-base text-white uppercase tracking-wide">Where can I see them in person?</h3>
+                                <svg class="lm-chevron w-4 h-4 text-neon-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </summary>
+                            <p class="font-orbitron text-sm leading-relaxed text-gray-400 mt-4 pl-1">By appointment in Tokyo (Sector 7), Paris (4e), and the metavault. Address & coordinates are released to confirmed appointment holders 24 hours prior.</p>
+                        </details>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-24 bg-black border-t border-white/10 text-center">
+        <div class="container mx-auto px-6">
+            <h3 class="font-syncopate text-xl text-white mb-6">JOIN THE HIVE_MIND</h3>
+            <form class="max-w-md mx-auto flex flex-col md:flex-row gap-4">
+                <input type="email" placeholder="ENTER_EMAIL" class="flex-1 bg-transparent border border-white/30 p-4 text-white font-orbitron text-sm focus:border-neon-blue focus:outline-none transition-colors placeholder-gray-600">
+                <button type="submit" class="bg-white text-black font-syncopate font-bold px-8 py-4 text-sm hover:bg-neon-blue transition-colors">
+                    SUBMIT
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white pt-20 pb-8 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row justify-between items-end pb-12 border-b border-white/10">
+                
+                <!-- Huge Footer Logo -->
+                <div class="mb-12 lg:mb-0 w-full lg:w-auto">
+                    <h2 class="font-syncopate text-[15vw] lg:text-9xl font-bold text-neutral-900 distort leading-none select-none hover:text-neutral-800 transition-colors cursor-default">
+                        CHROME
+                    </h2>
+                    <h2 class="font-syncopate text-[15vw] lg:text-9xl font-bold text-neutral-900 distort leading-none lg:ml-24 select-none hover:text-neutral-800 transition-colors cursor-default">
+                        HEARTS
+                    </h2>
+                </div>
+                
+                <!-- Footer Links -->
+                <div class="flex flex-col md:flex-row gap-12 lg:gap-24 text-right w-full lg:w-auto justify-end">
+                    <div class="flex flex-col space-y-4">
+                        <h4 class="font-syncopate text-sm text-gray-500 mb-2">SOCIAL</h4>
+                        <a href="#" class="font-orbitron text-xs tracking-[0.2em] hover:text-neon-blue transition-colors">INSTAGRAM</a>
+                        <a href="#" class="font-orbitron text-xs tracking-[0.2em] hover:text-neon-blue transition-colors">TWITTER</a>
+                        <a href="#" class="font-orbitron text-xs tracking-[0.2em] hover:text-neon-blue transition-colors">DISCORD</a>
+                    </div>
+                    <div class="flex flex-col space-y-4">
+                        <h4 class="font-syncopate text-sm text-gray-500 mb-2">LEGAL</h4>
+                        <a href="#" class="font-orbitron text-xs tracking-[0.2em] hover:text-neon-blue transition-colors">TERMS</a>
+                        <a href="#" class="font-orbitron text-xs tracking-[0.2em] hover:text-neon-blue transition-colors">PRIVACY</a>
+                        <a href="#" class="font-orbitron text-xs tracking-[0.2em] hover:text-neon-blue transition-colors">RETURNS</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 font-orbitron tracking-widest">
+                <p>&copy; 2077 CHROME_HEARTS INC.</p>
+                <p class="mt-2 md:mt-0">DESIGNED IN THE VOID</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                // Animate burger to X
+                menuBtn.children[0].classList.add('rotate-45', 'translate-y-[4px]');
+                menuBtn.children[1].classList.add('-rotate-45', '-translate-y-[4px]');
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+                // Animate X to burger
+                menuBtn.children[0].classList.remove('rotate-45', 'translate-y-[4px]');
+                menuBtn.children[1].classList.remove('-rotate-45', '-translate-y-[4px]');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+    </script>
+</body>
+</html>

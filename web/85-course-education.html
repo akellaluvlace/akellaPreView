@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Ledger Bank | Banking built for the self-employed</title>
+  <meta name="description" content="Ledger Bank - Precision banking built for the self-employed. Manage your business finances with seamless tax integration and premium cards.">
+  <meta property="og:title" content="Ledger Bank | Banking built for the self-employed">
+  <meta property="og:description" content="Manage your business finances with precision. No hidden fees, seamless tax integration, and a premium card that matches your ambition.">
+  <meta property="og:type" content="website">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Inter+Display:wght@500;600&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary-fixed": "#00210c",
+            "surface": "#fbf8fb",
+            "outline-variant": "#c6c6ce",
+            "tertiary-fixed": "#d3e4fe",
+            "on-primary-fixed-variant": "#3c4662",
+            "on-tertiary-fixed-variant": "#38485d",
+            "on-surface-variant": "#45464d",
+            "surface-container-high": "#eae7ea",
+            "tertiary-container": "#0b1c30",
+            "surface-container": "#f0edf0",
+            "inverse-surface": "#303032",
+            "primary-container": "#101b34",
+            "tertiary": "#000000",
+            "on-error": "#ffffff",
+            "inverse-primary": "#bbc6e7",
+            "on-secondary": "#ffffff",
+            "secondary": "#006d36",
+            "on-primary": "#ffffff",
+            "surface-variant": "#e4e2e4",
+            "on-tertiary": "#ffffff",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed": "#0b1c30",
+            "on-surface": "#1b1b1d",
+            "secondary-container": "#6dfe9c",
+            "on-secondary-fixed-variant": "#005227",
+            "on-primary-container": "#7983a2",
+            "surface-container-lowest": "#ffffff",
+            "background": "#fbf8fb",
+            "secondary-fixed": "#6dfe9c",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#d9e2ff",
+            "surface-container-low": "#f5f3f5",
+            "surface-dim": "#dcd9dc",
+            "secondary-fixed-dim": "#4de082",
+            "surface-tint": "#535e7a",
+            "primary-fixed-dim": "#bbc6e7",
+            "tertiary-fixed-dim": "#b7c8e1",
+            "on-tertiary-container": "#75859d",
+            "surface-bright": "#fbf8fb",
+            "surface-container-highest": "#e4e2e4",
+            "on-primary-fixed": "#101b34",
+            "primary": "#000000",
+            "outline": "#76777e",
+            "on-secondary-container": "#007439",
+            "inverse-on-surface": "#f3f0f2",
+            "on-background": "#1b1b1d",
+            "error": "#ba1a1a"
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "stack-sm": "8px",
+            "stack-lg": "32px",
+            "stack-md": "16px",
+            "unit": "8px",
+            "gutter": "24px",
+            "margin": "32px",
+            "container-max": "1280px"
+          },
+          fontFamily: {
+            "headline-lg": ["Inter Display", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "display-lg": ["Inter Display", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "headline-md": ["Inter Display", "sans-serif"]
+          },
+          fontSize: {
+            "headline-lg": [
+              "clamp(2rem, 4vw + 0.5rem, 2.5rem)",
+              { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }
+            ],
+            "body-md": [
+              "1rem",
+              { "lineHeight": "1.5", "fontWeight": "400" }
+            ],
+            "display-lg": [
+              "clamp(2.5rem, 5vw + 1rem, 3.5rem)",
+              { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }
+            ],
+            "body-lg": [
+              "clamp(1rem, 1.5vw + 0.5rem, 1.125rem)",
+              { "lineHeight": "1.6", "fontWeight": "400" }
+            ],
+            "body-sm": [
+              "0.875rem",
+              { "lineHeight": "1.5", "fontWeight": "400" }
+            ],
+            "label-md": [
+              "clamp(0.75rem, 1vw + 0.5rem, 0.875rem)",
+              { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }
+            ],
+            "headline-md": [
+              "clamp(1.25rem, 2vw + 0.5rem, 1.5rem)",
+              { "lineHeight": "1.3", "fontWeight": "500" }
+            ]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+    ::selection {
+      background-color: #101b34;
+      color: #ffffff;
+    }
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+  
+  <!-- Navigation -->
+  <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md text-slate-900 dark:text-slate-50 font-sans text-sm font-medium tracking-tight fixed top-0 w-full z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors">
+    <nav aria-label="Main Navigation" class="flex justify-between items-center px-6 md:px-8 h-20 max-w-container-max mx-auto w-full">
+      <a href="#" class="text-xl font-bold tracking-tighter text-slate-900 dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded" aria-label="Ledger Bank Home">Ledger Bank</a>
+      <div class="hidden md:flex space-x-8">
+        <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded px-2 py-1 -mx-2" href="#features">Business banking</a>
+        <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded px-2 py-1 -mx-2" href="#features">Features</a>
+        <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded px-2 py-1 -mx-2" href="#pricing">Pricing</a>
+      </div>
+      <div class="flex items-center gap-4 md:gap-6">
+        <a class="hidden sm:inline-block text-slate-900 dark:text-white hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded px-2 py-1" href="#login">Log in</a>
+        <button type="button" class="bg-primary-container text-on-primary font-label-md px-5 py-2.5 md:px-6 md:py-3 rounded-full hover:bg-primary-container/90 active:scale-95 transition-all shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 whitespace-nowrap">Open account</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Canvas -->
+  <main class="flex-grow pt-[120px] pb-24 md:pb-32">
+    
+    <!-- Hero Section -->
+    <section class="max-w-container-max mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 md:mb-32">
+      <div class="space-y-stack-md pr-0 lg:pr-8 text-center lg:text-left">
+        <h1 class="font-display-lg text-display-lg text-primary-container text-balance">Banking built for the self-employed</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-[65ch] mx-auto lg:mx-0 text-pretty">
+          Manage your business finances with precision. No hidden fees, seamless tax integration, and a premium card that matches your ambition.
+        </p>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-4 pt-4">
+          <button type="button" class="bg-primary-container text-on-primary font-label-md px-8 py-4 rounded-full shadow-[0px_4px_20px_rgba(15,26,51,0.15)] hover:shadow-[0px_6px_24px_rgba(15,26,51,0.2)] hover:bg-primary-container/90 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2">Open an account</button>
+          <a class="text-on-surface-variant font-label-md px-8 py-4 border border-outline-variant rounded-full hover:bg-surface-container-low active:bg-surface-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 flex items-center justify-center" href="#features">Explore features</a>
+        </div>
+      </div>
+      <div class="relative w-full aspect-video bg-surface-container rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.06)] isolate">
+        <iframe
+          class="absolute inset-0 w-full h-full"
+          src="https://www.youtube-nocookie.com/embed/-EoNrg_DR3s"
+          title="YouTube video player"
+          loading="lazy"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+
+    <!-- Trust Band -->
+    <section class="border-y border-surface-variant bg-surface py-8 mb-24 md:mb-32">
+      <div class="max-w-container-max mx-auto px-6 md:px-8 flex flex-col sm:flex-row flex-wrap justify-center gap-6 sm:gap-16 items-center text-on-surface-variant font-body-sm opacity-80">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">account_balance</span>
+          <span>FDIC insured up to $250k</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">verified_user</span>
+          <span>SOC 2 Type II compliant</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">star</span>
+          <span>4.9 on Trustpilot</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Bento Grid -->
+    <section id="features" class="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32 scroll-mt-32">
+      <h2 class="font-headline-lg text-headline-lg text-primary-container mb-stack-lg text-center text-balance">Engineered for clarity</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+        
+        <!-- Tile 1 (Large) -->
+        <div class="md:col-span-2 bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-6 md:p-8 flex flex-col justify-between min-h-[300px] group transition-shadow hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)]">
+          <div class="space-y-stack-sm mb-8">
+            <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container mb-4">
+              <span class="material-symbols-outlined" aria-hidden="true">payments</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-primary-container">Instant Transfers</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-[65ch] text-pretty">Move money globally with zero latency. Your capital, available immediately whenever opportunity strikes.</p>
+          </div>
+          <div class="h-48 md:h-64 bg-surface-container-low rounded-xl border border-surface-variant relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&q=80&w=800" alt="Modern digital banking interface displayed on a smartphone screen" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 via-primary-container/20 to-transparent mix-blend-multiply pointer-events-none"></div>
+          </div>
+        </div>
+        
+        <!-- Tile 2 -->
+        <div class="bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-6 md:p-8 flex flex-col justify-start min-h-[300px] transition-shadow hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)]">
+          <div class="space-y-stack-sm">
+            <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container mb-4">
+              <span class="material-symbols-outlined" aria-hidden="true">credit_card</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-primary-container">Virtual Cards</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant text-pretty">Generate unlimited virtual cards for distinct vendor expenses with zero friction.</p>
+          </div>
+        </div>
+        
+        <!-- Tile 3 -->
+        <div class="bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-6 md:p-8 flex flex-col justify-start min-h-[300px] transition-shadow hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)]">
+          <div class="space-y-stack-sm">
+            <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container mb-4">
+              <span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-primary-container">Expense Tracking</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant text-pretty">Automated categorization with AI-powered receipt matching and logging.</p>
+          </div>
+        </div>
+        
+        <!-- Tile 4 (Large) -->
+        <div class="md:col-span-2 bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-6 md:p-8 flex flex-col justify-between min-h-[300px] group transition-shadow hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)]">
+          <div class="space-y-stack-sm mb-8">
+            <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container mb-4">
+              <span class="material-symbols-outlined" aria-hidden="true">account_balance_wallet</span>
+            </div>
+            <h3 class="font-headline-md text-headline-md text-primary-container">Tax Integration</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-[65ch] text-pretty">Seamlessly export to preferred accounting software or grant access to CPAs directly from your dashboard.</p>
+          </div>
+          <div class="h-48 md:h-64 bg-surface-container-low rounded-xl border border-surface-variant relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Financial charts, graphs and tax documents being analyzed on a desk" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 via-primary-container/20 to-transparent mix-blend-multiply pointer-events-none"></div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Built for the Ambitious — image strip -->
+    <section class="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+        <div>
+          <span class="font-label-md text-label-md uppercase tracking-widest text-secondary mb-3 inline-block">Field Notes · Vol. 04</span>
+          <h2 class="font-headline-lg text-headline-lg text-primary-container text-balance">Built for the way you work.</h2>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">From studio rentals to cross-border consultancies — Ledger keeps the books steady wherever you set up shop.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-12 gap-4">
+        <figure class="md:col-span-7 aspect-[4/3] md:aspect-auto md:h-full relative overflow-hidden rounded-2xl bg-surface-container group border border-surface-container">
+          <img alt="Concrete facade of a contemporary office building" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-container/85 via-primary-container/15 to-transparent"></div>
+          <figcaption class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
+            <div>
+              <span class="block font-label-md text-label-md uppercase text-secondary-fixed-dim">Field · 01</span>
+              <span class="block font-headline-md text-xl text-white mt-1">The studio · Berlin</span>
+            </div>
+            <span class="bg-secondary-fixed text-primary-container font-label-md uppercase tracking-wider px-3 py-1 rounded-full text-[10px]">Pro</span>
+          </figcaption>
+        </figure>
+        <figure class="md:col-span-5 aspect-[4/3] md:aspect-[3/4] relative overflow-hidden rounded-2xl bg-surface-container group border border-surface-container">
+          <img alt="Brutalist tower against open sky" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-container/85 via-primary-container/15 to-transparent"></div>
+          <figcaption class="absolute bottom-5 left-5 right-5">
+            <span class="block font-label-md text-label-md uppercase text-secondary-fixed-dim">Field · 02</span>
+            <span class="block font-headline-md text-xl text-white mt-1">The HQ · Singapore</span>
+          </figcaption>
+        </figure>
+        <figure class="md:col-span-4 aspect-square relative overflow-hidden rounded-2xl bg-surface-container group border border-surface-container">
+          <img alt="Brass apothecary objects on a deep desk" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-container/85 via-primary-container/15 to-transparent"></div>
+          <figcaption class="absolute bottom-5 left-5 right-5">
+            <span class="block font-label-md text-label-md uppercase text-secondary-fixed-dim">Field · 03</span>
+            <span class="block font-headline-md text-base text-white mt-1">The desk · Lisbon</span>
+          </figcaption>
+        </figure>
+        <figure class="md:col-span-4 aspect-square relative overflow-hidden rounded-2xl bg-surface-container group border border-surface-container">
+          <img alt="Stripped industrial interior with raw concrete" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=900&auto=format&fit=crop"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-container/85 via-primary-container/15 to-transparent"></div>
+          <figcaption class="absolute bottom-5 left-5 right-5">
+            <span class="block font-label-md text-label-md uppercase text-secondary-fixed-dim">Field · 04</span>
+            <span class="block font-headline-md text-base text-white mt-1">The atelier · Antwerp</span>
+          </figcaption>
+        </figure>
+        <figure class="md:col-span-4 aspect-square relative overflow-hidden rounded-2xl bg-surface-container group border border-surface-container">
+          <img alt="Architectural detail of columns and shadow" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-container/85 via-primary-container/15 to-transparent"></div>
+          <figcaption class="absolute bottom-5 left-5 right-5">
+            <span class="block font-label-md text-label-md uppercase text-secondary-fixed-dim">Field · 05</span>
+            <span class="block font-headline-md text-base text-white mt-1">The bureau · Zürich</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- The Card -->
+    <section class="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32">
+      <div class="bg-primary-container rounded-2xl overflow-hidden text-white relative">
+        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-secondary-fixed/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] h-32 bg-gradient-to-t from-primary/40 to-transparent pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center p-8 md:p-12 lg:p-16 relative">
+          <!-- Card visual (CSS-only mock, no remote image) -->
+          <div class="relative aspect-[1.586/1] w-full max-w-md mx-auto lg:mx-0 lg:max-w-none rounded-2xl border border-on-primary-fixed-variant overflow-hidden shadow-[0_30px_60px_-20px_rgba(0,0,0,0.45)] transform lg:rotate-[-2deg] hover:rotate-0 transition-transform duration-700"
+               style="background:
+                 radial-gradient(circle at 18% 20%, rgba(109,254,156,0.18), transparent 35%),
+                 radial-gradient(circle at 90% 90%, rgba(109,254,156,0.12), transparent 40%),
+                 linear-gradient(135deg, #16223d 0%, #101b34 60%, #060c1e 100%);">
+            <!-- card surface details -->
+            <div class="absolute inset-0 opacity-40 pointer-events-none" style="background-image: linear-gradient(115deg, transparent 60%, rgba(255,255,255,0.04) 60.5%, transparent 64%);"></div>
+            <div class="absolute top-6 left-6 right-6 flex justify-between items-start">
+              <span class="font-label-md text-label-md uppercase tracking-widest text-secondary-fixed">Ledger · Black</span>
+              <div class="w-10 h-7 rounded bg-gradient-to-br from-secondary-fixed via-secondary-fixed-dim to-secondary border border-white/20"></div>
+            </div>
+            <div class="absolute bottom-16 left-6 right-6 font-mono text-lg md:text-xl text-secondary-fixed tracking-[0.25em] tabular-nums">4929 · 0246 · 1183 · 0019</div>
+            <div class="absolute bottom-6 left-6 right-6 flex justify-between items-end font-label-md text-label-md uppercase tracking-widest text-white/80">
+              <div>
+                <p class="opacity-60 text-[10px]">Cardholder</p>
+                <p class="text-white">A. PARTNER</p>
+              </div>
+              <div class="text-right">
+                <p class="opacity-60 text-[10px]">Valid thru</p>
+                <p class="text-white tabular-nums">11 / 28</p>
+              </div>
+              <div class="text-right">
+                <p class="opacity-60 text-[10px]">Network</p>
+                <p class="text-white">Premium</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: copy + features -->
+          <div class="space-y-stack-md">
+            <span class="font-label-md text-label-md uppercase tracking-widest text-secondary-fixed">— The Card</span>
+            <h2 class="font-display-lg text-display-lg text-white text-balance">Black, glass, and earned.</h2>
+            <p class="font-body-md text-body-md text-primary-fixed-dim max-w-md">Solid metal, edge-lit phosphor green, and zero foreign-transaction fees. Issued only to Professional and Enterprise accounts in good standing for 90 days.</p>
+            <ul class="space-y-3 pt-4">
+              <li class="flex items-start gap-3 text-white"><span class="material-symbols-outlined text-secondary-fixed text-[20px] mt-0.5">bolt</span><span class="font-body-md text-body-md">2.4× rewards on cloud, software, and contractor payouts.</span></li>
+              <li class="flex items-start gap-3 text-white"><span class="material-symbols-outlined text-secondary-fixed text-[20px] mt-0.5">verified_user</span><span class="font-body-md text-body-md">Single-use virtual card numbers per vendor, generated in two taps.</span></li>
+              <li class="flex items-start gap-3 text-white"><span class="material-symbols-outlined text-secondary-fixed text-[20px] mt-0.5">flight_takeoff</span><span class="font-body-md text-body-md">Lounge access in 1,400+ airports, no waiver, no annual cap.</span></li>
+            </ul>
+            <button type="button" class="bg-secondary-fixed text-primary-container font-label-md px-8 py-4 rounded-full hover:brightness-110 active:scale-95 transition-all mt-4 inline-flex items-center gap-2 shadow-[0_8px_24px_rgba(109,254,156,0.25)]">
+              Request the card
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+            <p class="font-body-sm text-body-sm text-primary-fixed-dim/70">Subject to credit review. No annual fee on Professional · $250 on Enterprise.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Snapshots — testimonials -->
+    <section class="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div>
+          <span class="font-label-md text-label-md uppercase tracking-widest text-secondary mb-3 inline-block">— Customer Snapshots</span>
+          <h2 class="font-headline-lg text-headline-lg text-primary-container">Words from the operators.</h2>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">Verified Trustpilot reviews from self-employed account holders, lightly edited for length.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <figure class="bg-white rounded-2xl border border-surface-container shadow-[0px_4px_20px_rgba(15,26,51,0.04)] p-8 flex flex-col gap-6 hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)] transition-shadow">
+          <div class="flex gap-1 text-secondary-fixed-dim">
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+          </div>
+          <blockquote class="font-headline-md text-lg text-primary-container leading-snug">"Closed three businesses worth of books in an afternoon. The tax export to my CPA used to take a fortnight."</blockquote>
+          <figcaption class="mt-auto pt-6 border-t border-surface-container flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-primary-container text-secondary-fixed flex items-center justify-center font-headline-md font-semibold">RH</div>
+            <div>
+              <p class="font-body-md text-body-md text-primary-container font-medium leading-tight">Rina Hadid</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Architect · 3 entities</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="bg-primary-container rounded-2xl border border-on-primary-fixed-variant shadow-[0_30px_60px_-20px_rgba(15,26,51,0.4)] p-8 flex flex-col gap-6 md:-translate-y-3">
+          <div class="flex gap-1 text-secondary-fixed">
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+          </div>
+          <blockquote class="font-headline-md text-lg text-white leading-snug">"The card paid for itself in lounge access by month two. The instant transfers paid for it again by month three."</blockquote>
+          <figcaption class="mt-auto pt-6 border-t border-on-primary-fixed-variant flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-secondary-fixed text-primary-container flex items-center justify-center font-headline-md font-semibold">MO</div>
+            <div>
+              <p class="font-body-md text-body-md text-white font-medium leading-tight">Marcus Okonkwo</p>
+              <p class="font-body-sm text-body-sm text-primary-fixed-dim mt-0.5">Consultant · 22 countries</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="bg-white rounded-2xl border border-surface-container shadow-[0px_4px_20px_rgba(15,26,51,0.04)] p-8 flex flex-col gap-6 hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)] transition-shadow">
+          <div class="flex gap-1 text-secondary-fixed-dim">
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+            <span class="material-symbols-outlined text-[18px]">star</span>
+          </div>
+          <blockquote class="font-headline-md text-lg text-primary-container leading-snug">"My virtual cards are now named after my projects. Every Friday, I see exactly where the money went, no spreadsheet."</blockquote>
+          <figcaption class="mt-auto pt-6 border-t border-surface-container flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-primary-container text-secondary-fixed flex items-center justify-center font-headline-md font-semibold">EL</div>
+            <div>
+              <p class="font-body-md text-body-md text-primary-container font-medium leading-tight">Elena Lyapunov</p>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Indie filmmaker · Berlin</p>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Connected Stack — integrations -->
+    <section class="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div>
+          <span class="font-label-md text-label-md uppercase tracking-widest text-secondary mb-3 inline-block">— Connected Stack</span>
+          <h2 class="font-headline-lg text-headline-lg text-primary-container">Plays well with the tools you already use.</h2>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">Native two-way sync with the eight most-loved apps in the small-business stack. No webhook rigging, no Zapier glue.</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+        <a href="#" class="bg-white rounded-2xl border border-surface-container p-6 flex flex-col gap-3 hover:border-outline-variant hover:-translate-y-1 transition-all group">
+          <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined">receipt_long</span></div>
+          <p class="font-headline-md text-lg text-primary-container">QuickBooks</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">One-tap export of every transaction with VAT &amp; classification preserved.</p>
+        </a>
+        <a href="#" class="bg-white rounded-2xl border border-surface-container p-6 flex flex-col gap-3 hover:border-outline-variant hover:-translate-y-1 transition-all group">
+          <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined">payments</span></div>
+          <p class="font-headline-md text-lg text-primary-container">Stripe</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Pull payouts to Ledger the second they clear, with auto reconciliation.</p>
+        </a>
+        <a href="#" class="bg-white rounded-2xl border border-surface-container p-6 flex flex-col gap-3 hover:border-outline-variant hover:-translate-y-1 transition-all group">
+          <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined">contactless</span></div>
+          <p class="font-headline-md text-lg text-primary-container">Apple Pay</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Provision the Black card to your wallet in 30 seconds, contactless ready.</p>
+        </a>
+        <a href="#" class="bg-white rounded-2xl border border-surface-container p-6 flex flex-col gap-3 hover:border-outline-variant hover:-translate-y-1 transition-all group">
+          <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined">cloud_sync</span></div>
+          <p class="font-headline-md text-lg text-primary-container">Xero</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Daily ledger sync for cash-basis bookkeeping. Approval inbox, not a spreadsheet.</p>
+        </a>
+        <a href="#" class="bg-white rounded-2xl border border-surface-container p-6 flex flex-col gap-3 hover:border-outline-variant hover:-translate-y-1 transition-all group">
+          <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined">request_quote</span></div>
+          <p class="font-headline-md text-lg text-primary-container">FreshBooks</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Auto-attach receipts to invoices the moment a payment lands.</p>
+        </a>
+        <a href="#" class="bg-white rounded-2xl border border-surface-container p-6 flex flex-col gap-3 hover:border-outline-variant hover:-translate-y-1 transition-all group">
+          <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined">work</span></div>
+          <p class="font-headline-md text-lg text-primary-container">Bench</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Hand your year-end folder to your bookkeeper in a single shared link.</p>
+        </a>
+        <a href="#" class="bg-white rounded-2xl border border-surface-container p-6 flex flex-col gap-3 hover:border-outline-variant hover:-translate-y-1 transition-all group">
+          <div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined">smart_toy</span></div>
+          <p class="font-headline-md text-lg text-primary-container">Zapier</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">Trigger 6,000+ workflows from any Ledger event with a no-code builder.</p>
+        </a>
+        <a href="#" class="bg-primary-container rounded-2xl border border-on-primary-fixed-variant p-6 flex flex-col gap-3 hover:-translate-y-1 transition-transform group text-white">
+          <div class="w-12 h-12 bg-secondary-fixed/15 rounded-full flex items-center justify-center text-secondary-fixed"><span class="material-symbols-outlined">api</span></div>
+          <p class="font-headline-md text-lg text-white">Open API</p>
+          <p class="font-body-sm text-body-sm text-primary-fixed-dim">Roll your own integration. REST + webhooks, signed payloads, sandbox keys.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="max-w-container-max mx-auto px-6 md:px-8 mb-12 scroll-mt-32">
+      <h2 class="font-headline-lg text-headline-lg text-primary-container mb-stack-lg text-center text-balance">Transparent Economics</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-gutter items-stretch">
+        
+        <!-- Free Tier -->
+        <div class="bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-8 flex flex-col h-full hover:border-outline-variant transition-colors">
+          <h3 class="font-headline-md text-headline-md text-primary-container mb-2">Freelance</h3>
+          <div class="font-display-lg text-display-lg text-on-surface mb-8 tabular-nums tracking-tight">$0<span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/mo</span></div>
+          <ul class="space-y-4 mb-8 flex-grow" role="list">
+            <li class="flex items-center gap-3 text-on-surface-variant font-body-sm">
+              <span class="material-symbols-outlined text-[18px] text-secondary-fixed-dim" aria-hidden="true">check</span>
+              <span>1 Business Account</span>
+            </li>
+            <li class="flex items-center gap-3 text-on-surface-variant font-body-sm">
+              <span class="material-symbols-outlined text-[18px] text-secondary-fixed-dim" aria-hidden="true">check</span>
+              <span>Standard Transfers</span>
+            </li>
+          </ul>
+          <button type="button" class="w-full py-3 border border-outline-variant rounded-full text-primary-container font-label-md hover:bg-surface-container-low active:bg-surface-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 mt-auto">Start Free</button>
+        </div>
+        
+        <!-- Pro Tier (Highlighted) -->
+        <div class="bg-primary-container rounded-2xl shadow-2xl border border-on-primary-fixed-variant p-8 flex flex-col relative lg:transform lg:scale-105 z-10 h-full">
+          <div class="absolute top-0 right-0 bg-secondary-fixed text-primary-container font-label-md px-4 py-1.5 rounded-bl-xl rounded-tr-2xl text-[10px] uppercase tracking-wider font-bold">Most Popular</div>
+          <h3 class="font-headline-md text-headline-md text-white mb-2">Professional</h3>
+          <div class="font-display-lg text-display-lg text-white mb-8 tabular-nums tracking-tight">$15<span class="font-body-sm text-body-sm text-primary-fixed-dim font-normal">/mo</span></div>
+          <ul class="space-y-4 mb-8 flex-grow" role="list">
+            <li class="flex items-center gap-3 text-primary-fixed-dim font-body-sm">
+              <span class="material-symbols-outlined text-[18px] text-secondary-fixed" aria-hidden="true">check</span>
+              <span>3 Business Accounts</span>
+            </li>
+            <li class="flex items-center gap-3 text-primary-fixed-dim font-body-sm">
+              <span class="material-symbols-outlined text-[18px] text-secondary-fixed" aria-hidden="true">check</span>
+              <span>Instant Transfers</span>
+            </li>
+            <li class="flex items-center gap-3 text-primary-fixed-dim font-body-sm">
+              <span class="material-symbols-outlined text-[18px] text-secondary-fixed" aria-hidden="true">check</span>
+              <span>Tax Integrations</span>
+            </li>
+          </ul>
+          <button type="button" class="w-full py-3 bg-secondary-fixed text-primary-container rounded-full font-label-md hover:bg-secondary-fixed/90 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-fixed focus-visible:ring-offset-2 focus-visible:ring-offset-primary-container mt-auto">Upgrade to Pro</button>
+        </div>
+        
+        <!-- Business Tier -->
+        <div class="bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-8 flex flex-col h-full hover:border-outline-variant transition-colors">
+          <h3 class="font-headline-md text-headline-md text-primary-container mb-2">Enterprise</h3>
+          <div class="font-display-lg text-display-lg text-on-surface mb-8 tabular-nums tracking-tight">$49<span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/mo</span></div>
+          <ul class="space-y-4 mb-8 flex-grow" role="list">
+            <li class="flex items-center gap-3 text-on-surface-variant font-body-sm">
+              <span class="material-symbols-outlined text-[18px] text-secondary-fixed-dim" aria-hidden="true">check</span>
+              <span>Unlimited Accounts</span>
+            </li>
+            <li class="flex items-center gap-3 text-on-surface-variant font-body-sm">
+              <span class="material-symbols-outlined text-[18px] text-secondary-fixed-dim" aria-hidden="true">check</span>
+              <span>Dedicated Manager</span>
+            </li>
+          </ul>
+          <button type="button" class="w-full py-3 border border-outline-variant rounded-full text-primary-container font-label-md hover:bg-surface-container-low active:bg-surface-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 mt-auto">Contact Sales</button>
+        </div>
+        
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-50 dark:bg-slate-950 w-full border-t border-slate-200 dark:border-slate-800 text-xs font-normal leading-relaxed text-slate-500 dark:text-slate-400">
+    <div class="max-w-container-max mx-auto px-6 md:px-8 py-12 md:py-16 grid grid-cols-1 gap-8 divide-y divide-slate-200 dark:divide-slate-800">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-8 gap-6 md:gap-0">
+        <div class="text-lg font-bold text-slate-900 dark:text-white">Ledger Bank</div>
+        <nav aria-label="Footer Navigation" class="flex flex-wrap gap-4 md:gap-6">
+          <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded py-1" href="#">Routing number</a>
+          <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded py-1" href="#">FDIC notices</a>
+          <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded py-1" href="#">Privacy Policy</a>
+          <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded py-1" href="#">Terms of Service</a>
+          <a class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 rounded py-1" href="#">Regulatory Disclosures</a>
+        </nav>
+      </div>
+      <div class="pt-8">
+        &copy; 2024 Ledger Bank. Member FDIC. Equal Housing Lender.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

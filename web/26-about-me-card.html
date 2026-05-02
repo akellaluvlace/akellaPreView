@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sami Ortega - Product Designer</title>
+    <meta name="description" content="Portfolio of Sami Ortega, a Brooklyn-based Product Designer obsessed with the intersection of digital craft and physical textures."/>
+    <meta property="og:title" content="Sami Ortega - Product Designer"/>
+    <meta property="og:description" content="I'm a product designer obsessed with the intersection of digital craft and physical textures. Based in Brooklyn."/>
+    <meta property="og:type" content="website"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#d2c4bc",
+                        "outline": "#81756e",
+                        "tertiary": "#0c1d1f",
+                        "secondary-fixed": "#ffdad9",
+                        "on-surface": "#201b14",
+                        "secondary-fixed-dim": "#ffb3b2",
+                        "on-primary-fixed-variant": "#574335",
+                        "surface-tint": "#705a4c",
+                        "secondary-container": "#fd767a",
+                        "primary-fixed": "#fbddca",
+                        "surface-bright": "#fff8f3",
+                        "tertiary-fixed-dim": "#b7cacc",
+                        "on-primary-fixed": "#28180d",
+                        "primary-fixed-dim": "#dec1af",
+                        "primary": "#26170c",
+                        "surface-container-highest": "#ece1d5",
+                        "primary-container": "#3d2b1f",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#e3d8cd",
+                        "background": "#fff8f3",
+                        "tertiary-fixed": "#d3e6e8",
+                        "on-secondary-container": "#710b1a",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#213234",
+                        "surface-variant": "#ece1d5",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#871e28",
+                        "on-tertiary-container": "#889a9c",
+                        "on-primary-container": "#ac9181",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface": "#fff8f3",
+                        "inverse-surface": "#352f28",
+                        "on-secondary-fixed": "#410008",
+                        "surface-container-low": "#fdf2e6",
+                        "on-surface-variant": "#4f453f",
+                        "on-tertiary-fixed": "#0d1e20",
+                        "surface-container-high": "#f1e6db",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#f7ece1",
+                        "secondary": "#a7363d",
+                        "inverse-primary": "#dec1af",
+                        "inverse-on-surface": "#faefe3",
+                        "on-background": "#201b14",
+                        "on-tertiary-fixed-variant": "#384a4c",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap": "clamp(2.5rem, 6vw, 4rem)",
+                        "unit": "0.5rem",
+                        "gutter": "clamp(1rem, 4vw, 1.5rem)",
+                        "container-max": "600px",
+                        "element-gap": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Newsreader", "serif"],
+                        "body-md": ["Newsreader", "serif"],
+                        "headline-md": ["Newsreader", "serif"],
+                        "body-lg": ["Newsreader", "serif"],
+                        "label-sm": ["Newsreader", "serif"],
+                        "headline-sm": ["Newsreader", "serif"],
+                        "serif": ["Newsreader", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["clamp(2.25rem, 5vw + 1rem, 3rem)", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["clamp(0.875rem, 1.5vw + 0.5rem, 1rem)", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["clamp(1.5rem, 3vw + 0.5rem, 2rem)", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-lg": ["clamp(1rem, 2vw + 0.5rem, 1.125rem)", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["0.875rem", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-sm": ["clamp(1.25rem, 2.5vw + 0.5rem, 1.5rem)", { "lineHeight": "1.3", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: theme('colors.background');
+            background-image: radial-gradient(theme('colors.outline-variant') 0.5px, transparent 0.5px), radial-gradient(theme('colors.outline-variant') 0.5px, theme('colors.background') 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-blend-mode: overlay;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-on-surface selection:bg-secondary-container selection:text-on-secondary-container antialiased overflow-x-hidden">
+
+    <!-- Top Navigation -->
+    <header class="bg-[#FDFCFB]/95 backdrop-blur-sm dark:bg-stone-950/95 font-serif text-lg tracking-tight sticky top-0 border-b border-stone-200 dark:border-stone-800 text-[#3D2B1F] dark:text-stone-200 w-full z-50 transition-colors duration-300">
+        <div class="flex justify-between items-center py-5 px-6 md:px-8 max-w-4xl mx-auto">
+            <a class="text-2xl font-serif font-semibold text-red-900 dark:text-red-500 hover:text-red-800 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm transition-colors duration-300" href="#">
+                Sami Ortega
+            </a>
+            <nav class="hidden md:flex gap-8 items-center" aria-label="Primary Navigation">
+                <a class="text-stone-600 dark:text-stone-400 hover:text-red-900 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm px-1 transition-colors duration-300" href="#">Work</a>
+                <a class="text-red-900 dark:text-red-400 border-b-2 border-red-900/40 pb-0.5 hover:text-red-800 dark:hover:text-red-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm px-1 transition-colors duration-300" href="#" aria-current="page">About</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-red-900 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm px-1 transition-colors duration-300" href="#">Archive</a>
+                <a class="text-stone-600 dark:text-stone-400 hover:text-red-900 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm px-1 transition-colors duration-300" href="#">Contact</a>
+            </nav>
+            <button aria-expanded="false" aria-label="Toggle navigation menu" class="md:hidden text-[#3D2B1F] dark:text-stone-200 hover:text-red-900 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 rounded-md p-1 -mr-1 transition-colors duration-300 flex items-center">
+                <span class="material-symbols-outlined" aria-hidden="true" data-icon="menu">menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="flex-grow w-full pb-0 relative">
+
+        <!-- Doodle: Star cluster top left -->
+        <div class="absolute top-12 left-4 hidden lg:block text-secondary opacity-60 pointer-events-none" aria-hidden="true">
+            <svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 100 100" width="40">
+                <path d="M50 10 Q50 50 90 50 Q50 50 50 90 Q50 50 10 50 Q50 50 50 10 Z"></path>
+                <circle cx="20" cy="20" fill="currentColor" r="3"></circle>
+                <circle cx="80" cy="80" fill="currentColor" r="2"></circle>
+            </svg>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_clamp(280px,28vw,360px)]">
+            <!-- LEFT column: article on top, horizontal strip flush at the bottom -->
+            <div class="pt-section-gap lg:flex lg:flex-col">
+            <div class="w-full max-w-[600px] mx-auto lg:mx-0 lg:max-w-none lg:self-start pl-8 lg:pl-16 pr-4 lg:pr-8">
+        <article class="flex flex-col w-full">
+
+            <!-- Header row: avatar+heading + bio (left column) with studio portrait stretching the full height (right column) -->
+            <div class="w-full mb-section-gap lg:flex lg:flex-row lg:gap-8 lg:items-stretch">
+
+                <!-- LEFT column: avatar + heading + bio stacked, pinned to bio width so the studio portrait gets the rest -->
+                <div class="lg:w-[65ch] lg:flex-none flex flex-col gap-section-gap">
+
+                    <!-- Avatar + Heading group, constrained to bio width on lg -->
+                    <div class="w-full mx-auto lg:mx-0 flex flex-col items-center justify-center">
+                        <!-- Avatar -->
+                        <div class="relative mb-gutter group">
+                            <img
+                                alt="Close up portrait of a young professional woman with warm natural lighting, smiling gently, wearing simple neutral clothing, blurred studio background"
+                                width="128"
+                                height="128"
+                                fetchpriority="high"
+                                decoding="async"
+                                class="w-32 h-32 rounded-full object-cover border border-outline-variant p-1 shadow-sm bg-surface-container-low transition-transform duration-500 group-hover:scale-[1.02]"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuADj3z5_vxbOaMv95KVhNWtxeOm4wFJa9YBgUmo9o5pQ596t1IguFck2CDCW6Wp-sXh8pgw7Hz0AK4rT8NQ6fT9UxKy4nky9q_CBnRuF4pDNjSSUGx2Qf232POQ4cSnjF05tT8zE2a1xOpSUqv-xHkEso7RmWKTuXuJ4jBnsrtD1aiy8kUz35I64iw_HgESu0U8aGiSM4-AWrDPPAtPL2mXFVBRnVahA3XBjo8EDugf5b4BdSDnhUsj3wMmjyI2qcqKJIha9qGZYVM"
+                            />
+                            <!-- Doodle: Arrow pointing to avatar -->
+                            <div class="absolute -bottom-6 -right-8 text-primary opacity-50 transform -rotate-12 hidden sm:block pointer-events-none" aria-hidden="true">
+                                <svg fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" viewBox="0 0 100 50" width="60">
+                                    <path d="M10 40 Q 40 10 80 20 M 70 10 L 85 22 L 70 30"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Header -->
+                        <div class="text-center w-full relative">
+                            <h1 class="font-headline-lg text-headline-lg text-primary mb-unit relative inline-block text-balance">
+                                Sami Ortega
+                                <!-- Doodle: Underline accent -->
+                                <span class="absolute -bottom-2 left-0 w-full h-2 text-secondary opacity-40 pointer-events-none" aria-hidden="true">
+                                    <svg fill="none" height="100%" preserveAspectRatio="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 100 10" width="100%">
+                                        <path d="M 0 5 Q 50 8 100 2"></path>
+                                    </svg>
+                                </span>
+                            </h1>
+                            <p class="font-body-md text-body-md text-on-surface-variant italic mt-1 text-balance">
+                                Product Designer | Based in Brooklyn
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="w-full text-left relative">
+                        <!-- Doodle: Marginalia Asterisk -->
+                        <div class="absolute -left-10 top-2 hidden lg:block text-outline-variant pointer-events-none" aria-hidden="true">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
+                                <path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1"></path>
+                            </svg>
+                        </div>
+                        <p class="font-body-lg text-body-lg text-on-surface leading-relaxed border-l-2 border-outline-variant pl-5 md:pl-6 py-2 text-pretty max-w-[65ch]">
+                            I'm a product designer obsessed with the intersection of digital craft and physical textures. Currently, I'm exploring how we can make software feel more tactile and human. Over the past six years, I've collaborated with early-stage startups and established brands to build cohesive, user-centered experiences from zero to one. When I'm not at my desk pushing pixels or refining design systems, you'll find me at the local pottery studio, reading speculative fiction, or hunting for the perfect espresso roast.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT column: square studio portrait — aspect-square + h-full pins the image at row height, centered with padding on either side -->
+                <div class="hidden lg:flex lg:flex-1 lg:min-w-0 lg:items-center lg:justify-center lg:px-6">
+                    <div class="lg:relative lg:aspect-square lg:h-full lg:max-w-full">
+                        <img
+                            class="lg:absolute lg:inset-0 w-full h-full object-cover rounded-2xl shadow-sm border border-outline-variant bg-surface-container-low"
+                            src="https://res.cloudinary.com/dsa31toc5/image/upload/v1777539573/Generated_image_1_f3wfap.png"
+                            alt="Studio portrait — Sami Ortega in workspace"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Social handles + Currently — side-by-side at lg+, equal-height columns -->
+            <div class="w-full max-w-[65ch] mb-section-gap flex flex-col gap-section-gap lg:flex-row lg:gap-8 lg:items-stretch">
+                <!-- Links -->
+                <div class="text-left w-full lg:flex-1">
+                    <ul class="flex flex-col gap-element-gap items-start lg:h-full lg:justify-between lg:gap-0">
+                        <li>
+                            <a class="inline-flex items-center gap-2 font-body-md text-body-md text-secondary hover:text-on-secondary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-colors group" href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                                <span class="underline underline-offset-4 decoration-secondary/30 group-hover:decoration-secondary transition-all">Twitter</span>
+                                <span class="material-symbols-outlined text-[1.125em] translate-y-[1px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" data-icon="arrow_outward">arrow_outward</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="inline-flex items-center gap-2 font-body-md text-body-md text-secondary hover:text-on-secondary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-colors group" href="https://read.cv" target="_blank" rel="noopener noreferrer">
+                                <span class="underline underline-offset-4 decoration-secondary/30 group-hover:decoration-secondary transition-all">Read.cv</span>
+                                <span class="material-symbols-outlined text-[1.125em] translate-y-[1px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" data-icon="description">description</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="inline-flex items-center gap-2 font-body-md text-body-md text-secondary hover:text-on-secondary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-colors group" href="mailto:hello@example.com">
+                                <span class="underline underline-offset-4 decoration-secondary/30 group-hover:decoration-secondary transition-all">Email</span>
+                                <span class="material-symbols-outlined text-[1.125em] translate-y-[1px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" data-icon="mail">mail</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="inline-flex items-center gap-2 font-body-md text-body-md text-secondary hover:text-on-secondary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-colors group" href="#">
+                                <span class="underline underline-offset-4 decoration-secondary/30 group-hover:decoration-secondary transition-all">Currently at Acme Corp</span>
+                                <span class="material-symbols-outlined text-[1.125em] translate-y-[1px] opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" data-icon="work">work</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Currently Block -->
+                <div class="text-left bg-surface-container-low p-6 md:p-gutter rounded-xl shadow-sm border border-outline-variant/30 relative w-full lg:w-[280px] lg:flex-none flex flex-col justify-center">
+                    <!-- Doodle: Squiggle -->
+                    <div class="absolute -right-5 -bottom-6 hidden md:block text-outline-variant opacity-60 pointer-events-none" aria-hidden="true">
+                        <svg fill="none" height="60" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" viewBox="0 0 40 60" width="40">
+                            <path d="M 20 0 Q 40 10 20 20 T 20 40 T 10 60"></path>
+                        </svg>
+                    </div>
+                    <h2 class="font-headline-sm text-headline-sm text-primary mb-2 text-balance">Currently</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty">
+                        building a tea brand, reading Mary Oliver's essays, walking a lot around Prospect Park, experimenting with film photography, and slowly redesigning this website.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Six-cell editorial grid: résumé / talks · press / awards · reading / listening -->
+            <div class="w-full mb-section-gap flex flex-col gap-section-gap lg:grid lg:grid-cols-2 lg:gap-x-10 lg:gap-y-section-gap">
+
+                <!-- Selected Work -->
+                <div class="text-left">
+                    <div class="flex items-baseline justify-between gap-3 mb-gutter border-b border-outline-variant pb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Selected Work</h2>
+                        <span class="font-body-md text-xs uppercase tracking-[0.2em] text-on-surface-variant">2019 — Now</span>
+                    </div>
+                    <ul class="flex flex-col">
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2024</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Lumen — A daylight-aware reading app</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Lead Product Designer · Foldspace</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2023</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Mercer Studio booking platform</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Senior Product Designer</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2022</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Atlas — field-research data tool</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Product &amp; Brand</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2021</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Common Pulse — community health tracker</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">UX &amp; Visual Design</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2019</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Foldspace identity &amp; marketing site</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Founding Designer</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Speaking & Writing -->
+                <div class="text-left">
+                    <div class="flex items-baseline justify-between gap-3 mb-gutter border-b border-outline-variant pb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Speaking &amp; Writing</h2>
+                        <span class="font-body-md text-xs uppercase tracking-[0.2em] text-on-surface-variant">Talks &amp; Essays</span>
+                    </div>
+                    <ul class="flex flex-col">
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2024</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Designing for Decay</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Layers Conf · Berlin</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2023</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Quiet Software</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">A List Apart · Essay 514</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2022</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Tactile by Default</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Smashing Conf · Freiburg</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2021</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">On Patience</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Offscreen Magazine · Issue 25</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 group">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2019</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary group-hover:text-secondary transition-colors text-balance">Notes from the Editing Room</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Self-published essay series</div>
+                            </div>
+                            <span class="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kind Words -->
+                <div class="text-left">
+                    <div class="flex items-baseline justify-between gap-3 mb-gutter border-b border-outline-variant pb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Kind Words</h2>
+                        <span class="font-body-md text-xs uppercase tracking-[0.2em] text-on-surface-variant">Press</span>
+                    </div>
+                    <div class="flex flex-col gap-element-gap">
+                        <blockquote class="border-l-2 border-secondary/40 pl-5 md:pl-6 py-2 relative">
+                            <span aria-hidden="true" class="absolute -left-1 -top-2 font-headline-lg text-3xl leading-none text-secondary/30 select-none">&ldquo;</span>
+                            <p class="font-body-md text-body-md text-on-surface text-pretty leading-relaxed">A masterclass in restraint — Sami's interface feels less like a screen and more like a well-loved object.</p>
+                            <cite class="font-body-md text-on-surface-variant text-sm not-italic mt-2 inline-block">— It's Nice That, 2024</cite>
+                        </blockquote>
+                        <blockquote class="border-l-2 border-secondary/40 pl-5 md:pl-6 py-2 relative">
+                            <span aria-hidden="true" class="absolute -left-1 -top-2 font-headline-lg text-3xl leading-none text-secondary/30 select-none">&ldquo;</span>
+                            <p class="font-body-md text-body-md text-on-surface text-pretty leading-relaxed">Among the few designers who treat motion the way printmakers treat ink.</p>
+                            <cite class="font-body-md text-on-surface-variant text-sm not-italic mt-2 inline-block">— Sidebar.io · Editor's Pick, 2023</cite>
+                        </blockquote>
+                        <blockquote class="border-l-2 border-secondary/40 pl-5 md:pl-6 py-2 relative">
+                            <span aria-hidden="true" class="absolute -left-1 -top-2 font-headline-lg text-3xl leading-none text-secondary/30 select-none">&ldquo;</span>
+                            <p class="font-body-md text-body-md text-on-surface text-pretty leading-relaxed">The kind of digital craft that ages well.</p>
+                            <cite class="font-body-md text-on-surface-variant text-sm not-italic mt-2 inline-block">— Awwwards · Site of the Month, 2022</cite>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <!-- Recognized -->
+                <div class="text-left">
+                    <div class="flex items-baseline justify-between gap-3 mb-gutter border-b border-outline-variant pb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Recognized</h2>
+                        <span class="font-body-md text-xs uppercase tracking-[0.2em] text-on-surface-variant">Awards</span>
+                    </div>
+                    <ul class="flex flex-col">
+                        <li class="py-3 flex items-baseline gap-5 border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2024</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary text-balance">Brand Identity of the Year, shortlist</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Brand New · UnderConsideration</div>
+                            </div>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2023</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary text-balance">Webby Honoree · Visual Design</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">The Webby Awards</div>
+                            </div>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2022</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary text-balance">FWA of the Day · Foldspace.studio</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">FWA · Favourite Website Awards</div>
+                            </div>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5 border-b border-outline-variant/40">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2021</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary text-balance">Communication Arts Webpick</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">Communication Arts</div>
+                            </div>
+                        </li>
+                        <li class="py-3 flex items-baseline gap-5">
+                            <span class="font-body-md text-body-md text-on-surface-variant tabular-nums shrink-0 w-12">2020</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-body-md text-body-md text-primary text-balance">CSS Design Awards · Special Kudos</div>
+                                <div class="font-body-md text-body-md text-on-surface-variant italic text-sm mt-0.5">CSSDA</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Reading -->
+                <div class="text-left">
+                    <div class="flex items-baseline justify-between gap-3 mb-gutter border-b border-outline-variant pb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Reading</h2>
+                        <span class="font-body-md text-xs uppercase tracking-[0.2em] text-on-surface-variant">This Spring</span>
+                    </div>
+                    <ul class="flex flex-col gap-3">
+                        <li class="font-body-md text-body-md text-on-surface text-pretty"><em class="not-italic text-primary">Devotions</em><span class="text-on-surface-variant"> — Mary Oliver</span></li>
+                        <li class="font-body-md text-body-md text-on-surface text-pretty"><em class="not-italic text-primary">The Anthropology of Turquoise</em><span class="text-on-surface-variant"> — Ellen Meloy</span></li>
+                        <li class="font-body-md text-body-md text-on-surface text-pretty"><em class="not-italic text-primary">A Pattern Language</em><span class="text-on-surface-variant"> — Christopher Alexander</span></li>
+                    </ul>
+                </div>
+
+                <!-- Listening -->
+                <div class="text-left">
+                    <div class="flex items-baseline justify-between gap-3 mb-gutter border-b border-outline-variant pb-2">
+                        <h2 class="font-headline-sm text-headline-sm text-primary">Listening</h2>
+                        <span class="font-body-md text-xs uppercase tracking-[0.2em] text-on-surface-variant">This Spring</span>
+                    </div>
+                    <ul class="flex flex-col gap-3">
+                        <li class="font-body-md text-body-md text-on-surface text-pretty"><em class="not-italic text-primary">Tiny Desk · Arooj Aftab</em><span class="text-on-surface-variant"> — NPR Music</span></li>
+                        <li class="font-body-md text-body-md text-on-surface text-pretty"><em class="not-italic text-primary">On Being · Pádraig Ó Tuama</em><span class="text-on-surface-variant"> — Krista Tippett</span></li>
+                        <li class="font-body-md text-body-md text-on-surface text-pretty"><em class="not-italic text-primary">The Slowdown</em><span class="text-on-surface-variant"> — Major Jackson</span></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </article>
+            </div>
+
+            <!-- Bottom horizontal strip — flush with the footer at the bottom of the left column -->
+            <section class="hidden lg:grid lg:grid-cols-5 lg:mt-auto" aria-label="Editorial gallery strip">
+                <img class="w-full aspect-[5/3] object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Soft architectural plane in low light" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&amp;h=480&amp;q=80&amp;auto=format&amp;fit=crop" />
+                <img class="w-full aspect-[5/3] object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Minimal interior corner with warm wash" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&amp;h=480&amp;q=80&amp;auto=format&amp;fit=crop" />
+                <img class="w-full aspect-[5/3] object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Brass studio objects, side detail" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&amp;h=480&amp;q=80&amp;auto=format&amp;fit=crop&amp;crop=entropy" />
+                <img class="w-full aspect-[5/3] object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Concrete shelf and texture study" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&amp;h=480&amp;q=80&amp;auto=format&amp;fit=crop&amp;crop=edges" />
+                <img class="w-full aspect-[5/3] object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Soft daylight on architectural fragment" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=800&amp;h=480&amp;q=80&amp;auto=format&amp;fit=crop&amp;crop=top" />
+            </section>
+            </div>
+
+            <!-- RIGHT column: vertical editorial gallery — bleeds to the right wall and fills full height to the footer -->
+            <aside class="hidden lg:flex lg:flex-col" aria-label="Studio gallery">
+                <img class="w-full flex-1 object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Brass apothecary objects on a warm dark surface — studio craft tools" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&amp;q=80&amp;auto=format&amp;fit=crop" />
+                <img class="w-full flex-1 object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Minimal interior bathed in natural light, soft shadow study" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&amp;q=80&amp;auto=format&amp;fit=crop" />
+                <img class="w-full flex-1 object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Quiet architectural composition with a soft palette" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=600&amp;q=80&amp;auto=format&amp;fit=crop" />
+                <img class="w-full flex-1 object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Editorial architecture frame in soft daylight" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=600&amp;q=80&amp;auto=format&amp;fit=crop" />
+                <img class="w-full flex-1 object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Studio detail — concrete and texture in mid-tone" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&amp;q=80&amp;auto=format&amp;fit=crop" />
+                <img class="w-full flex-1 object-cover bg-surface-container-low" loading="lazy" decoding="async" alt="Architectural fragment, hand-tactile reference" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=600&amp;q=80&amp;auto=format&amp;fit=crop" />
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-transparent font-serif text-sm italic w-full py-10 mt-auto border-t border-stone-200 dark:border-stone-800 text-[#3D2B1F] dark:text-stone-400">
+        <div class="flex flex-col md:flex-row justify-between items-center px-6 md:px-8 max-w-4xl mx-auto gap-6">
+            <span class="text-stone-600 dark:text-stone-500 text-center md:text-left">© 2024 Sami Ortega — Built with Digital Tactility</span>
+            <nav class="flex gap-6 items-center flex-wrap justify-center" aria-label="Footer Navigation">
+                <a class="text-stone-600 dark:text-stone-500 hover:text-red-900 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-red-900 dark:hover:decoration-red-400 transition-all duration-300" href="#">Email</a>
+                <a class="text-stone-600 dark:text-stone-500 hover:text-red-900 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-red-900 dark:hover:decoration-red-400 transition-all duration-300" href="#">LinkedIn</a>
+                <a class="text-stone-600 dark:text-stone-500 hover:text-red-900 dark:hover:text-red-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-900 dark:focus-visible:ring-red-500 rounded-sm underline underline-offset-4 decoration-stone-300 dark:decoration-stone-700 hover:decoration-red-900 dark:hover:decoration-red-400 transition-all duration-300" href="#">Read.cv</a>
+            </nav>
+        </div>
+    </footer>
+
+</body>
+</html>

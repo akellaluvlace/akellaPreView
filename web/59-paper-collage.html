@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Scrapbook | A Creative Journal</title>
+    <meta name="description" content="A digital collage of thoughts, art, and stories.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paper': '#F9F5EB',
+                        'paper-dark': '#EBE5D5',
+                        'kraft': '#D7C09E',
+                        'ink': '#1A1A1A',
+                        'ink-light': '#4A4A4A',
+                        'pencil': '#555555',
+                        'highlighter': '#FEF08A', 
+                        'red-stamp': '#D32F2F',
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'marker': ['"Permanent Marker"', 'cursive'],
+                        'hand': ['"La Belle Aurore"', 'cursive'],
+                        'typewriter': ['"Special Elite"', 'monospace'],
+                    },
+                    boxShadow: {
+                        'paper': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                        'float': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'tape-flicker': 'flicker 4s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0) rotate(var(--tw-rotate))' },
+                            '50%': { transform: 'translateY(-10px) rotate(var(--tw-rotate))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- GLOBAL TEXTURES & RESETS --- */
+        body {
+            background-color: #F9F5EB;
+            color: #1A1A1A;
+            overflow-x: hidden; /* Critical for rotated elements */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* SVG Noise Overlay */
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- PAPER SHAPES & EDGES --- */
+        
+        /* Drop shadow filter allows shadow to follow clip-path */
+        .paper-shadow {
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15));
+        }
+        
+        .paper-shadow-lg {
+            filter: drop-shadow(5px 10px 15px rgba(0,0,0,0.2));
+        }
+
+        /* Jagged Edges */
+        .edge-torn-top {
+            clip-path: polygon(0% 10px, 5% 0px, 10% 12px, 15% 2px, 20% 10px, 25% 0px, 30% 12px, 35% 2px, 40% 10px, 45% 0px, 50% 12px, 55% 2px, 60% 10px, 65% 0px, 70% 12px, 75% 2px, 80% 10px, 85% 0px, 90% 12px, 95% 2px, 100% 10px, 100% 100%, 0% 100%);
+        }
+
+        .edge-torn-bottom {
+            clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 10px), 95% 100%, 90% calc(100% - 12px), 85% 100%, 80% calc(100% - 10px), 75% 100%, 70% calc(100% - 12px), 65% 100%, 60% calc(100% - 10px), 55% 100%, 50% calc(100% - 12px), 45% 100%, 40% calc(100% - 10px), 35% 100%, 30% calc(100% - 12px), 25% 100%, 20% calc(100% - 10px), 15% 100%, 10% calc(100% - 12px), 5% 100%, 0% calc(100% - 10px));
+        }
+
+        .edge-rough {
+            clip-path: polygon(2% 0%, 98% 2%, 100% 98%, 0% 100%);
+        }
+
+        /* --- DECORATIVE ELEMENTS --- */
+
+        /* Washi Tape */
+        .tape {
+            background-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            backdrop-filter: blur(1px);
+            position: absolute;
+            z-index: 20;
+        }
+        
+        .tape-translucent {
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 100%);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .tape-pattern {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px);
+            background-color: rgba(230, 230, 200, 0.6);
+        }
+
+        /* Hand drawn underline */
+        .underline-marker {
+            position: relative;
+            display: inline-block;
+        }
+        .underline-marker::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 6px;
+            background-color: #FEF08A;
+            z-index: -1;
+            transform: rotate(-1deg);
+            border-radius: 4px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        .underline-marker:hover::after {
+            height: 100%;
+            bottom: 0;
+            transform: rotate(0deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9F5EB;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D7C09E;
+            border-radius: 5px;
+            border: 2px solid #F9F5EB;
+        }
+
+        /* --- COLLAGE MARQUEE (Witnessed / Back Issues) --- */
+        html, body { overflow-x: clip; }
+        .collage-track {
+            animation: collage-marquee 60s linear infinite;
+            width: max-content;
+            display: flex;
+            gap: 32px;
+            padding: 56px 0; /* breathing room for rotated tiles */
+        }
+        .collage-track:hover { animation-play-state: paused; }
+        @keyframes collage-marquee {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 16px)); }
+        }
+
+        /* --- TORN EDGES (extra variants for layered moodboard) --- */
+        .edge-torn-all {
+            clip-path: polygon(
+                0% 6%, 4% 2%, 9% 8%, 14% 1%, 20% 7%, 26% 0%, 33% 9%,
+                40% 2%, 47% 8%, 55% 1%, 62% 9%, 70% 3%, 78% 8%, 86% 0%,
+                94% 7%, 100% 4%,
+                98% 14%, 100% 24%, 96% 36%, 100% 48%, 97% 60%, 100% 72%,
+                96% 84%, 100% 94%,
+                94% 100%, 84% 96%, 72% 100%, 58% 95%, 44% 100%, 30% 96%,
+                16% 100%, 4% 96%, 0% 92%,
+                4% 80%, 0% 68%, 3% 56%, 0% 44%, 4% 30%, 0% 18%
+            );
+        }
+        .edge-torn-diagonal {
+            clip-path: polygon(0% 7%, 6% 2%, 14% 9%, 22% 1%, 30% 8%, 40% 3%, 50% 9%, 60% 2%, 70% 8%, 80% 3%, 90% 9%, 100% 4%, 96% 92%, 88% 100%, 76% 94%, 62% 100%, 48% 95%, 34% 100%, 20% 95%, 8% 100%, 0% 93%);
+        }
+
+        /* --- POLAROID + SCOTCH-TAPE PSEUDO --- */
+        .polaroid {
+            background: #fffdf6;
+            padding: 14px 14px 60px 14px;
+            box-shadow: 0 14px 28px -10px rgba(0,0,0,0.25), 0 6px 10px -4px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .polaroid-tape::before {
+            content: "";
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 90px;
+            height: 22px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(254, 240, 138, 0.45) 100%);
+            border-left: 1px dashed rgba(0,0,0,0.05);
+            border-right: 1px dashed rgba(0,0,0,0.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+            z-index: 5;
+        }
+        .pin-chip::before {
+            content: "";
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 35% 35%, #ff6b6b 0%, #c92a2a 60%, #5e0606 100%);
+            box-shadow: 0 2px 3px rgba(0,0,0,0.35);
+            z-index: 6;
+        }
+
+        /* --- MARKER-PEN CIRCLE (testimonial ornaments) --- */
+        .marker-circle {
+            position: absolute;
+            width: 130%;
+            height: 130%;
+            top: -15%;
+            left: -15%;
+            pointer-events: none;
+            opacity: 0.55;
+        }
+
+        /* --- ARCHIVE CYCLING IMAGE (Atelier sticky-rail companion) --- */
+        @keyframes scrap-fade {
+            0%, 4%   { opacity: 0; filter: blur(14px) saturate(0.85); transform: scale(1.04) rotate(-1deg); }
+            8%, 22%  { opacity: 1; filter: blur(0)     saturate(1);    transform: scale(1) rotate(0deg); }
+            26%, 100%{ opacity: 0; filter: blur(14px) saturate(0.85); transform: scale(1.04) rotate(-1deg); }
+        }
+        .scrap-cycle-img {
+            animation: scrap-fade 16s linear infinite;
+            opacity: 0;
+            filter: blur(14px) saturate(0.85);
+            transform: scale(1.04) rotate(-1deg);
+            will-change: opacity, filter, transform;
+        }
+        @keyframes scrap-scrub {
+            0%   { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+        .scrap-scrub-bar {
+            animation: scrap-scrub 16s linear infinite;
+            transform-origin: left;
+        }
+
+        /* --- FAQ accordion (torn-paper notes) --- */
+        .scrap-faq summary::-webkit-details-marker { display: none; }
+        .scrap-faq summary { list-style: none; cursor: pointer; }
+        .scrap-faq summary .scrap-chevron { transition: transform 250ms ease; display: inline-block; }
+        .scrap-faq[open] summary .scrap-chevron { transform: rotate(45deg); }
+
+        /* --- DIAGONAL HALF-BLEED BAND (Witnessed) --- */
+        .witnessed-band {
+            background: repeating-linear-gradient(
+                -3deg,
+                #EBE5D5 0px, #EBE5D5 36px,
+                #E2DAC4 36px, #E2DAC4 37px
+            );
+        }
+
+        /* --- MOOD BOARD layered photo positions --- */
+        .layered-photo {
+            position: absolute;
+            background: #fffdf6;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 18px 30px -10px rgba(0,0,0,0.28), 0 8px 12px -4px rgba(0,0,0,0.18);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .collage-track { animation: none; }
+            .scrap-cycle-img {
+                animation: none;
+                opacity: 0;
+                filter: none;
+                transform: none;
+            }
+            .scrap-cycle-img:first-of-type { opacity: 1; }
+            .scrap-scrub-bar { animation: none; transform: scaleX(1); }
+            .scrap-faq summary .scrap-chevron { transition: none; }
+            .animate-float, .animate-pulse, .animate-spin-slow { animation: none !important; }
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-200 selection:text-black">
+
+    <div class="texture-overlay"></div>
+
+    <!-- STICKY NAVBAR -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <!-- Paper background for nav with torn bottom -->
+        <div class="absolute inset-0 bg-paper/95 backdrop-blur-sm shadow-sm edge-torn-bottom h-full pointer-events-none"></div>
+        
+        <div class="container mx-auto px-6 py-4 relative flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="group flex items-center gap-2 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+                <div class="bg-black text-white p-1 font-marker text-xl group-hover:bg-red-600 transition-colors">TS</div>
+                <h1 class="font-marker text-2xl md:text-3xl text-ink tracking-wide">The Scrapbook</h1>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex gap-8 items-center font-typewriter text-sm tracking-widest uppercase">
+                <li><a href="#journal" class="hover:text-red-600 transition-colors relative group">Journal <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a></li>
+                <li><a href="#field-notes" class="hover:text-red-600 transition-colors relative group">Field Notes <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a></li>
+                <li><a href="#atelier" class="hover:text-red-600 transition-colors relative group">Atelier <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a></li>
+                <li><a href="#voices" class="hover:text-red-600 transition-colors relative group">Voices <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a></li>
+                <li><a href="#about" class="hover:text-red-600 transition-colors relative group">Editor <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a></li>
+                <li>
+                    <a href="#subscribe" class="bg-ink text-paper px-4 py-2 font-marker text-lg transform rotate-2 hover:-rotate-1 transition-all inline-block hover:shadow-lg">
+                        Subscribe
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-ink hover:text-red-600 transition-colors">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Floating Badge -->
+    <div class="fixed bottom-6 right-6 z-40 md:top-28 md:right-10 md:bottom-auto animate-float hidden md:block">
+        <div class="relative w-24 h-24">
+            <svg viewBox="0 0 100 100" class="w-full h-full animate-spin-slow" style="animation-duration: 10s;">
+                <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent"/>
+                <text class="font-typewriter text-[11px] uppercase tracking-[2px]">
+                    <textPath xlink:href="#curve">Read Every Day • Stay Creative •</textPath>
+                </text>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <i data-lucide="pen-tool" class="w-8 h-8 text-ink"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-16 md:pt-48 md:pb-32 overflow-hidden">
+        <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Content -->
+            <div class="lg:col-span-7 relative z-10 order-2 lg:order-1">
+                <span class="inline-block bg-highlighter px-2 py-1 font-typewriter text-xs tracking-widest mb-4 transform -rotate-1 border border-transparent hover:border-black transition-all">EST. 2024 • DIGITAL ZINE</span>
+                
+                <h2 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-ink leading-[0.9] mb-8">
+                    Life in <br>
+                    <span class="relative inline-block mt-2">
+                        <span class="relative z-10 italic text-ink-light">Fragments</span>
+                        <svg class="absolute -bottom-2 left-0 w-full h-4 text-red-500/80 z-0" preserveAspectRatio="none" viewBox="0 0 100 10"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none" /></svg>
+                    </span>
+                </h2>
+                
+                <p class="text-lg md:text-xl font-serif text-gray-700 max-w-lg leading-relaxed mb-8 ml-2 border-l-4 border-black pl-6">
+                    A disorderly collection of thoughts, snapshots, and half-finished ideas taped together on the web.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="#journal" class="group relative inline-block">
+                        <div class="absolute inset-0 bg-black translate-y-1 translate-x-1 transition-transform group-hover:translate-y-2 group-hover:translate-x-2"></div>
+                        <div class="relative bg-paper border-2 border-black px-8 py-3 font-marker text-lg hover:-translate-y-1 transition-transform">
+                            Read Latest
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Visuals (Collage) -->
+            <div class="lg:col-span-5 relative h-[400px] md:h-[500px] flex justify-center items-center order-1 lg:order-2">
+                
+                <!-- Background Blob -->
+                <div class="absolute w-[400px] h-[400px] bg-kraft rounded-full blur-3xl opacity-30 animate-pulse"></div>
+
+                <!-- Image 1 (Back) -->
+                <div class="absolute w-56 h-72 paper-shadow-lg transform -rotate-12 top-10 left-4 md:left-10 bg-white p-2 z-10 hover:z-30 transition-all duration-300 hover:scale-105">
+                    <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover filter sepia-[0.3] contrast-125" alt="Notes">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-12 bg-yellow-200/50 backdrop-blur shadow-sm transform -rotate-2"></div>
+                </div>
+
+                <!-- Image 2 (Middle - CHANGED) -->
+                <div class="absolute w-60 h-60 paper-shadow-lg transform rotate-6 top-20 right-4 md:right-10 bg-white p-3 z-20 hover:z-30 transition-all duration-300 hover:scale-105 hover:rotate-0">
+                    <img src="https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover filter grayscale contrast-125" alt="Architecture">
+                    <div class="absolute -top-4 right-8 w-24 h-6 tape tape-translucent transform rotate-45"></div>
+                    <span class="absolute bottom-2 right-2 font-hand text-xs">fig. 2 - structure</span>
+                </div>
+
+                <!-- Image 3 (Front) -->
+                <div class="absolute w-48 h-auto paper-shadow-lg transform -rotate-3 bottom-0 md:bottom-10 bg-ink p-1 z-20 hover:z-30 transition-all duration-300 hover:scale-110">
+                    <div class="bg-white p-4 text-center">
+                        <h3 class="font-marker text-2xl uppercase mb-2">New!</h3>
+                        <p class="font-typewriter text-xs leading-tight">The beauty of imperfection in digital design.</p>
+                    </div>
+                    <!-- Red Pin -->
+                    <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-red-600 shadow-md border border-red-800"></div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- JOURNAL GRID -->
+    <main id="journal" class="container mx-auto px-6 py-20">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row items-start md:items-end gap-4 mb-16 relative">
+            <h2 class="font-marker text-4xl md:text-5xl text-ink transform -rotate-1">The Daily Cut</h2>
+            <div class="h-1 flex-grow bg-gray-300 border-b border-gray-400 border-dashed w-full md:w-auto self-center mx-4"></div>
+            <span class="font-typewriter text-sm text-gray-500">Vol. 04 — 2024</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+
+            <!-- Card 1: Newspaper Style -->
+            <article class="relative group cursor-pointer">
+                <div class="paper-shadow bg-[#F2F0E9] p-6 h-full transform transition-transform duration-300 group-hover:-translate-y-2 group-hover:rotate-1 edge-rough">
+                    <div class="border-b-2 border-ink mb-4 pb-2 flex justify-between items-baseline">
+                        <span class="font-bold font-serif text-xl uppercase tracking-tighter">Opinion</span>
+                        <span class="font-typewriter text-xs">Jan 22</span>
+                    </div>
+                    <h3 class="font-serif font-black text-3xl leading-none mb-3 group-hover:text-red-700 transition-colors">
+                        Why We Need Messy Webs
+                    </h3>
+                    <div class="columns-2 gap-4 text-xs font-serif text-justify leading-tight mb-4 text-gray-700">
+                        <p>In a world of perfect grids, the human touch is lost. We crave the tear, the smudge, the error.</p>
+                        <p>Let's bring back the feeling of holding something real, even through a glass screen.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-300 border-dashed">
+                        <span class="font-marker text-sm text-ink underline decoration-wavy decoration-red-400">Read Full Article &rarr;</span>
+                    </div>
+                </div>
+                <!-- Tape -->
+                <div class="tape w-24 h-6 -top-3 left-1/2 -translate-x-1/2 rotate-1"></div>
+            </article>
+
+            <!-- Card 2: Polaroid Style -->
+            <article class="relative group cursor-pointer md:mt-12">
+                <div class="paper-shadow bg-white p-4 pb-16 transform rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:scale-105">
+                    <div class="aspect-[4/5] bg-gray-100 overflow-hidden mb-4 relative">
+                        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter contrast-110" alt="Art">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
+                    <h3 class="font-hand text-2xl font-bold text-center text-ink/80 rotate-1">Morning Coffee Rituals</h3>
+                    <div class="absolute bottom-4 right-6 text-xs font-typewriter text-gray-400">10:00 AM</div>
+                </div>
+                <!-- Binder Clip Visual (CSS) -->
+                <div class="absolute -top-4 left-8 w-8 h-8 rounded-full border-4 border-gray-800 z-20 bg-transparent shadow-sm"></div>
+                <div class="absolute -top-8 left-10 w-4 h-10 bg-gray-800 z-10 rounded-t-full"></div>
+            </article>
+
+            <!-- Card 3: Postcard Style (UPDATED CONTENT) -->
+            <article class="relative group cursor-pointer">
+                <div class="paper-shadow bg-kraft/30 p-2 h-full transform -rotate-1 transition-transform duration-300 group-hover:-rotate-2">
+                    <div class="border border-dashed border-gray-400 p-6 h-full flex flex-col bg-paper">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="font-marker text-2xl text-ink leading-none">Travel<br>Log</h3>
+                            <div class="w-16 h-20 border border-gray-300 bg-gray-100 flex items-center justify-center overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1520986606214-8b456906c813?auto=format&fit=crop&q=80&w=200" class="absolute inset-0 w-full h-full object-cover opacity-60">
+                            </div>
+                        </div>
+                        <p class="font-hand text-xl leading-relaxed text-gray-600 mb-6 flex-grow">
+                            "The streets of Kyoto were quiet, smelling of rain and old wood. I found a shop that sold only paper.
+                            
+                            <span class="hidden lg:inline">
+                                It was filled with handmade washi sheets pressed with dried maple leaves. The owner, an old man with ink-stained fingers, told me that paper has a memory. He said that every fold records a moment in time, just like a wrinkle on a face. I bought a stack of cream-colored sheets, too afraid to ruin them with my clumsy handwriting, yet desperate to capture this feeling before it fades.
+                            </span>"
+                        </p>
+                        <button class="self-start text-xs font-bold uppercase tracking-widest border-b-2 border-red-500 hover:bg-red-50">Continue Reading</button>
+                    </div>
+                </div>
+                <!-- Stamp -->
+                <div class="absolute -bottom-2 -right-2 w-20 h-20 rounded-full border-2 border-red-stamp/40 text-red-stamp/60 flex items-center justify-center transform -rotate-12 z-20 pointer-events-none">
+                     <div class="text-[10px] font-typewriter text-center leading-none">AIR MAIL<br>APPROVED</div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- WITNESSED — diagonal rotated photo-strip marquee (NOVEL pattern 10) -->
+    <section id="witnessed" class="relative py-20 overflow-hidden witnessed-band">
+        <!-- Torn top edge -->
+        <div class="absolute top-0 left-0 w-full h-6 bg-paper edge-torn-bottom -mt-1 z-10 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-full h-6 bg-paper edge-torn-top -mb-1 z-10 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 mb-6 relative z-20">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3 max-w-6xl mx-auto">
+                <div>
+                    <span class="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Sequence 03</span>
+                    <h2 class="font-marker text-4xl md:text-5xl text-ink mt-1 transform -rotate-1">Witnessed.</h2>
+                </div>
+                <p class="font-hand text-xl text-gray-700 max-w-md md:text-right transform rotate-1">Stuff I caught with the camera, half by accident, half on purpose.</p>
+            </div>
+        </div>
+
+        <!-- Marquee strip — paused on hover, rotated tiles, scotch tape on each -->
+        <div class="relative overflow-hidden">
+            <div class="collage-track">
+                <!-- TILE 1 -->
+                <figure class="relative shrink-0 w-72 transform -rotate-2">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-110" alt="Portrait at dusk">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">— at dusk</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · I</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <!-- TILE 2 -->
+                <figure class="relative shrink-0 w-80 transform rotate-3 mt-6">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[16/10] object-cover filter sepia-[.18] contrast-110" alt="Concrete stair">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">stairwell, slow</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · II</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <!-- TILE 3 -->
+                <figure class="relative shrink-0 w-72 transform -rotate-1">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-110" alt="Hands">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">hands · margins</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · III</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <!-- TILE 4 -->
+                <figure class="relative shrink-0 w-96 transform rotate-2">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=900" class="w-full aspect-[16/10] object-cover filter contrast-110 sepia-[.1]" alt="Two cows on a wide field">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">field, then nothing</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · IV</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <!-- TILE 5 -->
+                <figure class="relative shrink-0 w-72 transform -rotate-3 mt-4">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-115" alt="Coat on chair">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">coat · empty chair</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · V</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <!-- TILE 6 -->
+                <figure class="relative shrink-0 w-80 transform rotate-1 mt-6">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[16/10] object-cover filter sepia-[.15] contrast-110" alt="Brick wall and shadow">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">wall, 4pm</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · VI</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <!-- TILE 7 -->
+                <figure class="relative shrink-0 w-72 transform -rotate-2">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-110" alt="Quiet portrait">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">— she said nothing</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · VII</span>
+                        </figcaption>
+                    </div>
+                </figure>
+
+                <!-- Duplicate set (aria-hidden) for seamless loop -->
+                <figure aria-hidden="true" class="relative shrink-0 w-72 transform -rotate-2">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-110" alt="">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">— at dusk</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · I</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <figure aria-hidden="true" class="relative shrink-0 w-80 transform rotate-3 mt-6">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[16/10] object-cover filter sepia-[.18] contrast-110" alt="">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">stairwell, slow</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · II</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <figure aria-hidden="true" class="relative shrink-0 w-72 transform -rotate-1">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-110" alt="">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">hands · margins</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · III</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <figure aria-hidden="true" class="relative shrink-0 w-96 transform rotate-2">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=900" class="w-full aspect-[16/10] object-cover filter contrast-110 sepia-[.1]" alt="">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">field, then nothing</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · IV</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <figure aria-hidden="true" class="relative shrink-0 w-72 transform -rotate-3 mt-4">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-115" alt="">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">coat · empty chair</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · V</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <figure aria-hidden="true" class="relative shrink-0 w-80 transform rotate-1 mt-6">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[16/10] object-cover filter sepia-[.15] contrast-110" alt="">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">wall, 4pm</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · VI</span>
+                        </figcaption>
+                    </div>
+                </figure>
+                <figure aria-hidden="true" class="relative shrink-0 w-72 transform -rotate-2">
+                    <div class="polaroid polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600" class="w-full aspect-[3/4] object-cover filter grayscale contrast-110" alt="">
+                        <figcaption class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
+                            <span class="font-hand text-base text-ink">— she said nothing</span>
+                            <span class="font-typewriter text-[10px] uppercase tracking-widest text-gray-500">PL · VII</span>
+                        </figcaption>
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- FIELD NOTES — Polaroid stack at varying rotations (NOVEL pattern 3) -->
+    <section id="field-notes" class="container mx-auto px-6 py-24 relative">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14">
+            <div>
+                <span class="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Sequence 04</span>
+                <h2 class="font-marker text-4xl md:text-5xl text-ink mt-1 transform rotate-1">Field Notes.</h2>
+            </div>
+            <p class="font-hand text-xl text-gray-700 max-w-md transform -rotate-1">Six polaroids, scotch tape, the kind of corkboard you don't tidy.</p>
+        </div>
+
+        <!-- Polaroid stack on a "corkboard" -->
+        <div class="relative h-[640px] md:h-[680px] max-w-5xl mx-auto">
+            <!-- Subtle bg paper texture -->
+            <div class="absolute inset-0 bg-paper-dark/40 rounded-sm shadow-inner" style="background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.04) 1px, transparent 2px); background-size: 22px 22px;"></div>
+
+            <!-- Polaroid 1 -->
+            <figure class="absolute top-4 left-2 md:left-12 w-52 md:w-60 transform -rotate-6 pin-chip z-10 hover:z-30 transition-all duration-300 hover:scale-105 hover:-rotate-2">
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter sepia-[0.25]" alt="Notebook page">
+                    <figcaption class="absolute bottom-3 left-0 right-0 text-center font-hand text-base text-ink">tea & a list</figcaption>
+                </div>
+            </figure>
+
+            <!-- Polaroid 2 -->
+            <figure class="absolute top-2 left-1/3 md:left-[28%] w-48 md:w-56 transform rotate-3 polaroid-tape z-20 hover:z-30 transition-all duration-300 hover:scale-105">
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter contrast-110" alt="Window light">
+                    <figcaption class="absolute bottom-3 left-0 right-0 text-center font-hand text-base text-ink">window, soft</figcaption>
+                </div>
+            </figure>
+
+            <!-- Polaroid 3 -->
+            <figure class="absolute top-8 right-4 md:right-16 w-52 md:w-60 transform rotate-6 pin-chip z-10 hover:z-30 transition-all duration-300 hover:scale-105 hover:rotate-2">
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter grayscale contrast-110" alt="Interior corner">
+                    <figcaption class="absolute bottom-3 left-0 right-0 text-center font-hand text-base text-ink">borrowed room</figcaption>
+                </div>
+            </figure>
+
+            <!-- Polaroid 4 -->
+            <figure class="absolute top-[42%] left-8 md:left-24 w-48 md:w-56 transform rotate-2 polaroid-tape z-20 hover:z-30 transition-all duration-300 hover:scale-105">
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter sepia-[0.2] contrast-110" alt="Brass objects">
+                    <figcaption class="absolute bottom-3 left-0 right-0 text-center font-hand text-base text-ink">desk · brass</figcaption>
+                </div>
+            </figure>
+
+            <!-- Polaroid 5 -->
+            <figure class="absolute top-[44%] right-2 md:right-32 w-52 md:w-60 transform -rotate-4 pin-chip z-20 hover:z-30 transition-all duration-300 hover:scale-105 hover:-rotate-1">
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter grayscale" alt="Portrait, looking down">
+                    <figcaption class="absolute bottom-3 left-0 right-0 text-center font-hand text-base text-ink">— v.</figcaption>
+                </div>
+            </figure>
+
+            <!-- Polaroid 6 -->
+            <figure class="absolute bottom-2 left-1/2 -translate-x-1/2 w-52 md:w-64 transform -rotate-1 polaroid-tape z-30 hover:scale-105 transition-all duration-300">
+                <div class="polaroid">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter sepia-[0.15] contrast-110" alt="Hands at table">
+                    <figcaption class="absolute bottom-3 left-0 right-0 text-center font-hand text-base text-ink">supper, after</figcaption>
+                </div>
+            </figure>
+
+            <!-- Hand-typed sticky note -->
+            <div class="absolute bottom-12 right-2 md:right-12 w-44 transform rotate-3 bg-highlighter px-4 py-3 shadow-md z-30">
+                <p class="font-typewriter text-[10px] uppercase tracking-widest text-ink/60 mb-1">— note to self</p>
+                <p class="font-hand text-lg text-ink leading-snug">don't fix the corner. let it curl.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOODBOARD SECTION -->
+    <section id="moodboard" class="bg-paper-dark py-20 relative overflow-hidden">
+        <!-- Ripped top edge -->
+        <div class="absolute top-0 left-0 w-full h-8 bg-paper edge-torn-top -mt-1 z-10"></div>
+        
+        <div class="container mx-auto px-6">
+            <h2 class="font-serif italic text-4xl text-center mb-12 relative z-20">
+                <span class="underline-marker">Visual Collection</span>
+            </h2>
+
+            <div class="flex flex-wrap justify-center gap-8 relative z-10">
+                
+                <!-- Photo 1 -->
+                <div class="relative w-64 h-64 md:w-80 md:h-80 paper-shadow bg-white p-2 transform -rotate-3 hover:rotate-0 transition-transform duration-500 hover:z-20">
+                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=500" class="w-full h-full object-cover" alt="Texture">
+                    <div class="tape tape-pattern w-32 h-8 -top-3 left-10 transform -rotate-2"></div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="relative w-48 h-56 md:w-64 md:h-72 paper-shadow bg-white p-2 transform rotate-6 hover:rotate-2 transition-transform duration-500 hover:z-20 mt-10 md:mt-0">
+                    <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover filter contrast-125" alt="Abstract">
+                    <div class="tape w-8 h-12 -right-2 top-1/2 transform rotate-90 bg-red-400/30"></div>
+                </div>
+
+                <!-- Quote Card -->
+                <div class="relative w-72 h-auto paper-shadow bg-ink p-6 transform -rotate-2 hover:rotate-1 transition-transform duration-500 hover:z-20 flex items-center justify-center">
+                    <p class="font-serif text-white text-xl italic text-center leading-relaxed">
+                        “Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.”
+                    </p>
+                    <div class="absolute -top-3 -left-3 w-12 h-12 border-t-2 border-l-2 border-white/50"></div>
+                    <div class="absolute -bottom-3 -right-3 w-12 h-12 border-b-2 border-r-2 border-white/50"></div>
+                </div>
+
+                 <!-- Photo 3 -->
+                 <div class="relative w-56 h-56 md:w-72 md:h-72 paper-shadow bg-white p-2 transform rotate-3 hover:rotate-0 transition-transform duration-500 hover:z-20">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=500" class="w-full h-full object-cover grayscale opacity-80" alt="Minimal">
+                    <div class="tape w-24 h-6 -bottom-3 right-10 transform -rotate-3 bg-blue-200/40"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MOOD BOARD LAYERED — overlapping torn-paper photo composition (NOVEL pattern 5) -->
+    <section id="layered" class="container mx-auto px-6 py-24 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Layered photo composition (left, lg) -->
+            <div class="lg:col-span-7 order-2 lg:order-1">
+                <div class="relative w-full h-[480px] md:h-[560px]">
+                    <!-- Paper 1: big back, sepia, torn all sides -->
+                    <div class="layered-photo edge-torn-all w-72 md:w-[26rem] h-80 md:h-[24rem] top-0 left-0 transform -rotate-3 z-10">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=900" class="w-full h-full object-cover filter sepia-[0.25] contrast-105" alt="Texture">
+                    </div>
+                    <!-- Paper 2: middle, grayscale, diagonal torn -->
+                    <div class="layered-photo edge-torn-diagonal w-64 md:w-80 h-72 md:h-96 top-12 md:top-16 left-32 md:left-48 transform rotate-2 z-20">
+                        <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover filter grayscale contrast-110" alt="Brutalist concrete">
+                    </div>
+                    <!-- Paper 3: front, color hint, basic torn -->
+                    <div class="layered-photo edge-torn-bottom w-56 md:w-72 h-64 md:h-80 bottom-0 left-12 md:left-24 transform -rotate-2 z-30">
+                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&q=80&w=700" class="w-full h-full object-cover filter contrast-110" alt="Editorial portrait">
+                        <span class="absolute top-2 left-3 font-hand text-base text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">— overlap</span>
+                    </div>
+                    <!-- Paper 4: small accent, top-right -->
+                    <div class="layered-photo w-40 md:w-48 h-40 md:h-48 top-4 right-0 transform rotate-6 z-30 polaroid-tape">
+                        <img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&q=80&w=500" class="w-full h-full object-cover filter grayscale" alt="Hand">
+                    </div>
+                    <!-- Paper 5: tiny clip below -->
+                    <div class="layered-photo w-28 md:w-36 h-28 md:h-36 bottom-12 right-4 md:right-12 transform -rotate-6 z-30 pin-chip">
+                        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover filter sepia-[0.2]" alt="Detail">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right column: typed-up index card -->
+            <div class="lg:col-span-5 order-1 lg:order-2">
+                <div class="relative bg-paper-dark/40 p-8 md:p-10 transform rotate-1 shadow-paper border border-kraft/40">
+                    <!-- Scotch tape on the corners -->
+                    <div class="tape tape-translucent w-24 h-6 -top-3 left-6 rotate-2"></div>
+                    <div class="tape tape-pattern w-20 h-6 -bottom-3 right-8 -rotate-3"></div>
+
+                    <span class="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Index Card 05</span>
+                    <h2 class="font-marker text-3xl md:text-4xl text-ink mt-2 mb-5 transform -rotate-1">A Layered Method.</h2>
+                    <p class="font-serif text-base md:text-lg text-gray-800 leading-relaxed mb-5">
+                        Pick a stack of seven photos. Tear five of them along the long edge. Don't read the corners — let them argue. The composition is the cut, not the layout.
+                    </p>
+                    <ul class="font-typewriter text-sm text-ink-light leading-7 mb-6">
+                        <li>I — start with sepia.</li>
+                        <li>II — argue with grayscale.</li>
+                        <li>III — slip a colour scrap underneath.</li>
+                        <li>IV — leave one corner curled.</li>
+                    </ul>
+                    <span class="font-hand text-xl text-red-stamp transform inline-block -rotate-2">— a method, not a rule.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ATELIER — Sticky-rail oversized cycling polaroid (NOVEL pattern 8 + §M.2 + §M.15) -->
+    <section id="atelier" class="bg-paper-dark relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-8 bg-paper edge-torn-bottom -mt-1 z-10 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-full h-8 bg-paper edge-torn-top -mb-1 z-10 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 py-24 md:py-32 relative">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+                <!-- LEFT: sticky rail -->
+                <div class="md:col-span-5 md:sticky md:top-32 md:self-start mb-12 md:mb-0">
+                    <span class="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Sequence 06</span>
+                    <h2 class="font-marker text-4xl md:text-5xl text-ink mt-2 mb-6 transform -rotate-1">From the<br>atelier.</h2>
+                    <div class="font-serif text-base md:text-lg text-gray-800 leading-relaxed space-y-4 mb-8">
+                        <p>I keep five working images stuck above the desk. They rotate like the moon — one at a time, every few seconds, on no particular axis.</p>
+                        <p class="font-hand text-xl text-gray-600 transform -rotate-1">— what's pinned today, anyway.</p>
+                    </div>
+
+                    <!-- Synced scrubber bar -->
+                    <div class="flex items-center gap-4 max-w-sm mb-6">
+                        <div class="flex-1 h-px bg-ink/20 relative overflow-hidden">
+                            <div class="absolute inset-0 origin-left bg-red-stamp scrap-scrub-bar"></div>
+                        </div>
+                        <span class="font-typewriter text-[10px] uppercase tracking-widest text-pencil whitespace-nowrap">04 looks · 16s loop</span>
+                    </div>
+
+                    <a href="#field-notes" class="group relative inline-block">
+                        <div class="absolute inset-0 bg-black translate-y-1 translate-x-1 transition-transform group-hover:translate-y-2 group-hover:translate-x-2"></div>
+                        <div class="relative bg-paper border-2 border-black px-7 py-3 font-marker text-base hover:-translate-y-1 transition-transform">
+                            More from the desk
+                        </div>
+                    </a>
+                </div>
+
+                <!-- RIGHT: cycling polaroid -->
+                <div class="md:col-span-7">
+                    <div class="relative max-w-md mx-auto md:mx-0">
+                        <!-- Scotch tape on top -->
+                        <div class="tape tape-translucent w-32 h-8 -top-4 left-1/2 -translate-x-1/2 rotate-2 z-30"></div>
+                        <div class="polaroid transform rotate-1 shadow-float">
+                            <div class="relative w-full aspect-[3/4] overflow-hidden bg-gray-100">
+                                <img class="scrap-cycle-img absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" style="animation-delay: 0s;"  src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800" alt="Look 1">
+                                <img class="scrap-cycle-img absolute inset-0 w-full h-full object-cover filter sepia-[0.18] contrast-110" style="animation-delay: 4s;"  src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=800" alt="Look 2">
+                                <img class="scrap-cycle-img absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" style="animation-delay: 8s;"  src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=800" alt="Look 3">
+                                <img class="scrap-cycle-img absolute inset-0 w-full h-full object-cover filter sepia-[0.2] contrast-110" style="animation-delay: 12s;" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800" alt="Look 4">
+                            </div>
+                            <div class="pt-4 px-2 flex items-end justify-between gap-3">
+                                <span class="font-hand text-xl text-ink">— pinned today.</span>
+                                <span class="font-typewriter text-[10px] uppercase tracking-widest text-pencil">ATELIER · 06</span>
+                            </div>
+                        </div>
+
+                        <!-- Indicator thumbnails -->
+                        <div class="grid grid-cols-4 gap-3 mt-6">
+                            <div class="aspect-square overflow-hidden border border-ink/20"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=200" class="w-full h-full object-cover filter grayscale" alt=""></div>
+                            <div class="aspect-square overflow-hidden border border-ink/20"><img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=200" class="w-full h-full object-cover filter sepia-[0.18]" alt=""></div>
+                            <div class="aspect-square overflow-hidden border border-ink/20"><img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=200" class="w-full h-full object-cover filter grayscale" alt=""></div>
+                            <div class="aspect-square overflow-hidden border border-ink/20"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=200" class="w-full h-full object-cover filter sepia-[0.2]" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VOICES — tilted polaroid testimonials with marker-pen circles -->
+    <section id="voices" class="container mx-auto px-6 py-24 relative">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
+            <div>
+                <span class="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Sequence 07</span>
+                <h2 class="font-marker text-4xl md:text-5xl text-ink mt-1 transform rotate-1">Voices, taped on.</h2>
+            </div>
+            <p class="font-hand text-xl text-gray-700 max-w-md md:text-right transform -rotate-1">A few notes left in the margins by readers I trust.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 max-w-6xl mx-auto">
+            <!-- Voice 1 -->
+            <figure class="relative md:mt-0 transform -rotate-2 hover:rotate-0 transition-transform duration-500 group">
+                <div class="polaroid polaroid-tape">
+                    <img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter sepia-[0.2] contrast-110" alt="Reader · Maren">
+                    <!-- Marker-pen circle ornament around face -->
+                    <svg class="marker-circle" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <ellipse cx="50" cy="48" rx="34" ry="38" fill="none" stroke="#D32F2F" stroke-width="1.4" stroke-dasharray="3 5" transform="rotate(-6 50 48)"/>
+                    </svg>
+                    <figcaption class="absolute bottom-2 left-0 right-0 text-center font-hand text-lg text-ink">— Maren, illustrator</figcaption>
+                </div>
+                <blockquote class="mt-6 font-serif italic text-base md:text-lg text-gray-800 leading-relaxed border-l-4 border-red-stamp/60 pl-5">
+                    "It feels like opening someone's drawer. The kind of journal that makes you want to keep your own."
+                </blockquote>
+                <span class="block mt-3 font-typewriter text-[11px] uppercase tracking-widest text-pencil">★★★★★ · Issue 03</span>
+            </figure>
+
+            <!-- Voice 2 -->
+            <figure class="relative md:mt-12 transform rotate-2 hover:rotate-0 transition-transform duration-500 group">
+                <div class="polaroid polaroid-tape">
+                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter grayscale contrast-110" alt="Reader · Tomás">
+                    <svg class="marker-circle" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <ellipse cx="50" cy="46" rx="32" ry="36" fill="none" stroke="#D32F2F" stroke-width="1.4" stroke-dasharray="2 4" transform="rotate(8 50 46)"/>
+                    </svg>
+                    <figcaption class="absolute bottom-2 left-0 right-0 text-center font-hand text-lg text-ink">— Tomás, archivist</figcaption>
+                </div>
+                <blockquote class="mt-6 font-serif italic text-base md:text-lg text-gray-800 leading-relaxed border-l-4 border-red-stamp/60 pl-5">
+                    "Half a magazine, half a confession. I read it slowly because the seams feel important."
+                </blockquote>
+                <span class="block mt-3 font-typewriter text-[11px] uppercase tracking-widest text-pencil">★★★★★ · Issue 02</span>
+            </figure>
+
+            <!-- Voice 3 -->
+            <figure class="relative md:mt-4 transform -rotate-1 hover:rotate-0 transition-transform duration-500 group">
+                <div class="polaroid polaroid-tape">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500" class="w-full aspect-[4/5] object-cover filter sepia-[0.15] contrast-110" alt="Reader · Yael">
+                    <svg class="marker-circle" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                        <ellipse cx="50" cy="50" rx="36" ry="38" fill="none" stroke="#D32F2F" stroke-width="1.4" stroke-dasharray="3 6" transform="rotate(-3 50 50)"/>
+                    </svg>
+                    <figcaption class="absolute bottom-2 left-0 right-0 text-center font-hand text-lg text-ink">— Yael, photographer</figcaption>
+                </div>
+                <blockquote class="mt-6 font-serif italic text-base md:text-lg text-gray-800 leading-relaxed border-l-4 border-red-stamp/60 pl-5">
+                    "The torn edges aren't decoration. They're how the writer tells you which part she'd like back."
+                </blockquote>
+                <span class="block mt-3 font-typewriter text-[11px] uppercase tracking-widest text-pencil">★★★★★ · Issue 04</span>
+            </figure>
+        </div>
+    </section>
+
+    <!-- FAQ — torn-paper details accordion -->
+    <section id="faq" class="bg-paper-dark relative overflow-hidden py-24">
+        <div class="absolute top-0 left-0 w-full h-8 bg-paper edge-torn-bottom -mt-1 z-10 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 max-w-4xl relative z-20">
+            <div class="text-center mb-14">
+                <span class="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Sequence 08</span>
+                <h2 class="font-marker text-4xl md:text-5xl text-ink mt-2 transform -rotate-1 inline-block">Margin Notes <span class="font-serif italic text-ink-light">(FAQ)</span></h2>
+            </div>
+
+            <div class="space-y-5">
+                <details class="scrap-faq group bg-paper p-6 md:p-7 shadow-paper edge-torn-bottom transform -rotate-[0.4deg]" open>
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-marker text-xl md:text-2xl text-ink">How often does a new issue land?</h3>
+                        <span class="scrap-chevron font-marker text-3xl text-red-stamp leading-none select-none">+</span>
+                    </summary>
+                    <p class="mt-4 font-serif text-base md:text-lg text-gray-800 leading-relaxed">A loose monthly rhythm — usually mid-month, sometimes late. The Scrapbook is closer to a fanzine than a newsletter; if a fragment isn't ready, it waits.</p>
+                </details>
+
+                <details class="scrap-faq group bg-paper p-6 md:p-7 shadow-paper edge-torn-bottom transform rotate-[0.6deg]">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-marker text-xl md:text-2xl text-ink">Is everything hand-cut, or just the look?</h3>
+                        <span class="scrap-chevron font-marker text-3xl text-red-stamp leading-none select-none">+</span>
+                    </summary>
+                    <p class="mt-4 font-serif text-base md:text-lg text-gray-800 leading-relaxed">The look. Most of the photos are mine, scanned from contact sheets; the typewriter strips are real ribbon. The page glue, sadly, is CSS.</p>
+                </details>
+
+                <details class="scrap-faq group bg-paper p-6 md:p-7 shadow-paper edge-torn-bottom transform -rotate-[0.5deg]">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-marker text-xl md:text-2xl text-ink">Can I submit a fragment of my own?</h3>
+                        <span class="scrap-chevron font-marker text-3xl text-red-stamp leading-none select-none">+</span>
+                    </summary>
+                    <p class="mt-4 font-serif text-base md:text-lg text-gray-800 leading-relaxed">Yes — short prose, drawings, or photographs. Email the editor with two paragraphs and a single image. We answer slowly, but we answer.</p>
+                </details>
+
+                <details class="scrap-faq group bg-paper p-6 md:p-7 shadow-paper edge-torn-bottom transform rotate-[0.4deg]">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-marker text-xl md:text-2xl text-ink">Do you ship a physical copy?</h3>
+                        <span class="scrap-chevron font-marker text-3xl text-red-stamp leading-none select-none">+</span>
+                    </summary>
+                    <p class="mt-4 font-serif text-base md:text-lg text-gray-800 leading-relaxed">Twice a year, in a small risograph run. Subscribers on the wood-pulp tier get one in the post — paper that smells like paper.</p>
+                </details>
+
+                <details class="scrap-faq group bg-paper p-6 md:p-7 shadow-paper edge-torn-bottom transform -rotate-[0.3deg]">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-marker text-xl md:text-2xl text-ink">Will the archive stay free?</h3>
+                        <span class="scrap-chevron font-marker text-3xl text-red-stamp leading-none select-none">+</span>
+                    </summary>
+                    <p class="mt-4 font-serif text-base md:text-lg text-gray-800 leading-relaxed">Always. The web should remember things for free. Subscriptions only buy you the print run and the warm feeling of supporting a small operation.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDITOR / ABOUT SECTION -->
+    <section id="about" class="container mx-auto px-6 py-24 flex flex-col md:flex-row items-center gap-16">
+        
+        <div class="w-full md:w-1/2 relative">
+            <div class="absolute inset-0 bg-black transform rotate-2 rounded-lg"></div>
+            <div class="relative bg-kraft p-1 transform -rotate-1 rounded-lg shadow-xl overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1485217988980-11786ced9454?auto=format&fit=crop&q=80&w=800" class="w-full h-auto object-cover filter sepia-[.2]" alt="Editor">
+            </div>
+            <!-- Sticker -->
+            <div class="absolute -bottom-6 -left-6 bg-yellow-400 w-24 h-24 rounded-full flex items-center justify-center shadow-lg transform rotate-12 border-2 border-black border-dashed">
+                <span class="font-marker text-sm text-center leading-tight">Hello<br>There!</span>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2">
+            <h3 class="font-marker text-4xl mb-6">From the Editor's Desk</h3>
+            <div class="font-serif text-lg text-gray-800 leading-relaxed space-y-4">
+                <p>
+                    <span class="font-bold text-4xl float-left mr-2 mt-[-10px] font-serif">I</span> started The Scrapbook because I missed the feeling of paper. The web has become too clean, too sanitized. 
+                </p>
+                <p>
+                    Here, pixels are torn, images are taped, and nothing is perfectly aligned. It's a digital homage to the physical journals I've kept for years.
+                </p>
+                <p class="font-hand text-2xl mt-8 text-gray-600 transform -rotate-2">
+                    — Keep cutting, pasting, and creating.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / NEWSLETTER -->
+    <footer id="subscribe" class="bg-[#2a2a2a] text-paper-dark pt-24 pb-12 relative overflow-hidden">
+        <!-- Torn top -->
+        <div class="absolute top-0 left-0 w-full h-10 bg-paper edge-torn-bottom transform rotate-180 -mt-1 z-10"></div>
+        
+        <!-- Crumpled texture effect via CSS gradients -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle, #fff 10%, transparent 10%); background-size: 20px 20px;"></div>
+
+        <div class="container mx-auto px-6 relative z-20">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h2 class="font-marker text-4xl md:text-5xl mb-6 text-white">Join the Collage</h2>
+                <p class="font-serif italic text-gray-400 mb-8">Get weekly fragments delivered to your inbox. No spam, just art.</p>
+                
+                <form class="flex flex-col md:flex-row gap-4 justify-center max-w-md mx-auto relative">
+                    <!-- Input with uneven border -->
+                    <div class="relative flex-grow">
+                         <div class="absolute inset-0 bg-white transform rotate-1 rounded-sm"></div>
+                         <input type="email" placeholder="email@address.com" class="relative w-full bg-paper p-4 font-typewriter text-ink focus:outline-none border-2 border-transparent focus:border-black transform -rotate-1 shadow-inner">
+                    </div>
+                    <button class="relative group">
+                        <div class="absolute inset-0 bg-red-600 transform rotate-2 rounded-sm transition-transform group-hover:rotate-6"></div>
+                        <div class="relative bg-ink text-white px-8 py-4 font-marker uppercase tracking-wider transform -rotate-1 border border-white/20 transition-transform group-hover:-translate-y-1 group-hover:-rotate-2">
+                            Paste It
+                        </div>
+                    </button>
+                    <!-- Tape holding the form -->
+                    <div class="tape w-32 h-8 -top-6 left-0 rotate-3 opacity-20"></div>
+                    <div class="tape w-32 h-8 -bottom-6 right-0 -rotate-2 opacity-20"></div>
+                </form>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-12">
+                <div class="text-center md:text-left">
+                    <h4 class="font-marker text-xl text-white mb-4">The Scrapbook</h4>
+                    <p class="font-typewriter text-xs text-gray-500">
+                        &copy; 2024. Hand-coded pixel collage.<br>
+                        Made with <i data-lucide="scissors" class="inline w-3 h-3"></i> & <i data-lucide="coffee" class="inline w-3 h-3"></i>.
+                    </p>
+                </div>
+                
+                <div class="flex justify-center gap-6">
+                    <a href="#" class="hover:text-white hover:scale-125 transition-transform"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="hover:text-white hover:scale-125 transition-transform"><i data-lucide="twitter"></i></a>
+                    <a href="#" class="hover:text-white hover:scale-125 transition-transform"><i data-lucide="pinterest"></i></a>
+                </div>
+
+                <div class="text-center md:text-right font-typewriter text-xs text-gray-500 flex flex-col gap-2">
+                    <a href="#" class="hover:text-white hover:underline decoration-wavy">Privacy Policy</a>
+                    <a href="#" class="hover:text-white hover:underline decoration-wavy">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple scroll reveal effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.add('py-4');
+                navbar.classList.remove('py-2');
+            }
+        });
+    </script>
+</body>
+</html>

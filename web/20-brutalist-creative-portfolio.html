@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DANIEL.V - Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#474747",
+                        "tertiary-container": "#3e0022",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-variant": "#e2e2e2",
+                        "surface-bright": "#f9f9f9",
+                        "on-tertiary-container": "#f62099",
+                        "primary-fixed": "#e2e2e2",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "outline": "#7e7576",
+                        "secondary": "#5e6300",
+                        "surface-tint": "#5e5e5e",
+                        "on-surface": "#1b1b1b",
+                        "on-tertiary-fixed-variant": "#8c0054",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-dim": "#dadada",
+                        "secondary-fixed-dim": "#c6cf00",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#000000",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#1b1d00",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "on-secondary-fixed-variant": "#464a00",
+                        "inverse-primary": "#c6c6c6",
+                        "primary-container": "#1b1b1b",
+                        "tertiary": "#000000",
+                        "inverse-surface": "#303030",
+                        "on-primary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#ffd9e5",
+                        "secondary-container": "#dfe900",
+                        "on-secondary-container": "#626700",
+                        "outline-variant": "#cfc4c5",
+                        "background": "#f9f9f9",
+                        "on-background": "#1b1b1b",
+                        "on-primary-container": "#848484",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#3e0022",
+                        "surface-container": "#eeeeee",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb0ce",
+                        "surface-container-low": "#f3f3f3",
+                        "on-surface-variant": "#4c4546",
+                        "secondary-fixed": "#e2ec00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "offset-shadow-sm": "4px",
+                        "margin-edge": "32px",
+                        "offset-shadow-lg": "8px",
+                        "gutter": "0px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Arial"],
+                        "wordmark-italic": ["Times New Roman"],
+                        "utility-bold": ["Arial"],
+                        "body-mono": ["Courier New"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["96px", { "lineHeight": "0.9", "letterSpacing": "-0.05em", "fontWeight": "900" }],
+                        "wordmark-italic": ["48px", { "lineHeight": "1", "fontWeight": "400" }],
+                        "utility-bold": ["12px", { "lineHeight": "1", "fontWeight": "700" }],
+                        "body-mono": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
+        }
+        .chunky-shadow-lime { box-shadow: 8px 8px 0px 0px #C6FF3F; }
+        .chunky-shadow-pink { box-shadow: 8px 8px 0px 0px #FF2BA0; }
+        .chunky-shadow-yellow { box-shadow: 8px 8px 0px 0px #F4FF1A; }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-primary min-h-screen overflow-x-hidden relative">
+<!-- Top Navigation Substitute. Responsive: p-margin-edge (32px)
+     ramps down on mobile; nav stack stays vertical on all
+     breakpoints (the design calls for it) but gains tighter
+     margin between the two rows on small screens. -->
+<header class="p-4 w-full flex flex-col md:flex-row justify-between items-start z-50 relative border-b-2 border-primary sm:p-6 md:p-margin-edge">
+<nav class="flex flex-col gap-unit font-body-mono text-body-mono uppercase mb-6 md:mb-0">
+<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">ARCHIVE</a>
+<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">LABS</a>
+<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">BIOGRAPHY</a>
+<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">SAY_HELLO</a>
+</nav>
+<div class="font-utility-bold text-utility-bold uppercase border-2 border-primary p-2 chunky-shadow-yellow bg-surface-container-lowest animate-pulse rotate-[-2deg]">
+            AVAILABLE FOR WORK
+        </div>
+</header>
+<!-- Hero Section. text-[15vw] already scales with viewport, but the
+     -ml-4 nudge overflows a narrow viewport — neutralized on
+     mobile. Body padding ramps with the header. -->
+<main class="relative z-10 w-full overflow-hidden border-b-2 border-primary pb-8 sm:pb-16 md:pb-margin-edge">
+<h1 class="font-wordmark-italic text-[18vw] leading-[0.8] italic text-primary w-full text-center tracking-tighter mt-8 mb-8 sm:text-[15vw] sm:mt-12 sm:mb-12 md:-ml-4">
+            DANIEL V.
+        </h1>
+<div class="px-4 max-w-3xl font-body-mono text-body-mono leading-relaxed mt-8 sm:px-6 md:px-margin-edge">
+            I build <span class="bg-[#F4FF1A] text-primary px-1 font-bold">digital artifacts</span> that reject the sanitized web.
+            Specializing in <span class="bg-[#F4FF1A] text-primary px-1 font-bold">raw interfaces</span>, brutalist layouts, and
+            experiences that demand attention. Not for the faint of heart.
+        </div>
+</main>
+<!-- Work Grid. Responsive: p-margin-edge ramps; negative margins
+     (md:-ml-8, md:-ml-16) are gated to md+ so they don't push
+     tiles off the mobile viewport. Fixed heights swap to
+     aspect ratios on mobile. Shadow chunk kept (that's the brand). -->
+<section class="p-4 w-full relative z-10 border-b-2 border-primary bg-surface pb-20 sm:p-6 sm:pb-24 md:p-margin-edge md:pb-32">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 relative md:gap-8">
+<!-- Project 1 -->
+<div class="md:col-span-7 relative z-20 rotate-[1deg] hover:rotate-0 transition-transform md:-ml-8 mt-6 md:mt-12">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-pink p-3 sm:p-4">
+<img class="w-full aspect-[4/3] md:h-[400px] md:aspect-auto object-cover grayscale contrast-150 border-2 border-primary" data-alt="abstract glitch art with heavy distortion and high contrast black and white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv0oj1wxKrPKxutSb91axltSaMBuyDlbwtvx8JjvlkyuPY8E5p2RgQDXYJkeLJoQlt5w3RqtfiC0wbBkN67PemqkV6g5MX5xWOrgc6xUmh5W49dpGwuD8qYZeBLhE1o2tGVahA63ewnSuRaMZjMKiKhKtCKjoh3zwlxXT7yGcsZmHNR76G9YWLLy2jaOt3KeGYnHOBVdONkXvIABEa6-p96xoMXMiZVEPKANu-hYS5K1BpdhviF9lkQfmq1rX-JKgqb_8Q4AAsR8JD"/>
+<p class="font-body-mono text-body-mono mt-4">[project_01_void_protocol]</p>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="md:col-span-5 relative z-30 mt-6 md:-mt-12 lg:mt-32 md:-ml-16 rotate-[-2deg] hover:rotate-0 transition-transform">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-lime p-3 sm:p-4">
+<img class="w-full aspect-[4/3] md:h-[300px] md:aspect-auto object-cover grayscale contrast-150 border-2 border-primary" data-alt="harsh geometric concrete structures against a stark white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDopn8dbK1V1Cl9CzhRK8zb1WhEwy9xMNQYGs81G4h95vdtSY3Lz5pHGDA1dsfhaHXNif8F1xYdU5nNmbqqm1xjr2g9Ime6sc4vjRfgMFUS2xdZlpeX0naQNF0a1clTWkUg2V3YYrwz6ZxLcuRl5Tju25Apbkcn5NGXcrgjPGy3rSTcPF3AL76PYHuRNtHrh0StSnzJRS9Y4T_k92M2iRBAdbXmhRYsocK5fOglOymK6xcrD0wf9DE7G-VwQl50e3OY4pJZfwtS5g73"/>
+<p class="font-utility-bold text-utility-bold lowercase mt-4 tracking-widest">[experimental_type]</p>
+</div>
+</div>
+<!-- Project 3 -->
+<div class="md:col-span-12 relative z-10 mt-10 md:mt-8 flex justify-center rotate-[0.5deg]">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-3 sm:p-4 w-full md:w-3/4">
+<img class="w-full aspect-[4/3] md:h-[500px] md:aspect-auto object-cover grayscale contrast-200 border-2 border-primary" data-alt="close up of obsolete technology circuit boards high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAeK2WtTXEyeui0l3nuQHFp7KneJ1ueBh4wNBrthjsi5OaP2qv-ANqtk4F8Ms2gIYVPTHl2D3n_Ov3HUNSnwCBgVhlwkfIVKQoP5q1ZqxyTPQ4WY--OgSECpA1xIgUIqg-NMX1Nc435pic-VWTTlQsQfhAgVbXORalMlbKxSA_NNlyAyutRBbMQg-8xmdzIvk9BTN_rJ-A_V5OvzJUW7WBS8RL_XV1o4PmybbpjSHfkrhr8F9T8OQetEL1yczfC1LkhX5NZeT8BU6u"/>
+<p class="font-wordmark-italic text-xl lowercase mt-4 sm:text-2xl">[archive_system_failure]</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Plates — image strip (5 plates, chunky-shadow framed, mixed rotation) -->
+<section class="w-full relative z-10 border-b-2 border-primary bg-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-24">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
+<div>
+<p class="font-utility-bold text-utility-bold uppercase mb-3 tracking-widest">// PROCESS_PLATES — N=05</p>
+<h2 class="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">FROM THE STUDIO FLOOR</h2>
+</div>
+<p class="font-body-mono text-body-mono max-w-sm md:text-right">Selected reference plates. Print-room scans, off-cuts, half-broken builds. The work behind the work.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-12 gap-6 md:gap-8 relative">
+<div class="md:col-span-3 rotate-[-1deg] hover:rotate-0 transition-transform">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-pink p-2 sm:p-3">
+<img class="w-full aspect-[3/4] object-cover grayscale contrast-150 border-2 border-primary" alt="Stripped concrete interior with shadow grid" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop"/>
+<p class="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_01_concrete]</span><span class="opacity-50 tabular-nums">04.24</span></p>
+</div>
+</div>
+<div class="md:col-span-3 mt-4 md:mt-12 rotate-[1.5deg] hover:rotate-0 transition-transform">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-2 sm:p-3">
+<img class="w-full aspect-[3/4] object-cover grayscale contrast-150 border-2 border-primary" alt="Macro circuit board traces" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop"/>
+<p class="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_02_traces]</span><span class="opacity-50 tabular-nums">04.24</span></p>
+</div>
+</div>
+<div class="md:col-span-3 rotate-[-2deg] hover:rotate-0 transition-transform">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-lime p-2 sm:p-3">
+<img class="w-full aspect-[3/4] object-cover grayscale contrast-150 border-2 border-primary" alt="Brutalist tower against stark sky" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop"/>
+<p class="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_03_tower]</span><span class="opacity-50 tabular-nums">05.24</span></p>
+</div>
+</div>
+<div class="md:col-span-3 mt-4 md:mt-16 rotate-[1deg] hover:rotate-0 transition-transform">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-pink p-2 sm:p-3">
+<img class="w-full aspect-[3/4] object-cover grayscale contrast-150 border-2 border-primary" alt="Industrial machinery detail" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop"/>
+<p class="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_04_machine]</span><span class="opacity-50 tabular-nums">05.24</span></p>
+</div>
+</div>
+<div class="col-span-2 md:col-span-12 mt-4 flex justify-center rotate-[-0.5deg] hover:rotate-0 transition-transform">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-2 sm:p-3 w-full md:w-2/3">
+<img class="w-full aspect-[16/9] object-cover grayscale contrast-150 border-2 border-primary" alt="Server room wide shot" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=1600&auto=format&fit=crop"/>
+<p class="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_05_rack_wide]</span><span class="opacity-50 tabular-nums">06.24 — wall-installed reference</span></p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Capabilities matrix — 4 chunky discipline cards -->
+<section class="w-full relative z-10 border-b-2 border-primary bg-surface p-4 sm:p-6 md:p-margin-edge md:py-24">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
+<div>
+<p class="font-utility-bold text-utility-bold uppercase mb-3 tracking-widest">// CAPABILITIES — V.04</p>
+<h2 class="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">FOUR DISCIPLINES</h2>
+</div>
+<p class="font-body-mono text-body-mono max-w-sm md:text-right">Hand-built every time. No design system in a bottle, no AI-bloat. Brief → sketch → break → ship.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-10">
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-pink p-5 rotate-[-1deg] hover:rotate-0 transition-transform flex flex-col gap-4 min-h-[280px]">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-[64px] leading-none">01</span>
+<span class="font-utility-bold text-utility-bold uppercase border-2 border-primary px-2 py-1 bg-[#F4FF1A]">/UI</span>
+</div>
+<h3 class="font-wordmark-italic text-3xl lowercase italic mt-auto">brutalist ui</h3>
+<p class="font-body-mono text-sm">Raw layout, exposed grid, no rounded-corner amnesia. Native HTML, no framework dependencies.</p>
+</div>
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-5 rotate-[1.5deg] hover:rotate-0 transition-transform flex flex-col gap-4 min-h-[280px]">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-[64px] leading-none">02</span>
+<span class="font-utility-bold text-utility-bold uppercase border-2 border-primary px-2 py-1 bg-[#C6FF3F]">/CC</span>
+</div>
+<h3 class="font-wordmark-italic text-3xl lowercase italic mt-auto">creative coding</h3>
+<p class="font-body-mono text-sm">Canvas, WebGL, audio-reactive shaders. Built to break in interesting ways during a 30-second loop.</p>
+</div>
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-lime p-5 rotate-[-1.5deg] hover:rotate-0 transition-transform flex flex-col gap-4 min-h-[280px]">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-[64px] leading-none">03</span>
+<span class="font-utility-bold text-utility-bold uppercase border-2 border-primary px-2 py-1 bg-[#FF2BA0] text-surface-container-lowest">/TY</span>
+</div>
+<h3 class="font-wordmark-italic text-3xl lowercase italic mt-auto">typographic systems</h3>
+<p class="font-body-mono text-sm">Variable-font scales, unhinged display rigs, narrow-grotesk + serif clashes. Letterforms as architecture.</p>
+</div>
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-pink p-5 rotate-[1deg] hover:rotate-0 transition-transform flex flex-col gap-4 min-h-[280px]">
+<div class="flex justify-between items-start">
+<span class="font-display-lg text-[64px] leading-none">04</span>
+<span class="font-utility-bold text-utility-bold uppercase border-2 border-primary px-2 py-1 bg-primary text-surface-container-lowest">/DD</span>
+</div>
+<h3 class="font-wordmark-italic text-3xl lowercase italic mt-auto">digital destruction</h3>
+<p class="font-body-mono text-sm">Glitch, datamosh, deliberate decay. Builds that wear their bytecount on the outside.</p>
+</div>
+</div>
+</section>
+
+<!-- By the numbers — 4-stat ribbon -->
+<section class="w-full relative z-10 border-b-2 border-primary bg-primary text-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-20 overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-12">
+<div>
+<p class="font-utility-bold text-utility-bold uppercase mb-3 tracking-widest text-[#F4FF1A]">// BY THE NUMBERS — Q2.24</p>
+<h2 class="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">VOLUME / OUTPUT</h2>
+</div>
+<p class="font-body-mono text-body-mono max-w-sm md:text-right text-surface-container-lowest/80">Counted. Indexed. Survived. Numbers refresh quarterly.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-surface-container-lowest/20 border-2 border-surface-container-lowest/40">
+<div class="bg-primary p-6 md:p-8 flex flex-col gap-3">
+<p class="font-display-lg text-[60px] md:text-[96px] leading-none tabular-nums text-[#C6FF3F]">07</p>
+<p class="font-utility-bold text-utility-bold uppercase tracking-widest">YEARS / FREELANCE</p>
+<p class="font-body-mono text-xs opacity-60">since 20XX // unbroken streak</p>
+</div>
+<div class="bg-primary p-6 md:p-8 flex flex-col gap-3">
+<p class="font-display-lg text-[60px] md:text-[96px] leading-none tabular-nums text-[#FF2BA0]">142</p>
+<p class="font-utility-bold text-utility-bold uppercase tracking-widest">SHIPPED / PROJECTS</p>
+<p class="font-body-mono text-xs opacity-60">live in the wild // many on fire</p>
+</div>
+<div class="bg-primary p-6 md:p-8 flex flex-col gap-3">
+<p class="font-display-lg text-[60px] md:text-[96px] leading-none tabular-nums text-[#F4FF1A]">19</p>
+<p class="font-utility-bold text-utility-bold uppercase tracking-widest">AWWWARDS / SOTD</p>
+<p class="font-body-mono text-xs opacity-60">+ 04 honors // refusing the rest</p>
+</div>
+<div class="bg-primary p-6 md:p-8 flex flex-col gap-3">
+<p class="font-display-lg text-[60px] md:text-[96px] leading-none tabular-nums text-[#C6FF3F]">38</p>
+<p class="font-utility-bold text-utility-bold uppercase tracking-widest">REPEAT / CLIENTS</p>
+<p class="font-body-mono text-xs opacity-60">round-the-table // long-haul only</p>
+</div>
+</div>
+</section>
+
+<!-- Selected Press / Quotes — 3 chunky shadow cards -->
+<section class="w-full relative z-10 border-b-2 border-primary bg-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-24">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
+<div>
+<p class="font-utility-bold text-utility-bold uppercase mb-3 tracking-widest">// SELECTED PRESS — N=03</p>
+<h2 class="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">WHAT THEY SAID</h2>
+</div>
+<p class="font-body-mono text-body-mono max-w-sm md:text-right">Filed under fan mail. Printed and pinned to the studio wall.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+<figure class="border-2 border-primary bg-surface-container-lowest chunky-shadow-lime p-6 sm:p-8 rotate-[-1deg] hover:rotate-0 transition-transform flex flex-col gap-6 min-h-[320px]">
+<span class="font-display-lg text-6xl leading-none text-[#C6FF3F]">"</span>
+<blockquote class="font-wordmark-italic italic text-2xl leading-snug">A portfolio that physically refuses to scroll politely. Glorious.</blockquote>
+<figcaption class="font-utility-bold text-utility-bold uppercase tracking-widest mt-auto pt-4 border-t-2 border-primary flex justify-between"><span>— SITE INSPIRE</span><span class="tabular-nums">03.24</span></figcaption>
+</figure>
+<figure class="border-2 border-primary bg-surface-container-lowest chunky-shadow-pink p-6 sm:p-8 rotate-[1deg] hover:rotate-0 transition-transform flex flex-col gap-6 min-h-[320px]">
+<span class="font-display-lg text-6xl leading-none text-[#FF2BA0]">"</span>
+<blockquote class="font-wordmark-italic italic text-2xl leading-snug">Daniel V. is what happens when a print designer learns JavaScript and refuses to apologise.</blockquote>
+<figcaption class="font-utility-bold text-utility-bold uppercase tracking-widest mt-auto pt-4 border-t-2 border-primary flex justify-between"><span>— TYPE/CODE QUARTERLY</span><span class="tabular-nums">11.23</span></figcaption>
+</figure>
+<figure class="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-6 sm:p-8 rotate-[-1.5deg] hover:rotate-0 transition-transform flex flex-col gap-6 min-h-[320px]">
+<span class="font-display-lg text-6xl leading-none text-primary bg-[#F4FF1A] px-2">"</span>
+<blockquote class="font-wordmark-italic italic text-2xl leading-snug">A site that loads like a jump scare and lingers like a cigarette burn. Hire on sight.</blockquote>
+<figcaption class="font-utility-bold text-utility-bold uppercase tracking-widest mt-auto pt-4 border-t-2 border-primary flex justify-between"><span>— BRAND.NEW WEEKLY</span><span class="tabular-nums">07.23</span></figcaption>
+</figure>
+</div>
+</section>
+
+<!-- Footer Areas. Responsive: p-margin-edge ramps. display-lg
+     (96px) INFO scales 52→96. The 300px "D.V" ghost text hides
+     on mobile (overflows viewport and eats layout). Email link
+     text-[6vw] → text-[11vw] on mobile so it reads as display type. -->
+<footer class="w-full flex flex-col md:flex-row relative z-10 bg-surface-container-lowest">
+<!-- About Block -->
+<div class="w-full md:w-1/2 p-4 border-b-2 md:border-b-0 md:border-r-2 border-primary bg-surface-container-lowest relative overflow-hidden sm:p-6 md:p-margin-edge">
+<h2 class="font-display-lg text-[52px] leading-[0.9] uppercase mb-6 sm:text-[72px] sm:mb-8 md:text-display-lg">INFO</h2>
+<div class="font-body-mono text-body-mono space-y-4 relative z-10 max-w-md">
+<p>---</p>
+<p>DANIEL V.<br/>CREATIVE DEVELOPER<br/>EST. 20XX</p>
+<p>---</p>
+<p>CAPABILITIES:</p>
+<ul class="space-y-1">
+<li>- BRUTALIST UI</li>
+<li>- CREATIVE CODING</li>
+<li>- TYPOGRAPHIC SYSTEMS</li>
+<li>- DIGITAL DESTRUCTION</li>
+</ul>
+<p>---</p>
+</div>
+<div class="hidden md:block absolute -bottom-20 -right-20 opacity-10 text-[300px] font-display-lg text-primary pointer-events-none">
+                D.V
+            </div>
+</div>
+<!-- Contact Block -->
+<div class="w-full md:w-1/2 p-4 flex flex-col justify-center bg-surface-container-highest sm:p-6 md:p-margin-edge">
+<h2 class="font-body-mono text-body-mono uppercase mb-4 font-bold border-b-2 border-primary pb-2 w-max inline-block">INITIATE_CONTACT</h2>
+<a class="font-display-lg text-[11vw] leading-none uppercase break-words hover:text-[#FF2BA0] transition-colors mt-6 sm:text-[8vw] sm:mt-8 md:text-[6vw]" href="mailto:HELLO@DANIEL-V.COM">
+                HELLO@<br/>DANIEL-V.COM
+            </a>
+<div class="mt-10 flex justify-between items-center font-utility-bold text-utility-bold border-t-2 border-primary pt-4 sm:mt-16">
+<span>© 2024</span>
+<span class="bg-primary text-surface-container-lowest px-2 py-1">SYSTEM_ONLINE</span>
+</div>
+</div>
+</footer>
+</body></html>

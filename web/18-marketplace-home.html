@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Commons Marketplace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "outline": "#747878",
+                        "secondary-fixed-dim": "#f0c053",
+                        "tertiary-container": "#1b1c19",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-surface": "#1b1c1c",
+                        "on-surface-variant": "#444748",
+                        "primary-container": "#1c1c1c",
+                        "error-container": "#ffdad6",
+                        "background": "#fbf9f8",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-primary-container": "#858484",
+                        "inverse-primary": "#c8c6c5",
+                        "on-secondary-container": "#735500",
+                        "outline-variant": "#c4c7c7",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "surface-variant": "#e4e2e2",
+                        "secondary-container": "#fccb5d",
+                        "on-secondary-fixed": "#261a00",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#474746",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#efeded",
+                        "surface-tint": "#5f5e5e",
+                        "surface-container-high": "#e9e8e7",
+                        "on-background": "#1b1c1c",
+                        "secondary": "#795900",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "surface": "#fbf9f8",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#ffdf9f",
+                        "tertiary-fixed": "#e4e2dd",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "primary-fixed": "#e5e2e1",
+                        "inverse-surface": "#303031",
+                        "on-tertiary-container": "#858480",
+                        "tertiary": "#010100",
+                        "surface-bright": "#fbf9f8",
+                        "surface-dim": "#dbdad9",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "primary": "#010101",
+                        "surface-container-low": "#f5f3f3"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-edge": "48px",
+                        "section-gap": "80px",
+                        "container-max": "1440px"
+                    },
+                    fontFamily: {
+                        "display-xl": ["Noto Serif"],
+                        "headline-lg": ["Noto Serif"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Noto Serif"]
+                    },
+                    fontSize: {
+                        "display-xl": ["64px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "400" }],
+                        "label-sm": ["12px", { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        html, body { overflow-x: clip; }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Marquee strip for sellers */
+        .makers-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: makers-marquee 60s linear infinite;
+        }
+        .makers-track:hover { animation-play-state: paused; }
+        @keyframes makers-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 10px)); }
+        }
+        /* FAQ details rotation */
+        .commons-faq summary::-webkit-details-marker { display: none; }
+        .commons-faq summary { list-style: none; cursor: pointer; }
+        .commons-faq summary .commons-chevron { transition: transform 250ms ease; }
+        .commons-faq[open] summary .commons-chevron { transform: rotate(180deg); }
+        /* Step pulsing dot for "current" stage */
+        @keyframes commons-pulse {
+            0%, 100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(121, 89, 0, 0.45); }
+            50%      { opacity: 1;   box-shadow: 0 0 0 8px rgba(121, 89, 0, 0); }
+        }
+        .commons-pulse-dot { animation: commons-pulse 2.4s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+            .makers-track { animation: none; }
+            .commons-pulse-dot { animation: none; }
+            .commons-faq summary .commons-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar. Responsive: px-10 → px-4 on mobile, smaller wordmark. -->
+<nav class="bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-50 font-serif text-base tracking-tight docked full-width top-0 z-50 border-b border-stone-200 dark:border-stone-800 flat no shadows opacity-90 active:opacity-100 transition-opacity">
+<div class="flex justify-between items-center gap-3 px-4 py-4 max-w-[1440px] mx-auto w-full sm:px-6 sm:py-5 md:px-10 md:py-6">
+<a class="text-lg font-serif tracking-widest uppercase text-stone-900 dark:text-stone-50 hover:text-stone-900 dark:hover:text-stone-200 transition-colors duration-500 sm:text-xl md:text-2xl" href="#">Commons</a>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-stone-900 dark:text-stone-50 border-b border-stone-900 dark:border-stone-50 pb-1 hover:text-stone-900 dark:hover:text-stone-200 transition-colors duration-500" href="#">Discover</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors duration-500" href="#">Artists</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors duration-500" href="#">Collections</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition-colors duration-500" href="#">Sell</a>
+</div>
+<div class="flex items-center space-x-6">
+<button aria-label="person" class="hover:text-stone-900 dark:hover:text-stone-200 transition-colors duration-500">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button aria-label="shopping_cart" class="hover:text-stone-900 dark:hover:text-stone-200 transition-colors duration-500">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main>
+<!-- Hero Section. Responsive: fixed h-[600px] → auto-height with
+     generous vertical padding on mobile; display-xl (64px)
+     scales 30→44→64; search box input + button stack vertically
+     under 640px so neither is cramped. -->
+<section class="relative w-full min-h-[520px] md:h-[600px] flex items-center justify-center bg-surface-container-highest overflow-hidden py-16 md:py-0">
+<img alt="Abstract art gallery interior" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" data-alt="Abstract art gallery interior with large canvas paintings on white walls, soft natural lighting from skylights, minimal modern aesthetic, muted earth tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT9kWRvhxUymNClB5PHfVgNEFdi8Ya0idZqk5JZxM_5MwFbJU5zeB3PHuKBeXYT13gVfEhkvS58fycoPB3wOgkX-OFzb6P2qBhS3C1HItK2-nC0UUWoHrUuhKD_jfJBwDhygFIbCX4AF_v1KAiUsTrsEnYToUhPZbCjlZuNYnBl_PZW6YIzXhVsDxs8moQCGpVl7hnh0p3y5b2HlvHmjZvItzv0FcZoxMTg61ye_np97z2Dri52XL5YFkDhEHnRezbMqZXpq4Vu-E"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="relative z-10 text-center px-4 w-full max-w-4xl sm:px-6 md:px-margin-edge">
+<h1 class="font-display-xl text-[30px] leading-[1.1] text-primary mb-6 tracking-tight sm:text-[44px] sm:mb-8 md:text-display-xl">Original art from independent studios</h1>
+<div class="max-w-2xl mx-auto bg-surface p-2 rounded-lg border border-outline-variant shadow-sm flex flex-col sm:flex-row sm:items-center">
+<div class="flex items-center flex-1 w-full">
+<span class="material-symbols-outlined text-on-surface-variant ml-3 mr-2" data-icon="search">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-body-md font-body-md placeholder:text-on-surface-variant py-3 px-1 sm:text-body-lg sm:font-body-lg sm:py-4 sm:px-2" placeholder="Search artists, styles, mediums" type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded font-label-sm text-label-sm tracking-widest uppercase hover:bg-inverse-surface transition-colors mt-2 sm:mt-0 sm:px-8 sm:py-4">Search</button>
+</div>
+<div class="flex flex-wrap justify-center gap-2 mt-6 sm:gap-3 sm:mt-8 md:gap-4">
+<button class="px-4 py-2 border border-outline rounded-full font-body-md text-sm bg-surface hover:bg-surface-container transition-colors sm:px-6 sm:text-body-md">Painting</button>
+<button class="px-4 py-2 border border-outline rounded-full font-body-md text-sm bg-surface hover:bg-surface-container transition-colors sm:px-6 sm:text-body-md">Photography</button>
+<button class="px-4 py-2 border border-outline rounded-full font-body-md text-sm bg-surface hover:bg-surface-container transition-colors sm:px-6 sm:text-body-md">Sculpture</button>
+<button class="px-4 py-2 border border-outline rounded-full font-body-md text-sm bg-surface hover:bg-surface-container transition-colors sm:px-6 sm:text-body-md">Print</button>
+</div>
+</div>
+</section>
+<!-- Categories. Three alternating image+content rows (image-left,
+     image-right, image-left) on a 12-col grid with 7/5 asymmetry
+     per row (per playbook §M.1, §H.1, §K.5). Avoids bento grid in
+     favour of editorial rows. -->
+<section class="max-w-container-max mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-margin-edge md:py-section-gap">
+<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-10 sm:mb-14 gap-3 md:gap-0">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">— 01 · Categories</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary mt-3 sm:text-[30px] md:text-headline-lg">Browse the collection by craft</h2>
+</div>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface hover:text-on-surface-variant underline underline-offset-4 decoration-1" href="#">All Categories</a>
+</div>
+<div class="flex flex-col gap-12 md:gap-20">
+<!-- Row 1: image-left -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center">
+<figure class="md:col-span-7 relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container">
+<img alt="Painting category" class="absolute inset-0 w-full h-full object-cover" data-alt="Hand applying oil paint to a canvas in a sunlit studio with brushes, palette knives, and earth-toned paint mixing on a wooden palette" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-5 left-5 bg-surface/90 backdrop-blur px-3 py-1 font-label-sm text-label-sm uppercase tracking-widest text-primary">Plate · I</span>
+</figure>
+<div class="md:col-span-5">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Painting</span>
+<h3 class="font-headline-md text-[22px] leading-tight text-primary mt-3 mb-4 sm:text-[26px] md:text-headline-md">Oil, acrylic, watercolour and beyond</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Original works from studios in Brooklyn, Mexico City, and Berlin. Stretched canvas, framed and unframed paper, and limited-run editions — each piece signed and numbered by the maker.</p>
+<div class="flex items-center gap-5">
+<span class="inline-flex items-center gap-2 px-3 py-1 border border-outline-variant rounded-full font-label-sm text-label-sm uppercase tracking-widest text-on-surface">328 pieces</span>
+<a class="inline-flex items-center gap-2 font-label-sm text-label-sm uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors" href="#">Browse Painting <span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+</div>
+</div>
+<!-- Row 2: image-right (reversed via order) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center">
+<div class="md:col-span-5 md:order-2">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Photography</span>
+<h3 class="font-headline-md text-[22px] leading-tight text-primary mt-3 mb-4 sm:text-[26px] md:text-headline-md">Editions printed by hand</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Silver gelatin, archival pigment, and platinum-palladium prints made in the photographer's own darkroom or studio. Every print arrives with a signed certificate of authenticity and edition note.</p>
+<div class="flex items-center gap-5">
+<span class="inline-flex items-center gap-2 px-3 py-1 border border-outline-variant rounded-full font-label-sm text-label-sm uppercase tracking-widest text-on-surface">214 pieces</span>
+<a class="inline-flex items-center gap-2 font-label-sm text-label-sm uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors" href="#">Browse Photography <span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+</div>
+<figure class="md:col-span-7 md:order-1 relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container">
+<img alt="Photography category" class="absolute inset-0 w-full h-full object-cover" data-alt="High contrast black and white fine art photography of brutalist architecture, sharp shadows, geometric shapes, minimalist composition" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-5 left-5 bg-surface/90 backdrop-blur px-3 py-1 font-label-sm text-label-sm uppercase tracking-widest text-primary">Plate · II</span>
+</figure>
+</div>
+<!-- Row 3: image-left -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-center">
+<figure class="md:col-span-7 relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container">
+<img alt="Sculpture and ceramics category" class="absolute inset-0 w-full h-full object-cover" data-alt="Hands shaping a clay vessel on a potter's wheel in a quiet studio, water-streaked clay surface, raw earth tones, soft natural light from a north-facing window" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-5 left-5 bg-surface/90 backdrop-blur px-3 py-1 font-label-sm text-label-sm uppercase tracking-widest text-primary">Plate · III</span>
+</figure>
+<div class="md:col-span-5">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Sculpture &amp; Ceramics</span>
+<h3 class="font-headline-md text-[22px] leading-tight text-primary mt-3 mb-4 sm:text-[26px] md:text-headline-md">Vessels, forms and cast objects</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Hand-thrown stoneware, slip-cast porcelain, bronze and resin pieces from independent ceramicists and sculptors. Shipped in bespoke crating with full provenance and artist notes on materials and process.</p>
+<div class="flex items-center gap-5">
+<span class="inline-flex items-center gap-2 px-3 py-1 border border-outline-variant rounded-full font-label-sm text-label-sm uppercase tracking-widest text-on-surface">142 pieces</span>
+<a class="inline-flex items-center gap-2 font-label-sm text-label-sm uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors" href="#">Browse Sculpture <span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured this week. Responsive padding ramp +
+     headline-lg (32px) scales 22→26→32. 2-col grid on sm so
+     mobile feels browseable, not one-long-column. -->
+<section class="max-w-container-max mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-margin-edge md:py-section-gap">
+<div class="flex justify-between items-end mb-8 sm:mb-12">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">— 02 · This week</span>
+<h2 class="font-headline-lg text-[22px] leading-tight text-primary mt-3 sm:text-[26px] md:text-headline-lg">Featured this week</h2>
+</div>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface hover:text-on-surface-variant underline underline-offset-4 decoration-1" href="#">View All</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-gutter">
+<!-- Art Card 1 -->
+<div class="group cursor-pointer">
+<div class="relative bg-surface-container p-4 mb-4 rounded aspect-[3/4] overflow-hidden">
+<img alt="Abstract fluid painting" class="w-full h-full object-cover shadow-sm transition-transform duration-700 group-hover:scale-105" data-alt="Abstract fluid painting with swirls of deep blue, gold, and white, textured impasto technique, dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAErnygMgi566PaEws1N6ESTtFLVACcmR9lMd2xZ-jwiepcHATjDOTNWnZQaGkYXWMfyLGmt7Rt7JGROhQqsbLwsAKaZQ0I_Uf5scb-JHFire9TtosmSouZT1Wljmrrx3RliDUfmMhN_MFha0x4oE32mLCpkAo7auYBRDYReJGl5O12TPpxB3xT5hsxOHvHL5PXW2ELJt9XZtzEYyMv8lafv223MZnCsuRIwbZ5GEnAd3GwjVTXAkyCbfoIAkJsOLuqS6lI9Sc47kA"/>
+<button aria-label="favorite" class="absolute top-6 right-6 p-2 rounded-full bg-surface/80 backdrop-blur opacity-0 group-hover:opacity-100 transition-opacity text-on-surface hover:text-error">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-base leading-tight text-primary mb-1 sm:text-headline-md">Oceanic Drift</h3>
+<p class="font-body-md text-xs text-on-surface-variant sm:text-body-md">Elena Rust</p>
+</div>
+<p class="font-body-lg text-sm text-primary sm:text-body-lg">$1,200</p>
+</div>
+</div>
+<!-- Art Card 2 -->
+<div class="group cursor-pointer">
+<div class="relative bg-surface-container p-4 mb-4 rounded aspect-[3/4] overflow-hidden">
+<img alt="Minimalist portrait painting" class="w-full h-full object-cover shadow-sm transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist contemporary portrait painting of a woman in profile, muted pastel tones, textured canvas, soft gallery lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIKUwG-jdAg506XrOUuAGuswkEp45qEeQo7eaK97FgpjGEI3b8wRvFgpN9-UdA6jSz34wgdoOJI-slfDR0GoOcVnJtLTX0_433Y_jKAC9oC23dic3oA-ycdDff-jkTCc8FhMcPRUulMUmgogJgn25ppPsaIUwa52C9JZ7_iRR5IKcpMZa_TJhi9_BgaLwR4IWj9xu_uXeuFTibvR_W6qjDy8QMI0ubFJckPZbJS-3-mL5B9jEBJPocD66tXIEvkIJip3ett3ge5MA"/>
+<button aria-label="favorite" class="absolute top-6 right-6 p-2 rounded-full bg-surface/80 backdrop-blur opacity-0 group-hover:opacity-100 transition-opacity text-on-surface hover:text-error">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-base leading-tight text-primary mb-1 sm:text-headline-md">Quiet Moment</h3>
+<p class="font-body-md text-xs text-on-surface-variant sm:text-body-md">Marcus Chen</p>
+</div>
+<p class="font-body-lg text-sm text-primary sm:text-body-lg">$850</p>
+</div>
+</div>
+<!-- Art Card 3 -->
+<div class="group cursor-pointer">
+<div class="relative bg-surface-container p-4 mb-4 rounded aspect-[3/4] overflow-hidden">
+<img alt="Black and white architectural photography" class="w-full h-full object-cover shadow-sm transition-transform duration-700 group-hover:scale-105" data-alt="High contrast black and white fine art photography of brutalist architecture, sharp shadows, geometric shapes, minimalist composition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCGZ0Dg-03hhqcceNk9t65-eaR1S9yoOJ7F-4QbJpYh7rq9MHcvLrrE0El-G0v3cN8Cvs_hUQ66jB86l97uywfY7YcQzrvCbZjiDp9kEuMhtzydu4MnfUWHT32_jcG2E_uP1dRRR0whBdiv6nKWsqsxqjdd-p1yDKgS_LgaihJLfujICp9GWMi_OZUcTjZd2GwSBwbZKzKd1sONJXIHqSE8uWjj9yy7i0vezqBfKE-BJ18LVsl5ASX7n0fx16ryw8fwiatnA5tcQI"/>
+<button aria-label="favorite" class="absolute top-6 right-6 p-2 rounded-full bg-surface/80 backdrop-blur opacity-0 group-hover:opacity-100 transition-opacity text-on-surface hover:text-error">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-base leading-tight text-primary mb-1 sm:text-headline-md">Structure 04</h3>
+<p class="font-body-md text-xs text-on-surface-variant sm:text-body-md">David Alis</p>
+</div>
+<p class="font-body-lg text-sm text-primary sm:text-body-lg">$450</p>
+</div>
+</div>
+<!-- Art Card 4 -->
+<div class="group cursor-pointer">
+<div class="relative bg-surface-container p-4 mb-4 rounded aspect-[3/4] overflow-hidden">
+<img alt="Ceramic sculpture" class="w-full h-full object-cover shadow-sm transition-transform duration-700 group-hover:scale-105" data-alt="Contemporary raw clay ceramic sculpture, organic asymmetrical shape, matte texture, sitting on a wooden pedestal with directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIEJhhh8zBtoxKgpPWQ-5u-7S7Q3HiyEWvhujzmNusPeryaVNT8RsGBTSpCq5vE6zsGlQs_ShY-MJtBc2TtrvVj6J-7flUPJgLxQvmMuAL9OSDczFZs5iv1C7Z1D1fofdh2Dhq7p3SZ_LUqPefr5-8qY-x86oKjXNCxv0kGhL9slJE0BdoNH8Xi4CmEl7rWN63ellMiZE2SxzvHMoXXUaQ6u7miLzeafpD9pFsShhO7fNzi57_LUjT5rH8pXsPQEcgd08DSf_QStU"/>
+<button aria-label="favorite" class="absolute top-6 right-6 p-2 rounded-full bg-surface/80 backdrop-blur opacity-0 group-hover:opacity-100 transition-opacity text-on-surface hover:text-error">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-base leading-tight text-primary mb-1 sm:text-headline-md">Vessel II</h3>
+<p class="font-body-md text-xs text-on-surface-variant sm:text-body-md">Sarah Jenkins</p>
+</div>
+<p class="font-body-lg text-sm text-primary sm:text-body-lg">$2,100</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Sellers / Makers — paused-on-hover marquee strip with mixed
+     aspect ratios (per playbook §I.5 / §K.6 / §M.8). Tile = portrait
+     + name + city + speciality. py-3 wrapper to clear shadow. -->
+<section class="full-bleed py-16 sm:py-20 md:py-section-gap" style="background-color: #f3ede4;">
+<div class="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-edge mb-10 sm:mb-14">
+<div class="flex flex-col md:flex-row md:justify-between md:items-end gap-3 md:gap-0">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">— 03 · The Makers</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary mt-3 sm:text-[30px] md:text-headline-lg">Studios you'll be supporting</h2>
+</div>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface hover:text-on-surface-variant underline underline-offset-4 decoration-1" href="#">All Makers</a>
+</div>
+</div>
+<div class="overflow-hidden py-3">
+<div class="makers-track">
+<!-- Tiles: 8 unique, mixed widths/aspects -->
+<figure class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Studio portrait of a painter standing beside large canvas, side light, hand-spattered apron" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Elena Rust</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Brooklyn, NY · Painter</p>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Photographer in a darkroom holding a freshly developed silver gelatin print, red safelight" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Marcus Chen</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Mexico City · Photographer</p>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Sculptor inspecting a hand-thrown stoneware vessel, dust on hands, north-facing studio light" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Sarah Jenkins</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Lisbon · Ceramicist</p>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-96 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Architectural photographer reviewing contact sheets at a long oak table, drafting lamp" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=1300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">David Alis</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Berlin · Photographer</p>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Printmaker setting up a copper plate on an etching press, ink-stained leather apron" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Ana Vidal</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">São Paulo · Printmaker</p>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Painter in a high-ceilinged converted warehouse studio, several large canvases leaning against the wall" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Yuki Watanabe</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Kyoto · Painter</p>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Sculptor in a foundry holding a small bronze maquette, sparks and warm orange backlight" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Theo Marin</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Marseille · Sculptor</p>
+</figcaption>
+</figure>
+<figure class="shrink-0 w-80 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="Maker portrait" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Mixed-media artist surrounded by paper collages and torn book pages on a wide wooden floor" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Imani Cole</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Detroit · Mixed Media</p>
+</figcaption>
+</figure>
+<!-- Duplicate set for seamless loop -->
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Elena Rust</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Brooklyn, NY · Painter</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Marcus Chen</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Mexico City · Photographer</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Sarah Jenkins</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Lisbon · Ceramicist</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-96 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=1300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">David Alis</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Berlin · Photographer</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Ana Vidal</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">São Paulo · Printmaker</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Yuki Watanabe</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Kyoto · Painter</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Theo Marin</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Marseille · Sculptor</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 text-white">
+<p class="font-headline-md text-lg leading-tight drop-shadow">Imani Cole</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest opacity-90">Detroit · Mixed Media</p>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<!-- How It Works — 5-step horizontal roadmap with imagery per step
+     (per playbook §M.6). Done / current / upcoming differentiated;
+     thin gradient track-line passes BEHIND the circles. -->
+<section class="max-w-container-max mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-margin-edge md:py-section-gap">
+<div class="mb-10 sm:mb-14">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">— 04 · How it works</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary mt-3 sm:text-[30px] md:text-headline-lg">From your screen to your wall</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl">Five quiet steps. We move slowly so the artists don't have to.</p>
+</div>
+<ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 relative">
+<!-- thin gradient track-line under the dots, lg+ only -->
+<div aria-hidden="true" class="hidden lg:block absolute top-7 left-[8%] right-[8%] h-px bg-gradient-to-r from-secondary/0 via-secondary/40 to-secondary/0"></div>
+<li class="relative z-10">
+<div class="w-14 h-14 rounded-full bg-secondary/10 border-2 border-secondary flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+</div>
+<figure class="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container mb-4">
+<img alt="Browse step" class="absolute inset-0 w-full h-full object-cover" data-alt="Hands holding a tablet displaying a marketplace gallery of art prints, soft daylight on a wooden desk" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary tabular-nums">Step · 01</span>
+<h3 class="font-headline-md text-lg leading-tight text-primary mt-2 sm:text-headline-md">Browse</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Filter by medium, palette, price, and edition. Save what you love to a private viewing room.</p>
+</li>
+<li class="relative z-10">
+<div class="w-14 h-14 rounded-full bg-secondary/10 border-2 border-secondary flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="favorite">favorite</span>
+</div>
+<figure class="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container mb-4">
+<img alt="Match step" class="absolute inset-0 w-full h-full object-cover" data-alt="Two people examining a small framed painting in a sun-flooded living room with neutral walls" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary tabular-nums">Step · 02</span>
+<h3 class="font-headline-md text-lg leading-tight text-primary mt-2 sm:text-headline-md">Match</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Use the room mock-up to see scale and tone in your space before you commit.</p>
+</li>
+<li class="relative z-10">
+<div class="w-14 h-14 rounded-full bg-secondary/20 border-2 border-secondary flex items-center justify-center mb-4">
+<span class="w-3 h-3 rounded-full bg-secondary commons-pulse-dot" aria-hidden="true"></span>
+</div>
+<figure class="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container mb-4">
+<img alt="Order step" class="absolute inset-0 w-full h-full object-cover" data-alt="Calm checkout screen on a laptop, hand resting on a leather notebook beside a ceramic coffee cup" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary tabular-nums">Step · 03 · Now</span>
+<h3 class="font-headline-md text-lg leading-tight text-primary mt-2 sm:text-headline-md">Order</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Secure checkout, escrow until delivery, and 14-day collector returns on every piece.</p>
+</li>
+<li class="relative z-10">
+<div class="w-14 h-14 rounded-full bg-background border-2 border-on-surface-variant/30 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="local_shipping">local_shipping</span>
+</div>
+<figure class="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container mb-4">
+<img alt="Delivery step" class="absolute inset-0 w-full h-full object-cover" data-alt="Wooden crate being unpacked in a hallway, packing paper folded back to reveal a wrapped frame" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant tabular-nums">Step · 04</span>
+<h3 class="font-headline-md text-lg leading-tight text-primary mt-2 sm:text-headline-md">Delivered</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Bespoke crating from the studio, fully insured, tracked to your door anywhere worldwide.</p>
+</li>
+<li class="relative z-10">
+<div class="w-14 h-14 rounded-full bg-background border-2 border-on-surface-variant/30 flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="reviews">reviews</span>
+</div>
+<figure class="relative aspect-[4/3] overflow-hidden rounded-lg bg-surface-container mb-4">
+<img alt="Reviewed step" class="absolute inset-0 w-full h-full object-cover" data-alt="Person writing a handwritten note at a tidy walnut desk with a small framed print propped behind it" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant tabular-nums">Step · 05</span>
+<h3 class="font-headline-md text-lg leading-tight text-primary mt-2 sm:text-headline-md">Reviewed</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Share a note with the artist. Every studio reads what their collectors send back.</p>
+</li>
+</ol>
+</section>
+<!-- Stories from the Marketplace — 3-column quote cards with
+     circular portraits + italic quote + city chip. Tinted band so
+     it reads as a register change from the prior section. -->
+<section class="full-bleed py-16 sm:py-20 md:py-section-gap" style="background-color: #ece2ce;">
+<div class="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-edge">
+<div class="flex flex-col md:flex-row md:justify-between md:items-end mb-10 sm:mb-14 gap-3 md:gap-0">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">— 05 · Letters</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary mt-3 sm:text-[30px] md:text-headline-lg">Stories from the marketplace</h2>
+</div>
+<a class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface hover:text-on-surface-variant underline underline-offset-4 decoration-1" href="#">Read all letters</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-gutter">
+<figure class="bg-background border border-outline-variant rounded-lg p-6 sm:p-8 flex flex-col">
+<div class="flex items-center gap-3 mb-5">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img alt="Collector portrait" class="w-full h-full object-cover" data-alt="Half-profile portrait of a woman in soft natural light against a cream wall" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div>
+<p class="font-headline-md text-base leading-tight text-primary">Marisol Ortega</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mt-1">Collector · Madrid</p>
+</div>
+</div>
+<blockquote class="font-headline-md text-lg leading-snug text-primary italic flex-1">"It arrived crated like a museum loan and the artist had handwritten a note about the colour she chose. That's not a transaction — that's a small ceremony."</blockquote>
+<div class="mt-6 pt-4 border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">"Quiet Moment"</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">2024</span>
+</div>
+</figure>
+<figure class="bg-background border border-outline-variant rounded-lg p-6 sm:p-8 flex flex-col">
+<div class="flex items-center gap-3 mb-5">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img alt="Collector portrait" class="w-full h-full object-cover" data-alt="Three-quarter portrait of a man in a wool coat against a textured wall, soft side light" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div>
+<p class="font-headline-md text-base leading-tight text-primary">Felix Albright</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mt-1">Collector · Copenhagen</p>
+</div>
+</div>
+<blockquote class="font-headline-md text-lg leading-snug text-primary italic flex-1">"I've bought from auction houses for years. The difference here is the artist replies — and the print I ordered for my study now has a little story attached to it."</blockquote>
+<div class="mt-6 pt-4 border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">"Structure 04"</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">2023</span>
+</div>
+</figure>
+<figure class="bg-background border border-outline-variant rounded-lg p-6 sm:p-8 flex flex-col">
+<div class="flex items-center gap-3 mb-5">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container shrink-0">
+<img alt="Collector portrait" class="w-full h-full object-cover" data-alt="Portrait of a woman with cropped hair beside a south-facing window in an art-filled apartment" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div>
+<p class="font-headline-md text-base leading-tight text-primary">Priya Singh</p>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mt-1">Collector · Toronto</p>
+</div>
+</div>
+<blockquote class="font-headline-md text-lg leading-snug text-primary italic flex-1">"The vessel I bought lived on a shelf for a year before I figured out where it really belonged. Sarah told me to take my time — that kind of patience is rare."</blockquote>
+<div class="mt-6 pt-4 border-t border-outline-variant flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">"Vessel II"</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">2024</span>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<!-- FAQ — native <details> accordion (per playbook §M.7). chevron_down,
+     0 → 180 rotation, hairline dividers between rows. -->
+<section class="max-w-container-max mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-margin-edge md:py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+<div class="md:col-span-4">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">— 06 · Questions</span>
+<h2 class="font-headline-lg text-[26px] leading-tight text-primary mt-3 sm:text-[30px] md:text-headline-lg">Things collectors ask</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-sm">Everything about provenance, shipping, returns and supporting the studios you buy from.</p>
+<a class="inline-flex items-center gap-2 mt-6 font-label-sm text-label-sm uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors" href="#">Speak to a curator <span class="material-symbols-outlined text-base" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+<div class="md:col-span-8 divide-y divide-outline-variant border-t border-b border-outline-variant">
+<details class="commons-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-base leading-tight text-primary sm:text-lg md:text-headline-md">Are all the works original?</h3>
+<span class="commons-chevron material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl">Yes. Every painting, sculpture, and ceramic on Commons is a one-of-one or part of a numbered edition signed by the artist. Each piece ships with a certificate of authenticity.</p>
+</details>
+<details class="commons-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-base leading-tight text-primary sm:text-lg md:text-headline-md">How does shipping work internationally?</h3>
+<span class="commons-chevron material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl">Studios pack and crate from their own workspace. We coordinate fully insured pickup, customs paperwork, and door-to-door tracking — typically 5–14 working days depending on origin.</p>
+</details>
+<details class="commons-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-base leading-tight text-primary sm:text-lg md:text-headline-md">Can I return a piece if it doesn't suit the room?</h3>
+<span class="commons-chevron material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl">14-day collector returns are standard. Funds stay in escrow until you confirm — if you change your mind, the studio receives the work back in its original crating with shipping covered by us.</p>
+</details>
+<details class="commons-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-base leading-tight text-primary sm:text-lg md:text-headline-md">How much of the price reaches the artist?</h3>
+<span class="commons-chevron material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl">82% of the listed price goes directly to the studio. The remaining 18% covers payment processing, escrow, customs handling, and the curatorial team. No hidden buyer's premium.</p>
+</details>
+<details class="commons-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-base leading-tight text-primary sm:text-lg md:text-headline-md">Do you commission new work?</h3>
+<span class="commons-chevron material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl">A handful of our studios accept private commissions. Reach out through the curator inbox with your reference imagery and timeline — we'll only forward briefs the studios are likely to accept.</p>
+</details>
+</div>
+</div>
+</section>
+<!-- Open a Shop CTA — full-bleed photographic backdrop with stacked
+     overlays (per playbook §D.3 / §M.3). NOT a flooded brand colour. -->
+<section class="full-bleed relative overflow-hidden">
+<div class="absolute inset-0 z-0 pointer-events-none">
+<img alt="Studio backdrop" class="w-full h-full object-cover" data-alt="Wide painter's studio with a north-facing window, large unfinished canvas leaning against a brick wall, brushes stacked on a long wooden bench" src="https://images.unsplash.com/photo-1569091791842-7cfb64e04797?w=2200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-b from-black/65 via-black/45 to-black/80"></div>
+<div class="absolute inset-0" style="background: radial-gradient(ellipse 80% 70% at 30% 80%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%);"></div>
+<div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 60% at 90% 10%, rgba(252,203,93,0.18) 0%, transparent 60%);"></div>
+</div>
+<div class="relative z-10 max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-edge py-20 sm:py-28 md:py-32">
+<div class="max-w-2xl">
+<span class="inline-flex items-center gap-2 px-3 py-1 border border-white/30 rounded-full font-label-sm text-label-sm uppercase tracking-widest text-white">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container commons-pulse-dot"></span>
+Applications open · Spring '25
+</span>
+<h2 class="font-display-xl text-[34px] leading-[1.05] text-white tracking-tight mt-6 sm:text-[48px] md:text-[60px] drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)]">Open a shop on Commons.</h2>
+<p class="font-body-lg text-body-md text-white/90 max-w-xl mt-5 sm:text-body-lg drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">For independent studios making original work in any medium. Curated onboarding, transparent splits, and a buyer base who reads the artist note before they read the price.</p>
+<div class="mt-8 flex flex-wrap items-center gap-4">
+<a class="bg-secondary-container text-on-secondary-container px-7 py-4 rounded font-label-sm text-label-sm tracking-widest uppercase hover:bg-secondary-fixed transition-colors" href="#">Apply to open a shop</a>
+<a class="text-white border border-white/40 px-7 py-4 rounded font-label-sm text-label-sm tracking-widest uppercase hover:bg-white/10 transition-colors" href="#">See seller terms</a>
+</div>
+<dl class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 border-t border-white/20 pt-8 max-w-xl">
+<div>
+<dt class="font-label-sm text-label-sm uppercase tracking-widest text-white/70">Studios</dt>
+<dd class="font-display-xl text-[28px] leading-tight text-white tabular-nums mt-1 sm:text-[32px]">240+</dd>
+</div>
+<div>
+<dt class="font-label-sm text-label-sm uppercase tracking-widest text-white/70">Avg. payout</dt>
+<dd class="font-display-xl text-[28px] leading-tight text-white tabular-nums mt-1 sm:text-[32px]">82%</dd>
+</div>
+<div>
+<dt class="font-label-sm text-label-sm uppercase tracking-widest text-white/70">First sale</dt>
+<dd class="font-display-xl text-[28px] leading-tight text-white tabular-nums mt-1 sm:text-[32px]">~21 d</dd>
+</div>
+</dl>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer. Responsive: px-10 → px-4 on mobile. -->
+<footer class="bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-50 font-sans text-xs uppercase tracking-widest full-width border-t border-stone-200 dark:border-stone-800 mt-16 flat no shadows ease-in-out duration-300 sm:mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-4 py-10 max-w-[1440px] mx-auto w-full gap-6 sm:px-6 sm:py-12 md:px-10 md:gap-0">
+<div class="text-lg font-serif tracking-widest uppercase text-stone-900 dark:text-stone-50 mb-6 md:mb-0">Commons</div>
+<div class="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4 mb-6 md:mb-0">
+<a class="text-stone-400 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-1 underline-offset-4" href="#">About</a>
+<a class="text-stone-400 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-1 underline-offset-4" href="#">Terms of Service</a>
+<a class="text-stone-400 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-1 underline-offset-4" href="#">Privacy Policy</a>
+<a class="text-stone-400 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-1 underline-offset-4" href="#">Contact</a>
+<a class="text-stone-400 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-1 underline-offset-4" href="#">Press</a>
+<a class="text-stone-400 dark:text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-1 underline-offset-4" href="#">Shipping &amp; Returns</a>
+</div>
+<div class="text-stone-400 dark:text-stone-500 text-[10px]">
+                © 2024 Commons Marketplace. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

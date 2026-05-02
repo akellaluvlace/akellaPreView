@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth motion-reduce:scroll-auto">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aperture v2 - Launch</title>
+    <meta name="description" content="Aperture v2. The most significant leap in mobile cinematography. See differently." />
+    <meta property="og:title" content="Aperture v2 - Launch" />
+    <meta property="og:description" content="The most significant leap in mobile cinematography since the lens itself." />
+    <meta property="og:type" content="website" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0..1,0&display=swap" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes ap-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12px)); }
+        }
+        .ap-marquee-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: ap-marquee 60s linear infinite;
+        }
+        .ap-marquee-track:hover { animation-play-state: paused; }
+        @keyframes ap-archive-fade {
+            0%, 4%   { opacity: 0; filter: blur(18px) saturate(0.8); transform: scale(1.04); }
+            8%, 22%  { opacity: 1; filter: blur(0)     saturate(1);   transform: scale(1); }
+            26%, 100%{ opacity: 0; filter: blur(18px) saturate(0.8); transform: scale(1.04); }
+        }
+        .ap-archive-img {
+            animation: ap-archive-fade 16s linear infinite;
+            opacity: 0;
+            filter: blur(18px) saturate(0.8);
+            transform: scale(1.04);
+            will-change: opacity, filter, transform;
+        }
+        .ap-faq summary::-webkit-details-marker { display: none; }
+        .ap-faq summary { list-style: none; cursor: pointer; }
+        .ap-faq summary .ap-chev { transition: transform 250ms ease; }
+        .ap-faq[open] summary .ap-chev { transform: rotate(45deg); }
+        @media (prefers-reduced-motion: reduce) {
+            .ap-marquee-track { animation: none; }
+            .ap-archive-img { animation: none; opacity: 1; filter: none; transform: none; }
+            .ap-faq summary .ap-chev { transition: none; }
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#d7c3ae",
+                        "surface-container": "#201f1f",
+                        "tertiary-container": "#b8b6b5",
+                        "surface-tint": "#ffb955",
+                        "primary-fixed-dim": "#ffb955",
+                        "on-primary-container": "#644000",
+                        "tertiary-fixed": "#e5e2e1",
+                        "on-error": "#690005",
+                        "tertiary": "#d4d1d1",
+                        "outline": "#9f8e7a",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "on-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#633f00",
+                        "on-primary-fixed": "#291800",
+                        "surface-container-highest": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "secondary": "#c9c6bf",
+                        "on-secondary": "#31312b",
+                        "primary": "#ffc880",
+                        "surface-variant": "#353534",
+                        "on-tertiary-container": "#484747",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "secondary-fixed-dim": "#c9c6bf",
+                        "secondary-container": "#474741",
+                        "outline-variant": "#524534",
+                        "on-secondary-fixed-variant": "#474741",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-primary": "#835500",
+                        "primary-container": "#f5a623",
+                        "on-secondary-fixed": "#1c1c17",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#ffddb4",
+                        "on-background": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary-container": "#b7b5ae",
+                        "surface-dim": "#131313",
+                        "surface-bright": "#3a3939",
+                        "on-primary": "#452b00",
+                        "on-tertiary": "#313030",
+                        "background": "#131313",
+                        "surface-container-lowest": "#0e0e0e",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e5e2db",
+                        "surface-container-high": "#2a2a2a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "safe-area": "16px",
+                        "margin": "32px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Noto Serif"],
+                        "body-lg": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "headline-sm": ["Noto Serif"],
+                        "headline-md": ["Noto Serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "mono-data": ["13px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+
+    <header class="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-2xl border-b border-on-background/10">
+        <div class="flex justify-between items-center gap-3 w-full px-4 py-4 sm:px-8 sm:py-5 md:px-margin md:py-6">
+            <a href="#" aria-label="Aperture v2 Home" class="text-sm font-headline-sm tracking-[0.2em] text-on-background uppercase sm:text-base md:text-xl font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded-sm transition-colors block">
+                APERTURE v2
+            </a>
+            
+            <nav aria-label="Main navigation" class="hidden md:block">
+                <ul class="flex items-center gap-8">
+                    <li><a href="#features" class="text-on-background/60 font-label-caps text-label-caps tracking-widest uppercase hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-colors duration-500 block">Features</a></li>
+                    <li><a href="#gallery" class="text-on-background/60 font-label-caps text-label-caps tracking-widest uppercase hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-colors duration-500 block">Gallery</a></li>
+                    <li><a href="#specs" class="text-on-background/60 font-label-caps text-label-caps tracking-widest uppercase hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-colors duration-500 block">Specs</a></li>
+                    <li><a href="#community" class="text-on-background/60 font-label-caps text-label-caps tracking-widest uppercase hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-colors duration-500 block">Community</a></li>
+                </ul>
+            </nav>
+            
+            <div class="flex items-center gap-6">
+                <button class="hidden md:block font-label-caps text-label-caps tracking-widest uppercase text-primary-container hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-all duration-300 active:scale-95">
+                    Pre-order
+                </button>
+                <button aria-label="Open Shopping Bag" class="text-on-background hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-all duration-300 scale-95 hover:scale-100 active:scale-90">
+                    <span class="material-symbols-outlined" aria-hidden="true">shopping_bag</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <section id="hero" class="relative min-h-[100dvh] w-full flex flex-col justify-end pb-12 pt-32 px-4 overflow-hidden bg-surface-dim sm:pb-16 sm:px-8 md:pb-24 md:px-margin">
+            <div class="absolute inset-0 z-0">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFgjfMAYcmQu_vL0CJomegHYq4Sgy2tYd5U4rsVCjoz5X6MaryF2z_dFpgq8mt4nzlnDpVejmskFv3btyCN4Vm6CKcb97PynxXCU9NV4MpEwxn81HY6eeVuwj5Ir6mCXujSu5OWsaFnuyQr-1o9LYXj-tyoOX6oum4hnKk2SY8cIgIdMJ2l_QL41yxeyImJAccOSC_F-shX20hTfu2ucnENEhdZ-aM86V5kgJasHK3Y9zVd6QnJgFQYM_naSDfBtIzou50RGPNGJI" alt="Dramatic golden hour landscape of rugged mountains with sweeping clouds and deep cinematic shadows" width="1920" height="1080" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-80" />
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 max-w-screen-2xl mx-auto w-full">
+                <h1 class="font-display-lg text-[clamp(2.25rem,5vw,4rem)] leading-[1.1] tracking-[-0.02em] text-on-surface mb-6 max-w-4xl sm:mb-8 text-balance">
+                    Aperture v2: <span class="italic text-primary-container">See differently.</span>
+                </h1>
+                
+                <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 sm:gap-8">
+                    <div class="flex gap-4 sm:gap-6">
+                        <div class="flex flex-col">
+                            <span class="font-mono-data text-[clamp(1.5rem,3vw,2rem)] font-light text-on-surface leading-none tabular-nums">14</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant mt-2 uppercase">Days</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-mono-data text-[clamp(1.5rem,3vw,2rem)] font-light text-on-surface leading-none tabular-nums">08</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant mt-2 uppercase">Hours</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-mono-data text-[clamp(1.5rem,3vw,2rem)] font-light text-on-surface leading-none tabular-nums">42</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant mt-2 uppercase">Min</span>
+                        </div>
+                    </div>
+                    
+                    <button class="group flex items-center justify-center gap-3 bg-primary-container text-on-primary-container px-5 py-3 rounded-none hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-all duration-300 sm:gap-4 sm:px-8 sm:py-4 active:scale-95">
+                        <span class="material-symbols-outlined" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        <span class="font-label-caps text-label-caps tracking-widest uppercase">Watch the trailer</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="quote" class="py-16 px-5 bg-background flex flex-col items-center justify-center text-center sm:py-24 sm:px-8 md:py-32 md:px-margin">
+            <span class="material-symbols-outlined text-4xl text-surface-variant mb-6 sm:mb-8" aria-hidden="true">camera</span>
+            <figure class="max-w-3xl w-full">
+                <blockquote class="font-headline-md text-[clamp(1.375rem,3vw,2rem)] leading-relaxed text-primary italic text-balance mb-6 sm:mb-8">
+                    "The most significant leap in mobile cinematography since the lens itself."
+                </blockquote>
+                <figcaption class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase text-pretty">
+                    — International Journal of Photography
+                </figcaption>
+            </figure>
+        </section>
+
+        <section id="features" class="py-16 px-5 bg-surface-container-lowest sm:py-20 sm:px-8 md:py-24 md:px-margin scroll-mt-20">
+            <ul class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <li>
+                    <a href="#feature-dynamic-range" class="group flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest rounded-sm block">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbjJHxiR_ed6i7oSlHsgYS2pfgVFkeHMb4A9aDD7-9PE03BZZM_NI7XGwecgoj04LA_h7-aBoD3wPUI8RMdKvMxGTdGd_w-Te92pmI_r_lLY6FFQrjHzAc9GtkpewSrfC3QgVtMCor6rhdkZUvT3ZHykKDvufMsYeT-CihfmPRYrryy4r0W_L_OqssDP3CDrdYyXjIHedVTjMhqVxZCxz9IcBlxAQI4-_G2RmsAv_CRgveJchdhd8I2dix5TY-2txUBh7tbNstgec" alt="High contrast black and white portrait showing intense detail and shadow depth in a studio setting" width="600" height="800" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out motion-reduce:transition-none" />
+                        </div>
+                        <div class="flex items-center justify-between border-t border-outline/20 pt-4">
+                            <span class="font-label-caps text-label-caps text-on-surface tracking-widest uppercase">Dynamic Range</span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant tabular-nums">01</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#feature-procolor" class="group flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest rounded-sm block">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA28uixWL1o9w3hAGnWjaeFM8MbcThT2vF4BwegYVH8Lf3NlDGWATQaNAfTxOHJOJ5KqvTkHKKxnlUrPUk532QjpJylmS04iWX2LZ-sRLUJj_zjzADOpw_EBaLpBE0AXIr8cTjSJMbDaCHPHEp89kQIm400RHfbcQ4UvfgcnJSMqhjTGnu9g45A2t2d9AqLv7XXFw8GooItfs3lb5sv_7ePFHWbayCepilZsHRdyYJA6G65PnmJ2nhkKJHrfXRzjjrC-3U_H5fzpsQ" alt="Vibrant neon lights reflecting on wet city streets at night demonstrating color depth and saturation" width="600" height="800" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out motion-reduce:transition-none" />
+                        </div>
+                        <div class="flex items-center justify-between border-t border-outline/20 pt-4">
+                            <span class="font-label-caps text-label-caps text-on-surface tracking-widest uppercase">ProColor 10-bit</span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant tabular-nums">02</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#feature-neural-focus" class="group flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest rounded-sm block">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAquSmx3Gc3ml7BN67tyxt8f_2vBBZ602igbi6bX_bwTJUJUDBe69im4X_he534ut7htvrxKTprBtjwkEax_yuaQfqC2hihjrX8xrxgq7VYZ2k0Gr8G3P0-mH-YYBA2YPAAvnYQ8Ffv3Yk2K__Xnoey1QrdfQiWWvgIxcIUMI3tE640R-ER3yzb47e4JbbzzlC4SAPyJoaFY2Bv5jxfSsKil4wdAzI6GLCNbO22dcWCEC8-fzMfv8v8LjMQjeGc4hoecRNqLg7hsuE" alt="Extreme close up of an eye with sharp iris details demonstrating precision focus capabilities" width="600" height="800" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out motion-reduce:transition-none" />
+                        </div>
+                        <div class="flex items-center justify-between border-t border-outline/20 pt-4">
+                            <span class="font-label-caps text-label-caps text-on-surface tracking-widest uppercase">Neural Focus</span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant tabular-nums">03</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#feature-open-gate" class="group flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-surface-container-lowest rounded-sm block">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAT-mVAoyjHhXi6SuXfPr7JHOnKPvOBX1T3-n3JpNeQJoMFLZ0bxcf8pPRJFJP88UaEK5ieOrZrGmEOlTO24hVb1Fn_D1kESPgT5eSxQ3EhNsban1T99lC9uNeF6xaIgkHUe8aISvKp-4Cuyt5XH-J2zr9NFuPAdl9vCPiO9EZotR1RYDPJ0nfflYihEBbJW0KgR67HuxJMnrI0gbnVWIbkDTyctE58dd96s9P5ANUkwflQIruVk-aQQ6YD0jK-K6ye84xTJG7yw0" alt="Wide cinematic shot of a lone figure in a vast minimalist landscape demonstrating sensor width" width="600" height="800" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out motion-reduce:transition-none" />
+                        </div>
+                        <div class="flex items-center justify-between border-t border-outline/20 pt-4">
+                            <span class="font-label-caps text-label-caps text-on-surface tracking-widest uppercase">Open Gate</span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant tabular-nums">04</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="sensor" class="py-20 px-5 bg-background sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-center">
+                <div class="md:col-span-7 relative aspect-[4/5] md:aspect-[5/6] overflow-hidden bg-surface-container-low">
+                    <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&q=85&auto=format&fit=crop" alt="Macro detail of brass lens housing rendering the Aperture v2 sensor cluster" width="1600" height="2000" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 opacity-95" />
+                    <div class="absolute inset-0 bg-gradient-to-tr from-background/80 via-transparent to-primary-container/10 mix-blend-multiply pointer-events-none"></div>
+                    <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-3">
+                        <span class="font-label-caps text-label-caps text-on-surface uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">Detail · 02 — Sensor</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">PLATE · I</span>
+                    </div>
+                </div>
+                <div class="md:col-span-5 flex flex-col gap-8">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 02 — Sensor</span>
+                    <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                        1.6× larger photosites. <span class="italic text-primary-container">Light, faithfully recorded.</span>
+                    </h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant text-pretty">
+                        A redesigned 1-inch stacked sensor with deep-well photodiodes captures four stops more dynamic range than v1. The result is a frame that holds together — highlights soft, shadows readable, midtones true — even when the world isn't.
+                    </p>
+                    <dl class="grid grid-cols-3 gap-4 border-t border-outline/20 pt-8">
+                        <div class="flex flex-col gap-1">
+                            <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Sensor</dt>
+                            <dd class="font-mono-data text-[clamp(1.25rem,2vw,1.75rem)] font-light text-on-surface tabular-nums">1.0″</dd>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Range</dt>
+                            <dd class="font-mono-data text-[clamp(1.25rem,2vw,1.75rem)] font-light text-on-surface tabular-nums">14 EV</dd>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">ISO</dt>
+                            <dd class="font-mono-data text-[clamp(1.25rem,2vw,1.75rem)] font-light text-on-surface tabular-nums">25–204k</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="relative py-20 px-5 bg-surface-container-lowest sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20 overflow-hidden">
+            <div class="max-w-screen-2xl mx-auto flex flex-col gap-12">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                    <div class="flex flex-col gap-4 max-w-2xl">
+                        <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 03 — Gallery</span>
+                        <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                            Shot on Aperture v2. <span class="italic text-primary-container">Unretouched.</span>
+                        </h2>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant md:max-w-md">
+                        Frames from the field crew — 90 days, six continents, one camera. Hover to slow the marquee.
+                    </p>
+                </div>
+                <div class="relative aspect-[21/9] w-full overflow-hidden bg-surface-container">
+                    <img class="ap-archive-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 0s;" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop" alt="Editorial portrait, dramatic side-light, Aperture v2 sample frame" width="1920" height="822" loading="lazy" decoding="async" />
+                    <img class="ap-archive-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 4s;" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop" alt="Brutalist concrete facade in raking light, Aperture v2 sample frame" width="1920" height="822" loading="lazy" decoding="async" />
+                    <img class="ap-archive-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 8s;" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1920&q=85&auto=format&fit=crop" alt="Black and white editorial figure with deep shadow, Aperture v2 sample frame" width="1920" height="822" loading="lazy" decoding="async" />
+                    <img class="ap-archive-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 12s;" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1920&q=85&auto=format&fit=crop" alt="Architectural cornicing detail, Aperture v2 sample frame" width="1920" height="822" loading="lazy" decoding="async" />
+                    <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-surface-container-lowest/40 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-3">
+                        <span class="font-label-caps text-label-caps text-on-surface uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">Frame · Auto-cycling 21:9</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">SHOT ON · v2</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="ap-marquee-track">
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap">REYKJAVIK · 64°N</span>
+                        <span class="font-mono-data text-mono-data text-outline">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap">KYOTO · F/1.7 · 1/240</span>
+                        <span class="font-mono-data text-mono-data text-outline">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap">MARFA · GOLDEN HOUR</span>
+                        <span class="font-mono-data text-mono-data text-outline">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap">PORTO · ISO 800</span>
+                        <span class="font-mono-data text-mono-data text-outline">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap">DAKAR · OPEN GATE</span>
+                        <span class="font-mono-data text-mono-data text-outline">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap">OSLO · LOG3 · 4K60</span>
+                        <span class="font-mono-data text-mono-data text-outline">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap" aria-hidden="true">REYKJAVIK · 64°N</span>
+                        <span class="font-mono-data text-mono-data text-outline" aria-hidden="true">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap" aria-hidden="true">KYOTO · F/1.7 · 1/240</span>
+                        <span class="font-mono-data text-mono-data text-outline" aria-hidden="true">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap" aria-hidden="true">MARFA · GOLDEN HOUR</span>
+                        <span class="font-mono-data text-mono-data text-outline" aria-hidden="true">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap" aria-hidden="true">PORTO · ISO 800</span>
+                        <span class="font-mono-data text-mono-data text-outline" aria-hidden="true">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap" aria-hidden="true">DAKAR · OPEN GATE</span>
+                        <span class="font-mono-data text-mono-data text-outline" aria-hidden="true">·</span>
+                        <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest whitespace-nowrap" aria-hidden="true">OSLO · LOG3 · 4K60</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="specs" class="py-20 px-5 bg-surface-container sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12">
+                <div class="md:col-span-4 flex flex-col gap-6">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Spec Sheet · 04</span>
+                    <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                        Every figure, <span class="italic text-primary-container">measured.</span>
+                    </h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty">
+                        No marketing roundings. Calibrated against an EBU studio reference, signed off by Aperture Labs metrology, Q2 2024.
+                    </p>
+                </div>
+                <dl class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 divide-y divide-outline/15 sm:divide-y-0 sm:[&>*]:border-b sm:[&>*]:border-outline/15 sm:[&>*]:py-6 [&>*]:py-5">
+                    <div class="flex items-baseline justify-between gap-6 sm:pr-8 sm:border-r sm:border-outline/15">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Sensor</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">1.0″ stacked CMOS</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pl-8">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Lens</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">28–135 mm equiv.</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pr-8 sm:border-r sm:border-outline/15">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Aperture</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">f/1.4 — f/4.0</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pl-8">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Stabilisation</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">7-axis OIS · 8.5 EV</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pr-8 sm:border-r sm:border-outline/15">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Native ISO</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">100 / 1600 dual</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pl-8">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Video</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">8K 30 · 4K 120 ProRes</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pr-8 sm:border-r sm:border-outline/15">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Audio</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">4-mic spatial · 96 kHz</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pl-8">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Battery</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">4 850 mAh · 22 hr video</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pr-8 sm:border-r sm:border-outline/15">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Connectivity</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">USB-C 4 · Wi-Fi 7</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pl-8">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Storage</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">256 GB — 4 TB</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pr-8 sm:border-r sm:border-outline/15">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Dimensions</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">158 × 76 × 9.4 mm</dd>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-6 sm:pl-8">
+                        <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Weight</dt>
+                        <dd class="font-mono-data text-mono-data text-on-surface tabular-nums">214 g (titanium)</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <section id="process" class="py-20 px-5 bg-background sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-16">
+                <figure class="md:col-span-5 md:sticky md:top-32 md:self-start aspect-[3/4] overflow-hidden bg-surface-container">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop" alt="Macro of green circuit board representing the Aperture v2 image-processing pipeline" width="1200" height="1600" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 opacity-90" />
+                </figure>
+                <ol class="md:col-span-7 flex flex-col divide-y divide-outline/15 border-y border-outline/15">
+                    <li class="grid grid-cols-12 gap-4 py-8 md:py-12">
+                        <span class="col-span-2 font-display-lg text-[clamp(1.75rem,3vw,2.5rem)] text-primary-container italic tabular-nums">I</span>
+                        <div class="col-span-10 flex flex-col gap-3">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Stage · Capture</span>
+                            <h3 class="font-headline-md text-headline-md text-on-surface">Photons in, faithfully.</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant text-pretty">A new microlens array couples to deep-well photosites, gathering 1.6× more light per pixel without amplifying noise. The shutter, mechanical and electronic, agrees to 1/64 000 s.</p>
+                        </div>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-8 md:py-12">
+                        <span class="col-span-2 font-display-lg text-[clamp(1.75rem,3vw,2.5rem)] text-primary-container italic tabular-nums">II</span>
+                        <div class="col-span-10 flex flex-col gap-3">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Stage · Process</span>
+                            <h3 class="font-headline-md text-headline-md text-on-surface">Eight cores. One frame.</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant text-pretty">The Helios image processor runs eight neural cores in parallel — denoise, demosaic, tone-map, deconvolve, motion-resolve. The frame leaves the silicon already graded.</p>
+                        </div>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-8 md:py-12">
+                        <span class="col-span-2 font-display-lg text-[clamp(1.75rem,3vw,2.5rem)] text-primary-container italic tabular-nums">III</span>
+                        <div class="col-span-10 flex flex-col gap-3">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Stage · Output</span>
+                            <h3 class="font-headline-md text-headline-md text-on-surface">RAW, ProRes, ready.</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant text-pretty">Files land as 14-bit RAW DNG, ProRes 4444 XQ, or HEVC 10-bit — your colourist's choice. Metadata travels with the frame: lens, ISO, body temperature, GPS, lat-lng-alt.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="comparison" class="relative py-24 sm:py-32 md:py-40 overflow-hidden bg-background">
+            <div class="absolute inset-0 z-0 pointer-events-none" style="clip-path: polygon(0 0, 100% 14%, 100% 86%, 0 100%);">
+                <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1920&q=85&auto=format&fit=crop" alt="Industrial machinery in golden tungsten light, Aperture v2 vs v1 backdrop" width="1920" height="1080" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 opacity-50" />
+                <div class="absolute inset-0 bg-gradient-to-r from-background/85 via-background/40 to-background/85"></div>
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(245,166,35,0.12) 0%, transparent 70%);"></div>
+            </div>
+            <div class="relative z-10 max-w-screen-2xl mx-auto px-5 sm:px-8 md:px-margin">
+                <div class="flex flex-col items-center text-center gap-6 mb-12 sm:mb-16">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 05 — Compare</span>
+                    <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance max-w-3xl">
+                        v1 was the proof. <span class="italic text-primary-container">v2 is the practice.</span>
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-outline/20 border border-outline/20">
+                    <div class="bg-background/80 backdrop-blur-sm flex flex-col gap-2 p-6 sm:p-8">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Dynamic range</span>
+                        <span class="font-mono-data text-mono-data text-outline tabular-nums">v1 · 10 EV</span>
+                        <span class="font-display-lg text-[clamp(1.75rem,2.4vw,2.25rem)] font-light text-primary-container tabular-nums leading-none mt-2">14 EV</span>
+                    </div>
+                    <div class="bg-background/80 backdrop-blur-sm flex flex-col gap-2 p-6 sm:p-8">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Low-light ISO</span>
+                        <span class="font-mono-data text-mono-data text-outline tabular-nums">v1 · 51 200</span>
+                        <span class="font-display-lg text-[clamp(1.75rem,2.4vw,2.25rem)] font-light text-primary-container tabular-nums leading-none mt-2">204 800</span>
+                    </div>
+                    <div class="bg-background/80 backdrop-blur-sm flex flex-col gap-2 p-6 sm:p-8">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Video bitrate</span>
+                        <span class="font-mono-data text-mono-data text-outline tabular-nums">v1 · 240 Mb/s</span>
+                        <span class="font-display-lg text-[clamp(1.75rem,2.4vw,2.25rem)] font-light text-primary-container tabular-nums leading-none mt-2">1.6 Gb/s</span>
+                    </div>
+                    <div class="bg-background/80 backdrop-blur-sm flex flex-col gap-2 p-6 sm:p-8">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Battery (video)</span>
+                        <span class="font-mono-data text-mono-data text-outline tabular-nums">v1 · 9 hr</span>
+                        <span class="font-display-lg text-[clamp(1.75rem,2.4vw,2.25rem)] font-light text-primary-container tabular-nums leading-none mt-2">22 hr</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="py-20 px-5 bg-surface-container-high sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
+            <div class="max-w-screen-2xl mx-auto flex flex-col gap-12">
+                <div class="flex flex-col items-start gap-6 max-w-3xl">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Order · 06 — Configure</span>
+                    <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                        Three bodies. <span class="italic text-primary-container">One sensor.</span>
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                    <article class="flex flex-col bg-surface-container-lowest border border-outline/15 p-6 sm:p-8 gap-6">
+                        <header class="flex flex-col gap-2 border-b border-outline/15 pb-6">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Standard</span>
+                            <h3 class="font-headline-md text-headline-md text-on-surface">Aperture v2</h3>
+                            <p class="font-mono-data text-mono-data text-outline">256 GB · Aluminium</p>
+                        </header>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-display-lg text-[clamp(2rem,3vw,2.75rem)] font-light text-on-surface tabular-nums leading-none">$1 199</span>
+                            <span class="font-mono-data text-mono-data text-outline">USD</span>
+                        </div>
+                        <ul class="flex flex-col gap-3 text-on-surface-variant font-body-md text-body-md">
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>Aperture v2 body, 256 GB</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>USB-C 4 cable, 1.5 m</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>Standard wrist strap</li>
+                        </ul>
+                        <a href="#preorder" class="mt-auto inline-flex items-center justify-center gap-2 border border-outline/40 text-on-surface px-5 py-3 font-label-caps text-label-caps tracking-widest uppercase hover:border-primary-container hover:text-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-high rounded-sm transition-all duration-300 active:scale-95">
+                            <span>Reserve</span>
+                            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </article>
+                    <article class="flex flex-col bg-surface-container-low border-2 border-primary-container p-6 sm:p-8 gap-6 relative shadow-[0_0_60px_rgba(245,166,35,0.18)]">
+                        <span class="absolute -top-3 left-6 bg-primary-container text-on-primary-container font-label-caps text-label-caps tracking-widest uppercase px-3 py-1">Most Loved</span>
+                        <header class="flex flex-col gap-2 border-b border-outline/15 pb-6">
+                            <span class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest">Pro</span>
+                            <h3 class="font-headline-md text-headline-md text-on-surface">Aperture v2 Pro</h3>
+                            <p class="font-mono-data text-mono-data text-outline">1 TB · Titanium</p>
+                        </header>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-display-lg text-[clamp(2rem,3vw,2.75rem)] font-light text-on-surface tabular-nums leading-none">$1 799</span>
+                            <span class="font-mono-data text-mono-data text-outline">USD</span>
+                        </div>
+                        <ul class="flex flex-col gap-3 text-on-surface-variant font-body-md text-body-md">
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>Aperture v2 Pro body, 1 TB</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>ProRes 4444 XQ unlock</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>Leather field strap, brass clasp</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>2 yr Atelier service plan</li>
+                        </ul>
+                        <a href="#preorder" class="mt-auto inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-container px-5 py-3 font-label-caps text-label-caps tracking-widest uppercase hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-high rounded-sm transition-all duration-300 active:scale-95">
+                            <span>Reserve</span>
+                            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </article>
+                    <article class="flex flex-col bg-surface-container-lowest border border-outline/15 p-6 sm:p-8 gap-6">
+                        <header class="flex flex-col gap-2 border-b border-outline/15 pb-6">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Pro Max</span>
+                            <h3 class="font-headline-md text-headline-md text-on-surface">v2 Pro Max</h3>
+                            <p class="font-mono-data text-mono-data text-outline">4 TB · Titanium · Sapphire</p>
+                        </header>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-display-lg text-[clamp(2rem,3vw,2.75rem)] font-light text-on-surface tabular-nums leading-none">$2 499</span>
+                            <span class="font-mono-data text-mono-data text-outline">USD</span>
+                        </div>
+                        <ul class="flex flex-col gap-3 text-on-surface-variant font-body-md text-body-md">
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>v2 Pro Max body, 4 TB</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>Sapphire crystal lens cover</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>Atelier-engraved serial plate</li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">check</span>4 yr Atelier service plan</li>
+                        </ul>
+                        <a href="#preorder" class="mt-auto inline-flex items-center justify-center gap-2 border border-outline/40 text-on-surface px-5 py-3 font-label-caps text-label-caps tracking-widest uppercase hover:border-primary-container hover:text-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-high rounded-sm transition-all duration-300 active:scale-95">
+                            <span>Reserve</span>
+                            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="py-20 px-5 bg-surface-container-low sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
+            <div class="max-w-screen-2xl mx-auto flex flex-col gap-12">
+                <div class="flex flex-col items-start gap-4 max-w-2xl">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 07 — Press</span>
+                    <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                        Reviewers, on the record.
+                    </h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                    <figure class="flex flex-col gap-6 border-t border-outline/20 pt-8">
+                        <div class="flex items-center gap-1 text-primary-container">
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                        </div>
+                        <blockquote class="font-display-lg text-[clamp(1.25rem,2vw,1.75rem)] leading-snug text-on-surface italic text-pretty">
+                            "The image-processing pipeline is so quiet you forget the camera is doing anything at all. The frames feel discovered, not made."
+                        </blockquote>
+                        <figcaption class="flex flex-col gap-1 mt-auto">
+                            <span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Mae Tanaka</span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant">Wired · Editor at Large</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="flex flex-col gap-6 border-t border-outline/20 pt-8">
+                        <div class="flex items-center gap-1 text-primary-container">
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">star</span>
+                        </div>
+                        <blockquote class="font-display-lg text-[clamp(1.25rem,2vw,1.75rem)] leading-snug text-on-surface italic text-pretty">
+                            "Aperture has done what Hasselblad couldn't and Leica refused to: shipped a 1-inch sensor in a body you'd actually carry on a Sunday."
+                        </blockquote>
+                        <figcaption class="flex flex-col gap-1 mt-auto">
+                            <span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Idris Beaumont</span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant">The Verge · Hardware Lead</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="flex flex-col gap-6 border-t border-outline/20 pt-8">
+                        <div class="flex items-center gap-1 text-primary-container">
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                            <span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                        </div>
+                        <blockquote class="font-display-lg text-[clamp(1.25rem,2vw,1.75rem)] leading-snug text-on-surface italic text-pretty">
+                            "Held it for three minutes and knew. The shutter is mechanical, the dial detents are right, the menus are out of the way. They got it."
+                        </blockquote>
+                        <figcaption class="flex flex-col gap-1 mt-auto">
+                            <span class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Hana Olafsdottir</span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant">LensCulture · Field Editor</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="in-the-wild" class="py-20 px-5 bg-background sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
+            <div class="max-w-screen-2xl mx-auto flex flex-col gap-10">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="Brutalist concrete interior, Aperture v2 in the wild" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="Highway in raking light, Aperture v2 sample environment" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="Architectural shadow play on facade, Aperture v2 sample environment" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop" alt="Editorial portrait in monochrome, Aperture v2 sample frame" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                </div>
+                <figure class="text-center flex flex-col gap-3 max-w-2xl mx-auto">
+                    <blockquote class="font-headline-md text-[clamp(1.25rem,2.4vw,1.75rem)] leading-snug text-on-surface italic text-balance">
+                        "Out of the studio, on the bench, in the rain, in the dark — it just keeps making frames."
+                    </blockquote>
+                    <figcaption class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Field log · 90 days</figcaption>
+                </figure>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="Architectural lobby, Aperture v2 sample environment" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" alt="Editorial portrait with drape lighting, Aperture v2 sample frame" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop" alt="Brutalist staircase under hard sun, Aperture v2 sample environment" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                    <figure class="aspect-[3/4] overflow-hidden bg-surface-container">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop" alt="Editorial figure with strong contrast, Aperture v2 sample frame" width="900" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20 px-5 bg-surface-container-lowest sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
+            <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-16">
+                <div class="md:col-span-4 flex flex-col gap-6">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 08 — FAQ</span>
+                    <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                        Questions <span class="italic text-primary-container">we hear most.</span>
+                    </h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty">
+                        Anything not covered here, our atelier desk is at <a href="mailto:concierge@aperturelabs.co" class="underline decoration-outline/40 hover:decoration-primary-container hover:text-primary-container transition">concierge@aperturelabs.co</a>.
+                    </p>
+                </div>
+                <div class="md:col-span-8 flex flex-col divide-y divide-outline/15 border-y border-outline/15">
+                    <details class="ap-faq group py-6 px-1">
+                        <summary class="flex items-center justify-between gap-6">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">When does it ship?</h3>
+                            <span class="material-symbols-outlined ap-chev text-primary-container shrink-0" aria-hidden="true">add</span>
+                        </summary>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-4 text-pretty">First wave ships November 14, 2024. Standard configurations from stock; Pro Max is built-to-order with a 6–8 week atelier window. Reservations placed today are guaranteed wave-one allocation.</p>
+                    </details>
+                    <details class="ap-faq group py-6 px-1">
+                        <summary class="flex items-center justify-between gap-6">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">Is trade-in available?</h3>
+                            <span class="material-symbols-outlined ap-chev text-primary-container shrink-0" aria-hidden="true">add</span>
+                        </summary>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-4 text-pretty">Aperture v1 trade-in earns up to $400 toward any v2 configuration. Send a serial in the order flow and we mail a pre-paid case; credit posts the day v1 arrives at our Lisbon depot.</p>
+                    </details>
+                    <details class="ap-faq group py-6 px-1">
+                        <summary class="flex items-center justify-between gap-6">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">What's in the box?</h3>
+                            <span class="material-symbols-outlined ap-chev text-primary-container shrink-0" aria-hidden="true">add</span>
+                        </summary>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-4 text-pretty">Body, USB-C 4 cable, woven wrist strap, microfiber, Quick Reference card, atelier registration card. Pro and Pro Max add a leather field strap and lens cap; Pro Max adds the engraved serial plate.</p>
+                    </details>
+                    <details class="ap-faq group py-6 px-1">
+                        <summary class="flex items-center justify-between gap-6">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">Compatible with v1 lenses and accessories?</h3>
+                            <span class="material-symbols-outlined ap-chev text-primary-container shrink-0" aria-hidden="true">add</span>
+                        </summary>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-4 text-pretty">All v1 conversion-lens adapters carry over. Magsafe-style accessories from v1 mount but with a 4 mm spacer due to the larger sensor stack — included free with any trade-in.</p>
+                    </details>
+                    <details class="ap-faq group py-6 px-1">
+                        <summary class="flex items-center justify-between gap-6">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">How does it compare to a dedicated camera?</h3>
+                            <span class="material-symbols-outlined ap-chev text-primary-container shrink-0" aria-hidden="true">add</span>
+                        </summary>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-4 text-pretty">In a controlled studio, a dedicated full-frame still wins on shallow-DoF and lens choice. In the field, on the bench, at golden hour, in the rain — the body you brought beats the body you left at home. Aperture v2 is the body you bring.</p>
+                    </details>
+                    <details class="ap-faq group py-6 px-1">
+                        <summary class="flex items-center justify-between gap-6">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface">Is the case sold separately?</h3>
+                            <span class="material-symbols-outlined ap-chev text-primary-container shrink-0" aria-hidden="true">add</span>
+                        </summary>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-4 text-pretty">Yes — the Atelier Field Case (waxed canvas with brass clasps) ships separately at $129. Included free with Pro Max. Handcrafted in Porto, lifetime stitching warranty.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="preorder" class="relative py-24 px-5 sm:py-32 md:py-40 md:px-margin overflow-hidden scroll-mt-20">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1920&q=85&auto=format&fit=crop" alt="Server rack in cool blue light, Aperture v2 pre-order backdrop" width="1920" height="1080" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 opacity-50" />
+                <div class="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background"></div>
+                <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245,166,35,0.18) 0%, transparent 70%);"></div>
+            </div>
+            <div class="relative z-10 max-w-3xl mx-auto bg-surface/80 backdrop-blur-xl border border-outline/20 p-8 sm:p-12 md:p-16 flex flex-col gap-8">
+                <div class="flex flex-col items-start gap-4">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Order · 09 — Pre-order</span>
+                    <h2 class="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                        Reserve your <span class="italic text-primary-container">Aperture v2.</span>
+                    </h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty">
+                        $50 holds your wave-one allocation, fully refundable until the day before shipping. We'll email three weeks before your camera leaves the atelier.
+                    </p>
+                </div>
+                <form action="#" method="POST" class="flex flex-col gap-5">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <label class="flex flex-col gap-2 flex-1">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Name</span>
+                            <input name="name" type="text" autocomplete="name" required placeholder="Your full name" class="bg-transparent border border-outline/30 text-on-surface font-body-md text-body-md px-4 py-3 placeholder-on-surface/30 focus:ring-1 focus:ring-primary-container focus:border-primary-container focus-visible:outline-none rounded-sm" />
+                        </label>
+                        <label class="flex flex-col gap-2 flex-1">
+                            <span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Email</span>
+                            <input name="email" type="email" autocomplete="email" required placeholder="you@studio.com" class="bg-transparent border border-outline/30 text-on-surface font-body-md text-body-md px-4 py-3 placeholder-on-surface/30 focus:ring-1 focus:ring-primary-container focus:border-primary-container focus-visible:outline-none rounded-sm" />
+                        </label>
+                    </div>
+                    <label class="flex flex-col gap-2">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Configuration</span>
+                        <select name="config" class="bg-transparent border border-outline/30 text-on-surface font-body-md text-body-md px-4 py-3 focus:ring-1 focus:ring-primary-container focus:border-primary-container focus-visible:outline-none rounded-sm">
+                            <option value="standard" class="bg-surface-container">Standard · 256 GB · $1 199</option>
+                            <option value="pro" class="bg-surface-container" selected>Pro · 1 TB · $1 799</option>
+                            <option value="pro-max" class="bg-surface-container">Pro Max · 4 TB · $2 499</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="group inline-flex items-center justify-center gap-3 bg-primary-container text-on-primary-container px-6 py-4 font-label-caps text-label-caps tracking-widest uppercase hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface rounded-sm transition-all duration-300 active:scale-95 mt-2">
+                        <span>Hold my Aperture · $50</span>
+                        <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                    </button>
+                    <p class="font-mono-data text-mono-data text-on-surface-variant tracking-widest">No card charged until allocation is confirmed · Refundable any time until shipping</p>
+                </form>
+            </div>
+        </section>
+
+        <aside aria-label="Press mentions" class="border-y border-outline/10 bg-background py-10 px-5 overflow-hidden sm:py-12 sm:px-8 md:px-margin">
+            <div class="flex items-center justify-center flex-wrap gap-x-8 gap-y-6 sm:gap-x-12 md:gap-x-24 opacity-40">
+                <span class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tighter">WIRED</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">THE VERGE</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface italic tracking-widest">LensCulture</span>
+                <span class="font-headline-sm text-headline-sm text-on-surface uppercase border-2 border-current px-2 py-1">National Geographic</span>
+            </div>
+        </aside>
+
+        <section id="community" class="relative py-20 px-5 bg-surface-dim overflow-hidden flex items-center justify-center text-center sm:py-28 sm:px-8 md:py-48 md:px-margin scroll-mt-20">
+            <div class="absolute inset-0 z-0">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUrbSFR2HFfemX7_pPoUUL9Hd6L2qwBZl3E8xusJhSnaSIZ3iplLqmHzeBU8k3PAwLpNRLjTKkJ6TkDUcLQ-LOtFmBxjOlER0UykwBc2xb9YCGPGXd7OMW9HCQSNWHb7SlIvZ3DhiFR5ZpRpB38Zj69OpCJ5Hvzbll-XNbCDqQG6iS1ggXPyVs_D7yWu9CdAm4zxpy7wIt9STRP-4ZhF_uRf-Ul-fiP3UwV-N5MIkxumrBvlDj9tqTZAu-464pr_jFwaKH7KdpHKo" alt="Subtle blurry background of a photographer working in a studio environment with soft rim lighting" width="1920" height="1080" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-20 blur-sm grayscale" />
+                <div class="absolute inset-0 bg-background/60"></div>
+            </div>
+            <figure class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
+                <blockquote class="font-display-lg text-[clamp(1.75rem,4vw,4rem)] leading-tight tracking-[-0.02em] text-on-surface italic mb-8 sm:mb-10 md:mb-12 text-balance">
+                    "It doesn't just capture light; it captures intent. It's the only tool that feels like it disappears when I'm shooting."
+                </blockquote>
+                <figcaption class="flex flex-col items-center">
+                    <span class="font-label-caps text-label-caps text-primary-container tracking-widest uppercase mb-2">Elena Rostova</span>
+                    <span class="font-mono-data text-mono-data text-on-surface-variant">Cinematographer, ASC</span>
+                </figcaption>
+            </figure>
+        </section>
+
+    </main>
+
+    <footer class="w-full pt-16 pb-10 px-5 bg-background border-t border-outline/10 sm:pt-24 sm:pb-12 sm:px-8 md:pt-32 md:px-margin">
+        <div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end w-full gap-10 md:gap-16">
+            
+            <div class="flex flex-col w-full md:w-1/2">
+                <div class="font-headline-md text-[clamp(1.5rem,3vw,2.25rem)] leading-tight tracking-tighter text-on-surface uppercase mb-8 sm:mb-10 md:mb-12">
+                    APERTURE v2
+                </div>
+                
+                <form action="#" method="POST" class="mb-12 max-w-md">
+                    <label for="email-input" class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase block mb-4 cursor-pointer">
+                        Join the waitlist for launch notifications
+                    </label>
+                    <div class="flex items-center border-b border-outline/30 pb-2 focus-within:border-primary-container transition-colors duration-300">
+                        <input id="email-input" name="email" type="email" autocomplete="email" required placeholder="ENTER YOUR EMAIL" class="bg-transparent border-none outline-none w-full text-on-surface font-body-md text-body-md placeholder-on-surface/30 focus:ring-0 focus-visible:outline-none px-0" />
+                        <button type="submit" aria-label="Submit email" class="text-primary-container hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-all duration-300 active:scale-95 ml-2">
+                            <span class="material-symbols-outlined block" aria-hidden="true">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+                
+                <p class="font-body-md text-body-md text-on-surface/40 italic text-pretty">
+                    © 2024 Aperture Labs. Precision in every frame.
+                </p>
+            </div>
+            
+            <nav aria-label="Footer navigation" class="flex flex-col items-start md:items-end gap-6">
+                <a href="#" class="text-on-surface/50 font-label-caps text-label-caps uppercase tracking-[0.3em] hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-all duration-300 block">Journal</a>
+                <a href="#" class="text-on-surface/50 font-label-caps text-label-caps uppercase tracking-[0.3em] hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-all duration-300 block">Press Kit</a>
+                <a href="#" class="text-on-surface/50 font-label-caps text-label-caps uppercase tracking-[0.3em] hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-all duration-300 block">Privacy</a>
+                <a href="#" class="text-on-surface/50 font-label-caps text-label-caps uppercase tracking-[0.3em] hover:text-primary-container focus-visible:outline-none focus-visible:text-primary-container focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm transition-all duration-300 block">Terms</a>
+            </nav>
+            
+        </div>
+    </footer>
+</body>
+</html>

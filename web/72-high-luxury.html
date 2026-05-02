@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHRONOS_ELITE | Timeless Precision</title>
+    <meta name="description" content="Swiss Engineering meets Italian Design. Discover the Chronos_Elite collection.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'luxury-black': '#080808',
+                        'luxury-charcoal': '#121212',
+                        'luxury-white': '#FDFDFD',
+                        'luxury-gold': '#C5A059',
+                        'luxury-gold-light': '#E5C585',
+                        'luxury-gray': '#2A2A2A',
+                    },
+                    fontFamily: {
+                        'header': ['Cinzel', 'serif'],
+                        'sub': ['Playfair Display', 'serif'],
+                        'body': ['Lato', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'widest': '0.25em',
+                        'extreme': '0.4em',
+                        'mega': '0.6em',
+                    },
+                    backgroundImage: {
+                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.07%22/%3E%3C/svg%3E')",
+                    },
+                    animation: {
+                        'scroll-down': 'scrollDown 2s cubic-bezier(0.77, 0, 0.175, 1) infinite',
+                    },
+                    keyframes: {
+                        scrollDown: {
+                            '0%': { transform: 'translateY(0)', opacity: '1' },
+                            '100%': { transform: 'translateY(40px)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Luxuries */
+        body {
+            background-color: #080808;
+            color: #FDFDFD;
+            font-feature-settings: "lnum"; /* Lining numbers */
+        }
+
+        /* Smooth Reveal Animation Logic */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Initial Load Animations */
+        .animate-in {
+            animation: fadeInUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gold Selection */
+        ::selection {
+            background: #C5A059;
+            color: #000;
+        }
+
+        /* Image Hover & Scale */
+        .img-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+        .img-wrapper img {
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1), filter 0.5s ease;
+            will-change: transform;
+        }
+        .img-wrapper:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+
+        /* Thin Line Utilities */
+        .line-vertical {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #C5A059, transparent);
+        }
+        .line-horizontal {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #C5A059, transparent);
+        }
+
+        html, body { overflow-x: clip; }
+        .full-bleed-luxury {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        .atelier-track {
+            display: flex;
+            gap: 22px;
+            width: max-content;
+            animation: atelier-x 75s linear infinite;
+            padding: 8px 0;
+        }
+        .atelier-track:hover { animation-play-state: paused; }
+        @keyframes atelier-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 11px)); }
+        }
+        .lux-faq summary { list-style: none; cursor: pointer; }
+        .lux-faq summary::-webkit-details-marker { display: none; }
+        .lux-faq summary .lux-glyph { transition: transform 300ms ease; }
+        .lux-faq[open] summary .lux-glyph { transform: rotate(45deg); }
+        .gold-pulse {
+            animation: gold-ring 2.6s ease-out infinite;
+        }
+        @keyframes gold-ring {
+            0%   { box-shadow: 0 0 0 0 rgba(197,160,89,0.55); }
+            70%  { box-shadow: 0 0 0 12px rgba(197,160,89,0); }
+            100% { box-shadow: 0 0 0 0 rgba(197,160,89,0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .atelier-track { animation: none; }
+            .gold-pulse { animation: none; }
+            .lux-faq summary .lux-glyph { transition: none; }
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-luxury-gold selection:text-black">
+
+    <!-- Mobile Menu Overlay (Hidden logic would go here with JS, keeping simple static nav for this file) -->
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-6 md:py-8 mix-blend-exclusion text-white transition-all duration-300">
+        <div class="hidden md:block w-24">
+            <span class="text-[10px] tracking-[0.3em] font-body uppercase opacity-80">Est. 1924</span>
+        </div>
+        
+        <div class="text-xl md:text-2xl font-header font-bold tracking-[0.2em] text-center w-full md:w-auto text-luxury-gold">
+            C_E
+        </div>
+        
+        <div class="w-24 text-right hidden md:block group cursor-pointer">
+            <span class="text-[10px] tracking-[0.3em] font-body uppercase group-hover:text-luxury-gold transition-colors duration-300">Menu</span>
+            <div class="h-[1px] bg-luxury-gold w-0 group-hover:w-full transition-all duration-500 ml-auto mt-1"></div>
+        </div>
+        
+        <!-- Mobile Menu Icon -->
+        <div class="md:hidden absolute right-6 top-7 text-xs uppercase tracking-widest text-luxury-gold">
+            Menu
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen w-full flex flex-col items-center justify-center bg-luxury-black border-b border-luxury-gray/20 overflow-hidden">
+        
+        <!-- Background Noise & Gradient -->
+        <div class="absolute inset-0 bg-noise opacity-30 pointer-events-none z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-80 z-0"></div>
+
+        <div class="z-10 text-center px-4 relative w-full mx-auto">
+            <h2 class="animate-in text-luxury-gold font-sub italic text-lg md:text-2xl mb-4 md:mb-8 tracking-widest">
+                The Art of Time
+            </h2>
+            
+            <div class="relative py-8 md:py-16">
+                <!-- Decorative Lines -->
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 md:w-48 h-[1px] bg-luxury-gold/60"></div>
+                
+                <h1 class="animate-in delay-200 block w-4/5 mx-auto">
+                    <svg viewBox="0 0 700 130" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto block" aria-label="Chronos Elite">
+                        <text x="350" y="100" text-anchor="middle" fill="#FDFDFD" font-family="Cinzel, serif" font-weight="400" font-size="115" textLength="680" lengthAdjust="spacingAndGlyphs">CHRONOS_ELITE</text>
+                    </svg>
+                </h1>
+                
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 md:w-48 h-[1px] bg-luxury-gold/60"></div>
+            </div>
+
+            <p class="animate-in delay-500 font-body text-gray-400 text-[10px] md:text-xs tracking-[0.4em] mt-8 md:mt-12 uppercase max-w-xs md:max-w-md mx-auto leading-relaxed">
+                Swiss Precision • Italian Heritage • Global Exclusivity
+            </p>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+            <span class="text-[9px] uppercase tracking-[0.3em] text-luxury-gold mb-2">Discover</span>
+            <div class="w-[1px] h-12 md:h-20 bg-gray-800 overflow-hidden relative">
+                <div class="absolute top-0 left-0 w-full h-1/2 bg-luxury-gold animate-scroll-down"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Philosophy Section -->
+    <section class="bg-luxury-black py-24 md:py-48 px-6 relative overflow-hidden">
+        <!-- Subtle background accent -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-luxury-charcoal/30 -skew-x-12 pointer-events-none"></div>
+
+        <div class="max-w-3xl mx-auto text-center relative z-10 reveal-on-scroll">
+            <div class="flex justify-center mb-8">
+                <span class="px-4 py-1 border border-luxury-gold/30 text-luxury-gold font-body text-[10px] tracking-[0.3em] uppercase">Manifesto</span>
+            </div>
+            <p class="font-sub text-2xl md:text-4xl lg:text-5xl leading-relaxed md:leading-normal text-luxury-white opacity-95">
+                True luxury is the absence of noise. We do not merely measure hours; we curate moments. <span class="text-luxury-gold italic">Chronos_Elite</span> is designed for those who understand that time is the only true currency.
+            </p>
+            <div class="mt-12">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_sample.svg" alt="Signature" class="h-12 md:h-16 mx-auto opacity-40 invert">
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections (Asymmetrical Grid) -->
+    <section class="bg-luxury-white text-luxury-black py-24 md:py-32 relative">
+        <!-- Top Border with center diamond -->
+        <div class="absolute top-0 left-0 w-full h-[1px] bg-luxury-gold flex justify-center items-center">
+            <div class="w-2 h-2 bg-luxury-gold rotate-45"></div>
+        </div>
+
+        <div class="container mx-auto px-4 md:px-12">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col items-center mb-20 md:mb-32 reveal-on-scroll">
+                <span class="text-gray-400 text-xs tracking-[0.4em] uppercase mb-4">The Selection</span>
+                <h3 class="font-header text-4xl md:text-6xl tracking-extreme uppercase text-center">Collections</h3>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
+                
+                <!-- Item 1: Noir Series -->
+                <div class="col-span-1 md:col-span-7 group cursor-pointer reveal-on-scroll">
+                    <div class="relative img-wrapper border border-gray-200 h-[500px] md:h-[700px]">
+                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop" 
+                             alt="The Noir Series" 
+                             class="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100">
+                        
+                        <!-- Hover Overlay -->
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                        <div class="absolute bottom-0 left-0 p-6 md:p-10 bg-white border-t border-r border-luxury-gold z-10 transition-transform duration-500 group-hover:-translate-y-2">
+                            <h4 class="font-header text-lg md:text-xl tracking-widest text-black">The Noir Series</h4>
+                            <p class="font-body text-[10px] md:text-xs mt-2 tracking-widest text-gray-600">Automatic • 42mm • Ceramic</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Gold Standard -->
+                <div class="col-span-1 md:col-span-5 flex flex-col justify-between group cursor-pointer mt-8 md:mt-0 reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="relative img-wrapper border border-gray-200 h-[400px] md:h-[500px]">
+                        <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=1974&auto=format&fit=crop" 
+                             alt="Gold Standard" 
+                             class="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100">
+                        
+                        <div class="absolute top-0 right-0 p-6 md:p-10 bg-white border-b border-l border-luxury-gold z-10">
+                            <h4 class="font-header text-lg md:text-xl tracking-widest text-right text-black">Gold Standard</h4>
+                            <p class="font-body text-[10px] md:text-xs mt-2 tracking-widest text-right text-gray-600">Tourbillon • 18k Rose Gold</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 md:mt-0 p-6 md:p-10 border-l-2 border-luxury-gold bg-gray-50 flex-grow flex items-center">
+                        <p class="font-sub italic text-xl md:text-2xl text-gray-800">"Complexity hidden within simplicity is the ultimate sophistication."</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Aviator Elite (Updated Image) -->
+                <div class="col-span-1 md:col-span-12 mt-8 md:mt-16 group cursor-pointer reveal-on-scroll">
+                    <div class="relative img-wrapper border border-gray-200 h-[400px] md:h-[600px]">
+                        <!-- New Aviator Image: Crisp, dark chronograph -->
+                        <img src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1935&auto=format&fit=crop" 
+                             alt="Aviator Elite" 
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000">
+                         
+                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/40">
+                             <div class="bg-luxury-black text-luxury-gold px-8 py-4 border border-luxury-gold backdrop-blur-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                 <span class="font-header tracking-widest uppercase text-sm">View Aviator Elite</span>
+                             </div>
+                         </div>
+
+                         <div class="absolute bottom-6 right-6 text-white md:hidden">
+                             <span class="bg-black/80 px-4 py-2 text-xs tracking-widest border border-luxury-gold">Aviator Elite</span>
+                         </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-20 text-center">
+                 <a href="#" class="inline-block border-b border-black pb-1 text-xs tracking-[0.3em] uppercase hover:text-luxury-gold hover:border-luxury-gold transition-colors">View All Timepieces</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materials & Mastery (New Section) -->
+    <section class="bg-luxury-charcoal py-24 border-y border-luxury-gold/20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center divide-y md:divide-y-0 md:divide-x divide-luxury-gold/20">
+                
+                <!-- Material 1 -->
+                <div class="py-8 md:px-8 reveal-on-scroll">
+                    <div class="text-luxury-gold text-4xl mb-6 font-header">I</div>
+                    <h4 class="text-white font-header text-lg tracking-widest mb-4">Sapphire Crystal</h4>
+                    <p class="text-gray-500 font-body text-xs leading-loose tracking-wide">
+                        Forged at 2000°C, our sapphire is virtually scratch-proof. Only a diamond can leave a mark on the lens through which you view time.
+                    </p>
+                </div>
+
+                <!-- Material 2 -->
+                <div class="py-8 md:px-8 reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="text-luxury-gold text-4xl mb-6 font-header">II</div>
+                    <h4 class="text-white font-header text-lg tracking-widest mb-4">Titanium Grade 5</h4>
+                    <p class="text-gray-500 font-body text-xs leading-loose tracking-wide">
+                        Lighter than steel, harder than gold. Polished by hand to achieve a mirror finish that resists corrosion and captures light.
+                    </p>
+                </div>
+
+                <!-- Material 3 -->
+                <div class="py-8 md:px-8 reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="text-luxury-gold text-4xl mb-6 font-header">III</div>
+                    <h4 class="text-white font-header text-lg tracking-widest mb-4">Horween Leather</h4>
+                    <p class="text-gray-500 font-body text-xs leading-loose tracking-wide">
+                        Sourced from the finest tanneries, our straps patina beautifully over time, telling a story unique to the wearer's journey.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Atelier marquee — paused-on-hover image strip -->
+    <section class="full-bleed-luxury bg-luxury-black border-y border-luxury-gold/20 py-20 md:py-28 overflow-hidden relative">
+        <div class="absolute inset-0 bg-noise opacity-30 pointer-events-none"></div>
+        <div class="container mx-auto px-6 mb-12 relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+            <div>
+                <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-3">— Atelier · IV</span>
+                <h2 class="font-header text-3xl md:text-5xl tracking-widest uppercase">From the bench.</h2>
+            </div>
+            <p class="font-sub italic text-base md:text-lg text-gray-400 max-w-md md:text-right">A drift of details photographed in Geneva. Hover to halt the procession; every plate is a master before it is a movement.</p>
+        </div>
+        <div class="overflow-hidden relative">
+            <!-- gold edge fades -->
+            <div class="absolute top-0 bottom-0 left-0 w-24 md:w-40 bg-gradient-to-r from-luxury-black to-transparent pointer-events-none z-10"></div>
+            <div class="absolute top-0 bottom-0 right-0 w-24 md:w-40 bg-gradient-to-l from-luxury-black to-transparent pointer-events-none z-10"></div>
+            <div class="atelier-track">
+                <figure class="shrink-0 w-72 md:w-80 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="Plate I — Noir" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=900&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/30 to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · I</span><span class="text-gray-300">Noir</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5">
+                        <span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Calibre 71</span>
+                        <h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Ceramic 42</h3>
+                        <span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Geneva · 2024</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 md:w-[26rem] h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="Plate II — Movement" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=1100&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-luxury-black/90 via-transparent to-luxury-gold/10"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · II</span><span class="text-gray-300">Movement</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5">
+                        <span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Tourbillon 18</span>
+                        <h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Open Heart</h3>
+                        <span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">25 Jewels · 28,800 vph</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-64 md:w-72 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="Plate III — Gold" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=900&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-transparent to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · III</span><span class="text-gray-300">Gold</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5">
+                        <span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Calibre 18</span>
+                        <h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Rose 18k</h3>
+                        <span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Hand-finished case</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 md:w-96 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="Plate IV — Aviator" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1100&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-bl from-luxury-black/80 via-transparent to-luxury-charcoal/60"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · IV</span><span class="text-gray-300">Aviator</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5">
+                        <span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Calibre 96</span>
+                        <h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Sky · 44mm</h3>
+                        <span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Chronograph · matte</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-64 md:w-72 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="Plate V — Apothecary" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · V</span><span class="text-gray-300">Tools</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5">
+                        <span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Of the Bench</span>
+                        <h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Brass · 1924</h3>
+                        <span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Heritage atelier</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 md:w-[26rem] h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="Plate VI — Workshop" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1100&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-r from-luxury-black/85 via-luxury-black/30 to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · VI</span><span class="text-gray-300">Workshop</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5">
+                        <span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Salle · No. 02</span>
+                        <h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Geneva</h3>
+                        <span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">14 master watchmakers</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-72 md:w-80 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="Plate VII — Gallery" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1000&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/40 to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · VII</span><span class="text-gray-300">Hall</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5">
+                        <span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Heritage</span>
+                        <h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">MMXXIV</h3>
+                        <span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Centennial vault</span>
+                    </figcaption>
+                </figure>
+                <!-- duplicate set, aria-hidden -->
+                <figure aria-hidden="true" class="shrink-0 w-72 md:w-80 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=900&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/30 to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · I</span><span class="text-gray-300">Noir</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Calibre 71</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Ceramic 42</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Geneva · 2024</span></figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 md:w-[26rem] h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=1100&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-luxury-black/90 via-transparent to-luxury-gold/10"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · II</span><span class="text-gray-300">Movement</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Tourbillon 18</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Open Heart</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">25 Jewels · 28,800 vph</span></figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-64 md:w-72 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=900&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-transparent to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · III</span><span class="text-gray-300">Gold</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Calibre 18</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Rose 18k</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Hand-finished case</span></figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 md:w-96 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1100&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-bl from-luxury-black/80 via-transparent to-luxury-charcoal/60"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · IV</span><span class="text-gray-300">Aviator</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Calibre 96</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Sky · 44mm</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Chronograph · matte</span></figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-64 md:w-72 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · V</span><span class="text-gray-300">Tools</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Of the Bench</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Brass · 1924</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Heritage atelier</span></figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 md:w-[26rem] h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1100&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-r from-luxury-black/85 via-luxury-black/30 to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · VI</span><span class="text-gray-300">Workshop</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Salle · No. 02</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Geneva</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">14 master watchmakers</span></figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-72 md:w-80 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1000&auto=format&fit=crop"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/40 to-transparent"></div>
+                    <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · VII</span><span class="text-gray-300">Hall</span></div>
+                    <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Heritage</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">MMXXIV</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Centennial vault</span></figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Craft (Featured Details) -->
+    <section class="bg-luxury-black py-24 md:py-40 relative">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+            
+            <div class="order-2 md:order-1 reveal-on-scroll">
+                <div class="relative p-2 border border-luxury-gold/30">
+                    <div class="absolute -top-2 -left-2 w-4 h-4 border-t border-l border-luxury-gold"></div>
+                    <div class="absolute -bottom-2 -right-2 w-4 h-4 border-b border-r border-luxury-gold"></div>
+                    
+                    <div class="h-[400px] md:h-[600px] overflow-hidden bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=2000&auto=format&fit=crop" 
+                             alt="Internal Mechanism" 
+                             class="w-full h-full object-cover opacity-70 grayscale hover:scale-110 transition-transform duration-[2s]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 md:order-2 text-left reveal-on-scroll">
+                <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-6">The Heartbeat</span>
+                <h2 class="font-header text-3xl md:text-5xl text-luxury-white mb-8 tracking-widest leading-tight">
+                    Perpetual<br><span class="text-luxury-gold italic font-sub normal-case">Motion</span>
+                </h2>
+                <p class="font-body text-gray-400 leading-8 mb-10 font-light tracking-wide text-sm md:text-base">
+                    Our movements are assembled by hand in Geneva, ensuring an accuracy that defies the standard. Encased in sapphire crystal and brushed titanium, the movement is not just an engine—it is the soul of the watch.
+                </p>
+                
+                <ul class="space-y-4 mb-12 border-l border-luxury-gray pl-6">
+                    <li class="text-gray-300 text-xs tracking-widest uppercase flex items-center gap-4">
+                        <span class="w-2 h-[1px] bg-luxury-gold"></span> 72-Hour Power Reserve
+                    </li>
+                    <li class="text-gray-300 text-xs tracking-widest uppercase flex items-center gap-4">
+                        <span class="w-2 h-[1px] bg-luxury-gold"></span> 28,800 Vibrations/Hour
+                    </li>
+                    <li class="text-gray-300 text-xs tracking-widest uppercase flex items-center gap-4">
+                        <span class="w-2 h-[1px] bg-luxury-gold"></span> 25 Jewels
+                    </li>
+                </ul>
+
+                <a href="#" class="group inline-flex items-center gap-4 text-luxury-white text-xs tracking-[0.3em] uppercase border border-luxury-white/30 px-8 py-4 hover:border-luxury-gold hover:text-luxury-gold transition-all duration-300">
+                    <span>Discover Engineering</span>
+                    <span class="group-hover:translate-x-2 transition-transform duration-300">&rarr;</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Heritage Timeline — five MMXX milestones -->
+    <section class="bg-luxury-charcoal py-24 md:py-32 border-y border-luxury-gold/20 relative">
+        <div class="absolute inset-0 bg-noise opacity-20 pointer-events-none"></div>
+        <div class="container mx-auto px-6 relative">
+            <div class="text-center mb-20 reveal-on-scroll">
+                <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Heritage · V</span>
+                <h2 class="font-header text-3xl md:text-5xl tracking-widest uppercase text-luxury-white">A century, in five strikes.</h2>
+                <p class="font-sub italic text-gray-400 mt-4 max-w-xl mx-auto">From a single bench in Geneva, 1924, to a vault of 96 calibres a hundred years on.</p>
+            </div>
+            <ol class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+                <!-- gold track-line -->
+                <div aria-hidden="true" class="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-gradient-to-r from-luxury-gold/0 via-luxury-gold/60 to-luxury-gold/0"></div>
+                <li class="relative flex flex-col items-center text-center reveal-on-scroll">
+                    <div class="w-14 h-14 rounded-full border border-luxury-gold/70 bg-luxury-black flex items-center justify-center text-luxury-gold-light text-2xl relative z-10">I</div>
+                    <span class="font-header text-luxury-gold tabular-nums text-sm mt-5 tracking-widest">MCMXXIV</span>
+                    <h3 class="font-sub italic text-luxury-white text-xl mt-2">A bench, a name.</h3>
+                    <span class="font-body text-gray-500 text-[11px] tracking-widest mt-2">Founded · Geneva · 1924</span>
+                </li>
+                <li class="relative flex flex-col items-center text-center reveal-on-scroll" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-full border border-luxury-gold/70 bg-luxury-black flex items-center justify-center text-luxury-gold-light text-2xl relative z-10">II</div>
+                    <span class="font-header text-luxury-gold tabular-nums text-sm mt-5 tracking-widest">MCML</span>
+                    <h3 class="font-sub italic text-luxury-white text-xl mt-2">Calibre 18.</h3>
+                    <span class="font-body text-gray-500 text-[11px] tracking-widest mt-2">First gold movement · 1950</span>
+                </li>
+                <li class="relative flex flex-col items-center text-center reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-full border border-luxury-gold/70 bg-luxury-black flex items-center justify-center text-luxury-gold-light text-2xl relative z-10">III</div>
+                    <span class="font-header text-luxury-gold tabular-nums text-sm mt-5 tracking-widest">MCMLXXII</span>
+                    <h3 class="font-sub italic text-luxury-white text-xl mt-2">The Aviator.</h3>
+                    <span class="font-body text-gray-500 text-[11px] tracking-widest mt-2">Pilot edition · 1972</span>
+                </li>
+                <li class="relative flex flex-col items-center text-center reveal-on-scroll" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 rounded-full border-2 border-luxury-gold bg-luxury-gold/10 flex items-center justify-center relative z-10 gold-pulse">
+                        <span class="w-3 h-3 rounded-full bg-luxury-gold-light"></span>
+                    </div>
+                    <span class="font-header text-luxury-gold-light tabular-nums text-sm mt-5 tracking-widest">MMXXIV</span>
+                    <h3 class="font-sub italic text-luxury-white text-xl mt-2">Centennial.</h3>
+                    <span class="font-body text-gray-300 text-[11px] tracking-widest mt-2">Now · Limited 96</span>
+                </li>
+                <li class="relative flex flex-col items-center text-center reveal-on-scroll" style="transition-delay: 400ms;">
+                    <div class="w-14 h-14 rounded-full border border-luxury-gold/30 bg-luxury-black flex items-center justify-center text-gray-500 text-2xl relative z-10">V</div>
+                    <span class="font-header text-gray-500 tabular-nums text-sm mt-5 tracking-widest">MMXXX</span>
+                    <h3 class="font-sub italic text-gray-400 text-xl mt-2">Atelier II.</h3>
+                    <span class="font-body text-gray-600 text-[11px] tracking-widest mt-2">Forecast · Vallée de Joux</span>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- References — three alternating image+content rows (NOT bento) -->
+    <section class="bg-luxury-black py-24 md:py-40 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20 reveal-on-scroll">
+                <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— References · VI</span>
+                <h2 class="font-header text-3xl md:text-5xl tracking-widest uppercase text-luxury-white">Three calibres, in conversation.</h2>
+            </div>
+            <div class="flex flex-col gap-24 md:gap-32">
+                <!-- Row 1: image-left -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-20 items-center reveal-on-scroll">
+                    <figure class="md:col-span-7 relative">
+                        <div class="absolute -top-3 -left-3 w-6 h-6 border-t border-l border-luxury-gold"></div>
+                        <div class="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-luxury-gold"></div>
+                        <div class="img-wrapper border border-luxury-gold/30">
+                            <img alt="Calibre 71 — Noir" class="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1600&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-luxury-black/70 via-transparent to-transparent pointer-events-none"></div>
+                            <span class="absolute top-5 left-5 text-[10px] tracking-[0.4em] uppercase bg-luxury-black/80 text-luxury-gold border border-luxury-gold/60 px-3 py-1.5">REF · 71-CER</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5">
+                        <span class="font-sub italic text-luxury-gold text-base block mb-2">No. I — Calibre 71</span>
+                        <h3 class="font-header text-3xl md:text-4xl tracking-widest uppercase text-luxury-white mb-6">Noir, in ceramic.</h3>
+                        <p class="font-body text-gray-400 leading-loose mb-8 text-sm md:text-base font-light">A 42 mm case carved from monobloc black ceramic, sintered at 1450 °C. The bezel is silent; the lume reads near-violet at midnight.</p>
+                        <dl class="grid grid-cols-2 gap-5 border-t border-luxury-gray pt-6">
+                            <div><dt class="text-[10px] tracking-[0.3em] uppercase text-gray-500">Case</dt><dd class="font-sub italic text-luxury-white mt-1">Black ceramic · 42 mm</dd></div>
+                            <div><dt class="text-[10px] tracking-[0.3em] uppercase text-gray-500">Movement</dt><dd class="font-sub italic text-luxury-white mt-1">Automatic · 72h</dd></div>
+                            <div><dt class="text-[10px] tracking-[0.3em] uppercase text-gray-500">Strap</dt><dd class="font-sub italic text-luxury-white mt-1">Horween shell cordovan</dd></div>
+                            <div><dt class="text-[10px] tracking-[0.3em] uppercase text-gray-500">Edition</dt><dd class="font-sub italic text-luxury-gold-light mt-1">96 pieces · numbered</dd></div>
+                        </dl>
+                    </div>
+                </div>
+                <!-- Row 2: content-left, image-right -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-20 items-center reveal-on-scroll">
+                    <div class="md:col-span-5 md:order-1 order-2">
+                        <span class="font-sub italic text-luxury-gold text-base block mb-2">No. II — Calibre 18</span>
+                        <h3 class="font-header text-3xl md:text-4xl tracking-widest uppercase text-luxury-white mb-6">Gold standard, alive.</h3>
+                        <p class="font-body text-gray-400 leading-loose mb-8 text-sm md:text-base font-light">A flying tourbillon under sapphire, on a rose-gold case hand-finished by a single watchmaker. The dial admits the light without flattering it.</p>
+                        <ul class="space-y-3 border-l border-luxury-gold pl-5">
+                            <li class="text-gray-300 text-xs tracking-widest uppercase flex items-center gap-3"><span class="w-2 h-px bg-luxury-gold"></span> 18k rose gold case</li>
+                            <li class="text-gray-300 text-xs tracking-widest uppercase flex items-center gap-3"><span class="w-2 h-px bg-luxury-gold"></span> Flying tourbillon · 60s</li>
+                            <li class="text-gray-300 text-xs tracking-widest uppercase flex items-center gap-3"><span class="w-2 h-px bg-luxury-gold"></span> Anglage · hand-polished</li>
+                            <li class="text-gray-300 text-xs tracking-widest uppercase flex items-center gap-3"><span class="w-2 h-px bg-luxury-gold"></span> Edition · 27 pieces</li>
+                        </ul>
+                    </div>
+                    <figure class="md:col-span-7 md:order-2 order-1 relative">
+                        <div class="absolute -top-3 -right-3 w-6 h-6 border-t border-r border-luxury-gold"></div>
+                        <div class="absolute -bottom-3 -left-3 w-6 h-6 border-b border-l border-luxury-gold"></div>
+                        <div class="img-wrapper border border-luxury-gold/30">
+                            <img alt="Calibre 18 — Gold" class="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=1600&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-tl from-luxury-black/70 via-transparent to-luxury-gold/10 pointer-events-none"></div>
+                            <span class="absolute top-5 right-5 text-[10px] tracking-[0.4em] uppercase bg-luxury-black/80 text-luxury-gold border border-luxury-gold/60 px-3 py-1.5">REF · 18-RG</span>
+                        </div>
+                    </figure>
+                </div>
+                <!-- Row 3: image-left -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-20 items-center reveal-on-scroll">
+                    <figure class="md:col-span-7 relative">
+                        <div class="absolute -top-3 -left-3 w-6 h-6 border-t border-l border-luxury-gold"></div>
+                        <div class="absolute -bottom-3 -right-3 w-6 h-6 border-b border-r border-luxury-gold"></div>
+                        <div class="img-wrapper border border-luxury-gold/30">
+                            <img alt="Calibre 96 — Aviator" class="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1600&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-br from-luxury-black/65 via-transparent to-luxury-charcoal/40 pointer-events-none"></div>
+                            <span class="absolute top-5 left-5 text-[10px] tracking-[0.4em] uppercase bg-luxury-black/80 text-luxury-gold border border-luxury-gold/60 px-3 py-1.5">REF · 96-CHR</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5">
+                        <span class="font-sub italic text-luxury-gold text-base block mb-2">No. III — Calibre 96</span>
+                        <h3 class="font-header text-3xl md:text-4xl tracking-widest uppercase text-luxury-white mb-6">Aviator, sky-tested.</h3>
+                        <p class="font-body text-gray-400 leading-loose mb-8 text-sm md:text-base font-light">Built for the cockpit of a Caravelle: anti-magnetic, anti-shock, brushed titanium. The dial survives weather; the chronograph survives habit.</p>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="border border-luxury-gold/30 p-4 text-center"><div class="font-header text-luxury-gold-light text-2xl">44</div><div class="text-[10px] tracking-widest uppercase text-gray-500 mt-1">mm case</div></div>
+                            <div class="border border-luxury-gold/30 p-4 text-center"><div class="font-header text-luxury-gold-light text-2xl">200</div><div class="text-[10px] tracking-widest uppercase text-gray-500 mt-1">m water</div></div>
+                            <div class="border border-luxury-gold/30 p-4 text-center"><div class="font-header text-luxury-gold-light text-2xl">96</div><div class="text-[10px] tracking-widest uppercase text-gray-500 mt-1">edition</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concierge FAQ -->
+    <section class="bg-luxury-charcoal py-24 md:py-32 border-y border-luxury-gold/20 relative">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+                <aside class="lg:col-span-4 reveal-on-scroll">
+                    <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Concierge · VII</span>
+                    <h2 class="font-header text-3xl md:text-5xl tracking-widest uppercase text-luxury-white leading-tight">Quietly,<br/>before the appointment.</h2>
+                    <p class="font-sub italic text-gray-400 mt-6">Replied to in person within forty-eight hours. The boutique does not list a number; the concierge does.</p>
+                    <a class="mt-10 inline-flex items-center gap-3 text-luxury-white text-xs tracking-[0.3em] uppercase border border-luxury-gold/40 px-7 py-3.5 hover:border-luxury-gold hover:text-luxury-gold transition-all" href="#">Request the brief →</a>
+                </aside>
+                <div class="lg:col-span-8 divide-y divide-luxury-gold/20 border-y border-luxury-gold/20">
+                    <details class="lux-faq group p-5 md:p-7" open>
+                        <summary class="flex items-center gap-6">
+                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">I.</span>
+                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">Are pieces sold online?</h3>
+                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                        </summary>
+                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">Numbered editions are placed by appointment only — Geneva, Milan, Tokyo, New York. Heritage references are reserved for clients of the inner circle.</p>
+                    </details>
+                    <details class="lux-faq group p-5 md:p-7">
+                        <summary class="flex items-center gap-6">
+                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">II.</span>
+                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">What does the warranty cover?</h3>
+                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                        </summary>
+                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">Eight years on movement, lifetime on case anglage. Service is performed only at the Geneva atelier — we collect, restore, return.</p>
+                    </details>
+                    <details class="lux-faq group p-5 md:p-7">
+                        <summary class="flex items-center gap-6">
+                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">III.</span>
+                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">Can I commission a bespoke?</h3>
+                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                        </summary>
+                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">A studio of three accepts six commissions per annum. Conversations begin with a private viewing; the first calibre is delivered fourteen months later.</p>
+                    </details>
+                    <details class="lux-faq group p-5 md:p-7">
+                        <summary class="flex items-center gap-6">
+                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">IV.</span>
+                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">How do I authenticate a heritage piece?</h3>
+                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                        </summary>
+                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">Each heritage reference carries a hidden signature beneath the rotor. Ship the piece in its original box; we examine, certify, and return within three weeks.</p>
+                    </details>
+                    <details class="lux-faq group p-5 md:p-7">
+                        <summary class="flex items-center gap-6">
+                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">V.</span>
+                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">Where is the boutique?</h3>
+                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                        </summary>
+                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">An unmarked door on Rue du Rhône. The address is given to clients only. The bell is answered between 14:00 and 18:00, weekdays.</p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inner Circle / Newsletter -->
+    <section class="bg-luxury-white py-24 md:py-32 border-t border-luxury-gold">
+        <div class="max-w-2xl mx-auto px-6 text-center reveal-on-scroll">
+            <h3 class="font-header text-luxury-black text-2xl md:text-3xl tracking-widest mb-4">The Inner Circle</h3>
+            <p class="font-body text-gray-500 text-xs tracking-widest mb-10">Access to limited editions and private viewings.</p>
+            
+            <form class="flex flex-col md:flex-row gap-4 border-b border-luxury-black pb-2">
+                <input type="email" placeholder="ENTER YOUR EMAIL" class="bg-transparent border-none outline-none text-luxury-black placeholder-gray-400 text-xs tracking-widest w-full text-center md:text-left uppercase p-2">
+                <button type="submit" class="text-luxury-black font-header text-xs tracking-widest uppercase hover:text-luxury-gold transition-colors whitespace-nowrap">
+                    Request Access
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-luxury-black text-white pt-20 pb-10 border-t border-luxury-gray/30">
+        <div class="container mx-auto px-6 flex flex-col items-center">
+            
+            <div class="mb-12">
+                <h2 class="font-header text-4xl tracking-mega font-bold text-luxury-gold">C_E</h2>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 mb-16 w-full">
+                <a href="#" class="font-body text-[10px] tracking-[0.25em] uppercase hover:text-luxury-gold transition-colors">Timepieces</a>
+                <a href="#" class="font-body text-[10px] tracking-[0.25em] uppercase hover:text-luxury-gold transition-colors">Atelier</a>
+                <a href="#" class="font-body text-[10px] tracking-[0.25em] uppercase hover:text-luxury-gold transition-colors">Heritage</a>
+                <a href="#" class="font-body text-[10px] tracking-[0.25em] uppercase hover:text-luxury-gold transition-colors">Concierge</a>
+            </div>
+
+            <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-luxury-gold/30 to-transparent max-w-lg mb-10"></div>
+
+            <p class="font-sub italic text-lg text-gray-500 mb-2">"Time waits for no one."</p>
+            
+            <div class="flex flex-col md:flex-row justify-between w-full max-w-4xl mt-12 text-gray-600 text-[9px] uppercase tracking-widest">
+                <div class="text-center md:text-left mb-4 md:mb-0">&copy; 2026 Chronos_Elite Geneve.</div>
+                <div class="flex gap-6 justify-center md:justify-end">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Intersection Observer for Scroll Animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

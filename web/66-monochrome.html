@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADE | Monochrome Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <style>
+        html, body { overflow-x: clip; }
+
+        /* Custom Masonry Reset */
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Scroll Reveal Utility Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Marquee strip — Witnessed section */
+        .shade-marquee-wrap { overflow: hidden; }
+        .shade-marquee {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: shade-marquee-x 70s linear infinite;
+        }
+        .shade-marquee:hover { animation-play-state: paused; }
+        @keyframes shade-marquee-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12px)); }
+        }
+
+        /* FAQ accordion — chevron rotate on open */
+        .shade-faq summary::-webkit-details-marker { display: none; }
+        .shade-faq summary { list-style: none; cursor: pointer; }
+        .shade-faq .shade-chevron { transition: transform 250ms ease; }
+        .shade-faq[open] .shade-chevron { transform: rotate(180deg); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .shade-marquee { animation: none; }
+            .shade-faq .shade-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-slate-800 selection:text-white">
+
+    <!-- Mobile Header -->
+    <div class="lg:hidden fixed top-0 left-0 w-full bg-slate-900 text-white z-50 flex justify-between items-center p-5 border-b border-slate-800 shadow-md">
+        <span class="font-serif text-xl tracking-[0.2em] font-semibold">SHADE</span>
+        <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none transition-colors">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-slate-900 z-40 transform -translate-y-full transition-transform duration-500 ease-in-out lg:hidden flex flex-col justify-center items-center space-y-8">
+        <a href="#hero" class="mobile-link text-3xl font-serif text-slate-400 hover:text-white transition-colors">Home</a>
+        <a href="#gallery" class="mobile-link text-3xl font-serif text-slate-400 hover:text-white transition-colors">Gallery</a>
+        <a href="#philosophy" class="mobile-link text-3xl font-serif text-slate-400 hover:text-white transition-colors">Philosophy</a>
+        <a href="#bio" class="mobile-link text-3xl font-serif text-slate-400 hover:text-white transition-colors">Bio</a>
+        <a href="#contact" class="mobile-link text-3xl font-serif text-slate-400 hover:text-white transition-colors">Contact</a>
+        <button id="close-menu-btn" class="absolute top-5 right-5 text-slate-400 hover:text-white transition-colors">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+    </div>
+
+    <!-- Desktop Sidebar (Fixed Left) -->
+    <nav class="hidden lg:flex fixed top-0 left-0 h-screen w-72 bg-slate-900 flex-col justify-between p-10 z-50 border-r border-slate-800 shadow-2xl">
+        <!-- Logo -->
+        <div>
+            <h1 class="font-serif text-4xl text-slate-50 tracking-[0.2em] font-semibold mb-2">SHADE</h1>
+            <p class="text-[10px] text-slate-500 uppercase tracking-[0.3em]">Monochrome Studio</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex flex-col space-y-6 pl-2">
+            <a href="#hero" class="group flex items-center space-x-3 text-slate-400 hover:text-white transition-colors duration-300">
+                <span class="w-8 h-[1px] bg-slate-700 group-hover:bg-white transition-colors"></span>
+                <span class="text-xs uppercase tracking-widest font-medium">Home</span>
+            </a>
+            <a href="#gallery" class="group flex items-center space-x-3 text-slate-400 hover:text-white transition-colors duration-300">
+                <span class="w-8 h-[1px] bg-slate-700 group-hover:bg-white transition-colors"></span>
+                <span class="text-xs uppercase tracking-widest font-medium">Gallery</span>
+            </a>
+             <a href="#philosophy" class="group flex items-center space-x-3 text-slate-400 hover:text-white transition-colors duration-300">
+                <span class="w-8 h-[1px] bg-slate-700 group-hover:bg-white transition-colors"></span>
+                <span class="text-xs uppercase tracking-widest font-medium">Philosophy</span>
+            </a>
+            <a href="#bio" class="group flex items-center space-x-3 text-slate-400 hover:text-white transition-colors duration-300">
+                <span class="w-8 h-[1px] bg-slate-700 group-hover:bg-white transition-colors"></span>
+                <span class="text-xs uppercase tracking-widest font-medium">Bio</span>
+            </a>
+            <a href="#contact" class="group flex items-center space-x-3 text-slate-400 hover:text-white transition-colors duration-300">
+                <span class="w-8 h-[1px] bg-slate-700 group-hover:bg-white transition-colors"></span>
+                <span class="text-xs uppercase tracking-widest font-medium">Contact</span>
+            </a>
+        </div>
+
+        <!-- Footer / Socials -->
+        <div>
+            <div class="flex space-x-5 mb-8">
+                <a href="#" class="text-slate-500 hover:text-slate-200 transition-colors transform hover:-translate-y-1 duration-300">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-slate-500 hover:text-slate-200 transition-colors transform hover:-translate-y-1 duration-300">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="text-slate-500 hover:text-slate-200 transition-colors transform hover:-translate-y-1 duration-300">
+                    <i data-lucide="camera" class="w-5 h-5"></i>
+                </a>
+            </div>
+            <p class="text-[10px] text-slate-600 font-light tracking-wide">© 2026 Shade.</p>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="lg:ml-72 w-full">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="relative h-screen w-full overflow-hidden bg-slate-900">
+            <!-- Background Image -->
+            <div class="absolute inset-0 z-0">
+                <img 
+                    src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000&auto=format&fit=crop" 
+                    alt="Hero Background" 
+                    class="w-full h-full object-cover grayscale opacity-50 transform scale-105"
+                >
+                <div class="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-900/90"></div>
+            </div>
+            
+            <!-- Overlay Content -->
+            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+                <h2 class="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-50 tracking-wider mb-6 animate-fade-in-up">
+                    Capturing Silence
+                </h2>
+                <p class="text-slate-300 text-sm md:text-lg font-light tracking-[0.3em] uppercase mt-2 opacity-80 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    The Art of Shadows
+                </p>
+                
+                <a href="#gallery" class="absolute bottom-12 group flex flex-col items-center text-slate-500 hover:text-slate-200 transition-colors animate-fade-in-up" style="animation-delay: 0.6s;">
+                    <span class="text-[10px] uppercase tracking-[0.2em] mb-3">Enter Gallery</span>
+                    <i data-lucide="chevron-down" class="w-6 h-6 animate-bounce"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="bg-white px-6 py-24 md:px-16 md:py-32">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-16 reveal">
+                    <h3 class="font-serif text-4xl text-slate-900 border-l-2 border-slate-900 pl-6 tracking-wide">Selected Works</h3>
+                    <div class="flex justify-between items-end mt-4 pl-7">
+                        <p class="text-slate-500 text-sm font-light">A curated collection of light and absence.</p>
+                        <p class="hidden md:block text-slate-400 text-xs uppercase tracking-widest">Hover to reveal soul</p>
+                    </div>
+                </div>
+
+                <!-- Masonry Grid -->
+                <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+                    
+                    <!-- Item 1: Architecture -->
+                    <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop" 
+                            alt="Architecture" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                        <div class="absolute inset-0 bg-slate-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif block mb-1">Structure</span>
+                            <span class="text-slate-300 text-[10px] tracking-wide font-light">London, 2021</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Portrait -->
+                    <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?q=80&w=800&auto=format&fit=crop" 
+                            alt="Portrait" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif">Gaze</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Misty Mountains (Updated) -->
+                    <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=800&auto=format&fit=crop" 
+                            alt="Misty Mountains" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif block mb-1">Wilderness</span>
+                             <span class="text-slate-300 text-[10px] tracking-wide font-light">The Peaks, 2023</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 4: Urban -->
+                    <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800&auto=format&fit=crop" 
+                            alt="Urban" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif">Neon Rain</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 5: Seascape -->
+                    <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?q=80&w=800&auto=format&fit=crop" 
+                            alt="Seascape" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                         <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif">Horizon</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 6: Texture (Updated) -->
+                    <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1504194921103-f8b80cadd5e4?q=80&w=800&auto=format&fit=crop" 
+                            alt="Texture" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif">Detail</span>
+                        </div>
+                    </div>
+
+                     <!-- Item 7: Fashion -->
+                     <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" 
+                            alt="Fashion" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                    </div>
+
+                    <!-- Item 8: Abstract -->
+                    <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1487260211189-670c54da558d?q=80&w=800&auto=format&fit=crop" 
+                            alt="Abstract" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif">Contrast</span>
+                        </div>
+                    </div>
+
+                     <!-- Item 9: Street (UPDATED IMAGE - RAINY STREET) -->
+                     <div class="masonry-item reveal relative group overflow-hidden cursor-pointer">
+                        <img 
+                            src="https://images.unsplash.com/photo-1445543949571-ffc3e0e2f55e?q=80&w=800&auto=format&fit=crop"
+                            alt="Street" 
+                            class="w-full h-auto grayscale transition-all duration-700 ease-in-out group-hover:grayscale-0 group-hover:scale-105"
+                        >
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
+                            <span class="text-slate-50 text-xs tracking-[0.2em] uppercase font-serif">Transit</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Atmosphere Section (5 framed grayscale tiles, Roman numeral captions) -->
+        <section id="atmosphere" class="bg-slate-50 px-6 py-24 md:px-16 md:py-32 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-16 reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-3">— Atmosphere · 03</p>
+                        <h3 class="font-serif text-4xl text-slate-900 tracking-wide">From The Floor</h3>
+                    </div>
+                    <p class="text-slate-500 text-sm font-light max-w-sm md:text-right">Five frames lifted from the cutting-room floor. Outtakes, but only just.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 reveal">
+                    <figure class="group">
+                        <div class="relative overflow-hidden aspect-[3/4] border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop" alt="Atmosphere I" class="w-full h-full object-cover grayscale contrast-125 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/0 group-hover:ring-white/30 transition-all duration-500"></div>
+                        </div>
+                        <figcaption class="mt-3 flex items-baseline gap-2 text-[10px] uppercase tracking-[0.25em]">
+                            <span class="font-serif text-slate-400">I</span>
+                            <span class="flex-1 h-px bg-slate-300/60"></span>
+                            <span class="text-slate-600">Concrete</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="group">
+                        <div class="relative overflow-hidden aspect-[3/4] border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop" alt="Atmosphere II" class="w-full h-full object-cover grayscale contrast-125 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/0 group-hover:ring-white/30 transition-all duration-500"></div>
+                        </div>
+                        <figcaption class="mt-3 flex items-baseline gap-2 text-[10px] uppercase tracking-[0.25em]">
+                            <span class="font-serif text-slate-400">II</span>
+                            <span class="flex-1 h-px bg-slate-300/60"></span>
+                            <span class="text-slate-600">Threshold</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="group">
+                        <div class="relative overflow-hidden aspect-[3/4] border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=900&auto=format&fit=crop" alt="Atmosphere III" class="w-full h-full object-cover grayscale contrast-125 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/0 group-hover:ring-white/30 transition-all duration-500"></div>
+                        </div>
+                        <figcaption class="mt-3 flex items-baseline gap-2 text-[10px] uppercase tracking-[0.25em]">
+                            <span class="font-serif text-slate-400">III</span>
+                            <span class="flex-1 h-px bg-slate-300/60"></span>
+                            <span class="text-slate-600">Pasture</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="group">
+                        <div class="relative overflow-hidden aspect-[3/4] border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop" alt="Atmosphere IV" class="w-full h-full object-cover grayscale contrast-125 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/0 group-hover:ring-white/30 transition-all duration-500"></div>
+                        </div>
+                        <figcaption class="mt-3 flex items-baseline gap-2 text-[10px] uppercase tracking-[0.25em]">
+                            <span class="font-serif text-slate-400">IV</span>
+                            <span class="flex-1 h-px bg-slate-300/60"></span>
+                            <span class="text-slate-600">Interior</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="group">
+                        <div class="relative overflow-hidden aspect-[3/4] border border-slate-200">
+                            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop" alt="Atmosphere V" class="w-full h-full object-cover grayscale contrast-125 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/0 group-hover:ring-white/30 transition-all duration-500"></div>
+                        </div>
+                        <figcaption class="mt-3 flex items-baseline gap-2 text-[10px] uppercase tracking-[0.25em]">
+                            <span class="font-serif text-slate-400">V</span>
+                            <span class="flex-1 h-px bg-slate-300/60"></span>
+                            <span class="text-slate-600">Cornice</span>
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <p class="mt-12 text-[10px] uppercase tracking-[0.3em] text-slate-400 text-center">Photographs by Shade · Floor No. 02 · MMXXIV</p>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="bg-slate-900 text-slate-100 py-24 px-6 md:px-16">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="font-serif text-3xl md:text-4xl tracking-wide text-center mb-16 reveal">The Philosophy</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Column 1 -->
+                    <div class="text-center reveal">
+                        <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 text-slate-400">
+                            <i data-lucide="eye" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="font-serif text-xl tracking-widest mb-4">Perception</h4>
+                        <p class="text-slate-400 font-light leading-relaxed text-sm">
+                            We perceive the world in color, but we understand it in contrast. Stripping away the hue allows the eye to focus on the essential geometry.
+                        </p>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="text-center reveal" style="transition-delay: 100ms;">
+                        <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 text-slate-400">
+                            <i data-lucide="aperture" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="font-serif text-xl tracking-widest mb-4">Capture</h4>
+                        <p class="text-slate-400 font-light leading-relaxed text-sm">
+                            The moment is fleeting. The shutter is the bridge between the transient present and the eternal archive.
+                        </p>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="text-center reveal" style="transition-delay: 200ms;">
+                        <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 text-slate-400">
+                            <i data-lucide="droplet" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="font-serif text-xl tracking-widest mb-4">Process</h4>
+                        <p class="text-slate-400 font-light leading-relaxed text-sm">
+                            Digital or film, the darkroom is a state of mind. It is where the raw data finds its emotional resonance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Witnessed Section (image marquee with mixed-aspect tiles, paused on hover) -->
+        <section id="witnessed" class="bg-slate-100 py-24 md:py-32 border-t border-slate-200">
+            <div class="max-w-7xl mx-auto px-6 md:px-16 mb-12 reveal">
+                <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-3">— Witnessed · 04</p>
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <h3 class="font-serif text-4xl text-slate-900 tracking-wide">The Working Archive</h3>
+                    <p class="text-slate-500 text-sm font-light max-w-md md:text-right">Plates assembled in the field. Hover to pause the reel.</p>
+                </div>
+            </div>
+
+            <div class="shade-marquee-wrap reveal py-2">
+                <div class="shade-marquee">
+                    <!-- Set A -->
+                    <figure class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?q=80&w=900&auto=format&fit=crop" alt="Plate I" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Gaze</span>
+                            <span class="text-white/80">Plate · I</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="relative shrink-0 w-96 aspect-[16/10] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=1400&auto=format&fit=crop" alt="Plate II" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Wilderness</span>
+                            <span class="text-white/80">Plate · II</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=900&auto=format&fit=crop" alt="Plate III" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Atelier</span>
+                            <span class="text-white/80">Plate · III</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="relative shrink-0 w-80 aspect-[16/10] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" alt="Plate IV" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Neon Rain</span>
+                            <span class="text-white/80">Plate · IV</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1487260211189-670c54da558d?q=80&w=900&auto=format&fit=crop" alt="Plate V" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Contrast</span>
+                            <span class="text-white/80">Plate · V</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="relative shrink-0 w-96 aspect-[16/10] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?q=80&w=1400&auto=format&fit=crop" alt="Plate VI" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Horizon</span>
+                            <span class="text-white/80">Plate · VI</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1445543949571-ffc3e0e2f55e?q=80&w=900&auto=format&fit=crop" alt="Plate VII" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Transit</span>
+                            <span class="text-white/80">Plate · VII</span>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Set B (duplicate, aria-hidden for seamless loop) -->
+                    <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Gaze</span>
+                            <span class="text-white/80">Plate · I</span>
+                        </figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="relative shrink-0 w-96 aspect-[16/10] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=1400&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Wilderness</span>
+                            <span class="text-white/80">Plate · II</span>
+                        </figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Atelier</span>
+                            <span class="text-white/80">Plate · III</span>
+                        </figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="relative shrink-0 w-80 aspect-[16/10] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Neon Rain</span>
+                            <span class="text-white/80">Plate · IV</span>
+                        </figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1487260211189-670c54da558d?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Contrast</span>
+                            <span class="text-white/80">Plate · V</span>
+                        </figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="relative shrink-0 w-96 aspect-[16/10] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?q=80&w=1400&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Horizon</span>
+                            <span class="text-white/80">Plate · VI</span>
+                        </figcaption>
+                    </figure>
+                    <figure aria-hidden="true" class="relative shrink-0 w-72 aspect-[3/4] overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src="https://images.unsplash.com/photo-1445543949571-ffc3e0e2f55e?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-125">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent"></div>
+                        <figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] uppercase tracking-[0.25em] text-white">
+                            <span class="font-serif italic normal-case text-base tracking-wide">Transit</span>
+                            <span class="text-white/80">Plate · VII</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bio Section -->
+        <section id="bio" class="bg-slate-50 px-6 py-24 md:px-16 md:py-32">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
+                
+                <!-- Portrait -->
+                <div class="w-full md:w-1/2 reveal">
+                    <div class="relative w-full aspect-[3/4]">
+                        <div class="absolute inset-0 bg-slate-200 transform translate-x-4 translate-y-4"></div>
+                        <img 
+                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" 
+                            alt="Photographer" 
+                            class="w-full h-full object-cover grayscale relative z-10 shadow-lg"
+                        >
+                    </div>
+                </div>
+
+                <!-- Text -->
+                <div class="w-full md:w-1/2 md:pl-10 text-center md:text-left reveal">
+                    <span class="text-xs font-bold tracking-[0.3em] text-slate-400 uppercase mb-4 block">About the Artist</span>
+                    <h3 class="font-serif text-4xl text-slate-900 mb-8">Elias "Shade" Vance</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6 font-light">
+                        Born in the quiet moments between dusk and dawn, SHADE is an exploration of the world without the distraction of color. I believe that when you remove color, you are forced to see the truth of a subject—its texture, its form, and its soul.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed mb-8 font-light">
+                        With over a decade of experience in monochrome photography shooting for architectural firms and fashion houses, my work aims to strip away the noise of the modern world, leaving only what is essential.
+                    </p>
+                    
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_sample.svg" alt="Signature" class="h-12 opacity-50 mx-auto md:mx-0">
+                </div>
+            </div>
+        </section>
+
+        <!-- By the Numbers — stat strip over grayscale photo backdrop -->
+        <section id="numbers" class="relative overflow-hidden py-24 md:py-32">
+            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=2000&auto=format&fit=crop" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-25">
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-50 via-slate-50/85 to-slate-50"></div>
+
+            <div class="relative max-w-6xl mx-auto px-6 md:px-16">
+                <div class="text-center mb-16 reveal">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-3">— A Decade · 06</p>
+                    <h3 class="font-serif text-4xl md:text-5xl text-slate-900 tracking-wide">By the Numbers</h3>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-300/50 reveal">
+                    <div class="px-4 md:px-8 py-6 text-center">
+                        <p class="font-serif italic text-5xl md:text-6xl text-slate-900 leading-none mb-3">XII</p>
+                        <div class="h-px w-10 bg-slate-400/60 mx-auto mb-3"></div>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-slate-500">Years on Film</p>
+                        <p class="text-xs italic font-light text-slate-400 mt-1">since MMXIV</p>
+                    </div>
+                    <div class="px-4 md:px-8 py-6 text-center">
+                        <p class="font-serif italic text-5xl md:text-6xl text-slate-900 leading-none mb-3">847</p>
+                        <div class="h-px w-10 bg-slate-400/60 mx-auto mb-3"></div>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-slate-500">Plates Archived</p>
+                        <p class="text-xs italic font-light text-slate-400 mt-1">silver gelatin</p>
+                    </div>
+                    <div class="px-4 md:px-8 py-6 text-center">
+                        <p class="font-serif italic text-5xl md:text-6xl text-slate-900 leading-none mb-3">XXXI</p>
+                        <div class="h-px w-10 bg-slate-400/60 mx-auto mb-3"></div>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-slate-500">Editions Bound</p>
+                        <p class="text-xs italic font-light text-slate-400 mt-1">limited press</p>
+                    </div>
+                    <div class="px-4 md:px-8 py-6 text-center">
+                        <p class="font-serif italic text-5xl md:text-6xl text-slate-900 leading-none mb-3">04</p>
+                        <div class="h-px w-10 bg-slate-400/60 mx-auto mb-3"></div>
+                        <p class="text-[10px] uppercase tracking-[0.3em] text-slate-500">Continents</p>
+                        <p class="text-xs italic font-light text-slate-400 mt-1">no haste</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ — details accordion (chevron rotation, hairline rows) -->
+        <section id="faq" class="bg-white px-6 py-24 md:px-16 md:py-32 border-t border-slate-100">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-16 reveal text-center">
+                    <p class="text-[10px] uppercase tracking-[0.3em] text-slate-400 mb-3">— Notes · 07</p>
+                    <h3 class="font-serif text-4xl text-slate-900 tracking-wide">Before You Write</h3>
+                    <p class="text-slate-500 text-sm font-light mt-4">Common questions, briefly answered.</p>
+                </div>
+
+                <div class="reveal divide-y divide-slate-200 border-t border-b border-slate-200">
+                    <details class="shade-faq group p-6 md:p-7">
+                        <summary class="flex items-start justify-between gap-6">
+                            <h4 class="font-serif text-lg md:text-xl text-slate-900 tracking-wide">Do you shoot in colour?</h4>
+                            <i data-lucide="chevron-down" class="shade-chevron w-5 h-5 text-slate-400 mt-1 shrink-0"></i>
+                        </summary>
+                        <p class="text-slate-600 font-light leading-relaxed mt-4 max-w-2xl text-sm">Rarely, and only when a client commission specifies it. The studio voice is monochrome — that decision is made before the shutter, not in post.</p>
+                    </details>
+                    <details class="shade-faq group p-6 md:p-7">
+                        <summary class="flex items-start justify-between gap-6">
+                            <h4 class="font-serif text-lg md:text-xl text-slate-900 tracking-wide">What is your turnaround?</h4>
+                            <i data-lucide="chevron-down" class="shade-chevron w-5 h-5 text-slate-400 mt-1 shrink-0"></i>
+                        </summary>
+                        <p class="text-slate-600 font-light leading-relaxed mt-4 max-w-2xl text-sm">Editorial shoots: contact sheet within seven days, finals within twenty-one. Architectural commissions: four to six weeks for a full plate set, including darkroom proofing.</p>
+                    </details>
+                    <details class="shade-faq group p-6 md:p-7">
+                        <summary class="flex items-start justify-between gap-6">
+                            <h4 class="font-serif text-lg md:text-xl text-slate-900 tracking-wide">Do you travel?</h4>
+                            <i data-lucide="chevron-down" class="shade-chevron w-5 h-5 text-slate-400 mt-1 shrink-0"></i>
+                        </summary>
+                        <p class="text-slate-600 font-light leading-relaxed mt-4 max-w-2xl text-sm">Anywhere, with a passport's notice. Recent assignments have placed the studio in Reykjavík, Naoshima, Marrakech, and the Outer Hebrides.</p>
+                    </details>
+                    <details class="shade-faq group p-6 md:p-7">
+                        <summary class="flex items-start justify-between gap-6">
+                            <h4 class="font-serif text-lg md:text-xl text-slate-900 tracking-wide">Are prints available?</h4>
+                            <i data-lucide="chevron-down" class="shade-chevron w-5 h-5 text-slate-400 mt-1 shrink-0"></i>
+                        </summary>
+                        <p class="text-slate-600 font-light leading-relaxed mt-4 max-w-2xl text-sm">Selected works are released as editions of twelve, hand-printed on archival fibre paper, embossed and signed. Enquire directly for the current catalogue.</p>
+                    </details>
+                    <details class="shade-faq group p-6 md:p-7">
+                        <summary class="flex items-start justify-between gap-6">
+                            <h4 class="font-serif text-lg md:text-xl text-slate-900 tracking-wide">Film or digital?</h4>
+                            <i data-lucide="chevron-down" class="shade-chevron w-5 h-5 text-slate-400 mt-1 shrink-0"></i>
+                        </summary>
+                        <p class="text-slate-600 font-light leading-relaxed mt-4 max-w-2xl text-sm">Both, depending on the brief. Medium-format film for portrait and architectural work; full-frame digital for editorial and any assignment with a tight cycle. The negative dictates the workflow, not the brand.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-white py-24 px-6 md:px-16 border-t border-slate-100">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h3 class="font-serif text-3xl text-slate-900 tracking-widest">Commission Request</h3>
+                    <p class="text-slate-500 mt-4 font-light">Available for editorial, architectural, and portrait work.</p>
+                </div>
+
+                <form class="space-y-6 reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <input type="text" id="name" class="peer w-full border-b border-slate-300 py-3 text-slate-900 focus:outline-none focus:border-slate-900 transition-colors bg-transparent placeholder-transparent" placeholder="Name" />
+                            <label for="name" class="absolute left-0 -top-3.5 text-xs text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-slate-900 peer-focus:text-xs">Name</label>
+                        </div>
+                        <div class="relative">
+                            <input type="email" id="email" class="peer w-full border-b border-slate-300 py-3 text-slate-900 focus:outline-none focus:border-slate-900 transition-colors bg-transparent placeholder-transparent" placeholder="Email" />
+                            <label for="email" class="absolute left-0 -top-3.5 text-xs text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-slate-900 peer-focus:text-xs">Email Address</label>
+                        </div>
+                    </div>
+                    <div class="relative mt-8">
+                        <textarea id="message" rows="4" class="peer w-full border-b border-slate-300 py-3 text-slate-900 focus:outline-none focus:border-slate-900 transition-colors bg-transparent placeholder-transparent resize-none" placeholder="Message"></textarea>
+                        <label for="message" class="absolute left-0 -top-3.5 text-xs text-slate-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-slate-900 peer-focus:text-xs">Tell me about your project</label>
+                    </div>
+                    
+                    <div class="pt-8 text-center md:text-right">
+                        <button type="button" class="group relative px-8 py-3 bg-slate-900 text-white overflow-hidden transition-all hover:bg-slate-800">
+                            <div class="absolute inset-0 w-0 bg-white transition-all duration-[250ms] ease-out group-hover:w-full opacity-10"></div>
+                            <span class="relative text-xs uppercase tracking-[0.2em] font-medium">Send Inquiry</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-slate-900 py-12 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <span class="font-serif text-2xl text-slate-50 tracking-widest block">SHADE</span>
+                    <p class="text-slate-500 text-xs mt-2">Monochrome Studio &copy; 2026</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <a href="#" class="text-slate-400 hover:text-white text-xs uppercase tracking-widest transition-colors">Instagram</a>
+                    <a href="#" class="text-slate-400 hover:text-white text-xs uppercase tracking-widest transition-colors">Behance</a>
+                    <a href="#" class="text-slate-400 hover:text-white text-xs uppercase tracking-widest transition-colors">Unsplash</a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            const isClosed = mobileMenu.classList.contains('-translate-y-full');
+            if (isClosed) {
+                mobileMenu.classList.remove('-translate-y-full');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            } else {
+                mobileMenu.classList.add('-translate-y-full');
+                document.body.style.overflow = '';
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Scroll Reveal Animation Script
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+</html>

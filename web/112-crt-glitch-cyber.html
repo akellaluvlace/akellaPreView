@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Alchemy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#ffabf3",
+                        "outline": "#849495",
+                        "surface-container-low": "#1c1b1b",
+                        "primary-fixed-dim": "#00dbe9",
+                        "on-secondary-container": "#500050",
+                        "surface-container": "#201f1f",
+                        "on-secondary-fixed": "#380038",
+                        "on-primary-fixed": "#002022",
+                        "primary-fixed": "#7df4ff",
+                        "tertiary": "#fff5e1",
+                        "on-tertiary-container": "#745c00",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "outline-variant": "#3b494b",
+                        "primary": "#dbfcff",
+                        "on-secondary": "#5b005b",
+                        "surface-container-highest": "#353534",
+                        "surface-bright": "#3a3939",
+                        "secondary-fixed": "#ffd7f5",
+                        "on-secondary-fixed-variant": "#810081",
+                        "tertiary-fixed": "#ffe088",
+                        "on-surface-variant": "#b9cacb",
+                        "tertiary-container": "#fdd55a",
+                        "inverse-surface": "#e5e2e1",
+                        "inverse-primary": "#006970",
+                        "surface-dim": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ffabf3",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-background": "#e5e2e1",
+                        "on-primary": "#00363a",
+                        "surface-tint": "#00dbe9",
+                        "on-tertiary": "#3c2f00",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface": "#131313",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-variant": "#353534",
+                        "on-primary-container": "#006970",
+                        "primary-container": "#00f0ff",
+                        "secondary-container": "#fe00fe",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "on-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-fixed-variant": "#004f54",
+                        "background": "#131313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "bento-gap": "1px",
+                        "margin": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Newsreader"],
+                        "body-md": ["Space Grotesk"],
+                        "code-sm": ["Space Grotesk"],
+                        "headline-lg": ["Newsreader"],
+                        "body-lg": ["Space Grotesk"],
+                        "display-xl": ["Newsreader"],
+                        "label-caps": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "code-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-xl": ["72px", { "lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "label-caps": ["11px", { "lineHeight": "12px", "letterSpacing": "0.2em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #00f0ff;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #fe00fe;
+            clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); }
+            100% { clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); }
+            100% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); }
+        }
+        .scanline {
+            position: relative;
+            overflow: hidden;
+        }
+        .scanline::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+        .bento-card {
+            border: 1px solid #3b494b;
+            background-color: #131313;
+            position: relative;
+        }
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(#3b494b 1px, transparent 1px);
+            background-size: 10px 10px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .tactile-button {
+            border-top: 2px solid #5b005b;
+            border-left: 2px solid #5b005b;
+            border-bottom: 2px solid #380038;
+            border-right: 2px solid #380038;
+            transition: all 0.1s;
+        }
+        .tactile-button:active {
+            border-top: 2px solid #380038;
+            border-left: 2px solid #380038;
+            border-bottom: 2px solid #5b005b;
+            border-right: 2px solid #5b005b;
+            transform: translate(1px, 1px);
+        }
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.95; }
+            50% { opacity: 1; }
+            100% { opacity: 0.98; }
+        }
+        /* §I.3 full-bleed + marquee */
+        html, body { overflow-x: clip; }
+        .full-bleed { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); max-width: none; }
+        .marquee-track { display: flex; gap: 16px; width: max-content; }
+        @keyframes marquee-left  { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 8px)); } }
+        @keyframes marquee-right { 0% { transform: translateX(calc(-50% - 8px)); } 100% { transform: translateX(0); } }
+        .marquee-left  { animation: marquee-left 70s linear infinite; }
+        .marquee-right { animation: marquee-right 80s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-[100] bg-stone-950/90 dark:bg-black/95 backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)] border-b-2 border-cyan-900/40 dark:border-cyan-500/20">
+<div class="text-2xl font-headline-md italic text-primary-fixed hover:animate-pulse tracking-tighter">DIGITAL ALCHEMY</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-primary-fixed border-b-2 border-primary-fixed pb-1 font-label-caps uppercase tracking-widest text-xs skew-x-12 transition-transform" href="#">TRANSMUTATIONS</a>
+<a class="text-outline uppercase tracking-widest font-label-caps hover:text-primary transition-all duration-75" href="#">ARSENAL</a>
+<a class="text-outline uppercase tracking-widest font-label-caps hover:text-primary transition-all duration-75" href="#">LOGS</a>
+<a class="text-outline uppercase tracking-widest font-label-caps hover:text-primary transition-all duration-75" href="#">PORTAL</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-outline font-code-sm hidden lg:block">UPTIME: 99.98%</span>
+<button class="tactile-button bg-surface-container px-6 py-2 text-primary-fixed font-label-caps hover:text-primary transition-colors">INITIATE</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-[921px] flex items-center justify-center overflow-hidden border-b border-outline-variant p-margin">
+<div class="absolute inset-0 z-0 opacity-40 scanline">
+<img alt="High contrast macro shot of intricate mechanical watch movement gears and springs with cyan and magenta lighting" class="w-full h-full object-cover mix-blend-luminosity" data-alt="High contrast macro shot of intricate mechanical watch movement gears and springs with cyan and magenta lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVQOitxJX2QrKHImWRruVX5wff9U6k-qS1ZM9QqHOSnBFJQTtQniC05gRdK0hgz35LJAhqndctFWNPQKXQnUH_2RoNBu5tMkPBl1Tl01q2tFMvcEt3i8lgJycDEM0RwPxk0tsSH-RDnaHScvuy4OSKtshjjWwyu9MF6zOlPy1OxGiL2_vKunaoiOdRvVlsnCzDS0tstd-vVK3jXpNDpCRMNG7LhyoFv6HtcJo3dVrK55XJu8Sb-a9HkvsCvnB94Dp3H3VI8IPwPv66"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent z-10"></div>
+<div class="relative z-20 text-center max-w-4xl mx-auto flex flex-col items-center gap-6">
+<div class="inline-block px-4 py-1 border border-primary-fixed/30 bg-primary-fixed/5 font-code-sm text-primary-fixed mb-4 backdrop-blur-sm">
+                &gt; SYSTEM_INITIALIZED // SEQUENCE_BETA
+            </div>
+<h1 class="font-display-xl text-on-surface uppercase tracking-tighter glitch-text leading-none" data-text="DIVINE DATA. TRANSMUTED GOLD.">
+                DIVINE DATA.<br/><span class="text-secondary-container">TRANSMUTED GOLD.</span>
+</h1>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mt-4">
+                Enter the crucible where raw computation meets ancient mastery. Ordered anarchy forged into hyper-refined digital glitch.
+            </p>
+</div>
+</header>
+<!-- The Crucible (Bento Grid) -->
+<section class="p-margin max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-bento-gap bg-outline-variant/30 p-[1px]">
+<!-- Card 1: The Vision (8 cols) -->
+<div class="md:col-span-8 bento-card p-8 min-h-[400px] flex flex-col justify-between overflow-hidden group">
+<div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/old-wall.png')] mix-blend-overlay"></div>
+<div class="relative z-10">
+<h2 class="font-headline-lg text-tertiary-fixed mb-4">The Vision</h2>
+<p class="font-body-md text-on-surface-variant max-w-md">
+                        Codifying magic into software through brute force structural integrity and ethereal luminous overlays.
+                    </p>
+</div>
+<div class="relative z-10 flex items-end justify-between mt-12">
+<div class="font-code-sm text-outline uppercase">
+                        [SECTOR_ALPHA]
+                    </div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-24 h-24 rounded-full border-4 border-surface-container bg-surface-bright shadow-[inset_0_4px_10px_rgba(0,0,0,0.5),0_4px_15px_rgba(0,0,0,0.8)] relative flex items-center justify-center group-hover:rotate-45 transition-transform duration-1000 ease-out cursor-pointer">
+<div class="w-2 h-8 bg-tertiary-fixed rounded-full absolute top-2"></div>
+<div class="w-16 h-16 rounded-full border border-outline-variant bg-gradient-to-br from-surface to-surface-container-high"></div>
+</div>
+<span class="font-label-caps text-tertiary-fixed tracking-widest mt-2">RESONANCE</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Live Feed (4 cols) -->
+<div class="md:col-span-4 bento-card p-0 min-h-[400px] relative scanline flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center z-10">
+<span class="font-code-sm text-primary-fixed">LIVE_FEED.EXE</span>
+<div class="flex gap-1">
+<div class="w-2 h-2 bg-error rounded-full animate-pulse"></div>
+</div>
+</div>
+<div class="flex-grow relative overflow-hidden bg-black">
+<img alt="Gritty black and white macro of a silicon chip processor with heavy film grain" class="w-full h-full object-cover mix-blend-luminosity opacity-70 crt-flicker grayscale" data-alt="Gritty black and white macro of a silicon chip processor with heavy film grain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqFks93NPyJmpwAeu4s9oSt900nf1Z3O4ImVCBllSObJ3wa958mzpJDlCZ3tVK6Dg6h-3vWOpTsE2jL4KARB19aXP7gvm9_n0WKRdEAFwiHohqfs885WvdUKxqMAxYX75yFWLxErQn2LuTIJAR4538MZ_73CsGIDy1TTFbWDwPwKgpZ2qeGXJPGNzfOs3MJp90EedxkMscBCHh1cXuhGbCiJ2nKqRy5h_2WaVcGRp4yj2BaNHie67E8ybQRB1LoRicdZ_2bY1A2rm"/>
+</div>
+</div>
+<!-- Card 3: Blueprint (6 cols) -->
+<div class="md:col-span-6 bento-card p-6 min-h-[300px] relative overflow-hidden flex flex-col justify-between">
+<div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(#00dbe9 1px, transparent 1px), linear-gradient(90deg, #00dbe9 1px, transparent 1px); background-size: 20px 20px;"></div>
+<h2 class="font-headline-md text-primary-fixed z-10 relative bg-background/50 inline-block px-2 border-l-2 border-primary-fixed">Blueprint</h2>
+<div class="relative z-10 mt-auto">
+<div class="w-full h-32 border border-primary-fixed/50 relative overflow-hidden">
+<svg class="absolute inset-0 w-full h-full text-primary-fixed opacity-70" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="drop-shadow-[0_0_5px_rgba(0,219,233,0.8)]" d="M0,100 C20,80 40,90 50,50 C60,10 80,40 100,0" fill="none" stroke="currentColor" stroke-width="1"></path>
+<path d="M0,100 L0,50 L20,50 L20,30 L40,30 L40,70 L60,70 L60,20 L80,20 L80,80 L100,80 L100,100 Z" fill="none" stroke="currentColor" stroke-dasharray="2,2" stroke-width="0.5"></path>
+</svg>
+</div>
+<div class="flex justify-between mt-2 font-code-sm text-primary-fixed/70">
+<span>X: 45.221</span>
+<span>Y: 89.004</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Material (6 cols) -->
+<div class="md:col-span-6 bento-card min-h-[300px] relative overflow-hidden group">
+<div class="absolute inset-0 z-0">
+<img alt="Highly textured raw dark concrete surface with brutalist industrial aesthetic" class="w-full h-full object-cover opacity-50 mix-blend-multiply" data-alt="Highly textured raw dark concrete surface with brutalist industrial aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuPfpJ1hNe3BZz8lHOisAiMV5TroON6ghz_E-QX_JBd3xvpbjGydaMkIZbDhEjcQcvJhKI3KC6loolGeoqrrjuTaPvrwk1Mi2gr3NbRHDgMih2HKZD7-XxFe1NLDk-H8ETYL4hM5jAt6WyncePKAy8sd7fhR68ldcB1pBJJUUCUWEjgBFNeUuAyKMyuAXk20o92PKjZS6qT8DEv0KA_5SgrcyJpEMWXJmXwy0dsd_UBNcfFE4ZE3hyjNyT8tTyiIfZJ1QnxeLQe0TI"/>
+<div class="absolute inset-0 bg-[radial-gradient(circle,rgba(0,0,0,0)_0%,rgba(0,0,0,0.8)_100%)]"></div>
+<div class="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPgo8Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMSIgZmlsbD0iIzAwMCIvPgo8Y2lyY2xlIGN4PSI2IiBjeT0iNiIgcj0iMSIgZmlsbD0iIzAwMCIvPgo8L3N2Zz4=')]"></div>
+</div>
+<div class="relative z-10 p-6 h-full flex flex-col justify-end bg-gradient-to-t from-background to-transparent">
+<h2 class="font-headline-md text-on-surface mb-2">Material</h2>
+<p class="font-code-sm text-outline-variant max-w-sm">
+                        EXTRACTING TEXTURE DATA // BRUTALIST_CORE_LOADED
+                    </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Transmutation Logs -->
+<section class="border-y border-outline-variant bg-surface-container-lowest p-margin my-margin relative overflow-hidden">
+<div class="max-w-4xl mx-auto font-code-sm text-primary-fixed opacity-80 leading-relaxed crt-flicker">
+<div class="mb-4 text-outline">&gt; TAIL_LOGS -F /VAR/ALCHEMY/TRANSMUTE.LOG</div>
+<div class="pl-4 border-l border-primary-fixed/30 space-y-2">
+<p>&gt; INITIALIZING VOID PROTOCOL... <span class="text-tertiary-fixed">[OK]</span></p>
+<p>&gt; CALIBRATING AETHER MATRIX... <span class="text-tertiary-fixed">[OK]</span></p>
+<p class="text-secondary-container">&gt; WARNING: REALITY TEAR DETECTED IN SECTOR 7G.</p>
+<p>&gt; COMPENSATING WITH BRUTALIST STRUCTURAL ANCHORS... <span class="text-tertiary-fixed">[OK]</span></p>
+<p>&gt; INJECTING NEON BLEED OVERLAYS... <span class="text-tertiary-fixed">[OK]</span></p>
+<p class="animate-pulse">&gt; AWAITING OPERATOR INPUT_ <span class="inline-block w-2 h-4 bg-primary-fixed align-middle"></span></p>
+</div>
+</div>
+</section>
+<!-- ARTIFACTS image strip — two scrolling marquee rows, alternating cyan/magenta + B&W/colour -->
+<section class="full-bleed py-margin border-y border-outline-variant relative overflow-hidden" style="background-color: #0a0a0a;">
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: linear-gradient(#00dbe9 1px, transparent 1px), linear-gradient(90deg, #00dbe9 1px, transparent 1px); background-size: 40px 40px;"></div>
+<div class="relative max-w-7xl mx-auto px-margin mb-8 text-center flex flex-col items-center gap-3">
+<span class="font-code-sm text-primary-fixed border border-primary-fixed/30 bg-primary-fixed/5 px-3 py-1">&gt; ARTIFACTS // VOL.07 // SCAN_LIVE</span>
+<h2 class="font-headline-lg text-on-surface uppercase tracking-tight">Eight relics from the void.</h2>
+<p class="font-body-md text-on-surface-variant max-w-xl">Top strip drifts west, bottom strip drifts east. Hover any tile to pin the loop.</p>
+</div>
+
+<!-- Top row: cyan-tinted, scrolls left -->
+<div class="overflow-hidden py-3 mb-2">
+<div class="marquee-track marquee-left">
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline">
+<img alt="Macro shot of intricate watch movement" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVQOitxJX2QrKHImWRruVX5wff9U6k-qS1ZM9QqHOSnBFJQTtQniC05gRdK0hgz35LJAhqndctFWNPQKXQnUH_2RoNBu5tMkPBl1Tl01q2tFMvcEt3i8lgJycDEM0RwPxk0tsSH-RDnaHScvuy4OSKtshjjWwyu9MF6zOlPy1OxGiL2_vKunaoiOdRvVlsnCzDS0tstd-vVK3jXpNDpCRMNG7LhyoFv6HtcJo3dVrK55XJu8Sb-a9HkvsCvnB94Dp3H3VI8IPwPv66"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_001</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group">
+<img alt="Macro circuit-board traces, colour" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_002</span><span class="opacity-60">CYAN</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline">
+<img alt="Silicon chip macro, B&amp;W" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqFks93NPyJmpwAeu4s9oSt900nf1Z3O4ImVCBllSObJ3wa958mzpJDlCZ3tVK6Dg6h-3vWOpTsE2jL4KARB19aXP7gvm9_n0WKRdEAFwiHohqfs885WvdUKxqMAxYX75yFWLxErQn2LuTIJAR4538MZ_73CsGIDy1TTFbWDwPwKgpZ2qeGXJPGNzfOs3MJp90EedxkMscBCHh1cXuhGbCiJ2nKqRy5h_2WaVcGRp4yj2BaNHie67E8ybQRB1LoRicdZ_2bY1A2rm"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_003</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group">
+<img alt="Server-room rack with cyan tint" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_004</span><span class="opacity-60">CYAN</span></figcaption>
+</figure>
+<!-- duplicate set for seamless loop -->
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVQOitxJX2QrKHImWRruVX5wff9U6k-qS1ZM9QqHOSnBFJQTtQniC05gRdK0hgz35LJAhqndctFWNPQKXQnUH_2RoNBu5tMkPBl1Tl01q2tFMvcEt3i8lgJycDEM0RwPxk0tsSH-RDnaHScvuy4OSKtshjjWwyu9MF6zOlPy1OxGiL2_vKunaoiOdRvVlsnCzDS0tstd-vVK3jXpNDpCRMNG7LhyoFv6HtcJo3dVrK55XJu8Sb-a9HkvsCvnB94Dp3H3VI8IPwPv66"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_001</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_002</span><span class="opacity-60">CYAN</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqFks93NPyJmpwAeu4s9oSt900nf1Z3O4ImVCBllSObJ3wa958mzpJDlCZ3tVK6Dg6h-3vWOpTsE2jL4KARB19aXP7gvm9_n0WKRdEAFwiHohqfs885WvdUKxqMAxYX75yFWLxErQn2LuTIJAR4538MZ_73CsGIDy1TTFbWDwPwKgpZ2qeGXJPGNzfOs3MJp90EedxkMscBCHh1cXuhGbCiJ2nKqRy5h_2WaVcGRp4yj2BaNHie67E8ybQRB1LoRicdZ_2bY1A2rm"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_003</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-primary-fixed uppercase z-10"><span>RELIC_004</span><span class="opacity-60">CYAN</span></figcaption>
+</figure>
+</div>
+</div>
+
+<!-- Bottom row: magenta-tinted, scrolls right -->
+<div class="overflow-hidden py-3">
+<div class="marquee-track marquee-right">
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group">
+<img alt="Industrial machinery, magenta tint" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_005</span><span class="opacity-60">MAGENTA</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline">
+<img alt="Concrete brutalist surface, B&amp;W" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuPfpJ1hNe3BZz8lHOisAiMV5TroON6ghz_E-QX_JBd3xvpbjGydaMkIZbDhEjcQcvJhKI3KC6loolGeoqrrjuTaPvrwk1Mi2gr3NbRHDgMih2HKZD7-XxFe1NLDk-H8ETYL4hM5jAt6WyncePKAy8sd7fhR68ldcB1pBJJUUCUWEjgBFNeUuAyKMyuAXk20o92PKjZS6qT8DEv0KA_5SgrcyJpEMWXJmXwy0dsd_UBNcfFE4ZE3hyjNyT8tTyiIfZJ1QnxeLQe0TI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_006</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group">
+<img alt="Wide server-room shot, magenta tint" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_007</span><span class="opacity-60">MAGENTA</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline">
+<img alt="Brass apothecary objects, B&amp;W" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_008</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_005</span><span class="opacity-60">MAGENTA</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuPfpJ1hNe3BZz8lHOisAiMV5TroON6ghz_E-QX_JBd3xvpbjGydaMkIZbDhEjcQcvJhKI3KC6loolGeoqrrjuTaPvrwk1Mi2gr3NbRHDgMih2HKZD7-XxFe1NLDk-H8ETYL4hM5jAt6WyncePKAy8sd7fhR68ldcB1pBJJUUCUWEjgBFNeUuAyKMyuAXk20o92PKjZS6qT8DEv0KA_5SgrcyJpEMWXJmXwy0dsd_UBNcfFE4ZE3hyjNyT8tTyiIfZJ1QnxeLQe0TI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_006</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg] contrast-110 group-hover:hue-rotate-0 group-hover:saturate-100 transition-all duration-500" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_007</span><span class="opacity-60">MAGENTA</span></figcaption>
+</figure>
+<figure class="bento-card w-72 aspect-[4/3] relative overflow-hidden shrink-0 group scanline" aria-hidden="true">
+<img alt="" class="w-full h-full object-cover grayscale opacity-70 mix-blend-luminosity group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none"></div>
+<figcaption class="absolute bottom-2 left-2 right-2 flex justify-between font-code-sm text-secondary uppercase z-10"><span>RELIC_008</span><span class="opacity-60">B/W</span></figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- PROTOCOLS — full-bleed surface-container-lowest band -->
+<section class="full-bleed py-margin px-margin border-y border-outline-variant" style="background-color: #0e0e0e;">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+<div>
+<span class="font-code-sm text-tertiary-fixed-dim uppercase tracking-widest mb-2 inline-block">// PROTOCOLS · IV ACTIVE</span>
+<h2 class="font-headline-lg text-on-surface">Four protocols, always running.</h2>
+</div>
+<p class="font-body-md text-on-surface-variant max-w-md md:text-right">Hot-loaded into the kernel. Each one signed by an operator and traced back to the source ritual.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-bento-gap bg-outline-variant/30 p-[1px]">
+<article class="bento-card p-6 flex flex-col gap-3 relative">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-code-sm text-primary-fixed">P_001 // VOID</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse shadow-[0_0_6px_#e9c349]"></span>
+</div>
+<h3 class="font-headline-md text-on-surface uppercase relative z-10">Cipher</h3>
+<p class="font-body-md text-on-surface-variant relative z-10 flex-grow">AES-256-GCM at the gateway. Symmetric encryption pipeline, stream-friendly, signed payloads only.</p>
+<div class="pt-3 border-t border-outline-variant flex justify-between font-code-sm relative z-10"><span class="text-outline">UPTIME</span><span class="text-tertiary-fixed-dim tabular-nums">99.97%</span></div>
+</article>
+<article class="bento-card p-6 flex flex-col gap-3 relative">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-code-sm text-primary-fixed">P_002 // FORGE</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse shadow-[0_0_6px_#e9c349]"></span>
+</div>
+<h3 class="font-headline-md text-on-surface uppercase relative z-10">Glyph Synth</h3>
+<p class="font-body-md text-on-surface-variant relative z-10 flex-grow">256 base glyphs, infinite remixes. Every export carries the SHA-3 trace of its parent. Deterministic builds.</p>
+<div class="pt-3 border-t border-outline-variant flex justify-between font-code-sm relative z-10"><span class="text-outline">SIGNED</span><span class="text-tertiary-fixed-dim tabular-nums">#7C0F19</span></div>
+</article>
+<article class="bento-card p-6 flex flex-col gap-3 relative">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-code-sm text-primary-fixed">P_003 // BLEED</span>
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse shadow-[0_0_6px_#fe00fe]"></span>
+</div>
+<h3 class="font-headline-md text-on-surface uppercase relative z-10">Neon Overlay</h3>
+<p class="font-body-md text-on-surface-variant relative z-10 flex-grow">Compositing layer. Cyan/magenta phosphor bleed, scanline injection, CRT-flicker. Render-time, zero post.</p>
+<div class="pt-3 border-t border-outline-variant flex justify-between font-code-sm relative z-10"><span class="text-outline">FRAME RATE</span><span class="text-tertiary-fixed-dim tabular-nums">144 Hz</span></div>
+</article>
+<article class="bento-card p-6 flex flex-col gap-3 relative">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-code-sm text-primary-fixed">P_004 // ANCHOR</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse shadow-[0_0_6px_#e9c349]"></span>
+</div>
+<h3 class="font-headline-md text-on-surface uppercase relative z-10">Brutalist Core</h3>
+<p class="font-body-md text-on-surface-variant relative z-10 flex-grow">Structural anchor — concrete textures, raw weight, the gravitational counter to all neon bleed. Ships first.</p>
+<div class="pt-3 border-t border-outline-variant flex justify-between font-code-sm relative z-10"><span class="text-outline">CORE LOADED</span><span class="text-tertiary-fixed-dim">[OK]</span></div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- ACOLYTES — full-bleed surface-container-low band -->
+<section class="full-bleed py-margin px-margin border-b border-outline-variant" style="background-color: #1c1b1b;">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+<div>
+<span class="font-code-sm text-secondary uppercase tracking-widest mb-2 inline-block">// ACOLYTES · 1,247 ACTIVE</span>
+<h2 class="font-headline-lg text-on-surface">Voices from the void.</h2>
+</div>
+<p class="font-body-md text-on-surface-variant max-w-md md:text-right">Scrubbed from the encrypted relay. Operators, drifters, and a few ghosts. Verified by sigil only.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<figure class="bento-card p-6 flex flex-col gap-4 relative scanline">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-code-sm text-primary-fixed">@OPERATOR_07</span>
+<span class="font-code-sm text-tertiary-fixed-dim">SIGIL ✓</span>
+</div>
+<blockquote class="font-headline-md text-xl text-on-surface italic leading-snug relative z-10">"Replaced our entire build pipeline. The output now ships with its own trace. We have not opened a 'real' editor in nine months."</blockquote>
+<figcaption class="mt-auto pt-4 border-t border-outline-variant flex justify-between font-code-sm relative z-10">
+<span class="text-outline">SECTOR.04 // FORGE</span>
+<span class="text-tertiary-fixed-dim tabular-nums">2024.11.14</span>
+</figcaption>
+</figure>
+<figure class="bento-card p-6 flex flex-col gap-4 relative scanline md:-translate-y-3">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-code-sm text-primary-fixed">@VOID_DRIFT</span>
+<span class="font-code-sm text-tertiary-fixed-dim">SIGIL ✓</span>
+</div>
+<blockquote class="font-headline-md text-xl text-on-surface italic leading-snug relative z-10">"The brutalist anchor is the part nobody warns you about. It saves the run, every time. Without it, the neon eats the work."</blockquote>
+<figcaption class="mt-auto pt-4 border-t border-outline-variant flex justify-between font-code-sm relative z-10">
+<span class="text-outline">SECTOR.07 // ANCHOR</span>
+<span class="text-tertiary-fixed-dim tabular-nums">2024.10.22</span>
+</figcaption>
+</figure>
+<figure class="bento-card p-6 flex flex-col gap-4 relative scanline">
+<div class="flex justify-between items-start relative z-10">
+<span class="font-code-sm text-primary-fixed">@SIG_HALBERG</span>
+<span class="font-code-sm text-secondary">SIGIL ◆</span>
+</div>
+<blockquote class="font-headline-md text-xl text-on-surface italic leading-snug relative z-10">"I shipped a cyber-occult zine in three nights. The cipher signed every page. The audience is paranoid in the best possible way."</blockquote>
+<figcaption class="mt-auto pt-4 border-t border-outline-variant flex justify-between font-code-sm relative z-10">
+<span class="text-outline">SECTOR.02 // CIPHER</span>
+<span class="text-tertiary-fixed-dim tabular-nums">2024.09.30</span>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<!-- The Ritual (CTA) -->
+<section class="p-margin relative min-h-[512px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(30deg, #5b005b 12%, transparent 12.5%, transparent 87%, #5b005b 87.5%, #5b005b), linear-gradient(150deg, #5b005b 12%, transparent 12.5%, transparent 87%, #5b005b 87.5%, #5b005b), linear-gradient(30deg, #5b005b 12%, transparent 12.5%, transparent 87%, #5b005b 87.5%, #5b005b), linear-gradient(150deg, #5b005b 12%, transparent 12.5%, transparent 87%, #5b005b 87.5%, #5b005b), linear-gradient(60deg, #380038 25%, transparent 25.5%, transparent 75%, #380038 75%, #380038), linear-gradient(60deg, #380038 25%, transparent 25.5%, transparent 75%, #380038 75%, #380038); background-size: 40px 70px; background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;"></div>
+<div class="relative z-10 text-center flex flex-col items-center">
+<h2 class="font-headline-lg text-on-surface mb-8 bg-background/80 px-4 py-2 border border-outline-variant inline-block">COMMENCE THE RITUAL</h2>
+<button class="w-48 h-48 rounded-full bg-error-container border-8 border-surface-container relative shadow-[0_20px_50px_rgba(255,0,0,0.3),inset_0_5px_15px_rgba(255,255,255,0.2)] flex items-center justify-center group active:transform active:translate-y-2 active:shadow-[0_5px_10px_rgba(255,0,0,0.3),inset_0_2px_5px_rgba(0,0,0,0.5)] transition-all duration-150">
+<span class="font-headline-md text-on-error font-bold uppercase tracking-widest group-hover:scale-110 transition-transform">IGNITE</span>
+</button>
+</div>
+</section>
+<!-- TRANSMISSION FEED — sliding strip with mini rounded image cards (between CTA and footer) -->
+<section class="full-bleed relative overflow-hidden" style="background-color: #0a0a0a;">
+<!-- Top accent: cyan→magenta gradient bar separating CTA above -->
+<div class="absolute top-0 inset-x-0 h-[3px] z-10 pointer-events-none" style="background: linear-gradient(90deg, transparent 0%, #00dbe9 20%, #fe00fe 80%, transparent 100%);"></div>
+<div class="relative max-w-7xl mx-auto px-margin pt-12 pb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+<div>
+<span class="font-code-sm text-tertiary-fixed-dim uppercase tracking-widest mb-1 inline-block">// TRANSMISSION FEED</span>
+<h3 class="font-headline-md text-on-surface">Last 8 broadcasts from the void.</h3>
+</div>
+<span class="font-code-sm text-outline">SCAN_RATE: 144 Hz · PINNED ON HOVER</span>
+</div>
+<div class="overflow-hidden py-4 mb-4">
+<div class="marquee-track marquee-left">
+<a href="#" class="rounded-2xl border border-primary-fixed/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-primary-fixed hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-primary-fixed/40 shrink-0 relative scanline">
+<img alt="Circuit board macro" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg]" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=200&auto=format&fit=crop"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-primary-fixed truncate">&gt; SIGIL_07 LIT</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.22 · 04:17</p>
+</div>
+</a>
+<a href="#" class="rounded-2xl border border-secondary/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-secondary hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-secondary/40 shrink-0">
+<img alt="Industrial machinery" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg]" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=200&auto=format&fit=crop"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-secondary truncate">&gt; RELAY_142 OPEN</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.21 · 22:08</p>
+</div>
+</a>
+<a href="#" class="rounded-2xl border border-tertiary-fixed-dim/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-tertiary-fixed-dim hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-tertiary-fixed-dim/40 shrink-0 relative scanline">
+<img alt="Server rack" class="w-full h-full object-cover grayscale opacity-80" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=200&auto=format&fit=crop"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-tertiary-fixed-dim truncate">&gt; CIPHER REKEYED</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.20 · 14:42</p>
+</div>
+</a>
+<a href="#" class="rounded-2xl border border-primary-fixed/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-primary-fixed hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-primary-fixed/40 shrink-0">
+<img alt="Brass apothecary objects" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg]" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=200&auto=format&fit=crop"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-primary-fixed truncate">&gt; FORGE COMPILED</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.19 · 09:33</p>
+</div>
+</a>
+<a href="#" class="rounded-2xl border border-secondary/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-secondary hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-secondary/40 shrink-0 relative scanline">
+<img alt="Watch movement macro" class="w-full h-full object-cover grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVQOitxJX2QrKHImWRruVX5wff9U6k-qS1ZM9QqHOSnBFJQTtQniC05gRdK0hgz35LJAhqndctFWNPQKXQnUH_2RoNBu5tMkPBl1Tl01q2tFMvcEt3i8lgJycDEM0RwPxk0tsSH-RDnaHScvuy4OSKtshjjWwyu9MF6zOlPy1OxGiL2_vKunaoiOdRvVlsnCzDS0tstd-vVK3jXpNDpCRMNG7LhyoFv6HtcJo3dVrK55XJu8Sb-a9HkvsCvnB94Dp3H3VI8IPwPv66"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-secondary truncate">&gt; ANCHOR DEPLOYED</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.18 · 18:55</p>
+</div>
+</a>
+<a href="#" class="rounded-2xl border border-tertiary-fixed-dim/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-tertiary-fixed-dim hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-tertiary-fixed-dim/40 shrink-0">
+<img alt="Wide server room" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg]" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=200&auto=format&fit=crop"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-tertiary-fixed-dim truncate">&gt; UPLINK STABLE</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.17 · 11:03</p>
+</div>
+</a>
+<a href="#" class="rounded-2xl border border-primary-fixed/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-primary-fixed hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-primary-fixed/40 shrink-0 relative scanline">
+<img alt="Silicon chip macro" class="w-full h-full object-cover grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqFks93NPyJmpwAeu4s9oSt900nf1Z3O4ImVCBllSObJ3wa958mzpJDlCZ3tVK6Dg6h-3vWOpTsE2jL4KARB19aXP7gvm9_n0WKRdEAFwiHohqfs885WvdUKxqMAxYX75yFWLxErQn2LuTIJAR4538MZ_73CsGIDy1TTFbWDwPwKgpZ2qeGXJPGNzfOs3MJp90EedxkMscBCHh1cXuhGbCiJ2nKqRy5h_2WaVcGRp4yj2BaNHie67E8ybQRB1LoRicdZ_2bY1A2rm"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-primary-fixed truncate">&gt; KERNEL HOT-SWAP</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.16 · 03:21</p>
+</div>
+</a>
+<a href="#" class="rounded-2xl border border-secondary/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-secondary hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-secondary/40 shrink-0">
+<img alt="Brutalist concrete texture" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuPfpJ1hNe3BZz8lHOisAiMV5TroON6ghz_E-QX_JBd3xvpbjGydaMkIZbDhEjcQcvJhKI3KC6loolGeoqrrjuTaPvrwk1Mi2gr3NbRHDgMih2HKZD7-XxFe1NLDk-H8ETYL4hM5jAt6WyncePKAy8sd7fhR68ldcB1pBJJUUCUWEjgBFNeUuAyKMyuAXk20o92PKjZS6qT8DEv0KA_5SgrcyJpEMWXJmXwy0dsd_UBNcfFE4ZE3hyjNyT8tTyiIfZJ1QnxeLQe0TI"/>
+</div>
+<div class="min-w-0">
+<p class="font-code-sm text-secondary truncate">&gt; RITUAL CLOSED</p>
+<p class="font-code-sm text-outline truncate text-[10px]">2024.11.15 · 23:11</p>
+</div>
+</a>
+<!-- duplicate set for seamless loop -->
+<a href="#" aria-hidden="true" class="rounded-2xl border border-primary-fixed/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-primary-fixed hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-primary-fixed/40 shrink-0 relative scanline"><img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg]" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=200&auto=format&fit=crop"/></div>
+<div class="min-w-0"><p class="font-code-sm text-primary-fixed truncate">&gt; SIGIL_07 LIT</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.22 · 04:17</p></div>
+</a>
+<a href="#" aria-hidden="true" class="rounded-2xl border border-secondary/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-secondary hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-secondary/40 shrink-0"><img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg]" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=200&auto=format&fit=crop"/></div>
+<div class="min-w-0"><p class="font-code-sm text-secondary truncate">&gt; RELAY_142 OPEN</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.21 · 22:08</p></div>
+</a>
+<a href="#" aria-hidden="true" class="rounded-2xl border border-tertiary-fixed-dim/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-tertiary-fixed-dim hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-tertiary-fixed-dim/40 shrink-0 relative scanline"><img alt="" class="w-full h-full object-cover grayscale opacity-80" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=200&auto=format&fit=crop"/></div>
+<div class="min-w-0"><p class="font-code-sm text-tertiary-fixed-dim truncate">&gt; CIPHER REKEYED</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.20 · 14:42</p></div>
+</a>
+<a href="#" aria-hidden="true" class="rounded-2xl border border-primary-fixed/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-primary-fixed hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-primary-fixed/40 shrink-0"><img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[170deg]" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=200&auto=format&fit=crop"/></div>
+<div class="min-w-0"><p class="font-code-sm text-primary-fixed truncate">&gt; FORGE COMPILED</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.19 · 09:33</p></div>
+</a>
+<a href="#" aria-hidden="true" class="rounded-2xl border border-secondary/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-secondary hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-secondary/40 shrink-0 relative scanline"><img alt="" class="w-full h-full object-cover grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVQOitxJX2QrKHImWRruVX5wff9U6k-qS1ZM9QqHOSnBFJQTtQniC05gRdK0hgz35LJAhqndctFWNPQKXQnUH_2RoNBu5tMkPBl1Tl01q2tFMvcEt3i8lgJycDEM0RwPxk0tsSH-RDnaHScvuy4OSKtshjjWwyu9MF6zOlPy1OxGiL2_vKunaoiOdRvVlsnCzDS0tstd-vVK3jXpNDpCRMNG7LhyoFv6HtcJo3dVrK55XJu8Sb-a9HkvsCvnB94Dp3H3VI8IPwPv66"/></div>
+<div class="min-w-0"><p class="font-code-sm text-secondary truncate">&gt; ANCHOR DEPLOYED</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.18 · 18:55</p></div>
+</a>
+<a href="#" aria-hidden="true" class="rounded-2xl border border-tertiary-fixed-dim/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-tertiary-fixed-dim hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-tertiary-fixed-dim/40 shrink-0"><img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg]" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=200&auto=format&fit=crop"/></div>
+<div class="min-w-0"><p class="font-code-sm text-tertiary-fixed-dim truncate">&gt; UPLINK STABLE</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.17 · 11:03</p></div>
+</a>
+<a href="#" aria-hidden="true" class="rounded-2xl border border-primary-fixed/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-primary-fixed hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-primary-fixed/40 shrink-0 relative scanline"><img alt="" class="w-full h-full object-cover grayscale opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZqFks93NPyJmpwAeu4s9oSt900nf1Z3O4ImVCBllSObJ3wa958mzpJDlCZ3tVK6Dg6h-3vWOpTsE2jL4KARB19aXP7gvm9_n0WKRdEAFwiHohqfs885WvdUKxqMAxYX75yFWLxErQn2LuTIJAR4538MZ_73CsGIDy1TTFbWDwPwKgpZ2qeGXJPGNzfOs3MJp90EedxkMscBCHh1cXuhGbCiJ2nKqRy5h_2WaVcGRp4yj2BaNHie67E8ybQRB1LoRicdZ_2bY1A2rm"/></div>
+<div class="min-w-0"><p class="font-code-sm text-primary-fixed truncate">&gt; KERNEL HOT-SWAP</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.16 · 03:21</p></div>
+</a>
+<a href="#" aria-hidden="true" class="rounded-2xl border border-secondary/30 bg-surface-container/60 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 hover:border-secondary hover:bg-surface-container transition-colors w-72">
+<div class="w-12 h-12 rounded-xl overflow-hidden border border-secondary/40 shrink-0"><img alt="" class="w-full h-full object-cover saturate-150 hue-rotate-[290deg]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuPfpJ1hNe3BZz8lHOisAiMV5TroON6ghz_E-QX_JBd3xvpbjGydaMkIZbDhEjcQcvJhKI3KC6loolGeoqrrjuTaPvrwk1Mi2gr3NbRHDgMih2HKZD7-XxFe1NLDk-H8ETYL4hM5jAt6WyncePKAy8sd7fhR68ldcB1pBJJUUCUWEjgBFNeUuAyKMyuAXk20o92PKjZS6qT8DEv0KA_5SgrcyJpEMWXJmXwy0dsd_UBNcfFE4ZE3hyjNyT8tTyiIfZJ1QnxeLQe0TI"/></div>
+<div class="min-w-0"><p class="font-code-sm text-secondary truncate">&gt; RITUAL CLOSED</p><p class="font-code-sm text-outline truncate text-[10px]">2024.11.15 · 23:11</p></div>
+</a>
+</div>
+</div>
+<!-- Bottom accent: cyan→magenta gradient bar separating footer below -->
+<div class="absolute bottom-0 inset-x-0 h-[3px] z-10 pointer-events-none" style="background: linear-gradient(90deg, transparent 0%, #fe00fe 20%, #00dbe9 80%, transparent 100%);"></div>
+</section>
+
+<!-- Footer -->
+<footer class="block w-full border-t-4 border-stone-900 bg-black dark:bg-black p-12 lg:p-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-10 hover:bg-stone-900 transition-colors duration-300 relative group">
+<div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 10px 10px;"></div>
+<div class="relative z-10">
+<div class="text-6xl font-headline-md font-black text-stone-900 dark:text-stone-800 uppercase mb-4">THE ALCHEMY VOID</div>
+<p class="font-body-md text-stone-400 dark:text-stone-500 font-serif">
+                © 2142 THE ALCHEMY VOID. ALL RITES RESERVED. [GLITCH-FREE CERTIFIED]
+            </p>
+</div>
+<div class="flex flex-col gap-2 relative z-10 font-code-sm">
+<a class="text-stone-600 dark:text-stone-700 hover:text-primary-fixed transition-colors" href="#">MANIFESTO</a>
+<a class="text-stone-600 dark:text-stone-700 hover:text-primary-fixed transition-colors" href="#">ENCRYPTED PROTOCOL</a>
+<a class="text-stone-600 dark:text-stone-700 hover:text-primary-fixed transition-colors" href="#">TERMS OF TRANSMUTATION</a>
+</div>
+</footer>
+</body></html>

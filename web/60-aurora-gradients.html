@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOW_STATE | Find Your Center</title>
+    <meta name="description" content="Immersive meditation and focus tools for the modern mind.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600&family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        deep: '#0F172A',
+                        slate: {
+                            850: '#151e32',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 20s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Settings */
+        html {
+            scroll-padding-top: 100px; /* Prevents sticky nav from hiding anchors */
+        }
+        body {
+            background-color: #0F172A;
+            color: white;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Aurora Blobs - Optimized for Mobile */
+        .aurora-blob {
+            position: absolute;
+            filter: blur(80px); /* Slightly reduced blur for performance */
+            opacity: 0.6;
+            border-radius: 50%;
+            animation: blob 20s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform; /* Hardware acceleration */
+            mix-blend-mode: screen;
+        }
+
+        /* Glassmorphism System */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Nav Glass - Stronger Blur/Darker bg for readability */
+        .nav-glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        /* Mobile Active State for touch devices */
+        .glass-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(to right, #22d3ee, #c084fc, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Mobile Menu Animation Logic — scoped to mobile only so the grid box
+           doesn't add extra height to the pill on desktop where md:hidden
+           should be the only rule that wins. */
+        @media (max-width: 767px) {
+            .mobile-menu-container {
+                display: grid;
+                grid-template-rows: 0fr;
+                transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .mobile-menu-container.open { grid-template-rows: 1fr; }
+        }
+        .mobile-menu-inner {
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-menu-container.open .mobile-menu-inner { opacity: 1; }
+
+        /* Soundscape track row hover affordance */
+        .track-row { transition: background 0.25s ease, transform 0.25s ease; }
+        .track-row:hover { background: rgba(255,255,255,0.04); transform: translateX(4px); }
+        .track-row .play-bars span {
+            display: inline-block; width: 2px; margin-right: 2px; background: currentColor;
+            transform-origin: bottom; animation: track-bars 1.4s ease-in-out infinite;
+        }
+        .track-row .play-bars span:nth-child(2) { animation-delay: 0.2s; height: 8px; }
+        .track-row .play-bars span:nth-child(3) { animation-delay: 0.4s; height: 14px; }
+        .track-row .play-bars span:nth-child(4) { animation-delay: 0.6s; height: 6px; }
+        .track-row .play-bars span:nth-child(1) { height: 10px; }
+        @keyframes track-bars {
+            0%,100% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1); }
+        }
+        /* Testimonial card subtle inner light */
+        .testimonial-card {
+            background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(28px) saturate(140%);
+            -webkit-backdrop-filter: blur(28px) saturate(140%);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            border-color: rgba(255,255,255,0.18);
+            transform: translateY(-3px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- AURORA BACKGROUND -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <!-- Optimized sizes for mobile vs desktop -->
+        <div class="aurora-blob w-64 h-64 md:w-[600px] md:h-[600px] bg-purple-600/40 top-[-10%] left-[-10%] animate-blob"></div>
+        <div class="aurora-blob w-72 h-72 md:w-[700px] md:h-[700px] bg-cyan-600/40 top-[20%] right-[-20%] animate-blob" style="animation-delay: -5s;"></div>
+        <div class="aurora-blob w-64 h-64 md:w-[500px] md:h-[500px] bg-emerald-600/40 bottom-[-10%] left-[20%] animate-blob" style="animation-delay: -10s;"></div>
+    </div>
+
+    <!-- RESPONSIVE NAVBAR -->
+    <!-- Position sticky on mobile for easy access, fixed on desktop -->
+    <nav class="fixed top-2 md:top-6 left-0 right-0 z-50 px-2 md:px-6">
+        <div class="max-w-7xl mx-auto nav-glass rounded-2xl md:rounded-full transition-all duration-300 shadow-2xl shadow-black/20" id="navbar">
+            
+            <!-- Navbar Header Row -->
+            <div class="flex justify-between items-center px-5 py-3 md:py-4">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group z-50 relative" onclick="closeMenu()">
+                    <div class="bg-gradient-to-tr from-cyan-500 to-purple-500 rounded-lg p-1.5 group-hover:rotate-12 transition-transform">
+                        <i data-lucide="waves" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="font-display font-bold tracking-widest text-lg text-white">FLOW_STATE</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex gap-8 text-sm font-medium text-slate-300 items-center">
+                    <a href="#features" class="hover:text-white hover:scale-105 transition-all">Features</a>
+                    <a href="#how-it-works" class="hover:text-white hover:scale-105 transition-all">Method</a>
+                    <a href="#testimonials" class="hover:text-white hover:scale-105 transition-all">Stories</a>
+                    <a href="#pricing" class="hover:text-white hover:scale-105 transition-all">Pricing</a>
+                </div>
+
+                <!-- Desktop CTA -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="#" class="text-slate-300 hover:text-white text-sm font-medium transition-colors">Log In</a>
+                    <a href="#" class="bg-white text-deep hover:bg-cyan-50 px-5 py-2.5 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        Get App
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="menu-btn" class="md:hidden text-white p-2 rounded-full hover:bg-white/10 transition-colors z-50 relative focus:outline-none">
+                    <i data-lucide="menu" class="w-6 h-6 transition-transform duration-300" id="menu-icon"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Dropdown (Accordion Style) -->
+            <div id="mobile-menu" class="mobile-menu-container md:hidden border-t border-transparent transition-colors duration-300">
+                <div class="mobile-menu-inner px-5 pb-6">
+                    <div class="flex flex-col gap-1 pt-4 text-center">
+                        <a href="#features" class="text-slate-200 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-lg transition-colors" onclick="closeMenu()">Features</a>
+                        <a href="#how-it-works" class="text-slate-200 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-lg transition-colors" onclick="closeMenu()">Method</a>
+                        <a href="#testimonials" class="text-slate-200 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-lg transition-colors" onclick="closeMenu()">Stories</a>
+                        <a href="#pricing" class="text-slate-200 hover:text-white hover:bg-white/5 py-3 rounded-xl font-medium text-lg transition-colors" onclick="closeMenu()">Pricing</a>
+                        
+                        <div class="h-px bg-white/10 w-full my-3"></div>
+                        
+                        <div class="flex gap-4">
+                            <button class="flex-1 py-3 text-slate-300 font-medium hover:text-white transition-colors">Log In</button>
+                            <button class="flex-1 bg-white text-deep py-3 rounded-xl font-bold shadow-lg">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex flex-col items-center">
+
+        <!-- HERO SECTION -->
+        <section class="min-h-[100dvh] flex flex-col justify-center items-center text-center px-4 relative w-full max-w-7xl mx-auto pt-24 pb-12">
+            
+            <!-- Badge -->
+            <div class="mb-6 md:mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md animate-float">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-semibold tracking-wide text-emerald-100 uppercase">Version 2.0 Live</span>
+            </div>
+
+            <!-- Responsive Typography: Clamped for perfect mobile fit -->
+            <h1 class="font-display font-medium text-5xl sm:text-6xl md:text-8xl lg:text-9xl tracking-tight mb-6 leading-[1.1] md:leading-[0.95]">
+                Find Your <br />
+                <span class="italic font-light text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-500">Center</span>
+            </h1>
+
+            <p class="max-w-md md:max-w-2xl text-base md:text-xl text-slate-400 font-light mb-10 leading-relaxed px-4">
+                Disconnect from the noise. Reconnect with yourself through biometrically tailored soundscapes and visual breathwork.
+            </p>
+
+            <!-- Buttons Stack on Mobile -->
+            <div class="flex flex-col w-full sm:w-auto sm:flex-row gap-4 px-6 sm:px-0">
+                <button class="w-full sm:w-auto px-8 py-4 bg-white text-deep rounded-full font-bold hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)] text-lg">
+                    Start Free Trial
+                </button>
+                <button class="w-full sm:w-auto px-8 py-4 glass-panel rounded-full font-medium hover:bg-white/10 active:bg-white/20 transition-all flex items-center justify-center gap-2 text-lg">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    Watch Demo
+                </button>
+            </div>
+
+            <!-- Social Proof: Wraps nicely on mobile -->
+            <div class="mt-16 md:mt-24 w-full px-4">
+                <p class="text-xs text-slate-500 uppercase tracking-widest mb-6 font-semibold">Trusted by mindful teams at</p>
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                    <!-- Simple SVGs or Icons for Logos -->
+                    <div class="flex items-center gap-2"><i data-lucide="hexagon" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Acme</span></div>
+                    <div class="flex items-center gap-2"><i data-lucide="triangle" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Vertex</span></div>
+                    <div class="flex items-center gap-2"><i data-lucide="circle" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Sphere</span></div>
+                    <div class="flex items-center gap-2"><i data-lucide="box" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Cube</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES GRID -->
+        <section id="features" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32">
+            <div class="text-center mb-12 md:mb-20">
+                <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Designed for <span class="text-gradient">Deep Work</span></h2>
+                <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base">Three core modes to shift your mental state instantly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
+                <!-- Focus -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl group">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-6 border border-cyan-500/20 text-cyan-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl md:text-2xl mb-3">Hyper Focus</h3>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+                        Adaptive binaural beats that adjust in real-time to your workflow, blocking out auditory distractions.
+                    </p>
+                </div>
+
+                <!-- Sleep -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl group">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 border border-purple-500/20 text-purple-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="moon" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl md:text-2xl mb-3">Deep Sleep</h3>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+                        Psychoacoustic soundscapes designed to lower your heart rate and trigger Delta waves for recovery.
+                    </p>
+                </div>
+
+                <!-- Calm -->
+                <div class="glass-card p-6 md:p-8 rounded-3xl group">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 border border-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform">
+                        <i data-lucide="wind" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl md:text-2xl mb-3">Instant Calm</h3>
+                    <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+                        Visual breathing guides synchronized with haptic feedback to ground you in moments of stress.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS (Vertical Mobile, Horizontal Desktop) -->
+        <section id="how-it-works" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20">
+            <div class="glass-panel rounded-[2rem] md:rounded-[3rem] p-6 md:p-16 overflow-hidden relative">
+                <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="w-full lg:w-1/2">
+                        <h2 class="font-display text-3xl md:text-5xl font-bold mb-8">The Flow <span class="text-gradient">Method</span></h2>
+                        
+                        <div class="space-y-8 relative">
+                            <!-- Connecting Line -->
+                            <div class="absolute left-4 top-4 bottom-4 w-0.5 bg-white/10"></div>
+
+                            <!-- Step 1 -->
+                            <div class="relative flex gap-6">
+                                <div class="w-8 h-8 rounded-full bg-deep border border-cyan-500/50 flex items-center justify-center z-10 text-cyan-400 font-bold text-sm shadow-[0_0_15px_rgba(34,211,238,0.3)]">1</div>
+                                <div>
+                                    <h4 class="text-lg md:text-xl font-bold mb-2">Connect Your Data</h4>
+                                    <p class="text-slate-400 text-sm">Sync with Apple Health or Oura to let us read your HRV and stress levels.</p>
+                                </div>
+                            </div>
+                             <!-- Step 2 -->
+                            <div class="relative flex gap-6">
+                                <div class="w-8 h-8 rounded-full bg-deep border border-purple-500/50 flex items-center justify-center z-10 text-purple-400 font-bold text-sm shadow-[0_0_15px_rgba(192,132,252,0.3)]">2</div>
+                                <div>
+                                    <h4 class="text-lg md:text-xl font-bold mb-2">Select Your State</h4>
+                                    <p class="text-slate-400 text-sm">Tell the AI if you want to sleep, focus, or recover.</p>
+                                </div>
+                            </div>
+                             <!-- Step 3 -->
+                            <div class="relative flex gap-6">
+                                <div class="w-8 h-8 rounded-full bg-deep border border-emerald-500/50 flex items-center justify-center z-10 text-emerald-400 font-bold text-sm shadow-[0_0_15px_rgba(52,211,153,0.3)]">3</div>
+                                <div>
+                                    <h4 class="text-lg md:text-xl font-bold mb-2">Immerse</h4>
+                                    <p class="text-slate-400 text-sm">Put on headphones. The audio evolves as your body reacts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Representation -->
+                    <div class="w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0">
+                        <div class="relative w-[260px] h-[480px] bg-slate-900 border-[6px] border-slate-800 rounded-[3rem] shadow-2xl overflow-hidden">
+                            <!-- Notch -->
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-800 rounded-b-xl z-20"></div>
+                            
+                            <!-- Screen -->
+                            <div class="w-full h-full bg-slate-900 relative flex flex-col items-center justify-center">
+                                <!-- Abstract UI -->
+                                <div class="absolute inset-0 bg-gradient-to-b from-cyan-900/20 to-deep"></div>
+                                <div class="w-48 h-48 rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 blur-[50px] animate-pulse-slow opacity-60"></div>
+                                
+                                <div class="z-10 text-center px-6">
+                                    <h5 class="font-display text-2xl font-medium mb-1">Deep Flow</h5>
+                                    <p class="text-slate-400 text-xs tracking-widest uppercase mb-8">Binaural • 40Hz</p>
+                                    
+                                    <!-- Player Controls -->
+                                    <div class="flex items-center justify-center gap-6 text-white/80">
+                                        <i data-lucide="skip-back" class="w-6 h-6"></i>
+                                        <div class="w-14 h-14 rounded-full bg-white text-deep flex items-center justify-center">
+                                            <i data-lucide="pause" class="w-6 h-6 fill-current"></i>
+                                        </div>
+                                        <i data-lucide="skip-forward" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOUNDSCAPE LIBRARY -->
+        <section id="library" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-28">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                <div class="lg:col-span-5">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-300">Library · 240 Tracks</span>
+                    </div>
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-6 leading-tight">A library tuned for <span class="text-gradient">every state.</span></h2>
+                    <p class="text-slate-400 text-base md:text-lg leading-relaxed mb-8">From 40Hz binaural beats for executive focus to delta-wave dreamscapes for deep recovery. New tracks land every Friday, mastered by audio engineers who've worked with Apple, Headspace, and the BBC.</p>
+                    <div class="grid grid-cols-3 gap-4 max-w-md">
+                        <div>
+                            <div class="text-3xl font-display font-bold text-white">240</div>
+                            <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-1">Tracks</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-display font-bold text-white">8</div>
+                            <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-1">Genres</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-display font-bold text-white">∞</div>
+                            <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-1">Pairings</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="glass-panel rounded-3xl p-3 md:p-5 overflow-hidden">
+                        <!-- Window chrome -->
+                        <div class="flex items-center justify-between px-3 pt-1 pb-3 border-b border-white/5">
+                            <div class="flex gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-400/60"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/60"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/60"></span>
+                            </div>
+                            <span class="text-[10px] tracking-widest uppercase text-slate-500 font-mono">flow_state · library.fm</span>
+                            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500"></i>
+                        </div>
+
+                        <!-- Tracks -->
+                        <div class="divide-y divide-white/5">
+                            <div class="track-row flex items-center gap-4 px-3 md:px-5 py-3 md:py-4 cursor-pointer">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(34,211,238,0.25)]">
+                                    <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="font-display font-medium text-white text-sm md:text-base truncate">Cortex 40Hz</span>
+                                        <span class="text-[9px] tracking-widest uppercase text-cyan-300/60 font-mono shrink-0">Focus</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-0.5 truncate">Binaural · Gamma · For deep work</p>
+                                </div>
+                                <span class="play-bars text-cyan-400 hidden sm:inline-flex items-end h-4">
+                                    <span></span><span></span><span></span><span></span>
+                                </span>
+                                <span class="text-xs text-slate-500 font-mono tabular-nums w-10 text-right">42:00</span>
+                            </div>
+
+                            <div class="track-row flex items-center gap-4 px-3 md:px-5 py-3 md:py-4 cursor-pointer">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-800 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(192,132,252,0.25)]">
+                                    <i data-lucide="moon" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="font-display font-medium text-white text-sm md:text-base truncate">Velvet Tide</span>
+                                        <span class="text-[9px] tracking-widest uppercase text-purple-300/60 font-mono shrink-0">Sleep</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-0.5 truncate">Delta · Ambient · 7 hours unbroken</p>
+                                </div>
+                                <span class="text-xs text-slate-500 font-mono tabular-nums w-10 text-right">7h 12m</span>
+                            </div>
+
+                            <div class="track-row flex items-center gap-4 px-3 md:px-5 py-3 md:py-4 cursor-pointer">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-800 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(52,211,153,0.25)]">
+                                    <i data-lucide="wind" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="font-display font-medium text-white text-sm md:text-base truncate">Box Breath · 4·7·8</span>
+                                        <span class="text-[9px] tracking-widest uppercase text-emerald-300/60 font-mono shrink-0">Calm</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-0.5 truncate">Guided · Haptics · Anxiety reset</p>
+                                </div>
+                                <span class="text-xs text-slate-500 font-mono tabular-nums w-10 text-right">12:00</span>
+                            </div>
+
+                            <div class="track-row flex items-center gap-4 px-3 md:px-5 py-3 md:py-4 cursor-pointer">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(251,191,36,0.25)]">
+                                    <i data-lucide="sunrise" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="font-display font-medium text-white text-sm md:text-base truncate">First Light Ritual</span>
+                                        <span class="text-[9px] tracking-widest uppercase text-amber-300/60 font-mono shrink-0">Wake</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-0.5 truncate">Solfeggio · 528Hz · Morning anchor</p>
+                                </div>
+                                <span class="text-xs text-slate-500 font-mono tabular-nums w-10 text-right">18:00</span>
+                            </div>
+
+                            <div class="track-row flex items-center gap-4 px-3 md:px-5 py-3 md:py-4 cursor-pointer">
+                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-slate-400 to-slate-700 flex items-center justify-center shrink-0">
+                                    <i data-lucide="cloud-rain" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="font-display font-medium text-white text-sm md:text-base truncate">Hokkaido Rainfall</span>
+                                        <span class="text-[9px] tracking-widest uppercase text-slate-300/60 font-mono shrink-0">Field</span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-0.5 truncate">Field recording · 96kHz lossless</p>
+                                </div>
+                                <span class="text-xs text-slate-500 font-mono tabular-nums w-10 text-right">3h 04m</span>
+                            </div>
+                        </div>
+
+                        <div class="px-3 md:px-5 py-4 mt-1 border-t border-white/5 flex justify-between items-center">
+                            <span class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">Showing 5 of 240</span>
+                            <a href="#" class="text-xs text-slate-300 hover:text-white inline-flex items-center gap-1 transition-colors">
+                                Browse all
+                                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS / STORIES -->
+        <section id="testimonials" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32">
+            <div class="text-center mb-12 md:mb-20 max-w-3xl mx-auto">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">Stories from the practice</span>
+                <h2 class="font-display text-3xl md:text-5xl font-bold mb-4 mt-3">Quiet wins, <span class="text-gradient">measurable</span>.</h2>
+                <p class="text-slate-400 text-sm md:text-base">Six months of sustained use, in their own words.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+                <article class="testimonial-card rounded-3xl p-7 md:p-8 flex flex-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-cyan-500/20">MK</div>
+                        <div>
+                            <div class="font-display font-medium text-white text-sm">Maya K.</div>
+                            <div class="text-xs text-slate-500">Lead Engineer · Series-B Fintech</div>
+                        </div>
+                    </div>
+                    <blockquote class="text-slate-200 text-base leading-relaxed mb-6 flex-1">"Cortex 40Hz replaced my third coffee. I shipped two features in the time it used to take me to context-switch back from Slack. The HRV-aware fades are uncanny."</blockquote>
+                    <div class="flex items-center justify-between pt-5 border-t border-white/5">
+                        <div class="flex gap-0.5 text-cyan-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-500 font-mono">Focus · 184 hr</span>
+                    </div>
+                </article>
+
+                <article class="testimonial-card rounded-3xl p-7 md:p-8 flex flex-col relative overflow-hidden">
+                    <div class="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-purple-500/10 blur-3xl pointer-events-none"></div>
+                    <div class="flex items-center gap-3 mb-5 relative z-10">
+                        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-purple-400 to-emerald-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-purple-500/20">DJ</div>
+                        <div>
+                            <div class="font-display font-medium text-white text-sm">Dr. Jonas Reiter</div>
+                            <div class="text-xs text-slate-500">Clinical Psychologist · Berlin</div>
+                        </div>
+                    </div>
+                    <blockquote class="text-slate-200 text-base leading-relaxed mb-6 flex-1 relative z-10">"I prescribe Velvet Tide to insomnia patients before any pharmacology. Sleep onset down 19 minutes on average across 32 cases. The data is — frankly — unusual for a consumer app."</blockquote>
+                    <div class="flex items-center justify-between pt-5 border-t border-white/5 relative z-10">
+                        <div class="flex gap-0.5 text-purple-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-500 font-mono">Sleep · 6 mo</span>
+                    </div>
+                </article>
+
+                <article class="testimonial-card rounded-3xl p-7 md:p-8 flex flex-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-emerald-500/20">RA</div>
+                        <div>
+                            <div class="font-display font-medium text-white text-sm">Rachel A.</div>
+                            <div class="text-xs text-slate-500">Marathon Coach · NYC</div>
+                        </div>
+                    </div>
+                    <blockquote class="text-slate-200 text-base leading-relaxed mb-6 flex-1">"My athletes use Box Breath before race-day starts. Resting HRV up 12% across the squad. It's the calmest pre-race tent I've ever run."</blockquote>
+                    <div class="flex items-center justify-between pt-5 border-t border-white/5">
+                        <div class="flex gap-0.5 text-emerald-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-500 font-mono">Calm · Pro</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Stat strip -->
+            <div class="mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-3xl overflow-hidden border border-white/10">
+                <div class="bg-deep px-6 py-8 md:py-10 text-center">
+                    <div class="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-cyan-300 to-cyan-500">2.4M</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-2">Sessions logged</div>
+                </div>
+                <div class="bg-deep px-6 py-8 md:py-10 text-center">
+                    <div class="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-purple-300 to-purple-500">19 min</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-2">Faster sleep onset</div>
+                </div>
+                <div class="bg-deep px-6 py-8 md:py-10 text-center">
+                    <div class="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-emerald-300 to-emerald-500">+12%</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-2">Average HRV gain</div>
+                </div>
+                <div class="bg-deep px-6 py-8 md:py-10 text-center">
+                    <div class="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-amber-300 to-orange-500">4.9</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-2">App Store rating</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICING -->
+        <section id="pricing" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32">
+            <div class="text-center mb-12">
+                <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Invest in your <span class="text-white">Mind</span></h2>
+                <div class="inline-block px-4 py-1 rounded-full bg-white/5 text-xs font-bold tracking-wide text-slate-300 border border-white/10">
+                    7 DAY FREE TRIAL
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <!-- Basic Card -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col border border-white/5 relative">
+                    <h3 class="font-display text-2xl font-medium text-slate-300 mb-2">Monthly</h3>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-4xl font-bold">$12</span>
+                        <span class="text-slate-500">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center gap-3 text-sm text-slate-300"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Full Library Access</li>
+                        <li class="flex items-center gap-3 text-sm text-slate-300"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Offline Mode</li>
+                    </ul>
+                    <button class="w-full py-4 rounded-xl border border-white/20 hover:bg-white/5 transition-colors font-bold text-sm">Start Trial</button>
+                </div>
+
+                <!-- Pro Card -->
+                <div class="glass-card p-8 rounded-3xl flex flex-col relative border-t-2 border-t-cyan-400 bg-white/[0.06]">
+                    <div class="absolute top-0 right-0 bg-cyan-400 text-deep text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-[22px]">SAVE 50%</div>
+                    <h3 class="font-display text-2xl font-medium text-white mb-2">Annual</h3>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-300">$72</span>
+                        <span class="text-slate-400">/yr</span>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Everything in Monthly</li>
+                        <li class="flex items-center gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 1-on-1 Coaching Session</li>
+                        <li class="flex items-center gap-3 text-sm text-white"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Early Access Features</li>
+                    </ul>
+                    <button class="w-full py-4 rounded-xl bg-white text-deep hover:bg-cyan-50 transition-colors font-bold text-sm shadow-lg shadow-cyan-500/20">
+                        Start Free Trial
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="w-full border-t border-white/5 bg-deep/90 backdrop-blur-xl mt-auto">
+            <div class="max-w-7xl mx-auto px-6 py-12">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+                    
+                    <div class="flex flex-col items-center md:items-start gap-2">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="waves" class="w-5 h-5 text-cyan-400"></i>
+                            <span class="font-display font-bold tracking-widest text-white">FLOW_STATE</span>
+                        </div>
+                        <p class="text-xs text-slate-500 max-w-xs">Engineered peace for the modern mind.</p>
+                    </div>
+
+                    <div class="flex gap-8 text-sm text-slate-400">
+                        <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                        <a href="#" class="hover:text-white transition-colors">Terms</a>
+                        <a href="#" class="hover:text-white transition-colors">Contact</a>
+                    </div>
+
+                    <div class="flex gap-6">
+                        <a href="#" class="text-slate-500 hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-500 hover:text-white transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8 pt-8 border-t border-white/5">
+                    <p class="text-[10px] text-slate-600">&copy; 2024 Flow State Inc.</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const navbar = document.getElementById('navbar');
+        let isOpen = false;
+
+        function toggleMenu() {
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                mobileMenu.classList.add('open');
+                menuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
+                navbar.classList.add('border-white/20', 'bg-slate-900/90'); // Darken bg when open
+                
+                // Add border bottom to separate header from menu
+                document.getElementById('mobile-menu').classList.remove('border-transparent');
+                document.getElementById('mobile-menu').classList.add('border-white/10');
+            } else {
+                mobileMenu.classList.remove('open');
+                menuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+                navbar.classList.remove('bg-slate-900/90');
+                
+                document.getElementById('mobile-menu').classList.add('border-transparent');
+                document.getElementById('mobile-menu').classList.remove('border-white/10');
+            }
+            lucide.createIcons();
+        }
+
+        function closeMenu() {
+            if(isOpen) toggleMenu();
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Navbar Scroll Effect (Frosted glass opacity change)
+        window.addEventListener('scroll', () => {
+            if (!isOpen) {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-deep/80', 'shadow-lg');
+                } else {
+                    navbar.classList.remove('bg-deep/80', 'shadow-lg');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

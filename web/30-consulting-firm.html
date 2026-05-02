@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aperture Partners</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#858383",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1b1c1c",
+                        "on-tertiary-container": "#888479",
+                        "surface-dim": "#dbd9d9",
+                        "surface-container-low": "#f5f3f3",
+                        "tertiary-fixed-dim": "#cbc6ba",
+                        "on-primary-fixed": "#1c1b1b",
+                        "background": "#fbf9f8",
+                        "on-tertiary-fixed-variant": "#49473d",
+                        "surface-tint": "#5f5e5e",
+                        "surface-container-highest": "#e4e2e2",
+                        "primary-fixed": "#e5e2e1",
+                        "inverse-primary": "#c8c6c5",
+                        "secondary": "#9c4049",
+                        "on-secondary-fixed-variant": "#7e2933",
+                        "on-surface-variant": "#444748",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-secondary-fixed": "#40000c",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary-container": "#77242e",
+                        "outline": "#747878",
+                        "primary-container": "#1c1b1b",
+                        "inverse-surface": "#303030",
+                        "surface-container-high": "#eae8e7",
+                        "outline-variant": "#c4c7c7",
+                        "surface-bright": "#fbf9f8",
+                        "secondary-container": "#fe8d94",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#000000",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#474746",
+                        "surface-container": "#efeded",
+                        "surface": "#fbf9f8",
+                        "tertiary": "#000000",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffdada",
+                        "on-tertiary-fixed": "#1d1c14",
+                        "secondary-fixed-dim": "#ffb3b6",
+                        "tertiary-fixed": "#e8e2d5",
+                        "tertiary-container": "#1d1c14",
+                        "surface-variant": "#e4e2e2"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "32px",
+                        "stack-md": "32px",
+                        "margin-edge": "64px",
+                        "unit": "4px",
+                        "stack-lg": "80px",
+                        "stack-sm": "16px"
+                    },
+                    fontFamily: {
+                        "body-prose": ["Noto Serif", "serif"],
+                        "display-xl": ["Newsreader", "serif"],
+                        "headline-lg": ["Newsreader", "serif"],
+                        "label-caps": ["Public Sans", "sans-serif"],
+                        "body-italic": ["Noto Serif", "serif"],
+                        "caption": ["Noto Serif", "serif"],
+                        "headline-md": ["Newsreader", "serif"]
+                    },
+                    fontSize: {
+                        "body-prose": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "body-italic": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "caption": ["15px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        html, body { overflow-x: clip; }
+        body {
+            background-color: #F3EDE0;
+            color: #1A1A1A;
+        }
+        .text-ink { color: #1A1A1A; }
+        .text-oxblood { color: #7A2630; }
+        .border-ink { border-color: #1A1A1A; }
+        .bg-ink { background-color: #1A1A1A; }
+        .bg-paper { background-color: #F3EDE0; }
+        .border-oxblood { border-color: #7A2630; }
+        /* §I.3 full-bleed escape from constrained <main> */
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-prose text-body-prose text-ink selection:bg-oxblood selection:text-paper">
+<!-- TopNavBar -->
+<header class="w-full border-b border-ink">
+<div class="max-w-[1280px] mx-auto px-16 h-24 flex justify-between items-center w-full">
+<div class="text-2xl font-semibold tracking-tighter text-ink uppercase font-display-xl">
+                Aperture Partners
+            </div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-ink/60 font-medium uppercase text-xs tracking-widest hover:text-oxblood transition-colors duration-200 font-label-caps text-label-caps" href="#">Insights</a>
+<a class="text-ink/60 font-medium uppercase text-xs tracking-widest hover:text-oxblood transition-colors duration-200 font-label-caps text-label-caps" href="#">Case Studies</a>
+<a class="text-ink/60 font-medium uppercase text-xs tracking-widest hover:text-oxblood transition-colors duration-200 font-label-caps text-label-caps" href="#">Partners</a>
+<a class="ml-4 font-label-caps text-label-caps uppercase text-ink hover:text-oxblood transition-colors duration-200 underline decoration-1 underline-offset-4" href="#">Index</a>
+</nav>
+</div>
+</header>
+<main class="flex-grow max-w-[1280px] mx-auto w-full px-margin-edge">
+<!-- Hero Section — full-bleed full-screen, two-col -->
+<section class="full-bleed min-h-screen flex items-center pt-28 pb-16 px-6 md:px-margin-edge">
+<div class="max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-x-32 items-stretch">
+<div class="lg:col-span-6 flex flex-col">
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-oxblood mb-6 inline-block">[ Aperture · Vol. XII · 2024 ]</span>
+<h1 class="font-display-xl text-[clamp(48px,_6vw,_72px)] leading-[1.05] mb-8 text-ink">On the work of organizing people.</h1>
+<p class="font-body-prose text-body-prose max-w-xl text-ink/80 leading-relaxed">
+We study the structures, incentives, and unseen architectures that dictate how human endeavor scales. Our research isolates the variables that distinguish enduring institutions from those merely surviving their eras, providing empirical clarity to those tasked with steering complex enterprises.
+</p>
+<div class="mt-10 flex items-center gap-3 font-label-caps text-label-caps uppercase tracking-widest text-ink/60">
+<span class="block w-8 h-px bg-ink/40"></span>
+<span>Partners since 2014 · Zurich · Frankfurt · Singapore</span>
+</div>
+</div>
+<figure class="lg:col-span-6 relative lg:h-full">
+<div class="relative overflow-hidden rounded-2xl border border-ink bg-white/40 h-full aspect-[4/5] lg:aspect-auto">
+<img alt="Formal black-and-white portrait of a senior partner in a dark suit" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs8YLP6kv5Zz2A4dx5IjgKEHfa9qP32z4JIO1b4Wd2fdxTRRLuk6H7yUuE1KQXWYBMoH2c57jh7qc9CUboX65VnZPHoGqDFRjsa3aMZa2LNTJzJxeXnOgsuRpCBN7HhDX0FnGvdhjYxjK2p3aekEWnxjDAXzIWyXfbQ0w0I93lW1iFX_EfAWEE4Nu-T3ejxI0EYmh2HYPqxoGiJ2JrqOZWgrbVOckrer9oZgV2lBe2emk-vy276AJ-jsxhzEfLhsShi7Gc25AripOZ"/>
+<div class="absolute top-4 left-4 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink z-10">Plate · No.01</div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end font-label-caps text-label-caps uppercase tracking-widest z-10">
+<span class="bg-paper border border-ink px-3 py-1 text-ink">— Partner, anonymised</span>
+<span class="bg-ink text-paper px-3 py-1">2024</span>
+</div>
+</div>
+</figure>
+</div>
+</section>
+<!-- Featured Insight -->
+<section class="mb-stack-lg">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-[1px] flex-grow bg-ink/20"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-ink/60">Featured Inquiry</span>
+<div class="h-[1px] flex-grow bg-ink/20"></div>
+</div>
+<article class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<div class="lg:col-span-7 aspect-[4/3] w-full border border-ink relative bg-white/50 overflow-hidden flex items-center justify-center">
+<img alt="Editorial illustration" class="w-full h-full object-cover mix-blend-multiply opacity-90 grayscale contrast-125" data-alt="Minimalist single-line abstract illustration representing organizational structure and human connection, black ink on warm off-white paper background, high contrast, stark, intellectual" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcNbLxw-zsr7SrjOolxeAmEvSUpaZWeK7byxB4C-198maPoR0PFUFBsZ4QUYb1pWbvXezUZCZfqN8PLRBGKLmsdH07GL7ewAyLBQhu4k1edntQawkFnIjoaO8zAIen3dUh0c8tg70g7KAGHpSia6ifn53h6o_DGbjVyu6QsWR8bXvsKPUlN_HsTgEAy4vgoqbQbZ6qfB6VsTUmIuYuCk7jiWOr0i-mGKJk-KsyrniNu11l4MXMA4z3kZeUohNN29MefdyE9V9v9C1H"/>
+</div>
+<div class="lg:col-span-5 flex flex-col justify-center h-full py-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="font-label-caps text-label-caps uppercase bg-ink text-white px-2 py-1">Theory</span>
+<span class="font-caption text-caption text-ink/60">October 2024</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-6 hover:text-oxblood cursor-pointer transition-colors">The Architecture of Attrition</h2>
+<p class="font-body-prose text-body-prose text-ink/80 mb-8 line-clamp-4">
+                        An examination of systemic failure cascades within mid-market technology firms. We map the specific organizational geometries that accelerate talent departure when capital becomes constrained, revealing that retention is rarely an HR function, but fundamentally a design problem.
+                    </p>
+<div class="mt-auto">
+<span class="font-label-caps text-label-caps uppercase text-ink tracking-widest border-b border-ink pb-1 inline-block hover:text-oxblood hover:border-oxblood transition-colors cursor-pointer">Read Full Study →</span>
+</div>
+</div>
+</article>
+</section>
+<!-- Research Grid -->
+<section class="mb-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-gutter gap-y-16">
+<!-- Grid Item 1 -->
+<article class="flex flex-col border-t border-ink pt-6">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-caps text-label-caps uppercase text-ink/60">Monograph</span>
+<div class="w-16 h-16 border border-ink rounded-full flex items-center justify-center bg-white/30 overflow-hidden">
+<img alt="Spot illustration" class="w-full h-full object-cover grayscale mix-blend-multiply" data-alt="Abstract geometric shape, sharp angles intersecting, monochromatic black on light background, spot illustration style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYUGGLsaQakEkJOzwtEboVvm81A34W3ZL6RmHfTYXndcmyQxWm1Wra_GynKf2yz1xnjJJ2qp1rJR_UNueJv9E2U3CFkU_HkHR4bn4ELcAAQ_0y1KDEYtzoWkBvVcG79_EwdyisQCjfVViF5B4Doe5T7Pu2R_X2SZNW-JspGKwj3d5ibn6Wteh5pkuTWkSj6ulPgA0rGL2ymSOLfiic02pQFa5k78DOtSOLMUuIsHmpHGtmmvfrYhMCdbR-gPRgScQLa_lc4-WFtmoV"/>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4 hover:text-oxblood cursor-pointer transition-colors">Post-Consensus Leadership</h3>
+<p class="font-body-prose text-body-prose text-ink/70 mb-6">When alignment becomes a liability in fast-moving markets, and the tactical advantages of engineered friction.</p>
+</article>
+<!-- Grid Item 2 -->
+<article class="flex flex-col border-t border-ink pt-6">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-caps text-label-caps uppercase text-ink/60">Field Note</span>
+<div class="w-16 h-16 border border-ink rounded-full flex items-center justify-center bg-white/30 overflow-hidden">
+<img alt="Spot illustration" class="w-full h-full object-cover grayscale mix-blend-multiply" data-alt="Abstract concentric circles and lines, monochromatic black ink style on warm paper background, geometric spot illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_i_nXT6j9THgPfdxSNV8wmkHDv2Gdx_4AtuUndcQa2B4HxiG9Fp5M2pySw9ohKtBl3GvVSeTIabS3sy734MVPmqdjpPOutgEV2CPeUM1sy43RSBba-hQa5aY1Fywi6iznv9k3rkp3OwkZwprfy86jz8o7QQiayDokTTqPO910LZJeQTPlhuJFV6cMvMNfVWNHl6gz0Za7KnGoildIAx5R9RIk8l2Kht65mf1EJqQNqo2iGeAo7mwAYIprG_94RskoAyWtauednhq8"/>
+</div>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4 hover:text-oxblood cursor-pointer transition-colors">The Illusion of Scale</h3>
+<p class="font-body-prose text-body-prose text-ink/70 mb-6">Why adding headcount linearly decreases velocity exponentially past the Dunbar number equivalent in modern software teams.</p>
+</article>
+</div>
+</section>
+<!-- Our Work / Case Studies (full-bleed tinted band) -->
+<section class="full-bleed mb-stack-lg py-20 lg:py-28" style="background-color: #ECE2CE;">
+<div class="max-w-[1280px] mx-auto px-margin-edge">
+<div class="border-l-2 border-oxblood pl-8 ml-4">
+<h2 class="font-label-caps text-label-caps uppercase tracking-widest text-oxblood mb-8">Selected Case Studies</h2>
+<div class="flex flex-col gap-12">
+<article class="border border-ink p-8 bg-paper hover:bg-white/40 transition-colors relative">
+<div class="absolute top-0 right-0 p-4 font-caption text-caption text-ink/40">01</div>
+<h3 class="font-headline-md text-headline-md mb-4 w-3/4">Restructuring the Logistics Vanguard</h3>
+<p class="font-body-prose text-body-prose text-ink/80 mb-6 max-w-3xl">
+                        A European supply chain conglomerate faced paralysis from matrixed reporting lines. Over six months, we mapped informal communication networks against formal hierarchies, identifying bottlenecks that delayed critical decisions by weeks. The resulting structural intervention eliminated middle-management layers while establishing lateral 'hubs', restoring operational velocity without sacrificing oversight.
+                    </p>
+<span class="font-label-caps text-label-caps uppercase border-b border-ink/40 pb-1 cursor-pointer hover:border-ink">Review Engagement</span>
+</article>
+</div>
+</div>
+</div>
+</section>
+<!-- Partners -->
+<section class="mb-stack-lg">
+<div class="text-center mb-16">
+<h2 class="font-display-xl text-display-xl">The Partners</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Partner 1 -->
+<div class="flex flex-col items-center group">
+<div class="w-48 h-64 border border-ink mb-6 overflow-hidden bg-white/20">
+<img alt="Partner Portrait" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500" data-alt="Formal black and white portrait of a middle-aged male professional, serious expression, wearing a dark suit, plain background, high contrast editorial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs8YLP6kv5Zz2A4dx5IjgKEHfa9qP32z4JIO1b4Wd2fdxTRRLuk6H7yUuE1KQXWYBMoH2c57jh7qc9CUboX65VnZPHoGqDFRjsa3aMZa2LNTJzJxeXnOgsuRpCBN7HhDX0FnGvdhjYxjK2p3aekEWnxjDAXzIWyXfbQ0w0I93lW1iFX_EfAWEE4Nu-T3ejxI0EYmh2HYPqxoGiJ2JrqOZWgrbVOckrer9oZgV2lBe2emk-vy276AJ-jsxhzEfLhsShi7Gc25AripOZ"/>
+</div>
+<h3 class="font-headline-md text-headline-md mb-1">Elias Thorne</h3>
+<p class="font-label-caps text-label-caps uppercase text-ink/60 mb-4 tracking-widest">Managing Partner</p>
+<p class="font-caption text-caption text-center text-ink/80 max-w-[200px]">Former institutional theorist; specializes in crisis restructuring.</p>
+</div>
+<!-- Partner 2 -->
+<div class="flex flex-col items-center group">
+<div class="w-48 h-64 border border-ink mb-6 overflow-hidden bg-white/20">
+<img alt="Partner Portrait" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500" data-alt="Formal black and white portrait of a female professional, intense gaze, wearing a dark blazer, plain background, high contrast editorial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWrJruMnsAl7h-BttjgIRCKg7yz52XoXSO3RFOJjH56A6Bgfz9861OMJ8RhS3iEg2Y2CSDYf9kXaRkjGPQc13WvV4Q8_xWIzVxC8TruYRDlHPjlkpBKl9XRTXodYPOhTa_iXiKgTrGdugYqbJTOQYALJ-iqzxuGENpD2HLQ4dQO3vI-9P7CuE4yZka_48gu1RMwAIEqRJX-k_atb_ZRGjhQ7d-dpA_cRRvN3OUGfGwmRTJ7_JZv9UThNIcSMV3c71YxNSuGSjnvK2L"/>
+</div>
+<h3 class="font-headline-md text-headline-md mb-1">Dr. S. Vane</h3>
+<p class="font-label-caps text-label-caps uppercase text-ink/60 mb-4 tracking-widest">Head of Research</p>
+<p class="font-caption text-caption text-center text-ink/80 max-w-[200px]">Behavioral economist focused on incentive misalignment.</p>
+</div>
+<!-- Partner 3 -->
+<div class="flex flex-col items-center group hidden lg:flex">
+<div class="w-48 h-64 border border-ink mb-6 overflow-hidden bg-white/20">
+<img alt="Partner Portrait" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500" data-alt="Formal black and white portrait of a male professional, glasses, thoughtful expression, wearing a dark suit, plain background, high contrast editorial lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuGedZuIREkk4lXXvXaaAXLQG4jEDIhqPfGkjsVWAIu_MoaHG9pa8IP0WKALQkXIkd1vzb0ScSuBT_wlMTZbXK4K-CcZTSsac-JhLTGM8xY44tUaJzCxgMxygq06FIZMgaFbgrYkqe16JXGKoRLXui8d3Kvk3Z7bmEajDSdrT6YTEd-0ek7b-QU2kWgY2GP1jSSCz-1DO0Ds4PAAUH-IzYP_RRE5ZyO1IAECyMQLCIbKJxiqk085dI4LLvUDVZxktkAQZXZORdRuyZ"/>
+</div>
+<h3 class="font-headline-md text-headline-md mb-1">M. Laurent</h3>
+<p class="font-label-caps text-label-caps uppercase text-ink/60 mb-4 tracking-widest">Partner, Strategy</p>
+<p class="font-caption text-caption text-center text-ink/80 max-w-[200px]">Architect of the post-consensus framework.</p>
+</div>
+</div>
+</section>
+<!-- Methodology — editorial doctrine list (full-bleed tinted band) -->
+<section class="full-bleed mb-stack-lg py-20 lg:py-28" style="background-color: #ECE2CE;">
+<div class="max-w-[1280px] mx-auto px-margin-edge">
+<div class="flex items-center gap-4 mb-12">
+<div class="h-[1px] flex-grow bg-ink/20"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-ink/60">The Method</span>
+<div class="h-[1px] flex-grow bg-ink/20"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-x-32">
+<div class="lg:col-span-5 flex flex-col">
+<h2 class="font-headline-lg text-headline-lg text-ink mb-6">Five movements that constitute every engagement.</h2>
+<p class="font-body-prose text-body-prose text-ink/80">The method has been refined across thirty-eight engagements. Each movement is iterative, evidence-led, and unsigned — we do not ship a slide deck and a handshake. We ship a structural intervention you can audit.</p>
+<figure class="border border-ink overflow-hidden bg-white/40 my-auto relative group">
+<img alt="Editorial photograph of a stairwell in brutalist concrete" class="w-full h-auto aspect-[5/4] object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1100&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-3 left-3 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink">Plate · No.45 — Method, in section</figcaption>
+</figure>
+<blockquote class="border-l-2 border-oxblood pl-6 font-body-italic italic text-ink/80">
+"The instinct to act precedes the obligation to understand. We invert that order, on principle."
+<cite class="block mt-3 font-label-caps text-label-caps not-italic uppercase tracking-widest text-ink/60">— E. Thorne, Founding Note · 2014</cite>
+</blockquote>
+</div>
+<ol class="lg:col-span-7 lg:col-start-6 border-t border-b border-ink divide-y divide-ink">
+<li class="grid grid-cols-12 gap-4 py-6">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-[40px] leading-none text-oxblood tabular-nums italic">I</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-headline-md text-ink mb-2">Diagnostic Listening</h3>
+<p class="font-body-prose text-body-prose text-ink/80">Six weeks of unscripted interviews across three organisational layers. We refuse to read the org chart until we have read the room.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps text-ink/60 uppercase lg:text-right tracking-widest self-start">Wks 01–06</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-[40px] leading-none text-oxblood tabular-nums italic">II</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-headline-md text-ink mb-2">Network Mapping</h3>
+<p class="font-body-prose text-body-prose text-ink/80">We graph the informal communication topology against the formal hierarchy. The delta — almost always large — is where attrition lives.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps text-ink/60 uppercase lg:text-right tracking-widest self-start">Wks 04–10</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-[40px] leading-none text-oxblood tabular-nums italic">III</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-headline-md text-ink mb-2">Hypothesis Drafting</h3>
+<p class="font-body-prose text-body-prose text-ink/80">We commit to three falsifiable claims about the organisation. Each one carries its own measurement protocol and its own kill criteria.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps text-ink/60 uppercase lg:text-right tracking-widest self-start">Wks 09–14</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-[40px] leading-none text-oxblood tabular-nums italic">IV</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-headline-md text-ink mb-2">Structural Intervention</h3>
+<p class="font-body-prose text-body-prose text-ink/80">A single, surgical change. Drafted with the executive team, executed by the executive team, monitored against the kill criteria from movement III.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps text-ink/60 uppercase lg:text-right tracking-widest self-start">Wks 14–22</span>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6">
+<span class="col-span-2 lg:col-span-1 font-display-xl text-[40px] leading-none text-oxblood tabular-nums italic">V</span>
+<div class="col-span-10 lg:col-span-9">
+<h3 class="font-headline-md text-headline-md text-ink mb-2">Withdrawal &amp; Documentation</h3>
+<p class="font-body-prose text-body-prose text-ink/80">We leave a closed-form report and a maintenance protocol. We do not retain the engagement past month nine. The institution is not a client of ours indefinitely.</p>
+</div>
+<span class="col-span-12 lg:col-span-2 font-label-caps text-label-caps text-ink/60 uppercase lg:text-right tracking-widest self-start">Wks 22–26</span>
+</li>
+</ol>
+</div>
+</div>
+</section>
+
+<!-- Field Photographs — image strip -->
+<section class="mb-stack-lg">
+<div class="flex items-center gap-4 mb-12">
+<div class="h-[1px] flex-grow bg-ink/20"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-ink/60">Field Photographs</span>
+<div class="h-[1px] flex-grow bg-ink/20"></div>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+<h2 class="font-headline-lg text-headline-lg text-ink max-w-2xl">From the buildings we have studied.</h2>
+<p class="font-body-prose text-body-prose text-ink/70 max-w-md lg:text-right">A small atlas of the institutions, headquarters, and operating floors that have hosted our research between 2018 and 2024.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-4">
+<figure class="md:col-span-7 aspect-[4/3] md:aspect-auto md:h-full border border-ink relative overflow-hidden bg-white/40 group">
+<img alt="Stripped concrete interior with grid of shadows" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-3 left-3 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink">Plate · No.46 — Headquarters, Frankfurt</figcaption>
+</figure>
+<figure class="md:col-span-5 aspect-[4/3] md:aspect-[3/4] border border-ink relative overflow-hidden bg-white/40 group">
+<img alt="High-rise tower against stark sky" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-3 left-3 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink">Plate · No.47 — Tower, Singapore</figcaption>
+</figure>
+<figure class="md:col-span-4 aspect-square border border-ink relative overflow-hidden bg-white/40 group">
+<img alt="Stripped industrial interior with raw concrete" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-3 left-3 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink">Plate · No.48 — Floor 14, Logistics</figcaption>
+</figure>
+<figure class="md:col-span-4 aspect-square border border-ink relative overflow-hidden bg-white/40 group">
+<img alt="Geometric concrete cantilever roofline" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-3 left-3 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink">Plate · No.49 — Civic Hall, Brussels</figcaption>
+</figure>
+<figure class="md:col-span-4 aspect-square border border-ink relative overflow-hidden bg-white/40 group">
+<img alt="Architectural detail of interior columns" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-3 left-3 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink">Plate · No.50 — Lobby, Zurich</figcaption>
+</figure>
+</div>
+<p class="mt-6 font-caption text-caption italic text-ink/60 text-center">Photographs · A. Thorne, Field Notes vols. III–VII, 2018–2024.</p>
+</section>
+
+<!-- Trusted by — institutions strip -->
+<section class="mb-stack-lg border border-ink p-10 lg:p-16 bg-white/40 relative">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-paper px-4 border border-ink text-ink font-label-caps text-label-caps uppercase">Trusted Counsel</div>
+<div class="text-center mb-10 mt-4">
+<h2 class="font-headline-lg text-headline-lg text-ink mb-3">Selected institutions, 2014–2024.</h2>
+<p class="font-body-prose text-body-prose text-ink/70 max-w-2xl mx-auto">A partial list of organisations whose senior leadership has retained us. Engagements remain confidential; the institutions have approved their inclusion below.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 border-t border-b border-ink/30 divide-x divide-ink/20">
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight">Lyceum &amp; Co.</div>
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight">Zurich Mercantile</div>
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight">Brandt Logistik</div>
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight">Vanbrugh Trust</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 border-b border-ink/30 divide-x divide-ink/20">
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight italic">Mercator Group</div>
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight italic">Halleck Maritime</div>
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight italic">Pareto Holdings</div>
+<div class="py-6 px-4 flex items-center justify-center text-center font-display-xl text-2xl text-ink hover:text-oxblood transition-colors tracking-tight italic">Kepler Industries</div>
+</div>
+<div class="mt-8 flex flex-col sm:flex-row justify-between items-center gap-3 font-label-caps text-label-caps uppercase text-ink/60 tracking-widest">
+<span>38 engagements · 14 sectors · Avg. retention 26 weeks</span>
+<span class="italic font-caption text-caption normal-case tracking-normal text-ink/50">— remainder of client list available on signed request.</span>
+</div>
+</section>
+
+<!-- CTA Section — full-bleed tinted band, runs from above the card to the footer -->
+<section class="full-bleed mt-32 pt-20 pb-32 lg:pt-28 lg:pb-40 flex justify-center" style="background-color: #ECE2CE;">
+<div class="max-w-[1280px] mx-auto w-full px-6 md:px-margin-edge flex justify-center">
+<div class="border border-ink bg-paper p-12 max-w-2xl text-center w-full relative">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#ECE2CE] px-4 border border-ink text-oxblood font-label-caps text-label-caps uppercase">New Publication</div>
+<h2 class="font-headline-lg text-headline-lg mb-6 mt-4">The Friction Report: Q3</h2>
+<p class="font-body-prose text-body-prose text-ink/70 mb-8 mx-auto max-w-md">Our quarterly synthesis of empirical findings on organizational drag and operational decay.</p>
+<button class="bg-ink text-white font-label-caps text-label-caps uppercase px-8 py-4 hover:bg-oxblood transition-colors w-full sm:w-auto tracking-widest">
+                    Request Digital Copy
+                </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-ink bg-[#F3EDE0] text-[#1A1A1A]">
+<div class="max-w-[1280px] mx-auto px-16 py-12 flex flex-col md:flex-row justify-between items-baseline gap-8">
+<div class="text-xl font-bold text-ink tracking-tighter uppercase font-display-xl">
+                Aperture Partners
+            </div>
+<nav class="flex gap-6 flex-wrap">
+<a class="text-ink/50 uppercase tracking-widest text-[10px] hover:text-ink transition-opacity font-label-caps" href="#">Archive</a>
+<a class="text-ink/50 uppercase tracking-widest text-[10px] hover:text-ink transition-opacity font-label-caps" href="#">Methodology</a>
+<a class="text-ink/50 uppercase tracking-widest text-[10px] hover:text-ink transition-opacity font-label-caps" href="#">Contact</a>
+<a class="text-ink/50 uppercase tracking-widest text-[10px] hover:text-ink transition-opacity font-label-caps" href="#">Legal</a>
+</nav>
+<div class="font-caption text-sm italic text-ink/60">
+                © 2024 Aperture Partners. Strategic Intelligence for the Global Vanguard.
+            </div>
+</div>
+</footer>
+</body></html>

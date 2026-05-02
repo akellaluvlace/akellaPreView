@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>fsync.dev - Systems Engineering</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e4e2e2",
+                        "surface-dim": "#dbdad9",
+                        "on-tertiary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "inverse-surface": "#303030",
+                        "on-surface-variant": "#464555",
+                        "outline-variant": "#c7c4d8",
+                        "primary": "#3525cd",
+                        "secondary-container": "#e5e2e1",
+                        "on-primary-container": "#dad7ff",
+                        "secondary-fixed": "#e5e2e1",
+                        "secondary": "#5f5e5e",
+                        "surface-container": "#efeded",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#c3c0ff",
+                        "primary-container": "#4f46e5",
+                        "outline": "#777587",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "tertiary-container": "#a44100",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-variant": "#e4e2e2",
+                        "primary-fixed": "#e2dfff",
+                        "on-tertiary-container": "#ffd2be",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-tint": "#4d44e3",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f5f3f3",
+                        "on-primary-fixed": "#0f0069",
+                        "on-tertiary-fixed": "#351000",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#eae8e7",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface": "#fbf9f8",
+                        "on-background": "#1b1c1c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "surface-bright": "#fbf9f8",
+                        "tertiary": "#7e3000",
+                        "on-secondary-container": "#656464",
+                        "on-error-container": "#93000a",
+                        "dracula-bg": "#282a36",
+                        "dracula-curr": "#44475a",
+                        "dracula-fg": "#f8f8f2",
+                        "dracula-comment": "#6272a4",
+                        "dracula-cyan": "#8be9fd",
+                        "dracula-green": "#50fa7b",
+                        "dracula-orange": "#ffb86c",
+                        "dracula-pink": "#ff79c6",
+                        "dracula-purple": "#bd93f9",
+                        "dracula-red": "#ff5555",
+                        "dracula-yellow": "#f1fa8c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "sidebar-width": "280px",
+                        "gutter": "1.5rem",
+                        "container-max-width": "800px",
+                        "stack-md": "1rem",
+                        "stack-lg": "2.5rem"
+                    },
+                    "fontFamily": {
+                        "h3": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "code": ["JetBrains Mono"],
+                        "h1": ["Inter"],
+                        "h2": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["18px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                        "code": ["14px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body text-body antialiased flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col gap-1 py-8 px-0 bg-white dark:bg-zinc-950 font-['Inter'] antialiased tracking-tight text-sm fixed left-0 top-0 h-screen w-[240px] border-r border-r border-zinc-200 dark:border-zinc-800 z-10">
+<div class="px-6 pb-6 border-b border-zinc-200 dark:border-zinc-800 mb-4">
+<h1 class="text-xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50">fsync.dev</h1>
+<p class="text-zinc-500 dark:text-zinc-400 mt-1">Systems Engineering</p>
+</div>
+<nav class="flex-1 overflow-y-auto w-full">
+<ul class="flex flex-col gap-1">
+<!-- Active Item: All posts (Match intent of Hompeage/Blog) -->
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-2 border-l-2 border-indigo-600 dark:border-indigo-500 text-zinc-900 dark:text-zinc-50 font-semibold bg-zinc-50/50 dark:bg-zinc-900/30 cursor-pointer active:opacity-80 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+<span>All posts</span>
+</a>
+</li>
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 border-l-2 border-transparent cursor-pointer active:opacity-80 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="label">label</span>
+<span>Tags</span>
+</a>
+</li>
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 border-l-2 border-transparent cursor-pointer active:opacity-80 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span>Projects</span>
+</a>
+</li>
+<li class="w-full">
+<a class="flex items-center gap-3 px-6 py-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 border-l-2 border-transparent cursor-pointer active:opacity-80 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>About</span>
+</a>
+</li>
+<li class="w-full mt-auto">
+<a class="flex items-center gap-3 px-6 py-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 border-l-2 border-transparent cursor-pointer active:opacity-80 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-900 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="rss_feed">rss_feed</span>
+<span>RSS</span>
+</a>
+</li>
+</ul>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-[240px] py-8 md:py-12 flex flex-col items-stretch">
+<!-- Mobile Header (in narrow container) -->
+<div class="w-full max-w-container-max-width mx-auto px-gutter">
+<header class="md:hidden flex items-center justify-between pb-4 border-b border-surface-container-highest mb-4">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface">fsync.dev</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Systems Engineering</p>
+</div>
+<button class="p-2 border border-surface-container-highest rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+</div>
+<!-- Post Feed — wider container, content right, alternating image/code-card on left -->
+<div class="w-full max-w-7xl mx-auto px-6 md:px-12 py-stack-lg">
+<section aria-label="Recent Posts" class="grid grid-cols-1 lg:grid-cols-12 gap-x-12 lg:gap-x-16 gap-y-14">
+
+<!-- Pinned · io_uring — left: code card -->
+<div class="lg:col-span-5 lg:order-1">
+<div class="bg-dracula-bg rounded-lg border border-surface-container-highest overflow-hidden h-full">
+<div class="flex items-center justify-between px-4 py-2 bg-dracula-curr/30 border-b border-surface-container-highest/20">
+<span class="font-code text-code text-dracula-comment text-xs">$ cat io_uring/setup.rs</span>
+<span class="material-symbols-outlined text-dracula-comment text-sm">terminal</span>
+</div>
+<pre class="p-4 overflow-x-auto"><code class="font-code text-code text-dracula-fg" style="font-size:13px;line-height:1.7;"><span class="text-dracula-pink">let mut</span> <span class="text-dracula-fg">ring</span> = <span class="text-dracula-green">IoUring</span>::<span class="text-dracula-cyan">new</span>(<span class="text-dracula-purple">256</span>)?;
+
+<span class="text-dracula-pink">let</span> <span class="text-dracula-fg">read_e</span> = <span class="text-dracula-green">opcode</span>::<span class="text-dracula-green">Read</span>::<span class="text-dracula-cyan">new</span>(<span class="text-dracula-fg">fd</span>, <span class="text-dracula-fg">buf</span>, <span class="text-dracula-purple">4096</span>)
+    .<span class="text-dracula-cyan">build</span>()
+    .<span class="text-dracula-cyan">user_data</span>(<span class="text-dracula-purple">0x42</span>);
+
+<span class="text-dracula-fg">ring</span>.<span class="text-dracula-cyan">submission</span>().<span class="text-dracula-cyan">push</span>(&amp;<span class="text-dracula-fg">read_e</span>)?;
+<span class="text-dracula-fg">ring</span>.<span class="text-dracula-cyan">submit_and_wait</span>(<span class="text-dracula-purple">1</span>)?;
+
+<span class="text-dracula-comment">// → zero syscall overhead per op</span></code></pre>
+</div>
+</div>
+<article class="lg:col-span-7 lg:order-2 bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 hover:border-primary-container transition-colors duration-200 group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container transition-colors">push_pin</span>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<time class="font-body-sm text-body-sm text-on-surface-variant">Nov 12, 2023</time>
+<h2 class="font-h2 text-h2 text-on-surface group-hover:text-primary-container transition-colors">Optimizing I/O performance on Linux with io_uring</h2>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#LINUX</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#KERNEL</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#PERFORMANCE</span>
+</div>
+<p class="font-body text-body text-on-surface-variant mt-2">Traditional POSIX asynchronous I/O (AIO) has long been a source of frustration for systems engineers. This deep dive explores how `io_uring` revolutionizes Linux I/O by providing a fast, scalable, and genuinely asynchronous interface, eliminating the overhead of frequent system calls through shared ring buffers.</p>
+<div class="mt-4 flex items-center gap-2 text-primary-container font-body-sm text-body-sm font-semibold group-hover:translate-x-1 transition-transform">
+<span>Read full article</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</article>
+
+<!-- eBPF — left: image -->
+<figure class="lg:col-span-5 lg:order-3 m-0">
+<div class="overflow-hidden rounded-lg border border-surface-container-highest aspect-[4/3] bg-dracula-bg">
+<img alt="Server rack with blue indicator LEDs along the kernel networking path" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="mt-2 font-code text-code text-on-surface-variant">capture · networking lab · 02:41</figcaption>
+</figure>
+<article class="lg:col-span-7 lg:order-4 bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 hover:border-primary-container transition-colors duration-200 group cursor-pointer">
+<div class="flex flex-col gap-stack-sm">
+<time class="font-body-sm text-body-sm text-on-surface-variant">Oct 24, 2023</time>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary-container transition-colors">Deep dive into eBPF filters</h3>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#LINUX</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#NETWORKING</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#EBPF</span>
+</div>
+<p class="font-body text-body text-on-surface-variant mt-2">Extended Berkeley Packet Filter (eBPF) has fundamentally changed how we observe and manipulate network traffic in the kernel. We examine the mechanics of attaching XDP programs to network interfaces for high-performance packet dropping before the kernel networking stack is even invoked.</p>
+</div>
+</article>
+
+<!-- Memory barriers — left: code card -->
+<div class="lg:col-span-5 lg:order-5">
+<div class="bg-dracula-bg rounded-lg border border-surface-container-highest overflow-hidden h-full">
+<div class="flex items-center justify-between px-4 py-2 bg-dracula-curr/30 border-b border-surface-container-highest/20"><span class="font-code text-code text-dracula-comment text-xs">$ cat memory_order.cc</span>
+<span class="material-symbols-outlined text-dracula-comment text-sm">terminal</span></div>
+<pre class="p-4 overflow-x-auto"><code class="font-code text-code text-dracula-fg" style="font-size:13px;line-height:1.7;"><span class="text-dracula-comment">// producer</span>
+<span class="text-dracula-fg">payload</span>.<span class="text-dracula-cyan">store</span>(<span class="text-dracula-fg">data</span>);
+<span class="text-dracula-fg">ready</span>.<span class="text-dracula-cyan">store</span>(<span class="text-dracula-pink">true</span>,
+   <span class="text-dracula-green">std</span>::<span class="text-dracula-cyan">memory_order_release</span>);
+
+<span class="text-dracula-comment">// consumer</span>
+<span class="text-dracula-pink">while</span> (!<span class="text-dracula-fg">ready</span>.<span class="text-dracula-cyan">load</span>(
+   <span class="text-dracula-green">std</span>::<span class="text-dracula-cyan">memory_order_acquire</span>)) {}
+
+<span class="text-dracula-pink">auto</span> <span class="text-dracula-fg">v</span> = <span class="text-dracula-fg">payload</span>.<span class="text-dracula-cyan">load</span>(); <span class="text-dracula-comment">// safe</span></code></pre>
+</div>
+</div>
+<article class="lg:col-span-7 lg:order-6 bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 hover:border-primary-container transition-colors duration-200 group cursor-pointer">
+<div class="flex flex-col gap-stack-sm">
+<time class="font-body-sm text-body-sm text-on-surface-variant">Oct 15, 2023</time>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary-container transition-colors">Memory barriers and lock-free data structures</h3>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#CONCURRENCY</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#C</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#ARCHITECTURE</span>
+</div>
+<p class="font-body text-body text-on-surface-variant mt-2">Writing lock-free code requires a solid understanding of memory ordering rules across different CPU architectures. This post breaks down acquire/release semantics and explains why the compiler's view of memory ordering often differs from the hardware's reality.</p>
+</div>
+</article>
+
+<!-- Rust allocator — left: BumpAllocator code card (moved from inside article) -->
+<div class="lg:col-span-5 lg:order-7">
+<div class="bg-dracula-bg rounded-lg border border-surface-container-highest overflow-hidden h-full">
+<div class="flex items-center justify-between px-4 py-2 bg-dracula-curr/30 border-b border-surface-container-highest/20">
+<span class="font-code text-code text-dracula-comment text-xs">src/allocator.rs</span>
+<button class="text-dracula-comment hover:text-dracula-fg transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+<pre class="p-4 overflow-x-auto"><code class="font-code text-code text-dracula-fg" style="font-size:13px;line-height:1.7;"><span class="text-dracula-pink">use</span> <span class="text-dracula-fg">core::alloc::</span>{<span class="text-dracula-fg">GlobalAlloc</span>, <span class="text-dracula-fg">Layout</span>};
+<span class="text-dracula-pink">use</span> <span class="text-dracula-fg">core::ptr::</span><span class="text-dracula-purple">null_mut</span>;
+
+<span class="text-dracula-pink">pub struct</span> <span class="text-dracula-green">BumpAllocator</span> {
+    <span class="text-dracula-purple">heap_start</span>: <span class="text-dracula-cyan">usize</span>,
+    <span class="text-dracula-purple">heap_end</span>:   <span class="text-dracula-cyan">usize</span>,
+    <span class="text-dracula-purple">next</span>:       <span class="text-dracula-cyan">usize</span>,
+}
+
+<span class="text-dracula-pink">unsafe impl</span> <span class="text-dracula-green">GlobalAlloc</span> <span class="text-dracula-pink">for</span> <span class="text-dracula-green">Locked</span>&lt;<span class="text-dracula-green">BumpAllocator</span>&gt; {
+    <span class="text-dracula-pink">unsafe fn</span> <span class="text-dracula-green">alloc</span>(&amp;<span class="text-dracula-orange">self</span>, <span class="text-dracula-orange">layout</span>: <span class="text-dracula-cyan">Layout</span>)
+        -&gt; <span class="text-dracula-cyan">*mut u8</span> {
+        <span class="text-dracula-pink">let mut</span> <span class="text-dracula-fg">a</span> = <span class="text-dracula-orange">self</span>.<span class="text-dracula-cyan">lock</span>();
+        <span class="text-dracula-comment">// bump pointer + alignment</span>
+        <span class="text-dracula-purple">null_mut</span>()
+    }
+}</code></pre>
+</div>
+</div>
+<article class="lg:col-span-7 lg:order-8 bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 hover:border-primary-container transition-colors duration-200 group cursor-pointer">
+<div class="flex flex-col gap-stack-sm">
+<time class="font-body-sm text-body-sm text-on-surface-variant">Oct 02, 2023</time>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary-container transition-colors">Implementing a custom memory allocator in Rust</h3>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#RUST</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#SYSTEMS</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#MEMORY</span>
+</div>
+<p class="font-body text-body text-on-surface-variant mt-2">Rust's `GlobalAlloc` trait allows for replacing the system's default memory allocator. We build a simple bump allocator suitable for embedded systems or specific tight-loop scenarios where the overhead of a general-purpose allocator like `jemalloc` is unacceptable.</p>
+</div>
+</article>
+
+<!-- cgroups — left: code card -->
+<div class="lg:col-span-5 lg:order-9">
+<div class="bg-dracula-bg rounded-lg border border-surface-container-highest overflow-hidden h-full">
+<div class="flex items-center justify-between px-4 py-2 bg-dracula-curr/30 border-b border-surface-container-highest/20">
+<span class="font-code text-code text-dracula-comment text-xs">root@host:~$ cgroup-v2</span>
+<span class="material-symbols-outlined text-dracula-comment text-sm">terminal</span>
+</div>
+<pre class="p-4 overflow-x-auto"><code class="font-code text-code text-dracula-fg" style="font-size:13px;line-height:1.7;"><span class="text-dracula-pink"># enable controllers in root</span>
+<span class="text-dracula-cyan">echo</span> <span class="text-dracula-yellow">"+cpu +memory +io"</span> \
+   &gt; /sys/fs/cgroup/<span class="text-dracula-fg">cgroup.subtree_control</span>
+
+<span class="text-dracula-pink"># carve a slice for the api tier</span>
+<span class="text-dracula-cyan">mkdir</span> /sys/fs/cgroup/<span class="text-dracula-green">api</span>
+<span class="text-dracula-cyan">echo</span> <span class="text-dracula-purple">512M</span> &gt; api/<span class="text-dracula-fg">memory.high</span>
+<span class="text-dracula-cyan">echo</span> <span class="text-dracula-purple">$$</span>   &gt; api/<span class="text-dracula-fg">cgroup.procs</span></code></pre>
+</div>
+</div>
+<article class="lg:col-span-7 lg:order-10 bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 hover:border-primary-container transition-colors duration-200 group cursor-pointer">
+<div class="flex flex-col gap-stack-sm">
+<time class="font-body-sm text-body-sm text-on-surface-variant">Sep 18, 2023</time>
+<h3 class="font-h3 text-h3 text-on-surface group-hover:text-primary-container transition-colors">Understanding cgroups v2 resource isolation</h3>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#LINUX</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#CONTAINERS</span>
+<span class="font-label-caps text-label-caps bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-DEFAULT">#CGROUPS</span>
+</div>
+<p class="font-body text-body text-on-surface-variant mt-2">Control Groups v2 unified the previously disjointed hierarchy system, simplifying resource management for containers. This article explores configuring CPU, memory, and I/O limits using the unified hierarchy and interacting directly with the cgroupfs.</p>
+</div>
+</article>
+
+</section>
+</div>
+<!-- ===== NEW SECTION A — Recent essays (alt 7/5 rows) ===== -->
+<section aria-label="Recent essays" class="w-full bg-surface-container-low mt-stack-lg">
+<div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24 flex flex-col gap-stack-lg">
+<div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+<div class="flex flex-col gap-2 max-w-2xl">
+<span class="font-code text-code text-primary tracking-[0.2em] uppercase">Detail · 02 — Recent essays</span>
+<h2 class="font-h1 text-h1 text-on-surface">Long-form writing on production systems, kernels, and the unhappy paths.</h2>
+</div>
+<a class="font-body-sm text-body-sm text-primary-container hover:underline self-start md:self-end" href="#">View archive →</a>
+</div>
+<div class="flex flex-col gap-12 md:gap-16">
+<!-- Row 1 — image left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center group cursor-pointer">
+<div class="md:col-span-7 overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Server rack interior with cabling" class="w-full aspect-[4/3] object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div class="md:col-span-5 flex flex-col gap-stack-sm">
+<div class="flex items-center gap-3 font-code text-code text-on-surface-variant">
+<span>11 min read</span>
+<span class="text-outline-variant">·</span>
+<time>Apr 29, 2024</time>
+<span class="text-outline-variant">·</span>
+<span class="text-primary-container">#NETWORKING</span>
+</div>
+<h3 class="font-h2 text-h2 text-on-surface group-hover:text-primary-container transition-colors">When TCP backpressure stops being a metaphor</h3>
+<p class="font-body text-body text-on-surface-variant">
+                Most engineers reach for "TCP handles backpressure" as a calming incantation, then are surprised when their service falls over under load anyway. This essay walks through what actually happens at each layer once a slow consumer stops draining the receive window: the kernel queues that fill, the retransmits that pile up, the way `epoll` flips between edge and level triggering, and the moment when application-level buffering quietly accepts a write that the socket cannot. It ends with a small Rust example that makes the failure mode reproducible on a laptop.
+            </p>
+<span class="font-label-caps text-label-caps text-primary-container tracking-[0.1em]">Continue reading →</span>
+</div>
+</article>
+<!-- Row 2 — image right (reversed) -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center group cursor-pointer">
+<div class="md:col-span-5 md:order-1 flex flex-col gap-stack-sm">
+<div class="flex items-center gap-3 font-code text-code text-on-surface-variant">
+<span>14 min read</span>
+<span class="text-outline-variant">·</span>
+<time>Apr 12, 2024</time>
+<span class="text-outline-variant">·</span>
+<span class="text-primary-container">#KERNEL</span>
+</div>
+<h3 class="font-h2 text-h2 text-on-surface group-hover:text-primary-container transition-colors">A patient tour of the Linux page cache</h3>
+<p class="font-body text-body text-on-surface-variant">
+                The page cache is the operating system's most influential black box. It governs whether your `read()` returns from disk or from RAM, whether `mmap` is faster than `pread`, whether your container's "memory usage" is honest or a lie. We start from the data structures (radix tree, address_space, struct page) and work outward through reclaim, dirty writeback, and the subtle ways that `madvise` and `posix_fadvise` change what stays resident. By the end you should be able to predict, within order-of-magnitude, what `vmstat` will print under any given workload.
+            </p>
+<span class="font-label-caps text-label-caps text-primary-container tracking-[0.1em]">Continue reading →</span>
+</div>
+<div class="md:col-span-7 md:order-2 overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Industrial machinery — gauge cluster" class="w-full aspect-[4/3] object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</article>
+<!-- Row 3 — image left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center group cursor-pointer">
+<div class="md:col-span-7 overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Circuit board macro showing dense surface-mount components" class="w-full aspect-[4/3] object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<div class="md:col-span-5 flex flex-col gap-stack-sm">
+<div class="flex items-center gap-3 font-code text-code text-on-surface-variant">
+<span>9 min read</span>
+<span class="text-outline-variant">·</span>
+<time>Mar 30, 2024</time>
+<span class="text-outline-variant">·</span>
+<span class="text-primary-container">#OBSERVABILITY</span>
+</div>
+<h3 class="font-h2 text-h2 text-on-surface group-hover:text-primary-container transition-colors">Tracing without a vendor: a `perf` and `bpftrace` walkthrough</h3>
+<p class="font-body text-body text-on-surface-variant">
+                You can do a remarkable amount of distributed-tracing-style work with just `perf record`, `bpftrace`, and a little patience. This piece is the tutorial I wish I had when I first realised that "we need a tracing platform" was sometimes shorthand for "we have not yet read `man perf-script`". It covers attaching uprobes to a Go binary without symbol tables, joining kernel-side block-device latencies to user-side request IDs, and exporting flame graphs that a product manager will actually look at without flinching.
+            </p>
+<span class="font-label-caps text-label-caps text-primary-container tracking-[0.1em]">Continue reading →</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- ===== NEW SECTION B — Field notes / Memos (sticky photo + scrolling memos) ===== -->
+<section aria-label="Field notes and memos" class="w-full bg-surface-container">
+<div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+<div class="flex flex-col gap-2 mb-10 md:mb-14 max-w-2xl">
+<span class="font-code text-code text-primary tracking-[0.2em] uppercase">Detail · 03 — Field notes</span>
+<h2 class="font-h1 text-h1 text-on-surface">Short memos. Hot takes. Things that didn't earn a full essay but earned the page.</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+<!-- Sticky photo — left -->
+<aside class="md:col-span-5 md:sticky md:top-24 md:self-start">
+<figure class="relative overflow-hidden rounded-lg border border-surface-container-highest">
+<img alt="Server room aisle stretching into cool blue indicator lights" class="w-full aspect-[3/4] object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(53,37,205,0.18) 0%, rgba(53,37,205,0) 35%, rgba(53,37,205,0.32) 100%);"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+<span class="font-label-caps text-label-caps text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] tracking-[0.2em]">FIELD · STILL · 04</span>
+<span class="font-code text-code text-white/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">52.5°N 13.4°E</span>
+</figcaption>
+</figure>
+<p class="mt-4 font-code text-code text-on-surface-variant">
+            Filed from a long train ride between two datacenters. Not edited. Not benchmarked. Treat them as pencil notes in the margin.
+          </p>
+</aside>
+<!-- Memo cards — right -->
+<div class="md:col-span-7 flex flex-col gap-6">
+<article class="bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 md:p-7 hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-code text-code text-on-surface-variant tracking-[0.1em] uppercase">Memo · 014</span>
+<time class="font-body-sm text-body-sm text-on-surface-variant">May 02, 2024</time>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-3">Most "service mesh" pain is just unowned DNS</h3>
+<p class="font-body text-body text-on-surface-variant mb-3">
+              I have now seen enough postmortems to confidently say: a non-trivial fraction of incidents blamed on the mesh are actually CoreDNS being CoreDNS, plus a stale `ndots:5` default copying its way through every Helm chart in the org. The mesh gets the blame because it is the most recent thing on the diagram.
+            </p>
+<p class="font-body text-body text-on-surface-variant">
+              The fix is unromantic. Set `ndots:1` in your pod spec, point your stub resolver at a node-local cache, and stop letting four sidecars argue about A vs AAAA records. You can buy a year of mesh runway with one ConfigMap.
+            </p>
+</article>
+<article class="bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 md:p-7 hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-code text-code text-on-surface-variant tracking-[0.1em] uppercase">Memo · 013</span>
+<time class="font-body-sm text-body-sm text-on-surface-variant">Apr 22, 2024</time>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-3">Latency histograms are a moral instrument</h3>
+<p class="font-body text-body text-on-surface-variant mb-3">
+              Averages flatter you. Percentiles tell the truth, but only if you trust the buckets. A 100ms-wide bucket at the tail will absorb a thirty-second outlier and call it a 200ms request. The histogram is doing what you asked; you asked the wrong thing.
+            </p>
+<p class="font-body text-body text-on-surface-variant">
+              Pick exponential buckets, log them, then go back and re-read your last incident in the new light. You will probably find the SLO that was "always green" had been hiding a small population of users having a much worse week than the dashboard ever admitted to.
+            </p>
+</article>
+<article class="bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 md:p-7 hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-code text-code text-on-surface-variant tracking-[0.1em] uppercase">Memo · 012</span>
+<time class="font-body-sm text-body-sm text-on-surface-variant">Apr 09, 2024</time>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-3">"Eventually consistent" is a two-word load-bearing apology</h3>
+<p class="font-body text-body text-on-surface-variant mb-3">
+              Every eventually consistent system has a quiet contract with its operator: you will not look too closely, and in return the system will mostly be right. The trouble starts when a downstream user does start looking closely — usually a finance team, usually with a spreadsheet.
+            </p>
+<p class="font-body text-body text-on-surface-variant">
+              The honest answer is to publish a staleness budget alongside the latency one, and to alert when reads cross it. Not to "fix" eventual consistency, but to admit it has a shape.
+            </p>
+</article>
+<article class="bg-surface-container-lowest border border-surface-container-highest rounded-lg p-6 md:p-7 hover:border-primary-container transition-colors">
+<div class="flex items-center justify-between mb-3">
+<span class="font-code text-code text-on-surface-variant tracking-[0.1em] uppercase">Memo · 011</span>
+<time class="font-body-sm text-body-sm text-on-surface-variant">Mar 28, 2024</time>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-3">There is no such thing as a "just a feature flag"</h3>
+<p class="font-body text-body text-on-surface-variant mb-3">
+              Feature flags are runtime configuration. Runtime configuration is, in practice, a small distributed system you did not plan to build. It has eventual consistency, partitions, version skew between SDKs and servers, and a habit of being wrong in the most expensive customer's session.
+            </p>
+<p class="font-body text-body text-on-surface-variant">
+              Treat them with the suspicion you would give any mutable global. Audit flag deletions like you audit migrations. Pin SDKs. The team that takes flags seriously ships faster than the team that thinks of them as "just config".
+            </p>
+</article>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== NEW SECTION C — Selected work / projects (STATIC 8-tile grid) ===== -->
+<section aria-label="Selected work" class="w-full bg-surface-container-high">
+<div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+<div class="flex flex-col gap-3 mb-10 md:mb-14 md:flex-row md:items-end md:justify-between">
+<div class="flex flex-col gap-2 max-w-2xl">
+<span class="font-code text-code text-primary tracking-[0.2em] uppercase">Detail · 04 — Selected work</span>
+<h2 class="font-h1 text-h1 text-on-surface">A small, static catalogue of shipped projects.</h2>
+</div>
+<span class="font-code text-code text-on-surface-variant">8 of 41 · sorted by year</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2 md:gap-3">
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Server room aisle" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">apex · 2024</figcaption>
+</figure>
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Circuit board macro" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">snapshot · 2023</figcaption>
+</figure>
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Server rack tight crop" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&amp;q=85&amp;auto=format&amp;fit=crop&amp;crop=focalpoint&amp;fp-x=0.3"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">scaffold · 2023</figcaption>
+</figure>
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Circuit board low-angle macro" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&amp;q=85&amp;auto=format&amp;fit=crop&amp;crop=focalpoint&amp;fp-x=0.7"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">helix · 2023</figcaption>
+</figure>
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Server hardware deep crop" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=600&amp;q=85&amp;auto=format&amp;fit=crop&amp;crop=focalpoint&amp;fp-x=0.7"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">lattice · 2022</figcaption>
+</figure>
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Industrial machinery cluster" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">forge · 2022</figcaption>
+</figure>
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Industrial machinery tight crop" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=600&amp;q=85&amp;auto=format&amp;fit=crop&amp;crop=focalpoint&amp;fp-x=0.3"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">cornice · 2022</figcaption>
+</figure>
+<figure class="flex flex-col gap-2">
+<div class="aspect-square overflow-hidden rounded-lg border border-surface-container-highest bg-surface-container-lowest">
+<img alt="Circuit detail with copper traces" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&amp;q=85&amp;auto=format&amp;fit=crop&amp;crop=focalpoint&amp;fp-x=0.3"/>
+</div>
+<figcaption class="font-code text-code text-on-surface-variant">aperture · 2021</figcaption>
+</figure>
+</div>
+<p class="mt-8 font-body-sm text-body-sm text-on-surface-variant max-w-2xl">
+          A static catalogue. No carousel, no auto-scroll. Each tile lands at the same place every time you load the page — which, on reflection, is what most of these projects also try to do.
+        </p>
+</div>
+</section>
+<!-- ===== NEW SECTION D — FAQ accordion ===== -->
+<section aria-label="Frequently asked" class="w-full bg-primary-fixed">
+<div class="max-w-5xl mx-auto px-6 md:px-12 py-16 md:py-24">
+<div class="flex flex-col gap-2 mb-10 md:mb-14 max-w-2xl"><span class="font-code text-code text-primary tracking-[0.2em] uppercase">Detail · 05 — FAQ</span>
+<h2 class="font-h1 text-h1 text-on-primary-fixed">Questions a reader has, before the reader is willing to ask.</h2>
+</div>
+<div class="divide-y divide-on-primary-fixed/15 border-t border-b border-on-primary-fixed/15">
+<details class="fsync-faq group py-5">
+<summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+<h3 class="font-h3 text-h3 text-on-primary-fixed">Why do you publish so seldom?</h3>
+<span class="material-symbols-outlined fsync-chevron text-on-primary-fixed/70 shrink-0 mt-1">add</span>
+</summary>
+<p class="mt-4 font-body text-body text-on-primary-fixed/80 max-w-3xl">
+              Because the cost of being wrong in public, on a topic where I am supposed to know what I am talking about, is meaningfully higher than the cost of staying quiet for another month and re-reading the kernel patch one more time. I would rather publish six things a year that I will still endorse in five years than publish forty that I will quietly retract by reorganising the tags. The cadence is the editorial position.
+            </p>
+</details>
+<details class="fsync-faq group py-5">
+<summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+<h3 class="font-h3 text-h3 text-on-primary-fixed">Can I republish your essays elsewhere?</h3>
+<span class="material-symbols-outlined fsync-chevron text-on-primary-fixed/70 shrink-0 mt-1">add</span>
+</summary>
+<p class="mt-4 font-body text-body text-on-primary-fixed/80 max-w-3xl">
+              Yes — non-commercially, with attribution, and a canonical link back to the original URL. Translations are especially welcome; please mark them as translations and include the translator's name. For commercial republication (a paid newsletter, a printed anthology, a training corpus you intend to sell access to) please email first; the answer is usually yes, but the answer is never silent.
+            </p>
+</details>
+<details class="fsync-faq group py-5">
+<summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+<h3 class="font-h3 text-h3 text-on-primary-fixed">Are there RSS feeds for individual tags?</h3>
+<span class="material-symbols-outlined fsync-chevron text-on-primary-fixed/70 shrink-0 mt-1">add</span>
+</summary>
+<p class="mt-4 font-body text-body text-on-primary-fixed/80 max-w-3xl">
+              There is a main feed at `/feed.xml`, an Atom mirror at `/feed.atom`, and per-tag feeds at `/tags/&lt;tag&gt;.xml` for every tag with at least three posts. They are all hand-curated — no auto-generated firehose — so an item appears in at most one tag feed even when it belongs to several. JSON Feed support is not planned; if you need it, the conversion is a five-line script.
+            </p>
+</details>
+<details class="fsync-faq group py-5">
+<summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+<h3 class="font-h3 text-h3 text-on-primary-fixed">Will you write about &lt;topic X&gt;?</h3>
+<span class="material-symbols-outlined fsync-chevron text-on-primary-fixed/70 shrink-0 mt-1">add</span>
+</summary>
+<p class="mt-4 font-body text-body text-on-primary-fixed/80 max-w-3xl">
+              Probably not on request. The essays here exist because I have spent long enough with the subject to have an opinion that survives a hostile review, and that condition does not transfer well to other people's curiosity. That said — if you have an unusual production failure that you can describe in detail, and you would like a second pair of eyes, I read every email and answer about a third of them.
+            </p>
+</details>
+<details class="fsync-faq group py-5">
+<summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+<h3 class="font-h3 text-h3 text-on-primary-fixed">Do you do consulting or advisory work?</h3>
+<span class="material-symbols-outlined fsync-chevron text-on-primary-fixed/70 shrink-0 mt-1">add</span>
+</summary>
+<p class="mt-4 font-body text-body text-on-primary-fixed/80 max-w-3xl">
+              Sparingly. I take on roughly two engagements a year, both small (sub-six-week), both deeply technical, and both with a written deliverable that the client can hand to their next engineer six months later. I do not do "advisory" arrangements where I appear on a website in exchange for an option grant, and I do not do retainer work. If you have a real, narrow, specific systems problem, write to me and I will tell you honestly whether I can help.
+            </p>
+</details>
+<details class="fsync-faq group py-5">
+<summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+<h3 class="font-h3 text-h3 text-on-primary-fixed">How do I contact you?</h3>
+<span class="material-symbols-outlined fsync-chevron text-on-primary-fixed/70 shrink-0 mt-1">add</span>
+</summary>
+<p class="mt-4 font-body text-body text-on-primary-fixed/80 max-w-3xl">
+              Email is best — `editor@fsync.dev`. PGP key on the about page if you need it; I read encrypted mail within a day or two. I am not on most social platforms; the accounts that do exist are passive mirrors of the RSS feed. Please do not DM me on chat platforms about an essay — the response time is measured in months, and the conversation will fork in ways neither of us can audit.
+            </p>
+</details>
+<details class="fsync-faq group py-5">
+<summary class="flex items-start justify-between gap-6 cursor-pointer list-none">
+<h3 class="font-h3 text-h3 text-on-primary-fixed">Why open-source the blog code itself?</h3>
+<span class="material-symbols-outlined fsync-chevron text-on-primary-fixed/70 shrink-0 mt-1">add</span>
+</summary>
+<p class="mt-4 font-body text-body text-on-primary-fixed/80 max-w-3xl">
+              Because I write about systems engineering, and a blog whose source is not auditable is, in a small way, a counter-example to its own essays. The repository — static generator, theme, RSS, deploy script — is at `github.com/fsync/blog` under a permissive license. It is not a product, it has no roadmap, and I am not interested in pull requests that add comments, analytics, or tracking. Forks are welcome and encouraged.
+            </p>
+</details>
+</div>
+</div>
+</section>
+<style>
+        .fsync-faq summary::-webkit-details-marker { display: none; }
+        .fsync-faq .fsync-chevron { transition: transform 250ms ease; }
+        .fsync-faq[open] .fsync-chevron { transform: rotate(45deg); }
+        @media (prefers-reduced-motion: reduce) {
+            .fsync-faq .fsync-chevron { transition: none; }
+        }
+    </style>
+<div class="w-full max-w-container-max-width mx-auto px-gutter">
+<div class="flex justify-center mt-stack-lg">
+<button class="px-6 py-2 bg-surface-container-lowest border border-surface-container-highest text-on-surface font-body-sm text-body-sm rounded hover:bg-surface-container-low transition-colors duration-200">
+                    Load More Posts
+                </button>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAW.kr | Neo-Brutalist Creative Agency</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS (configured via script for single-file portability) -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#E0E7FF',
+                        'neo-red': '#FF4D4D',
+                        'neo-yellow': '#FACC15',
+                        'neo-black': '#000000',
+                        'neo-white': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'neo': '6px 6px 0px 0px #000000',
+                        'neo-hover': '2px 2px 0px 0px #000000',
+                        'neo-lg': '10px 10px 0px 0px #000000',
+                        'neo-mob': '4px 4px 0px 0px #000000',
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                    },
+                    animation: {
+                        'marquee': 'marquee 15s linear infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'plate-marquee': 'plate-marquee 60s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        'plate-marquee': {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(calc(-50% - 12px))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles for Scrollbar & Interactions -->
+    <style>
+        body {
+            background-color: #E0E7FF;
+            color: #000000;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E0E7FF;
+            border-left: 3px solid black;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF4D4D;
+            border: 3px solid black;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FACC15;
+        }
+
+        /* Button Press Effect */
+        .btn-neo {
+            transition: all 0.1s ease;
+        }
+        .btn-neo:active, .btn-neo:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #000000;
+        }
+
+        /* Utilities */
+        .border-hard {
+            border: 3px solid black;
+        }
+
+        .stroke-black {
+            text-shadow: -2px -2px 0 #000000, 2px -2px 0 #000000, -2px 2px 0 #000000, 2px 2px 0 #000000;
+        }
+        
+        /* Mobile specific adjustments */
+        @media (max-width: 640px) {
+            .neo-shadow-mobile {
+                box-shadow: 4px 4px 0px 0px #000000;
+            }
+        }
+
+        /* Plates marquee — paused on hover, py-3 wrapper for chunky-shadow clearance */
+        .plate-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+        }
+        .plate-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* FAQ accordion — brutalist chevron rotation */
+        .neo-faq summary::-webkit-details-marker { display: none; }
+        .neo-faq summary { list-style: none; }
+        .neo-faq summary .neo-chevron {
+            transition: transform 200ms ease;
+        }
+        .neo-faq[open] summary .neo-chevron {
+            transform: rotate(180deg);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .animate-marquee,
+            .animate-plate-marquee,
+            .animate-spin-slow,
+            .animate-bounce {
+                animation: none !important;
+            }
+            .neo-faq summary .neo-chevron {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-neo-red selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-neo-bg border-b-3 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-display font-extrabold text-3xl md:text-4xl tracking-tighter hover:text-neo-red transition-colors">
+                        RAW.kr
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#work" class="font-bold text-lg uppercase hover:underline decoration-3 decoration-neo-red underline-offset-4">Work</a>
+                    <a href="#services" class="font-bold text-lg uppercase hover:underline decoration-3 decoration-neo-yellow underline-offset-4">Services</a>
+                    <a href="#about" class="font-bold text-lg uppercase hover:underline decoration-3 decoration-black underline-offset-4">Agency</a>
+                    <a href="#faq" class="font-bold text-lg uppercase hover:underline decoration-3 decoration-neo-red underline-offset-4">FAQ</a>
+                    <a href="mailto:hello@raw.kr" class="btn-neo bg-neo-black text-white px-6 py-2 border-hard font-bold uppercase shadow-neo hover:bg-neo-red transition-transform">
+                        Get Loud
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-black p-1 border-2 border-transparent hover:border-black focus:outline-none transition-colors">
+                        <i data-lucide="menu" class="w-8 h-8"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden border-t-3 border-black bg-neo-yellow absolute w-full left-0 shadow-neo-lg z-50">
+            <div class="flex flex-col items-center py-6 space-y-4">
+                <a href="#work" class="mobile-link text-2xl font-display font-black uppercase tracking-wide hover:text-neo-red">Work</a>
+                <a href="#services" class="mobile-link text-2xl font-display font-black uppercase tracking-wide hover:text-neo-red">Services</a>
+                <a href="#about" class="mobile-link text-2xl font-display font-black uppercase tracking-wide hover:text-neo-red">Agency</a>
+                <a href="mailto:hello@raw.kr" class="mt-4 w-10/12 text-center py-4 bg-neo-red text-white font-bold uppercase border-hard shadow-neo-mob btn-neo">Let's Talk</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative overflow-hidden pt-12 pb-16 lg:pt-32 lg:pb-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text -->
+                <div class="lg:col-span-7 flex flex-col items-start" data-aos="fade-right">
+                    <div class="inline-block bg-neo-yellow border-hard px-4 py-1 mb-6 shadow-neo transform -rotate-2 hover:rotate-0 transition-transform">
+                        <span class="font-bold uppercase tracking-widest text-xs sm:text-sm">Est. 2024 // Seoul - Global</span>
+                    </div>
+                    <!-- Responsive Text Sizing -->
+                    <h1 class="font-display font-extrabold text-5xl sm:text-7xl lg:text-8xl leading-none uppercase mb-6 sm:mb-8 break-words w-full">
+                        We Build <span class="text-neo-red underline decoration-4 decoration-black underline-offset-4 md:underline-offset-8">Loud</span> Brands
+                    </h1>
+                    <p class="text-lg sm:text-2xl font-medium mb-6 sm:mb-8 max-w-xl border-l-4 border-black pl-4 sm:pl-6">
+                        No fluff. No corporate jargon. Just raw creativity and digital chaos designed to convert.
+                    </p>
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="bg-white border-hard px-3 py-1 text-xs font-bold uppercase shadow-neo">Brand Systems</span>
+                        <span class="bg-white border-hard px-3 py-1 text-xs font-bold uppercase shadow-neo">Web Experiences</span>
+                        <span class="bg-white border-hard px-3 py-1 text-xs font-bold uppercase shadow-neo">Launch Campaigns</span>
+                    </div>
+                    <div class="flex flex-col w-full sm:w-auto sm:flex-row gap-4">
+                        <a href="mailto:hello@raw.kr" class="btn-neo w-full sm:w-auto bg-neo-red text-white border-hard px-8 py-4 text-lg sm:text-xl font-bold uppercase shadow-neo flex items-center justify-center gap-2">
+                            Start Project <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                        </a>
+                        <a href="#work" class="btn-neo w-full sm:w-auto bg-white text-black border-hard px-8 py-4 text-lg sm:text-xl font-bold uppercase shadow-neo hover:bg-neo-yellow">
+                            View Portfolio
+                        </a>
+                    </div>
+                    <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4 w-full max-w-xl">
+                        <div class="bg-white border-hard p-4 shadow-neo text-center">
+                            <div class="font-display text-2xl sm:text-3xl">25+</div>
+                            <div class="text-xs font-bold uppercase">Launches</div>
+                        </div>
+                        <div class="bg-white border-hard p-4 shadow-neo text-center">
+                            <div class="font-display text-2xl sm:text-3xl">12</div>
+                            <div class="text-xs font-bold uppercase">Industries</div>
+                        </div>
+                        <div class="bg-white border-hard p-4 shadow-neo text-center">
+                            <div class="font-display text-2xl sm:text-3xl">96%</div>
+                            <div class="text-xs font-bold uppercase">Repeat Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="lg:col-span-5 relative mt-8 lg:mt-0" data-aos="fade-left" data-aos-delay="200">
+                    <div class="relative bg-white border-hard p-3 sm:p-4 shadow-neo-lg transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <div class="bg-neo-black w-full h-64 sm:h-80 md:h-96 flex items-center justify-center overflow-hidden border-hard">
+                             <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Abstract Art" class="w-full h-full object-cover opacity-80 hover:scale-110 transition-transform duration-700 grayscale hover:grayscale-0">
+                        </div>
+                        <div class="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 bg-neo-yellow border-hard w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center animate-bounce z-20">
+                            <i data-lucide="zap" class="w-8 h-8 sm:w-10 sm:h-10 text-black fill-current"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Trust Section -->
+    <section class="py-10 sm:py-12 bg-white border-b-3 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                <div data-aos="fade-right">
+                    <h2 class="font-display font-black text-3xl sm:text-4xl uppercase">Trusted by Teams with Taste</h2>
+                    <p class="mt-3 max-w-xl text-base sm:text-lg font-medium">
+                        Partnering with founders, product teams, and cultural brands across Seoul and beyond.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3" data-aos="fade-left">
+                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Nimbus</div>
+                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Orbit</div>
+                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Volt Lab</div>
+                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Prism</div>
+                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Kinetic</div>
+                </div>
+            </div>
+            <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="150">
+                <div class="bg-neo-bg border-hard p-4 shadow-neo text-center">
+                    <div class="font-display text-2xl sm:text-3xl">2-4</div>
+                    <div class="text-xs font-bold uppercase">Week Sprints</div>
+                </div>
+                <div class="bg-neo-bg border-hard p-4 shadow-neo text-center">
+                    <div class="font-display text-2xl sm:text-3xl">9.4</div>
+                    <div class="text-xs font-bold uppercase">Client NPS</div>
+                </div>
+                <div class="bg-neo-bg border-hard p-4 shadow-neo text-center">
+                    <div class="font-display text-2xl sm:text-3xl">3</div>
+                    <div class="text-xs font-bold uppercase">Time Zones</div>
+                </div>
+                <div class="bg-neo-bg border-hard p-4 shadow-neo text-center">
+                    <div class="font-display text-2xl sm:text-3xl">24/7</div>
+                    <div class="text-xs font-bold uppercase">Slack Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Witnessed / Plates — image marquee with chunky brutalist frames -->
+    <section class="bg-neo-bg border-b-3 border-black py-12 sm:py-16 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div data-aos="fade-right">
+                    <span class="inline-block bg-neo-black text-white border-hard px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest mb-3">// Field Notes</span>
+                    <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl uppercase">Witnessed</h2>
+                </div>
+                <p class="max-w-md text-base sm:text-lg font-medium border-l-4 border-black pl-4" data-aos="fade-left">
+                    Plates from launches in Seoul, Berlin, and Lisbon. Clipped, captioned, never cropped.
+                </p>
+            </div>
+        </div>
+
+        <!-- Marquee track — py-3 wrapper for chunky-shadow clearance (K.10) -->
+        <div class="overflow-hidden py-3">
+            <div class="plate-track animate-plate-marquee">
+                <!-- Tile 01 -->
+                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform -rotate-2">
+                    <div class="aspect-[4/5] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop" alt="Plate 01 — Seoul backstreet" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_01 ]</span>
+                        <span class="text-neo-red">SEL · 02:14</span>
+                    </figcaption>
+                </figure>
+                <!-- Tile 02 (landscape, no rotate) -->
+                <figure class="shrink-0 w-96 bg-neo-yellow border-hard p-2 shadow-neo">
+                    <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="Plate 02 — Circuit close-up" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_02 ]</span>
+                        <span>BER · 14:08</span>
+                    </figcaption>
+                </figure>
+                <!-- Tile 03 -->
+                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform rotate-2">
+                    <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop" alt="Plate 03 — Studio portrait" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_03 ]</span>
+                        <span class="text-neo-red">LIS · 09:42</span>
+                    </figcaption>
+                </figure>
+                <!-- Tile 04 -->
+                <figure class="shrink-0 w-96 bg-neo-red border-hard p-2 shadow-neo transform -rotate-1">
+                    <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1000&auto=format&fit=crop" alt="Plate 04 — Brutalist facade" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase text-white">
+                        <span>[ PLATE_04 ]</span>
+                        <span>SEL · 17:01</span>
+                    </figcaption>
+                </figure>
+                <!-- Tile 05 -->
+                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo">
+                    <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" alt="Plate 05 — Editorial portrait" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_05 ]</span>
+                        <span>NYC · 22:30</span>
+                    </figcaption>
+                </figure>
+                <!-- Tile 06 -->
+                <figure class="shrink-0 w-96 bg-neo-bg border-hard p-2 shadow-neo transform rotate-1">
+                    <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1000&auto=format&fit=crop" alt="Plate 06 — Concrete corridor" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_06 ]</span>
+                        <span class="text-neo-red">TYO · 06:18</span>
+                    </figcaption>
+                </figure>
+
+                <!-- Duplicate tiles for seamless loop (aria-hidden) -->
+                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform -rotate-2">
+                    <div class="aspect-[4/5] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_01 ]</span>
+                        <span class="text-neo-red">SEL · 02:14</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-yellow border-hard p-2 shadow-neo">
+                    <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_02 ]</span>
+                        <span>BER · 14:08</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform rotate-2">
+                    <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_03 ]</span>
+                        <span class="text-neo-red">LIS · 09:42</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-red border-hard p-2 shadow-neo transform -rotate-1">
+                    <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1000&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase text-white">
+                        <span>[ PLATE_04 ]</span>
+                        <span>SEL · 17:01</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo">
+                    <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_05 ]</span>
+                        <span>NYC · 22:30</span>
+                    </figcaption>
+                </figure>
+                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-bg border-hard p-2 shadow-neo transform rotate-1">
+                    <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1000&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                        <span>[ PLATE_06 ]</span>
+                        <span class="text-neo-red">TYO · 06:18</span>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Section -->
+    <div class="border-y-3 border-black bg-neo-yellow py-4 sm:py-6 overflow-hidden relative">
+        <div class="whitespace-nowrap animate-marquee flex gap-8">
+            <span class="text-3xl sm:text-4xl font-display font-black uppercase mx-4">Strategy - Design - Development - Chaos - Strategy - Design - Development - Chaos -</span>
+            <span class="text-3xl sm:text-4xl font-display font-black uppercase mx-4">Strategy - Design - Development - Chaos - Strategy - Design - Development - Chaos -</span>
+        </div>
+    </div>
+
+    <!-- Services / Features Section -->
+    <section id="services" class="py-16 sm:py-24 bg-white border-b-3 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 sm:mb-16 gap-6">
+                <div>
+                    <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase" data-aos="fade-up">Our <span class="bg-neo-bg px-2">Arsenal</span></h2>
+                    <p class="mt-3 max-w-2xl text-lg sm:text-xl font-medium" data-aos="fade-up" data-aos-delay="100">
+                        Full-stack creative for founders who want a brand that feels impossible to ignore.
+                    </p>
+                </div>
+                <div class="hidden md:block">
+                    <i data-lucide="crosshair" class="w-16 h-16 animate-spin-slow"></i>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group bg-neo-bg border-hard p-6 sm:p-8 shadow-neo hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all duration-200" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-white border-hard w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mb-6 group-hover:bg-neo-red transition-colors">
+                        <i data-lucide="pen-tool" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl uppercase mb-4">Brutal Branding</h3>
+                    <p class="font-medium text-base sm:text-lg leading-relaxed">
+                        Visual identities that punch you in the face. Logos, typography, and guidelines that refuse to be ignored.
+                    </p>
+                    <ul class="mt-4 text-xs sm:text-sm font-bold uppercase tracking-wide space-y-1">
+                        <li>Identity Systems</li>
+                        <li>Art Direction</li>
+                        <li>Guidelines</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group bg-neo-red border-hard p-6 sm:p-8 shadow-neo hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all duration-200" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white border-hard w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mb-6 group-hover:bg-neo-yellow transition-colors">
+                        <i data-lucide="monitor" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl uppercase mb-4 text-white">Web Experience</h3>
+                    <p class="font-medium text-base sm:text-lg leading-relaxed text-white">
+                        Frontend development that breaks rules. Interactive, fast, and aggressively responsive websites.
+                    </p>
+                    <ul class="mt-4 text-xs sm:text-sm font-bold uppercase tracking-wide space-y-1 text-white">
+                        <li>UX Strategy</li>
+                        <li>Frontend Build</li>
+                        <li>Performance</li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group bg-neo-yellow border-hard p-6 sm:p-8 shadow-neo hover:shadow-none hover:translate-x-[6px] hover:translate-y-[6px] transition-all duration-200" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white border-hard w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mb-6 group-hover:bg-neo-bg transition-colors">
+                        <i data-lucide="megaphone" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl sm:text-2xl uppercase mb-4">Loud Marketing</h3>
+                    <p class="font-medium text-base sm:text-lg leading-relaxed">
+                        Campaigns designed to disrupt feeds. Social strategy, content creation, and digital guerrilla warfare.
+                    </p>
+                    <ul class="mt-4 text-xs sm:text-sm font-bold uppercase tracking-wide space-y-1">
+                        <li>Campaign Strategy</li>
+                        <li>Content Production</li>
+                        <li>Growth Experiments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-16 sm:py-24 bg-neo-yellow border-b-3 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-12 sm:mb-16">
+                <div>
+                    <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase" data-aos="fade-up">Process</h2>
+                    <p class="mt-3 max-w-2xl text-lg sm:text-xl font-medium" data-aos="fade-up" data-aos-delay="100">
+                        Fast, loud, focused. We ship in sprints so your brand hits the market before the noise catches up.
+                    </p>
+                </div>
+                <div class="bg-white border-hard px-4 py-2 shadow-neo font-bold uppercase text-xs sm:text-sm" data-aos="fade-left">
+                    Typical timeline: 6-10 weeks
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white border-hard p-6 shadow-neo" data-aos="fade-up">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-display text-3xl">01</span>
+                        <span class="bg-neo-bg border-hard px-2 py-1 text-xs font-bold uppercase">Week 1</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase mb-3">Discovery</h3>
+                    <p class="font-medium text-sm sm:text-base">
+                        Audit, goals, positioning, and the raw story that makes you unforgettable.
+                    </p>
+                </div>
+
+                <div class="bg-white border-hard p-6 shadow-neo" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-display text-3xl">02</span>
+                        <span class="bg-neo-bg border-hard px-2 py-1 text-xs font-bold uppercase">Week 2</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase mb-3">Direction</h3>
+                    <p class="font-medium text-sm sm:text-base">
+                        Moodboards, art direction, and the visual system that sets the tone.
+                    </p>
+                </div>
+
+                <div class="bg-white border-hard p-6 shadow-neo" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-display text-3xl">03</span>
+                        <span class="bg-neo-bg border-hard px-2 py-1 text-xs font-bold uppercase">Weeks 3-6</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase mb-3">Design + Build</h3>
+                    <p class="font-medium text-sm sm:text-base">
+                        Interfaces, motion, and code. We iterate in public and ship clean.
+                    </p>
+                </div>
+
+                <div class="bg-white border-hard p-6 shadow-neo" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-display text-3xl">04</span>
+                        <span class="bg-neo-bg border-hard px-2 py-1 text-xs font-bold uppercase">Weeks 7-10</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl uppercase mb-3">Launch</h3>
+                    <p class="font-medium text-sm sm:text-base">
+                        QA, analytics, and rollout. Then we fine-tune for momentum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 sm:py-24 bg-white border-b-3 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                <div class="lg:col-span-7" data-aos="fade-right">
+                    <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase mb-6">Agency, Not a Factory</h2>
+                    <p class="text-lg sm:text-xl font-medium max-w-xl">
+                        RAW.kr is a senior, hands-on studio focused on bold identities and fast-moving digital experiences.
+                        We do fewer projects so every launch hits harder.
+                    </p>
+                    <ul class="mt-6 space-y-3 text-base sm:text-lg font-medium">
+                        <li class="flex items-start gap-3">
+                            <span class="w-3 h-3 bg-neo-red border-hard mt-2"></span>
+                            Senior-only team. No junior handoffs.
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-3 h-3 bg-neo-yellow border-hard mt-2"></span>
+                            Direct collaboration with founders and product leads.
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-3 h-3 bg-neo-bg border-hard mt-2"></span>
+                            Clear scope, clear timeline, no surprises.
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4" data-aos="fade-left">
+                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                        <h3 class="font-display font-bold text-xl uppercase mb-2">Studio</h3>
+                        <p class="font-medium">Seoul + Remote</p>
+                    </div>
+                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                        <h3 class="font-display font-bold text-xl uppercase mb-2">Team</h3>
+                        <p class="font-medium">Strategy, Design, Dev</p>
+                    </div>
+                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                        <h3 class="font-display font-bold text-xl uppercase mb-2">Focus</h3>
+                        <p class="font-medium">Product, Culture, Tech</p>
+                    </div>
+                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                        <h3 class="font-display font-bold text-xl uppercase mb-2">Availability</h3>
+                        <p class="font-medium">Q3 - 2 slots</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section id="work" class="py-16 sm:py-24 bg-neo-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-display font-black text-4xl sm:text-6xl uppercase mb-4 text-center" data-aos="fade-up">Selected <span class="underline decoration-wavy decoration-neo-red decoration-4">Chaos</span></h2>
+            <p class="text-lg sm:text-xl font-medium text-center max-w-2xl mx-auto mb-12 sm:mb-16" data-aos="fade-up" data-aos-delay="100">
+                Case studies where bold design met measurable results.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
+                <!-- Project 1 -->
+                <div class="relative group" data-aos="zoom-in-up">
+                    <div class="border-hard bg-white p-2 shadow-neo group-hover:shadow-neo-lg transition-all duration-300">
+                        <div class="aspect-video bg-gray-200 border-hard overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" alt="CoinCrush fintech dashboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-neo-yellow border-hard px-3 py-1 font-bold uppercase text-xs">Fintech</div>
+                        </div>
+                        <div class="p-4 sm:p-6 flex justify-between items-end">
+                            <div>
+                                <h3 class="font-display font-bold text-2xl sm:text-3xl uppercase mb-2">CoinCrush</h3>
+                                <p class="font-mono text-xs sm:text-sm">UI/UX - Branding</p>
+                                <div class="mt-2 flex flex-wrap gap-2 text-xs font-bold uppercase">
+                                    <span class="bg-neo-bg border-hard px-2 py-1">+42% Conv</span>
+                                    <span class="bg-neo-bg border-hard px-2 py-1">6 Week MVP</span>
+                                </div>
+                            </div>
+                            <button class="w-10 h-10 sm:w-12 sm:h-12 bg-neo-black text-white flex items-center justify-center border-hard group-hover:bg-neo-red transition-colors">
+                                <i data-lucide="arrow-up-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Neon Street (Updated Image) -->
+                <div class="relative group" data-aos="zoom-in-up" data-aos-delay="100">
+                    <div class="border-hard bg-white p-2 shadow-neo group-hover:shadow-neo-lg transition-all duration-300">
+                        <div class="aspect-video bg-gray-200 border-hard overflow-hidden relative">
+                            <!-- New Image: Cyberpunk/Neon Portrait -->
+                            <img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=1000&auto=format&fit=crop" alt="Neon Street fashion campaign" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-neo-red text-white border-hard px-3 py-1 font-bold uppercase text-xs">Fashion</div>
+                        </div>
+                        <div class="p-4 sm:p-6 flex justify-between items-end">
+                            <div>
+                                <h3 class="font-display font-bold text-2xl sm:text-3xl uppercase mb-2">Neon Street</h3>
+                                <p class="font-mono text-xs sm:text-sm">eCommerce - Social</p>
+                                <div class="mt-2 flex flex-wrap gap-2 text-xs font-bold uppercase">
+                                    <span class="bg-neo-bg border-hard px-2 py-1">3.1x ROAS</span>
+                                    <span class="bg-neo-bg border-hard px-2 py-1">DTC Launch</span>
+                                </div>
+                            </div>
+                            <button class="w-10 h-10 sm:w-12 sm:h-12 bg-neo-black text-white flex items-center justify-center border-hard group-hover:bg-neo-red transition-colors">
+                                <i data-lucide="arrow-up-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="relative group" data-aos="zoom-in-up">
+                    <div class="border-hard bg-white p-2 shadow-neo group-hover:shadow-neo-lg transition-all duration-300">
+                        <div class="aspect-video bg-gray-200 border-hard overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop" alt="Pixel Wars game environment" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-neo-bg border-hard px-3 py-1 font-bold uppercase text-xs">Gaming</div>
+                        </div>
+                        <div class="p-4 sm:p-6 flex justify-between items-end">
+                            <div>
+                                <h3 class="font-display font-bold text-2xl sm:text-3xl uppercase mb-2">Pixel Wars</h3>
+                                <p class="font-mono text-xs sm:text-sm">Web Dev - 3D Assets</p>
+                                <div class="mt-2 flex flex-wrap gap-2 text-xs font-bold uppercase">
+                                    <span class="bg-neo-bg border-hard px-2 py-1">8k MAU</span>
+                                    <span class="bg-neo-bg border-hard px-2 py-1">Game Launch</span>
+                                </div>
+                            </div>
+                            <button class="w-10 h-10 sm:w-12 sm:h-12 bg-neo-black text-white flex items-center justify-center border-hard group-hover:bg-neo-red transition-colors">
+                                <i data-lucide="arrow-up-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="relative group" data-aos="zoom-in-up" data-aos-delay="100">
+                    <div class="border-hard bg-white p-2 shadow-neo group-hover:shadow-neo-lg transition-all duration-300">
+                        <div class="aspect-video bg-gray-200 border-hard overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop" alt="Sonic Fest live event" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-4 right-4 bg-neo-yellow border-hard px-3 py-1 font-bold uppercase text-xs">Event</div>
+                        </div>
+                        <div class="p-4 sm:p-6 flex justify-between items-end">
+                            <div>
+                                <h3 class="font-display font-bold text-2xl sm:text-3xl uppercase mb-2">Sonic Fest</h3>
+                                <p class="font-mono text-xs sm:text-sm">Identity - Print</p>
+                                <div class="mt-2 flex flex-wrap gap-2 text-xs font-bold uppercase">
+                                    <span class="bg-neo-bg border-hard px-2 py-1">Sold Out</span>
+                                    <span class="bg-neo-bg border-hard px-2 py-1">20k Attendees</span>
+                                </div>
+                            </div>
+                            <button class="w-10 h-10 sm:w-12 sm:h-12 bg-neo-black text-white flex items-center justify-center border-hard group-hover:bg-neo-red transition-colors">
+                                <i data-lucide="arrow-up-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-white border-hard p-6 shadow-neo text-center" data-aos="fade-up">
+                    <div class="font-display text-3xl sm:text-4xl">+48%</div>
+                    <p class="font-bold uppercase text-xs sm:text-sm mt-2">Avg Conversion Lift</p>
+                </div>
+                <div class="bg-white border-hard p-6 shadow-neo text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="font-display text-3xl sm:text-4xl">1.8x</div>
+                    <p class="font-bold uppercase text-xs sm:text-sm mt-2">Engagement Growth</p>
+                </div>
+                <div class="bg-white border-hard p-6 shadow-neo text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="font-display text-3xl sm:text-4xl">5 Days</div>
+                    <p class="font-bold uppercase text-xs sm:text-sm mt-2">Fastest Launch</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 sm:mt-16 text-center">
+                 <button class="btn-neo w-full sm:w-auto bg-transparent border-hard px-10 py-4 text-xl font-bold uppercase hover:bg-black hover:text-white transition-colors">
+                    View Archive
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 sm:py-24 bg-white border-t-3 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 sm:mb-16">
+                <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase" data-aos="fade-up">Client Proof</h2>
+                <p class="text-lg sm:text-xl font-medium max-w-xl" data-aos="fade-up" data-aos-delay="100">
+                    Real teams. Real wins. No fluff testimonials.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <figure class="bg-neo-bg border-hard p-6 shadow-neo" data-aos="fade-up">
+                    <blockquote class="text-lg font-medium">
+                        "RAW.kr turned our messy story into a brand people actually remember. Fast, fearless, and sharp."
+                    </blockquote>
+                    <figcaption class="mt-4 text-xs sm:text-sm uppercase font-bold">
+                        Jina Park - CMO, Nimbus
+                    </figcaption>
+                </figure>
+                <figure class="bg-neo-bg border-hard p-6 shadow-neo" data-aos="fade-up" data-aos-delay="100">
+                    <blockquote class="text-lg font-medium">
+                        "We shipped in six weeks and saw the cleanest conversion lift in our history."
+                    </blockquote>
+                    <figcaption class="mt-4 text-xs sm:text-sm uppercase font-bold">
+                        Mateo Ruiz - Founder, Volt Lab
+                    </figcaption>
+                </figure>
+                <figure class="bg-neo-bg border-hard p-6 shadow-neo" data-aos="fade-up" data-aos-delay="200">
+                    <blockquote class="text-lg font-medium">
+                        "They kept us bold but precise. The site feels premium without losing the edge."
+                    </blockquote>
+                    <figcaption class="mt-4 text-xs sm:text-sm uppercase font-bold">
+                        Aria Chen - Product Lead, Prism
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ — brutalist details accordion -->
+    <section id="faq" class="py-16 sm:py-24 bg-neo-bg border-t-3 border-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+
+                <!-- Left rail — image plate + eyebrow + heading -->
+                <div class="lg:col-span-5" data-aos="fade-right">
+                    <span class="inline-block bg-neo-red text-white border-hard px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest mb-4">// Read Me First</span>
+                    <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase mb-6 leading-none">Loud Questions.<br><span class="bg-neo-yellow border-hard px-2 inline-block transform -rotate-1 mt-2">Plain Answers.</span></h2>
+                    <p class="text-lg font-medium mb-8 max-w-md">
+                        Everything we get asked twice. Pricing, timelines, scope, the boring legal bit.
+                    </p>
+                    <div class="relative bg-white border-hard p-2 shadow-neo-lg transform rotate-1 max-w-sm">
+                        <div class="aspect-[4/5] bg-neo-black border-hard overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" alt="Studio at work" class="w-full h-full object-cover grayscale contrast-110">
+                        </div>
+                        <div class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                            <span>[ STUDIO_LOG ]</span>
+                            <span class="text-neo-red">REC · 03:11</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right rail — accordion -->
+                <div class="lg:col-span-7 bg-white border-hard shadow-neo-lg" data-aos="fade-left">
+                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group" open>
+                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">How fast can you actually ship?</h3>
+                            <span class="neo-chevron shrink-0 bg-neo-yellow border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                            Most launches land in 6-10 weeks. Tight scope can hit 5 days. We refuse projects we cannot ship without losing the edge — fast is a constraint, not a feature.
+                        </p>
+                    </details>
+
+                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
+                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Do you take retainers?</h3>
+                            <span class="neo-chevron shrink-0 bg-neo-red text-white border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                            Yes — capped at three at a time so we stay senior on every account. Retainers are billed monthly and scoped to a clear roadmap. No babysitting.
+                        </p>
+                    </details>
+
+                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
+                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Will you work with our internal team?</h3>
+                            <span class="neo-chevron shrink-0 bg-neo-bg border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                            Always. We embed in your Slack, run weekly demos, and document everything we ship in a handover doc your team owns. No black boxes.
+                        </p>
+                    </details>
+
+                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
+                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">What is your minimum project?</h3>
+                            <span class="neo-chevron shrink-0 bg-neo-yellow border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                            Identity sprints from $14k. Web builds from $32k. Launch campaigns scoped per channel. We send a fixed quote within 48h of the brief.
+                        </p>
+                    </details>
+
+                    <details class="neo-faq p-5 sm:p-6 group">
+                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Where are you based?</h3>
+                            <span class="neo-chevron shrink-0 bg-neo-black text-white border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                            HQ in Seoul. The studio runs across three time zones — Asia, Europe, and the Americas — so handoffs cross calendars cleanly. We ship 24/7 without all-nighters.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Footer -->
+    <footer class="bg-neo-black text-white border-t-3 border-black pt-16 sm:pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 sm:mb-20">
+                <div class="text-center md:text-left">
+                    <h2 class="font-display font-black text-5xl sm:text-6xl md:text-8xl uppercase leading-none mb-6">
+                        Ready to<br>
+                        <span class="text-neo-yellow stroke-black">Get Raw?</span>
+                    </h2>
+                    <p class="text-lg sm:text-xl text-gray-400 mb-8 max-w-md mx-auto md:mx-0">
+                        Drop us a line. We promise we won't use the word "synergy".
+                    </p>
+                    <a href="mailto:hello@raw.kr" class="btn-neo inline-block bg-neo-red text-white border-white border-3 px-8 py-4 text-lg sm:text-xl font-bold uppercase shadow-[6px_6px_0px_0px_#FFFFFF] hover:shadow-none hover:bg-neo-yellow hover:text-black">
+                        hello@raw.kr
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="#" class="border-2 border-white p-4 sm:p-6 hover:bg-white hover:text-black transition-colors flex flex-col items-center justify-center gap-2">
+                        <i data-lucide="instagram" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                        <span class="font-bold uppercase text-sm sm:text-base">Instagram</span>
+                    </a>
+                    <a href="#" class="border-2 border-white p-4 sm:p-6 hover:bg-white hover:text-black transition-colors flex flex-col items-center justify-center gap-2">
+                        <i data-lucide="twitter" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                        <span class="font-bold uppercase text-sm sm:text-base">Twitter</span>
+                    </a>
+                    <a href="#" class="border-2 border-white p-4 sm:p-6 hover:bg-white hover:text-black transition-colors flex flex-col items-center justify-center gap-2">
+                        <i data-lucide="linkedin" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                        <span class="font-bold uppercase text-sm sm:text-base">LinkedIn</span>
+                    </a>
+                    <a href="#" class="border-2 border-white p-4 sm:p-6 hover:bg-white hover:text-black transition-colors flex flex-col items-center justify-center gap-2">
+                        <i data-lucide="dribbble" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                        <span class="font-bold uppercase text-sm sm:text-base">Dribbble</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4">
+                <div class="font-display font-bold text-2xl uppercase">RAW.kr</div>
+                <div class="text-gray-500 font-mono text-xs sm:text-sm">
+                    (c) 2026 RAW Creative Agency. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Initialize Animations
+        AOS.init({
+            duration: 800,
+            offset: 50,
+            once: true,
+            easing: 'ease-out-cubic'
+        });
+
+        // Mobile Menu Toggle logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            // Animate Icon change if desired, or simpler logic:
+        });
+
+        // Close menu when a link is clicked
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

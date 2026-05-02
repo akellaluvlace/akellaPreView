@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Wellbrook Clinic offers modern, comprehensive healthcare with same-day appointments in a calm, welcoming environment in the heart of Dublin." />
+    <title>Wellbrook Clinic | Modern Care, Same-Day Appointments</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "sage": "#EFF4EE",
+                        "pine": "#2D4A3D",
+                        "offwhite": "#F9F6F0",
+                        "terracotta": "#C97A5A",
+                        "surface": "#f6fbf5",
+                        "on-surface": "#171d19",
+                        "on-surface-variant": "#424844",
+                        "primary-container": "#2d4a3d",
+                        "on-primary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline-sm": ["Manrope", "sans-serif"],
+                        "display-md": ["Manrope", "sans-serif"],
+                        "display-lg": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Manrope", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-sm": ["clamp(1.125rem, 1vw + 1rem, 1.25rem)", { lineHeight: "1.4", fontWeight: "600" }],
+                        "display-md": ["clamp(1.75rem, 3vw + 1rem, 2.25rem)", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "display-lg": ["clamp(2.25rem, 4vw + 1rem, 3.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg": ["clamp(1.25rem, 2vw + 1rem, 1.5rem)", { lineHeight: "1.4", fontWeight: "600" }],
+                        "body-sm": ["0.875rem", { lineHeight: "1.5", fontWeight: "400" }],
+                        "label-caps": ["0.75rem", { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "700", textTransform: "uppercase" }],
+                        "body-lg": ["clamp(1rem, 1vw + 0.875rem, 1.125rem)", { lineHeight: "1.6", fontWeight: "400" }],
+                        "body-md": ["1rem", { lineHeight: "1.6", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body { overflow-x: clip; }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .shadow-soft {
+            box-shadow: 0px 4px 20px rgba(45, 74, 61, 0.05);
+        }
+        .shadow-soft-hover:hover {
+            box-shadow: 0px 12px 30px rgba(45, 74, 61, 0.08);
+        }
+        ::selection {
+            background-color: rgba(201, 122, 90, 0.2);
+            color: #2D4A3D;
+        }
+        /* Inside-the-Clinic auto-cycling image */
+        @keyframes clinic-fade {
+            0%, 4%   { opacity: 0; filter: blur(16px) saturate(0.85); transform: scale(1.04); }
+            8%, 22%  { opacity: 1; filter: blur(0)    saturate(1);    transform: scale(1); }
+            26%, 100%{ opacity: 0; filter: blur(16px) saturate(0.85); transform: scale(1.04); }
+        }
+        .clinic-cycle-img {
+            animation: clinic-fade 16s linear infinite;
+            opacity: 0;
+            filter: blur(16px) saturate(0.85);
+            transform: scale(1.04);
+            will-change: opacity, filter, transform;
+        }
+        @keyframes clinic-indicator {
+            0%, 4%   { opacity: 0.25; }
+            8%, 22%  { opacity: 1; }
+            26%, 100%{ opacity: 0.25; }
+        }
+        .clinic-indicator { animation: clinic-indicator 16s linear infinite; }
+        @keyframes clinic-scrub {
+            0%   { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+        .clinic-scrub-bar { animation: clinic-scrub 16s linear infinite; transform-origin: left; }
+
+        /* Patient-journey "current" pulse */
+        @keyframes wb-pulse {
+            0%, 100% { opacity: 0.7; box-shadow: 0 0 0 0 rgba(201, 122, 90, 0.4); }
+            50%      { opacity: 1;   box-shadow: 0 0 0 10px rgba(201, 122, 90, 0); }
+        }
+        .wb-pulse { animation: wb-pulse 2.6s ease-in-out infinite; }
+
+        /* FAQ chevron rotation */
+        .wb-faq summary::-webkit-details-marker { display: none; }
+        .wb-faq summary { list-style: none; cursor: pointer; }
+        .wb-faq summary .wb-chevron { transition: transform 250ms ease; }
+        .wb-faq[open] summary .wb-chevron { transform: rotate(180deg); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .clinic-cycle-img,
+            .clinic-indicator,
+            .clinic-scrub-bar,
+            .wb-pulse {
+                animation: none !important;
+            }
+            .clinic-cycle-img:first-of-type {
+                opacity: 1;
+                filter: none;
+                transform: none;
+            }
+            .wb-faq summary .wb-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen">
+
+    <!-- TopNavBar -->
+    <header class="bg-sage/95 backdrop-blur-sm sticky top-0 z-50 border-b border-pine/10 transition-colors duration-300">
+        <div class="flex justify-between items-center w-full px-6 py-4 max-w-[1200px] mx-auto">
+            <a href="/" class="text-xl md:text-2xl font-bold text-pine tracking-tighter hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-4 focus-visible:ring-offset-sage rounded-sm">
+                Wellbrook Clinic
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8" aria-label="Main Navigation">
+                <a href="#services" class="text-pine border-b-2 border-terracotta pb-1 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta rounded-sm transition-all" aria-current="page">Services</a>
+                <a href="#practitioners" class="text-pine/70 hover:text-pine font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta rounded-sm transition-colors duration-200">Practitioners</a>
+                <a href="#patient-info" class="text-pine/70 hover:text-pine font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta rounded-sm transition-colors duration-200">Patient Info</a>
+                <a href="#contact" class="text-pine/70 hover:text-pine font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta rounded-sm transition-colors duration-200">Contact</a>
+            </nav>
+            
+            <div class="flex items-center gap-6">
+                <a href="tel:+35312345678" class="text-pine font-semibold hidden lg:inline-flex hover:text-terracotta transition-colors tabular-nums focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta rounded-sm">+353 1 234 5678</a>
+                <a href="#book" class="bg-terracotta text-white px-5 py-2.5 rounded-lg font-label-caps tracking-wider hover:bg-[#b86b4d] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-sage transition-all shadow-sm">
+                    <span class="hidden sm:inline">Book Appointment</span>
+                    <span class="sm:hidden">Book</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1">
+        <!-- Hero Section -->
+        <section id="book" class="max-w-[1200px] mx-auto px-6 py-12 md:py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center scroll-margin-top-32">
+            <div class="flex flex-col gap-8 md:gap-10">
+                <div class="max-w-prose">
+                    <h1 class="font-display-lg text-pine mb-6 text-balance">Modern care, same-day appointments</h1>
+                    <p class="font-body-lg text-pine/80 text-pretty leading-relaxed">Experience clinical excellence in a calm, welcoming environment right in the heart of Dublin. Our dedicated team provides personalized, compassionate care tailored to your unique needs, ensuring your health is always our priority.</p>
+                </div>
+                
+                <div class="bg-offwhite p-6 md:p-8 rounded-xl shadow-soft border border-pine/5">
+                    <h2 class="font-headline-sm text-pine mb-6 text-balance">Request a Visit</h2>
+                    <form class="flex flex-col gap-5" action="#" method="POST">
+                        <div class="flex flex-col gap-2">
+                            <label for="appointment-date" class="font-label-caps text-pine/70">Select Date</label>
+                            <input id="appointment-date" name="appointment-date" class="w-full border border-pine/20 rounded-lg p-3 bg-transparent text-pine placeholder:text-pine/40 transition-colors hover:border-pine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:border-transparent tabular-nums cursor-pointer" type="date" required aria-required="true" />
+                        </div>
+                        <button type="submit" class="bg-terracotta text-white py-3.5 px-6 rounded-lg font-label-caps tracking-wider mt-2 hover:bg-[#b86b4d] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-offwhite transition-all w-full flex items-center justify-center gap-2 group shadow-sm">
+                            Submit Request
+                            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="rounded-2xl overflow-hidden aspect-[4/5] lg:aspect-square shadow-soft w-full bg-pine/5">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZnH_x-o_hSMI_Y-esqv6g1uXsBwC8T_tuYSqaOTIAbJzHiTCw_cAq5LZ6--8EmB2a8Qj1SISQSnuYd9k49-mSRHO0EhXf0AP8U5mDqi7jLcodghjpKyKVTIlthPykjKgLAMlLDZFv3X_n9j0fWi24t0dBUh2By_Gps89Xg-fMHV6qcNLpt-ioD6bfVUyR8tuK9phvggMOdn6yEf5uBrHPN0ytgO6YFAWSLQc3G9Z_tpYIscfwkAY0aclXNsRAWLvH5e2KhB4FG28" 
+                     alt="Warm, inviting medical clinic waiting area with soft sage walls, comfortable light wood chairs, and natural sunlight" 
+                     class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]" 
+                     width="600" 
+                     height="600" 
+                     fetchpriority="high" 
+                     decoding="async" />
+            </div>
+        </section>
+
+        <!-- Practitioners Section — 4-column portrait grid -->
+        <section id="practitioners" class="max-w-[1200px] mx-auto px-6 py-16 md:py-24 scroll-margin-top-20">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
+                <div class="max-w-2xl">
+                    <span class="font-label-caps text-terracotta block mb-3">Our Team</span>
+                    <h2 class="font-display-md text-pine text-balance">Doctors who listen first</h2>
+                </div>
+                <p class="font-body-md text-pine/70 max-w-md text-pretty leading-relaxed">A small, tight-knit clinical team — every practitioner is a partner in your long-term care, not a referral.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+
+                <article class="group flex flex-col gap-4">
+                    <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-pine/5 shadow-soft shadow-soft-hover transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=85&auto=format&fit=crop" alt="Dr. Aoife Fitzgerald, lead general practitioner, in clinical attire" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0" width="600" height="750" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="font-label-caps text-terracotta">General Practice</span>
+                        <h3 class="font-headline-sm text-pine">Dr. Aoife Fitzgerald</h3>
+                        <p class="font-body-sm text-pine/60">MB BCh BAO · MICGP · 14 yrs</p>
+                    </div>
+                </article>
+
+                <article class="group flex flex-col gap-4">
+                    <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-pine/5 shadow-soft shadow-soft-hover transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=85&auto=format&fit=crop" alt="Dr. Marcus Chen, women's health specialist, smiling warmly in office setting" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0" width="600" height="750" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="font-label-caps text-terracotta">Women's Health</span>
+                        <h3 class="font-headline-sm text-pine">Dr. Marcus Chen</h3>
+                        <p class="font-body-sm text-pine/60">MRCOG · DFSRH · 11 yrs</p>
+                    </div>
+                </article>
+
+                <article class="group flex flex-col gap-4">
+                    <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-pine/5 shadow-soft shadow-soft-hover transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&q=85&auto=format&fit=crop" alt="Dr. Niamh O'Brien, paediatrician, with stethoscope around neck in bright examination room" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0" width="600" height="750" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="font-label-caps text-terracotta">Paediatrics</span>
+                        <h3 class="font-headline-sm text-pine">Dr. Niamh O'Brien</h3>
+                        <p class="font-body-sm text-pine/60">MRCPI(Paeds) · IBCLC · 9 yrs</p>
+                    </div>
+                </article>
+
+                <article class="group flex flex-col gap-4">
+                    <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-pine/5 shadow-soft shadow-soft-hover transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&q=85&auto=format&fit=crop" alt="Dr. Jonathan Walsh, mental health specialist, in a softly-lit consultation room" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03] grayscale-[20%] group-hover:grayscale-0" width="600" height="750" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="font-label-caps text-terracotta">Mental Health</span>
+                        <h3 class="font-headline-sm text-pine">Dr. Jonathan Walsh</h3>
+                        <p class="font-body-sm text-pine/60">MRCPsych · CBT · 16 yrs</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="bg-sage py-16 md:py-24 scroll-margin-top-20">
+            <div class="max-w-[1200px] mx-auto px-6">
+                <h2 class="font-display-md text-pine mb-10 md:mb-14 text-center text-balance">Comprehensive Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    
+                    <article class="bg-offwhite p-6 md:p-8 rounded-xl shadow-soft shadow-soft-hover border border-pine/5 transition-all duration-300 group flex flex-col gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-pine/5 flex items-center justify-center text-terracotta group-hover:scale-110 group-hover:bg-terracotta/10 transition-all duration-300">
+                            <span class="material-symbols-outlined text-[28px]" aria-hidden="true">stethoscope</span>
+                        </div>
+                        <h3 class="font-headline-sm text-pine text-balance mt-2">General Consultations</h3>
+                        <p class="font-body-md text-pine/70 text-pretty leading-relaxed">Comprehensive health checks, routine blood work, and ongoing care for patients of all ages.</p>
+                    </article>
+
+                    <article class="bg-offwhite p-6 md:p-8 rounded-xl shadow-soft shadow-soft-hover border border-pine/5 transition-all duration-300 group flex flex-col gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-pine/5 flex items-center justify-center text-terracotta group-hover:scale-110 group-hover:bg-terracotta/10 transition-all duration-300">
+                            <span class="material-symbols-outlined text-[28px]" aria-hidden="true">pregnant_woman</span>
+                        </div>
+                        <h3 class="font-headline-sm text-pine text-balance mt-2">Women's Health</h3>
+                        <p class="font-body-md text-pine/70 text-pretty leading-relaxed">Specialized, confidential care including family planning, fertility advice, and preventative screenings.</p>
+                    </article>
+
+                    <article class="bg-offwhite p-6 md:p-8 rounded-xl shadow-soft shadow-soft-hover border border-pine/5 transition-all duration-300 group flex flex-col gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-pine/5 flex items-center justify-center text-terracotta group-hover:scale-110 group-hover:bg-terracotta/10 transition-all duration-300">
+                            <span class="material-symbols-outlined text-[28px]" aria-hidden="true">man</span>
+                        </div>
+                        <h3 class="font-headline-sm text-pine text-balance mt-2">Men's Health</h3>
+                        <p class="font-body-md text-pine/70 text-pretty leading-relaxed">Proactive preventative care, cardiovascular screening, and specialized treatments tailored for men's well-being.</p>
+                    </article>
+
+                    <article class="bg-offwhite p-6 md:p-8 rounded-xl shadow-soft shadow-soft-hover border border-pine/5 transition-all duration-300 group flex flex-col gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-pine/5 flex items-center justify-center text-terracotta group-hover:scale-110 group-hover:bg-terracotta/10 transition-all duration-300">
+                            <span class="material-symbols-outlined text-[28px]" aria-hidden="true">child_care</span>
+                        </div>
+                        <h3 class="font-headline-sm text-pine text-balance mt-2">Pediatrics</h3>
+                        <p class="font-body-md text-pine/70 text-pretty leading-relaxed">Gentle, expert care for infants, children, and teens in a reassuring and child-friendly environment.</p>
+                    </article>
+
+                    <article class="bg-offwhite p-6 md:p-8 rounded-xl shadow-soft shadow-soft-hover border border-pine/5 transition-all duration-300 group flex flex-col gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-pine/5 flex items-center justify-center text-terracotta group-hover:scale-110 group-hover:bg-terracotta/10 transition-all duration-300">
+                            <span class="material-symbols-outlined text-[28px]" aria-hidden="true">vaccines</span>
+                        </div>
+                        <h3 class="font-headline-sm text-pine text-balance mt-2">Vaccinations</h3>
+                        <p class="font-body-md text-pine/70 text-pretty leading-relaxed">Routine seasonal immunizations, childhood vaccine schedules, and comprehensive travel health preparations.</p>
+                    </article>
+
+                    <article class="bg-offwhite p-6 md:p-8 rounded-xl shadow-soft shadow-soft-hover border border-pine/5 transition-all duration-300 group flex flex-col gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-pine/5 flex items-center justify-center text-terracotta group-hover:scale-110 group-hover:bg-terracotta/10 transition-all duration-300">
+                            <span class="material-symbols-outlined text-[28px]" aria-hidden="true">psychology</span>
+                        </div>
+                        <h3 class="font-headline-sm text-pine text-balance mt-2">Mental Health</h3>
+                        <p class="font-body-md text-pine/70 text-pretty leading-relaxed">Compassionate, discreet support, counseling services, and specialist referrals for your mental wellbeing.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Inside the Clinic — sticky rail + auto-cycling image (M.2 + M.15) -->
+        <section id="inside" class="max-w-[1200px] mx-auto px-6 py-16 md:py-24 scroll-margin-top-20">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+                <div class="md:col-span-5 md:sticky md:top-32 md:self-start">
+                    <span class="font-label-caps text-terracotta block mb-3">Inside the Clinic</span>
+                    <h2 class="font-display-md text-pine mb-5 text-balance">A space designed to slow you down</h2>
+                    <p class="font-body-md text-pine/70 leading-relaxed text-pretty mb-8 max-w-md">Soft daylight, warm timber, and quiet rooms. Every space at Wellbrook is built around the patient experience — from the reading nook by reception to the natural light over each examination chair.</p>
+                    <div class="flex items-center gap-4 max-w-sm mb-8">
+                        <div class="flex-1 h-px bg-pine/20 relative overflow-hidden">
+                            <div class="absolute inset-0 origin-left bg-terracotta clinic-scrub-bar h-px"></div>
+                        </div>
+                        <span class="font-label-caps text-pine/60 tabular-nums">04 rooms · 16s loop</span>
+                    </div>
+                    <a href="#book" class="inline-flex items-center gap-2 border border-pine/20 text-pine px-5 py-3 rounded-lg font-label-caps tracking-wider hover:border-terracotta hover:text-terracotta transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta">
+                        Book a Tour
+                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="md:col-span-7">
+                    <div class="relative w-full aspect-[4/5] md:aspect-[4/3] rounded-2xl overflow-hidden shadow-soft bg-pine/5">
+                        <img class="clinic-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 0s;" src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1400&q=85&auto=format&fit=crop" alt="Sun-lit reception lounge with soft sage walls and a low timber bench" width="1400" height="1050" loading="lazy" decoding="async" />
+                        <img class="clinic-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 4s;" src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1400&q=85&auto=format&fit=crop" alt="Bright general consultation room with natural wood furnishings and indoor plants" width="1400" height="1050" loading="lazy" decoding="async" />
+                        <img class="clinic-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 8s;" src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=1400&q=85&auto=format&fit=crop" alt="Calming paediatric examination corner with warm tones and a child-friendly reading nook" width="1400" height="1050" loading="lazy" decoding="async" />
+                        <img class="clinic-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 12s;" src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1400&q=85&auto=format&fit=crop" alt="Quiet treatment room with linen curtains, soft chair and warm lighting" width="1400" height="1050" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="grid grid-cols-4 gap-3 mt-4">
+                        <div class="clinic-indicator rounded-lg overflow-hidden aspect-[4/3] bg-pine/5" style="animation-delay: 0s;"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&q=85&auto=format&fit=crop" alt="Reception lounge thumbnail" class="w-full h-full object-cover" width="320" height="240" loading="lazy" decoding="async" /></div>
+                        <div class="clinic-indicator rounded-lg overflow-hidden aspect-[4/3] bg-pine/5" style="animation-delay: 4s;"><img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=400&q=85&auto=format&fit=crop" alt="Consultation room thumbnail" class="w-full h-full object-cover" width="320" height="240" loading="lazy" decoding="async" /></div>
+                        <div class="clinic-indicator rounded-lg overflow-hidden aspect-[4/3] bg-pine/5" style="animation-delay: 8s;"><img src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&q=85&auto=format&fit=crop" alt="Paediatric corner thumbnail" class="w-full h-full object-cover" width="320" height="240" loading="lazy" decoding="async" /></div>
+                        <div class="clinic-indicator rounded-lg overflow-hidden aspect-[4/3] bg-pine/5" style="animation-delay: 12s;"><img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&q=85&auto=format&fit=crop" alt="Treatment room thumbnail" class="w-full h-full object-cover" width="320" height="240" loading="lazy" decoding="async" /></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialties — 3 alternating image+content rows (M.1.2) -->
+        <section id="specialties" class="full-bleed py-16 md:py-24" style="background-color: #ECEFE9;">
+            <div class="max-w-[1200px] mx-auto px-6">
+                <div class="text-center mb-14">
+                    <span class="font-label-caps text-terracotta block mb-3">Specialty Programs</span>
+                    <h2 class="font-display-md text-pine text-balance">Care, deepened where it matters</h2>
+                </div>
+                <div class="flex flex-col gap-16 md:gap-24">
+
+                    <article class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                        <figure class="md:col-span-7 rounded-2xl overflow-hidden aspect-[4/3] bg-pine/5 shadow-soft">
+                            <img src="https://images.unsplash.com/photo-1631563019676-dade0dbdb8fc?w=1400&q=85&auto=format&fit=crop" alt="Cardiologist studying an ECG readout on a high-resolution display" class="w-full h-full object-cover" width="1400" height="1050" loading="lazy" decoding="async" />
+                        </figure>
+                        <div class="md:col-span-5 flex flex-col gap-4">
+                            <span class="font-label-caps text-terracotta">No. 01 · Cardiology</span>
+                            <h3 class="font-headline-lg text-pine text-balance">Heart health, made approachable</h3>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty">In-clinic ECG, blood pressure ambulatory tracking, and lifestyle programmes for primary and secondary cardiovascular prevention — supported by direct referral pathways to Mater consultants.</p>
+                            <ul class="flex flex-col gap-2 mt-2 font-body-sm text-pine/70">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> 24-hour ECG &amp; ambulatory BP</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> Cholesterol &amp; risk panels</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> Cardiac rehab pathway</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                        <figure class="md:col-span-7 md:order-2 rounded-2xl overflow-hidden aspect-[4/3] bg-pine/5 shadow-soft">
+                            <img src="https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=1400&q=85&auto=format&fit=crop" alt="Dermatologist examining patient skin with a dermatoscope under cool, even light" class="w-full h-full object-cover" width="1400" height="1050" loading="lazy" decoding="async" />
+                        </figure>
+                        <div class="md:col-span-5 md:order-1 flex flex-col gap-4">
+                            <span class="font-label-caps text-terracotta">No. 02 · Dermatology</span>
+                            <h3 class="font-headline-lg text-pine text-balance">Skin assessment without the wait</h3>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty">Full-body mole mapping, dermoscopy, minor surgical excision, and treatment plans for acne, eczema, psoriasis and rosacea — most concerns reviewed within 5 working days.</p>
+                            <ul class="flex flex-col gap-2 mt-2 font-body-sm text-pine/70">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> Digital mole mapping</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> In-clinic minor procedures</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> Same-week pathology turnaround</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+                        <figure class="md:col-span-7 rounded-2xl overflow-hidden aspect-[4/3] bg-pine/5 shadow-soft">
+                            <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=1400&q=85&auto=format&fit=crop" alt="Physiotherapist guiding a patient through a recovery exercise in a sun-lit movement studio" class="w-full h-full object-cover" width="1400" height="1050" loading="lazy" decoding="async" />
+                        </figure>
+                        <div class="md:col-span-5 flex flex-col gap-4">
+                            <span class="font-label-caps text-terracotta">No. 03 · Musculoskeletal</span>
+                            <h3 class="font-headline-lg text-pine text-balance">Movement, restored steadily</h3>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty">Joint &amp; back assessments, in-clinic ultrasound-guided injections, and a partnered physiotherapy programme — designed to return you to full activity without unnecessary imaging or waiting lists.</p>
+                            <ul class="flex flex-col gap-2 mt-2 font-body-sm text-pine/70">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> Ultrasound-guided injections</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> 6-week physio programmes</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-terracotta" aria-hidden="true">check</span> Sports &amp; injury rehab</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Patient Journey — 5-step horizontal roadmap (M.6) -->
+        <section id="journey" class="max-w-[1200px] mx-auto px-6 py-16 md:py-24 scroll-margin-top-20">
+            <div class="text-center mb-14">
+                <span class="font-label-caps text-terracotta block mb-3">Your Journey</span>
+                <h2 class="font-display-md text-pine text-balance">From inquiry to follow-up, in five steps</h2>
+            </div>
+            <ol class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-6 relative">
+                <div class="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-gradient-to-r from-pine/0 via-pine/30 to-pine/0" aria-hidden="true"></div>
+
+                <li class="flex flex-col items-start gap-3 relative">
+                    <div class="w-14 h-14 rounded-full bg-pine/10 border-2 border-pine flex items-center justify-center z-10 bg-offwhite">
+                        <span class="material-symbols-outlined text-pine" aria-hidden="true">check_circle</span>
+                    </div>
+                    <span class="font-label-caps text-terracotta tabular-nums">Step 01</span>
+                    <h3 class="font-headline-sm text-pine">Inquiry</h3>
+                    <p class="font-body-sm text-pine/70 leading-relaxed">Online or by phone, in under 90 seconds. No referral needed.</p>
+                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=85&auto=format&fit=crop" alt="Patient using a phone to book a clinic appointment" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
+                    </div>
+                </li>
+
+                <li class="flex flex-col items-start gap-3 relative">
+                    <div class="w-14 h-14 rounded-full bg-pine/10 border-2 border-pine flex items-center justify-center z-10 bg-offwhite">
+                        <span class="material-symbols-outlined text-pine" aria-hidden="true">check_circle</span>
+                    </div>
+                    <span class="font-label-caps text-terracotta tabular-nums">Step 02</span>
+                    <h3 class="font-headline-sm text-pine">Consultation</h3>
+                    <p class="font-body-sm text-pine/70 leading-relaxed">A 30-minute conversation. We listen, examine, and explain.</p>
+                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=85&auto=format&fit=crop" alt="Doctor and patient in conversation during consultation" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
+                    </div>
+                </li>
+
+                <li class="flex flex-col items-start gap-3 relative">
+                    <div class="w-14 h-14 rounded-full bg-terracotta/20 border-2 border-terracotta flex items-center justify-center z-10 bg-offwhite">
+                        <span class="w-3 h-3 rounded-full bg-terracotta wb-pulse" aria-hidden="true"></span>
+                    </div>
+                    <span class="font-label-caps text-terracotta tabular-nums">Step 03 · Live</span>
+                    <h3 class="font-headline-sm text-pine">Personal Plan</h3>
+                    <p class="font-body-sm text-pine/70 leading-relaxed">Co-created with your practitioner. Sent to your portal within 24 hours.</p>
+                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                        <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600&q=85&auto=format&fit=crop" alt="Care plan being prepared on a tablet in a consultation room" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
+                    </div>
+                </li>
+
+                <li class="flex flex-col items-start gap-3 relative">
+                    <div class="w-14 h-14 rounded-full bg-offwhite border-2 border-pine/30 flex items-center justify-center z-10">
+                        <span class="material-symbols-outlined text-pine/50" aria-hidden="true">schedule</span>
+                    </div>
+                    <span class="font-label-caps text-pine/50 tabular-nums">Step 04</span>
+                    <h3 class="font-headline-sm text-pine">Treatment</h3>
+                    <p class="font-body-sm text-pine/70 leading-relaxed">In-clinic procedures, medication, or onward referral — coordinated end-to-end.</p>
+                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                        <img src="https://images.unsplash.com/photo-1631815587646-b85a1bb027e1?w=600&q=85&auto=format&fit=crop" alt="Treatment instruments laid out neatly on a clinical surface" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
+                    </div>
+                </li>
+
+                <li class="flex flex-col items-start gap-3 relative">
+                    <div class="w-14 h-14 rounded-full bg-offwhite border-2 border-pine/30 flex items-center justify-center z-10">
+                        <span class="material-symbols-outlined text-pine/50" aria-hidden="true">flag</span>
+                    </div>
+                    <span class="font-label-caps text-pine/50 tabular-nums">Step 05</span>
+                    <h3 class="font-headline-sm text-pine">Follow-up</h3>
+                    <p class="font-body-sm text-pine/70 leading-relaxed">A scheduled check-in by your practitioner — every plan ends with a review.</p>
+                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&q=85&auto=format&fit=crop" alt="A practitioner reviewing notes with a patient at a follow-up appointment" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Stories from Patients — tinted full-bleed band (K.3) -->
+        <section id="stories" class="full-bleed py-16 md:py-24" style="background-color: #2D4A3D;">
+            <div class="max-w-[1200px] mx-auto px-6">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+                    <div class="max-w-xl">
+                        <span class="font-label-caps text-terracotta block mb-3">Patient Stories</span>
+                        <h2 class="font-display-md text-offwhite text-balance">Care, in their own words</h2>
+                    </div>
+                    <p class="font-body-md text-offwhite/70 max-w-md text-pretty leading-relaxed">From first-time visitors to families who've been with us for a decade — the throughline is the same: feeling heard.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+
+                    <figure class="bg-offwhite/5 backdrop-blur-sm border border-offwhite/10 rounded-2xl p-6 md:p-8 flex flex-col gap-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-full overflow-hidden bg-offwhite/10 shrink-0">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=85&auto=format&fit=crop&crop=faces" alt="Portrait of Sarah M., patient" class="w-full h-full object-cover" width="120" height="120" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="flex flex-col">
+                                <cite class="not-italic font-headline-sm text-offwhite">Sarah M.</cite>
+                                <span class="font-label-caps text-terracotta">Cardiology · 2 yrs</span>
+                            </div>
+                        </div>
+                        <blockquote class="font-body-md text-offwhite/85 leading-relaxed italic text-pretty">"Wellbrook caught my arrhythmia the first week. Two years on, I'm running again. They explain everything — and they don't rush."</blockquote>
+                        <span class="inline-flex items-center gap-1 text-xs font-label-caps text-offwhite/50 self-start border-t border-offwhite/10 pt-3 mt-auto">
+                            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">verified</span> Verified Patient
+                        </span>
+                    </figure>
+
+                    <figure class="bg-offwhite/5 backdrop-blur-sm border border-offwhite/10 rounded-2xl p-6 md:p-8 flex flex-col gap-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-full overflow-hidden bg-offwhite/10 shrink-0">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=85&auto=format&fit=crop&crop=faces" alt="Portrait of Daniel O., patient" class="w-full h-full object-cover" width="120" height="120" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="flex flex-col">
+                                <cite class="not-italic font-headline-sm text-offwhite">Daniel O.</cite>
+                                <span class="font-label-caps text-terracotta">General · 4 yrs</span>
+                            </div>
+                        </div>
+                        <blockquote class="font-body-md text-offwhite/85 leading-relaxed italic text-pretty">"Same-day actually means same-day. I had a sore throat at 9am, was seen by 11, prescription in hand by noon. That never used to happen."</blockquote>
+                        <span class="inline-flex items-center gap-1 text-xs font-label-caps text-offwhite/50 self-start border-t border-offwhite/10 pt-3 mt-auto">
+                            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">verified</span> Verified Patient
+                        </span>
+                    </figure>
+
+                    <figure class="bg-offwhite/5 backdrop-blur-sm border border-offwhite/10 rounded-2xl p-6 md:p-8 flex flex-col gap-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-full overflow-hidden bg-offwhite/10 shrink-0">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=85&auto=format&fit=crop&crop=faces" alt="Portrait of Helena R., patient" class="w-full h-full object-cover" width="120" height="120" loading="lazy" decoding="async" />
+                            </div>
+                            <div class="flex flex-col">
+                                <cite class="not-italic font-headline-sm text-offwhite">Helena R.</cite>
+                                <span class="font-label-caps text-terracotta">Paediatrics · 6 yrs</span>
+                            </div>
+                        </div>
+                        <blockquote class="font-body-md text-offwhite/85 leading-relaxed italic text-pretty">"Both kids actually look forward to going. Dr. O'Brien remembers the smallest details — what they're reading, who their best friend is. It matters."</blockquote>
+                        <span class="inline-flex items-center gap-1 text-xs font-label-caps text-offwhite/50 self-start border-t border-offwhite/10 pt-3 mt-auto">
+                            <span class="material-symbols-outlined text-[14px]" aria-hidden="true">verified</span> Verified Patient
+                        </span>
+                    </figure>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ — details accordion (M.7) -->
+        <section id="patient-info" class="max-w-[1200px] mx-auto px-6 py-16 md:py-24 scroll-margin-top-20">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+                <div class="md:col-span-5">
+                    <span class="font-label-caps text-terracotta block mb-3">Patient Info</span>
+                    <h2 class="font-display-md text-pine mb-5 text-balance">Common questions, answered plainly</h2>
+                    <p class="font-body-md text-pine/70 leading-relaxed text-pretty mb-8">If you don't see your question here, our admin team replies to every email within one working day.</p>
+                    <div class="rounded-2xl overflow-hidden aspect-[4/5] bg-pine/5 shadow-soft">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=900&q=85&auto=format&fit=crop" alt="Patient at the clinic reception desk being greeted by friendly staff" class="w-full h-full object-cover" width="700" height="875" loading="lazy" decoding="async" />
+                    </div>
+                </div>
+                <div class="md:col-span-7 flex flex-col divide-y divide-pine/10 border-t border-b border-pine/10">
+
+                    <details class="wb-faq group py-5 md:py-6">
+                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                            <h3 class="font-headline-sm text-pine pr-2">Do I need a referral to be seen?</h3>
+                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                        </summary>
+                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">No referral is required for general practice or any of our specialty programmes. Walk-ins are welcome between 8am and 6pm; same-day slots typically open at 7am for that day.</p>
+                    </details>
+
+                    <details class="wb-faq group py-5 md:py-6">
+                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                            <h3 class="font-headline-sm text-pine pr-2">Which insurance providers do you accept?</h3>
+                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                        </summary>
+                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">VHI, Laya, Irish Life Health and HSF — direct settlement on most consultations. We provide an itemised receipt for any out-of-pocket fees so you can claim back in minutes.</p>
+                    </details>
+
+                    <details class="wb-faq group py-5 md:py-6">
+                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                            <h3 class="font-headline-sm text-pine pr-2">How quickly can I get test results?</h3>
+                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                        </summary>
+                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Standard blood work returns in 24–48 hours via your patient portal. Pathology and imaging are usually back within 5 working days; urgent results trigger a same-day phone call from your practitioner.</p>
+                    </details>
+
+                    <details class="wb-faq group py-5 md:py-6">
+                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                            <h3 class="font-headline-sm text-pine pr-2">Do you offer telehealth consultations?</h3>
+                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                        </summary>
+                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Yes — repeat-prescription reviews, mental health follow-ups and many general consultations can be done by secure video call. Booking flow is identical; just choose "video" instead of "in-clinic".</p>
+                    </details>
+
+                    <details class="wb-faq group py-5 md:py-6">
+                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                            <h3 class="font-headline-sm text-pine pr-2">Is there parking on site?</h3>
+                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                        </summary>
+                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Six on-site spaces (one accessible) plus the public lot at Wellington Place two minutes away. Pearse Street DART is a 6-minute walk; bicycle parking is covered, secured and at street level.</p>
+                    </details>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pine text-offwhite py-16 md:py-20 border-t border-pine/90">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 px-6 max-w-[1200px] mx-auto">
+            
+            <div class="flex flex-col gap-4 sm:col-span-2 md:col-span-1">
+                <span class="font-['Manrope'] text-xl font-bold text-offwhite tracking-tighter">Wellbrook Clinic</span>
+                <p class="text-offwhite/70 text-sm leading-relaxed max-w-xs text-pretty">Clinical excellence in the heart of Dublin. Providing compassionate, comprehensive healthcare for you and your family.</p>
+            </div>
+            
+            <div class="flex flex-col gap-5">
+                <h4 class="font-label-caps text-terracotta">Clinic</h4>
+                <nav class="flex flex-col gap-3" aria-label="Footer Clinic Links">
+                    <a href="#" class="text-offwhite/70 hover:text-offwhite transition-colors duration-200 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm">Our Practitioners</a>
+                    <a href="#" class="text-offwhite/70 hover:text-offwhite transition-colors duration-200 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm">Patient Portal</a>
+                    <a href="#" class="text-offwhite/70 hover:text-offwhite transition-colors duration-200 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm">Careers</a>
+                </nav>
+            </div>
+            
+            <div class="flex flex-col gap-5">
+                <h4 class="font-label-caps text-terracotta">Support</h4>
+                <nav class="flex flex-col gap-3" aria-label="Footer Support Links">
+                    <a href="#" class="text-offwhite/70 hover:text-offwhite transition-colors duration-200 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm">Opening Hours</a>
+                    <a href="#" class="text-offwhite/70 hover:text-offwhite transition-colors duration-200 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm">Emergency Line</a>
+                    <a href="#" class="text-offwhite/70 hover:text-offwhite transition-colors duration-200 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm">Privacy Policy</a>
+                </nav>
+            </div>
+            
+            <div class="flex flex-col gap-5">
+                <h4 class="font-label-caps text-terracotta">Contact</h4>
+                <address class="not-italic flex flex-col gap-3 text-sm text-offwhite/70">
+                    <p>123 Wellness Way<br/>Dublin 2, D02 X4Y5</p>
+                    <a href="tel:+35312345678" class="hover:text-offwhite transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm tabular-nums mt-1">+353 1 234 5678</a>
+                    <a href="mailto:hello@wellbrook.ie" class="hover:text-offwhite transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta w-fit rounded-sm">hello@wellbrook.ie</a>
+                </address>
+            </div>
+            
+        </div>
+        
+        <div class="mt-16 pt-8 border-t border-offwhite/10 px-6 max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-offwhite/50">
+            <p>&copy; 2024 Wellbrook Clinic. All rights reserved.</p>
+            <p>Designed with patient care in mind.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

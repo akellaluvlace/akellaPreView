@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NET_RUNNER | Cyberpunk Security</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bg: '#050505',
+                        text: '#E0E0E0',
+                        cyan: '#00FFFF',
+                        magenta: '#FF00FF',
+                        dark: '#0a0a0a',
+                        dim: '#1a1a1a'
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'cyber-grid': 'linear-gradient(transparent 95%, rgba(0, 255, 255, 0.05) 95%), linear-gradient(90deg, transparent 95%, rgba(0, 255, 255, 0.05) 95%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- CORE EFFECTS --- */
+        body {
+            background-color: #050505;
+            color: #E0E0E0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: scanlineScroll 0.5s linear infinite;
+            opacity: 0.15;
+        }
+
+        @keyframes scanlineScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+
+        /* Neon Glows */
+        .glow-cyan { text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); }
+        .glow-magenta { text-shadow: 0 0 10px rgba(255, 0, 255, 0.7); }
+        .border-glow-cyan { box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); }
+        
+        /* Angled Corners (Clip Path) */
+        .cyber-shape {
+            clip-path: polygon(
+                10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%
+            );
+        }
+        
+        .cyber-card {
+            clip-path: polygon(
+                0 0, 100% 0, 100% 85%, 90% 100%, 0 100%
+            );
+        }
+
+        .cyber-input {
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 98% 100%, 0 100%);
+        }
+
+        /* Soft pixel-based slant for tier cards (avoids clipping content) */
+        .cyber-tier {
+            clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 14px) 100%, 0 100%, 0 18px);
+        }
+
+        /* --- GLITCH EFFECT --- */
+        .glitch-wrapper { position: relative; }
+        
+        .glitch {
+            position: relative;
+            color: #E0E0E0;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px; text-shadow: -1px 0 #FF00FF;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px; text-shadow: -1px 0 #00FFFF;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(10px, 9999px, 30px, 0); }
+            20% { clip: rect(80px, 9999px, 100px, 0); }
+            40% { clip: rect(10px, 9999px, 50px, 0); }
+            60% { clip: rect(60px, 9999px, 70px, 0); }
+            80% { clip: rect(20px, 9999px, 90px, 0); }
+            100% { clip: rect(50px, 9999px, 30px, 0); }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(60px, 9999px, 80px, 0); }
+            20% { clip: rect(10px, 9999px, 30px, 0); }
+            40% { clip: rect(90px, 9999px, 100px, 0); }
+            60% { clip: rect(30px, 9999px, 40px, 0); }
+            80% { clip: rect(50px, 9999px, 60px, 0); }
+            100% { clip: rect(20px, 9999px, 80px, 0); }
+        }
+
+        /* Terminal Cursor */
+        .cursor {
+            display: inline-block; width: 10px; background-color: #00FFFF;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Button Hover Glitch */
+        .btn-glitch:hover {
+            animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            background-color: #00FFFF; color: #000;
+        }
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); } 20% { transform: skew(-10deg); }
+            40% { transform: skew(10deg); } 60% { transform: skew(-5deg); }
+            80% { transform: skew(5deg); } 100% { transform: skew(0deg); }
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu { transition: transform 0.3s ease-in-out; transform: translateX(100%); }
+        #mobile-menu.active { transform: translateX(0); }
+
+        /* Marquee strip */
+        .marquee-track { display: flex; gap: 24px; width: max-content; }
+        @keyframes marquee-cyan { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+        @keyframes marquee-magenta { 0% { transform: translateX(calc(-50% - 12px)); } 100% { transform: translateX(0); } }
+        .marquee-cyan { animation: marquee-cyan 60s linear infinite; }
+        .marquee-magenta { animation: marquee-magenta 75s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+    </style>
+</head>
+<body class="font-rajdhani selection:bg-cyan selection:text-black">
+
+    <!-- Scanline Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Background Grid -->
+    <div class="fixed inset-0 bg-cyber-grid bg-[length:40px_40px] opacity-20 -z-50 pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-bg/95 backdrop-blur-md border-b border-cyan/30">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i data-lucide="cpu" class="text-cyan w-8 h-8"></i>
+                <span class="font-orbitron font-bold text-2xl tracking-widest text-white glow-cyan">NET_RUNNER</span>
+            </div>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex gap-8 font-mono text-sm">
+                <a href="#services" class="hover:text-cyan hover:glow-cyan transition-colors">>> SERVICES</a>
+                <a href="#pricing" class="hover:text-cyan hover:glow-cyan transition-colors">>> CLEARANCE</a>
+                <a href="#logs" class="hover:text-cyan hover:glow-cyan transition-colors">>> LOGS</a>
+                <a href="#contact" class="hover:text-cyan hover:glow-cyan transition-colors">>> UPLINK</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button id="menu-btn" class="md:hidden text-cyan hover:text-white transition-colors">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 pt-24 px-8 flex flex-col gap-6 md:hidden border-l-2 border-cyan">
+        <button id="close-menu" class="absolute top-6 right-6 text-cyan">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#services" class="text-2xl font-orbitron text-white hover:text-cyan border-b border-gray-800 pb-2">01 // SERVICES</a>
+        <a href="#pricing" class="text-2xl font-orbitron text-white hover:text-cyan border-b border-gray-800 pb-2">02 // CLEARANCE</a>
+        <a href="#logs" class="text-2xl font-orbitron text-white hover:text-cyan border-b border-gray-800 pb-2">03 // LOGS</a>
+        <a href="#contact" class="text-2xl font-orbitron text-white hover:text-cyan border-b border-gray-800 pb-2">04 // UPLINK</a>
+        <div class="mt-auto mb-10 font-mono text-xs text-gray-500">
+            SYSTEM_READY<br>V.2.0.4 MOBILE_VIEW
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
+        <!-- Decoration Lines -->
+        <div class="absolute top-1/4 left-0 w-24 h-px bg-cyan/50 hidden md:block"></div>
+        <div class="absolute bottom-1/4 right-0 w-24 h-px bg-magenta/50 hidden md:block"></div>
+        <div class="absolute top-32 right-10 w-4 h-4 border-t border-r border-cyan"></div>
+        <div class="absolute bottom-32 left-10 w-4 h-4 border-b border-l border-magenta"></div>
+
+        <div class="container mx-auto px-6 text-center z-10">
+            <p class="font-mono text-magenta tracking-[0.3em] mb-4 text-xs md:text-sm animate-pulse">SYSTEM STATUS: CRITICAL</p>
+            
+            <div class="glitch-wrapper mb-8">
+                <h1 class="font-orbitron font-black text-5xl md:text-7xl lg:text-9xl tracking-tighter text-white glitch" data-text="SECURE THE FUTURE">
+                    SECURE THE FUTURE
+                </h1>
+            </div>
+
+            <p class="font-rajdhani text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 border-l-2 border-cyan pl-6 text-left md:text-center md:border-l-0 md:pl-0">
+                Advanced neural network defense protocols for the post-digital age. 
+                We protect your data from void-space incursions.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <a href="#contact" class="w-full md:w-auto cyber-shape bg-transparent border-2 border-cyan text-cyan font-orbitron font-bold py-4 px-10 tracking-widest hover:bg-cyan hover:text-black transition-all btn-glitch uppercase relative group">
+                    <span class="absolute inset-0 bg-cyan/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                    Initialize
+                </a>
+                <a href="#services" class="w-full md:w-auto cyber-shape bg-dark border border-magenta/50 text-magenta font-mono py-4 px-10 hover:border-magenta hover:shadow-[0_0_15px_rgba(255,0,255,0.5)] transition-all">
+                    // BROWSE_PROTOCOLS
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Stats Bar -->
+    <div class="border-y border-gray-800 bg-dim/50 py-6">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-center font-mono">
+            <div>
+                <div class="text-2xl md:text-3xl text-white font-bold counter" data-target="99.9">0%</div>
+                <div class="text-xs text-cyan">UPTIME_GUARANTEE</div>
+            </div>
+            <div>
+                <div class="text-2xl md:text-3xl text-white font-bold counter" data-target="8420">0</div>
+                <div class="text-xs text-magenta">THREATS_NEUTRALIZED</div>
+            </div>
+            <div>
+                <div class="text-2xl md:text-3xl text-white font-bold counter" data-target="156">0</div>
+                <div class="text-xs text-cyan">ACTIVE_NODES</div>
+            </div>
+            <div>
+                <div class="text-2xl md:text-3xl text-white font-bold">0ms</div>
+                <div class="text-xs text-magenta">LATENCY</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terminal Section -->
+    <section class="py-20 bg-dark/50">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <div class="w-full bg-[#0a0a0a] border border-gray-700 rounded-sm shadow-2xl overflow-hidden font-mono text-xs md:text-sm">
+                <!-- Terminal Header -->
+                <div class="bg-[#1a1a1a] px-4 py-2 flex items-center gap-2 border-b border-gray-700">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-4 text-gray-500">root@net_runner:~</span>
+                </div>
+                <!-- Terminal Body -->
+                <div class="p-6 text-gray-300 space-y-2 h-72 overflow-y-auto font-mono custom-scrollbar">
+                    <div class="flex">
+                        <span class="text-cyan mr-2">➜</span>
+                        <span class="text-magenta">~</span>
+                        <span class="ml-2">run net_runner_diagnostic.exe</span>
+                    </div>
+                    <div class="text-gray-500">
+                        [INIT] Loading core modules...<br>
+                        [LOAD] Encryption algorithms: <span class="text-green-400">OK</span><br>
+                        [LOAD] Firewall matrix: <span class="text-green-400">OK</span><br>
+                        [LOAD] Neural link: <span class="text-green-400">OK</span><br>
+                        [WARN] Intrusion detected in Sector 7G...<br>
+                        [ACTN] Deploying countermeasures... <span class="text-magenta">THREAT ELIMINATED</span>
+                    </div>
+                    <div class="mt-4 border-l-2 border-cyan pl-4 text-cyan/80">
+                        > Current Objectives:<br>
+                        > 01. Pen_Testing // ACTIVE<br>
+                        > 02. Zero_Trust_Architecture // ACTIVE<br>
+                        > 03. Void_Monitoring // ACTIVE
+                    </div>
+                    <div class="flex mt-4">
+                        <span class="text-cyan mr-2">➜</span>
+                        <span class="text-magenta">~</span>
+                        <span class="ml-2">awaiting_input<span class="cursor">&nbsp;</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section id="services" class="py-24 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-12 border-b border-gray-800 pb-4 gap-4">
+                <h2 class="font-orbitron text-4xl text-white glow-cyan">
+                    <span class="text-cyan">/</span> OUR_PROTOCOLS
+                </h2>
+                <span class="font-mono text-gray-500">V.2.0.45 // SERVICES_LIST</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card 1 -->
+                <div class="cyber-card bg-[#0F0F0F] p-1 relative group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0"></div>
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan/50"></div>
+                    
+                    <div class="relative z-10 p-8 h-full border-l border-gray-800 group-hover:border-cyan/30 transition-colors">
+                        <div class="w-12 h-12 bg-black border border-cyan flex items-center justify-center mb-6 shadow-[0_0_10px_rgba(0,255,255,0.3)]">
+                            <i data-lucide="shield-alert" class="text-cyan"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl text-white mb-2 group-hover:text-cyan transition-colors">NEURAL FIREWALL</h3>
+                        <p class="font-rajdhani text-gray-400">AI-driven traffic filtering that adapts to polymorphic threats in real-time.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="cyber-card bg-[#0F0F0F] p-1 relative group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-magenta/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0"></div>
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-magenta/50"></div>
+
+                    <div class="relative z-10 p-8 h-full border-l border-gray-800 group-hover:border-magenta/30 transition-colors">
+                        <div class="w-12 h-12 bg-black border border-magenta flex items-center justify-center mb-6 shadow-[0_0_10px_rgba(255,0,255,0.3)]">
+                            <i data-lucide="lock" class="text-magenta"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl text-white mb-2 group-hover:text-magenta transition-colors">QUANTUM ENCRYPTION</h3>
+                        <p class="font-rajdhani text-gray-400">256-bit entropy keys generated via atmospheric noise for unbreakable data seals.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="cyber-card bg-[#0F0F0F] p-1 relative group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0"></div>
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan/50"></div>
+
+                    <div class="relative z-10 p-8 h-full border-l border-gray-800 group-hover:border-cyan/30 transition-colors">
+                        <div class="w-12 h-12 bg-black border border-cyan flex items-center justify-center mb-6 shadow-[0_0_10px_rgba(0,255,255,0.3)]">
+                            <i data-lucide="scan-eye" class="text-cyan"></i>
+                        </div>
+                        <h3 class="font-orbitron text-xl text-white mb-2 group-hover:text-cyan transition-colors">IDENTITY MASKING</h3>
+                        <p class="font-rajdhani text-gray-400">Complete digital footprint erasure and phantom node generation.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FIELD DOSSIERS — Case Studies -->
+    <section id="dossiers" class="py-24 relative overflow-hidden" style="background-color: #08070f;">
+        <div class="absolute inset-0 bg-cyber-grid opacity-10 pointer-events-none"></div>
+        <div class="absolute top-0 inset-x-0 h-px" style="background: linear-gradient(90deg, transparent 0%, #00FFFF 25%, #FF00FF 75%, transparent 100%);"></div>
+        <div class="absolute bottom-0 inset-x-0 h-px" style="background: linear-gradient(90deg, transparent 0%, #FF00FF 25%, #00FFFF 75%, transparent 100%);"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-12 border-b border-gray-800 pb-4 gap-4">
+                <div>
+                    <p class="font-mono text-magenta text-xs tracking-[0.3em] mb-2 animate-pulse">CLASSIFIED // OPS_LOG_v3.4</p>
+                    <h2 class="font-orbitron text-4xl text-white glow-magenta">
+                        <span class="text-magenta">/</span> FIELD_DOSSIERS
+                    </h2>
+                </div>
+                <span class="font-mono text-gray-500">DECRYPT_LEVEL_OMEGA // 03_RECORDS</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Dossier 1 -->
+                <article class="cyber-card bg-[#0d0d18] p-1 group hover:-translate-y-2 transition-transform duration-300 relative">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan/60"></div>
+                    <div class="relative z-10 p-6 border-l border-cyan/20 group-hover:border-cyan/50 transition-colors">
+                        <div class="aspect-[16/9] mb-5 relative overflow-hidden bg-black">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" alt="circuit board" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-50" />
+                            <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(0,30,40,0.55) 0%, rgba(0,60,80,0.75) 60%, rgba(15,0,30,0.55) 100%);"></div>
+                            <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(0,255,255,0.28) 0%, transparent 70%);"></div>
+                            <div class="absolute inset-0 bg-cyber-grid bg-[length:20px_20px] opacity-30 pointer-events-none"></div>
+                            <div class="absolute top-3 left-3 font-mono text-[10px] text-cyan tracking-widest bg-black/70 px-2 py-1 border border-cyan/40">DOSSIER_007</div>
+                        </div>
+                        <div class="font-mono text-[10px] text-magenta tracking-[0.3em] mb-2">CLASSIFIED // OFFENSIVE</div>
+                        <h3 class="font-orbitron text-xl text-white mb-2 group-hover:text-cyan transition-colors">OP: BLACKOUT_VEIL</h3>
+                        <p class="font-rajdhani text-gray-400 mb-4">Counter-strike on a polymorphic ransomware swarm. Trace-back successful in 11 seconds; payload neutralized at source node.</p>
+                        <div class="flex items-center justify-between border-t border-gray-800 pt-3 font-mono text-xs">
+                            <span class="text-gray-500">// 2077.03.14</span>
+                            <span class="text-cyan">[OUTCOME: NEUTRALIZED]</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Dossier 2 -->
+                <article class="cyber-card bg-[#0d0d18] p-1 group hover:-translate-y-2 transition-transform duration-300 relative md:translate-y-6">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-magenta/60"></div>
+                    <div class="relative z-10 p-6 border-l border-magenta/20 group-hover:border-magenta/50 transition-colors">
+                        <div class="aspect-[16/9] mb-5 relative overflow-hidden bg-black">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop" alt="server rack" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-50" />
+                            <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(40,0,30,0.6) 0%, rgba(70,0,55,0.78) 60%, rgba(0,15,30,0.55) 100%);"></div>
+                            <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(255,0,255,0.28) 0%, transparent 70%);"></div>
+                            <div class="absolute inset-0 bg-cyber-grid bg-[length:20px_20px] opacity-30 pointer-events-none"></div>
+                            <div class="absolute top-3 left-3 font-mono text-[10px] text-magenta tracking-widest bg-black/70 px-2 py-1 border border-magenta/40">DOSSIER_014</div>
+                        </div>
+                        <div class="font-mono text-[10px] text-cyan tracking-[0.3em] mb-2">CLASSIFIED // DEFENSIVE</div>
+                        <h3 class="font-orbitron text-xl text-white mb-2 group-hover:text-magenta transition-colors">OP: GHOST_PROTOCOL</h3>
+                        <p class="font-rajdhani text-gray-400 mb-4">Identity-erasure for a high-value asset under nation-state surveillance. Full digital exfiltration; phantom node persistence achieved.</p>
+                        <div class="flex items-center justify-between border-t border-gray-800 pt-3 font-mono text-xs">
+                            <span class="text-gray-500">// 2076.11.02</span>
+                            <span class="text-magenta">[OUTCOME: PHANTOM]</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Dossier 3 -->
+                <article class="cyber-card bg-[#0d0d18] p-1 group hover:-translate-y-2 transition-transform duration-300 relative">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan/60"></div>
+                    <div class="relative z-10 p-6 border-l border-cyan/20 group-hover:border-cyan/50 transition-colors">
+                        <div class="aspect-[16/9] mb-5 relative overflow-hidden bg-black">
+                            <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop" alt="industrial machinery" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-50" />
+                            <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(0,30,40,0.55) 0%, rgba(0,55,75,0.7) 60%, rgba(20,0,40,0.55) 100%);"></div>
+                            <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(0,255,255,0.22) 0%, transparent 70%);"></div>
+                            <div class="absolute inset-0 bg-cyber-grid bg-[length:20px_20px] opacity-30 pointer-events-none"></div>
+                            <div class="absolute top-3 left-3 font-mono text-[10px] text-cyan tracking-widest bg-black/70 px-2 py-1 border border-cyan/40">DOSSIER_021</div>
+                        </div>
+                        <div class="font-mono text-[10px] text-magenta tracking-[0.3em] mb-2">CLASSIFIED // INFILTRATION</div>
+                        <h3 class="font-orbitron text-xl text-white mb-2 group-hover:text-cyan transition-colors">OP: VOID_CIPHER</h3>
+                        <p class="font-rajdhani text-gray-400 mb-4">Penetration test of a corporate ICE-stack. Twelve zero-days harvested; full mainframe access obtained without leaving an artifact.</p>
+                        <div class="flex items-center justify-between border-t border-gray-800 pt-3 font-mono text-xs">
+                            <span class="text-gray-500">// 2076.07.28</span>
+                            <span class="text-cyan">[OUTCOME: SILENT]</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- DATA STREAM — Live image marquee -->
+    <section class="py-12 relative overflow-hidden" style="background-color: #060611;">
+        <div class="absolute top-0 inset-x-0 h-[3px]" style="background: linear-gradient(90deg, transparent 0%, #00FFFF 20%, #FF00FF 80%, transparent 100%);"></div>
+        <div class="absolute bottom-0 inset-x-0 h-[3px]" style="background: linear-gradient(90deg, transparent 0%, #FF00FF 20%, #00FFFF 80%, transparent 100%);"></div>
+
+        <div class="container mx-auto px-6 mb-6 flex items-center justify-between font-mono text-[10px] md:text-xs">
+            <div class="flex items-center gap-3 text-cyan tracking-[0.3em]">
+                <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span> LIVE_DATA_STREAM // GLOBAL_NODES
+            </div>
+            <span class="text-gray-500 hidden sm:inline">— UPLINK_SECURE — TX 994-A — RX 412-Δ</span>
+            <span class="flex items-center gap-2 text-magenta tracking-[0.3em]">
+                <span class="w-2 h-2 rounded-full bg-magenta animate-pulse"></span> 24/7
+            </span>
+        </div>
+
+        <!-- Row 1 (Cyan, drifting left) -->
+        <div class="overflow-hidden py-3 mb-3">
+            <div class="marquee-track marquee-cyan">
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> NODE_TKY_42</div><div class="text-gray-500">PING_OK · 03:42:17</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> RELAY_NRT_07</div><div class="text-gray-500">SYNC_OK · 03:43:01</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> UPLINK_OSAKA_19</div><div class="text-gray-500">TX_GHOST · 03:43:48</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> NODE_HKG_91</div><div class="text-gray-500">TRACE_LOST · 03:44:22</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> SECTOR_7G_MAIN</div><div class="text-gray-500">SCAN_CLR · 03:44:55</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> NODE_SEA_03</div><div class="text-gray-500">HEARTBEAT · 03:45:11</div></div>
+                </div>
+                <!-- duplicated for seamless tile -->
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> NODE_TKY_42</div><div class="text-gray-500">PING_OK · 03:42:17</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> RELAY_NRT_07</div><div class="text-gray-500">SYNC_OK · 03:43:01</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> UPLINK_OSAKA_19</div><div class="text-gray-500">TX_GHOST · 03:43:48</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> NODE_HKG_91</div><div class="text-gray-500">TRACE_LOST · 03:44:22</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> SECTOR_7G_MAIN</div><div class="text-gray-500">SCAN_CLR · 03:44:55</div></div>
+                </div>
+                <div class="rounded-sm border border-cyan/40 bg-[#0a0a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-cyan transition-colors">
+                    <div class="w-10 h-10 overflow-hidden border border-cyan/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-cyan tracking-widest truncate">> NODE_SEA_03</div><div class="text-gray-500">HEARTBEAT · 03:45:11</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 (Magenta, drifting right) -->
+        <div class="overflow-hidden py-3">
+            <div class="marquee-track marquee-magenta">
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> ICE_NETWATCH</div><div class="text-gray-500">BREACH_WALL · 03:45:48</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> RELAY_BNK_44</div><div class="text-gray-500">ENCR_KEY · 03:46:14</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> NODE_BERLIN_21</div><div class="text-gray-500">GHOSTED · 03:46:45</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> UPLINK_OSL_06</div><div class="text-gray-500">SHADOW_WALK · 03:47:02</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> NODE_DUB_18</div><div class="text-gray-500">REROUTE · 03:47:28</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> SECTOR_DELTA-9</div><div class="text-gray-500">VOID_ENTRY · 03:48:01</div></div>
+                </div>
+                <!-- duplicated for seamless tile -->
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> ICE_NETWATCH</div><div class="text-gray-500">BREACH_WALL · 03:45:48</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> RELAY_BNK_44</div><div class="text-gray-500">ENCR_KEY · 03:46:14</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> NODE_BERLIN_21</div><div class="text-gray-500">GHOSTED · 03:46:45</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> UPLINK_OSL_06</div><div class="text-gray-500">SHADOW_WALK · 03:47:02</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> NODE_DUB_18</div><div class="text-gray-500">REROUTE · 03:47:28</div></div>
+                </div>
+                <div class="rounded-full border border-magenta/40 bg-[#180a18]/70 backdrop-blur-sm px-3 py-2 flex items-center gap-3 shrink-0 w-72 hover:border-magenta transition-colors">
+                    <div class="w-10 h-10 overflow-hidden rounded-full border border-magenta/50 shrink-0 relative bg-black"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60"/><div class="absolute inset-0 mix-blend-screen" style="background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%);"></div></div>
+                    <div class="font-mono text-[10px] flex-1 min-w-0"><div class="text-magenta tracking-widest truncate">> SECTOR_DELTA-9</div><div class="text-gray-500">VOID_ENTRY · 03:48:01</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Clearance Levels -->
+    <section id="pricing" class="py-20 bg-dark/30 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <h2 class="font-orbitron text-4xl text-center text-white mb-16 glow-magenta">
+                SECURITY CLEARANCE <span class="text-magenta">LEVELS</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Tier 1 -->
+                <div class="cyber-tier bg-gray-600 p-[1px] relative">
+                    <div class="cyber-tier bg-black/90 p-6 flex flex-col h-full relative">
+                        <h3 class="font-mono text-gray-400 mb-2">TIER_1 // GHOST</h3>
+                        <div class="text-4xl font-orbitron text-white mb-6">500<span class="text-sm text-gray-500">cr/mo</span></div>
+                        <ul class="space-y-3 font-rajdhani text-gray-300 mb-8 flex-1">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i> Basic Firewall</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i> Daily Scans</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i> Email Encryption</li>
+                        </ul>
+                        <button class="w-full py-3 border border-gray-600 text-gray-300 hover:bg-gray-800 transition-colors font-mono text-sm">SELECT_TIER</button>
+                    </div>
+                </div>
+
+                <!-- Tier 2 (Highlighted) -->
+                <div class="cyber-tier bg-cyan p-[2px] relative transform md:-translate-y-4 shadow-[0_0_20px_rgba(0,255,255,0.1)]">
+                    <div class="cyber-tier bg-black/90 p-6 flex flex-col h-full relative">
+                        <div class="absolute top-0 right-0 bg-cyan text-black font-bold font-mono text-xs px-2 py-1">POPULAR</div>
+                        <h3 class="font-mono text-cyan mb-2">TIER_2 // PHANTOM</h3>
+                        <div class="text-4xl font-orbitron text-white mb-6 glow-cyan">1200<span class="text-sm text-gray-500">cr/mo</span></div>
+                        <ul class="space-y-3 font-rajdhani text-white mb-8 flex-1">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan"></i> Neural AI Defense</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan"></i> Real-time Monitoring</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan"></i> Identity Masking</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan"></i> 24/7 Support Uplink</li>
+                        </ul>
+                        <button class="w-full py-3 bg-cyan text-black font-bold hover:bg-white transition-colors font-mono text-sm btn-glitch">ACQUIRE_ACCESS</button>
+                    </div>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="cyber-tier bg-magenta/60 p-[1px] relative">
+                    <div class="cyber-tier bg-black/90 p-6 flex flex-col h-full relative">
+                        <h3 class="font-mono text-magenta mb-2">TIER_3 // GOD_MODE</h3>
+                        <div class="text-4xl font-orbitron text-white mb-6">2500<span class="text-sm text-gray-500">cr/mo</span></div>
+                        <ul class="space-y-3 font-rajdhani text-gray-300 mb-8 flex-1">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-magenta"></i> Zero-Trust Architecture</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-magenta"></i> Dedicated Netrunner Team</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-magenta"></i> Offensive Counter-Strikes</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-magenta"></i> Quantum Key Dist.</li>
+                        </ul>
+                        <button class="w-full py-3 border border-magenta text-magenta hover:bg-magenta hover:text-white transition-colors font-mono text-sm">CONTACT_SALES</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GHOST_GRID — Image lookbook -->
+    <section class="py-24 relative overflow-hidden" style="background-color: #07070d;">
+        <div class="absolute inset-0 bg-cyber-grid opacity-5 pointer-events-none"></div>
+        <div class="absolute top-0 inset-x-0 h-px" style="background: linear-gradient(90deg, transparent 0%, #00FFFF 25%, #FF00FF 75%, transparent 100%);"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-12 border-b border-gray-800 pb-4 gap-4">
+                <div>
+                    <p class="font-mono text-magenta text-xs tracking-[0.3em] mb-2">VISUAL_FEED // CHANNEL_404</p>
+                    <h2 class="font-orbitron text-4xl text-white glow-cyan">
+                        <span class="text-cyan">/</span> GHOST_GRID
+                    </h2>
+                </div>
+                <span class="font-mono text-gray-500">SURVEILLANCE_PASSIVE // FRAME_RATE: 24fps</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 max-w-6xl mx-auto">
+                <!-- Large -->
+                <figure class="md:col-span-7 aspect-[16/9] relative overflow-hidden bg-black border border-cyan/30 group">
+                    <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1400&q=85&auto=format&fit=crop" alt="server room" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(0,40,55,0.55), rgba(0,75,100,0.75) 60%, rgba(20,0,40,0.55));"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(0,255,255,0.3), transparent 70%);"></div>
+                    <div class="absolute inset-0 bg-cyber-grid bg-[length:30px_30px] opacity-25 pointer-events-none"></div>
+                    <div class="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-cyan bg-black/70 border border-cyan/40 px-2 py-1">CHANNEL_07 // PRIMARY</div>
+                    <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end font-mono text-xs">
+                        <span class="text-cyan">&gt; Sector 7G — Mainframe</span>
+                        <span class="text-gray-300">[ACTIVE]</span>
+                    </div>
+                </figure>
+
+                <!-- col-span-5 stacked pair to fill row height -->
+                <div class="md:col-span-5 md:h-full flex flex-col gap-4">
+                    <figure class="aspect-[16/9] md:aspect-auto md:flex-1 relative overflow-hidden bg-black border border-magenta/30 group">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1100&q=85&auto=format&fit=crop" alt="server rack" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
+                        <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(40,0,30,0.6), rgba(70,0,55,0.78) 60%, rgba(0,20,30,0.55));"></div>
+                        <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(255,0,255,0.3), transparent 70%);"></div>
+                        <div class="absolute inset-0 bg-cyber-grid bg-[length:30px_30px] opacity-25 pointer-events-none"></div>
+                        <div class="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-magenta bg-black/70 border border-magenta/40 px-2 py-1">CHANNEL_12 // RELAY</div>
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end font-mono text-xs">
+                            <span class="text-magenta">&gt; Node Δ-22 — Encrypted</span>
+                            <span class="text-gray-300">[GHOSTED]</span>
+                        </div>
+                    </figure>
+                    <figure class="aspect-[16/9] md:aspect-auto md:flex-1 relative overflow-hidden bg-black border border-magenta/30 group">
+                        <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1100&q=85&auto=format&fit=crop" alt="Sub-Node Φ-9 trace" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
+                        <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(40,0,30,0.6), rgba(70,0,55,0.78) 60%, rgba(0,20,30,0.55));"></div>
+                        <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(255,0,255,0.3), transparent 70%);"></div>
+                        <div class="absolute inset-0 bg-cyber-grid bg-[length:30px_30px] opacity-25 pointer-events-none"></div>
+                        <div class="absolute top-4 left-4 font-mono text-[10px] tracking-widest text-magenta bg-black/70 border border-magenta/40 px-2 py-1">CHANNEL_18 // SUB-RELAY</div>
+                        <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end font-mono text-xs">
+                            <span class="text-magenta">&gt; Sub-Node Φ-9 — Trace</span>
+                            <span class="text-gray-300">[REROUTING]</span>
+                        </div>
+                    </figure>
+                </div>
+
+                <!-- Small × 3 -->
+                <figure class="md:col-span-4 aspect-[4/3] relative overflow-hidden bg-black border border-cyan/25 group">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" alt="circuit" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(0,30,40,0.55), rgba(0,55,75,0.7) 60%, rgba(15,0,30,0.55));"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(0,255,255,0.25), transparent 70%);"></div>
+                    <div class="absolute inset-0 bg-cyber-grid bg-[length:20px_20px] opacity-25 pointer-events-none"></div>
+                    <div class="absolute top-3 left-3 font-mono text-[10px] text-cyan bg-black/70 border border-cyan/40 px-2 py-0.5 tracking-widest">CH_02</div>
+                    <div class="absolute bottom-3 left-3 right-3 flex justify-between items-end font-mono text-[10px]">
+                        <span class="text-cyan tracking-widest">&gt; CIRCUIT_TRACE</span>
+                        <span class="text-gray-400">SCAN</span>
+                    </div>
+                </figure>
+                <figure class="md:col-span-4 aspect-[4/3] relative overflow-hidden bg-black border border-magenta/25 group">
+                    <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop" alt="machinery" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(40,0,30,0.55), rgba(70,0,55,0.7) 60%, rgba(0,15,30,0.55));"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(255,0,255,0.25), transparent 70%);"></div>
+                    <div class="absolute inset-0 bg-cyber-grid bg-[length:20px_20px] opacity-25 pointer-events-none"></div>
+                    <div class="absolute top-3 left-3 font-mono text-[10px] text-magenta bg-black/70 border border-magenta/40 px-2 py-0.5 tracking-widest">CH_15</div>
+                    <div class="absolute bottom-3 left-3 right-3 flex justify-between items-end font-mono text-[10px]">
+                        <span class="text-magenta tracking-widest">&gt; NODE_DELTA</span>
+                        <span class="text-gray-400">RELAY</span>
+                    </div>
+                </figure>
+                <figure class="md:col-span-4 aspect-[4/3] relative overflow-hidden bg-black border border-cyan/25 group">
+                    <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop" alt="server room" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(0,30,40,0.55), rgba(0,55,75,0.7) 60%, rgba(15,0,30,0.55));"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, rgba(0,255,255,0.25), transparent 70%);"></div>
+                    <div class="absolute inset-0 bg-cyber-grid bg-[length:20px_20px] opacity-25 pointer-events-none"></div>
+                    <div class="absolute top-3 left-3 font-mono text-[10px] text-cyan bg-black/70 border border-cyan/40 px-2 py-0.5 tracking-widest">CH_28</div>
+                    <div class="absolute bottom-3 left-3 right-3 flex justify-between items-end font-mono text-[10px]">
+                        <span class="text-cyan tracking-widest">&gt; SECTOR_7G</span>
+                        <span class="text-gray-400">MAIN</span>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="mt-10 flex items-center justify-between text-xs font-mono text-gray-500 max-w-6xl mx-auto">
+                <span>// 06_FEEDS_LIVE</span>
+                <span class="hidden md:inline">— PASSIVE_INTERCEPT_ONLY · NO_PINGBACK</span>
+                <span class="text-cyan">→ FULL_TELEMETRY</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logs / Testimonials -->
+    <section id="logs" class="py-24">
+        <div class="container mx-auto px-6">
+            <h2 class="font-orbitron text-3xl text-white mb-10 border-l-4 border-cyan pl-4">
+                TRANSMISSION <span class="text-gray-500">LOGS</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm">
+                <!-- Log 1 -->
+                <div class="bg-dim p-6 border-l-2 border-green-500 relative">
+                    <div class="text-xs text-gray-500 mb-2">FROM: CORP_ARASAKA_PROXY // TIME: 03:42</div>
+                    <p class="text-gray-300">"NET_RUNNER neutralized a localized DDoS swarm in under 14 seconds. Efficiency within acceptable parameters. Contract renewed."</p>
+                    <div class="mt-4 text-green-500">[STATUS: VERIFIED]</div>
+                </div>
+
+                <!-- Log 2 -->
+                <div class="bg-dim p-6 border-l-2 border-magenta relative">
+                    <div class="text-xs text-gray-500 mb-2">FROM: USER_X7 // TIME: 09:15</div>
+                    <p class="text-gray-300">"They didn't just stop the breach; they traced the signal back to the source. My data is ghosted now. Invisible."</p>
+                    <div class="mt-4 text-magenta">[STATUS: ENCRYPTED]</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE_OPERATIONS — capability matrix -->
+    <section class="py-24 relative overflow-hidden" style="background-color: #0a0a14;">
+        <div class="absolute inset-0 bg-cyber-grid opacity-10 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-12 border-b border-gray-800 pb-4 gap-4">
+                <div>
+                    <p class="font-mono text-cyan text-xs tracking-[0.3em] mb-2">OPERATIONAL_BLUEPRINT // v.4.0.7</p>
+                    <h2 class="font-orbitron text-4xl text-white glow-magenta">
+                        <span class="text-magenta">/</span> CORE_OPERATIONS
+                    </h2>
+                </div>
+                <span class="font-mono text-gray-500">04 // SUBROUTINES_ACTIVE</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="cyber-card bg-[#0d0d18] p-6 flex flex-col group hover:-translate-y-1 transition-transform duration-300 relative border-l border-cyan/30 hover:border-cyan/60 min-h-[280px]">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-[10px] text-cyan tracking-widest">[ HEX // 0x01 ]</span>
+                        <span class="font-orbitron text-2xl text-cyan/30 group-hover:text-cyan/70 transition-colors">I</span>
+                    </div>
+                    <div class="w-10 h-10 bg-black border border-cyan flex items-center justify-center mb-5 shadow-[0_0_10px_rgba(0,255,255,0.3)]">
+                        <i data-lucide="radar" class="text-cyan w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-orbitron text-base text-white mb-3 group-hover:text-cyan transition-colors">PASSIVE_RECON</h3>
+                    <p class="font-rajdhani text-sm text-gray-400 mb-5">Continuous trace-monitoring across all uplink channels. Anomaly thresholds set at 2σ.</p>
+                    <div class="mt-auto pt-3 border-t border-gray-800 font-mono text-[10px] text-gray-500 flex justify-between">
+                        <span>// PHASE_α</span>
+                        <span class="text-cyan">→ ACTIVE</span>
+                    </div>
+                </div>
+                <div class="cyber-card bg-[#0d0d18] p-6 flex flex-col group hover:-translate-y-1 transition-transform duration-300 relative border-l border-magenta/30 hover:border-magenta/60 min-h-[280px]">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-[10px] text-magenta tracking-widest">[ HEX // 0x02 ]</span>
+                        <span class="font-orbitron text-2xl text-magenta/30 group-hover:text-magenta/70 transition-colors">II</span>
+                    </div>
+                    <div class="w-10 h-10 bg-black border border-magenta flex items-center justify-center mb-5 shadow-[0_0_10px_rgba(255,0,255,0.3)]">
+                        <i data-lucide="key-round" class="text-magenta w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-orbitron text-base text-white mb-3 group-hover:text-magenta transition-colors">KEY_ROTATION</h3>
+                    <p class="font-rajdhani text-sm text-gray-400 mb-5">Quantum-derived entropy refreshes session keys every 90 seconds. Replay attacks neutralized.</p>
+                    <div class="mt-auto pt-3 border-t border-gray-800 font-mono text-[10px] text-gray-500 flex justify-between">
+                        <span>// PHASE_β</span>
+                        <span class="text-magenta">→ NOMINAL</span>
+                    </div>
+                </div>
+                <div class="cyber-card bg-[#0d0d18] p-6 flex flex-col group hover:-translate-y-1 transition-transform duration-300 relative border-l border-cyan/30 hover:border-cyan/60 min-h-[280px]">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-[10px] text-cyan tracking-widest">[ HEX // 0x03 ]</span>
+                        <span class="font-orbitron text-2xl text-cyan/30 group-hover:text-cyan/70 transition-colors">III</span>
+                    </div>
+                    <div class="w-10 h-10 bg-black border border-cyan flex items-center justify-center mb-5 shadow-[0_0_10px_rgba(0,255,255,0.3)]">
+                        <i data-lucide="zap" class="text-cyan w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-orbitron text-base text-white mb-3 group-hover:text-cyan transition-colors">COUNTER_STRIKE</h3>
+                    <p class="font-rajdhani text-sm text-gray-400 mb-5">Reactive payload deployment. Trace-back and de-escalate inside the hostile timeframe.</p>
+                    <div class="mt-auto pt-3 border-t border-gray-800 font-mono text-[10px] text-gray-500 flex justify-between">
+                        <span>// PHASE_γ</span>
+                        <span class="text-cyan">→ ARMED</span>
+                    </div>
+                </div>
+                <div class="cyber-card bg-[#0d0d18] p-6 flex flex-col group hover:-translate-y-1 transition-transform duration-300 relative border-l border-magenta/30 hover:border-magenta/60 min-h-[280px]">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-[10px] text-magenta tracking-widest">[ HEX // 0x04 ]</span>
+                        <span class="font-orbitron text-2xl text-magenta/30 group-hover:text-magenta/70 transition-colors">IV</span>
+                    </div>
+                    <div class="w-10 h-10 bg-black border border-magenta flex items-center justify-center mb-5 shadow-[0_0_10px_rgba(255,0,255,0.3)]">
+                        <i data-lucide="ghost" class="text-magenta w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-orbitron text-base text-white mb-3 group-hover:text-magenta transition-colors">PHANTOM_FORK</h3>
+                    <p class="font-rajdhani text-sm text-gray-400 mb-5">Distributed identity scattering. The asset is everywhere and nowhere; trace lost in noise floor.</p>
+                    <div class="mt-auto pt-3 border-t border-gray-800 font-mono text-[10px] text-gray-500 flex justify-between">
+                        <span>// PHASE_δ</span>
+                        <span class="text-magenta">→ STEALTH</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Encrypted Uplink / Contact -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-cyber-grid opacity-10"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 flex flex-col md:flex-row gap-12">
+            <div class="md:w-1/2">
+                <h2 class="font-orbitron text-5xl text-white mb-6 glitch" data-text="INITIATE UPLINK">INITIATE UPLINK</h2>
+                <p class="font-rajdhani text-xl text-gray-400 mb-8">
+                    Secure channel established. Fill out the parameters below to request assistance. 
+                    All transmissions are end-to-end encrypted.
+                </p>
+                <div class="flex items-center gap-4 text-cyan font-mono mb-2">
+                    <i data-lucide="map-pin"></i> SECTOR 7, NODE 404
+                </div>
+                <div class="flex items-center gap-4 text-magenta font-mono">
+                    <i data-lucide="mail"></i> ROOT@NETRUNNER.SYS
+                </div>
+            </div>
+
+            <form class="md:w-1/2 space-y-6">
+                <div class="relative">
+                    <input type="text" placeholder="CODENAME" class="w-full bg-black border-b border-gray-700 text-white p-4 focus:border-cyan focus:outline-none transition-colors font-mono placeholder-gray-600">
+                </div>
+                <div class="relative">
+                    <input type="email" placeholder="ENCRYPTED_EMAIL" class="w-full bg-black border-b border-gray-700 text-white p-4 focus:border-cyan focus:outline-none transition-colors font-mono placeholder-gray-600">
+                </div>
+                <div class="relative">
+                    <select class="w-full bg-black border-b border-gray-700 text-gray-400 p-4 focus:border-cyan focus:outline-none font-mono">
+                        <option>SELECT_SERVICE_TYPE</option>
+                        <option>Penetration Testing</option>
+                        <option>Incident Response</option>
+                        <option>Architecture Review</option>
+                    </select>
+                </div>
+                <div class="relative">
+                    <textarea placeholder="MISSION_PARAMETERS" rows="4" class="w-full bg-black border-b border-gray-700 text-white p-4 focus:border-cyan focus:outline-none transition-colors font-mono placeholder-gray-600"></textarea>
+                </div>
+                
+                <button type="submit" class="cyber-shape bg-cyan/10 border border-cyan text-cyan font-orbitron font-bold py-4 px-10 w-full hover:bg-cyan hover:text-black transition-all btn-glitch">
+                    TRANSMIT_DATA
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800 pt-12 pb-6 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan via-magenta to-cyan"></div>
+        
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 font-mono text-sm">
+                <div class="col-span-1 md:col-span-2">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <i data-lucide="server" class="text-magenta w-4 h-4"></i> NET_RUNNER INC.
+                    </h4>
+                    <p class="text-gray-500 max-w-md">
+                        Operating in the shadows to keep your light burning. 
+                        Global leaders in offensive and defensive cyber-warfare.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-cyan mb-4">_COORDINATES</h4>
+                    <ul class="text-gray-500 space-y-2">
+                        <li>Sector 7, Neo-Tokyo</li>
+                        <li>Node: 127.0.0.1</li>
+                        <li>Encrypted Ch: 994-A</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-cyan mb-4">_LEGAL</h4>
+                    <ul class="text-gray-500 space-y-2">
+                        <li class="hover:text-magenta cursor-pointer transition-colors">Terms_of_Use</li>
+                        <li class="hover:text-magenta cursor-pointer transition-colors">Privacy_Protocol</li>
+                        <li class="hover:text-magenta cursor-pointer transition-colors">SLA_Agreement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-900 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-mono">
+                <p>&copy; 2077 NET_RUNNER SYSTEMS. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> SYSTEM ONLINE</span>
+                    <span>LATENCY: 4ms</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Simple Counter Animation for Stats
+        const counters = document.querySelectorAll('.counter');
+        
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const speed = 200; 
+                const updateCount = () => {
+                    const count = +counter.innerText.replace('%', '');
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc) + (counter.getAttribute('data-target').includes('.') ? '%' : '');
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target + (counter.getAttribute('data-target').includes('.') ? '%' : '');
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // Trigger animation when stats section is in view
+        let observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.counter');
+        if(statsSection) observer.observe(statsSection);
+
+    </script>
+</body>
+</html>

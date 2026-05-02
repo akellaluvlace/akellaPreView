@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html class="light" lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="BIG PANEL! - The ultimate indie comic subscription. Get exclusive access to limited print runs, creator interviews, and digital archives." />
+    <meta property="og:title" content="BIG PANEL - Indie Comic Publisher" />
+    <meta property="og:description" content="Comics, printed and delivered monthly. Championing creator-owned stories and bold artwork." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#b7102a" />
+    <title>BIG PANEL - Indie Comic Publisher</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Grotesk:wght@400;500;700;900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap" rel="stylesheet" />
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary": "#745c00",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#574500",
+                        "tertiary-fixed-dim": "#9ecaff",
+                        "primary-fixed-dim": "#ffb3b1",
+                        "surface-bright": "#fff8f7",
+                        "on-secondary-container": "#705900",
+                        "tertiary-fixed": "#d1e4ff",
+                        "surface-container": "#ffe9e8",
+                        "tertiary-container": "#3278b9",
+                        "on-surface-variant": "#5b403f",
+                        "outline": "#8f6f6e",
+                        "primary-fixed": "#ffdad8",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#f9dcda",
+                        "surface-variant": "#f9dcda",
+                        "surface-tint": "#bb152c",
+                        "secondary-fixed": "#ffe089",
+                        "inverse-surface": "#3e2c2b",
+                        "on-tertiary-fixed": "#001d36",
+                        "inverse-on-surface": "#ffedeb",
+                        "on-surface": "#271717",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#fffbff",
+                        "surface": "#fff8f7",
+                        "secondary-container": "#fcd03d",
+                        "inverse-primary": "#ffb3b1",
+                        "error": "#ba1a1a",
+                        "primary-container": "#db313f",
+                        "primary": "#b7102a",
+                        "surface-container-high": "#ffe1e0",
+                        "tertiary": "#035f9f",
+                        "surface-container-low": "#fff0ef",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#edc22e",
+                        "on-primary-fixed": "#410007",
+                        "on-primary-fixed-variant": "#92001c",
+                        "outline-variant": "#e4bebc",
+                        "on-error-container": "#93000a",
+                        "background": "#fff8f7",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#271717",
+                        "on-secondary-fixed": "#241a00",
+                        "on-tertiary-fixed-variant": "#00497c",
+                        "on-tertiary-container": "#fdfcff",
+                        "surface-dim": "#f1d3d2"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Bangers", "system-ui", "sans-serif"],
+                        "label-bold": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "body-md": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "headline-md": ["Bangers", "system-ui", "sans-serif"],
+                        "body-lg": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "headline-xl": ["Bangers", "system-ui", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-xl": ["clamp(3.5rem, 8vw, 5rem)", { "lineHeight": "1.0", "letterSpacing": "2px", "fontWeight": "400" }],
+                        "headline-lg": ["clamp(2.5rem, 5vw, 3.5rem)", { "lineHeight": "1.1", "fontWeight": "400" }],
+                        "headline-md": ["clamp(1.5rem, 3vw, 2rem)", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "body-lg": ["clamp(1.125rem, 2vw, 1.25rem)", { "lineHeight": "1.6", "fontWeight": "700" }],
+                        "body-md": ["clamp(1rem, 1.5vw, 1.125rem)", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "label-bold": ["clamp(0.875rem, 1vw, 1rem)", { "lineHeight": "1.2", "fontWeight": "900", "letterSpacing": "0.05em" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-[#F6EFD8] text-on-surface font-body-md min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-surface;
+            }
+        }
+        @layer utilities {
+            .comic-border {
+                @apply border-[4px] md:border-[5px] border-on-surface;
+            }
+            .comic-shadow {
+                @apply shadow-[4px_4px_0px_0px_#271717] md:shadow-[6px_6px_0px_0px_#271717];
+            }
+            .comic-shadow-sm {
+                @apply shadow-[2px_2px_0px_0px_#271717] md:shadow-[4px_4px_0px_0px_#271717];
+            }
+            .hover-btn-fx {
+                @apply transition-all duration-150 motion-reduce:transition-none hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#271717] active:translate-y-1 active:translate-x-1 active:shadow-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary focus-visible:ring-offset-2;
+            }
+            .hover-card-fx {
+                @apply transition-all duration-300 motion-reduce:transition-none hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0px_0px_#271717] focus-within:outline-none focus-within:ring-4 focus-within:ring-primary focus-within:ring-offset-4 focus-within:ring-offset-tertiary-fixed;
+            }
+            .nav-link-fx {
+                @apply px-4 py-1.5 font-label-bold uppercase tracking-widest text-on-surface transition-all duration-150 motion-reduce:transition-none border-[3px] border-transparent hover:bg-secondary-container hover:border-on-surface hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_4px_0px_0px_#271717] active:translate-y-0.5 active:translate-x-0.5 active:shadow-none focus-visible:outline-none focus-visible:bg-secondary-container focus-visible:border-on-surface;
+            }
+            .icon-btn-fx {
+                @apply text-primary transition-all duration-150 motion-reduce:transition-none hover:text-tertiary hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-full p-1.5;
+            }
+            
+            .halftone-blue {
+                background-image: radial-gradient(#035f9f 20%, transparent 20%), radial-gradient(#035f9f 20%, transparent 20%);
+                background-color: #d1e4ff;
+                background-position: 0 0, 10px 10px;
+                background-size: 20px 20px;
+            }
+            .halftone-red {
+                background-image: radial-gradient(#b7102a 20%, transparent 20%), radial-gradient(#b7102a 20%, transparent 20%);
+                background-color: #ffdad8;
+                background-position: 0 0, 10px 10px;
+                background-size: 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="bg-[#fdfcf0] border-b-[5px] border-on-surface shadow-[0_4px_0_0_#271717] sticky top-0 z-50">
+    <div class="max-w-[2560px] mx-auto flex items-center justify-between px-4 md:px-8 py-3 w-full gap-4 md:gap-6">
+        <div class="flex items-center gap-4 md:gap-8">
+            <a href="/" class="text-2xl md:text-3xl font-black italic bg-secondary-container text-on-surface px-5 py-1 border-[4px] border-on-surface shadow-[4px_4px_0_0_#271717] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[6px_6px_0_0_#271717] transition-all -rotate-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary focus-visible:ring-offset-2 whitespace-nowrap">
+                BIG PANEL!
+            </a>
+            
+            <nav class="hidden lg:flex gap-1" aria-label="Primary navigation">
+                <a class="nav-link-fx" href="#releases">Releases</a>
+                <a class="nav-link-fx" href="#creators">Creators</a>
+                <a class="nav-link-fx" href="#shop">Shop</a>
+                <a class="nav-link-fx" href="#events">Events</a>
+                <a class="nav-link-fx" href="#archive">Archive</a>
+            </nav>
+        </div>
+        
+        <div class="flex items-center gap-3 md:gap-5">
+            <a href="#subscribe" class="hidden md:inline-flex bg-tertiary text-on-tertiary font-label-bold uppercase px-6 py-2 comic-border comic-shadow-sm hover-btn-fx">
+                Subscribe
+            </a>
+            <button aria-label="Shopping Cart" class="icon-btn-fx group">
+                <span class="material-symbols-outlined group-hover:font-medium" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+            </button>
+            <button aria-label="User Profile" class="icon-btn-fx group">
+                <span class="material-symbols-outlined group-hover:font-medium" style="font-variation-settings: 'FILL' 1;">person</span>
+            </button>
+            <button aria-label="Open mobile menu" class="lg:hidden icon-btn-fx text-on-surface hover:text-primary">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow">
+    <!-- Hero Splash Page -->
+    <section id="hero" class="relative w-full border-b-[5px] border-on-surface overflow-hidden flex flex-col md:flex-row min-h-[75vh] xl:min-h-[800px] bg-[#F6EFD8]">
+        <div class="w-full md:w-1/2 p-6 md:p-12 lg:p-16 flex flex-col justify-between items-center md:items-stretch z-10 relative gap-10 min-h-[80vh] md:min-h-0">
+            <div class="relative w-full max-w-[600px] md:max-w-[680px] self-center md:self-start">
+                <div class="absolute inset-0 bg-primary comic-border comic-shadow -rotate-6 translate-x-2 md:translate-x-4 translate-y-2 md:translate-y-4"></div>
+                <div class="relative bg-secondary-container comic-border p-8 md:p-10 -rotate-3 text-center">
+                    <h1 class="font-headline-xl text-on-surface uppercase text-[5rem] sm:text-[6.5rem] md:text-[7.5rem] lg:text-[8.5rem] leading-[0.92] tracking-[3px] drop-shadow-[5px_5px_0_#b7102a] md:drop-shadow-[7px_7px_0_#b7102a] text-balance">
+                        BIG PANEL!
+                    </h1>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row flex-wrap md:items-end gap-6 md:gap-6 w-full">
+                <div class="relative w-full md:max-w-[420px] md:flex-1 md:min-w-[260px] group">
+                    <div class="bg-surface-container-lowest comic-border p-6 md:p-8 rounded-2xl relative z-10 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#271717] transition-all duration-300 motion-reduce:transition-none text-center md:text-left">
+                        <p class="font-headline-md text-on-surface mb-3 text-balance">Comics, printed and delivered monthly.</p>
+                        <p class="font-body-md text-on-surface-variant text-pretty max-w-[40ch] mx-auto md:mx-0">
+                            Join the ultimate indie comic subscription. Get exclusive access to limited print runs, creator interviews, and our complete digital archives.
+                        </p>
+                        <!-- Speech bubble tail -->
+                        <div class="absolute -bottom-4 right-8 w-8 h-8 bg-surface-container-lowest border-r-[5px] border-b-[5px] border-on-surface rotate-45"></div>
+                    </div>
+                </div>
+                <a href="#subscribe" class="shrink-0 self-center md:self-end inline-flex items-center justify-center bg-primary text-on-primary font-headline-md uppercase px-8 md:px-10 py-4 comic-border comic-shadow hover-btn-fx tracking-wider whitespace-nowrap">
+                    SUBSCRIBE NOW!
+                </a>
+            </div>
+        </div>
+        
+        <div class="w-full md:w-1/2 min-h-[400px] md:min-h-full comic-border border-l-0 md:border-l-[5px] border-t-[5px] md:border-t-0 relative">
+            <div class="absolute inset-0 halftone-blue opacity-80 z-0"></div>
+            <img alt="Dramatic high-contrast editorial portrait reading as a halftone-print comic panel close-up" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" width="1000" height="800" fetchpriority="high" />
+            <div class="absolute inset-0 bg-primary/20 mix-blend-color z-20"></div>
+        </div>
+    </section>
+
+    <!-- Current Issues Grid -->
+    <section id="issues" class="p-6 md:p-8 lg:p-12 xl:p-16 bg-tertiary-fixed scroll-margin-top-24">
+        <div class="max-w-[2560px] mx-auto">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3 mb-10 md:mb-12">
+                <div class="bg-surface-container-lowest comic-border comic-shadow p-4 md:p-6 inline-block -rotate-2">
+                    <h2 class="font-headline-lg uppercase text-on-surface">CURRENT ISSUES</h2>
+                </div>
+                <p class="font-body-lg text-on-surface max-w-2xl text-pretty bg-surface-container-lowest p-4 comic-border inline-block comic-shadow-sm translate-y-[-0.5rem] rotate-1">
+                    Dive into our latest releases. Hand-crafted stories from top indie creators, printed on high-quality stock.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Issue 1 -->
+                <article class="bg-surface-container-lowest comic-border comic-shadow hover-card-fx flex flex-col group relative">
+                    <div class="h-64 sm:h-72 lg:h-80 border-b-[4px] md:border-b-[5px] border-on-surface relative overflow-hidden bg-primary-fixed">
+                        <img alt="Comic book cover illustration featuring a glowing neon city at night in retro pop art style" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500 motion-reduce:transition-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ7mm0LxPCZkPXJqdzq8kopkbmTaZb3muFfM0ZZtgGfkUhVaw77g3yC_38zM3unRRu1mG21Nvr_8e3y6UMFT4g7lME8Vh3nNIO5p-7esGW9piMzrF2-OkeHhU404Ls4NzQYJNgBOb6j_XS4Wa2NIAGAYwdn-pMLiM_gyz1hfhP0YhAxyehXm3fIcJzVm6LBTrhpc7teQsO7lsyjxCC8b2xK0Nbw8Od0-3ysPd2JptCK9Tjpxiv_wMK52hykeGzj2KVjwZ0h3YJjx7G" width="400" height="600" loading="lazy" decoding="async" />
+                        <div class="absolute top-0 right-0 bg-secondary-container border-b-[4px] border-l-[4px] border-on-surface px-4 py-2 font-headline-md text-on-surface z-10 tabular-nums">#01</div>
+                        <div class="absolute bottom-2 left-2 bg-primary text-on-primary font-label-bold px-3 py-1 border-[3px] border-on-surface shadow-[2px_2px_0px_0px_#271717] uppercase z-10 text-xs tracking-widest">Cyberpunk</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow bg-white z-0">
+                        <h3 class="font-headline-md uppercase mb-1 text-on-surface line-clamp-1" title="Neon Nights">Neon Nights</h3>
+                        <p class="font-label-bold text-tertiary mb-3 uppercase text-xs tracking-wider">By S. Jenkins & M. Doe</p>
+                        <p class="font-body-md text-on-surface-variant flex-grow mb-6 line-clamp-3 text-pretty">A cyberpunk detective story in the heart of the grid. When the lights go out, the real hunters come to play.</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t-2 border-outline-variant border-dashed">
+                            <span class="font-headline-md text-on-surface tabular-nums">$4.99</span>
+                            <a href="#read-01" aria-label="Read Neon Nights Issue 01" class="bg-primary text-on-primary font-label-bold border-[3px] border-on-surface py-2 px-5 text-center hover-btn-fx uppercase text-sm tracking-widest">
+                                Read Issue
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Issue 2 -->
+                <article class="bg-surface-container-lowest comic-border comic-shadow hover-card-fx flex flex-col group relative">
+                    <div class="h-64 sm:h-72 lg:h-80 border-b-[4px] md:border-b-[5px] border-on-surface relative overflow-hidden bg-tertiary-fixed">
+                        <img alt="Comic book cover featuring a cosmic entity floating in space with kirby crackle effects around it" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500 motion-reduce:transition-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaGaBcJU-HCv_NRvY3yDcJ6TepLnqI37YpAybcUX1MueWXtIZxCtOJc2tqRui-3anWx3-l9u6aSHF7VTXT1DVg4XwgXsP4SasRdYsnNDnKfoQpXtWv_utGVCIELhS_Ns4SXTCoOnqJgK695VJhwwJg6gylLu4UQZKXfwDFzdnN4VQ1n2q0qvE8OUYBAwXm5jyqO84Razs5zgsG2pJUbGI2aCTmWK4C8dqKYZ8JKijpngqUJndWw8YfcV7dk09sZXEomeHdsKqVumKF" width="400" height="600" loading="lazy" decoding="async" />
+                        <div class="absolute top-0 right-0 bg-secondary-container border-b-[4px] border-l-[4px] border-on-surface px-4 py-2 font-headline-md text-on-surface z-10 tabular-nums">#12</div>
+                        <div class="absolute bottom-2 left-2 bg-tertiary text-on-tertiary font-label-bold px-3 py-1 border-[3px] border-on-surface shadow-[2px_2px_0px_0px_#271717] uppercase z-10 text-xs tracking-widest">Cosmic Horror</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow bg-white z-0">
+                        <h3 class="font-headline-md uppercase mb-1 text-on-surface line-clamp-1" title="Cosmic Entity">Cosmic Entity</h3>
+                        <p class="font-label-bold text-tertiary mb-3 uppercase text-xs tracking-wider">By A. Moore & J. Kirby</p>
+                        <p class="font-body-md text-on-surface-variant flex-grow mb-6 line-clamp-3 text-pretty">Beyond the stars, something wakes up. A journey into the unimaginable, colorful depths of the void.</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t-2 border-outline-variant border-dashed">
+                            <span class="font-headline-md text-on-surface tabular-nums">$5.99</span>
+                            <a href="#read-12" aria-label="Read Cosmic Entity Issue 12" class="bg-primary text-on-primary font-label-bold border-[3px] border-on-surface py-2 px-5 text-center hover-btn-fx uppercase text-sm tracking-widest">
+                                Read Issue
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Issue 3 -->
+                <article class="bg-surface-container-lowest comic-border comic-shadow hover-card-fx flex flex-col group relative">
+                    <div class="h-64 sm:h-72 lg:h-80 border-b-[4px] md:border-b-[5px] border-on-surface relative overflow-hidden bg-secondary-fixed">
+                        <img alt="Comic cover of a gritty street level martial artist striking a pose in a rainy alleyway" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500 motion-reduce:transition-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAc29XR2TSVAfQIhlg-SrqM_mUWv_1bB5Ycn6fr5904CYqAHJX3bzFdA3KZjqqUhJDsKkeyrqYR3YGAdGxL_hAOPP2fF4oHZ408wnooPIE6DhBBO5MYNz05AblwvlDcWcWNihxRz48dj5F6A6g8PgE3LnllY-w1ZfksEc5n80ywgiSf5ZC5LkKaYAskTCOc45r26AEuNChwpHANH5N-qHf65a3cVVqeRy7GPrmf3Qr5UA4K9bvWJRiPT79SKKyrFoE33RgxDfYLcA5g" width="400" height="600" loading="lazy" decoding="async" />
+                        <div class="absolute top-0 right-0 bg-secondary-container border-b-[4px] border-l-[4px] border-on-surface px-4 py-2 font-headline-md text-on-surface z-10 tabular-nums">#05</div>
+                        <div class="absolute bottom-2 left-2 bg-secondary text-on-secondary-fixed font-label-bold px-3 py-1 border-[3px] border-on-surface shadow-[2px_2px_0px_0px_#271717] uppercase z-10 text-xs tracking-widest">Action</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow bg-white z-0">
+                        <h3 class="font-headline-md uppercase mb-1 text-on-surface line-clamp-1" title="Alley Cat">Alley Cat</h3>
+                        <p class="font-label-bold text-tertiary mb-3 uppercase text-xs tracking-wider">By F. Miller & D. Mazz</p>
+                        <p class="font-body-md text-on-surface-variant flex-grow mb-6 line-clamp-3 text-pretty">Nine lives, one city to protect. The streets are bleeding, and someone has to stitch them up.</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t-2 border-outline-variant border-dashed">
+                            <span class="font-headline-md text-on-surface tabular-nums">$3.99</span>
+                            <a href="#read-05" aria-label="Read Alley Cat Issue 05" class="bg-primary text-on-primary font-label-bold border-[3px] border-on-surface py-2 px-5 text-center hover-btn-fx uppercase text-sm tracking-widest">
+                                Read Issue
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Issue 4 -->
+                <article class="bg-surface-container-lowest comic-border comic-shadow hover-card-fx flex flex-col group relative">
+                    <div class="h-64 sm:h-72 lg:h-80 border-b-[4px] md:border-b-[5px] border-on-surface relative overflow-hidden bg-surface-variant">
+                        <div class="absolute inset-0 halftone-red opacity-50 z-0"></div>
+                        <img alt="Abstract pop art comic cover featuring a stylized monster eye looking through a torn page" class="w-full h-full object-cover grayscale contrast-125 mix-blend-multiply group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500 motion-reduce:transition-none relative z-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-qgPwSoqOFPQpeUAAmjZuBfkhtWUGFsyAKkm-N9hPvByQwsS0824ixWKT9dcIA9HZzjdEYIA221I-IA0a81TAhN9reQSs5Zgh0ZVPjKcdmbjvcc0EV9bJh8TCMcCSZ1ho3NuiiBIYQXExs3V5Vbo8c5AuTbz7ng5nZqE4UmVrN389l2SbRL_J1HH-xmA6zoGNpanG4OUyRwcNK3Qy0WWTreMF9AavBvF1fmIZ4U6rXdXktnCg0YrEWlQnFDWMI7pngNoNvd41W1HO" width="400" height="600" loading="lazy" decoding="async" />
+                        <div class="absolute top-0 right-0 bg-secondary-container border-b-[4px] border-l-[4px] border-on-surface px-4 py-2 font-headline-md text-on-surface z-20 tabular-nums">#08</div>
+                        <div class="absolute bottom-2 left-2 bg-on-surface text-surface font-label-bold px-3 py-1 border-[3px] border-primary shadow-[2px_2px_0px_0px_#b7102a] uppercase z-20 text-xs tracking-widest">Thriller</div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow bg-white z-0">
+                        <h3 class="font-headline-md uppercase mb-1 text-on-surface line-clamp-1" title="The Void">The Void</h3>
+                        <p class="font-label-bold text-tertiary mb-3 uppercase text-xs tracking-wider">By J. Ito & B. Wrightson</p>
+                        <p class="font-body-md text-on-surface-variant flex-grow mb-6 line-clamp-3 text-pretty">Staring back at you. If you gaze long enough, the pages themselves begin to whisper.</p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t-2 border-outline-variant border-dashed">
+                            <span class="font-headline-md text-on-surface tabular-nums">$6.99</span>
+                            <a href="#read-08" aria-label="Read The Void Issue 08" class="bg-primary text-on-primary font-label-bold border-[3px] border-on-surface py-2 px-5 text-center hover-btn-fx uppercase text-sm tracking-widest">
+                                Read Issue
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Tiers -->
+    <section id="subscribe" class="p-6 md:p-8 lg:p-12 xl:p-16 bg-[#F6EFD8] border-t-[5px] border-on-surface scroll-margin-top-24">
+        <div class="max-w-[2560px] mx-auto">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3 mb-12 md:mb-16">
+                <div class="bg-primary comic-border comic-shadow p-4 md:p-6 inline-block rotate-2">
+                    <h2 class="font-headline-lg uppercase text-on-primary">JOIN THE CLUB</h2>
+                </div>
+                <p class="font-body-lg text-on-surface max-w-2xl text-pretty bg-surface-container-lowest p-4 comic-border inline-block comic-shadow-sm translate-y-[-0.5rem] -rotate-1">
+                    Pick your fold. Every plan ships fresh ink to your door &mdash; only the heft and perks change.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-y-14 gap-x-6 md:gap-10 pt-12 md:pt-14">
+                <!-- Tier 1: NEWSSTAND -->
+                <article class="bg-surface-container-lowest comic-border comic-shadow flex flex-col group relative hover-card-fx">
+                    <div class="bg-tertiary-fixed border-b-[4px] md:border-b-[5px] border-on-surface p-6 md:p-8 relative">
+                        <div class="absolute -top-4 -right-4 bg-secondary-container comic-border px-4 py-1 font-label-bold uppercase text-xs tracking-widest -rotate-3 shadow-[2px_2px_0px_0px_#271717]">Starter</div>
+                        <h3 class="font-headline-lg uppercase text-on-surface mb-2">NEWSSTAND</h3>
+                        <p class="font-body-md text-on-surface-variant text-pretty">For curious readers picking up the habit.</p>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow bg-white">
+                        <div class="flex items-baseline gap-2 mb-6 pb-6 border-b-2 border-outline-variant border-dashed">
+                            <span class="font-headline-xl text-on-surface tabular-nums text-[3rem] leading-none">$9</span>
+                            <span class="font-label-bold text-on-surface-variant uppercase tracking-widest text-sm">/ month</span>
+                        </div>
+                        <ul class="font-body-md text-on-surface flex flex-col gap-3 mb-8 flex-grow">
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>1 print issue per month</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Digital archive (30-day window)</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Member-only newsletter</span></li>
+                        </ul>
+                        <a href="#join-newsstand" class="bg-tertiary text-on-tertiary font-label-bold border-[4px] border-on-surface py-3 px-6 text-center hover-btn-fx uppercase tracking-widest comic-shadow-sm">Subscribe</a>
+                    </div>
+                </article>
+
+                <!-- Tier 2: FOLD-OUT (most popular) -->
+                <article class="bg-surface-container-lowest comic-border comic-shadow flex flex-col group relative hover-card-fx md:-translate-y-4 lg:-translate-y-6">
+                    <div class="absolute -top-7 left-1/2 -translate-x-1/2 z-20">
+                        <div class="bg-primary text-on-primary comic-border comic-shadow-sm font-headline-md uppercase px-4 py-1 -rotate-2 whitespace-nowrap">Most Popular</div>
+                    </div>
+                    <div class="bg-primary border-b-[4px] md:border-b-[5px] border-on-surface p-6 md:p-8 relative">
+                        <div class="absolute -top-4 -right-4 bg-secondary-container comic-border px-4 py-1 font-label-bold uppercase text-xs tracking-widest -rotate-3 shadow-[2px_2px_0px_0px_#271717]">Reader</div>
+                        <h3 class="font-headline-lg uppercase text-on-primary mb-2">FOLD-OUT</h3>
+                        <p class="font-body-md text-primary-fixed text-pretty">Two issues, full access, real talk with the makers.</p>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow bg-white">
+                        <div class="flex items-baseline gap-2 mb-6 pb-6 border-b-2 border-outline-variant border-dashed">
+                            <span class="font-headline-xl text-on-surface tabular-nums text-[3rem] leading-none">$19</span>
+                            <span class="font-label-bold text-on-surface-variant uppercase tracking-widest text-sm">/ month</span>
+                        </div>
+                        <ul class="font-body-md text-on-surface flex flex-col gap-3 mb-8 flex-grow">
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>2 print issues per month</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Full digital archive (always-on)</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Quarterly creator interviews</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Members-only digital extras</span></li>
+                        </ul>
+                        <a href="#join-foldout" class="bg-primary text-on-primary font-label-bold border-[4px] border-on-surface py-3 px-6 text-center hover-btn-fx uppercase tracking-widest comic-shadow-sm">Subscribe</a>
+                    </div>
+                </article>
+
+                <!-- Tier 3: LIMITED RUN -->
+                <article class="bg-surface-container-lowest comic-border comic-shadow flex flex-col group relative hover-card-fx">
+                    <div class="bg-on-surface border-b-[4px] md:border-b-[5px] border-on-surface p-6 md:p-8 relative">
+                        <div class="absolute -top-4 -right-4 bg-secondary-container comic-border px-4 py-1 font-label-bold uppercase text-xs tracking-widest -rotate-3 shadow-[2px_2px_0px_0px_#271717]">Collector</div>
+                        <h3 class="font-headline-lg uppercase text-surface mb-2">LIMITED RUN</h3>
+                        <p class="font-body-md text-outline-variant text-pretty">Variant covers, signed prints, the whole catalog.</p>
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow bg-white">
+                        <div class="flex items-baseline gap-2 mb-6 pb-6 border-b-2 border-outline-variant border-dashed">
+                            <span class="font-headline-xl text-on-surface tabular-nums text-[3rem] leading-none">$39</span>
+                            <span class="font-label-bold text-on-surface-variant uppercase tracking-widest text-sm">/ month</span>
+                        </div>
+                        <ul class="font-body-md text-on-surface flex flex-col gap-3 mb-8 flex-grow">
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-on-surface mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>3 print issues + variant cover</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-on-surface mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Full digital archive + early access</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-on-surface mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Signed art print quarterly</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-on-surface mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Annual hardcover collection</span></li>
+                            <li class="flex items-start gap-3"><span class="material-symbols-outlined text-on-surface mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span><span>Free shipping (worldwide)</span></li>
+                        </ul>
+                        <a href="#join-limited" class="bg-on-surface text-surface font-label-bold border-[4px] border-on-surface py-3 px-6 text-center hover-btn-fx uppercase tracking-widest comic-shadow-sm">Subscribe</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-[#fdfcf0] border-t-[5px] border-on-surface px-6 py-12 md:px-12 md:py-16 w-full">
+    <div class="max-w-[2560px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 w-full">
+        <div class="flex flex-col gap-6 lg:col-span-2">
+            <a href="/" class="font-headline-lg text-on-surface border-[4px] border-on-surface px-5 py-1 inline-block self-start bg-secondary-container -rotate-2 hover:rotate-0 transition-transform focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary whitespace-nowrap">
+                BIG PANEL!
+            </a>
+            <p class="font-body-md text-on-surface-variant max-w-md text-pretty">
+                Independent comics printed with passion, delivered to your door. We champion creator-owned stories, bold artwork, and the undeniable tactile joy of fresh newsprint.
+            </p>
+            <div class="mt-auto pt-6">
+                <p class="font-label-bold text-on-surface uppercase tracking-widest text-xs">
+                    © 2024 BIG PANEL COMICS.
+                </p>
+                <p class="font-label-bold text-on-surface-variant uppercase tracking-widest text-xs mt-1">
+                    PRINTED IN THE USA. EST. 1964.
+                </p>
+            </div>
+        </div>
+        
+        <nav aria-label="Footer Explore Navigation" class="flex flex-col gap-4">
+            <h2 class="font-headline-md text-on-surface uppercase border-b-[3px] border-on-surface pb-2 inline-block self-start w-full max-w-[200px]">Explore</h2>
+            <div class="flex flex-col gap-3 font-label-bold uppercase tracking-wide">
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#releases">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Releases
+                </a>
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#creators">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Creators
+                </a>
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#shop">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Shop
+                </a>
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#events">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Events
+                </a>
+            </div>
+        </nav>
+
+        <nav aria-label="Footer Legal Navigation" class="flex flex-col gap-4">
+            <h2 class="font-headline-md text-on-surface uppercase border-b-[3px] border-on-surface pb-2 inline-block self-start w-full max-w-[200px]">Legal & Info</h2>
+            <div class="flex flex-col gap-3 font-label-bold uppercase tracking-wide">
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#terms">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Terms of Service
+                </a>
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#privacy">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Privacy Policy
+                </a>
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#indicia" target="_blank" rel="noopener">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Legal Indicia
+                </a>
+                <a class="text-on-surface-variant hover:text-primary focus-visible:text-primary focus-visible:outline-none w-fit transition-colors flex items-center group" href="#contact">
+                    <span class="material-symbols-outlined text-sm opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200 mr-2">arrow_forward</span> Contact Us
+                </a>
+            </div>
+        </nav>
+    </div>
+</footer>
+
+</body>
+</html>

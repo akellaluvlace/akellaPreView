@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DIGITAL_ALCHEMY</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#c4c7c7",
+                        "on-tertiary": "#660700",
+                        "error": "#ffb4ab",
+                        "surface-bright": "#3a3939",
+                        "on-secondary-fixed-variant": "#474743",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-primary": "#313030",
+                        "outline-variant": "#444748",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-fixed": "#1c1c18",
+                        "on-primary-fixed": "#1c1b1b",
+                        "tertiary-fixed": "#ffdad4",
+                        "on-secondary-container": "#b7b5af",
+                        "inverse-on-surface": "#313030",
+                        "inverse-primary": "#5f5e5e",
+                        "on-secondary": "#31312d",
+                        "surface-container-lowest": "#0e0e0e",
+                        "outline": "#8e9192",
+                        "on-tertiary-fixed-variant": "#900d00",
+                        "on-tertiary-container": "#e82f16",
+                        "background": "#141313",
+                        "primary": "#c9c6c5",
+                        "secondary": "#c9c6c1",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c9c6c1",
+                        "surface-tint": "#c9c6c5",
+                        "surface-container-high": "#2b2a2a",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary-fixed": "#3f0300",
+                        "tertiary-fixed-dim": "#ffb4a6",
+                        "primary-fixed-dim": "#c9c6c5",
+                        "tertiary-container": "#1f0100",
+                        "on-primary-container": "#7b7979",
+                        "surface": "#141313",
+                        "on-error": "#690005",
+                        "secondary-container": "#474743",
+                        "surface-container": "#201f1f",
+                        "secondary-fixed": "#e5e2dc",
+                        "on-background": "#e5e2e1",
+                        "tertiary": "#ffb4a6",
+                        "primary-container": "#0a0a0a",
+                        "surface-dim": "#141313",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-variant": "#353434",
+                        "surface-container-highest": "#353434",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "panel-padding": "20px",
+                        "bento-gap": "12px",
+                        "margin": "24px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "status-code": ["Space Grotesk"],
+                        "headline-heavy": ["Space Grotesk"],
+                        "terminal-body": ["Space Grotesk"],
+                        "display-hero": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "status-code": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "headline-heavy": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "terminal-body": ["14px", { "lineHeight": "1.6", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "display-hero": ["72px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .crt-scanlines {
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+        .riso-grain {
+            position: relative;
+        }
+        .riso-grain::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.15%22/%3E%3C/svg%3E');
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            z-index: 10;
+        }
+        .bento-card {
+            border: 2px solid #e5e2e1;
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card-red {
+            border: 2px solid #e82f16;
+            background-color: #1f0100;
+        }
+        .glowing-text {
+            text-shadow: 0 0 10px rgba(255, 180, 166, 0.8), 0 0 20px rgba(255, 180, 166, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col relative riso-grain">
+<!-- CRT Overlay -->
+<div class="fixed inset-0 crt-scanlines z-50 pointer-events-none"></div>
+<!-- TopAppBar -->
+<nav class="bg-[#0A0A0A] text-stone-200 font-mono uppercase tracking-tighter text-xs docked full-width top border-b-2 border-stone-200 fixed top-0 left-0 w-full z-40 flex justify-between items-center px-6 py-3">
+<div class="text-2xl font-black italic tracking-tighter text-red-600">DIGITAL_ALCHEMY</div>
+<div class="hidden md:flex gap-6">
+<a class="text-amber-400 font-bold border-b-2 border-amber-400 pb-1" href="#">MANIFESTO</a>
+<a class="text-stone-500 font-mono hover:bg-red-600 hover:text-stone-200 transition-colors duration-75" href="#">MODULES</a>
+<a class="text-stone-500 font-mono hover:bg-red-600 hover:text-stone-200 transition-colors duration-75" href="#">TRANSMUTATIONS</a>
+<a class="text-stone-500 font-mono hover:bg-red-600 hover:text-stone-200 transition-colors duration-75" href="#">TERMINAL</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-on-primary-container border-2 border-stone-200 px-4 py-1 hover:bg-red-600 hover:text-stone-200 transition-colors duration-75 active:scale-95 active:translate-y-1">INITIATE_CONTACT</button>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-stone-200 hover:text-amber-400 cursor-pointer" data-icon="settings_input_component">settings_input_component</span>
+<span class="material-symbols-outlined text-stone-200 hover:text-amber-400 cursor-pointer" data-icon="terminal">terminal</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-16 px-6 max-w-[1600px] mx-auto w-full flex flex-col gap-bento-gap">
+<!-- Hero Section - Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-12 grid-rows-none md:grid-rows-[minmax(300px,_auto)_minmax(200px,_auto)] gap-bento-gap">
+<!-- Constructivist Red Block -->
+<div class="bento-card-red md:col-span-8 md:row-span-1 p-8 flex flex-col justify-end bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80')] bg-cover bg-center bg-blend-multiply bg-[#e82f16] group hover:translate-x-[2px] hover:-translate-y-[2px] transition-transform duration-75 cursor-crosshair relative" data-alt="high contrast abstract red and black geometric brutalist composition with heavy grain">
+<div class="absolute top-4 left-4 bg-surface px-2 py-1 border border-outline">
+<span class="font-status-code text-status-code text-on-surface">SYS_ERR_001</span>
+</div>
+<h1 class="font-display-hero text-display-hero text-background leading-none mix-blend-color-burn z-10 italic">WE<br/>TRANSMUTE<br/>CODE.</h1>
+</div>
+<!-- Terminal Screen -->
+<div class="bento-card md:col-span-4 md:row-span-2 p-6 bg-surface-container-lowest flex flex-col font-terminal-body text-terminal-body text-tertiary-fixed-dim">
+<div class="flex justify-between items-center border-b-2 border-outline pb-2 mb-4">
+<span class="font-status-code text-status-code uppercase">TERM_42</span>
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</div>
+<pre class="glowing-text whitespace-pre-wrap overflow-hidden leading-tight text-[10px] md:text-[12px]">   /\ \ \/\ \ \ \/\  \  \ \ \ \ \
+  / /\ \ \ \ \ \ \ \  \  \ \ \ \ \
+ / /__\ \ \ \ \ \ \ \  \  \ \ \ \ \
+/ /____\ \ \ \_\ \ \ \__\  \ \_\ \ \
+\/______/ \/____/ \/____/   \/____/
+
+DIGITAL_ALCHEMY v0.7.4-alpha
+> NODE.SECTOR.04 // TERM_42
+=========================================
+[INIT] sequence running.......... OK
+[LOAD] primary modules........... OK
+[LOAD] cipher.module............. OK
+[LOAD] forge.daemon.............. OK
+[LOAD] glyph.tables.............. OK
+[BOOT] kernel/transmute.......... OK
+[SYNC] uplink @ swiss_grid_03.... OK
+[WARN] neural divergence detected
+[SCAN] mem blocks: 0xFF03A2..FF1B
+[SYNC] tx 24.7 MB  /  rx 18.2 MB
+[STAT] cpu 78.4%   mem 4.2/8.0 GB
+[NOTE] efficiency rating: 78.4%
+[OK]   uplink stable @ 144 Hz
+[QRY]  awaiting operator input...
+> ALCHM > cast --transmute raw
+[OK]   payload signed #7C0F19
+> _
+                </pre>
+<!-- SCAN_LIVE — phosphor-green tinted live feed filling the rest of TERM_42 -->
+<figure class="mt-4 flex-grow border-2 border-outline-variant bg-black relative overflow-hidden min-h-[180px]">
+<img alt="Macro circuit-board traces, signal-feed ghost" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 opacity-60" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(11,28,16,0.55) 0%, rgba(8,40,22,0.85) 60%, rgba(31,1,0,0.7) 100%);"></div>
+<div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(127,199,116,0.35) 0%, transparent 70%);"></div>
+<div class="absolute inset-0 crt-scanlines pointer-events-none"></div>
+<div class="absolute top-2 left-2 bg-[#0b1c10] border border-[#7FC774] px-2 py-1 z-10 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#7FC774] animate-pulse shadow-[0_0_6px_#7FC774]"></span>
+<span class="font-status-code text-status-code text-[#7FC774] uppercase">SCAN_LIVE</span>
+</div>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#0b1c10]/90 border-t border-[#7FC774]/40 px-2 py-1 z-10 flex justify-between font-status-code text-status-code text-[#7FC774] uppercase">
+<span>uplink @ swiss_grid_03</span>
+<span class="tabular-nums opacity-80">144Hz · #7C0F19</span>
+</figcaption>
+</figure>
+</div>
+<!-- Mechanical Heart / Riso Image -->
+<div class="bento-card md:col-span-4 md:row-span-1 bg-surface-container h-[300px] md:h-auto overflow-hidden group">
+<div class="absolute top-4 right-4 bg-error px-2 py-1 z-20 mix-blend-exclusion">
+<span class="font-status-code text-status-code text-on-error">DATA_FEED_RAW</span>
+</div>
+<img alt="mechanical cpu components resembling a metallic heart with red lighting" class="w-full h-full object-cover filter grayscale contrast-150 group-hover:scale-105 transition-transform duration-500 mix-blend-luminosity opacity-80" data-alt="close up of metallic circuit board glowing with deep red light brutalist industrial" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdNCh2YQfSZktUoFqP7HcesTb4-mqkUW4V_pnkvV9pDC2bK2JdOcLK2QC45uX_kpqVC59-9TxIqugy8ecFe2P2rUq8Ww24GSg8ph-cuaTmx88DPcUe1qBQnDKG4DxlkODtjOo_lfCyidbUoPy3jrLjhPPzVdV3LpXHyTqJNk3ykBsFkkXnhrcZeE6hIv2yP_KWzE6vDtrJLfLVws2yvwPQ5eQyjY2uPIZoQz1TSfcmlzyF6sddnXMnvijPFWjnWepAdSQR260iWs4"/>
+</div>
+<!-- Small Status Block -->
+<div class="bento-card md:col-span-4 md:row-span-1 p-6 bg-primary-fixed text-on-primary-fixed flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-status-code text-status-code">OPERATIONAL_STATUS</span>
+<div class="w-3 h-3 bg-error rounded-full animate-pulse shadow-[0_0_8px_#ffb4ab]"></div>
+</div>
+<div>
+<div class="font-headline-heavy text-headline-heavy">78.4%</div>
+<div class="font-terminal-body text-terminal-body uppercase">Efficiency Rating</div>
+</div>
+<button class="mt-4 border-2 border-on-primary-fixed px-4 py-2 font-status-code text-status-code uppercase hover:bg-on-primary-fixed hover:text-primary-fixed transition-colors">Run Diagnostics</button>
+</div>
+</section>
+
+<!-- MODULES bento — 4 alchemy modules -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-bento-gap">
+<div class="bento-card md:col-span-12 p-6 bg-surface-container flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div>
+<span class="font-status-code text-status-code text-tertiary-fixed-dim uppercase">// SECTOR.04 // MODULES</span>
+<h2 class="font-headline-heavy text-headline-heavy text-on-surface mt-2">FOUR DAEMONS / IN ORBIT.</h2>
+</div>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant max-w-md md:text-right">Each module ships as a self-contained kernel. Hot-swap, sign with your own key, run in your own grid. No phone-home.</p>
+</div>
+<article class="bento-card md:col-span-3 p-6 bg-surface-container-low flex flex-col gap-3 hover:bg-surface-container transition-colors">
+<div class="flex justify-between items-start">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">MOD_01 // CIPHER</span>
+<div class="w-2 h-2 bg-error rounded-full animate-pulse shadow-[0_0_6px_#ffb4ab]"></div>
+</div>
+<div class="font-display-hero text-[44px] leading-none text-on-surface tabular-nums mt-auto glowing-text">v0.7.4</div>
+<h3 class="font-headline-heavy text-[20px] uppercase text-on-surface">cipher.module</h3>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant">Symmetric encryption pipeline. Stream-friendly. AES-256-GCM at 1.2 GB/s on commodity hardware.</p>
+<div class="mt-2 pt-3 border-t-2 border-outline-variant flex justify-between font-status-code text-status-code text-on-surface-variant uppercase"><span>STATUS</span><span class="text-tertiary-fixed-dim">RUNNING</span></div>
+</article>
+<article class="bento-card md:col-span-3 p-6 bg-surface-container-low flex flex-col gap-3 hover:bg-surface-container transition-colors">
+<div class="flex justify-between items-start">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">MOD_02 // FORGE</span>
+<div class="w-2 h-2 bg-error rounded-full animate-pulse shadow-[0_0_6px_#ffb4ab]"></div>
+</div>
+<div class="font-display-hero text-[44px] leading-none text-on-surface tabular-nums mt-auto glowing-text">14.2k</div>
+<h3 class="font-headline-heavy text-[20px] uppercase text-on-surface">forge.daemon</h3>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant">Code-synthesis worker. Reads spec, emits tested artefact, signs with payload. Runs deterministic.</p>
+<div class="mt-2 pt-3 border-t-2 border-outline-variant flex justify-between font-status-code text-status-code text-on-surface-variant uppercase"><span>BUILDS / WK</span><span class="text-tertiary-fixed-dim">+38%</span></div>
+</article>
+<article class="bento-card md:col-span-3 p-6 bg-tertiary-container text-tertiary-fixed-dim flex flex-col gap-3 hover:scale-[1.01] transition-transform">
+<div class="flex justify-between items-start">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">MOD_03 // GLYPH</span>
+<div class="w-2 h-2 bg-tertiary-fixed-dim rounded-full animate-pulse shadow-[0_0_6px_#ffb4a6]"></div>
+</div>
+<div class="font-display-hero text-[44px] leading-none tabular-nums mt-auto glowing-text">∞ / 256</div>
+<h3 class="font-headline-heavy text-[20px] uppercase">glyph.tables</h3>
+<p class="font-terminal-body text-terminal-body opacity-80">Symbol library. 256 base glyphs, infinite remixes, every export carries the SHA-3 trace of its parent.</p>
+<div class="mt-2 pt-3 border-t-2 border-tertiary-fixed-dim/30 flex justify-between font-status-code text-status-code uppercase"><span>SIGNED</span><span class="text-tertiary-fixed-dim">#7C0F19</span></div>
+</article>
+<article class="bento-card md:col-span-3 p-6 bg-surface-container-low flex flex-col gap-3 hover:bg-surface-container transition-colors">
+<div class="flex justify-between items-start">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">MOD_04 // UPLINK</span>
+<div class="w-2 h-2 bg-error rounded-full animate-pulse shadow-[0_0_6px_#ffb4ab]"></div>
+</div>
+<div class="font-display-hero text-[44px] leading-none text-on-surface tabular-nums mt-auto glowing-text">144 Hz</div>
+<h3 class="font-headline-heavy text-[20px] uppercase text-on-surface">uplink.kernel</h3>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant">Mesh networking with the swiss_grid. Latency budget: 7ms. Refuses to connect over plain HTTP.</p>
+<div class="mt-2 pt-3 border-t-2 border-outline-variant flex justify-between font-status-code text-status-code text-on-surface-variant uppercase"><span>UPTIME</span><span class="text-tertiary-fixed-dim">99.97%</span></div>
+</article>
+</section>
+
+<!-- TRANSMUTATIONS image strip -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-bento-gap">
+<div class="bento-card md:col-span-12 p-6 bg-surface-container-lowest flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div>
+<span class="font-status-code text-status-code text-tertiary-fixed-dim uppercase">// SECTOR.07 // TRANSMUTATIONS</span>
+<h2 class="font-headline-heavy text-headline-heavy text-on-surface mt-2">RAW FEED / N=05.</h2>
+</div>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant max-w-md md:text-right">Field captures from the kiln rooms, swiss_grid, and cipher orbit. Auto-flushed every cycle.</p>
+</div>
+<figure class="bento-card md:col-span-3 aspect-[4/5] bg-surface-container-lowest overflow-hidden group">
+<div class="absolute top-2 left-2 bg-tertiary-container text-tertiary-fixed-dim px-2 py-1 z-20 font-status-code text-status-code">FEED_046</div>
+<img alt="Macro circuit board traces in red light" class="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-3 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between"><span>CIPHER_TRACE</span><span class="text-tertiary-fixed-dim tabular-nums">36×48</span></div>
+</figure>
+<figure class="bento-card md:col-span-3 aspect-[4/5] bg-surface-container-lowest overflow-hidden group">
+<div class="absolute top-2 left-2 bg-error text-on-error px-2 py-1 z-20 font-status-code text-status-code">FEED_047</div>
+<img alt="Server rack with blinking status LEDs" class="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-3 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between"><span>UPLINK_RACK</span><span class="text-tertiary-fixed-dim tabular-nums">28×40</span></div>
+</figure>
+<figure class="bento-card md:col-span-3 aspect-[4/5] bg-surface-container-lowest overflow-hidden group">
+<div class="absolute top-2 left-2 bg-primary-fixed text-on-primary-fixed px-2 py-1 z-20 font-status-code text-status-code">FEED_048</div>
+<img alt="Industrial machinery in deep shadow" class="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-3 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between"><span>FORGE_HEAD</span><span class="text-tertiary-fixed-dim tabular-nums">36×40</span></div>
+</figure>
+<figure class="bento-card md:col-span-3 aspect-[4/5] bg-surface-container-lowest overflow-hidden group">
+<div class="absolute top-2 left-2 bg-tertiary-container text-tertiary-fixed-dim px-2 py-1 z-20 font-status-code text-status-code">FEED_049</div>
+<img alt="Wide industrial server room" class="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-3 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between"><span>SWISS_GRID_03</span><span class="text-tertiary-fixed-dim tabular-nums">40×54</span></div>
+</figure>
+<figure class="bento-card md:col-span-12 aspect-[16/5] bg-surface-container-lowest overflow-hidden group">
+<div class="absolute top-2 left-2 bg-error text-on-error px-2 py-1 z-20 font-status-code text-status-code">FEED_050 // WIDE</div>
+<img alt="Brass apothecary objects on a dark surface" class="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1600&auto=format&fit=crop"/>
+<div class="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-4 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between"><span>GLYPH_CABINET // BRASS_03</span><span class="text-tertiary-fixed-dim tabular-nums">120×38 // SIGNED #7C0F19</span></div>
+</figure>
+</section>
+
+<!-- MANIFESTO bento — pre-footer declaration -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-bento-gap">
+<div class="bento-card-red md:col-span-8 p-8 md:p-12 flex flex-col justify-between min-h-[420px] relative cursor-crosshair overflow-hidden">
+<!-- bg image + CRT-green wash -->
+<img alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 opacity-50" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(135deg, rgba(7,30,16,0.92) 0%, rgba(11,40,22,0.88) 45%, rgba(31,1,0,0.75) 100%);"></div>
+<div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 30% 40%, rgba(127,199,116,0.3) 0%, transparent 65%);"></div>
+<div class="absolute inset-0 crt-scanlines pointer-events-none opacity-70"></div>
+<div class="absolute top-0 inset-x-0 h-px bg-[#7FC774]/40 z-10"></div>
+<div class="absolute bottom-0 inset-x-0 h-px bg-[#7FC774]/40 z-10"></div>
+
+<div class="relative z-10 flex justify-between items-start">
+<span class="bg-[#0b1c10] px-2 py-1 border border-[#7FC774] font-status-code text-status-code text-[#7FC774] flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-[#7FC774] animate-pulse shadow-[0_0_6px_#7FC774]"></span>
+// MANIFESTO_v4.2
+</span>
+<span class="bg-[#1f0100] px-2 py-1 border border-tertiary-fixed-dim font-status-code text-status-code text-tertiary-fixed-dim">SIG: #7C0F19</span>
+</div>
+<h2 class="relative z-10 font-display-hero text-[clamp(36px,_5vw,_64px)] leading-[0.95] italic uppercase text-tertiary-fixed-dim drop-shadow-[0_2px_18px_rgba(0,0,0,0.8)]">CODE&nbsp;IS&nbsp;A<br/>MATERIAL.<br/><span class="text-[#7FC774] glowing-text" style="text-shadow: 0 0 14px rgba(127,199,116,0.8), 0 0 28px rgba(127,199,116,0.45);">WE&nbsp;TREAT&nbsp;IT</span><br/>LIKE&nbsp;ONE.</h2>
+<div class="relative z-10 flex flex-wrap gap-3 pt-6 border-t-2 border-[#7FC774]/40">
+<span class="font-status-code text-status-code text-[#7FC774] uppercase">— OPERATIONAL_URGENCY_v4.2</span>
+<span class="font-status-code text-status-code text-tertiary-fixed-dim uppercase ml-auto tabular-nums">DRAFTED // 04.MMXXIV</span>
+</div>
+</div>
+<div class="md:col-span-4 grid grid-cols-1 gap-bento-gap">
+<div class="bento-card p-5 bg-surface-container-lowest text-tertiary-fixed-dim flex flex-col font-terminal-body text-terminal-body relative">
+<div class="flex justify-between items-center border-b-2 border-outline pb-2 mb-3">
+<span class="font-status-code text-status-code uppercase">UPTIME</span>
+<span class="material-symbols-outlined text-[14px]">monitoring</span>
+</div>
+<div class="font-display-hero text-[36px] leading-none tabular-nums glowing-text">1024:47</div>
+<div class="font-terminal-body text-terminal-body uppercase opacity-70 mt-1">HRS:MIN // UNBROKEN</div>
+<div class="mt-auto pt-3 grid grid-cols-3 gap-1">
+<span class="aspect-square bg-tertiary-fixed-dim shadow-[0_0_4px_#ffb4a6]"></span>
+<span class="aspect-square bg-tertiary-fixed-dim shadow-[0_0_4px_#ffb4a6]"></span>
+<span class="aspect-square bg-tertiary-fixed-dim shadow-[0_0_4px_#ffb4a6]"></span>
+<span class="aspect-square bg-tertiary-fixed-dim shadow-[0_0_4px_#ffb4a6]"></span>
+<span class="aspect-square bg-error shadow-[0_0_4px_#ffb4ab]"></span>
+<span class="aspect-square bg-tertiary-fixed-dim shadow-[0_0_4px_#ffb4a6]"></span>
+<span class="aspect-square bg-tertiary-fixed-dim shadow-[0_0_4px_#ffb4a6]"></span>
+<span class="aspect-square bg-tertiary-fixed-dim shadow-[0_0_4px_#ffb4a6]"></span>
+<span class="aspect-square bg-surface-container"></span>
+</div>
+</div>
+<div class="bento-card p-5 bg-primary-fixed text-on-primary-fixed flex flex-col gap-2">
+<span class="font-status-code text-status-code uppercase">CONTACT_PROTOCOL</span>
+<p class="font-terminal-body text-terminal-body">SIGNED PGP ONLY. NO MEETINGS. CIPHER + UPLINK ONLY. INITIATE ON THE TERMINAL.</p>
+<button class="mt-2 border-2 border-on-primary-fixed px-3 py-2 font-status-code text-status-code uppercase hover:bg-on-primary-fixed hover:text-primary-fixed transition-colors">OPEN /dev/cipher</button>
+</div>
+</div>
+<article class="bento-card md:col-span-3 p-5 bg-surface-container-low flex flex-col gap-2">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">TENET / I</span>
+<h3 class="font-headline-heavy text-[20px] text-on-surface uppercase">SHIP THE TRACE.</h3>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant">Every artefact carries the SHA-3 of its parent. If you can't see the trace, you don't have the artefact.</p>
+</article>
+<article class="bento-card md:col-span-3 p-5 bg-surface-container-low flex flex-col gap-2">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">TENET / II</span>
+<h3 class="font-headline-heavy text-[20px] text-on-surface uppercase">REFUSE THE FEED.</h3>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant">No vendor telemetry, no algorithmic surfaces. The work is for the operator, not for the metric.</p>
+</article>
+<article class="bento-card md:col-span-3 p-5 bg-surface-container-low flex flex-col gap-2">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">TENET / III</span>
+<h3 class="font-headline-heavy text-[20px] text-on-surface uppercase">ARM THE OPERATOR.</h3>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant">A tool that hides its own internals is hostile. Pull the panel, swap the board, run diagnostics.</p>
+</article>
+<article class="bento-card md:col-span-3 p-5 bg-surface-container-low flex flex-col gap-2">
+<span class="font-status-code text-status-code text-tertiary-fixed-dim">TENET / IV</span>
+<h3 class="font-headline-heavy text-[20px] text-on-surface uppercase">DECAY IS HONEST.</h3>
+<p class="font-terminal-body text-terminal-body text-on-surface-variant">A daemon that wears its byte-count on the outside is a daemon you can trust to fail in public.</p>
+</article>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-200 text-zinc-950 font-mono font-black uppercase text-sm w-full py-16 px-10 flex flex-col items-start docked full-width bottom border-t-8 border-zinc-950 mt-auto cursor-crosshair relative z-40">
+<div class="text-5xl font-black text-red-600 italic tracking-tighter mb-4">DIGITAL_ALCHEMY</div>
+<div class="flex flex-col md:flex-row gap-8 mb-8">
+<a class="text-red-600 underline decoration-4 hover:bg-zinc-950 hover:text-stone-200 transition-all duration-100 p-1" href="#">ENCRYPT_DATA</a>
+<a class="text-zinc-900 hover:bg-zinc-950 hover:text-stone-200 transition-all duration-100 p-1" href="#">NEURAL_LINK</a>
+<a class="text-zinc-900 hover:bg-zinc-950 hover:text-stone-200 transition-all duration-100 p-1" href="#">VOID_RESOURCES</a>
+</div>
+<div class="mt-auto text-zinc-900 border-t-2 border-zinc-950 pt-4 w-full text-xs">
+            ©2024 DIGITAL_ALCHEMY // OPERATIONAL_URGENCY_v4.2
+        </div>
+</footer>
+</body></html>

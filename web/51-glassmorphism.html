@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearBank - Future of Finance</title>
+    <meta name="description" content="Transparent, secure, and beautiful banking.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        body: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            teal: '#2dd4bf',
+                            blue: '#3b82f6',
+                            purple: '#a855f7',
+                        }
+                    },
+                    animation: {
+                        blob: "blob 20s infinite",
+                        float: "float 6s ease-in-out infinite",
+                        "float-delayed": "float 6s ease-in-out 3s infinite",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" }
+                        },
+                        float: {
+                            "0%, 100%": { transform: "translateY(0)" },
+                            "50%": { transform: "translateY(-20px)" }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Reset & Smoothness */
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* The Glass Effect Logic */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-high-contrast {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Background Gradient Blobs */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #0f172a;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            will-change: transform;
+        }
+
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #7c3aed; animation-delay: 0s; }
+        .blob-2 { top: 40%; right: -20%; width: 60vw; height: 60vw; background: #2563eb; animation-delay: 2s; }
+        .blob-3 { bottom: -20%; left: 20%; width: 40vw; height: 40vw; background: #0d9488; animation-delay: 4s; }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-accent {
+            background: linear-gradient(135deg, #2dd4bf 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
+
+        /* Card 3D Perspective */
+        .perspective-container {
+            perspective: 1000px;
+        }
+        .card-3d {
+            transform-style: preserve-3d;
+            transform: rotateY(-15deg) rotateX(5deg);
+        }
+        
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .menu-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+        }
+        .menu-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        /* Glass marquee for Around the World */
+        @keyframes clear-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 14px)); }
+        }
+        .clear-marquee-track {
+            animation: clear-marquee 70s linear infinite;
+            width: max-content;
+            display: flex;
+            gap: 28px;
+        }
+        .clear-marquee-track:hover { animation-play-state: paused; }
+
+        /* FAQ accordion */
+        .clear-faq summary::-webkit-details-marker { display: none; }
+        .clear-faq summary { list-style: none; }
+        .clear-faq summary .clear-chevron { transition: transform 250ms ease; }
+        .clear-faq[open] summary .clear-chevron { transform: rotate(180deg); }
+
+        /* Pricing-tier subtle border-glow */
+        .clear-tier-featured {
+            box-shadow: 0 0 0 1px rgba(45,212,191,0.45), 0 20px 60px -20px rgba(45,212,191,0.35);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .clear-marquee-track { animation: none; }
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-brand-teal selection:text-slate-900">
+
+    <!-- Ambient Background -->
+    <div class="gradient-bg">
+        <div class="blob blob-1 animate-blob"></div>
+        <div class="blob blob-2 animate-blob"></div>
+        <div class="blob blob-3 animate-blob"></div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 pt-4 px-4 sm:px-6">
+        <div class="glass-high-contrast rounded-full max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                    <i data-lucide="gem" class="w-5 h-5"></i>
+                </div>
+                <span class="font-sans font-bold text-xl tracking-tight text-white">ClearBank</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm font-medium text-white/80 hover:text-white transition-colors">Features</a>
+                <a href="#how-it-works" class="text-sm font-medium text-white/80 hover:text-white transition-colors">How it Works</a>
+                <a href="#testimonials" class="text-sm font-medium text-white/80 hover:text-white transition-colors">Testimonials</a>
+            </nav>
+
+            <!-- Desktop Actions -->
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#" class="text-sm font-medium text-white hover:text-teal-300 transition-colors">Log In</a>
+                <a href="#" class="bg-white text-slate-900 px-5 py-2 rounded-full text-sm font-bold hover:bg-teal-50 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    Get Started
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-white p-1">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="menu-hidden absolute top-24 left-4 right-4 glass-high-contrast rounded-2xl p-6 flex flex-col gap-4 md:hidden z-40">
+            <a href="#features" class="text-lg font-medium text-center py-2 border-b border-white/10" onclick="toggleMenu()">Features</a>
+            <a href="#how-it-works" class="text-lg font-medium text-center py-2 border-b border-white/10" onclick="toggleMenu()">How it Works</a>
+            <a href="#testimonials" class="text-lg font-medium text-center py-2 border-b border-white/10" onclick="toggleMenu()">Testimonials</a>
+            <a href="#" class="bg-white text-slate-900 py-3 rounded-xl text-center font-bold mt-2" onclick="toggleMenu()">Get Started</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            
+            <!-- Hero Text -->
+            <div class="text-center lg:text-left z-10 space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-teal-500/30 text-teal-300 text-xs font-bold uppercase tracking-wider animate-fade-in-up">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                    </span>
+                    Banking Reimagined
+                </div>
+
+                <h1 class="font-sans font-extrabold text-5xl sm:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-white">
+                    Transparency in <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-blue-400 to-purple-400">Digital Finance</span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    Experience clarity with every transaction. No hidden fees, real-time analytics, and a beautiful glass interface designed for the modern economy.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                    <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-teal-500 to-blue-600 text-white font-bold text-lg hover:shadow-[0_0_30px_rgba(45,212,191,0.4)] hover:scale-105 transition-all flex items-center justify-center gap-2">
+                        Open Account
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                    <button class="w-full sm:w-auto px-8 py-4 rounded-full glass hover:bg-white/10 font-semibold transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                        Watch Demo
+                    </button>
+                </div>
+
+                <!-- Social Proof -->
+                <div class="pt-8 border-t border-white/10 mt-8">
+                    <p class="text-xs text-slate-400 uppercase tracking-widest mb-4">Trusted by modern teams</p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                        <div class="flex items-center gap-2"><i data-lucide="triangle" class="fill-current"></i> <span class="font-bold">Vercel</span></div>
+                        <div class="flex items-center gap-2"><i data-lucide="box" class="fill-current"></i> <span class="font-bold">Stripe</span></div>
+                        <div class="flex items-center gap-2"><i data-lucide="hexagon" class="fill-current"></i> <span class="font-bold">Acme</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 3D Card -->
+            <div class="relative perspective-container flex justify-center items-center h-[400px] sm:h-[500px]">
+                <!-- Back Glow -->
+                <div class="absolute w-64 h-64 bg-teal-500/40 rounded-full blur-[100px] animate-pulse"></div>
+                
+                <!-- Floating Glass Card -->
+                <div class="card-3d relative w-[320px] h-[200px] sm:w-[420px] sm:h-[260px] glass-high-contrast rounded-2xl p-6 sm:p-8 flex flex-col justify-between animate-float shadow-2xl border border-white/40">
+                    <!-- Reflection Shine -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-40 rounded-2xl pointer-events-none"></div>
+
+                    <div class="flex justify-between items-start z-10">
+                        <i data-lucide="nfc" class="text-white/80 w-8 h-8 rotate-90"></i>
+                        <i data-lucide="gem" class="text-white w-8 h-8"></i>
+                    </div>
+
+                    <!-- EMV Chip -->
+                    <div class="w-12 h-9 bg-gradient-to-tr from-amber-200 to-amber-500 rounded md:rounded-md shadow-inner border border-amber-300/50 z-10"></div>
+
+                    <div class="z-10 space-y-4">
+                        <div class="font-mono text-xl sm:text-2xl tracking-[0.15em] text-white drop-shadow-md">
+                            4920 **** **** 3819
+                        </div>
+                        <div class="flex justify-between text-white/90">
+                            <div>
+                                <div class="text-[10px] uppercase tracking-widest opacity-70">Card Holder</div>
+                                <div class="font-sans font-bold text-sm sm:text-base tracking-wide">SOPHIA REYNOLDS</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] uppercase tracking-widest opacity-70">Expires</div>
+                                <div class="font-sans font-bold text-sm sm:text-base tracking-wide">08/29</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Bubble Element (Behind) -->
+                <div class="absolute top-10 right-10 w-24 h-24 glass rounded-full animate-float-delayed flex items-center justify-center -z-10">
+                    <span class="text-2xl">💸</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Stats Section -->
+    <section class="border-y border-white/5 bg-white/5 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="space-y-1">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-white">2.5M+</div>
+                    <div class="text-sm text-slate-400">Active Users</div>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-white">$12B</div>
+                    <div class="text-sm text-slate-400">Processed Volume</div>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-white">180+</div>
+                    <div class="text-sm text-slate-400">Countries Supported</div>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-white">0.01s</div>
+                    <div class="text-sm text-slate-400">Transaction Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-sm font-bold text-teal-400 uppercase tracking-widest mb-2">Features</h2>
+            <h3 class="text-3xl md:text-4xl font-bold font-sans text-white mb-6">Designed for transparency</h3>
+            <p class="text-slate-300 text-lg">Everything you need to manage your wealth with absolute clarity, wrapped in a stunning interface.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Feature 1 -->
+            <div class="glass-card p-8 rounded-3xl transition-all duration-300 group cursor-default">
+                <div class="w-14 h-14 rounded-2xl bg-teal-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-teal-500/30">
+                    <i data-lucide="zap" class="text-teal-300 w-7 h-7"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-3">Instant Transfers</h4>
+                <p class="text-slate-400 leading-relaxed">Send money globally in seconds. Our proprietary mesh network cuts out the middlemen and the wait times.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="glass-card p-8 rounded-3xl transition-all duration-300 group cursor-default">
+                <div class="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-blue-500/30">
+                    <i data-lucide="shield-check" class="text-blue-300 w-7 h-7"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-3">Bank-Grade Security</h4>
+                <p class="text-slate-400 leading-relaxed">Your data is encrypted with AES-256. Biometric authentication ensures only you can access your funds.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="glass-card p-8 rounded-3xl transition-all duration-300 group cursor-default">
+                <div class="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-purple-500/30">
+                    <i data-lucide="pie-chart" class="text-purple-300 w-7 h-7"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-3">Smart Insights</h4>
+                <p class="text-slate-400 leading-relaxed">Visual spending breakdowns help you budget better. See exactly where your money goes every month.</p>
+            </div>
+            
+             <!-- Feature 4 -->
+             <div class="glass-card p-8 rounded-3xl transition-all duration-300 group cursor-default">
+                <div class="w-14 h-14 rounded-2xl bg-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-pink-500/30">
+                    <i data-lucide="wallet" class="text-pink-300 w-7 h-7"></i>
+                </div>
+                <h4 class="text-xl font-bold text-white mb-3">Multi-Currency Vaults</h4>
+                <p class="text-slate-400 leading-relaxed">Hold and exchange 30+ currencies with real-time interbank exchange rates and zero markup.</p>
+            </div>
+
+             <!-- Feature 5 -->
+             <div class="glass-card p-8 rounded-3xl transition-all duration-300 group cursor-default md:col-span-2 relative overflow-hidden">
+                 <div class="relative z-10">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-orange-500/30">
+                        <i data-lucide="smartphone" class="text-orange-300 w-7 h-7"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Mobile First Experience</h4>
+                    <p class="text-slate-400 leading-relaxed max-w-md">Manage your finances on the go with our award-winning mobile app. Freeze cards, set limits, and track subscriptions with a tap.</p>
+                </div>
+                <!-- Decor -->
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gradient-to-br from-orange-400 to-red-500 rounded-full blur-[60px] opacity-20"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works (Steps) -->
+    <section id="how-it-works" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <h2 class="text-3xl md:text-4xl font-bold font-sans">Setup in minutes,<br>benefit forever.</h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center font-bold text-slate-900">1</div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2">Download the App</h4>
+                                <p class="text-slate-400 text-sm">Available on iOS and Android. Get started with just your phone number.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-bold text-white">2</div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2">Verify Identity</h4>
+                                <p class="text-slate-400 text-sm">Secure biometric verification takes less than 2 minutes.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-bold text-white">3</div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2">Start Spending</h4>
+                                <p class="text-slate-400 text-sm">Get your virtual card instantly. Your physical glass card ships in 3 days.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative h-[500px] glass-high-contrast rounded-3xl border border-white/10 p-4 flex items-center justify-center shadow-2xl">
+                    <!-- App Interface Mockup -->
+                    <div class="w-[280px] h-[480px] bg-[#0f172a] rounded-[2.5rem] border-8 border-slate-800 relative overflow-hidden shadow-xl">
+                        <!-- Notch -->
+                        <div class="absolute top-0 inset-x-0 h-6 bg-slate-800 rounded-b-xl w-32 mx-auto z-20"></div>
+                        
+                        <!-- App Content -->
+                        <div class="p-6 pt-10 h-full flex flex-col relative z-10">
+                            <!-- Background gradient inside phone -->
+                            <div class="absolute inset-0 bg-gradient-to-b from-teal-900/30 to-slate-900 -z-10"></div>
+                            
+                            <div class="flex justify-between items-center mb-8">
+                                <div class="w-8 h-8 bg-slate-700 rounded-full"></div>
+                                <div class="w-4 h-4 rounded-full bg-teal-500"></div>
+                            </div>
+                            
+                            <div class="text-slate-400 text-xs uppercase mb-1">Total Balance</div>
+                            <div class="text-3xl font-bold text-white mb-6">$12,450.00</div>
+                            
+                            <!-- Graph line -->
+                            <div class="h-24 w-full flex items-end gap-1 mb-6">
+                                <div class="w-1/6 bg-teal-500/20 h-10 rounded-t"></div>
+                                <div class="w-1/6 bg-teal-500/40 h-16 rounded-t"></div>
+                                <div class="w-1/6 bg-teal-500/60 h-12 rounded-t"></div>
+                                <div class="w-1/6 bg-teal-500/80 h-20 rounded-t"></div>
+                                <div class="w-1/6 bg-teal-500 h-14 rounded-t"></div>
+                                <div class="w-1/6 bg-teal-400 h-24 rounded-t animate-pulse"></div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="h-14 bg-white/5 rounded-xl flex items-center px-4 gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center"><i data-lucide="coffee" class="w-4 h-4 text-red-400"></i></div>
+                                    <div class="flex-1">
+                                        <div class="h-2 w-16 bg-slate-600 rounded mb-1"></div>
+                                        <div class="h-1.5 w-10 bg-slate-700 rounded"></div>
+                                    </div>
+                                    <div class="text-white font-bold text-sm">-$4.50</div>
+                                </div>
+                                <div class="h-14 bg-white/5 rounded-xl flex items-center px-4 gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center"><i data-lucide="arrow-down-left" class="w-4 h-4 text-green-400"></i></div>
+                                    <div class="flex-1">
+                                        <div class="h-2 w-20 bg-slate-600 rounded mb-1"></div>
+                                        <div class="h-1.5 w-12 bg-slate-700 rounded"></div>
+                                    </div>
+                                    <div class="text-teal-400 font-bold text-sm">+$2,000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Community Love</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                
+                <div class="glass p-8 rounded-3xl relative">
+                    <div class="text-teal-400 text-6xl absolute top-4 left-6 opacity-20 font-serif">"</div>
+                    <p class="text-slate-300 relative z-10 mb-6 italic">"I've never seen a banking app this beautiful and fast. The glass card always gets compliments when I pay."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="User" class="w-10 h-10 rounded-full border border-white/20">
+                        <div>
+                            <div class="font-bold text-sm">Sarah Jenkins</div>
+                            <div class="text-xs text-slate-500">Freelance Designer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl relative">
+                    <div class="text-teal-400 text-6xl absolute top-4 left-6 opacity-20 font-serif">"</div>
+                    <p class="text-slate-300 relative z-10 mb-6 italic">"The transparency is real. I finally understand my fee structure and the international rates are unbeatable."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/150?u=a04258a2462d826712d" alt="User" class="w-10 h-10 rounded-full border border-white/20">
+                        <div>
+                            <div class="font-bold text-sm">Michael Chen</div>
+                            <div class="text-xs text-slate-500">Digital Nomad</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl relative">
+                    <div class="text-teal-400 text-6xl absolute top-4 left-6 opacity-20 font-serif">"</div>
+                    <p class="text-slate-300 relative z-10 mb-6 italic">"ClearBank has completely replaced my traditional bank. The analytics tools saved me so much money last year."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/150?u=2042581f4e29026704d" alt="User" class="w-10 h-10 rounded-full border border-white/20">
+                        <div>
+                            <div class="font-bold text-sm">Elena Rodriguez</div>
+                            <div class="text-xs text-slate-500">Small Business Owner</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Around the World (image strip / marquee) -->
+    <section id="world" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+            <div class="flex items-end justify-between gap-6 flex-wrap">
+                <div class="max-w-2xl">
+                    <h2 class="text-sm font-bold text-teal-400 uppercase tracking-widest mb-2">— Around the world</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold font-sans text-white mb-4">Your money, in 180 places at once.</h3>
+                    <p class="text-slate-300 text-lg">Real interbank rates. Zero markup, ever. Hover to pause; click to convert.</p>
+                </div>
+                <span class="text-xs uppercase tracking-widest text-slate-400 hidden md:flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                    </span>
+                    Live · refreshed every 30s
+                </span>
+            </div>
+        </div>
+        <div class="relative overflow-hidden py-2">
+            <div class="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none bg-gradient-to-r from-[#0f172a] to-transparent"></div>
+            <div class="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none bg-gradient-to-l from-[#0f172a] to-transparent"></div>
+            <div class="clear-marquee-track px-6 sm:px-12">
+                <figure class="shrink-0 w-72 group">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Tokyo at night" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="text-2xl">🇯🇵</span>
+                            <span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.21%</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2">
+                            <span class="text-xs uppercase tracking-widest text-white/70">Tokyo · Open</span>
+                            <span class="font-sans font-bold text-white text-2xl tracking-tight">USD / JPY</span>
+                            <div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20">
+                                <span class="font-mono text-white text-lg tabular-nums">154.32</span>
+                                <span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72 group">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="London skyline" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="text-2xl">🇬🇧</span>
+                            <span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-rose-300 border border-rose-400/30">▼ 0.08%</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2">
+                            <span class="text-xs uppercase tracking-widest text-white/70">London · Open</span>
+                            <span class="font-sans font-bold text-white text-2xl tracking-tight">USD / GBP</span>
+                            <div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20">
+                                <span class="font-mono text-white text-lg tabular-nums">0.7892</span>
+                                <span class="text-[10px] uppercase tracking-widest text-rose-300">24h</span>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72 group">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Berlin architecture" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="text-2xl">🇪🇺</span>
+                            <span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.14%</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2">
+                            <span class="text-xs uppercase tracking-widest text-white/70">Frankfurt · Open</span>
+                            <span class="font-sans font-bold text-white text-2xl tracking-tight">USD / EUR</span>
+                            <div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20">
+                                <span class="font-mono text-white text-lg tabular-nums">0.9214</span>
+                                <span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72 group">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="New York at night" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="text-2xl">🇺🇸</span>
+                            <span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-slate-300 border border-white/20">— FLAT</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2">
+                            <span class="text-xs uppercase tracking-widest text-white/70">NYC · Open</span>
+                            <span class="font-sans font-bold text-white text-2xl tracking-tight">USD · BASE</span>
+                            <div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20">
+                                <span class="font-mono text-white text-lg tabular-nums">1.0000</span>
+                                <span class="text-[10px] uppercase tracking-widest text-slate-300">REF</span>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72 group">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Singapore harbour" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="text-2xl">🇸🇬</span>
+                            <span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.32%</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2">
+                            <span class="text-xs uppercase tracking-widest text-white/70">Singapore · Open</span>
+                            <span class="font-sans font-bold text-white text-2xl tracking-tight">USD / SGD</span>
+                            <div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20">
+                                <span class="font-mono text-white text-lg tabular-nums">1.3521</span>
+                                <span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72 group">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Architecture detail Sydney" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="text-2xl">🇦🇺</span>
+                            <span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-rose-300 border border-rose-400/30">▼ 0.18%</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2">
+                            <span class="text-xs uppercase tracking-widest text-white/70">Sydney · Closed</span>
+                            <span class="font-sans font-bold text-white text-2xl tracking-tight">USD / AUD</span>
+                            <div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20">
+                                <span class="font-mono text-white text-lg tabular-nums">1.5189</span>
+                                <span class="text-[10px] uppercase tracking-widest text-rose-300">24h</span>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72 group">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Toronto street" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                            <span class="text-2xl">🇨🇦</span>
+                            <span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.05%</span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2">
+                            <span class="text-xs uppercase tracking-widest text-white/70">Toronto · Open</span>
+                            <span class="font-sans font-bold text-white text-2xl tracking-tight">USD / CAD</span>
+                            <div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20">
+                                <span class="font-mono text-white text-lg tabular-nums">1.3712</span>
+                                <span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+                <!-- Duplicate set -->
+                <figure class="shrink-0 w-72" aria-hidden="true">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇯🇵</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.21%</span></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Tokyo · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / JPY</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">154.32</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72" aria-hidden="true">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇬🇧</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-rose-300 border border-rose-400/30">▼ 0.08%</span></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">London · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / GBP</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">0.7892</span><span class="text-[10px] uppercase tracking-widest text-rose-300">24h</span></div></div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72" aria-hidden="true">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇪🇺</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.14%</span></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Frankfurt · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / EUR</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">0.9214</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72" aria-hidden="true">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇺🇸</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-slate-300 border border-white/20">— FLAT</span></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">NYC · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD · BASE</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.0000</span><span class="text-[10px] uppercase tracking-widest text-slate-300">REF</span></div></div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72" aria-hidden="true">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇸🇬</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.32%</span></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Singapore · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / SGD</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.3521</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72" aria-hidden="true">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇦🇺</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-rose-300 border border-rose-400/30">▼ 0.18%</span></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Sydney · Closed</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / AUD</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.5189</span><span class="text-[10px] uppercase tracking-widest text-rose-300">24h</span></div></div>
+                    </div>
+                </figure>
+                <figure class="shrink-0 w-72" aria-hidden="true">
+                    <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇨🇦</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.05%</span></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Toronto · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / CAD</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.3712</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: In Your Hand (3 alternating image+content rows, NOT a grid) -->
+    <section id="hand" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold text-teal-400 uppercase tracking-widest mb-2">— Product</h2>
+                <h3 class="text-3xl md:text-4xl font-bold font-sans text-white mb-4">In your hand, in three places.</h3>
+                <p class="text-slate-300 text-lg">The card, the dashboard, the alerts. Each one designed to disappear.</p>
+            </div>
+            <div class="flex flex-col gap-16 lg:gap-24">
+
+                <!-- Row 1: Card -->
+                <article class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div class="lg:col-span-7 relative h-[360px] lg:h-[440px] glass-high-contrast rounded-3xl border border-white/15 flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0" style="background: radial-gradient(circle at 70% 30%, rgba(45,212,191,0.18) 0%, transparent 60%);"></div>
+                        <div class="absolute inset-0" style="background: radial-gradient(circle at 20% 80%, rgba(168,85,247,0.15) 0%, transparent 60%);"></div>
+                        <!-- CSS-built premium card mock per playbook K.14 -->
+                        <div class="relative aspect-[1.586/1] w-[300px] sm:w-[360px] rounded-2xl border border-white/30 overflow-hidden shadow-[0_30px_60px_-20px_rgba(0,0,0,0.55)] transform rotate-[-3deg]" style="background: radial-gradient(circle at 18% 20%, rgba(45,212,191,0.30), transparent 35%), radial-gradient(circle at 90% 90%, rgba(168,85,247,0.20), transparent 40%), linear-gradient(135deg, #0c1c34 0%, #101b34 60%, #060c1e 100%);">
+                            <div class="absolute inset-0 opacity-50 pointer-events-none" style="background-image: linear-gradient(115deg, transparent 60%, rgba(255,255,255,0.06) 60.5%, transparent 64%);"></div>
+                            <div class="absolute top-5 right-5 w-7 h-7 rounded-md bg-gradient-to-tr from-amber-200 to-amber-500 shadow-inner border border-amber-300/50"></div>
+                            <div class="absolute top-5 left-5 flex items-center gap-1.5">
+                                <i data-lucide="gem" class="text-white w-5 h-5"></i>
+                                <span class="font-sans font-bold text-white text-sm tracking-tight">ClearBank</span>
+                            </div>
+                            <div class="absolute bottom-5 left-5 right-5 flex flex-col gap-2">
+                                <div class="font-mono text-white tracking-[0.2em] text-base sm:text-lg tabular-nums">4920 **** **** 3819</div>
+                                <div class="flex items-baseline justify-between text-white/90">
+                                    <div class="flex flex-col">
+                                        <span class="text-[8px] uppercase tracking-widest opacity-70">Holder</span>
+                                        <span class="text-xs font-bold tracking-wide">SOPHIA REYNOLDS</span>
+                                    </div>
+                                    <div class="flex flex-col text-right">
+                                        <span class="text-[8px] uppercase tracking-widest opacity-70">Expires</span>
+                                        <span class="text-xs font-bold tracking-wide">08/29</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full glass text-xs font-bold uppercase tracking-widest text-white border border-white/20">— I · The Card</span>
+                    </div>
+                    <div class="lg:col-span-5 space-y-5">
+                        <h4 class="text-2xl md:text-3xl font-bold font-sans text-white">A card that makes the table quiet.</h4>
+                        <p class="text-slate-300 leading-relaxed">Stainless steel, brushed not buffed. The chip recessed flush. No marketing on the front; we save that for our website. Tap, insert, swipe — the order in which most other cards forget to feel.</p>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400"></i> 22 g · weighted, not heavy</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400"></i> Virtual issued in 0.8 seconds</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400"></i> Replaceable in-app, free, twice a year</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Row 2: Dashboard (reverse) -->
+                <article class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div class="lg:col-span-5 lg:order-1 order-2 space-y-5">
+                        <h4 class="text-2xl md:text-3xl font-bold font-sans text-white">A dashboard that closes itself.</h4>
+                        <p class="text-slate-300 leading-relaxed">Real-time net worth, projected month-end, six categories sorted by deviation. The whole view fits on a single screen and is gone in eight seconds. Most banking apps mistake density for intelligence; we don't.</p>
+                        <div class="grid grid-cols-3 gap-3 pt-2">
+                            <div class="px-3 py-2 rounded-xl glass border border-white/15"><div class="text-[10px] uppercase tracking-widest text-slate-400 mb-1">Net</div><div class="font-mono text-white tabular-nums">$84,210</div></div>
+                            <div class="px-3 py-2 rounded-xl glass border border-white/15"><div class="text-[10px] uppercase tracking-widest text-slate-400 mb-1">Δ MoM</div><div class="font-mono text-emerald-300 tabular-nums">+4.8%</div></div>
+                            <div class="px-3 py-2 rounded-xl glass border border-white/15"><div class="text-[10px] uppercase tracking-widest text-slate-400 mb-1">Cash</div><div class="font-mono text-white tabular-nums">$12,450</div></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 lg:order-2 order-1 relative h-[360px] lg:h-[440px] glass-high-contrast rounded-3xl border border-white/15 p-6 overflow-hidden">
+                        <div class="absolute inset-0" style="background: radial-gradient(circle at 80% 20%, rgba(59,130,246,0.18) 0%, transparent 55%);"></div>
+                        <span class="absolute top-5 right-5 px-3 py-1.5 rounded-full glass text-xs font-bold uppercase tracking-widest text-white border border-white/20">— II · Dashboard</span>
+                        <!-- CSS-built dashboard mock -->
+                        <div class="relative h-full flex flex-col gap-4">
+                            <div class="flex items-baseline justify-between border-b border-white/10 pb-3">
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] uppercase tracking-widest text-slate-400">Total Balance</span>
+                                    <span class="text-3xl font-bold text-white font-sans tabular-nums">$96,660.00</span>
+                                </div>
+                                <span class="px-2 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-xs font-bold tabular-nums">+$4,210 · MTD</span>
+                            </div>
+                            <div class="flex items-end gap-1.5 h-28 mt-1">
+                                <div class="flex-1 bg-teal-500/15 rounded-t" style="height: 30%"></div>
+                                <div class="flex-1 bg-teal-500/30 rounded-t" style="height: 45%"></div>
+                                <div class="flex-1 bg-teal-500/40 rounded-t" style="height: 38%"></div>
+                                <div class="flex-1 bg-teal-500/55 rounded-t" style="height: 60%"></div>
+                                <div class="flex-1 bg-teal-500/70 rounded-t" style="height: 52%"></div>
+                                <div class="flex-1 bg-teal-500/80 rounded-t" style="height: 78%"></div>
+                                <div class="flex-1 bg-teal-400 rounded-t" style="height: 90%"></div>
+                                <div class="flex-1 bg-teal-300 rounded-t shadow-[0_0_18px_rgba(45,212,191,0.6)]" style="height: 100%"></div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 mt-auto">
+                                <div class="rounded-xl bg-white/5 border border-white/10 p-3 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-rose-500/20 flex items-center justify-center"><i data-lucide="coffee" class="w-4 h-4 text-rose-300"></i></div>
+                                    <div class="flex-1 flex flex-col"><span class="text-xs text-slate-300">Caffè Nero</span><span class="text-[10px] text-slate-500">11:42</span></div>
+                                    <span class="font-mono text-white text-xs tabular-nums">−$4.50</span>
+                                </div>
+                                <div class="rounded-xl bg-white/5 border border-white/10 p-3 flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center"><i data-lucide="arrow-down-left" class="w-4 h-4 text-emerald-300"></i></div>
+                                    <div class="flex-1 flex flex-col"><span class="text-xs text-slate-300">Salary · Acme</span><span class="text-[10px] text-slate-500">07:00</span></div>
+                                    <span class="font-mono text-emerald-300 text-xs tabular-nums">+$4,210</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Row 3: Alerts -->
+                <article class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div class="lg:col-span-7 relative h-[360px] lg:h-[440px] glass-high-contrast rounded-3xl border border-white/15 p-6 overflow-hidden">
+                        <div class="absolute inset-0" style="background: radial-gradient(circle at 30% 80%, rgba(168,85,247,0.20) 0%, transparent 60%);"></div>
+                        <span class="absolute top-5 left-5 px-3 py-1.5 rounded-full glass text-xs font-bold uppercase tracking-widest text-white border border-white/20">— III · Alerts</span>
+                        <div class="relative h-full flex flex-col gap-3 pt-12">
+                            <div class="rounded-xl glass border border-white/15 p-4 flex items-center gap-4 shadow-lg">
+                                <div class="w-10 h-10 rounded-full bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center shrink-0"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-300"></i></div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline justify-between gap-3">
+                                        <span class="font-sans font-bold text-white text-sm">Card frozen</span>
+                                        <span class="text-[10px] text-slate-400 tabular-nums shrink-0">just now</span>
+                                    </div>
+                                    <p class="text-xs text-slate-400 truncate">Travel mode active until 14 May. Tap to undo.</p>
+                                </div>
+                            </div>
+                            <div class="rounded-xl glass border border-white/15 p-4 flex items-center gap-4 shadow-lg">
+                                <div class="w-10 h-10 rounded-full bg-blue-500/15 border border-blue-400/30 flex items-center justify-center shrink-0"><i data-lucide="globe" class="w-5 h-5 text-blue-300"></i></div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline justify-between gap-3">
+                                        <span class="font-sans font-bold text-white text-sm">USD → JPY locked</span>
+                                        <span class="text-[10px] text-slate-400 tabular-nums shrink-0">2 min</span>
+                                    </div>
+                                    <p class="text-xs text-slate-400 truncate">Rate held at 154.32 for next 60 minutes.</p>
+                                </div>
+                            </div>
+                            <div class="rounded-xl glass border border-white/15 p-4 flex items-center gap-4 shadow-lg">
+                                <div class="w-10 h-10 rounded-full bg-purple-500/15 border border-purple-400/30 flex items-center justify-center shrink-0"><i data-lucide="pie-chart" class="w-5 h-5 text-purple-300"></i></div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline justify-between gap-3">
+                                        <span class="font-sans font-bold text-white text-sm">Subscription found</span>
+                                        <span class="text-[10px] text-slate-400 tabular-nums shrink-0">12 min</span>
+                                    </div>
+                                    <p class="text-xs text-slate-400 truncate">Annual Photoshelter, $89.99 — sound right?</p>
+                                </div>
+                            </div>
+                            <div class="rounded-xl glass border border-white/15 p-4 flex items-center gap-4 shadow-lg opacity-70">
+                                <div class="w-10 h-10 rounded-full bg-white/5 border border-white/15 flex items-center justify-center shrink-0"><i data-lucide="zap" class="w-5 h-5 text-slate-300"></i></div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-baseline justify-between gap-3">
+                                        <span class="font-sans font-bold text-white text-sm">Quiet hours · 22:00 — 07:00</span>
+                                        <span class="text-[10px] text-slate-400 tabular-nums shrink-0">setting</span>
+                                    </div>
+                                    <p class="text-xs text-slate-400 truncate">Only fraud and security alerts will wake you.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 space-y-5">
+                        <h4 class="text-2xl md:text-3xl font-bold font-sans text-white">Alerts that earn the buzz.</h4>
+                        <p class="text-slate-300 leading-relaxed">We surface what costs you money or saves your time — fraud, locked rates, recurring charges, location anomalies — and stay quiet about everything else. Your home screen is yours, not ours.</p>
+                        <div class="flex items-center gap-3 pt-2">
+                            <span class="px-3 py-1.5 rounded-full glass border border-white/15 text-xs uppercase tracking-widest text-slate-300">Fraud · 0.04s detection</span>
+                            <span class="px-3 py-1.5 rounded-full glass border border-white/15 text-xs uppercase tracking-widest text-slate-300">Quiet hours · default on</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Pricing (content / 3-tier glass cards) -->
+    <section id="pricing" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm font-bold text-teal-400 uppercase tracking-widest mb-2">— Pricing</h2>
+                <h3 class="text-3xl md:text-4xl font-bold font-sans text-white mb-4">Transparent, like the rest.</h3>
+                <p class="text-slate-300 text-lg">Three tiers. Cancel any time. No tier upgrades you to a new tier without telling you first.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+
+                <!-- Free -->
+                <div class="glass p-8 rounded-3xl flex flex-col gap-5 hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300">
+                    <div class="flex items-center justify-between">
+                        <span class="font-sans font-bold text-white text-xl">Free</span>
+                        <span class="text-xs uppercase tracking-widest text-slate-400">— Get started</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-5xl font-extrabold font-sans text-white tabular-nums">$0</span>
+                        <span class="text-slate-400 text-sm">/ month</span>
+                    </div>
+                    <p class="text-slate-300 text-sm">Everything you need to replace your high-street bank.</p>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-300 border-t border-white/10 pt-5">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> Virtual + physical card</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> Real-time interbank FX</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> 5 free withdrawals / month</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> Email support</li>
+                    </ul>
+                    <button class="mt-auto w-full py-3 rounded-full glass border border-white/20 hover:bg-white/10 text-white font-bold text-sm transition-all">Start free</button>
+                </div>
+
+                <!-- Plus (featured) -->
+                <div class="glass-high-contrast clear-tier-featured p-8 rounded-3xl flex flex-col gap-5 relative">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-teal-500 to-blue-600 text-white text-[10px] font-bold uppercase tracking-widest shadow-[0_0_18px_rgba(45,212,191,0.55)]">Most popular</span>
+                    <div class="flex items-center justify-between">
+                        <span class="font-sans font-bold text-white text-xl">Plus</span>
+                        <span class="text-xs uppercase tracking-widest text-teal-300">— For travellers</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-5xl font-extrabold font-sans bg-gradient-to-r from-teal-300 via-blue-400 to-purple-400 text-transparent bg-clip-text tabular-nums">$8</span>
+                        <span class="text-slate-300 text-sm">/ month</span>
+                    </div>
+                    <p class="text-slate-200 text-sm">Everything in Free, with the rough edges sanded down.</p>
+                    <ul class="flex flex-col gap-3 text-sm text-white/90 border-t border-white/15 pt-5">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-300 mt-0.5 shrink-0"></i> Unlimited free withdrawals</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-300 mt-0.5 shrink-0"></i> 30+ multi-currency vaults</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-300 mt-0.5 shrink-0"></i> Travel insurance · 60 days</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-300 mt-0.5 shrink-0"></i> Priority chat · &lt; 2 min</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-300 mt-0.5 shrink-0"></i> 1.4% on uninvested cash</li>
+                    </ul>
+                    <button class="mt-auto w-full py-3 rounded-full bg-gradient-to-r from-teal-500 to-blue-600 text-white font-bold text-sm hover:shadow-[0_0_30px_rgba(45,212,191,0.45)] hover:scale-[1.02] transition-all">Choose Plus</button>
+                </div>
+
+                <!-- Premium -->
+                <div class="glass p-8 rounded-3xl flex flex-col gap-5 hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300">
+                    <div class="flex items-center justify-between">
+                        <span class="font-sans font-bold text-white text-xl">Premium</span>
+                        <span class="text-xs uppercase tracking-widest text-slate-400">— For advisors</span>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-5xl font-extrabold font-sans text-white tabular-nums">$24</span>
+                        <span class="text-slate-400 text-sm">/ month</span>
+                    </div>
+                    <p class="text-slate-300 text-sm">For people whose money has people of its own.</p>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-300 border-t border-white/10 pt-5">
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> Everything in Plus</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> Stainless steel "Glass" card</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> Concierge · 24/7 human</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> Tax export · CSV / OFX / API</li>
+                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-400 mt-0.5 shrink-0"></i> 2.6% on uninvested cash</li>
+                    </ul>
+                    <button class="mt-auto w-full py-3 rounded-full glass border border-white/20 hover:bg-white/10 text-white font-bold text-sm transition-all">Choose Premium</button>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 text-center mt-8">Prices in USD. EU/UK pricing local-equivalent — exact figures inside the app.</p>
+        </div>
+    </section>
+
+    <!-- Section: FAQ (content / accordion) -->
+    <section id="faq" class="py-20 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-sm font-bold text-teal-400 uppercase tracking-widest mb-2">— Asked often</h2>
+                <h3 class="text-3xl md:text-4xl font-bold font-sans text-white mb-4">Five answers, in advance.</h3>
+            </div>
+            <div class="glass-high-contrast rounded-3xl border border-white/15 divide-y divide-white/10 overflow-hidden">
+
+                <details class="clear-faq group p-6 md:p-8">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h4 class="text-lg md:text-xl font-bold font-sans text-white">Are deposits insured?</h4>
+                        <i data-lucide="chevron-down" class="clear-chevron w-5 h-5 text-teal-300 mt-1 shrink-0"></i>
+                    </summary>
+                    <p class="text-slate-300 mt-4 max-w-prose leading-relaxed">Yes. Up to $250,000 per depositor in the US (FDIC, via our partner bank), £85,000 in the UK (FSCS), and €100,000 in the EU (national schemes). Coverage details are in the in-app legal pack.</p>
+                </details>
+
+                <details class="clear-faq group p-6 md:p-8">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h4 class="text-lg md:text-xl font-bold font-sans text-white">What happens if I lose my card?</h4>
+                        <i data-lucide="chevron-down" class="clear-chevron w-5 h-5 text-teal-300 mt-1 shrink-0"></i>
+                    </summary>
+                    <p class="text-slate-300 mt-4 max-w-prose leading-relaxed">Freeze it from the app in under a second. Order a replacement (free, twice a year on Plus and above). Your virtual card stays active throughout — most users don't notice the gap.</p>
+                </details>
+
+                <details class="clear-faq group p-6 md:p-8">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h4 class="text-lg md:text-xl font-bold font-sans text-white">Do you sell my data?</h4>
+                        <i data-lucide="chevron-down" class="clear-chevron w-5 h-5 text-teal-300 mt-1 shrink-0"></i>
+                    </summary>
+                    <p class="text-slate-300 mt-4 max-w-prose leading-relaxed">No. Not to advertisers, not to data brokers, not to "trusted partners". Our income is the subscription fees, the interchange fees, and the spread we don't charge on FX. That's the deal; we like it that way.</p>
+                </details>
+
+                <details class="clear-faq group p-6 md:p-8">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h4 class="text-lg md:text-xl font-bold font-sans text-white">Where is my money kept?</h4>
+                        <i data-lucide="chevron-down" class="clear-chevron w-5 h-5 text-teal-300 mt-1 shrink-0"></i>
+                    </summary>
+                    <p class="text-slate-300 mt-4 max-w-prose leading-relaxed">Held in segregated accounts at our partner banks (the named bank changes by jurisdiction; the in-app legal pack tells you which). Not lent out. Not pooled with company funds. We bear the cost; you keep the safety.</p>
+                </details>
+
+                <details class="clear-faq group p-6 md:p-8">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h4 class="text-lg md:text-xl font-bold font-sans text-white">How do I cancel?</h4>
+                        <i data-lucide="chevron-down" class="clear-chevron w-5 h-5 text-teal-300 mt-1 shrink-0"></i>
+                    </summary>
+                    <p class="text-slate-300 mt-4 max-w-prose leading-relaxed">Settings → Account → Close account. Two taps and a sixty-second confirmation. Outstanding balance returned to a linked bank account within one business day. We will not chase you to stay.</p>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-5xl mx-auto glass-high-contrast rounded-[3rem] p-10 md:p-20 text-center relative overflow-hidden">
+            <!-- Glow Effect -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-2xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-extrabold font-sans mb-6">Ready to see clearly?</h2>
+                <p class="text-lg text-slate-300 mb-10">Join 2.5 million users who have upgraded their financial life. Download ClearBank today.</p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button class="flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-slate-900 hover:bg-slate-200 transition-colors w-full sm:w-auto justify-center">
+                        <i data-lucide="apple" class="fill-current w-6 h-6"></i>
+                        <div class="text-left">
+                            <div class="text-[10px] font-bold uppercase leading-none">Download on the</div>
+                            <div class="text-lg font-bold leading-none">App Store</div>
+                        </div>
+                    </button>
+                    <button class="flex items-center gap-3 px-6 py-3 rounded-xl bg-transparent border border-white/30 text-white hover:bg-white/10 transition-colors w-full sm:w-auto justify-center">
+                        <i data-lucide="play" class="fill-current w-6 h-6"></i>
+                        <div class="text-left">
+                            <div class="text-[10px] font-bold uppercase leading-none">Get it on</div>
+                            <div class="text-lg font-bold leading-none">Google Play</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-[#020617]/50 backdrop-blur-md pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2 lg:col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 rounded bg-teal-500 flex items-center justify-center">
+                            <i data-lucide="gem" class="w-3 h-3 text-white"></i>
+                        </div>
+                        <span class="font-sans font-bold text-xl text-white">ClearBank</span>
+                    </a>
+                    <p class="text-slate-400 text-sm max-w-xs mb-6">
+                        Making finance transparent, accessible, and beautiful for everyone, everywhere.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Credit Card</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Invest</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Terms of Use</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
+                <p>&copy; 2024 ClearBank Financial Technologies. All rights reserved.</p>
+                <div class="flex items-center gap-1 mt-2 md:mt-0">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    <span>All Systems Operational</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('menu-hidden');
+                mobileMenu.classList.add('menu-visible');
+            } else {
+                mobileMenu.classList.remove('menu-visible');
+                mobileMenu.classList.add('menu-hidden');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && !menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Range - Elite high-energy fitness training programs designed for the intermediate lifter who demands more from their training."/>
+    <meta property="og:title" content="Range - High-Energy Fitness"/>
+    <meta property="og:description" content="Elite training programs designed for the intermediate lifter who demands more from their training."/>
+    <meta property="og:type" content="website"/>
+    <title>Range - High-Energy Fitness</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#292b28",
+                        "on-tertiary-fixed-variant": "#454744",
+                        "surface-dim": "#131313",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "background": "#131313",
+                        "on-background": "#e4e2e1",
+                        "on-tertiary": "#2f312e",
+                        "on-secondary": "#313030",
+                        "outline-variant": "#5b403a",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#8b1900",
+                        "surface-container-low": "#1b1c1c",
+                        "tertiary": "#c6c7c2",
+                        "on-primary-fixed": "#3d0600",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "error-container": "#93000a",
+                        "error": "#ffb4ab",
+                        "inverse-primary": "#b62400",
+                        "surface-container-high": "#2a2a2a",
+                        "primary": "#ffb4a3",
+                        "primary-container": "#ff5833",
+                        "surface": "#131313",
+                        "on-primary-container": "#580c00",
+                        "secondary-container": "#4a4949",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-surface": "#e4e2e1",
+                        "inverse-on-surface": "#303030",
+                        "on-tertiary-fixed": "#1a1c19",
+                        "inverse-surface": "#e4e2e1",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-tint": "#ffb4a3",
+                        "surface-variant": "#353535",
+                        "on-error": "#690005",
+                        "primary-fixed": "#ffdad2",
+                        "surface-container-highest": "#353535",
+                        "on-surface-variant": "#e4beb6",
+                        "outline": "#ab8982",
+                        "surface-container": "#1f2020",
+                        "tertiary-container": "#91928e",
+                        "on-secondary-container": "#bab8b7",
+                        "surface-bright": "#393939",
+                        "primary-fixed-dim": "#ffb4a3",
+                        "tertiary-fixed": "#e3e3de",
+                        "on-primary": "#630f00",
+                        "secondary": "#c9c6c5",
+                        "tertiary-fixed-dim": "#c6c7c2",
+                        "on-secondary-fixed-variant": "#474646"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
+                    },
+                    spacing: {
+                        "margin-fluid": "clamp(20px, 5vw, 64px)",
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "section-gap": "clamp(80px, 10vw, 120px)",
+                        "gutter": "clamp(1.5rem, 3vw, 2rem)"
+                    },
+                    fontFamily: {
+                        "display-lg": ["Space Grotesk", "system-ui", "-apple-system", "sans-serif"],
+                        "display-xl": ["Space Grotesk", "system-ui", "-apple-system", "sans-serif"],
+                        "body-lg": ["Inter", "system-ui", "-apple-system", "sans-serif"],
+                        "headline-md": ["Space Grotesk", "system-ui", "-apple-system", "sans-serif"],
+                        "body-md": ["Inter", "system-ui", "-apple-system", "sans-serif"],
+                        "label-bold": ["Inter", "system-ui", "-apple-system", "sans-serif"]
+                    },
+                    fontSize: {
+                        "display-lg": ["clamp(2rem, 5vw + 1rem, 3.5rem)", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "700" }],
+                        "display-xl": ["clamp(2.5rem, 6vw + 1rem, 5rem)", { lineHeight: "1.0", letterSpacing: "-0.04em", fontWeight: "700" }],
+                        "body-lg": ["clamp(1rem, 1vw + 0.75rem, 1.125rem)", { lineHeight: "1.6", letterSpacing: "0em", fontWeight: "400" }],
+                        "headline-md": ["clamp(1.5rem, 3vw + 0.5rem, 2rem)", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "body-md": ["1rem", { lineHeight: "1.5", letterSpacing: "0em", fontWeight: "400" }],
+                        "label-bold": ["0.875rem", { lineHeight: "1.0", letterSpacing: "0.05em", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[style*="'FILL' 1"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes range-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12px)); }
+        }
+        .range-marquee-track {
+            animation: range-marquee 55s linear infinite;
+            width: max-content;
+            display: flex;
+            gap: 24px;
+        }
+        .range-marquee-track:hover { animation-play-state: paused; }
+        .range-faq summary::-webkit-details-marker { display: none; }
+        .range-faq summary { list-style: none; }
+        .range-faq summary .range-chevron { transition: transform 250ms ease; }
+        .range-faq[open] summary .range-chevron { transform: rotate(45deg); }
+        .range-bar {
+            background: linear-gradient(180deg, #ff5833 0%, #ffb4a3 100%);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .range-marquee-track { animation: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased selection:bg-primary-container selection:text-background flex flex-col min-h-screen">
+
+    <!-- TopNavBar -->
+    <nav class="bg-[#0B0B0B]/95 backdrop-blur-sm w-full top-0 border-b border-white/10 sticky z-50 transition-colors duration-300">
+        <div class="flex justify-between items-center w-full px-margin-fluid py-6 max-w-[1440px] mx-auto">
+            <a href="#" aria-label="Range Home" class="text-2xl font-black text-white tracking-tighter uppercase font-['Space_Grotesk'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B] rounded">Range</a>
+            <div class="hidden md:flex gap-8 items-center">
+                <a class="text-white/70 hover:text-white font-['Space_Grotesk'] font-bold uppercase tracking-tight hover:text-primary-container transition-all duration-300 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B] rounded px-2 py-1 -mx-2" href="#programs">Programs</a>
+                <a class="text-white/70 hover:text-white font-['Space_Grotesk'] font-bold uppercase tracking-tight hover:text-primary-container transition-all duration-300 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B] rounded px-2 py-1 -mx-2" href="#">Coaches</a>
+                <a class="text-white/70 hover:text-white font-['Space_Grotesk'] font-bold uppercase tracking-tight hover:text-primary-container transition-all duration-300 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B] rounded px-2 py-1 -mx-2" href="#">Reviews</a>
+                <a class="text-white/70 hover:text-white font-['Space_Grotesk'] font-bold uppercase tracking-tight hover:text-primary-container transition-all duration-300 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B] rounded px-2 py-1 -mx-2" href="#">Pricing</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="hidden md:inline-block bg-primary-container text-background font-label-bold text-label-bold px-6 py-3 rounded uppercase tracking-wider hover:bg-white hover:text-background hover:shadow-lg hover:shadow-primary-container/20 transition-all duration-300 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B0B0B]">Start now</button>
+                <button aria-label="Toggle Navigation Menu" aria-expanded="false" class="md:hidden text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded p-2 -mr-2">
+                    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative w-full h-[90svh] min-h-[600px] flex items-center justify-center overflow-hidden">
+        <img alt="Athlete mid-deadlift under moody gym lighting" class="absolute inset-0 w-full h-full object-cover opacity-60" fetchpriority="high" loading="eager" decoding="sync" width="1920" height="1080" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKxxsE4tbT32P3AbvOrJlKWvJe3kid5p2o7G9YVhZjKFLzkvuagrVga7iNTPjqvVW-vKeCtak65UP7eiuThDcSLTP63ix7Sgl9rHfxYJzuwYbHVTf9_187DXHwTj4rSz7rF15Y590j54BXsJ1ljY93GW5ticorrcMatQUJkE5cdfBt0CUXASGPhm9T-kJ_poPSBEuRYu4yenG5r60ijK9Mgz5YmpcrDYAOZsw4fJA3lVXra6SqqGNwY0Le4wKZKVfxhZAc_mKvEDYB"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent pointer-events-none"></div>
+        <div class="relative z-10 text-center max-w-[800px] px-margin-fluid mt-20">
+            <h1 class="font-display-xl text-display-xl text-on-background mb-6 uppercase text-balance drop-shadow-lg">Strength, Built On Principles</h1>
+            <p class="font-body-lg text-body-lg text-secondary mb-10 max-w-[65ch] mx-auto text-pretty drop-shadow-md">Elite training programs designed for the intermediate lifter who demands more from their training.</p>
+            <a href="#programs" class="inline-block bg-primary-container text-background font-label-bold text-label-bold px-8 py-4 rounded uppercase tracking-wider hover:bg-white hover:text-background hover:shadow-lg hover:shadow-primary-container/20 transition-all duration-300 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-background">See programs</a>
+        </div>
+    </header>
+
+    <main class="max-w-container-max mx-auto px-margin-fluid pb-section-gap w-full flex-grow">
+        <!-- Programs Section -->
+        <section id="programs" class="mt-section-gap scroll-mt-32">
+            <h2 class="font-headline-md text-headline-md text-on-background uppercase mb-8 md:mb-12 border-l-4 border-primary-container pl-4 text-balance">Choose Your Path</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                
+                <!-- Card 1 -->
+                <article class="relative bg-surface-container-low border border-surface-variant rounded flex flex-col group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-outline/50 focus-within:ring-2 focus-within:ring-primary-container focus-within:ring-offset-2 focus-within:ring-offset-background">
+                    <div class="h-48 relative overflow-hidden bg-surface-variant/50">
+                        <img alt="Close up of heavy barbell loaded with weights on a squat rack" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy" decoding="async" width="800" height="600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4xxGYVrUay99xOo9YqvsbzQDf_p03c1hGLVeZCcdUMwbcGlA37il1SRAoEnHyVEPEr3mAJWotU8WEWTwIlK58UvjMNnkeJmadIaY3JMg9veejVHso80zxKeAIyKWymYNHK5tjRPq4ufFwQx5EcagP4eVOGGR8wI6u6Na9D568qWSoFmKkX9rbiOL6W1oJ4yvzE7iNxY8pIg3F5va-rU7zTaCCt99EbduXKEeh2CowmVp89WLHGDtcKIpwmJ0sMIP2jrUWyUysCpDI"/>
+                        <div class="absolute top-4 left-4 bg-background/80 backdrop-blur px-2 py-1 rounded-sm border border-secondary/20 pointer-events-none">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">12 Weeks</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-headline-md text-on-background mb-2 text-balance">Foundation</h3>
+                        <p class="font-body-md text-body-md text-secondary mb-6 flex-grow text-pretty">Master the core lifts and build a base of undeniable strength.</p>
+                        <a class="mt-auto font-label-bold text-label-bold text-primary-container uppercase hover:text-white transition-colors flex items-center gap-2 focus:outline-none before:absolute before:inset-0 w-fit" href="#">
+                            View Program <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="relative bg-surface-container-low border border-surface-variant rounded flex flex-col group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-outline/50 focus-within:ring-2 focus-within:ring-primary-container focus-within:ring-offset-2 focus-within:ring-offset-background">
+                    <div class="h-48 relative overflow-hidden bg-surface-variant/50">
+                        <img alt="Muscular arms pressing heavy dumbbells on a bench" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy" decoding="async" width="800" height="600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9AZXv_XM6jUCSZP2rx_8qEnQ_NJnRqZp4ozmdksajwKFLmp9iuRUD5baxMkBOQttRu98Ot5RYL_ecIShPg6K-zQDBUeVpfT0duS1291p0BIaZRFEGRaEAbAdU3J9zuOAhCMcaEac9eyqBXNY6hNv-K_2X3W45rwFSbUTBBGUUUch5FjajpYxPhIHVkwpcqwJFyep6OCvSTpoZz6hw1BjmZ-xR-pAL7FEvsUBQ3afj_mb1hwu5P5mcx8fi3yneITQt6JlFNUmAmEV9"/>
+                        <div class="absolute top-4 left-4 bg-background/80 backdrop-blur px-2 py-1 rounded-sm border border-secondary/20 pointer-events-none">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">12 Weeks</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-headline-md text-on-background mb-2 text-balance">Hypertrophy</h3>
+                        <p class="font-body-md text-body-md text-secondary mb-6 flex-grow text-pretty">Science-backed volume to maximize muscle growth and density.</p>
+                        <a class="mt-auto font-label-bold text-label-bold text-primary-container uppercase hover:text-white transition-colors flex items-center gap-2 focus:outline-none before:absolute before:inset-0 w-fit" href="#">
+                            View Program <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="relative bg-surface-container-low border border-surface-variant rounded flex flex-col group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-outline/50 focus-within:ring-2 focus-within:ring-primary-container focus-within:ring-offset-2 focus-within:ring-offset-background">
+                    <div class="h-48 relative overflow-hidden bg-surface-variant/50">
+                        <img alt="Low angle shot of a heavy deadlift setup with chalked hands" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy" decoding="async" width="800" height="600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL-xupMgW-2dMWs-QWCd0DOX4BfCRHAF-qIh_doqIgCEJ2mbdHGccmMzwTqtnxpb_s8WDajh3I1EBXa8EdmQHxR71xllhehymkPzVutDpJQwthVDeHDYJGg5V8jZL2RwJk2tfEv2Q0J-AMLUPMTS2POyH7yaM8suuWXNgIExLiw50Id4mKHW-ZsYnVr7TsFr2kUN2OqVHfRizCeV_0vfcA5W8dSuTJM-mgRD_dldsRBdB1yW6PVv0w1BRCc-lMF1OHSZKm_fOOxCA"/>
+                        <div class="absolute top-4 left-4 bg-background/80 backdrop-blur px-2 py-1 rounded-sm border border-secondary/20 pointer-events-none">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">12 Weeks</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-headline-md text-on-background mb-2 text-balance">Strength</h3>
+                        <p class="font-body-md text-body-md text-secondary mb-6 flex-grow text-pretty">Peak your central nervous system for new 1RM milestones.</p>
+                        <a class="mt-auto font-label-bold text-label-bold text-primary-container uppercase hover:text-white transition-colors flex items-center gap-2 focus:outline-none before:absolute before:inset-0 w-fit" href="#">
+                            View Program <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="relative bg-surface-container-low border border-surface-variant rounded flex flex-col group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-outline/50 focus-within:ring-2 focus-within:ring-primary-container focus-within:ring-offset-2 focus-within:ring-offset-background">
+                    <div class="h-48 relative overflow-hidden bg-surface-variant/50">
+                        <img alt="Gymnastic rings hanging in a dark crossfit style gym" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy" decoding="async" width="800" height="600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEtAnrPRYknN3EH-gpGqxUvZKzghRnnCqJr2IWywdx3ONWe5SC2rFFRFJ898e_-FwTs9Pox7BSPj5I_uX5EYtcNy00VxzDgb-HPsVaqVSgNAGp3Z6TkMpXhq7_4d28_HYkYh6WzVBbw8t4G6ybkKBoTJmCHMr08CHSOwxtn6TBRqmIeIs0eDWetLeU9IxLRaE1vEVc36bXTLxW26hZCK3NqDK45mceTWni_SpyXiJuXA3LwXPT4ZH4jRgfoSqt6bu2DxWgGQfKH22R"/>
+                        <div class="absolute top-4 left-4 bg-background/80 backdrop-blur px-2 py-1 rounded-sm border border-secondary/20 pointer-events-none">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">12 Weeks</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-headline-md text-on-background mb-2 text-balance">Peak</h3>
+                        <p class="font-body-md text-body-md text-secondary mb-6 flex-grow text-pretty">Advanced peaking cycle for competitive athletes preparing for a meet.</p>
+                        <a class="mt-auto font-label-bold text-label-bold text-primary-container uppercase hover:text-white transition-colors flex items-center gap-2 focus:outline-none before:absolute before:inset-0 w-fit" href="#">
+                            View Program <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- What You Get Section -->
+        <section class="mt-section-gap">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-[clamp(2rem,6vw,4rem)] items-center">
+                <div>
+                    <h2 class="font-display-lg text-display-lg text-on-background uppercase mb-6 md:mb-8 border-l-4 border-primary-container pl-4 text-balance">The Range Edge</h2>
+                    <p class="font-body-lg text-body-lg text-secondary mb-8 max-w-[65ch] text-pretty">We don't just give you a spreadsheet. We provide a comprehensive coaching ecosystem to ensure execution meets ambition.</p>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4 group">
+                            <span class="material-symbols-outlined text-primary-container mt-0.5 shrink-0 transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">check_circle</span>
+                            <div>
+                                <span class="font-label-bold text-label-bold text-on-background uppercase block mb-1">Scientific Programming</span>
+                                <span class="font-body-md text-body-md text-secondary max-w-[60ch] block text-pretty">Periodized cycles based on current exercise science, not gym folklore.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 group">
+                            <span class="material-symbols-outlined text-primary-container mt-0.5 shrink-0 transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">check_circle</span>
+                            <div>
+                                <span class="font-label-bold text-label-bold text-on-background uppercase block mb-1">Video Form Reviews</span>
+                                <span class="font-body-md text-body-md text-secondary max-w-[60ch] block text-pretty">Submit your sets. Get technical breakdowns to optimize mechanics.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 group">
+                            <span class="material-symbols-outlined text-primary-container mt-0.5 shrink-0 transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">check_circle</span>
+                            <div>
+                                <span class="font-label-bold text-label-bold text-on-background uppercase block mb-1">Direct Coach Access</span>
+                                <span class="font-body-md text-body-md text-secondary max-w-[60ch] block text-pretty">No bots. Real elite coaches answering your programming questions.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 group">
+                            <span class="material-symbols-outlined text-primary-container mt-0.5 shrink-0 transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">check_circle</span>
+                            <div>
+                                <span class="font-label-bold text-label-bold text-on-background uppercase block mb-1">Community Discord</span>
+                                <span class="font-body-md text-body-md text-secondary max-w-[60ch] block text-pretty">Surround yourself with lifters who demand as much from themselves as you do.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative h-[600px] w-full bg-surface-variant/30 rounded">
+                    <img alt="Muscular athlete sitting on a weight bench in a dark gym looking intently at a smartphone screen" class="w-full h-full object-cover rounded opacity-80" loading="lazy" decoding="async" width="800" height="1200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv-AGluRFQxD_hRnjCkI00S_EjO7KJJbiS-21qUZ7n-ohUpS-Arvlo-7wx3xROtsBPXzbqSUV2DFpN7USEgbLuOPr3H7RQsKH6HAtZ5x_VTGsT3gnVjdr6ten9agNvetKPevlD1fM5mzBxH7q5D_noVDk30mC1W7fJ9TV7K1ObHEtKNekTFOUEoi6uZ-toEFxwvt89fdVeG9tI7it0b2gYcVeAF7ePUSu85swgh_0Z4JwSgJAn9bu20kosb8KxOV3HIobFgK6ox7fj"/>
+                    <div class="absolute inset-0 border border-surface-variant rounded pointer-events-none"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Section: In Motion (image strip / marquee) -->
+        <section id="in-motion" class="mt-section-gap">
+            <div class="flex items-end justify-between gap-6 mb-8 md:mb-12 flex-wrap">
+                <div>
+                    <h2 class="font-headline-md text-headline-md text-on-background uppercase border-l-4 border-primary-container pl-4 text-balance">In Motion</h2>
+                    <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">A week from inside the program. No edits, no filters. The work that the spreadsheet describes.</p>
+                </div>
+                <span class="font-label-bold text-label-bold text-primary-container/80 uppercase tracking-widest hidden md:inline">Hover · paused</span>
+            </div>
+            <div class="relative -mx-margin-fluid overflow-hidden py-2">
+                <div class="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent"></div>
+                <div class="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent"></div>
+                <div class="range-marquee-track px-margin-fluid">
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4xxGYVrUay99xOo9YqvsbzQDf_p03c1hGLVeZCcdUMwbcGlA37il1SRAoEnHyVEPEr3mAJWotU8WEWTwIlK58UvjMNnkeJmadIaY3JMg9veejVHso80zxKeAIyKWymYNHK5tjRPq4ufFwQx5EcagP4eVOGGR8wI6u6Na9D568qWSoFmKkX9rbiOL6W1oJ4yvzE7iNxY8pIg3F5va-rU7zTaCCt99EbduXKEeh2CowmVp89WLHGDtcKIpwmJ0sMIP2jrUWyUysCpDI" alt="Heavy back squat warm-up" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">5 × 5 · @RPE 8</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Back Squat</span>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">160 KG</span>
+                        </div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9AZXv_XM6jUCSZP2rx_8qEnQ_NJnRqZp4ozmdksajwKFLmp9iuRUD5baxMkBOQttRu98Ot5RYL_ecIShPg6K-zQDBUeVpfT0duS1291p0BIaZRFEGRaEAbAdU3J9zuOAhCMcaEac9eyqBXNY6hNv-K_2X3W45rwFSbUTBBGUUUch5FjajpYxPhIHVkwpcqwJFyep6OCvSTpoZz6hw1BjmZ-xR-pAL7FEvsUBQ3afj_mb1hwu5P5mcx8fi3yneITQt6JlFNUmAmEV9" alt="Dumbbell press top set" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">3 × 8 · @RPE 9</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">DB Press</span>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">42.5 KG</span>
+                        </div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL-xupMgW-2dMWs-QWCd0DOX4BfCRHAF-qIh_doqIgCEJ2mbdHGccmMzwTqtnxpb_s8WDajh3I1EBXa8EdmQHxR71xllhehymkPzVutDpJQwthVDeHDYJGg5V8jZL2RwJk2tfEv2Q0J-AMLUPMTS2POyH7yaM8suuWXNgIExLiw50Id4mKHW-ZsYnVr7TsFr2kUN2OqVHfRizCeV_0vfcA5W8dSuTJM-mgRD_dldsRBdB1yW6PVv0w1BRCc-lMF1OHSZKm_fOOxCA" alt="Heavy deadlift opener" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">1 × 3 · @RPE 9</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Deadlift</span>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">220 KG</span>
+                        </div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEtAnrPRYknN3EH-gpGqxUvZKzghRnnCqJr2IWywdx3ONWe5SC2rFFRFJ898e_-FwTs9Pox7BSPj5I_uX5EYtcNy00VxzDgb-HPsVaqVSgNAGp3Z6TkMpXhq7_4d28_HYkYh6WzVBbw8t4G6ybkKBoTJmCHMr08CHSOwxtn6TBRqmIeIs0eDWetLeU9IxLRaE1vEVc36bXTLxW26hZCK3NqDK45mceTWni_SpyXiJuXA3LwXPT4ZH4jRgfoSqt6bu2DxWgGQfKH22R" alt="Ring muscle-up training" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">EMOM 12 · BW</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Rings</span>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">3 reps</span>
+                        </div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKxxsE4tbT32P3AbvOrJlKWvJe3kid5p2o7G9YVhZjKFLzkvuagrVga7iNTPjqvVW-vKeCtak65UP7eiuThDcSLTP63ix7Sgl9rHfxYJzuwYbHVTf9_187DXHwTj4rSz7rF15Y590j54BXsJ1ljY93GW5ticorrcMatQUJkE5cdfBt0CUXASGPhm9T-kJ_poPSBEuRYu4yenG5r60ijK9Mgz5YmpcrDYAOZsw4fJA3lVXra6SqqGNwY0Le4wKZKVfxhZAc_mKvEDYB" alt="Pull from the floor, set-up" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">PAUSE 2s · @RPE 8</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Snatch Pull</span>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">90 KG</span>
+                        </div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv-AGluRFQxD_hRnjCkI00S_EjO7KJJbiS-21qUZ7n-ohUpS-Arvlo-7wx3xROtsBPXzbqSUV2DFpN7USEgbLuOPr3H7RQsKH6HAtZ5x_VTGsT3gnVjdr6ten9agNvetKPevlD1fM5mzBxH7q5D_noVDk30mC1W7fJ9TV7K1ObHEtKNekTFOUEoi6uZ-toEFxwvt89fdVeG9tI7it0b2gYcVeAF7ePUSu85swgh_0Z4JwSgJAn9bu20kosb8KxOV3HIobFgK6ox7fj" alt="Athlete reviewing program on phone" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">SESSION REVIEW</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Debrief</span>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">12 min</span>
+                        </div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4xxGYVrUay99xOo9YqvsbzQDf_p03c1hGLVeZCcdUMwbcGlA37il1SRAoEnHyVEPEr3mAJWotU8WEWTwIlK58UvjMNnkeJmadIaY3JMg9veejVHso80zxKeAIyKWymYNHK5tjRPq4ufFwQx5EcagP4eVOGGR8wI6u6Na9D568qWSoFmKkX9rbiOL6W1oJ4yvzE7iNxY8pIg3F5va-rU7zTaCCt99EbduXKEeh2CowmVp89WLHGDtcKIpwmJ0sMIP2jrUWyUysCpDI" alt="Front squat session" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm">
+                            <span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">4 × 6 · @RPE 7</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                            <span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Front Squat</span>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">120 KG</span>
+                        </div>
+                    </figure>
+                    <!-- Duplicate (aria-hidden) for seamless loop -->
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded" aria-hidden="true">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4xxGYVrUay99xOo9YqvsbzQDf_p03c1hGLVeZCcdUMwbcGlA37il1SRAoEnHyVEPEr3mAJWotU8WEWTwIlK58UvjMNnkeJmadIaY3JMg9veejVHso80zxKeAIyKWymYNHK5tjRPq4ufFwQx5EcagP4eVOGGR8wI6u6Na9D568qWSoFmKkX9rbiOL6W1oJ4yvzE7iNxY8pIg3F5va-rU7zTaCCt99EbduXKEeh2CowmVp89WLHGDtcKIpwmJ0sMIP2jrUWyUysCpDI" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm"><span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">5 × 5 · @RPE 8</span></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between"><span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Back Squat</span><span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">160 KG</span></div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded" aria-hidden="true">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9AZXv_XM6jUCSZP2rx_8qEnQ_NJnRqZp4ozmdksajwKFLmp9iuRUD5baxMkBOQttRu98Ot5RYL_ecIShPg6K-zQDBUeVpfT0duS1291p0BIaZRFEGRaEAbAdU3J9zuOAhCMcaEac9eyqBXNY6hNv-K_2X3W45rwFSbUTBBGUUUch5FjajpYxPhIHVkwpcqwJFyep6OCvSTpoZz6hw1BjmZ-xR-pAL7FEvsUBQ3afj_mb1hwu5P5mcx8fi3yneITQt6JlFNUmAmEV9" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm"><span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">3 × 8 · @RPE 9</span></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between"><span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">DB Press</span><span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">42.5 KG</span></div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded" aria-hidden="true">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL-xupMgW-2dMWs-QWCd0DOX4BfCRHAF-qIh_doqIgCEJ2mbdHGccmMzwTqtnxpb_s8WDajh3I1EBXa8EdmQHxR71xllhehymkPzVutDpJQwthVDeHDYJGg5V8jZL2RwJk2tfEv2Q0J-AMLUPMTS2POyH7yaM8suuWXNgIExLiw50Id4mKHW-ZsYnVr7TsFr2kUN2OqVHfRizCeV_0vfcA5W8dSuTJM-mgRD_dldsRBdB1yW6PVv0w1BRCc-lMF1OHSZKm_fOOxCA" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm"><span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">1 × 3 · @RPE 9</span></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between"><span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Deadlift</span><span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">220 KG</span></div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded" aria-hidden="true">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEtAnrPRYknN3EH-gpGqxUvZKzghRnnCqJr2IWywdx3ONWe5SC2rFFRFJ898e_-FwTs9Pox7BSPj5I_uX5EYtcNy00VxzDgb-HPsVaqVSgNAGp3Z6TkMpXhq7_4d28_HYkYh6WzVBbw8t4G6ybkKBoTJmCHMr08CHSOwxtn6TBRqmIeIs0eDWetLeU9IxLRaE1vEVc36bXTLxW26hZCK3NqDK45mceTWni_SpyXiJuXA3LwXPT4ZH4jRgfoSqt6bu2DxWgGQfKH22R" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm"><span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">EMOM 12 · BW</span></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between"><span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Rings</span><span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">3 reps</span></div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded" aria-hidden="true">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKxxsE4tbT32P3AbvOrJlKWvJe3kid5p2o7G9YVhZjKFLzkvuagrVga7iNTPjqvVW-vKeCtak65UP7eiuThDcSLTP63ix7Sgl9rHfxYJzuwYbHVTf9_187DXHwTj4rSz7rF15Y590j54BXsJ1ljY93GW5ticorrcMatQUJkE5cdfBt0CUXASGPhm9T-kJ_poPSBEuRYu4yenG5r60ijK9Mgz5YmpcrDYAOZsw4fJA3lVXra6SqqGNwY0Le4wKZKVfxhZAc_mKvEDYB" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm"><span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">PAUSE 2s · @RPE 8</span></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between"><span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Snatch Pull</span><span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">90 KG</span></div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded" aria-hidden="true">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv-AGluRFQxD_hRnjCkI00S_EjO7KJJbiS-21qUZ7n-ohUpS-Arvlo-7wx3xROtsBPXzbqSUV2DFpN7USEgbLuOPr3H7RQsKH6HAtZ5x_VTGsT3gnVjdr6ten9agNvetKPevlD1fM5mzBxH7q5D_noVDk30mC1W7fJ9TV7K1ObHEtKNekTFOUEoi6uZ-toEFxwvt89fdVeG9tI7it0b2gYcVeAF7ePUSu85swgh_0Z4JwSgJAn9bu20kosb8KxOV3HIobFgK6ox7fj" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm"><span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">SESSION REVIEW</span></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between"><span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Debrief</span><span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">12 min</span></div>
+                    </figure>
+                    <figure class="shrink-0 w-80 h-56 relative overflow-hidden border border-surface-variant rounded" aria-hidden="true">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4xxGYVrUay99xOo9YqvsbzQDf_p03c1hGLVeZCcdUMwbcGlA37il1SRAoEnHyVEPEr3mAJWotU8WEWTwIlK58UvjMNnkeJmadIaY3JMg9veejVHso80zxKeAIyKWymYNHK5tjRPq4ufFwQx5EcagP4eVOGGR8wI6u6Na9D568qWSoFmKkX9rbiOL6W1oJ4yvzE7iNxY8pIg3F5va-rU7zTaCCt99EbduXKEeh2CowmVp89WLHGDtcKIpwmJ0sMIP2jrUWyUysCpDI" alt="" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-background/85 backdrop-blur-sm border border-primary-container/30 px-2 py-1 rounded-sm"><span class="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">4 × 6 · @RPE 7</span></div>
+                        <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between"><span class="font-headline-md text-on-background uppercase text-lg leading-none drop-shadow-md">Front Squat</span><span class="font-label-bold text-label-bold text-secondary uppercase tabular-nums">120 KG</span></div>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Lifters in the program (3 alternating image+content rows, NOT a grid) -->
+        <section class="mt-section-gap">
+            <div class="mb-8 md:mb-12">
+                <h2 class="font-headline-md text-headline-md text-on-background uppercase border-l-4 border-primary-container pl-4 text-balance">Lifters in the Program</h2>
+                <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">Three of the people behind the numbers above. Twelve weeks ago, they signed up. Below: what changed.</p>
+            </div>
+            <div class="flex flex-col gap-12 lg:gap-16">
+
+                <!-- Row 1 -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-stretch">
+                    <figure class="md:col-span-5 relative aspect-[4/5] md:aspect-auto md:min-h-[420px] overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv-AGluRFQxD_hRnjCkI00S_EjO7KJJbiS-21qUZ7n-ohUpS-Arvlo-7wx3xROtsBPXzbqSUV2DFpN7USEgbLuOPr3H7RQsKH6HAtZ5x_VTGsT3gnVjdr6ten9agNvetKPevlD1fM5mzBxH7q5D_noVDk30mC1W7fJ9TV7K1ObHEtKNekTFOUEoi6uZ-toEFxwvt89fdVeG9tI7it0b2gYcVeAF7ePUSu85swgh_0Z4JwSgJAn9bu20kosb8KxOV3HIobFgK6ox7fj" alt="Mason — Foundation graduate" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                            <div class="flex flex-col gap-0.5">
+                                <span class="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">— Mason · 32 · Berlin</span>
+                                <span class="font-headline-md text-on-background uppercase text-xl leading-none drop-shadow-md">Foundation graduate</span>
+                            </div>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest border border-secondary/30 backdrop-blur-sm bg-background/40 px-2 py-1">CYCLE 01</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-7 flex flex-col gap-5">
+                        <span class="material-symbols-outlined text-primary-container text-4xl leading-none" aria-hidden="true">format_quote</span>
+                        <blockquote class="font-headline-md text-headline-md text-on-background text-balance leading-tight">"I came in with a 130 kg squat and the same back pain I'd had for two years. The video reviews fixed both, in that order."</blockquote>
+                        <p class="font-body-md text-body-md text-secondary text-pretty max-w-prose">Mason had three years of self-programmed lifting before joining. The pre-block intake call rebuilt his squat pattern in week 2; weight followed.</p>
+                        <div class="grid grid-cols-3 border-t border-surface-variant pt-6 gap-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Squat 1RM</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">+22 kg</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest tabular-nums">130 → 152</span>
+                            </div>
+                            <div class="flex flex-col gap-1 border-l border-surface-variant pl-3">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Bodyweight</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">+3.4 kg</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Lean</span>
+                            </div>
+                            <div class="flex flex-col gap-1 border-l border-surface-variant pl-3">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Sessions</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">47 / 48</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Adherence</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Row 2 (reverse) -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-stretch">
+                    <div class="md:col-span-7 md:order-1 order-2 flex flex-col gap-5">
+                        <span class="material-symbols-outlined text-primary-container text-4xl leading-none" aria-hidden="true">format_quote</span>
+                        <blockquote class="font-headline-md text-headline-md text-on-background text-balance leading-tight">"I'd never deadlifted over body-weight. By week ten the bar moved like it owed me an answer."</blockquote>
+                        <p class="font-body-md text-body-md text-secondary text-pretty max-w-prose">Priya joined the Strength block on a friend's recommendation. The block rotated her primary lift weekly; the deadlift was the surprise.</p>
+                        <div class="grid grid-cols-3 border-t border-surface-variant pt-6 gap-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Deadlift 1RM</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">+34 kg</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest tabular-nums">98 → 132</span>
+                            </div>
+                            <div class="flex flex-col gap-1 border-l border-surface-variant pl-3">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">RPE Avg</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">7.6</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Sustainable</span>
+                            </div>
+                            <div class="flex flex-col gap-1 border-l border-surface-variant pl-3">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Form review</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">9</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Submitted</span>
+                            </div>
+                        </div>
+                    </div>
+                    <figure class="md:col-span-5 md:order-2 order-1 relative aspect-[4/5] md:aspect-auto md:min-h-[420px] overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL-xupMgW-2dMWs-QWCd0DOX4BfCRHAF-qIh_doqIgCEJ2mbdHGccmMzwTqtnxpb_s8WDajh3I1EBXa8EdmQHxR71xllhehymkPzVutDpJQwthVDeHDYJGg5V8jZL2RwJk2tfEv2Q0J-AMLUPMTS2POyH7yaM8suuWXNgIExLiw50Id4mKHW-ZsYnVr7TsFr2kUN2OqVHfRizCeV_0vfcA5W8dSuTJM-mgRD_dldsRBdB1yW6PVv0w1BRCc-lMF1OHSZKm_fOOxCA" alt="Priya — Strength block" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                            <div class="flex flex-col gap-0.5">
+                                <span class="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">— Priya · 28 · Toronto</span>
+                                <span class="font-headline-md text-on-background uppercase text-xl leading-none drop-shadow-md">Strength block</span>
+                            </div>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest border border-secondary/30 backdrop-blur-sm bg-background/40 px-2 py-1">CYCLE 02</span>
+                        </div>
+                    </figure>
+                </article>
+
+                <!-- Row 3 -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-stretch">
+                    <figure class="md:col-span-5 relative aspect-[4/5] md:aspect-auto md:min-h-[420px] overflow-hidden border border-surface-variant rounded">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEtAnrPRYknN3EH-gpGqxUvZKzghRnnCqJr2IWywdx3ONWe5SC2rFFRFJ898e_-FwTs9Pox7BSPj5I_uX5EYtcNy00VxzDgb-HPsVaqVSgNAGp3Z6TkMpXhq7_4d28_HYkYh6WzVBbw8t4G6ybkKBoTJmCHMr08CHSOwxtn6TBRqmIeIs0eDWetLeU9IxLRaE1vEVc36bXTLxW26hZCK3NqDK45mceTWni_SpyXiJuXA3LwXPT4ZH4jRgfoSqt6bu2DxWgGQfKH22R" alt="Atli — Peak block, meet prep" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                            <div class="flex flex-col gap-0.5">
+                                <span class="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">— Atli · 34 · Reykjavík</span>
+                                <span class="font-headline-md text-on-background uppercase text-xl leading-none drop-shadow-md">Peak · meet prep</span>
+                            </div>
+                            <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest border border-secondary/30 backdrop-blur-sm bg-background/40 px-2 py-1">CYCLE 03</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-7 flex flex-col gap-5">
+                        <span class="material-symbols-outlined text-primary-container text-4xl leading-none" aria-hidden="true">format_quote</span>
+                        <blockquote class="font-headline-md text-headline-md text-on-background text-balance leading-tight">"My coach didn't tell me to peak harder. He told me to peak smaller. I PRed all three lifts on meet day."</blockquote>
+                        <p class="font-body-md text-body-md text-secondary text-pretty max-w-prose">Atli's third meet, second time using Range. The Peak block tapered intensity weekly with a 14-day deload before competition. He lifted 6.5% over previous best total.</p>
+                        <div class="grid grid-cols-3 border-t border-surface-variant pt-6 gap-3">
+                            <div class="flex flex-col gap-1">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Meet total</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">+38 kg</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest tabular-nums">582 → 620</span>
+                            </div>
+                            <div class="flex flex-col gap-1 border-l border-surface-variant pl-3">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">DOTS pts</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">421</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Class top-10</span>
+                            </div>
+                            <div class="flex flex-col gap-1 border-l border-surface-variant pl-3">
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Cycles done</span>
+                                <span class="font-display-lg text-primary-container tabular-nums leading-none">03</span>
+                                <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Range</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Section: The Block (12-week intensity visualisation, content) -->
+        <section class="mt-section-gap">
+            <div class="mb-8 md:mb-12 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-end">
+                <div class="md:col-span-7">
+                    <h2 class="font-headline-md text-headline-md text-on-background uppercase border-l-4 border-primary-container pl-4 text-balance">The Block</h2>
+                    <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">Twelve weeks. Four phases. Every program runs on the same rhythm — accumulate, intensify, peak, recover.</p>
+                </div>
+                <div class="md:col-span-5 grid grid-cols-2 gap-4">
+                    <div class="bg-surface-container-low border border-surface-variant rounded p-4 flex flex-col gap-1">
+                        <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Sessions / week</span>
+                        <span class="font-display-lg text-primary-container tabular-nums leading-none">04</span>
+                    </div>
+                    <div class="bg-surface-container-low border border-surface-variant rounded p-4 flex flex-col gap-1">
+                        <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Average duration</span>
+                        <span class="font-display-lg text-primary-container tabular-nums leading-none">72 min</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12-week intensity bars -->
+            <div class="bg-surface-container-low border border-surface-variant rounded p-6 md:p-8">
+                <div class="flex items-end gap-2 md:gap-3 h-44 md:h-56" role="img" aria-label="Twelve-week intensity ramp: 4 weeks accumulation, 4 weeks intensification, 3 weeks realization, 1 week deload.">
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 32%;"><div class="w-full range-bar rounded-t h-full opacity-80"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W1</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 38%;"><div class="w-full range-bar rounded-t h-full opacity-80"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W2</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 44%;"><div class="w-full range-bar rounded-t h-full opacity-80"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W3</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 50%;"><div class="w-full range-bar rounded-t h-full opacity-80"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W4</span></div>
+                    <div class="w-px h-full bg-surface-variant/60"></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 58%;"><div class="w-full range-bar rounded-t h-full"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W5</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 66%;"><div class="w-full range-bar rounded-t h-full"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W6</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 74%;"><div class="w-full range-bar rounded-t h-full"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W7</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 82%;"><div class="w-full range-bar rounded-t h-full"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W8</span></div>
+                    <div class="w-px h-full bg-surface-variant/60"></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 92%;"><div class="w-full range-bar rounded-t h-full ring-2 ring-primary-container/40 ring-offset-2 ring-offset-surface-container-low"></div></div><span class="font-label-bold text-label-bold text-primary-container tabular-nums">W9</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 96%;"><div class="w-full range-bar rounded-t h-full ring-2 ring-primary-container/40 ring-offset-2 ring-offset-surface-container-low"></div></div><span class="font-label-bold text-label-bold text-primary-container tabular-nums">W10</span></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 100%;"><div class="w-full range-bar rounded-t h-full ring-2 ring-primary-container/60 ring-offset-2 ring-offset-surface-container-low"></div></div><span class="font-label-bold text-label-bold text-primary-container tabular-nums">W11</span></div>
+                    <div class="w-px h-full bg-surface-variant/60"></div>
+                    <div class="flex-1 flex flex-col items-center gap-2"><div class="w-full bg-surface-variant rounded-t" style="height: 22%;"><div class="w-full range-bar rounded-t h-full opacity-50"></div></div><span class="font-label-bold text-label-bold text-secondary tabular-nums">W12</span></div>
+                </div>
+                <!-- Phase labels -->
+                <div class="grid grid-cols-12 gap-2 md:gap-3 mt-6 pt-6 border-t border-surface-variant">
+                    <div class="col-span-4 flex flex-col gap-1">
+                        <span class="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">Phase I</span>
+                        <span class="font-headline-md text-on-background uppercase text-base leading-tight">Accumulation</span>
+                        <span class="font-body-md text-body-md text-secondary">Volume builds. RPE held at 7.</span>
+                    </div>
+                    <div class="col-span-4 flex flex-col gap-1">
+                        <span class="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">Phase II</span>
+                        <span class="font-headline-md text-on-background uppercase text-base leading-tight">Intensification</span>
+                        <span class="font-body-md text-body-md text-secondary">Volume drops. RPE rises to 9.</span>
+                    </div>
+                    <div class="col-span-3 flex flex-col gap-1">
+                        <span class="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">Phase III</span>
+                        <span class="font-headline-md text-on-background uppercase text-base leading-tight">Realization</span>
+                        <span class="font-body-md text-body-md text-secondary">Three top sets. New PRs.</span>
+                    </div>
+                    <div class="col-span-1 flex flex-col gap-1">
+                        <span class="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">IV</span>
+                        <span class="font-headline-md text-on-background uppercase text-base leading-tight">Deload</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase benchmark rail -->
+            <div class="grid grid-cols-1 md:grid-cols-4 border border-surface-variant divide-y md:divide-y-0 md:divide-x divide-surface-variant rounded mt-4 bg-surface-container-low">
+                <div class="p-5 flex flex-col gap-1">
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Sets / week peak</span>
+                    <span class="font-display-lg text-on-background tabular-nums leading-none">22</span>
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Per main lift</span>
+                </div>
+                <div class="p-5 flex flex-col gap-1">
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">% of 1RM range</span>
+                    <span class="font-display-lg text-on-background tabular-nums leading-none">62 — 95</span>
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Across phases</span>
+                </div>
+                <div class="p-5 flex flex-col gap-1">
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Form reviews</span>
+                    <span class="font-display-lg text-on-background tabular-nums leading-none">12</span>
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Included</span>
+                </div>
+                <div class="p-5 flex flex-col gap-1">
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Coach calls</span>
+                    <span class="font-display-lg text-on-background tabular-nums leading-none">04</span>
+                    <span class="font-label-bold text-label-bold text-secondary uppercase tracking-widest">30 min each</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Common Questions (FAQ accordion) -->
+        <section class="mt-section-gap">
+            <div class="mb-8 md:mb-12">
+                <h2 class="font-headline-md text-headline-md text-on-background uppercase border-l-4 border-primary-container pl-4 text-balance">Common Questions</h2>
+                <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">If we haven't answered yours, write to us. The coaches read every message.</p>
+            </div>
+            <div class="border border-surface-variant rounded bg-surface-container-low divide-y divide-surface-variant overflow-hidden">
+
+                <details class="range-faq group p-5 md:p-6">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h3 class="font-headline-md text-headline-md text-on-background uppercase text-lg md:text-xl">What's "intermediate"?</h3>
+                        <span class="material-symbols-outlined range-chevron text-primary-container text-[24px] mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">A bodyweight squat for sets of five, two years of consistent training, no obvious form holes on video. We'll send a 4-question intake before you sign up — if you're not ready, we say so.</p>
+                </details>
+
+                <details class="range-faq group p-5 md:p-6">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h3 class="font-headline-md text-headline-md text-on-background uppercase text-lg md:text-xl">What if I miss a session?</h3>
+                        <span class="material-symbols-outlined range-chevron text-primary-container text-[24px] mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">One a week is allowed without changing the cycle. More than that, your coach restructures the week and shifts the realization phase. Tell us early; we'll keep the block honest.</p>
+                </details>
+
+                <details class="range-faq group p-5 md:p-6">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h3 class="font-headline-md text-headline-md text-on-background uppercase text-lg md:text-xl">Do I need a barbell at home?</h3>
+                        <span class="material-symbols-outlined range-chevron text-primary-container text-[24px] mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">For Foundation, Hypertrophy, and Strength: a barbell, plates to ~150% bodyweight, a rack, and a bench. For Peak: meet-spec only — competition bar, calibrated plates. We can sub equipment on request, but the block is built around the standards.</p>
+                </details>
+
+                <details class="range-faq group p-5 md:p-6">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h3 class="font-headline-md text-headline-md text-on-background uppercase text-lg md:text-xl">Is nutrition included?</h3>
+                        <span class="material-symbols-outlined range-chevron text-primary-container text-[24px] mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">Strategy, yes. Macro tracking, no. Each cycle includes a one-page nutrition reference for the phase you're in (surplus / lean / cut), plus a brief on supplements. We don't write daily meal plans; that's a different job.</p>
+                </details>
+
+                <details class="range-faq group p-5 md:p-6">
+                    <summary class="flex items-start justify-between gap-4 cursor-pointer">
+                        <h3 class="font-headline-md text-headline-md text-on-background uppercase text-lg md:text-xl">Refund window?</h3>
+                        <span class="material-symbols-outlined range-chevron text-primary-container text-[24px] mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <p class="font-body-md text-body-md text-secondary mt-3 max-w-prose">Two weeks, full. After that, prorated to the week of cancellation. Nobody is forced to finish a block; we'd rather you came back than slogged through.</p>
+                </details>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Final CTA -->
+    <section class="bg-surface-container-low border-t border-surface-variant py-[clamp(4rem,10vw,8rem)] text-center px-margin-fluid">
+        <h2 class="font-display-xl text-display-xl text-primary-container uppercase mb-6 md:mb-8 text-balance">Ready to Level Up?</h2>
+        <p class="font-body-lg text-body-lg text-on-background mb-10 max-w-[65ch] mx-auto text-pretty">Stop guessing. Start progressing. Join the elite.</p>
+        <button class="bg-primary-container text-background font-label-bold text-label-bold px-12 py-6 rounded uppercase tracking-wider hover:bg-white hover:text-background hover:shadow-lg hover:shadow-primary-container/20 transition-all duration-300 active:scale-95 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low">Get Started</button>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B0B0B] w-full border-t border-white/10">
+        <div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-fluid py-16 max-w-[1440px] mx-auto gap-10 text-center md:text-left">
+            <div class="text-xl font-black text-white tracking-widest font-['Space_Grotesk'] uppercase">Range</div>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                <a class="text-white/40 font-['Space_Grotesk'] text-xs font-bold tracking-[0.2em] uppercase hover:text-primary-container transition-colors duration-200 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded px-2 py-1 -mx-2" href="#">Privacy Policy</a>
+                <a class="text-white/40 font-['Space_Grotesk'] text-xs font-bold tracking-[0.2em] uppercase hover:text-primary-container transition-colors duration-200 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded px-2 py-1 -mx-2" href="#">Terms of Service</a>
+                <a class="text-white/40 font-['Space_Grotesk'] text-xs font-bold tracking-[0.2em] uppercase hover:text-primary-container transition-colors duration-200 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded px-2 py-1 -mx-2" href="#">Contact</a>
+                <a class="text-white/40 font-['Space_Grotesk'] text-xs font-bold tracking-[0.2em] uppercase hover:text-primary-container transition-colors duration-200 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded px-2 py-1 -mx-2" href="#">FAQ</a>
+            </div>
+            <div class="font-['Space_Grotesk'] text-xs font-bold tracking-[0.2em] uppercase text-primary-container tabular-nums">
+                © 2024 RANGE. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

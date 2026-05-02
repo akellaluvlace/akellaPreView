@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Paid Newsletter Playbook</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#494640",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1b1b1c",
+                    "surface-container": "#f0eded",
+                    "inverse-on-surface": "#f3f0ef",
+                    "inverse-primary": "#a1d2ad",
+                    "secondary": "#605e5b",
+                    "on-surface-variant": "#414942",
+                    "on-tertiary-fixed": "#1d1b16",
+                    "surface-container-high": "#eae7e7",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "inverse-surface": "#303030",
+                    "on-secondary-fixed": "#1c1c19",
+                    "surface": "#fcf9f8",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#9ed0ab",
+                    "on-secondary-fixed-variant": "#484743",
+                    "on-tertiary-container": "#c9c4bb",
+                    "surface-variant": "#e5e2e1",
+                    "tertiary-container": "#54514a",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dcd9d9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#666460",
+                    "tertiary-fixed": "#e8e2d9",
+                    "background": "#fcf9f8",
+                    "primary-container": "#2d5a3d",
+                    "surface-container-highest": "#e5e2e1",
+                    "primary": "#144227",
+                    "primary-fixed-dim": "#a1d2ad",
+                    "on-primary-fixed": "#00210f",
+                    "tertiary-fixed-dim": "#cbc6bd",
+                    "surface-bright": "#fcf9f8",
+                    "primary-fixed": "#bceec8",
+                    "secondary-container": "#e6e2dd",
+                    "surface-tint": "#3b684a",
+                    "on-primary-fixed-variant": "#224f33",
+                    "on-surface": "#1b1b1c",
+                    "secondary-fixed-dim": "#c9c6c1",
+                    "secondary-fixed": "#e6e2dd",
+                    "tertiary": "#3d3a34",
+                    "outline": "#717971",
+                    "outline-variant": "#c1c9c0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-page": "32px",
+                    "container-max": "1140px",
+                    "stack-sm": "16px",
+                    "stack-lg": "64px",
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "stack-md": "32px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "h3": [
+                            "Newsreader"
+                    ],
+                    "h1": [
+                            "Newsreader"
+                    ],
+                    "h2": [
+                            "Newsreader"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "h3": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "h1": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "h2": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Smooth scrolling for anchor links */
+        html { scroll-behavior: smooth; }
+        html, body { overflow-x: clip; }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        /* Marquee — paused on hover, two unique speeds, opposite-direction variant available via class */
+        .pnp-marquee-track {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: pnp-marquee-x 60s linear infinite;
+        }
+        .pnp-marquee-track:hover { animation-play-state: paused; }
+        @keyframes pnp-marquee-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 12px)); }
+        }
+        /* Native <details> chevron rotation */
+        .pnp-faq summary::-webkit-details-marker { display: none; }
+        .pnp-faq summary { list-style: none; }
+        .pnp-faq summary .pnp-chevron { transition: transform 250ms ease; }
+        .pnp-faq[open] summary .pnp-chevron { transform: rotate(180deg); }
+        /* Quote ornament */
+        .pnp-quote-mark {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-size: 96px;
+            line-height: 0.8;
+            letter-spacing: -0.04em;
+            color: #2d5a3d;
+            opacity: 0.18;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .pnp-marquee-track { animation: none; }
+            .pnp-faq summary .pnp-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-tertiary-fixed selection:text-on-tertiary-fixed">
+<!-- JSON Component: TopAppBar. Responsive: px-8 → px-4, smaller
+     wordmark so long title doesn't crowd the CTA at 360px. -->
+<nav class="bg-[#F9F8F6] dark:bg-stone-950 docked w-full sticky top-0 border-b border-stone-200 dark:border-stone-800 flat no shadows flex justify-between items-center gap-3 w-full px-4 py-3 z-50 backdrop-blur-md sm:px-6 sm:py-4 md:px-8">
+<div class="text-sm font-serif italic font-bold text-[#1F1F1F] dark:text-stone-100 sm:text-base md:text-xl">
+            The Paid Newsletter Playbook
+        </div>
+<div class="hidden md:flex items-center gap-8">
+<ul class="flex items-center gap-6">
+<li><a class="text-stone-600 dark:text-stone-400 font-sans text-sm font-medium hover:text-[#2D5A3D] dark:hover:text-emerald-300 transition-colors opacity-90 active:opacity-100 transition-opacity" href="#curriculum">Curriculum</a></li>
+<li><a class="text-stone-600 dark:text-stone-400 font-sans text-sm font-medium hover:text-[#2D5A3D] dark:hover:text-emerald-300 transition-colors opacity-90 active:opacity-100 transition-opacity" href="#testimonials">Testimonials</a></li>
+<li><a class="text-stone-600 dark:text-stone-400 font-sans text-sm font-medium hover:text-[#2D5A3D] dark:hover:text-emerald-300 transition-colors opacity-90 active:opacity-100 transition-opacity" href="#pricing">Pricing</a></li>
+<li><a class="text-stone-600 dark:text-stone-400 font-sans text-sm font-medium hover:text-[#2D5A3D] dark:hover:text-emerald-300 transition-colors opacity-90 active:opacity-100 transition-opacity" href="#faq">FAQ</a></li>
+</ul>
+</div>
+<div>
+<a class="text-[#2D5A3D] dark:text-emerald-500 font-serif text-lg tracking-tight font-medium hover:opacity-80 transition-opacity" href="#pricing">Get Access</a>
+</div>
+</nav>
+<main>
+<!-- Hero Section. H1 (48px) scales 28→36→48. px-margin-page
+     (32px) already OK. "As featured in" wraps on narrow vp. -->
+<section class="max-w-container-max mx-auto px-4 py-12 sm:px-6 sm:py-16 md:px-margin-page md:py-[120px]">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center md:gap-stack-lg">
+<div class="flex flex-col gap-stack-md pr-0 md:pr-12">
+<div class="flex flex-wrap items-center gap-2 mb-2">
+<span class="text-label-caps font-label-caps text-secondary uppercase tracking-widest">As featured in</span>
+<div class="flex flex-wrap gap-3 opacity-60 grayscale sm:gap-4 sm:ml-2">
+<span class="font-bold text-sm">Forbes</span>
+<span class="font-bold text-sm italic">FastCompany</span>
+<span class="font-bold text-sm uppercase">The Verge</span>
+</div>
+</div>
+<h1 class="font-h1 text-[28px] leading-[1.15] text-on-background sm:text-[36px] md:text-h1">
+                        Go from 0 to $10k/month writing about what you love
+                    </h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-lg">
+                        The exact, step-by-step system to launch, grow, and monetize a premium newsletter without burning out or needing millions of followers.
+                    </p>
+<div class="pt-4">
+<a class="inline-flex items-center justify-center bg-primary-container text-on-primary font-label-caps text-label-caps px-8 py-4 rounded hover:bg-primary transition-colors duration-300" href="#pricing">
+                            Get Instant Access
+                        </a>
+<p class="text-sm text-secondary mt-3">Join 2,500+ successful creators.</p>
+</div>
+</div>
+<div class="relative w-full aspect-[4/5] rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Author Portrait" class="w-full h-full object-cover" data-alt="Professional portrait of a confident man in a well-lit, minimal studio setting, wearing a simple dark sweater, looking directly at the camera with a warm, trustworthy expression. Neutral beige background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu203FcqZLRwg7FOjhOX9UPeAHcm196daainqBnYIHY2dsBGNnUD6TBz1abyfgO0eUFIRkyXp6VhZqIeAuIFnnQNTL72q2Xw7m0K4iTAysNqcx9iqhc-G_QqtaiHBgzdX3_yNFeKNZh0ePrgQgvwvMmcS5KCcxBXbt6b4DJvn0isbpv5mlL92YfIi6_P1vgNAfonoCUIPIcp7zdQ2hsYlSn_V57XQ7AGyXRRX-RgbkP2Nz8JXZeqvGl9L7r_pGi8wFB-Tp4PFeJA"/>
+</div>
+</div>
+</section>
+<!-- Past Students marquee. Paused on hover. Mirrors §I.5 / §K.6 / §M.8. -->
+<section class="full-bleed bg-background py-12 border-t border-outline-variant overflow-hidden sm:py-16 md:py-stack-lg">
+<div class="max-w-container-max mx-auto px-4 mb-stack-md sm:px-6 md:px-margin-page">
+<div class="flex flex-col items-start gap-3 max-w-2xl md:flex-row md:items-end md:justify-between md:max-w-none">
+<div>
+<span class="text-label-caps font-label-caps text-secondary uppercase tracking-widest">Chapter II — Proof on the page</span>
+<h2 class="font-h2 text-[24px] leading-tight text-on-background mt-2 sm:text-[30px] md:text-h2">Writers who left the algorithm — and got paid for it.</h2>
+</div>
+<p class="font-body-md text-body-md text-secondary max-w-md md:text-right">Eight of the 2,500+ operators who built recurring revenue with the Playbook. Hover to pause.</p>
+</div>
+</div>
+<div class="pnp-marquee-track py-2">
+<!-- Tile 01 -->
+<figure class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Maren Lindqvist, Independent strategy newsletter operator" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 01 · Strategy</span>
+<span class="font-h3 text-[20px] italic">Maren Lindqvist</span>
+<span class="font-body-md text-sm opacity-90">$11,400 MRR · 1,840 paid subs</span>
+</figcaption>
+</figure>
+<!-- Tile 02 -->
+<figure class="shrink-0 w-80 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Devontae Reyes, Personal finance newsletter" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 02 · Personal Finance</span>
+<span class="font-h3 text-[20px] italic">Devontae Reyes</span>
+<span class="font-body-md text-sm opacity-90">$8,200 MRR · launched in 9 weeks</span>
+</figcaption>
+</figure>
+<!-- Tile 03 -->
+<figure class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Aiko Tanaka, Design weekly" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 03 · Design Weekly</span>
+<span class="font-h3 text-[20px] italic">Aiko Tanaka</span>
+<span class="font-body-md text-sm opacity-90">$14,900 MRR · 12,300 free / 980 paid</span>
+</figcaption>
+</figure>
+<!-- Tile 04 -->
+<figure class="shrink-0 w-96 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Henrik Sørensen, Climate policy briefing" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 04 · Climate Policy</span>
+<span class="font-h3 text-[20px] italic">Henrik Sørensen</span>
+<span class="font-body-md text-sm opacity-90">$22,000 MRR · corporate seats x 18</span>
+</figcaption>
+</figure>
+<!-- Tile 05 -->
+<figure class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Priya Nair, Indie founder letter" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 05 · Founder Letter</span>
+<span class="font-h3 text-[20px] italic">Priya Nair</span>
+<span class="font-body-md text-sm opacity-90">$9,600 MRR · quit consulting Q2</span>
+</figcaption>
+</figure>
+<!-- Tile 06 -->
+<figure class="shrink-0 w-80 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Rosa Bellini, Italian wine letter" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 06 · Wine Letter</span>
+<span class="font-h3 text-[20px] italic">Rosa Bellini</span>
+<span class="font-body-md text-sm opacity-90">$6,400 MRR · 92% renewal</span>
+</figcaption>
+</figure>
+<!-- Tile 07 -->
+<figure class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Marcus Adeyemi, Strength coach digest" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 07 · Strength Digest</span>
+<span class="font-h3 text-[20px] italic">Marcus Adeyemi</span>
+<span class="font-body-md text-sm opacity-90">$13,200 MRR · 760 paid coaches</span>
+</figcaption>
+</figure>
+<!-- Tile 08 -->
+<figure class="shrink-0 w-80 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Elena Park, AI research weekly" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 08 · AI Research</span>
+<span class="font-h3 text-[20px] italic">Elena Park</span>
+<span class="font-body-md text-sm opacity-90">$31,500 MRR · sponsored x 4</span>
+</figcaption>
+</figure>
+<!-- Duplicate set for seamless loop, aria-hidden -->
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 01 · Strategy</span>
+<span class="font-h3 text-[20px] italic">Maren Lindqvist</span>
+<span class="font-body-md text-sm opacity-90">$11,400 MRR · 1,840 paid subs</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 02 · Personal Finance</span>
+<span class="font-h3 text-[20px] italic">Devontae Reyes</span>
+<span class="font-body-md text-sm opacity-90">$8,200 MRR · launched in 9 weeks</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 03 · Design Weekly</span>
+<span class="font-h3 text-[20px] italic">Aiko Tanaka</span>
+<span class="font-body-md text-sm opacity-90">$14,900 MRR · 12,300 free / 980 paid</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-96 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 04 · Climate Policy</span>
+<span class="font-h3 text-[20px] italic">Henrik Sørensen</span>
+<span class="font-body-md text-sm opacity-90">$22,000 MRR · corporate seats x 18</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 05 · Founder Letter</span>
+<span class="font-h3 text-[20px] italic">Priya Nair</span>
+<span class="font-body-md text-sm opacity-90">$9,600 MRR · quit consulting Q2</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 06 · Wine Letter</span>
+<span class="font-h3 text-[20px] italic">Rosa Bellini</span>
+<span class="font-body-md text-sm opacity-90">$6,400 MRR · 92% renewal</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-72 aspect-[3/4] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 07 · Strength Digest</span>
+<span class="font-h3 text-[20px] italic">Marcus Adeyemi</span>
+<span class="font-body-md text-sm opacity-90">$13,200 MRR · 760 paid coaches</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="shrink-0 w-80 aspect-[16/10] relative rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex flex-col gap-1 text-white">
+<span class="text-label-caps font-label-caps uppercase tracking-widest opacity-80">No. 08 · AI Research</span>
+<span class="font-h3 text-[20px] italic">Elena Park</span>
+<span class="font-body-md text-sm opacity-90">$31,500 MRR · sponsored x 4</span>
+</figcaption>
+</figure>
+</div>
+<!-- Stat strip below the marquee — 4 cells -->
+<div class="max-w-container-max mx-auto px-4 mt-stack-md grid grid-cols-2 md:grid-cols-4 gap-gutter sm:px-6 md:px-margin-page">
+<div class="border-t border-on-background/15 pt-4">
+<div class="font-h1 text-[40px] leading-none text-on-background tabular-nums">2,500+</div>
+<p class="font-body-md text-sm text-secondary mt-2">Operators in the room</p>
+</div>
+<div class="border-t border-on-background/15 pt-4">
+<div class="font-h1 text-[40px] leading-none text-on-background tabular-nums">$11k</div>
+<p class="font-body-md text-sm text-secondary mt-2">Median MRR after 6 months</p>
+</div>
+<div class="border-t border-on-background/15 pt-4">
+<div class="font-h1 text-[40px] leading-none text-on-background tabular-nums">42</div>
+<p class="font-body-md text-sm text-secondary mt-2">Niches actively shipped</p>
+</div>
+<div class="border-t border-on-background/15 pt-4">
+<div class="font-h1 text-[40px] leading-none text-on-background tabular-nums">94%</div>
+<p class="font-body-md text-sm text-secondary mt-2">Finish the curriculum</p>
+</div>
+</div>
+</section>
+<!-- Who This Is For Section. Responsive padding ramp. -->
+<section class="bg-surface-container-low py-12 border-y border-outline-variant sm:py-16 md:py-stack-lg">
+<div class="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-page">
+<div class="text-center mb-stack-md">
+<h2 class="font-h2 text-[24px] leading-tight text-on-background sm:text-[30px] md:text-h2">Is this for you?</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- For You -->
+<div class="bg-surface p-stack-md rounded border border-outline-variant">
+<h3 class="font-h3 text-h3 mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            For You
+                        </h3>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-1 text-sm">arrow_right</span>
+<span class="font-body-md text-body-md text-on-surface">Experts looking to monetize their industry knowledge directly.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-1 text-sm">arrow_right</span>
+<span class="font-body-md text-body-md text-on-surface">Freelance writers wanting recurring revenue and ownership.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-1 text-sm">arrow_right</span>
+<span class="font-body-md text-body-md text-on-surface">Creators tired of platform algorithms changing their reach.</span>
+</li>
+</ul>
+</div>
+<!-- Not For You -->
+<div class="bg-surface p-stack-md rounded border border-outline-variant opacity-80">
+<h3 class="font-h3 text-h3 mb-6 flex items-center gap-3 text-secondary">
+<span class="material-symbols-outlined text-error" data-weight="fill" style="font-variation-settings: 'FILL' 1;">cancel</span>
+                            Not For You
+                        </h3>
+<ul class="flex flex-col gap-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">arrow_right</span>
+<span class="font-body-md text-body-md text-secondary">People looking for a "get rich quick" scheme without putting in writing work.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">arrow_right</span>
+<span class="font-body-md text-body-md text-secondary">Those unwilling to invest time in understanding their audience's deep needs.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline-variant mt-1 text-sm">arrow_right</span>
+<span class="font-body-md text-body-md text-secondary">Anyone looking for general blogging advice rather than a specific paid model.</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Value Stack. Responsive padding ramp. -->
+<section class="max-w-container-max mx-auto px-4 py-12 sm:px-6 sm:py-16 md:px-margin-page md:py-stack-lg">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-h2 text-[24px] leading-tight text-center mb-stack-md sm:text-[30px] md:text-h2">Everything you get inside</h2>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 p-4 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary-container text-3xl">menu_book</span>
+<div>
+<h4 class="font-label-caps text-label-caps uppercase tracking-wider mb-1">Core Curriculum</h4>
+<p class="font-body-md text-body-md text-secondary">6 modules covering everything from niche selection to scaling past 1,000 true fans.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary-container text-3xl">description</span>
+<div>
+<h4 class="font-label-caps text-label-caps uppercase tracking-wider mb-1">Templates &amp; Swipe Files</h4>
+<p class="font-body-md text-body-md text-secondary">Plug-and-play landing pages, welcome emails, and sales sequences.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary-container text-3xl">forum</span>
+<div>
+<h4 class="font-label-caps text-label-caps uppercase tracking-wider mb-1">Private Community</h4>
+<p class="font-body-md text-body-md text-secondary">Lifetime access to a network of serious newsletter operators.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Inside the Course. 3 alternating image+content rows (§M.1 / §H.1). -->
+<section class="full-bleed bg-tertiary-fixed-dim/40 py-12 border-y border-outline-variant sm:py-16 md:py-stack-lg" style="background-color: #efeae0;">
+<div class="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-page">
+<div class="max-w-2xl mb-stack-lg">
+<span class="text-label-caps font-label-caps text-secondary uppercase tracking-widest">Chapter IV — Inside the Playbook</span>
+<h2 class="font-h2 text-[24px] leading-tight text-on-background mt-2 sm:text-[30px] md:text-h2">A craft you can see being built.</h2>
+<p class="font-body-lg text-body-lg text-secondary mt-4">Three workrooms. Each one a fixed habit, a fixed deliverable, and a fixed week to ship it. Not a content drip — an editorial studio.</p>
+</div>
+<!-- Row 1 — image left, copy right -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-stack-md items-center mb-stack-lg">
+<figure class="md:col-span-7 relative aspect-[4/3] rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="A writer at a long oak desk, morning light, manuscript pages spread out" class="absolute inset-0 w-full h-full object-cover grayscale-[0.2] contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-2 py-1 bg-background text-on-background font-label-caps text-label-caps uppercase tracking-widest">Workroom 01</span>
+</figure>
+<div class="md:col-span-5 flex flex-col gap-4">
+<span class="font-h3 text-h3 italic text-on-background">The Vault — find what people will actually pay for.</span>
+<p class="font-body-md text-body-md text-secondary">Forty-eight hours of niche pressure-testing. We write five candidate angles by hand, run them past a small list, then choose the one with three paying signals before you ever build the page.</p>
+<ul class="flex flex-col gap-2 pt-2 border-t border-outline-variant">
+<li class="flex items-baseline gap-3 font-body-md text-body-md text-secondary"><span class="font-label-caps text-label-caps text-primary-container tabular-nums">01</span><span>Niche-pressure interview script (12 questions)</span></li>
+<li class="flex items-baseline gap-3 font-body-md text-body-md text-secondary"><span class="font-label-caps text-label-caps text-primary-container tabular-nums">02</span><span>The "three paying signals" rubric</span></li>
+<li class="flex items-baseline gap-3 font-body-md text-body-md text-secondary"><span class="font-label-caps text-label-caps text-primary-container tabular-nums">03</span><span>Validation worksheet — fill in 1 hour</span></li>
+</ul>
+</div>
+</div>
+<!-- Row 2 — copy left, image right -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-stack-md items-center mb-stack-lg">
+<div class="md:col-span-5 md:order-1 flex flex-col gap-4">
+<span class="font-h3 text-h3 italic text-on-background">The Press — write the issue that converts.</span>
+<p class="font-body-md text-body-md text-secondary">A six-week shaping room: the cold-open, the pull-quote, the close. Every issue you draft gets line-edited against a single conversion question — would a stranger pay rent for this paragraph?</p>
+<blockquote class="border-l-2 border-primary-container pl-4 py-1 italic font-h3 text-[18px] text-on-background">"The Press is where I stopped trying to sound clever and started getting paid."<cite class="block not-italic font-label-caps text-label-caps text-secondary uppercase tracking-widest mt-2">— Lin Toh, Cohort 04</cite></blockquote>
+</div>
+<figure class="md:col-span-7 md:order-2 relative aspect-[4/3] rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Open notebook with handwritten editorial corrections in red ink" class="absolute inset-0 w-full h-full object-cover grayscale-[0.2] contrast-105" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-2 py-1 bg-background text-on-background font-label-caps text-label-caps uppercase tracking-widest">Workroom 02</span>
+</figure>
+</div>
+<!-- Row 3 — image left, copy right -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-stack-md items-center">
+<figure class="md:col-span-7 relative aspect-[4/3] rounded bg-tertiary-fixed overflow-hidden border border-outline-variant">
+<img alt="Stack of bound monograph copies on a stone table" class="absolute inset-0 w-full h-full object-cover grayscale-[0.2] contrast-105" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-2 py-1 bg-background text-on-background font-label-caps text-label-caps uppercase tracking-widest">Workroom 03</span>
+</figure>
+<div class="md:col-span-5 flex flex-col gap-4">
+<span class="font-h3 text-h3 italic text-on-background">The Bindery — package, price, and renew.</span>
+<p class="font-body-md text-body-md text-secondary">The last four weeks. We ship a tiered pricing page, a year-one renewal letter, and a deliberate way to retire issues into a back-catalogue product. The number on the door becomes a number in the bank.</p>
+<dl class="grid grid-cols-2 gap-4 pt-2 border-t border-outline-variant">
+<div><dt class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Tier model</dt><dd class="font-h3 text-[20px] italic text-on-background mt-1">3 prices · 1 page</dd></div>
+<div><dt class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Cadence</dt><dd class="font-h3 text-[20px] italic text-on-background mt-1">52 issues / yr</dd></div>
+<div><dt class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Back-catalogue</dt><dd class="font-h3 text-[20px] italic text-on-background mt-1">$199 vault</dd></div>
+<div><dt class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Renewal copy</dt><dd class="font-h3 text-[20px] italic text-on-background mt-1">14-day window</dd></div>
+</dl>
+</div>
+</div>
+</div>
+</section>
+<!-- Curriculum. Responsive padding ramp. -->
+<section class="bg-tertiary-fixed py-12 border-y border-outline-variant sm:py-16 md:py-stack-lg" id="curriculum">
+<div class="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-page">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-h2 text-[24px] leading-tight mb-stack-md sm:text-[30px] md:text-h2">The Playbook Curriculum</h2>
+<div class="flex flex-col gap-2">
+<!-- Module 1 -->
+<div class="bg-surface border border-outline-variant rounded p-6">
+<div class="flex justify-between items-center cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background">Module 1: Finding Your Niche</h3>
+<span class="material-symbols-outlined text-secondary">expand_more</span>
+</div>
+<p class="font-body-md text-body-md text-secondary mt-4 pr-12">Discover the exact intersection of your expertise and what people are willing to pay for. Stop guessing and start validating.</p>
+</div>
+<!-- Module 2 -->
+<div class="bg-surface border border-outline-variant rounded p-6">
+<div class="flex justify-between items-center cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background">Module 2: Building Your List</h3>
+<span class="material-symbols-outlined text-secondary">expand_more</span>
+</div>
+</div>
+<!-- Module 3 -->
+<div class="bg-surface border border-outline-variant rounded p-6">
+<div class="flex justify-between items-center cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background">Module 3: The Conversion Engine</h3>
+<span class="material-symbols-outlined text-secondary">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Voices / Reviews. 3-column testimonial grid with circular portraits. -->
+<section class="max-w-container-max mx-auto px-4 py-12 sm:px-6 sm:py-16 md:px-margin-page md:py-stack-lg" id="testimonials">
+<div class="max-w-2xl mb-stack-md">
+<span class="text-label-caps font-label-caps text-secondary uppercase tracking-widest">Chapter VI — On the record</span>
+<h2 class="font-h2 text-[24px] leading-tight text-on-background mt-2 sm:text-[30px] md:text-h2">What the writers say in their own words.</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Voice 01 -->
+<figure class="bg-surface border border-outline-variant rounded p-stack-md flex flex-col gap-4 relative">
+<span aria-hidden="true" class="pnp-quote-mark absolute top-4 right-6">"</span>
+<blockquote class="font-h3 text-[20px] italic leading-snug text-on-background">"I rewrote my welcome sequence on the first weekend. Open rates went from 38% to 64% — and three readers replied asking how to pay me before I'd even built the checkout."</blockquote>
+<figcaption class="flex items-center gap-3 mt-auto pt-4 border-t border-outline-variant">
+<img alt="Portrait of Lin Toh" class="w-12 h-12 rounded-full object-cover grayscale" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="flex flex-col">
+<span class="font-h3 text-base italic text-on-background">Lin Toh</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Cohort 04 · Strategy Letter</span>
+</div>
+</figcaption>
+</figure>
+<!-- Voice 02 -->
+<figure class="bg-surface border border-outline-variant rounded p-stack-md flex flex-col gap-4 relative">
+<span aria-hidden="true" class="pnp-quote-mark absolute top-4 right-6">"</span>
+<blockquote class="font-h3 text-[20px] italic leading-snug text-on-background">"The Bindery week alone was worth the whole tuition. I shipped a back-catalogue product on a Sunday and it covered the cost by Tuesday."</blockquote>
+<figcaption class="flex items-center gap-3 mt-auto pt-4 border-t border-outline-variant">
+<img alt="Portrait of Devontae Reyes" class="w-12 h-12 rounded-full object-cover grayscale" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="flex flex-col">
+<span class="font-h3 text-base italic text-on-background">Devontae Reyes</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Cohort 06 · Personal Finance</span>
+</div>
+</figcaption>
+</figure>
+<!-- Voice 03 -->
+<figure class="bg-surface border border-outline-variant rounded p-stack-md flex flex-col gap-4 relative">
+<span aria-hidden="true" class="pnp-quote-mark absolute top-4 right-6">"</span>
+<blockquote class="font-h3 text-[20px] italic leading-snug text-on-background">"I'd been a freelancer for nine years and never had a real renewal letter. The one in module six is the most cynical, generous piece of writing I've ever copied."</blockquote>
+<figcaption class="flex items-center gap-3 mt-auto pt-4 border-t border-outline-variant">
+<img alt="Portrait of Aiko Tanaka" class="w-12 h-12 rounded-full object-cover grayscale" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="flex flex-col">
+<span class="font-h3 text-base italic text-on-background">Aiko Tanaka</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Cohort 03 · Design Weekly</span>
+</div>
+</figcaption>
+</figure>
+</div>
+</section>
+<!-- Pricing. Responsive padding ramp. -->
+<section class="max-w-container-max mx-auto px-4 py-12 sm:px-6 sm:py-16 md:px-margin-page md:py-stack-lg" id="pricing">
+<div class="text-center mb-stack-lg">
+<h2 class="font-h2 text-[24px] leading-tight text-on-background sm:text-[30px] md:text-h2">Choose Your Path</h2>
+<p class="font-body-lg text-body-lg text-secondary mt-4">Invest in the system that pays for itself with your first 5 subscribers.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter max-w-4xl mx-auto">
+<!-- Starter Tier -->
+<div class="border border-outline-variant rounded p-8 flex flex-col bg-surface">
+<h3 class="font-h3 text-h3 text-on-background mb-2">The Starter</h3>
+<div class="text-4xl font-h1 text-on-background mb-6">$297</div>
+<ul class="flex flex-col gap-3 mb-8 flex-grow">
+<li class="flex items-center gap-2 font-body-md text-secondary">
+<span class="material-symbols-outlined text-sm">check</span> Core 6-Module Curriculum
+                        </li>
+<li class="flex items-center gap-2 font-body-md text-secondary">
+<span class="material-symbols-outlined text-sm">check</span> Basic Email Templates
+                        </li>
+</ul>
+<a class="w-full text-center border border-primary-container text-primary-container font-label-caps text-label-caps px-6 py-3 rounded hover:bg-surface-container transition-colors" href="#">
+                        Get Started
+                    </a>
+</div>
+<!-- Pro Tier -->
+<div class="border-2 border-primary-container rounded p-8 flex flex-col bg-surface relative shadow-sm">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary-container text-on-primary font-label-caps text-[10px] px-3 py-1 rounded-full uppercase tracking-widest">
+                        Most Popular
+                    </div>
+<h3 class="font-h3 text-h3 text-on-background mb-2">The Pro Playbook</h3>
+<div class="text-4xl font-h1 text-on-background mb-6">$497</div>
+<ul class="flex flex-col gap-3 mb-8 flex-grow">
+<li class="flex items-center gap-2 font-body-md text-on-background font-medium">
+<span class="material-symbols-outlined text-primary-container text-sm">check</span> Everything in Starter
+                        </li>
+<li class="flex items-center gap-2 font-body-md text-on-background font-medium">
+<span class="material-symbols-outlined text-primary-container text-sm">check</span> Swipe File Library (50+ templates)
+                        </li>
+<li class="flex items-center gap-2 font-body-md text-on-background font-medium">
+<span class="material-symbols-outlined text-primary-container text-sm">check</span> Lifetime Community Access
+                        </li>
+<li class="flex items-center gap-2 font-body-md text-on-background font-medium">
+<span class="material-symbols-outlined text-primary-container text-sm">check</span> Monthly Q&amp;A Calls
+                        </li>
+</ul>
+<a class="w-full text-center bg-primary-container text-on-primary font-label-caps text-label-caps px-6 py-3 rounded hover:bg-primary transition-colors" href="#">
+                        Join Pro Tier
+                    </a>
+</div>
+</div>
+</section>
+<!-- FAQ — native <details> accordion, §M.7 chevron rotation. -->
+<section class="full-bleed bg-surface-container-low py-12 border-y border-outline-variant sm:py-16 md:py-stack-lg" id="faq">
+<div class="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin-page">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md md:gap-stack-lg">
+<!-- Editorial portrait rail on the left — keeps a photo in this section -->
+<div class="md:col-span-5">
+<figure class="relative aspect-[4/5] rounded bg-tertiary-fixed overflow-hidden border border-outline-variant md:sticky md:top-32">
+<img alt="Author at a desk fielding reader letters, late afternoon light" class="absolute inset-0 w-full h-full object-cover grayscale-[0.15] contrast-105" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/20 to-transparent text-white">
+<span class="font-label-caps text-label-caps uppercase tracking-widest opacity-80">From the desk</span>
+<p class="font-h3 text-[20px] italic leading-snug mt-1">"If your question isn't here, mail it. I read every one before the next cohort opens."</p>
+</figcaption>
+</figure>
+</div>
+<!-- Accordion -->
+<div class="md:col-span-7">
+<span class="text-label-caps font-label-caps text-secondary uppercase tracking-widest">Chapter VIII — Common questions</span>
+<h2 class="font-h2 text-[24px] leading-tight text-on-background mt-2 mb-stack-md sm:text-[30px] md:text-h2">Before you join.</h2>
+<div class="flex flex-col divide-y divide-outline-variant border-y border-outline-variant">
+<details class="pnp-faq group py-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background pr-4">Do I need an existing audience?</h3>
+<span class="material-symbols-outlined text-secondary pnp-chevron mt-1">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-secondary mt-3 pr-12">No. Half of last year's cohort started from a list of zero. The Vault week is built for that case — you'll have a 250-person waitlist by week three or your tuition back.</p>
+</details>
+<details class="pnp-faq group py-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background pr-4">How much time per week is realistic?</h3>
+<span class="material-symbols-outlined text-secondary pnp-chevron mt-1">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-secondary mt-3 pr-12">Six hours. Three for the workroom, three for shaping your own draft. Most operators do it on Tuesday and Saturday mornings.</p>
+</details>
+<details class="pnp-faq group py-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background pr-4">What if my niche is "too small"?</h3>
+<span class="material-symbols-outlined text-secondary pnp-chevron mt-1">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-secondary mt-3 pr-12">A 1,200-person paid wine letter outearns most 80,000-person free ones. Small niches with sharp pricing are the entire point. The Vault rubric is built to find them.</p>
+</details>
+<details class="pnp-faq group py-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background pr-4">Do you teach a specific platform — Substack, Beehiiv, ghost?</h3>
+<span class="material-symbols-outlined text-secondary pnp-chevron mt-1">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-secondary mt-3 pr-12">Platform-agnostic. The Bindery section ships templates for the three majors plus a self-hosted recipe. Switch later and the writing still works.</p>
+</details>
+<details class="pnp-faq group py-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-background pr-4">Is there a refund window?</h3>
+<span class="material-symbols-outlined text-secondary pnp-chevron mt-1">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-secondary mt-3 pr-12">Fourteen days, no questions. After the Vault week — if you're not on a paying-signal trajectory — write us and we'll send the tuition back the same day.</p>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- JSON Component: Footer. Responsive: px-12 → px-4 on mobile. -->
+<footer class="bg-[#E8E2D9] dark:bg-stone-900 w-full py-10 border-t border-stone-300 dark:border-stone-700 flat no shadows flex flex-col md:flex-row justify-between items-center px-4 max-w-7xl mx-auto gap-6 mt-12 sm:py-12 sm:px-8 md:px-12">
+<div class="text-lg font-serif font-bold text-[#1F1F1F] dark:text-stone-200">
+            The Paid Newsletter Playbook
+        </div>
+<div class="flex gap-6">
+<a class="text-stone-500 dark:text-stone-400 font-sans text-xs uppercase tracking-widest hover:text-[#2D5A3D] dark:hover:text-emerald-400 ease-in-out duration-300" href="#">Terms of Service</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans text-xs uppercase tracking-widest hover:text-[#2D5A3D] dark:hover:text-emerald-400 ease-in-out duration-300" href="#">Privacy Policy</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans text-xs uppercase tracking-widest hover:text-[#2D5A3D] dark:hover:text-emerald-400 ease-in-out duration-300" href="#">Contact Support</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans text-xs uppercase tracking-widest hover:text-[#2D5A3D] dark:hover:text-emerald-400 ease-in-out duration-300" href="#">Member Login</a>
+</div>
+<div class="text-[#2D5A3D] dark:text-emerald-500 font-sans text-xs uppercase tracking-widest">
+            © 2024 The Paid Newsletter Playbook. All rights reserved.
+        </div>
+</footer>
+</body></html>

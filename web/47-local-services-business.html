@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dublin Tree &amp; Garden</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#153328",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#466558",
+                    "primary-fixed": "#c8eada",
+                    "secondary-fixed-dim": "#ccc6b5",
+                    "on-surface": "#1f1b12",
+                    "surface-container-high": "#efe7d7",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#ffdfa0",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f8f0e0",
+                    "tertiary-container": "#584000",
+                    "primary-fixed-dim": "#adcebe",
+                    "on-tertiary-container": "#d9aa41",
+                    "outline": "#727974",
+                    "inverse-primary": "#adcebe",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "on-primary-fixed": "#012016",
+                    "surface-bright": "#fff8ef",
+                    "on-secondary-fixed": "#1e1c11",
+                    "secondary": "#625e50",
+                    "background": "#fff8ef",
+                    "on-surface-variant": "#414845",
+                    "surface-container-highest": "#eae2d2",
+                    "secondary-fixed": "#e9e2d0",
+                    "on-background": "#1f1b12",
+                    "on-secondary-fixed-variant": "#4a473a",
+                    "surface-variant": "#eae2d2",
+                    "secondary-container": "#e9e2d0",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#e1d9ca",
+                    "outline-variant": "#c1c8c3",
+                    "tertiary-fixed-dim": "#f0bf54",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#3c2b00",
+                    "surface-container": "#f5eddd",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#fbf3e3",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-primary-container": "#98b9a9",
+                    "on-secondary-container": "#686456",
+                    "inverse-surface": "#343026",
+                    "on-primary-fixed-variant": "#2f4d41",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fff8ef",
+                    "primary-container": "#2c4a3e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "40px",
+                    "container-max": "1280px",
+                    "md": "24px",
+                    "sm": "16px",
+                    "gutter": "24px",
+                    "xs": "8px",
+                    "xl": "64px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "caption": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-sm": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "display-md": [
+                            "Inter"
+                    ],
+                    "label-bold": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "caption": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-md": [
+                            "36px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-bold": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        html, body { overflow-x: clip; }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        /* Recent Work marquee strip */
+        .work-marquee-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: work-marquee-x 55s linear infinite;
+        }
+        .work-marquee-track:hover { animation-play-state: paused; }
+        @keyframes work-marquee-x {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 10px)); }
+        }
+        /* Process timeline pulsing dot for the "current" step */
+        @keyframes timeline-pulse {
+            0%, 100% { opacity: 0.7; box-shadow: 0 0 0 0 rgba(44, 74, 62, 0.45); }
+            50%      { opacity: 1;   box-shadow: 0 0 0 9px rgba(44, 74, 62, 0); }
+        }
+        .timeline-pulse-dot { animation: timeline-pulse 2.4s ease-in-out infinite; }
+        /* FAQ accordion chevron */
+        .dtg-faq summary::-webkit-details-marker { display: none; }
+        .dtg-faq summary { list-style: none; cursor: pointer; }
+        .dtg-faq summary .dtg-chevron { transition: transform 250ms ease; }
+        .dtg-faq[open] summary .dtg-chevron { transform: rotate(45deg); }
+        /* Tradesperson portrait subtle frame */
+        .crew-frame { box-shadow: 0 1px 0 rgba(44, 74, 62, 0.15), 0 18px 40px -22px rgba(44, 74, 62, 0.45); }
+        @media (prefers-reduced-motion: reduce) {
+            .work-marquee-track { animation: none; }
+            .timeline-pulse-dot { animation: none; }
+            .dtg-faq summary .dtg-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased pt-24">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#EBE2C9] dark:bg-[#1A2621] text-[#2C4A3E] dark:text-[#EBE2C9] font-sans antialiased tracking-tight border-b border-[#2C4A3E]/10 dark:border-[#EBE2C9]/10 flat no shadows">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="text-xl font-black text-[#2C4A3E] dark:text-[#EBE2C9] uppercase">Dublin Tree &amp; Garden</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-[#2C4A3E] dark:text-[#F9D648] font-bold border-b-2 border-[#F9D648] pb-1 hover:text-[#2C4A3E] dark:hover:text-[#F9D648] transition-colors duration-200 Active: scale-95 transition-transform" href="#">Services</a>
+<a class="text-[#2C4A3E]/80 dark:text-[#EBE2C9]/80 font-medium hover:text-[#2C4A3E] dark:hover:text-[#F9D648] transition-colors duration-200" href="#">Reviews</a>
+<a class="text-[#2C4A3E]/80 dark:text-[#EBE2C9]/80 font-medium hover:text-[#2C4A3E] dark:hover:text-[#F9D648] transition-colors duration-200" href="#">About</a>
+<a class="text-[#2C4A3E]/80 dark:text-[#EBE2C9]/80 font-medium hover:text-[#2C4A3E] dark:hover:text-[#F9D648] transition-colors duration-200" href="#">Contact</a>
+</div>
+<div class="font-label-bold text-label-bold text-primary-container bg-tertiary-fixed px-sm py-xs rounded-full hidden md:block">01 234 5678</div>
+<button class="md:hidden">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-gutter py-xl mt-lg">
+<div class="grid md:grid-cols-2 gap-xl items-center">
+<div class="flex flex-col gap-md">
+<h1 class="font-display-lg text-display-lg text-primary-container">Dublin's trusted tree surgeons since 2012</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">Professional tree care and garden maintenance by fully insured, NPTC certified experts. Serving Dublin city and county with precision and care.</p>
+<div class="flex gap-sm mt-sm">
+<button class="bg-tertiary-fixed text-primary-container font-label-bold text-label-bold px-md py-sm rounded-full hover:opacity-90 transition-opacity">Get a quote</button>
+<button class="border-2 border-primary-container text-primary-container font-label-bold text-label-bold px-md py-sm rounded-full hover:bg-surface-variant transition-colors flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="call">call</span> 01 234 5678
+                    </button>
+</div>
+</div>
+<div class="relative h-[500px] rounded-xl overflow-hidden">
+<img alt="Professional arborist in safety gear working high in a mature tree with sunlight filtering through leaves" class="object-cover w-full h-full" data-alt="Professional arborist in safety gear working high in a mature tree with sunlight filtering through leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnb_DqbdBB1-thIY3q-IF5Cd3sRmeNuC7-o-07nnzokBnjYGnVblsXaeuSjEQG7qh5zQVP8JaQkP-FdGhaEAEGxdOCGjqRUMVGGzp1IRvceV3l2eJysj-V-JWgZGTmDh3nEboJyOZuJLu0bJ6N5XxFN7gOEZjL_0Uvru8M8_Lf47uz305ZST_5-aEGF9bPHjMao4YvZQPpTE2IjAEWbHu0W0XoNDzv3ALs04kD0Jzo-l0sWT1Hbhaehgjl0jdEwybchDqt_sCta2jd"/>
+<div class="absolute inset-0 border border-primary-container/10 rounded-xl pointer-events-none"></div>
+</div>
+</div>
+</section>
+<!-- Trust Row -->
+<section class="bg-surface-variant py-md border-y border-surface-container-high">
+<div class="max-w-container-max mx-auto px-gutter flex flex-wrap justify-center gap-xl items-center opacity-70">
+<div class="flex items-center gap-xs font-label-bold text-label-bold text-primary-container">
+<span class="material-symbols-outlined" data-icon="verified" data-weight="fill">verified</span> Fully Insured
+            </div>
+<div class="flex items-center gap-xs font-label-bold text-label-bold text-primary-container">
+<span class="material-symbols-outlined" data-icon="forest" data-weight="fill">forest</span> Tree Council Member
+            </div>
+<div class="flex items-center gap-xs font-label-bold text-label-bold text-primary-container">
+<span class="material-symbols-outlined" data-icon="workspace_premium" data-weight="fill">workspace_premium</span> NPTC Certified
+            </div>
+<div class="flex items-center gap-xs font-label-bold text-label-bold text-primary-container">
+<span class="material-symbols-outlined" data-icon="eco" data-weight="fill">eco</span> Environmentally Conscious
+            </div>
+</div>
+</section>
+<!-- Recent Work — paused-on-hover marquee strip of completed jobs -->
+<section class="full-bleed py-xl overflow-hidden" style="background-color: #ECE2CE;">
+<div class="max-w-container-max mx-auto px-gutter mb-lg flex items-end justify-between gap-md flex-wrap">
+<div>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.25em] text-primary-container/70">— II · Field Log</span>
+<h2 class="font-display-md text-display-md text-primary-container mt-xs">Recent work across Dublin</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Eight jobs from the last quarter. Hover to pause; each plate logs the tree, the borough, and the crew time.</p>
+</div>
+<div class="overflow-hidden py-2">
+<div class="work-marquee-track">
+<!-- pass 1 -->
+<figure class="relative w-72 aspect-[4/5] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Mature oak crown reduction in a Dublin garden" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 01</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Crown reduction · Mature oak</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Rathmines · 6 hr · 2-person crew</span>
+</figcaption>
+</figure>
+<figure class="relative w-80 aspect-[4/3] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Boundary hedge being trimmed and reshaped" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 02</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Boundary hedge · 42 m</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Ranelagh · 1 day · 3-person crew</span>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[4/5] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Stump grinder finishing a sycamore stump" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 03</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Sycamore stump grind</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Drumcondra · 3 hr · 1-person crew</span>
+</figcaption>
+</figure>
+<figure class="relative w-96 aspect-[16/10] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Storm-damaged ash branch removed by a tree surgery team" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 04 — Emergency</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Storm ash · failed limb</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Glasnevin · 2 hr · 24h call-out</span>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[3/4] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Garden clearance crew loading green waste into a chipper" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 05</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Garden clearance · 90 m²</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Phibsboro · 1.5 days · 4-person crew</span>
+</figcaption>
+</figure>
+<figure class="relative w-80 aspect-[4/3] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Dead-wooding a beech tree above a residential lane" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 06</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Beech dead-wooding</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Sandymount · 5 hr · 2-person crew</span>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[4/5] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Newly planted hedgerow along a stone garden wall" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 07</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Hedgerow planting · 24 m</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Clontarf · 1 day · 2-person crew</span>
+</figcaption>
+</figure>
+<figure class="relative w-80 aspect-[16/10] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="Final walk-through of a freshly cleared back garden" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 08</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Estate walk-through</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Howth · 4 hr · 5-year client</span>
+</figcaption>
+</figure>
+<!-- pass 2 (duplicate for seamless loop) -->
+<figure aria-hidden="true" class="relative w-72 aspect-[4/5] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 01</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Crown reduction · Mature oak</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Rathmines · 6 hr · 2-person crew</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-80 aspect-[4/3] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 02</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Boundary hedge · 42 m</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Ranelagh · 1 day · 3-person crew</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[4/5] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 03</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Sycamore stump grind</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Drumcondra · 3 hr · 1-person crew</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-96 aspect-[16/10] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 04 — Emergency</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Storm ash · failed limb</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Glasnevin · 2 hr · 24h call-out</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 05</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Garden clearance · 90 m²</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Phibsboro · 1.5 days · 4-person crew</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-80 aspect-[4/3] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 06</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Beech dead-wooding</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Sandymount · 5 hr · 2-person crew</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[4/5] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 07</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Hedgerow planting · 24 m</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Clontarf · 1 day · 2-person crew</span>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-80 aspect-[16/10] rounded-xl overflow-hidden bg-primary-container/10 shrink-0">
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/85 via-[#1A2621]/10 to-transparent"></div>
+<figcaption class="absolute inset-x-4 bottom-4 flex flex-col gap-1 text-[#EBE2C9]">
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-[#F9D648]">Plate · 08</span>
+<span class="font-headline-sm text-headline-sm leading-tight">Estate walk-through</span>
+<span class="font-caption text-caption opacity-80 tabular-nums">Howth · 4 hr · 5-year client</span>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<h2 class="font-display-md text-display-md text-primary-container text-center mb-xl">Our Expert Services</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Service Card 1 -->
+<div class="bg-[#EBE2C9] p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 bg-primary-container text-tertiary-fixed rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined" data-icon="content_cut">content_cut</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Tree Surgery</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Pruning, shaping, and complete removal of dangerous or overgrown trees by certified professionals.</p>
+</div>
+<!-- Service Card 2 -->
+<div class="bg-[#EBE2C9] p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 bg-primary-container text-tertiary-fixed rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined" data-icon="grass">grass</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Hedge Trimming</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Precision trimming and reshaping of all hedge types, from small domestic borders to large boundary lines.</p>
+</div>
+<!-- Service Card 3 -->
+<div class="bg-[#EBE2C9] p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 bg-primary-container text-tertiary-fixed rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined" data-icon="park">park</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Stump Removal</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Complete grinding and extraction of tree stumps, leaving your ground ready for replanting or landscaping.</p>
+</div>
+<!-- Service Card 4 -->
+<div class="bg-[#EBE2C9] p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 bg-primary-container text-tertiary-fixed rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined" data-icon="yard">yard</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Garden Clearance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Comprehensive clearing of overgrown gardens, removing green waste, debris, and unwanted vegetation.</p>
+</div>
+<!-- Service Card 5 -->
+<div class="bg-[#EBE2C9] p-lg rounded-xl flex flex-col gap-sm">
+<div class="w-12 h-12 bg-primary-container text-tertiary-fixed rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined" data-icon="nature">nature</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Crown Reduction</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Reducing the overall size of a tree's canopy while maintaining its natural shape and structural integrity.</p>
+</div>
+<!-- Service Card 6 -->
+<div class="bg-[#EBE2C9] p-lg rounded-xl flex flex-col gap-sm border-2 border-primary-container/20">
+<div class="w-12 h-12 bg-error text-on-error rounded-full flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Emergency Care</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">24/7 rapid response for storm damage, fallen branches, or immediately hazardous trees.</p>
+</div>
+</div>
+</section>
+<!-- Service Catalogue — 3 alternating image+content rows (asymmetric 7/5) -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<div class="flex items-end justify-between gap-md flex-wrap mb-lg">
+<div>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.25em] text-primary-container/70">— IV · Service Catalogue</span>
+<h2 class="font-display-md text-display-md text-primary-container mt-xs max-w-2xl">A close look at three of our most-booked service lines</h2>
+</div>
+<a class="font-label-bold text-label-bold uppercase tracking-[0.18em] text-primary-container border-b-2 border-[#F9D648] pb-1 hover:opacity-80 transition-opacity" href="#">View full catalogue →</a>
+</div>
+<div class="flex flex-col gap-xl mt-md">
+<!-- Row 1 — image left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-lg items-center">
+<figure class="md:col-span-7 relative aspect-[4/3] rounded-xl overflow-hidden bg-primary-container/10">
+<img alt="Climbing arborist sectional dismantle of a large hardwood" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnb_DqbdBB1-thIY3q-IF5Cd3sRmeNuC7-o-07nnzokBnjYGnVblsXaeuSjEQG7qh5zQVP8JaQkP-FdGhaEAEGxdOCGjqRUMVGGzp1IRvceV3l2eJysj-V-JWgZGTmDh3nEboJyOZuJLu0bJ6N5XxFN7gOEZjL_0Uvru8M8_Lf47uz305ZST_5-aEGF9bPHjMao4YvZQPpTE2IjAEWbHu0W0XoNDzv3ALs04kD0Jzo-l0sWT1Hbhaehgjl0jdEwybchDqt_sCta2jd"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#EBE2C9]/95 text-primary-container font-label-bold text-label-bold uppercase tracking-[0.18em]">Line · 01</span>
+</figure>
+<div class="md:col-span-5 flex flex-col gap-sm">
+<span class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-primary-container/70">Tree Surgery · NPTC certified</span>
+<h3 class="font-display-md text-display-md text-primary-container leading-tight">Sectional dismantle &amp; precision pruning</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Roped, rigged and rope-access work on mature hardwoods, conifers and storm-damaged specimens. Every cut planned to BS 3998. Permits and TPO checks handled by us before we arrive.</p>
+<dl class="grid grid-cols-2 gap-sm pt-sm border-t border-surface-container-high">
+<div><dt class="font-caption text-caption uppercase tracking-widest text-on-surface-variant">From</dt><dd class="font-headline-sm text-headline-sm text-primary-container tabular-nums">€420</dd></div>
+<div><dt class="font-caption text-caption uppercase tracking-widest text-on-surface-variant">Lead time</dt><dd class="font-headline-sm text-headline-sm text-primary-container tabular-nums">5–10 days</dd></div>
+</dl>
+</div>
+</article>
+<!-- Row 2 — image right -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-lg items-center">
+<div class="md:col-span-5 md:order-1 flex flex-col gap-sm">
+<span class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-primary-container/70">Garden Maintenance · Year-round</span>
+<h3 class="font-display-md text-display-md text-primary-container leading-tight">Hedge architecture &amp; seasonal restoration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Reshaping overgrown beech, laurel and yew hedges to their original line. Petrol shears for height; battery shears at finish for a clean editorial face. Green waste removed in our own chipper.</p>
+<dl class="grid grid-cols-2 gap-sm pt-sm border-t border-surface-container-high">
+<div><dt class="font-caption text-caption uppercase tracking-widest text-on-surface-variant">From</dt><dd class="font-headline-sm text-headline-sm text-primary-container tabular-nums">€180</dd></div>
+<div><dt class="font-caption text-caption uppercase tracking-widest text-on-surface-variant">Lead time</dt><dd class="font-headline-sm text-headline-sm text-primary-container tabular-nums">3–7 days</dd></div>
+</dl>
+</div>
+<figure class="md:col-span-7 md:order-2 relative aspect-[4/3] rounded-xl overflow-hidden bg-primary-container/10">
+<img alt="Battery hedge shears finishing a long boundary hedge" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#EBE2C9]/95 text-primary-container font-label-bold text-label-bold uppercase tracking-[0.18em]">Line · 02</span>
+</figure>
+</article>
+<!-- Row 3 — image left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-lg items-center">
+<figure class="md:col-span-7 relative aspect-[4/3] rounded-xl overflow-hidden bg-primary-container/10">
+<img alt="Storm-damaged beech limb being safely lowered to the ground" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-error text-on-error font-label-bold text-label-bold uppercase tracking-[0.18em]">Line · 03 · 24 h</span>
+</figure>
+<div class="md:col-span-5 flex flex-col gap-sm">
+<span class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-primary-container/70">Emergency · 087 123 4567</span>
+<h3 class="font-display-md text-display-md text-primary-container leading-tight">Storm response &amp; hazard make-safe</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Two-person make-safe crew on call across Dublin city and county, year-round. Average on-site time 92 minutes. Insurance paperwork begun before we leave the site.</p>
+<dl class="grid grid-cols-2 gap-sm pt-sm border-t border-surface-container-high">
+<div><dt class="font-caption text-caption uppercase tracking-widest text-on-surface-variant">Call-out</dt><dd class="font-headline-sm text-headline-sm text-primary-container tabular-nums">€220</dd></div>
+<div><dt class="font-caption text-caption uppercase tracking-widest text-on-surface-variant">Response</dt><dd class="font-headline-sm text-headline-sm text-primary-container tabular-nums">≤ 2 hr</dd></div>
+</dl>
+</div>
+</article>
+</div>
+</section>
+<!-- Process Timeline — 5 horizontal milestones -->
+<section class="full-bleed py-xl overflow-hidden" style="background-color: #ECE2CE;">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex items-end justify-between gap-md flex-wrap mb-lg">
+<div>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.25em] text-primary-container/70">— V · Process</span>
+<h2 class="font-display-md text-display-md text-primary-container mt-xs max-w-2xl">From first survey to final walk-through, in five steps</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Same crew leader from quote to sign-off. Every job photographed before, during and after — full record sent to you the same evening.</p>
+</div>
+<ol class="grid grid-cols-1 md:grid-cols-5 gap-lg relative mt-lg">
+<div aria-hidden="true" class="hidden md:block absolute top-7 left-[8%] right-[8%] h-px bg-gradient-to-r from-primary-container/0 via-primary-container/40 to-primary-container/0"></div>
+<!-- 01 -->
+<li class="flex flex-col gap-sm relative z-10">
+<div class="w-14 h-14 rounded-full bg-primary-container border-2 border-primary-container flex items-center justify-center text-tertiary-fixed shadow-md">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-primary-container/70 tabular-nums">Step 01 · Day 1</span>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Site survey</h3>
+<p class="font-caption text-caption text-on-surface-variant">On-site visit, photo log, TPO &amp; conservation checks. Free for jobs under €2 000.</p>
+<figure class="relative aspect-[4/3] rounded-lg overflow-hidden mt-sm">
+<img alt="Arborist surveying a mature urban tree with a clipboard" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+</li>
+<!-- 02 -->
+<li class="flex flex-col gap-sm relative z-10">
+<div class="w-14 h-14 rounded-full bg-primary-container border-2 border-primary-container flex items-center justify-center text-tertiary-fixed shadow-md">
+<span class="material-symbols-outlined" data-icon="description" data-weight="fill">description</span>
+</div>
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-primary-container/70 tabular-nums">Step 02 · Day 2–3</span>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Quote &amp; method</h3>
+<p class="font-caption text-caption text-on-surface-variant">Itemised quote, BS 3998 method statement, RAMS document and proof of insurance.</p>
+<figure class="relative aspect-[4/3] rounded-lg overflow-hidden mt-sm">
+<img alt="Method statement and risk assessment paperwork on a workbench" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+</li>
+<!-- 03 — current -->
+<li class="flex flex-col gap-sm relative z-10">
+<div class="w-14 h-14 rounded-full bg-[#F9D648] border-2 border-primary-container flex items-center justify-center shadow-md">
+<span aria-hidden="true" class="w-3 h-3 rounded-full bg-primary-container timeline-pulse-dot"></span>
+</div>
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-primary-container tabular-nums">Step 03 · Day 5–14</span>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Crew on site</h3>
+<p class="font-caption text-caption text-on-surface-variant">Two- to four-person crew, dedicated job lead. Neighbours notified the evening before.</p>
+<figure class="relative aspect-[4/3] rounded-lg overflow-hidden mt-sm">
+<img alt="Crew working as a team in a Dublin garden" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+</li>
+<!-- 04 -->
+<li class="flex flex-col gap-sm relative z-10">
+<div class="w-14 h-14 rounded-full bg-[#ECE2CE] border-2 border-on-surface-variant/30 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="construction">construction</span>
+</div>
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-on-surface-variant tabular-nums">Step 04 · Same day</span>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Clear &amp; finish</h3>
+<p class="font-caption text-caption text-on-surface-variant">Green waste chipped on site, hard-surface power-washed, ground left tidier than we found it.</p>
+<figure class="relative aspect-[4/3] rounded-lg overflow-hidden mt-sm">
+<img alt="Crew chipper unloading green waste at end of day" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+</li>
+<!-- 05 -->
+<li class="flex flex-col gap-sm relative z-10">
+<div class="w-14 h-14 rounded-full bg-[#ECE2CE] border-2 border-on-surface-variant/30 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="task_alt">task_alt</span>
+</div>
+<span class="font-label-bold text-label-bold tracking-[0.18em] uppercase text-on-surface-variant tabular-nums">Step 05 · Sign-off</span>
+<h3 class="font-headline-sm text-headline-sm text-primary-container">Walk-through</h3>
+<p class="font-caption text-caption text-on-surface-variant">After-photos, written care plan and 6-month follow-up note diarised the same evening.</p>
+<figure class="relative aspect-[4/3] rounded-lg overflow-hidden mt-sm">
+<img alt="Final garden after sign-off, looking neat and finished" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+</li>
+</ol>
+</div>
+</section>
+<!-- Crew — 4-column tradesperson portrait grid -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<div class="flex items-end justify-between gap-md flex-wrap mb-lg">
+<div>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.25em] text-primary-container/70">— VI · The Crew</span>
+<h2 class="font-display-md text-display-md text-primary-container mt-xs max-w-2xl">Tradespeople, not subcontractors</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Twelve full-time staff. Combined 84 years of arboriculture experience. Each tree-surgery crew runs with at least one NPTC-certified climber on the rope.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md mt-md">
+<!-- Crew 1 -->
+<figure class="flex flex-col gap-sm">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden crew-frame bg-primary-container/10">
+<img alt="Liam Doyle, lead climbing arborist" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/70 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-[#F9D648] text-primary-container font-label-bold text-label-bold uppercase tracking-[0.18em]">Lead</span>
+</div>
+<figcaption class="flex flex-col gap-1">
+<span class="font-headline-sm text-headline-sm text-primary-container">Liam Doyle</span>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-on-surface-variant">Climbing arborist · 14 yrs</span>
+<span class="font-caption text-caption text-on-surface-variant">NPTC CS30/31/38/39 · First-aid at height</span>
+</figcaption>
+</figure>
+<!-- Crew 2 -->
+<figure class="flex flex-col gap-sm">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden crew-frame bg-primary-container/10">
+<img alt="Aoife Ní Bhriain, ground crew lead" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/70 to-transparent"></div>
+</div>
+<figcaption class="flex flex-col gap-1">
+<span class="font-headline-sm text-headline-sm text-primary-container">Aoife Ní Bhriain</span>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-on-surface-variant">Ground-crew lead · 9 yrs</span>
+<span class="font-caption text-caption text-on-surface-variant">Chipper-op certified · LANTRA-trained</span>
+</figcaption>
+</figure>
+<!-- Crew 3 -->
+<figure class="flex flex-col gap-sm">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden crew-frame bg-primary-container/10">
+<img alt="Daragh Murphy, hedge architect" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/70 to-transparent"></div>
+</div>
+<figcaption class="flex flex-col gap-1">
+<span class="font-headline-sm text-headline-sm text-primary-container">Daragh Murphy</span>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-on-surface-variant">Hedge architect · 11 yrs</span>
+<span class="font-caption text-caption text-on-surface-variant">Specialist in heritage yew &amp; box</span>
+</figcaption>
+</figure>
+<!-- Crew 4 -->
+<figure class="flex flex-col gap-sm">
+<div class="relative aspect-[3/4] rounded-xl overflow-hidden crew-frame bg-primary-container/10">
+<img alt="Niamh Kelly, scheduling and surveys" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A2621]/70 to-transparent"></div>
+<span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-tertiary-fixed text-primary-container font-label-bold text-label-bold uppercase tracking-[0.18em]">Office</span>
+</div>
+<figcaption class="flex flex-col gap-1">
+<span class="font-headline-sm text-headline-sm text-primary-container">Niamh Kelly</span>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.2em] text-on-surface-variant">Surveys &amp; scheduling · 7 yrs</span>
+<span class="font-caption text-caption text-on-surface-variant">Your first call · TPO paperwork</span>
+</figcaption>
+</figure>
+</div>
+</section>
+<!-- Testimonials — 3-card row with quote + portrait + neighbourhood chip -->
+<section class="full-bleed py-xl overflow-hidden" style="background-color: #ECE2CE;">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex items-end justify-between gap-md flex-wrap mb-lg">
+<div>
+<span class="font-label-bold text-label-bold uppercase tracking-[0.25em] text-primary-container/70">— VII · From the Garden Gate</span>
+<h2 class="font-display-md text-display-md text-primary-container mt-xs max-w-2xl">"They left the place tidier than they found it."</h2>
+</div>
+<div class="flex items-center gap-xs font-label-bold text-label-bold text-primary-container">
+<span class="material-symbols-outlined" data-icon="forest" data-weight="fill">forest</span>
+<span class="tabular-nums">4.94 / 5 · 218 verified jobs</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mt-md">
+<!-- T 1 -->
+<article class="flex flex-col gap-md p-lg rounded-xl bg-[#fff8ef] border border-primary-container/10">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="format_quote" data-weight="fill" style="font-size:36px;">format_quote</span>
+<p class="font-body-lg text-body-lg text-primary-container leading-snug">A storm dropped half a sycamore onto our shed at midnight. Liam's crew were on the lane by 1am, made-safe by 3am, full removal the following morning. Every step explained.</p>
+<figure class="flex items-center gap-sm pt-sm border-t border-surface-container-high mt-auto">
+<div class="relative w-14 h-14 rounded-full overflow-hidden shrink-0 bg-primary-container/10">
+<img alt="Maeve O'Connor portrait" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Maeve O'Connor</span>
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-[0.2em]">Glasnevin · Storm response · 2024</span>
+</figcaption>
+</figure>
+</article>
+<!-- T 2 — featured -->
+<article class="flex flex-col gap-md p-lg rounded-xl bg-primary-container text-[#EBE2C9] border-2 border-[#F9D648]">
+<span class="material-symbols-outlined text-[#F9D648]" data-icon="format_quote" data-weight="fill" style="font-size:36px;">format_quote</span>
+<p class="font-body-lg text-body-lg leading-snug">A 50-metre boundary hedge that hadn't been touched in eight years. Daragh restored a clean editorial line in two days — neighbours have asked us who did it.</p>
+<figure class="flex items-center gap-sm pt-sm border-t border-[#EBE2C9]/20 mt-auto">
+<div class="relative w-14 h-14 rounded-full overflow-hidden shrink-0 bg-[#EBE2C9]/10">
+<img alt="Cormac Walsh portrait" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="flex flex-col">
+<span class="font-headline-sm text-headline-sm">Cormac Walsh</span>
+<span class="font-caption text-caption opacity-80 uppercase tracking-[0.2em]">Sandymount · Hedge restoration · 2024</span>
+</figcaption>
+</figure>
+</article>
+<!-- T 3 -->
+<article class="flex flex-col gap-md p-lg rounded-xl bg-[#fff8ef] border border-primary-container/10">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="format_quote" data-weight="fill" style="font-size:36px;">format_quote</span>
+<p class="font-body-lg text-body-lg text-primary-container leading-snug">A protected oak with a bark wound and rot pocket. Niamh handled the council paperwork; the crew did a careful crown reduction. Three years on, the canopy looks fuller than ever.</p>
+<figure class="flex items-center gap-sm pt-sm border-t border-surface-container-high mt-auto">
+<div class="relative w-14 h-14 rounded-full overflow-hidden shrink-0 bg-primary-container/10">
+<img alt="Sinead Reilly portrait" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=300&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+<figcaption class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary-container">Sinead Reilly</span>
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-[0.2em]">Rathmines · TPO oak · 2021</span>
+</figcaption>
+</figure>
+</article>
+</div>
+</div>
+</section>
+<!-- FAQ — native <details> accordion -->
+<section class="max-w-container-max mx-auto px-gutter py-xl">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<div class="md:col-span-4">
+<span class="font-label-bold text-label-bold uppercase tracking-[0.25em] text-primary-container/70">— VIII · Frequently asked</span>
+<h2 class="font-display-md text-display-md text-primary-container mt-xs">Things people ask before booking</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">Can't see your question? Niamh in the office answers every email within the working day.</p>
+<a class="inline-flex items-center gap-xs mt-md font-label-bold text-label-bold uppercase tracking-[0.18em] text-primary-container border-b-2 border-[#F9D648] pb-1 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="call">call</span> 01 234 5678
+                </a>
+</div>
+<div class="md:col-span-8 divide-y divide-surface-container-high border-t border-b border-surface-container-high">
+<details class="dtg-faq group p-md">
+<summary class="flex items-center justify-between gap-md py-2"><h3 class="font-headline-sm text-headline-sm text-primary-container">Are you fully insured for work over my property?</h3><span class="dtg-chevron material-symbols-outlined text-primary-container shrink-0">add</span></summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-sm pr-lg">Yes — €6.5 m public liability and €13 m employer's liability cover, with current certificates from AXA. We email both before any job starts; many heritage and council clients require them on file.</p>
+</details>
+<details class="dtg-faq group p-md">
+<summary class="flex items-center justify-between gap-md py-2"><h3 class="font-headline-sm text-headline-sm text-primary-container">My tree might be protected — what do I do?</h3><span class="dtg-chevron material-symbols-outlined text-primary-container shrink-0">add</span></summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-sm pr-lg">Don't lift a saw. Send us the address and we'll check the council TPO register and conservation-area mapping for free. If a permit is needed, we draft and submit it on your behalf — average 4-week turnaround.</p>
+</details>
+<details class="dtg-faq group p-md">
+<summary class="flex items-center justify-between gap-md py-2"><h3 class="font-headline-sm text-headline-sm text-primary-container">Do you do emergency work outside office hours?</h3><span class="dtg-chevron material-symbols-outlined text-primary-container shrink-0">add</span></summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-sm pr-lg">Yes, 24 hours, 365 days, across Dublin city and county. Average on-site time is 92 minutes. Storm-Éowyn week (Jan 2025) we ran 71 call-outs in 4 days; ring 087 123 4567 day or night.</p>
+</details>
+<details class="dtg-faq group p-md">
+<summary class="flex items-center justify-between gap-md py-2"><h3 class="font-headline-sm text-headline-sm text-primary-container">What happens to the green waste?</h3><span class="dtg-chevron material-symbols-outlined text-primary-container shrink-0">add</span></summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-sm pr-lg">All chip goes to Bord na Móna's compost facility in Kildare. Larger logs are split for our firewood programme — we donate ~30 cubic metres a year to community groups in Dublin 1, 7 and 8.</p>
+</details>
+<details class="dtg-faq group p-md">
+<summary class="flex items-center justify-between gap-md py-2"><h3 class="font-headline-sm text-headline-sm text-primary-container">What's the lead time for non-emergency work?</h3><span class="dtg-chevron material-symbols-outlined text-primary-container shrink-0">add</span></summary>
+<p class="font-body-md text-body-md text-on-surface-variant pt-sm pr-lg">5–10 working days for surgery and clearance, 3–7 days for hedge work. We hold one short-notice slot every Friday for time-critical jobs that aren't emergencies — sale completions, insurance assessments, and the like.</p>
+</details>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#2C4A3E] dark:bg-[#0D1411] text-[#EBE2C9] font-sans text-sm tracking-wide w-full mt-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-8 py-16 w-full">
+<div class="flex flex-col gap-md">
+<div class="text-lg font-bold text-[#F9D648]">Dublin Tree &amp; Garden</div>
+<p class="text-[#EBE2C9]/70">© 2024 Dublin Tree &amp; Garden. Fully Insured &amp; Certified Tree Care.</p>
+</div>
+<div class="flex flex-col gap-sm">
+<a class="text-[#F9D648] font-semibold hover:text-[#F9D648] transition-all Active: opacity-80" href="#">Phone: 01 234 5678</a>
+<a class="text-[#EBE2C9]/70 hover:text-[#F9D648] transition-all Active: opacity-80" href="#">Emergency: 087 123 4567</a>
+<a class="text-[#EBE2C9]/70 hover:text-[#F9D648] transition-all Active: opacity-80" href="#">info@dublintree.ie</a>
+<a class="text-[#EBE2C9]/70 hover:text-[#F9D648] transition-all Active: opacity-80" href="#">Service Areas</a>
+</div>
+</footer>
+</body></html>

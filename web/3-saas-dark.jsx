@@ -1,0 +1,543 @@
+const ROUTING_STAGES = [
+  {
+    n: "01",
+    title: "Ingestion",
+    body: "A request arrives at the nearest of 12 anycast edges. TLS terminates locally; auth is verified against a signed JWT cached in memory.",
+    metric: "avg · 0.8ms",
+  },
+  {
+    n: "02",
+    title: "Router",
+    body: "A consistent-hash router pins the request to a node already holding the model weights, avoiding a transfer hop.",
+    metric: "avg · 1.4ms",
+  },
+  {
+    n: "03",
+    title: "Cold-start mitigation",
+    body: "If the chosen node has no warm runtime, a snapshot-restore primitive resurrects state in <5ms — never a 300ms container boot.",
+    metric: "p99 · 4.6ms",
+  },
+  {
+    n: "04",
+    title: "Inference",
+    body: "Tensor-parallel CUDA kernels stream tokens back through the same socket. First-token latency lands inside our SLA budget on every call.",
+    metric: "first-token · 12ms",
+  },
+];
+
+const PROD_CUSTOMERS = [
+  { initial: "[A]", name: "Acme Corp", region: "EU · 4.2B/mo", desc: "Real-time copilot for 18M seats." },
+  { initial: "[N]", name: "Nexus", region: "US · 2.8B/mo", desc: "Search rerank at p50 9ms." },
+  { initial: "[S]", name: "Starlight AI", region: "APAC · 980M/mo", desc: "Streaming voice agents." },
+  { initial: "[Q]", name: "Quantum", region: "EU · 612M/mo", desc: "Quant-trading signal eval." },
+  { initial: "[Y]", name: "Synergy", region: "US · 540M/mo", desc: "Customer support triage." },
+  { initial: "[H]", name: "Helio Labs", region: "EU · 410M/mo", desc: "Genomics summarization." },
+  { initial: "[O]", name: "Oblique", region: "APAC · 390M/mo", desc: "Fraud-vector classification." },
+  { initial: "[V]", name: "Vellum", region: "US · 220M/mo", desc: "Document understanding pipeline." },
+];
+
+const API_STATS = [
+  { label: "p50 latency", num: "12", unit: "ms" },
+  { label: "p99 latency", num: "47", unit: "ms" },
+  { label: "uptime SLA", num: "99.99", unit: "%" },
+  { label: "edge regions", num: "12", unit: "/12" },
+];
+
+const FAQS = [
+  {
+    q: "Which models are supported?",
+    a: 'Llama 3 (8B + 70B), Mistral 7B, Mixtral 8x22B, Gemma 2, Phi-3, and Stable Diffusion XL out of the box. Custom GGUF and safetensor weights can be uploaded from the dashboard or via <code class="font-code-block text-xs text-[#B4FF39] bg-black/40 px-1.5 py-0.5 rounded-sm">ec push</code>.',
+  },
+  {
+    q: "How is cold-start handled?",
+    a: "Snapshot-restore, not container boot. We freeze a runtime's memory state once warm and resurrect it on demand in &lt;5ms — even after hours of idle. There's no penalty for low-traffic endpoints.",
+  },
+  {
+    q: "Where are inferences run?",
+    a: 'Across 12 regions: IAD, ORD, LAX, GRU, DUB, LHR, FRA, AMS, NRT, SYD, SIN, BOM. You can pin a deployment to a region pool (e.g. <code class="font-code-block text-xs text-[#B4FF39] bg-black/40 px-1.5 py-0.5 rounded-sm">eu-only</code>) for data-residency compliance.',
+  },
+  {
+    q: "What's the rate limit?",
+    a: "Free tier: 60 RPM. Pro: 600 RPM, burstable to 2,400 for 60 seconds. Enterprise: uncapped against a committed-throughput contract — typical bookings sit between 50–500 RPS sustained.",
+  },
+  {
+    q: "Do you offer enterprise SLAs?",
+    a: "Yes — 99.99% uptime, p99 latency budgets per route, named incident commander, 15-minute RTO, and quarterly business-review syncs. SOC&nbsp;2 Type II and ISO&nbsp;27001 reports under NDA.",
+  },
+  {
+    q: "Is my data retained?",
+    a: "No prompts, completions, or tool calls are persisted by default. Logging is opt-in per project, scoped to a 14-day rolling window, and stored in your selected region. We are never training on your inputs.",
+  },
+  {
+    q: "Can I bring my own model weights?",
+    a: 'Yes. Push a GGUF, safetensor, or ONNX bundle via <code class="font-code-block text-xs text-[#B4FF39] bg-black/40 px-1.5 py-0.5 rounded-sm">ec push ./weights</code>. We compile to our runtime, sign the artefact, and replicate it across the region pool you select. Typical onboarding is under 4 minutes.',
+  },
+];
+
+export default function T3SaasDark() {
+  return (
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link rel="preconnect" href="https://images.unsplash.com" />
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+
+      <script type="text/plain" dangerouslySetInnerHTML={{ __html: `
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "secondary-container": "#454749",
+                "surface-bright": "#39393b",
+                "secondary": "#c6c6c8",
+                "surface-dim": "#131315",
+                "on-error-container": "#ffdad6",
+                "on-surface": "#e5e1e4",
+                "tertiary-fixed": "#e3e2e7",
+                "on-tertiary-container": "#646469",
+                "tertiary-container": "#e3e2e7",
+                "secondary-fixed-dim": "#c6c6c8",
+                "surface-container-low": "#1b1b1d",
+                "inverse-on-surface": "#303032",
+                "primary-fixed": "#aef831",
+                "surface-container-lowest": "#0e0e10",
+                "on-tertiary": "#2f3034",
+                "surface-container": "#1f1f21",
+                "on-secondary": "#2f3132",
+                "background": "#131315",
+                "on-tertiary-fixed-variant": "#46464b",
+                "on-primary-container": "#496f00",
+                "error-container": "#93000a",
+                "outline": "#8c947b",
+                "on-surface-variant": "#c1caaf",
+                "surface": "#131315",
+                "surface-tint": "#93db00",
+                "on-secondary-container": "#b4b5b7",
+                "primary-fixed-dim": "#93db00",
+                "surface-container-highest": "#353437",
+                "inverse-surface": "#e5e1e4",
+                "primary": "#ffffff",
+                "tertiary-fixed-dim": "#c7c6cb",
+                "primary-container": "#aef831",
+                "inverse-primary": "#446900",
+                "on-primary-fixed-variant": "#324f00",
+                "tertiary": "#ffffff",
+                "error": "#ffb4ab",
+                "secondary-fixed": "#e2e2e4",
+                "on-background": "#e5e1e4",
+                "surface-container-high": "#2a2a2c",
+                "on-secondary-fixed": "#1a1c1d",
+                "on-secondary-fixed-variant": "#454749",
+                "outline-variant": "#424a35",
+                "on-primary-fixed": "#121f00",
+                "on-tertiary-fixed": "#1a1b1f",
+                "on-primary": "#213600",
+                "surface-variant": "#353437",
+                "on-error": "#690005"
+              },
+              borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
+              spacing: {
+                "lg": "24px",
+                "gutter": "24px",
+                "md": "16px",
+                "xs": "4px",
+                "sm": "8px",
+                "unit": "4px",
+                "xl": "48px",
+                "container-max": "1440px"
+              },
+              fontFamily: {
+                "body-lg": ["Geist", "sans-serif"],
+                "mono-label": ["Geist Mono", "monospace"],
+                "h2": ["Geist", "sans-serif"],
+                "display": ["Geist", "sans-serif"],
+                "h1": ["Geist", "sans-serif"],
+                "body-md": ["Geist", "sans-serif"],
+                "code-block": ["JetBrains Mono", "monospace"]
+              },
+              fontSize: {
+                "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                "mono-label": ["12px", { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "500" }],
+                "h2": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+                "display": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                "h1": ["32px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" }],
+                "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+                "code-block": ["14px", { lineHeight: "1.7", fontWeight: "400" }]
+              }
+            }
+          }
+        }
+      ` }} />
+
+      <div className="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden selection:bg-[#B4FF39] selection:text-[#0A0A0B] flex flex-col min-h-screen dark">
+
+        <header className="fixed top-0 w-full z-50 bg-[#0A0A0B]/85 backdrop-blur-lg border-b border-white/10">
+          <div className="max-w-container-max mx-auto flex justify-between items-center px-5 py-3 gap-3 w-full sm:px-6">
+            <div className="flex items-center gap-md">
+              <a href="#" aria-label="Edgecraft Home" className="text-lg font-black tracking-tighter text-slate-100 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] rounded-sm px-1 transition-colors">
+                Edgecraft
+              </a>
+            </div>
+
+            <nav aria-label="Main Navigation" className="hidden md:flex">
+              <ul className="flex items-center gap-lg m-0 p-0 list-none">
+                <li><a className="font-mono text-xs uppercase tracking-wider text-slate-400 hover:text-[#B4FF39] hover:border-[#B4FF39]/50 focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:border-[#B4FF39]/50 transition-all border-b border-transparent pb-1 px-1" href="#docs">Docs</a></li>
+                <li><a className="font-mono text-xs uppercase tracking-wider text-slate-400 hover:text-[#B4FF39] hover:border-[#B4FF39]/50 focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:border-[#B4FF39]/50 transition-all border-b border-transparent pb-1 px-1" href="#api">API</a></li>
+                <li><a className="font-mono text-xs uppercase tracking-wider text-slate-400 hover:text-[#B4FF39] hover:border-[#B4FF39]/50 focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:border-[#B4FF39]/50 transition-all border-b border-transparent pb-1 px-1" href="#network">Network</a></li>
+                <li><a className="font-mono text-xs uppercase tracking-wider text-slate-400 hover:text-[#B4FF39] hover:border-[#B4FF39]/50 focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:border-[#B4FF39]/50 transition-all border-b border-transparent pb-1 px-1" href="#pricing">Pricing</a></li>
+                <li><a className="font-mono text-xs uppercase tracking-wider text-slate-400 hover:text-[#B4FF39] hover:border-[#B4FF39]/50 focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:border-[#B4FF39]/50 transition-all border-b border-transparent pb-1 px-1" href="#changelog">Changelog</a></li>
+              </ul>
+            </nav>
+
+            <div className="flex items-center gap-3 sm:gap-md">
+              <a href="#signin" className="hidden sm:inline-block font-mono text-xs uppercase tracking-wider text-slate-400 hover:text-[#B4FF39] focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0A0A0B] rounded-sm transition-colors px-2 py-1">
+                Sign In
+              </a>
+              <a href="#deploy" className="inline-flex justify-center items-center bg-[#B4FF39] text-[#0A0A0B] px-4 py-2.5 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest hover:bg-opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0A0A0B] active:scale-[0.98] transition-all rounded-sm shadow-[0_0_15px_rgba(180,255,57,0.15)] hover:shadow-[0_0_20px_rgba(180,255,57,0.3)]">
+                Deploy
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <main className="flex-grow pt-[64px] sm:pt-[72px]">
+
+          {/* Hero Section */}
+          <section aria-labelledby="hero-heading" className="relative min-h-[100svh] md:min-h-[850px] flex flex-col items-center justify-center px-5 py-12 sm:px-6 md:py-0 overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#B4FF39]/15 to-transparent blur-[120px] rounded-full pointer-events-none transform-gpu" aria-hidden="true"></div>
+
+            <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6 sm:gap-lg mt-8 md:mt-0">
+              <a href="#changelog" className="inline-flex items-center gap-sm bg-surface-container-low border border-white/5 px-4 py-1.5 rounded-full mb-md hover:bg-surface-container hover:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B4FF39] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B4FF39]"></span>
+                </span>
+                <span className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wide">v2.4.0 Live on Edge Network</span>
+              </a>
+
+              <h1 id="hero-heading" className="font-display text-[clamp(2.25rem,5vw+1rem,3.5rem)] leading-[1.05] text-primary tracking-tight text-balance">
+                Real-time edge compute <br className="hidden md:block" />for AI workloads.
+              </h1>
+
+              <p className="font-body-lg text-base sm:text-body-lg text-on-surface-variant max-w-[65ch] mx-auto text-pretty">
+                Deploy inference APIs globally in seconds. Zero cold starts, automatic scaling, and a high-performance Rust runtime designed specifically for large language models.
+              </p>
+
+              <div className="flex flex-col w-full max-w-xs gap-4 mt-6 sm:flex-row sm:w-auto sm:max-w-none sm:items-center sm:gap-md sm:mt-8">
+                <a href="#start" className="inline-flex justify-center items-center bg-primary text-[#0A0A0B] px-8 py-3.5 font-mono-label text-mono-label font-bold uppercase hover:bg-opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] transition-all rounded-sm">
+                  Start building
+                </a>
+                <a href="#docs" className="inline-flex justify-center items-center border border-[#8A8A8F] text-[#E8E8EA] px-8 py-3.5 font-mono-label text-mono-label font-bold uppercase hover:border-[#B4FF39] hover:text-[#B4FF39] hover:shadow-[0_0_15px_rgba(180,255,57,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.98] transition-all rounded-sm bg-transparent">
+                  Read the docs
+                </a>
+              </div>
+
+              {/* Terminal Mockup */}
+              <figure className="mt-12 md:mt-16 w-full max-w-3xl bg-[#050505] border border-white/10 rounded-xl overflow-hidden shadow-2xl shadow-[#B4FF39]/5 text-left">
+                <figcaption className="flex items-center justify-between px-4 py-3 bg-[#1A1A1D] border-b border-white/5">
+                  <div className="flex gap-2" aria-hidden="true">
+                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                  </div>
+                  <span className="font-mono-label text-[10px] text-on-surface-variant uppercase tracking-wider">bash — edgecraft-cli</span>
+                  <div className="w-10"></div>
+                </figcaption>
+                <div className="p-5 sm:p-6 overflow-x-auto custom-scrollbar">
+                  <pre><code className="block font-code-block text-code-block min-w-max"><span className="text-[#8A8A8F] select-none">$ </span><span className="text-[#E8E8EA]">curl -X POST https://api.edgecraft.dev/v1/inference \</span>{"\n"}<span className="text-[#E8E8EA]">    -H <span className="text-[#B4FF39]">"Authorization: Bearer $EC_TOKEN"</span> \</span>{"\n"}<span className="text-[#E8E8EA]">    -d <span className="text-[#B4FF39]">{`'{"model": "llama-3-8b", "prompt": "Hello edge."}'`}</span></span>{"\n"}{"\n"}<span className="text-[#8A8A8F] select-none"># Response (8ms latency)</span>{"\n"}<span className="text-[#E8E8EA]">{`{`}</span>{"\n"}<span className="text-[#E8E8EA]">  "id": <span className="text-[#B4FF39]">"inf_9x8f7"</span>,</span>{"\n"}<span className="text-[#E8E8EA]">  "object": <span className="text-[#B4FF39]">"text_completion"</span>,</span>{"\n"}<span className="text-[#E8E8EA]">  "created": <span className="text-[#B4FF39]">1715429381</span>,</span>{"\n"}<span className="text-[#E8E8EA]">  "choices": [{`{`}</span>{"\n"}<span className="text-[#E8E8EA]">    "text": <span className="text-[#B4FF39]">"Hello world. I am running at the edge."</span>,</span>{"\n"}<span className="text-[#E8E8EA]">    "finish_reason": <span className="text-[#B4FF39]">"stop"</span></span>{"\n"}<span className="text-[#E8E8EA]">  {`}`}]</span>{"\n"}<span className="text-[#E8E8EA]">{`}`}</span></code></pre>
+                </div>
+              </figure>
+            </div>
+          </section>
+
+          {/* Client Logos Extension */}
+          <section aria-label="Trusted Companies" className="w-full border-y border-white/5 bg-surface-container-lowest/50 py-8 overflow-hidden backdrop-blur-sm relative z-20">
+            <div className="max-w-container-max mx-auto px-5">
+              <p className="text-center font-mono-label text-[10px] text-slate-500 uppercase tracking-widest mb-6">Powering inference for forward-thinking teams</p>
+              <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <span className="font-display font-bold text-xl text-white tracking-tighter select-none">Acme Corp</span>
+                <span className="font-display font-bold text-xl text-white tracking-tighter select-none">Nexus</span>
+                <span className="font-display font-bold text-xl text-white tracking-tighter select-none">Starlight AI</span>
+                <span className="font-display font-bold text-xl text-white tracking-tighter select-none hidden sm:block">Quantum</span>
+                <span className="font-display font-bold text-xl text-white tracking-tighter select-none hidden md:block">Synergy</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Bento Grid Section */}
+          <section id="features" aria-labelledby="features-heading" className="max-w-container-max mx-auto px-5 py-16 sm:px-6 sm:py-24 md:py-32 scroll-mt-24">
+            <div className="flex flex-col gap-4 text-center mb-12 md:mb-16">
+              <h2 id="features-heading" className="font-display text-[clamp(2rem,3vw+1rem,2.5rem)] leading-tight text-primary text-balance">Global infrastructure, locally optimized</h2>
+              <p className="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Everything you need to deploy, monitor, and scale AI models across the edge without managing servers or orchestrating containers.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+
+              {/* Card 1: Edge Deployment */}
+              <article className="md:col-span-2 bg-[#141416]/90 backdrop-blur-xl border border-white/5 rounded-xl p-8 flex flex-col gap-md relative overflow-hidden group hover:border-[#B4FF39]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(180,255,57,0.05)]">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop" alt="" role="presentation" className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-screen group-hover:opacity-20 transition-opacity duration-700" loading="lazy" decoding="async" />
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <h3 className="font-h2 text-h2 text-primary">Edge Deployment</h3>
+                    <span className="flex h-2.5 w-2.5 relative" aria-hidden="true">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B4FF39] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#B4FF39]"></span>
+                    </span>
+                  </div>
+                  <p className="font-body-md text-on-surface-variant mb-8 max-w-[50ch] text-pretty">Deploy your models across 300+ edge locations globally. Requests are routed to the nearest node automatically for single-digit millisecond latency.</p>
+                  <div className="bg-black/60 backdrop-blur-sm border border-white/10 p-4 rounded-lg font-code-block text-xs text-[#E8E8EA] mt-auto w-max max-w-full overflow-x-auto shadow-inner">
+                    <span className="text-[#8A8A8F] select-none">$</span> edgecraft deploy ./model --global
+                  </div>
+                </div>
+              </article>
+
+              {/* Card 2: AI Acceleration */}
+              <article className="md:col-span-1 bg-[#141416]/90 backdrop-blur-xl border border-white/5 rounded-xl p-8 flex flex-col gap-md relative overflow-hidden group hover:border-[#B4FF39]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(180,255,57,0.05)]">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <h3 className="font-h2 text-h2 text-primary">AI Acceleration</h3>
+                  <span className="material-symbols-outlined text-[#B4FF39]" aria-hidden="true">bolt</span>
+                </div>
+                <p className="font-body-md text-on-surface-variant mb-4 text-pretty">Optimized CUDA kernels and tensor parallelism designed specifically for generative AI workloads.</p>
+                <div className="h-24 w-full bg-gradient-to-r from-transparent via-[#B4FF39]/10 to-transparent flex items-center justify-center border border-white/5 rounded-lg mt-auto group-hover:via-[#B4FF39]/20 transition-all duration-500">
+                  <span className="font-mono-label text-mono-label text-[#B4FF39] tracking-widest">TENSOR_CORES: ACTIVE</span>
+                </div>
+              </article>
+
+              {/* Card 3: Zero Cold Starts */}
+              <article className="md:col-span-1 bg-[#141416]/90 backdrop-blur-xl border border-white/5 rounded-xl p-8 flex flex-col gap-md relative overflow-hidden group hover:border-[#B4FF39]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(180,255,57,0.05)]">
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <h3 className="font-h2 text-h2 text-primary">Zero Cold Starts</h3>
+                  <span className="material-symbols-outlined text-[#B4FF39]" aria-hidden="true">rocket_launch</span>
+                </div>
+                <p className="font-body-md text-on-surface-variant mb-4 text-pretty">Our proprietary V8-based rust runtime eliminates container overhead, bringing start times down to &lt;5ms.</p>
+                <div className="mt-auto flex items-end gap-2 h-16 opacity-70 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true">
+                  <div className="w-1/4 bg-white/10 rounded-t-sm h-[80%]"></div>
+                  <div className="w-1/4 bg-white/20 rounded-t-sm h-[40%]"></div>
+                  <div className="w-1/4 bg-white/30 rounded-t-sm h-[15%]"></div>
+                  <div className="w-1/4 bg-[#B4FF39] rounded-t-sm h-[5%] shadow-[0_0_10px_#B4FF39]"></div>
+                </div>
+              </article>
+
+              {/* Card 4: Observability */}
+              <article className="md:col-span-2 bg-[#141416]/90 backdrop-blur-xl border border-white/5 rounded-xl p-8 flex flex-col gap-md relative overflow-hidden group hover:border-[#B4FF39]/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(180,255,57,0.05)]">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop" alt="" role="presentation" className="absolute inset-0 w-full h-full object-cover opacity-10 mix-blend-screen group-hover:opacity-20 transition-opacity duration-700" loading="lazy" decoding="async" />
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                    <h3 className="font-h2 text-h2 text-primary">Real-time Observability</h3>
+                    <span className="material-symbols-outlined text-[#B4FF39]" aria-hidden="true">monitoring</span>
+                  </div>
+                  <p className="font-body-md text-on-surface-variant mb-8 max-w-[50ch] text-pretty">Stream logs, latency metrics, and token generation rates directly to your existing APM tools or view them in our edge dashboard.</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-auto">
+                    <div className="flex flex-col border-l-2 border-[#B4FF39]/50 pl-3 transition-colors duration-300 group-hover:border-[#B4FF39]">
+                      <span className="font-mono-label text-[10px] text-slate-400 uppercase tracking-wider mb-1">P99 Latency</span>
+                      <span className="font-mono text-xl text-white tabular-nums tracking-tight">12ms</span>
+                    </div>
+                    <div className="flex flex-col border-l-2 border-white/20 pl-3 transition-colors duration-300 group-hover:border-white/40">
+                      <span className="font-mono-label text-[10px] text-slate-400 uppercase tracking-wider mb-1">Uptime</span>
+                      <span className="font-mono text-xl text-white tabular-nums tracking-tight">99.99%</span>
+                    </div>
+                    <div className="flex flex-col border-l-2 border-white/20 pl-3 transition-colors duration-300 group-hover:border-white/40">
+                      <span className="font-mono-label text-[10px] text-slate-400 uppercase tracking-wider mb-1">Requests/Mo</span>
+                      <span className="font-mono text-xl text-white tabular-nums tracking-tight">2.4B</span>
+                    </div>
+                    <div className="flex flex-col border-l-2 border-white/20 pl-3 transition-colors duration-300 group-hover:border-white/40">
+                      <span className="font-mono-label text-[10px] text-slate-400 uppercase tracking-wider mb-1">Active Nodes</span>
+                      <span className="font-mono text-xl text-white tabular-nums tracking-tight">342</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          {/* Architecture / How requests route — Sticky-photo + scrolling text (NOVEL #8) */}
+          <section id="architecture" aria-labelledby="architecture-heading" className="max-w-container-max mx-auto px-5 py-16 sm:px-6 sm:py-24 md:py-28 scroll-mt-24">
+            <div className="flex flex-col gap-3 mb-12 md:mb-16">
+              <span className="font-mono-label text-mono-label text-[#B4FF39] uppercase tracking-widest">Detail · 02 — Architecture</span>
+              <h2 id="architecture-heading" className="font-display text-[clamp(2rem,3vw+1rem,2.5rem)] leading-tight text-primary text-balance max-w-3xl">How a request routes through the edge.</h2>
+              <p className="font-body-md text-on-surface-variant max-w-[65ch] text-pretty">Every inference call traverses four stages — ingestion, routing, runtime warm-up, and execution — orchestrated by a Rust control plane that never leaves the data path.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16">
+              <div className="md:col-span-7 lg:col-span-7">
+                <figure className="md:sticky md:top-32 md:self-start relative aspect-[4/5] md:aspect-[5/6] lg:aspect-[4/5] w-full overflow-hidden rounded-xl border border-white/10 bg-surface-container-lowest">
+                  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=85&w=1600&auto=format&fit=crop" alt="Macro view of a green circuit board representing edge inference hardware" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity contrast-110 grayscale opacity-90" loading="lazy" decoding="async" />
+                  <div className="absolute inset-0 bg-primary-fixed/10 mix-blend-overlay pointer-events-none" aria-hidden="true"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/15 to-transparent pointer-events-none" aria-hidden="true"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#B4FF39]/5 pointer-events-none" aria-hidden="true"></div>
+                  <figcaption className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                    <span className="font-mono-label text-[10px] text-white uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">EC_ROUTE · 04</span>
+                    <span className="font-mono-label text-[10px] text-white/80 uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">PLATE · I</span>
+                  </figcaption>
+                </figure>
+              </div>
+
+              <ol className="md:col-span-5 lg:col-span-5 flex flex-col list-none m-0 p-0 divide-y divide-white/10 border-y border-white/10">
+                {ROUTING_STAGES.map((s) => (
+                  <li key={s.n} className="py-7 sm:py-8 grid grid-cols-[auto_1fr] gap-5 items-start">
+                    <span className="font-display text-3xl text-[#B4FF39] tabular-nums leading-none pt-1">{s.n}</span>
+                    <div className="flex flex-col gap-2">
+                      <h3 className="font-h2 text-h2 text-primary">{s.title}</h3>
+                      <p className="font-body-md text-on-surface-variant text-pretty">{s.body}</p>
+                      <span className="font-mono-label text-[10px] text-[#B4FF39] uppercase tracking-widest mt-1">{s.metric}</span>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          {/* In production at — wide cinema strip with image bookends (NOVEL #11 + #9) */}
+          <section aria-labelledby="customers-heading" className="w-full border-y border-white/5 bg-surface-container-lowest/60 py-16 md:py-24 overflow-hidden">
+            <div className="relative w-full h-32 md:h-40 overflow-hidden border-b border-white/5">
+              <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=85&w=1920&auto=format&fit=crop" alt="Wide-angle photograph of an industrial server room" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale contrast-110" loading="lazy" decoding="async" />
+              <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" aria-hidden="true"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background pointer-events-none" aria-hidden="true"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-mono-label text-[10px] sm:text-xs text-[#B4FF39] uppercase tracking-[0.4em]">— US-EAST-2 · FRA-1 · NRT-3 · GRU-1 —</span>
+              </div>
+            </div>
+
+            <div className="max-w-container-max mx-auto px-5 sm:px-6 py-12 md:py-16">
+              <div className="flex flex-col gap-3 mb-10 md:mb-12 text-center items-center">
+                <span className="font-mono-label text-mono-label text-[#B4FF39] uppercase tracking-widest">Detail · 03 — In production at</span>
+                <h2 id="customers-heading" className="font-display text-[clamp(1.75rem,2.5vw+1rem,2.25rem)] leading-tight text-primary text-balance max-w-3xl">Real workloads, running on Edgecraft today.</h2>
+                <p className="font-body-md text-on-surface-variant max-w-[60ch] text-pretty">From copilots to recommendation engines, teams ship inference traffic through our edge network as a default — not a benchmark.</p>
+              </div>
+
+              <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 list-none m-0 p-0">
+                {PROD_CUSTOMERS.map((c) => (
+                  <li key={c.name} className="bg-surface-container-low/80 border border-white/5 rounded-lg p-5 flex flex-col gap-3 hover:border-[#B4FF39]/30 transition-colors duration-300">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="font-code-block text-xl font-bold text-[#B4FF39] tracking-tighter select-none">{c.initial}</span>
+                      <span className="font-mono-label text-[10px] text-slate-500 uppercase tracking-widest tabular-nums">{c.region}</span>
+                    </div>
+                    <span className="font-display font-bold text-base text-white tracking-tight uppercase">{c.name}</span>
+                    <p className="font-body-md text-xs text-on-surface-variant">{c.desc}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="relative w-full h-32 md:h-40 overflow-hidden border-t border-white/5">
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=85&w=1920&auto=format&fit=crop" alt="Server rack with green status indicators in a dark data centre" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale contrast-110" loading="lazy" decoding="async" />
+              <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" aria-hidden="true"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background pointer-events-none" aria-hidden="true"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-mono-label text-[10px] sm:text-xs text-[#B4FF39] uppercase tracking-[0.4em]">— SYD-1 · IAD-4 · LHR-2 · DUB-1 —</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Drop-in API code-spec — content section */}
+          <section id="api" aria-labelledby="api-heading" className="bg-surface-container w-full py-16 sm:py-24 md:py-28 scroll-mt-24">
+            <div className="max-w-container-max mx-auto px-5 sm:px-6">
+              <div className="flex flex-col gap-3 mb-10 md:mb-14 max-w-3xl">
+                <span className="font-mono-label text-mono-label text-[#B4FF39] uppercase tracking-widest">Detail · 04 — Drop-in API</span>
+                <h2 id="api-heading" className="font-display text-[clamp(2rem,3vw+1rem,2.5rem)] leading-tight text-primary text-balance">Five lines, one binary, every region.</h2>
+                <p className="font-body-md text-on-surface-variant max-w-[60ch] text-pretty">A single static-linked SDK, no Docker, no webhook callbacks, no provisioning. Install, authorize, call.</p>
+              </div>
+
+              <dl className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-xl overflow-hidden mb-10 md:mb-12">
+                {API_STATS.map((s) => (
+                  <div key={s.label} className="bg-surface-container flex flex-col gap-1 p-6 md:p-7">
+                    <dt className="font-mono-label text-[10px] text-slate-400 uppercase tracking-widest">{s.label}</dt>
+                    <dd className="font-display font-black text-3xl md:text-4xl text-primary tabular-nums tracking-tight">
+                      {s.num}<span className="text-[#B4FF39] text-xl ml-1">{s.unit}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              <figure className="bg-[#050505] border border-white/10 rounded-xl overflow-hidden shadow-2xl shadow-[#B4FF39]/5 text-left">
+                <figcaption className="flex items-center justify-between px-5 py-3 bg-[#1A1A1D] border-b border-white/5">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono-label text-[10px] text-slate-400 uppercase tracking-wider">inference.ts</span>
+                    <span className="font-mono-label text-[10px] text-[#B4FF39] uppercase tracking-wider">5 lines</span>
+                  </div>
+                  <span className="font-mono-label text-[10px] text-on-surface-variant uppercase tracking-wider">@edgecraft/sdk · v2.4.0</span>
+                </figcaption>
+                <div className="p-5 sm:p-7 overflow-x-auto custom-scrollbar">
+                  <pre><code className="block font-code-block text-code-block text-[#E8E8EA] min-w-max"><span className="text-[#8A8A8F] select-none"># 1. install</span>{"\n"}<span className="text-[#E8E8EA]">$ npm install <span className="text-[#B4FF39]">@edgecraft/sdk</span></span>{"\n"}{"\n"}<span className="text-[#8A8A8F] select-none"># 2. import + initialise</span>{"\n"}<span className="text-[#B4FF39]">import</span><span className="text-[#E8E8EA]">{` { Edge } `}</span><span className="text-[#B4FF39]">from</span><span className="text-secondary">{` "@edgecraft/sdk"`}</span><span className="text-[#E8E8EA]">;</span>{"\n"}<span className="text-[#B4FF39]">const</span><span className="text-[#E8E8EA]"> ec = </span><span className="text-[#B4FF39]">new</span><span className="text-[#E8E8EA]"> Edge(process.env.EC_TOKEN);</span>{"\n"}{"\n"}<span className="text-[#8A8A8F] select-none"># 3. inference call</span>{"\n"}<span className="text-[#B4FF39]">const</span><span className="text-[#E8E8EA]">{` { text } = `}</span><span className="text-[#B4FF39]">await</span><span className="text-[#E8E8EA]"> ec.infer({"{"}</span>{"\n"}<span className="text-[#E8E8EA]">{"  "}model: </span><span className="text-secondary">"llama-3-8b"</span><span className="text-[#E8E8EA]">,</span>{"\n"}<span className="text-[#E8E8EA]">{"  "}prompt: </span><span className="text-secondary">"Summarize the spec sheet."</span><span className="text-[#E8E8EA]">,</span>{"\n"}<span className="text-[#E8E8EA]">{"  "}stream: </span><span className="text-[#B4FF39]">true</span><span className="text-[#E8E8EA]">,</span>{"\n"}<span className="text-[#E8E8EA]">{"});"}</span></code></pre>
+                </div>
+              </figure>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                <div className="flex items-start gap-3 p-4 border border-white/5 rounded-lg bg-surface-container-low/50">
+                  <span className="material-symbols-outlined text-[#B4FF39] text-base mt-0.5" aria-hidden="true">bolt</span>
+                  <span className="font-body-md text-xs text-on-surface-variant">Streaming tokens via Server-Sent Events — no extra client lib.</span>
+                </div>
+                <div className="flex items-start gap-3 p-4 border border-white/5 rounded-lg bg-surface-container-low/50">
+                  <span className="material-symbols-outlined text-[#B4FF39] text-base mt-0.5" aria-hidden="true">verified</span>
+                  <span className="font-body-md text-xs text-on-surface-variant">Token rotation, scoped keys, and SOC&nbsp;2 audit trail bundled.</span>
+                </div>
+                <div className="flex items-start gap-3 p-4 border border-white/5 rounded-lg bg-surface-container-low/50">
+                  <span className="material-symbols-outlined text-[#B4FF39] text-base mt-0.5" aria-hidden="true">terminal</span>
+                  <span className="font-body-md text-xs text-on-surface-variant">Drop-in TypeScript, Python, Rust, and Go bindings — same shape.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ — content section §M.7 chevron rotate */}
+          <section id="faq" aria-labelledby="faq-heading" className="bg-surface-container-low/40 w-full py-16 sm:py-24 md:py-28 border-t border-b border-white/5 scroll-mt-24">
+            <div className="max-w-3xl mx-auto px-5 sm:px-6">
+              <div className="flex flex-col gap-3 mb-10 md:mb-14">
+                <span className="font-mono-label text-mono-label text-[#B4FF39] uppercase tracking-widest">Detail · 05 — FAQ</span>
+                <h2 id="faq-heading" className="font-display text-[clamp(2rem,3vw+1rem,2.5rem)] leading-tight text-primary text-balance">Questions we get every week.</h2>
+                <p className="font-body-md text-on-surface-variant max-w-[60ch] text-pretty">If something below isn't covered, the docs are exhaustive — and the team responds inside an hour on Slack Connect.</p>
+              </div>
+
+              <div className="ec-faq-list divide-y divide-white/10 border-y border-white/10">
+                {FAQS.map((f, i) => (
+                  <details key={i} className="ec-faq group p-5 sm:p-6">
+                    <summary className="flex items-center justify-between gap-6 cursor-pointer">
+                      <h3 className="font-h2 text-h2 text-primary text-base sm:text-lg">{f.q}</h3>
+                      <span className="ec-chevron material-symbols-outlined text-[#B4FF39] flex-shrink-0" aria-hidden="true">chevron_right</span>
+                    </summary>
+                    <p className="font-body-md text-on-surface-variant mt-4 text-pretty" dangerouslySetInnerHTML={{ __html: f.a }} />
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <style dangerouslySetInnerHTML={{ __html: `
+            .ec-faq summary::-webkit-details-marker { display: none; }
+            .ec-faq summary { list-style: none; }
+            .ec-faq .ec-chevron { transition: transform 250ms ease; }
+            .ec-faq[open] .ec-chevron { transform: rotate(90deg); }
+            @media (prefers-reduced-motion: reduce) {
+              .ec-faq .ec-chevron { transition: none; }
+            }
+          ` }} />
+        </main>
+
+        <footer className="w-full py-12 bg-[#0A0A0B] border-t border-white/5 mt-auto">
+          <div className="max-w-container-max mx-auto px-5 sm:px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+              <a href="#" className="text-sm font-bold text-slate-200 tracking-tight hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] rounded-sm px-1">Edgecraft</a>
+              <span className="hidden sm:inline-block w-1 h-1 rounded-full bg-white/20" aria-hidden="true"></span>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400 text-center sm:text-left">© 2024 Edgecraft. All systems operational.</span>
+            </div>
+
+            <nav aria-label="Footer Navigation">
+              <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3 list-none m-0 p-0">
+                <li><a href="#status" className="font-mono text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#B4FF39] focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] transition-colors px-1 py-0.5 rounded-sm">Status</a></li>
+                <li><a href="#privacy" className="font-mono text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#B4FF39] focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] transition-colors px-1 py-0.5 rounded-sm">Privacy</a></li>
+                <li><a href="#terms" className="font-mono text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#B4FF39] focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] transition-colors px-1 py-0.5 rounded-sm">Terms</a></li>
+                <li><a href="#security" className="font-mono text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#B4FF39] focus-visible:text-[#B4FF39] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] transition-colors px-1 py-0.5 rounded-sm">Security</a></li>
+              </ul>
+            </nav>
+
+          </div>
+        </footer>
+      </div>
+    </>
+  );
+}

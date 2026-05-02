@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="The Lateral Podcast. Unpacking the hidden structures governing modern distributed networks."/>
+    <title>The Lateral - Podcast</title>
+    
+    <!-- Preconnect & Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Configuration -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#360d1b",
+                        "primary": "#310918",
+                        "outline": "#837376",
+                        "surface-container-highest": "#e4e2e1",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-background": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#785508",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffd9e1",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fcf9f8",
+                        "secondary-fixed": "#ffdea8",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "on-tertiary-container": "#96948e",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-fixed-dim": "#eebf6c",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#f9b4c5",
+                        "surface-tint": "#854e5d",
+                        "inverse-primary": "#f9b4c5",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#7b580b",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e4e2e1",
+                        "tertiary": "#181815",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#fdcd78",
+                        "on-surface": "#1b1c1c",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-secondary-fixed-variant": "#5e4200",
+                        "on-primary-container": "#c28393",
+                        "outline-variant": "#d5c2c5",
+                        "tertiary-fixed": "#e5e2db",
+                        "on-primary-fixed-variant": "#6a3746",
+                        "on-secondary-fixed": "#271900",
+                        "surface": "#fcf9f8",
+                        "tertiary-container": "#2d2d29",
+                        "surface-container": "#f0eded",
+                        "inverse-surface": "#303030",
+                        "primary-container": "#4b1e2c",
+                        "on-tertiary-fixed-variant": "#474742",
+                        "surface-container-high": "#eae7e7",
+                        "on-surface-variant": "#514346"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "section-gap": "120px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Newsreader", "serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Newsreader", "serif"],
+                        "display-xl": ["Newsreader", "serif"],
+                        "label-caps": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::selection {
+            background-color: #f9b4c5;
+            color: #310918;
+        }
+        /* Ensure smooth rendering for the material icons */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Editorial pattern wash — pure CSS gradients */
+        .lateral-grain {
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(133, 78, 93, 0.08) 1px, transparent 2px),
+                radial-gradient(circle at 70% 60%, rgba(123, 88, 11, 0.07) 1px, transparent 2px);
+            background-size: 32px 32px, 48px 48px;
+        }
+        .lateral-rule-band {
+            background-image: repeating-linear-gradient(90deg, transparent 0 11px, rgba(81, 67, 70, 0.18) 11px 12px);
+        }
+        /* Sponsor marquee */
+        .lateral-marquee-track {
+            display: flex;
+            gap: 56px;
+            width: max-content;
+            animation: lateral-marquee 48s linear infinite;
+        }
+        .lateral-marquee-track:hover { animation-play-state: paused; }
+        @keyframes lateral-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 28px)); }
+        }
+        /* FAQ accordion chevron */
+        .lateral-faq summary::-webkit-details-marker { display: none; }
+        .lateral-faq summary { list-style: none; cursor: pointer; }
+        .lateral-faq summary .lateral-chevron { transition: transform 250ms ease; }
+        .lateral-faq[open] summary .lateral-chevron { transform: rotate(45deg); }
+        /* Auto-cycling photo essay (kept simple — single image, no rotation needed) */
+        .lateral-half-bleed {
+            margin-right: calc(50% - 50vw);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .lateral-marquee-track { animation: none !important; }
+            .lateral-faq summary .lateral-chevron { transition: none; }
+        }
+        html, body { overflow-x: clip; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col selection:bg-primary-fixed-dim selection:text-primary">
+
+<!-- Header -->
+<header class="bg-surface/95 backdrop-blur-md sticky top-0 w-full z-50 border-b border-outline-variant/30 transition-colors">
+    <div class="flex justify-between items-center max-w-container-max mx-auto px-margin-mobile md:px-gutter h-20">
+        <a href="#" class="text-2xl font-headline-lg font-bold tracking-tight text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm" aria-label="The Lateral Home">
+            The Lateral
+        </a>
+        <nav class="hidden md:flex gap-8 items-center" aria-label="Main Navigation">
+            <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm" href="#episodes">Episodes</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm" href="#about">About</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm" href="#subscribe">Subscribe</a>
+        </nav>
+        <a href="#episodes" class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-caps text-label-caps hover:bg-primary-container transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary shadow-sm">
+            Listen Now
+        </a>
+    </div>
+</header>
+
+<main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="bg-primary-container text-on-primary-container py-[80px] md:py-section-gap px-margin-mobile md:px-gutter">
+        <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Left: Image -->
+            <div class="aspect-square relative rounded-2xl overflow-hidden shadow-2xl">
+                <img alt="Portrait of Dr. Elena Rostova with warm studio lighting, deep merlot and gold background tones" class="object-cover w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1dAHwwZgiQ9QHxJ9gfnqVYtq-OXgNwB7Qz6tbIEmLOKnOPiBRxp-dUn39Q1IWNcnwRlAfHDqBYHLGAM-arnuCC5UiHsQEUM8R6OCZBVHl6qg6E_rLZ1-bdu06yzeUcNDEwZ4OM2VEJlgiHw24gNox1_Y9tfFlBFAmchJAf01ReXp3UoS6rAoFXvmu1JdEylzdKXk8Tp-fggDn-EipRs9I9_8O89-SQxiyJ5LPy_yHXfmtuLAqNRDPSCn735ziVrxDPL-OUWkeLiI" width="800" height="800" loading="eager" fetchpriority="high" decoding="async"/>
+            </div>
+            
+            <!-- Right: Content & Player -->
+            <div class="flex flex-col gap-6">
+                <div>
+                    <span class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest mb-3 block">Latest Episode</span>
+                    <h1 class="font-display-xl text-[clamp(2.5rem,5vw,4.5rem)] text-on-primary mb-4 text-balance">The Architecture of Systems</h1>
+                    <p class="font-body-lg text-primary-fixed-dim max-w-[60ch] text-pretty">
+                        We sit down with Dr. Elena Rostova to unpack the hidden structures governing modern distributed networks, and why simplicity is the hardest metric to optimize.
+                    </p>
+                    <a class="inline-flex items-center text-secondary-fixed hover:text-secondary-fixed-dim transition-colors mt-6 border-b border-secondary-fixed/30 hover:border-secondary-fixed pb-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary-fixed rounded-sm" href="#about">
+                        <span class="font-body-md font-medium">Guest: Dr. Elena Rostova</span>
+                    </a>
+                </div>
+                
+                <!-- Player Interface -->
+                <div class="bg-primary p-6 rounded-2xl border border-outline-variant/20 mt-4 shadow-lg flex flex-col gap-4">
+                    <div class="flex items-center gap-5">
+                        <button class="w-16 h-16 shrink-0 rounded-full bg-secondary-fixed text-on-secondary-container flex items-center justify-center hover:bg-secondary-fixed-dim transition-transform hover:scale-105 active:scale-95 shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed" aria-label="Play Episode: The Architecture of Systems">
+                            <span class="material-symbols-outlined text-4xl" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        </button>
+                        <div class="flex-grow flex flex-col gap-3">
+                            <div class="flex justify-between font-label-caps text-label-caps text-primary-fixed-dim tabular-nums">
+                                <span aria-hidden="true">18:42</span>
+                                <span class="sr-only">Elapsed time 18 minutes 42 seconds</span>
+                                <span aria-hidden="true">-35:39</span>
+                                <span class="sr-only">Remaining time 35 minutes 39 seconds</span>
+                            </div>
+                            <!-- Progress Bar -->
+                            <div class="h-1.5 bg-surface-tint/30 rounded-full relative overflow-hidden cursor-pointer" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" tabindex="0" aria-label="Audio playback progress">
+                                <div class="absolute top-0 left-0 h-full w-[35%] bg-secondary-fixed rounded-full transition-all duration-300"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Platform Badges -->
+                <div class="flex flex-wrap gap-3 mt-4" aria-label="Listen on platforms">
+                    <a href="#" class="font-label-caps text-label-caps text-primary-fixed-dim bg-primary-container px-4 py-2 rounded-full border border-primary-fixed-dim/20 hover:border-secondary-fixed hover:text-secondary-fixed transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed">Apple Podcasts</a>
+                    <a href="#" class="font-label-caps text-label-caps text-primary-fixed-dim bg-primary-container px-4 py-2 rounded-full border border-primary-fixed-dim/20 hover:border-secondary-fixed hover:text-secondary-fixed transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed">Spotify</a>
+                    <a href="#" class="font-label-caps text-label-caps text-primary-fixed-dim bg-primary-container px-4 py-2 rounded-full border border-primary-fixed-dim/20 hover:border-secondary-fixed hover:text-secondary-fixed transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed">Overcast</a>
+                    <a href="#" class="font-label-caps text-label-caps text-primary-fixed-dim bg-primary-container px-4 py-2 rounded-full border border-primary-fixed-dim/20 hover:border-secondary-fixed hover:text-secondary-fixed transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed">RSS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episodes Section -->
+    <section id="episodes" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface scroll-mt-20">
+        <div class="max-w-container-max mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-baseline mb-12 border-b border-outline-variant/30 pb-6">
+                <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">Recent Episodes</h2>
+                <a href="#" class="font-label-caps text-label-caps text-primary hover:text-primary-fixed-variant transition-colors inline-flex items-center gap-2 mt-4 md:mt-0 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm">
+                    View All Episodes
+                    <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                </a>
+            </div>
+
+            <div class="flex flex-col gap-6">
+                <!-- Episode Article 1 -->
+                <article class="group relative grid md:grid-cols-[auto_1fr_auto] gap-6 md:gap-8 items-start md:items-center p-6 md:p-8 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-300 border border-outline-variant/20 hover:border-outline-variant/40 hover:shadow-md">
+                    <button class="w-14 h-14 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container transition-transform group-hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary shadow-sm" aria-label="Play Episode 24: The Architecture of Systems">
+                        <span class="material-symbols-outlined text-3xl" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                    </button>
+                    <div class="flex flex-col gap-2">
+                        <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                            <span>Episode 24</span>
+                            <span class="w-1 h-1 rounded-full bg-outline-variant" aria-hidden="true"></span>
+                            <time datetime="2023-10-24">Oct 24, 2023</time>
+                            <span class="w-1 h-1 rounded-full bg-outline-variant" aria-hidden="true"></span>
+                            <span>54:21</span>
+                        </div>
+                        <h3 class="font-headline-md text-[clamp(1.5rem,3vw,2rem)] text-on-surface text-balance group-hover:text-primary transition-colors">
+                            <a href="#" class="focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded-sm before:absolute before:inset-0 relative before:z-10">The Architecture of Systems</a>
+                        </h3>
+                        <p class="font-body-md text-on-surface-variant max-w-[70ch] text-pretty">
+                            We sit down with Dr. Elena Rostova to unpack the hidden structures governing modern distributed networks, and why simplicity is the hardest metric to optimize.
+                        </p>
+                    </div>
+                    <div class="hidden md:flex gap-2 relative z-20">
+                        <button class="p-3 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" aria-label="Add to queue">
+                            <span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>
+                        </button>
+                        <button class="p-3 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" aria-label="Download episode">
+                            <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Episode Article 2 -->
+                <article class="group relative grid md:grid-cols-[auto_1fr_auto] gap-6 md:gap-8 items-start md:items-center p-6 md:p-8 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-300 border border-outline-variant/20 hover:border-outline-variant/40 hover:shadow-md">
+                    <button class="w-14 h-14 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container transition-transform group-hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary shadow-sm" aria-label="Play Episode 23: Navigating The Noise">
+                        <span class="material-symbols-outlined text-3xl" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                    </button>
+                    <div class="flex flex-col gap-2">
+                        <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                            <span>Episode 23</span>
+                            <span class="w-1 h-1 rounded-full bg-outline-variant" aria-hidden="true"></span>
+                            <time datetime="2023-10-17">Oct 17, 2023</time>
+                            <span class="w-1 h-1 rounded-full bg-outline-variant" aria-hidden="true"></span>
+                            <span>48:15</span>
+                        </div>
+                        <h3 class="font-headline-md text-[clamp(1.5rem,3vw,2rem)] text-on-surface text-balance group-hover:text-primary transition-colors">
+                            <a href="#" class="focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded-sm before:absolute before:inset-0 relative before:z-10">Navigating The Noise</a>
+                        </h3>
+                        <p class="font-body-md text-on-surface-variant max-w-[70ch] text-pretty">
+                            Author and critic Marcus Lin discusses the psychological toll of hyper-connectivity and his framework for intentional information consumption in the digital age.
+                        </p>
+                    </div>
+                    <div class="hidden md:flex gap-2 relative z-20">
+                        <button class="p-3 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" aria-label="Add to queue">
+                            <span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>
+                        </button>
+                        <button class="p-3 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" aria-label="Download episode">
+                            <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Episode Article 3 -->
+                <article class="group relative grid md:grid-cols-[auto_1fr_auto] gap-6 md:gap-8 items-start md:items-center p-6 md:p-8 rounded-2xl bg-surface-container-lowest hover:bg-surface-container-low transition-colors duration-300 border border-outline-variant/20 hover:border-outline-variant/40 hover:shadow-md">
+                    <button class="w-14 h-14 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container transition-transform group-hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary shadow-sm" aria-label="Play Episode 22: The Future of Urban Mobility">
+                        <span class="material-symbols-outlined text-3xl" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                    </button>
+                    <div class="flex flex-col gap-2">
+                        <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                            <span>Episode 22</span>
+                            <span class="w-1 h-1 rounded-full bg-outline-variant" aria-hidden="true"></span>
+                            <time datetime="2023-10-10">Oct 10, 2023</time>
+                            <span class="w-1 h-1 rounded-full bg-outline-variant" aria-hidden="true"></span>
+                            <span>62:04</span>
+                        </div>
+                        <h3 class="font-headline-md text-[clamp(1.5rem,3vw,2rem)] text-on-surface text-balance group-hover:text-primary transition-colors">
+                            <a href="#" class="focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary rounded-sm before:absolute before:inset-0 relative before:z-10">The Future of Urban Mobility</a>
+                        </h3>
+                        <p class="font-body-md text-on-surface-variant max-w-[70ch] text-pretty">
+                            City planner Sarah Jenkins outlines how micro-mobility and AI-driven traffic systems are reshaping the layout of major metropolitan areas.
+                        </p>
+                    </div>
+                    <div class="hidden md:flex gap-2 relative z-20">
+                        <button class="p-3 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" aria-label="Add to queue">
+                            <span class="material-symbols-outlined" aria-hidden="true">playlist_add</span>
+                        </button>
+                        <button class="p-3 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary" aria-label="Download episode">
+                            <span class="material-symbols-outlined" aria-hidden="true">download</span>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Episode Archive Grid -->
+    <section id="archive" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface-container scroll-mt-20">
+        <div class="max-w-container-max mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 border-b border-outline-variant/30 pb-6">
+                <div>
+                    <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3 block">Archive · Season Three</span>
+                    <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance max-w-[18ch]">From the Archive</h2>
+                </div>
+                <p class="font-body-md text-on-surface-variant max-w-[42ch] text-pretty">Eighty-six conversations on the lateral edges of technology, design, and quiet systems thinking.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
+                    <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
+                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="Brutalist concrete facade in raking afternoon light" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E14</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                        <time datetime="2024-04-22">Apr 22, 2024</time>
+                        <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                        <span>52:14</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface text-balance group-hover:text-primary transition-colors">The Patience of Concrete</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty">Architect Mira Halász on slow-cure materials and the ethics of the hundred-year building.</p>
+                </article>
+                <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
+                    <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
+                        <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop" alt="Brass apothecary objects on a dark surface" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E13</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                        <time datetime="2024-04-15">Apr 15, 2024</time>
+                        <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                        <span>1:04:22</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface text-balance group-hover:text-primary transition-colors">Apothecaries of Attention</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty">Cognitive scientist Wren Okafor on the small economies of focus we trade away each morning.</p>
+                </article>
+                <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
+                    <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" alt="Macro detail of a printed circuit board" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E12</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                        <time datetime="2024-04-08">Apr 8, 2024</time>
+                        <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                        <span>49:08</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface text-balance group-hover:text-primary transition-colors">Latent Hardware</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty">Hardware historian Toma Ren on the long, quiet half-lives of forgotten silicon.</p>
+                </article>
+                <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
+                    <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
+                        <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="Minimal interior with diffuse window light" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E11</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                        <time datetime="2024-04-01">Apr 1, 2024</time>
+                        <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                        <span>57:46</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface text-balance group-hover:text-primary transition-colors">Rooms That Listen</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty">Acoustic designer Pell Inman on the architecture of conversation and the quiet rooms we keep returning to.</p>
+                </article>
+                <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
+                    <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
+                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="Concrete stairwell receding into shadow" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E10</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                        <time datetime="2024-03-25">Mar 25, 2024</time>
+                        <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                        <span>1:11:30</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface text-balance group-hover:text-primary transition-colors">The Long Stair</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty">Civic strategist Iola Bremner on infrastructures that take a generation to climb, and how to keep faith with them.</p>
+                </article>
+                <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
+                    <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="Modernist building with sharp shadows" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E09</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
+                        <time datetime="2024-03-18">Mar 18, 2024</time>
+                        <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+                        <span>43:55</span>
+                    </div>
+                    <h3 class="font-headline-md text-2xl text-on-surface text-balance group-hover:text-primary transition-colors">Sharp Shadows</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty">Photographer Sune Castell on negative space, raking light, and the discipline of leaving a frame mostly empty.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Co-Hosts Spread -->
+    <section id="hosts" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface scroll-mt-20">
+        <div class="max-w-container-max mx-auto">
+            <div class="mb-12 max-w-[60ch]">
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3 block">Voices · Behind the Show</span>
+                <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">Two ears, one long table.</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+                <article class="flex flex-col gap-6">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
+                            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop" alt="David Sterling — editorial portrait, soft window light" class="object-cover w-full h-full" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant mt-8">
+                            <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=800&q=85&auto=format&fit=crop" alt="David at the studio desk, mid-thought" class="object-cover w-full h-full" loading="lazy" decoding="async" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Host · Editorial</span>
+                        <h3 class="font-headline-md text-3xl text-on-surface">David Sterling</h3>
+                        <p class="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">Former staff writer at <em>The Atlantic Review</em>; nine years in long-form interviews with system architects, civic technologists, and the occasional sound engineer who refuses to be one.</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Letters</a>
+                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Mastodon</a>
+                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Are.na</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="flex flex-col gap-6">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant mt-8">
+                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=85&auto=format&fit=crop" alt="Nori Aldama — editorial portrait, low key" class="object-cover w-full h-full" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
+                            <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=800&q=85&auto=format&fit=crop" alt="Nori at the mixing desk" class="object-cover w-full h-full" loading="lazy" decoding="async" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Co-Host · Producer</span>
+                        <h3 class="font-headline-md text-3xl text-on-surface">Nori Aldama</h3>
+                        <p class="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">Field-recordist turned producer. Builds the show's sound from the room up — preferring close mics, slow rooms, and the kind of edit that doesn't announce itself. Co-founded The Lateral with David in 2021.</p>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Studio Notes</a>
+                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Bandcamp</a>
+                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Mastodon</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Listen Anywhere — mustard tinted band -->
+    <section id="listen-anywhere" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-secondary-container scroll-mt-20">
+        <div class="max-w-container-max mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 border-b border-on-secondary-container/20 pb-6">
+                <div>
+                    <span class="font-label-caps text-label-caps text-on-secondary-container uppercase tracking-widest mb-3 block">Distribution</span>
+                    <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-secondary-container text-balance">Listen anywhere you already are.</h2>
+                </div>
+                <p class="font-body-md text-on-secondary-container/80 max-w-[40ch] text-pretty">Open RSS first. Major platforms second. We keep our archive on a small server in a quiet room — not on a fragile silo.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">A</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Listen on</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">Apple Podcasts</span>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">S</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Stream on</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">Spotify</span>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">O</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Subscribe via</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">Overcast</span>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">P</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Open in</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">Pocket Casts</span>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">C</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Listen on</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">Castro</span>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">Y</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Watch on</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">YouTube</span>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">Æ</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Subscribe via</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">RSS Feed</span>
+                    </div>
+                </a>
+                <a href="#" class="group flex items-center gap-4 bg-background/40 hover:bg-background/70 border border-on-secondary-container/15 hover:border-on-secondary-container/40 backdrop-blur-sm px-5 py-5 rounded-2xl transition-all">
+                    <span class="w-12 h-12 shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-lg text-xl tracking-tight">G</span>
+                    <div class="flex flex-col">
+                        <span class="font-label-caps text-label-caps text-on-secondary-container/70 uppercase tracking-widest">Find on</span>
+                        <span class="font-headline-md text-lg text-on-secondary-container">Goodpods</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Behind-the-Mic Half-Bleed (NOVEL #7) -->
+    <section id="studio" class="py-[80px] md:py-section-gap bg-surface-container-low scroll-mt-20 overflow-hidden">
+        <div class="grid md:grid-cols-2 items-stretch gap-10 md:gap-16">
+            <div class="lateral-half-bleed relative aspect-[4/5] md:aspect-auto md:min-h-[600px] overflow-hidden rounded-r-2xl shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=85&auto=format&fit=crop" alt="Recording-room interior at dusk, mic suspended over a wooden desk" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary/40 via-transparent to-transparent pointer-events-none"></div>
+                <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-3">
+                    <p class="font-label-caps text-label-caps text-on-primary uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Studio · Carriage House</p>
+                    <span class="font-label-caps text-label-caps text-on-primary/80 uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · IV</span>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center gap-6 px-margin-mobile md:px-12 lg:px-16 max-w-[52ch]">
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Behind the Mic</span>
+                <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">A long room, two warm mics, and a list of questions we'd rather not ask.</h2>
+                <div class="font-body-md text-on-surface-variant space-y-4 text-pretty">
+                    <p>The Lateral is recorded in a converted carriage house outside Hudson, New York. The room is mostly wood, mostly soft, and mostly slow — built so that the silence between answers reads as part of the show, not an editing failure.</p>
+                    <p>Episodes start with a question we're a little embarrassed to ask. They end about an hour later, after the guest has talked themselves into something they didn't know they believed.</p>
+                </div>
+                <dl class="grid grid-cols-2 gap-x-6 gap-y-3 mt-2 pt-6 border-t border-outline-variant/40">
+                    <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Mics</dt>
+                    <dd class="font-body-md text-on-surface">Coles 4038 · matched pair</dd>
+                    <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Console</dt>
+                    <dd class="font-body-md text-on-surface">Neve 8816, half-broken</dd>
+                    <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Tape</dt>
+                    <dd class="font-body-md text-on-surface">Studer A810, when patient</dd>
+                    <dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Coffee</dt>
+                    <dd class="font-body-md text-on-surface">Stumptown · Hair Bender</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Guest Series — alt-row -->
+    <section id="guests" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface scroll-mt-20">
+        <div class="max-w-container-max mx-auto">
+            <div class="mb-16 max-w-[58ch]">
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3 block">Featured Guests · Series Three</span>
+                <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">The people who said the thing we couldn't.</h2>
+            </div>
+            <div class="flex flex-col gap-16 md:gap-24">
+                <article class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+                    <div class="md:col-span-5 aspect-[4/5] overflow-hidden rounded-2xl bg-surface-variant">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" alt="Editorial portrait — Halász, looking off-frame" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="md:col-span-7 flex flex-col gap-5">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Guest · I — S03 · E14</span>
+                        <p class="font-headline-lg text-[clamp(1.5rem,2.6vw,2.25rem)] text-on-surface italic font-medium leading-snug text-balance">"A building's first decade is the cheap part. The hundred-year cost is whether the people inside still want to take care of it."</p>
+                        <p class="font-body-md text-on-surface-variant">Mira Halász, architect — on patience as a structural material.</p>
+                        <a href="#" class="self-start inline-flex items-center gap-2 font-label-caps text-label-caps text-primary hover:text-primary-fixed-variant border-b border-primary/30 hover:border-primary pb-1 transition-colors">
+                            Listen to Episode 14
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+                <article class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+                    <div class="md:col-span-7 md:order-2 flex flex-col gap-5">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Guest · II — S03 · E13</span>
+                        <p class="font-headline-lg text-[clamp(1.5rem,2.6vw,2.25rem)] text-on-surface italic font-medium leading-snug text-balance">"Attention isn't infinite — it's a tide. The economy that owns the moon owns the tide. It would be useful to know who that is."</p>
+                        <p class="font-body-md text-on-surface-variant">Wren Okafor, cognitive scientist — on the small economies of focus we trade away each morning.</p>
+                        <a href="#" class="self-start inline-flex items-center gap-2 font-label-caps text-label-caps text-primary hover:text-primary-fixed-variant border-b border-primary/30 hover:border-primary pb-1 transition-colors">
+                            Listen to Episode 13
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                    <div class="md:col-span-5 md:order-1 aspect-[4/5] overflow-hidden rounded-2xl bg-surface-variant">
+                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop" alt="Editorial portrait — Okafor at a desk by a window" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                    </div>
+                </article>
+                <article class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+                    <div class="md:col-span-5 aspect-[4/5] overflow-hidden rounded-2xl bg-surface-variant">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop" alt="Editorial portrait — Bremner, in a soft outdoor light" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="md:col-span-7 flex flex-col gap-5">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Guest · III — S03 · E10</span>
+                        <p class="font-headline-lg text-[clamp(1.5rem,2.6vw,2.25rem)] text-on-surface italic font-medium leading-snug text-balance">"Civic infrastructure used to be measured in lifespans. We measure it in budget cycles. The mismatch is what's breaking things, not the politics."</p>
+                        <p class="font-body-md text-on-surface-variant">Iola Bremner, civic strategist — on infrastructures that take a generation to climb.</p>
+                        <a href="#" class="self-start inline-flex items-center gap-2 font-label-caps text-label-caps text-primary hover:text-primary-fixed-variant border-b border-primary/30 hover:border-primary pb-1 transition-colors">
+                            Listen to Episode 10
+                            <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface-container-low scroll-mt-20">
+        <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 lg:gap-24 items-center">
+            <div class="order-2 md:order-1 flex flex-col gap-6">
+                <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest block">About The Host</span>
+                <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">Curiosity at the Intersection of Disciplines</h2>
+                <div class="font-body-md text-on-surface-variant space-y-4 max-w-[65ch] text-pretty">
+                    <p>
+                        Hosted by acclaimed journalist and researcher David Sterling, <em>The Lateral</em> explores the unexpected connections between technology, psychology, and design.
+                    </p>
+                    <p>
+                        Each week, we invite visionaries—from system architects to behavioral economists—to dissect the frameworks they use to understand the world. We believe that the most profound insights often come from looking sideways.
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <a href="#" class="inline-flex items-center justify-center px-8 py-3.5 bg-primary text-on-primary font-label-caps text-label-caps rounded-full hover:bg-primary-container transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary shadow-sm hover:shadow-md">
+                        Read Full Bio
+                    </a>
+                </div>
+            </div>
+            <div class="order-1 md:order-2 aspect-[4/5] relative rounded-2xl overflow-hidden shadow-xl">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="David Sterling, host of The Lateral podcast, sitting thoughtfully in a modern recording studio" class="object-cover w-full h-full" loading="lazy" decoding="async" width="800" height="1000"/>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press / Reviews Quote Band -->
+    <section id="press" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface-container-low scroll-mt-20">
+        <div class="max-w-container-max mx-auto">
+            <div class="text-center mb-12">
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3 block">Selected Press</span>
+                <h2 class="font-headline-lg text-[clamp(2rem,3.6vw,2.5rem)] text-on-surface text-balance">Kind things, mostly from people we admire.</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-gutter">
+                <figure class="bg-surface-container-lowest rounded-2xl p-8 md:p-10 border border-outline-variant/20 flex flex-col gap-6">
+                    <div class="flex items-center gap-1 text-secondary text-xl tracking-widest" aria-label="Five stars">★★★★★</div>
+                    <blockquote class="font-headline-md text-xl text-on-surface italic leading-snug text-pretty">"The rare interview show that respects how slow a real conversation actually is. The Lateral lets sentences finish."</blockquote>
+                    <figcaption class="mt-auto pt-6 border-t border-outline-variant/30 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">— The New Inquiry</figcaption>
+                </figure>
+                <figure class="bg-surface-container-lowest rounded-2xl p-8 md:p-10 border border-outline-variant/20 flex flex-col gap-6">
+                    <div class="flex items-center gap-1 text-secondary text-xl tracking-widest" aria-label="Five stars">★★★★★</div>
+                    <blockquote class="font-headline-md text-xl text-on-surface italic leading-snug text-pretty">"Sterling and Aldama interview the way other shows wish they wrote — patient, structural, and genuinely surprised by their own questions."</blockquote>
+                    <figcaption class="mt-auto pt-6 border-t border-outline-variant/30 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">— Reverse Shot Quarterly</figcaption>
+                </figure>
+                <figure class="bg-surface-container-lowest rounded-2xl p-8 md:p-10 border border-outline-variant/20 flex flex-col gap-6">
+                    <div class="flex items-center gap-1 text-secondary text-xl tracking-widest" aria-label="Five stars">★★★★★</div>
+                    <blockquote class="font-headline-md text-xl text-on-surface italic leading-snug text-pretty">"A weekly argument for the long question. The closest thing audio has produced to a serious quarterly."</blockquote>
+                    <figcaption class="mt-auto pt-6 border-t border-outline-variant/30 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">— Pitchcraft Magazine</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors Marquee -->
+    <section id="sponsors" class="py-16 md:py-24 bg-tertiary text-on-tertiary overflow-hidden">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+                <span class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest mb-3 block">Underwriters · Season Three</span>
+                <h2 class="font-headline-lg text-[clamp(1.75rem,3vw,2.25rem)] text-on-tertiary text-balance">Generously supported by quiet companies.</h2>
+            </div>
+            <p class="font-body-md text-tertiary-fixed-dim max-w-[40ch] text-pretty">Underwriting messages run once per episode and never interrupt mid-sentence. Reach out for a slot in S04.</p>
+        </div>
+        <div class="overflow-hidden relative">
+            <div class="lateral-marquee-track items-center py-4">
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Are.na</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Stripe</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Atomic Industries</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Patagonia</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Fellow Coffee</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Readwise</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Field Notes</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Linear</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Are.na</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Stripe</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Atomic Industries</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Patagonia</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Fellow Coffee</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Readwise</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight italic">Field Notes</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+                <span class="shrink-0 font-headline-lg text-3xl md:text-4xl text-tertiary-fixed-dim tracking-tight">Linear</span>
+                <span class="shrink-0 w-2 h-2 rounded-full bg-secondary-fixed-dim self-center"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section id="faq" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-background scroll-mt-20">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3 block">FAQ · Show Notes</span>
+                <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">Things people ask, mostly twice.</h2>
+            </div>
+            <div class="flex flex-col gap-3">
+                <details class="lateral-faq group bg-surface-container-low rounded-2xl border border-outline-variant/30 px-6 py-5 open:bg-surface-container hover:border-outline-variant/50 transition-colors">
+                    <summary class="flex items-start justify-between gap-4">
+                        <h3 class="font-headline-md text-lg md:text-xl text-on-surface text-balance">How often do new episodes drop?</h3>
+                        <span class="lateral-chevron material-symbols-outlined shrink-0 text-2xl text-primary mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <div class="font-body-md text-on-surface-variant pt-4 max-w-[60ch] text-pretty">
+                        Wednesdays at 6 a.m. Eastern, every week of the year. Twelve weeks per season, three seasons per year, with a fortnight of silence between seasons. The schedule is the only thing about the show that doesn't drift.
+                    </div>
+                </details>
+                <details class="lateral-faq group bg-surface-container-low rounded-2xl border border-outline-variant/30 px-6 py-5 open:bg-surface-container hover:border-outline-variant/50 transition-colors">
+                    <summary class="flex items-start justify-between gap-4">
+                        <h3 class="font-headline-md text-lg md:text-xl text-on-surface text-balance">How long are episodes?</h3>
+                        <span class="lateral-chevron material-symbols-outlined shrink-0 text-2xl text-primary mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <div class="font-body-md text-on-surface-variant pt-4 max-w-[60ch] text-pretty">
+                        Forty-two to seventy-six minutes. Long enough to be useful; short enough to listen on a real walk. We edit for clarity, never for length, so individual episodes set their own pace.
+                    </div>
+                </details>
+                <details class="lateral-faq group bg-surface-container-low rounded-2xl border border-outline-variant/30 px-6 py-5 open:bg-surface-container hover:border-outline-variant/50 transition-colors">
+                    <summary class="flex items-start justify-between gap-4">
+                        <h3 class="font-headline-md text-lg md:text-xl text-on-surface text-balance">Are transcripts available?</h3>
+                        <span class="lateral-chevron material-symbols-outlined shrink-0 text-2xl text-primary mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <div class="font-body-md text-on-surface-variant pt-4 max-w-[60ch] text-pretty">
+                        Yes — every episode ships with a hand-edited transcript at publish time, free, with timestamps and footnoted references. Auto-transcripts are too lossy for the way our guests actually speak; we'd rather keep the line.
+                    </div>
+                </details>
+                <details class="lateral-faq group bg-surface-container-low rounded-2xl border border-outline-variant/30 px-6 py-5 open:bg-surface-container hover:border-outline-variant/50 transition-colors">
+                    <summary class="flex items-start justify-between gap-4">
+                        <h3 class="font-headline-md text-lg md:text-xl text-on-surface text-balance">Can I sponsor an episode?</h3>
+                        <span class="lateral-chevron material-symbols-outlined shrink-0 text-2xl text-primary mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <div class="font-body-md text-on-surface-variant pt-4 max-w-[60ch] text-pretty">
+                        We take one underwriter per episode, read by Nori, never mid-conversation. We say no to about four offers in five — usually because the message and the topic don't actually rhyme. Email the studio if you'd like to be the fifth.
+                    </div>
+                </details>
+                <details class="lateral-faq group bg-surface-container-low rounded-2xl border border-outline-variant/30 px-6 py-5 open:bg-surface-container hover:border-outline-variant/50 transition-colors">
+                    <summary class="flex items-start justify-between gap-4">
+                        <h3 class="font-headline-md text-lg md:text-xl text-on-surface text-balance">Do you take guest pitches?</h3>
+                        <span class="lateral-chevron material-symbols-outlined shrink-0 text-2xl text-primary mt-0.5" aria-hidden="true">add</span>
+                    </summary>
+                    <div class="font-body-md text-on-surface-variant pt-4 max-w-[60ch] text-pretty">
+                        Always. We read every pitch, even the ones we don't reply to. The strongest pitches name a question rather than a guest — tell us what you'd want them to be asked, and the rest tends to follow on its own.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section id="subscribe" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-primary text-on-primary scroll-mt-20">
+        <div class="max-w-3xl mx-auto text-center flex flex-col items-center gap-8">
+            <span class="material-symbols-outlined text-5xl text-secondary-fixed" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">podcasts</span>
+            <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-balance">Never Miss an Episode</h2>
+            <p class="font-body-lg text-primary-fixed-dim max-w-[60ch] text-pretty">
+                Join 50,000+ curious minds. Subscribe to our newsletter for weekly episodes, extended show notes, and exclusive behind-the-scenes content.
+            </p>
+            
+            <form class="w-full max-w-md flex flex-col sm:flex-row gap-3 mt-4" action="#" method="POST" onsubmit="event.preventDefault();">
+                <label for="email" class="sr-only">Email address</label>
+                <input type="email" id="email" name="email" required autocomplete="email" placeholder="Enter your email address" class="flex-grow rounded-full bg-primary-container border border-primary-fixed-dim/30 px-6 py-3.5 text-on-primary placeholder:text-primary-fixed-dim/60 focus:ring-2 focus:ring-secondary-fixed focus:border-transparent outline-none transition-all font-body-md shadow-inner">
+                <button type="submit" class="whitespace-nowrap px-8 py-3.5 bg-secondary-fixed text-on-secondary-container font-label-caps text-label-caps rounded-full hover:bg-secondary-fixed-dim transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed shadow-md active:scale-95">
+                    Subscribe
+                </button>
+            </form>
+            
+            <div class="pt-10 mt-6 border-t border-primary-fixed-dim/20 w-full flex flex-col items-center gap-6">
+                <span class="font-label-caps text-label-caps text-primary-fixed-dim uppercase tracking-widest">Or Listen Directly On</span>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#" class="font-label-caps text-label-caps text-on-primary bg-primary-container/80 px-5 py-2.5 rounded-full border border-primary-fixed-dim/20 hover:border-secondary-fixed/50 hover:bg-primary-container hover:text-secondary-fixed transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed shadow-sm">Apple Podcasts</a>
+                    <a href="#" class="font-label-caps text-label-caps text-on-primary bg-primary-container/80 px-5 py-2.5 rounded-full border border-primary-fixed-dim/20 hover:border-secondary-fixed/50 hover:bg-primary-container hover:text-secondary-fixed transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed shadow-sm">Spotify</a>
+                    <a href="#" class="font-label-caps text-label-caps text-on-primary bg-primary-container/80 px-5 py-2.5 rounded-full border border-primary-fixed-dim/20 hover:border-secondary-fixed/50 hover:bg-primary-container hover:text-secondary-fixed transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-fixed shadow-sm">Google Podcasts</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-low w-full py-12 border-t border-outline-variant/30">
+    <div class="flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto px-margin-mobile md:px-gutter gap-6">
+        <div class="text-xl font-bold font-headline-lg text-primary tracking-tight">
+            The Lateral
+        </div>
+        <div class="flex flex-wrap justify-center gap-8">
+            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm">Apple Podcasts</a>
+            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm">Spotify</a>
+            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm">RSS</a>
+            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm">Terms</a>
+        </div>
+        <div class="font-body-md text-sm text-on-surface-variant">
+            © 2024 The Lateral. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

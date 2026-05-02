@@ -1,0 +1,705 @@
+
+<!DOCTYPE html>
+<html class="dark antialiased" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Ravenlight - A gothic adventure through the unlit world. Explore a desolate kingdom, master unforgiving combat, and uncover eldritch lore."/>
+    <meta property="og:title" content="Ravenlight - A Gothic Adventure" />
+    <meta property="og:description" content="A gothic adventure through the unlit world." />
+    <meta property="og:type" content="website" />
+    <title>Ravenlight - A Gothic Adventure</title>
+    
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@400,0,0,24&amp;display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#eae1d2",
+                        "primary-container": "#0a0a0f",
+                        "outline": "#929095",
+                        "on-secondary-container": "#003e1c",
+                        "on-surface": "#eae1d2",
+                        "surface-container-lowest": "#110e06",
+                        "on-tertiary": "#690005",
+                        "secondary-container": "#00b55d",
+                        "surface-bright": "#3d392e",
+                        "outline-variant": "#47464b",
+                        "surface-container-high": "#2e2a20",
+                        "on-tertiary-fixed": "#410002",
+                        "secondary-fixed": "#6dfe9c",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb4ab",
+                        "surface": "#17130a",
+                        "surface-container": "#231f16",
+                        "on-primary-fixed-variant": "#47464c",
+                        "on-primary": "#303036",
+                        "on-error-container": "#ffdad6",
+                        "primary": "#c8c5cd",
+                        "surface-variant": "#39342a",
+                        "tertiary-container": "#200001",
+                        "tertiary-fixed": "#ffdad6",
+                        "secondary-fixed-dim": "#4de082",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "on-primary-container": "#7a797f",
+                        "on-primary-fixed": "#1b1b20",
+                        "background": "#17130a",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "surface-container-low": "#1f1b12",
+                        "surface-dim": "#17130a",
+                        "on-tertiary-container": "#e03b34",
+                        "on-background": "#eae1d2",
+                        "on-secondary": "#003919",
+                        "secondary": "#4de082",
+                        "inverse-primary": "#5f5d64",
+                        "primary-fixed": "#e4e1e9",
+                        "surface-container-highest": "#39342a",
+                        "surface-tint": "#c8c5cd",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "on-secondary-fixed": "#00210c",
+                        "inverse-on-surface": "#343026",
+                        "primary-fixed-dim": "#c8c5cd",
+                        "on-surface-variant": "#c8c5cb",
+                        "on-secondary-fixed-variant": "#005227"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "margin-page": "clamp(1.5rem, 5vw, 4rem)",
+                        "stack-xs": "0.5rem",
+                        "stack-md": "1rem",
+                        "stack-xl": "clamp(2rem, 5vw, 3rem)",
+                        "gutter": "clamp(1rem, 3vw, 1.5rem)",
+                        "unit": "0.5rem",
+                        "container-max": "1200px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Newsreader", "serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-lg": ["Newsreader", "serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-xl": ["Newsreader", "serif"]
+                    },
+                    fontSize: {
+                        "headline-md": ["clamp(1.5rem, 3vw, 2rem)", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "label-sm": ["0.75rem", {"lineHeight": "1rem", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-lg": ["clamp(1rem, 2vw, 1.125rem)", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg": ["clamp(2rem, 4vw, 3rem)", {"lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["1rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "display-xl": ["clamp(2.5rem, 5vw + 1rem, 4rem)", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        .emerald-glow {
+            box-shadow: 0 0 25px rgba(77, 224, 130, 0.3);
+        }
+        .emerald-glow-text {
+            text-shadow: 0 0 15px rgba(77, 224, 130, 0.4);
+        }
+        .red-glow {
+            box-shadow: 0 0 25px rgba(147, 0, 10, 0.5);
+        }
+        .red-glow-text {
+            text-shadow: 0 0 15px rgba(147, 0, 10, 0.5);
+        }
+        @keyframes raven-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 14px)); }
+        }
+        .raven-marquee-track {
+            animation: raven-marquee 70s linear infinite;
+            width: max-content;
+            display: flex;
+            gap: 28px;
+        }
+        .raven-marquee-track:hover { animation-play-state: paused; }
+        .raven-pulse {
+            animation: raven-pulse 3s ease-in-out infinite;
+        }
+        @keyframes raven-pulse {
+            0%, 100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(77, 224, 130, 0.4); }
+            50% { opacity: 1; box-shadow: 0 0 0 8px rgba(77, 224, 130, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .raven-marquee-track,
+            .raven-pulse { animation: none; }
+        }
+    </style>
+</head>
+<body class="bg-primary-container text-on-surface font-body-md overflow-x-hidden selection:bg-secondary/30 selection:text-secondary">
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-primary-container/80 backdrop-blur-xl shadow-[0_0_30px_rgba(74,222,128,0.03)] border-b border-secondary/10">
+        <div class="flex justify-between items-center px-margin-page py-6 max-w-container-max mx-auto">
+            <div class="text-2xl font-bold tracking-[0.2em] uppercase text-on-surface font-headline-md">
+                Ravenlight
+            </div>
+            <nav class="hidden md:flex items-center gap-8 font-headline-md text-lg tracking-wide text-on-surface-variant" aria-label="Main navigation">
+                <a class="hover:text-secondary transition-colors hover:bg-surface/50 duration-300 px-3 py-1 rounded-DEFAULT active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-primary-container" href="#features">Features</a>
+                <a class="hover:text-secondary transition-colors hover:bg-surface/50 duration-300 px-3 py-1 rounded-DEFAULT active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-primary-container" href="#gallery">Gallery</a>
+                <a class="hover:text-secondary transition-colors hover:bg-surface/50 duration-300 px-3 py-1 rounded-DEFAULT active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-primary-container" href="#lore">Lore</a>
+                <a class="hover:text-secondary transition-colors hover:bg-surface/50 duration-300 px-3 py-1 rounded-DEFAULT active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-primary-container" href="#studio">Studio</a>
+            </nav>
+            <div class="flex items-center gap-6">
+                <button class="text-on-tertiary-container font-label-sm uppercase tracking-widest hover:text-error transition-colors hidden md:block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error rounded-DEFAULT px-2 py-1">
+                    Wishlist on Steam
+                </button>
+                <button class="text-on-surface-variant hover:text-secondary transition-colors md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-DEFAULT p-1" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" aria-labelledby="hero-title" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-margin-page overflow-hidden">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrTaxJl5PxFuVAGSgOiyhsGVTphFmfBrU0qhuXHsTYPQYZEvshPNr4Myq_VzG_GNFXLpRyzsG27e2yFVI5x5CXJlh8PYtMiLcOOLq677NXUDc2pLuXeihj6xswl94yrPKfYp-Sg_Q8EDb_YxW2XltMHwlRieXH5JE-zpME7nMrO0q9PFo9Rz7oG7bcDE5suQiLaK7hqL90hqs1ox9JBT8FRsnXhpCKr0eAMK9W-1Tj1ZG0PCA-dzcF6IWDzCoNwafYVJgb_c7Bcc0" alt="A dark, atmospheric gothic landscape with a towering ruined cathedral silhouetted against a blood-red moon, surrounded by twisted dead trees and creeping fog." class="absolute inset-0 w-full h-full object-cover -z-20" loading="eager" fetchpriority="high" width="1920" height="1080">
+            <div class="absolute inset-0 bg-primary-container/80 backdrop-blur-[2px] -z-10" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-container/50 to-primary-container -z-10" aria-hidden="true"></div>
+            
+            <div class="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-stack-xl mt-12 md:mt-0">
+                <div class="space-y-stack-md flex flex-col items-center">
+                    <h1 id="hero-title" class="font-display-xl text-on-surface tracking-widest uppercase text-balance drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
+                        Ravenlight
+                    </h1>
+                    <p class="font-headline-md text-lg md:text-xl text-on-surface-variant italic tracking-wider text-pretty max-w-[65ch]">
+                        A gothic adventure through the unlit world.
+                    </p>
+                    <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text mt-8">
+                        Spring 2026
+                    </p>
+                </div>
+                <div class="flex items-center justify-center gap-6 text-on-surface-variant opacity-80" aria-label="Available platforms">
+                    <span class="material-symbols-outlined text-3xl" aria-hidden="true" title="Windows">desktop_windows</span>
+                    <span class="material-symbols-outlined text-3xl" aria-hidden="true" title="Console">sports_esports</span>
+                    <span class="material-symbols-outlined text-3xl" aria-hidden="true" title="Gamepad">gamepad</span>
+                </div>
+                <button class="bg-error-container text-on-error-container font-label-sm px-12 py-4 uppercase tracking-[0.2em] hover:brightness-110 transition-all duration-300 red-glow hover:scale-105 active:scale-95 border border-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error focus-visible:ring-offset-2 focus-visible:ring-offset-primary-container cursor-pointer rounded-DEFAULT">
+                    Wishlist on Steam
+                </button>
+            </div>
+        </section>
+
+        <section id="features" aria-labelledby="features-title" class="py-20 px-margin-page max-w-container-max mx-auto scroll-mt-32 flex flex-col gap-stack-xl">
+            <div class="text-center space-y-stack-md">
+                <h2 id="features-title" class="font-headline-lg text-on-surface text-balance">Features</h2>
+                <p class="font-body-lg text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Survive the unending night with mechanics designed to test your absolute resolve.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <article class="flex flex-col items-center text-center space-y-stack-md p-8 rounded-xl bg-surface-container-low border border-surface-container-highest hover:border-secondary/30 hover:bg-surface-container transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl text-error red-glow-text" aria-hidden="true">security</span>
+                    <h3 class="font-headline-md text-on-surface">Brutal Combat</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty max-w-[65ch]">Master a precise, stamina-based combat system where every strike matters and mistakes are harshly punished.</p>
+                </article>
+                <article class="flex flex-col items-center text-center space-y-stack-md p-8 rounded-xl bg-surface-container-low border border-surface-container-highest hover:border-secondary/30 hover:bg-surface-container transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl text-secondary emerald-glow-text" aria-hidden="true">auto_awesome</span>
+                    <h3 class="font-headline-md text-on-surface">Eldritch Magic</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty max-w-[65ch]">Harness forbidden spells that drain your very sanity while decimating the abominations that lurk in the dark.</p>
+                </article>
+                <article class="flex flex-col items-center text-center space-y-stack-md p-8 rounded-xl bg-surface-container-low border border-surface-container-highest hover:border-secondary/30 hover:bg-surface-container transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl text-primary" aria-hidden="true">explore</span>
+                    <h3 class="font-headline-md text-on-surface">Non-linear World</h3>
+                    <p class="font-body-md text-on-surface-variant text-pretty max-w-[65ch]">Discover hidden paths, unlock ancient shortcuts, and unearth the grim history of a cursed, forgotten kingdom.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="gallery" aria-labelledby="gallery-title" class="py-20 px-margin-page bg-surface-container-lowest scroll-mt-32">
+            <div class="max-w-container-max mx-auto flex flex-col gap-stack-xl">
+                <div class="text-center space-y-stack-md">
+                    <h2 id="gallery-title" class="font-headline-lg text-on-surface text-balance">Gallery</h2>
+                    <p class="font-body-lg text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Glimpse into the desolate beauty of Ravenlight.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-unit">
+                    <img src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&w=800&auto=format&fit=crop" alt="Vaulted gothic cathedral interior lit by candlelight" class="w-full h-64 object-cover rounded-DEFAULT border border-surface-container-highest hover:border-secondary/50 transition-colors duration-300" loading="lazy" decoding="async" width="800" height="600">
+                    <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=800&auto=format&fit=crop" alt="Dark, foggy forest path surrounded by bare, twisting trees" class="w-full h-64 object-cover rounded-DEFAULT border border-surface-container-highest hover:border-secondary/50 transition-colors duration-300" loading="lazy" decoding="async" width="800" height="600">
+                    <img src="https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?q=80&w=800&auto=format&fit=crop" alt="A raven perched ominously on a dead, jagged branch" class="w-full h-64 object-cover rounded-DEFAULT border border-surface-container-highest hover:border-secondary/50 transition-colors duration-300" loading="lazy" decoding="async" width="800" height="600">
+                    <img src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&w=800&auto=format&fit=crop" alt="A full moon shining brightly through dramatic, dark clouds" class="w-full h-64 object-cover rounded-DEFAULT border border-surface-container-highest hover:border-secondary/50 transition-colors duration-300 lg:col-span-2" loading="lazy" decoding="async" width="800" height="600">
+                    <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=800&auto=format&fit=crop" alt="Weathered suit of medieval plate armor standing in darkness" class="w-full h-64 object-cover rounded-DEFAULT border border-surface-container-highest hover:border-secondary/50 transition-colors duration-300" loading="lazy" decoding="async" width="800" height="600">
+                </div>
+            </div>
+        </section>
+
+        <section id="lore" aria-labelledby="lore-title" class="py-20 px-margin-page max-w-container-max mx-auto scroll-mt-32">
+            <div class="flex flex-col lg:flex-row gap-stack-xl items-center">
+                <div class="lg:w-1/2 space-y-stack-md">
+                    <h2 id="lore-title" class="font-headline-lg text-on-surface text-balance">The Fall of Oakhaven</h2>
+                    <div class="space-y-stack-xs font-body-md text-on-surface-variant max-w-[65ch] text-pretty">
+                        <p>
+                            Once a beacon of prosperity, the kingdom of Oakhaven has been consumed by an endless eclipse. The church's experiments with forbidden celestial blood have mutated the populace into mindless aberrations.
+                        </p>
+                        <p class="mt-4">
+                            As a newly resurrected Inquisitor, you must traverse the decaying capital, unravel the mysteries of the blood plague, and decide the ultimate fate of the realm. Will you restore the light, or embrace the comforting dark?
+                        </p>
+                    </div>
+                    <a href="#lore" class="inline-flex items-center gap-2 mt-4 text-secondary font-label-sm uppercase tracking-widest hover:text-secondary-fixed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-primary-container rounded-DEFAULT px-2 py-1 -ml-2 group">
+                        Read the full chronicles 
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="lg:w-1/2 relative w-full">
+                    <div class="absolute inset-0 bg-secondary/10 blur-[80px] rounded-full pointer-events-none"></div>
+                    <img src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&w=1000&auto=format&fit=crop" alt="A lone figure looking out over a colossal, dark gothic cathedral in the distance, enshrouded in mist" class="relative z-10 w-full h-[400px] lg:h-[500px] object-cover rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-surface-container-highest" loading="lazy" decoding="async" width="1000" height="1500">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Soundtrack (image strip / marquee) -->
+        <section id="soundtrack" aria-labelledby="soundtrack-title" class="py-20 px-margin-page bg-surface-container-lowest scroll-mt-32 border-y border-surface-container-highest">
+            <div class="max-w-container-max mx-auto flex flex-col gap-stack-xl">
+                <div class="flex items-end justify-between gap-6 flex-wrap">
+                    <div class="space-y-stack-md max-w-[65ch]">
+                        <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Aural Codex</p>
+                        <h2 id="soundtrack-title" class="font-headline-lg text-on-surface text-balance">Original soundtrack, by candlelight.</h2>
+                        <p class="font-body-md text-on-surface-variant text-pretty">Fourteen pieces, recorded over eleven months in a deconsecrated chapel outside Bath. Hover to pause; lean in to listen.</p>
+                    </div>
+                    <span class="font-label-sm text-on-surface-variant uppercase tracking-widest hidden md:inline">Composer · Bram Hellinga</span>
+                </div>
+                <div class="relative -mx-margin-page overflow-hidden py-2">
+                    <div class="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-surface-container-lowest to-transparent"></div>
+                    <div class="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-surface-container-lowest to-transparent"></div>
+                    <div class="raven-marquee-track px-margin-page">
+                        <figure class="shrink-0 w-72">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Cathedral chamber" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary raven-pulse" aria-hidden="true"></span>
+                                    <span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 01</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Vespers in Ash</span>
+                                        <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">04:38 · LARGO</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md" aria-hidden="true">play_circle</span>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-105" src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Foggy forest" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>
+                                    <span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 04</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">The Hollow Wood</span>
+                                        <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">06:12 · ADAGIO</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md" aria-hidden="true">play_circle</span>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Raven on branch" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-error/40 px-2 py-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-error" aria-hidden="true"></span>
+                                    <span class="font-label-sm text-tertiary uppercase tracking-widest">TRACK 07</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Carrion Hymn</span>
+                                        <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">03:21 · ALLEGRO</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-tertiary text-3xl drop-shadow-md" aria-hidden="true">play_circle</span>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-105" src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Moon over clouds" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>
+                                    <span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 09</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Eclipse, Final</span>
+                                        <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">05:44 · GRAVE</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md" aria-hidden="true">play_circle</span>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Plate armor in darkness" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-error/40 px-2 py-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-error" aria-hidden="true"></span>
+                                    <span class="font-label-sm text-tertiary uppercase tracking-widest">TRACK 11</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Harness of Iron</span>
+                                        <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">07:56 · MARCIA</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-tertiary text-3xl drop-shadow-md" aria-hidden="true">play_circle</span>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-105" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Architectural detail" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>
+                                    <span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 12</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Vault &amp; Vow</span>
+                                        <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">04:02 · LENTO</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md" aria-hidden="true">play_circle</span>
+                                </div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Lone figure & cathedral" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>
+                                    <span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 14</span>
+                                </div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Ravenlight (End Theme)</span>
+                                        <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">11:08 · ANDANTE</span>
+                                    </div>
+                                    <span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md" aria-hidden="true">play_circle</span>
+                                </div>
+                            </div>
+                        </figure>
+                        <!-- Duplicates -->
+                        <figure class="shrink-0 w-72" aria-hidden="true">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 01</span></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2"><div class="flex flex-col gap-0.5"><span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Vespers in Ash</span><span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">04:38 · LARGO</span></div><span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md">play_circle</span></div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72" aria-hidden="true">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-105" src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 04</span></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2"><div class="flex flex-col gap-0.5"><span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">The Hollow Wood</span><span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">06:12 · ADAGIO</span></div><span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md">play_circle</span></div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72" aria-hidden="true">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-error/40 px-2 py-1"><span class="w-1.5 h-1.5 rounded-full bg-error"></span><span class="font-label-sm text-tertiary uppercase tracking-widest">TRACK 07</span></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2"><div class="flex flex-col gap-0.5"><span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Carrion Hymn</span><span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">03:21 · ALLEGRO</span></div><span class="material-symbols-outlined text-tertiary text-3xl drop-shadow-md">play_circle</span></div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72" aria-hidden="true">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-105" src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 09</span></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2"><div class="flex flex-col gap-0.5"><span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Eclipse, Final</span><span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">05:44 · GRAVE</span></div><span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md">play_circle</span></div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72" aria-hidden="true">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-error/40 px-2 py-1"><span class="w-1.5 h-1.5 rounded-full bg-error"></span><span class="font-label-sm text-tertiary uppercase tracking-widest">TRACK 11</span></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2"><div class="flex flex-col gap-0.5"><span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Harness of Iron</span><span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">07:56 · MARCIA</span></div><span class="material-symbols-outlined text-tertiary text-3xl drop-shadow-md">play_circle</span></div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72" aria-hidden="true">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-105" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 12</span></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2"><div class="flex flex-col gap-0.5"><span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Vault &amp; Vow</span><span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">04:02 · LENTO</span></div><span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md">play_circle</span></div>
+                            </div>
+                        </figure>
+                        <figure class="shrink-0 w-72" aria-hidden="true">
+                            <div class="aspect-square overflow-hidden border border-surface-container-highest relative bg-primary-container">
+                                <img class="absolute inset-0 w-full h-full object-cover opacity-90 grayscale contrast-105" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/30 to-transparent"></div>
+                                <div class="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-sm bg-primary-container/70 border border-secondary/30 px-2 py-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span class="font-label-sm text-secondary uppercase tracking-widest">TRACK 14</span></div>
+                                <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2"><div class="flex flex-col gap-0.5"><span class="font-headline-md text-on-surface italic text-xl leading-tight drop-shadow-md">Ravenlight (End Theme)</span><span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">11:08 · ANDANTE</span></div><span class="material-symbols-outlined text-secondary text-3xl drop-shadow-md">play_circle</span></div>
+                            </div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: The Inquisitor's Arsenal (3 alternating image+content rows, NOT a grid) -->
+        <section id="arsenal" aria-labelledby="arsenal-title" class="py-20 px-margin-page max-w-container-max mx-auto scroll-mt-32">
+            <div class="text-center space-y-stack-md mb-12">
+                <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Tools of Office</p>
+                <h2 id="arsenal-title" class="font-headline-lg text-on-surface text-balance">The Inquisitor's Arsenal</h2>
+                <p class="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Three implements, drawn before the eclipse fell. Carry one well. Carry all three at peril.</p>
+            </div>
+            <div class="flex flex-col gap-stack-xl">
+
+                <!-- Arsenal I -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-stack-xl items-stretch">
+                    <figure class="md:col-span-7 relative aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden rounded-xl border border-surface-container-highest">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-110" src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&amp;w=1400&amp;auto=format&amp;fit=crop" alt="Iron blade in plate armor" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/90 via-primary-container/30 to-transparent"></div>
+                        <div class="absolute top-4 left-4 flex items-center gap-3 backdrop-blur-sm bg-primary-container/70 border border-error/40 px-3 py-1.5">
+                            <span class="font-headline-md text-tertiary italic text-xl tabular-nums">I</span>
+                            <span class="font-label-sm text-tertiary uppercase tracking-[0.3em]">— BLADE</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5 flex flex-col gap-stack-md justify-center">
+                        <h3 class="font-headline-md text-on-surface text-balance">The Penitent Sword</h3>
+                        <p class="font-body-md text-on-surface-variant text-pretty">A two-handed greatsword forged from cathedral bell-metal. Slow to draw, decisive when drawn. Each parry chips the blade — and the bearer.</p>
+                        <dl class="grid grid-cols-3 border-t border-surface-container-highest pt-4 gap-3">
+                            <div class="flex flex-col gap-1"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Damage</dt><dd class="font-headline-md text-tertiary tabular-nums leading-none">142</dd></div>
+                            <div class="flex flex-col gap-1 border-l border-surface-container-highest pl-3"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Stamina</dt><dd class="font-headline-md text-tertiary tabular-nums leading-none">38</dd></div>
+                            <div class="flex flex-col gap-1 border-l border-surface-container-highest pl-3"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Reach</dt><dd class="font-headline-md text-tertiary tabular-nums leading-none">3.4 m</dd></div>
+                        </dl>
+                    </div>
+                </article>
+
+                <!-- Arsenal II (reverse) -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-stack-xl items-stretch">
+                    <div class="md:col-span-5 md:order-1 order-2 flex flex-col gap-stack-md justify-center">
+                        <h3 class="font-headline-md text-on-surface text-balance">The Sigil of Lambent Hours</h3>
+                        <p class="font-body-md text-on-surface-variant text-pretty">A spell-locus carved from the bone of a saint who never spoke. Burns sanity to mend wounds, summon false dawn, or stop a heart at thirty paces.</p>
+                        <dl class="grid grid-cols-3 border-t border-surface-container-highest pt-4 gap-3">
+                            <div class="flex flex-col gap-1"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Sanity cost</dt><dd class="font-headline-md text-secondary tabular-nums leading-none">22</dd></div>
+                            <div class="flex flex-col gap-1 border-l border-surface-container-highest pl-3"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Cast time</dt><dd class="font-headline-md text-secondary tabular-nums leading-none">1.6s</dd></div>
+                            <div class="flex flex-col gap-1 border-l border-surface-container-highest pl-3"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Charges</dt><dd class="font-headline-md text-secondary tabular-nums leading-none">3 / 7</dd></div>
+                        </dl>
+                    </div>
+                    <figure class="md:col-span-7 md:order-2 order-1 relative aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden rounded-xl border border-surface-container-highest">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-110" src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&amp;w=1400&amp;auto=format&amp;fit=crop" alt="Sigil cast against night sky" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-tl from-primary-container/90 via-primary-container/30 to-transparent"></div>
+                        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 60% 40%, rgba(77,224,130,0.18) 0%, transparent 60%);"></div>
+                        <div class="absolute top-4 right-4 flex items-center gap-3 backdrop-blur-sm bg-primary-container/70 border border-secondary/40 px-3 py-1.5">
+                            <span class="font-headline-md text-secondary italic text-xl tabular-nums">II</span>
+                            <span class="font-label-sm text-secondary uppercase tracking-[0.3em]">— SIGIL</span>
+                        </div>
+                    </figure>
+                </article>
+
+                <!-- Arsenal III -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-stack-xl items-stretch">
+                    <figure class="md:col-span-7 relative aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden rounded-xl border border-surface-container-highest">
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-85 grayscale contrast-110" src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&amp;w=1400&amp;auto=format&amp;fit=crop" alt="Lantern in cathedral" loading="lazy" />
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/90 via-primary-container/30 to-transparent"></div>
+                        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 30% 60%, rgba(255,180,171,0.12) 0%, transparent 50%);"></div>
+                        <div class="absolute top-4 left-4 flex items-center gap-3 backdrop-blur-sm bg-primary-container/70 border border-tertiary/30 px-3 py-1.5">
+                            <span class="font-headline-md text-tertiary italic text-xl tabular-nums">III</span>
+                            <span class="font-label-sm text-tertiary uppercase tracking-[0.3em]">— LANTERN</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5 flex flex-col gap-stack-md justify-center">
+                        <h3 class="font-headline-md text-on-surface text-balance">The Petty Lantern</h3>
+                        <p class="font-body-md text-on-surface-variant text-pretty">A small relic of unknown make. Its flame does not warm and its oil does not run dry. The dark flinches from it; the things in the dark do not.</p>
+                        <dl class="grid grid-cols-3 border-t border-surface-container-highest pt-4 gap-3">
+                            <div class="flex flex-col gap-1"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Light</dt><dd class="font-headline-md text-tertiary tabular-nums leading-none">5 m</dd></div>
+                            <div class="flex flex-col gap-1 border-l border-surface-container-highest pl-3"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Fuel</dt><dd class="font-headline-md text-tertiary tabular-nums leading-none">∞</dd></div>
+                            <div class="flex flex-col gap-1 border-l border-surface-container-highest pl-3"><dt class="font-label-sm text-on-surface-variant uppercase tracking-widest">Origin</dt><dd class="font-headline-md text-tertiary tabular-nums leading-none">???</dd></div>
+                        </dl>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Section: Tomes of Oakhaven (content / numbered chapter list) -->
+        <section id="tomes" aria-labelledby="tomes-title" class="py-20 px-margin-page bg-surface-container-low scroll-mt-32 border-y border-surface-container-highest">
+            <div class="max-w-container-max mx-auto flex flex-col gap-stack-xl">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md items-end">
+                    <div class="md:col-span-7 space-y-stack-md">
+                        <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Apocrypha</p>
+                        <h2 id="tomes-title" class="font-headline-lg text-on-surface text-balance">Five tomes, recovered from the vault.</h2>
+                    </div>
+                    <p class="md:col-span-5 font-body-md text-on-surface-variant text-pretty">In-universe writing. Read in any order. Each unlocks at a milestone in the campaign — these are extracts.</p>
+                </div>
+                <ol class="flex flex-col border-t border-b border-surface-container-highest divide-y divide-surface-container-highest">
+                    <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                        <span class="col-span-2 md:col-span-1 font-headline-lg text-secondary italic leading-none text-3xl md:text-4xl tabular-nums emerald-glow-text">I</span>
+                        <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                            <h3 class="font-headline-md text-on-surface italic text-xl md:text-2xl">On the First Eclipse</h3>
+                            <p class="font-body-md text-on-surface-variant max-w-prose">An account from the Cathedral of St. Aelar in the year the sun first refused.</p>
+                        </div>
+                        <span class="col-span-3 md:col-span-2 font-label-sm uppercase tracking-widest text-on-surface-variant text-right tabular-nums">12 min</span>
+                        <a class="col-span-12 md:col-span-2 font-label-sm text-secondary uppercase tracking-widest text-right hover:text-secondary-fixed transition-colors" href="#">Read →</a>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                        <span class="col-span-2 md:col-span-1 font-headline-lg text-secondary italic leading-none text-3xl md:text-4xl tabular-nums emerald-glow-text">II</span>
+                        <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                            <h3 class="font-headline-md text-on-surface italic text-xl md:text-2xl">The Inquisitor's Manual</h3>
+                            <p class="font-body-md text-on-surface-variant max-w-prose">Field protocols for engagement with the changed. Forty-three rules; thirty-one obeyed.</p>
+                        </div>
+                        <span class="col-span-3 md:col-span-2 font-label-sm uppercase tracking-widest text-on-surface-variant text-right tabular-nums">18 min</span>
+                        <a class="col-span-12 md:col-span-2 font-label-sm text-secondary uppercase tracking-widest text-right hover:text-secondary-fixed transition-colors" href="#">Read →</a>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                        <span class="col-span-2 md:col-span-1 font-headline-lg text-secondary italic leading-none text-3xl md:text-4xl tabular-nums emerald-glow-text">III</span>
+                        <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                            <h3 class="font-headline-md text-on-surface italic text-xl md:text-2xl">A Brief Bestiary</h3>
+                            <p class="font-body-md text-on-surface-variant max-w-prose">Twelve entries with sketches by Cardinal Greve. Several entries are missing pages.</p>
+                        </div>
+                        <span class="col-span-3 md:col-span-2 font-label-sm uppercase tracking-widest text-on-surface-variant text-right tabular-nums">22 min</span>
+                        <a class="col-span-12 md:col-span-2 font-label-sm text-secondary uppercase tracking-widest text-right hover:text-secondary-fixed transition-colors" href="#">Read →</a>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                        <span class="col-span-2 md:col-span-1 font-headline-lg text-error italic leading-none text-3xl md:text-4xl tabular-nums red-glow-text">IV</span>
+                        <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                            <h3 class="font-headline-md text-on-surface italic text-xl md:text-2xl">The Heretic's Confession</h3>
+                            <p class="font-body-md text-on-surface-variant max-w-prose">Recovered from the Black Library. Charred at the edges. Authorship contested.</p>
+                        </div>
+                        <span class="col-span-3 md:col-span-2 font-label-sm uppercase tracking-widest text-on-surface-variant text-right tabular-nums">14 min</span>
+                        <a class="col-span-12 md:col-span-2 font-label-sm text-secondary uppercase tracking-widest text-right hover:text-secondary-fixed transition-colors" href="#">Read →</a>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                        <span class="col-span-2 md:col-span-1 font-headline-lg text-secondary italic leading-none text-3xl md:text-4xl tabular-nums emerald-glow-text">V</span>
+                        <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                            <h3 class="font-headline-md text-on-surface italic text-xl md:text-2xl">The Final Vespers</h3>
+                            <p class="font-body-md text-on-surface-variant max-w-prose">A liturgy never sung. Its translation is, by design, incomplete.</p>
+                        </div>
+                        <span class="col-span-3 md:col-span-2 font-label-sm uppercase tracking-widest text-on-surface-variant text-right tabular-nums">9 min</span>
+                        <a class="col-span-12 md:col-span-2 font-label-sm text-secondary uppercase tracking-widest text-right hover:text-secondary-fixed transition-colors" href="#">Read →</a>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section: Eclipse Calendar (content / horizontal roadmap) -->
+        <section id="calendar" aria-labelledby="calendar-title" class="py-20 px-margin-page max-w-container-max mx-auto scroll-mt-32">
+            <div class="text-center space-y-stack-md mb-12 md:mb-16">
+                <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Roadmap</p>
+                <h2 id="calendar-title" class="font-headline-lg text-on-surface text-balance">The Eclipse Calendar</h2>
+                <p class="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Five milestones from now to launch. Dates may shift; the work will not.</p>
+            </div>
+            <div class="relative">
+                <!-- Track line -->
+                <div class="hidden md:block absolute top-7 left-[8%] right-[8%] h-px bg-gradient-to-r from-secondary/0 via-secondary/40 to-secondary/0" aria-hidden="true"></div>
+                <ol class="grid grid-cols-1 md:grid-cols-5 gap-stack-md md:gap-4 relative">
+
+                    <li class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 md:text-center">
+                        <div class="shrink-0 w-14 h-14 rounded-full bg-secondary/10 border-2 border-secondary flex items-center justify-center relative emerald-glow z-10">
+                            <span class="material-symbols-outlined text-secondary" aria-hidden="true">check_circle</span>
+                        </div>
+                        <div class="flex flex-col gap-1 md:items-center">
+                            <span class="font-label-sm text-secondary uppercase tracking-widest tabular-nums">Q3 · 2024</span>
+                            <h3 class="font-headline-md text-on-surface italic text-xl">Vertical Slice</h3>
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[11px]">Closed alpha · 240 testers</span>
+                        </div>
+                    </li>
+
+                    <li class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 md:text-center">
+                        <div class="shrink-0 w-14 h-14 rounded-full bg-secondary/10 border-2 border-secondary flex items-center justify-center relative emerald-glow z-10">
+                            <span class="material-symbols-outlined text-secondary" aria-hidden="true">check_circle</span>
+                        </div>
+                        <div class="flex flex-col gap-1 md:items-center">
+                            <span class="font-label-sm text-secondary uppercase tracking-widest tabular-nums">Q1 · 2025</span>
+                            <h3 class="font-headline-md text-on-surface italic text-xl">Combat Lock</h3>
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[11px]">Stamina &amp; sigil systems · final tuning</span>
+                        </div>
+                    </li>
+
+                    <li class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 md:text-center">
+                        <div class="shrink-0 w-14 h-14 rounded-full bg-secondary/20 border-2 border-secondary flex items-center justify-center relative z-10">
+                            <span class="w-3 h-3 rounded-full bg-secondary raven-pulse" aria-hidden="true"></span>
+                        </div>
+                        <div class="flex flex-col gap-1 md:items-center">
+                            <span class="font-label-sm text-secondary uppercase tracking-widest tabular-nums">Q3 · 2025</span>
+                            <h3 class="font-headline-md text-on-surface italic text-xl">Open Beta</h3>
+                            <span class="font-label-sm text-tertiary uppercase tracking-widest text-[11px]">Currently here · sign-ups open</span>
+                        </div>
+                    </li>
+
+                    <li class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 md:text-center">
+                        <div class="shrink-0 w-14 h-14 rounded-full bg-primary-container border-2 border-on-surface-variant/30 flex items-center justify-center relative z-10">
+                            <span class="material-symbols-outlined text-on-surface-variant" aria-hidden="true">schedule</span>
+                        </div>
+                        <div class="flex flex-col gap-1 md:items-center">
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">Spring · 2026</span>
+                            <h3 class="font-headline-md text-on-surface italic text-xl">Launch Day</h3>
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[11px]">PC · Console · Cloud</span>
+                        </div>
+                    </li>
+
+                    <li class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 md:text-center">
+                        <div class="shrink-0 w-14 h-14 rounded-full bg-primary-container border-2 border-on-surface-variant/30 flex items-center justify-center relative z-10">
+                            <span class="material-symbols-outlined text-on-surface-variant" aria-hidden="true">flag</span>
+                        </div>
+                        <div class="flex flex-col gap-1 md:items-center">
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">2026 · 2027</span>
+                            <h3 class="font-headline-md text-on-surface italic text-xl">The Wake</h3>
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest text-[11px]">Two free expansions · post-launch</span>
+                        </div>
+                    </li>
+
+                </ol>
+            </div>
+        </section>
+
+        <section id="studio" aria-labelledby="studio-title" class="py-24 px-margin-page bg-surface-container scroll-mt-32 border-y border-surface-container-highest">
+            <div class="max-w-3xl mx-auto text-center flex flex-col gap-stack-md">
+                <h2 id="studio-title" class="font-headline-lg text-on-surface text-balance">Crafted by Ravenlight Studios</h2>
+                <p class="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">
+                    We are a small, passionate indie team dedicated to creating atmospheric, challenging experiences that respect the player's intelligence. Founded in 2024, our mission is to resurrect the uncompromising design of classic gothic adventures with modern fidelity.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="w-full py-20 bg-surface-container-lowest flex flex-col items-center gap-8 px-margin-page">
+        <div class="max-w-container-max mx-auto w-full flex flex-col items-center gap-8">
+            <nav class="flex flex-wrap justify-center gap-8 font-headline-md text-sm tracking-widest text-on-surface-variant" aria-label="Footer navigation">
+                <a class="hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest rounded-DEFAULT px-2 py-1" href="#">Press Kit</a>
+                <a class="hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest rounded-DEFAULT px-2 py-1" href="#">Privacy Policy</a>
+                <a class="hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest rounded-DEFAULT px-2 py-1" href="#">Terms of Service</a>
+                <a class="hover:text-secondary transition-colors duration-300 opacity-80 hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-lowest rounded-DEFAULT px-2 py-1" href="#">Contact</a>
+            </nav>
+            <p class="font-headline-md text-sm tracking-widest text-on-surface-variant opacity-50 text-center text-balance tabular-nums">
+                © 2024 Ravenlight Studios. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

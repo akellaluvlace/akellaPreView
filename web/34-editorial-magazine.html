@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en" class="light scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="Periphery Magazine - Exploring the margins, unmapped territories, and voices that speak quietly in noisy rooms.">
+    <title>Periphery Magazine | Spring 2024</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0..1&display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#ffb3b5",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#5f5e5e",
+                        "surface-dim": "#dedacf",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#1d1b16",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#ff6a76",
+                        "surface-container": "#f3ede2",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed": "#1d1b16",
+                        "on-primary-fixed-variant": "#474746",
+                        "on-tertiary-container": "#87837b",
+                        "inverse-on-surface": "#f6f0e5",
+                        "primary": "#000000",
+                        "outline": "#747878",
+                        "secondary-fixed": "#ffdada",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#49473f",
+                        "on-background": "#1d1c15",
+                        "on-secondary-container": "#6d0019",
+                        "primary-fixed": "#e5e2e1",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#ae2d3e",
+                        "surface": "#fef9ed",
+                        "inverse-surface": "#323029",
+                        "tertiary-fixed": "#e8e2d8",
+                        "on-surface-variant": "#444748",
+                        "surface-variant": "#e7e2d7",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "outline-variant": "#c4c7c7",
+                        "on-surface": "#1d1c15",
+                        "surface-bright": "#fef9ed",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#858383",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#1c1b1b",
+                        "background": "#fef9ed",
+                        "surface-container-low": "#f8f3e8",
+                        "surface-container-high": "#ede8dd",
+                        "on-secondary-fixed-variant": "#8d1229",
+                        "inverse-primary": "#c8c6c5",
+                        "on-secondary-fixed": "#40000b",
+                        "tertiary-fixed-dim": "#cbc6bc",
+                        "surface-container-highest": "#e7e2d7"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Newsreader", "serif"],
+                        "label-caps": ["Public Sans", "sans-serif"],
+                        "metadata": ["Public Sans", "sans-serif"],
+                        "body-lg": ["Noto Serif", "serif"],
+                        "headline-xl": ["Newsreader", "serif"],
+                        "headline-md": ["Newsreader", "serif"],
+                        "display-masthead": ["Newsreader", "serif"],
+                        "body-md": ["Noto Serif", "serif"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["clamp(2rem, 3vw + 1rem, 3rem)", { lineHeight: "1.2", fontWeight: "500" }],
+                        "label-caps": ["0.75rem", { lineHeight: "1.4", letterSpacing: "0.1em", fontWeight: "700" }],
+                        "metadata": ["0.875rem", { lineHeight: "1.4", fontWeight: "400" }],
+                        "body-lg": ["clamp(1.125rem, 1.5vw + 0.5rem, 1.25rem)", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-xl": ["clamp(2.5rem, 5vw + 1rem, 4rem)", { lineHeight: "1.15", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "headline-md": ["clamp(1.5rem, 2vw + 1rem, 2rem)", { lineHeight: "1.3", fontWeight: "500" }],
+                        "display-masthead": ["clamp(3.5rem, 8vw + 1rem, 7.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["clamp(1rem, 1.2vw + 0.5rem, 1.125rem)", { lineHeight: "1.6", fontWeight: "400" }]
+                    },
+                    spacing: {
+                        "column-gap": "clamp(1.5rem, 4vw, 3rem)",
+                        "gutter": "clamp(1rem, 4vw, 2rem)",
+                        "section-gap": "clamp(4rem, 8vw, 8rem)",
+                        "margin-page": "clamp(1.5rem, 5vw, 4rem)",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::selection {
+            background-color: #ae2d3e;
+            color: #ffffff;
+        }
+        .text-balance { text-wrap: balance; }
+        .text-pretty { text-wrap: pretty; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @keyframes mag-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 14px)); }
+        }
+        .mag-marquee-track {
+            animation: mag-marquee 65s linear infinite;
+            width: max-content;
+            display: flex;
+            gap: 28px;
+        }
+        .mag-marquee-track:hover { animation-play-state: paused; }
+        .mag-drop-cap::first-letter {
+            font-family: 'Newsreader', serif;
+            font-weight: 600;
+            float: left;
+            font-size: 4.2em;
+            line-height: 0.85;
+            padding: 0.15em 0.18em 0 0;
+            color: #ae2d3e;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .mag-marquee-track { animation: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex flex-col min-h-screen">
+
+    <!-- TopAppBar - Full Width -->
+    <header class="w-full bg-background border-b border-on-background/10 sticky top-0 z-50 backdrop-blur-sm bg-background/95 transition-all">
+        <div class="w-full px-6 md:px-12 lg:px-16 py-6 md:py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-on-surface-variant font-label-caps uppercase text-label-caps tracking-widest">
+                Spring 2024
+            </div>
+            <a href="#" class="text-4xl md:text-6xl lg:text-7xl font-display-masthead text-primary uppercase tracking-tighter hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                Periphery
+            </a>
+            <nav class="flex gap-6 items-center" aria-label="Primary Navigation">
+                <a href="#essays" class="text-on-surface-variant font-label-caps uppercase text-label-caps tracking-widest hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">Essays</a>
+                <a href="#reporting" class="text-on-surface-variant font-label-caps uppercase text-label-caps tracking-widest hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">Reporting</a>
+                <a href="#criticism" class="text-on-surface-variant font-label-caps uppercase text-label-caps tracking-widest hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">Criticism</a>
+                <a href="#interviews" class="hidden sm:block text-on-surface-variant font-label-caps uppercase text-label-caps tracking-widest hover:text-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm">Interviews</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-[1440px] mx-auto px-6 md:px-12 lg:px-16 py-12 md:py-16 w-full">
+        <!-- Hero Feature -->
+        <section class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-section-gap border-b border-on-background/10 pb-16">
+            <div class="col-span-1 md:col-span-7 lg:col-span-8 group overflow-hidden rounded-sm relative">
+                <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-inset" aria-label="Read full article: The Last Cartographer"></a>
+                <!-- HERO IMAGE REPLACED WITH HIGHLY RELIABLE DESERT UNSPLASH URL -->
+                <img 
+                    src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&q=80&w=2000" 
+                    alt="Vast aerial view of the Namib desert showing intricate patterns of towering sand dunes and deep shadows." 
+                    width="1200" 
+                    height="800"
+                    class="w-full h-full aspect-[4/3] md:aspect-auto md:h-[600px] object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000 ease-out group-hover:scale-105"
+                    loading="eager"
+                    decoding="async"
+                >
+            </div>
+            
+            <div class="col-span-1 md:col-span-5 lg:col-span-4 flex flex-col justify-center gap-6 pl-0 md:pl-4">
+                <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">
+                    Reporting
+                </div>
+                <h1 class="font-headline-xl text-headline-xl text-primary leading-tight text-balance">
+                    <a href="#" class="hover:text-secondary transition-colors focus-visible:outline-none">The Last Cartographer</a>
+                </h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant text-pretty max-w-[45ch]">
+                    In an age of omnipresent satellites and algorithmic prediction, one man continues to map the shifting sands of the Namib desert entirely by hand. His solitary work preserves the delicate, ephemeral territories that are relentlessly forgotten by digital systems, offering a profound meditation on memory, landscape, and human observation.
+                </p>
+                <div class="font-metadata text-metadata text-on-surface-variant mt-4 pt-6 border-t border-on-background/10 w-1/2">
+                    by Elena Vranas
+                </div>
+            </div>
+        </section>
+
+        <!-- Secondary Features -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 mb-section-gap">
+            <!-- Card 1 -->
+            <article class="flex flex-col gap-5 relative group">
+                <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background" aria-label="Read essay: The Mechanics of Memory"></a>
+                <div class="aspect-[4/3] w-full overflow-hidden rounded-sm">
+                    <img 
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFoBNoQ8cu2oZFKH62jM-OcpKfaWS_zWLOq8xGgCFfGwJQ2t0J8VFjaLVTJEwLuk4IphqXyxnN14B7viEb_3RbCJOLE53XEQHYcaFOdJ7_uHEQDaaVTmo6GJGYKAkUgUmVoWpKM9wxXm7B_uucjeOO-MARG4hx0UYOnZOYdI-gN6GzJ0LHKkuHPvR4FEq0RPq7gW4cfPhGMicS1wLHFlLTKaVDa0QOKzckv1POSO5xXD1AvGf78D4nOaCvFQfqLMmjFqTcPIvGBQ8" 
+                        alt="Close up of old typewriter keys in high contrast black and white." 
+                        width="600" 
+                        height="450"
+                        class="w-full h-full object-cover filter grayscale group-hover:grayscale-[0.3] group-hover:scale-105 transition-all duration-700 ease-out"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </div>
+                <div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">
+                        Essays
+                    </div>
+                    <h2 class="font-headline-md text-headline-md text-primary group-hover:text-secondary group-hover:italic transition-colors duration-300 text-balance mb-2">
+                        The Mechanics of Memory
+                    </h2>
+                    <div class="font-metadata text-metadata text-on-surface-variant mb-4">
+                        by David Chen
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant line-clamp-4 text-pretty max-w-[50ch]">
+                        Examining the physical artifacts we leave behind, and how tactile objects outlive our digital footprints in the long scope of history. As we migrate our lives to the cloud, the tangible remnants of our existence gain an almost sacred, anchoring weight in an increasingly transient world.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="flex flex-col gap-5 relative group border-t pt-8 md:pt-0 md:border-t-0 md:border-l border-on-background/10 md:pl-8 lg:pl-12">
+                <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background" aria-label="Read criticism: Concrete Utopias"></a>
+                <div class="aspect-[4/3] w-full overflow-hidden rounded-sm">
+                    <img 
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtWEElgJD2D1HEX75y9j9rlVRkNyAfWlLrAg2H-QI4ZzdvLIUVoBe3KC1rd16seC_7_liSlrnx1W72sAEnZVAsBLQLMiAc_E28yRFLMgTC094QTrEDf0g0NGY_F4zrEG7RM4M7EuXnzXnF8e_-mZUr1_LV0D87CmH2bpff0P_Fq7DUKJ9Z0rGlfX5hjVbshF848VIa2ZHOq3GRTBioGr2uSaQw5_R4tGuKZybMeCLtRx-1mPkcMzCFm8hYM41UxPGlHG6UbYuYvIc" 
+                        alt="Abstract architectural details of a brutalist concrete building featuring sharp angles and dramatic shadows." 
+                        width="600" 
+                        height="450"
+                        class="w-full h-full object-cover filter grayscale group-hover:grayscale-[0.3] group-hover:scale-105 transition-all duration-700 ease-out"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </div>
+                <div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">
+                        Criticism
+                    </div>
+                    <h2 class="font-headline-md text-headline-md text-primary group-hover:text-secondary group-hover:italic transition-colors duration-300 text-balance mb-2">
+                        Concrete Utopias
+                    </h2>
+                    <div class="font-metadata text-metadata text-on-surface-variant mb-4">
+                        by Sarah Jenkins
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant line-clamp-4 text-pretty max-w-[50ch]">
+                        A reassessment of Brutalism not as an aesthetic failing, but as the last sincere architectural attempt at civic egalitarianism. We explore how these towering concrete monoliths were originally built on profound promises of universal housing, community solidarity, and structural honesty.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="flex flex-col gap-5 relative group border-t pt-8 md:pt-0 md:border-t-0 md:border-l border-on-background/10 md:pl-8 lg:pl-12">
+                <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background" aria-label="Read interview: Silence is a Language"></a>
+                <div class="aspect-[4/3] w-full overflow-hidden rounded-sm">
+                    <img 
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9eh4EuVsGqGKuVas-fBbATsGxiuwKFurFgJvOtNA_lzS92-SNUhBu5W7AzV0cZrCj-uFNJoAYgg1EoRwKn-5oHzJlz7ABgg6T_45RxxqV3WbXWPYAhGaeEwd8kLcaxcXxgVvARpJQ8mlWoAu0VhhuBUC_P7SuWitnFZTwphUFWiHwBFqbG3NxhYvoQoupt38ZYarvyFt1fi_jQLbqcPjMOAJ2aulpekHlM2KWuxjn-x69s9z5Je3tuP6SaTiasIzWLtstIiOkFRk" 
+                        alt="Portrait of an older woman looking away thoughtfully in soft window light with deep cinematic shadows." 
+                        width="600" 
+                        height="450"
+                        class="w-full h-full object-cover filter grayscale group-hover:grayscale-[0.3] group-hover:scale-105 transition-all duration-700 ease-out"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </div>
+                <div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">
+                        Interviews
+                    </div>
+                    <h2 class="font-headline-md text-headline-md text-primary group-hover:text-secondary group-hover:italic transition-colors duration-300 text-balance mb-2">
+                        Silence is a Language
+                    </h2>
+                    <div class="font-metadata text-metadata text-on-surface-variant mb-4">
+                        with Maria Rossi
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant line-clamp-4 text-pretty max-w-[50ch]">
+                        The reclusive author discusses her twenty-year hiatus, the deafening noise of the modern world, and the arduous process of finding the words to begin again. In her first public interview since 2004, Rossi reveals the profound, generative power she discovered within absolute quiet.
+                    </p>
+                </div>
+            </article>
+        </section>
+
+        <!-- Archive & Editor Section Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 border-t border-on-background/10 pt-16">
+            
+            <!-- From the Archive (8 cols) -->
+            <section class="col-span-1 lg:col-span-8 lg:pr-12 border-b lg:border-b-0 pb-12 lg:pb-0 border-r-0 lg:border-r border-on-background/10">
+                <h3 class="font-headline-lg text-headline-lg text-primary mb-8 pb-4 border-b border-on-background/10">
+                    From the Archive
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
+                    
+                    <article class="flex flex-col gap-3 group relative flex-row sm:flex-col items-center sm:items-start">
+                        <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm" aria-label="Read archive piece: The Geography of Fog"></a>
+                        <div class="w-1/3 sm:w-full aspect-square overflow-hidden rounded-sm flex-shrink-0 mr-4 sm:mr-0 sm:mb-3">
+                            <img 
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVuj7Bo34fyutxF9tVLMsCSnkxxDXMI3rng1a8l2N0BVoX0a5_th3rDeQN3yEarSJAYIuCcmDTfhGGX8VqxOr6qMsb79nS3QBfrtnkIlfGykUduI0XMER_BJTKOJWfZFqWBQuqKvjVFoxTYKT7QcjhSQHwbWlBKLT5ZRHiZsbc-GzAoHX6IdDTwVrPfBM1kWmmpDtc-w5o60BZiNROs6sv2KiZzFqigNMOPuPC3ZWgS0qS0z3hJEbkjMB9lD8vEMOUpYZITLHEZ2U" 
+                                alt="Minimalist monochromatic landscape of distant mountains wrapped in thick fog." 
+                                width="300" height="300"
+                                class="w-full h-full object-cover filter grayscale group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex-grow">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px] mb-1">Winter 2019</div>
+                            <h4 class="font-headline-md text-headline-md text-primary text-xl md:text-2xl leading-tight group-hover:text-secondary group-hover:italic transition-colors text-balance">The Geography of Fog</h4>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col gap-3 group relative flex-row sm:flex-col items-center sm:items-start">
+                        <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm" aria-label="Read archive piece: Algorithms of Grief"></a>
+                        <div class="w-1/3 sm:w-full aspect-square overflow-hidden rounded-sm flex-shrink-0 mr-4 sm:mr-0 sm:mb-3">
+                            <img 
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0edrcO4OD4smcc6H4mRhMhx1CyvkKhI40WHtio0v4SRKTlgQ-aNi8DOYEBzRr9dFdv4_PC6HfbXEYm7tJYgEL-d_uu1fhZP48FKduTJ32dOEXCTXN2lg-g349rB_4Wp614eeJG-WY4NUDJabIdEBAYeYkUsT2ELkGsmStirTRl_b2DFCbzkbtaP7bPwE5kP5Lk1tt3gxi8lELO6-BH3ES6HcZ_5ajvc-L2m0Eyiqyw0tWqM_JlhJQatXPWw2c0o8thRAnBt9FIPA" 
+                                alt="Close up of code on a computer screen reflecting in someone's glasses, dark and moody." 
+                                width="300" height="300"
+                                class="w-full h-full object-cover filter grayscale group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex-grow">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px] mb-1">Autumn 2021</div>
+                            <h4 class="font-headline-md text-headline-md text-primary text-xl md:text-2xl leading-tight group-hover:text-secondary group-hover:italic transition-colors text-balance">Algorithms of Grief</h4>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col gap-3 group relative flex-row sm:flex-col items-center sm:items-start">
+                        <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm" aria-label="Read archive piece: Rust Belt Elegies"></a>
+                        <div class="w-1/3 sm:w-full aspect-square overflow-hidden rounded-sm flex-shrink-0 mr-4 sm:mr-0 sm:mb-3">
+                            <img 
+                                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600" 
+                                alt="Abandoned rusty train car overgrown with nature, representing industrial decay." 
+                                width="300" height="300"
+                                class="w-full h-full object-cover filter grayscale group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex-grow">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px] mb-1">Summer 2018</div>
+                            <h4 class="font-headline-md text-headline-md text-primary text-xl md:text-2xl leading-tight group-hover:text-secondary group-hover:italic transition-colors text-balance">Rust Belt Elegies</h4>
+                        </div>
+                    </article>
+
+                    <article class="flex flex-col gap-3 group relative flex-row sm:flex-col items-center sm:items-start">
+                        <a href="#" class="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-sm" aria-label="Read archive piece: The Vinyl Resurgence"></a>
+                        <div class="w-1/3 sm:w-full aspect-square overflow-hidden rounded-sm flex-shrink-0 mr-4 sm:mr-0 sm:mb-3">
+                            <img 
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA200DFPnp63LHtQirklHGPo8LbiN7hVR7tIo72249WyVkL95UUNxsuzfvI7T5dqt2vSMfDgf98-VT9H4wRCt0kU44EiV_MZ3JPuVJwMRNB9u9jS4g-WKPBwwsZ5IuIR8vWLBsC1G4ZOZPccraeEQzuwktBx93uIxTSe3I2xPeLbDT-YZPnOaN82meKGDfXM8mclkW64-BbQwVucSU72r1Eyqt9F6bcfZL_8OBUdY1yepXXtd7-cFNIHa_3pDbdnMytOKtaisinncU" 
+                                alt="Stacks of old vinyl records in a dusty room with sunbeams illuminating the dust motes." 
+                                width="300" height="300"
+                                class="w-full h-full object-cover filter grayscale group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex-grow">
+                            <div class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px] mb-1">Spring 2020</div>
+                            <h4 class="font-headline-md text-headline-md text-primary text-xl md:text-2xl leading-tight group-hover:text-secondary group-hover:italic transition-colors text-balance">The Vinyl Resurgence</h4>
+                        </div>
+                    </article>
+
+                </div>
+            </section>
+
+            <!-- Editor's Letter (4 cols) -->
+            <aside class="col-span-1 lg:col-span-4 bg-surface-container-low p-8 lg:p-10 border border-on-background/5 rounded-sm flex flex-col justify-center">
+                <h3 class="font-headline-md text-headline-md text-primary mb-8 italic text-center text-balance">
+                    Letter from the Editor
+                </h3>
+                <div class="flex justify-center mb-8">
+                    <img 
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAteU2vigkcRSBpZ180NV00Nucn6XwTXtwCcqoyAKsNugaq96tZ2MOYvpG7MGbKaXvNOXCdA_jG01cjI4e8xVMWzc0mv3ePGharWUIZ-agAX1mF2q8j5vDinTgfkwcGV-98JqizIC9jEflMX7K5Mw3vNJ3bFAGHGtCny1Zrmaqo5agBd3QocPoig0xzJV_u1yYuYLUW18iesURggzzTMK3IpNOOw97_YBktyM7LXpfpItedWUFqLQtn4O-w7dXOMB0ZF2faHpvTpDs" 
+                        alt="Portrait of Marcus Vance, Editor of Periphery." 
+                        width="96" height="96"
+                        class="w-24 h-24 rounded-full object-cover filter grayscale shadow-sm" loading="lazy" decoding="async">
+                </div>
+                <div class="font-body-md text-body-md text-on-surface-variant space-y-5 text-center text-pretty">
+                    <p>
+                        In this issue, we deliberately turn our attention to the margins. We seek the stories that happen just out of frame, the territories left unmapped by conventional wisdom, and the isolated voices that speak quietly in noisy rooms.
+                    </p>
+                    <p>
+                        We invite you to slow down, disconnect from the relentless digital feed, and explore the periphery with us.
+                    </p>
+                </div>
+                <div class="mt-10 pt-8 border-t border-on-background/10 text-center font-headline-lg text-primary italic text-2xl">
+                    Marcus Vance
+                </div>
+            </aside>
+            
+        </div>
+
+        <!-- Section: Photographers in this issue (image strip / marquee) -->
+        <section class="mt-section-gap pt-16 border-t border-on-background/10">
+            <div class="flex items-end justify-between gap-6 mb-10 flex-wrap">
+                <div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— Behind the camera</div>
+                    <h3 class="font-headline-lg text-headline-lg text-primary leading-tight text-balance">Photographers in this issue.</h3>
+                </div>
+                <span class="font-metadata text-metadata text-on-surface-variant italic">Hover to pause · seven contributors, four continents.</span>
+            </div>
+            <div class="relative -mx-6 md:-mx-12 lg:-mx-16 overflow-hidden py-4">
+                <div class="absolute inset-y-0 left-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-background to-transparent"></div>
+                <div class="absolute inset-y-0 right-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-background to-transparent"></div>
+                <div class="mag-marquee-track px-6 md:px-12 lg:px-16">
+                    <figure class="shrink-0 w-72">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Portrait by Renaud Vidal" loading="lazy" />
+                        </div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
+                            <span class="font-headline-md text-primary italic text-xl leading-tight">Renaud Vidal</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">PARIS</span>
+                        </figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Cover · &amp; the Cartographer.</p>
+                    </figure>
+                    <figure class="shrink-0 w-80">
+                        <div class="aspect-[16/10] overflow-hidden rounded-sm bg-surface-container relative">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1100&amp;q=85&amp;auto=format&amp;fit=crop" alt="Architecture plate by Hana Sato" loading="lazy" />
+                        </div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
+                            <span class="font-headline-md text-primary italic text-xl leading-tight">Hana Sato</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">TOKYO</span>
+                        </figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Architecture plates · Concrete Utopias.</p>
+                    </figure>
+                    <figure class="shrink-0 w-72">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Portrait by Lior Halpern" loading="lazy" />
+                        </div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
+                            <span class="font-headline-md text-primary italic text-xl leading-tight">Lior Halpern</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">BERLIN</span>
+                        </figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Reportage · Field Notes I.</p>
+                    </figure>
+                    <figure class="shrink-0 w-80">
+                        <div class="aspect-[16/10] overflow-hidden rounded-sm bg-surface-container relative">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1100&amp;q=85&amp;auto=format&amp;fit=crop" alt="Field landscape by Ines Moreau" loading="lazy" />
+                        </div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
+                            <span class="font-headline-md text-primary italic text-xl leading-tight">Inès Moreau</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">MARSEILLE</span>
+                        </figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Long-form · Faroe diary.</p>
+                    </figure>
+                    <figure class="shrink-0 w-72">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Portrait by Theo Almeida" loading="lazy" />
+                        </div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
+                            <span class="font-headline-md text-primary italic text-xl leading-tight">Theo Almeida</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">LISBON</span>
+                        </figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Portraits · Silence is a Language.</p>
+                    </figure>
+                    <figure class="shrink-0 w-80">
+                        <div class="aspect-[16/10] overflow-hidden rounded-sm bg-surface-container relative">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&amp;q=85&amp;auto=format&amp;fit=crop" alt="Travel plate by Eli Cano" loading="lazy" />
+                        </div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
+                            <span class="font-headline-md text-primary italic text-xl leading-tight">Eli Cano</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">MEXICO CITY</span>
+                        </figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Travel essay · Field Notes III.</p>
+                    </figure>
+                    <figure class="shrink-0 w-72">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Portrait by Margit Reier" loading="lazy" />
+                        </div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
+                            <span class="font-headline-md text-primary italic text-xl leading-tight">Margit Reier</span>
+                            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">REYKJAVÍK</span>
+                        </figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Documentary · Algorithms of Grief.</p>
+                    </figure>
+                    <!-- Duplicate for seamless loop -->
+                    <figure class="shrink-0 w-72" aria-hidden="true">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Renaud Vidal</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">PARIS</span></figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Cover · &amp; the Cartographer.</p>
+                    </figure>
+                    <figure class="shrink-0 w-80" aria-hidden="true">
+                        <div class="aspect-[16/10] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1100&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Hana Sato</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">TOKYO</span></figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Architecture plates · Concrete Utopias.</p>
+                    </figure>
+                    <figure class="shrink-0 w-72" aria-hidden="true">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Lior Halpern</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">BERLIN</span></figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Reportage · Field Notes I.</p>
+                    </figure>
+                    <figure class="shrink-0 w-80" aria-hidden="true">
+                        <div class="aspect-[16/10] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1100&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Inès Moreau</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">MARSEILLE</span></figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Long-form · Faroe diary.</p>
+                    </figure>
+                    <figure class="shrink-0 w-72" aria-hidden="true">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Theo Almeida</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">LISBON</span></figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Portraits · Silence is a Language.</p>
+                    </figure>
+                    <figure class="shrink-0 w-80" aria-hidden="true">
+                        <div class="aspect-[16/10] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Eli Cano</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">MEXICO CITY</span></figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Travel essay · Field Notes III.</p>
+                    </figure>
+                    <figure class="shrink-0 w-72" aria-hidden="true">
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Margit Reier</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">REYKJAVÍK</span></figcaption>
+                        <p class="font-metadata text-metadata text-on-surface-variant mt-1">Documentary · Algorithms of Grief.</p>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Field Notes (3 alternating image+content rows, NOT a grid) -->
+        <section class="mt-section-gap pt-16 border-t border-on-background/10">
+            <div class="mb-12">
+                <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— Field Notes</div>
+                <h3 class="font-headline-lg text-headline-lg text-primary leading-tight text-balance max-w-3xl">Three pieces, written away from the desk.</h3>
+            </div>
+            <div class="flex flex-col gap-16">
+
+                <!-- Row 1: image left, content right -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center group">
+                    <a href="#" class="contents">
+                        <figure class="md:col-span-7 relative aspect-[4/3] overflow-hidden rounded-sm bg-surface-container">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-[0.2] group-hover:scale-105 transition-all duration-[1500ms] ease-out" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Faroe Islands cliffs in heavy weather" loading="lazy" />
+                            <span class="absolute top-4 left-4 font-label-caps text-label-caps uppercase tracking-widest bg-background/85 backdrop-blur-sm text-primary px-3 py-1.5 rounded-sm">No. I · Faroe Islands</span>
+                        </figure>
+                    </a>
+                    <div class="md:col-span-5 flex flex-col gap-4">
+                        <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Reporting · 14 min read</div>
+                        <h4 class="font-headline-md text-headline-md text-primary italic text-balance group-hover:text-secondary transition-colors duration-300">Letters to a country with no road.</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant text-pretty max-w-prose">Three weeks on Streymoy with a Polaroid camera, a cassette recorder, and a postman who has memorised every household on his island. What he carries is rarely letters. It is news, condolences, the silence between ferries.</p>
+                        <div class="font-metadata text-metadata text-on-surface-variant pt-3 border-t border-on-background/10 flex items-center justify-between">
+                            <span>by Inès Moreau</span>
+                            <span class="italic">— photographs: own work</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Row 2: content left, image right -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center group">
+                    <div class="md:col-span-5 md:order-1 order-2 flex flex-col gap-4">
+                        <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Essay · 22 min read</div>
+                        <h4 class="font-headline-md text-headline-md text-primary italic text-balance group-hover:text-secondary transition-colors duration-300">A train at the edge of Hokkaido.</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant text-pretty max-w-prose">For seven years, the Mashike branch line ran a single carriage to a single passenger — a high-school student walking out of one life and into another. We rode it the day it closed, with the conductor who had taken the job specifically to keep her safe.</p>
+                        <div class="font-metadata text-metadata text-on-surface-variant pt-3 border-t border-on-background/10 flex items-center justify-between">
+                            <span>by Hana Sato</span>
+                            <span class="italic">— photographs: own work</span>
+                        </div>
+                    </div>
+                    <a href="#" class="md:col-span-7 md:order-2 order-1">
+                        <figure class="relative aspect-[4/3] overflow-hidden rounded-sm bg-surface-container">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-[0.2] group-hover:scale-105 transition-all duration-[1500ms] ease-out" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Hokkaido railway in snow" loading="lazy" />
+                            <span class="absolute top-4 left-4 font-label-caps text-label-caps uppercase tracking-widest bg-background/85 backdrop-blur-sm text-primary px-3 py-1.5 rounded-sm">No. II · Hokkaido</span>
+                        </figure>
+                    </a>
+                </article>
+
+                <!-- Row 3: image left, content right -->
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center group">
+                    <a href="#" class="contents">
+                        <figure class="md:col-span-7 relative aspect-[4/3] overflow-hidden rounded-sm bg-surface-container">
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-[0.2] group-hover:scale-105 transition-all duration-[1500ms] ease-out" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Trinidad street at dusk" loading="lazy" />
+                            <span class="absolute top-4 left-4 font-label-caps text-label-caps uppercase tracking-widest bg-background/85 backdrop-blur-sm text-primary px-3 py-1.5 rounded-sm">No. III · Trinidad</span>
+                        </figure>
+                    </a>
+                    <div class="md:col-span-5 flex flex-col gap-4">
+                        <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Reportage · 18 min read</div>
+                        <h4 class="font-headline-md text-headline-md text-primary italic text-balance group-hover:text-secondary transition-colors duration-300">The dancers who measure the year.</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant text-pretty max-w-prose">Carnival in Port of Spain is not a single event. It is a calendar in motion — a sequence of small disciplines kept by an extended family of dressmakers, drummers, and bookkeepers. We followed three of them for the eight months between October and the parade.</p>
+                        <div class="font-metadata text-metadata text-on-surface-variant pt-3 border-t border-on-background/10 flex items-center justify-between">
+                            <span>by Eli Cano</span>
+                            <span class="italic">— photographs: own work</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Section: Contributors in this issue (content / list) -->
+        <section class="mt-section-gap pt-16 border-t border-on-background/10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-10">
+                <div class="lg:col-span-5">
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— Contributors</div>
+                    <h3 class="font-headline-lg text-headline-lg text-primary leading-tight text-balance">In this issue, fourteen voices.</h3>
+                </div>
+                <p class="lg:col-span-7 font-body-md text-body-md text-on-surface-variant text-pretty max-w-prose self-end">Five of them new to the masthead. The remaining nine return after long absences — by design. Periphery commissions slowly. Below, a small selection of those whose work shapes Spring 2024.</p>
+            </div>
+            <ol class="flex flex-col border-t border-b border-on-background/10 divide-y divide-on-background/10">
+
+                <li class="grid grid-cols-12 gap-4 lg:gap-8 py-8 items-center">
+                    <span class="col-span-2 md:col-span-1 font-headline-lg text-primary italic text-2xl md:text-3xl tabular-nums">I</span>
+                    <div class="col-span-10 md:col-span-2 flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container shrink-0">
+                            <img class="w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Renaud Vidal" loading="lazy" />
+                        </div>
+                        <span class="font-headline-md text-primary italic text-xl">Renaud Vidal</span>
+                    </div>
+                    <p class="col-span-12 md:col-span-6 font-body-md text-body-md text-on-surface-variant text-pretty">Cover photograph &amp; portfolio. Has worked the Sahel, the Sicilian salt flats, the Highlands. Is rarely in the same country twice in a calendar year.</p>
+                    <div class="col-span-12 md:col-span-3 flex flex-wrap gap-2 justify-start md:justify-end">
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Photography</span>
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Reportage</span>
+                    </div>
+                </li>
+
+                <li class="grid grid-cols-12 gap-4 lg:gap-8 py-8 items-center">
+                    <span class="col-span-2 md:col-span-1 font-headline-lg text-primary italic text-2xl md:text-3xl tabular-nums">II</span>
+                    <div class="col-span-10 md:col-span-2 flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container shrink-0">
+                            <img class="w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Elena Vranas" loading="lazy" />
+                        </div>
+                        <span class="font-headline-md text-primary italic text-xl">Elena Vranas</span>
+                    </div>
+                    <p class="col-span-12 md:col-span-6 font-body-md text-body-md text-on-surface-variant text-pretty">Author of <em>The Last Cartographer</em>. Greek-Namibian writer, longtime contributor since 2014. This is her ninth feature for Periphery.</p>
+                    <div class="col-span-12 md:col-span-3 flex flex-wrap gap-2 justify-start md:justify-end">
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Long-form</span>
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Memoir</span>
+                    </div>
+                </li>
+
+                <li class="grid grid-cols-12 gap-4 lg:gap-8 py-8 items-center">
+                    <span class="col-span-2 md:col-span-1 font-headline-lg text-primary italic text-2xl md:text-3xl tabular-nums">III</span>
+                    <div class="col-span-10 md:col-span-2 flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container shrink-0">
+                            <img class="w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Sarah Jenkins" loading="lazy" />
+                        </div>
+                        <span class="font-headline-md text-primary italic text-xl">Sarah Jenkins</span>
+                    </div>
+                    <p class="col-span-12 md:col-span-6 font-body-md text-body-md text-on-surface-variant text-pretty">Architecture critic. <em>Concrete Utopias</em> began as a footnote in her 2022 monograph and grew into the longest essay in this issue.</p>
+                    <div class="col-span-12 md:col-span-3 flex flex-wrap gap-2 justify-start md:justify-end">
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Criticism</span>
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Architecture</span>
+                    </div>
+                </li>
+
+                <li class="grid grid-cols-12 gap-4 lg:gap-8 py-8 items-center">
+                    <span class="col-span-2 md:col-span-1 font-headline-lg text-primary italic text-2xl md:text-3xl tabular-nums">IV</span>
+                    <div class="col-span-10 md:col-span-2 flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container shrink-0">
+                            <img class="w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&amp;q=80&amp;auto=format&amp;fit=crop" alt="David Chen" loading="lazy" />
+                        </div>
+                        <span class="font-headline-md text-primary italic text-xl">David Chen</span>
+                    </div>
+                    <p class="col-span-12 md:col-span-6 font-body-md text-body-md text-on-surface-variant text-pretty">Memoirist. <em>The Mechanics of Memory</em> is the first piece he has published since the 2021 closure of <em>Lapham's</em>. We are pleased he chose us.</p>
+                    <div class="col-span-12 md:col-span-3 flex flex-wrap gap-2 justify-start md:justify-end">
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Essay</span>
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Memoir</span>
+                    </div>
+                </li>
+
+                <li class="grid grid-cols-12 gap-4 lg:gap-8 py-8 items-center">
+                    <span class="col-span-2 md:col-span-1 font-headline-lg text-primary italic text-2xl md:text-3xl tabular-nums">V</span>
+                    <div class="col-span-10 md:col-span-2 flex items-center gap-3">
+                        <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container shrink-0">
+                            <img class="w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Maria Rossi" loading="lazy" />
+                        </div>
+                        <span class="font-headline-md text-primary italic text-xl">Maria Rossi</span>
+                    </div>
+                    <p class="col-span-12 md:col-span-6 font-body-md text-body-md text-on-surface-variant text-pretty">Subject of our cover interview, <em>Silence is a Language</em>. Ms Rossi's first published words since 2004 appear in these pages.</p>
+                    <div class="col-span-12 md:col-span-3 flex flex-wrap gap-2 justify-start md:justify-end">
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Interview</span>
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant border border-on-background/15 px-2 py-1 rounded-sm">Fiction</span>
+                    </div>
+                </li>
+
+            </ol>
+        </section>
+
+        <!-- Section: Reading Order (content / numbered prescription) -->
+        <section class="mt-section-gap pt-16 pb-section-gap border-t border-on-background/10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-end mb-12">
+                <div class="md:col-span-7">
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— Reading order</div>
+                    <h3 class="font-headline-lg text-headline-lg text-primary leading-tight text-balance">A small prescription for the next ninety minutes.</h3>
+                </div>
+                <p class="md:col-span-5 font-body-md text-body-md text-on-surface-variant text-pretty mag-drop-cap">Read in the order below for the cleanest arc of the issue. Each piece is dated, timed, and held to a single sitting; we recommend the cartographer first, the manuscript last.</p>
+            </div>
+            <ol class="flex flex-col border-t border-b border-on-background/10 divide-y divide-on-background/10">
+
+                <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                    <span class="col-span-2 md:col-span-1 font-display-masthead text-primary italic leading-none text-[40px] md:text-[56px] tabular-nums">01</span>
+                    <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                        <h4 class="font-headline-md text-primary italic text-xl md:text-2xl">The Last Cartographer</h4>
+                        <span class="font-metadata text-metadata text-on-surface-variant">Reporting · Elena Vranas</span>
+                    </div>
+                    <span class="col-span-3 md:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant text-right tabular-nums">26 min</span>
+                    <a class="col-span-12 md:col-span-2 font-label-caps text-label-caps text-secondary uppercase tracking-widest text-right hover:underline" href="#">Read →</a>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                    <span class="col-span-2 md:col-span-1 font-display-masthead text-primary italic leading-none text-[40px] md:text-[56px] tabular-nums">02</span>
+                    <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                        <h4 class="font-headline-md text-primary italic text-xl md:text-2xl">Concrete Utopias</h4>
+                        <span class="font-metadata text-metadata text-on-surface-variant">Criticism · Sarah Jenkins</span>
+                    </div>
+                    <span class="col-span-3 md:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant text-right tabular-nums">19 min</span>
+                    <a class="col-span-12 md:col-span-2 font-label-caps text-label-caps text-secondary uppercase tracking-widest text-right hover:underline" href="#">Read →</a>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                    <span class="col-span-2 md:col-span-1 font-display-masthead text-primary italic leading-none text-[40px] md:text-[56px] tabular-nums">03</span>
+                    <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                        <h4 class="font-headline-md text-primary italic text-xl md:text-2xl">The Mechanics of Memory</h4>
+                        <span class="font-metadata text-metadata text-on-surface-variant">Essay · David Chen</span>
+                    </div>
+                    <span class="col-span-3 md:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant text-right tabular-nums">14 min</span>
+                    <a class="col-span-12 md:col-span-2 font-label-caps text-label-caps text-secondary uppercase tracking-widest text-right hover:underline" href="#">Read →</a>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                    <span class="col-span-2 md:col-span-1 font-display-masthead text-primary italic leading-none text-[40px] md:text-[56px] tabular-nums">04</span>
+                    <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                        <h4 class="font-headline-md text-primary italic text-xl md:text-2xl">Letters to a country with no road</h4>
+                        <span class="font-metadata text-metadata text-on-surface-variant">Field Notes · Inès Moreau</span>
+                    </div>
+                    <span class="col-span-3 md:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant text-right tabular-nums">14 min</span>
+                    <a class="col-span-12 md:col-span-2 font-label-caps text-label-caps text-secondary uppercase tracking-widest text-right hover:underline" href="#">Read →</a>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-7 items-center">
+                    <span class="col-span-2 md:col-span-1 font-display-masthead text-primary italic leading-none text-[40px] md:text-[56px] tabular-nums">05</span>
+                    <div class="col-span-7 md:col-span-7 flex flex-col gap-1">
+                        <h4 class="font-headline-md text-primary italic text-xl md:text-2xl">Silence is a Language</h4>
+                        <span class="font-metadata text-metadata text-on-surface-variant">Interview · Maria Rossi</span>
+                    </div>
+                    <span class="col-span-3 md:col-span-2 font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant text-right tabular-nums">31 min</span>
+                    <a class="col-span-12 md:col-span-2 font-label-caps text-label-caps text-secondary uppercase tracking-widest text-right hover:underline" href="#">Read →</a>
+                </li>
+
+            </ol>
+            <p class="font-metadata text-metadata text-on-surface-variant italic text-center mt-8">Total reading time, end to end: roughly one hour and forty-four minutes. Tea is permitted between pieces three and four.</p>
+        </section>
+    </main>
+
+    <!-- Footer - Full Width -->
+    <footer class="w-full border-t border-on-background/10 mt-auto bg-surface-container-low text-on-background py-16 px-6 md:px-12 lg:px-16">
+        <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
+            <div class="col-span-1 md:col-span-2 flex flex-col gap-6">
+                <a href="#" class="text-4xl font-headline-lg italic text-primary hover:text-secondary transition-colors inline-block w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">
+                    Periphery
+                </a>
+                <p class="font-body-md text-on-surface-variant max-w-sm text-pretty">
+                    An independent journal dedicated to long-form journalism, cultural criticism, and in-depth interviews.
+                </p>
+                <div class="font-metadata text-metadata text-on-surface-variant mt-4">
+                    &copy; 2024 Periphery Magazine.<br>All rights reserved.
+                </div>
+            </div>
+            
+            <div class="col-span-1 md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
+                <nav class="flex flex-col gap-4" aria-label="Footer Section 1">
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Essays</a>
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Reporting</a>
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Criticism</a>
+                </nav>
+                <nav class="flex flex-col gap-4" aria-label="Footer Section 2">
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">About</a>
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Archive</a>
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Masthead</a>
+                </nav>
+                <nav class="flex flex-col gap-4" aria-label="Footer Section 3">
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Submissions</a>
+                    <a href="#" class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider hover:text-secondary hover:italic transition-all w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary rounded-sm">Subscribe</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

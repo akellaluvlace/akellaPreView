@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>FOUNDRY NINE - Creative Agency</title>
+    <meta name="description" content="FOUNDRY NINE is a creative agency that demands attention through scale and stark contrast, merging high-end Swiss design with digital brutalism."/>
+    <meta property="og:title" content="FOUNDRY NINE - Creative Agency"/>
+    <meta property="og:description" content="Brands that move. Unapologetically confident strategy and digital experiences."/>
+    <meta property="og:type" content="website"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#ffa597",
+                        "primary-fixed": "#e0e0ff",
+                        "inverse-surface": "#e3e1f1",
+                        "tertiary-fixed-dim": "#ffb4a8",
+                        "on-tertiary": "#690100",
+                        "surface": "#12121d",
+                        "on-primary": "#0001ac",
+                        "tertiary-fixed": "#ffdad4",
+                        "secondary-fixed": "#eaea00",
+                        "surface-container-low": "#1a1b26",
+                        "primary": "#bec2ff",
+                        "on-tertiary-fixed-variant": "#930100",
+                        "surface-container-highest": "#333440",
+                        "inverse-on-surface": "#2f2f3b",
+                        "surface-dim": "#12121d",
+                        "surface-bright": "#383844",
+                        "tertiary": "#ffb4a8",
+                        "primary-fixed-dim": "#bec2ff",
+                        "on-primary-container": "#b3b7ff",
+                        "inverse-primary": "#343dff",
+                        "on-secondary-container": "#686800",
+                        "background": "#12121d",
+                        "error-container": "#93000a",
+                        "primary-container": "#0000ff",
+                        "on-surface": "#e3e1f1",
+                        "on-surface-variant": "#c5c4db",
+                        "tertiary-container": "#9d0100",
+                        "secondary-fixed-dim": "#cdcd00",
+                        "on-primary-fixed": "#00006e",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#8f8fa4",
+                        "on-secondary-fixed-variant": "#494900",
+                        "on-secondary": "#323200",
+                        "secondary": "#ffffff",
+                        "surface-tint": "#bec2ff",
+                        "surface-container-high": "#292935",
+                        "on-background": "#e3e1f1",
+                        "surface-container": "#1e1f2a",
+                        "surface-container-lowest": "#0d0d18",
+                        "on-primary-fixed-variant": "#0000ef",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#1d1d00",
+                        "on-tertiary-fixed": "#410000",
+                        "secondary-container": "#eaea00",
+                        "surface-variant": "#333440",
+                        "outline-variant": "#454558"
+                    },
+                    spacing: {
+                        "stack-lg": "clamp(3rem, 6vw, 5rem)",
+                        "base": "0.5rem",
+                        "stack-sm": "1rem",
+                        "margin-canvas": "clamp(1.5rem, 5vw, 4rem)",
+                        "stack-md": "clamp(1.5rem, 4vw, 2.5rem)",
+                        "gutter": "clamp(1rem, 3vw, 2rem)",
+                        "section-padding": "clamp(5rem, 12vw, 10rem)"
+                    },
+                    fontFamily: {
+                        "body-lg": ["Inter", "sans-serif"],
+                        "display-xl": ["Space Grotesk", "sans-serif"],
+                        "display-2xl": ["Space Grotesk", "sans-serif"],
+                        "headline-lg": ["Space Grotesk", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-md": ["Space Grotesk", "sans-serif"],
+                        "label-caps": ["Space Grotesk", "sans-serif"]
+                    },
+                    fontSize: {
+                        "body-lg": ["clamp(1.125rem, 2vw + 0.5rem, 1.35rem)", { "lineHeight": "1.6", "fontWeight": "500" }],
+                        "display-xl": ["clamp(3rem, 8vw + 1rem, 7.5rem)", { "lineHeight": "0.9", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+                        "display-2xl": ["clamp(4.5rem, 15vw + 1rem, 13rem)", { "lineHeight": "0.85", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "headline-lg": ["clamp(2.5rem, 6vw + 1rem, 4rem)", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["clamp(0.875rem, 1.5vw + 0.5rem, 1.125rem)", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["clamp(1.75rem, 4vw + 1rem, 3rem)", { "lineHeight": "1.1", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["clamp(0.75rem, 1vw + 0.5rem, 0.875rem)", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }]
+                    },
+                    keyframes: {
+                        marquee: {
+                            "0%": { transform: "translateX(0)" },
+                            "100%": { transform: "translateX(-100%)" }
+                        }
+                    },
+                    animation: {
+                        marquee: "marquee 12s linear infinite"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Banging Brutalist Patterns */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(143, 143, 164, 0.15) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(143, 143, 164, 0.15) 1px, transparent 1px);
+        }
+        .bg-dots-pattern {
+            background-image: radial-gradient(rgba(143, 143, 164, 0.3) 2px, transparent 2px);
+            background-size: 24px 24px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto !important;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden selection:bg-secondary-container selection:text-black antialiased flex flex-col min-h-screen">
+
+    <!-- TopNavBar -->
+    <nav class="bg-white dark:bg-background font-['Space_Grotesk'] font-bold uppercase tracking-tighter border-b-2 border-black dark:border-outline-variant flex justify-between items-center w-full px-6 md:px-12 py-4 md:py-6 sticky top-0 z-50 transition-colors duration-300">
+        <a href="/" class="text-3xl md:text-4xl font-black text-black dark:text-white tracking-tighter focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-4 focus-visible:ring-offset-background focus-visible:ring-primary-container rounded-sm">
+            FOUNDRY NINE
+        </a>
+        
+        <div class="hidden lg:flex gap-gutter items-center">
+            <a class="text-black dark:text-white hover:bg-primary-container hover:text-white focus-visible:bg-primary-container focus-visible:text-white focus-visible:outline-none transition-colors duration-200 px-4 py-2 rounded-sm" href="#work">Work</a>
+            <a class="text-black dark:text-white hover:bg-primary-container hover:text-white focus-visible:bg-primary-container focus-visible:text-white focus-visible:outline-none transition-colors duration-200 px-4 py-2 rounded-sm" href="#services">Services</a>
+            <a class="text-black dark:text-white hover:bg-primary-container hover:text-white focus-visible:bg-primary-container focus-visible:text-white focus-visible:outline-none transition-colors duration-200 px-4 py-2 rounded-sm" href="#founders">Founders</a>
+            <a class="text-black dark:text-white hover:bg-primary-container hover:text-white focus-visible:bg-primary-container focus-visible:text-white focus-visible:outline-none transition-colors duration-200 px-4 py-2 rounded-sm" href="#">Approach</a>
+            <a class="ml-4 border-2 border-black dark:border-white bg-primary-container text-white px-6 py-3 hover:bg-secondary-container hover:text-black hover:border-secondary-container focus-visible:bg-secondary-container focus-visible:text-black focus-visible:outline-none transition-all duration-200 shadow-[4px_4px_0_0_theme(colors.on-background)] hover:shadow-none hover:translate-y-1 hover:translate-x-1" href="mailto:hello@foundrynine.com">
+                START A PROJECT
+            </a>
+        </div>
+
+        <button aria-expanded="false" aria-label="Toggle navigation menu" class="lg:hidden text-black dark:text-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-container p-2 -mr-2 rounded-sm">
+            <span class="material-symbols-outlined block text-3xl" aria-hidden="true">menu</span>
+        </button>
+    </nav>
+
+    <!-- Banging Brutalist Hero -->
+    <header class="relative min-h-[90svh] flex flex-col justify-center overflow-hidden bg-background bg-grid-pattern border-b-2 border-outline-variant pt-16 pb-40 md:pt-20 md:pb-48">
+        
+        <!-- Brutalist Accent Image Right -->
+        <div class="absolute top-0 right-0 w-full lg:w-[45%] h-full border-l-2 border-outline-variant opacity-20 lg:opacity-100 z-0 pointer-events-none" aria-hidden="true">
+            <div class="absolute inset-0 bg-primary-container mix-blend-color z-10"></div>
+            <img src="https://images.unsplash.com/photo-1507358522600-9f71e620c44e?q=80&w=1200&auto=format&fit=crop" width="1200" height="1600" fetchpriority="high" decoding="async" class="w-full h-full object-cover grayscale contrast-150 mix-blend-luminosity" alt=""/>
+            <!-- Noise/Dot overlay -->
+            <div class="absolute inset-0 bg-dots-pattern z-20 mix-blend-overlay opacity-60"></div>
+        </div>
+
+        <div class="container mx-auto px-margin-canvas relative z-10 w-full">
+            <div class="max-w-5xl">
+                <!-- Massive Typography -->
+                <h1 class="font-display-2xl leading-[0.85] tracking-tighter uppercase text-on-background drop-shadow-[4px_4px_0_theme(colors.primary-container)]">
+                    Brands<br/>
+                    <span class="text-transparent [-webkit-text-stroke:2px_theme(colors.on-background)] drop-shadow-none">That</span><br/>
+                    Move.
+                </h1>
+
+                <!-- Hard-edged Paragraph Box -->
+                <div class="mt-10 md:mt-16 max-w-2xl bg-primary-container p-6 md:p-10 border-2 border-on-background shadow-[10px_10px_0_0_theme(colors.on-background)] lg:shadow-[16px_16px_0_0_theme(colors.on-background)] transform hover:-translate-y-1 hover:translate-x-1 lg:hover:shadow-[20px_20px_0_0_theme(colors.on-background)] transition-all duration-300">
+                    <p class="font-body-lg text-white max-w-[40ch] text-balance leading-relaxed">
+                        We are a creative agency that demands attention through scale and stark contrast. Unapologetically confident, merging the precision of high-end Swiss design with the raw energy of digital brutalism.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Banging Skewed Marquee (Caution Tape Style) -->
+        <div class="absolute bottom-10 md:bottom-16 left-[-5vw] w-[110vw] transform -rotate-3 z-30 pointer-events-none" aria-hidden="true">
+            <div class="bg-secondary-container border-y-4 border-black py-3 md:py-5 flex overflow-hidden shadow-[0_0_40px_rgba(234,234,0,0.15)]">
+                <!-- Seamless Loop 1 -->
+                <div class="animate-marquee flex items-center shrink-0">
+                    <span class="font-display-xl text-black text-[clamp(2.5rem,5vw,4rem)] leading-none uppercase px-4 whitespace-nowrap">BRANDS / THAT / MOVE /</span>
+                    <span class="font-display-xl text-black text-[clamp(2.5rem,5vw,4rem)] leading-none uppercase px-4 whitespace-nowrap">BRANDS / THAT / MOVE /</span>
+                </div>
+                <!-- Seamless Loop 2 -->
+                <div class="animate-marquee flex items-center shrink-0">
+                    <span class="font-display-xl text-black text-[clamp(2.5rem,5vw,4rem)] leading-none uppercase px-4 whitespace-nowrap">BRANDS / THAT / MOVE /</span>
+                    <span class="font-display-xl text-black text-[clamp(2.5rem,5vw,4rem)] leading-none uppercase px-4 whitespace-nowrap">BRANDS / THAT / MOVE /</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- MANIFESTO — full-bleed darker grey, 4 mantras -->
+        <section class="w-full px-margin-canvas py-section-padding border-b-2 border-outline-variant relative" style="background-color: #0a0a14;">
+            <div class="container mx-auto relative">
+                <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-stack-md mb-stack-lg">
+                    <div>
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container mb-stack-sm inline-block">// MANIFESTO · 04 MANTRAS</span>
+                        <h2 class="font-headline-lg text-on-background uppercase border-b-4 border-secondary-container pb-base inline-block">FOUR THINGS WE WILL NOT DO.</h2>
+                    </div>
+                    <p class="font-body-lg text-on-surface-variant max-w-md lg:text-right">Drafted at the founding. Pinned to the studio wall. Read aloud at every kick-off. Non-negotiable.</p>
+                </div>
+                <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                    <li class="border-2 border-outline-variant p-stack-sm bg-background flex flex-col gap-stack-sm shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)] transition-all duration-300 group">
+                        <div class="flex justify-between items-start">
+                            <span class="font-display-xl text-[clamp(2.5rem,5vw,4rem)] text-secondary-container leading-none italic tabular-nums">/01</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">REFUSE</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">SAFE WORK.</h3>
+                        <p class="font-body-md text-on-surface-variant">If a brief lets you sleep through it, the answer is no. We pick the projects that scare us a little.</p>
+                    </li>
+                    <li class="border-2 border-outline-variant p-stack-sm bg-background flex flex-col gap-stack-sm shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 hover:shadow-[12px_12px_0_0_theme(colors.primary-container)] transition-all duration-300 group">
+                        <div class="flex justify-between items-start">
+                            <span class="font-display-xl text-[clamp(2.5rem,5vw,4rem)] text-primary-fixed leading-none italic tabular-nums">/02</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">REFUSE</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">FOCUS GROUPS.</h3>
+                        <p class="font-body-md text-on-surface-variant">A brand designed to please everyone moves no one. Decisions are made by 3 people in a room, not by surveys.</p>
+                    </li>
+                    <li class="border-2 border-outline-variant p-stack-sm bg-background flex flex-col gap-stack-sm shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 hover:shadow-[12px_12px_0_0_theme(colors.tertiary-container)] transition-all duration-300 group">
+                        <div class="flex justify-between items-start">
+                            <span class="font-display-xl text-[clamp(2.5rem,5vw,4rem)] text-tertiary-fixed-dim leading-none italic tabular-nums">/03</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">REFUSE</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">DECK CULTURE.</h3>
+                        <p class="font-body-md text-on-surface-variant">We ship the work, not 80 slides about the work. The deliverable is the brand, not a Keynote rehearsal.</p>
+                    </li>
+                    <li class="border-2 border-outline-variant p-stack-sm bg-background flex flex-col gap-stack-sm shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)] transition-all duration-300 group">
+                        <div class="flex justify-between items-start">
+                            <span class="font-display-xl text-[clamp(2.5rem,5vw,4rem)] text-secondary-container leading-none italic tabular-nums">/04</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">REFUSE</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">SOFT EXITS.</h3>
+                        <p class="font-body-md text-on-surface-variant">A brand that fades out is a brand that asked to. End where the work ends. The audience leaves the way they came in: alert.</p>
+                    </li>
+                </ol>
+                <div class="mt-stack-lg pt-stack-sm border-t-2 border-outline-variant flex flex-col md:flex-row justify-between gap-stack-sm font-label-caps text-label-caps uppercase text-on-surface-variant">
+                    <span>SIGNED · THE FOUNDERS · 2019</span>
+                    <span class="tabular-nums">REISSUED // V.04 · MMXXIV</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected Work -->
+        <section id="work" class="py-section-padding scroll-mt-24 border-b-2 border-outline-variant">
+            <div class="container mx-auto px-margin-canvas">
+                <h2 class="font-headline-lg text-on-background mb-stack-lg uppercase border-b-4 border-primary-container pb-base inline-block">Selected Work</h2>
+                
+                <!-- Brutalist CSS Grid Technique -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-[2px] border-2 border-outline-variant bg-outline-variant shadow-[12px_12px_0_0_rgba(143,143,164,0.1)]">
+                    
+                    <!-- Project 1 -->
+                    <a href="#" class="group block relative aspect-square lg:aspect-auto lg:h-[45vw] bg-primary-container overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white" aria-label="View Project: Nexus Core">
+                        <img alt="Abstract brutalist 3d render with strong lighting and sharp geometric shadows in primary colors" width="800" height="800" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-40 group-hover:opacity-100 group-hover:mix-blend-normal group-hover:scale-105 group-focus-visible:opacity-100 group-focus-visible:mix-blend-normal group-focus-visible:scale-105 transition-all duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWOtV1NQXpEiT_oVY8p7587vUjYDZcqnEk0O_JclDkvOf4nlEWiyk_fpif3ZzBegBOR_wELw1--QlGkjV0PM8LVrru1aZC36_VSvon_cObRjfXWhUI1EvNVDFXl9ZurzAEJrhFGoPsbEHQcG6W2raTuWwJZqJLRix14spuAz2kIPMJf6xuVusH3wMF-xaWOCIIwfK0L-xQxRLmotxgABmXg2cRw2tZLGoXX6blYUYjoCzFtLpgkLrgMMZl1p7SaZ7na8dDIxEaH3c"/>
+                        <div class="absolute inset-0 p-stack-md flex flex-col justify-between z-10 pointer-events-none">
+                            <span class="font-label-caps tabular-nums text-white bg-black px-4 py-2 self-start border-2 border-white shadow-[4px_4px_0_0_theme(colors.white)]">01 / BRANDING</span>
+                            <div class="flex justify-between items-end">
+                                <h3 class="font-display-xl text-white uppercase leading-none mix-blend-difference group-hover:mix-blend-normal transition-all duration-700">NEXUS<br/>CORE</h3>
+                                <span class="material-symbols-outlined text-white text-5xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 hidden md:block">arrow_forward</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Project 2 -->
+                    <a href="#" class="group block relative aspect-square lg:aspect-auto lg:h-[45vw] bg-secondary-container overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-black" aria-label="View Project: Pulse Tech">
+                        <img alt="High contrast macro shot of metallic tech components with neon yellow lighting" width="800" height="800" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-40 group-hover:opacity-100 group-hover:mix-blend-normal group-hover:scale-105 group-focus-visible:opacity-100 group-focus-visible:mix-blend-normal group-focus-visible:scale-105 transition-all duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLtrHt0GEidaH3ClJnoYvknDjTi9Qi3ICJIN5N3JZ0toWbf_ztkN2IADRXxhjUq9-ptNJe2ESDWR4k2FQhYSj9GEcuafFvCsTiNdYUWpquFNsGaWiT7cGkGf7J3Zy8jkcQBmjIcjdkdLvjOpvIIXEsALVOR5rYrKhh-2cKLSu9nO6Rcqrgj13ctz34irjaSrRJQQRfyvZj5fVxxQPZuI3RiAELMnrqEDOJutdNTJaw6F7dw3rimGgBmXtZNxiHhWW64lMnJbx8u-Q"/>
+                        <div class="absolute inset-0 p-stack-md flex flex-col justify-between z-10 pointer-events-none">
+                            <span class="font-label-caps tabular-nums text-black bg-white px-4 py-2 self-start border-2 border-black shadow-[4px_4px_0_0_theme(colors.black)]">02 / DIGITAL</span>
+                            <div class="flex justify-between items-end">
+                                <h3 class="font-display-xl text-black uppercase leading-none mix-blend-difference group-hover:mix-blend-normal transition-all duration-700">PULSE<br/>TECH</h3>
+                                <span class="material-symbols-outlined text-black text-5xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 hidden md:block">arrow_forward</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Project 3 -->
+                    <a href="#" class="group block relative aspect-square lg:aspect-auto lg:h-[45vw] bg-tertiary-container overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white" aria-label="View Project: Echo Void">
+                        <img alt="Stark black and white architectural photography of modern concrete building" width="800" height="800" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-40 group-hover:opacity-100 group-hover:mix-blend-normal group-hover:scale-105 group-focus-visible:opacity-100 group-focus-visible:mix-blend-normal group-focus-visible:scale-105 transition-all duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWk6tZAXv0kN_wsGPJbx2JZ-1iGsWrGcQplf5KTojRYh9y2StX8vf7TN0cHpLq2XQRY6EPtqcnSQ_g6e8F9_6jOGAzQxmgxUIXGPCjtnoZ2uMqcokgLCBdyFrfmrvkBEaRu6ab9s558lxDrLanLty4FGTCFoKSUaGym4oBbGd6OIuyhUYF2ToLBTONEqZsKY9Y-BpMu8WVFBSA72frzAOH79K1Wluw1hOm0EQHG9OKPtQwq-67yJ8QY_eGb4VFDndjk7VqS7m0H0Y"/>
+                        <div class="absolute inset-0 p-stack-md flex flex-col justify-between z-10 pointer-events-none">
+                            <span class="font-label-caps tabular-nums text-white bg-black px-4 py-2 self-start border-2 border-white shadow-[4px_4px_0_0_theme(colors.white)]">03 / CAMPAIGN</span>
+                            <div class="flex justify-between items-end">
+                                <h3 class="font-display-xl text-white uppercase leading-none mix-blend-difference group-hover:mix-blend-normal transition-all duration-700">ECHO<br/>VOID</h3>
+                                <span class="material-symbols-outlined text-white text-5xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 hidden md:block">arrow_forward</span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Project 4 -->
+                    <a href="#" class="group block relative aspect-square lg:aspect-auto lg:h-[45vw] bg-inverse-primary overflow-hidden focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white" aria-label="View Project: Aura Sync">
+                        <img alt="Vibrant neon lights distorted through textured glass in a dark environment" width="800" height="800" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-40 group-hover:opacity-100 group-hover:mix-blend-normal group-hover:scale-105 group-focus-visible:opacity-100 group-focus-visible:mix-blend-normal group-focus-visible:scale-105 transition-all duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtaAdbB9k2S7ehErzco9ME6YG-UfxHnUME_25a-d97Wg6JYS5Qho7TObx3TmZDbZlsPqUYnsYk5zlR6kK_roLvSTKlXuCP6Ih1W8_hmRT1-Vzc18ZrA9ToeeB-kUp14Ma7CILr9SpLEl4DoS1d_EdueVX7fy_CpvNt3G3cVZ1WyXXE4x84cylI5CLinDOFDt2No4se2xoPJ67BpTErnckUHU9-tl2Fk026llr00PIwH4C7JDf5YxSh7WcuLSOJi2u8cikeYvi765M"/>
+                        <div class="absolute inset-0 p-stack-md flex flex-col justify-between z-10 pointer-events-none">
+                            <span class="font-label-caps tabular-nums text-white bg-black px-4 py-2 self-start border-2 border-white shadow-[4px_4px_0_0_theme(colors.white)]">04 / STRATEGY</span>
+                            <div class="flex justify-between items-end">
+                                <h3 class="font-display-xl text-white uppercase leading-none mix-blend-difference group-hover:mix-blend-normal transition-all duration-700">AURA<br/>SYNC</h3>
+                                <span class="material-symbols-outlined text-white text-5xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 hidden md:block">arrow_forward</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- THE OUTPUT — process pipeline, full-bleed darker grey -->
+        <section class="w-full px-margin-canvas py-section-padding border-b-2 border-outline-variant relative" style="background-color: #0a0a14;">
+            <div class="container mx-auto">
+                <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-stack-md mb-stack-lg">
+                    <div>
+                        <span class="font-label-caps text-label-caps uppercase tracking-widest text-primary-fixed mb-stack-sm inline-block">// THE OUTPUT · 04 PHASES</span>
+                        <h2 class="font-headline-lg text-on-background uppercase border-b-4 border-primary-fixed pb-base inline-block">FROM BRIEF TO BLAST.</h2>
+                    </div>
+                    <p class="font-body-lg text-on-surface-variant max-w-md lg:text-right">Every engagement runs the same four phases. 12 weeks, no extensions. The pipeline is the deliverable.</p>
+                </div>
+                <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                    <li class="bg-background border-2 border-outline-variant p-stack-sm flex flex-col gap-stack-sm group">
+                        <div class="flex items-baseline justify-between border-b-2 border-outline-variant pb-base">
+                            <span class="font-display-xl text-[clamp(3rem,5vw,5rem)] text-primary-fixed leading-none tabular-nums">01</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">Wks 01–02</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">Listen.</h3>
+                        <p class="font-body-md text-on-surface-variant flex-grow">Two-week deep-dive. Founders, ops, customer interviews, competitive teardown. We finish with a list of three uncomfortable truths.</p>
+                        <span class="font-label-caps text-label-caps uppercase text-primary-fixed pt-base border-t border-outline-variant">→ Truth deck</span>
+                    </li>
+                    <li class="bg-background border-2 border-outline-variant p-stack-sm flex flex-col gap-stack-sm group">
+                        <div class="flex items-baseline justify-between border-b-2 border-outline-variant pb-base">
+                            <span class="font-display-xl text-[clamp(3rem,5vw,5rem)] text-secondary-container leading-none tabular-nums">02</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">Wks 03–05</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">Sketch.</h3>
+                        <p class="font-body-md text-on-surface-variant flex-grow">Three opposing routes drawn in parallel. We refuse to converge early. Every route gets killed in the room before one survives.</p>
+                        <span class="font-label-caps text-label-caps uppercase text-secondary-container pt-base border-t border-outline-variant">→ 3 routes</span>
+                    </li>
+                    <li class="bg-background border-2 border-outline-variant p-stack-sm flex flex-col gap-stack-sm group">
+                        <div class="flex items-baseline justify-between border-b-2 border-outline-variant pb-base">
+                            <span class="font-display-xl text-[clamp(3rem,5vw,5rem)] text-tertiary-fixed-dim leading-none tabular-nums">03</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">Wks 06–10</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">Forge.</h3>
+                        <p class="font-body-md text-on-surface-variant flex-grow">Brand system, voice, motion, code, and the launch site. Built in the open with the client team in our Figma all day.</p>
+                        <span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim pt-base border-t border-outline-variant">→ Live build</span>
+                    </li>
+                    <li class="bg-background border-2 border-outline-variant p-stack-sm flex flex-col gap-stack-sm group">
+                        <div class="flex items-baseline justify-between border-b-2 border-outline-variant pb-base">
+                            <span class="font-display-xl text-[clamp(3rem,5vw,5rem)] text-primary-fixed leading-none tabular-nums">04</span>
+                            <span class="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">Wks 11–12</span>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase">Ship.</h3>
+                        <p class="font-body-md text-on-surface-variant flex-grow">Hard launch. Press kit, asset library, governance handoff. We disappear at week 13. Your team owns the brand from day one.</p>
+                        <span class="font-label-caps text-label-caps uppercase text-primary-fixed pt-base border-t border-outline-variant">→ Hand-off</span>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="py-section-padding scroll-mt-24 border-b-2 border-outline-variant bg-surface-container-low">
+            <div class="container mx-auto px-margin-canvas">
+                <div class="flex flex-col gap-[2px] border-y-2 border-outline-variant bg-outline-variant shadow-[12px_12px_0_0_rgba(143,143,164,0.1)]">
+                    
+                    <a href="#" class="bg-surface-container-low block py-stack-md flex flex-col lg:flex-row justify-between items-start lg:items-center group hover:bg-primary-container focus-visible:bg-primary-container focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white transition-colors duration-300 px-stack-sm md:px-8" aria-label="Strategy Services">
+                        <div class="flex items-center gap-6">
+                            <h3 class="font-display-xl text-on-background group-hover:text-white uppercase leading-none transition-colors duration-300">STRATEGY</h3>
+                            <span class="material-symbols-outlined text-white text-4xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden lg:block">arrow_forward</span>
+                        </div>
+                        <p class="font-body-md text-on-surface-variant group-hover:text-white max-w-[45ch] text-left lg:text-right mt-stack-sm lg:mt-0 transition-colors duration-300">Positioning that breaks through the noise and defines market categories.</p>
+                    </a>
+                    
+                    <a href="#" class="bg-surface-container-low block py-stack-md flex flex-col lg:flex-row justify-between items-start lg:items-center group hover:bg-secondary-container focus-visible:bg-secondary-container focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-black transition-colors duration-300 px-stack-sm md:px-8" aria-label="Identity Services">
+                        <div class="flex items-center gap-6">
+                            <h3 class="font-display-xl text-on-background group-hover:text-black uppercase leading-none transition-colors duration-300">IDENTITY</h3>
+                            <span class="material-symbols-outlined text-black text-4xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden lg:block">arrow_forward</span>
+                        </div>
+                        <p class="font-body-md text-on-surface-variant group-hover:text-black max-w-[45ch] text-left lg:text-right mt-stack-sm lg:mt-0 transition-colors duration-300">Visual systems built for scale, impact, and immediate recognition.</p>
+                    </a>
+                    
+                    <a href="#" class="bg-surface-container-low block py-stack-md flex flex-col lg:flex-row justify-between items-start lg:items-center group hover:bg-tertiary-container focus-visible:bg-tertiary-container focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white transition-colors duration-300 px-stack-sm md:px-8" aria-label="Digital Services">
+                        <div class="flex items-center gap-6">
+                            <h3 class="font-display-xl text-on-background group-hover:text-white uppercase leading-none transition-colors duration-300">DIGITAL</h3>
+                            <span class="material-symbols-outlined text-white text-4xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden lg:block">arrow_forward</span>
+                        </div>
+                        <p class="font-body-md text-on-surface-variant group-hover:text-white max-w-[45ch] text-left lg:text-right mt-stack-sm lg:mt-0 transition-colors duration-300">Immersive web experiences pushing the boundaries of interaction.</p>
+                    </a>
+                    
+                    <a href="#" class="bg-surface-container-low block py-stack-md flex flex-col lg:flex-row justify-between items-start lg:items-center group hover:bg-inverse-primary focus-visible:bg-inverse-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-white transition-colors duration-300 px-stack-sm md:px-8" aria-label="Content Services">
+                        <div class="flex items-center gap-6">
+                            <h3 class="font-display-xl text-on-background group-hover:text-white uppercase leading-none transition-colors duration-300">CONTENT</h3>
+                            <span class="material-symbols-outlined text-white text-4xl opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden lg:block">arrow_forward</span>
+                        </div>
+                        <p class="font-body-md text-on-surface-variant group-hover:text-white max-w-[45ch] text-left lg:text-right mt-stack-sm lg:mt-0 transition-colors duration-300">High-fidelity production that tells radical stories.</p>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Founders -->
+        <section id="founders" class="py-section-padding scroll-mt-24 border-b-2 border-outline-variant bg-grid-pattern">
+            <div class="container mx-auto px-margin-canvas">
+                <h2 class="font-headline-lg text-on-background mb-stack-lg uppercase border-b-4 border-secondary-container pb-base inline-block">The Founders</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter lg:gap-16 items-start">
+                    
+                    <div class="border-2 border-outline-variant p-stack-sm bg-surface-container flex flex-col group h-full shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 transition-transform duration-300">
+                        <div class="aspect-[3/4] mb-stack-sm border-2 border-outline-variant overflow-hidden relative">
+                            <img alt="Black and white intense portrait of Elias Vance, Creative Director" width="800" height="1067" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105 transition-all duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHDAV-xIbZ2nJrGhGI8AAWjno0tvImKo9KNj-1mjeBIWF_fNN03lAoa8mTZ-pindcyohMbHyi3Zilfnale8HjZPdwpjZ6nxxmoc2cuCRVWnBCO34LVjq_o8iJisUEv7dWCvKJDLbjKRNwrE2vKYCBrCPK-jK51E5X8Bg34efl7Y1PHpcazwwJXkOigutAZntEK6hROiru6EZhEI435Sg-Xuww3PQP_C1TauFuhsVy6wXwsf0cMucGoAWrOld0PkoZqTL3IaS7Sj1A"/>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase mb-base">ELIAS VANCE</h3>
+                        <p class="font-body-lg text-on-surface-variant mb-stack-sm">Creative Director</p>
+                        <p class="font-body-md text-on-background max-w-[45ch] flex-grow">Former lead at Studio X, Elias brings a ruthless editorial eye and a background in architectural design to brand identity.</p>
+                    </div>
+                    
+                    <div class="border-2 border-outline-variant p-stack-sm bg-surface-container mt-0 md:mt-stack-lg flex flex-col group h-full shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 transition-transform duration-300">
+                        <div class="aspect-[3/4] mb-stack-sm border-2 border-outline-variant overflow-hidden relative">
+                            <img alt="Black and white intense portrait of Sarah Lin, Strategy Director" width="800" height="1067" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale mix-blend-luminosity group-hover:mix-blend-normal group-hover:scale-105 transition-all duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjQLxy2U8gQS56hTuQreMP4mK6DutLmQ7VvbzVqntq9qs02zEOUMgopoqoo9D1OR8BmObGmiWlcZNOEjMPilqFbvZSOz0l68s5gBPMzI2pVsD8RTj9sjwV2HMM6YRumEz1B03CRCxy9WCX4OSm2Qz8T2wOsFLAYhbrMhN-mKl_LdfLAwuPhb5fiFUpOA2_diIjO6Gq4vb7MuftpkDTX97pLWocUGKxR-zFJggksYzs8LOn-L9F8WDHBF8aCXgtHS54Loy0JBH2_zA"/>
+                        </div>
+                        <h3 class="font-headline-md text-on-background uppercase mb-base">SARAH LIN</h3>
+                        <p class="font-body-lg text-on-surface-variant mb-stack-sm">Strategy Director</p>
+                        <p class="font-body-md text-on-background max-w-[45ch] flex-grow">With a decade scaling tech decacorns, Sarah engineers brand positioning that physically disrupts market expectations.</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA — toned down, less flashy -->
+        <section class="py-section-padding border-b-2 border-outline-variant text-center px-margin-canvas mt-auto relative overflow-hidden bg-grid-pattern" style="background-color: #1a1b26;">
+            <!-- accent bars -->
+            <div class="absolute top-0 inset-x-0 h-1 bg-secondary-container"></div>
+            <div class="absolute bottom-0 inset-x-0 h-1 bg-primary-fixed"></div>
+
+            <!-- Top strip — purplish glass, drifts LEFT -->
+            <div aria-hidden="true" class="absolute top-[18%] -translate-y-1/2 left-[-5vw] w-[110vw] z-0 transform -rotate-2 pointer-events-none">
+                <div class="border-y border-[#a78bfa]/40 py-2 md:py-3 flex overflow-hidden backdrop-blur-md shadow-[0_0_50px_rgba(124,58,237,0.18)]" style="background-color: rgba(124,58,237,0.20);">
+                    <div class="animate-marquee flex items-center shrink-0">
+                        <span class="font-display-xl text-[#c4b5fd]/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BRIEF / SKETCH / FORGE / SHIP</span>
+                        <span class="font-display-xl text-[#c4b5fd]/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BRIEF / SKETCH / FORGE / SHIP</span>
+                    </div>
+                    <div class="animate-marquee flex items-center shrink-0">
+                        <span class="font-display-xl text-[#c4b5fd]/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BRIEF / SKETCH / FORGE / SHIP</span>
+                        <span class="font-display-xl text-[#c4b5fd]/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BRIEF / SKETCH / FORGE / SHIP</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom strip — yellow glass, drifts RIGHT (animation-direction:reverse), in empty space below BERLIN/EST/24H -->
+            <div aria-hidden="true" class="absolute bottom-12 md:bottom-16 left-[-5vw] w-[110vw] z-0 transform rotate-2 pointer-events-none">
+                <div class="bg-secondary-container/15 border-y border-secondary-container/35 py-2 md:py-3 flex overflow-hidden backdrop-blur-md shadow-[0_0_50px_rgba(234,234,0,0.18)]">
+                    <div class="animate-marquee flex items-center shrink-0 [animation-direction:reverse]">
+                        <span class="font-display-xl text-secondary-container/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BUILD / BREAK / SHIP / REPEAT</span>
+                        <span class="font-display-xl text-secondary-container/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BUILD / BREAK / SHIP / REPEAT</span>
+                    </div>
+                    <div class="animate-marquee flex items-center shrink-0 [animation-direction:reverse]">
+                        <span class="font-display-xl text-secondary-container/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BUILD / BREAK / SHIP / REPEAT</span>
+                        <span class="font-display-xl text-secondary-container/55 text-[clamp(1.4rem,2.8vw,2.25rem)] leading-none uppercase px-4 whitespace-nowrap">/ BUILD / BREAK / SHIP / REPEAT</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPEN FOR Q1 chip — pulled out of flow, sits ABOVE the top strip -->
+            <span class="absolute top-6 md:top-10 left-1/2 -translate-x-1/2 z-20 font-label-caps text-label-caps uppercase tracking-widest text-secondary-container border-2 border-secondary-container/40 px-4 py-2 inline-flex items-center gap-2 bg-background/70 backdrop-blur-sm whitespace-nowrap">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+                OPEN FOR Q1 · 2 SLOTS
+            </span>
+
+            <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center gap-stack-md pt-16 md:pt-24">
+                <h2 class="font-display-2xl text-on-background uppercase leading-none text-balance">
+                    Let's make<br/><span class="text-secondary-container italic">something.</span>
+                </h2>
+                <p class="font-body-lg text-on-surface-variant max-w-xl">Senior teams only. Brief us in one paragraph. We respond in 48 hours, even if the answer is no.</p>
+                <div class="flex flex-col sm:flex-row gap-stack-sm mt-stack-sm">
+                    <a class="inline-flex items-center gap-3 bg-secondary-container text-black font-headline-md uppercase px-8 md:px-10 py-4 md:py-5 hover:bg-on-background hover:text-background focus-visible:bg-on-background focus-visible:text-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:ring-secondary-container transition-colors duration-200 border-2 border-secondary-container hover:border-on-background" href="mailto:hello@foundrynine.com">
+                        hello@foundrynine.com
+                        <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+                    </a>
+                    <a class="inline-flex items-center gap-3 bg-transparent text-on-background font-headline-md uppercase px-8 md:px-10 py-4 md:py-5 border-2 border-outline-variant hover:border-secondary-container hover:text-secondary-container transition-colors duration-200" href="#work">
+                        See the work
+                    </a>
+                </div>
+                <div class="mt-stack-sm pt-stack-sm border-t border-outline-variant w-full max-w-md grid grid-cols-3 gap-base font-label-caps text-label-caps uppercase text-on-surface-variant text-center">
+                    <span>Berlin · Tokyo</span>
+                    <span class="border-x border-outline-variant tabular-nums">EST. 2019</span>
+                    <span>—24h reply</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black dark:bg-background font-['Space_Grotesk'] font-medium uppercase tracking-widest text-xs border-t-2 border-white dark:border-outline-variant flex flex-col md:flex-row justify-between items-center w-full px-6 md:px-12 py-12 md:py-20 gap-8 text-center md:text-left transition-colors duration-300">
+        <div class="text-gray-400 dark:text-outline order-3 md:order-1 flex-1">
+            ©2024 FOUNDRY NINE.<br class="md:hidden"/> RADICAL PERSPECTIVES ONLY.
+        </div>
+        <div class="text-4xl md:text-5xl lg:text-6xl font-black text-white dark:text-white tracking-tighter order-1 md:order-2 drop-shadow-[2px_2px_0_theme(colors.primary-container)]">
+            FOUNDRY NINE
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 md:gap-8 order-2 md:order-3 flex-1 md:justify-end">
+            <a class="text-gray-400 dark:text-outline hover:text-primary-container focus-visible:text-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded-sm transition-colors" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a class="text-gray-400 dark:text-outline hover:text-primary-container focus-visible:text-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded-sm transition-colors" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="text-gray-400 dark:text-outline hover:text-primary-container focus-visible:text-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded-sm transition-colors" href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+            <a class="text-gray-400 dark:text-outline hover:text-primary-container focus-visible:text-primary-container focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded-sm transition-colors" href="mailto:hello@foundrynine.com">Email</a>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sundial - Daily Journaling App</title>
+    <meta name="description" content="A daily journaling experience that feels like a cinematic pause. Capture your thoughts, track your mood, and reflect on your journey."/>
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Sundial - Daily Journaling App"/>
+    <meta property="og:description" content="Your reflections, turned into memories. Capture the sunset of your day."/>
+    <meta property="og:type" content="website"/>
+
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Consolidated & Cleaned Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap" rel="stylesheet"/>
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ffc4a3",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#d5c3ba",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary-fixed": "#1e0e4e",
+                        "primary-fixed-dim": "#f4ba9a",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "inverse-primary": "#f4ba9a",
+                        "background": "#fcf9f8",
+                        "tertiary-fixed": "#e7deff",
+                        "primary": "#80543a",
+                        "tertiary": "#625595",
+                        "outline": "#83746c",
+                        "surface-dim": "#dcd9d9",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container": "#f0eded",
+                        "on-secondary-fixed-variant": "#613a58",
+                        "on-tertiary-container": "#5c4f8f",
+                        "surface-container-low": "#f6f3f2",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#80543a",
+                        "on-primary-container": "#7a4f35",
+                        "secondary-fixed": "#ffd7f2",
+                        "on-tertiary-fixed-variant": "#4a3d7c",
+                        "on-primary-fixed-variant": "#653d25",
+                        "secondary-fixed-dim": "#ebb7dc",
+                        "secondary-container": "#fdc7ed",
+                        "surface-bright": "#fcf9f8",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#300e2b",
+                        "tertiary-fixed-dim": "#ccbeff",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "secondary": "#7b5171",
+                        "surface-container-high": "#eae7e7",
+                        "tertiary-container": "#d5c9ff",
+                        "on-primary-fixed": "#311301",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#313030",
+                        "on-secondary-container": "#7a5070",
+                        "on-surface-variant": "#51443d",
+                        "surface": "#fcf9f8",
+                        "primary-fixed": "#ffdbc9",
+                        "on-background": "#1c1b1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter", "system-ui", "sans-serif"],
+                        "caption": ["Inter", "system-ui", "sans-serif"],
+                        "body-lg": ["Inter", "system-ui", "sans-serif"],
+                        "label-bold": ["Inter", "system-ui", "sans-serif"],
+                        "headline-xl": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "headline-lg": ["Space Grotesk", "system-ui", "sans-serif"],
+                        "headline-md": ["Space Grotesk", "system-ui", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sunset-bg {
+            background: linear-gradient(135deg, rgba(255,196,163,0.3) 0%, rgba(232,180,217,0.3) 50%, rgba(196,181,253,0.3) 100%);
+            background-color: var(--color-background, #fcf9f8);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        /* Custom scrollbar hiding for the carousel while keeping functionality */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Full-bleed escape for the constrained <main> wrapper */
+        html, body { overflow-x: clip; }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+
+        /* Auto-cycling vertical image cross-fade with blur (§M.2) */
+        @keyframes sundial-archive-fade {
+            0%, 4%   { opacity: 0; filter: blur(18px) saturate(0.85); transform: scale(1.04); }
+            8%, 22%  { opacity: 1; filter: blur(0)     saturate(1);    transform: scale(1); }
+            26%, 100%{ opacity: 0; filter: blur(18px) saturate(0.85); transform: scale(1.04); }
+        }
+        .sundial-cycle-img {
+            animation: sundial-archive-fade 16s linear infinite;
+            opacity: 0;
+            filter: blur(18px) saturate(0.85);
+            transform: scale(1.04);
+            will-change: opacity, filter, transform;
+        }
+        @keyframes sundial-scrub {
+            0%   { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+        .sundial-scrub {
+            animation: sundial-scrub 16s linear infinite;
+            transform-origin: left;
+        }
+
+        /* Pulsing live dot for the "current step" idiom */
+        @keyframes sundial-pulse {
+            0%, 100% { opacity: 0.7; box-shadow: 0 0 0 0 rgba(244,186,154,0.45); }
+            50%      { opacity: 1;   box-shadow: 0 0 0 10px rgba(244,186,154,0); }
+        }
+        .sundial-pulse {
+            animation: sundial-pulse 2.4s ease-in-out infinite;
+        }
+
+        /* FAQ accordion chevron rotation (§M.7) */
+        .sundial-faq summary::-webkit-details-marker { display: none; }
+        .sundial-faq summary { list-style: none; cursor: pointer; }
+        .sundial-faq summary .sundial-chevron { transition: transform 250ms ease; }
+        .sundial-faq[open] summary .sundial-chevron { transform: rotate(180deg); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .sundial-cycle-img,
+            .sundial-scrub,
+            .sundial-pulse {
+                animation: none !important;
+            }
+            /* Keep first cycling image visible when motion is off */
+            .sundial-cycle-img:first-child {
+                opacity: 1 !important;
+                filter: none !important;
+                transform: none !important;
+            }
+            .sundial-faq summary .sundial-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="sunset-bg text-on-surface font-body-md antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container relative flex flex-col cursor-default">
+    
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:p-4 focus:bg-white focus:text-primary focus:z-[100] focus:outline-none focus:ring-2 focus:ring-primary focus:rounded-lg shadow-lg font-label-bold">
+        Skip to main content
+    </a>
+
+    <!-- Background Ambient Gradients -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-primary-container opacity-30 blur-[100px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-tertiary-container opacity-30 blur-[120px]"></div>
+        <div class="absolute top-[40%] left-[60%] w-[40vw] h-[40vw] rounded-full bg-secondary-container opacity-30 blur-[80px]"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-white/30 dark:bg-zinc-950/20 backdrop-blur-2xl border-b border-white/20 dark:border-white/5 shadow-[0_8px_32px_0_rgba(255,196,163,0.1)]">
+        <nav class="flex justify-between items-center px-4 py-4 max-w-7xl mx-auto gap-3 sm:px-8 sm:py-6 md:px-12 xl:px-0" aria-label="Main Navigation">
+            <a class="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-headline-md tracking-tight sm:text-2xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-2 -mx-2 transition-colors" href="#">Sundial</a>
+            
+            <div class="hidden md:flex items-center space-x-8 font-['Space_Grotesk'] font-medium tracking-tight">
+                <a class="text-orange-500 dark:text-orange-400 border-b-2 border-orange-400 pb-1 motion-safe:transition-all motion-safe:duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded" href="#">Reflection</a>
+                <a class="text-zinc-600 dark:text-zinc-400 motion-safe:transition-all motion-safe:duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-2" href="#">Process</a>
+                <a class="text-zinc-600 dark:text-zinc-400 motion-safe:transition-all motion-safe:duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-2" href="#">Community</a>
+                <a class="text-zinc-600 dark:text-zinc-400 motion-safe:transition-all motion-safe:duration-300 hover:text-zinc-900 dark:hover:text-zinc-100 active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-2" href="#">Philosophy</a>
+            </div>
+            
+            <button type="button" class="bg-[#1A1A1A] text-white px-4 py-2 rounded-full font-label-bold text-xs motion-safe:transition-all hover:bg-zinc-800 hover:shadow-md active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none sm:px-6 sm:py-3 sm:text-sm cursor-pointer">
+                Get Started
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content Flow -->
+    <main id="main-content" class="flex-grow pt-28 pb-12 flex flex-col gap-16 md:pt-[160px] md:pb-24 md:gap-24 w-full">
+        
+        <!-- Hero Section -->
+        <section class="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 flex flex-col items-center text-center gap-6 mt-8 sm:mt-12">
+            <h1 class="font-headline-xl text-[clamp(2.5rem,5vw+1rem,4rem)] leading-[1.1] text-on-surface max-w-4xl text-balance">
+                Your reflections, turned into memories.
+            </h1>
+            <p class="font-body-lg text-[clamp(1rem,2vw+0.5rem,1.125rem)] text-on-surface-variant max-w-[65ch] text-pretty">
+                A daily journaling experience that feels like a cinematic pause. Whether you're tracking your mood, capturing life's little details, or finding peace in the chaos, Sundial adapts to your unique rhythm. Capture the sunset of your day.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 mt-4 z-10">
+                <button type="button" class="bg-[#1A1A1A] text-white px-8 py-4 rounded-full font-label-bold motion-safe:transition-all hover:bg-zinc-800 hover:shadow-lg active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">ios</span> App Store
+                </button>
+                <button type="button" class="glass-panel text-on-surface px-8 py-4 rounded-full font-label-bold motion-safe:transition-all hover:bg-white/60 hover:shadow-lg active:scale-95 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">play_arrow</span> Google Play
+                </button>
+            </div>
+            
+            <div class="flex items-center gap-2 mt-4 text-on-surface-variant font-caption tabular-nums">
+                <div class="flex text-orange-400" aria-hidden="true">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                </div>
+                <span><span class="font-bold text-on-surface">4.9</span> stars, <span class="font-bold text-on-surface">12k</span> reviews</span>
+            </div>
+
+            <div class="flex justify-center items-end gap-6 sm:gap-10 md:gap-16 mt-16 w-full max-w-4xl mx-auto">
+                <div class="w-[45%] max-w-[320px] aspect-[9/19.5] shrink-0 bg-white rounded-[2rem] sm:rounded-[3rem] border-[6px] sm:border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(196,181,253,0.6)] relative overflow-hidden ring-1 ring-black/5 motion-safe:transition-transform motion-safe:duration-500 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(196,181,253,0.8)] z-10">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-5 sm:h-6 bg-white rounded-b-xl sm:rounded-b-2xl z-20 shadow-sm"></div>
+                    <img width="1080" height="2340" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1080&q=80" alt="Abstract fluid gradient resembling a soft, calming digital journal interface" fetchpriority="high"/>
+                </div>
+                <div class="w-[45%] max-w-[320px] aspect-[9/19.5] shrink-0 bg-white rounded-[2rem] sm:rounded-[3rem] border-[6px] sm:border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(232,180,217,0.6)] relative overflow-hidden ring-1 ring-black/5 mt-16 sm:mt-24 motion-safe:transition-transform motion-safe:duration-500 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(232,180,217,0.8)] z-10">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-5 sm:h-6 bg-white rounded-b-xl sm:rounded-b-2xl z-20 shadow-sm"></div>
+                    <img width="1080" height="2340" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80" alt="Soft pastel sunset view demonstrating a visual timeline of memories in the app" fetchpriority="high"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Carousel -->
+        <section class="w-full overflow-hidden" aria-labelledby="carousel-heading">
+            <div class="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 mb-8 md:mb-12">
+                <h2 id="carousel-heading" class="font-headline-md text-[clamp(1.5rem,4vw,2.5rem)] text-center text-balance mb-2">Glimpse your journey</h2>
+                <p class="text-center font-body-md text-[clamp(1rem,1.5vw,1.125rem)] text-on-surface-variant max-w-[55ch] mx-auto text-pretty">
+                    Explore a beautifully minimal interface where every detail is designed to bring you peace. Swipe through your days like a curated gallery of your life.
+                </p>
+            </div>
+            
+            <!--
+                Symmetric padding on an overflow-x carousel: the standard "centered when it fits, scrolls when it doesn't" pattern.
+                Outer: flex scroll container, no horizontal padding. Inner: `w-max` sizes to its own content (cards + gaps + its own px-*), `m-auto` consumes the free space equally on both sides when the viewport has room. When the content overflows, auto margins collapse to 0 so the scroll still starts at the first card with no dead left space.
+            -->
+            <div class="flex overflow-x-auto pb-12 pt-4 snap-x snap-mandatory hide-scrollbar focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background" tabindex="0" aria-label="App features gallery">
+                <!-- Inner track: w-max sizes to its content; m-auto centers when the viewport has room (equal padding both sides) and collapses to 0 when content overflows so the user can still scroll. px-* provides the minimum padding on narrow viewports before overflow kicks in. -->
+                <div class="m-auto flex w-max gap-6 sm:gap-8 px-4 sm:px-8 md:px-12">
+
+                    <!-- Card 1 -->
+                    <article class="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
+                        <img width="800" height="1733" loading="lazy" decoding="async" class="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80" alt="Clean minimal text editor screen with warm lighting perfect for daily journaling"/>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
+                        <img width="800" height="1733" loading="lazy" decoding="async" class="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=800&q=80" alt="Stylized calendar view showing emotional tracking mapped across calming landscape colors"/>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
+                        <img width="800" height="1733" loading="lazy" decoding="async" class="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=800&q=80" alt="Abstract minimal curved charts demonstrating weekly personal growth analytics"/>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article class="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
+                        <img width="800" height="1733" loading="lazy" decoding="async" class="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Settings screen showcasing beautiful pastel toggles and soft typography"/>
+                    </article>
+
+                    <!-- Card 5 -->
+                    <article class="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
+                        <img width="800" height="1733" loading="lazy" decoding="async" class="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Relaxing night mode view featuring deep sunset clouds and muted tones"/>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works Section -->
+        <section class="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12" aria-labelledby="how-it-works-heading">
+            <h2 id="how-it-works-heading" class="sr-only">How it works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                
+                <!-- Step 1 -->
+                <article class="glass-card p-8 sm:p-10 rounded-[2rem] flex flex-col items-center text-center gap-4 motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2 shadow-lg ring-1 ring-white/40">
+                    <div class="w-20 h-20 rounded-full bg-primary-container/40 flex items-center justify-center mb-2 shadow-inner">
+                        <span class="material-symbols-outlined text-[40px] text-primary" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+                    </div>
+                    <h3 class="font-headline-md text-xl">Capture</h3>
+                    <p class="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">
+                        Jot down fleeting thoughts in a distraction-free space designed for focus. Our minimalist editor removes the noise, allowing your purest thoughts to flow directly onto the digital page without hesitation.
+                    </p>
+                </article>
+                
+                <!-- Step 2 -->
+                <article class="glass-card p-8 sm:p-10 rounded-[2rem] flex flex-col items-center text-center gap-4 motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2 shadow-lg ring-1 ring-white/40">
+                    <div class="w-20 h-20 rounded-full bg-secondary-container/40 flex items-center justify-center mb-2 shadow-inner">
+                        <span class="material-symbols-outlined text-[40px] text-secondary" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                    </div>
+                    <h3 class="font-headline-md text-xl">Reflect</h3>
+                    <p class="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">
+                        Pause and map your emotional state with our intuitive sun-slider mood tracker. Understand your daily patterns, recognize your emotional triggers, and find profound clarity in your journey over time.
+                    </p>
+                </article>
+                
+                <!-- Step 3 -->
+                <article class="glass-card p-8 sm:p-10 rounded-[2rem] flex flex-col items-center text-center gap-4 motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2 shadow-lg ring-1 ring-white/40">
+                    <div class="w-20 h-20 rounded-full bg-tertiary-container/40 flex items-center justify-center mb-2 shadow-inner">
+                        <span class="material-symbols-outlined text-[40px] text-tertiary" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">history</span>
+                    </div>
+                    <h3 class="font-headline-md text-xl">Relive</h3>
+                    <p class="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">
+                        Look back on your journey through beautifully curated timelines of your past. Celebrate your unique growth, remember the small moments of joy, and witness the beautiful story of your life unfolding.
+                    </p>
+                </article>
+                
+            </div>
+        </section>
+
+        <!-- Screens — auto-cycling vertical image cross-fade (§M.2) -->
+        <section class="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12" aria-labelledby="screens-heading">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+                <!-- Sticky text rail -->
+                <div class="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-32 self-start">
+                    <span class="font-caption uppercase tracking-[0.3em] text-[11px] text-on-surface-variant">— II · The Screens</span>
+                    <h2 id="screens-heading" class="font-headline-lg text-[clamp(1.75rem,4vw,3rem)] leading-[1.05] text-balance text-on-surface">
+                        Four scenes from a quiet day.
+                    </h2>
+                    <p class="font-body-md text-[clamp(1rem,1.4vw,1.125rem)] text-on-surface-variant max-w-[42ch] text-pretty">
+                        Each frame is a moment Sundial holds for you — morning intention, an afternoon mood, the evening rewind, and the timeline that quietly stitches them together.
+                    </p>
+
+                    <!-- Indicator chips — always visible, accent rotates via the bar below -->
+                    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4">
+                        <span class="inline-flex items-center gap-2 font-caption text-xs text-on-surface-variant">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Morning
+                        </span>
+                        <span class="inline-flex items-center gap-2 font-caption text-xs text-on-surface-variant">
+                            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Mood
+                        </span>
+                        <span class="inline-flex items-center gap-2 font-caption text-xs text-on-surface-variant">
+                            <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Rewind
+                        </span>
+                        <span class="inline-flex items-center gap-2 font-caption text-xs text-on-surface-variant">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim"></span> Timeline
+                        </span>
+                    </div>
+
+                    <!-- Synced scrubber bar -->
+                    <div class="h-px w-full bg-outline-variant/40 relative overflow-hidden mt-2" aria-hidden="true">
+                        <div class="sundial-scrub absolute inset-0 bg-gradient-to-r from-primary via-secondary to-tertiary"></div>
+                    </div>
+                </div>
+
+                <!-- Phone-shaped frame with 4 absolute-stacked cycling images -->
+                <div class="lg:col-span-7 flex justify-center">
+                    <div class="w-full max-w-[360px] aspect-[9/19.5] bg-white rounded-[2.5rem] sm:rounded-[3rem] border-[8px] border-white shadow-[0_30px_60px_-15px_rgba(196,181,253,0.55)] relative overflow-hidden ring-1 ring-black/5">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-6 bg-white rounded-b-2xl z-30 shadow-sm"></div>
+                        <img loading="lazy" decoding="async" class="sundial-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 0s;" src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1080&q=80" alt="Morning intention screen — minimal text editor with warm lighting"/>
+                        <img loading="lazy" decoding="async" class="sundial-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 4s;" src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=1080&q=80" alt="Afternoon mood screen — emotional tracking against a calming landscape"/>
+                        <img loading="lazy" decoding="async" class="sundial-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 8s;" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1080&q=80" alt="Evening rewind screen — sunset clouds in muted tones for the day's recap"/>
+                        <img loading="lazy" decoding="async" class="sundial-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 12s;" src="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1080&q=80" alt="Timeline screen — abstract minimal curves of weekly personal growth"/>
+
+                        <!-- Cycling caption — all absolute so they stack at the same anchor -->
+                        <div class="absolute inset-x-0 bottom-0 h-20 z-20 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
+                        <div class="absolute inset-x-0 bottom-0 p-5 z-20 text-white" style="min-height: 56px;">
+                            <span class="sundial-cycle-img font-caption uppercase tracking-[0.3em] text-[10px] absolute left-5 bottom-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" style="animation-delay: 0s;">07:14 · Morning</span>
+                            <span class="sundial-cycle-img font-caption uppercase tracking-[0.3em] text-[10px] absolute left-5 bottom-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" style="animation-delay: 4s;">15:02 · Mood Slider</span>
+                            <span class="sundial-cycle-img font-caption uppercase tracking-[0.3em] text-[10px] absolute left-5 bottom-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" style="animation-delay: 8s;">21:48 · Evening Rewind</span>
+                            <span class="sundial-cycle-img font-caption uppercase tracking-[0.3em] text-[10px] absolute left-5 bottom-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" style="animation-delay: 12s;">Sunday · Timeline</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- In Use — full-bleed cinematic lifestyle backdrop with phone overlay (§I.6 / §D.3) -->
+        <section class="full-bleed relative overflow-hidden" aria-labelledby="in-use-heading">
+            <!-- 1. Background photograph -->
+            <img loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2400&q=85" alt="Soft pastel coastal sunset evoking the cinematic pause Sundial captures"/>
+            <!-- 2. Vertical dark gradient -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/15 to-black/75 pointer-events-none"></div>
+            <!-- 3. Bottom-left radial vignette pulling focus -->
+            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 80% 70% at 25% 80%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 70%);"></div>
+            <!-- 4. Warm accent tint at the opposite corner -->
+            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 55% at 92% 8%, rgba(255,196,163,0.22) 0%, transparent 60%);"></div>
+            <!-- 5. Subtle scanline texture for cinematic feel -->
+            <div class="absolute inset-0 pointer-events-none mix-blend-overlay opacity-30" style="background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 3px);"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-20 md:py-32 grid grid-cols-1 md:grid-cols-12 items-center gap-10 md:gap-16">
+                <!-- Caption rail -->
+                <div class="md:col-span-7 text-white flex flex-col gap-6">
+                    <span class="font-caption uppercase tracking-[0.3em] text-[11px] text-white/70 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">— III · In Use</span>
+                    <h2 id="in-use-heading" class="font-headline-xl text-[clamp(2rem,5vw+0.5rem,3.75rem)] leading-[1.05] text-balance text-white drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)] max-w-[18ch]">
+                        Designed for the slow part of your evening.
+                    </h2>
+                    <p class="font-body-lg text-[clamp(1rem,1.6vw,1.25rem)] text-white/90 max-w-[52ch] text-pretty drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+                        Pour the tea. Watch the sky go soft. Sundial is the only screen that earns its place at the end of your day — opened by ritual, closed when the words feel finished.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-x-8 gap-y-4 mt-2 text-white/85">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" aria-hidden="true">spa</span>
+                            <span class="font-caption text-sm tracking-wide">Calm by default</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" aria-hidden="true">notifications_off</span>
+                            <span class="font-caption text-sm tracking-wide">No streaks. No nags.</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" aria-hidden="true">lock</span>
+                            <span class="font-caption text-sm tracking-wide">End-to-end private</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tilted phone mockup overlay -->
+                <div class="md:col-span-5 flex justify-center md:justify-end">
+                    <div class="w-full max-w-[280px] aspect-[9/19.5] bg-white rounded-[2.5rem] sm:rounded-[3rem] border-[8px] border-white shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-black/10 motion-safe:transition-transform motion-safe:duration-700 hover:rotate-0 rotate-[6deg]">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-6 bg-white rounded-b-2xl z-20 shadow-sm"></div>
+                        <img loading="lazy" decoding="async" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1080&q=80" alt="Sundial app open on a phone — sunset tones reflecting the moment captured"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Press Strip -->
+        <section class="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 border-y border-outline-variant/30 py-8 flex justify-center items-center gap-10 flex-wrap opacity-60 grayscale motion-safe:transition-all motion-safe:duration-500 hover:grayscale-0 hover:opacity-100 sm:py-10 sm:gap-14 md:py-12 md:gap-20" aria-label="Featured in press">
+            <span class="font-headline-md text-xl font-bold tracking-tighter text-on-surface sm:text-2xl md:text-[28px] cursor-default">THE VERGE</span>
+            <span class="font-headline-md text-xl font-bold text-[#00A33B] sm:text-2xl md:text-[28px] cursor-default">TechCrunch</span>
+            <span class="font-headline-md text-xl font-bold tracking-widest uppercase text-on-surface sm:text-2xl md:text-[28px] cursor-default">Wired</span>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 flex justify-center">
+            <figure class="glass-card w-full max-w-4xl p-8 sm:p-12 md:p-16 rounded-[2.5rem] sm:rounded-[3rem] relative text-center shadow-xl ring-1 ring-white/50">
+                <span class="material-symbols-outlined absolute top-6 left-6 sm:top-10 sm:left-10 text-5xl sm:text-6xl text-primary-container/60 pointer-events-none" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+                
+                <blockquote class="font-headline-lg text-[clamp(1.25rem,3vw+0.5rem,2rem)] leading-snug text-on-surface mb-8 sm:mb-10 relative z-10 text-balance mx-auto max-w-[32ch]">
+                    "Sundial changed how I see my day. It's not just logging; it's a moment of peace. The beautifully crafted timeline makes reflecting a true joy rather than a chore."
+                </blockquote>
+                
+                <figcaption class="flex items-center justify-center gap-4">
+                    <img width="150" height="150" loading="lazy" decoding="async" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover shadow-md ring-2 ring-white" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" alt="Close up portrait of Sarah Jenkins, a daily app user, smiling gently"/>
+                    <div class="text-left">
+                        <div class="font-label-bold text-on-surface text-sm sm:text-base">Sarah Jenkins</div>
+                        <div class="font-caption text-on-surface-variant">Daily User</div>
+                    </div>
+                </figcaption>
+            </figure>
+        </section>
+
+        <!-- Voices — testimonial trio with circular portraits -->
+        <section class="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12" aria-labelledby="voices-heading">
+            <div class="flex flex-col items-center text-center gap-3 mb-10 md:mb-14">
+                <span class="font-caption uppercase tracking-[0.3em] text-[11px] text-on-surface-variant">— V · Voices</span>
+                <h2 id="voices-heading" class="font-headline-md text-[clamp(1.5rem,4vw,2.5rem)] text-balance">Heard at sunset.</h2>
+                <p class="font-body-md text-[clamp(1rem,1.5vw,1.125rem)] text-on-surface-variant max-w-[55ch] text-pretty">
+                    Three writers, three rituals. The same quiet pause at the end of each day.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Voice 1 -->
+                <figure class="glass-card p-8 sm:p-10 rounded-[2rem] flex flex-col items-center text-center gap-5 motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2 shadow-lg ring-1 ring-white/40 relative">
+                    <span class="material-symbols-outlined absolute top-5 right-5 text-3xl text-primary-container/70 pointer-events-none" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+                    <img width="160" height="160" loading="lazy" decoding="async" class="w-20 h-20 rounded-full object-cover shadow-md ring-2 ring-white" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=160&q=80" alt="Portrait of Mira Calderón, novelist, smiling softly"/>
+                    <blockquote class="font-headline-md italic text-lg sm:text-xl leading-snug text-on-surface text-balance">
+                        "I write at first light. Sundial is the only tool that makes the page feel softer than the screen."
+                    </blockquote>
+                    <figcaption class="flex flex-col items-center gap-1 mt-auto">
+                        <div class="font-label-bold text-on-surface text-sm sm:text-base">Mira Calderón</div>
+                        <div class="font-caption text-on-surface-variant text-xs">Novelist · Lisbon</div>
+                    </figcaption>
+                </figure>
+
+                <!-- Voice 2 -->
+                <figure class="glass-card p-8 sm:p-10 rounded-[2rem] flex flex-col items-center text-center gap-5 motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2 shadow-lg ring-1 ring-white/40 relative">
+                    <span class="material-symbols-outlined absolute top-5 right-5 text-3xl text-secondary-container/80 pointer-events-none" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+                    <img width="160" height="160" loading="lazy" decoding="async" class="w-20 h-20 rounded-full object-cover shadow-md ring-2 ring-white" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=160&q=80" alt="Portrait of Daniel Okafor, therapist, looking thoughtful"/>
+                    <blockquote class="font-headline-md italic text-lg sm:text-xl leading-snug text-on-surface text-balance">
+                        "I recommend it to clients before any clinical app. The mood slider feels like a hand on a shoulder, not a chart."
+                    </blockquote>
+                    <figcaption class="flex flex-col items-center gap-1 mt-auto">
+                        <div class="font-label-bold text-on-surface text-sm sm:text-base">Daniel Okafor</div>
+                        <div class="font-caption text-on-surface-variant text-xs">Therapist · Brooklyn</div>
+                    </figcaption>
+                </figure>
+
+                <!-- Voice 3 -->
+                <figure class="glass-card p-8 sm:p-10 rounded-[2rem] flex flex-col items-center text-center gap-5 motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2 shadow-lg ring-1 ring-white/40 relative">
+                    <span class="material-symbols-outlined absolute top-5 right-5 text-3xl text-tertiary-container/80 pointer-events-none" aria-hidden="true" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+                    <img width="160" height="160" loading="lazy" decoding="async" class="w-20 h-20 rounded-full object-cover shadow-md ring-2 ring-white" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=160&q=80" alt="Portrait of Hana Vesely, designer, looking calm and curious"/>
+                    <blockquote class="font-headline-md italic text-lg sm:text-xl leading-snug text-on-surface text-balance">
+                        "A year of entries reads back like a quiet film. I keep returning to spring — the colours, not the words."
+                    </blockquote>
+                    <figcaption class="flex flex-col items-center gap-1 mt-auto">
+                        <div class="font-label-bold text-on-surface text-sm sm:text-base">Hana Vesely</div>
+                        <div class="font-caption text-on-surface-variant text-xs">Designer · Prague</div>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- FAQ — <details> accordion (§M.7) -->
+        <section class="w-full max-w-3xl mx-auto px-4 sm:px-8 md:px-12" aria-labelledby="faq-heading">
+            <div class="flex flex-col items-center text-center gap-3 mb-8 md:mb-12">
+                <span class="font-caption uppercase tracking-[0.3em] text-[11px] text-on-surface-variant">— VI · Questions</span>
+                <h2 id="faq-heading" class="font-headline-md text-[clamp(1.5rem,4vw,2.5rem)] text-balance">Asked at twilight.</h2>
+            </div>
+
+            <div class="glass-card rounded-[2rem] divide-y divide-outline-variant/30 ring-1 ring-white/40 shadow-lg overflow-hidden">
+                <details class="sundial-faq group p-6 sm:p-7">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-headline-md text-lg sm:text-xl text-on-surface text-left">Is my journal private?</h3>
+                        <span class="sundial-chevron material-symbols-outlined text-primary shrink-0" aria-hidden="true">expand_more</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant text-pretty mt-4 max-w-[60ch]">
+                        Entries are end-to-end encrypted on device, then synced via your iCloud or Google account. We never see your text, and there's no analytics on the contents of your entries — only on whether the app launched.
+                    </p>
+                </details>
+
+                <details class="sundial-faq group p-6 sm:p-7">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-headline-md text-lg sm:text-xl text-on-surface text-left">Will it nag me with streaks?</h3>
+                        <span class="sundial-chevron material-symbols-outlined text-primary shrink-0" aria-hidden="true">expand_more</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant text-pretty mt-4 max-w-[60ch]">
+                        No streaks, no badges, no red dots. The only nudge is a single optional sunset reminder that you choose the time of. Skipping a week is part of the rhythm too.
+                    </p>
+                </details>
+
+                <details class="sundial-faq group p-6 sm:p-7">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-headline-md text-lg sm:text-xl text-on-surface text-left">Can I export my entries?</h3>
+                        <span class="sundial-chevron material-symbols-outlined text-primary shrink-0" aria-hidden="true">expand_more</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant text-pretty mt-4 max-w-[60ch]">
+                        Yes — Markdown, plain text, or a printable PDF photobook with mood colours preserved as page tints. Your archive belongs to you, on your terms.
+                    </p>
+                </details>
+
+                <details class="sundial-faq group p-6 sm:p-7">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-headline-md text-lg sm:text-xl text-on-surface text-left">How much does Sundial cost?</h3>
+                        <span class="sundial-chevron material-symbols-outlined text-primary shrink-0" aria-hidden="true">expand_more</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant text-pretty mt-4 max-w-[60ch]">
+                        Free for one entry per day with the standard mood palette. Sundial Plus unlocks unlimited entries, the timeline view, and the sunset photobook export — $4 a month or $36 a year.
+                    </p>
+                </details>
+
+                <details class="sundial-faq group p-6 sm:p-7">
+                    <summary class="flex items-center justify-between gap-4">
+                        <h3 class="font-headline-md text-lg sm:text-xl text-on-surface text-left">Does it work offline?</h3>
+                        <span class="sundial-chevron material-symbols-outlined text-primary shrink-0" aria-hidden="true">expand_more</span>
+                    </summary>
+                    <p class="font-body-md text-on-surface-variant text-pretty mt-4 max-w-[60ch]">
+                        Completely. Write on a plane, in a tent, on a sleeper train. Entries sync the next time you reconnect. No connection required for the editor, the mood slider, or the timeline.
+                    </p>
+                </details>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <div class="w-full px-4 sm:px-8 md:px-12 xl:px-[calc((100vw-80rem)/2)]">
+        <footer class="bg-surface/60 backdrop-blur-2xl rounded-t-[2.5rem] sm:rounded-t-[3rem] flex flex-col items-center px-6 py-10 w-full font-['Space_Grotesk'] text-sm tracking-wide gap-8 sm:py-12 md:px-12 md:flex-row md:justify-between md:gap-0 border-t border-white/40 shadow-[0_-10px_40px_rgba(0,0,0,0.02)] ring-1 ring-black/5 relative z-10">
+            <a href="#" class="text-xl font-bold text-on-surface motion-safe:transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-2 -mx-2">
+                Sundial
+            </a>
+            
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-4 text-on-surface-variant font-medium" aria-label="Footer Navigation">
+                <a href="#" class="motion-safe:transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-1">Privacy</a>
+                <a href="#" class="motion-safe:transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-1">Terms</a>
+                <a href="#" class="motion-safe:transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-1">Support</a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="motion-safe:transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-1">Instagram</a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="motion-safe:transition-colors hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded px-1">Twitter</a>
+            </nav>
+            
+            <div class="text-on-surface-variant text-center md:text-right text-xs sm:text-sm">
+                &copy; 2024 Sundial. Find your pause.
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AGITPROP 24</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;800;900&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#410003",
+                        "surface-bright": "#fff9ee",
+                        "secondary": "#5f5e5e",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "background": "#fff9ee",
+                        "on-surface-variant": "#5c403d",
+                        "surface-container-highest": "#e9e2d4",
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-primary": "#ffb3ad",
+                        "outline": "#906f6c",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "tertiary-fixed": "#ffdea0",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#8b6600",
+                        "inverse-on-surface": "#f7f0e2",
+                        "on-tertiary-container": "#ffeccd",
+                        "primary-fixed-dim": "#ffb3ad",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#bd0e1e",
+                        "primary": "#ac0017",
+                        "primary-fixed": "#ffdad6",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-surface": "#1e1b13",
+                        "surface-container-high": "#eee7d9",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#930012",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#d2232a",
+                        "surface": "#fff9ee",
+                        "on-tertiary-fixed": "#261a00",
+                        "surface-container-low": "#faf3e5",
+                        "on-primary-container": "#ffebe8",
+                        "on-secondary-container": "#656464",
+                        "inverse-surface": "#333027",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#6c4f00",
+                        "surface-container": "#f4eddf",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-variant": "#e9e2d4",
+                        "on-background": "#1e1b13",
+                        "secondary-container": "#e5e2e1",
+                        "surface-dim": "#e0d9cc",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#e5bdba",
+                        "tertiary-fixed-dim": "#f4be43"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "0px"
+                    },
+                    "spacing": {
+                        "margin-page": "40px",
+                        "gutter": "0px",
+                        "unit": "4px",
+                        "thickness-thin": "2px",
+                        "thickness-heavy": "12px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Epilogue"],
+                        "headline-lg": ["Epilogue"],
+                        "headline-md": ["Epilogue"],
+                        "caption-mono": ["Space Grotesk"],
+                        "display-xl": ["Epilogue"],
+                        "body-sm": ["Epilogue"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "headline-lg": ["64px", { "lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["32px", { "lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "800" }],
+                        "caption-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-xl": ["120px", { "lineHeight": "100px", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Constructivist utilities */
+        .clip-diagonal {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .bg-red-stripes {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #d2232a 10px, #d2232a 20px);
+        }
+        .filter-duotone {
+            filter: grayscale(100%) contrast(200%);
+            mix-blend-mode: multiply;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col antialiased overflow-x-hidden selection:bg-primary-container selection:text-white">
+<!-- TopAppBar -->
+<header class="bg-[#F5F5F5] dark:bg-[#F5F5F5] font-['Epilogue'] font-black uppercase tracking-tighter 0px radius docked top-0 w-full border-b-4 border-black flat no shadows flex justify-between items-center px-0 h-24 z-50 relative">
+<div class="text-4xl font-black text-black dark:text-black border-r-4 border-[#D2232A] pr-4 pl-4 md:pl-margin-page h-full flex items-center bg-white">
+            AGITPROP 24
+        </div>
+<nav class="hidden md:flex h-full border-l-4 border-black">
+<a class="text-black hover:text-[#D2232A] px-8 border-r-4 border-black flex items-center h-full hover:bg-black hover:text-white transition-none" href="#">PRODUCTIONS</a>
+<a class="text-black hover:text-[#D2232A] px-8 border-r-4 border-black flex items-center h-full hover:bg-black hover:text-white transition-none" href="#">MANIFESTO</a>
+<a class="text-black hover:text-[#D2232A] px-8 border-r-4 border-black flex items-center h-full hover:bg-black hover:text-white transition-none" href="#">ENSEMBLE</a>
+<a class="text-black hover:text-[#D2232A] px-8 flex items-center h-full hover:bg-black hover:text-white transition-none" href="#">SEASON PASS</a>
+</nav>
+<button class="bg-[#D2232A] text-white px-8 py-2 h-full font-black text-xl hover:bg-black transition-none scale-100 active:translate-x-1 active:translate-y-1 flex items-center justify-center">
+            JOIN THE FRONT
+        </button>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] border-b-thickness-heavy border-on-surface overflow-hidden bg-surface-bright flex flex-col lg:flex-row">
+<!-- Left: Typography & CTA -->
+<div class="w-full lg:w-1/2 flex flex-col justify-center p-8 lg:p-margin-page relative z-10 border-r-thickness-heavy border-on-surface lg:border-none">
+<div class="absolute top-0 left-0 w-full h-full bg-red-stripes opacity-10 pointer-events-none"></div>
+<div class="transform -rotate-6 transform-origin-top-left mb-12">
+<h1 class="font-display-xl text-on-surface leading-[0.85] uppercase tracking-tighter mix-blend-difference">
+<span class="block">SEASON</span>
+<span class="block text-primary-container">2026</span>
+<span class="block">NOW</span>
+</h1>
+</div>
+<div class="mt-8 flex items-start gap-6">
+<div class="w-thickness-heavy h-32 bg-on-surface"></div>
+<p class="font-body-lg max-w-md uppercase font-bold tracking-widest text-secondary">
+                        A brutal collision of flesh, steel, and ideology. The stage is a weapon. The audience is the target.
+                    </p>
+</div>
+<div class="mt-16 transform rotate-3">
+<a class="inline-block bg-primary-container text-white font-headline-md px-12 py-6 uppercase hover:bg-on-surface hover:text-white transition-none border-4 border-on-surface hover:translate-x-2 hover:translate-y-2 group" href="#">
+                        BUY TICKETS
+                        <span class="material-symbols-outlined ml-4 align-middle group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Right: Photomontage -->
+<div class="w-full lg:w-1/2 relative bg-secondary-fixed min-h-[614px] lg:min-h-full flex items-center justify-center border-t-thickness-heavy lg:border-t-0 lg:border-l-thickness-heavy border-on-surface overflow-hidden">
+<!-- Large Red Triangle -->
+<div class="absolute w-[150%] h-[150%] bg-primary-container transform -rotate-45 origin-bottom-left -translate-x-1/4 translate-y-1/4 mix-blend-multiply z-0"></div>
+<!-- Actor Image -->
+<img alt="Actor portrait" class="relative z-10 w-4/5 h-auto filter-duotone grayscale contrast-200 border-thickness-heavy border-on-surface transform rotate-2 object-cover aspect-[3/4]" data-alt="stark, high-contrast black and white portrait of a man shouting, graphic, theatrical lighting, constructivist style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC59Q-I6Ili_dZfJd8oOhIZmUq06wRmTEVAvEWU8iH0XRA3NBn6aAmYkDj7E2ayRZu54R4GN_XhRcd_xC_TNo-fVDxFfh6ZjvVoY7AiBfly-6WeGVHV2wgux2a5RPNWDzXi68m-LwwjjcFmtkaoPsbFnETPR6i1lZzSFZ62TDJIkPREzmY3jAylRpI3tbN8lw5L3DBWljb4AkS0Am2QvsAbYzpADAUS3m35f1qQt2KWVN1KXv-qsKUvZMjJb0cIhWjkgSB5BPoIzIs"/>
+<!-- Graphic accents -->
+<div class="absolute top-10 right-10 w-24 h-24 bg-tertiary-fixed transform rotate-45 border-4 border-on-surface z-20 mix-blend-exclusion"></div>
+<div class="absolute bottom-10 left-10 w-64 h-thickness-heavy bg-on-surface z-20 transform -rotate-12"></div>
+</div>
+</section>
+
+<!-- PROGRAMME — 4 productions in heavy-bordered grid -->
+<section class="border-b-thickness-heavy border-on-surface bg-surface-bright px-8 lg:px-margin-page py-16 lg:py-24 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-96 h-96 bg-red-stripes opacity-[0.06] pointer-events-none -translate-y-1/4 translate-x-1/4"></div>
+<div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 relative">
+<div>
+<span class="font-caption-mono text-caption-mono uppercase text-primary-container mb-3 block">// PROGRAMME · IV ACTS</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-on-surface">FOUR ACTS / ONE BLADE.</h2>
+</div>
+<p class="font-body-lg max-w-md uppercase font-bold tracking-widest text-secondary lg:text-right">The 2026 season runs across 84 nights. Heavy boots required. No latecomers.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-thickness-heavy">
+<article class="border-thickness-heavy border-on-surface bg-surface-container-lowest p-8 relative group hover:translate-x-1 hover:-translate-y-1 transition-transform duration-75">
+<div class="absolute top-0 right-0 bg-on-surface text-surface-bright px-3 py-1 font-caption-mono text-caption-mono uppercase">ACT_I</div>
+<div class="font-display-xl text-[80px] leading-none text-primary-container italic mb-6">I</div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface mb-3 mix-blend-difference">THE FACTORY OF SLEEP</h3>
+<p class="font-body-lg text-on-surface-variant mb-6">An assembly-line oratorio for nine workers, three machines, and one alarm clock that refuses to ring.</p>
+<div class="flex justify-between items-end pt-4 border-t-thickness-thin border-on-surface">
+<span class="font-caption-mono text-caption-mono uppercase tabular-nums">11.07.26 — 12.18.26</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 font-caption-mono text-caption-mono uppercase border-2 border-on-surface">PREMIERE</span>
+</div>
+</article>
+<article class="border-thickness-heavy border-on-surface bg-primary-container p-8 text-on-primary relative group hover:translate-x-1 hover:-translate-y-1 transition-transform duration-75">
+<div class="absolute top-0 right-0 bg-on-surface text-primary-container px-3 py-1 font-caption-mono text-caption-mono uppercase">ACT_II</div>
+<div class="font-display-xl text-[80px] leading-none text-on-primary italic mb-6">II</div>
+<h3 class="font-headline-md text-headline-md uppercase mb-3">RED SQUARE / NIGHT MARCH</h3>
+<p class="font-body-lg opacity-90 mb-6">A choral procession for 24 voices, lit only by the headlights of a 1958 ZIL truck idling stage-left.</p>
+<div class="flex justify-between items-end pt-4 border-t-thickness-thin border-on-primary">
+<span class="font-caption-mono text-caption-mono uppercase tabular-nums">01.09.27 — 02.20.27</span>
+<span class="bg-on-primary text-primary-container px-2 py-1 font-caption-mono text-caption-mono uppercase border-2 border-on-primary">SOLD OUT</span>
+</div>
+</article>
+<article class="border-thickness-heavy border-on-surface bg-tertiary-fixed text-on-surface p-8 relative group hover:translate-x-1 hover:-translate-y-1 transition-transform duration-75">
+<div class="absolute top-0 right-0 bg-on-surface text-tertiary-fixed px-3 py-1 font-caption-mono text-caption-mono uppercase">ACT_III</div>
+<div class="font-display-xl text-[80px] leading-none text-on-surface italic mb-6">III</div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface mb-3">THE COLLECTIVE / ACT 7</h3>
+<p class="font-body-lg text-on-surface-variant mb-6">Devised work in seven movements. Rehearsed across four warehouses. Designed to be partly inaudible.</p>
+<div class="flex justify-between items-end pt-4 border-t-thickness-thin border-on-surface">
+<span class="font-caption-mono text-caption-mono uppercase tabular-nums">03.04.27 — 04.18.27</span>
+<span class="bg-primary-container text-on-primary px-2 py-1 font-caption-mono text-caption-mono uppercase border-2 border-on-surface">4 LEFT</span>
+</div>
+</article>
+<article class="border-thickness-heavy border-on-surface bg-on-surface text-surface-bright p-8 relative group hover:translate-x-1 hover:-translate-y-1 transition-transform duration-75">
+<div class="absolute top-0 right-0 bg-tertiary-fixed text-on-surface px-3 py-1 font-caption-mono text-caption-mono uppercase">ACT_IV</div>
+<div class="font-display-xl text-[80px] leading-none text-primary-container italic mb-6">IV</div>
+<h3 class="font-headline-md text-headline-md uppercase mb-3">SHRAPNEL / A CONFESSION</h3>
+<p class="font-body-lg opacity-90 mb-6">One actor. One spotlight. 78 minutes of monologue translated from a 1923 anarchist pamphlet, never staged before.</p>
+<div class="flex justify-between items-end pt-4 border-t-thickness-thin border-surface-bright">
+<span class="font-caption-mono text-caption-mono uppercase tabular-nums">05.10.27 — 05.31.27</span>
+<span class="bg-surface-bright text-on-surface px-2 py-1 font-caption-mono text-caption-mono uppercase border-2 border-surface-bright">WAITLIST</span>
+</div>
+</article>
+</div>
+</section>
+
+<!-- MANIFESTO — full-bleed red-stripes -->
+<section class="border-b-thickness-heavy border-on-surface bg-on-surface text-surface-bright px-8 lg:px-margin-page py-20 lg:py-32 relative overflow-hidden">
+<div class="absolute inset-0 bg-red-stripes opacity-[0.18] pointer-events-none"></div>
+<div class="absolute top-12 right-12 w-32 h-32 bg-tertiary-fixed transform rotate-12 border-thickness-heavy border-surface-bright z-10"></div>
+<div class="absolute bottom-12 left-8 w-48 h-thickness-heavy bg-primary-container z-10 transform -rotate-6"></div>
+<div class="relative max-w-5xl mx-auto">
+<span class="font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim mb-6 block">// MANIFESTO · V TENETS · 1924–2026</span>
+<h2 class="font-display-xl text-[clamp(56px,_9vw,_120px)] leading-[0.9] uppercase text-surface-bright mb-12 italic transform -rotate-1">
+ART<br/><span class="text-primary-container">IS NOT</span><br/>A SERVICE.
+</h2>
+<ol class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 border-t-thickness-heavy border-surface-bright/30 pt-12">
+<li class="flex gap-6">
+<span class="font-display-xl text-[64px] leading-none text-tertiary-fixed-dim italic tabular-nums">I</span>
+<div>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">REFUSE THE LOBBY.</h3>
+<p class="font-body-lg text-surface-bright/80">No champagne, no plaque, no donor wall. The room you walk into is the work.</p>
+</div>
+</li>
+<li class="flex gap-6">
+<span class="font-display-xl text-[64px] leading-none text-tertiary-fixed-dim italic tabular-nums">II</span>
+<div>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">BUILD WITH STEEL.</h3>
+<p class="font-body-lg text-surface-bright/80">Sets are welded, not painted. Costumes outlive the run. Posters survive the building.</p>
+</div>
+</li>
+<li class="flex gap-6">
+<span class="font-display-xl text-[64px] leading-none text-tertiary-fixed-dim italic tabular-nums">III</span>
+<div>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">PAY THE ENSEMBLE.</h3>
+<p class="font-body-lg text-surface-bright/80">Equity scale, every act. Profit-share if there's profit. The collective is the asset.</p>
+</div>
+</li>
+<li class="flex gap-6">
+<span class="font-display-xl text-[64px] leading-none text-tertiary-fixed-dim italic tabular-nums">IV</span>
+<div>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">PROVOKE / DON'T COMFORT.</h3>
+<p class="font-body-lg text-surface-bright/80">If everyone leaves agreeing, we have failed. The seat exists to be uncomfortable.</p>
+</div>
+</li>
+<li class="flex gap-6 md:col-span-2 border-t-thickness-thin border-surface-bright/30 pt-8">
+<span class="font-display-xl text-[64px] leading-none text-primary-container italic tabular-nums">V</span>
+<div>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">THE STAGE IS A WEAPON. THE AUDIENCE IS THE TARGET.</h3>
+<p class="font-body-lg text-surface-bright/80">Every show is loaded before the doors open. We will not apologise for the recoil.</p>
+</div>
+</li>
+</ol>
+<div class="mt-12 pt-8 border-t-thickness-thin border-surface-bright/30 flex flex-col sm:flex-row justify-between gap-3 font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim">
+<span>SIGNED · THE COLLECTIVE · 1924/2026</span>
+<span class="tabular-nums">REISSUED · MMXXVI</span>
+</div>
+</div>
+</section>
+
+<!-- ENSEMBLE image strip -->
+<section class="border-b-thickness-heavy border-on-surface bg-surface-bright px-8 lg:px-margin-page py-16 lg:py-24 relative overflow-hidden">
+<div class="absolute bottom-0 left-0 w-full h-full bg-red-stripes opacity-[0.04] pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 relative">
+<div>
+<span class="font-caption-mono text-caption-mono uppercase text-primary-container mb-3 block">// ENSEMBLE · N=05</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-on-surface">FACES OF THE FRONT.</h2>
+</div>
+<p class="font-body-lg max-w-md uppercase font-bold tracking-widest text-secondary lg:text-right">Permanent ensemble of 18. Featured here, the five who carry Acts I–IV. Photographs by Y. Volkov, May 2026.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-thickness-heavy relative">
+<figure class="border-thickness-heavy border-on-surface bg-secondary-fixed aspect-[3/4] relative overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform">
+<img alt="Black-and-white actor portrait, intense gaze" class="w-full h-full object-cover filter-duotone grayscale contrast-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC59Q-I6Ili_dZfJd8oOhIZmUq06wRmTEVAvEWU8iH0XRA3NBn6aAmYkDj7E2ayRZu54R4GN_XhRcd_xC_TNo-fVDxFfh6ZjvVoY7AiBfly-6WeGVHV2wgux2a5RPNWDzXi68m-LwwjjcFmtkaoPsbFnETPR6i1lZzSFZ62TDJIkPREzmY3jAylRpI3tbN8lw5L3DBWljb4AkS0Am2QvsAbYzpADAUS3m35f1qQt2KWVN1KXv-qsKUvZMjJb0cIhWjkgSB5BPoIzIs"/>
+<div class="absolute top-0 left-0 bg-primary-container text-on-primary px-2 py-1 font-caption-mono text-caption-mono uppercase">PORT_01</div>
+<figcaption class="absolute bottom-0 inset-x-0 bg-on-surface text-surface-bright px-3 py-2 border-t-thickness-thin border-tertiary-fixed">
+<p class="font-headline-md text-base uppercase leading-tight">M. Volkov</p>
+<p class="font-caption-mono text-caption-mono text-tertiary-fixed-dim">Lead · Act II</p>
+</figcaption>
+</figure>
+<figure class="border-thickness-heavy border-on-surface bg-secondary-fixed aspect-[3/4] relative overflow-hidden transform rotate-1 hover:rotate-0 transition-transform">
+<img alt="Stark editorial portrait, theatrical lighting" class="w-full h-full object-cover filter-duotone grayscale contrast-200" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute top-0 left-0 bg-tertiary-fixed text-on-surface px-2 py-1 font-caption-mono text-caption-mono uppercase border-r-2 border-b-2 border-on-surface">PORT_02</div>
+<figcaption class="absolute bottom-0 inset-x-0 bg-on-surface text-surface-bright px-3 py-2 border-t-thickness-thin border-tertiary-fixed">
+<p class="font-headline-md text-base uppercase leading-tight">A. Petrova</p>
+<p class="font-caption-mono text-caption-mono text-tertiary-fixed-dim">Lead · Act I</p>
+</figcaption>
+</figure>
+<figure class="border-thickness-heavy border-on-surface bg-secondary-fixed aspect-[3/4] relative overflow-hidden transform -rotate-2 hover:rotate-0 transition-transform">
+<img alt="High-contrast b&amp;w portrait of a stage performer" class="w-full h-full object-cover filter-duotone grayscale contrast-200" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute top-0 left-0 bg-primary-container text-on-primary px-2 py-1 font-caption-mono text-caption-mono uppercase">PORT_03</div>
+<figcaption class="absolute bottom-0 inset-x-0 bg-on-surface text-surface-bright px-3 py-2 border-t-thickness-thin border-tertiary-fixed">
+<p class="font-headline-md text-base uppercase leading-tight">D. Sokolov</p>
+<p class="font-caption-mono text-caption-mono text-tertiary-fixed-dim">Lead · Act III</p>
+</figcaption>
+</figure>
+<figure class="border-thickness-heavy border-on-surface bg-secondary-fixed aspect-[3/4] relative overflow-hidden transform rotate-1 hover:rotate-0 transition-transform">
+<img alt="Stark portrait, editorial chiaroscuro" class="w-full h-full object-cover filter-duotone grayscale contrast-200" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute top-0 left-0 bg-tertiary-fixed text-on-surface px-2 py-1 font-caption-mono text-caption-mono uppercase border-r-2 border-b-2 border-on-surface">PORT_04</div>
+<figcaption class="absolute bottom-0 inset-x-0 bg-on-surface text-surface-bright px-3 py-2 border-t-thickness-thin border-tertiary-fixed">
+<p class="font-headline-md text-base uppercase leading-tight">I. Romanenko</p>
+<p class="font-caption-mono text-caption-mono text-tertiary-fixed-dim">Solo · Act IV</p>
+</figcaption>
+</figure>
+<figure class="border-thickness-heavy border-on-surface bg-secondary-fixed aspect-[3/4] relative overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform">
+<img alt="High-contrast monochrome editorial portrait" class="w-full h-full object-cover filter-duotone grayscale contrast-200" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute top-0 left-0 bg-primary-container text-on-primary px-2 py-1 font-caption-mono text-caption-mono uppercase">PORT_05</div>
+<figcaption class="absolute bottom-0 inset-x-0 bg-on-surface text-surface-bright px-3 py-2 border-t-thickness-thin border-tertiary-fixed">
+<p class="font-headline-md text-base uppercase leading-tight">L. Mironova</p>
+<p class="font-caption-mono text-caption-mono text-tertiary-fixed-dim">Director · Mvt 7</p>
+</figcaption>
+</figure>
+</div>
+<p class="mt-8 font-caption-mono text-caption-mono uppercase text-secondary text-center tracking-widest">— PHOTOGRAPHS · BERLIN STUDIO · MMXXVI · NEGATIVES IN COLLECTIVE ARCHIVE —</p>
+</section>
+
+<!-- SEASON CALENDAR — date stamps + venues -->
+<section class="bg-surface-bright px-8 lg:px-margin-page py-16 lg:py-24 relative">
+<div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+<div>
+<span class="font-caption-mono text-caption-mono uppercase text-primary-container mb-3 block">// SEASON · 84 NIGHTS</span>
+<h2 class="font-headline-lg text-headline-lg uppercase text-on-surface">CALENDAR / NOV 26 – MAY 27.</h2>
+</div>
+<p class="font-body-lg max-w-md uppercase font-bold tracking-widest text-secondary lg:text-right">Single-night and full-pass tickets release on rolling Mondays. The ZIL truck stays parked between dates.</p>
+</div>
+<ol class="grid grid-cols-1 md:grid-cols-2 gap-thickness-heavy">
+<li class="border-thickness-heavy border-on-surface bg-primary-fixed p-6 flex gap-6 items-stretch">
+<div class="border-r-thickness-heavy border-on-surface pr-6 flex flex-col items-center justify-center min-w-[110px]">
+<span class="font-caption-mono text-caption-mono uppercase text-primary-container">NOV</span>
+<span class="font-display-xl text-[64px] leading-none text-on-surface tabular-nums italic">07</span>
+<span class="font-caption-mono text-caption-mono uppercase text-on-primary-fixed-variant">2026</span>
+</div>
+<div class="flex flex-col flex-grow">
+<span class="font-caption-mono text-caption-mono uppercase text-primary-container">ACT_I · OPENING</span>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface mb-2">THE FACTORY OF SLEEP</h3>
+<p class="font-body-lg text-on-primary-fixed-variant flex-grow">Hall A · Werkhaus 12 · Berlin · 19:30 doors / 20:00 curtain.</p>
+<span class="bg-on-surface text-tertiary-fixed border-2 border-on-surface px-3 py-1 font-caption-mono text-caption-mono uppercase w-max mt-3">PREMIERE NIGHT</span>
+</div>
+</li>
+<li class="border-thickness-heavy border-on-surface bg-primary-container text-on-primary p-6 flex gap-6 items-stretch">
+<div class="border-r-thickness-heavy border-on-primary pr-6 flex flex-col items-center justify-center min-w-[110px]">
+<span class="font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim">JAN</span>
+<span class="font-display-xl text-[64px] leading-none tabular-nums italic">09</span>
+<span class="font-caption-mono text-caption-mono uppercase opacity-80">2027</span>
+</div>
+<div class="flex flex-col flex-grow">
+<span class="font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim">ACT_II · 22 NIGHTS</span>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">RED SQUARE / NIGHT MARCH</h3>
+<p class="font-body-lg opacity-90 flex-grow">Hangar 06 · Tempelhof · 21:00 procession from Loading Dock 3. Outdoor.</p>
+<span class="bg-on-primary text-primary-container border-2 border-on-primary px-3 py-1 font-caption-mono text-caption-mono uppercase w-max mt-3">SOLD OUT</span>
+</div>
+</li>
+<li class="border-thickness-heavy border-on-surface bg-tertiary-fixed text-on-surface p-6 flex gap-6 items-stretch">
+<div class="border-r-thickness-heavy border-on-surface pr-6 flex flex-col items-center justify-center min-w-[110px]">
+<span class="font-caption-mono text-caption-mono uppercase text-primary-container">MAR</span>
+<span class="font-display-xl text-[64px] leading-none tabular-nums italic">04</span>
+<span class="font-caption-mono text-caption-mono uppercase text-secondary">2027</span>
+</div>
+<div class="flex flex-col flex-grow">
+<span class="font-caption-mono text-caption-mono uppercase text-primary-container">ACT_III · 33 NIGHTS</span>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">THE COLLECTIVE / ACT 7</h3>
+<p class="font-body-lg text-on-surface-variant flex-grow">Roving · Warehouses 03–07 · Wedding district · 20:00. Bring boots.</p>
+<span class="bg-primary-container text-on-primary border-2 border-on-surface px-3 py-1 font-caption-mono text-caption-mono uppercase w-max mt-3">4 NIGHTS LEFT</span>
+</div>
+</li>
+<li class="border-thickness-heavy border-on-surface bg-on-surface text-surface-bright p-6 flex gap-6 items-stretch">
+<div class="border-r-thickness-heavy border-surface-bright pr-6 flex flex-col items-center justify-center min-w-[110px]">
+<span class="font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim">MAY</span>
+<span class="font-display-xl text-[64px] leading-none text-primary-container tabular-nums italic">10</span>
+<span class="font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim/80">2027</span>
+</div>
+<div class="flex flex-col flex-grow">
+<span class="font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim">ACT_IV · 21 NIGHTS</span>
+<h3 class="font-headline-md text-headline-md uppercase mb-2">SHRAPNEL / A CONFESSION</h3>
+<p class="font-body-lg opacity-90 flex-grow">Studio Theatre · 78-seat black box · 22:00. One actor. No interval.</p>
+<span class="bg-surface-bright text-on-surface border-2 border-surface-bright px-3 py-1 font-caption-mono text-caption-mono uppercase w-max mt-3">JOIN WAITLIST</span>
+</div>
+</li>
+</ol>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-black dark:bg-black font-['Space_Grotesk'] font-bold uppercase text-sm 0px radius w-full border-t-8 border-[#D2232A] flat no shadows flex flex-col md:flex-row justify-between items-center p-12 relative z-10">
+<div class="text-[#D2232A] font-black text-2xl mb-8 md:mb-0">
+            ©1924-2024 AGITPROP 24. ART IS A WEAPON.
+        </div>
+<nav class="flex flex-wrap justify-center gap-8 md:gap-12">
+<a class="text-[#F5F5F5] hover:text-[#D2232A] transition-none border-b-2 border-transparent hover:border-[#D2232A]" href="#">ARCHIVE</a>
+<a class="text-[#F5F5F5] hover:text-[#D2232A] transition-none border-b-2 border-transparent hover:border-[#D2232A]" href="#">CONTACT</a>
+<a class="text-[#F5F5F5] hover:text-[#D2232A] transition-none border-b-2 border-transparent hover:border-[#D2232A]" href="#">COLLECTIVE</a>
+<a class="text-[#F5F5F5] hover:text-[#D2232A] transition-none border-b-2 border-transparent hover:border-[#D2232A]" href="#">TERMS</a>
+</nav>
+</footer>
+</body></html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Meridian Group - Technology Strategy</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#e6f2ff",
+                      "surface-dim": "#ccdceb",
+                      "surface-container-highest": "#d4e4f4",
+                      "on-tertiary-fixed-variant": "#37485a",
+                      "primary": "#000f22",
+                      "surface-container-low": "#ebf5ff",
+                      "tertiary": "#00101f",
+                      "surface-bright": "#f6f9ff",
+                      "tertiary-fixed-dim": "#b6c8de",
+                      "inverse-surface": "#23323e",
+                      "primary-fixed": "#d2e4ff",
+                      "on-tertiary-container": "#7b8da1",
+                      "tertiary-fixed": "#d1e4fb",
+                      "secondary-fixed": "#ffdea8",
+                      "on-primary": "#ffffff",
+                      "surface": "#f6f9ff",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#0d1d28",
+                      "surface-container-high": "#daeafa",
+                      "surface-tint": "#49607e",
+                      "secondary": "#7a580f",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed-variant": "#5e4200",
+                      "outline-variant": "#c4c6ce",
+                      "secondary-container": "#ffd07d",
+                      "surface-variant": "#d4e4f4",
+                      "on-tertiary-fixed": "#091d2d",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#271900",
+                      "surface-container": "#e0f0ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#314865",
+                      "error-container": "#ffdad6",
+                      "background": "#f6f9ff",
+                      "on-secondary-container": "#79570d",
+                      "inverse-primary": "#b0c8eb",
+                      "on-primary-container": "#768dad",
+                      "primary-fixed-dim": "#b0c8eb",
+                      "outline": "#74777e",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#001c37",
+                      "tertiary-container": "#132636",
+                      "secondary-fixed-dim": "#edc06e",
+                      "on-surface-variant": "#43474d",
+                      "on-surface": "#0d1d28",
+                      "primary-container": "#0a2540"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "container-max": "1280px",
+                      "margin-desktop": "64px",
+                      "section-padding": "120px",
+                      "gutter": "32px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Newsreader"
+                      ],
+                      "display-xl": [
+                              "Newsreader"
+                      ],
+                      "headline-md": [
+                              "Newsreader"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-secondary selection:text-on-secondary min-h-screen flex flex-col">
+<!-- TopNavBar Shared Component -->
+<nav class="bg-[#0A2540] w-full sticky top-0 z-50 border-b border-white/10">
+<div class="flex justify-between items-center h-20 max-w-container-max mx-auto px-8 w-full">
+<!-- Brand -->
+<a class="text-xl font-headline-md font-semibold tracking-tight text-white uppercase" href="#">
+                Meridian Group
+            </a>
+<!-- Navigation Links -->
+<div class="hidden md:flex space-x-8 items-center font-body-md">
+<a class="text-white/80 hover:text-[#B38B3F] transition-colors duration-200" href="#">Industries</a>
+<a class="text-white/80 hover:text-[#B38B3F] transition-colors duration-200" href="#">Services</a>
+<a class="text-white/80 hover:text-[#B38B3F] transition-colors duration-200" href="#">Insights</a>
+<a class="text-white/80 hover:text-[#B38B3F] transition-colors duration-200" href="#">Advisors</a>
+<a class="text-white/80 hover:text-[#B38B3F] transition-colors duration-200" href="#">About</a>
+</div>
+<!-- Trailing Action -->
+<div class="hidden md:flex">
+<a class="text-[#B38B3F] font-label-caps text-label-caps uppercase uppercase tracking-widest hover:text-white transition-colors duration-200 border border-[#B38B3F] px-4 py-2 rounded-DEFAULT scale-95 active:opacity-80 transition-all" href="#">
+                    Contact Us
+                </a>
+</div>
+<!-- Mobile Menu Toggle (Decorative for this scope) -->
+<button class="md:hidden text-white">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="py-section-padding px-8 border-b border-outline-variant bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-6 space-y-8">
+<h1 class="font-display-xl text-display-xl text-primary">
+                        Technology strategy for critical systems.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        We partner with Fortune 1000 CIOs to architect resilient global infrastructure. Our approach combines rigorous data analysis with decades of institutional knowledge.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<a class="bg-secondary text-on-secondary font-label-caps text-label-caps uppercase px-8 py-4 rounded-DEFAULT hover:opacity-90 transition-opacity" href="#">
+                            Explore services
+                        </a>
+<a class="border border-primary text-primary font-label-caps text-label-caps uppercase px-8 py-4 rounded-DEFAULT hover:bg-surface-dim transition-colors" href="#">
+                            Speak to an advisor
+                        </a>
+</div>
+</div>
+<div class="lg:col-span-6 mt-12 lg:mt-0 relative aspect-square lg:aspect-auto lg:h-[600px] bg-surface-dim rounded-DEFAULT overflow-hidden border border-outline-variant">
+<img alt="" class="w-full h-full object-cover opacity-90 mix-blend-multiply" data-alt="Polished 3D abstract render of fiber optic infrastructure and data routing lines in deep navy and subtle gold lighting, enterprise technology aesthetic, highly detailed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNx9AOdX1YTo87kOg7PZtfxLtZJjAWbiMbbVmaG-f9AQDZByJxKta6Ly8gDTandHOlm9_BSHn8k8cRHsQmuZS_6LBlmp0yw6ratAhyTAdfDF_F2E9BYyOHuYp2nhB0PLqhzsm9DjP0bsk-wWpXmmbNO40kQip5_b46Uo-a_Zo5e0TxCxz2mqiqXfucX-UzEiHHDQ3S9PNxCkUrUQEtSUC16u8zfYIJsq-NIkB8FOIp99pvoTg0QkCn-rnj4bLQBP4BGjHLPLLjAfo"/>
+</div>
+</div>
+</section>
+<!-- Stats Band -->
+<section class="bg-primary-container text-on-primary-container py-16 px-8 border-b border-outline-variant">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-outline/20">
+<div class="text-center md:text-left flex flex-col justify-center pt-8 md:pt-0 md:pl-0">
+<span class="font-display-xl text-display-xl text-secondary-container">40</span>
+<span class="font-label-caps text-label-caps uppercase text-on-primary-container/70 mt-2">Years of experience</span>
+</div>
+<div class="text-center md:text-left flex flex-col justify-center pt-8 md:pt-0 md:pl-12">
+<span class="font-display-xl text-display-xl text-secondary-container">1200+</span>
+<span class="font-label-caps text-label-caps uppercase text-on-primary-container/70 mt-2">Global experts</span>
+</div>
+<div class="text-center md:text-left flex flex-col justify-center pt-8 md:pt-0 md:pl-12">
+<span class="font-display-xl text-display-xl text-secondary-container">$4.2B</span>
+<span class="font-label-caps text-label-caps uppercase text-on-primary-container/70 mt-2">In value delivered</span>
+</div>
+</div>
+</section>
+<!-- Industries We Serve (Bento-inspired grid) -->
+<section class="py-section-padding px-8 bg-background">
+<div class="max-w-container-max mx-auto">
+<div class="mb-16">
+<h2 class="font-headline-lg text-headline-lg text-primary">Industries we serve</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-2xl">Specialized expertise tailored to highly regulated and complex global sectors.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[280px]">
+<!-- Tile 1 -->
+<a href="#" class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col justify-between hover:bg-surface-container hover:border-[#B38B3F] hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,37,64,0.25)] transition-all duration-300 group">
+<div class="flex justify-between items-start">
+<div class="w-14 h-14 rounded-full border border-outline-variant flex items-center justify-center text-[#B38B3F] group-hover:border-[#B38B3F] group-hover:bg-[#B38B3F]/10 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">account_balance</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant tabular-nums">— 01</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="font-headline-md text-headline-md text-primary">Finance</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">Tier-1 banking, capital markets, and post-IPO infrastructure for the world's largest balance sheets.</p>
+<div class="flex justify-between items-end pt-4 border-t border-outline-variant text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">14 mandates · 2024</span>
+<span class="font-label-caps text-label-caps uppercase text-secondary group-hover:text-primary transition-colors">View →</span>
+</div>
+</div>
+</a>
+<!-- Tile 2 -->
+<a href="#" class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col justify-between hover:bg-surface-container hover:border-[#B38B3F] hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,37,64,0.25)] transition-all duration-300 group">
+<div class="flex justify-between items-start">
+<div class="w-14 h-14 rounded-full border border-outline-variant flex items-center justify-center text-[#B38B3F] group-hover:border-[#B38B3F] group-hover:bg-[#B38B3F]/10 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">health_and_safety</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant tabular-nums">— 02</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="font-headline-md text-headline-md text-primary">Healthcare</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">EHR transformations, HIPAA &amp; HITECH-aligned cloud migrations, and clinical-research data spines.</p>
+<div class="flex justify-between items-end pt-4 border-t border-outline-variant text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">9 mandates · 2024</span>
+<span class="font-label-caps text-label-caps uppercase text-secondary group-hover:text-primary transition-colors">View →</span>
+</div>
+</div>
+</a>
+<!-- Tile 3 -->
+<a href="#" class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col justify-between hover:bg-surface-container hover:border-[#B38B3F] hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,37,64,0.25)] transition-all duration-300 group">
+<div class="flex justify-between items-start">
+<div class="w-14 h-14 rounded-full border border-outline-variant flex items-center justify-center text-[#B38B3F] group-hover:border-[#B38B3F] group-hover:bg-[#B38B3F]/10 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">account_balance_wallet</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant tabular-nums">— 03</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="font-headline-md text-headline-md text-primary">Government</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">Sovereign cloud, FedRAMP-aligned platforms, and 30-year legacy refactors for federal agencies.</p>
+<div class="flex justify-between items-end pt-4 border-t border-outline-variant text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">6 mandates · 2024</span>
+<span class="font-label-caps text-label-caps uppercase text-secondary group-hover:text-primary transition-colors">View →</span>
+</div>
+</div>
+</a>
+<!-- Tile 4 (wide) -->
+<a href="#" class="bg-primary text-on-primary border border-primary rounded-DEFAULT p-8 flex flex-col justify-between hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,37,64,0.4)] transition-all duration-300 group lg:col-span-2 relative overflow-hidden">
+<div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-secondary-container/15 blur-3xl pointer-events-none"></div>
+<div class="relative flex justify-between items-start">
+<div class="w-14 h-14 rounded-full border border-secondary-container/40 flex items-center justify-center text-secondary-container group-hover:bg-secondary-container/10 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">bolt</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container/80 tabular-nums">— 04 · Featured</span>
+</div>
+<div class="relative flex flex-col gap-3">
+<h3 class="font-headline-md text-headline-md text-on-primary">Energy</h3>
+<p class="font-body-md text-body-md text-on-primary/70 leading-snug max-w-2xl">Grid orchestration, SCADA modernisation, and the operational data fabric for renewables at gigawatt scale.</p>
+<div class="flex justify-between items-end pt-4 border-t border-on-primary/20 text-on-primary/70">
+<span class="font-label-caps text-label-caps uppercase">11 mandates · 2024 · 4 sovereign clients</span>
+<span class="font-label-caps text-label-caps uppercase text-secondary-container group-hover:text-on-primary transition-colors">View capabilities →</span>
+</div>
+</div>
+</a>
+<!-- Tile 5 -->
+<a href="#" class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col justify-between hover:bg-surface-container hover:border-[#B38B3F] hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,37,64,0.25)] transition-all duration-300 group">
+<div class="flex justify-between items-start">
+<div class="w-14 h-14 rounded-full border border-outline-variant flex items-center justify-center text-[#B38B3F] group-hover:border-[#B38B3F] group-hover:bg-[#B38B3F]/10 transition-colors">
+<span class="material-symbols-outlined text-3xl font-light">precision_manufacturing</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant tabular-nums">— 05</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="font-headline-md text-headline-md text-primary">Manufacturing</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-snug">Industry 4.0 floors, MES + ERP convergence, and the digital twin for plants that cannot stop.</p>
+<div class="flex justify-between items-end pt-4 border-t border-outline-variant text-on-surface-variant">
+<span class="font-label-caps text-label-caps uppercase">8 mandates · 2024</span>
+<span class="font-label-caps text-label-caps uppercase text-secondary group-hover:text-primary transition-colors">View →</span>
+</div>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Insights -->
+<section class="py-section-padding px-8 bg-surface border-t border-outline-variant">
+<div class="max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-16">
+<h2 class="font-headline-lg text-headline-lg text-primary">Latest Insights</h2>
+<a class="font-label-caps text-label-caps uppercase text-secondary hover:text-primary transition-colors hidden md:block" href="#">View all articles</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden group flex flex-col h-full">
+<div class="h-48 overflow-hidden bg-primary relative">
+<div class="absolute inset-0 bg-primary-container/20 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="" class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="Abstract macro photography of modern corporate architecture, steel beams and glass facade looking up, black and white with slight navy tint" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC47njF1q1vS8ce7Y36W1Sp2fwSkR4ZDPqOjNd40y0wQjcanWeE0pWxeoBQtmken_1xi3cESIUT06KJtm0p1BJ_uRWb0zMdrwjemScE8zdMTmVm2L24PdbjH8bDJ-8qXhbYrSO5rBUnuDvHSTZQ5Cj00sv34BPqK5QVMNBm5TYBLjaSxoEX9AiLQwatPaTOCFJkWfyDfdxd-CYZ4BdDwmvgDK2VVCgVFJZ-TgzNEudkuyea19f45unpfwX-jG9AbfkVBGnN8Puzdm0"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-secondary uppercase mb-4 block">Infrastructure</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">The Future of Legacy Systems in Financial Hubs</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-auto">An analysis of modernization strategies for tier-1 banking institutions.</p>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden group flex flex-col h-full">
+<div class="h-48 overflow-hidden bg-primary relative">
+<div class="absolute inset-0 bg-primary-container/20 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="" class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="Close up of enterprise server rack in data center, blinking lights, cold blue technical atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDig3E7JSS3x1r4AqVZih6vlVuxOv8s5x0v9NAoltIGVY9THHRkoG-nAaHEX-RjwlqjlQMBWQDjO_AEzb7MisYuKdvvIQQgQXTvi2srARFU6FCGuZLxs9bi7f0L87Ig2Ok5hvW_DdbxRKLhRklHHMA-aEfYF6dv0S9j2Po_IIowLfztb9LYsUm7cBYakUvGcL1kZQ56YCsCkubN2IlBqQwIUZSsJLMuwMllPDZljsuNbQM4Ld8_uHLPHuBTdhdgwTU2M5nT8a8PwH0"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-secondary uppercase mb-4 block">Data Governance</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Navigating Cross-Border Data Compliance in 2024</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-auto">Strategic frameworks for managing multi-national operational risk.</p>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden group flex flex-col h-full">
+<div class="h-48 overflow-hidden bg-primary relative">
+<div class="absolute inset-0 bg-primary-container/20 group-hover:bg-transparent transition-colors z-10"></div>
+<img alt="" class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="High angle view of shipping containers at night, industrial port, rigorous logistics infrastructure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG1BrIfZk4l8F2gbcR-7fQ3eHknPAT_gTYC3c0nsTpt2XA_HFYIKjfJ6aRQTUZFXA8M6roBQ0sdiah3xGWyonIMfMXGWFxavDzixGMkPMLOkGb7fcVLyYVAP-EAiPGjROGgPptKkM5-mtGKWNsuiqaGy_-uuMBs1PhjhGPinMbPoLN9DY97Hnh5fVBO99ARSRioFxr7SlW9T0kpWXrdA0ipRn2y5Vdve0OgLe91wGiyo-JQXamY2o_XKyJ1tVYSp5YIsfRnDKIWwA"/>
+</div>
+<div class="p-8 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-secondary uppercase mb-4 block">Logistics Tech</span>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Automating Global Supply Chain Verticals</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-auto">Evaluating the ROI of predictive routing technologies.</p>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- Approach — 4 movements -->
+<section class="py-section-padding px-8 bg-surface-container-lowest border-t border-outline-variant">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+<div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-[#B38B3F] mb-3 inline-block">— Our Approach</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">Four movements, one engagement.</h2>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md md:text-right">Refined across 38 institutional engagements. Every movement is iterative, evidence-led, and signed off jointly with the executive team.</p>
+</div>
+<ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<li class="border-t-2 border-primary pt-8 flex flex-col gap-4 group">
+<div class="flex justify-between items-baseline">
+<span class="font-display-xl text-[56px] leading-none text-[#B38B3F] tabular-nums italic">I</span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Wks 01–06</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Diagnose</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Six weeks of unscripted interviews across three organisational layers. We read the room before we read the org chart.</p>
+<span class="font-label-caps text-label-caps uppercase text-secondary mt-auto pt-4 border-t border-outline-variant group-hover:text-primary transition-colors">Listen → Map →</span>
+</li>
+<li class="border-t-2 border-primary pt-8 flex flex-col gap-4 group">
+<div class="flex justify-between items-baseline">
+<span class="font-display-xl text-[56px] leading-none text-[#B38B3F] tabular-nums italic">II</span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Wks 06–14</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Architect</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A target-state blueprint for the system, the data, and the people. Drafted with the executive team, never imposed on it.</p>
+<span class="font-label-caps text-label-caps uppercase text-secondary mt-auto pt-4 border-t border-outline-variant group-hover:text-primary transition-colors">Model → Decide →</span>
+</li>
+<li class="border-t-2 border-primary pt-8 flex flex-col gap-4 group">
+<div class="flex justify-between items-baseline">
+<span class="font-display-xl text-[56px] leading-none text-[#B38B3F] tabular-nums italic">III</span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Wks 14–22</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Deploy</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Phased rollout against falsifiable claims. Live telemetry against the kill criteria from movement II. No "big bang" cutovers.</p>
+<span class="font-label-caps text-label-caps uppercase text-secondary mt-auto pt-4 border-t border-outline-variant group-hover:text-primary transition-colors">Pilot → Scale →</span>
+</li>
+<li class="border-t-2 border-primary pt-8 flex flex-col gap-4 group">
+<div class="flex justify-between items-baseline">
+<span class="font-display-xl text-[56px] leading-none text-[#B38B3F] tabular-nums italic">IV</span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Wks 22–26</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Sustain</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">A maintenance protocol and a closed-form report. We withdraw at month nine. The institution owns the system, not us.</p>
+<span class="font-label-caps text-label-caps uppercase text-secondary mt-auto pt-4 border-t border-outline-variant group-hover:text-primary transition-colors">Hand-off → Withdraw →</span>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- Field Reports — image strip -->
+<section class="py-section-padding px-8 bg-primary text-on-primary">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+<div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container mb-3 inline-block">— Field Reports · Vol. 12</span>
+<h2 class="font-headline-lg text-headline-lg text-on-primary">From the operating floors.</h2>
+</div>
+<p class="font-body-lg text-body-lg text-on-primary/70 max-w-md md:text-right">Selected photographs from 2024 engagements. Buildings anonymised. Captured by our research desk during diagnostic visits.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-12 gap-4">
+<figure class="md:col-span-7 aspect-[4/3] md:aspect-auto md:h-full relative overflow-hidden rounded-DEFAULT border border-white/15 bg-primary-container group">
+<img alt="Concrete facade of a financial-district headquarters" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div>
+<span class="block font-label-caps text-label-caps uppercase text-secondary-container">FIELD · 46</span>
+<span class="block font-headline-md text-xl text-on-primary mt-1">Headquarters · Frankfurt</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container font-label-caps text-label-caps uppercase px-2 py-1 rounded-DEFAULT">Q2 · 2024</span>
+</figcaption>
+</figure>
+<figure class="md:col-span-5 aspect-[4/3] md:aspect-[3/4] relative overflow-hidden rounded-DEFAULT border border-white/15 bg-primary-container group"><img alt="High-rise tower against a stark sky" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4">
+<span class="block font-label-caps text-label-caps uppercase text-secondary-container">FIELD · 47</span>
+<span class="block font-headline-md text-xl text-on-primary mt-1">Tower · Singapore</span>
+</figcaption>
+</figure>
+<figure class="md:col-span-4 aspect-square relative overflow-hidden rounded-DEFAULT border border-white/15 bg-primary-container group"><img alt="Server-rack interior, blinking status LEDs" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4">
+<span class="block font-label-caps text-label-caps uppercase text-secondary-container">FIELD · 48</span>
+<span class="block font-headline-md text-base text-on-primary mt-1">Data centre · Dublin</span>
+</figcaption>
+</figure>
+<figure class="md:col-span-4 aspect-square relative overflow-hidden rounded-DEFAULT border border-white/15 bg-primary-container group"><img alt="Wide industrial server-room shot" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4">
+<span class="block font-label-caps text-label-caps uppercase text-secondary-container">FIELD · 49</span>
+<span class="block font-headline-md text-base text-on-primary mt-1">Operations floor · Zürich</span>
+</figcaption>
+</figure>
+<figure class="md:col-span-4 aspect-square relative overflow-hidden rounded-DEFAULT border border-white/15 bg-primary-container group"><img alt="Architectural detail of cantilever roofline" class="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent"></div>
+<figcaption class="absolute bottom-4 left-4 right-4">
+<span class="block font-label-caps text-label-caps uppercase text-secondary-container">FIELD · 50</span>
+<span class="block font-headline-md text-base text-on-primary mt-1">Civic block · Brussels</span>
+</figcaption>
+</figure>
+</div>
+<p class="mt-8 font-label-caps text-label-caps uppercase text-on-primary/50 tracking-widest text-center">— Photographs · Research Desk · Field Notes Vols. III–VII —</p>
+</div>
+</section>
+
+<!-- Client Voices — testimonials -->
+<section class="py-section-padding px-8 bg-surface border-t border-outline-variant">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+<div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-[#B38B3F] mb-3 inline-block">— Client Voices</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">In their own words.</h2>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md md:text-right">Comments from senior leadership of institutions we have worked with. Names withheld by mutual NDA; titles and sectors confirmed.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<figure class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col gap-6 hover:border-[#B38B3F] transition-colors">
+<span class="font-display-xl text-5xl leading-none text-[#B38B3F]">"</span>
+<blockquote class="font-headline-md text-xl text-primary italic leading-snug">Six months in, the matrix that was paralysing our European operations had quietly disappeared. They never asked for credit.</blockquote>
+<figcaption class="mt-auto pt-6 border-t border-outline-variant flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md font-semibold">CG</div>
+<div>
+<p class="font-headline-md text-base text-primary leading-tight">Group Chief Operating Officer</p>
+<p class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest mt-1">Logistics · 2023</p>
+</div>
+</figcaption>
+</figure>
+<figure class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col gap-6 hover:border-[#B38B3F] transition-colors md:-translate-y-3">
+<span class="font-display-xl text-5xl leading-none text-[#B38B3F]">"</span>
+<blockquote class="font-headline-md text-xl text-primary italic leading-snug">The first consultancy we have hired that left us with fewer slides and more functioning systems. We brought them back twice.</blockquote>
+<figcaption class="mt-auto pt-6 border-t border-outline-variant flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md font-semibold">RA</div>
+<div>
+<p class="font-headline-md text-base text-primary leading-tight">Chief Information Officer</p>
+<p class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest mt-1">Tier-1 Bank · 2024</p>
+</div>
+</figcaption>
+</figure>
+<figure class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col gap-6 hover:border-[#B38B3F] transition-colors">
+<span class="font-display-xl text-5xl leading-none text-[#B38B3F]">"</span>
+<blockquote class="font-headline-md text-xl text-primary italic leading-snug">A team that took the time to understand the politics, then refused to play any. The intervention paid for itself in eleven months.</blockquote>
+<figcaption class="mt-auto pt-6 border-t border-outline-variant flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-md font-semibold">EM</div>
+<div>
+<p class="font-headline-md text-base text-primary leading-tight">Director of Strategy</p>
+<p class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest mt-1">Energy · 2024</p>
+</div>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-[#F7F7F8] full-width border-t border-[#E1E6EB] py-20 text-[#0A2540]">
+<div class="max-w-container-max mx-auto px-8 w-full">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<!-- Brand / Copyright Column -->
+<div class="md:col-span-1 flex flex-col justify-between">
+<div>
+<span class="text-lg font-headline-md font-bold text-[#0A2540]">MERIDIAN GROUP</span>
+</div>
+<div class="mt-8 font-body-md text-slate-600">
+<p>© 2024 Meridian Group.</p>
+<p>Global Infrastructure &amp; Strategic Consulting.</p>
+</div>
+</div>
+<!-- Links Column 1 -->
+<div>
+<h4 class="font-headline-md text-lg mb-6 text-[#0A2540]">Offices</h4>
+<ul class="space-y-4 font-body-md text-slate-600">
+<li><a class="hover:text-[#0A2540] underline underline-offset-4 transition-colors" href="#">London Office</a></li>
+<li><a class="hover:text-[#0A2540] underline underline-offset-4 transition-colors" href="#">New York Office</a></li>
+<li><a class="hover:text-[#0A2540] underline underline-offset-4 transition-colors" href="#">Singapore Office</a></li>
+</ul>
+</div>
+<!-- Links Column 2 -->
+<div>
+<h4 class="font-headline-md text-lg mb-6 text-[#0A2540]">Legal</h4>
+<ul class="space-y-4 font-body-md text-slate-600">
+<li><a class="hover:text-[#0A2540] underline underline-offset-4 transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-[#0A2540] underline underline-offset-4 transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<!-- Links Column 3 -->
+<div>
+<h4 class="font-headline-md text-lg mb-6 text-[#0A2540]">Connect</h4>
+<ul class="space-y-4 font-body-md text-slate-600">
+<li><a class="hover:text-[#0A2540] underline underline-offset-4 transition-colors" href="#">LinkedIn</a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lyra House | Boutique Hotel Dublin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Noto+Serif:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed": "#e9e2d0",
+                        "on-tertiary-fixed-variant": "#5f4100",
+                        "tertiary-fixed-dim": "#ecc074",
+                        "outline": "#727974",
+                        "inverse-primary": "#adcebe",
+                        "surface-container": "#efeded",
+                        "primary-fixed-dim": "#adcebe",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ccc6b5",
+                        "on-tertiary-fixed": "#271900",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#153328",
+                        "on-background": "#1b1c1c",
+                        "surface": "#fbf9f8",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#eae8e7",
+                        "surface-tint": "#466558",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-surface-variant": "#414845",
+                        "on-secondary-fixed": "#1e1c11",
+                        "surface-dim": "#dbd9d9",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary-fixed": "#012016",
+                        "secondary-container": "#e9e2d0",
+                        "inverse-surface": "#303030",
+                        "tertiary": "#3f2a00",
+                        "error": "#ba1a1a",
+                        "secondary": "#625e50",
+                        "on-tertiary-container": "#d6ab62",
+                        "tertiary-fixed": "#ffdeaa",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary-fixed-variant": "#4a473a",
+                        "primary-fixed": "#c8eada",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fbf9f8",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#2f4d41",
+                        "on-primary-container": "#98b9a9",
+                        "primary-container": "#2c4a3e",
+                        "tertiary-container": "#5c3f00",
+                        "on-secondary-container": "#686456",
+                        "surface-container-highest": "#e4e2e2",
+                        "outline-variant": "#c1c8c3",
+                        "surface-bright": "#fbf9f8"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        gutter: "24px",
+                        "container-max": "1440px",
+                        "section-gap": "120px",
+                        "margin-edge": "80px",
+                        unit: "8px"
+                    },
+                    fontFamily: {
+                        h1: ["Noto Serif"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        h2: ["Noto Serif"],
+                        h3: ["Noto Serif"],
+                        "body-md": ["Inter"],
+                        display: ["Noto Serif"]
+                    },
+                    fontSize: {
+                        h1: ["48px", { lineHeight: "1.2", fontWeight: "400" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "label-caps": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "500" }],
+                        h2: ["32px", { lineHeight: "1.3", fontWeight: "400" }],
+                        h3: ["24px", { lineHeight: "1.4", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        display: ["80px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" }]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 w-full z-50 bg-stone-50/95 dark:bg-stone-950/95 backdrop-blur-sm border-b border-stone-200 dark:border-stone-800 hidden md:block slow-fade opacity-100">
+<div class="flex justify-between items-center w-full max-w-[1440px] mx-auto px-20 py-6">
+<nav class="flex-1 flex gap-8">
+<a class="font-serif text-stone-900 dark:text-stone-100 uppercase tracking-[0.2em] text-[10px] hover:text-[#2C4A3E] dark:hover:text-stone-200 transition-colors duration-500 text-stone-500 dark:text-stone-400" href="#">Rooms</a>
+<a class="font-serif text-stone-900 dark:text-stone-100 uppercase tracking-[0.2em] text-[10px] hover:text-[#2C4A3E] dark:hover:text-stone-200 transition-colors duration-500 text-stone-500 dark:text-stone-400" href="#">Restaurant</a>
+</nav>
+<div class="flex-shrink-0 text-center">
+<h1 class="text-2xl font-serif tracking-tighter text-[#2C4A3E] dark:text-stone-100 font-bold">Lyra House</h1>
+</div>
+<div class="flex-1 flex justify-end items-center gap-8">
+<a class="font-serif text-stone-900 dark:text-stone-100 uppercase tracking-[0.2em] text-[10px] hover:text-[#2C4A3E] dark:hover:text-stone-200 transition-colors duration-500 text-stone-500 dark:text-stone-400" href="#">Stay</a>
+<a class="font-serif text-stone-900 dark:text-stone-100 uppercase tracking-[0.2em] text-[10px] hover:text-[#2C4A3E] dark:hover:text-stone-200 transition-colors duration-500 text-stone-500 dark:text-stone-400" href="#">Guide</a>
+<button class="font-label-caps text-label-caps bg-primary text-on-primary px-6 py-3 border border-transparent hover:bg-primary/90 transition-colors">
+                Book
+            </button>
+</div>
+</div>
+</header>
+<!-- BottomNavBar (Mobile) -->
+<nav class="bg-[#2C4A3E] dark:bg-stone-900 fixed bottom-0 w-full flex justify-around items-center px-4 py-4 md:hidden docked full-width bottom-0 z-50">
+<a class="flex flex-col items-center gap-1 font-serif uppercase tracking-widest text-[9px] text-white/60 pt-2 bg-white/10 scale-98 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="bed">bed</span>
+            Rooms
+        </a>
+<a class="flex flex-col items-center gap-1 font-serif uppercase tracking-widest text-[9px] text-white/60 pt-2 bg-white/10 scale-98 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+            Restaurant
+        </a>
+<a class="flex flex-col items-center gap-1 font-serif uppercase tracking-widest text-[9px] text-white/60 pt-2 bg-white/10 scale-98 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+            Guide
+        </a>
+<a class="flex flex-col items-center gap-1 font-serif uppercase tracking-widest text-[9px] text-white/60 pt-2 bg-white/10 scale-98 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+            Book Now
+        </a>
+</nav>
+<!-- Hero Section -->
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-stone-900">
+<img alt="" class="w-full h-full object-cover opacity-80 mix-blend-overlay" data-alt="luxurious moody hotel room interior at dusk with warm lamp light illuminating rich textured fabrics and elegant dark wood furniture in a georgian townhouse setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAazRGO1IKbNRqrV9d73KA6mHQF-IBAA9q-7adenpHmEkrJpGmRvLnpz2VcHlmBeEJ87YJ4U7NnWN_XQWxUgONYK0E9d5A8geMojJSau9l1Pr3sdG8M36FxOj5lHseEcB_m1EP0iXuIDk0x7m-j0r1T3A8s3k1EQZyCOWX1rYc07rashwDPCpl4e-AxLwwNvbu0yU0f3cSEQpmTxkGoJWk6wCsx6zuedy8LAFbnKLAJAcRQf115KcFPatxhwlhVqq-Wewji_bDqfYk"/>
+</div>
+<div class="relative z-10 text-center max-w-4xl px-4 flex flex-col items-center">
+<h1 class="font-display text-display text-white mb-6 tracking-tight">Lyra House</h1>
+<p class="font-h3 text-h3 text-stone-200 italic max-w-2xl mx-auto leading-relaxed">
+                Fourteen rooms. One Georgian house. Dublin.
+            </p>
+</div>
+<!-- Floating Booking Widget -->
+<div class="absolute bottom-20 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 md:px-0 z-20 hidden md:block">
+<div class="bg-surface/95 backdrop-blur-md p-4 border border-outline-variant flex flex-col md:flex-row gap-4 items-end shadow-2xl">
+<div class="flex-1 w-full">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Check In</label>
+<div class="border-b border-primary pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="calendar_today">calendar_today</span>
+<span class="font-body-md text-body-md text-on-surface">Select Date</span>
+</div>
+</div>
+<div class="flex-1 w-full">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Check Out</label>
+<div class="border-b border-primary pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="calendar_today">calendar_today</span>
+<span class="font-body-md text-body-md text-on-surface">Select Date</span>
+</div>
+</div>
+<div class="flex-1 w-full">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Guests</label>
+<div class="border-b border-primary pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+<span class="font-body-md text-body-md text-on-surface">2 Adults</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 whitespace-nowrap hover:bg-primary/90 transition-colors w-full md:w-auto">
+                    Check Availability
+                </button>
+</div>
+</div>
+</section>
+<main class="max-w-container-max mx-auto px-6 md:px-margin-edge py-section-gap space-y-section-gap">
+<!-- Divider -->
+<div class="flex items-center justify-center relative w-full h-[1px] bg-tertiary-fixed-dim/30">
+<div class="absolute bg-background px-4 font-serif text-tertiary-fixed-dim italic text-lg">L</div>
+</div>
+<!-- Rooms Section -->
+<section class="grid grid-cols-12 gap-gutter">
+<!-- Three-band layout with justify-between so the heading sits at image-top,
+     checklist anchors the middle, and the stat strip + CTA align with image-
+     bottom. Replaces the previous justify-center which floated everything
+     in the middle and left visible blank space at the top and bottom. -->
+<div class="col-span-12 md:col-span-4 flex flex-col justify-between gap-10">
+
+<!-- TOP — aligned with top of image grid -->
+<div>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim mb-3 tracking-[0.2em] block">— II · The Rooms</span>
+<h2 class="font-h2 text-h2 text-primary mb-6">Fourteen, all<br><em class="italic">distinct.</em></h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                    Each of our fourteen rooms is uniquely proportioned, respecting the original architecture of the Georgian house while offering quiet, modern comfort.
+                </p>
+</div>
+
+<!-- MIDDLE — amenity checklist -->
+<ul class="space-y-3 max-w-sm">
+<li class="flex items-start gap-3 font-body-md text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>King beds with Egyptian cotton linen, weighted throws</span>
+</li>
+<li class="flex items-start gap-3 font-body-md text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>En-suite marble baths · full Aesop amenity range</span>
+</li>
+<li class="flex items-start gap-3 font-body-md text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Original Georgian sash windows, hand-restored</span>
+</li>
+<li class="flex items-start gap-3 font-body-md text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Curated mini-bar · Irish whiskey, Lyra-blend tea</span>
+</li>
+<li class="flex items-start gap-3 font-body-md text-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Slow breakfast included · daily, until 11am</span>
+</li>
+</ul>
+
+<!-- BOTTOM — stat strip + CTA, aligned with image-grid bottom -->
+<div>
+<div class="grid grid-cols-3 gap-4 max-w-sm border-t border-tertiary-fixed-dim/30 pt-6 mb-8">
+<div>
+<div class="font-h3 text-h3 text-primary tabular-nums">14</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.15em] mt-1 font-medium">Rooms</p>
+</div>
+<div>
+<div class="font-h3 text-h3 text-primary tabular-nums">28–65</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.15em] mt-1 font-medium">m² · range</p>
+</div>
+<div>
+<div class="font-h3 text-h3 text-primary tabular-nums">€280+</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.15em] mt-1 font-medium">Per night</p>
+</div>
+</div>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1 self-start inline-flex items-center gap-2 hover:opacity-70 transition-opacity" href="#">
+                    View All Rooms <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="col-span-12 md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Room Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-square mb-4 overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="minimalist elegant hotel bedroom with crisp white linens a simple dark wood headboard and soft natural light filtering through a window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW1pxqc480VrxxwX9PIajA6CvaEMYNV5SuDlYyuX7kDBXy7hUNIkDwDRAAZKOVnkarwMtwtg63ByRF9vOB6Z5yF1ukqaVX90FI1Rbvj2IuRQym8L8H6hLW1S1A-rVFnv0-PXrAalcJoQHLt64K-fOtQ6Gmt-5OlE-kLFcmDMMbn9atE-oipwxd_0YnN6nQox0B1261LF4i8GDChNlla-Wnz5Fvc09rfSBuF8DgWsNWIatSDSZBtbVmzdazJnKWO6paxC7-LJ6WE-w"/>
+</div>
+<div class="flex justify-between items-baseline border-b border-outline-variant/30 pb-2">
+<h3 class="font-h3 text-h3 text-on-surface">The Mews</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">From €280</span>
+</div>
+</div>
+<!-- Room Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-square mb-4 overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="detail shot of luxurious hotel room featuring an emerald green velvet armchair beside a classic georgian window with heavy cream drapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgiQhw7p90nEsKGChRmxO9MqrBKxqXLaOX4J5JQGY6Srbn-zQH0pbswF7zaGC9t9n_967teI3G-dQ0eXUiRr30TsCyrYLL6-nXMTI-kSCcS45_JpPIp_pt2EemTb1JS6LFb8t2_ONAvqDRbz3NIcowSquELv29g7IKSK4fU42swL40oLGctUeQPe1MLIxR9VgHgNo7Qb_lkrObEc9mTO1YSCUsqmLIYZAIF3rgzhkQv32q0zFFaF_Yl9TDqKfawA5q0HAfZYJPl7g"/>
+</div>
+<div class="flex justify-between items-baseline border-b border-outline-variant/30 pb-2">
+<h3 class="font-h3 text-h3 text-on-surface">Classic King</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">From €340</span>
+</div>
+</div>
+<!-- Room Card 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-square mb-4 overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="spacious heritage hotel suite with tall ceilings ornate cornicing a four poster bed and rich burgundy accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5FMpE9n7uPXUT7ZvUheAHi4PDH_WCjplTOysu_JMgWEPWS6fq-Xh6WuVfeUvvz7yleiAu63o4KucLb7fpG7XTU_XoSRS9ux_GYL6957wEu3fmP4TKTvLsWeZV5eJBax97GfFikBzQgM9WbXB7zc6sQk8UO6GauQCNa5kfCfX7dZVwZ6AuSmrOVqrxoEtA3Kc6sBslA7V9sr9cGfrhlpNOpe71A_QWUFfXgo7q4GZr43y7tWTA8Ub7T-gpOy2msE4pDNrP127tODA"/>
+</div>
+<div class="flex justify-between items-baseline border-b border-outline-variant/30 pb-2">
+<h3 class="font-h3 text-h3 text-on-surface">Heritage Suite</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">From €450</span>
+</div>
+</div>
+<!-- Room Card 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-square mb-4 overflow-hidden bg-surface-container-high border border-outline-variant/30">
+<img alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="luxurious freestanding roll top bathtub in an elegant hotel bathroom with marble floors and brass fixtures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT3Ht1QzFa1H_HLPQt3eu392BppgRuJcNywqJWaDAaM3SQquRgd69VCtWPVG_O4lq5o8ta2gw7YCBAOivk8b7pLcIaEoOHwdgn_SBG3eMf8_b69EYCwKJJPcES4kh0RTQC2WYzQYG_DfkshggGzIeNS3Hwo5Z7M6KncEYKf3q-DmKcOknl0M8mwBrLAv4dxvS4KNHM3vgDYk0nAQVVF3ayWnWPCNSvpjNeRhHXM9BvRJuh1I_w8ekpCWoYYFFq_bXSlTwDYbAzOEo"/>
+</div>
+<div class="flex justify-between items-baseline border-b border-outline-variant/30 pb-2">
+<h3 class="font-h3 text-h3 text-on-surface">The Townhouse Suite</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant">From €600</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Divider -->
+<div class="flex items-center justify-center relative w-full h-[1px] bg-tertiary-fixed-dim/30">
+<div class="absolute bg-background px-4 font-serif text-tertiary-fixed-dim italic text-lg">L</div>
+</div>
+
+<!-- ============================== -->
+<!-- LOOKBOOK / IMAGE GALLERY (PURE IMAGES) -->
+<!-- ============================== -->
+<section class="space-y-8">
+<div class="flex justify-between items-end">
+<div>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim block mb-3 tracking-[0.2em]">— III · Lookbook</span>
+<h2 class="font-h2 text-h2 text-primary">Atmosphere, in fragments.</h2>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant hidden md:inline">Photographs · House · Spring 2024</span>
+</div>
+
+<!-- 12-col mixed image grid: 7+5 row, then 4+4+4 row, then full-width strip -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Row 1: large 7 + tall 5 -->
+<figure class="col-span-12 md:col-span-7 aspect-[4/3] overflow-hidden bg-surface-container-high border border-outline-variant/30 group relative">
+<img alt="Light filtering through Georgian sash windows onto a brass bed" class="w-full h-full object-cover grayscale-[15%] transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAazRGO1IKbNRqrV9d73KA6mHQF-IBAA9q-7adenpHmEkrJpGmRvLnpz2VcHlmBeEJ87YJ4U7NnWN_XQWxUgONYK0E9d5A8geMojJSau9l1Pr3sdG8M36FxOj5lHseEcB_m1EP0iXuIDk0x7m-j0r1T3A8s3k1EQZyCOWX1rYc07rashwDPCpl4e-AxLwwNvbu0yU0f3cSEQpmTxkGoJWk6wCsx6zuedy8LAFbnKLAJAcRQf115KcFPatxhwlhVqq-Wewji_bDqfYk"/>
+<figcaption class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur-sm px-3 py-1 font-label-caps text-label-caps uppercase text-primary tracking-widest">Plate · No. 04 · Morning Light</figcaption>
+</figure>
+<figure class="col-span-12 md:col-span-5 aspect-[4/3] md:aspect-auto overflow-hidden bg-surface-container-high border border-outline-variant/30 group relative">
+<img alt="Roll-top bath in marble bathroom with brass fixtures" class="w-full h-full object-cover grayscale-[15%] transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT3Ht1QzFa1H_HLPQt3eu392BppgRuJcNywqJWaDAaM3SQquRgd69VCtWPVG_O4lq5o8ta2gw7YCBAOivk8b7pLcIaEoOHwdgn_SBG3eMf8_b69EYCwKJJPcES4kh0RTQC2WYzQYG_DfkshggGzIeNS3Hwo5Z7M6KncEYKf3q-DmKcOknl0M8mwBrLAv4dxvS4KNHM3vgDYk0nAQVVF3ayWnWPCNSvpjNeRhHXM9BvRJuh1I_w8ekpCWoYYFFq_bXSlTwDYbAzOEo"/>
+<figcaption class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur-sm px-3 py-1 font-label-caps text-label-caps uppercase text-primary tracking-widest">Plate · No. 11 · The Bath</figcaption>
+</figure>
+
+<!-- Row 2: 4+4+4 equal -->
+<figure class="col-span-12 md:col-span-4 aspect-square overflow-hidden bg-surface-container-high border border-outline-variant/30 group relative">
+<img alt="Cream Georgian drapes against an emerald velvet armchair" class="w-full h-full object-cover grayscale-[20%] transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgiQhw7p90nEsKGChRmxO9MqrBKxqXLaOX4J5JQGY6Srbn-zQH0pbswF7zaGC9t9n_967teI3G-dQ0eXUiRr30TsCyrYLL6-nXMTI-kSCcS45_JpPIp_pt2EemTb1JS6LFb8t2_ONAvqDRbz3NIcowSquELv29g7IKSK4fU42swL40oLGctUeQPe1MLIxR9VgHgNo7Qb_lkrObEc9mTO1YSCUsqmLIYZAIF3rgzhkQv32q0zFFaF_Yl9TDqKfawA5q0HAfZYJPl7g"/>
+<figcaption class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur-sm px-3 py-1 font-label-caps text-label-caps uppercase text-primary tracking-widest">No. 17 · The Armchair</figcaption>
+</figure>
+<figure class="col-span-12 md:col-span-4 aspect-square overflow-hidden bg-surface-container-high border border-outline-variant/30 group relative">
+<img alt="Detail of crisp white linen and dark wood headboard" class="w-full h-full object-cover grayscale-[20%] transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW1pxqc480VrxxwX9PIajA6CvaEMYNV5SuDlYyuX7kDBXy7hUNIkDwDRAAZKOVnkarwMtwtg63ByRF9vOB6Z5yF1ukqaVX90FI1Rbvj2IuRQym8L8H6hLW1S1A-rVFnv0-PXrAalcJoQHLt64K-fOtQ6Gmt-5OlE-kLFcmDMMbn9atE-oipwxd_0YnN6nQox0B1261LF4i8GDChNlla-Wnz5Fvc09rfSBuF8DgWsNWIatSDSZBtbVmzdazJnKWO6paxC7-LJ6WE-w"/>
+<figcaption class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur-sm px-3 py-1 font-label-caps text-label-caps uppercase text-primary tracking-widest">No. 22 · Linen</figcaption>
+</figure>
+<figure class="col-span-12 md:col-span-4 aspect-square overflow-hidden bg-surface-container-high border border-outline-variant/30 group relative">
+<img alt="Heritage suite with ornate cornicing and burgundy accents" class="w-full h-full object-cover grayscale-[20%] transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5FMpE9n7uPXUT7ZvUheAHi4PDH_WCjplTOysu_JMgWEPWS6fq-Xh6WuVfeUvvz7yleiAu63o4KucLb7fpG7XTU_XoSRS9ux_GYL6957wEu3fmP4TKTvLsWeZV5eJBax97GfFikBzQgM9WbXB7zc6sQk8UO6GauQCNa5kfCfX7dZVwZ6AuSmrOVqrxoEtA3Kc6sBslA7V9sr9cGfrhlpNOpe71A_QWUFfXgo7q4GZr43y7tWTA8Ub7T-gpOy2msE4pDNrP127tODA"/>
+<figcaption class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur-sm px-3 py-1 font-label-caps text-label-caps uppercase text-primary tracking-widest">No. 28 · Cornicing</figcaption>
+</figure>
+
+<!-- Row 3: full-width hero strip -->
+<figure class="col-span-12 aspect-[21/9] overflow-hidden bg-surface-container-high border border-outline-variant/30 group relative">
+<img alt="Atmospheric dining room at dusk with brass pendants" class="w-full h-full object-cover grayscale-[15%] transition-transform duration-1000 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACljAmHvZ19zHiFKJeOgqHnLPtWhPkdHsWqIn4hwbs9taGNHrX7X_HkzVNhNOdbG9oKJSvCIQgW_R7PQqELLiAbatmqynix7preRuZisrNPCd53JbqvlxXvgw7isalPF46-ySqs54P5-tUOD5AsfqaMmcyFBWc7qa9vL_VWkO68ja_khVM60XU3CMNebcWENyPAsHFw4a8eLHx17y75iwS_1b2IGm0uIxe08iFaoxiRNzRYtfTgusO0fLoSr21h47UzuNvpW-L17s"/>
+<figcaption class="absolute bottom-4 left-4 bg-surface/90 backdrop-blur-sm px-3 py-1 font-label-caps text-label-caps uppercase text-primary tracking-widest">No. 31 · The Dining Room at Dusk</figcaption>
+</figure>
+</div>
+</section>
+
+<!-- Divider -->
+<div class="flex items-center justify-center relative w-full h-[1px] bg-tertiary-fixed-dim/30">
+<div class="absolute bg-background px-4 font-serif text-tertiary-fixed-dim italic text-lg">L</div>
+</div>
+
+<!-- The Restaurant -->
+<section class="grid grid-cols-12 gap-gutter items-center">
+<div class="col-span-12 md:col-span-7 order-2 md:order-1">
+<div class="aspect-[4/3] bg-surface-container-high border border-outline-variant/30 overflow-hidden">
+<img alt="" class="w-full h-full object-cover" data-alt="elegant intimate restaurant dining room with dark wood tables soft ambient lighting from modern brass pendants and moody forest green walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACljAmHvZ19zHiFKJeOgqHnLPtWhPkdHsWqIn4hwbs9taGNHrX7X_HkzVNhNOdbG9oKJSvCIQgW_R7PQqELLiAbatmqynix7preRuZisrNPCd53JbqvlxXvgw7isalPF46-ySqs54P5-tUOD5AsfqaMmcyFBWc7qa9vL_VWkO68ja_khVM60XU3CMNebcWENyPAsHFw4a8eLHx17y75iwS_1b2IGm0uIxe08iFaoxiRNzRYtfTgusO0fLoSr21h47UzuNvpW-L17s"/>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 md:col-start-9 order-1 md:order-2 mb-12 md:mb-0">
+<h2 class="font-h1 text-h1 text-primary mb-6">The Restaurant</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 leading-relaxed">
+                    Situated on the ground floor, our dining room focuses on honest, seasonal Irish produce prepared with quiet precision. A place for lingering breakfasts and atmospheric dinners.
+                </p>
+<a class="inline-block px-8 py-3 border border-tertiary-fixed-dim text-primary font-label-caps text-label-caps hover:bg-surface-container transition-colors" href="#">
+                    View Menus
+                </a>
+</div>
+</section>
+
+<!-- Divider -->
+<div class="flex items-center justify-center relative w-full h-[1px] bg-tertiary-fixed-dim/30">
+<div class="absolute bg-background px-4 font-serif text-tertiary-fixed-dim italic text-lg">L</div>
+</div>
+
+<!-- ============================== -->
+<!-- THE STORY / HERITAGE — Georgian house origins -->
+<!-- ============================== -->
+<section class="grid grid-cols-12 gap-gutter items-stretch">
+
+<!-- LEFT COLUMN — three-band layout with justify-between so heading sits
+     at image-top, stats anchor the middle, and the founders' quote drops
+     to image-bottom. Chapter mark adds a super-eyebrow that aligns with
+     the very top of the right-side images. -->
+<div class="col-span-12 md:col-span-5 flex flex-col justify-between order-2 md:order-1 gap-10">
+
+<!-- TOP — chapter mark + eyebrow + heading + body (aligns with images top) -->
+<div>
+<!-- Big italic chapter mark with horizontal rule -->
+<div class="flex items-center gap-4 mb-6">
+<span class="font-h1 text-[60px] md:text-[80px] text-tertiary-fixed-dim italic font-thin leading-none">V</span>
+<div class="flex-1 h-px bg-tertiary-fixed-dim/40"></div>
+<span class="font-label-caps text-[10px] uppercase tracking-[0.3em] text-on-surface-variant whitespace-nowrap">Chapter Five · Heritage</span>
+</div>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim mb-3 tracking-[0.2em] block">— The House</span>
+<h2 class="font-h2 text-h2 text-primary mb-6">A Georgian house,<br>kept <em class="italic">quietly.</em></h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-5 leading-relaxed">
+                    Number 17 was built in 1796 as a private residence for a Dublin merchant. It became boarding rooms in the 1930s, then sat shuttered for two decades. We took possession in the autumn of 2018 and spent three years on the restoration.
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Every cornice, fanlight, and original floorboard has been preserved or carefully reinstated. What is new — the linens, the brass, the kitchen — has been chosen to sit easily beside what is old.
+                </p>
+</div>
+
+<!-- MIDDLE — heritage timeline -->
+<div class="grid grid-cols-3 gap-px bg-tertiary-fixed-dim/20 border border-tertiary-fixed-dim/30 max-w-md">
+<div class="bg-background px-5 py-4">
+<div class="font-h3 text-h3 text-primary tabular-nums">1796</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.15em] mt-1 font-medium">Built</p>
+</div>
+<div class="bg-background px-5 py-4">
+<div class="font-h3 text-h3 text-primary tabular-nums">2018</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.15em] mt-1 font-medium">Acquired</p>
+</div>
+<div class="bg-background px-5 py-4">
+<div class="font-h3 text-h3 text-primary tabular-nums">2021</div>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-[0.15em] mt-1 font-medium">Restored</p>
+</div>
+</div>
+
+<!-- BOTTOM — founders' quote, drops to align with bottom of right-column 4th tile -->
+<figure class="border-l-2 border-tertiary-fixed-dim pl-5 max-w-md">
+<blockquote class="font-h3 text-lg italic text-on-surface leading-relaxed mb-2">"We didn't want to make it into a hotel. We wanted to make it a house that takes guests."</blockquote>
+<figcaption class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.2em]">— Eimear &amp; Conor Walsh, Founders</figcaption>
+</figure>
+</div>
+
+<!-- RIGHT COLUMN — 2×2 grid, 4 tiles. Top row: 2 tall (Frontispiece + new
+     Restoration card). Bottom row: 2 squares (Cornice detail + Protected
+     Houses card). Both columns same height; balances against left column. -->
+<div class="col-span-12 md:col-span-7 order-1 md:order-2 grid grid-cols-2 gap-gutter">
+
+<!-- 1 · Frontispiece (existing) -->
+<figure class="aspect-[3/4] overflow-hidden bg-surface-container-high border border-outline-variant/30 relative">
+<img alt="Front facade of the Georgian townhouse" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute top-0 left-0 bg-background border-r border-b border-outline-variant px-3 py-2">
+<span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Frontispiece</span>
+</div>
+<div class="absolute bottom-0 right-0 bg-background border-l border-t border-outline-variant px-3 py-2">
+<span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">No. 17</span>
+</div>
+</figure>
+
+<!-- 2 · NEW Restoration card (tall, primary bg matching the Protected Houses card) -->
+<figure class="aspect-[3/4] overflow-hidden bg-primary-container text-on-primary border border-outline-variant/30 relative flex flex-col justify-between p-6">
+<!-- Decorative concentric arcs -->
+<div class="absolute -top-12 -right-12 w-40 h-40 rounded-full border border-tertiary-fixed-dim/30 pointer-events-none"></div>
+<div class="absolute -top-6 -right-6 w-32 h-32 rounded-full border border-tertiary-fixed-dim/20 pointer-events-none"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[36px]" style="font-variation-settings: 'FILL' 0;">restore</span>
+<p class="font-label-caps text-[10px] uppercase tracking-[0.25em] text-tertiary-fixed-dim mt-2">— The Restoration</p>
+</div>
+<div class="relative z-10">
+<p class="font-h3 text-2xl tracking-tight leading-tight mb-3">1,202 days<br>of careful<br>reinstatement.</p>
+<div class="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-tertiary-fixed-dim/30">
+<div>
+<p class="font-h3 text-2xl tabular-nums leading-none">47</p>
+<p class="text-[9px] uppercase tracking-[0.2em] text-tertiary-fixed-dim mt-1">Craftspeople</p>
+</div>
+<div>
+<p class="font-h3 text-2xl tabular-nums leading-none">2018–21</p>
+<p class="text-[9px] uppercase tracking-[0.2em] text-tertiary-fixed-dim mt-1">Period</p>
+</div>
+</div>
+</div>
+</figure>
+
+<!-- 3 · Cornice detail (existing) -->
+<figure class="aspect-square overflow-hidden bg-surface-container-high border border-outline-variant/30 relative">
+<img alt="Original 18th-century cornicing" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute top-0 left-0 bg-background border-r border-b border-outline-variant px-3 py-2">
+<span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Detail · Cornice</span>
+</div>
+</figure>
+
+<!-- 4 · Protected Houses card (existing) -->
+<figure class="aspect-square overflow-hidden bg-primary text-on-primary border border-outline-variant/30 relative flex flex-col items-center justify-center text-center p-6">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[40px] mb-3" style="font-variation-settings: 'FILL' 0;">history_edu</span>
+<p class="font-h3 text-2xl tracking-tight leading-tight">Ranked among<br>the Twenty-Four<br>Protected Houses</p>
+<p class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim mt-3 tracking-[0.2em]">Dublin City Council · 1985</p>
+</figure>
+</div>
+</section>
+
+<!-- Divider -->
+<div class="flex items-center justify-center relative w-full h-[1px] bg-tertiary-fixed-dim/30">
+<div class="absolute bg-background px-4 font-serif text-tertiary-fixed-dim italic text-lg">L</div>
+</div>
+
+<!-- ============================== -->
+<!-- CONCIERGE / DUBLIN GUIDE — curated local picks -->
+<!-- ============================== -->
+<section class="space-y-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim mb-3 tracking-[0.2em] block">— VI · The Guide</span>
+<h2 class="font-h2 text-h2 text-primary">Dublin, kept simple.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mt-4">
+                    Six recommendations from our concierge. All within twenty minutes on foot. None paid placements.
+                </p>
+</div>
+<a class="inline-block px-6 py-3 border border-tertiary-fixed-dim text-primary font-label-caps text-label-caps hover:bg-surface-container transition-colors whitespace-nowrap" href="#">
+                    Full Concierge Guide
+                </a>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Pick 1 -->
+<article class="border-t border-tertiary-fixed-dim pt-5 group cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-baseline justify-between mb-3">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.2em]">No. 01 · Coffee</span>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim/80 tracking-[0.15em] tabular-nums">4 min · 320 m</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">3FE on Grand Canal</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed">House roastery for the city's flat-white renaissance. Get there before 09:30; pastries vanish.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-label-caps text-label-caps uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+<span>Walking directions</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</div>
+</article>
+
+<!-- Pick 2 -->
+<article class="border-t border-tertiary-fixed-dim pt-5 group cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-baseline justify-between mb-3">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.2em]">No. 02 · Books</span>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim/80 tracking-[0.15em] tabular-nums">7 min · 540 m</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Ulysses Rare Books</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed">Antiquarian shop on Duke Street. Joyce first editions kept behind glass; the rest you can hold.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-label-caps text-label-caps uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+<span>Walking directions</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</div>
+</article>
+
+<!-- Pick 3 -->
+<article class="border-t border-tertiary-fixed-dim pt-5 group cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-baseline justify-between mb-3">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.2em]">No. 03 · Garden</span>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim/80 tracking-[0.15em] tabular-nums">9 min · 720 m</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Iveagh Gardens</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed">A walled Victorian park hidden behind the Concert Hall. Quietest bench in the city.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-label-caps text-label-caps uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+<span>Walking directions</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</div>
+</article>
+
+<!-- Pick 4 -->
+<article class="border-t border-tertiary-fixed-dim pt-5 group cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-baseline justify-between mb-3">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.2em]">No. 04 · Pub</span>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim/80 tracking-[0.15em] tabular-nums">5 min · 380 m</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Toner's, est. 1818</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed">Yeats' favourite. Original snug at the back. The Guinness is, as it should be, slow.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-label-caps text-label-caps uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+<span>Walking directions</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</div>
+</article>
+
+<!-- Pick 5 -->
+<article class="border-t border-tertiary-fixed-dim pt-5 group cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-baseline justify-between mb-3">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.2em]">No. 05 · Gallery</span>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim/80 tracking-[0.15em] tabular-nums">12 min · 960 m</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">Hugh Lane Gallery</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed">Francis Bacon's reconstructed studio is on the second floor. Free entry, always.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-label-caps text-label-caps uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+<span>Walking directions</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</div>
+</article>
+
+<!-- Pick 6 -->
+<article class="border-t border-tertiary-fixed-dim pt-5 group cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-baseline justify-between mb-3">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-[0.2em]">No. 06 · Sea</span>
+<span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim/80 tracking-[0.15em] tabular-nums">DART · 22 min</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2">The Forty Foot, Sandycove</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed">Dublin's Joycean swim spot. Open year-round; bring a robe — we'll lend you one.</p>
+<div class="mt-4 flex items-center gap-2 text-primary font-label-caps text-label-caps uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+<span>Walking directions</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-100 dark:bg-stone-900 text-[#2C4A3E] dark:text-stone-300 w-full py-20 px-20 flex flex-col md:flex-row justify-between items-start gap-12 full-width border-t-[0.5px] border-stone-300 dark:border-stone-800 hairline-borders">
+<div class="flex flex-col gap-6">
+<span class="font-serif text-xl italic">Lyra House</span>
+<p class="font-serif text-sm tracking-wide text-stone-500">© 2024 Lyra House. All rights reserved.</p>
+</div>
+<div class="flex flex-col md:flex-row gap-12 md:gap-24">
+<div class="flex flex-col gap-4">
+<a class="font-serif text-sm tracking-wide text-stone-500 hover:text-[#2C4A3E] transition-all" href="#">Address</a>
+<a class="font-serif text-sm tracking-wide text-stone-500 hover:text-[#2C4A3E] transition-all" href="#">Direct Booking</a>
+</div>
+<div class="flex flex-col gap-4">
+<a class="font-serif text-sm tracking-wide text-stone-500 hover:text-[#2C4A3E] transition-all" href="#">Contact</a>
+<a class="font-serif text-sm tracking-wide text-stone-500 hover:text-[#2C4A3E] transition-all" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TYPE_2024 | International Design Conference</title>
+    <meta name="description" content="A radical typographic conference. Berlin. Oct 2024.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'swiss-orange': '#FF4500',
+                        'swiss-black': '#111111',
+                        'swiss-offwhite': '#F4F4F4',
+                    },
+                    fontFamily: {
+                        'display': ['"Archivo Black"', 'sans-serif'],
+                        'serif': ['"DM Serif Display"', 'serif'],
+                        'body': ['"Inter"', 'sans-serif'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* --- Swiss Layout Utilities --- */
+        body {
+            background-color: #FFFFFF;
+            color: #111111;
+            /* Hide X scroll but allow sticky elements */
+            overflow-x: hidden; 
+        }
+
+        /* Typography Scaling */
+        .type-clamp {
+            font-size: clamp(3rem, 24vw, 24rem);
+            line-height: 0.8;
+        }
+
+        .type-clamp-lg {
+            font-size: clamp(2.5rem, 8vw, 10rem);
+            line-height: 0.9;
+        }
+
+        /* Vertical Text (Desktop Only) */
+        .vertical-rl {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+        }
+
+        /* Marquee Animation */
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 25s linear infinite;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Print-like Blend Modes */
+        .blend-multiply {
+            mix-blend-mode: multiply;
+        }
+
+        /* Custom Selection Styles */
+        ::selection {
+            background-color: #FF4500;
+            color: #FFFFFF;
+        }
+
+        /* Grid Lines Helper */
+        .swiss-border-b {
+            border-bottom: 2px solid #111111;
+        }
+        .swiss-border-t {
+            border-top: 2px solid #111111;
+        }
+        .swiss-border-r {
+            border-right: 2px solid #111111;
+        }
+        
+        /* Smooth anchor offset for fixed headers if added later */
+        html {
+            scroll-padding-top: 50px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- NAVIGATION / STATUS BAR -->
+    <nav class="fixed top-0 w-full z-50 bg-white border-b-4 border-swiss-black flex justify-between items-center px-4 py-2 md:px-6">
+        <div class="font-display uppercase text-sm md:text-lg tracking-widest">
+            <span class="text-swiss-orange">●</span> Live Status
+        </div>
+        <div class="font-display uppercase text-sm md:text-lg tracking-widest hidden md:block">
+            Berlin / Oct 12-14
+        </div>
+        <a href="#tickets" class="bg-swiss-black text-white px-6 py-2 font-display uppercase text-xs md:text-sm hover:bg-swiss-orange transition-colors duration-300">
+            Secure Entry
+        </a>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative min-h-screen flex flex-col pt-16 md:pt-0">
+        <!-- Main Content Wrapper -->
+        <div class="flex-grow flex flex-col justify-center items-center relative overflow-hidden px-4">
+            
+            <!-- Diagonal Graphic Element -->
+            <div class="absolute inset-0 z-0 opacity-10 md:opacity-100 pointer-events-none">
+                <div class="absolute top-1/2 left-1/2 w-[150%] h-2 bg-swiss-orange transform -translate-x-1/2 -translate-y-1/2 -rotate-45"></div>
+                <div class="absolute top-1/2 left-1/2 w-[150%] h-1 bg-black transform -translate-x-1/2 -translate-y-1/2 -rotate-45 mt-4"></div>
+            </div>
+
+            <div class="relative z-10 w-full max-w-[95%] mx-auto text-center mix-blend-multiply">
+                <h1 class="font-display type-clamp tracking-tighter text-swiss-black uppercase">
+                    TYPE
+                </h1>
+                
+                <!-- Floating Elements nested in negative space -->
+                <div class="flex flex-col md:flex-row justify-between items-end w-full border-t-8 border-swiss-black mt-4 md:-mt-8 pt-4">
+                    <div class="text-left">
+                        <span class="block font-display text-4xl md:text-8xl text-swiss-orange leading-none">_2024</span>
+                        <span class="block font-serif italic text-xl md:text-3xl">Intl. Symposium</span>
+                    </div>
+                    
+                    <div class="text-right mt-8 md:mt-0">
+                        <div class="font-display text-xl md:text-4xl uppercase leading-none">
+                            Oct 12 — 14
+                        </div>
+                        <div class="font-body text-sm md:text-lg font-bold uppercase tracking-widest mt-2">
+                            Kraftwerk Berlin
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TICKER STRIP -->
+    <div class="bg-swiss-orange text-white border-y-4 border-swiss-black py-3 overflow-hidden">
+        <div class="marquee-track font-display text-2xl md:text-4xl uppercase tracking-widest">
+            <span class="mx-8">Systematic Chaos</span> ///
+            <span class="mx-8">Variable Fonts</span> ///
+            <span class="mx-8">Swiss International Style</span> ///
+            <span class="mx-8">The Grid Is God</span> ///
+            <span class="mx-8">Kerning Matters</span> ///
+            <span class="mx-8">Analog Print</span> ///
+            <span class="mx-8">Systematic Chaos</span> ///
+            <span class="mx-8">Variable Fonts</span> ///
+            <span class="mx-8">Swiss International Style</span> ///
+            <span class="mx-8">The Grid Is God</span> ///
+            <span class="mx-8">Kerning Matters</span> ///
+            <span class="mx-8">Analog Print</span> ///
+        </div>
+    </div>
+
+    <!-- INTRODUCTION / MANIFESTO -->
+    <section class="grid grid-cols-1 md:grid-cols-12 min-h-[70vh]">
+        <!-- Desktop Sidebar -->
+        <div class="hidden md:flex col-span-1 bg-swiss-black text-white items-center justify-center border-r-4 border-white py-12">
+            <h2 class="vertical-rl font-display text-5xl tracking-widest uppercase">Manifesto</h2>
+        </div>
+        
+        <!-- Mobile Header -->
+        <div class="md:hidden bg-swiss-black text-white p-6">
+            <h2 class="font-display text-4xl uppercase">Manifesto</h2>
+        </div>
+
+        <div class="col-span-1 md:col-span-11 p-6 md:p-20 flex flex-col justify-center bg-white relative">
+            <!-- Decorative Line -->
+            <hr class="border-t-8 border-swiss-orange w-32 mb-12">
+            
+            <p class="font-serif text-3xl md:text-6xl/tight text-swiss-black max-w-6xl">
+                We reject the ornamental. We embrace the <span class="bg-swiss-black text-white px-2 decoration-clone box-decoration-clone">structural</span>. Typography is the voice of the machine and the soul of the message.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
+                <div>
+                    <h3 class="font-display text-xl uppercase mb-4">The Objective</h3>
+                    <p class="font-body text-lg leading-relaxed text-gray-700">
+                        TYPE_2024 returns to the fundamentals of the International Typographic Style. We explore how the strict constraints of the grid system liberate creativity rather than stifle it.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-display text-xl uppercase mb-4">The Method</h3>
+                    <p class="font-body text-lg leading-relaxed text-gray-700">
+                        Three days of workshops, lectures, and brutal critique. No images. No fluff. Just form, counter-form, weight, and hierarchy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPEAKERS GRID -->
+    <section class="border-t-8 border-swiss-black">
+        <div class="bg-swiss-offwhite px-4 py-8 md:px-12 md:py-12 flex justify-between items-end border-b-4 border-swiss-black">
+            <h2 class="font-display type-clamp-lg uppercase leading-none">Voices</h2>
+            <span class="hidden md:block font-body font-bold text-xl">(06)</span>
+        </div>
+
+        <!-- Speaker List -->
+        <div class="flex flex-col">
+            
+            <!-- Speaker Item 01 -->
+            <article class="group relative grid grid-cols-1 md:grid-cols-12 border-b-2 border-swiss-black bg-white transition-colors duration-300 hover:bg-swiss-black hover:text-white cursor-pointer">
+                <div class="col-span-1 md:col-span-1 p-4 md:p-8 font-mono text-swiss-orange group-hover:text-swiss-orange border-b md:border-b-0 md:border-r border-swiss-black group-hover:border-white/20">
+                    01
+                </div>
+                <div class="col-span-1 md:col-span-8 p-4 md:p-8 relative overflow-hidden">
+                    <h3 class="font-display text-5xl md:text-8xl uppercase tracking-tighter relative z-10 translate-x-0 group-hover:translate-x-4 transition-transform duration-500">
+                        Adrian <br class="md:hidden">Frutiger
+                    </h3>
+                    <span class="font-serif italic text-xl md:text-2xl mt-2 block opacity-60 group-hover:opacity-100">"The Universal Grid"</span>
+                </div>
+                <div class="col-span-1 md:col-span-3 p-4 md:p-8 flex flex-col justify-end border-t md:border-t-0 md:border-l border-swiss-black group-hover:border-white/20">
+                    <p class="font-body text-sm md:text-base leading-snug">
+                        Zurich, CH<br>
+                        Chief Typographer
+                    </p>
+                    <div class="mt-4 w-full h-1 bg-swiss-orange scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </div>
+            </article>
+
+            <!-- Speaker Item 02 -->
+            <article class="group relative grid grid-cols-1 md:grid-cols-12 border-b-2 border-swiss-black bg-white transition-colors duration-300 hover:bg-swiss-orange hover:text-white cursor-pointer">
+                <div class="col-span-1 md:col-span-1 p-4 md:p-8 font-mono text-swiss-black group-hover:text-white border-b md:border-b-0 md:border-r border-swiss-black group-hover:border-white/20">
+                    02
+                </div>
+                <div class="col-span-1 md:col-span-8 p-4 md:p-8 relative overflow-hidden">
+                    <h3 class="font-display text-5xl md:text-8xl uppercase tracking-tighter relative z-10 translate-x-0 group-hover:translate-x-4 transition-transform duration-500">
+                        Paula <br class="md:hidden">Scher
+                    </h3>
+                    <span class="font-serif italic text-xl md:text-2xl mt-2 block opacity-60 group-hover:opacity-100">"Type as Image"</span>
+                </div>
+                <div class="col-span-1 md:col-span-3 p-4 md:p-8 flex flex-col justify-end border-t md:border-t-0 md:border-l border-swiss-black group-hover:border-white/20">
+                    <p class="font-body text-sm md:text-base leading-snug">
+                        New York, USA<br>
+                        Pentagram Partner
+                    </p>
+                    <div class="mt-4 w-full h-1 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </div>
+            </article>
+
+            <!-- Speaker Item 03 -->
+            <article class="group relative grid grid-cols-1 md:grid-cols-12 border-b-2 border-swiss-black bg-white transition-colors duration-300 hover:bg-swiss-black hover:text-white cursor-pointer">
+                <div class="col-span-1 md:col-span-1 p-4 md:p-8 font-mono text-swiss-orange group-hover:text-swiss-orange border-b md:border-b-0 md:border-r border-swiss-black group-hover:border-white/20">
+                    03
+                </div>
+                <div class="col-span-1 md:col-span-8 p-4 md:p-8 relative overflow-hidden">
+                    <h3 class="font-display text-5xl md:text-8xl uppercase tracking-tighter relative z-10 translate-x-0 group-hover:translate-x-4 transition-transform duration-500">
+                        Wim <br class="md:hidden">Crouwel
+                    </h3>
+                    <span class="font-serif italic text-xl md:text-2xl mt-2 block opacity-60 group-hover:opacity-100">"Gridnik"</span>
+                </div>
+                <div class="col-span-1 md:col-span-3 p-4 md:p-8 flex flex-col justify-end border-t md:border-t-0 md:border-l border-swiss-black group-hover:border-white/20">
+                    <p class="font-body text-sm md:text-base leading-snug">
+                        Amsterdam, NL<br>
+                        Total Design
+                    </p>
+                    <div class="mt-4 w-full h-1 bg-swiss-orange scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- AGENDA GRID -->
+    <section class="py-20 px-4 md:px-12 max-w-screen-2xl mx-auto">
+        <h2 class="font-display text-4xl md:text-6xl uppercase mb-12 border-l-8 border-swiss-orange pl-6">
+            Program_Seq
+        </h2>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-0 border-2 border-swiss-black">
+            
+            <!-- Day 1 -->
+            <div class="lg:border-r-2 border-swiss-black">
+                <div class="bg-swiss-black text-white p-6 font-display uppercase tracking-widest text-xl">
+                    Day 01 <span class="text-swiss-orange">/</span> Oct 12
+                </div>
+                <ul class="divide-y-2 divide-swiss-black">
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">09:00</span>
+                        <span class="font-display text-xl uppercase">Registration</span>
+                    </li>
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">10:30</span>
+                        <span class="font-display text-xl uppercase">Keynote: The Void</span>
+                        <p class="font-serif italic text-gray-600 mt-1">Speaker TBD</p>
+                    </li>
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">13:00</span>
+                        <span class="font-display text-xl uppercase">Workshop A: InDesign Hell</span>
+                        <p class="font-serif italic text-gray-600 mt-1">Bring your own laptop</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="border-t-2 lg:border-t-0 lg:border-r-2 border-swiss-black">
+                <div class="bg-swiss-black text-white p-6 font-display uppercase tracking-widest text-xl">
+                    Day 02 <span class="text-swiss-orange">/</span> Oct 13
+                </div>
+                <ul class="divide-y-2 divide-swiss-black">
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">09:00</span>
+                        <span class="font-display text-xl uppercase">Variable Fonts</span>
+                    </li>
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">11:00</span>
+                        <span class="font-display text-xl uppercase">Panel: Serif Dead?</span>
+                        <p class="font-serif italic text-gray-600 mt-1">Debate Arena</p>
+                    </li>
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">15:00</span>
+                        <span class="font-display text-xl uppercase">Portfolio Review</span>
+                        <p class="font-serif italic text-gray-600 mt-1">Brutal Honesty Only</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="border-t-2 lg:border-t-0">
+                <div class="bg-swiss-black text-white p-6 font-display uppercase tracking-widest text-xl">
+                    Day 03 <span class="text-swiss-orange">/</span> Oct 14
+                </div>
+                <ul class="divide-y-2 divide-swiss-black">
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">10:00</span>
+                        <span class="font-display text-xl uppercase">Masterclass</span>
+                    </li>
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">13:00</span>
+                        <span class="font-display text-xl uppercase">Future Type</span>
+                        <p class="font-serif italic text-gray-600 mt-1">Generative AI & Glyphs</p>
+                    </li>
+                    <li class="p-6 hover:bg-gray-50">
+                        <span class="font-mono text-sm text-swiss-orange block mb-1">18:00</span>
+                        <span class="font-display text-xl uppercase">Closing Party</span>
+                        <p class="font-serif italic text-gray-600 mt-1">Roof Deck</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPEAKERS STRIP — static side-by-side image strip (8 portraits) -->
+    <section class="border-t-8 border-swiss-black bg-white">
+        <div class="px-4 py-8 md:px-12 md:py-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-4 border-swiss-black">
+            <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-2">— Section · 05</span>
+                <h2 class="font-display text-4xl md:text-7xl uppercase leading-none tracking-tighter">Speakers · 8 Keynotes</h2>
+            </div>
+            <div class="font-body text-sm md:text-base text-gray-700 max-w-md">
+                <span class="font-display uppercase block">Index_Faces</span>
+                Eight rooms. Eight voices. One unbroken Helvetica grid.
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 p-4 md:p-6">
+            <!-- Speaker 01 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1"><span class="text-swiss-orange">●</span> 01</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85&auto=format&fit=crop" alt="Speaker 01" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Anya Reuter</span>
+                    <span class="block font-body text-[11px] text-gray-600">Director, Edition.werk · DE</span>
+                </figcaption>
+            </figure>
+            <!-- Speaker 02 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1">02</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop" alt="Speaker 02" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Lior Mensch</span>
+                    <span class="block font-body text-[11px] text-gray-600">Variable Type Lead · IL</span>
+                </figcaption>
+            </figure>
+            <!-- Speaker 03 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1">03</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=600&q=85&auto=format&fit=crop" alt="Speaker 03" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Marisol Cano</span>
+                    <span class="block font-body text-[11px] text-gray-600">Editorial Critic · ES</span>
+                </figcaption>
+            </figure>
+            <!-- Speaker 04 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1">04</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=85&auto=format&fit=crop" alt="Speaker 04" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Theo Vance</span>
+                    <span class="block font-body text-[11px] text-gray-600">Foundry Programmer · UK</span>
+                </figcaption>
+            </figure>
+            <!-- Speaker 05 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1">05</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=85&auto=format&fit=crop" alt="Speaker 05" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Hana Sato</span>
+                    <span class="block font-body text-[11px] text-gray-600">Kanji System Design · JP</span>
+                </figcaption>
+            </figure>
+            <!-- Speaker 06 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1">06</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&q=85&auto=format&fit=crop" alt="Speaker 06" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Daniel Okafor</span>
+                    <span class="block font-body text-[11px] text-gray-600">Brand Systems · NG</span>
+                </figcaption>
+            </figure>
+            <!-- Speaker 07 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1">07</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85&auto=format&fit=crop" alt="Speaker 07" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Iris Halberg</span>
+                    <span class="block font-body text-[11px] text-gray-600">Newspaper Type · SE</span>
+                </figcaption>
+            </figure>
+            <!-- Speaker 08 -->
+            <figure class="flex flex-col">
+                <span class="font-display text-xs md:text-sm uppercase mb-1">08</span>
+                <div class="aspect-square overflow-hidden border border-swiss-black/15 bg-swiss-offwhite">
+                    <img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=85&auto=format&fit=crop" alt="Speaker 08" class="w-full h-full object-cover grayscale">
+                </div>
+                <figcaption class="pt-2">
+                    <span class="block font-display text-[13px] uppercase leading-tight">Marco Pellegrini</span>
+                    <span class="block font-body text-[11px] text-gray-600">Lead Type Engineer · IT</span>
+                </figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- PROGRAMME · DAY-BY-DAY — alternating rows with image + content -->
+    <section class="border-t-8 border-swiss-black bg-white">
+        <div class="px-4 py-8 md:px-12 md:py-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-4 border-swiss-black">
+            <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-2">— Section · 06</span>
+                <h2 class="font-display text-4xl md:text-7xl uppercase leading-none tracking-tighter">Programme · Day-by-Day</h2>
+            </div>
+            <div class="font-body text-sm md:text-base text-gray-700 max-w-md">
+                Three days. Three rooms. A staggered grid of keynotes, panels, and evening events.
+            </div>
+        </div>
+
+        <!-- Day 01 row — image left, copy right -->
+        <article class="grid grid-cols-1 lg:grid-cols-12 border-b-2 border-swiss-black">
+            <div class="lg:col-span-7 border-b-2 lg:border-b-0 lg:border-r-2 border-swiss-black bg-swiss-offwhite">
+                <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=85&auto=format&fit=crop" alt="Bauakademie facade — Day 01" class="w-full h-full object-cover aspect-[4/3] grayscale">
+            </div>
+            <div class="lg:col-span-5 p-6 md:p-12 flex flex-col justify-between gap-6">
+                <div class="flex items-baseline gap-4">
+                    <span class="font-display text-[12vw] md:text-[8vw] leading-none text-swiss-black tracking-tighter">01</span>
+                    <span class="font-serif italic text-2xl md:text-3xl text-swiss-orange">Oct 12</span>
+                </div>
+                <p class="font-body text-base md:text-lg leading-relaxed text-gray-700">
+                    Day one opens slow on purpose. After registration the floor is given over to three keynotes that frame the next seventy-two hours: a long-form lecture on the genealogy of the Swiss grid from Karl Gerstner forward, a programmer's tour through variable-axis OpenType, and a closing fireside on the politics of public-facing wayfinding type. Two panels — one on print revivalism and one on diacritics across non-Latin scripts — sit either side of lunch. The evening event is a quiet one: a reception inside the Hauptsaal with letterpress proofs pinned across every available wall.
+                </p>
+                <ul class="font-mono text-xs uppercase text-swiss-black space-y-1 border-t border-swiss-black/15 pt-4">
+                    <li><span class="text-swiss-orange">09:00</span> &nbsp; Registration · Foyer</li>
+                    <li>10:30 &nbsp; Keynote · The Genealogy of the Grid</li>
+                    <li>12:00 &nbsp; Panel · Print Revivalism</li>
+                    <li>14:00 &nbsp; Keynote · Variable Axes Explained</li>
+                    <li>16:00 &nbsp; Panel · Diacritics, Non-Latin</li>
+                    <li>19:00 &nbsp; Reception · Hauptsaal</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Day 02 row — copy left, image right (alternating) -->
+        <article class="grid grid-cols-1 lg:grid-cols-12 border-b-2 border-swiss-black">
+            <div class="lg:col-span-5 p-6 md:p-12 flex flex-col justify-between gap-6 lg:order-1 order-2 border-t-2 lg:border-t-0 lg:border-r-2 border-swiss-black">
+                <div class="flex items-baseline gap-4">
+                    <span class="font-display text-[12vw] md:text-[8vw] leading-none text-swiss-black tracking-tighter">02</span>
+                    <span class="font-serif italic text-2xl md:text-3xl">Oct 13</span>
+                </div>
+                <p class="font-body text-base md:text-lg leading-relaxed text-gray-700">
+                    The middle day is the working day. Three keynotes fold directly into hands-on workshops: a morning session on hinting and rasterisation that breaks for an hour-long panel on whether the serif is genuinely dead or just resting, then an afternoon stretch on portfolio review where every attendee receives twenty minutes of brutal honesty from a rotating jury. Two panels frame the day — one on archive practice with the Swiss National Library and one on the economics of running an independent foundry. The evening is a screening of unreleased specimen films in the Studio.
+                </p>
+                <ul class="font-mono text-xs uppercase text-swiss-black space-y-1 border-t border-swiss-black/15 pt-4">
+                    <li>09:00 &nbsp; Keynote · Hinting & Rasterisation</li>
+                    <li>11:00 &nbsp; Panel · Is the Serif Dead?</li>
+                    <li>13:00 &nbsp; Keynote · Foundry Economics</li>
+                    <li>15:00 &nbsp; Workshop · Portfolio Review</li>
+                    <li>17:00 &nbsp; Panel · Archive Practice</li>
+                    <li><span class="text-swiss-orange">20:00</span> &nbsp; Screening · Studio</li>
+                </ul>
+            </div>
+            <div class="lg:col-span-7 lg:order-2 order-1 bg-swiss-offwhite">
+                <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1600&q=85&auto=format&fit=crop" alt="Studio interior — Day 02" class="w-full h-full object-cover aspect-[4/3] grayscale">
+            </div>
+        </article>
+
+        <!-- Day 03 row — image left, copy right -->
+        <article class="grid grid-cols-1 lg:grid-cols-12">
+            <div class="lg:col-span-7 border-b-2 lg:border-b-0 lg:border-r-2 border-swiss-black bg-swiss-offwhite">
+                <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1600&q=85&auto=format&fit=crop" alt="Stage interior — Day 03" class="w-full h-full object-cover aspect-[4/3] grayscale">
+            </div>
+            <div class="lg:col-span-5 p-6 md:p-12 flex flex-col justify-between gap-6">
+                <div class="flex items-baseline gap-4">
+                    <span class="font-display text-[12vw] md:text-[8vw] leading-none text-swiss-black tracking-tighter">03</span>
+                    <span class="font-serif italic text-2xl md:text-3xl">Oct 14</span>
+                </div>
+                <p class="font-body text-base md:text-lg leading-relaxed text-gray-700">
+                    The closing day is unapologetically forward-facing. A morning masterclass in counter-form construction is followed by two keynotes on machine-learning approaches to glyph generation and on the legal status of generated typefaces under European copyright frameworks. Two panels — student showcase and a publishers' roundtable — take the afternoon. The evening is the closing party on the Kraftwerk roof deck, scored entirely by readings from the conference programme set in twenty-four-point Inter, projected at twelve metres against the cooling tower.
+                </p>
+                <ul class="font-mono text-xs uppercase text-swiss-black space-y-1 border-t border-swiss-black/15 pt-4">
+                    <li>10:00 &nbsp; Masterclass · Counter-Form</li>
+                    <li>12:00 &nbsp; Keynote · ML & Glyph Generation</li>
+                    <li>14:00 &nbsp; Panel · Student Showcase</li>
+                    <li>15:30 &nbsp; Keynote · Generated Type & Copyright</li>
+                    <li>17:00 &nbsp; Panel · Publishers' Roundtable</li>
+                    <li>21:00 &nbsp; Closing Party · Roof Deck</li>
+                </ul>
+            </div>
+        </article>
+    </section>
+
+    <!-- VENUE · BAUAKADEMIE — sticky photo + scrolling content (NOVEL #8) -->
+    <section class="border-t-8 border-swiss-black bg-white">
+        <div class="px-4 py-8 md:px-12 md:py-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b-4 border-swiss-black">
+            <div>
+                <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-2">— Section · 07</span>
+                <h2 class="font-display text-4xl md:text-7xl uppercase leading-none tracking-tighter">Venue · The Bauakademie</h2>
+            </div>
+            <div class="font-body text-sm md:text-base text-gray-700 max-w-md">
+                Schinkel's 1832 brick block reborn. Two stages, one foyer, one roof.
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+            <!-- Sticky photograph -->
+            <div class="lg:col-span-5 lg:border-r-2 border-swiss-black bg-swiss-offwhite">
+                <div class="lg:sticky lg:top-0 lg:h-screen flex items-stretch">
+                    <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1200&q=85&auto=format&fit=crop" alt="Bauakademie portrait — venue" class="w-full h-full object-cover aspect-[3/4] lg:aspect-auto grayscale">
+                </div>
+            </div>
+
+            <!-- Scrolling fact panels -->
+            <div class="lg:col-span-7 flex flex-col">
+                <article class="p-6 md:p-12 border-b-2 border-swiss-black">
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-3">Fact · 01</span>
+                    <h3 class="font-serif italic text-3xl md:text-5xl text-swiss-black mb-4 leading-tight">The site · 1832 Schinkel original</h3>
+                    <p class="font-body text-base md:text-lg leading-relaxed text-gray-700">
+                        Karl Friedrich Schinkel finished the original Bauakademie in 1836 as a four-story red-brick block on the Spree, opposite the Berliner Schloss. It housed the Prussian school of building until the war, was damaged in 1945, and demolished by the GDR in 1962 to make room for the Foreign Ministry. For sixty-two years the corner of Werderscher Markt held nothing but a painted-canvas mock-up of the missing facade. The reconstruction we now occupy returns the original footprint to the city, brick for brick, with new floor plates engineered for assembly use.
+                    </p>
+                </article>
+
+                <article class="p-6 md:p-12 border-b-2 border-swiss-black">
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-3">Fact · 02</span>
+                    <h3 class="font-serif italic text-3xl md:text-5xl text-swiss-black mb-4 leading-tight">The reconstruction · 2024 finished</h3>
+                    <p class="font-body text-base md:text-lg leading-relaxed text-gray-700">
+                        The 2024 reconstruction was completed in late September, just three weeks before TYPE_2024 takes possession of the building. The exterior follows Schinkel's drawings to the millimetre, including the terracotta panels above the ground-floor arches. Inside, the building is wholly modern — column-free spans across the Hauptsaal, motorized acoustic baffles in the Studio, twelve-metre projection clearances in the foyer. The conference is the venue's first public-facing programme; everything you experience this week is, technically, a soft launch.
+                    </p>
+                </article>
+
+                <article class="p-6 md:p-12 border-b-2 border-swiss-black">
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-3">Fact · 03</span>
+                    <h3 class="font-serif italic text-3xl md:text-5xl text-swiss-black mb-4 leading-tight">Two stages · Hauptsaal + Studio</h3>
+                    <p class="font-body text-base md:text-lg leading-relaxed text-gray-700">
+                        Programming runs concurrently across two rooms. The Hauptsaal is a 480-seat auditorium with a single-rake floor and a six-metre stage; this is where the keynotes and the major panels run. The Studio, on the second floor, holds 120 seated and is configured in the round for workshops, portfolio reviews, and the late-evening screening programme. A standing-only foyer between the two carries the trade tables, the foundry pop-ups, and the espresso bar. The two rooms are routinely scheduled fifteen minutes apart so attendees can switch tracks.
+                    </p>
+                </article>
+
+                <article class="p-6 md:p-12">
+                    <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-3">Fact · 04</span>
+                    <h3 class="font-serif italic text-3xl md:text-5xl text-swiss-black mb-4 leading-tight">Getting there · Spittelmarkt U2</h3>
+                    <p class="font-body text-base md:text-lg leading-relaxed text-gray-700">
+                        The closest station is Spittelmarkt on the U2, four minutes' walk along Werderscher Markt. From Hauptbahnhof the trip is twelve minutes via the U55 with one change at Brandenburger Tor. From Tegel the city express bus runs every nine minutes during conference hours and stops directly outside the Auswärtiges Amt. There is no on-site parking, but the building sits inside Berlin's environmental zone and a Green-Sticker rental is required if you do drive. Bicycle racks are provided for two hundred and seventy bikes along the Spree-side promenade.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- MANIFESTO · WHY TYPOGRAPHY MATTERS NOW — content only, no image -->
+    <section class="border-t-8 border-swiss-black bg-white">
+        <div class="px-4 py-8 md:px-12 md:py-12 border-b-4 border-swiss-black">
+            <span class="font-mono text-xs uppercase tracking-widest text-gray-500 block mb-2">— Section · 08</span>
+            <h2 class="font-display type-clamp uppercase leading-none tracking-tighter text-swiss-black">Why<br>Type</h2>
+            <p class="font-serif italic text-2xl md:text-4xl text-swiss-black max-w-4xl mt-6">
+                Three doctrines on why typography is not neutral, and why the practitioner cannot be either.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x-2 divide-swiss-black">
+            <article class="p-6 md:p-10">
+                <span class="block font-display text-7xl md:text-9xl text-swiss-black leading-none mb-6">I</span>
+                <h3 class="font-display text-2xl md:text-3xl uppercase tracking-tight mb-4">Type is policy</h3>
+                <p class="font-body text-base leading-relaxed text-gray-700">
+                    Every passport, ballot, road sign, vaccine card, and tax form is a typographic decision before it is a legal one. The choice of typeface, leading, and column measure determines who can read the form at all. When a government commissions a body face for its statutes, that face becomes the texture of the law. Conferences like this one are where those choices are debated in public; if the practitioners do not show up, the policy is set by procurement officers picking from a drop-down list of system fonts.
+                </p>
+            </article>
+
+            <article class="p-6 md:p-10">
+                <span class="block font-display text-7xl md:text-9xl text-swiss-orange leading-none mb-6">II</span>
+                <h3 class="font-display text-2xl md:text-3xl uppercase tracking-tight mb-4">Type is memory</h3>
+                <p class="font-body text-base leading-relaxed text-gray-700">
+                    Letterforms outlive the empires that minted them. Trajan's column carries Roman capitals nineteen centuries after the emperor was buried. The Plantin specimen survives the Spanish occupation of Antwerp. Every revival of Caslon, Bembo, or Garamond is a deliberate civic act — a refusal to let a written tradition lapse. We treat a typeface as a piece of furniture; it is closer to a piece of inherited architecture. The doctrine of TYPE_2024 is that you do not get to design with one without learning what it remembers.
+                </p>
+            </article>
+
+            <article class="p-6 md:p-10">
+                <span class="block font-display text-7xl md:text-9xl text-swiss-black leading-none mb-6">III</span>
+                <h3 class="font-display text-2xl md:text-3xl uppercase tracking-tight mb-4">Type is power</h3>
+                <p class="font-body text-base leading-relaxed text-gray-700">
+                    The typesetter sets the tempo of the reading. A tighter measure compresses the breath, a heavier weight raises the voice, a wider tracking stretches the silence. To set a paragraph is to conduct it. This is power, and like all power it can be abused — propaganda is set in type, not in plain language. The practitioner's responsibility is to know which lever they are pulling and at what cost. The conference exists because that responsibility is, at present, undertheorised in the discipline.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- TICKETS / PRICING SECTION -->
+    <section id="tickets" class="bg-swiss-orange text-white py-20 px-4 md:px-12 border-t-8 border-swiss-black">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="font-display text-swiss-black text-center text-5xl md:text-9xl mb-12 uppercase tracking-tighter mix-blend-color-burn">
+                Access
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white text-black p-8 border-4 border-black hover:-translate-y-4 transition-transform duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <div class="font-mono text-sm uppercase tracking-widest text-gray-500 mb-4">Student</div>
+                    <div class="font-display text-6xl mb-2">€99</div>
+                    <hr class="border-2 border-black my-6">
+                    <ul class="font-body space-y-3 mb-8">
+                        <li>● Full Lectures</li>
+                        <li>● Digital Swag</li>
+                        <li>● Standing Room</li>
+                    </ul>
+                    <button class="w-full bg-black text-white py-4 font-display uppercase tracking-widest hover:bg-swiss-orange transition-colors">Select</button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-black text-white p-8 border-4 border-white hover:-translate-y-4 transition-transform duration-300 shadow-[8px_8px_0px_0px_rgba(255,255,255,0.5)] transform md:scale-105 z-10">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="font-mono text-sm uppercase tracking-widest text-swiss-orange">Professional</div>
+                        <div class="bg-swiss-orange text-white text-xs px-2 py-1 uppercase font-bold">Popular</div>
+                    </div>
+                    <div class="font-display text-6xl mb-2">€299</div>
+                    <hr class="border-2 border-white my-6">
+                    <ul class="font-body space-y-3 mb-8">
+                        <li>● All Access</li>
+                        <li>● Workshop Priority</li>
+                        <li>● Opening Party</li>
+                    </ul>
+                    <button class="w-full bg-white text-black py-4 font-display uppercase tracking-widest hover:bg-swiss-orange hover:text-white transition-colors">Select</button>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white text-black p-8 border-4 border-black hover:-translate-y-4 transition-transform duration-300 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <div class="font-mono text-sm uppercase tracking-widest text-gray-500 mb-4">Studio (5+)</div>
+                    <div class="font-display text-6xl mb-2">€999</div>
+                    <hr class="border-2 border-black my-6">
+                    <ul class="font-body space-y-3 mb-8">
+                        <li>● Group Seating</li>
+                        <li>● Private Mentor</li>
+                        <li>● Studio Feature</li>
+                    </ul>
+                    <button class="w-full bg-black text-white py-4 font-display uppercase tracking-widest hover:bg-swiss-orange transition-colors">Select</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative bg-white text-swiss-black pt-20 overflow-hidden border-t-8 border-black">
+        
+        <!-- Giant Background Glyph -->
+        <div class="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 pointer-events-none select-none opacity-5">
+            <span class="font-serif text-[50vw] leading-none">&</span>
+        </div>
+
+        <div class="max-w-screen-2xl mx-auto px-4 md:px-12 pb-12 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+                
+                <!-- Col 1 -->
+                <div class="flex flex-col space-y-6">
+                    <h5 class="font-display text-2xl uppercase">Type_2024</h5>
+                    <p class="font-serif text-xl italic max-w-xs">
+                        "Typography is to literature as musical performance is to composition."
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="flex flex-col space-y-4">
+                    <h5 class="font-mono text-sm uppercase text-gray-500 tracking-widest border-b-2 border-swiss-orange inline-block w-max pb-1">Venue</h5>
+                    <address class="font-body not-italic text-lg">
+                        Kraftwerk Berlin<br>
+                        Köpenicker Str. 70<br>
+                        10179 Berlin, DE
+                    </address>
+                </div>
+
+                <!-- Col 3 -->
+                <div class="flex flex-col space-y-4">
+                    <h5 class="font-mono text-sm uppercase text-gray-500 tracking-widest border-b-2 border-swiss-orange inline-block w-max pb-1">Social</h5>
+                    <nav class="flex flex-col space-y-2 font-display uppercase text-lg">
+                        <a href="#" class="hover:text-swiss-orange hover:translate-x-2 transition-all">Instagram ↗</a>
+                        <a href="#" class="hover:text-swiss-orange hover:translate-x-2 transition-all">Twitter ↗</a>
+                        <a href="#" class="hover:text-swiss-orange hover:translate-x-2 transition-all">LinkedIn ↗</a>
+                    </nav>
+                </div>
+
+                <!-- Col 4 -->
+                <div class="flex flex-col justify-end">
+                    <form class="space-y-4">
+                        <label class="font-mono text-sm uppercase text-gray-500 tracking-widest">Newsletter</label>
+                        <div class="flex border-b-4 border-black pb-2">
+                            <input type="email" placeholder="ENTER EMAIL" class="bg-transparent w-full font-display uppercase placeholder-gray-400 focus:outline-none text-xl">
+                            <button class="text-swiss-orange text-2xl font-bold hover:scale-110 transition-transform">></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t-4 border-black pt-6 flex flex-col md:flex-row justify-between items-end md:items-center">
+                <div class="font-display uppercase text-[10vw] md:text-[5vw] leading-none tracking-tighter">
+                    Berlin
+                </div>
+                <div class="flex gap-8 font-mono text-xs uppercase text-gray-500 mt-4 md:mt-0">
+                    <span>© 2024 Type Conf</span>
+                    <a href="#" class="hover:text-black">Privacy</a>
+                    <a href="#" class="hover:text-black">Imprint</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

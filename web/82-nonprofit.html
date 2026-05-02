@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Bluefield Fund - Homepage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#eae7e7",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e5e2e1",
+                        "inverse-primary": "#b2c8ed",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "outline-variant": "#c4c6ce",
+                        "inverse-surface": "#313030",
+                        "inverse-on-surface": "#f3f0ef",
+                        "secondary-container": "#fc7368",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d5e3ff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#928977",
+                        "surface-tint": "#4b5f7f",
+                        "on-tertiary-fixed": "#201b0e",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-secondary-container": "#6f080c",
+                        "secondary-fixed": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-fixed-variant": "#4d4637",
+                        "on-surface-variant": "#44474d",
+                        "primary-fixed-dim": "#b2c8ed",
+                        "surface-container": "#f0eded",
+                        "tertiary-container": "#282215",
+                        "on-secondary-fixed-variant": "#881e1b",
+                        "tertiary-fixed-dim": "#d0c5b1",
+                        "tertiary": "#110c03",
+                        "on-secondary-fixed": "#410002",
+                        "outline": "#74777e",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-dim": "#dcd9d9",
+                        "surface": "#fcf9f8",
+                        "primary-container": "#0b2340",
+                        "background": "#fcf9f8",
+                        "on-primary-fixed-variant": "#334866",
+                        "secondary": "#a93630",
+                        "primary": "#000d20",
+                        "on-background": "#1c1b1b",
+                        "on-primary-fixed": "#031c39",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "tertiary-fixed": "#ede1cc",
+                        "on-primary-container": "#768bad"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "40px",
+                        "gutter": "24px",
+                        "sm": "16px",
+                        "lg": "64px",
+                        "xl": "128px",
+                        "md": "32px",
+                        "unit": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-xl": ["Newsreader"],
+                        "headline-md": ["Newsreader"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        html, body { overflow-x: clip; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        .diagonal-band {
+            clip-path: polygon(0 0, 100% 6%, 100% 94%, 0 100%);
+        }
+        .polaroid {
+            background: #fdfaf3;
+            padding: 12px 12px 36px 12px;
+            box-shadow: 0 18px 36px -12px rgba(11,35,64,0.35), 0 2px 6px rgba(11,35,64,0.18);
+        }
+        .polaroid::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 64px;
+            height: 18px;
+            background: rgba(252,115,104,0.55);
+            border: 1px solid rgba(252,115,104,0.35);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+            pointer-events: none;
+        }
+        .field-faq summary::-webkit-details-marker { display: none; }
+        .field-faq summary { list-style: none; cursor: pointer; }
+        .field-faq summary .field-chevron { transition: transform 250ms ease; }
+        .field-faq[open] summary .field-chevron { transform: rotate(90deg); }
+        @keyframes field-pulse {
+            0%, 100% { opacity: 0.65; box-shadow: 0 0 0 0 rgba(252,115,104,0.45); }
+            50%      { opacity: 1;    box-shadow: 0 0 0 10px rgba(252,115,104,0); }
+        }
+        .field-pulse { animation: field-pulse 2.4s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+            .field-faq summary .field-chevron { transition: none; }
+            .field-pulse { animation: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-surface-container-lowest">
+<!-- TopAppBar -->
+<header class="bg-[#FDFCF8] dark:bg-[#0B2340] w-full top-0 border-b border-[#0B2340]/15 sticky z-50">
+<div class="flex justify-between items-center w-full px-8 md:px-16 py-6 max-w-[1440px] mx-auto">
+<a class="text-2xl font-bold tracking-tighter text-[#0B2340] dark:text-[#FDFCF8] uppercase hover:opacity-80 transition-opacity duration-300" href="#">
+                The Bluefield Fund
+            </a>
+<nav class="hidden md:flex space-x-8">
+<a class="font-['Newsreader'] serif uppercase tracking-widest text-sm text-[#0B2340]/60 dark:text-[#FDFCF8]/60 hover:text-[#0B2340] dark:hover:text-[#FDFCF8] hover:opacity-80 transition-opacity duration-300 py-1" href="#">Mission</a>
+<a class="font-['Newsreader'] serif uppercase tracking-widest text-sm text-[#0B2340]/60 dark:text-[#FDFCF8]/60 hover:text-[#0B2340] dark:hover:text-[#FDFCF8] hover:opacity-80 transition-opacity duration-300 py-1" href="#">Work</a>
+<a class="font-['Newsreader'] serif uppercase tracking-widest text-sm text-[#0B2340]/60 dark:text-[#FDFCF8]/60 hover:text-[#0B2340] dark:hover:text-[#FDFCF8] hover:opacity-80 transition-opacity duration-300 py-1" href="#">Impact</a>
+</nav>
+<button class="bg-primary-container text-surface-container-lowest font-label-caps text-label-caps px-6 py-3 hover:opacity-80 transition-opacity duration-300 uppercase">
+                Give
+            </button>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative w-full h-[870px] flex items-center bg-primary-container overflow-hidden">
+<img alt="Documentary photograph of a coral reef with a diver in silhouette" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" data-alt="underwater documentary photography showing vast coral reef illuminated by surface sunlight with silhouette of a single scuba diver floating peacefully above" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIZlVld3i4SbBupQs5qPifY7W9oeEhp03QGDhFWa4FlZcXWr9aK63KcB1tgEnbq4jd11wqRDY_HzakOfOArD5YMDwWg5AZUgbP_OwCWniEXSvQptrldd9mlb49R15AYfv4CWeWs6eEexdU35IUmE-u_WrUpcqcuB4Q7o68j010MeLgQpXvlj1HtS8QSJUvAdY9JSQJxKw53qIBrxVZidUUu6QVrsyBYChR9xmcoyonLsNSuuu3pjnby0BAIQQ6tTaCQ-5V24InewKS"/>
+<div class="relative z-10 w-full max-w-[1440px] mx-auto px-8 md:px-16 flex flex-col items-start gap-md">
+<h1 class="font-display-xl text-display-xl text-surface-container-lowest max-w-4xl">Protecting the oceans we depend on</h1>
+<p class="font-body-lg text-body-lg text-surface-container-lowest/90 max-w-2xl">Our mission is to safeguard marine ecosystems through science and community action.</p>
+<div class="flex gap-4 mt-sm">
+<button class="bg-secondary text-surface-container-lowest font-label-caps text-label-caps px-8 py-4 uppercase hover:bg-on-secondary-container transition-colors">Donate now</button>
+<button class="border border-surface-container-lowest text-surface-container-lowest font-label-caps text-label-caps px-8 py-4 uppercase hover:bg-surface-container-lowest/10 transition-colors flex items-center gap-2">
+                    Learn more
+                    <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Impact Stats -->
+<section class="bg-surface-container py-xl border-y border-outline/15">
+<div class="max-w-[1440px] mx-auto px-8 md:px-16">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter divide-x divide-outline/15">
+<div class="flex flex-col items-center text-center px-4">
+<span class="font-headline-lg text-headline-lg text-primary-container">12,400</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs">Acres Protected</span>
+</div>
+<div class="flex flex-col items-center text-center px-4">
+<span class="font-headline-lg text-headline-lg text-primary-container">48</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs">Species Monitored</span>
+</div>
+<div class="flex flex-col items-center text-center px-4">
+<span class="font-headline-lg text-headline-lg text-primary-container">9</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs">Countries</span>
+</div>
+<div class="flex flex-col items-center text-center px-4">
+<span class="font-headline-lg text-headline-lg text-primary-container">2011</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-xs">Founded</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Where We Work — diagonal full-width image band (NOVEL pattern 1) -->
+<section class="full-bleed relative bg-primary-container overflow-hidden diagonal-band" style="min-height: 520px;">
+<img alt="Aerial view of a coastline where the foundation operates field stations" class="absolute inset-0 w-full h-full object-cover opacity-50" data-alt="documentary aerial photograph of tropical coastline with reef shadows breaking through turquoise water and a small research vessel anchored offshore" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container/85 via-primary-container/40 to-primary-container/70"></div>
+<div class="relative z-10 max-w-[1440px] mx-auto px-8 md:px-16 py-24 md:py-32 grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-7 flex flex-col gap-md">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim uppercase tracking-[0.3em]">II — The Field</span>
+<h2 class="font-display-xl text-[44px] md:text-[64px] leading-[1.05] tracking-tight text-surface-container-lowest">Where the work takes place.</h2>
+<p class="font-body-lg text-body-lg text-surface-container-lowest/85 max-w-2xl">Nine countries across the Coral Triangle, the Western Indian Ocean, and the Eastern Pacific. Field stations staffed by local marine biologists, ranger teams, and the communities living closest to the reefs they steward.</p>
+</div>
+<div class="md:col-span-5 flex flex-col gap-4 border-l-2 border-secondary-fixed-dim/40 pl-6">
+<div class="flex items-baseline justify-between border-b border-surface-container-lowest/20 pb-3">
+<span class="font-label-caps text-label-caps text-surface-container-lowest/70 uppercase">Coral Triangle</span>
+<span class="font-headline-md text-headline-md text-surface-container-lowest tabular-nums">04 stations</span>
+</div>
+<div class="flex items-baseline justify-between border-b border-surface-container-lowest/20 pb-3">
+<span class="font-label-caps text-label-caps text-surface-container-lowest/70 uppercase">W. Indian Ocean</span>
+<span class="font-headline-md text-headline-md text-surface-container-lowest tabular-nums">03 stations</span>
+</div>
+<div class="flex items-baseline justify-between border-b border-surface-container-lowest/20 pb-3">
+<span class="font-label-caps text-label-caps text-surface-container-lowest/70 uppercase">E. Pacific</span>
+<span class="font-headline-md text-headline-md text-surface-container-lowest tabular-nums">02 stations</span>
+</div>
+<a class="font-label-caps text-label-caps text-secondary-fixed-dim uppercase tracking-widest mt-2 inline-flex items-center gap-2 hover:text-surface-container-lowest transition-colors" href="#">
+                    Field map <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Our Work -->
+<section class="py-xl bg-background">
+<div class="max-w-[1440px] mx-auto px-8 md:px-16">
+<div class="flex justify-between items-end mb-lg border-b border-outline/15 pb-4">
+<h2 class="font-headline-md text-headline-md text-primary-container">Our Work</h2>
+<a class="font-label-caps text-label-caps text-primary-container uppercase hover:opacity-70 transition-opacity flex items-center gap-1" href="#">
+                    View all projects <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<article class="border border-outline/15 flex flex-col group cursor-pointer hover:border-primary-container transition-colors">
+<div class="relative h-64 overflow-hidden">
+<img alt="Marine scientists tagging a turtle" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="documentary style close up of marine biologist holding clipboard while observing sea turtle on white sandy beach with turquoise water in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZkNao5vKoVUEGOpvn2t2bS-lUiPIMzrgPRzugksKPUapw-J0GVheZXQDVhtahmcVwCLGP0BYC6qYqZMno2n4DTAA3P5YIdyJSW8wjEIECSh5Sbprxrl5n7JLukDCLjSJXpy67SeKkyarnZXZatK4qUWg2voXHI_AadmJQ4cfDn5PkK-kzFoFqvy4xOkh-lRAL1ns_fM5_F1t8F8qYoKjUk8hKi0iwWa4RDjlaJ6YxR3L1vuUOdh7Klf5PaG6rHrKzHcUt4o5kbJRf"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs tracking-widest">Project 01 — Indonesia</span>
+<h3 class="font-headline-md text-headline-md text-primary-container mb-sm text-[24px]">Coral Bleaching Survey</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-md">Documenting the unprecedented warming events across the Coral Triangle to establish baseline resiliency data.</p>
+<div class="mt-auto pt-sm border-t border-outline/15">
+<span class="font-body-md text-body-md text-on-surface-variant italic text-sm">Image: Researchers recording temperatures off Raja Ampat.</span>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="border border-outline/15 flex flex-col group cursor-pointer hover:border-primary-container transition-colors">
+<div class="relative h-64 overflow-hidden">
+<img alt="Scientist taking water samples" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale-[20%]" data-alt="marine researcher in small dinghy leaning over edge holding scientific equipment collecting ocean water samples with moody overcast sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfRQhrkmhvTaMtuup4QJeg1SJfVp8tq9ie71EtkC5RZE9rsuC_nWR9giyK7vbp7vezBn7nney28Cw0scq27bCZTMTmxaUsP8tYFG7Y6iXoDw7AMAbeMyNpygORlhji28WTCQ4a3Qiy4aXnH8oaEmcJdoueXbVDHKfoHN7xLVKk8O2u5ilns2-3fthDGdYbr81n9t4soTrzF1J0JMiGoWf9VrzAoIhs-O9uu6tVuZ7NAWTP3ILrN5Hndb0mi6Hj_ooE_dON42d-GjN0"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs tracking-widest">Project 02 — Maldives</span>
+<h3 class="font-headline-md text-headline-md text-primary-container mb-sm text-[24px]">Manta Ray Migration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-md">Acoustic tagging program tracking seasonal movements to advocate for protected marine corridors.</p>
+<div class="mt-auto pt-sm border-t border-outline/15">
+<span class="font-body-md text-body-md text-on-surface-variant italic text-sm">Image: Deployment of receiver array at Hanifaru Bay.</span>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="border border-outline/15 flex flex-col group cursor-pointer hover:border-primary-container transition-colors">
+<div class="relative h-64 overflow-hidden">
+<img alt="Community members planting mangroves" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="wide shot showing local community volunteers planting small mangrove saplings in shallow muddy water along tropical coastline during late afternoon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB47LzfwZkvt5_zH0QZw9Obol0K5LYrxROKLU7R4pRdr6oWX9de1TxrfTJD02cDAscyQUQIA64OZnU-jMaDbwgxWX0k12ozEyBJQZhdruebQRUmY7JaR9fQwSnCjy2qJ-OqnmGo_DHiw6BcxFb_YmBRQe5DieXnt4sBOWwMDtZgABvxs0vDfMhG1tfsAxkn02kJ3V_GtgDyKcqnOR07hxt3FRZXe0hiiwyprhe2iimXWAkQhWfeLcUxpklJ_XaLYZrEVJdUHj4uFzfA"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs tracking-widest">Project 03 — Philippines</span>
+<h3 class="font-headline-md text-headline-md text-primary-container mb-sm text-[24px]">Mangrove Restoration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3 mb-md">Community-led initiative restoring vital coastal nurseries that protect against storm surges.</p>
+<div class="mt-auto pt-sm border-t border-outline/15">
+<span class="font-body-md text-body-md text-on-surface-variant italic text-sm">Image: Palawan coastal youth group planting seedlings.</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- Voices from the Field — polaroid stack (NOVEL pattern 3) -->
+<section class="py-xl bg-surface-container-low border-y border-outline/15 relative overflow-hidden">
+<div class="max-w-[1440px] mx-auto px-8 md:px-16">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<div class="lg:col-span-4 flex flex-col gap-md lg:sticky lg:top-32">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">III — Voices</span>
+<h2 class="font-display-xl text-[40px] md:text-[56px] leading-[1.05] tracking-tight text-primary-container">From the field, in their words.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Field rangers, community elders, and the next generation of marine biologists tell us why the work matters. We listen first; the science follows.</p>
+<a class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest inline-flex items-center gap-2 border-b border-primary-container/40 pb-1 self-start hover:opacity-70 transition-opacity" href="#">
+                        Read all stories <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="lg:col-span-8 relative min-h-[520px] md:min-h-[640px]">
+<figure class="polaroid relative absolute md:left-[2%] md:top-[2%] w-[68%] md:w-[42%] -rotate-3 z-10">
+<img alt="Marine ranger Lala Putri" class="w-full aspect-[3/4] object-cover" data-alt="black and white documentary portrait of indonesian woman in field uniform standing near coastal mangrove forest with soft afternoon light" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
+<span class="font-['Newsreader'] italic text-base">Lala Putri</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Ranger · ID</span>
+</figcaption>
+</figure>
+<figure class="polaroid relative absolute md:left-[36%] md:top-[10%] w-[64%] md:w-[40%] rotate-2 z-20 mt-8 md:mt-0">
+<img alt="Community elder Tomás Ndoye" class="w-full aspect-[3/4] object-cover" data-alt="dignified portrait of senior coastal village elder wearing traditional fishing cap looking off camera with weathered face and warm afternoon backlight" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
+<span class="font-['Newsreader'] italic text-base">Tomás Ndoye</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Elder · SN</span>
+</figcaption>
+</figure>
+<figure class="polaroid relative absolute md:left-[8%] md:top-[44%] w-[64%] md:w-[40%] rotate-1 z-20 mt-8 md:mt-0">
+<img alt="Marine biologist Dr. Anika Reyes" class="w-full aspect-[3/4] object-cover" data-alt="documentary portrait of filipino marine biologist in lab coat smiling subtly while holding coral fragment specimen in soft natural light" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
+<span class="font-['Newsreader'] italic text-base">Dr. Anika Reyes</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Biologist · PH</span>
+</figcaption>
+</figure>
+<figure class="polaroid relative absolute md:left-[42%] md:top-[52%] w-[68%] md:w-[42%] -rotate-2 z-30 mt-8 md:mt-0">
+<img alt="Youth volunteer Issa Marwa" class="w-full aspect-[3/4] object-cover" data-alt="quiet portrait of teenage volunteer in shirt holding clipboard standing on wooden jetty during golden hour with calm tropical lagoon behind" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
+<span class="font-['Newsreader'] italic text-base">Issa Marwa</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Volunteer · KE</span>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<!-- Our Approach — sticky-photo + scrolling program list (NOVEL pattern 8) -->
+<section class="py-xl bg-background border-b border-outline/15">
+<div class="max-w-[1440px] mx-auto px-8 md:px-16">
+<div class="flex flex-col mb-lg border-b border-outline/15 pb-4">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em] mb-2">IV — Approach</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Five disciplines, one ocean.</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-start">
+<div class="md:col-span-5 md:sticky md:top-32 md:self-start">
+<figure class="relative">
+<img alt="Marine biologist Dr. Reyes documenting reef" class="w-full aspect-[4/5] object-cover" data-alt="vertical documentary portrait of marine biologist in wetsuit kneeling on a research vessel deck reviewing notebook with snorkel gear and reef field equipment" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute bottom-4 left-4 right-4 flex items-end justify-between text-surface-container-lowest">
+<span class="font-['Newsreader'] italic text-lg drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Dr. Anika Reyes</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Lead Scientist</span>
+</figcaption>
+</figure>
+<p class="font-body-md text-body-md text-on-surface-variant italic mt-4 border-l-2 border-secondary pl-4">"We don't parachute in. Every program runs for a minimum decade because reefs heal on geological time, not grant cycles."</p>
+</div>
+<ol class="md:col-span-7 flex flex-col">
+<li class="grid grid-cols-12 gap-4 py-6 border-b border-outline/15">
+<span class="col-span-2 font-headline-lg text-[32px] text-secondary tabular-nums leading-none">01</span>
+<div class="col-span-10 flex flex-col gap-2">
+<h3 class="font-headline-md text-[22px] text-primary-container">Long-term Monitoring</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Acoustic arrays, photo-quadrats, and satellite tagging across decade-long baselines.</p>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Active since 2011 · 240 sites</span>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6 border-b border-outline/15">
+<span class="col-span-2 font-headline-lg text-[32px] text-secondary tabular-nums leading-none">02</span>
+<div class="col-span-10 flex flex-col gap-2">
+<h3 class="font-headline-md text-[22px] text-primary-container">Community Co-Management</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Marine protected areas designed and stewarded with the villages whose livelihoods depend on them.</p>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">14 MPAs · 38 villages</span>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6 border-b border-outline/15">
+<span class="col-span-2 font-headline-lg text-[32px] text-secondary tabular-nums leading-none">03</span>
+<div class="col-span-10 flex flex-col gap-2">
+<h3 class="font-headline-md text-[22px] text-primary-container">Habitat Restoration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Coral micro-fragmentation, mangrove planting, and seagrass replanting at scale.</p>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">2.1M corals · 9,400 ha mangrove</span>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6 border-b border-outline/15">
+<span class="col-span-2 font-headline-lg text-[32px] text-secondary tabular-nums leading-none">04</span>
+<div class="col-span-10 flex flex-col gap-2">
+<h3 class="font-headline-md text-[22px] text-primary-container">Policy Translation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Field data turned into legal protections — fishing-zone treaties, vessel speed limits, plastic bans.</p>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">31 statutes informed</span>
+</div>
+</li>
+<li class="grid grid-cols-12 gap-4 py-6">
+<span class="col-span-2 font-headline-lg text-[32px] text-secondary tabular-nums leading-none">05</span>
+<div class="col-span-10 flex flex-col gap-2">
+<h3 class="font-headline-md text-[22px] text-primary-container">Next Generation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Field scholarships for young scientists from coastal communities — paid, mentored, published.</p>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">62 scholars · 19 PhDs</span>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</section>
+<!-- Transparency — image-as-bg under financial breakdown card (NOVEL pattern 6) -->
+<section class="full-bleed relative overflow-hidden" style="min-height: 640px;">
+<img alt="Open ocean reef footage as backdrop" class="absolute inset-0 w-full h-full object-cover" data-alt="documentary wide shot of healthy coral reef ecosystem with sunlit shallow water and schools of small fish creating natural movement" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-primary-container/75"></div>
+<div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0) 0%, rgba(11,35,64,0.55) 80%);"></div>
+<div class="relative z-10 max-w-5xl mx-auto px-8 md:px-16 py-xl">
+<div class="bg-surface-container-lowest/95 backdrop-blur-sm border border-surface-container-lowest/30 p-8 md:p-12">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-md border-b border-outline/15 pb-md">
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">V — Transparency</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Where every dollar goes.</h2>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">FY 2024 · Audited</span>
+</div>
+<dl class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+<div class="flex flex-col gap-2 border-b border-outline/15 pb-4">
+<div class="flex items-baseline justify-between">
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Field research</dt>
+<dd class="font-headline-md text-[24px] text-primary-container tabular-nums">62%</dd>
+</div>
+<div class="h-1.5 bg-surface-container w-full">
+<div class="h-full bg-primary-container" style="width: 62%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 border-b border-outline/15 pb-4">
+<div class="flex items-baseline justify-between">
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Community programs</dt>
+<dd class="font-headline-md text-[24px] text-primary-container tabular-nums">21%</dd>
+</div>
+<div class="h-1.5 bg-surface-container w-full">
+<div class="h-full bg-secondary" style="width: 21%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 border-b border-outline/15 pb-4">
+<div class="flex items-baseline justify-between">
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Policy &amp; advocacy</dt>
+<dd class="font-headline-md text-[24px] text-primary-container tabular-nums">9%</dd>
+</div>
+<div class="h-1.5 bg-surface-container w-full">
+<div class="h-full bg-on-primary-container" style="width: 9%;"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 border-b border-outline/15 pb-4">
+<div class="flex items-baseline justify-between">
+<dt class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Operations</dt>
+<dd class="font-headline-md text-[24px] text-primary-container tabular-nums">8%</dd>
+</div>
+<div class="h-1.5 bg-surface-container w-full">
+<div class="h-full bg-outline" style="width: 8%;"></div>
+</div>
+</div>
+</dl>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mt-md pt-md border-t border-outline/15">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">FY24 revenue</span>
+<span class="font-headline-md text-[24px] text-primary-container tabular-nums">$8.4M</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Charity Navigator</span>
+<span class="font-headline-md text-[24px] text-primary-container">★★★★ Four-star</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Form 990</span>
+<a class="font-headline-md text-[24px] text-secondary hover:text-on-secondary-container transition-colors inline-flex items-center gap-2" href="#">Download <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Donation Block -->
+<section class="py-xl bg-surface-container-high border-y border-outline/15">
+<div class="max-w-4xl mx-auto px-8 md:px-16">
+<div class="bg-surface-container-lowest border border-outline/15 p-8 md:p-12">
+<div class="text-center mb-md border-b border-outline/15 pb-md">
+<h2 class="font-headline-md text-headline-md text-primary-container mb-xs">Support the Mission</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Your contribution directly funds field research and conservation action.</p>
+</div>
+<form class="space-y-8">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Select Amount</span>
+<label class="flex items-center space-x-2 cursor-pointer">
+<input class="form-checkbox text-primary-container border-outline/30 focus:ring-primary-container focus:ring-offset-0 h-4 w-4" type="checkbox"/>
+<span class="font-label-caps text-label-caps text-primary-container uppercase">Make it recurring</span>
+</label>
+</div>
+<div class="grid grid-cols-3 md:grid-cols-5 gap-4">
+<button class="border border-outline/30 py-3 font-label-caps text-label-caps hover:border-primary-container hover:bg-surface-container transition-colors focus:border-primary-container focus:bg-primary-container focus:text-surface-container-lowest" type="button">$25</button>
+<button class="border border-outline/30 py-3 font-label-caps text-label-caps hover:border-primary-container hover:bg-surface-container transition-colors focus:border-primary-container focus:bg-primary-container focus:text-surface-container-lowest" type="button">$50</button>
+<button class="border border-outline/30 py-3 font-label-caps text-label-caps hover:border-primary-container hover:bg-surface-container transition-colors focus:border-primary-container focus:bg-primary-container focus:text-surface-container-lowest" type="button">$100</button>
+<button class="border border-outline/30 py-3 font-label-caps text-label-caps hover:border-primary-container hover:bg-surface-container transition-colors focus:border-primary-container focus:bg-primary-container focus:text-surface-container-lowest" type="button">$250</button>
+<div class="border border-outline/30 relative flex items-center col-span-3 md:col-span-1">
+<span class="absolute left-3 font-body-md text-on-surface-variant">$</span>
+<input class="w-full bg-transparent border-none py-3 pl-8 pr-3 font-label-caps text-label-caps focus:ring-0 placeholder-on-surface-variant/50" placeholder="Custom" type="number"/>
+</div>
+</div>
+</div>
+<button class="w-full bg-secondary text-surface-container-lowest font-label-caps text-label-caps py-4 uppercase hover:bg-on-secondary-container transition-colors" type="submit">
+                        Give Now
+                    </button>
+</form>
+</div>
+</div>
+</section>
+<!-- FAQ — details accordion (M.7) -->
+<section class="py-xl bg-background border-t border-outline/15">
+<div class="max-w-4xl mx-auto px-8 md:px-16">
+<div class="flex flex-col mb-lg border-b border-outline/15 pb-4">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em] mb-2">VI — Questions</span>
+<h2 class="font-headline-md text-headline-md text-primary-container">Frequently asked.</h2>
+</div>
+<div class="divide-y divide-outline/15">
+<details class="field-faq group py-5">
+<summary class="flex items-start justify-between gap-6">
+<h3 class="font-['Newsreader'] text-[22px] text-primary-container leading-snug">Is my donation tax-deductible?</h3>
+<span class="material-symbols-outlined field-chevron text-primary-container text-[24px] mt-1" data-icon="chevron_right">chevron_right</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-3xl">Yes. The Bluefield Fund is a registered 501(c)(3) public charity (EIN #84-1234567). U.S. donors receive a deductible-gift acknowledgment for every contribution above $25. International donors should consult our partner network in the EU, UK, and Australia.</p>
+</details>
+<details class="field-faq group py-5">
+<summary class="flex items-start justify-between gap-6">
+<h3 class="font-['Newsreader'] text-[22px] text-primary-container leading-snug">How is field-research funding allocated?</h3>
+<span class="material-symbols-outlined field-chevron text-primary-container text-[24px] mt-1" data-icon="chevron_right">chevron_right</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-3xl">Sixty-two cents of every dollar funds direct field research — staff scientists, instrument arrays, vessel time, and station operations. The full breakdown is published in Section V above and audited annually by an independent firm.</p>
+</details>
+<details class="field-faq group py-5">
+<summary class="flex items-start justify-between gap-6">
+<h3 class="font-['Newsreader'] text-[22px] text-primary-container leading-snug">Can I volunteer in the field?</h3>
+<span class="material-symbols-outlined field-chevron text-primary-container text-[24px] mt-1" data-icon="chevron_right">chevron_right</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-3xl">Field placements run 8–12 weeks and require open-water certification plus a science or community-engagement background. We open eight slots a year, prioritizing applicants from coastal communities adjacent to our partner sites.</p>
+</details>
+<details class="field-faq group py-5">
+<summary class="flex items-start justify-between gap-6">
+<h3 class="font-['Newsreader'] text-[22px] text-primary-container leading-snug">Do you accept crypto, stock, or DAF gifts?</h3>
+<span class="material-symbols-outlined field-chevron text-primary-container text-[24px] mt-1" data-icon="chevron_right">chevron_right</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-3xl">Yes — appreciated stock, donor-advised-fund grants, and cryptocurrency (BTC, ETH, USDC) are all accepted. Stock and DAF transfers are processed by our partner foundation; please email development@bluefieldfund.org for routing.</p>
+</details>
+<details class="field-faq group py-5">
+<summary class="flex items-start justify-between gap-6">
+<h3 class="font-['Newsreader'] text-[22px] text-primary-container leading-snug">Where do I find your published research?</h3>
+<span class="material-symbols-outlined field-chevron text-primary-container text-[24px] mt-1" data-icon="chevron_right">chevron_right</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 max-w-3xl">Field reports, peer-reviewed papers, and open datasets are published quarterly under a CC-BY license. The full archive — 184 reports as of FY24 — is mirrored on our Field Reports page and on the Open Science Framework.</p>
+</details>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#0B2340] dark:bg-[#05111F] full-width border-t border-white/10 relative">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 md:px-16 py-20 max-w-[1440px] mx-auto">
+<div class="col-span-1 md:col-span-2 flex flex-col">
+<span class="text-xl font-black text-[#FDFCF8] mb-sm uppercase">The Bluefield Fund</span>
+<p class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-[#FDFCF8]/70 mb-md max-w-sm leading-relaxed">
+                    Dedicated to oceanic preservation through rigorous field science and active community engagement.
+                </p>
+<form class="mt-auto w-full max-w-md border-b border-white/20 flex">
+<input class="bg-transparent border-none w-full text-white font-['Inter'] text-xs uppercase tracking-wider placeholder-white/40 focus:ring-0 p-0 pb-2" placeholder="SUBSCRIBE FOR FIELD UPDATES" type="email"/>
+<button class="text-white hover:text-coral-400 pb-2" type="submit">
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+</div>
+<div class="col-span-1">
+<span class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-white border-b border-white/20 pb-2 block mb-4">Organization</span>
+<ul class="space-y-3">
+<li><a class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-[#FDFCF8]/70 hover:text-white transition-colors" href="#">Mission</a></li>
+<li><a class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-[#FDFCF8]/70 hover:text-white transition-colors" href="#">Field Reports</a></li>
+<li><a class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-[#FDFCF8]/70 hover:text-white transition-colors" href="#">Scientific Data</a></li>
+</ul>
+</div>
+<div class="col-span-1 flex flex-col justify-between">
+<div>
+<span class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-white border-b border-white/20 pb-2 block mb-4">Connect</span>
+<ul class="space-y-3 mb-8">
+<li><a class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-[#FDFCF8]/70 hover:text-white transition-colors" href="#">Contact</a></li>
+<li><a class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-[#FDFCF8]/70 hover:text-white transition-colors" href="#">Transparency</a></li>
+</ul>
+</div>
+<div class="mt-auto">
+<p class="font-['Inter'] sans-serif text-xs uppercase tracking-wider text-[#FDFCF8]/50">
+                        © 2024 The Bluefield Fund. Dedicated to oceanic preservation.
+                    </p>
+<p class="font-['Inter'] sans-serif text-[10px] uppercase tracking-wider text-[#FDFCF8]/30 mt-2">
+                        Charity ID: 501(C)(3) #84-1234567
+                    </p>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

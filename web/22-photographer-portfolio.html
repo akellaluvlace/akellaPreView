@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth snap-y snap-proximity bg-[#141313] selection:bg-neutral-800 selection:text-white" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta name="description" content="Inés Moreno - Documentary Photography Portfolio focusing on memory, architecture, and marginal communities across South America."/>
+    <meta name="theme-color" content="#141313"/>
+    <title>Inés Moreno - Photography Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#141313",
+                        "surface": "#141313",
+                        "on-surface": "#e5e2e1",
+                    },
+                    spacing: {
+                        "margin-safe": "64px",
+                        "stack-sm": "16px",
+                        "stack-md": "40px",
+                        "stack-lg": "80px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Newsreader", "serif"],
+                        "headline-lg": ["Newsreader", "serif"],
+                        "body-lg": ["Newsreader", "serif"],
+                        "body-md": ["Newsreader", "serif"],
+                        "label": ["Newsreader", "serif"],
+                        "caption": ["Newsreader", "serif"]
+                    },
+                    fontSize: {
+                        "headline-xl": ["clamp(2.5rem, 5vw + 1rem, 48px)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "300" }],
+                        "headline-lg": ["clamp(1.75rem, 3vw + 0.5rem, 32px)", { lineHeight: "1.2", fontWeight: "400" }],
+                        "body-lg": ["clamp(1.125rem, 1.5vw + 0.5rem, 20px)", { lineHeight: "1.6", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "label": ["12px", { lineHeight: "1.0", fontWeight: "500", letterSpacing: "0.1em" }],
+                        "caption": ["13px", { lineHeight: "1.4", letterSpacing: "0.03em", fontWeight: "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Optimize text rendering */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Hide scrollbar for cleaner cinematic look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353434;
+        }
+        /* Polaroid scotch-tape pseudo */
+        .polaroid::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 64px;
+            height: 18px;
+            background: rgba(245, 240, 220, 0.85);
+            transform: translateX(-50%) rotate(-3deg);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            z-index: 2;
+        }
+        /* Diagonal slice band */
+        .diagonal-strip {
+            clip-path: polygon(0 12%, 100% 0, 100% 88%, 0 100%);
+        }
+        /* Cycling cross-fade for a single hero piece */
+        @keyframes ines-fade {
+            0%, 4%   { opacity: 0; filter: blur(18px) saturate(0.8); transform: scale(1.04); }
+            8%, 22%  { opacity: 1; filter: blur(0)     saturate(1);   transform: scale(1); }
+            26%, 100%{ opacity: 0; filter: blur(18px) saturate(0.8); transform: scale(1.04); }
+        }
+        .ines-cycle-img {
+            animation: ines-fade 16s linear infinite;
+            opacity: 0;
+            filter: blur(18px) saturate(0.8);
+            transform: scale(1.04);
+            will-change: opacity, filter, transform;
+        }
+        /* FAQ accordion (chevron variant) */
+        .ines-faq summary::-webkit-details-marker { display: none; }
+        .ines-faq summary { list-style: none; cursor: pointer; }
+        .ines-faq summary .ines-chevron { transition: transform 250ms ease; }
+        .ines-faq[open] summary .ines-chevron { transform: rotate(180deg); }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+            .ines-cycle-img:nth-child(1) { opacity: 1 !important; filter: none !important; transform: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-[#141313] text-on-surface antialiased overflow-x-hidden">
+
+    <!-- TopAppBar -->
+    <header class="group fixed top-0 w-full z-50 flex justify-between items-center px-4 sm:px-8 md:px-16 h-16 md:h-24 bg-black/60 md:bg-black/0 md:hover:bg-black/95 md:focus-within:bg-black/95 transition-colors duration-700 ease-in-out">
+        <h1 class="m-0 flex items-center">
+            <a class="text-sm font-normal tracking-[0.2em] text-neutral-100 uppercase opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 transition-opacity duration-500 sm:text-base md:text-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm" href="#" aria-label="Inés Moreno Home">
+                Inés Moreno
+            </a>
+        </h1>
+        <nav aria-label="Main Navigation" class="hidden md:block">
+            <ul class="flex gap-8 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500 font-serif font-light text-neutral-100 tracking-tight Newsreader m-0 p-0">
+                <li><a class="text-neutral-100/40 hover:text-neutral-100 focus-visible:text-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm transition-all duration-300" href="#archive">Archive</a></li>
+                <li><a class="text-neutral-100 underline decoration-1 underline-offset-4 hover:text-neutral-100 focus-visible:text-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm transition-all duration-300" href="#about">About</a></li>
+                <li><a class="text-neutral-100/40 hover:text-neutral-100 focus-visible:text-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm transition-all duration-300" href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main>
+        <!-- Full Viewport Image 1 -->
+        <section class="h-[100dvh] w-full relative snap-start snap-always">
+            <img alt="Striking high-contrast black and white portrait of a woman looking off-camera, dramatic shadows defining her facial structure." 
+                 class="w-full h-full object-cover" 
+                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2500&auto=format&fit=crop&sat=-100" 
+                 width="2500" height="1667"
+                 fetchpriority="high" loading="eager" decoding="sync"/>
+        </section>
+
+        <!-- Full Viewport Image 2 -->
+        <section class="h-[100dvh] w-full relative snap-start snap-always bg-black">
+            <img alt="Desolate urban landscape featuring striking modernist architecture intersecting with nature, shot in moody monochrome." 
+                 class="w-full h-full object-cover" 
+                 src="https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=2500&auto=format&fit=crop&sat=-100"
+                 width="2500" height="1667" 
+                 loading="lazy" decoding="async"/>
+        </section>
+
+        <!-- 3 Images Side-by-Side (Replaced middle image) -->
+        <section class="h-[100dvh] w-full relative snap-start snap-always bg-black flex flex-row">
+            <div class="flex-1 h-full relative overflow-hidden">
+                <img alt="Abstract geometric shadows on architecture"
+                     class="w-full h-full object-cover grayscale"
+                     src="https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=800&auto=format&fit=crop&sat=-100"
+                     loading="lazy" decoding="async"/>
+            </div>
+            <div class="flex-1 h-full relative overflow-hidden border-l border-neutral-900">
+                <img alt="Close up textured concrete elements"
+                     class="w-full h-full object-cover grayscale"
+                     src="https://images.unsplash.com/photo-1533035353720-f1c6a75cd8ab?q=80&w=800&auto=format&fit=crop&sat=-100"
+                     loading="lazy" decoding="async"/>
+            </div>
+            <div class="flex-1 h-full relative overflow-hidden border-l border-neutral-900">
+                <img alt="Dark silhouettes in an underpass"
+                     class="w-full h-full object-cover grayscale"
+                     src="https://images.unsplash.com/photo-1460500063983-994d4c27756c?q=80&w=800&auto=format&fit=crop&sat=-100"
+                     loading="lazy" decoding="async"/>
+            </div>
+        </section>
+
+        <!-- Wide Cinema Strip 21:9 (NOVEL #11) — current series trailer -->
+        <section class="w-full relative snap-start bg-black overflow-hidden" aria-label="Current series — Boundaries">
+            <div class="relative w-full aspect-[21/9]">
+                <img alt="Wide brutalist concrete facade catching directional light, deep shadow gradient."
+                     class="absolute inset-0 w-full h-full object-cover grayscale"
+                     src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2400&auto=format&fit=crop&sat=-100"
+                     width="2400" height="1029" loading="lazy" decoding="async"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/40 pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
+                <div class="absolute left-4 sm:left-8 md:left-16 bottom-6 md:bottom-10 max-w-xl">
+                    <p class="font-label text-label uppercase tracking-[0.2em] text-neutral-400 mb-stack-sm">Current Series · 04</p>
+                    <h2 class="font-headline-xl text-headline-xl text-[#EDEDED] [text-wrap:balance]">Boundaries</h2>
+                    <p class="font-caption text-caption text-neutral-400 mt-stack-sm">Coastline, concrete, and the slow erosion of intent. Buenos Aires &middot; 2024.</p>
+                </div>
+            </div>
+            <div class="w-full px-4 sm:px-8 md:px-16 py-stack-md flex flex-col sm:flex-row gap-4 sm:gap-12 border-t border-neutral-900 bg-[#141313]">
+                <p class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-500">21:9 &middot; Silver gelatin scan</p>
+                <p class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-500">36 plates &middot; Edition of 7</p>
+                <p class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-500">Selected for the Bienal de Fotografía, 2025</p>
+            </div>
+        </section>
+
+        <!-- Text Interstitial -->
+        <section class="py-20 px-4 max-w-4xl mx-auto flex flex-col gap-stack-md snap-start sm:py-24 sm:px-8 md:py-32 md:px-16">
+            <hr class="border-t border-neutral-800 w-full" aria-hidden="true"/>
+            <h2 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Valparaíso, 2023</h2>
+            <p class="font-body-lg text-[#EDEDED] opacity-80 leading-relaxed max-w-[65ch] [text-wrap:pretty]">
+                The port city breathes through its rusted funiculars and stray dogs. Over three weeks, the focus remained not on the vibrant murals that attract tourists, but on the skeletal infrastructure left behind by a forgotten economic boom. The shadows here stretch longer, holding memories of a time when the sea was a lifeline rather than a boundary.
+            </p>
+        </section>
+
+        <!-- Full Viewport Image 4 -->
+        <section class="h-[100dvh] w-full relative snap-start snap-always bg-black">
+            <img alt="Solitary figure walking down a steep, narrow cobblestone alleyway in Valparaiso, harsh sunlight creating geometric shadows."
+                 class="w-full h-full object-cover"
+                 src="https://images.unsplash.com/photo-1518398046578-8cca57782e17?q=80&w=2500&auto=format&fit=crop&sat=-100"
+                 width="2500" height="1667"
+                 loading="lazy" decoding="async"/>
+        </section>
+
+        <!-- Series Index — alternating 7/5 rows -->
+        <section id="series" class="py-20 px-4 max-w-screen-2xl mx-auto snap-start sm:py-24 sm:px-8 md:py-32 md:px-16 scroll-mt-16">
+            <div class="flex items-end justify-between border-b border-neutral-900 pb-stack-md mb-stack-lg">
+                <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Series &amp; Long-form Work</h3>
+                <p class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-500 hidden sm:block">Index &middot; 2019 — 2024</p>
+            </div>
+            <ol class="flex flex-col gap-16 sm:gap-20 md:gap-stack-lg list-none p-0 m-0">
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-center">
+                    <figure class="m-0 md:col-span-7">
+                        <img alt="Wide modernist plaza in Brasília, long shadows raking across raw concrete."
+                             class="w-full aspect-[16/10] object-cover grayscale bg-neutral-900"
+                             src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=1600&auto=format&fit=crop&sat=-100"
+                             width="1600" height="1000" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-neutral-500 mt-unit uppercase tracking-[0.15em]">Plate 04 &middot; Brasília &middot; 2024</figcaption>
+                    </figure>
+                    <div class="md:col-span-5 flex flex-col gap-stack-sm">
+                        <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Series I &middot; In progress</p>
+                        <h4 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Boundaries</h4>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[55ch] [text-wrap:pretty]">Three years tracing the seam where coastline meets concrete &mdash; from the breakwaters of Mar del Plata to the unfinished towers of Recife. Each frame holds a quiet argument with progress.</p>
+                        <p class="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-sm">36 plates &middot; Silver gelatin &middot; Edition of 7</p>
+                    </div>
+                </li>
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-center">
+                    <figure class="m-0 md:col-span-7 md:order-2">
+                        <img alt="Empty colonial street in Quito at dawn, soft mist softening crumbling stucco."
+                             class="w-full aspect-[16/10] object-cover grayscale bg-neutral-900"
+                             src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=1600&auto=format&fit=crop&sat=-100"
+                             width="1600" height="1000" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-neutral-500 mt-unit uppercase tracking-[0.15em]">Plate 11 &middot; Quito &middot; 2023</figcaption>
+                    </figure>
+                    <div class="md:col-span-5 md:order-1 flex flex-col gap-stack-sm">
+                        <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Series II &middot; Closed</p>
+                        <h4 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Slow Cities</h4>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[55ch] [text-wrap:pretty]">A study of South American capitals at the hour they cease to perform &mdash; the brief grey window before the streets fill. Photographed entirely on Tri-X, hand-printed.</p>
+                        <p class="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-sm">42 plates &middot; Silver gelatin &middot; Edition of 9</p>
+                    </div>
+                </li>
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-center">
+                    <figure class="m-0 md:col-span-7">
+                        <img alt="Quiet portrait of a woman in profile against a textured plaster wall."
+                             class="w-full aspect-[16/10] object-cover grayscale bg-neutral-900"
+                             src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop&sat=-100"
+                             width="1600" height="1000" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-neutral-500 mt-unit uppercase tracking-[0.15em]">Plate 02 &middot; Tucumán &middot; 2022</figcaption>
+                    </figure>
+                    <div class="md:col-span-5 flex flex-col gap-stack-sm">
+                        <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Series III &middot; Closed</p>
+                        <h4 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Mothers of the Inland</h4>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[55ch] [text-wrap:pretty]">Eighteen months in the dry interior &mdash; portraits and interiors that refuse spectacle. The book that came from this series sold out twice and was acquired by the MoMA library.</p>
+                        <p class="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-sm">28 plates &middot; Pigment print &middot; Edition of 12</p>
+                    </div>
+                </li>
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-center">
+                    <figure class="m-0 md:col-span-7 md:order-2">
+                        <img alt="High-contrast architectural detail, light raking across a coffered ceiling."
+                             class="w-full aspect-[16/10] object-cover grayscale bg-neutral-900"
+                             src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop&sat=-100"
+                             width="1600" height="1000" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-neutral-500 mt-unit uppercase tracking-[0.15em]">Plate 19 &middot; Salta &middot; 2021</figcaption>
+                    </figure>
+                    <div class="md:col-span-5 md:order-1 flex flex-col gap-stack-sm">
+                        <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Series IV &middot; Closed</p>
+                        <h4 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Static Ground</h4>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[55ch] [text-wrap:pretty]">Interiors of houses that have stood empty for more than a decade. Inheritance disputes, pending probate, the slow geometry of dust. A study of suspension.</p>
+                        <p class="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-sm">24 plates &middot; Silver gelatin &middot; Edition of 7</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Diagonal Photo Strip (NOVEL #10) — chapter break -->
+        <section aria-hidden="true" class="w-full relative bg-[#141313] overflow-hidden snap-start py-stack-md">
+            <div class="diagonal-strip w-full aspect-[21/6] relative bg-black">
+                <img alt=""
+                     class="w-full h-full object-cover grayscale opacity-90"
+                     src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=2400&auto=format&fit=crop&sat=-100"
+                     width="2400" height="686" loading="lazy" decoding="async"/>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60 pointer-events-none"></div>
+                <p class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-headline-lg text-[#EDEDED] italic tracking-tight whitespace-nowrap">&mdash; Field, not stage. &mdash;</p>
+            </div>
+        </section>
+
+        <!-- Polaroid Stack (NOVEL #3) -->
+        <section class="py-20 px-4 max-w-screen-xl mx-auto snap-start sm:py-24 sm:px-8 md:py-32 md:px-16">
+            <div class="flex flex-col gap-stack-md mb-stack-lg max-w-2xl">
+                <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Field Notes &middot; 06</p>
+                <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">From the contact sheets</h3>
+                <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[55ch] [text-wrap:pretty]">Frames that didn&apos;t survive the edit but kept the shoot honest &mdash; pinned to the studio wall as small, rotating evidence.</p>
+            </div>
+            <div class="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-12 pt-stack-md">
+                <figure class="polaroid relative bg-neutral-100 p-3 pb-12 rotate-[-3deg] hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                    <img alt="Silhouette in a doorway, harsh midday light." class="w-full aspect-[3/4] object-cover grayscale" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <figcaption class="font-caption text-caption text-neutral-700 absolute bottom-3 left-3 right-3 text-center uppercase tracking-[0.15em]">Buenos Aires, 2023</figcaption>
+                </figure>
+                <figure class="polaroid relative bg-neutral-100 p-3 pb-12 rotate-[2deg] hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                    <img alt="A woman&apos;s hand on a balcony rail, evening light." class="w-full aspect-[3/4] object-cover grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <figcaption class="font-caption text-caption text-neutral-700 absolute bottom-3 left-3 right-3 text-center uppercase tracking-[0.15em]">Quito, Field</figcaption>
+                </figure>
+                <figure class="polaroid relative bg-neutral-100 p-3 pb-12 rotate-[-1deg] hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                    <img alt="Concrete stairwell descending into shadow." class="w-full aspect-[3/4] object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <figcaption class="font-caption text-caption text-neutral-700 absolute bottom-3 left-3 right-3 text-center uppercase tracking-[0.15em]">Salta, 2021</figcaption>
+                </figure>
+                <figure class="polaroid relative bg-neutral-100 p-3 pb-12 rotate-[4deg] hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                    <img alt="Editorial portrait, jaw-line and cheekbone." class="w-full aspect-[3/4] object-cover grayscale" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <figcaption class="font-caption text-caption text-neutral-700 absolute bottom-3 left-3 right-3 text-center uppercase tracking-[0.15em]">Tucumán, 2022</figcaption>
+                </figure>
+                <figure class="polaroid relative bg-neutral-100 p-3 pb-12 rotate-[-2deg] hover:rotate-0 transition-transform duration-500 shadow-2xl">
+                    <img alt="Open window onto a textured plaster wall." class="w-full aspect-[3/4] object-cover grayscale" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <figcaption class="font-caption text-caption text-neutral-700 absolute bottom-3 left-3 right-3 text-center uppercase tracking-[0.15em]">Recife, 2024</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- Layered Photo Composition (NOVEL #5) -->
+        <section class="py-20 px-4 max-w-screen-xl mx-auto snap-start sm:py-24 sm:px-8 md:py-32 md:px-16">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-end">
+                <div class="md:col-span-5 flex flex-col gap-stack-sm">
+                    <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Process &middot; 07</p>
+                    <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">A frame held against another frame</h3>
+                    <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[50ch] [text-wrap:pretty]">Most of the studio practice happens at the contact-sheet stage &mdash; placing one image alongside another and seeing whether either survives the comparison. The work that endures is what stays after that argument.</p>
+                    <p class="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-sm">Reference plate &middot; Boundaries 18</p>
+                </div>
+                <div class="md:col-span-7 relative">
+                    <img alt="Wide architectural elevation, solitary figure crossing through the frame."
+                         class="w-full aspect-[4/3] object-cover grayscale bg-neutral-900"
+                         src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1600&auto=format&fit=crop&sat=-100"
+                         width="1600" height="1200" loading="lazy" decoding="async"/>
+                    <img alt="Detail study, plaster detail."
+                         class="hidden sm:block absolute -bottom-8 -right-6 sm:-right-8 w-32 h-40 sm:w-44 sm:h-56 object-cover grayscale rotate-3 border-4 border-[#141313] shadow-2xl"
+                         src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=400&auto=format&fit=crop&sat=-100"
+                         loading="lazy" decoding="async"/>
+                    <img alt="Close-up portrait, eyes lowered."
+                         class="hidden md:block absolute -top-8 -left-6 w-32 h-44 lg:w-40 lg:h-56 object-cover grayscale -rotate-2 border-4 border-[#141313] shadow-2xl"
+                         src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=400&auto=format&fit=crop&sat=-100"
+                         loading="lazy" decoding="async"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Index -->
+        <section id="archive" class="py-20 px-4 max-w-screen-2xl mx-auto snap-start sm:py-24 sm:px-8 md:py-32 md:px-16 scroll-mt-16">
+            <h3 class="font-headline-lg text-[#EDEDED] mb-10 sm:mb-16 md:mb-stack-lg [text-wrap:balance]">Archive</h3>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-gutter">
+                <a href="#mercado" class="group block cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm">
+                    <figure class="m-0">
+                        <img alt="Chaotic market scene with sharp focus on suspended elements, heavy contrast." 
+                             class="w-full aspect-square object-cover grayscale opacity-60 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500 bg-neutral-900" 
+                             src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?q=80&w=800&auto=format&fit=crop&sat=-100"
+                             width="800" height="800" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-[#EDEDED] mt-unit opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
+                            Mercado, 2021
+                        </figcaption>
+                    </figure>
+                </a>
+                <a href="#salinas" class="group block cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm">
+                    <figure class="m-0">
+                        <img alt="Vast, empty salt flat merging seamlessly with the horizon in monochrome." 
+                             class="w-full aspect-square object-cover grayscale opacity-60 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500 bg-neutral-900" 
+                             src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=800&auto=format&fit=crop&sat=-100"
+                             width="800" height="800" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-[#EDEDED] mt-unit opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
+                            Salinas, 2022
+                        </figcaption>
+                    </figure>
+                </a>
+                <a href="#ruina" class="group block cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm">
+                    <figure class="m-0">
+                        <img alt="Abandoned interior showing crumbling walls and distinct shafts of natural light." 
+                             class="w-full aspect-square object-cover grayscale opacity-60 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500 bg-neutral-900" 
+                             src="https://images.unsplash.com/photo-1530569673472-307dc017a82d?q=80&w=800&auto=format&fit=crop&sat=-100"
+                             width="800" height="800" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-[#EDEDED] mt-unit opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
+                            Ruina, 2020
+                        </figcaption>
+                    </figure>
+                </a>
+                <a href="#costa" class="group block cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm">
+                    <figure class="m-0">
+                        <img alt="Close up abstract of rugged textures and tangled lines near the coastline." 
+                             class="w-full aspect-square object-cover grayscale opacity-60 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-500 bg-neutral-900" 
+                             src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?q=80&w=800&auto=format&fit=crop&sat=-100"
+                             width="800" height="800" loading="lazy" decoding="async"/>
+                        <figcaption class="font-caption text-caption text-[#EDEDED] mt-unit opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
+                            Costa, 2019
+                        </figcaption>
+                    </figure>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-4 max-w-screen-xl mx-auto flex flex-col md:flex-row gap-10 snap-start sm:py-24 sm:px-8 sm:gap-12 md:py-32 md:px-16 md:gap-margin-safe scroll-mt-16">
+            <div class="w-full md:w-1/2">
+                <img alt="Portrait of photographer holding a vintage analog camera." 
+                     class="w-full h-auto object-cover grayscale bg-neutral-900 rounded-sm" 
+                     src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?q=80&w=1200&auto=format&fit=crop&sat=-100"
+                     width="1200" height="800" loading="lazy" decoding="async"/>
+            </div>
+            <div class="w-full md:w-1/2 flex flex-col gap-stack-md justify-center">
+                <div class="font-body-md text-[#EDEDED] space-y-stack-sm opacity-80 max-w-[65ch]">
+                    <p class="[text-wrap:pretty]">
+                        Inés Moreno is a documentary photographer based in Buenos Aires. Her work focuses on the intersection of memory, architecture, and marginal communities across South America. By strictly adhering to analog, black-and-white processes, she strips away the distraction of color to emphasize form, texture, and the raw emotional resonance of her subjects.
+                    </p>
+                    <p class="[text-wrap:pretty]">
+                        Her visual language is characterized by quiet observation, rejecting sensationalism in favor of slow, deliberate storytelling.
+                    </p>
+                </div>
+                <div class="mt-stack-md">
+                    <h4 class="font-label text-neutral-500 uppercase tracking-widest mb-stack-sm">Selected Exhibitions</h4>
+                    <ul class="font-body-md text-[#EDEDED] space-y-unit opacity-80 list-none p-0 m-0">
+                        <li><span class="text-neutral-500 mr-2 tabular-nums">2023</span> <em>Shadows of the Port</em>, Galería de Arte Contemporáneo, Santiago</li>
+                        <li><span class="text-neutral-500 mr-2 tabular-nums">2021</span> <em>Silent Concrete</em>, Museo de Bellas Artes, Buenos Aires</li>
+                        <li><span class="text-neutral-500 mr-2 tabular-nums">2019</span> <em>Edges</em>, The Photographer's Gallery, London</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Half-Full-Bleed Artist Statement (NOVEL #7) -->
+        <section class="py-20 sm:py-24 md:py-32 snap-start">
+            <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-stretch">
+                <div class="md:col-span-7 relative md:mr-[calc(50%-50vw)]">
+                    <img alt="Editorial b&amp;w portrait of the photographer in profile, soft window light."
+                         class="w-full h-full min-h-[60vh] md:min-h-[80vh] object-cover grayscale bg-neutral-900"
+                         src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2000&auto=format&fit=crop&sat=-100"
+                         width="2000" height="1500" loading="lazy" decoding="async"/>
+                </div>
+                <div class="md:col-span-5 flex flex-col justify-center gap-stack-md">
+                    <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Statement &middot; 08</p>
+                    <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">A practice of staying long enough</h3>
+                    <div class="font-body-lg text-[#EDEDED] opacity-80 leading-relaxed max-w-[55ch] [text-wrap:pretty] space-y-stack-sm">
+                        <p>Documentary photography, for me, is a refusal of the picture-taking economy. I work slowly, almost stupidly so &mdash; weeks in a single neighbourhood, months in a single house. I am not a witness. I am a guest who eventually stops being one.</p>
+                        <p>The black-and-white is not a stylistic choice. It is what is left when colour stops doing the work for you. Form, weight, gesture, distance &mdash; the camera has to earn each of them.</p>
+                    </div>
+                    <p class="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-md">&mdash; Inés Moreno, Buenos Aires, 2024</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cycling Cross-fade — Currently Exhibiting -->
+        <section class="py-20 px-4 max-w-screen-2xl mx-auto snap-start sm:py-24 sm:px-8 md:py-32 md:px-16">
+            <div class="flex items-end justify-between border-b border-neutral-900 pb-stack-md mb-stack-lg">
+                <div class="flex flex-col gap-stack-sm">
+                    <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Currently Exhibiting &middot; 09</p>
+                    <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Boundaries &mdash; Galería de Arte Contemporáneo</h3>
+                </div>
+                <p class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-500 hidden sm:block">Santiago &middot; Until 14 Sept</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-center">
+                <div class="md:col-span-7 relative w-full aspect-[4/5] md:aspect-[16/10] overflow-hidden bg-black">
+                    <img class="ines-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 0s;" alt="Long-exposure architectural facade, slow erosion of light." src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2000&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <img class="ines-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 4s;" alt="Quiet interior of an empty house, tall window, long shadow." src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=2000&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <img class="ines-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 8s;" alt="Portrait, hand resting on a worn wooden surface." src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?q=80&w=2000&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                    <img class="ines-cycle-img absolute inset-0 w-full h-full object-cover grayscale" style="animation-delay: 12s;" alt="Coastal concrete breakwater, fog softening the horizon." src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=2000&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                </div>
+                <div class="md:col-span-5 flex flex-col gap-stack-md">
+                    <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[50ch] [text-wrap:pretty]">Twenty-eight plates from the <em>Boundaries</em> series, hand-printed in the Buenos Aires darkroom over the winter of 2024. Sequenced as a single uninterrupted walk &mdash; coastline, estuary, city, room.</p>
+                    <dl class="font-body-md text-[#EDEDED] opacity-80 grid grid-cols-2 gap-y-stack-sm gap-x-4 max-w-md">
+                        <dt class="text-neutral-500 uppercase tracking-[0.15em] font-caption text-caption">Venue</dt>
+                        <dd>Galería de Arte Contemporáneo</dd>
+                        <dt class="text-neutral-500 uppercase tracking-[0.15em] font-caption text-caption">City</dt>
+                        <dd>Santiago, CL</dd>
+                        <dt class="text-neutral-500 uppercase tracking-[0.15em] font-caption text-caption">Dates</dt>
+                        <dd class="tabular-nums">04 May &mdash; 14 Sept 2025</dd>
+                        <dt class="text-neutral-500 uppercase tracking-[0.15em] font-caption text-caption">Plates</dt>
+                        <dd class="tabular-nums">28 silver gelatin</dd>
+                    </dl>
+                    <a class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-300 underline decoration-1 underline-offset-4 hover:text-neutral-100 transition-colors" href="#contact">Request press materials &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bookended Press / Recognition (NOVEL #9) -->
+        <section class="snap-start py-stack-md md:py-stack-lg">
+            <img alt="Top bookend image — soft documentary photograph, urban dusk."
+                 class="w-full h-40 sm:h-56 md:h-72 object-cover grayscale bg-neutral-900"
+                 src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=2400&auto=format&fit=crop&sat=-100"
+                 width="2400" height="600" loading="lazy" decoding="async"/>
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-8 md:px-16 py-16 md:py-24 flex flex-col gap-stack-lg">
+                <div class="flex items-end justify-between border-b border-neutral-900 pb-stack-md">
+                    <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Press &amp; Recognition</h3>
+                    <p class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-500 hidden sm:block">10</p>
+                </div>
+                <ol class="list-none m-0 p-0 divide-y divide-neutral-900">
+                    <li class="grid grid-cols-12 gap-4 py-stack-md items-baseline">
+                        <span class="col-span-2 font-caption text-caption text-neutral-500 tabular-nums uppercase tracking-[0.15em]">2024</span>
+                        <span class="col-span-7 font-body-md text-[#EDEDED] opacity-90"><em>Mothers of the Inland</em> &mdash; reviewed in <span class="text-neutral-100">Aperture, Issue 256</span></span>
+                        <span class="col-span-3 font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] text-right hidden sm:block">Print</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-stack-md items-baseline">
+                        <span class="col-span-2 font-caption text-caption text-neutral-500 tabular-nums uppercase tracking-[0.15em]">2024</span>
+                        <span class="col-span-7 font-body-md text-[#EDEDED] opacity-90">Acquisition &mdash; <span class="text-neutral-100">MoMA Library, New York</span></span>
+                        <span class="col-span-3 font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] text-right hidden sm:block">Acquisition</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-stack-md items-baseline">
+                        <span class="col-span-2 font-caption text-caption text-neutral-500 tabular-nums uppercase tracking-[0.15em]">2023</span>
+                        <span class="col-span-7 font-body-md text-[#EDEDED] opacity-90">Selected for the <span class="text-neutral-100">Bienal de Fotografía</span>, Santiago</span>
+                        <span class="col-span-3 font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] text-right hidden sm:block">Biennale</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-stack-md items-baseline">
+                        <span class="col-span-2 font-caption text-caption text-neutral-500 tabular-nums uppercase tracking-[0.15em]">2022</span>
+                        <span class="col-span-7 font-body-md text-[#EDEDED] opacity-90">Long interview &mdash; <span class="text-neutral-100">The British Journal of Photography</span></span>
+                        <span class="col-span-3 font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] text-right hidden sm:block">Interview</span>
+                    </li>
+                    <li class="grid grid-cols-12 gap-4 py-stack-md items-baseline">
+                        <span class="col-span-2 font-caption text-caption text-neutral-500 tabular-nums uppercase tracking-[0.15em]">2021</span>
+                        <span class="col-span-7 font-body-md text-[#EDEDED] opacity-90">Lo Müller Prize for documentary photography &mdash; finalist</span>
+                        <span class="col-span-3 font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] text-right hidden sm:block">Award</span>
+                    </li>
+                </ol>
+            </div>
+            <img alt="Bottom bookend image — soft documentary photograph, interior detail."
+                 class="w-full h-40 sm:h-56 md:h-72 object-cover grayscale bg-neutral-900"
+                 src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2400&auto=format&fit=crop&sat=-100"
+                 width="2400" height="600" loading="lazy" decoding="async"/>
+        </section>
+
+        <!-- Editions / Prints Store Strip -->
+        <section id="editions" class="py-20 px-4 snap-start sm:py-24 sm:px-8 md:py-32 md:px-16 bg-neutral-950 scroll-mt-16">
+            <div class="max-w-screen-2xl mx-auto">
+                <div class="flex items-end justify-between border-b border-neutral-900 pb-stack-md mb-stack-lg">
+                    <div class="flex flex-col gap-stack-sm">
+                        <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Editions &middot; 11</p>
+                        <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Open prints &amp; signed editions</h3>
+                    </div>
+                    <p class="font-caption text-caption uppercase tracking-[0.2em] text-neutral-500 hidden sm:block">Hand-printed &middot; Buenos Aires</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-gutter">
+                    <article class="flex flex-col gap-stack-sm">
+                        <img alt="Print 01 — wide architectural plate." class="w-full aspect-[3/4] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                        <p class="font-caption text-caption text-neutral-300 uppercase tracking-[0.15em]">Plate 04 / Boundaries</p>
+                        <p class="font-caption text-caption text-neutral-500">11 &times; 14 in &middot; ed. of 7</p>
+                        <p class="font-caption text-caption text-neutral-100 tabular-nums">USD 480</p>
+                    </article>
+                    <article class="flex flex-col gap-stack-sm">
+                        <img alt="Print 02 — quiet street, Quito." class="w-full aspect-[3/4] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                        <p class="font-caption text-caption text-neutral-300 uppercase tracking-[0.15em]">Plate 11 / Slow Cities</p>
+                        <p class="font-caption text-caption text-neutral-500">11 &times; 14 in &middot; ed. of 9</p>
+                        <p class="font-caption text-caption text-neutral-100 tabular-nums">USD 420</p>
+                    </article>
+                    <article class="flex flex-col gap-stack-sm">
+                        <img alt="Print 03 — portrait study." class="w-full aspect-[3/4] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                        <p class="font-caption text-caption text-neutral-300 uppercase tracking-[0.15em]">Plate 02 / Mothers</p>
+                        <p class="font-caption text-caption text-neutral-500">16 &times; 20 in &middot; ed. of 12</p>
+                        <p class="font-caption text-caption text-neutral-100 tabular-nums">USD 740</p>
+                    </article>
+                    <article class="flex flex-col gap-stack-sm">
+                        <img alt="Print 04 — coffered ceiling detail." class="w-full aspect-[3/4] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                        <p class="font-caption text-caption text-neutral-300 uppercase tracking-[0.15em]">Plate 19 / Static Ground</p>
+                        <p class="font-caption text-caption text-neutral-500">11 &times; 14 in &middot; ed. of 7</p>
+                        <p class="font-caption text-caption text-neutral-100 tabular-nums">USD 480</p>
+                    </article>
+                    <article class="flex flex-col gap-stack-sm">
+                        <img alt="Print 05 — concrete stairwell." class="w-full aspect-[3/4] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                        <p class="font-caption text-caption text-neutral-300 uppercase tracking-[0.15em]">Plate 06 / Boundaries</p>
+                        <p class="font-caption text-caption text-neutral-500">16 &times; 20 in &middot; ed. of 5</p>
+                        <p class="font-caption text-caption text-neutral-100 tabular-nums">USD 820</p>
+                    </article>
+                    <article class="flex flex-col gap-stack-sm">
+                        <img alt="Print 06 — coastal breakwater." class="w-full aspect-[3/4] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=600&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async"/>
+                        <p class="font-caption text-caption text-neutral-300 uppercase tracking-[0.15em]">Plate 22 / Boundaries</p>
+                        <p class="font-caption text-caption text-neutral-500">11 &times; 14 in &middot; ed. of 7</p>
+                        <p class="font-caption text-caption text-neutral-100 tabular-nums">USD 480</p>
+                    </article>
+                </div>
+                <p class="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-lg">All prints hand-finished, embossed, and signed verso. Shipped flat from Buenos Aires.</p>
+            </div>
+        </section>
+
+        <!-- FAQ Accordion -->
+        <section id="faq" class="py-20 px-4 max-w-screen-xl mx-auto snap-start sm:py-24 sm:px-8 md:py-32 md:px-16 scroll-mt-16">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-stack-lg">
+                <div class="md:col-span-4 flex flex-col gap-stack-sm">
+                    <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Studio &middot; 12</p>
+                    <h3 class="font-headline-lg text-[#EDEDED] [text-wrap:balance]">Frequently asked</h3>
+                    <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[40ch] [text-wrap:pretty]">For everything else, a quiet email is the fastest route.</p>
+                </div>
+                <div class="md:col-span-8 flex flex-col divide-y divide-neutral-900 border-t border-b border-neutral-900">
+                    <details class="ines-faq group p-5 sm:p-6">
+                        <summary class="flex items-start justify-between gap-4">
+                            <h4 class="font-headline-lg text-[#EDEDED] text-xl sm:text-2xl m-0">Where can I see prints in person?</h4>
+                            <span class="ines-chevron text-neutral-500 select-none mt-1">&darr;</span>
+                        </summary>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[60ch] mt-stack-sm [text-wrap:pretty]">Currently at the Galería de Arte Contemporáneo in Santiago through 14 September. The studio in Buenos Aires shows by appointment most Fridays.</p>
+                    </details>
+                    <details class="ines-faq group p-5 sm:p-6">
+                        <summary class="flex items-start justify-between gap-4">
+                            <h4 class="font-headline-lg text-[#EDEDED] text-xl sm:text-2xl m-0">Are editions signed?</h4>
+                            <span class="ines-chevron text-neutral-500 select-none mt-1">&darr;</span>
+                        </summary>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[60ch] mt-stack-sm [text-wrap:pretty]">Yes. Every edition print is signed and numbered verso, with a blind-stamp embossing in the lower-right margin. Open prints carry the embossing only.</p>
+                    </details>
+                    <details class="ines-faq group p-5 sm:p-6">
+                        <summary class="flex items-start justify-between gap-4">
+                            <h4 class="font-headline-lg text-[#EDEDED] text-xl sm:text-2xl m-0">Do you take commissions?</h4>
+                            <span class="ines-chevron text-neutral-500 select-none mt-1">&darr;</span>
+                        </summary>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[60ch] mt-stack-sm [text-wrap:pretty]">Selectively. I take one editorial and one long-form commission per year. Briefs that allow at least three weeks on location are the only ones I&apos;ll consider.</p>
+                    </details>
+                    <details class="ines-faq group p-5 sm:p-6">
+                        <summary class="flex items-start justify-between gap-4">
+                            <h4 class="font-headline-lg text-[#EDEDED] text-xl sm:text-2xl m-0">What gear do you use?</h4>
+                            <span class="ines-chevron text-neutral-500 select-none mt-1">&darr;</span>
+                        </summary>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[60ch] mt-stack-sm [text-wrap:pretty]">A Mamiya 7 with a 65 mm and a 150 mm. Tri-X, occasionally HP5+. The darkroom is a converted laundry room behind the studio.</p>
+                    </details>
+                    <details class="ines-faq group p-5 sm:p-6">
+                        <summary class="flex items-start justify-between gap-4">
+                            <h4 class="font-headline-lg text-[#EDEDED] text-xl sm:text-2xl m-0">How do you choose a project?</h4>
+                            <span class="ines-chevron text-neutral-500 select-none mt-1">&darr;</span>
+                        </summary>
+                        <p class="font-body-md text-[#EDEDED] opacity-80 max-w-[60ch] mt-stack-sm [text-wrap:pretty]">A subject becomes a project the third time it refuses to leave the notebook. After that I make a single trip and decide whether the work needs me &mdash; not whether I want it.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Closer / Contact Panel -->
+        <section class="py-20 px-4 max-w-screen-xl mx-auto snap-start sm:py-24 sm:px-8 md:py-32 md:px-16">
+            <div class="border-t border-neutral-900 pt-stack-lg flex flex-col gap-stack-md max-w-3xl">
+                <p class="font-label text-neutral-500 uppercase tracking-[0.2em]">Closing &middot; 13</p>
+                <h3 class="font-headline-xl text-[#EDEDED] [text-wrap:balance]">If you&apos;ve come this far, we should probably speak.</h3>
+                <p class="font-body-lg text-[#EDEDED] opacity-80 max-w-[55ch] [text-wrap:pretty]">For commissions, press, or simply to say a quiet hello.</p>
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-stack-md">
+                    <a class="font-body-md text-[#EDEDED] underline decoration-1 underline-offset-4 hover:text-neutral-100 transition-colors" href="mailto:hello@example.com">hello@inesmoreno.studio</a>
+                    <span class="font-caption text-caption text-neutral-500 uppercase tracking-[0.2em] hidden sm:inline">Buenos Aires &middot; replies within a week</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="w-full max-w-screen-2xl mx-auto py-10 px-4 mt-16 border-t border-neutral-900 bg-[#141313] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 sm:py-14 sm:px-8 sm:mt-20 sm:gap-8 md:py-20 md:px-16 md:mt-32 snap-start scroll-mt-16">
+        <p class="font-serif text-sm italic Newsreader text-neutral-400 m-0">© <span class="tabular-nums">2024</span> Inés Moreno</p>
+        <nav aria-label="Footer Links" class="flex gap-8 font-serif text-sm italic Newsreader text-neutral-500">
+            <a class="hover:text-neutral-100 focus-visible:text-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm transition-colors duration-300" href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a class="hover:text-neutral-100 focus-visible:text-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm transition-colors duration-300" href="mailto:hello@example.com">Email</a>
+            <a class="hover:text-neutral-100 focus-visible:text-neutral-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-neutral-500 rounded-sm transition-colors duration-300" href="#journal">Journal</a>
+        </nav>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PANEL 7 - Homepage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&amp;family=Space+Grotesk:wght@400;600;700;900&amp;family=VT323&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed": "#341100",
+                "on-primary-container": "#5f543a",
+                "on-surface-variant": "#4b463d",
+                "inverse-primary": "#d5c5a4",
+                "secondary-container": "#ff8846",
+                "primary-container": "#d9c9a8",
+                "on-tertiary-fixed": "#291800",
+                "error-container": "#ffdad6",
+                "secondary": "#9f4200",
+                "on-primary-fixed-variant": "#50462d",
+                "surface-variant": "#ffddbb",
+                "background": "#fff8f4",
+                "tertiary-container": "#ffbf5c",
+                "surface-container": "#ffead8",
+                "surface-container-high": "#ffe3ca",
+                "on-primary-fixed": "#231b06",
+                "on-tertiary": "#ffffff",
+                "surface-container-low": "#fff1e6",
+                "on-secondary-container": "#6a2a00",
+                "on-error-container": "#93000a",
+                "inverse-on-surface": "#ffeedf",
+                "on-surface": "#2a1702",
+                "primary": "#695d42",
+                "on-tertiary-container": "#744d00",
+                "error": "#ba1a1a",
+                "secondary-fixed": "#ffdbcb",
+                "outline-variant": "#cec5b9",
+                "tertiary-fixed": "#ffddb1",
+                "on-tertiary-fixed-variant": "#624000",
+                "on-primary": "#ffffff",
+                "surface": "#fff8f4",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-highest": "#ffddbb",
+                "inverse-surface": "#422c12",
+                "primary-fixed-dim": "#d5c5a4",
+                "secondary-fixed-dim": "#ffb692",
+                "tertiary-fixed-dim": "#ffba49",
+                "surface-dim": "#f9d3ae",
+                "on-secondary-fixed-variant": "#793100",
+                "outline": "#7d766b",
+                "on-background": "#2a1702",
+                "primary-fixed": "#f2e1bf",
+                "on-error": "#ffffff",
+                "tertiary": "#815600",
+                "surface-tint": "#695d42",
+                "surface-bright": "#fff8f4"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "margin": "32px",
+                "panel-padding": "16px",
+                "unit": "4px",
+                "component-gap": "12px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "body-mono": [
+                        "IBM Plex Mono"
+                ],
+                "headline-md": [
+                        "Space Grotesk"
+                ],
+                "display-lg": [
+                        "Space Grotesk"
+                ],
+                "status-code": [
+                        "VT323"
+                ],
+                "label-caps": [
+                        "Space Grotesk"
+                ]
+        },
+        "fontSize": {
+                "body-mono": [
+                        "16px",
+                        {
+                                "lineHeight": "1.5",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "status-code": [
+                        "20px",
+                        {
+                                "lineHeight": "1",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "700"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: #D9C9A8;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  }
+  .crt-screen {
+    background-color: #5B4226;
+    color: #FFB947;
+    text-shadow: 0 0 4px rgba(255, 185, 71, 0.5);
+    box-shadow: inset 0 8px 16px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+  }
+  .crt-screen::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+  }
+  .bevel-out {
+    box-shadow: inset 2px 2px 0px rgba(255,255,255,0.4), inset -2px -2px 0px rgba(91,66,38,0.6);
+  }
+  .bevel-in {
+    box-shadow: inset 2px 2px 0px rgba(91,66,38,0.6), inset -2px -2px 0px rgba(255,255,255,0.4);
+  }
+  .hardware-panel {
+    background-color: #D9C9A8;
+    border: 4px solid #5B4226;
+    box-shadow: 4px 4px 0px rgba(91,66,38,0.3);
+  }
+</style>
+</head>
+<body class="text-on-background font-body-mono antialiased min-h-screen flex flex-col">
+<!-- TopAppBar Shared Component -->
+<header class="flex justify-between items-center w-full px-6 py-4 max-w-full docked full-width top-0 h-20 border-b-4 border-[#5B4226] shadow-[0_4px_0_0_rgba(91,66,38,0.2)] bg-[#D9C9A8] dark:bg-stone-300 relative z-50">
+<div class="flex items-center gap-6">
+<div class="text-2xl font-black tracking-tighter text-[#5B4226] border-2 border-[#5B4226] px-2 py-1 bg-[#D9C9A8] shadow-[inset_2px_2px_0px_#ffffff,2px_2px_0px_#5B4226]">
+            PANEL 7
+        </div>
+<nav class="hidden md:flex gap-2">
+<a class="px-4 py-2 font-['Space_Grotesk'] uppercase tracking-wider font-bold text-sm bg-[#FFB947] text-[#5B4226] shadow-[inset_3px_3px_0px_#5B4226] ring-2 ring-[#5B4226] flex items-center gap-2" href="#">
+<span class="w-2 h-2 rounded-full bg-[#5B4226]"></span>
+                COMM-LINK
+            </a>
+<a class="px-4 py-2 font-['Space_Grotesk'] uppercase tracking-wider font-bold text-sm bg-[#D9C9A8] text-[#5B4226] border-2 border-[#5B4226] shadow-[2px_2px_0px_#5B4226] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#5B4226] transition-all hover:bg-[#C9B998] hover:text-[#000000] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] flex items-center gap-2" href="#">
+<span class="w-2 h-2 rounded-full bg-[#5B4226]/30"></span>
+                MODULES
+            </a>
+<a class="px-4 py-2 font-['Space_Grotesk'] uppercase tracking-wider font-bold text-sm bg-[#D9C9A8] text-[#5B4226] border-2 border-[#5B4226] shadow-[2px_2px_0px_#5B4226] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#5B4226] transition-all hover:bg-[#C9B998] hover:text-[#000000] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] flex items-center gap-2" href="#">
+<span class="w-2 h-2 rounded-full bg-[#5B4226]/30"></span>
+                SCHEMATICS
+            </a>
+<a class="px-4 py-2 font-['Space_Grotesk'] uppercase tracking-wider font-bold text-sm bg-[#D9C9A8] text-[#5B4226] border-2 border-[#5B4226] shadow-[2px_2px_0px_#5B4226] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#5B4226] transition-all hover:bg-[#C9B998] hover:text-[#000000] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] flex items-center gap-2" href="#">
+<span class="w-2 h-2 rounded-full bg-[#5B4226]/30"></span>
+                LOGS
+            </a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center bg-[#D9C9A8] text-[#5B4226] border-2 border-[#5B4226] shadow-[2px_2px_0px_#5B4226] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#5B4226] transition-all active:shadow-none active:translate-x-[2px] active:translate-y-[2px]">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-[#D9C9A8] text-[#5B4226] border-2 border-[#5B4226] shadow-[2px_2px_0px_#5B4226] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_#5B4226] transition-all active:shadow-none active:translate-x-[2px] active:translate-y-[2px]">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+</button>
+</div>
+</header>
+<main class="flex-grow w-full max-w-7xl mx-auto px-6 py-8 flex flex-col gap-12">
+<!-- Hero Section -->
+<section class="hardware-panel p-6 flex flex-col md:flex-row gap-8 items-center">
+<div class="w-full md:w-1/2 flex flex-col gap-6">
+<div class="bg-[#5B4226] text-[#FFB947] font-status-code text-status-code px-3 py-1 inline-block w-max bevel-in">
+                SYS.INIT // STATUS: NOMINAL
+            </div>
+<h1 class="font-display-lg text-display-lg text-[#5B4226] uppercase">CONTROL SURFACES FOR OPERATORS</h1>
+<p class="font-body-mono text-body-mono text-[#5B4226]">
+                Heavy-duty tactile interfaces. Industrial-grade components. Designed for zero-gravity and high-stress environments. USCSS certified.
+            </p>
+<button class="bg-[#D96B2B] text-white font-label-caps text-label-caps px-8 py-4 uppercase tracking-widest border-2 border-[#5B4226] bevel-out hover:bg-[#c05a20] active:bevel-in w-max shadow-[4px_4px_0px_#5B4226] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-[#FFB947] shadow-[0_0_8px_#FFB947]"></span>
+                VIEW CATALOG
+            </button>
+</div>
+<div class="w-full md:w-1/2 hardware-panel p-2 bg-[#1A1A1A]">
+<img alt="Retro computer terminal setup" class="w-full h-auto border-2 border-[#333] opacity-80 mix-blend-luminosity sepia-[0.3]" data-alt="close up of retro 70s computer terminal with chunky plastic keys, amber monochrome CRT screen glowing in dim industrial lighting, sci-fi aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDULUTChLsQF_aknSvNOEOCcchUH9k2iYh2iq5QXa49j_c9CIWAlsgFl_YTZI_apJmAtxioJ5W2TdSczDuInY_BC6WxoEY-sD7rxO2O3hIWrsGIMz4LB80yDyrkLXCpt4LfkJecuIjidCfESoVf52kEVjHGMeZjDE-mWlVw8-2buAPc_jzQTp1neJJyzZ2d7sWx0wCxMbLkrmLEtuwltMctlR3QpAx5WM3W_cHgN1rGucgnQ1-W10usiCno9OORkrVevOeQqgr1hew"/>
+</div>
+</section>
+<!-- Status Band -->
+<div class="bg-[#1A1A1A] border-y-4 border-[#5B4226] p-4 overflow-hidden relative crt-screen">
+<div class="font-status-code text-status-code text-[#7FC774] flex gap-8 whitespace-nowrap animate-[pulse_4s_ease-in-out_infinite]">
+<span>&gt; COMM_LINK_ESTABLISHED</span>
+<span>&gt; DATA_STREAM_ACTIVE</span>
+<span>&gt; SECTOR_4_CLEAR</span>
+<span>&gt; REACTOR_TEMP_NOMINAL</span>
+<span>&gt; AWAITING_INPUT_</span>
+</div>
+</div>
+
+<!-- Modules grid -->
+<section class="hardware-panel p-6">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 mb-6 border-b-2 border-[#5B4226]">
+<div>
+<p class="font-status-code text-status-code text-[#5B4226] uppercase mb-2">// MODULES — CATALOG.04</p>
+<h2 class="font-display-lg text-display-lg text-[#5B4226] uppercase">HARDWARE LINE</h2>
+</div>
+<p class="font-body-mono text-body-mono text-[#5B4226] max-w-sm md:text-right">Four operator-grade modules. Riveted steel, replaceable fascia, field-serviceable. Spec sheets in each unit.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<article class="bg-[#D9C9A8] border-2 border-[#5B4226] bevel-out flex flex-col">
+<div class="bg-[#5B4226] text-[#FFB947] font-status-code text-status-code px-3 py-1 flex justify-between"><span>MOD-01 // CTRL.A</span><span class="text-[#7FC774]">●</span></div>
+<div class="bg-[#1A1A1A] p-2 border-b-2 border-[#5B4226]">
+<img alt="Industrial machinery control panel close-up" class="w-full aspect-[4/3] object-cover border border-[#333] opacity-80 mix-blend-luminosity sepia-[0.3]" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop"/>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-grow">
+<h3 class="font-display-lg text-xl text-[#5B4226] uppercase tracking-tight">CONTROL DECK A</h3>
+<dl class="font-body-mono text-xs text-[#5B4226] space-y-1">
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">CHASSIS</dt><dd>STEEL / 12U</dd></div>
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">KEYS</dt><dd>104 / TACTILE</dd></div>
+<div class="flex justify-between"><dt class="opacity-60">RATING</dt><dd>IP-54 / MIL-STD</dd></div>
+</dl>
+<div class="mt-auto pt-3 flex justify-between items-center">
+<span class="font-status-code text-status-code text-[#5B4226]">CR.4,200</span>
+<span class="bg-[#5B4226] text-[#FFB947] font-label-caps text-label-caps px-3 py-1 uppercase">IN STOCK</span>
+</div>
+</div>
+</article>
+<article class="bg-[#D9C9A8] border-2 border-[#5B4226] bevel-out flex flex-col">
+<div class="bg-[#5B4226] text-[#FFB947] font-status-code text-status-code px-3 py-1 flex justify-between"><span>MOD-02 // SCAN.B</span><span class="text-[#7FC774]">●</span></div>
+<div class="bg-[#1A1A1A] p-2 border-b-2 border-[#5B4226]">
+<img alt="Server rack with status lights" class="w-full aspect-[4/3] object-cover border border-[#333] opacity-80 mix-blend-luminosity sepia-[0.3]" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop"/>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-grow">
+<h3 class="font-display-lg text-xl text-[#5B4226] uppercase tracking-tight">RACK SCANNER B</h3>
+<dl class="font-body-mono text-xs text-[#5B4226] space-y-1">
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">PORTS</dt><dd>32 / RS-232</dd></div>
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">DRAW</dt><dd>4.7 KW / 220V</dd></div>
+<div class="flex justify-between"><dt class="opacity-60">RATING</dt><dd>USCSS / GR-1</dd></div>
+</dl>
+<div class="mt-auto pt-3 flex justify-between items-center">
+<span class="font-status-code text-status-code text-[#5B4226]">CR.9,800</span>
+<span class="bg-[#5B4226] text-[#FFB947] font-label-caps text-label-caps px-3 py-1 uppercase">IN STOCK</span>
+</div>
+</div>
+</article>
+<article class="bg-[#D9C9A8] border-2 border-[#5B4226] bevel-out flex flex-col">
+<div class="bg-[#5B4226] text-[#FFB947] font-status-code text-status-code px-3 py-1 flex justify-between"><span>MOD-03 // CRT.C</span><span class="text-[#FFB947]">●</span></div>
+<div class="bg-[#1A1A1A] p-2 border-b-2 border-[#5B4226]">
+<img alt="Macro view of circuit board traces" class="w-full aspect-[4/3] object-cover border border-[#333] opacity-80 mix-blend-luminosity sepia-[0.3]" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop"/>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-grow">
+<h3 class="font-display-lg text-xl text-[#5B4226] uppercase tracking-tight">CRT TERMINAL C</h3>
+<dl class="font-body-mono text-xs text-[#5B4226] space-y-1">
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">TUBE</dt><dd>14" / AMBER</dd></div>
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">REFRESH</dt><dd>60 HZ / NTSC</dd></div>
+<div class="flex justify-between"><dt class="opacity-60">RATING</dt><dd>FCC-A / 1979</dd></div>
+</dl>
+<div class="mt-auto pt-3 flex justify-between items-center">
+<span class="font-status-code text-status-code text-[#5B4226]">CR.2,150</span>
+<span class="bg-[#FFB947] text-[#5B4226] font-label-caps text-label-caps px-3 py-1 uppercase">2 LEFT</span>
+</div>
+</div>
+</article>
+<article class="bg-[#D9C9A8] border-2 border-[#5B4226] bevel-out flex flex-col">
+<div class="bg-[#5B4226] text-[#FFB947] font-status-code text-status-code px-3 py-1 flex justify-between"><span>MOD-04 // PWR.D</span><span class="text-[#7FC774]">●</span></div>
+<div class="bg-[#1A1A1A] p-2 border-b-2 border-[#5B4226]">
+<img alt="Wide industrial server room shot" class="w-full aspect-[4/3] object-cover border border-[#333] opacity-80 mix-blend-luminosity sepia-[0.3]" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop"/>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-grow">
+<h3 class="font-display-lg text-xl text-[#5B4226] uppercase tracking-tight">POWER UNIT D</h3>
+<dl class="font-body-mono text-xs text-[#5B4226] space-y-1">
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">OUTPUT</dt><dd>12 KW / TRI-Φ</dd></div>
+<div class="flex justify-between border-b border-[#5B4226]/20 pb-1"><dt class="opacity-60">FUEL</dt><dd>DIESEL / 90L</dd></div>
+<div class="flex justify-between"><dt class="opacity-60">RATING</dt><dd>EN-60204 / B</dd></div>
+</dl>
+<div class="mt-auto pt-3 flex justify-between items-center">
+<span class="font-status-code text-status-code text-[#5B4226]">CR.14,400</span>
+<span class="bg-[#5B4226] text-[#FFB947] font-label-caps text-label-caps px-3 py-1 uppercase">IN STOCK</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+
+<!-- Catalog Plates — image strip -->
+<section class="hardware-panel p-6">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 mb-6 border-b-2 border-[#5B4226]">
+<div>
+<p class="font-status-code text-status-code text-[#5B4226] uppercase mb-2">// CATALOG_PLATES — N=05</p>
+<h2 class="font-display-lg text-display-lg text-[#5B4226] uppercase">REFERENCE FRAMES</h2>
+</div>
+<p class="font-body-mono text-body-mono text-[#5B4226] max-w-sm md:text-right">Field photographs from operator stations. Glued into the back of every catalog as proof-of-installation.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+<figure class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-2 flex flex-col">
+<div class="aspect-[3/4] overflow-hidden border border-[#333]">
+<img alt="Macro circuit board traces" class="w-full h-full object-cover opacity-85 sepia-[0.5] contrast-110" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=700&auto=format&fit=crop"/>
+</div>
+<figcaption class="font-status-code text-base text-[#FFB947] uppercase mt-2 flex justify-between"><span>CAT-46</span><span class="opacity-60 tabular-nums">36×48</span></figcaption>
+</figure>
+<figure class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-2 flex flex-col">
+<div class="aspect-[3/4] overflow-hidden border border-[#333]">
+<img alt="Server rack lights" class="w-full h-full object-cover opacity-85 sepia-[0.5] contrast-110" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=700&auto=format&fit=crop"/>
+</div>
+<figcaption class="font-status-code text-base text-[#FFB947] uppercase mt-2 flex justify-between"><span>CAT-47</span><span class="opacity-60 tabular-nums">28×40</span></figcaption>
+</figure>
+<figure class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-2 flex flex-col">
+<div class="aspect-[3/4] overflow-hidden border border-[#333]">
+<img alt="Industrial machinery panel" class="w-full h-full object-cover opacity-85 sepia-[0.5] contrast-110" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=700&auto=format&fit=crop"/>
+</div>
+<figcaption class="font-status-code text-base text-[#FFB947] uppercase mt-2 flex justify-between"><span>CAT-48</span><span class="opacity-60 tabular-nums">36×40</span></figcaption>
+</figure>
+<figure class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-2 flex flex-col">
+<div class="aspect-[3/4] overflow-hidden border border-[#333]">
+<img alt="Server room wide shot" class="w-full h-full object-cover opacity-85 sepia-[0.5] contrast-110" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=700&auto=format&fit=crop"/>
+</div>
+<figcaption class="font-status-code text-base text-[#FFB947] uppercase mt-2 flex justify-between"><span>CAT-49</span><span class="opacity-60 tabular-nums">40×54</span></figcaption>
+</figure>
+<figure class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-2 flex flex-col">
+<div class="aspect-[3/4] overflow-hidden border border-[#333]">
+<img alt="Brass apothecary objects on dark surface" class="w-full h-full object-cover opacity-85 sepia-[0.5] contrast-110" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=700&auto=format&fit=crop"/>
+</div>
+<figcaption class="font-status-code text-base text-[#FFB947] uppercase mt-2 flex justify-between"><span>CAT-50</span><span class="opacity-60 tabular-nums">32×42</span></figcaption>
+</figure>
+</div>
+<div class="mt-4 flex flex-col md:flex-row justify-between gap-2 font-body-mono text-xs text-[#5B4226] uppercase tracking-widest">
+<span>PHOTOS / OPERATOR DEPT. — DECK 14</span>
+<span class="tabular-nums opacity-60">REF / 0046–0050 // PRINTED ON KODAK GOLD</span>
+</div>
+</section>
+
+<!-- Schematics — 3-col blueprint cards -->
+<section class="hardware-panel p-6">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 mb-6 border-b-2 border-[#5B4226]">
+<div>
+<p class="font-status-code text-status-code text-[#5B4226] uppercase mb-2">// SCHEMATICS — REV.07</p>
+<h2 class="font-display-lg text-display-lg text-[#5B4226] uppercase">FIELD-SERVICEABLE</h2>
+</div>
+<p class="font-body-mono text-body-mono text-[#5B4226] max-w-sm md:text-right">Every component is a serviceable component. Pull the panel, swap the board, run diagnostics. Three pages here. The full set ships with each unit.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<article class="crt-screen border-2 border-[#5B4226] p-5 flex flex-col gap-3">
+<div class="flex justify-between font-status-code text-status-code text-[#FFB947] relative z-10"><span>SCH.07.A</span><span class="text-[#7FC774]">REV.B</span></div>
+<h3 class="font-display-lg text-xl text-[#FFB947] uppercase tracking-tight relative z-10">CTRL.A FASCIA</h3>
+<pre class="font-mono text-xs text-[#FFB947]/90 leading-relaxed relative z-10">
++----[KEYBED 104K]----+
+|  [ALT][CTRL][CMD]   |
+|  [F1..F12]          |
+|  [NUMPAD]   [LEDS]  |
++----[BUS / RJ-45]----+
+        |
+   [CHASSIS GND]
+</pre>
+<div class="font-body-mono text-xs text-[#FFB947]/70 mt-auto pt-2 border-t border-[#FFB947]/20 relative z-10 flex justify-between"><span>SHEET 01/03</span><span class="tabular-nums">SIG: T.MIYAMOTO</span></div>
+</article>
+<article class="crt-screen border-2 border-[#5B4226] p-5 flex flex-col gap-3">
+<div class="flex justify-between font-status-code text-status-code text-[#FFB947] relative z-10"><span>SCH.07.B</span><span class="text-[#7FC774]">REV.C</span></div>
+<h3 class="font-display-lg text-xl text-[#FFB947] uppercase tracking-tight relative z-10">CRT.C TUBE WIRING</h3>
+<pre class="font-mono text-xs text-[#FFB947]/90 leading-relaxed relative z-10">
+   +---[H.V FLYBACK]---+
+   |     |        |    |
+ [G1] [G2] [G3] [CATH]
+   |   YOKE / DEFLECT
+   +-----[ANODE 14kV]
+        |
+   [HEATER 6.3V AC]
+</pre>
+<div class="font-body-mono text-xs text-[#FFB947]/70 mt-auto pt-2 border-t border-[#FFB947]/20 relative z-10 flex justify-between"><span>SHEET 02/03</span><span class="tabular-nums">SIG: H.WEAVER</span></div>
+</article>
+<article class="crt-screen border-2 border-[#5B4226] p-5 flex flex-col gap-3">
+<div class="flex justify-between font-status-code text-status-code text-[#FFB947] relative z-10"><span>SCH.07.C</span><span class="text-[#FFB947]">REV.A</span></div>
+<h3 class="font-display-lg text-xl text-[#FFB947] uppercase tracking-tight relative z-10">PWR.D BUS DIAGRAM</h3>
+<pre class="font-mono text-xs text-[#FFB947]/90 leading-relaxed relative z-10">
+[GENSET]==[BREAKER]
+   |          |
+   +--[ATS]---+
+        |
+  +-----+------+
+[RACK A] [RACK B]
+  |        |
+[12V]    [48V]
+</pre>
+<div class="font-body-mono text-xs text-[#FFB947]/70 mt-auto pt-2 border-t border-[#FFB947]/20 relative z-10 flex justify-between"><span>SHEET 03/03</span><span class="tabular-nums">SIG: R.SCOTT</span></div>
+</article>
+</div>
+</section>
+
+<!-- Telemetry — 6 instrument tiles -->
+<section class="hardware-panel p-6">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 mb-6 border-b-2 border-[#5B4226]">
+<div>
+<p class="font-status-code text-status-code text-[#5B4226] uppercase mb-2">// TELEMETRY — REAL-TIME</p>
+<h2 class="font-display-lg text-display-lg text-[#5B4226] uppercase">OPERATOR DASHBOARD</h2>
+</div>
+<p class="font-body-mono text-body-mono text-[#5B4226] max-w-sm md:text-right">Six channels of live telemetry from the demo bench. Refresh on the second. Tap a tile for the full reading.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<!-- Tile 1: Volt gauge -->
+<div class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-4 flex flex-col gap-3 min-h-[180px]">
+<div class="flex justify-between font-status-code text-base text-[#FFB947] uppercase"><span>VOLTAGE</span><span class="text-[#7FC774]">●</span></div>
+<div class="relative h-3 border border-[#FFB947]/40 bg-[#5B4226]/40 mt-auto">
+<div class="absolute inset-y-0 left-0 bg-[#FFB947]" style="width: 78%; box-shadow: 0 0 8px #FFB947;"></div>
+</div>
+<div class="font-status-code text-2xl text-[#FFB947] tabular-nums">220.4 <span class="text-base opacity-60">V_AC</span></div>
+<div class="font-body-mono text-[10px] text-[#FFB947]/60 uppercase tracking-widest flex justify-between"><span>L1·L2·L3</span><span>NOMINAL</span></div>
+</div>
+<!-- Tile 2: Temp dial -->
+<div class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-4 flex flex-col items-center gap-2 min-h-[180px]">
+<div class="flex justify-between w-full font-status-code text-base text-[#FFB947] uppercase"><span>REACTOR</span><span class="text-[#FFB947]">●</span></div>
+<div class="relative w-20 h-20 rounded-full" style="background: conic-gradient(#FFB947 0% 64%, #5B4226 64% 100%);">
+<div class="absolute inset-2 rounded-full bg-[#1A1A1A] flex items-center justify-center font-status-code text-lg text-[#FFB947] tabular-nums">64°</div>
+</div>
+<div class="font-body-mono text-[10px] text-[#FFB947]/60 uppercase tracking-widest mt-auto">CORE / WATCH</div>
+</div>
+<!-- Tile 3: LED matrix -->
+<div class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-4 flex flex-col gap-3 min-h-[180px]">
+<div class="flex justify-between font-status-code text-base text-[#FFB947] uppercase"><span>SECTORS</span><span class="text-[#7FC774]">●</span></div>
+<div class="grid grid-cols-4 gap-1 mt-auto">
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#FFB947]" style="box-shadow: 0 0 6px #FFB947;"></span>
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#5B4226]"></span>
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#7FC774]" style="box-shadow: 0 0 6px #7FC774;"></span>
+<span class="aspect-square bg-[#5B4226]"></span>
+<span class="aspect-square bg-[#FFB947]" style="box-shadow: 0 0 6px #FFB947;"></span>
+</div>
+<div class="font-body-mono text-[10px] text-[#FFB947]/60 uppercase tracking-widest flex justify-between"><span>10/12 ACTIVE</span><span>S04 STBY</span></div>
+</div>
+<!-- Tile 4: Waveform -->
+<div class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-4 flex flex-col gap-3 min-h-[180px] crt-screen">
+<div class="flex justify-between font-status-code text-base text-[#FFB947] uppercase relative z-10"><span>SIGNAL</span><span class="text-[#7FC774]">●</span></div>
+<pre class="font-mono text-[10px] text-[#7FC774] leading-tight relative z-10 mt-auto">
+   _    _      _    _
+  / \  / \    / \  / \
+_/   \/   \__/   \/   \_
+</pre>
+<div class="font-status-code text-lg text-[#FFB947] tabular-nums relative z-10">2.4 <span class="text-sm opacity-60">KHZ</span></div>
+<div class="font-body-mono text-[10px] text-[#FFB947]/60 uppercase tracking-widest relative z-10">CARRIER LOCK</div>
+</div>
+<!-- Tile 5: Uptime counter -->
+<div class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-4 flex flex-col gap-3 min-h-[180px]">
+<div class="flex justify-between font-status-code text-base text-[#FFB947] uppercase"><span>UPTIME</span><span class="text-[#7FC774]">●</span></div>
+<div class="font-status-code text-4xl md:text-5xl text-[#FFB947] tabular-nums mt-auto" style="text-shadow: 0 0 8px rgba(255,185,71,0.6);">1024:47:12</div>
+<div class="font-body-mono text-[10px] text-[#FFB947]/60 uppercase tracking-widest flex justify-between"><span>HRS:MIN:SEC</span><span>UNBROKEN</span></div>
+</div>
+<!-- Tile 6: Status log -->
+<div class="border-2 border-[#5B4226] bevel-in bg-[#1A1A1A] p-4 flex flex-col gap-2 min-h-[180px] crt-screen">
+<div class="flex justify-between font-status-code text-base text-[#FFB947] uppercase relative z-10"><span>LOG</span><span class="text-[#7FC774]">●</span></div>
+<pre class="font-mono text-[11px] text-[#7FC774] leading-snug relative z-10 mt-auto whitespace-pre-wrap">
+[06:14] OK  CTRL.A boot
+[06:14] OK  CRT.C lit
+[06:15] OK  PWR.D online
+[06:18] STA WATCH start
+&gt; _</pre>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="bg-[#1A1A1A] dark:bg-[#0A0A0A] w-full border-t-8 border-[#5B4226] p-12 shadow-[inset_0_20px_40px_rgba(0,0,0,0.8)] flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto px-8 relative overflow-hidden after:content-[''] after:absolute after:inset-0 after:pointer-events-none after:bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] after:bg-[length:100%_2px,3px_100%] mt-auto">
+<div class="text-[#FFB947] font-bold font-mono uppercase text-xs tracking-[0.2em] relative z-10">
+        ©1979 PANEL-7 INDUSTRIAL SYSTEMS | USCSS NOSTROMO COMPLIANT
+    </div>
+<nav class="flex gap-6 relative z-10 font-mono uppercase text-xs tracking-[0.2em]">
+<a class="text-[#FFB947] underline underline-offset-4 transition-opacity duration-300 hover:text-[#FFB947] hover:glow-sm" href="#">MANUALS</a>
+<a class="text-[#FFB947]/60 transition-opacity duration-300 hover:text-[#FFB947] hover:glow-sm" href="#">WARRANTY</a>
+<a class="text-[#FFB947]/60 transition-opacity duration-300 hover:text-[#FFB947] hover:glow-sm" href="#">VOID-IF-REMOVED</a>
+</nav>
+</footer>
+</body></html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUBE_LOGIC | Cloud Logistics Infrastructure</title>
+    <meta name="description" content="Isometric cloud logistics for the distributed web.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sora', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1', // Indigo Primary
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                        surface: '#f8fafc',
+                    },
+                    boxShadow: {
+                        'block': '8px 8px 0px 0px #cbd5e1',
+                        'block-hover': '12px 12px 0px 0px #6366f1',
+                        'block-dark': '8px 8px 0px 0px #0f172a',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 
+           ISOMETRIC CORE 
+           High-performance 3D transforms
+        */
+        .iso-scene {
+            perspective: 1200px;
+            /* Mobile scaling handled via Tailwind classes or inline styles */
+        }
+
+        .iso-plane {
+            transform: rotateX(60deg) rotateZ(-45deg);
+            transform-style: preserve-3d;
+            width: 320px;
+            height: 320px;
+            position: relative;
+        }
+
+        /* CUBE CONSTRUCTION */
+        .cube {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            backface-visibility: hidden; /* Perf optimization */
+        }
+
+        /* Face Colors & Orientation */
+        .cube-face--top {
+            background: #818cf8;
+            transform: rotateX(90deg) translateZ(30px);
+        }
+        .cube-face--front {
+            background: #4f46e5;
+            transform: rotateY(0deg) translateZ(30px);
+        }
+        .cube-face--right {
+            background: #312e81;
+            transform: rotateY(90deg) translateZ(30px);
+        }
+
+        /* Cube Animations */
+        @keyframes float-iso {
+            0%, 100% { transform: translateZ(0px); }
+            50% { transform: translateZ(30px); }
+        }
+
+        .animate-float-1 { animation: float-iso 4s ease-in-out infinite; }
+        .animate-float-2 { animation: float-iso 5s ease-in-out infinite 0.7s; }
+        .animate-float-3 { animation: float-iso 4.5s ease-in-out infinite 1.2s; }
+        .animate-float-4 { animation: float-iso 6s ease-in-out infinite 2s; }
+
+        /* 
+           UI COMPONENTS
+        */
+        .block-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #1e293b;
+        }
+
+        .block-card:hover {
+            transform: translate(-4px, -4px);
+        }
+
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        html, body { overflow-x: clip; }
+        .full-bleed-iso { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); max-width: none; }
+        .iso-marquee { display: flex; gap: 20px; width: max-content; animation: iso-x 65s linear infinite; padding: 8px 0; }
+        .iso-marquee:hover { animation-play-state: paused; }
+        @keyframes iso-x { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
+        .iso-faq summary { list-style: none; cursor: pointer; }
+        .iso-faq summary::-webkit-details-marker { display: none; }
+        .iso-faq summary .iso-chevron { transition: transform 250ms ease; }
+        .iso-faq[open] summary .iso-chevron { transform: rotate(90deg); }
+        @keyframes node-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.55); }
+            70%      { box-shadow: 0 0 0 12px rgba(99,102,241,0); }
+        }
+        .node-pulse { animation: node-pulse 2.4s ease-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+            .iso-marquee { animation: none; }
+            .node-pulse { animation: none; }
+            .iso-faq summary .iso-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-slate-900 overflow-x-hidden antialiased selection:bg-brand-200 selection:text-brand-900">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b-2 border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-brand-600 border-2 border-slate-900 flex items-center justify-center text-white rounded-sm transition-transform group-hover:rotate-12">
+                    <i data-lucide="box" class="w-5 h-5"></i>
+                </div>
+                <span class="font-mono font-bold text-xl tracking-tighter text-slate-900">CUBE_<span class="text-brand-600">LOGIC</span></span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 font-mono text-sm font-semibold">
+                <a href="#services" class="hover:text-brand-600 transition-colors">SOLUTIONS</a>
+                <a href="#network" class="hover:text-brand-600 transition-colors">NETWORK</a>
+                <a href="#pricing" class="hover:text-brand-600 transition-colors">PRICING</a>
+                <button class="bg-slate-900 text-white px-6 py-2.5 hover:bg-brand-600 transition-colors shadow-[4px_4px_0px_0px_#94a3b8] active:translate-y-0.5 active:shadow-[2px_2px_0px_0px_#94a3b8] border-2 border-transparent">
+                    LOGIN
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-btn" class="md:hidden text-slate-900 p-2 focus:outline-none">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Content -->
+        <div id="mobile-menu" class="md:hidden bg-white border-b-2 border-slate-200">
+            <div class="flex flex-col p-6 space-y-4 font-mono font-semibold text-lg">
+                <a href="#services" class="hover:text-brand-600" onclick="toggleMenu()">SOLUTIONS</a>
+                <a href="#network" class="hover:text-brand-600" onclick="toggleMenu()">NETWORK</a>
+                <a href="#pricing" class="hover:text-brand-600" onclick="toggleMenu()">PRICING</a>
+                <hr class="border-slate-200">
+                <button class="bg-brand-600 text-white w-full py-3 shadow-[4px_4px_0px_0px_#1e293b] active:translate-y-1 active:shadow-none border-2 border-slate-900">
+                    LOGIN
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-16 md:pt-48 md:pb-32 bg-surface overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none"></div>
+        <div class="absolute top-20 -left-20 w-96 h-96 bg-brand-200 rounded-full blur-[100px] opacity-30 mix-blend-multiply"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            
+            <!-- Hero Content -->
+            <div class="z-10 order-2 lg:order-1 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-white text-brand-700 font-mono text-xs font-bold px-3 py-1.5 rounded border-2 border-slate-200 mb-6 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    SYSTEM OPERATIONAL
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] mb-6 tracking-tight text-slate-900">
+                    Logistics for the <br>
+                    <span class="text-brand-600 decoration-4 underline decoration-brand-300 underline-offset-4">Distributed Grid</span>
+                </h1>
+                <p class="text-slate-600 text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                    Orchestrate physical inventory and digital assets on a unified 3D plane. Real-time tracking with isometric precision.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button class="bg-brand-600 text-white font-bold px-8 py-4 text-lg border-2 border-slate-900 shadow-block hover:shadow-block-hover hover:-translate-y-1 active:translate-y-0 active:shadow-none transition-all">
+                        DEPLOY INSTANCE
+                    </button>
+                    <button class="bg-white text-slate-900 font-bold px-8 py-4 text-lg border-2 border-slate-900 shadow-block hover:bg-slate-50 hover:-translate-y-1 active:translate-y-0 active:shadow-none transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="terminal" class="w-5 h-5"></i> DOCS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Isometric Visual -->
+            <div class="relative h-[350px] md:h-[500px] flex items-center justify-center order-1 lg:order-2 iso-scene">
+                <!-- Wrapper to scale down on mobile -->
+                <div class="transform scale-75 md:scale-100 transition-transform duration-500">
+                    <div class="iso-plane">
+                        <!-- Floor Grid -->
+                        <div class="absolute inset-0 bg-brand-50/80 border-4 border-brand-200 grid grid-cols-4 grid-rows-4 shadow-xl">
+                            <!-- Inner Grid Lines -->
+                            <div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div>
+                            <div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div>
+                            <div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div>
+                            <div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div><div class="border border-brand-100"></div>
+                        </div>
+
+                        <!-- 3D Objects -->
+                        <!-- Center Core -->
+                        <div class="cube animate-float-1" style="top: 40%; left: 40%; z-index: 10;">
+                            <div class="cube-face cube-face--top">CORE</div>
+                            <div class="cube-face cube-face--front"></div>
+                            <div class="cube-face cube-face--right"></div>
+                        </div>
+
+                        <!-- Satellite 1 -->
+                        <div class="cube animate-float-2" style="top: 70%; left: 10%; z-index: 5;">
+                            <div class="cube-face cube-face--top text-xs">DB</div>
+                            <div class="cube-face cube-face--front"></div>
+                            <div class="cube-face cube-face--right"></div>
+                        </div>
+
+                        <!-- Satellite 2 -->
+                        <div class="cube animate-float-3" style="top: 10%; left: 70%; z-index: 5;">
+                            <div class="cube-face cube-face--top text-xs">API</div>
+                            <div class="cube-face cube-face--front"></div>
+                            <div class="cube-face cube-face--right"></div>
+                        </div>
+
+                        <!-- Satellite 3 -->
+                        <div class="cube animate-float-4" style="top: 20%; left: 20%; z-index: 5;">
+                            <div class="cube-face cube-face--top text-xs">LOG</div>
+                            <div class="cube-face cube-face--front"></div>
+                            <div class="cube-face cube-face--right"></div>
+                        </div>
+
+                        <!-- Floor Shadow/Highlight (Visual trick) -->
+                        <div class="absolute top-[40%] left-[40%] w-[60px] h-[60px] bg-brand-900 opacity-20 blur-md transform translate-z(-10px)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="border-y border-slate-200 bg-white py-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center font-mono text-xs text-slate-400 mb-6 tracking-widest uppercase">Powering logistics for</p>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Simple Geometric Logos (CSS) -->
+                <div class="flex items-center gap-2 font-bold text-xl"><div class="w-6 h-6 bg-slate-800 rounded-sm"></div> ACME_CORP</div>
+                <div class="flex items-center gap-2 font-bold text-xl"><div class="w-6 h-6 border-4 border-slate-800 rounded-full"></div> GLOBEX</div>
+                <div class="flex items-center gap-2 font-bold text-xl"><div class="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-slate-800"></div> UMBRELLA</div>
+                <div class="flex items-center gap-2 font-bold text-xl"><div class="w-6 h-6 bg-slate-800 transform rotate-45"></div> MASSIVE</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 md:py-32 bg-surface">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 md:mb-24 text-center md:text-left">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-slate-900">Modular Infrastructure</h2>
+                <div class="w-24 h-2 bg-brand-500 mx-auto md:mx-0"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="block-card bg-white p-8 group cursor-pointer shadow-block hover:shadow-block-hover">
+                    <div class="w-14 h-14 bg-brand-50 border-2 border-brand-600 mb-6 flex items-center justify-center group-hover:bg-brand-600 transition-colors">
+                        <i data-lucide="server" class="w-7 h-7 text-brand-700 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">Elastic Storage</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Scalable storage blocks that expand automatically based on your inventory throughput data.
+                    </p>
+                    <div class="border-t border-slate-100 pt-4 mt-auto">
+                        <span class="font-mono text-xs font-bold text-brand-600 flex items-center gap-2">
+                            READ_DOCS <i data-lucide="arrow-right" class="w-3 h-3 transition-transform group-hover:translate-x-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="block-card bg-white p-8 group cursor-pointer shadow-block hover:shadow-block-hover">
+                    <div class="w-14 h-14 bg-brand-50 border-2 border-brand-600 mb-6 flex items-center justify-center group-hover:bg-brand-600 transition-colors">
+                        <i data-lucide="route" class="w-7 h-7 text-brand-700 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">Smart Routing</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Algorithmically determined shipping paths reducing latency by up to 45% globally via mesh networks.
+                    </p>
+                    <div class="border-t border-slate-100 pt-4 mt-auto">
+                        <span class="font-mono text-xs font-bold text-brand-600 flex items-center gap-2">
+                            VIEW_MAP <i data-lucide="arrow-right" class="w-3 h-3 transition-transform group-hover:translate-x-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="block-card bg-white p-8 group cursor-pointer shadow-block hover:shadow-block-hover">
+                    <div class="w-14 h-14 bg-brand-50 border-2 border-brand-600 mb-6 flex items-center justify-center group-hover:bg-brand-600 transition-colors">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-brand-700 group-hover:text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">Secure Handoff</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Blockchain-verified custody chains ensure zero loss during physical-to-digital transfers.
+                    </p>
+                    <div class="border-t border-slate-100 pt-4 mt-auto">
+                        <span class="font-mono text-xs font-bold text-brand-600 flex items-center gap-2">
+                            VERIFY <i data-lucide="arrow-right" class="w-3 h-3 transition-transform group-hover:translate-x-1"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Features (Grid) -->
+    <section class="py-20 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            
+            <!-- Features List -->
+            <div>
+                <h2 class="text-3xl font-bold mb-8">Full Stack Logistics</h2>
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="flex gap-4">
+                        <div class="mt-1"><i data-lucide="box-select" class="text-brand-600"></i></div>
+                        <div>
+                            <h4 class="font-bold mb-1">3D Warehousing</h4>
+                            <p class="text-sm text-slate-500">Visualise stock levels in true isometric view.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1"><i data-lucide="activity" class="text-brand-600"></i></div>
+                        <div>
+                            <h4 class="font-bold mb-1">Pulse Analytics</h4>
+                            <p class="text-sm text-slate-500">Live heartbeat monitoring of your supply chain.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1"><i data-lucide="globe" class="text-brand-600"></i></div>
+                        <div>
+                            <h4 class="font-bold mb-1">Global Mesh</h4>
+                            <p class="text-sm text-slate-500">200+ edge nodes ensuring fast data propagation.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="mt-1"><i data-lucide="cpu" class="text-brand-600"></i></div>
+                        <div>
+                            <h4 class="font-bold mb-1">Automated Bots</h4>
+                            <p class="text-sm text-slate-500">Deploy software robots to handle manifests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terminal Window (Network Status) -->
+            <div id="network" class="order-first lg:order-last">
+                <div class="bg-slate-900 rounded-lg border-2 border-slate-700 shadow-2xl font-mono text-sm overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+                    <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-slate-700">
+                        <div class="flex gap-1.5">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-xs text-slate-400 ml-2">node_monitor — bash — 80x24</span>
+                    </div>
+                    <div class="p-6 space-y-3 text-slate-300">
+                        <p><span class="text-green-400">root@cube-logic:~$</span> ./check_nodes.sh --all</p>
+                        <div class="animate-pulse">
+                            <p class="text-slate-500">> Pinging Global Mesh...</p>
+                        </div>
+                        <div class="py-2">
+                            <div class="flex justify-between border-b border-slate-700 py-1">
+                                <span>US-EAST-1</span>
+                                <span class="text-green-400 font-bold">[ONLINE]</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-700 py-1">
+                                <span>EU-CENTRAL</span>
+                                <span class="text-green-400 font-bold">[ONLINE]</span>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-700 py-1">
+                                <span>ASIA-SOUTH</span>
+                                <span class="text-yellow-400 font-bold">[LATENCY]</span>
+                            </div>
+                        </div>
+                        <p><span class="text-green-400">root@cube-logic:~$</span> _</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edge Nodes — paused-on-hover marquee strip -->
+    <section class="full-bleed-iso bg-slate-900 text-white py-20 md:py-28 overflow-hidden relative border-y-2 border-slate-700">
+        <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 mb-12 relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+            <div>
+                <span class="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-400 block mb-3">// EDGE_MAP · 04</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold">Eight nodes, this minute.</h2>
+            </div>
+            <p class="text-slate-400 max-w-md md:text-right text-sm">Live snapshots of edge regions piping through the mesh. Hover to halt; every tile is a real cluster on the grid.</p>
+        </div>
+        <div class="overflow-hidden relative">
+            <div class="absolute top-0 bottom-0 left-0 w-24 md:w-40 bg-gradient-to-r from-slate-900 to-transparent pointer-events-none z-10"></div>
+            <div class="absolute top-0 bottom-0 right-0 w-24 md:w-40 bg-gradient-to-l from-slate-900 to-transparent pointer-events-none z-10"></div>
+            <div class="iso-marquee">
+                <figure class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node US-EAST-1" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-60" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-slate-900 via-slate-900/50 to-brand-600/20"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_07</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">US-EAST-1</div><div class="text-xs text-slate-400">Virginia · 12ms</div></div>
+                        <span class="font-mono text-xs text-brand-400">42 racks</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node EU-CENTRAL" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-bl from-brand-700/30 via-transparent to-slate-900"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_12</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">EU-CENTRAL</div><div class="text-xs text-slate-400">Frankfurt · 4ms</div></div>
+                        <span class="font-mono text-xs text-brand-400">68 racks</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node ASIA-SOUTH" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-70" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-yellow-700/30 via-transparent to-slate-900/50"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-yellow-400"><span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>LATENCY</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_19</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">ASIA-SOUTH</div><div class="text-xs text-slate-400">Mumbai · 47ms</div></div>
+                        <span class="font-mono text-xs text-yellow-400">31 racks</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node JP-EAST" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/60 via-transparent to-brand-600/30"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_24</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">JP-EAST</div><div class="text-xs text-slate-400">Tokyo · 8ms</div></div>
+                        <span class="font-mono text-xs text-brand-400">54 racks</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node SA-EAST" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-slate-900 via-transparent to-brand-700/20"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_31</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">SA-EAST</div><div class="text-xs text-slate-400">São Paulo · 22ms</div></div>
+                        <span class="font-mono text-xs text-brand-400">19 racks</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node AU-CENTRAL" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-65" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-bl from-slate-900/40 via-transparent to-slate-900"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-blue-400"><span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>SCALING</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_44</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">AU-CENTRAL</div><div class="text-xs text-slate-400">Sydney · 28ms</div></div>
+                        <span class="font-mono text-xs text-brand-400">+8 racks</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node CA-WEST" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-brand-600/15"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_52</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">CA-WEST</div><div class="text-xs text-slate-400">Vancouver · 17ms</div></div>
+                        <span class="font-mono text-xs text-brand-400">36 racks</span>
+                    </figcaption>
+                </figure>
+                <figure class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 hover:border-brand-400 transition-colors overflow-hidden">
+                    <div class="relative h-44">
+                        <img alt="Node ME-CENTRAL" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-65" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop"/>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-slate-900 via-transparent to-brand-700/25"></div>
+                        <div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div>
+                        <div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_61</div>
+                    </div>
+                    <figcaption class="p-4 flex justify-between items-end">
+                        <div><div class="font-mono font-bold text-sm">ME-CENTRAL</div><div class="text-xs text-slate-400">Dubai · 19ms</div></div>
+                        <span class="font-mono text-xs text-brand-400">22 racks</span>
+                    </figcaption>
+                </figure>
+                <!-- Duplicate set for seamless loop -->
+                <figure aria-hidden="true" class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-60" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tr from-slate-900 via-slate-900/50 to-brand-600/20"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_07</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">US-EAST-1</div><div class="text-xs text-slate-400">Virginia · 12ms</div></div><span class="font-mono text-xs text-brand-400">42 racks</span></figcaption></figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-bl from-brand-700/30 via-transparent to-slate-900"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_12</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">EU-CENTRAL</div><div class="text-xs text-slate-400">Frankfurt · 4ms</div></div><span class="font-mono text-xs text-brand-400">68 racks</span></figcaption></figure>
+                <figure aria-hidden="true" class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-70" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-yellow-700/30 via-transparent to-slate-900/50"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-yellow-400"><span class="w-1.5 h-1.5 bg-yellow-400 rounded-full"></span>LATENCY</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_19</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">ASIA-SOUTH</div><div class="text-xs text-slate-400">Mumbai · 47ms</div></div><span class="font-mono text-xs text-yellow-400">31 racks</span></figcaption></figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-r from-slate-900/60 via-transparent to-brand-600/30"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_24</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">JP-EAST</div><div class="text-xs text-slate-400">Tokyo · 8ms</div></div><span class="font-mono text-xs text-brand-400">54 racks</span></figcaption></figure>
+                <figure aria-hidden="true" class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tr from-slate-900 via-transparent to-brand-700/20"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_31</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">SA-EAST</div><div class="text-xs text-slate-400">São Paulo · 22ms</div></div><span class="font-mono text-xs text-brand-400">19 racks</span></figcaption></figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-65" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-bl from-slate-900/40 via-transparent to-slate-900"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-blue-400"><span class="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>SCALING</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_44</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">AU-CENTRAL</div><div class="text-xs text-slate-400">Sydney · 28ms</div></div><span class="font-mono text-xs text-brand-400">+8 racks</span></figcaption></figure>
+                <figure aria-hidden="true" class="shrink-0 w-72 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-brand-600/15"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_52</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">CA-WEST</div><div class="text-xs text-slate-400">Vancouver · 17ms</div></div><span class="font-mono text-xs text-brand-400">36 racks</span></figcaption></figure>
+                <figure aria-hidden="true" class="shrink-0 w-80 bg-slate-800 border-2 border-slate-700 overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-65" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop"/><div class="absolute inset-0 bg-gradient-to-tr from-slate-900 via-transparent to-brand-700/25"></div><div class="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-slate-900/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-green-400"><span class="w-1.5 h-1.5 bg-green-400 rounded-full node-pulse"></span>ONLINE</div><div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-0.5 font-mono text-[10px] tracking-widest">NODE_61</div></div><figcaption class="p-4 flex justify-between items-end"><div><div class="font-mono font-bold text-sm">ME-CENTRAL</div><div class="text-xs text-slate-400">Dubai · 19ms</div></div><span class="font-mono text-xs text-brand-400">22 racks</span></figcaption></figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case studies — 3 alternating image+content rows -->
+    <section class="py-20 md:py-28 bg-surface" id="cases">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 md:mb-24">
+                <span class="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">// CASE_STUDIES · 05</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold">Real shipments, real grid.</h2>
+            </div>
+            <div class="flex flex-col gap-20 md:gap-28">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <figure class="md:col-span-7 relative">
+                        <div class="absolute -top-3 -left-3 w-10 h-10 bg-brand-200 -z-10"></div>
+                        <div class="absolute -bottom-3 -right-3 w-10 h-10 border-2 border-brand-600 -z-10"></div>
+                        <div class="relative aspect-[16/10] overflow-hidden border-2 border-slate-900 shadow-block">
+                            <img alt="Atlas Distribution" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=1400&q=85&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-white text-slate-900 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 border border-slate-900">CASE · 01</span>
+                            <span class="absolute bottom-4 right-4 bg-brand-600 text-white font-mono text-xs font-bold uppercase tracking-widest px-3 py-1.5">+47% throughput</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5">
+                        <span class="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">CASE 01 — ATLAS</span>
+                        <h3 class="text-2xl md:text-3xl font-extrabold mb-4">Same-day grocery, six metros.</h3>
+                        <p class="text-slate-600 leading-relaxed mb-6">Atlas moved 41,000 SKUs onto the iso-plane in eleven weeks. Their dispatch routes self-rebalanced overnight; same-day delivery hit 98.7% by week four.</p>
+                        <dl class="grid grid-cols-3 gap-3 border-t-2 border-slate-200 pt-5">
+                            <div><dt class="font-mono text-[10px] uppercase tracking-widest text-slate-500">Throughput</dt><dd class="font-extrabold text-2xl text-brand-600 mt-1">+47%</dd></div>
+                            <div><dt class="font-mono text-[10px] uppercase tracking-widest text-slate-500">Drift</dt><dd class="font-extrabold text-2xl text-slate-900 mt-1">0.2%</dd></div>
+                            <div><dt class="font-mono text-[10px] uppercase tracking-widest text-slate-500">Migration</dt><dd class="font-extrabold text-2xl text-slate-900 mt-1">11w</dd></div>
+                        </dl>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <div class="md:col-span-5 md:order-1 order-2">
+                        <span class="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">CASE 02 — GLOBEX</span>
+                        <h3 class="text-2xl md:text-3xl font-extrabold mb-4">Cross-border, near-zero loss.</h3>
+                        <p class="text-slate-600 leading-relaxed mb-6">Globex's bonded warehouses across four customs zones now hand off via ledger-signed manifests. Lost-in-transit incidents dropped from 4.1% to 0.04% — a 99.0% reduction in the first quarter.</p>
+                        <ul class="space-y-2.5 text-sm">
+                            <li class="flex items-start gap-3"><i data-lucide="check" class="text-brand-600 w-4 h-4 mt-1 shrink-0"></i> 4 customs zones · 12 warehouses</li>
+                            <li class="flex items-start gap-3"><i data-lucide="check" class="text-brand-600 w-4 h-4 mt-1 shrink-0"></i> Ledger-signed handoff at every node</li>
+                            <li class="flex items-start gap-3"><i data-lucide="check" class="text-brand-600 w-4 h-4 mt-1 shrink-0"></i> Compliance audit · zero findings</li>
+                        </ul>
+                    </div>
+                    <figure class="md:col-span-7 md:order-2 order-1 relative">
+                        <div class="absolute -top-3 -right-3 w-10 h-10 bg-brand-200 -z-10"></div>
+                        <div class="absolute -bottom-3 -left-3 w-10 h-10 border-2 border-brand-600 -z-10"></div>
+                        <div class="relative aspect-[16/10] overflow-hidden border-2 border-slate-900 shadow-block">
+                            <img alt="Globex Bonded" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1494412651409-8dd6494dc6ad?w=1400&q=85&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-bl from-slate-900/60 via-transparent to-brand-600/15"></div>
+                            <span class="absolute top-4 right-4 bg-white text-slate-900 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 border border-slate-900">CASE · 02</span>
+                            <span class="absolute bottom-4 left-4 bg-slate-900 text-brand-300 font-mono text-xs font-bold uppercase tracking-widest px-3 py-1.5">−99% loss</span>
+                        </div>
+                    </figure>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <figure class="md:col-span-7 relative">
+                        <div class="absolute -top-3 -left-3 w-10 h-10 bg-brand-200 -z-10"></div>
+                        <div class="absolute -bottom-3 -right-3 w-10 h-10 border-2 border-brand-600 -z-10"></div>
+                        <div class="relative aspect-[16/10] overflow-hidden border-2 border-slate-900 shadow-block">
+                            <img alt="Massive Auto Parts" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop"/>
+                            <div class="absolute inset-0 bg-gradient-to-r from-slate-900/65 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-white text-slate-900 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 border border-slate-900">CASE · 03</span>
+                            <span class="absolute bottom-4 right-4 bg-brand-600 text-white font-mono text-xs font-bold uppercase tracking-widest px-3 py-1.5">42min → 6min</span>
+                        </div>
+                    </figure>
+                    <div class="md:col-span-5">
+                        <span class="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">CASE 03 — MASSIVE</span>
+                        <h3 class="text-2xl md:text-3xl font-extrabold mb-4">Auto parts, eight time zones.</h3>
+                        <p class="text-slate-600 leading-relaxed mb-6">Massive consolidated 14 dealer hubs into a single isometric warehouse plane. Order-to-line-side dropped from 42 minutes to under 6 — and the dashboard still fits on one screen.</p>
+                        <a class="inline-flex items-center gap-2 font-mono text-sm font-bold text-brand-600 border-b-2 border-brand-600 pb-1 hover:gap-3 transition-all" href="#">Read the post-mortem <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Principles — numbered doctrine -->
+    <section class="full-bleed-iso py-20 md:py-28 bg-white border-y-2 border-slate-200" id="principles">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+            <aside class="lg:col-span-4">
+                <span class="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">// PRINCIPLES · 06</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">Five rules<br/>the grid runs on.</h2>
+                <p class="text-slate-600 mt-5">Pulled from 240 onboarding interviews. The teams who scale past 10 nodes always settle into these five.</p>
+                <a class="mt-8 inline-flex items-center gap-2 font-mono text-sm font-bold border-2 border-slate-900 px-5 py-2.5 hover:bg-slate-900 hover:text-white transition-colors" href="#">READ_HANDBOOK <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </aside>
+            <ol class="lg:col-span-8 divide-y-2 divide-slate-200 border-y-2 border-slate-200">
+                <li class="grid grid-cols-12 gap-4 py-6 hover:bg-brand-50/30 transition-colors">
+                    <span class="col-span-2 lg:col-span-1 font-mono font-extrabold text-3xl text-brand-600 tabular-nums leading-none">01</span>
+                    <div class="col-span-10 lg:col-span-9">
+                        <h3 class="font-bold text-lg mb-1">A node is a contract, not a server.</h3>
+                        <p class="text-slate-600 text-sm">Treat it that way and the mesh routes around the bad ones. Treat it as hardware and you'll patch by hand on Saturdays.</p>
+                    </div>
+                    <span class="col-span-12 lg:col-span-2 font-mono text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">[ RULE_01 ]</span>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-6 hover:bg-brand-50/30 transition-colors">
+                    <span class="col-span-2 lg:col-span-1 font-mono font-extrabold text-3xl text-brand-600 tabular-nums leading-none">02</span>
+                    <div class="col-span-10 lg:col-span-9">
+                        <h3 class="font-bold text-lg mb-1">Visualise, then automate.</h3>
+                        <p class="text-slate-600 text-sm">If you can't see the inventory in 3D you can't trust the bot that moves it. Watch a week before letting the routing kick in.</p>
+                    </div>
+                    <span class="col-span-12 lg:col-span-2 font-mono text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">[ RULE_02 ]</span>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-6 hover:bg-brand-50/30 transition-colors">
+                    <span class="col-span-2 lg:col-span-1 font-mono font-extrabold text-3xl text-brand-600 tabular-nums leading-none">03</span>
+                    <div class="col-span-10 lg:col-span-9">
+                        <h3 class="font-bold text-lg mb-1">Zero-loss handoffs are paid for, not promised.</h3>
+                        <p class="text-slate-600 text-sm">Sign every transfer. Even the ones inside your own warehouse. The audit you build in week one is the SLA you sell in year two.</p>
+                    </div>
+                    <span class="col-span-12 lg:col-span-2 font-mono text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">[ RULE_03 ]</span>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-6 hover:bg-brand-50/30 transition-colors">
+                    <span class="col-span-2 lg:col-span-1 font-mono font-extrabold text-3xl text-brand-600 tabular-nums leading-none">04</span>
+                    <div class="col-span-10 lg:col-span-9">
+                        <h3 class="font-bold text-lg mb-1">One queue beats four dashboards.</h3>
+                        <p class="text-slate-600 text-sm">Resist the urge to fork your alerts by team. The grid wins when one operator can see the whole plane at 3 a.m.</p>
+                    </div>
+                    <span class="col-span-12 lg:col-span-2 font-mono text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">[ RULE_04 ]</span>
+                </li>
+                <li class="grid grid-cols-12 gap-4 py-6 hover:bg-brand-50/30 transition-colors">
+                    <span class="col-span-2 lg:col-span-1 font-mono font-extrabold text-3xl text-brand-600 tabular-nums leading-none">05</span>
+                    <div class="col-span-10 lg:col-span-9">
+                        <h3 class="font-bold text-lg mb-1">Ship the first manifest before you finish the docs.</h3>
+                        <p class="text-slate-600 text-sm">If the system can't carry one real shipment it can't carry a thousand. The first move teaches the next ten.</p>
+                    </div>
+                    <span class="col-span-12 lg:col-span-2 font-mono text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">[ RULE_05 ]</span>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- FAQ accordion -->
+    <section class="py-20 md:py-28 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">// SUPPORT · 07</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold">Pre-flight checks.</h2>
+                <p class="text-slate-600 mt-3">Things teams ask before flipping the green switch.</p>
+            </div>
+            <div class="divide-y-2 divide-slate-900/10 border-y-2 border-slate-900/10 bg-white shadow-block">
+                <details class="iso-faq group p-5 md:p-6" open>
+                    <summary class="flex items-center gap-6">
+                        <span class="font-mono font-extrabold text-2xl text-brand-600 tabular-nums shrink-0 w-12">Q1</span>
+                        <h3 class="flex-1 font-bold text-base md:text-lg text-slate-900">Will Cube_Logic replace our existing WMS?</h3>
+                        <i data-lucide="chevron-right" class="iso-chevron w-5 h-5 text-slate-500 shrink-0"></i>
+                    </summary>
+                    <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">No. Cube_Logic sits over your existing WMS and ERP, indexes their state, and rewrites the routing layer. Most teams keep every system they had — they just stop logging in to most of them.</p>
+                </details>
+                <details class="iso-faq group p-5 md:p-6">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-mono font-extrabold text-2xl text-brand-600 tabular-nums shrink-0 w-12">Q2</span>
+                        <h3 class="flex-1 font-bold text-base md:text-lg text-slate-900">How long does the trial run?</h3>
+                        <i data-lucide="chevron-right" class="iso-chevron w-5 h-5 text-slate-500 shrink-0"></i>
+                    </summary>
+                    <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">Fourteen days, no credit card. We deploy a single sandbox node into your VPC; you test against your real manifests; we delete on day fifteen if you decline.</p>
+                </details>
+                <details class="iso-faq group p-5 md:p-6">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-mono font-extrabold text-2xl text-brand-600 tabular-nums shrink-0 w-12">Q3</span>
+                        <h3 class="flex-1 font-bold text-base md:text-lg text-slate-900">What's the actual SLA?</h3>
+                        <i data-lucide="chevron-right" class="iso-chevron w-5 h-5 text-slate-500 shrink-0"></i>
+                    </summary>
+                    <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">99.99% on the routing plane and 99.95% on storage, region-by-region. Enterprise plan adds custom SLOs against your peak windows; status page is live and unfiltered.</p>
+                </details>
+                <details class="iso-faq group p-5 md:p-6">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-mono font-extrabold text-2xl text-brand-600 tabular-nums shrink-0 w-12">Q4</span>
+                        <h3 class="flex-1 font-bold text-base md:text-lg text-slate-900">Can we self-host?</h3>
+                        <i data-lucide="chevron-right" class="iso-chevron w-5 h-5 text-slate-500 shrink-0"></i>
+                    </summary>
+                    <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">Yes — single-tenant on AWS, GCP, or Azure on the Enterprise plan. We help you wire SSO, audit log forwarding, and the routing connector before launch.</p>
+                </details>
+                <details class="iso-faq group p-5 md:p-6">
+                    <summary class="flex items-center gap-6">
+                        <span class="font-mono font-extrabold text-2xl text-brand-600 tabular-nums shrink-0 w-12">Q5</span>
+                        <h3 class="flex-1 font-bold text-base md:text-lg text-slate-900">How are nodes priced?</h3>
+                        <i data-lucide="chevron-right" class="iso-chevron w-5 h-5 text-slate-500 shrink-0"></i>
+                    </summary>
+                    <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">Active-CPU only. Idle nodes do not bill; spike traffic auto-scales without quota requests. The first 5 GB of isometric storage is free, every month.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 md:py-32 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Scalable Pricing</h2>
+                <p class="text-slate-600 max-w-lg mx-auto">Pay only for the volume you compute. No hidden fees for idle containers.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-start">
+                
+                <!-- Basic Plan -->
+                <div class="bg-white border-2 border-slate-200 p-8 shadow-sm hover:border-slate-300 transition-colors">
+                    <h3 class="font-mono font-bold text-lg mb-2 text-slate-500">STARTER</h3>
+                    <div class="text-4xl font-extrabold mb-6">$0<span class="text-lg text-slate-400 font-normal">/mo</span></div>
+                    <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 1 Project Node</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 5GB Isometric Storage</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Community Support</li>
+                    </ul>
+                    <button class="w-full py-3 border-2 border-slate-200 font-bold text-slate-600 hover:border-slate-900 hover:text-slate-900 transition-colors">Get Started</button>
+                </div>
+
+                <!-- Pro Plan (Featured) -->
+                <div class="bg-white border-2 border-slate-900 p-8 shadow-block relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 bg-brand-600 text-white text-xs font-bold px-3 py-1 font-mono">POPULAR</div>
+                    <h3 class="font-mono font-bold text-lg mb-2 text-brand-600">SCALER</h3>
+                    <div class="text-4xl font-extrabold mb-6">$49<span class="text-lg text-slate-400 font-normal">/mo</span></div>
+                    <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> 10 Project Nodes</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> 500GB Isometric Storage</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Analytics Dashboard</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-600"></i> Priority Support</li>
+                    </ul>
+                    <button class="w-full py-3 bg-slate-900 text-white font-bold hover:bg-brand-600 transition-colors shadow-lg">Deploy Now</button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="bg-white border-2 border-slate-200 p-8 shadow-sm hover:border-slate-300 transition-colors">
+                    <h3 class="font-mono font-bold text-lg mb-2 text-slate-500">ENTERPRISE</h3>
+                    <div class="text-4xl font-extrabold mb-6">Custom</div>
+                    <ul class="space-y-3 text-sm text-slate-600 mb-8">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Unlimited Nodes</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Dedicated Edge Server</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> 24/7 SLA</li>
+                    </ul>
+                    <button class="w-full py-3 border-2 border-slate-200 font-bold text-slate-600 hover:border-slate-900 hover:text-slate-900 transition-colors">Contact Sales</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white border-t border-slate-800 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-brand-600 flex items-center justify-center text-white text-sm rounded-sm">
+                            <i data-lucide="box" class="w-4 h-4"></i>
+                        </div>
+                        <span class="font-mono font-bold text-xl">CUBE_LOGIC</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm text-sm leading-relaxed">
+                        Redefining global logistics through geometry and code. We build the blocks that move the world. <br><br>
+                        San Francisco, CA • Dublin, IE
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 font-mono text-brand-400">PLATFORM</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">System Status</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Integrations</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4 font-mono text-brand-400">COMPANY</h4>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a> <span class="text-[10px] bg-brand-600 px-1 rounded ml-1">HIRING</span></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Legal</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 font-mono">
+                <p>&copy; 2024 CUBE_LOGIC Inc. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i data-lucide="github" class="w-4 h-4"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const icon = menuBtn.querySelector('i');
+
+        function toggleMenu() {
+            const isOpen = mobileMenu.classList.contains('open');
+            if (isOpen) {
+                mobileMenu.classList.remove('open');
+            } else {
+                mobileMenu.classList.add('open');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>

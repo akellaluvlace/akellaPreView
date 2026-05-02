@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Harvest - Seasonal Produce Subscription</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Noto+Serif:ital,wght@0,600;0,700;1,400;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#8e706d",
+                        "on-secondary-fixed-variant": "#2d4f22",
+                        "tertiary-fixed": "#ffdea9",
+                        "on-surface": "#261816",
+                        "inverse-on-surface": "#ffedea",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#fde2df",
+                        "primary": "#b32725",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#f7dcd9",
+                        "on-primary-fixed": "#410002",
+                        "tertiary-fixed-dim": "#f8bc49",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#7a5500",
+                        "secondary-container": "#c2ebaf",
+                        "inverse-primary": "#ffb4ab",
+                        "inverse-surface": "#3d2c2b",
+                        "surface-dim": "#efd4d1",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "background": "#fff8f7",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fff8f7",
+                        "surface-bright": "#fff8f7",
+                        "tertiary-container": "#996c00",
+                        "on-primary-fixed-variant": "#910910",
+                        "on-background": "#261816",
+                        "on-secondary-container": "#486b3b",
+                        "on-tertiary-fixed-variant": "#5e4100",
+                        "secondary": "#446738",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "surface-container-highest": "#f7dcd9",
+                        "secondary-fixed-dim": "#aad298",
+                        "on-surface-variant": "#5a413e",
+                        "on-tertiary-fixed": "#271900",
+                        "surface-container": "#ffe9e6",
+                        "on-primary-container": "#140000",
+                        "surface-tint": "#b32825",
+                        "on-tertiary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#d6413a",
+                        "secondary-fixed": "#c5eeb2",
+                        "outline-variant": "#e2beba",
+                        "primary-fixed": "#ffdad6",
+                        "on-secondary-fixed": "#032100",
+                        "surface-container-low": "#fff0ee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "section-gap": "80px",
+                        "unit": "8px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Noto Serif"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "display-xl": ["Noto Serif"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-xl": ["48px", {"lineHeight": "1.1", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        html, body { overflow-x: clip; }
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-shadow-ambient {
+            text-shadow: 0 4px 12px rgba(214, 65, 58, 0.15);
+        }
+        @keyframes heroDrift {
+            0%   { transform: scale(1.04) translate3d(0, 0, 0); }
+            100% { transform: scale(1.08) translate3d(-1.2%, -0.8%, 0); }
+        }
+        .marquee-strip {
+            animation: marquee-x 64s linear infinite;
+            width: max-content;
+            display: flex;
+            gap: 18px;
+        }
+        .marquee-strip:hover { animation-play-state: paused; }
+        @keyframes marquee-x {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 9px)); }
+        }
+        .farm-faq summary::-webkit-details-marker { display: none; }
+        .farm-faq summary { list-style: none; }
+        .farm-faq summary .farm-chevron { transition: transform 250ms ease; }
+        .farm-faq[open] summary .farm-chevron { transform: rotate(45deg); }
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-strip { animation: none; }
+            .farm-faq summary .farm-chevron { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- Existing content block 1: TopNavBar wrapped for section parity. -->
+<section aria-label="Top navigation">
+<nav class="bg-[#fdfcfb] dark:bg-stone-950 sticky top-0 w-full z-50 border-b border-stone-200 dark:border-stone-800 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center gap-3 px-4 py-3 max-w-7xl mx-auto sm:px-6 sm:py-4 md:px-8">
+<a class="text-xl font-black font-serif text-[#D6413A] dark:text-[#ef4444] tracking-tight sm:text-2xl" href="#">Harvest</a>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#D6413A] transition-colors font-serif text-lg font-medium hover:bg-stone-50 dark:hover:bg-stone-900 duration-300 px-3 py-1 rounded-md" href="#">How it works</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#D6413A] transition-colors font-serif text-lg font-medium hover:bg-stone-50 dark:hover:bg-stone-900 duration-300 px-3 py-1 rounded-md" href="#">Plans</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-[#D6413A] transition-colors font-serif text-lg font-medium hover:bg-stone-50 dark:hover:bg-stone-900 duration-300 px-3 py-1 rounded-md" href="#">This Month</a>
+</div>
+<button class="bg-primary-container text-on-primary rounded-full px-4 py-2 text-xs font-label-sm hover:opacity-90 scale-95 active:scale-100 transition-transform sm:px-6 sm:text-label-sm">
+                Subscribe
+            </button>
+</div>
+</nav>
+</section>
+<!-- Existing content block 2: Hero, wrapped for section parity. -->
+<section aria-label="Hero">
+<header class="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Hero background" class="w-full h-full object-cover scale-[1.04] motion-safe:animate-[heroDrift_22s_ease-in-out_infinite_alternate]" style="filter: contrast(1.08) saturate(1.18) brightness(0.96);" data-alt="Overhead view of a rustic wooden table scattered with fresh seasonal produce, linen napkins, and artisan jars in warm, natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiE7zjWjGJUS0sWC0UmDpQrCYLQQx2gY2mvJXT9djBIU9WddM6Ney3OXc3qEux4NnMFat7bvrQaW5eWBCxJZFTObJuQ6spdBNNS_ku-XZL20krW4SN1HVEQoVGs1eUFiZerFnL8WAUWOhpbAoo2k5M9OR5usIOUxcpMVddBO6Fig73e1LqjZ0OAnww2JSkNLMGgrWQl5nZ4s_vT41hoei4IP82k09DF2tjZO77_ZZ9al4cwic7keRt2OIaWy8--HFBG3pGTIH96MU"/>
+<div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/45 to-black/60"></div>
+<div class="absolute inset-0 pointer-events-none" style="box-shadow: inset 0 0 200px 80px rgba(0,0,0,0.45);"></div>
+</div>
+<div class="relative z-10 text-center px-4 max-w-6xl mx-auto">
+<h1 class="font-display-xl text-[32px] leading-[1.1] text-white mb-6 sm:text-[48px] sm:mb-stack-lg md:text-[72px] md:leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.55)]">
+                Dinner, but better,<br/>every month.
+            </h1>
+<p class="font-body-lg text-base text-white/90 mb-8 max-w-3xl mx-auto sm:text-body-lg sm:mb-stack-lg drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+                Rooted in Generous Seasonality. We deliver peak-season ingredients, chef-crafted recipes, and a touch of culinary magic straight to your door.
+            </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+<button class="w-full sm:w-auto px-6 py-3 rounded-full border-2 border-white/80 text-white font-label-sm text-label-sm backdrop-blur-sm hover:bg-white/15 transition-colors sm:px-8 sm:py-4">
+                    See this month's box
+                </button>
+<button class="w-full sm:w-auto px-6 py-3 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm shadow-[0_8px_24px_rgba(214,65,58,0.45)] hover:opacity-90 transition-opacity sm:px-8 sm:py-4">
+                    Subscribe
+                </button>
+</div>
+</div>
+</header>
+</section>
+<!-- NEW Section 1: This Week's Box. Cinema-strip marquee (NOVEL #11). 10 produce cards.
+     Each card carries a verified §D.1 photo + tomato/green wash + Noto-Serif italic produce name + farm + weight. -->
+<section aria-label="This week's box" class="full-bleed bg-surface-container-low py-20 md:py-28 overflow-hidden">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-12 mb-10 md:mb-14">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+<div class="max-w-3xl">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— Box № 47 · Week of October 14</span>
+<h2 class="font-headline-lg text-[28px] sm:text-[36px] md:text-[44px] leading-tight text-on-background mt-3">
+This week's box.
+</h2>
+<p class="font-body-md text-on-surface-variant mt-4 max-w-2xl">
+Ten growers. Forty-three crates. Hand-picked by Tuesday morning, on your kitchen counter by Friday night. Every variety below is what's actually peaking in the fields right now — substitutions are rare, and we'll always tell you in the weekly note when one happens.
+</p>
+</div>
+<div class="flex gap-2 self-start md:self-end">
+<span class="px-3 py-1 border border-secondary/40 rounded-full font-label-sm text-secondary uppercase tracking-wider">Pause to inspect</span>
+<span class="px-3 py-1 border border-primary/30 rounded-full font-label-sm text-primary uppercase tracking-wider">Hover · pause</span>
+</div>
+</div>
+</div>
+<div class="overflow-hidden relative">
+<div class="marquee-strip pl-4">
+<!-- Tile 01 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Produce still life" data-alt="Warm-toned still life evoking heirloom tomato cluster on linen" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(68,103,56,0.22) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 01</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Heirloom tomatoes</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Owl Stream Farm · 800 g</p>
+</figcaption>
+</figure>
+<!-- Tile 02 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture warm-tinted" data-alt="Cropped architectural facade tinted warm-cream as a textural produce stand-in" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 50%, rgba(68,103,56,0.30) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 02</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Bronze fennel</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Wren Hollow · 1 bunch</p>
+</figcaption>
+</figure>
+<!-- Tile 03 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture cropped" data-alt="Brutalist concrete texture cropped tight, recoloured warm-cream and red" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.32) 0%, transparent 60%, rgba(122,85,0,0.18) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 03</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Tuscan kale</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Cedar &amp; Sage · 600 g</p>
+</figcaption>
+</figure>
+<!-- Tile 04 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture cropped" data-alt="Stone wall texture warm-cream tinted" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(68,103,56,0.32) 0%, transparent 60%, rgba(179,39,37,0.18) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 04</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Sungold tomatoes</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Owl Stream Farm · 500 g</p>
+</figcaption>
+</figure>
+<!-- Tile 05 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture cropped" data-alt="Concrete texture cropped, warm-tinted" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(122,85,0,0.28) 0%, transparent 55%, rgba(68,103,56,0.30) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 05</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Roasting carrots</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Hare's Field · 1 kg</p>
+</figcaption>
+</figure>
+<!-- Tile 06 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture cropped" data-alt="Architectural cluster warm-tinted" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.30) 0%, transparent 60%, rgba(122,85,0,0.20) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 06</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Pink lady apples</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Bramble &amp; Nine · 6 ct</p>
+</figcaption>
+</figure>
+<!-- Tile 07 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture cropped" data-alt="Concrete and clay texture, warm-cream tint" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(68,103,56,0.30) 0%, transparent 55%, rgba(179,39,37,0.18) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 07</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Marigold squash</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Wren Hollow · 1.4 kg</p>
+</figcaption>
+</figure>
+<!-- Tile 08 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture cropped" data-alt="Architectural detail warm-tinted" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 55%, rgba(68,103,56,0.22) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 08</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Field rocket</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Cedar &amp; Sage · 220 g</p>
+</figcaption>
+</figure>
+<!-- Tile 09 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Brass still life" data-alt="Brass apothecary still life as warm-toned harvest stand-in" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop&amp;sat=-15"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.22) 0%, transparent 60%, rgba(122,85,0,0.28) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 09</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Black mission figs</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Bramble &amp; Nine · 350 g</p>
+</figcaption>
+</figure>
+<!-- Tile 10 -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="Architecture warm-tinted" data-alt="Concrete cluster warm-tinted" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop&amp;sat=-10"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(68,103,56,0.34) 0%, transparent 55%, rgba(179,39,37,0.16) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 10</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Soft farm eggs</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Hare's Field · 6 ct</p>
+</figcaption>
+</figure>
+<!-- Duplicate tile set for seamless marquee loop. -->
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(68,103,56,0.22) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 01</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Heirloom tomatoes</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Owl Stream Farm · 800 g</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 50%, rgba(68,103,56,0.30) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 02</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Bronze fennel</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Wren Hollow · 1 bunch</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.32) 0%, transparent 60%, rgba(122,85,0,0.18) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 03</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Tuscan kale</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Cedar &amp; Sage · 600 g</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(68,103,56,0.32) 0%, transparent 60%, rgba(179,39,37,0.18) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 04</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Sungold tomatoes</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Owl Stream Farm · 500 g</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(122,85,0,0.28) 0%, transparent 55%, rgba(68,103,56,0.30) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 05</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Roasting carrots</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Hare's Field · 1 kg</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.30) 0%, transparent 60%, rgba(122,85,0,0.20) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 06</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Pink lady apples</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Bramble &amp; Nine · 6 ct</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(68,103,56,0.30) 0%, transparent 55%, rgba(179,39,37,0.18) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 07</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Marigold squash</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Wren Hollow · 1.4 kg</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 55%, rgba(68,103,56,0.22) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 08</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Field rocket</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Cedar &amp; Sage · 220 g</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop&amp;sat=-15"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.22) 0%, transparent 60%, rgba(122,85,0,0.28) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 09</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Black mission figs</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Bramble &amp; Nine · 350 g</p>
+</figcaption>
+</figure>
+<figure class="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]" aria-hidden="true">
+<div class="aspect-[4/5] relative overflow-hidden">
+<img alt="" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop&amp;sat=-10"/>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(68,103,56,0.34) 0%, transparent 55%, rgba(179,39,37,0.16) 100%);"></div>
+<span class="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ 10</span>
+</div>
+<figcaption class="p-4">
+<p class="font-headline-md italic text-[20px] leading-tight text-on-background">Soft farm eggs</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Hare's Field · 6 ct</p>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<!-- NEW Section 2: How the box arrives. Sticky-photo + scrolling text (NOVEL #8). 4 ritual steps. -->
+<section aria-label="How the box arrives" class="py-20 md:py-28">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-12">
+<div class="max-w-3xl mb-12 md:mb-20">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— II · The weekly ritual</span>
+<h2 class="font-headline-lg text-[28px] sm:text-[36px] md:text-[44px] leading-tight text-on-background mt-3">
+How the box arrives.
+</h2>
+<p class="font-body-md text-on-surface-variant mt-4 max-w-2xl">
+Four quiet days between the field and your kitchen. Nothing rushed, nothing held in cold storage longer than the produce wants. Here's the sequence we walk every single week — printed on the inside of every box flap.
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
+<div class="md:col-span-5">
+<div class="md:sticky md:top-32 md:self-start">
+<div class="aspect-[4/5] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
+<img alt="Architectural facade tinted as ritual portrait" data-alt="Architectural facade tinted warm-cream with green overlay, evoking morning harvest stillness" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(255,248,247,0.10) 0%, transparent 30%, rgba(68,103,56,0.40) 100%);"></div>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(122,85,0,0.28) 100%);"></div>
+<div class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
+<span class="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · I</span>
+<span class="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">04 days · 12 hands</span>
+</div>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant italic mt-4 max-w-sm">
+The cooperative loading shed at Wren Hollow, photographed at 04:50 the morning before any box ships.
+</p>
+</div>
+</div>
+<ol class="md:col-span-7 flex flex-col divide-y divide-outline-variant border-t border-b border-outline-variant">
+<li class="py-8 grid grid-cols-12 gap-4">
+<div class="col-span-12 sm:col-span-3 flex flex-col">
+<span class="font-headline-md italic text-secondary text-[28px] leading-none">Tue.</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider mt-2">Step 01</span>
+</div>
+<div class="col-span-12 sm:col-span-9">
+<h3 class="font-headline-md text-[22px] text-on-background mb-2">Harvest</h3>
+<p class="font-body-md text-on-surface-variant">
+Tuesday begins before the dew lifts. Four growers — Owl Stream, Wren Hollow, Cedar &amp; Sage, Hare's Field — walk their rows with shallow basket-trolleys, cutting only what is at peak. Tomatoes are picked still warm from the vine, kale below the topmost three leaves so the plant keeps producing. Nothing is washed at the field. Heritage varieties travel separately in linen-lined crates to keep their skins from bruising. By eleven the entire week's inventory is at the cooperative shed, weighed, sorted, and labelled with the grower's signature on every crate so we never lose track of who pulled what.
+</p>
+</div>
+</li>
+<li class="py-8 grid grid-cols-12 gap-4">
+<div class="col-span-12 sm:col-span-3 flex flex-col">
+<span class="font-headline-md italic text-secondary text-[28px] leading-none">Wed.</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider mt-2">Step 02</span>
+</div>
+<div class="col-span-12 sm:col-span-9">
+<h3 class="font-headline-md text-[22px] text-on-background mb-2">Cold-pack</h3>
+<p class="font-body-md text-on-surface-variant">
+Wednesday is the slow day. Each box is hand-packed in a single, unhurried session at the shed: heavy roots first along the floor of the carton, leafy greens cradled in butcher's paper at the top so nothing crushes them, herbs and figs rest in their own divided tray. Two re-usable wool liners go between the floor and the produce — wool stays cool longer than thermo-foam and we get the liners back when the next box ships. A printed weekly note is slipped under the lid, hand-stamped with the box number and the names of the people who packed it. No plastic, no foam, no air-pillows.
+</p>
+</div>
+</li>
+<li class="py-8 grid grid-cols-12 gap-4">
+<div class="col-span-12 sm:col-span-3 flex flex-col">
+<span class="font-headline-md italic text-secondary text-[28px] leading-none">Thu.</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider mt-2">Step 03</span>
+</div>
+<div class="col-span-12 sm:col-span-9">
+<h3 class="font-headline-md text-[22px] text-on-background mb-2">Out for delivery</h3>
+<p class="font-body-md text-on-surface-variant">
+Thursday morning the first refrigerated van leaves at 04:30 with a sleep-eyed driver and a route printed on cream card. We use small electric vans across the metro — never freight pallets — because the boxes need to be hand-carried, not forklift-jolted. You'll receive a text the moment the van leaves the shed and a second one ten minutes from your address. If you've left a cooler bag on the porch we'll transfer the box into it. If not, we knock, wait, and slide the box into the shaded side of your stoop. The whole trip from shed to doorstep is capped at six hours.
+</p>
+</div>
+</li>
+<li class="py-8 grid grid-cols-12 gap-4">
+<div class="col-span-12 sm:col-span-3 flex flex-col">
+<span class="font-headline-md italic text-secondary text-[28px] leading-none">Fri.</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider mt-2">Step 04</span>
+</div>
+<div class="col-span-12 sm:col-span-9">
+<h3 class="font-headline-md text-[22px] text-on-background mb-2">On your table</h3>
+<p class="font-body-md text-on-surface-variant">
+Friday is when it stops being logistics and starts being dinner. Inside the box you'll find a hand-folded recipe card, a roasted-tomato sauce template that scales from two to eight, and a small printed map of which farms grew which item. Most subscribers tell us the first thing they do is unwrap the herbs and let the kitchen smell of fennel and basil for an hour. The wool liners and crate go back into the empty box; we collect it on next week's run. A small ritual that we hope makes the rest of the weekend feel a little more deliberate, a little less transactional.
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</section>
+<!-- NEW Section 3: Box options. 3-tier comparison <table>. -->
+<section aria-label="Box options" class="full-bleed bg-surface-container py-20 md:py-28">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-12">
+<div class="max-w-3xl mb-12 md:mb-16">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— III · Pick a portion</span>
+<h2 class="font-headline-lg text-[28px] sm:text-[36px] md:text-[44px] leading-tight text-on-background mt-3">
+Box options.
+</h2>
+<p class="font-body-md text-on-surface-variant mt-4 max-w-2xl">
+Three sizes, all the same growers, all the same Friday window. The right tier is the one your fridge can actually hold without anything wilting before Wednesday — that, in our experience, is the most honest test.
+</p>
+</div>
+<div class="overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-low">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="font-label-sm uppercase tracking-wider text-on-surface-variant px-5 py-5">Spec</th>
+<th class="px-5 py-5">
+<div class="flex flex-col">
+<span class="font-headline-md italic text-[22px] text-on-background">Solo</span>
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant mt-1">1–2 people · $34/wk</span>
+</div>
+</th>
+<th class="px-5 py-5 bg-surface-container-high relative">
+<span class="absolute -top-2 left-5 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">Most popular</span>
+<div class="flex flex-col">
+<span class="font-headline-md italic text-[22px] text-on-background">Family</span>
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant mt-1">3–5 people · $58/wk</span>
+</div>
+</th>
+<th class="px-5 py-5">
+<div class="flex flex-col">
+<span class="font-headline-md italic text-[22px] text-on-background">Studio</span>
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant mt-1">6+ people · $92/wk</span>
+</div>
+</th>
+</tr>
+</thead>
+<tbody class="font-body-md">
+<tr class="border-b border-outline-variant">
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Portion size</td>
+<td class="px-5 py-4">~3 kg</td>
+<td class="px-5 py-4 bg-surface-container-high">~6 kg</td>
+<td class="px-5 py-4">~10 kg</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Vegetables</td>
+<td class="px-5 py-4">5 varieties</td>
+<td class="px-5 py-4 bg-surface-container-high">8 varieties</td>
+<td class="px-5 py-4">11 varieties</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Fruit</td>
+<td class="px-5 py-4">2 varieties</td>
+<td class="px-5 py-4 bg-surface-container-high">3 varieties</td>
+<td class="px-5 py-4">5 varieties</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Herbs</td>
+<td class="px-5 py-4">1 bunch</td>
+<td class="px-5 py-4 bg-surface-container-high">2 bunches</td>
+<td class="px-5 py-4">3 bunches</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Eggs</td>
+<td class="px-5 py-4 text-on-surface-variant">Add-on</td>
+<td class="px-5 py-4 bg-surface-container-high text-secondary">6 ct included</td>
+<td class="px-5 py-4 text-secondary">12 ct included</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Swaps allowed</td>
+<td class="px-5 py-4">2 / box</td>
+<td class="px-5 py-4 bg-surface-container-high">3 / box</td>
+<td class="px-5 py-4">5 / box</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Freeze allowed</td>
+<td class="px-5 py-4 text-secondary">Yes · 2 weeks</td>
+<td class="px-5 py-4 bg-surface-container-high text-secondary">Yes · unlimited</td>
+<td class="px-5 py-4 text-secondary">Yes · unlimited</td>
+</tr>
+<tr>
+<td class="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">Delivery window</td>
+<td class="px-5 py-4">Fri 14:00–18:00</td>
+<td class="px-5 py-4 bg-surface-container-high">Fri 13:00–19:00</td>
+<td class="px-5 py-4">Fri 11:00–19:00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="font-body-md text-on-surface-variant max-w-3xl mt-8 italic">
+Everything is flexible — pause without notice, skip a week, swap a tier in either direction with no fee. The only ask we make is that you let us know by the Sunday before delivery. After that the produce has already been pulled from the soil with your name on it, and we'd rather it ends up on your table than in the cooperative's compost. Studio subscribers can split the box between two households at no extra cost; we'll deliver to two addresses on the same route.
+</p>
+</div>
+</section>
+<!-- NEW Section 4: From the farms. 3 alternating 7/5 rows with farmer profiles. -->
+<section aria-label="From the farms" class="py-20 md:py-28">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-12">
+<div class="max-w-3xl mb-12 md:mb-20">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— IV · The growers</span>
+<h2 class="font-headline-lg text-[28px] sm:text-[36px] md:text-[44px] leading-tight text-on-background mt-3">
+From the farms.
+</h2>
+<p class="font-body-md text-on-surface-variant mt-4 max-w-2xl">
+Four cooperative members, eleven seasonal contributors, every box. Below: the three growers we work with most often. None advertise, none have a website, none are certified anything — they show up at the shed with crates and a clipboard, and that, at this point, is enough.
+</p>
+</div>
+<div class="flex flex-col gap-16 md:gap-24">
+<!-- Row 1: image left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+<div class="md:col-span-7">
+<div class="aspect-[4/3] rounded-xl overflow-hidden border border-outline-variant relative">
+<img alt="Farmer portrait grayscale" data-alt="Editorial portrait, treated grayscale with warm overlay, stand-in for tomato grower" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,248,247,0.30) 0%, transparent 50%, rgba(122,85,0,0.30) 100%);"></div>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(68,103,56,0.18) 100%);"></div>
+<div class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
+<span class="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Owl Stream Farm · I</span>
+<span class="font-label-sm text-white/80 uppercase tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Est. 1998</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-5">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— Margaret Pace</span>
+<h3 class="font-headline-md text-[26px] md:text-[28px] mt-3 mb-4">Owl Stream Farm · Veronica Valley</h3>
+<p class="font-body-md text-on-surface-variant mb-4">
+Margaret started Owl Stream on three acres of leased orchard ground after her father's tobacco farm gave out. Twenty-six years later she runs forty-eight acres of nightshade — fifty-one tomato cultivars, twelve eggplants, a small experimental ground for breeding her own paste varieties. Her saved-seed library is the largest cooperative member's, and most of the heirloom tomatoes you'll see this autumn are grown from her grandmother's lines.
+</p>
+<p class="font-body-md text-on-surface-variant">
+She still walks every row by hand on harvest mornings. Her dog Ledger walks behind her. The two of them are usually the first humans the produce ever sees once it's left the vine — and you can taste, we think, the absence of forklifts and freight depots in every Friday's box.
+</p>
+</div>
+</article>
+<!-- Row 2: image right -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+<div class="md:col-span-5 md:order-2">
+<div class="aspect-[4/3] rounded-xl overflow-hidden border border-outline-variant relative">
+<img alt="Farmer portrait grayscale" data-alt="Editorial portrait, grayscale with warm overlay, stand-in for kale and herb grower" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,248,247,0.30) 0%, transparent 50%, rgba(68,103,56,0.34) 100%);"></div>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(179,39,37,0.16) 0%, transparent 55%, rgba(122,85,0,0.18) 100%);"></div>
+<div class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
+<span class="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Cedar &amp; Sage · II</span>
+<span class="font-label-sm text-white/80 uppercase tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Est. 2007</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 md:order-1">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— Theo &amp; Salomé Vance</span>
+<h3 class="font-headline-md text-[26px] md:text-[28px] mt-3 mb-4">Cedar &amp; Sage · Hollow Brook</h3>
+<p class="font-body-md text-on-surface-variant mb-4">
+Theo and Salomé came to Hollow Brook by way of two failed restaurant ventures and a season cooking on a Greek freighter. They grow leafy greens, brassicas, and the most insistently aromatic herbs in the cooperative — the rocket has a peppery edge that's made it into more than one chef's spec sheet, and their bronze fennel is the reason a particular pastry kitchen calls every Friday at 14:02 sharp.
+</p>
+<p class="font-body-md text-on-surface-variant">
+They tend their fields in the Italian market-garden way: tight beds, narrow paths, every square metre planted with three rotations a year. Soil is amended only with their own compost. They are, between them, the cooperative's quietest growers and its most consistent — every Tuesday harvest from May to first frost, never once a missed crate.
+</p>
+</div>
+</article>
+<!-- Row 3: image left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+<div class="md:col-span-7">
+<div class="aspect-[4/3] rounded-xl overflow-hidden border border-outline-variant relative">
+<img alt="Farmer portrait grayscale" data-alt="Editorial portrait, grayscale with warm overlay, stand-in for orchard fruit grower" class="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,248,247,0.30) 0%, transparent 50%, rgba(179,39,37,0.30) 100%);"></div>
+<div class="absolute inset-0 mix-blend-multiply" style="background: linear-gradient(160deg, rgba(122,85,0,0.18) 0%, transparent 55%, rgba(68,103,56,0.20) 100%);"></div>
+<div class="absolute bottom-5 left-5 right-5 flex justify-between items-end">
+<span class="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Bramble &amp; Nine · III</span>
+<span class="font-label-sm text-white/80 uppercase tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Est. 2014</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-5">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— Jules &amp; Iris Bramble</span>
+<h3 class="font-headline-md text-[26px] md:text-[28px] mt-3 mb-4">Bramble &amp; Nine · Linnet Ridge</h3>
+<p class="font-body-md text-on-surface-variant mb-4">
+Jules grew up on the orchard. Iris arrived from a horticulture programme in 2014, married him, and never left. Together they manage one hundred and ninety stone-fruit trees, the cooperative's only fig grove, and a small but very serious quince corner that yields a hundred and twenty kilos a year and disappears into one box-week of November jam.
+</p>
+<p class="font-body-md text-on-surface-variant">
+They harvest in pairs — one shaking, one catching. The fig grove is picked at dawn because the fruit splits its skin in heat. Their black mission and brown turkey figs are the most fragile thing we ever ship, and the reason wool liners exist on Wednesday packing day.
+</p>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- NEW Section 5: FAQ accordion. 7 Q&A pairs, <details>/<summary>. -->
+<section aria-label="Frequently asked" class="full-bleed bg-surface-container-low py-20 md:py-28">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-12">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+<div class="md:col-span-4">
+<span class="font-label-sm text-secondary uppercase tracking-[0.2em]">— V · Frequently asked</span>
+<h2 class="font-headline-lg text-[28px] sm:text-[36px] md:text-[44px] leading-tight text-on-background mt-3">
+Questions, answered slowly.
+</h2>
+<p class="font-body-md text-on-surface-variant mt-4 max-w-md">
+We don't run a chatbot and we'd rather you didn't have to write to us at all. Below: the seven questions every new subscriber asks, in roughly the order they ask them.
+</p>
+<a href="#" class="inline-flex items-center gap-2 mt-6 font-label-sm text-primary uppercase tracking-wider hover:underline underline-offset-4">
+Still curious? Write to us
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</div>
+<div class="md:col-span-8 divide-y divide-outline-variant border-t border-b border-outline-variant">
+<details class="farm-faq group py-6 px-2">
+<summary class="cursor-pointer flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[20px] md:text-[22px] text-on-background">What if I'm allergic to something?</h3>
+<span class="farm-chevron material-symbols-outlined text-primary shrink-0">add</span>
+</summary>
+<p class="font-body-md text-on-surface-variant mt-4 pr-8">
+Tell us at sign-up and we'll permanently exclude that ingredient from your boxes. The kitchen at the shed handles every allergen ever grown in the cooperative — including nuts and celery — so we can't promise zero cross-contact, but we can promise zero of the allergen itself in your specific carton. The weekly note will list any swaps we made on your behalf, and you'll always have one extra free swap that month for any oversight.
+</p>
+</details>
+<details class="farm-faq group py-6 px-2">
+<summary class="cursor-pointer flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[20px] md:text-[22px] text-on-background">Can I skip a week?</h3>
+<span class="farm-chevron material-symbols-outlined text-primary shrink-0">add</span>
+</summary>
+<p class="font-body-md text-on-surface-variant mt-4 pr-8">
+Yes — through the dashboard, by reply to the Sunday email, or by texting the number on the box flap. The cut-off is Sunday 23:59 the week of delivery; after that the produce has already been pulled from the field with your name on it. You can skip a single week, a fortnight, or pause indefinitely. We'll never auto-charge a missed week.
+</p>
+</details>
+<details class="farm-faq group py-6 px-2">
+<summary class="cursor-pointer flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[20px] md:text-[22px] text-on-background">Do you deliver outside the metro area?</h3>
+<span class="farm-chevron material-symbols-outlined text-primary shrink-0">add</span>
+</summary>
+<p class="font-body-md text-on-surface-variant mt-4 pr-8">
+Right now we cap delivery at a sixty-mile radius from the shed. Beyond that the six-hour shed-to-door window stops being achievable and the produce loses the thing we're paying so much attention to keep. We have a small waiting list for two adjacent towns and we'll quietly expand by one corridor each spring; if you're in either, reach out and we'll add you.
+</p>
+</details>
+<details class="farm-faq group py-6 px-2">
+<summary class="cursor-pointer flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[20px] md:text-[22px] text-on-background">What happens if produce arrives bruised?</h3>
+<span class="farm-chevron material-symbols-outlined text-primary shrink-0">add</span>
+</summary>
+<p class="font-body-md text-on-surface-variant mt-4 pr-8">
+Send a photo to the box-flap text number within forty-eight hours of delivery. We'll credit the affected item to the next box and, depending on what failed, slip an extra of that variety into your following carton. We don't ask you to send anything back — that's wasteful, and it usually means the photograph already told us everything we needed to know about how to talk to the grower.
+</p>
+</details>
+<details class="farm-faq group py-6 px-2">
+<summary class="cursor-pointer flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[20px] md:text-[22px] text-on-background">Are the farms certified organic?</h3>
+<span class="farm-chevron material-symbols-outlined text-primary shrink-0">add</span>
+</summary>
+<p class="font-body-md text-on-surface-variant mt-4 pr-8">
+Three of the four cooperative members hold full organic certification; one operates organically but has chosen not to certify because the annual paperwork would force a price rise we'd rather not pass on. We publish full grower spec sheets — soil amendment, pest practice, water source — on the inside of every box. If certification matters to you specifically, the dashboard lets you exclude the uncertified farm from your boxes.
+</p>
+</details>
+<details class="farm-faq group py-6 px-2">
+<summary class="cursor-pointer flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[20px] md:text-[22px] text-on-background">Can I gift a subscription?</h3>
+<span class="farm-chevron material-symbols-outlined text-primary shrink-0">add</span>
+</summary>
+<p class="font-body-md text-on-surface-variant mt-4 pr-8">
+Yes, in four-, eight-, twelve-, or twenty-six-week blocks. The first delivery includes a printed greeting card you can write at checkout, plus a small jar of preserved heritage tomatoes from Owl Stream as a welcome. The recipient never sees the price, only the start and end dates, and they can pause or extend exactly as a normal subscriber would. We do not auto-renew gift subscriptions when they end.
+</p>
+</details>
+<details class="farm-faq group py-6 px-2">
+<summary class="cursor-pointer flex justify-between items-start gap-4">
+<h3 class="font-headline-md text-[20px] md:text-[22px] text-on-background">How does winter availability work?</h3>
+<span class="farm-chevron material-symbols-outlined text-primary shrink-0">add</span>
+</summary>
+<p class="font-body-md text-on-surface-variant mt-4 pr-8">
+December through February the boxes lean heavier on roots, brassicas, stored fruit, and the cooperative's preserved larder — black-pepper-pickled apples, smoked salt, jars of summer's crushed tomatoes. The headcount drops slightly so the price drops with it. We don't import to fill the gap; we'd rather the box read honestly as winter food. Studio subscribers receive a small bottle of pressed apple from Bramble &amp; Nine in every February box.
+</p>
+</details>
+</div>
+</div>
+</div>
+</section>
+<!-- Existing content block 3: Footer wrapped for section parity. Responsive padding (px-8 → px-4 on mobile). -->
+<section aria-label="Footer">
+<footer class="bg-stone-100 dark:bg-stone-900 w-full py-10 px-4 border-t border-stone-200 dark:border-stone-800 sm:py-12 sm:px-6 md:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+<div>
+<a class="text-xl font-bold font-serif text-[#486B3B] mb-4 block" href="#">Harvest</a>
+<p class="font-serif text-sm text-stone-500 dark:text-stone-400 opacity-80 hover:opacity-100 transition-opacity">
+                    © 2024 Harvest Box. Rooted in Generous Seasonality.
+                </p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2 font-serif text-sm">
+<a class="text-stone-500 dark:text-stone-400 hover:underline decoration-[#D6413A] underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">How it works</a>
+<a class="text-stone-500 dark:text-stone-400 hover:underline decoration-[#D6413A] underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Plans</a>
+<a class="text-stone-500 dark:text-stone-400 hover:underline decoration-[#D6413A] underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">This Month</a>
+</div>
+<div class="flex flex-col gap-2 font-serif text-sm">
+<a class="text-stone-500 dark:text-stone-400 hover:underline decoration-[#D6413A] underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Sustainability</a>
+<a class="text-stone-500 dark:text-stone-400 hover:underline decoration-[#D6413A] underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Our Farms</a>
+<a class="text-stone-500 dark:text-stone-400 hover:underline decoration-[#D6413A] underline-offset-4 opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy</a>
+</div>
+</div>
+</div>
+</footer>
+</section>
+</body></html>

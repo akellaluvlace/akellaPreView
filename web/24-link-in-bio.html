@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>@kaia.builds - Link in Bio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800;900&amp;family=Caveat:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f9faf5",
+                        "on-primary-container": "#426c4f",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#603f2b",
+                        "on-tertiary-container": "#6d6329",
+                        "surface-variant": "#e2e3de",
+                        "tertiary-container": "#eee199",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d9dad6",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f9faf5",
+                        "tertiary-fixed": "#f1e39c",
+                        "on-secondary-container": "#795540",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#50470f",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1c1a",
+                        "surface-container": "#edeeea",
+                        "inverse-on-surface": "#f0f1ed",
+                        "inverse-primary": "#a4d1ae",
+                        "secondary": "#7b5641",
+                        "on-surface-variant": "#414942",
+                        "on-tertiary-fixed": "#201c00",
+                        "surface-container-high": "#e8e8e4",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#f3f4ef",
+                        "inverse-surface": "#2f312e",
+                        "on-secondary-fixed": "#2e1505",
+                        "surface-tint": "#3e674b",
+                        "on-primary-fixed-variant": "#264f34",
+                        "on-surface": "#1a1c1a",
+                        "secondary-fixed-dim": "#ecbda2",
+                        "secondary-fixed": "#ffdbc9",
+                        "tertiary": "#685f25",
+                        "outline": "#727971",
+                        "outline-variant": "#c1c8c0",
+                        "primary-container": "#bdebc7",
+                        "surface-container-highest": "#e2e3de",
+                        "primary": "#3e674b",
+                        "primary-fixed-dim": "#a4d1ae",
+                        "on-primary-fixed": "#00210e",
+                        "tertiary-fixed-dim": "#d4c782",
+                        "surface-bright": "#f9faf5",
+                        "primary-fixed": "#c0eec9",
+                        "secondary-container": "#fecdb2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "640px",
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "unit": "8px",
+                        "section-padding": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "button-text": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-xl": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "caveat": ["Caveat"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "button-text": ["16px", { "lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "display-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+  html, body { overflow-x: clip; }
+  .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: none;
+  }
+  /* Marquee */
+  .kb-marquee-track {
+    display: flex;
+    gap: 18px;
+    width: max-content;
+    animation: kb-marquee 55s linear infinite;
+    padding: 10px 0;
+  }
+  .kb-marquee-wrap:hover .kb-marquee-track { animation-play-state: paused; }
+  @keyframes kb-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 9px)); }
+  }
+  /* Pulse dot */
+  .kb-pulse {
+    animation: kb-pulse-ring 2.4s ease-out infinite;
+  }
+  @keyframes kb-pulse-ring {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(62,103,75,0.5); }
+    50% { box-shadow: 0 0 0 9px rgba(62,103,75,0); }
+  }
+  /* FAQ accordion */
+  .kb-faq summary::-webkit-details-marker { display: none; }
+  .kb-faq summary { list-style: none; cursor: pointer; }
+  .kb-faq summary .kb-chev {
+    transition: transform 250ms ease;
+    display: inline-block;
+  }
+  .kb-faq[open] summary .kb-chev { transform: rotate(45deg); }
+  /* Float subtle */
+  .kb-float {
+    animation: kb-float-y 7s ease-in-out infinite;
+  }
+  @keyframes kb-float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  /* Hand-drawn underline */
+  .kb-underline {
+    background-image: linear-gradient(transparent 75%, rgba(62,103,75,0.35) 75%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 0 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kb-marquee-track { animation: none; }
+    .kb-pulse { animation: none; }
+    .kb-float { animation: none; }
+    .kb-faq summary .kb-chev { transition: none; }
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+<div class="fixed top-20 left-[-20px] text-5xl opacity-20 z-0">✨</div>
+<div class="fixed top-1/3 right-[-10px] text-6xl opacity-20 z-0 rotate-12">💖</div>
+<div class="fixed bottom-32 right-[-20px] text-5xl opacity-20 z-0">⭐</div>
+<header class="bg-transparent sticky top-0 w-full z-50">
+<div class="flex justify-between items-center w-full max-w-[420px] mx-auto px-6 py-4">
+<span class="text-lg font-black text-slate-900 dark:text-slate-50 tracking-tight">@kaia.builds</span>
+<button class="hover:opacity-80 transition-opacity scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-50" data-icon="share">share</span>
+</button>
+</div>
+</header>
+
+<!-- ============================================================
+     SECTION 1 — LINK RAIL HERO (existing constrained content)
+============================================================ -->
+<section class="w-full max-w-[420px] mx-auto px-6 pt-10 pb-16 flex flex-col items-center z-10 relative">
+<div class="flex flex-col items-center mb-8">
+<div class="w-24 h-24 rounded-full overflow-hidden border-2 border-on-surface bg-surface-container-high mb-4">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a cheerful young woman with natural makeup and a warm smile, softly lit outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ4xVkRRz0Row3K3O8RQDdE3U2AfePg3BKJh36RAnVzZwxC-ngKB_OjCv0-6KK6QfUekyTT08sEeAskkX3Xj8VKWJPGniodTBfl776e6-B2xnxUgrIOnLxbNC9WiN1LsPMocGez73r4Jp4dBwt3X0By4xdpVncrHhMBP62Mxqe4kqYS5I9ZXfNbYhKkq3JGf0f3xFbvy_KNiQJluVf1t2SPSXGCf__4zps6fvSKzENmw5ckQVU3MLrmFdiwJUIl87fujuY-_buLpyE"/>
+</div>
+<h1 class="font-display-xl text-display-xl text-on-surface text-center mb-2 tracking-tight">@kaia.builds</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant text-center max-w-[280px]">building a tea brand &amp; dog content</p>
+<div class="mt-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container border border-on-surface">
+<span class="w-2 h-2 rounded-full bg-primary kb-pulse" aria-hidden="true"></span>
+<span class="text-[11px] font-semibold uppercase tracking-[0.18em] text-on-primary-container">Open · taking 1 brand collab</span>
+</div>
+</div>
+<div class="w-full flex flex-col gap-stack-gap">
+<a class="w-full py-4 px-6 rounded-xl flex items-center bg-primary-container border border-on-surface text-on-surface font-button-text text-button-text active:scale-95 transition-transform" href="#">
+<span class="text-2xl mr-4">🍵</span>
+<span class="flex-1 text-center">Tea Brand</span>
+</a>
+<a class="w-full py-4 px-6 rounded-xl flex items-center bg-secondary-container border border-on-surface text-on-surface font-button-text text-button-text active:scale-95 transition-transform" href="#">
+<span class="text-2xl mr-4">🐕</span>
+<span class="flex-1 text-center">Dog Vlog</span>
+</a>
+<a class="w-full py-4 px-6 rounded-xl flex items-center bg-tertiary-container border-[3px] border-on-surface text-on-surface font-button-text text-button-text active:scale-95 transition-transform relative overflow-hidden group" href="#">
+<div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+<span class="text-2xl mr-4 relative z-10">🛍️</span>
+<span class="flex-1 text-center relative z-10 font-bold">Shop Merch</span>
+</a>
+<a class="w-full py-4 px-6 rounded-xl flex items-center bg-error-container border border-on-surface text-on-surface font-button-text text-button-text active:scale-95 transition-transform" href="#">
+<span class="text-2xl mr-4">📸</span>
+<span class="flex-1 text-center">Instagram</span>
+</a>
+<a class="w-full py-4 px-6 rounded-xl flex items-center bg-primary-fixed border border-on-surface text-on-surface font-button-text text-button-text active:scale-95 transition-transform" href="#">
+<span class="text-2xl mr-4">🎥</span>
+<span class="flex-1 text-center">TikTok</span>
+</a>
+<a class="w-full py-4 px-6 rounded-xl flex items-center bg-secondary-fixed border border-on-surface text-on-surface font-button-text text-button-text active:scale-95 transition-transform" href="#">
+<span class="text-2xl mr-4">💌</span>
+<span class="flex-1 text-center">Newsletter</span>
+</a>
+</div>
+<div class="mt-10 flex items-center gap-3 text-on-surface-variant">
+<span class="font-caveat text-2xl text-secondary">scroll for the rest</span>
+<span class="material-symbols-outlined text-secondary kb-float">south</span>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — FULL-BLEED CINEMATIC PHOTO STRIP
+============================================================ -->
+<section class="full-bleed relative overflow-hidden" style="background-color: #1a1c1a;">
+<div class="relative w-full h-[60vh] min-h-[420px] max-h-[640px]">
+<img class="absolute inset-0 w-full h-full object-cover opacity-90" alt="warm overhead shot of loose-leaf tea, brass strainer, and ceramic cups on a linen surface" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-black/85 pointer-events-none"></div>
+<div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 70% 60% at 18% 92%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 70%);"></div>
+<div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 60% at 95% 8%, rgba(189,235,199,0.18) 0%, transparent 60%);"></div>
+<div class="absolute inset-0 flex flex-col justify-end px-6 md:px-12 pb-10 md:pb-14 max-w-[1200px] mx-auto">
+<span class="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary-container mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">Latest drop · 02 — Steepwell No. 04</span>
+<h2 class="font-display-xl text-[40px] md:text-[64px] leading-[1.05] tracking-tight text-white drop-shadow-[0_4px_28px_rgba(0,0,0,0.85)] max-w-[14ch]">A small tea<br/><em class="font-caveat font-normal text-tertiary-fixed-dim">brewed slowly.</em></h2>
+<p class="mt-4 font-body-lg text-body-lg text-white/85 max-w-[44ch] drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">First batch of the season. 80 jars, hand-folded labels, packed with sleepy dog supervision.</p>
+<div class="mt-6 flex flex-wrap items-center gap-3">
+<a href="#" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-primary-container text-on-primary-container border border-primary font-button-text text-sm hover:translate-y-[-1px] transition-transform">
+<span class="material-symbols-outlined text-base">storefront</span>
+Shop the drop
+</a>
+<a href="#" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 text-white border border-white/30 backdrop-blur-sm font-button-text text-sm hover:bg-white/15 transition">
+<span class="material-symbols-outlined text-base">play_circle</span>
+Behind the steep
+</a>
+</div>
+<div class="mt-8 pt-5 border-t border-white/15 grid grid-cols-3 gap-4 max-w-[520px]">
+<div>
+<div class="text-white font-display-xl text-[22px] tabular-nums">80</div>
+<div class="text-white/70 text-[11px] uppercase tracking-[0.18em] mt-0.5">jars</div>
+</div>
+<div>
+<div class="text-white font-display-xl text-[22px] tabular-nums">04</div>
+<div class="text-white/70 text-[11px] uppercase tracking-[0.18em] mt-0.5">batch · '26</div>
+</div>
+<div>
+<div class="text-white font-display-xl text-[22px] tabular-nums">1</div>
+<div class="text-white/70 text-[11px] uppercase tracking-[0.18em] mt-0.5">tired dog</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — 3-ROW ALTERNATING IMAGE+CONTENT (latest projects)
+============================================================ -->
+<section class="w-full max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
+<div class="flex items-end justify-between gap-6 mb-10 md:mb-14">
+<div>
+<span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-tertiary mb-2 block">— Currently making</span>
+<h2 class="font-display-xl text-[34px] md:text-[44px] leading-[1.05] tracking-tight text-on-surface">Three things on <span class="kb-underline">my desk.</span></h2>
+</div>
+<a href="#" class="hidden md:inline-flex items-center gap-1 text-on-surface-variant text-sm hover:text-on-surface">All projects <span class="material-symbols-outlined text-base">arrow_outward</span></a>
+</div>
+
+<div class="flex flex-col gap-12 md:gap-20">
+
+<!-- Row 1 — image LEFT -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+<figure class="md:col-span-7 relative aspect-[4/3] rounded-2xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="hands cupping a warm ceramic mug of green tea on a wooden table" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface text-on-surface text-[10px] font-semibold uppercase tracking-[0.18em] border border-on-surface/30">— 01 · Tea</span>
+</figure>
+<div class="md:col-span-5">
+<span class="text-tertiary text-[11px] uppercase tracking-[0.22em] font-semibold">Brand · Steepwell</span>
+<h3 class="mt-2 font-display-xl text-[28px] leading-[1.1] tracking-tight">A loose-leaf brand for the slow afternoon.</h3>
+<p class="mt-3 font-body-md text-on-surface-variant">Four blends, no caffeine ladder. Sourced from one farm in Shizuoka and one in West Bengal — the rest is the kettle.</p>
+<div class="mt-5 flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded-full bg-primary-container text-on-primary-container text-[11px] font-semibold">4 blends</span>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[11px] font-semibold">Restocks · monthly</span>
+</div>
+<a href="#" class="mt-6 inline-flex items-center gap-1 text-on-surface font-semibold border-b border-on-surface pb-0.5">Open the shop <span class="material-symbols-outlined text-base">arrow_outward</span></a>
+</div>
+</article>
+
+<!-- Row 2 — image RIGHT (md:order reverse) -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+<div class="md:col-span-5 md:order-1">
+<span class="text-tertiary text-[11px] uppercase tracking-[0.22em] font-semibold">Vlog · Bean &amp; Pickle</span>
+<h3 class="mt-2 font-display-xl text-[28px] leading-[1.1] tracking-tight">A weekly dog show, mostly napping.</h3>
+<p class="mt-3 font-body-md text-on-surface-variant">Five minutes a Sunday — Bean does something dramatic, Pickle ruins it, I narrate it like a nature doc. 32 episodes, 0 sponsors I don't actually use.</p>
+<div class="mt-5 flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[11px] font-semibold">32 episodes</span>
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[11px] font-semibold">Sundays · 09:00</span>
+</div>
+<a href="#" class="mt-6 inline-flex items-center gap-1 text-on-surface font-semibold border-b border-on-surface pb-0.5">Watch the show <span class="material-symbols-outlined text-base">arrow_outward</span></a>
+</div>
+<figure class="md:col-span-7 md:order-2 relative aspect-[4/3] rounded-2xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="a small dog with bright eyes resting on a soft blanket" src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface text-on-surface text-[10px] font-semibold uppercase tracking-[0.18em] border border-on-surface/30">— 02 · Vlog</span>
+</figure>
+</article>
+
+<!-- Row 3 — image LEFT -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
+<figure class="md:col-span-7 relative aspect-[4/3] rounded-2xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="folded merchandise tees and a tote bag arranged on a linen-covered table" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-surface text-on-surface text-[10px] font-semibold uppercase tracking-[0.18em] border border-on-surface/30">— 03 · Merch</span>
+</figure>
+<div class="md:col-span-5">
+<span class="text-tertiary text-[11px] uppercase tracking-[0.22em] font-semibold">Shop · Studio Goods</span>
+<h3 class="mt-2 font-display-xl text-[28px] leading-[1.1] tracking-tight">Tees, totes, the occasional ceramic.</h3>
+<p class="mt-3 font-body-md text-on-surface-variant">Printed in small runs by a 2-person studio in Lisbon. If a thing's sold out, it'll be back when we make more — not when an algorithm decides.</p>
+<div class="mt-5 flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[11px] font-semibold">12 SKUs</span>
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[11px] font-semibold">Restock · soon</span>
+</div>
+<a href="#" class="mt-6 inline-flex items-center gap-1 text-on-surface font-semibold border-b border-on-surface pb-0.5">Browse the shop <span class="material-symbols-outlined text-base">arrow_outward</span></a>
+</div>
+</article>
+
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — IMAGE MARQUEE (recent posts / press)
+============================================================ -->
+<section class="full-bleed py-16 md:py-24" style="background-color: #f3f4ef;">
+<div class="max-w-[1200px] mx-auto px-6 md:px-12 mb-8 md:mb-10 flex items-end justify-between gap-6">
+<div>
+<span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-secondary block mb-2">— Lately, on the feed</span>
+<h2 class="font-display-xl text-[32px] md:text-[40px] leading-[1.05] tracking-tight">A scroll, paused.</h2>
+</div>
+<span class="hidden md:inline-flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary kb-pulse" aria-hidden="true"></span>
+hover to pause
+</span>
+</div>
+
+<div class="kb-marquee-wrap relative overflow-hidden">
+<div class="kb-marquee-track">
+
+<!-- Tile 1 — landscape -->
+<figure class="relative w-80 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="overhead flat-lay of a tea ceremony with cups, kettle and dried leaves" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-surface text-on-surface text-[10px] font-bold uppercase tracking-[0.18em] border border-on-surface/30">Reel</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">42.1k · 7d</span>
+</div>
+</figure>
+
+<!-- Tile 2 — portrait -->
+<figure class="relative w-60 h-72 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="portrait of a young woman laughing in a sunlit kitchen" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container text-[10px] font-bold uppercase tracking-[0.18em] border border-primary">Story</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">12.4k · 3d</span>
+</div>
+</figure>
+
+<!-- Tile 3 — landscape -->
+<figure class="relative w-96 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="a small dog peeks out of a wicker basket with morning light" src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-[0.18em] border border-secondary">Vlog · 28</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">88.7k · 2w</span>
+</div>
+</figure>
+
+<!-- Tile 4 — square -->
+<figure class="relative w-64 h-64 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="folded organic-cotton t-shirts in muted tones on a linen surface" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase tracking-[0.18em] border border-tertiary">Drop</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">5.6k · 1w</span>
+</div>
+</figure>
+
+<!-- Tile 5 — landscape -->
+<figure class="relative w-80 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="hands writing in a journal with a steaming cup of tea nearby" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-surface text-on-surface text-[10px] font-bold uppercase tracking-[0.18em] border border-on-surface/30">Letter · 14</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">9.2k · 3w</span>
+</div>
+</figure>
+
+<!-- Tile 6 — portrait -->
+<figure class="relative w-60 h-72 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="hands arranging dried flowers on a wooden table" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-[0.18em] border border-on-primary-fixed">Studio</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">3.1k · 4w</span>
+</div>
+</figure>
+
+<!-- Tile 7 — landscape -->
+<figure class="relative w-80 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="warm overhead shot of a tea-steeping ritual with brass strainer" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-[0.18em] border border-on-secondary-fixed">Press · Kinfolk</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">— 03/26</span>
+</div>
+</figure>
+
+<!-- Duplicate set for seamless loop -->
+<figure aria-hidden="true" class="relative w-80 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-surface text-on-surface text-[10px] font-bold uppercase tracking-[0.18em] border border-on-surface/30">Reel</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">42.1k · 7d</span>
+</div>
+</figure>
+<figure aria-hidden="true" class="relative w-60 h-72 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container text-[10px] font-bold uppercase tracking-[0.18em] border border-primary">Story</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">12.4k · 3d</span>
+</div>
+</figure>
+<figure aria-hidden="true" class="relative w-96 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-[0.18em] border border-secondary">Vlog · 28</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">88.7k · 2w</span>
+</div>
+</figure>
+<figure aria-hidden="true" class="relative w-64 h-64 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase tracking-[0.18em] border border-tertiary">Drop</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">5.6k · 1w</span>
+</div>
+</figure>
+<figure aria-hidden="true" class="relative w-80 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-surface text-on-surface text-[10px] font-bold uppercase tracking-[0.18em] border border-on-surface/30">Letter · 14</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">9.2k · 3w</span>
+</div>
+</figure>
+<figure aria-hidden="true" class="relative w-60 h-72 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-[0.18em] border border-on-primary-fixed">Studio</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">3.1k · 4w</span>
+</div>
+</figure>
+<figure aria-hidden="true" class="relative w-80 h-56 rounded-xl overflow-hidden border border-on-surface/20 shrink-0 bg-surface-container">
+<img class="absolute inset-0 w-full h-full object-cover" alt="" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold uppercase tracking-[0.18em] border border-on-secondary-fixed">Press · Kinfolk</span>
+<span class="text-white text-[11px] font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">— 03/26</span>
+</div>
+</figure>
+
+</div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — DOCTRINE / 5 TENETS WITH PORTRAITS
+============================================================ -->
+<section class="w-full max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
+<div class="md:max-w-[680px] mb-10 md:mb-14">
+<span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-primary block mb-2">— The studio rules</span>
+<h2 class="font-display-xl text-[34px] md:text-[44px] leading-[1.05] tracking-tight">Five things I keep <em class="font-caveat font-normal text-secondary">on the wall.</em></h2>
+<p class="mt-4 font-body-md text-on-surface-variant max-w-[52ch]">A small list to slow myself down on the loud days. None of it's clever — it's just what makes the work feel mine.</p>
+</div>
+
+<ol class="border-t border-on-surface/15">
+
+<li class="grid grid-cols-12 gap-4 md:gap-8 py-7 md:py-9 border-b border-on-surface/15 items-center">
+<span class="col-span-12 md:col-span-1 font-display-xl text-[34px] md:text-[44px] text-tertiary tabular-nums leading-none">01</span>
+<figure class="col-span-3 md:col-span-2 aspect-square rounded-xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="w-full h-full object-cover" alt="hands cupping a small ceramic bowl" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<div class="col-span-9 md:col-span-9">
+<h3 class="font-headline-md text-headline-md tracking-tight">Make small. Make often.</h3>
+<p class="mt-1 font-body-md text-on-surface-variant max-w-[58ch]">A 12-jar batch is a complete thing. So is a 3-minute video. Bigger is the trap, not the goal.</p>
+</div>
+</li>
+
+<li class="grid grid-cols-12 gap-4 md:gap-8 py-7 md:py-9 border-b border-on-surface/15 items-center">
+<span class="col-span-12 md:col-span-1 font-display-xl text-[34px] md:text-[44px] text-tertiary tabular-nums leading-none">02</span>
+<figure class="col-span-3 md:col-span-2 aspect-square rounded-xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="w-full h-full object-cover" alt="open spiral notebook with pencil and pressed leaf" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<div class="col-span-9 md:col-span-9">
+<h3 class="font-headline-md text-headline-md tracking-tight">Write the thing first.</h3>
+<p class="mt-1 font-body-md text-on-surface-variant max-w-[58ch]">If I can't write a paragraph about a product or a video, it isn't ready. Captions come from notebooks, not the post box.</p>
+</div>
+</li>
+
+<li class="grid grid-cols-12 gap-4 md:gap-8 py-7 md:py-9 border-b border-on-surface/15 items-center">
+<span class="col-span-12 md:col-span-1 font-display-xl text-[34px] md:text-[44px] text-tertiary tabular-nums leading-none">03</span>
+<figure class="col-span-3 md:col-span-2 aspect-square rounded-xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="w-full h-full object-cover" alt="small dog asleep on a sunlit rug" src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<div class="col-span-9 md:col-span-9">
+<h3 class="font-headline-md text-headline-md tracking-tight">The dogs run the schedule.</h3>
+<p class="mt-1 font-body-md text-on-surface-variant max-w-[58ch]">Walks at 8 and 4. Filming around them, never the other way around. They've never missed a deadline; I have.</p>
+</div>
+</li>
+
+<li class="grid grid-cols-12 gap-4 md:gap-8 py-7 md:py-9 border-b border-on-surface/15 items-center">
+<span class="col-span-12 md:col-span-1 font-display-xl text-[34px] md:text-[44px] text-tertiary tabular-nums leading-none">04</span>
+<figure class="col-span-3 md:col-span-2 aspect-square rounded-xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="w-full h-full object-cover" alt="folded shirts and printed tags on a linen-covered table" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<div class="col-span-9 md:col-span-9">
+<h3 class="font-headline-md text-headline-md tracking-tight">Sponsor the stuff I'd already buy.</h3>
+<p class="mt-1 font-body-md text-on-surface-variant max-w-[58ch]">No partnerships unless I've used the thing for at least a month. The list is short on purpose.</p>
+</div>
+</li>
+
+<li class="grid grid-cols-12 gap-4 md:gap-8 py-7 md:py-9 border-b border-on-surface/15 items-center">
+<span class="col-span-12 md:col-span-1 font-display-xl text-[34px] md:text-[44px] text-tertiary tabular-nums leading-none">05</span>
+<figure class="col-span-3 md:col-span-2 aspect-square rounded-xl overflow-hidden border border-on-surface/20 bg-surface-container">
+<img class="w-full h-full object-cover" alt="brass strainer and tea cups on a linen surface" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+<div class="col-span-9 md:col-span-9">
+<h3 class="font-headline-md text-headline-md tracking-tight">Put a kettle on before any meeting.</h3>
+<p class="mt-1 font-body-md text-on-surface-variant max-w-[58ch]">It's mostly a delay tactic. But also: I make better choices three sips in than I do at minute zero.</p>
+</div>
+</li>
+
+</ol>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — TESTIMONIALS / QUOTE PILLAR
+============================================================ -->
+<section class="full-bleed py-16 md:py-24" style="background-color: #ECE2CE;">
+<div class="max-w-[1200px] mx-auto px-6 md:px-12">
+<div class="flex items-end justify-between gap-6 mb-10 md:mb-14">
+<div>
+<span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-secondary block mb-2">— Said about the work</span>
+<h2 class="font-display-xl text-[32px] md:text-[40px] leading-[1.05] tracking-tight">Kind notes from <span class="kb-underline">good company.</span></h2>
+</div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+
+<figure class="relative bg-surface rounded-2xl border border-on-surface/15 p-6 flex flex-col gap-5">
+<span class="material-symbols-outlined text-tertiary text-3xl leading-none">format_quote</span>
+<blockquote class="font-headline-md text-[20px] leading-[1.35] tracking-tight text-on-surface">"The newsletter is the only one I open the morning it lands. Steepwell tea is the one I refill when it runs out."</blockquote>
+<figcaption class="mt-auto pt-5 border-t border-on-surface/10 flex items-center gap-3">
+<img class="w-11 h-11 rounded-full object-cover border border-on-surface/20" alt="portrait of a smiling young person" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div>
+<div class="font-button-text text-button-text text-on-surface">Mira A.</div>
+<div class="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Reader · since '24</div>
+</div>
+</figcaption>
+</figure>
+
+<figure class="relative bg-surface rounded-2xl border border-on-surface/15 p-6 flex flex-col gap-5">
+<span class="material-symbols-outlined text-tertiary text-3xl leading-none">format_quote</span>
+<blockquote class="font-headline-md text-[20px] leading-[1.35] tracking-tight text-on-surface">"Bean &amp; Pickle has carried me through two house moves and a bad winter. Sunday at nine, every week, no skips."</blockquote>
+<figcaption class="mt-auto pt-5 border-t border-on-surface/10 flex items-center gap-3">
+<img class="w-11 h-11 rounded-full object-cover border border-on-surface/20" alt="portrait of a young man with curly hair" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div>
+<div class="font-button-text text-button-text text-on-surface">Tomás L.</div>
+<div class="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Vlog viewer · 32 eps</div>
+</div>
+</figcaption>
+</figure>
+
+<figure class="relative bg-surface rounded-2xl border border-on-surface/15 p-6 flex flex-col gap-5">
+<span class="material-symbols-outlined text-tertiary text-3xl leading-none">format_quote</span>
+<blockquote class="font-headline-md text-[20px] leading-[1.35] tracking-tight text-on-surface">"Worked with Kaia on a small Steepwell collaboration — small in the best way. Honest, quiet, on time, careful with the pictures."</blockquote>
+<figcaption class="mt-auto pt-5 border-t border-on-surface/10 flex items-center gap-3">
+<img class="w-11 h-11 rounded-full object-cover border border-on-surface/20" alt="portrait of a woman in soft afternoon light" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div>
+<div class="font-button-text text-button-text text-on-surface">Hana W.</div>
+<div class="text-[11px] uppercase tracking-[0.18em] text-on-surface-variant">Studio · ceramics</div>
+</div>
+</figcaption>
+</figure>
+
+</div>
+</div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — FAQ ACCORDION
+============================================================ -->
+<section class="w-full max-w-[920px] mx-auto px-6 md:px-12 py-16 md:py-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+<div class="md:col-span-5">
+<span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-tertiary block mb-2">— Things people ask</span>
+<h2 class="font-display-xl text-[32px] md:text-[40px] leading-[1.05] tracking-tight">A short FAQ, <em class="font-caveat font-normal text-primary">honest answers.</em></h2>
+<p class="mt-4 font-body-md text-on-surface-variant max-w-[42ch]">If yours isn't here, the newsletter reply box reaches my actual inbox.</p>
+<a href="#" class="mt-5 inline-flex items-center gap-2 text-on-surface font-semibold border-b border-on-surface pb-0.5">Email me directly <span class="material-symbols-outlined text-base">mail</span></a>
+</div>
+<div class="md:col-span-7">
+<div class="divide-y divide-on-surface/15 border-t border-b border-on-surface/15">
+
+<details class="kb-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-[19px] tracking-tight">Where is the tea sourced?</h3>
+<span class="kb-chev material-symbols-outlined text-tertiary text-2xl">add</span>
+</summary>
+<p class="mt-3 font-body-md text-on-surface-variant max-w-[58ch]">Two farms only — one in Shizuoka, Japan (Sencha + Hojicha) and a small estate in Darjeeling (the autumn flush). Both visited in person, both pictured on the jar.</p>
+</details>
+
+<details class="kb-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-[19px] tracking-tight">Do you take brand collaborations?</h3>
+<span class="kb-chev material-symbols-outlined text-tertiary text-2xl">add</span>
+</summary>
+<p class="mt-3 font-body-md text-on-surface-variant max-w-[58ch]">One a quarter, max. The criteria are short: I've used the thing for at least a month, the team is small, and the pitch isn't a calendar invite. Newsletter reply or kaia@steepwell.studio.</p>
+</details>
+
+<details class="kb-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-[19px] tracking-tight">When does merch restock?</h3>
+<span class="kb-chev material-symbols-outlined text-tertiary text-2xl">add</span>
+</summary>
+<p class="mt-3 font-body-md text-on-surface-variant max-w-[58ch]">When the studio in Lisbon finishes the next run — usually six to eight weeks after a sellout. Subscribers get a 24h heads-up before public stock.</p>
+</details>
+
+<details class="kb-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-[19px] tracking-tight">What's the dog vlog schedule?</h3>
+<span class="kb-chev material-symbols-outlined text-tertiary text-2xl">add</span>
+</summary>
+<p class="mt-3 font-body-md text-on-surface-variant max-w-[58ch]">Sunday 09:00 GMT, every week barring real life. We've missed three Sundays in three years, two for moving house and one because Bean ate a sock.</p>
+</details>
+
+<details class="kb-faq group p-5">
+<summary class="flex items-center justify-between gap-4">
+<h3 class="font-headline-md text-[19px] tracking-tight">Is the newsletter free?</h3>
+<span class="kb-chev material-symbols-outlined text-tertiary text-2xl">add</span>
+</summary>
+<p class="mt-3 font-body-md text-on-surface-variant max-w-[58ch]">Yes — Sundays, no pop-ups, no tracking pixels. Paid tier exists only for studio recipes and full Steepwell sourcing notes; not required to read anything else.</p>
+</details>
+
+</div>
+</div>
+</div>
+</section>
+
+<footer class="bg-transparent w-full bottom-0 mt-auto z-10 relative">
+<div class="w-full max-w-[420px] mx-auto px-6 py-10 flex flex-col justify-center items-center gap-4">
+<div class="flex gap-6 mb-2">
+<a class="text-on-surface hover:text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-3xl" data-icon="photo_camera" data-weight="fill" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+</a>
+<a class="text-on-surface hover:text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-3xl" data-icon="music_video" data-weight="fill" style="font-variation-settings: 'FILL' 1;">music_video</span>
+</a>
+<a class="text-on-surface hover:text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-3xl" data-icon="play_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</a>
+</div>
+<span class="font-plus-jakarta text-xs font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500">Built with kaia.builds</span>
+</div>
+</footer>
+</body></html>

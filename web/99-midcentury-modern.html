@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thorne &amp; Low - Mid-Century Modern Furniture</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;900&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#352f2c",
+                        "surface-container-highest": "#ebe0db",
+                        "surface-dim": "#e2d8d3",
+                        "tertiary-fixed-dim": "#bfcd89",
+                        "secondary-fixed-dim": "#fabb57",
+                        "primary-fixed-dim": "#f5ba91",
+                        "on-background": "#1f1b18",
+                        "outline": "#83746b",
+                        "on-secondary-fixed-variant": "#614000",
+                        "primary-fixed": "#ffdcc5",
+                        "on-error": "#ffffff",
+                        "tertiary": "#3b4610",
+                        "surface-bright": "#fff8f5",
+                        "surface-tint": "#815433",
+                        "tertiary-fixed": "#dbeaa3",
+                        "outline-variant": "#d5c3b8",
+                        "on-tertiary-fixed-variant": "#404b15",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#fff8f5",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#301400",
+                        "on-secondary-container": "#734d00",
+                        "surface-container-low": "#fcf1ec",
+                        "inverse-on-surface": "#f9efe9",
+                        "on-error-container": "#93000a",
+                        "primary": "#603819",
+                        "on-surface": "#1f1b18",
+                        "on-tertiary-container": "#c9d792",
+                        "secondary-fixed": "#ffddb0",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#51443c",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#ffc49c",
+                        "on-secondary-fixed": "#281800",
+                        "secondary-container": "#fdbe5a",
+                        "inverse-primary": "#f5ba91",
+                        "primary-container": "#7b4f2e",
+                        "on-tertiary-fixed": "#171e00",
+                        "error-container": "#ffdad6",
+                        "secondary": "#805600",
+                        "on-primary-fixed-variant": "#663d1e",
+                        "surface-variant": "#ebe0db",
+                        "surface-container-high": "#f1e6e1",
+                        "surface-container": "#f7ece7",
+                        "tertiary-container": "#525e26",
+                        "background": "#fff8f5",
+                        "brand-mustard": "#D69C3B",
+                        "brand-avocado": "#7D8A4D",
+                        "brand-orange": "#D95C2B",
+                        "brand-cream": "#F2E9D4",
+                        "brand-teak": "#7B4F2E"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Epilogue", "sans-serif"],
+                        "body-md": ["Newsreader", "serif"],
+                        "h3": ["Epilogue", "sans-serif"],
+                        "body-lg": ["Newsreader", "serif"],
+                        "button": ["Epilogue", "sans-serif"],
+                        "label-caps": ["Epilogue", "sans-serif"],
+                        "h1": ["Epilogue", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "h2": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.3", "letterSpacing": "0", "fontWeight": "600" }],
+                        "body-lg": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "button": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "h1": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        html, body { overflow-x: clip; }
+        .full-bleed {
+          width: 100vw;
+          margin-left: calc(50% - 50vw);
+          margin-right: calc(50% - 50vw);
+          max-width: none;
+        }
+        /* Workshop marquee */
+        .workshop-track {
+          display: flex;
+          gap: 24px;
+          width: max-content;
+          animation: workshop-x 64s linear infinite;
+          padding: 16px 0;
+        }
+        .workshop-track:hover { animation-play-state: paused; }
+        @keyframes workshop-x {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 12px)); }
+        }
+        /* Mid-century arch */
+        .mcm-arch {
+          border-top-left-radius: 50% 30%;
+          border-top-right-radius: 50% 30%;
+          overflow: hidden;
+        }
+        /* Doctrine row hover rule */
+        .doctrine-row { transition: background-color 250ms ease; }
+        .doctrine-row:hover { background-color: rgba(217, 93, 57, 0.04); }
+        /* FAQ details */
+        .mcm-faq summary::-webkit-details-marker { display: none; }
+        .mcm-faq summary { list-style: none; cursor: pointer; }
+        .mcm-faq summary .mcm-chevron { transition: transform 250ms ease; }
+        .mcm-faq[open] summary .mcm-chevron { transform: rotate(45deg); }
+        /* Atmosphere hover */
+        .atmosphere-tile img { transition: filter 700ms ease, transform 1200ms ease; }
+        .atmosphere-tile:hover img { filter: grayscale(0) sepia(0); transform: scale(1.04); }
+        @media (prefers-reduced-motion: reduce) {
+          .workshop-track { animation: none; }
+          .mcm-faq summary .mcm-chevron { transition: none; }
+          .atmosphere-tile img { transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-[#F5F2ED] dark:bg-[#1A1A1A] text-on-surface antialiased overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#F5F2ED] dark:bg-[#1A1A1A] w-full sticky top-0 z-50 border-b-2 border-[#2D2926] dark:border-[#F5F2ED]">
+<div class="flex justify-between items-center px-12 py-8 w-full max-w-container-max mx-auto">
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-epilogue tracking-[0.15em] uppercase text-xs font-bold text-[#D95D39] relative after:content-[''] after:block after:w-1.5 after:h-1.5 after:bg-[#D95D39] after:rounded-full after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 hover:text-[#D95D39] transition-colors duration-300 scale-95 active:scale-90 transition-transform" href="#">Lounge</a>
+<a class="font-epilogue tracking-[0.15em] uppercase text-xs font-bold text-[#2D2926] dark:text-[#A8A29E] hover:text-[#D95D39] transition-colors duration-300 scale-95 active:scale-90 transition-transform" href="#">Dining</a>
+</nav>
+<a class="text-3xl font-black tracking-tighter text-[#2D2926] dark:text-[#F5F2ED]" href="/">Thorne &amp; Low</a>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8 items-center mr-8">
+<a class="font-epilogue tracking-[0.15em] uppercase text-xs font-bold text-[#2D2926] dark:text-[#A8A29E] hover:text-[#D95D39] transition-colors duration-300 scale-95 active:scale-90 transition-transform" href="#">Storage</a>
+<a class="font-epilogue tracking-[0.15em] uppercase text-xs font-bold text-[#2D2926] dark:text-[#A8A29E] hover:text-[#D95D39] transition-colors duration-300 scale-95 active:scale-90 transition-transform" href="#">Story</a>
+</nav>
+<button class="text-[#D95D39] dark:text-[#E87A5D] hover:text-[#D95D39] transition-colors duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-[#D95D39] dark:text-[#E87A5D] hover:text-[#D95D39] transition-colors duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-4 md:px-12 py-16 md:py-32 relative">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-5 flex flex-col items-start z-10">
+<h1 class="font-h1 text-h1 text-on-surface mb-6 relative">
+                    Furniture that aged beautifully, once
+                    <span class="absolute -top-4 -left-8 text-brand-orange hidden md:block">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"></path></svg>
+</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-md">
+                    Reissuing archival designs from 1954. Tactile minimalism crafted for the modern interior, honoring the warmth of domestic woodcraft.
+                </p>
+<button class="bg-brand-orange text-[#1f1b18] font-button text-button px-8 py-4 uppercase border-b-2 border-r-2 border-brand-teak hover:-translate-y-0.5 hover:shadow-[2px_2px_0px_#7B4F2E] transition-all active:translate-y-0 active:shadow-none">
+                    Shop the collection
+                </button>
+</div>
+<div class="md:col-span-7 relative">
+<!-- Architectural framing lines -->
+<div class="absolute -top-4 -bottom-4 -left-4 w-px bg-brand-teak/20 hidden md:block"></div>
+<div class="absolute -top-4 -right-4 -bottom-4 w-px bg-brand-teak/20 hidden md:block"></div>
+<div class="absolute top-12 -left-8 w-16 h-px bg-brand-teak/20 hidden md:block"></div>
+<!-- Main Image -->
+<div class="relative w-full aspect-[4/3] bg-surface-variant border border-brand-teak overflow-hidden">
+<div class="absolute inset-0 bg-brand-mustard translate-x-2 translate-y-2 -z-10"></div>
+<img alt="Teak lounge chair with textured wool cushions in a mid-century setting" class="w-full h-full object-cover sepia-[.15] contrast-100" data-alt="a classic mid-century teak wood lounge chair with off-white textured wool cushions, set in a warm 1961-style room with a ceramic lamp and subtle geometric shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0Lli1FDcMP9CdjLdbhefeibGmAQI87iq11QmIjyIAL9_mBYOIqQfBXR92vp78W08SGb6kI6BseePrKQAVxMNJFx5zH2XXAjZYgq4b9FoI4t_ITK2GJaeERf976B_1LG5h6pbY1cRzHRbD2UrCWwfcoPQZXyjRmqn9A1eQeW6UBT3jctBMTOAkFiGHU2KdK8OKo2yxecHAz9mD6EQsMDZWK6Fvo1TqQCUllGOjsZ6TDOAtYkYJ9z_5fTPC27PsEhOQk4OeWZ0vgBE"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Collections Section -->
+<section class="max-w-container-max mx-auto px-4 md:px-12 py-24 border-t border-brand-teak/10 relative">
+<div class="flex items-center gap-4 mb-16">
+<h2 class="font-h2 text-h2 text-on-surface">Collections</h2>
+<div class="h-px bg-brand-teak/20 flex-grow"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Card 1 -->
+<a class="group block" href="#">
+<div class="relative aspect-square mb-6 border border-brand-teak bg-surface p-4 transition-transform group-hover:-translate-y-1 group-hover:shadow-[4px_4px_0px_#7B4F2E]">
+<div class="absolute top-4 right-4 text-brand-avocado">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="20"><path d="M12 2C12 2 15 10 22 12C15 14 12 22 12 22C12 22 9 14 2 12C9 10 12 2 12 2Z"></path></svg>
+</div>
+<img alt="Dining Collection" class="w-full h-full object-cover sepia-[.1] mt-4 mix-blend-multiply" data-alt="mid-century dining table and chairs in teak wood, warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzC-4ZO80mAGlQ77P0dfWLHdiNEHtTE8NbuIvtWQSlPLAcM416JjcmzCuaB8h6zRKL-AiDRBJFXj5tg3-tIvy9FJvQICCRWp7sVMucZ2g3I4LsWIYoeZSie19NO4p2aLCb_BuxrCbX54oE2az78iZ7_7ZkGOeR5V56K0hWaQR2jnwBvDk4v_yHzRKTRZIF0FZgjZ4LNUzQHW0TrLZlSesfEUv28vAdeCT7Zr0S6RDTNFuIXCgq-6GnZ9pga2jpwChBYU64V4O9xBc"/>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface">Dining</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">Solid Teak / Walnut</p>
+</a>
+<!-- Card 2 -->
+<a class="group block" href="#">
+<div class="relative aspect-square mb-6 border border-brand-teak bg-surface p-4 transition-transform group-hover:-translate-y-1 group-hover:shadow-[4px_4px_0px_#7B4F2E]">
+<div class="absolute top-4 right-4 text-brand-orange">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="24"><path d="M4 4L20 20M4 20L20 4M12 2L12 22M2 12L22 12"></path></svg>
+</div>
+<img alt="Storage Collection" class="w-full h-full object-cover sepia-[.1] mt-4 mix-blend-multiply" data-alt="sleek mid-century modern credenza with sliding doors, minimalist styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6yPfGXpto29QvwF-lbKCUb2IlezY0rxn4_eKIf6O_nksXLsZs0I1TA3IklOXDSeT9qbkKB_Cp9wQWX2CpH2U7MCqH_nr-hI51CLvbvYebkqwDHsJEAmkEXrDrgOwZTxZkmZ3O27yojdiNcrAvHtKKDPhEoWc455AtLqYoNO2_WdjfxXvIgKy4Fxxjv7X3SCOBbR9QCloe_vDvU01aUNn6Srv0xQojuEHq3kQTq-ecjmvyUI6mTGptDVeTVGOo6iXTZoaxidppw6I"/>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface">Storage</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">Modular Systems</p>
+</a>
+<!-- Card 3 -->
+<a class="group block" href="#">
+<div class="relative aspect-square mb-6 border border-brand-teak bg-surface p-4 transition-transform group-hover:-translate-y-1 group-hover:shadow-[4px_4px_0px_#7B4F2E]">
+<div class="absolute top-4 right-4 text-brand-mustard">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="24"><path d="M12 22C12 22 18 16 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 16 12 22 12 22Z"></path></svg>
+</div>
+<img alt="Lounge Collection" class="w-full h-full object-cover sepia-[.1] mt-4 mix-blend-multiply" data-alt="upholstered mid century sofa in mustard yellow fabric" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv43kcsh98td9ebIZHHWaBAMlg8ojH6ZZ2EnYlIfq3hp2BCBEIWmvnbBoJ6f3Gs1wGVCR3WPz2EWxe4Tj8URgO9K3K5VBzyBDnakOHezUuf6ts1tpgBqGzUH9fJ2_2lTHqp6_CHv3R6-WejdwmNMwCrqTlr8iDHD_1jN9JsOhCEoWIUgmjYjqYP8fgn1VmNQlsy1bo1Xh1bVlpQTxYchD4bbUG8eEUjSvcsb1bFQCjazeLnMWC_OXwEFSBIKmBhBJl9O-56fEUKvo"/>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface">Lounge</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">Textured Wool</p>
+</a>
+<!-- Card 4 -->
+<a class="group block" href="#">
+<div class="relative aspect-square mb-6 border border-brand-teak bg-surface p-4 transition-transform group-hover:-translate-y-1 group-hover:shadow-[4px_4px_0px_#7B4F2E]">
+<div class="absolute top-4 right-4 text-brand-teak">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24" width="24"><circle cx="12" cy="12" r="8"></circle><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2"></path></svg>
+</div>
+<img alt="Accents Collection" class="w-full h-full object-cover sepia-[.1] mt-4 mix-blend-multiply" data-alt="vintage ceramic table lamp with abstract geometric shade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi5xvMITxry999JaIUEGg9hO2VVftFE87us0AAKmzmLV7mHFjBqHy9-CPg_kn9sjf4SoaPFfT2TC5EL32OtGv3-X_bgw3HDLDu4vdPWe11eLWpwKV8bbj5yNeF9camNpjYbY7wCccGpB66oY1XTYdyd1RvQnbaJITJbRoIC6GHoYP9H8ElAsgm80U5YOG8001wcTBO_PgnLWJpvEbrRRICPP15jPCWa2ZhAx9M3rGNLfjTpPrTP9aSQsFlDdRQVvLmbD4cQY6R2gc"/>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface">Accents</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">Lighting &amp; Decor</p>
+</a>
+</div>
+</section>
+<!-- Catalogue / Studio — 3 alternating image+content rows -->
+<section class="max-w-container-max mx-auto px-4 md:px-12 py-24 border-t border-brand-teak/10 relative">
+<div class="flex items-baseline gap-4 mb-16">
+<span class="font-label-caps text-label-caps text-brand-orange uppercase">— Catalogue · No. 02</span>
+<div class="h-px bg-brand-teak/20 flex-grow"></div>
+<h2 class="font-h2 text-h2 text-on-surface">Studio Pieces</h2>
+</div>
+<div class="flex flex-col gap-20">
+<!-- Row 1: image-left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+<div class="md:col-span-7 relative">
+<div class="absolute inset-0 bg-brand-mustard translate-x-3 translate-y-3 -z-10"></div>
+<div class="relative aspect-[4/3] border border-brand-teak overflow-hidden">
+<img alt="Saarinen-style pedestal table in a sunlit room" class="w-full h-full object-cover sepia-[.12] contrast-105" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<div class="md:col-span-5 flex flex-col items-start">
+<span class="inline-block bg-brand-orange/10 text-brand-orange font-label-caps text-label-caps uppercase px-3 py-1 mb-4 border border-brand-orange/30">Piece I · 1956</span>
+<h3 class="font-h2 text-h2 text-on-surface mb-4">The Pedestal, redrawn</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">A single-stem table cut from solid teak, hand-finished with linseed and beeswax. Drafted by Lars Thorne in the autumn of '56 and reissued without compromise.</p>
+<div class="h-px bg-brand-teak/20 w-full mb-5"></div>
+<dl class="grid grid-cols-2 gap-y-2 gap-x-6 font-label-caps text-label-caps">
+<dt class="text-on-surface-variant uppercase">Material</dt><dd class="text-on-surface uppercase tabular-nums">Solid Teak</dd>
+<dt class="text-on-surface-variant uppercase">Finish</dt><dd class="text-on-surface uppercase tabular-nums">Linseed · Beeswax</dd>
+<dt class="text-on-surface-variant uppercase">Edition</dt><dd class="text-on-surface uppercase tabular-nums">No. 042 / 200</dd>
+</dl>
+</div>
+</article>
+<!-- Row 2: image-right -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+<div class="md:col-span-5 md:order-1 flex flex-col items-start">
+<span class="inline-block bg-brand-avocado/10 text-brand-avocado font-label-caps text-label-caps uppercase px-3 py-1 mb-4 border border-brand-avocado/30">Piece II · 1962</span>
+<h3 class="font-h2 text-h2 text-on-surface mb-4">A lounge for slow hours</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Wool by Kvadrat, frame in black walnut, joinery exposed and unapologetic. Each chair is signed underneath the seat by the maker who closed it.</p>
+<div class="h-px bg-brand-teak/20 w-full mb-5"></div>
+<dl class="grid grid-cols-2 gap-y-2 gap-x-6 font-label-caps text-label-caps">
+<dt class="text-on-surface-variant uppercase">Frame</dt><dd class="text-on-surface uppercase tabular-nums">Black Walnut</dd>
+<dt class="text-on-surface-variant uppercase">Wool</dt><dd class="text-on-surface uppercase tabular-nums">Kvadrat · Hallingdal</dd>
+<dt class="text-on-surface-variant uppercase">Edition</dt><dd class="text-on-surface uppercase tabular-nums">Open</dd>
+</dl>
+</div>
+<div class="md:col-span-7 md:order-2 relative">
+<div class="absolute inset-0 bg-brand-avocado translate-x-3 translate-y-3 -z-10"></div>
+<div class="relative aspect-[4/3] border border-brand-teak overflow-hidden">
+<img alt="Wool-upholstered lounge chair in a warm interior" class="w-full h-full object-cover sepia-[.12] contrast-105" src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+</article>
+<!-- Row 3: image-left -->
+<article class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+<div class="md:col-span-7 relative">
+<div class="absolute inset-0 bg-brand-teak translate-x-3 translate-y-3 -z-10"></div>
+<div class="relative aspect-[4/3] border border-brand-teak overflow-hidden">
+<img alt="Mid-century credenza with sliding wood doors" class="w-full h-full object-cover sepia-[.12] contrast-105" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop&amp;sat=-30"/>
+</div>
+</div>
+<div class="md:col-span-5 flex flex-col items-start">
+<span class="inline-block bg-brand-mustard/15 text-brand-teak font-label-caps text-label-caps uppercase px-3 py-1 mb-4 border border-brand-mustard/40">Piece III · 1959</span>
+<h3 class="font-h2 text-h2 text-on-surface mb-4">A credenza, kept low</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Sliding teak doors over a brass-pinned interior. Six metres of cable ducting hidden in the back panel — designed for the radio era, returned to use for the streaming one.</p>
+<div class="h-px bg-brand-teak/20 w-full mb-5"></div>
+<dl class="grid grid-cols-2 gap-y-2 gap-x-6 font-label-caps text-label-caps">
+<dt class="text-on-surface-variant uppercase">Doors</dt><dd class="text-on-surface uppercase tabular-nums">Sliding Teak</dd>
+<dt class="text-on-surface-variant uppercase">Hardware</dt><dd class="text-on-surface uppercase tabular-nums">Solid Brass</dd>
+<dt class="text-on-surface-variant uppercase">Edition</dt><dd class="text-on-surface uppercase tabular-nums">No. 088 / 150</dd>
+</dl>
+</div>
+</article>
+</div>
+</section>
+<!-- From the Workshop — image marquee strip -->
+<section class="full-bleed py-20 md:py-24 overflow-hidden border-t border-b border-brand-teak/15" style="background-color: #ECE3D6;">
+<div class="max-w-container-max mx-auto px-4 md:px-12 mb-12 flex items-baseline gap-4">
+<span class="font-label-caps text-label-caps text-brand-orange uppercase">— Floor No. 01</span>
+<h2 class="font-h2 text-h2 text-on-surface">From the Workshop</h2>
+<div class="h-px bg-brand-teak/30 flex-grow"></div>
+<span class="hidden md:inline font-label-caps text-label-caps text-brand-teak uppercase">Hand-finished · MMXXIV</span>
+</div>
+<div class="overflow-hidden">
+<div class="workshop-track">
+<!-- Tile set 1 -->
+<figure class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="Joinery detail" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Pedestal No. 042</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1956 · Teak · Ed. 200</p>
+</figcaption>
+</figure>
+<figure class="relative w-96 aspect-[16/10] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="Wood grain" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Hallingdal Lounge</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1962 · Walnut · Open Ed.</p>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="Brass hardware" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Brass Sconce</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1958 · Brass · Ed. 80</p>
+</figcaption>
+</figure>
+<figure class="relative w-80 aspect-[16/10] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="Workshop bench" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Credenza No. 088</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1959 · Teak · Ed. 150</p>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="Linen weave" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Linen Daybed</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1965 · Oak · Ed. 60</p>
+</figcaption>
+</figure>
+<figure class="relative w-96 aspect-[16/10] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="Ceramic vessel" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Atelier Vessel</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1961 · Stoneware · Ed. 30</p>
+</figcaption>
+</figure>
+<figure class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="Joiners' rasp" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Joiner's Stool</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1957 · Ash · Ed. 120</p>
+</figcaption>
+</figure>
+<!-- Tile set 2 (duplicate, aria-hidden) -->
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Pedestal No. 042</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1956 · Teak · Ed. 200</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-96 aspect-[16/10] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Hallingdal Lounge</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1962 · Walnut · Open Ed.</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Brass Sconce</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1958 · Brass · Ed. 80</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-80 aspect-[16/10] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Credenza No. 088</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1959 · Teak · Ed. 150</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Linen Daybed</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1965 · Oak · Ed. 60</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-96 aspect-[16/10] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Atelier Vessel</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1961 · Stoneware · Ed. 30</p>
+</figcaption>
+</figure>
+<figure aria-hidden="true" class="relative w-72 aspect-[3/4] shrink-0 border border-brand-teak overflow-hidden bg-surface">
+<img alt="" class="absolute inset-0 w-full h-full object-cover sepia-[.15] contrast-105" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute inset-x-0 bottom-0 bg-[#F5F2ED]/95 px-4 py-3 border-t border-brand-teak">
+<p class="font-h3 text-h3 text-on-surface leading-tight">Joiner's Stool</p>
+<p class="font-label-caps text-label-caps text-brand-orange uppercase mt-1 tabular-nums">1957 · Ash · Ed. 120</p>
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<!-- Process / Three Arches -->
+<section class="max-w-container-max mx-auto px-4 md:px-12 py-24 relative">
+<div class="flex items-baseline gap-4 mb-16">
+<span class="font-label-caps text-label-caps text-brand-orange uppercase">— II · Métier</span>
+<h2 class="font-h2 text-h2 text-on-surface">The Process</h2>
+<div class="h-px bg-brand-teak/20 flex-grow"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<article class="flex flex-col items-center">
+<div class="relative w-full">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-full bg-[#F5F2ED] border border-brand-teak flex items-center justify-center">
+<span class="font-h3 text-on-surface italic">I</span>
+</div>
+<div class="mcm-arch w-full aspect-[3/4] border border-brand-teak bg-surface">
+<img alt="Sketch on paper" class="w-full h-full object-cover sepia-[.15] contrast-105 transition-transform duration-700 hover:scale-[1.04]" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface italic mt-6">Sketch</h3>
+<div class="h-px bg-brand-teak/30 w-full my-3"></div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center">Drawn at 1:1, on tracing vellum, in graphite. Each piece begins with a stack of failed lines and one that holds.</p>
+<span class="font-label-caps text-label-caps text-brand-orange uppercase mt-4 tabular-nums">Studio · January</span>
+</article>
+<article class="flex flex-col items-center">
+<div class="relative w-full">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-full bg-[#F5F2ED] border border-brand-teak flex items-center justify-center">
+<span class="font-h3 text-on-surface italic">II</span>
+</div>
+<div class="mcm-arch w-full aspect-[3/4] border border-brand-teak bg-surface">
+<img alt="Joinery in walnut" class="w-full h-full object-cover sepia-[.15] contrast-105 transition-transform duration-700 hover:scale-[1.04]" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface italic mt-6">Joinery</h3>
+<div class="h-px bg-brand-teak/30 w-full my-3"></div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center">Mortise, tenon, dovetail. No fasteners hidden by stain. Each joint cut by hand and tapped together once, then disassembled, then closed.</p>
+<span class="font-label-caps text-label-caps text-brand-orange uppercase mt-4 tabular-nums">Bench · February — April</span>
+</article>
+<article class="flex flex-col items-center">
+<div class="relative w-full">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-full bg-[#F5F2ED] border border-brand-teak flex items-center justify-center">
+<span class="font-h3 text-on-surface italic">III</span>
+</div>
+<div class="mcm-arch w-full aspect-[3/4] border border-brand-teak bg-surface">
+<img alt="Hand-finishing with linseed oil" class="w-full h-full object-cover sepia-[.15] contrast-105 transition-transform duration-700 hover:scale-[1.04]" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface italic mt-6">Finish</h3>
+<div class="h-px bg-brand-teak/30 w-full my-3"></div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center">Linseed, beeswax, time. Three coats minimum, four when the wood asks for it. Signed underneath, then shipped without a card.</p>
+<span class="font-label-caps text-label-caps text-brand-orange uppercase mt-4 tabular-nums">Atelier · May</span>
+</article>
+</div>
+</section>
+<!-- By the Numbers -->
+<section class="full-bleed py-20 md:py-24 overflow-hidden" style="background-color: #2D2926;">
+<div class="max-w-container-max mx-auto px-4 md:px-12">
+<div class="flex items-baseline gap-4 mb-12">
+<span class="font-label-caps text-label-caps uppercase" style="color: #E87A5D;">— V · Origines</span>
+<h2 class="font-h2 text-h2" style="color: #F5F2ED;">By the Numbers</h2>
+<div class="h-px bg-[#F5F2ED]/20 flex-grow"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#F5F2ED]/15 border-y border-[#F5F2ED]/15">
+<div class="p-8 flex flex-col">
+<span class="text-[64px] md:text-[88px] leading-none italic font-h1 tabular-nums" style="color: #D95D39;">70</span>
+<div class="h-px bg-[#F5F2ED]/30 w-12 my-4"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest" style="color: #F5F2ED;">Years in Production</span>
+<span class="font-body-md text-body-md italic mt-1" style="color: #A8A29E;">Since 1954.</span>
+</div>
+<div class="p-8 flex flex-col">
+<span class="text-[64px] md:text-[88px] leading-none italic font-h1 tabular-nums" style="color: #D95D39;">2,418</span>
+<div class="h-px bg-[#F5F2ED]/30 w-12 my-4"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest" style="color: #F5F2ED;">Hand-finished Pieces</span>
+<span class="font-body-md text-body-md italic mt-1" style="color: #A8A29E;">As of MMXXIV.</span>
+</div>
+<div class="p-8 flex flex-col">
+<span class="text-[64px] md:text-[88px] leading-none italic font-h1 tabular-nums" style="color: #D95D39;">312<span class="text-h2">m²</span></span>
+<div class="h-px bg-[#F5F2ED]/30 w-12 my-4"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest" style="color: #F5F2ED;">Atelier Floor</span>
+<span class="font-body-md text-body-md italic mt-1" style="color: #A8A29E;">Grand Rapids, MI.</span>
+</div>
+<div class="p-8 flex flex-col">
+<span class="text-[64px] md:text-[88px] leading-none italic font-h1 tabular-nums" style="color: #D95D39;">200</span>
+<div class="h-px bg-[#F5F2ED]/30 w-12 my-4"></div>
+<span class="font-label-caps text-label-caps uppercase tracking-widest" style="color: #F5F2ED;">Edition Limit</span>
+<span class="font-body-md text-body-md italic mt-1" style="color: #A8A29E;">Per archival drawing.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Doctrine / Five Tenets -->
+<section class="max-w-container-max mx-auto px-4 md:px-12 py-24 relative">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+<aside class="md:col-span-5 flex flex-col">
+<span class="font-label-caps text-label-caps text-brand-orange uppercase mb-3">— Doctrine</span>
+<h2 class="font-h2 text-h2 text-on-surface mb-6">Five things we<br/>still believe.</h2>
+<div class="relative mb-8">
+<div class="absolute inset-0 bg-brand-mustard translate-x-2 translate-y-2 -z-10"></div>
+<figure class="relative w-full aspect-[4/5] border border-brand-teak overflow-hidden bg-surface-variant">
+<img alt="A teak chair photographed from above in late-afternoon light" class="w-full h-full object-cover sepia-[.18] contrast-105" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1200&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</figure>
+</div>
+<blockquote class="border-l-2 border-brand-orange pl-5 mt-auto">
+<p class="font-body-lg text-body-lg italic text-on-surface">"Furniture should outlast the room it was bought for."</p>
+<cite class="font-label-caps text-label-caps text-on-surface-variant uppercase not-italic mt-3 block">— Lars Thorne, Founder · 1954</cite>
+</blockquote>
+</aside>
+<ol class="md:col-span-7 border-t border-b border-brand-teak/20 divide-y divide-brand-teak/20">
+<li class="doctrine-row p-6 grid grid-cols-12 gap-4 items-baseline">
+<span class="col-span-2 md:col-span-1 font-h3 text-h3 italic text-brand-orange tabular-nums">I</span>
+<div class="col-span-10 md:col-span-9">
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Wood remembers.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Every grain is a record of weather. We finish to reveal it, never to mask it.</p>
+</div>
+<span class="hidden md:block md:col-span-2 text-right font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">[ TENET_01 ]</span>
+</li>
+<li class="doctrine-row p-6 grid grid-cols-12 gap-4 items-baseline"><span class="col-span-2 md:col-span-1 font-h3 text-h3 italic text-brand-orange tabular-nums">II</span>
+<div class="col-span-10 md:col-span-9">
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Hardware should be honest.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Brass, bronze, steel. Visible joints. No glue substituted for craft.</p>
+</div>
+<span class="hidden md:block md:col-span-2 text-right font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">[ TENET_02 ]</span>
+</li>
+<li class="doctrine-row p-6 grid grid-cols-12 gap-4 items-baseline"><span class="col-span-2 md:col-span-1 font-h3 text-h3 italic text-brand-orange tabular-nums">III</span>
+<div class="col-span-10 md:col-span-9">
+<h3 class="font-h3 text-h3 text-on-surface mb-1">A chair is a posture.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">We design for hours, not minutes. Every angle is measured against a reading body.</p>
+</div>
+<span class="hidden md:block md:col-span-2 text-right font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">[ TENET_03 ]</span>
+</li>
+<li class="doctrine-row p-6 grid grid-cols-12 gap-4 items-baseline"><span class="col-span-2 md:col-span-1 font-h3 text-h3 italic text-brand-orange tabular-nums">IV</span>
+<div class="col-span-10 md:col-span-9">
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Editions, not seasons.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Two hundred of each piece, then the drawing rests for ten years. We are not a catalogue, we are an archive.</p>
+</div>
+<span class="hidden md:block md:col-span-2 text-right font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">[ TENET_04 ]</span>
+</li>
+<li class="doctrine-row p-6 grid grid-cols-12 gap-4 items-baseline"><span class="col-span-2 md:col-span-1 font-h3 text-h3 italic text-brand-orange tabular-nums">V</span>
+<div class="col-span-10 md:col-span-9">
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Repair is part of the price.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Send it back in fifty years. We will refinish it, and your grandchild will not know the difference.</p>
+</div>
+<span class="hidden md:block md:col-span-2 text-right font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">[ TENET_05 ]</span>
+</li>
+</ol>
+</div>
+</section>
+<!-- Provenance / FAQ over tinted band -->
+<section class="full-bleed py-20 md:py-24 overflow-hidden" style="background-color: #ECE3D6;">
+<div class="max-w-container-max mx-auto px-4 md:px-12">
+<div class="flex items-baseline gap-4 mb-12">
+<span class="font-label-caps text-label-caps text-brand-orange uppercase">— Provenance</span>
+<h2 class="font-h2 text-h2 text-on-surface">Often asked.</h2>
+<div class="h-px bg-brand-teak/30 flex-grow"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+<div class="md:col-span-7 divide-y divide-brand-teak/20 border-t border-b border-brand-teak/20">
+<details class="mcm-faq group p-6">
+<summary class="flex items-baseline justify-between gap-6">
+<h3 class="font-h3 text-h3 text-on-surface">Where is each piece made?</h3>
+<span class="mcm-chevron font-h3 text-brand-orange leading-none">+</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-prose">Every piece is hand-finished in our 312-square-metre atelier in Grand Rapids, Michigan. Wood is sourced from FSC-certified mills in northern Wisconsin and southern Indonesia.</p>
+</details>
+<details class="mcm-faq group p-6">
+<summary class="flex items-baseline justify-between gap-6">
+<h3 class="font-h3 text-h3 text-on-surface">How long does an order take?</h3>
+<span class="mcm-chevron font-h3 text-brand-orange leading-none">+</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-prose">Six to twelve weeks for in-edition pieces. Out-of-edition reissues run a season longer because the original drawings have to be re-tooled. We will tell you the exact day yours leaves the bench.</p>
+</details>
+<details class="mcm-faq group p-6">
+<summary class="flex items-baseline justify-between gap-6">
+<h3 class="font-h3 text-h3 text-on-surface">Do you ship internationally?</h3>
+<span class="mcm-chevron font-h3 text-brand-orange leading-none">+</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-prose">Yes — North America, EU, UK, and Japan as standard. Anywhere else by quote. Crating is included; freight forwarders are introduced rather than concealed.</p>
+</details>
+<details class="mcm-faq group p-6">
+<summary class="flex items-baseline justify-between gap-6">
+<h3 class="font-h3 text-h3 text-on-surface">Can a piece be refinished decades later?</h3>
+<span class="mcm-chevron font-h3 text-brand-orange leading-none">+</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-prose">That is the entire point. Send it back at our cost above $4,000 of value, our shared cost otherwise. Linseed and beeswax, never lacquer.</p>
+</details>
+<details class="mcm-faq group p-6">
+<summary class="flex items-baseline justify-between gap-6">
+<h3 class="font-h3 text-h3 text-on-surface">Is each piece numbered?</h3>
+<span class="mcm-chevron font-h3 text-brand-orange leading-none">+</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4 max-w-prose">Underneath the seat, drawer, or top — burned in, not stickered. Edition number, year, and the initials of the maker who closed it.</p>
+</details>
+</div>
+<aside class="md:col-span-5 flex flex-col">
+<div class="relative">
+<div class="absolute inset-0 bg-brand-orange translate-x-2 translate-y-2 -z-10"></div>
+<div class="relative aspect-[4/5] border border-brand-teak overflow-hidden bg-surface-variant">
+<img alt="The atelier in afternoon light" class="w-full h-full object-cover sepia-[.18] contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&amp;q=85&amp;auto=format&amp;fit=crop"/>
+</div>
+</div>
+<div class="bg-[#F5F2ED] border border-brand-teak p-6 mt-6">
+<span class="font-label-caps text-label-caps text-brand-orange uppercase block mb-2">Atelier Hours</span>
+<p class="font-body-md text-body-md text-on-surface mb-1">Tue — Sat · 10:00 to 18:00</p>
+<p class="font-body-md text-body-md text-on-surface-variant italic">By appointment for fittings.</p>
+<div class="h-px bg-brand-teak/30 my-4"></div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">1420 EAMES BLVD · STE C · MI</p>
+</div>
+</aside>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-[#2D2926] dark:bg-[#0F0F0F] full-width border-t-4 border-[#D95D39] mt-24">
+<div class="flex flex-col md:flex-row justify-between items-start gap-12 px-12 py-20 w-full max-w-screen-2xl mx-auto">
+<div class="flex flex-col gap-6 max-w-xs">
+<div class="text-2xl font-bold text-[#F5F2ED] opacity-90 font-epilogue">Thorne &amp; Low</div>
+<p class="font-body-md text-body-md text-[#A8A29E]">1954 Archives<br/>1420 Eames Blvd, Suite C<br/>Grand Rapids, MI</p>
+</div>
+<nav class="flex flex-col gap-4">
+<a class="font-epilogue text-[10px] tracking-widest uppercase text-[#F5F2ED] hover:text-[#F5F2ED] underline underline-offset-8 opacity-80 hover:opacity-100 transition-opacity" href="#">Showroom Locator</a>
+<a class="font-epilogue text-[10px] tracking-widest uppercase text-[#F5F2ED] hover:text-[#F5F2ED] underline underline-offset-8 opacity-80 hover:opacity-100 transition-opacity" href="#">Shipping</a>
+<a class="font-epilogue text-[10px] tracking-widest uppercase text-[#F5F2ED] hover:text-[#F5F2ED] underline underline-offset-8 opacity-80 hover:opacity-100 transition-opacity" href="#">Returns</a>
+<a class="font-epilogue text-[10px] tracking-widest uppercase text-[#F5F2ED] hover:text-[#F5F2ED] underline underline-offset-8 opacity-80 hover:opacity-100 transition-opacity" href="#">Archive Access</a>
+</nav>
+<div class="font-epilogue text-[10px] tracking-widest uppercase text-[#E6B325] dark:text-[#F0C44D] mt-auto md:self-end">
+                © 1954 Thorne &amp; Low Archive. Crafted with Warm Optimism.
+            </div>
+</div>
+</footer>
+</body></html>

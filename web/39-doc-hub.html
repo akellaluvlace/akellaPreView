@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Palette API - Documentation</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "outline": "#787586",
+                    "surface-dim": "#dcd8e4",
+                    "on-background": "#1c1b23",
+                    "secondary": "#5f5e5f",
+                    "on-secondary-container": "#656465",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#e5e2e3",
+                    "on-primary-container": "#faf6ff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e5e0ed",
+                    "primary-fixed": "#e4dfff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#2f1500",
+                    "primary-fixed-dim": "#c6bfff",
+                    "surface-container": "#f0ecf8",
+                    "tertiary": "#884800",
+                    "on-tertiary-fixed-variant": "#6e3900",
+                    "primary": "#5341cd",
+                    "surface-tint": "#5847d2",
+                    "tertiary-fixed": "#ffdcc3",
+                    "surface-container-low": "#f6f2fe",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#ebe6f2",
+                    "on-secondary-fixed-variant": "#474647",
+                    "tertiary-container": "#ac5d00",
+                    "tertiary-fixed-dim": "#ffb77d",
+                    "on-primary-fixed": "#160066",
+                    "primary-container": "#6c5ce7",
+                    "on-tertiary-container": "#fff5f1",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c6bfff",
+                    "surface-bright": "#fcf8ff",
+                    "surface-container-highest": "#e5e0ed",
+                    "background": "#fcf8ff",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#474554",
+                    "secondary-container": "#e5e2e3",
+                    "surface": "#fcf8ff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#1c1b1c",
+                    "on-surface": "#1c1b23",
+                    "inverse-on-surface": "#f3effb",
+                    "outline-variant": "#c8c4d7",
+                    "on-primary-fixed-variant": "#4029ba",
+                    "secondary-fixed-dim": "#c8c6c7",
+                    "inverse-surface": "#312f38"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "toc_width": "240px",
+                    "stack_sm": "8px",
+                    "gutter": "32px",
+                    "nav_width": "260px",
+                    "content_max_width": "800px",
+                    "stack_lg": "48px",
+                    "stack_md": "16px"
+            },
+            "fontFamily": {
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "h1": [
+                            "Inter"
+                    ],
+                    "h3": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "body-base": [
+                            "Inter"
+                    ],
+                    "h2": [
+                            "Inter"
+                    ],
+                    "code-base": [
+                            "JetBrains Mono"
+                    ]
+            },
+            "fontSize": {
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "h1": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "h3": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "letterSpacing": "0em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-base": [
+                            "15px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "h2": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "code-base": [
+                            "13px",
+                            {
+                                    "lineHeight": "22px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+<style>
+    @keyframes doc-marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-50% - 12px)); }
+    }
+    .doc-marquee-track {
+        animation: doc-marquee 60s linear infinite;
+        width: max-content;
+        display: flex;
+        gap: 24px;
+    }
+    .doc-marquee-track:hover { animation-play-state: paused; }
+    .doc-faq summary::-webkit-details-marker { display: none; }
+    .doc-faq summary { list-style: none; }
+    .doc-faq summary .doc-chevron { transition: transform 250ms ease; }
+    .doc-faq[open] summary .doc-chevron { transform: rotate(90deg); }
+    @media (prefers-reduced-motion: reduce) {
+        .doc-marquee-track { animation: none; }
+        .doc-faq summary .doc-chevron { transition: none; }
+    }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-base antialiased min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-gray-200 dark:border-gray-800 flat no shadows flex items-center justify-between px-6 h-16 w-full font-sans text-sm antialiased text-indigo-600 dark:text-indigo-400">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-tight text-gray-900 dark:text-white cursor-pointer active:opacity-80">Palette API</span>
+<!-- Search Bar -->
+<div class="hidden md:flex items-center group bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1.5 hover:border-outline focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container transition-all cursor-text w-64">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant/50 w-full p-0" placeholder="Search documentation..." type="text"/>
+<kbd class="ml-2 px-1.5 py-0.5 rounded border border-outline-variant bg-surface-container font-code-base text-[10px] text-on-surface-variant flex-shrink-0">⌘K</kbd>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer active:opacity-80 px-3 py-1.5 rounded-lg font-medium">Log in</button>
+<button class="bg-primary-container text-on-primary font-medium px-4 py-1.5 rounded-lg hover:bg-surface-tint transition-colors cursor-pointer active:opacity-80 shadow-sm">Sign up</button>
+</div>
+</header>
+<!-- Main Layout Wrapper -->
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar (Left) -->
+<aside class="bg-gray-50 dark:bg-gray-900/50 text-[14px] font-sans leading-relaxed text-indigo-600 dark:text-indigo-400 fixed left-0 top-16 w-[260px] h-[calc(100vh-64px)] border-r border-gray-200 dark:border-gray-800 flat no shadows flex flex-col py-8 overflow-y-auto hidden md:flex">
+<div class="px-6 mb-6">
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Documentation</h3>
+<span class="font-code-base text-code-base text-on-surface-variant text-[11px] bg-surface-container-high px-2 py-0.5 rounded">v1.0.4</span>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<!-- Active Item -->
+<a class="flex items-center gap-3 py-2 px-3 rounded-lg text-indigo-600 dark:text-indigo-400 font-medium border-l-2 border-indigo-600 pl-4 bg-indigo-50/50 dark:bg-indigo-900/10 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span>Introduction</span>
+</a>
+<!-- Inactive Items -->
+<a class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 dark:text-gray-400 pl-4 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>Authentication</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 dark:text-gray-400 pl-4 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]">description</span>
+<span>Guides</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 dark:text-gray-400 pl-4 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]">api</span>
+<span>API Reference</span>
+</a>
+</nav>
+<div class="px-4 mt-auto pt-6 border-t border-outline-variant/30">
+<a class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 dark:text-gray-400 pl-4 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 py-2 px-3 rounded-lg text-gray-600 dark:text-gray-400 pl-4 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Changelog</span>
+</a>
+</div>
+</aside>
+<!-- Main Content (Center) -->
+<main class="flex-1 md:ml-nav_width max-w-[calc(100%-var(--toc_width))] xl:max-w-content_max_width px-8 py-12">
+<article class="max-w-prose">
+<h1 class="font-h1 text-h1 text-on-surface mb-stack_md">Getting Started with Palette API</h1>
+<p class="font-body-base text-body-base text-on-surface-variant leading-relaxed mb-stack_lg">
+                    Welcome to the Palette API. We provide a comprehensive color-system-as-a-service, allowing developers to programmatically generate, manage, and distribute accessible color palettes across web, mobile, and print applications. Start integrating dynamic themes into your product in minutes.
+                </p>
+<h2 class="font-h2 text-h2 text-on-surface mb-stack_md border-b border-surface-variant pb-2" id="quickstart">Quickstart</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mb-stack_md">
+                    To interact with the API, you'll need an API key. You can create one in your dashboard after signing up. Below is a simple request to generate a complementary color palette based on a primary brand hex code.
+                </p>
+<!-- Code Block Component -->
+<div class="rounded-xl overflow-hidden bg-inverse-surface border border-outline-variant/20 shadow-sm mb-stack_lg">
+<!-- Language Tabs -->
+<div class="flex items-center px-4 bg-inverse-surface border-b border-white/10">
+<button class="font-code-base text-code-base text-inverse-on-surface px-4 py-2 border-b-2 border-primary-fixed-dim text-[13px] hover:bg-white/5 transition-colors">cURL</button>
+<button class="font-code-base text-code-base text-inverse-on-surface/60 px-4 py-2 border-b-2 border-transparent text-[13px] hover:text-inverse-on-surface hover:bg-white/5 transition-colors">Node</button>
+<button class="font-code-base text-code-base text-inverse-on-surface/60 px-4 py-2 border-b-2 border-transparent text-[13px] hover:text-inverse-on-surface hover:bg-white/5 transition-colors">Python</button>
+<button class="font-code-base text-code-base text-inverse-on-surface/60 px-4 py-2 border-b-2 border-transparent text-[13px] hover:text-inverse-on-surface hover:bg-white/5 transition-colors">Ruby</button>
+</div>
+<!-- Code Content -->
+<div class="p-4 relative group overflow-x-auto">
+<button class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 text-inverse-on-surface p-1.5 rounded hover:bg-white/20">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+<pre class="font-code-base text-code-base text-inverse-on-surface/90 leading-relaxed"><code class="language-bash"><span class="text-primary-fixed-dim">curl</span> -X POST https://api.palette.dev/v1/generate \
+  -H <span class="text-tertiary-fixed-dim">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="text-tertiary-fixed-dim">"Content-Type: application/json"</span> \
+  -d <span class="text-tertiary-fixed-dim">'{
+    "base_color": "#6C5CE7",
+    "strategy": "complementary",
+    "steps": 5
+  }'</span></code></pre>
+</div>
+</div>
+<h2 class="font-h2 text-h2 text-on-surface mb-stack_md border-b border-surface-variant pb-2" id="integration-steps">Integration Steps</h2>
+<div class="space-y-6 mb-stack_lg">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center font-h3 text-h3 text-on-surface border border-outline-variant/50">1</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Obtain API Credentials</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Sign up for a developer account and navigate to the <a class="text-primary-container hover:underline" href="#">API Keys section</a> to generate your live and test keys.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center font-h3 text-h3 text-on-surface border border-outline-variant/50">2</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Configure your Client</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Install our official SDKs or configure your HTTP client to include your Bearer token in the Authorization header of every request.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center font-h3 text-h3 text-on-surface border border-outline-variant/50">3</div>
+<div>
+<h3 class="font-h3 text-h3 text-on-surface mb-1">Make your First Call</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Test your integration using the test mode keys to verify your payload structure before moving to production.</p>
+</div>
+</div>
+</div>
+<!-- Next Steps Callout -->
+<div class="bg-surface-container-low border border-primary-container/20 rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<h3 class="font-h3 text-h3 text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">explore</span>
+                        Next Steps
+                    </h3>
+<p class="font-body-base text-body-base text-on-surface-variant mb-4">
+                        Ready to dive deeper? Explore our guides to understand color contrast algorithms, accessibility compliance, and webhook integrations.
+                    </p>
+<div class="flex gap-3">
+<button class="bg-white border border-outline-variant text-on-surface font-medium px-4 py-2 rounded-lg hover:bg-surface-container transition-colors shadow-sm font-body-sm text-body-sm">View Guides</button>
+<button class="text-primary-container hover:text-surface-tint font-medium px-4 py-2 rounded-lg transition-colors font-body-sm text-body-sm flex items-center gap-1">
+                            API Reference
+                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+
+<!-- Section: Themes in Production (image strip / marquee) -->
+<section id="themes" class="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="themes-heading">
+<div class="flex items-end justify-between gap-4 mb-stack_md">
+<div>
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ in production</span>
+<h2 id="themes-heading" class="font-h2 text-h2 text-on-surface">Themes shipping with Palette</h2>
+</div>
+<span class="font-code-base text-[12px] text-on-surface-variant hidden sm:inline">hover · paused</span>
+</div>
+<div class="relative overflow-hidden -mx-8 px-1 py-2">
+<div class="absolute inset-y-0 left-0 w-12 z-10 pointer-events-none bg-gradient-to-r from-surface to-transparent"></div>
+<div class="absolute inset-y-0 right-0 w-12 z-10 pointer-events-none bg-gradient-to-l from-surface to-transparent"></div>
+<div class="doc-marquee-track px-8">
+    <figure class="shrink-0 w-72 group">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="Venice Bank theme" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(108,92,231,0.55) 0%, rgba(83,65,205,0.30) 50%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">venice_bank</span>
+                <span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">5 tokens</span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1">
+                <span class="flex-1 h-2 rounded-sm" style="background:#0F1A4D"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#3B4FA9"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#7E92E0"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#C9D2F2"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#F4F6FB"></span>
+            </div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm">
+            <span class="text-on-surface font-medium">Venice Bank</span>
+            <span class="text-on-surface-variant font-code-base text-[12px]">linear-cool</span>
+        </figcaption>
+    </figure>
+
+    <figure class="shrink-0 w-72 group">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="Apothecary theme" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,183,125,0.45) 0%, rgba(172,93,0,0.30) 60%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">apothecary</span>
+                <span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">7 tokens</span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1">
+                <span class="flex-1 h-2 rounded-sm" style="background:#2F1500"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#6E3900"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#AC5D00"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#FFB77D"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#FFDCC3"></span>
+            </div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm">
+            <span class="text-on-surface font-medium">Apothecary &amp; Co.</span>
+            <span class="text-on-surface-variant font-code-base text-[12px]">monochrome-warm</span>
+        </figcaption>
+    </figure>
+
+    <figure class="shrink-0 w-72 group">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="Atrium Health theme" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(50,180,160,0.55) 0%, rgba(7,103,99,0.35) 55%, rgba(0,0,0,0.40) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">atrium_health</span>
+                <span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">6 tokens</span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1">
+                <span class="flex-1 h-2 rounded-sm" style="background:#053C3A"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#0E6B66"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#3FB1A6"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#9EE0D7"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#E6F6F2"></span>
+            </div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm">
+            <span class="text-on-surface font-medium">Atrium Health</span>
+            <span class="text-on-surface-variant font-code-base text-[12px]">complementary</span>
+        </figcaption>
+    </figure>
+
+    <figure class="shrink-0 w-72 group">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="Field Atlas theme" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(195,58,58,0.45) 0%, rgba(112,30,30,0.35) 60%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">field_atlas</span>
+                <span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">5 tokens</span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1">
+                <span class="flex-1 h-2 rounded-sm" style="background:#1F0A0A"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#7E1A1A"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#C9382E"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#F2A187"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#FBE6DC"></span>
+            </div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm">
+            <span class="text-on-surface font-medium">Field Atlas</span>
+            <span class="text-on-surface-variant font-code-base text-[12px]">analogous-warm</span>
+        </figcaption>
+    </figure>
+
+    <figure class="shrink-0 w-72 group">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="North Aperture theme" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(60,60,72,0.45) 0%, rgba(28,27,35,0.45) 60%, rgba(0,0,0,0.55) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">north_aperture</span>
+                <span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">8 tokens</span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1">
+                <span class="flex-1 h-2 rounded-sm" style="background:#0B0C0F"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#1E2128"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#3A3F4A"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#838B9C"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#D7DBE3"></span>
+            </div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm">
+            <span class="text-on-surface font-medium">North Aperture</span>
+            <span class="text-on-surface-variant font-code-base text-[12px]">grayscale-tuned</span>
+        </figcaption>
+    </figure>
+
+    <figure class="shrink-0 w-72 group">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="Petal & Press theme" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(232,118,170,0.45) 0%, rgba(146,49,99,0.35) 60%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+                <span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">petal_press</span>
+                <span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">6 tokens</span>
+            </div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1">
+                <span class="flex-1 h-2 rounded-sm" style="background:#3B0F22"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#8A2A55"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#D45B92"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#F8B5D0"></span>
+                <span class="flex-1 h-2 rounded-sm" style="background:#FDE6F0"></span>
+            </div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm">
+            <span class="text-on-surface font-medium">Petal &amp; Press</span>
+            <span class="text-on-surface-variant font-code-base text-[12px]">split-complementary</span>
+        </figcaption>
+    </figure>
+
+    <!-- Duplicate set for seamless loop -->
+    <figure class="shrink-0 w-72" aria-hidden="true">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(108,92,231,0.55) 0%, rgba(83,65,205,0.30) 50%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between"><span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">venice_bank</span><span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">5 tokens</span></div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1"><span class="flex-1 h-2 rounded-sm" style="background:#0F1A4D"></span><span class="flex-1 h-2 rounded-sm" style="background:#3B4FA9"></span><span class="flex-1 h-2 rounded-sm" style="background:#7E92E0"></span><span class="flex-1 h-2 rounded-sm" style="background:#C9D2F2"></span><span class="flex-1 h-2 rounded-sm" style="background:#F4F6FB"></span></div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm"><span class="text-on-surface font-medium">Venice Bank</span><span class="text-on-surface-variant font-code-base text-[12px]">linear-cool</span></figcaption>
+    </figure>
+    <figure class="shrink-0 w-72" aria-hidden="true">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,183,125,0.45) 0%, rgba(172,93,0,0.30) 60%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between"><span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">apothecary</span><span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">7 tokens</span></div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1"><span class="flex-1 h-2 rounded-sm" style="background:#2F1500"></span><span class="flex-1 h-2 rounded-sm" style="background:#6E3900"></span><span class="flex-1 h-2 rounded-sm" style="background:#AC5D00"></span><span class="flex-1 h-2 rounded-sm" style="background:#FFB77D"></span><span class="flex-1 h-2 rounded-sm" style="background:#FFDCC3"></span></div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm"><span class="text-on-surface font-medium">Apothecary &amp; Co.</span><span class="text-on-surface-variant font-code-base text-[12px]">monochrome-warm</span></figcaption>
+    </figure>
+    <figure class="shrink-0 w-72" aria-hidden="true">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(50,180,160,0.55) 0%, rgba(7,103,99,0.35) 55%, rgba(0,0,0,0.40) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between"><span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">atrium_health</span><span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">6 tokens</span></div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1"><span class="flex-1 h-2 rounded-sm" style="background:#053C3A"></span><span class="flex-1 h-2 rounded-sm" style="background:#0E6B66"></span><span class="flex-1 h-2 rounded-sm" style="background:#3FB1A6"></span><span class="flex-1 h-2 rounded-sm" style="background:#9EE0D7"></span><span class="flex-1 h-2 rounded-sm" style="background:#E6F6F2"></span></div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm"><span class="text-on-surface font-medium">Atrium Health</span><span class="text-on-surface-variant font-code-base text-[12px]">complementary</span></figcaption>
+    </figure>
+    <figure class="shrink-0 w-72" aria-hidden="true">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(195,58,58,0.45) 0%, rgba(112,30,30,0.35) 60%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between"><span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">field_atlas</span><span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">5 tokens</span></div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1"><span class="flex-1 h-2 rounded-sm" style="background:#1F0A0A"></span><span class="flex-1 h-2 rounded-sm" style="background:#7E1A1A"></span><span class="flex-1 h-2 rounded-sm" style="background:#C9382E"></span><span class="flex-1 h-2 rounded-sm" style="background:#F2A187"></span><span class="flex-1 h-2 rounded-sm" style="background:#FBE6DC"></span></div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm"><span class="text-on-surface font-medium">Field Atlas</span><span class="text-on-surface-variant font-code-base text-[12px]">analogous-warm</span></figcaption>
+    </figure>
+    <figure class="shrink-0 w-72" aria-hidden="true">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(60,60,72,0.45) 0%, rgba(28,27,35,0.45) 60%, rgba(0,0,0,0.55) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between"><span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">north_aperture</span><span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">8 tokens</span></div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1"><span class="flex-1 h-2 rounded-sm" style="background:#0B0C0F"></span><span class="flex-1 h-2 rounded-sm" style="background:#1E2128"></span><span class="flex-1 h-2 rounded-sm" style="background:#3A3F4A"></span><span class="flex-1 h-2 rounded-sm" style="background:#838B9C"></span><span class="flex-1 h-2 rounded-sm" style="background:#D7DBE3"></span></div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm"><span class="text-on-surface font-medium">North Aperture</span><span class="text-on-surface-variant font-code-base text-[12px]">grayscale-tuned</span></figcaption>
+    </figure>
+    <figure class="shrink-0 w-72" aria-hidden="true">
+        <div class="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+            <img class="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(232,118,170,0.45) 0%, rgba(146,49,99,0.35) 60%, rgba(0,0,0,0.45) 100%); mix-blend-mode: multiply;"></div>
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between"><span class="font-label-caps text-label-caps text-white/90 uppercase tracking-widest">petal_press</span><span class="font-code-base text-[10px] bg-white/15 backdrop-blur text-white border border-white/30 rounded px-1.5 py-0.5">6 tokens</span></div>
+            <div class="absolute bottom-3 left-3 right-3 flex gap-1"><span class="flex-1 h-2 rounded-sm" style="background:#3B0F22"></span><span class="flex-1 h-2 rounded-sm" style="background:#8A2A55"></span><span class="flex-1 h-2 rounded-sm" style="background:#D45B92"></span><span class="flex-1 h-2 rounded-sm" style="background:#F8B5D0"></span><span class="flex-1 h-2 rounded-sm" style="background:#FDE6F0"></span></div>
+        </div>
+        <figcaption class="mt-3 flex items-center justify-between font-body-sm text-body-sm"><span class="text-on-surface font-medium">Petal &amp; Press</span><span class="text-on-surface-variant font-code-base text-[12px]">split-complementary</span></figcaption>
+    </figure>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-stack_md max-w-prose">A small selection of recent shipping themes — generated from a single brand hex, exported as design tokens, deployed as CSS variables &amp; iOS asset catalogs.</p>
+</section>
+
+<!-- Section: From brand color to palette (alternating image+content rows) -->
+<section id="lifecycle" class="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="lifecycle-heading">
+<div class="mb-stack_md">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ lifecycle</span>
+<h2 id="lifecycle-heading" class="font-h2 text-h2 text-on-surface">From brand colour to production palette</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-2 max-w-prose">Three stages, from a designer pasting one hex code into the dashboard to a production CDN serving the resulting tokens to thousands of clients.</p>
+</div>
+
+<!-- Row 1: image left, content right -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch mb-6">
+<figure class="md:col-span-7 relative aspect-[4/3] md:aspect-auto md:min-h-[300px] rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+<img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" alt="Designer's desk with colour swatches" loading="lazy" />
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/30 via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2 bg-surface/85 backdrop-blur-sm border border-outline-variant rounded-lg px-3 py-1.5">
+<span class="material-symbols-outlined text-primary-container text-[18px]">colorize</span>
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">stage_01</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
+<span class="font-code-base text-[12px] bg-surface/90 backdrop-blur-sm border border-outline-variant text-on-surface px-2 py-1 rounded">#6C5CE7</span>
+<span class="font-code-base text-[12px] bg-surface/90 backdrop-blur-sm border border-outline-variant text-on-surface px-2 py-1 rounded">strategy: complementary</span>
+<span class="font-code-base text-[12px] bg-surface/90 backdrop-blur-sm border border-outline-variant text-on-surface px-2 py-1 rounded">steps: 5</span>
+</div>
+</figure>
+<div class="md:col-span-5 flex flex-col justify-center gap-4 px-1">
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-wider">— input</span>
+<h3 class="font-h3 text-h3 text-on-surface">Drop a hex, pick a strategy</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Designers paste one brand colour into the dashboard and choose a generation strategy — analogous, complementary, monochrome, split-complementary, or seeded from an uploaded image. Engineers can do the same with a single POST.</p>
+<ul class="flex flex-col gap-2 font-body-sm text-body-sm">
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary-container text-[16px] mt-0.5">check_circle</span><span>1 brand hex → 5 / 7 / 11 token steps</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary-container text-[16px] mt-0.5">check_circle</span><span>Optional contrast-locks (WCAG AA &amp; AAA)</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary-container text-[16px] mt-0.5">check_circle</span><span>Reproducible: same seed → same palette</span></li>
+</ul>
+</div>
+</div>
+
+<!-- Row 2: content left, image right -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch mb-6">
+<div class="md:col-span-5 md:order-1 order-2 flex flex-col justify-center gap-4 px-1">
+<span class="font-label-caps text-label-caps text-tertiary-container uppercase tracking-wider">— compile</span>
+<h3 class="font-h3 text-h3 text-on-surface">Tokens, contrast-checked</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Each generated palette is graded against WCAG, scored for perceptual evenness in OKLCH, and emitted as design tokens. Same source of truth, every platform.</p>
+<div class="flex flex-wrap gap-2">
+<span class="font-code-base text-[12px] border border-outline-variant bg-surface-container-low text-on-surface px-2 py-1 rounded-lg">CSS variables</span>
+<span class="font-code-base text-[12px] border border-outline-variant bg-surface-container-low text-on-surface px-2 py-1 rounded-lg">Tailwind config</span>
+<span class="font-code-base text-[12px] border border-outline-variant bg-surface-container-low text-on-surface px-2 py-1 rounded-lg">JSON tokens</span>
+<span class="font-code-base text-[12px] border border-outline-variant bg-surface-container-low text-on-surface px-2 py-1 rounded-lg">iOS asset catalog</span>
+<span class="font-code-base text-[12px] border border-outline-variant bg-surface-container-low text-on-surface px-2 py-1 rounded-lg">Android colors.xml</span>
+</div>
+</div>
+<figure class="md:col-span-7 md:order-2 order-1 relative aspect-[4/3] md:aspect-auto md:min-h-[300px] rounded-xl overflow-hidden border border-outline-variant bg-inverse-surface">
+<img class="absolute inset-0 w-full h-full object-cover opacity-30 grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" alt="Architectural detail" loading="lazy" />
+<div class="absolute inset-0 bg-gradient-to-br from-inverse-surface/85 via-inverse-surface/70 to-inverse-surface/95"></div>
+<!-- Mock token panel overlay -->
+<div class="absolute inset-4 sm:inset-6 rounded-lg border border-white/10 bg-inverse-surface/85 p-4 sm:p-5 flex flex-col gap-2 font-code-base text-[12px] sm:text-code-base text-inverse-on-surface">
+<div class="flex items-center justify-between border-b border-white/10 pb-2 mb-1">
+<span class="text-inverse-on-surface/70">tokens.css</span>
+<span class="text-primary-fixed-dim">12 tokens · ok</span>
+</div>
+<div class="flex items-center gap-3"><span class="w-3 h-3 rounded-sm" style="background:#160066"></span><span class="text-inverse-on-surface/80">--brand-900:</span><span class="text-tertiary-fixed-dim">#160066;</span></div>
+<div class="flex items-center gap-3"><span class="w-3 h-3 rounded-sm" style="background:#4029BA"></span><span class="text-inverse-on-surface/80">--brand-700:</span><span class="text-tertiary-fixed-dim">#4029BA;</span></div>
+<div class="flex items-center gap-3"><span class="w-3 h-3 rounded-sm" style="background:#6C5CE7"></span><span class="text-inverse-on-surface/80">--brand-500:</span><span class="text-tertiary-fixed-dim">#6C5CE7;</span></div>
+<div class="flex items-center gap-3"><span class="w-3 h-3 rounded-sm" style="background:#C6BFFF"></span><span class="text-inverse-on-surface/80">--brand-300:</span><span class="text-tertiary-fixed-dim">#C6BFFF;</span></div>
+<div class="flex items-center gap-3"><span class="w-3 h-3 rounded-sm" style="background:#E4DFFF"></span><span class="text-inverse-on-surface/80">--brand-100:</span><span class="text-tertiary-fixed-dim">#E4DFFF;</span></div>
+<div class="mt-auto pt-2 border-t border-white/10 flex items-center justify-between text-[11px]">
+<span class="text-inverse-on-surface/60">contrast: AAA</span>
+<span class="text-primary-fixed-dim">build_021</span>
+</div>
+</div>
+<div class="absolute top-4 right-4 flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 rounded-lg px-3 py-1.5">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">code</span>
+<span class="font-label-caps text-label-caps text-white uppercase tracking-wider">stage_02</span>
+</div>
+</figure>
+</div>
+
+<!-- Row 3: image left, content right (third stage, distribute) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch">
+<figure class="md:col-span-7 relative aspect-[4/3] md:aspect-auto md:min-h-[300px] rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
+<img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" alt="Production rollout" loading="lazy" />
+<div class="absolute inset-0 bg-gradient-to-tr from-primary-container/40 via-transparent to-transparent mix-blend-multiply"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2 bg-surface/85 backdrop-blur-sm border border-outline-variant rounded-lg px-3 py-1.5">
+<span class="material-symbols-outlined text-primary-container text-[18px]">cloud_done</span>
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">stage_03</span>
+</div>
+<!-- mini stat row -->
+<div class="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2">
+<div class="bg-surface/90 backdrop-blur-sm border border-outline-variant rounded-lg p-2.5">
+<div class="font-code-base text-[10px] text-on-surface-variant uppercase tracking-widest">cdn pops</div>
+<div class="font-h3 text-on-surface tabular-nums">214</div>
+</div>
+<div class="bg-surface/90 backdrop-blur-sm border border-outline-variant rounded-lg p-2.5">
+<div class="font-code-base text-[10px] text-on-surface-variant uppercase tracking-widest">p99</div>
+<div class="font-h3 text-on-surface tabular-nums">31 ms</div>
+</div>
+<div class="bg-surface/90 backdrop-blur-sm border border-outline-variant rounded-lg p-2.5">
+<div class="font-code-base text-[10px] text-on-surface-variant uppercase tracking-widest">webhooks</div>
+<div class="font-h3 text-on-surface tabular-nums">live</div>
+</div>
+</div>
+</figure>
+<div class="md:col-span-5 flex flex-col justify-center gap-4 px-1">
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-wider">— distribute</span>
+<h3 class="font-h3 text-h3 text-on-surface">Versioned, cached, webhooked</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Every palette gets a stable version slug, edge-cached at 214 PoPs, and emits a webhook on rotation so design systems and Storybook builds rebuild automatically. No manual export.</p>
+<a class="text-primary-container hover:text-surface-tint font-medium font-body-sm text-body-sm flex items-center gap-1 mt-1" href="#">Read the rollout guide <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+</section>
+
+<!-- Section: API Reference at a glance (content) -->
+<section id="reference" class="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="reference-heading">
+<div class="flex items-end justify-between gap-4 mb-stack_md flex-wrap">
+<div>
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ reference</span>
+<h2 id="reference-heading" class="font-h2 text-h2 text-on-surface">API at a glance</h2>
+</div>
+<a href="#" class="font-body-sm text-body-sm text-primary-container hover:text-surface-tint font-medium flex items-center gap-1">Full reference <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+<div class="rounded-xl border border-outline-variant bg-surface-container-lowest overflow-hidden">
+<div class="grid grid-cols-12 gap-3 px-5 py-3 border-b border-outline-variant bg-surface-container-low font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">
+<div class="col-span-2">Method</div>
+<div class="col-span-5 hidden sm:block">Path</div>
+<div class="col-span-7 sm:col-span-5">Description</div>
+</div>
+<div class="divide-y divide-outline-variant/60">
+
+<a href="#" class="grid grid-cols-12 gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors items-center">
+<div class="col-span-2"><span class="font-code-base text-[11px] font-semibold tracking-wider px-2 py-0.5 rounded border border-emerald-300 bg-emerald-50 text-emerald-700">POST</span></div>
+<div class="col-span-5 font-code-base text-code-base text-on-surface hidden sm:block truncate">/v1/generate</div>
+<div class="col-span-10 sm:col-span-5 font-body-sm text-body-sm text-on-surface-variant">Generate a complete palette from a brand hex + strategy.</div>
+</a>
+
+<a href="#" class="grid grid-cols-12 gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors items-center">
+<div class="col-span-2"><span class="font-code-base text-[11px] font-semibold tracking-wider px-2 py-0.5 rounded border border-sky-300 bg-sky-50 text-sky-700">GET</span></div>
+<div class="col-span-5 font-code-base text-code-base text-on-surface hidden sm:block truncate">/v1/palettes/{id}</div>
+<div class="col-span-10 sm:col-span-5 font-body-sm text-body-sm text-on-surface-variant">Retrieve a stored palette + its compiled tokens.</div>
+</a>
+
+<a href="#" class="grid grid-cols-12 gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors items-center">
+<div class="col-span-2"><span class="font-code-base text-[11px] font-semibold tracking-wider px-2 py-0.5 rounded border border-emerald-300 bg-emerald-50 text-emerald-700">POST</span></div>
+<div class="col-span-5 font-code-base text-code-base text-on-surface hidden sm:block truncate">/v1/palettes/{id}/tokens</div>
+<div class="col-span-10 sm:col-span-5 font-body-sm text-body-sm text-on-surface-variant">Compile tokens for one or more output formats.</div>
+</a>
+
+<a href="#" class="grid grid-cols-12 gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors items-center">
+<div class="col-span-2"><span class="font-code-base text-[11px] font-semibold tracking-wider px-2 py-0.5 rounded border border-amber-300 bg-amber-50 text-amber-700">PATCH</span></div>
+<div class="col-span-5 font-code-base text-code-base text-on-surface hidden sm:block truncate">/v1/palettes/{id}</div>
+<div class="col-span-10 sm:col-span-5 font-body-sm text-body-sm text-on-surface-variant">Update strategy, contrast lock, or seed of an existing palette.</div>
+</a>
+
+<a href="#" class="grid grid-cols-12 gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors items-center">
+<div class="col-span-2"><span class="font-code-base text-[11px] font-semibold tracking-wider px-2 py-0.5 rounded border border-sky-300 bg-sky-50 text-sky-700">GET</span></div>
+<div class="col-span-5 font-code-base text-code-base text-on-surface hidden sm:block truncate">/v1/contrast/check</div>
+<div class="col-span-10 sm:col-span-5 font-body-sm text-body-sm text-on-surface-variant">Run a WCAG / APCA contrast check on any colour pair.</div>
+</a>
+
+<a href="#" class="grid grid-cols-12 gap-3 px-5 py-4 hover:bg-surface-container-low transition-colors items-center">
+<div class="col-span-2"><span class="font-code-base text-[11px] font-semibold tracking-wider px-2 py-0.5 rounded border border-rose-300 bg-rose-50 text-rose-700">DELETE</span></div>
+<div class="col-span-5 font-code-base text-code-base text-on-surface hidden sm:block truncate">/v1/palettes/{id}</div>
+<div class="col-span-10 sm:col-span-5 font-body-sm text-body-sm text-on-surface-variant">Soft-delete a palette. Webhooks fire; old slug 410s after 24h.</div>
+</a>
+
+</div>
+</div>
+</section>
+
+<!-- Section: FAQ (content, accordion) -->
+<section id="faq" class="mt-stack_lg pt-stack_lg border-t border-outline-variant/40 mb-stack_lg" aria-labelledby="faq-heading">
+<div class="mb-stack_md">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ faq</span>
+<h2 id="faq-heading" class="font-h2 text-h2 text-on-surface">Common questions</h2>
+</div>
+<div class="rounded-xl border border-outline-variant bg-surface-container-lowest divide-y divide-outline-variant/60 overflow-hidden">
+
+<details class="doc-faq group p-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-surface">Is generation deterministic?</h3>
+<span class="material-symbols-outlined doc-chevron text-on-surface-variant text-[20px] mt-0.5">chevron_right</span>
+</summary>
+<p class="font-body-base text-body-base text-on-surface-variant mt-3 max-w-prose">Yes. Same brand hex + same strategy + same seed always produces the same palette. Useful for reproducible builds and for diffing two palettes during a brand refresh.</p>
+</details>
+
+<details class="doc-faq group p-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-surface">What happens to existing tokens when a palette rotates?</h3>
+<span class="material-symbols-outlined doc-chevron text-on-surface-variant text-[20px] mt-0.5">chevron_right</span>
+</summary>
+<p class="font-body-base text-body-base text-on-surface-variant mt-3 max-w-prose">Each rotation produces a new immutable version slug; the old slug stays cacheable for 24 hours, then 410s. Webhooks fire on rotation so consumers can rebuild Storybook / asset catalogs automatically.</p>
+</details>
+
+<details class="doc-faq group p-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-surface">Do you store our brand colours?</h3>
+<span class="material-symbols-outlined doc-chevron text-on-surface-variant text-[20px] mt-0.5">chevron_right</span>
+</summary>
+<p class="font-body-base text-body-base text-on-surface-variant mt-3 max-w-prose">Only as input + your generated palettes, scoped to your workspace. There's a stateless mode (<span class="font-code-base text-[13px] bg-surface-container-low border border-outline-variant rounded px-1 py-0.5">X-Palette-Stateless: true</span>) that returns the palette without persisting anything.</p>
+</details>
+
+<details class="doc-faq group p-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-surface">How do contrast locks interact with strategies?</h3>
+<span class="material-symbols-outlined doc-chevron text-on-surface-variant text-[20px] mt-0.5">chevron_right</span>
+</summary>
+<p class="font-body-base text-body-base text-on-surface-variant mt-3 max-w-prose">A lock declares minimum required contrast between named tokens (e.g., <span class="font-code-base text-[13px] bg-surface-container-low border border-outline-variant rounded px-1 py-0.5">on-primary</span> ≥ 4.5 against <span class="font-code-base text-[13px] bg-surface-container-low border border-outline-variant rounded px-1 py-0.5">primary</span>). The generator nudges hue + lightness within the strategy's family until the lock is satisfied. If it can't, the response includes a <span class="font-code-base text-[13px] bg-surface-container-low border border-outline-variant rounded px-1 py-0.5">contrast_warning</span> array instead of failing.</p>
+</details>
+
+<details class="doc-faq group p-5">
+<summary class="flex items-start justify-between gap-4 cursor-pointer">
+<h3 class="font-h3 text-h3 text-on-surface">Are SDKs available?</h3>
+<span class="material-symbols-outlined doc-chevron text-on-surface-variant text-[20px] mt-0.5">chevron_right</span>
+</summary>
+<p class="font-body-base text-body-base text-on-surface-variant mt-3 max-w-prose">Official: TypeScript, Python, Ruby, Go, Swift. Community-maintained: Rust, Elixir, .NET. The REST API is stable enough that any HTTP client works fine if your stack isn't on the list.</p>
+</details>
+
+</div>
+</section>
+</main>
+<!-- TOC Sidebar (Right) -->
+<aside class="hidden xl:block w-toc_width fixed right-0 top-16 h-[calc(100vh-64px)] overflow-y-auto py-12 px-6">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 tracking-wider">On this page</h4>
+<nav class="flex flex-col space-y-3">
+<a class="font-body-sm text-body-sm text-primary-container font-medium hover:text-surface-tint border-l-2 border-primary-container pl-3 -ml-[14px]" href="#">Getting Started</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#quickstart">Quickstart</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#integration-steps">Integration Steps</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#themes">Themes in production</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#lifecycle">Brand colour → palette</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#reference">API at a glance</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#faq">FAQ</a>
+</nav>
+</aside>
+</div>
+</body></html>

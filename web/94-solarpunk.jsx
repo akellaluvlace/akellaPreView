@@ -1,0 +1,499 @@
+const FIELD_STATIONS = [
+  { code: "STATION 04", name: "Oaxaca Highlands", meta: "MX · 17.0610°N · ALT 2840m", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 11", name: "Portuguese Coast", meta: "PT · 38.7223°N · COASTAL", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 17", name: "Auvergne Plateau", meta: "FR · 45.7770°N · BASALT", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 22", name: "Western Ghats", meta: "IN · 11.0510°N · MONSOON", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 28", name: "Rift Valley", meta: "KE · 0.5236°S · SEMI-ARID", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 33", name: "Atacama Verge", meta: "CL · 23.6500°S · ALPINE", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 41", name: "Yorkshire Beck", meta: "GB · 54.2070°N · CHALK", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 49", name: "Hokkaido Margin", meta: "JP · 43.0660°N · SUB-BOREAL", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop&sat=-40" }
+];
+
+const WATERSHED_STAGES = [
+  {
+    year: "Year 0",
+    title: "Earthworks",
+    body: "We begin with the slowest, hardest work: shaping the land so water can rest. Crews and members hand-cut swales along contour, build leaky weirs from local stone, and repair compacted topsoil with a pioneer mulch of straw and biochar. Almost nothing visible happens above ground in this first season — the visual register is dirt, gabion, hessian, and the occasional surveyor's flag. The wins are hydrological: a hillside that used to shed a storm in forty minutes now holds its water for two days. That difference, repeated across a hundred swales, is what every later step grows on top of."
+  },
+  {
+    year: "Year 2",
+    title: "Pioneer planting",
+    body: "By the second growing season the earthworks have begun to soften. We seed nitrogen-fixing pioneers — alder, gorse, vetch, and locally adapted legume mixes — directly into the swale berms, then interplant with hardy nurse trees that tolerate poor soil and full sun. Our role is mostly to keep grazers off the saplings and to thin where pioneers crowd one another. The site looks scruffy and ordinary at this stage, which is the point: a regenerating watershed should not photograph well in Year 2. If it looks like a designed landscape, we have over-managed it."
+  },
+  {
+    year: "Year 5",
+    title: "Canopy + understorey",
+    body: "Around the fifth year the pioneers begin to fail in the most useful way — their lifespan was always meant to be short. As they thin out, they leave behind a richer soil and a partial shade canopy in which the long-lived productive species can establish: oak, chestnut, walnut, persimmon, and a regional understorey of berry shrubs and medicinal herbs chosen with the local steward. Members start visiting the site for harvest weekends. Water tables in the swales hold steady year-round. A wet-flush meadow appears where there used to be eroded subsoil."
+  },
+  {
+    year: "Year 12",
+    title: "Self-maintaining",
+    body: "By Year 12 the watershed has crossed the threshold that matters most to our governance model: it costs more, in labour and money, to disturb the system than to leave it alone. The canopy regulates its own moisture. Pioneer species reseed where gaps open. Members harvest fruit, fuelwood, and medicines on a rotation that the land itself sets. Our role contracts to monitoring, light coppicing, and occasional trail repair. The commons has become infrastructure in the deepest sense — a piece of working landscape that no single person could have built, and that no single owner could now meaningfully sell."
+  }
+];
+
+const STEWARDS = [
+  {
+    name: "Inés Carrasco",
+    region: "Oaxaca Highlands · MX",
+    img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=85&auto=format&fit=crop",
+    p1: "Inés tends a 240-hectare cloud-forest commons above the Sierra Norte. She came to the project as a hydrologist seconded from the regional water agency and stayed when the agency was dissolved in 2031. Today she splits her year between site work — leading the spring weir-rebuilding cohort, hand-mapping seeps, mentoring the apprentice stewards — and the unglamorous half of any commons, which is governance.",
+    p2: "She chairs the watershed's bioregional council, mediates the seasonal harvest disputes, keeps the commons' MIT-licensed sensor specs current, and writes the field journal that every member receives quarterly. Her stated horizon is forty years. \"I will not see this canopy mature,\" she says. \"That is a feature of how we work, not a bug.\""
+  },
+  {
+    name: "Tomás Reis",
+    region: "Portuguese Coast · PT",
+    img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop",
+    p1: "Tomás stewards a string of dune-stabilisation and freshwater-spring restoration sites along forty kilometres of Atlantic coast south of Lisbon. He started as an off-grid builder in the early 2020s, joined Sunroot Commons during its second cohort, and now coordinates with three municipal councils, two fishing co-operatives, and the regional university's marine biology department.",
+    p2: "His work is almost entirely about boundaries: where the public beach ends and the commons begins, where private vineyards drain into shared aquifers, where state law conflicts with traditional gleaning rights. He insists this is the actual content of stewardship. \"The plants know what to do. The hard part is the room they need from us. That room is a legal question, not an ecological one.\""
+  },
+  {
+    name: "Aiyana Whitehorse",
+    region: "Rift Valley · KE",
+    img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1000&q=85&auto=format&fit=crop",
+    p1: "Aiyana leads the Rift Valley node, a semi-arid commons of just under 600 hectares that sits across two county boundaries and four pastoralist grazing routes. She trained as an agronomist in Nairobi and as a livestock veterinarian in Wageningen, and she is unusual in the network for holding an active practice in both fields at the same site.",
+    p2: "Most of her published work concerns rotational grazing as a tool for watershed recovery rather than a competitor with it. Her field notebooks — which the commons publishes openly each February — read like a hybrid of veterinary log and hydrological record. \"A herd well-routed is a kind of water infrastructure,\" she has written. \"It moves the rain into the soil instead of off it.\""
+  }
+];
+
+const DOCTRINE = [
+  {
+    n: "01",
+    title: "Open hardware",
+    body: "Every sensor, weir gate, irrigation valve, and monitoring rig deployed across the network is MIT-licensed and field-repairable with off-the-shelf tools. The schematics, firmware, and bills of materials live in a public archive that any member, municipality, or competing project may fork. We do not sell devices. We publish them. If a steward in a different bioregion can build the same gauge from local parts and improve it for their conditions, that improvement returns to the commons by default."
+  },
+  {
+    n: "02",
+    title: "Patient money",
+    body: "Our governance horizon is thirty years per site, with a soft commitment to sixty. No funder, member, or staffing cohort can compress that horizon by withdrawing pressure. We accept slow capital — endowments, multi-decade land trusts, regional bonds — and refuse capital that arrives with a five-year exit demand. The financial discipline is not glamorous, but it is the precondition for a forest that will outlive the people who planted it. Without patient money, every other principle on this page collapses inside a single market cycle."
+  },
+  {
+    n: "03",
+    title: "Local sovereignty",
+    body: "There is no central control plane. Each watershed council sets its own harvest calendar, its own access policy, and its own apprenticeship terms, in conversation with — but not subordinate to — the wider network. The shared infrastructure we maintain is small on purpose: a common license, a common archive, a common protocol for joining and for leaving. Everything else is meant to live at the scale of a valley. A network that can be commanded from one room is a network that can be captured from one room."
+  }
+];
+
+export default function T94Solarpunk() {
+  return (
+    <>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+      <script type="text/plain" dangerouslySetInnerHTML={{ __html: `
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-tertiary-fixed": "#291800",
+                "on-surface-variant": "#414941",
+                "surface-container-high": "#f2e7d1",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#363021",
+                "on-secondary-fixed": "#360f00",
+                "surface-container-low": "#fef3dc",
+                "on-tertiary-fixed-variant": "#624000",
+                "on-primary": "#ffffff",
+                "on-error": "#ffffff",
+                "surface-container": "#f8edd7",
+                "inverse-on-surface": "#fbf0d9",
+                "inverse-primary": "#9fd3a8",
+                "secondary": "#99461d",
+                "on-background": "#201b0e",
+                "surface-variant": "#ece1cc",
+                "tertiary-container": "#734b00",
+                "error": "#ba1a1a",
+                "on-secondary-fixed-variant": "#7a3006",
+                "on-tertiary-container": "#ffbb53",
+                "surface-container-lowest": "#ffffff",
+                "surface-dim": "#e4d9c3",
+                "on-secondary-container": "#762c03",
+                "background": "#fff8f0",
+                "tertiary-fixed": "#ffddb3",
+                "on-secondary": "#ffffff",
+                "surface": "#fff8f0",
+                "on-primary-container": "#a1d4a9",
+                "error-container": "#ffdad6",
+                "on-error-container": "#93000a",
+                "surface-bright": "#fff8f0",
+                "tertiary-fixed-dim": "#ffb950",
+                "secondary-container": "#fe9566",
+                "primary-fixed": "#bbefc3",
+                "surface-container-highest": "#ece1cc",
+                "primary-container": "#2e5d3b",
+                "primary-fixed-dim": "#9fd3a8",
+                "on-primary-fixed": "#00210c",
+                "primary": "#154526",
+                "tertiary": "#543600",
+                "secondary-fixed": "#ffdbcd",
+                "outline-variant": "#c1c9bf",
+                "outline": "#717971",
+                "surface-tint": "#396845",
+                "on-primary-fixed-variant": "#21502f",
+                "on-surface": "#201b0e",
+                "secondary-fixed-dim": "#ffb596"
+              },
+              borderRadius: {
+                DEFAULT: "0.25rem",
+                lg: "0.5rem",
+                xl: "0.75rem",
+                full: "9999px",
+                organic: "40% 60% 70% 30% / 40% 50% 60% 50%"
+              },
+              spacing: {
+                "inset-squish": "12px 20px",
+                "stack-lg": "48px",
+                "margin-page": "40px",
+                "stack-sm": "8px",
+                "gutter": "24px",
+                "unit": "8px",
+                "stack-md": "24px"
+              },
+              fontFamily: {
+                "body-md": ["Newsreader"],
+                "headline-lg": ["Plus Jakarta Sans"],
+                "headline-xl": ["Plus Jakarta Sans"],
+                "body-lg": ["Newsreader"],
+                "headline-md": ["Plus Jakarta Sans"],
+                "label-md": ["Plus Jakarta Sans"],
+                "label-sm": ["Plus Jakarta Sans"]
+              },
+              fontSize: {
+                "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "600" }],
+                "headline-xl": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                "body-lg": ["20px", { lineHeight: "1.6", fontWeight: "400" }],
+                "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+                "label-md": ["14px", { lineHeight: "1.0", letterSpacing: "0.05em", fontWeight: "500" }],
+                "label-sm": ["12px", { lineHeight: "1.0", fontWeight: "700" }]
+              }
+            }
+          }
+        }
+      ` }} />
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        html, body { overflow-x: clip; }
+        body { background-color: #fff8f0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .organic-shape { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+        .organic-shape-alt { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        .ambient-shadow { box-shadow: 0 20px 40px -15px rgba(21, 69, 38, 0.15); }
+        .gouche-card { background-color: #ffffff; border: 2px solid #99461d; border-radius: 12px 24px 8px 16px; }
+        .text-glow { text-shadow: 0 0 20px #bbefc3; }
+        .full-bleed { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); max-width: none; }
+        .station-marquee { animation: station-marquee-x 60s linear infinite; width: max-content; display: flex; gap: 20px; }
+        .station-marquee:hover { animation-play-state: paused; }
+        @keyframes station-marquee-x {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 10px)); }
+        }
+        .commons-pattern {
+          background-image:
+            repeating-linear-gradient(45deg, transparent 0 32px, rgba(21,69,38,0.10) 32px 33px, transparent 33px 64px),
+            radial-gradient(circle at 50% 50%, rgba(153,70,29,0.20) 1.2px, transparent 2px);
+          background-size: auto, 36px 36px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .station-marquee { animation: none; }
+        }
+      ` }} />
+
+      <div className="text-on-background overflow-x-hidden pt-24 pb-32 md:pb-0">
+        {/* TopAppBar (Web) */}
+        <nav className="hidden md:flex fixed top-0 w-full z-50 rounded-b-[2.5rem] border-b border-orange-200/30 bg-stone-50/80 dark:bg-stone-900/80 backdrop-blur-xl shadow-[0_10px_30px_-15px_rgba(46,93,59,0.1)] justify-between items-center px-8 py-4">
+          <div className="font-['Plus_Jakarta_Sans'] font-medium tracking-tight text-2xl font-black text-emerald-900 dark:text-emerald-50 italic">Sunroot Commons</div>
+          <ul className="flex gap-8 items-center font-label-md text-label-md">
+            <li><a className="text-emerald-700 dark:text-emerald-300 border-b-2 border-orange-400 pb-1" href="#">Projects</a></li>
+            <li><a className="text-stone-600 dark:text-stone-400 hover:text-emerald-600 hover:scale-105 transition-transform duration-300 ease-out" href="#">Map</a></li>
+            <li><a className="text-stone-600 dark:text-stone-400 hover:text-emerald-600 hover:scale-105 transition-transform duration-300 ease-out" href="#">Stories</a></li>
+            <li><a className="text-stone-600 dark:text-stone-400 hover:text-emerald-600 hover:scale-105 transition-transform duration-300 ease-out" href="#">Governance</a></li>
+          </ul>
+          <div className="flex items-center gap-6">
+            <button className="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-on-primary-fixed-variant transition-colors">Join the Commons</button>
+            <div className="flex gap-4 text-emerald-800 dark:text-emerald-400">
+              <span className="material-symbols-outlined cursor-pointer hover:scale-105 transition-transform duration-300 ease-out">notifications</span>
+              <span className="material-symbols-outlined cursor-pointer hover:scale-105 transition-transform duration-300 ease-out">account_circle</span>
+            </div>
+          </div>
+        </nav>
+
+        {/* BottomNavBar (Mobile) */}
+        <nav className="fixed bottom-0 w-full z-50 flex justify-around items-center px-6 pb-8 pt-2 md:hidden bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-lg fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md rounded-[3rem] border-2 border-orange-100/50 shadow-[0_-8px_40px_-10px_rgba(46,93,59,0.2)]">
+          <div className="flex flex-col items-center justify-center bg-orange-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-50 rounded-full w-14 h-14 transition-all duration-500 hover:bg-emerald-50 dark:hover:bg-emerald-800/20 rounded-full">
+            <span className="material-symbols-outlined">home_app_logo</span>
+            <span className="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-widest font-bold">Home</span>
+          </div>
+          <div className="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 opacity-70 hover:bg-emerald-50 dark:hover:bg-emerald-800/20 rounded-full p-2">
+            <span className="material-symbols-outlined">potted_plant</span>
+            <span className="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-widest font-bold">Projects</span>
+          </div>
+          <div className="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 opacity-70 hover:bg-emerald-50 dark:hover:bg-emerald-800/20 rounded-full p-2">
+            <span className="material-symbols-outlined">auto_stories</span>
+            <span className="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-widest font-bold">Stories</span>
+          </div>
+          <div className="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 opacity-70 hover:bg-emerald-50 dark:hover:bg-emerald-800/20 rounded-full p-2">
+            <span className="material-symbols-outlined">person</span>
+            <span className="font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-widest font-bold">Profile</span>
+          </div>
+        </nav>
+
+        <main className="max-w-screen-2xl mx-auto px-6 md:px-margin-page">
+          {/* Hero Section */}
+          <section className="min-h-[819px] flex flex-col-reverse lg:flex-row items-center gap-gutter pt-12 pb-24 relative">
+            <div className="w-full lg:w-5/12 flex flex-col gap-stack-md z-10">
+              <h1 className="font-headline-xl text-headline-xl text-primary md:text-[64px] leading-tight">Infrastructure<br />that <span className="text-secondary italic">grows</span>.</h1>
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md">Building a hopeful green future where technology and nature coexist in harmony.</p>
+              <div className="pt-4">
+                <button className="bg-secondary text-on-secondary font-label-md text-label-md px-8 py-4 rounded-[2rem] hover:bg-on-secondary-fixed-variant transition-colors ambient-shadow flex items-center gap-2">
+                  Get involved <span className="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+            <div className="w-full lg:w-7/12 relative h-[500px] lg:h-[700px] organic-shape overflow-hidden ambient-shadow border-4 border-surface-container-low">
+              <img alt="solarpunk city" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDddvUHGmAqqBun0BWeDGZtgf6UIFqzm1XbFTv-pUYoiMEPT10H4f4p_IJ4CE7g-GDuUDr2t78o3ZbS25Yeezd4Vqa0eWESnSp-J01CUJ0pkjaSC8pt4WMr6FlJ3XRunUncMm7T6kmPOnf6fbUpSOYzcV8cMSP1wLFZqt0aeG3D2EXlF5S5pPpqAjlMTwqi0hkF4sAPzwjPpCxJk_CaeYniRe6Y_FS4chDroQHyN4e4zYwr1asZsCPwPH9fHy6_N0nDSfFjbS0OrE9z" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-multiply"></div>
+            </div>
+            {/* Decorative Elements */}
+            <div className="absolute top-20 right-20 w-32 h-32 bg-tertiary-fixed-dim rounded-full mix-blend-multiply opacity-50 blur-2xl"></div>
+            <div className="absolute bottom-10 left-10 w-48 h-48 bg-primary-fixed rounded-full mix-blend-multiply opacity-50 blur-3xl"></div>
+          </section>
+
+          {/* Feature Cards */}
+          <section className="py-24">
+            <h2 className="font-headline-lg text-headline-lg text-primary text-center mb-16">What we build</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Card 1 */}
+              <div className="gouche-card p-6 flex flex-col gap-4 group hover:-translate-y-2 transition-transform duration-300">
+                <div className="h-48 w-full rounded-2xl overflow-hidden mb-2 border border-surface-variant">
+                  <img alt="solar arrays" className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHsHrnbavHKDErXueJ5XvpavPRYKTqmUhPbHHkdNGKSacXbAsngg3_G8jm3NKpyxA4gtaObUiXqnb4RiQCl0WIE_ig399RQq-xooL9hR3wQ5nTTjKN8FYV2Iow4XxLXt4fVMz3mGhKzj-YweSGQT6qsLVPXlfqzCK3RNYg5lHjpATmoBitXlJEAQDcT7YM__ewdqziJJDQCnUH0NFAn68rrOMt7AFTjS4PZy0s72Ijgas276UHRZDcfDMnn-FdrblAOZoFCXY7vX8l" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="bg-primary-container text-on-primary-container p-2 rounded-full material-symbols-outlined">solar_power</span>
+                  <h3 className="font-headline-md text-headline-md text-primary">Community solar</h3>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant">Energy harvesting structures designed as beautiful community gathering spaces.</p>
+              </div>
+              {/* Card 2 */}
+              <div className="gouche-card p-6 flex flex-col gap-4 group hover:-translate-y-2 transition-transform duration-300" style={{ borderRadius: "20px 10px 24px 12px" }}>
+                <div className="h-48 w-full rounded-2xl overflow-hidden mb-2 border border-surface-variant">
+                  <img alt="living roofs" className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBJFBqnUGxKn2-mBImBx7Xuoc9FcjPJJHwwMCQ6R5Nic2b0wff8G1P3roeMCDb94peGN9DJfGOPVxMU87PmgRub2OfVGafahJtnD-NzjlEE3jczZmRRCcyXPTo2vv8T2nsNEkFQfp5t5Tb1ojsl2xnmyfPJ_nQVbcxnrPNbzxTiLeEom7MKbUwmMwMHBAD-16_yVXxsi_w4_zRtNB8eMO--mbgVpOXyHNZH3gHRT2JWJAS8By_a1a9DSUG7ilQxPGISLcE6WAUvLAd" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="bg-secondary-container text-on-secondary-container p-2 rounded-full material-symbols-outlined">roofing</span>
+                  <h3 className="font-headline-md text-headline-md text-primary">Living roofs</h3>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant">Transforming barren rooftops into thriving micro-ecosystems that insulate and nourish.</p>
+              </div>
+              {/* Card 3 */}
+              <div className="gouche-card p-6 flex flex-col gap-4 group hover:-translate-y-2 transition-transform duration-300" style={{ borderRadius: "12px 24px 12px 20px" }}>
+                <div className="h-48 w-full rounded-2xl overflow-hidden mb-2 border border-surface-variant">
+                  <img alt="urban orchard" className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB31PfXlJhKopEZ9dX-DDF0PuG_aud7vyqS3_FoomOFkjKyfF0H0rcDsCMo8zgMa80D8c7SDTra_15n_WHba3TfdsImA8owKB6PxAnnX7xy20QVs4VXL16hv8gITcfq6YfzsvmNDyd59MjzJzmBrT3u7GzaGz6RrXyZ66WAHEfPDZtxE_S0yfjPsbI4495sdVAXZUEVZ6T9Dk6zo7Zpfr8RX9rT65YvPYwpZqgTC7lwA2yaN0ZvLOElqMj9SYcCMYPA-EEW6aUw6jUH" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="bg-tertiary-container text-on-tertiary-container p-2 rounded-full material-symbols-outlined">park</span>
+                  <h3 className="font-headline-md text-headline-md text-primary">Neighborhood orchards</h3>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant">Public spaces rewilded with food-bearing flora managed by local residents.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* SECTION 03 — Field Stations (paused-on-hover marquee, NOVEL #11 cinema strip) */}
+          <section className="full-bleed py-20 md:py-28 overflow-hidden" style={{ backgroundColor: "#fef3dc" }}>
+            <div className="max-w-screen-2xl mx-auto px-6 md:px-margin-page mb-12">
+              <div className="flex items-baseline justify-between gap-6 flex-wrap">
+                <div>
+                  <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[12px] font-bold text-secondary">— III · Field Stations</span>
+                  <h2 className="font-headline-lg text-headline-lg text-primary mt-2 max-w-2xl">Forty-nine sites where the work is happening today.</h2>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant max-w-md">Hover the strip to pause. Each station is a multi-decade commission run with a local steward and a regional council.</p>
+              </div>
+            </div>
+            <div className="relative w-full">
+              <div className="station-marquee">
+                {[...FIELD_STATIONS, ...FIELD_STATIONS].map((s, i) => (
+                  <div key={i} className="relative w-72 md:w-80 aspect-[4/5] flex-shrink-0 overflow-hidden rounded-[18px] border-2 border-secondary/30 ambient-shadow group">
+                    <img alt={s.name} className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity grayscale-[20%] contrast-110" src={s.img} />
+                    <div className="absolute inset-0 bg-tertiary-fixed-dim/15 mix-blend-overlay pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-transparent pointer-events-none"></div>
+                    <div className="absolute top-4 left-4 right-4 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-secondary-container"></span>
+                      <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] font-bold text-tertiary-fixed-dim drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">{s.code}</span>
+                    </div>
+                    <div className="absolute bottom-5 left-5 right-5 flex flex-col gap-1">
+                      <span className="font-['Newsreader'] italic text-2xl text-orange-50 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">{s.name}</span>
+                      <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] text-tertiary-fixed-dim/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{s.meta}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="max-w-screen-2xl mx-auto px-6 md:px-margin-page mt-10">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-secondary"></span>
+                <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[11px] font-bold text-on-surface-variant">49 active stations · 14 bioregions · 320+ stewards</span>
+              </div>
+            </div>
+          </section>
+
+          {/* SECTION 04 — How a watershed restores (sticky-photo + scrolling text, NOVEL #8) */}
+          <section className="py-24 md:py-32">
+            <div className="mb-16 max-w-3xl">
+              <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[12px] font-bold text-secondary">— IV · A Watershed Restores</span>
+              <h2 className="font-headline-lg text-headline-lg text-primary mt-2 md:text-[40px]">Twelve years, four legible stages.</h2>
+              <p className="font-body-lg text-body-lg text-on-surface-variant mt-6">Most of our work is invisible for the first season. After that, the land begins to do the heavy lifting and our role contracts in legible steps.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+              <div className="md:col-span-5">
+                <div className="md:sticky md:top-32">
+                  <div className="relative aspect-[4/5] organic-shape-alt overflow-hidden border-4 border-primary-fixed ambient-shadow">
+                    <img alt="restored watershed" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity grayscale-[15%]" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1400&q=85&auto=format&fit=crop" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/55 via-primary/15 to-tertiary-fixed-dim/20 mix-blend-multiply"></div>
+                  </div>
+                  <div className="mt-6 flex items-baseline gap-3">
+                    <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[11px] font-bold text-secondary">Plate</span>
+                    <span className="font-['Newsreader'] italic text-xl text-primary">A regenerative cycle</span>
+                  </div>
+                  <p className="mt-2 font-body-md text-[14px] text-on-surface-variant max-w-xs">Composite — Auvergne plateau, third-cohort site. Photographed in late spring of the restoration's eighth year.</p>
+                </div>
+              </div>
+              <div className="md:col-span-7 flex flex-col gap-12">
+                {WATERSHED_STAGES.map((stage, i) => (
+                  <article key={i} className="border-l-2 border-secondary/40 pl-8 relative">
+                    <span className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-tertiary-fixed-dim border-2 border-secondary"></span>
+                    <div className="flex items-baseline gap-4 mb-3 flex-wrap">
+                      <span className="font-['Newsreader'] italic text-3xl text-primary">{stage.year}</span>
+                      <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[11px] font-bold text-secondary">{stage.title}</span>
+                    </div>
+                    <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">{stage.body}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* SECTION 05 — Members & Stewards (alternating 7/5 rows, §M.1 #2) */}
+          <section className="py-24 md:py-32">
+            <div className="mb-20 max-w-3xl">
+              <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[12px] font-bold text-secondary">— V · Members & Stewards</span>
+              <h2 className="font-headline-lg text-headline-lg text-primary mt-2 md:text-[40px]">Three of the people whose hands shape this work.</h2>
+              <p className="font-body-lg text-body-lg text-on-surface-variant mt-6">Stewards lead each watershed for a minimum of seven years. Most stay longer.</p>
+            </div>
+            <div className="flex flex-col gap-24">
+              {STEWARDS.map((s, i) => (
+                <article key={i} className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+                  <div className={"md:col-span-7 " + (i % 2 === 1 ? "md:order-2" : "md:order-1")}>
+                    <div className="relative aspect-square organic-shape overflow-hidden border-4 border-surface-container-high ambient-shadow">
+                      <img alt={s.name} className="absolute inset-0 w-full h-full object-cover grayscale-[35%] contrast-105" src={s.img} />
+                      <div className="absolute inset-0 bg-gradient-to-br from-tertiary-fixed-dim/25 via-transparent to-primary/25 mix-blend-overlay"></div>
+                      <div className="absolute bottom-6 left-6 bg-background/85 backdrop-blur-sm px-4 py-2 rounded-full border border-secondary/30">
+                        <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] font-bold text-secondary">Steward · {String(i + 1).padStart(2, "0")}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={"md:col-span-5 flex flex-col gap-5 " + (i % 2 === 1 ? "md:order-1" : "md:order-2")}>
+                    <div>
+                      <h3 className="font-headline-md text-[28px] md:text-[32px] leading-tight text-primary font-['Plus_Jakarta_Sans'] font-bold">{s.name}</h3>
+                      <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[11px] font-bold text-secondary mt-1 block">{s.region}</span>
+                    </div>
+                    <div className="w-12 h-px bg-secondary/40"></div>
+                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{s.p1}</p>
+                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed italic font-['Newsreader']">{s.p2}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* SECTION 06 — In the field · Quito greywater commons (half-full-bleed image, NOVEL #7) */}
+          <section className="py-24 md:py-32 relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="flex flex-col gap-6 md:pr-6">
+                <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[12px] font-bold text-secondary">— VI · In the Field</span>
+                <h2 className="font-headline-lg text-headline-lg text-primary md:text-[40px] leading-[1.1]">The Quito greywater commons.</h2>
+                <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">In 2034 the southern barrios of Quito approached us with an awkward, unfunded brief: rebuild the neighbourhood's domestic greywater grid as a public commons rather than a private utility, and do it without raising household rates. We declined three times. We accepted on the fourth visit, after a council of forty residents asked us specifically and showed us, on a paper map, exactly where they wanted the recharge basins to land.</p>
+                <blockquote className="border-l-4 border-tertiary-fixed-dim pl-6 my-2 font-['Newsreader'] italic text-[22px] leading-relaxed text-primary">
+                  "We did not need an aid project. We needed a piece of working infrastructure that would still belong to us in fifty years."
+                  <cite className="block not-italic font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] font-bold text-secondary mt-3">— Council member, Solanda district</cite>
+                </blockquote>
+                <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">The eventual commission ran for thirty months, used 480 metres of repurposed concrete pipe, and ended with a working network of six neighbourhood-scale reedbed filters, eleven recharge basins planted with native willow and cattail, and a maintenance cooperative drawing from twenty-four resident households. The infrastructure handles roughly 2.4 megalitres of greywater per day. None of it is metered for billing.</p>
+                <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">Our continuing role is small and contractual: an annual maintenance audit, a sensor recalibration in February, and the right to publish what we learn. Solanda owns the rest. The commission was the cheapest piece of urban water infrastructure built anywhere in the country that decade — and it remains, as far as we know, the only one whose ownership cannot be transferred.</p>
+                <div className="flex items-center gap-3 pt-3">
+                  <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] font-bold text-secondary">Commission · 027</span>
+                  <span className="text-secondary/50">·</span>
+                  <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] text-on-surface-variant">2034 — 2036 · 30 months</span>
+                </div>
+              </div>
+              <div className="relative md:mr-[calc(50%-50vw)] h-[600px] md:h-[760px] overflow-hidden border-l-4 md:border-l-0 md:border-l-[6px] border-secondary">
+                <img alt="quito greywater commons" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity grayscale-[20%] contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1800&q=85&auto=format&fit=crop" />
+                <div className="absolute inset-0 bg-gradient-to-bl from-primary/45 via-tertiary-fixed-dim/15 to-secondary/30 mix-blend-multiply"></div>
+                <div className="absolute top-8 left-8 bg-background/85 backdrop-blur-sm px-5 py-3 rounded-full border-2 border-secondary">
+                  <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.25em] text-[11px] font-bold text-secondary">Plate · No. 027 · Solanda</span>
+                </div>
+                <div className="absolute bottom-8 right-8 left-8 flex items-end justify-between gap-4">
+                  <span className="font-['Newsreader'] italic text-3xl md:text-4xl text-orange-50 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">A network that<br />belongs to itself.</span>
+                  <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] font-bold text-tertiary-fixed-dim drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">QUITO · EC<br />0.180°S · 2850m</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        {/* SECTION 07 — Doctrine (content-only on warm-cream tinted band, §K.3) */}
+        <section className="full-bleed py-24 md:py-32 commons-pattern" style={{ backgroundColor: "#f2e7d1" }}>
+          <div className="max-w-screen-2xl mx-auto px-6 md:px-margin-page">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-16">
+              <div className="md:col-span-5">
+                <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[12px] font-bold text-secondary">— VII · Doctrine</span>
+                <p className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[11px] font-bold text-on-surface-variant mt-3">A short manifesto, kept on the wall.</p>
+              </div>
+              <div className="md:col-span-7">
+                <h2 className="font-['Plus_Jakarta_Sans'] font-black text-[40px] sm:text-[52px] md:text-[64px] leading-[1.05] text-primary tracking-tight">
+                  Infrastructure that <span className="text-secondary italic font-['Newsreader']">grows</span>.<br />
+                  Tools that fail in the open.<br />
+                  Knowledge held in <span className="text-secondary italic font-['Newsreader']">common</span>.
+                </h2>
+              </div>
+            </div>
+            <div className="w-full h-px bg-secondary/30 mb-16"></div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14">
+              {DOCTRINE.map((d, i) => (
+                <article key={i} className="flex flex-col gap-5 relative">
+                  <span className="font-['Plus_Jakarta_Sans'] font-black text-[88px] md:text-[112px] leading-none text-tertiary-fixed-dim/80 tracking-tighter">{d.n}</span>
+                  <div className="w-12 h-[3px] bg-secondary"></div>
+                  <h3 className="font-['Plus_Jakarta_Sans'] font-bold text-[26px] md:text-[28px] leading-tight text-primary">{d.title}</h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{d.body}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-20 pt-10 border-t border-secondary/30 flex items-center justify-between gap-6 flex-wrap">
+              <span className="font-['Newsreader'] italic text-xl text-primary">Read in full at the public archive.</span>
+              <div className="flex items-center gap-3">
+                <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] font-bold text-on-surface-variant">Document · v4.2 · Ratified 2031</span>
+                <span className="material-symbols-outlined text-secondary">arrow_outward</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="w-full rounded-t-[4rem] mt-20 bg-emerald-950 dark:bg-stone-950 text-orange-50 font-['Plus_Jakarta_Sans'] text-sm leading-relaxed grid grid-cols-1 md:grid-cols-3 gap-12 px-12 py-20 max-w-screen-2xl mx-auto">
+          <div className="flex flex-col gap-4">
+            <span className="text-orange-400 font-bold text-lg">Sunroot Commons</span>
+            <p>© 2024 Sunroot Commons. Flourishing together under the sun.</p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Manifesto</a>
+            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Energy Grid</a>
+          </div>
+          <div className="flex flex-col gap-4">
+            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Partner Directory</a>
+            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Privacy Root</a>
+          </div>
+        </footer>
+      </div>
+    </>
+  );
+}

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ren Park Creator Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#4a4640",
+                        "inverse-primary": "#93d2cc",
+                        "on-tertiary-container": "#ffbc86",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-fixed": "#2f1500",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "tertiary-fixed": "#ffdcc3",
+                        "surface-container-high": "#ebe7e7",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#66625b",
+                        "secondary": "#625e57",
+                        "primary": "#004642",
+                        "on-secondary-fixed": "#1e1b16",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#e6dfd6",
+                        "background": "#fcf9f8",
+                        "outline": "#6f7978",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#93d2cc",
+                        "on-primary-container": "#96d5cf",
+                        "on-primary-fixed-variant": "#02504c",
+                        "on-background": "#1c1b1b",
+                        "tertiary": "#613100",
+                        "secondary-fixed-dim": "#ccc6bd",
+                        "secondary-fixed": "#e8e1d8",
+                        "surface-container": "#f0edec",
+                        "surface-dim": "#dcd9d9",
+                        "tertiary-container": "#824500",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "primary-container": "#1b5e5a",
+                        "surface-tint": "#286864",
+                        "on-surface-variant": "#3f4947",
+                        "primary-fixed": "#afeee9",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#bfc8c7",
+                        "inverse-surface": "#313030",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-surface": "#1c1b1b",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#00201e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "48px",
+                        "xl": "80px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "display-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        html, body { overflow-x: clip; }
+        body { background-color: #FAF6F0; color: #0F0F0F; }
+        /* §I.3 full-bleed escape from constrained <main> */
+        .full-bleed {
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            max-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#FAF6F0] dark:bg-stone-950 border-b border-[#E6DFD6] dark:border-stone-800 flat no shadows font-['Inter'] font-medium tracking-tight duration-200 ease-in-out">
+<div class="flex justify-between items-center max-w-[1280px] mx-auto px-8 h-20">
+<div class="text-2xl font-bold tracking-tighter text-[#0F0F0F] dark:text-stone-50">Ren Park</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-[#1B5E5A] dark:text-teal-400 border-b-2 border-[#1B5E5A] dark:border-teal-400 pb-1 hover:bg-[#F3EDE4] dark:hover:bg-stone-900 transition-colors" href="#">Newsletter</a>
+<a class="text-[#0F0F0F] dark:text-stone-400 hover:text-[#1B5E5A] dark:hover:text-stone-200 transition-colors hover:bg-[#F3EDE4] dark:hover:bg-stone-900" href="#">YouTube</a>
+<a class="text-[#0F0F0F] dark:text-stone-400 hover:text-[#1B5E5A] dark:hover:text-stone-200 transition-colors hover:bg-[#F3EDE4] dark:hover:bg-stone-900" href="#">Podcast</a>
+<a class="text-[#0F0F0F] dark:text-stone-400 hover:text-[#1B5E5A] dark:hover:text-stone-200 transition-colors hover:bg-[#F3EDE4] dark:hover:bg-stone-900" href="#">Courses</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#1B5E5A] dark:text-teal-400 cursor-pointer">search</span>
+<button class="bg-[#1B5E5A] text-white px-4 py-2 rounded font-label-md text-label-md hover:bg-surface-tint transition-colors">Subscribe</button>
+</div>
+</div>
+</header>
+<main class="pt-[120px] pb-xl px-8 max-w-container-max mx-auto">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-lg mb-xl items-center">
+<div class="relative w-full aspect-[4/5] lg:aspect-square overflow-hidden rounded-sm border border-secondary-container">
+<img alt="Portrait of Ren Park" class="w-full h-full object-cover grayscale opacity-90 mix-blend-multiply" data-alt="large polished portrait of an Asian male in a neutral studio setting, wearing a dark minimal sweater, soft sophisticated lighting, high-end editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdZFlz1tVGJ1OLeUbP7o6gYofS5zvnQJD5Uv94QsJ-DRf3L7j1tbBSzFB5hA7Rag8qTWiUVoTU1y8vboSRT9ijMxeuANBTPfCxmr2wOnGmLy0YbWcAILXmCSfvOKH1-XMM3Ywe61JVtQMSRErx8SiojINwwlNqoijR4-hxAl3XZFI5iVW6HyPEQDK5ZNYXaELv4XcMwmN05QsyvPJmMzOvagMIGivQOatHf5r6dbXT-I7KtqKXdSZBQEMZGch6008SVLqV9G5MB9w"/>
+</div>
+<div class="flex flex-col gap-md">
+<div>
+<h1 class="font-display-xl text-display-xl text-[#0F0F0F] mb-sm">Ren Park</h1>
+<p class="font-headline-sm text-headline-sm text-secondary">Curating strategy for creators, media operators, and digital thinkers.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-sm mt-md">
+<!-- CTA Cards -->
+<a class="group block border border-secondary-container p-md hover:bg-surface-container-high transition-colors" href="#">
+<div class="flex justify-between items-start mb-lg">
+<span class="material-symbols-outlined text-primary-container text-3xl">mail</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container transition-colors">arrow_outward</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-[#0F0F0F] uppercase">Newsletter</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-xs">50k+ Subscribers</p>
+</div>
+</a>
+<a class="group block border border-secondary-container p-md hover:bg-surface-container-high transition-colors" href="#">
+<div class="flex justify-between items-start mb-lg">
+<span class="material-symbols-outlined text-primary-container text-3xl">play_circle</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container transition-colors">arrow_outward</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-[#0F0F0F] uppercase">YouTube</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-xs">120k+ Subscribers</p>
+</div>
+</a>
+<a class="group block border border-secondary-container p-md hover:bg-surface-container-high transition-colors" href="#">
+<div class="flex justify-between items-start mb-lg">
+<span class="material-symbols-outlined text-primary-container text-3xl">podcasts</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container transition-colors">arrow_outward</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-[#0F0F0F] uppercase">Podcast</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-xs">1M+ Downloads</p>
+</div>
+</a>
+<a class="group block border border-secondary-container p-md hover:bg-surface-container-high transition-colors" href="#">
+<div class="flex justify-between items-start mb-lg">
+<span class="material-symbols-outlined text-primary-container text-3xl">school</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container transition-colors">arrow_outward</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-[#0F0F0F] uppercase">Courses</h3>
+<p class="font-label-sm text-label-sm text-secondary mt-xs">5k+ Students</p>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Latest Section -->
+<section class="mb-xl border-t border-secondary-container pt-xl">
+<h2 class="font-headline-md text-headline-md mb-lg">Latest from the Desk</h2>
+<div class="flex flex-col gap-0 border border-secondary-container">
+<!-- Newsletter Row -->
+<div class="flex flex-col md:flex-row border-b border-secondary-container group hover:bg-surface-container-high transition-colors cursor-pointer p-md gap-md items-center">
+<div class="w-12 h-12 flex-shrink-0 bg-surface-container flex items-center justify-center border border-secondary-container">
+<span class="material-symbols-outlined text-primary-container">article</span>
+</div>
+<div class="flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-xs">Issue #142</span>
+<h4 class="font-headline-sm text-headline-sm text-[#0F0F0F]">The Myth of Passive Income in Media</h4>
+<p class="font-body-md text-body-md text-secondary mt-xs line-clamp-1">Why operators are shifting back to active product curation and why the hands-off approach is failing.</p>
+</div>
+<div class="flex-shrink-0 text-primary-container">
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</div>
+</div>
+<!-- YouTube Row -->
+<div class="flex flex-col md:flex-row border-b border-secondary-container group hover:bg-surface-container-high transition-colors cursor-pointer p-md gap-md items-center">
+<div class="w-24 h-16 flex-shrink-0 bg-surface-container overflow-hidden border border-secondary-container relative">
+<img alt="Video thumbnail" class="w-full h-full object-cover grayscale mix-blend-multiply opacity-80" data-alt="minimal workspace desk setup with a monitor, warm desk lamp, dark moody editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPGDaCbkIeis7FNPX-dskaNMPfl0fKOtpuV4_Sh0ShdtGSTiDilJfuQxkuvF4J04WwSJJ2kghSZKQmNuMAcIT6AEsB-3VzdTnMPrd4JfQDV5o2iTe0coQkSA2Iggagf4d6jEb--TN0v56fuf-fBlguvx-1PfRjiRBwwQ8sf4-McS8WoGppGSg0QXrR7QOyeMeuwRYmrp0tp6NWbg55hW-JuHzOfhJcxwzlYUKcirWGTLpH9FJL6lmsHYXHInwRqarKrh9qHVGI3HQ"/>
+<span class="material-symbols-outlined absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">play_arrow</span>
+</div>
+<div class="flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-xs">Video Essay</span>
+<h4 class="font-headline-sm text-headline-sm text-[#0F0F0F]">Building a 6-Figure Creator Stack</h4>
+<p class="font-body-md text-body-md text-secondary mt-xs line-clamp-1">A deep dive into the tools, platforms, and expenses of a modern solo media operation.</p>
+</div>
+<div class="flex-shrink-0 text-primary-container">
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</div>
+</div>
+<!-- Podcast Row -->
+<div class="flex flex-col md:flex-row group hover:bg-surface-container-high transition-colors cursor-pointer p-md gap-md items-center">
+<div class="w-12 h-12 flex-shrink-0 bg-surface-container flex items-center justify-center border border-secondary-container rounded-full">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<div class="flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase block mb-xs">Ep. 48 • 45 min</span>
+<h4 class="font-headline-sm text-headline-sm text-[#0F0F0F]">Interview: Sarah Chen on Niche Newsletters</h4>
+</div>
+<div class="flex-shrink-0 w-32 h-2 bg-secondary-container overflow-hidden">
+<div class="h-full bg-primary-container w-1/3"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonial -->
+<section class="mb-xl bg-[#F3EDE4] border border-secondary-container p-xl text-center">
+<span class="material-symbols-outlined text-primary-container text-4xl mb-md opacity-50" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="font-display-lg text-display-lg text-[#0F0F0F] max-w-3xl mx-auto leading-tight mb-md">"Ren's insights are the only ones I consistently save to read later. It's the signal amidst the noise of the creator economy."</p>
+<div class="font-label-md text-label-md text-primary-container uppercase tracking-widest">Elena Rostova</div>
+<div class="font-label-sm text-label-sm text-secondary mt-xs">Founder, Studio Blanc</div>
+</section>
+<!-- Courses Shelf -->
+<section class="mb-xl border-t border-secondary-container pt-xl">
+<div class="flex justify-between items-end mb-lg">
+<h2 class="font-headline-md text-headline-md text-[#0F0F0F]">Curriculum</h2>
+<a class="font-label-md text-label-md text-primary-container hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Course Card 1 -->
+<div class="border border-secondary-container group cursor-pointer hover:bg-surface-container-high transition-colors flex flex-col sm:flex-row">
+<div class="w-full sm:w-1/3 aspect-square sm:aspect-auto border-r border-secondary-container overflow-hidden bg-surface-container relative">
+<img alt="Newsletter Course" class="w-full h-full object-cover grayscale mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="abstract architectural minimalist stairs, soft beige and shadow tones, structural and editorial" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3UeVxu95IIiG1EcLqduDtkopQvJRg_croEOzTvx8z1LCiHouN4ej5AXHzU9KtAB33TOy66cxnLL1RS031rnEj6E4zT5mQb3qKKq5TZ3AWxez-tr__2C5VC5tRBLCwxmjG8Cr4cPIvucogZAEGnVOknXa6WkCanItxaDsip1MoCgAcJ3yGL1jhLktrMsMlii5BjyNat9JEzEdlTmjFDyRi5BKVwuIcoLRN8G61jZjqIKncx8HlCN9eWUFUp-Gr64Yo-KSNS__g_38"/>
+</div>
+<div class="p-md flex flex-col justify-between flex-grow">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F] mb-xs">The Newsletter Operating System</h3>
+<p class="font-body-md text-body-md text-secondary mb-md">Systems and templates for writing, growing, and monetizing.</p>
+</div>
+<div class="flex justify-between items-center pt-md border-t border-secondary-container">
+<span class="font-label-md text-label-md text-[#0F0F0F]">$149</span>
+<span class="font-label-md text-label-md text-primary-container uppercase">Enroll</span>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="border border-secondary-container group cursor-pointer hover:bg-surface-container-high transition-colors flex flex-col sm:flex-row">
+<div class="w-full sm:w-1/3 aspect-square sm:aspect-auto border-r border-secondary-container overflow-hidden bg-surface-container relative">
+<img alt="Sponsorships Course" class="w-full h-full object-cover grayscale mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-500" data-alt="clean minimalist notepad with grid paper and a single black pen on a light beige desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjC98mLmNd1GxykooTfayD6BLueLYzSnxrxqr3dzLm5Agc-YGHmO2dkQi-JU4vKiJllDnIao2o6xMaF_cGjrYUVR3xxFipkiESf0onCpfoWxQcyJUZZp-rH_uRtiH-Nv254y1AGZnQJa86BzBu0G31BibwzDvcJAc3rGo6PxKDb7PAhROhwwcoeeJr5qS5R-tu5wsVtJpwa3HruualqCKcPzbo_AfSn35LDoi1NIQYgmEClYs36AN06qjWS-R7u9nDQFkaJNM9l8k"/>
+</div>
+<div class="p-md flex flex-col justify-between flex-grow">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F] mb-xs">B2B Sponsorship Strategy</h3>
+<p class="font-body-md text-body-md text-secondary mb-md">How to pitch, price, and deliver campaigns for premium brands.</p>
+</div>
+<div class="flex justify-between items-center pt-md border-t border-secondary-container">
+<span class="font-label-md text-label-md text-[#0F0F0F]">$299</span>
+<span class="font-label-md text-label-md text-primary-container uppercase">Enroll</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Strip -->
+<section class="mb-xl py-lg border-y border-secondary-container">
+<p class="font-label-sm text-label-sm text-secondary uppercase text-center tracking-widest mb-md">Featured In &amp; Trusted By</p>
+<div class="flex flex-wrap justify-center gap-xl items-center opacity-40 grayscale">
+<!-- Placeholders for brands -->
+<div class="font-display-lg text-display-lg font-bold">Wired</div>
+<div class="font-headline-md text-headline-md font-serif italic">The Verge</div>
+<div class="font-headline-md text-headline-md font-mono">TechCrunch</div>
+<div class="font-headline-sm text-headline-sm tracking-widest uppercase">Fast Company</div>
+</div>
+</section>
+<!-- Studio image strip — two rows, alternating B&W and colour -->
+<section class="full-bleed py-xl px-8" style="background-color: #FAF6F0;">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-md mb-lg">
+<div>
+<p class="font-label-sm text-label-sm text-primary-container uppercase tracking-widest mb-xs">— Studio · Vol. IV</p>
+<h2 class="font-headline-md text-headline-md text-[#0F0F0F]">Eight frames from the desk.</h2>
+</div>
+<p class="font-body-md text-body-md text-secondary max-w-md md:text-right">An editor's selection from the last quarter — half in colour, half cooled to silver. Hover to flip.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+<figure class="relative aspect-[4/3] overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Editorial portrait of Ren Park, B&amp;W treatment" class="w-full h-full object-cover grayscale opacity-95 mix-blend-multiply group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdZFlz1tVGJ1OLeUbP7o6gYofS5zvnQJD5Uv94QsJ-DRf3L7j1tbBSzFB5hA7Rag8qTWiUVoTU1y8vboSRT9ijMxeuANBTPfCxmr2wOnGmLy0YbWcAILXmCSfvOKH1-XMM3Ywe61JVtQMSRErx8SiojINwwlNqoijR4-hxAl3XZFI5iVW6HyPEQDK5ZNYXaELv4XcMwmN05QsyvPJmMzOvagMIGivQOatHf5r6dbXT-I7KtqKXdSZBQEMZGch6008SVLqV9G5MB9w"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 01</span>
+<span class="text-secondary tabular-nums">B&amp;W</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-[4/3] overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Editorial portrait, warm colour treatment" class="w-full h-full object-cover saturate-110 contrast-105 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 02</span>
+<span class="text-primary-container tabular-nums">Colour</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-[4/3] overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Workspace desk setup, B&amp;W treatment" class="w-full h-full object-cover grayscale opacity-95 mix-blend-multiply group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPGDaCbkIeis7FNPX-dskaNMPfl0fKOtpuV4_Sh0ShdtGSTiDilJfuQxkuvF4J04WwSJJ2kghSZKQmNuMAcIT6AEsB-3VzdTnMPrd4JfQDV5o2iTe0coQkSA2Iggagf4d6jEb--TN0v56fuf-fBlguvx-1PfRjiRBwwQ8sf4-McS8WoGppGSg0QXrR7QOyeMeuwRYmrp0tp6NWbg55hW-JuHzOfhJcxwzlYUKcirWGTLpH9FJL6lmsHYXHInwRqarKrh9qHVGI3HQ"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 03</span>
+<span class="text-secondary tabular-nums">B&amp;W</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-[4/3] overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Architectural facade, warm colour" class="w-full h-full object-cover saturate-110 contrast-105 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 04</span>
+<span class="text-primary-container tabular-nums">Colour</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-square overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Architectural cantilever, warm colour" class="w-full h-full object-cover saturate-110 contrast-105 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 05</span>
+<span class="text-primary-container tabular-nums">Colour</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-square overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Architectural stairs, B&amp;W treatment" class="w-full h-full object-cover grayscale opacity-95 mix-blend-multiply group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3UeVxu95IIiG1EcLqduDtkopQvJRg_croEOzTvx8z1LCiHouN4ej5AXHzU9KtAB33TOy66cxnLL1RS031rnEj6E4zT5mQb3qKKq5TZ3AWxez-tr__2C5VC5tRBLCwxmjG8Cr4cPIvucogZAEGnVOknXa6WkCanItxaDsip1MoCgAcJ3yGL1jhLktrMsMlii5BjyNat9JEzEdlTmjFDyRi5BKVwuIcoLRN8G61jZjqIKncx8HlCN9eWUFUp-Gr64Yo-KSNS__g_38"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 06</span>
+<span class="text-secondary tabular-nums">B&amp;W</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-square overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Editorial portrait in profile, warm colour" class="w-full h-full object-cover saturate-110 contrast-105 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?q=80&w=900&auto=format&fit=crop"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 07</span>
+<span class="text-primary-container tabular-nums">Colour</span>
+</figcaption>
+</figure>
+<figure class="relative aspect-square overflow-hidden border border-secondary-container bg-surface-container group">
+<img alt="Notepad and pen, B&amp;W treatment" class="w-full h-full object-cover grayscale opacity-95 mix-blend-multiply group-hover:grayscale-0 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjC98mLmNd1GxykooTfayD6BLueLYzSnxrxqr3dzLm5Agc-YGHmO2dkQi-JU4vKiJllDnIao2o6xMaF_cGjrYUVR3xxFipkiESf0onCpfoWxQcyJUZZp-rH_uRtiH-Nv254y1AGZnQJa86BzBu0G31BibwzDvcJAc3rGo6PxKDb7PAhROhwwcoeeJr5qS5R-tu5wsVtJpwa3HruualqCKcPzbo_AfSn35LDoi1NIQYgmEClYs36AN06qjWS-R7u9nDQFkaJNM9l8k"/>
+<figcaption class="absolute bottom-0 inset-x-0 bg-[#FAF6F0]/95 backdrop-blur-sm border-t border-secondary-container px-3 py-2 flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-[#0F0F0F]">Plate · 08</span>
+<span class="text-secondary tabular-nums">B&amp;W</span>
+</figcaption>
+</figure>
+</div>
+<p class="mt-md text-center font-label-sm text-label-sm text-secondary uppercase tracking-widest">Photographs · Studio archive · Q3–Q4 2024</p>
+</div>
+</section>
+
+<!-- Tools of the Desk — full-bleed darker cream -->
+<section class="full-bleed py-xl px-8" style="background-color: #F3EDE4;">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-md mb-lg">
+<div>
+<p class="font-label-sm text-label-sm text-primary-container uppercase tracking-widest mb-xs">— Tools of the Desk</p>
+<h2 class="font-headline-md text-headline-md text-[#0F0F0F]">Four tools that haven't moved in three years.</h2>
+</div>
+<p class="font-body-md text-body-md text-secondary max-w-md md:text-right">The shortlist. Tried and abandoned 200 things to land here. Affiliate-link-free, opinion-rich.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<article class="bg-[#FAF6F0] border border-secondary-container p-md flex flex-col gap-sm hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center"><span class="material-symbols-outlined">edit_note</span></div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tabular-nums">Tool · 01</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F]">iA Writer</h3>
+<p class="font-body-md text-body-md text-secondary flex-grow">Where every issue starts. No formatting, no AI buttons. Three things in the toolbar, two of them you'll never use.</p>
+<div class="pt-sm border-t border-secondary-container flex justify-between font-label-sm text-label-sm uppercase tracking-widest text-primary-container">
+<span>Writing</span>
+<span>$50 · once</span>
+</div>
+</article>
+<article class="bg-[#FAF6F0] border border-secondary-container p-md flex flex-col gap-sm hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center"><span class="material-symbols-outlined">photo_camera</span></div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tabular-nums">Tool · 02</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F]">Fujifilm X100V</h3>
+<p class="font-body-md text-body-md text-secondary flex-grow">Every photo on this site, in the newsletter, in the videos, comes off this fixed-lens camera. The constraint is the point.</p>
+<div class="pt-sm border-t border-secondary-container flex justify-between font-label-sm text-label-sm uppercase tracking-widest text-primary-container">
+<span>Imagery</span>
+<span>$1,400 · used</span>
+</div>
+</article>
+<article class="bg-[#FAF6F0] border border-secondary-container p-md flex flex-col gap-sm hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center"><span class="material-symbols-outlined">mic</span></div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tabular-nums">Tool · 03</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F]">Shure MV7</h3>
+<p class="font-body-md text-body-md text-secondary flex-grow">USB-and-XLR mic on the podcast desk since episode 4. The treated room matters more than the mic, but the mic still matters.</p>
+<div class="pt-sm border-t border-secondary-container flex justify-between font-label-sm text-label-sm uppercase tracking-widest text-primary-container">
+<span>Audio</span>
+<span>$249</span>
+</div>
+</article>
+<article class="bg-[#FAF6F0] border border-secondary-container p-md flex flex-col gap-sm hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center">
+<div class="w-12 h-12 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center"><span class="material-symbols-outlined">menu_book</span></div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tabular-nums">Tool · 04</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F]">Leuchtturm 1917</h3>
+<p class="font-body-md text-body-md text-secondary flex-grow">Three of these on the shelf, dated by quarter. Where ideas live before they earn a doc. The dotted-grid edition, ink black.</p>
+<div class="pt-sm border-t border-secondary-container flex justify-between font-label-sm text-label-sm uppercase tracking-widest text-primary-container">
+<span>Notebook</span>
+<span>$25</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- Notes from the Field — full-bleed deeper cream -->
+<section class="full-bleed py-xl px-8" style="background-color: #E8DEC4;">
+<div class="max-w-[1280px] mx-auto">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-md mb-lg">
+<div>
+<p class="font-label-sm text-label-sm text-primary-container uppercase tracking-widest mb-xs">— Notes from the Field</p>
+<h2 class="font-headline-md text-headline-md text-[#0F0F0F]">What I'm thinking about this quarter.</h2>
+</div>
+<a href="#" class="font-label-md text-label-md text-primary-container hover:underline self-start md:self-end">All notes (142) →</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<a href="#" class="group bg-[#FAF6F0] border border-secondary-container p-md flex flex-col gap-sm hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center text-secondary">
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Note · 138</span>
+<span class="font-label-sm text-label-sm tabular-nums">Oct 02 · 2024</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F] group-hover:text-primary-container transition-colors">Why I stopped reading my own analytics.</h3>
+<p class="font-body-md text-body-md text-secondary flex-grow">Six months without opening Plausible. Open rates are up. Writing is better. Correlation, not causation — but I'm not running the experiment.</p>
+<div class="pt-sm border-t border-secondary-container flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-secondary">7 min · Newsletter</span>
+<span class="text-primary-container">Read →</span>
+</div>
+</a>
+<a href="#" class="group bg-[#FAF6F0] border border-secondary-container p-md flex flex-col gap-sm hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center text-secondary">
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Note · 140</span>
+<span class="font-label-sm text-label-sm tabular-nums">Oct 21 · 2024</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F] group-hover:text-primary-container transition-colors">The case for a smaller list.</h3>
+<p class="font-body-md text-body-md text-secondary flex-grow">Pruned 8,000 inactive subscribers last week. Sender reputation up, sponsor CPM up, founder anxiety down. The math is honest.</p>
+<div class="pt-sm border-t border-secondary-container flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-secondary">5 min · Essay</span>
+<span class="text-primary-container">Read →</span>
+</div>
+</a>
+<a href="#" class="group bg-[#FAF6F0] border border-secondary-container p-md flex flex-col gap-sm hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center text-secondary">
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Note · 142</span>
+<span class="font-label-sm text-label-sm tabular-nums">Nov 11 · 2024</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-[#0F0F0F] group-hover:text-primary-container transition-colors">A schedule for solo operators.</h3>
+<p class="font-body-md text-body-md text-secondary flex-grow">Mon/Tue write. Wed record. Thu edit. Fri ship. Repeat for three years. The rest is taxes.</p>
+<div class="pt-sm border-t border-secondary-container flex justify-between font-label-sm text-label-sm uppercase tracking-widest">
+<span class="text-secondary">9 min · Essay</span>
+<span class="text-primary-container">Read →</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+
+<!-- About Section -->
+<section class="max-w-3xl mx-auto mb-xl pt-xl">
+<h2 class="font-headline-md text-headline-md text-center mb-lg">About Ren</h2>
+<div class="font-body-lg text-body-lg text-secondary space-y-md columns-1 md:columns-2 gap-md">
+<p>Ren Park is a media operator and strategist building tools and frameworks for the next generation of independent creators. After spending a decade leading editorial strategy at major publications, he transitioned to building a solo media business that now reaches over 200,000 professionals weekly.</p>
+<p>Through his newsletter, videos, and courses, Ren documents the operational realities of building a digital business. His work focuses on sustainable growth, uncoupling time from income, and creating high-leverage digital assets. He currently resides in Portland, Oregon.</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#E6DFD6] dark:border-stone-800 bg-[#F3EDE4] dark:bg-stone-950">
+<div class="max-w-[1280px] mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="text-lg font-black text-[#0F0F0F] dark:text-stone-50">Ren Park</div>
+<nav class="flex gap-6 font-['Inter'] text-xs uppercase tracking-widest">
+<a class="text-stone-500 dark:text-stone-400 hover:text-[#1B5E5A] dark:hover:text-stone-200 transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-[#1B5E5A] dark:hover:text-stone-200 transition-colors" href="#">Terms of Service</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-[#1B5E5A] dark:hover:text-stone-200 transition-colors" href="#">Contact</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-[#1B5E5A] dark:hover:text-stone-200 transition-colors" href="#">Press Kit</a>
+</nav>
+<div class="font-['Inter'] text-xs uppercase tracking-widest text-[#1B5E5A] dark:text-teal-400">
+                © 2024 Ren Park Media. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>
