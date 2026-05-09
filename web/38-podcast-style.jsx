@@ -30,8 +30,8 @@ const HOSTS = [
     bio: "Former staff writer at The Atlantic Review; nine years in long-form interviews with system architects, civic technologists, and the occasional sound engineer who refuses to be one.",
     italicize: "The Atlantic Review",
     socials: ["Letters", "Mastodon", "Are.na"],
-    img1: { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop", alt: "David Sterling — editorial portrait, soft window light" },
-    img2: { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=800&q=85&auto=format&fit=crop", alt: "David at the studio desk, mid-thought" },
+    img1: { src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=800&q=85&auto=format&fit=crop", alt: "David Sterling — editorial portrait, soft window light" },
+    img2: { src: "https://images.unsplash.com/photo-1758518729058-b158e71c5a9b?w=800&q=85&auto=format&fit=crop", alt: "David at the studio desk, mid-thought" },
     layout: "left-tall"
   },
   {
@@ -40,8 +40,8 @@ const HOSTS = [
     bio: "Field-recordist turned producer. Builds the show's sound from the room up — preferring close mics, slow rooms, and the kind of edit that doesn't announce itself. Co-founded The Lateral with David in 2021.",
     italicize: null,
     socials: ["Studio Notes", "Bandcamp", "Mastodon"],
-    img1: { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=85&auto=format&fit=crop", alt: "Nori Aldama — editorial portrait, low key" },
-    img2: { src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=800&q=85&auto=format&fit=crop", alt: "Nori at the mixing desk" },
+    img1: { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=85&auto=format&fit=crop", alt: "Nori Aldama — editorial portrait, low key" },
+    img2: { src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=800&q=85&auto=format&fit=crop", alt: "Nori at the mixing desk" },
     layout: "right-tall"
   }
 ];
@@ -70,7 +70,7 @@ const FEATURED_GUESTS = [
     quote: "A building's first decade is the cheap part. The hundred-year cost is whether the people inside still want to take care of it.",
     cite: "Mira Halász, architect — on patience as a structural material.",
     listen: "Listen to Episode 14",
-    src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1622626426572-c268eb006092?w=900&q=85&auto=format&fit=crop",
     alt: "Editorial portrait — Halász, looking off-frame",
     reverse: false
   },
@@ -79,7 +79,7 @@ const FEATURED_GUESTS = [
     quote: "Attention isn't infinite — it's a tide. The economy that owns the moon owns the tide. It would be useful to know who that is.",
     cite: "Wren Okafor, cognitive scientist — on the small economies of focus we trade away each morning.",
     listen: "Listen to Episode 13",
-    src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1765005204268-631d9e0c6fe1?w=900&q=85&auto=format&fit=crop",
     alt: "Editorial portrait — Okafor at a desk by a window",
     reverse: true
   },
@@ -215,7 +215,7 @@ export default function T38PodcastStyle() {
 
             <div className="relative z-10 max-w-container-max mx-auto grid md:grid-cols-12 gap-10 md:gap-12 items-center">
               <div className="md:col-span-5 aspect-square relative rounded-2xl overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)] ring-1 ring-secondary-fixed/20">
-                <img alt="Editorial portrait of Dr. Elena Rostova in warm studio light — guest of Episode 24" className="object-cover w-full h-full grayscale contrast-110" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" width="800" height="800" loading="eager" decoding="async" />
+                <img alt="Editorial portrait of Dr. Elena Rostova in warm studio light — guest of Episode 24" className="object-cover w-full h-full grayscale contrast-110" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop" width="800" height="800" loading="eager" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/45 via-transparent to-secondary-fixed/10 mix-blend-multiply pointer-events-none" aria-hidden="true"></div>
                 <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
                   <span className="font-label-caps text-label-caps text-on-primary uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Episode · 024</span>
@@ -479,7 +479,7 @@ export default function T38PodcastStyle() {
                 </div>
               </div>
               <div className="order-1 md:order-2 aspect-[4/5] relative rounded-2xl overflow-hidden shadow-xl">
-                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop" alt="David Sterling, host of The Lateral podcast — editorial portrait, contemplative low light" className="object-cover w-full h-full grayscale contrast-110" loading="lazy" decoding="async" width="800" height="1000" />
+                <img src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=800&q=85&auto=format&fit=crop" alt="David Sterling, host of The Lateral podcast — editorial portrait, contemplative low light" className="object-cover w-full h-full grayscale contrast-110" loading="lazy" decoding="async" width="800" height="1000" />
               </div>
             </div>
           </section>

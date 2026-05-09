@@ -1,12 +1,12 @@
 const FIELD_STATIONS = [
-  { code: "STATION 04", name: "Oaxaca Highlands", meta: "MX · 17.0610°N · ALT 2840m", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 11", name: "Portuguese Coast", meta: "PT · 38.7223°N · COASTAL", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 17", name: "Auvergne Plateau", meta: "FR · 45.7770°N · BASALT", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 04", name: "Oaxaca Highlands", meta: "MX · 17.0610°N · ALT 2840m", img: "https://images.unsplash.com/photo-1626301333798-9f08e10c235b?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 11", name: "Portuguese Coast", meta: "PT · 38.7223°N · COASTAL", img: "https://images.unsplash.com/photo-1763151283478-569228f5d6eb?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 17", name: "Auvergne Plateau", meta: "FR · 45.7770°N · BASALT", img: "https://images.unsplash.com/photo-1608311676361-ce8089424a92?w=1000&q=85&auto=format&fit=crop" },
   { code: "STATION 22", name: "Western Ghats", meta: "IN · 11.0510°N · MONSOON", img: "https://images.unsplash.com/photo-1761429569511-fa812103fc21?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 28", name: "Rift Valley", meta: "KE · 0.5236°S · SEMI-ARID", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 33", name: "Atacama Verge", meta: "CL · 23.6500°S · ALPINE", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 41", name: "Yorkshire Beck", meta: "GB · 54.2070°N · CHALK", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 49", name: "Hokkaido Margin", meta: "JP · 43.0660°N · SUB-BOREAL", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop&sat=-40" }
+  { code: "STATION 28", name: "Rift Valley", meta: "KE · 0.5236°S · SEMI-ARID", img: "https://images.unsplash.com/photo-1759767119537-3ea0e5ff75de?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 33", name: "Atacama Verge", meta: "CL · 23.6500°S · ALPINE", img: "https://images.unsplash.com/photo-1656844817790-435d65e2e037?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 41", name: "Yorkshire Beck", meta: "GB · 54.2070°N · CHALK", img: "https://images.unsplash.com/photo-1757660912982-83012928f64b?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 49", name: "Hokkaido Margin", meta: "JP · 43.0660°N · SUB-BOREAL", img: "https://images.unsplash.com/photo-1576829021154-ed73d379e1c0?w=1000&q=85&auto=format&fit=crop&sat=-40" }
 ];
 
 const WATERSHED_STAGES = [
