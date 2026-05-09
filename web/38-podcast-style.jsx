@@ -16,10 +16,10 @@ const EPISODES = [
 
 const ARCHIVE = [
   { ep: "S03 · E14", date: "2024-04-22", display: "Apr 22, 2024", duration: "52:14", title: "The Patience of Concrete", desc: "Architect Mira Halász on slow-cure materials and the ethics of the hundred-year building.", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete facade in raking afternoon light" },
-  { ep: "S03 · E13", date: "2024-04-15", display: "Apr 15, 2024", duration: "1:04:22", title: "Apothecaries of Attention", desc: "Cognitive scientist Wren Okafor on the small economies of focus we trade away each morning.", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", alt: "Brass apothecary objects on a dark surface" },
+  { ep: "S03 · E13", date: "2024-04-15", display: "Apr 15, 2024", duration: "1:04:22", title: "Apothecaries of Attention", desc: "Cognitive scientist Wren Okafor on the small economies of focus we trade away each morning.", src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "Brass apothecary objects on a dark surface" },
   { ep: "S03 · E12", date: "2024-04-08", display: "Apr 8, 2024", duration: "49:08", title: "Latent Hardware", desc: "Hardware historian Toma Ren on the long, quiet half-lives of forgotten silicon.", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "Macro detail of a printed circuit board" },
   { ep: "S03 · E11", date: "2024-04-01", display: "Apr 1, 2024", duration: "57:46", title: "Rooms That Listen", desc: "Acoustic designer Pell Inman on the architecture of conversation and the quiet rooms we keep returning to.", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Minimal interior with diffuse window light" },
-  { ep: "S03 · E10", date: "2024-03-25", display: "Mar 25, 2024", duration: "1:11:30", title: "The Long Stair", desc: "Civic strategist Iola Bremner on infrastructures that take a generation to climb, and how to keep faith with them.", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "Concrete stairwell receding into shadow" },
+  { ep: "S03 · E10", date: "2024-03-25", display: "Mar 25, 2024", duration: "1:11:30", title: "The Long Stair", desc: "Civic strategist Iola Bremner on infrastructures that take a generation to climb, and how to keep faith with them.", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Concrete stairwell receding into shadow" },
   { ep: "S03 · E09", date: "2024-03-18", display: "Mar 18, 2024", duration: "43:55", title: "Sharp Shadows", desc: "Photographer Sune Castell on negative space, raking light, and the discipline of leaving a frame mostly empty.", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Modernist building with sharp shadows" }
 ];
 
@@ -79,7 +79,7 @@ const FEATURED_GUESTS = [
     quote: "Attention isn't infinite — it's a tide. The economy that owns the moon owns the tide. It would be useful to know who that is.",
     cite: "Wren Okafor, cognitive scientist — on the small economies of focus we trade away each morning.",
     listen: "Listen to Episode 13",
-    src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop",
     alt: "Editorial portrait — Okafor at a desk by a window",
     reverse: true
   },
@@ -204,16 +204,33 @@ export default function T38PodcastStyle() {
         </header>
 
         <main className="flex-grow">
-          {/* Hero */}
-          <section className="bg-primary-container text-on-primary-container py-[80px] md:py-section-gap px-margin-mobile md:px-gutter">
-            <div className="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 items-center">
-              <div className="aspect-square relative rounded-2xl overflow-hidden shadow-2xl">
-                <img alt="Portrait of Dr. Elena Rostova with warm studio lighting, deep merlot and gold background tones" className="object-cover w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1dAHwwZgiQ9QHxJ9gfnqVYtq-OXgNwB7Qz6tbIEmLOKnOPiBRxp-dUn39Q1IWNcnwRlAfHDqBYHLGAM-arnuCC5UiHsQEUM8R6OCZBVHl6qg6E_rLZ1-bdu06yzeUcNDEwZ4OM2VEJlgiHw24gNox1_Y9tfFlBFAmchJAf01ReXp3UoS6rAoFXvmu1JdEylzdKXk8Tp-fggDn-EipRs9I9_8O89-SQxiyJ5LPy_yHXfmtuLAqNRDPSCn735ziVrxDPL-OUWkeLiI" width="800" height="800" loading="eager" decoding="async" />
+          {/* Hero — bigger, moodier */}
+          <section className="relative bg-primary-container text-on-primary-container py-[80px] md:py-section-gap px-margin-mobile md:px-gutter overflow-hidden">
+            {/* Atmospheric backdrop */}
+            <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop" alt="" className="w-full h-full object-cover opacity-15 mix-blend-luminosity grayscale contrast-110" />
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(249,180,197,0.18) 0%, transparent 70%)" }}></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-primary-container via-primary-container/85 to-primary-container"></div>
+            </div>
+
+            <div className="relative z-10 max-w-container-max mx-auto grid md:grid-cols-12 gap-10 md:gap-12 items-center">
+              <div className="md:col-span-5 aspect-square relative rounded-2xl overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)] ring-1 ring-secondary-fixed/20">
+                <img alt="Editorial portrait of Dr. Elena Rostova in warm studio light — guest of Episode 24" className="object-cover w-full h-full grayscale contrast-110" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" width="800" height="800" loading="eager" decoding="async" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/45 via-transparent to-secondary-fixed/10 mix-blend-multiply pointer-events-none" aria-hidden="true"></div>
+                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                  <span className="font-label-caps text-label-caps text-on-primary uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Episode · 024</span>
+                  <span className="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">— ROSTOVA</span>
+                </div>
               </div>
-              <div className="flex flex-col gap-6">
+              <div className="md:col-span-7 flex flex-col gap-6">
                 <div>
-                  <span className="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest mb-3 block">Latest Episode</span>
-                  <h1 className="font-display-xl text-[clamp(2.5rem,5vw,4.5rem)] text-on-primary mb-4 text-balance">The Architecture of Systems</h1>
+                  <span className="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-[0.4em] mb-4 flex items-center gap-3">
+                    <span className="w-10 h-px bg-secondary-fixed"></span>
+                    Latest Episode · 54 min
+                  </span>
+                  <h1 className="font-display-xl text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.98] tracking-[-0.02em] text-on-primary mb-6 text-balance">
+                    The Architecture <em className="text-secondary-fixed">of Systems.</em>
+                  </h1>
                   <p className="font-body-lg text-primary-fixed-dim max-w-[60ch] text-pretty">
                     We sit down with Dr. Elena Rostova to unpack the hidden structures governing modern distributed networks, and why simplicity is the hardest metric to optimize.
                   </p>
@@ -319,41 +336,45 @@ export default function T38PodcastStyle() {
             </div>
           </section>
 
-          {/* Co-Hosts (NOVEL #2 — vertical image columns) */}
+          {/* Co-Hosts — all 4 images in one row, bios beneath */}
           <section id="hosts" className="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface scroll-mt-20">
             <div className="max-w-container-max mx-auto">
               <div className="mb-12 max-w-[60ch]">
                 <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3 block">Voices · Behind the Show</span>
                 <h2 className="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">Two ears, one long table.</h2>
               </div>
+
+              {/* All 4 images aligned in a single row */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-12 md:mb-16">
+                {HOSTS.flatMap(h => [
+                  { src: h.img1.src, alt: h.img1.alt, key: `${h.name}-1` },
+                  { src: h.img2.src, alt: h.img2.alt, key: `${h.name}-2` }
+                ]).map(im => (
+                  <figure key={im.key} className="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
+                    <img src={im.src} alt={im.alt} className="object-cover w-full h-full grayscale contrast-110 hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                  </figure>
+                ))}
+              </div>
+
+              {/* Bios — 2-col underneath */}
               <div className="grid md:grid-cols-2 gap-12 md:gap-16">
                 {HOSTS.map(h => (
-                  <article key={h.name} className="flex flex-col gap-6">
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className={`aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant ${h.layout === "right-tall" ? "mt-8" : ""}`}>
-                        <img src={h.img1.src} alt={h.img1.alt} className="object-cover w-full h-full" loading="lazy" decoding="async" />
-                      </div>
-                      <div className={`aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant ${h.layout === "left-tall" ? "mt-8" : ""}`}>
-                        <img src={h.img2.src} alt={h.img2.alt} className="object-cover w-full h-full" loading="lazy" decoding="async" />
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                      <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{h.role}</span>
-                      <h3 className="font-headline-md text-3xl text-on-surface">{h.name}</h3>
-                      <p className="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">
-                        {h.italicize ? (
-                          <>
-                            {h.bio.split(h.italicize)[0]}
-                            <em>{h.italicize}</em>
-                            {h.bio.split(h.italicize)[1]}
-                          </>
-                        ) : h.bio}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {h.socials.map(s => (
-                          <a key={s} href="#" className="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">{s}</a>
-                        ))}
-                      </div>
+                  <article key={h.name} className="flex flex-col gap-3">
+                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{h.role}</span>
+                    <h3 className="font-headline-md text-3xl text-on-surface">{h.name}</h3>
+                    <p className="font-body-md text-on-surface-variant max-w-[42ch] text-pretty">
+                      {h.italicize ? (
+                        <>
+                          {h.bio.split(h.italicize)[0]}
+                          <em>{h.italicize}</em>
+                          {h.bio.split(h.italicize)[1]}
+                        </>
+                      ) : h.bio}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {h.socials.map(s => (
+                        <a key={s} href="#" className="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">{s}</a>
+                      ))}
                     </div>
                   </article>
                 ))}
@@ -385,18 +406,18 @@ export default function T38PodcastStyle() {
             </div>
           </section>
 
-          {/* Behind-the-Mic Half-Bleed (NOVEL #7) */}
-          <section id="studio" className="py-[80px] md:py-section-gap bg-surface-container-low scroll-mt-20 overflow-hidden">
-            <div className="grid md:grid-cols-2 items-stretch gap-10 md:gap-16">
-              <div className="lateral-half-bleed relative aspect-[4/5] md:aspect-auto md:min-h-[600px] overflow-hidden rounded-r-2xl shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=85&auto=format&fit=crop" alt="Recording-room interior at dusk, mic suspended over a wooden desk" className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 via-transparent to-transparent pointer-events-none"></div>
-                <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-3">
+          {/* Behind-the-Mic — contained 2-col, image bounded */}
+          <section id="studio" className="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface-container-low scroll-mt-20">
+            <div className="max-w-container-max mx-auto grid md:grid-cols-2 items-center gap-10 md:gap-16">
+              <figure className="relative aspect-[4/5] md:aspect-[5/6] overflow-hidden rounded-2xl bg-surface-container shadow-xl">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" alt="Recording-room interior — soft daylight in a converted carriage house" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110" loading="lazy" decoding="async" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/35 via-transparent to-transparent pointer-events-none"></div>
+                <figcaption className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
                   <p className="font-label-caps text-label-caps text-on-primary uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Studio · Carriage House</p>
                   <span className="font-label-caps text-label-caps text-on-primary/80 uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · IV</span>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center gap-6 px-margin-mobile md:px-12 lg:px-16 max-w-[52ch]">
+                </figcaption>
+              </figure>
+              <div className="flex flex-col gap-6 max-w-[52ch]">
                 <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Behind the Mic</span>
                 <h2 className="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">A long room, two warm mics, and a list of questions we'd rather not ask.</h2>
                 <div className="font-body-md text-on-surface-variant space-y-4 text-pretty">
@@ -458,7 +479,7 @@ export default function T38PodcastStyle() {
                 </div>
               </div>
               <div className="order-1 md:order-2 aspect-[4/5] relative rounded-2xl overflow-hidden shadow-xl">
-                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="David Sterling, host of The Lateral podcast, sitting thoughtfully in a modern recording studio" className="object-cover w-full h-full" loading="lazy" decoding="async" width="800" height="1000" />
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop" alt="David Sterling, host of The Lateral podcast — editorial portrait, contemplative low light" className="object-cover w-full h-full grayscale contrast-110" loading="lazy" decoding="async" width="800" height="1000" />
               </div>
             </div>
           </section>

@@ -2,7 +2,7 @@ const APV2_GALLERY_FRAMES = [
   { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop", alt: "Editorial portrait, dramatic side-light, Aperture v2 sample frame", delay: "0s" },
   { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop", alt: "Brutalist concrete facade in raking light, Aperture v2 sample frame", delay: "4s" },
   { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1920&q=85&auto=format&fit=crop", alt: "Black and white editorial figure with deep shadow, Aperture v2 sample frame", delay: "8s" },
-  { src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1920&q=85&auto=format&fit=crop", alt: "Architectural cornicing detail, Aperture v2 sample frame", delay: "12s" },
+  { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1920&q=85&auto=format&fit=crop", alt: "Architectural cornicing detail, Aperture v2 sample frame", delay: "12s" },
 ];
 
 const APV2_MARQUEE_TAGS = [
@@ -78,14 +78,14 @@ const APV2_REVIEWS = [
 const APV2_BOOKEND_TOP = [
   { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete interior, Aperture v2 in the wild" },
   { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Highway in raking light, Aperture v2 sample environment" },
-  { src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "Architectural shadow play on facade, Aperture v2 sample environment" },
-  { src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait in monochrome, Aperture v2 sample frame" },
+  { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural shadow play on facade, Aperture v2 sample environment" },
+  { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait in monochrome, Aperture v2 sample frame" },
 ];
 
 const APV2_BOOKEND_BOTTOM = [
   { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Architectural lobby, Aperture v2 sample environment" },
   { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait with drape lighting, Aperture v2 sample frame" },
-  { src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop", alt: "Brutalist staircase under hard sun, Aperture v2 sample environment" },
+  { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "Brutalist staircase under hard sun, Aperture v2 sample environment" },
   { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop", alt: "Editorial figure with strong contrast, Aperture v2 sample frame" },
 ];
 
@@ -100,10 +100,10 @@ const APV2_FAQ = [
 
 export default function T06ProductLaunchPage() {
   const features = [
-    { id: "feature-dynamic-range", title: "Dynamic Range", num: "01", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBbjJHxiR_ed6i7oSlHsgYS2pfgVFkeHMb4A9aDD7-9PE03BZZM_NI7XGwecgoj04LA_h7-aBoD3wPUI8RMdKvMxGTdGd_w-Te92pmI_r_lLY6FFQrjHzAc9GtkpewSrfC3QgVtMCor6rhdkZUvT3ZHykKDvufMsYeT-CihfmPRYrryy4r0W_L_OqssDP3CDrdYyXjIHedVTjMhqVxZCxz9IcBlxAQI4-_G2RmsAv_CRgveJchdhd8I2dix5TY-2txUBh7tbNstgec", alt: "High contrast black and white portrait" },
-    { id: "feature-procolor", title: "ProColor 10-bit", num: "02", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA28uixWL1o9w3hAGnWjaeFM8MbcThT2vF4BwegYVH8Lf3NlDGWATQaNAfTxOHJOJ5KqvTkHKKxnlUrPUk532QjpJylmS04iWX2LZ-sRLUJj_zjzADOpw_EBaLpBE0AXIr8cTjSJMbDaCHPHEp89kQIm400RHfbcQ4UvfgcnJSMqhjTGnu9g45A2t2d9AqLv7XXFw8GooItfs3lb5sv_7ePFHWbayCepilZsHRdyYJA6G65PnmJ2nhkKJHrfXRzjjrC-3U_H5fzpsQ", alt: "Vibrant neon lights reflecting on wet city streets" },
-    { id: "feature-neural-focus", title: "Neural Focus", num: "03", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAquSmx3Gc3ml7BN67tyxt8f_2vBBZ602igbi6bX_bwTJUJUDBe69im4X_he534ut7htvrxKTprBtjwkEax_yuaQfqC2hihjrX8xrxgq7VYZ2k0Gr8G3P0-mH-YYBA2YPAAvnYQ8Ffv3Yk2K__Xnoey1QrdfQiWWvgIxcIUMI3tE640R-ER3yzb47e4JbbzzlC4SAPyJoaFY2Bv5jxfSsKil4wdAzI6GLCNbO22dcWCEC8-fzMfv8v8LjMQjeGc4hoecRNqLg7hsuE", alt: "Extreme close up of an eye" },
-    { id: "feature-open-gate", title: "Open Gate", num: "04", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCAT-mVAoyjHhXi6SuXfPr7JHOnKPvOBX1T3-n3JpNeQJoMFLZ0bxcf8pPRJFJP88UaEK5ieOrZrGmEOlTO24hVb1Fn_D1kESPgT5eSxQ3EhNsban1T99lC9uNeF6xaIgkHUe8aISvKp-4Cuyt5XH-J2zr9NFuPAdl9vCPiO9EZotR1RYDPJ0nfflYihEBbJW0KgR67HuxJMnrI0gbnVWIbkDTyctE58dd96s9P5ANUkwflQIruVk-aQQ6YD0jK-K6ye84xTJG7yw0", alt: "Wide cinematic shot of a lone figure" },
+    { id: "feature-dynamic-range", title: "Dynamic Range", num: "01", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop", alt: "High-contrast editorial portrait — sample frame for dynamic-range testing" },
+    { id: "feature-procolor", title: "ProColor 10-bit", num: "02", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Heavy stone facade in raking light — sample frame for ProColor pipeline" },
+    { id: "feature-neural-focus", title: "Neural Focus", num: "03", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Editorial figure in deep shadow — sample frame for Neural Focus" },
+    { id: "feature-open-gate", title: "Open Gate", num: "04", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural corridor in perspective — sample frame for Open Gate format" },
   ];
   return (
     <>
@@ -254,7 +254,7 @@ export default function T06ProductLaunchPage() {
 
           <section id="hero" className="relative min-h-[100dvh] w-full flex flex-col justify-end pb-12 pt-32 px-4 overflow-hidden bg-surface-dim sm:pb-16 sm:px-8 md:pb-24 md:px-margin">
             <div className="absolute inset-0 z-0">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFgjfMAYcmQu_vL0CJomegHYq4Sgy2tYd5U4rsVCjoz5X6MaryF2z_dFpgq8mt4nzlnDpVejmskFv3btyCN4Vm6CKcb97PynxXCU9NV4MpEwxn81HY6eeVuwj5Ir6mCXujSu5OWsaFnuyQr-1o9LYXj-tyoOX6oum4hnKk2SY8cIgIdMJ2l_QL41yxeyImJAccOSC_F-shX20hTfu2ucnENEhdZ-aM86V5kgJasHK3Y9zVd6QnJgFQYM_naSDfBtIzou50RGPNGJI" alt="Dramatic golden hour landscape" width="1920" height="1080" fetchPriority="high" decoding="async" className="w-full h-full object-cover opacity-80" />
+              <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop" alt="Heavy stone facade in raking late-afternoon light — Aperture v2 sample frame" width="1920" height="1080" fetchPriority="high" decoding="async" className="w-full h-full object-cover opacity-80" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
             </div>
             <div className="relative z-10 max-w-screen-2xl mx-auto w-full">
@@ -311,21 +311,28 @@ export default function T06ProductLaunchPage() {
           <section id="sensor" className="py-20 px-5 bg-background sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
             <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-center">
               <div className="md:col-span-7 relative aspect-[4/5] md:aspect-[5/6] overflow-hidden bg-surface-container-low">
-                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&q=85&auto=format&fit=crop" alt="Macro detail of brass lens housing rendering the Aperture v2 sensor cluster" width="1600" height="2000" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 opacity-95" />
+                <img src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=1600&q=85&auto=format&fit=crop" alt="Macro detail of brass lens housing rendering the Aperture v2 sensor cluster" width="1600" height="2000" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 opacity-95" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-background/80 via-transparent to-primary-container/10 mix-blend-multiply pointer-events-none"></div>
                 <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-3">
                   <span className="font-label-caps text-label-caps text-on-surface uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">Detail · 02 — Sensor</span>
                   <span className="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">PLATE · I</span>
                 </div>
               </div>
-              <div className="md:col-span-5 flex flex-col gap-8">
-                <span className="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 02 — Sensor</span>
-                <h2 className="font-display-lg text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
-                  1.6× larger photosites. <span className="italic text-primary-container">Light, faithfully recorded.</span>
-                </h2>
-                <p className="font-body-lg text-body-lg text-on-surface-variant text-pretty">
+              <div className="md:col-span-5 flex flex-col gap-8 md:h-full md:justify-between">
+                {/* Top — eyebrow + headline */}
+                <div className="flex flex-col gap-6">
+                  <span className="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 02 — Sensor</span>
+                  <h2 className="font-display-lg text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                    1.6× larger photosites. <span className="italic text-primary-container">Light, faithfully recorded.</span>
+                  </h2>
+                </div>
+
+                {/* Middle — body */}
+                <p className="font-body-lg text-body-lg text-on-surface-variant text-pretty border-l-2 border-primary-container/30 pl-5 md:pl-6">
                   A redesigned 1-inch stacked sensor with deep-well photodiodes captures four stops more dynamic range than v1. The result is a frame that holds together — highlights soft, shadows readable, midtones true — even when the world isn't.
                 </p>
+
+                {/* Bottom — stats */}
                 <dl className="grid grid-cols-3 gap-4 border-t border-outline/20 pt-8">
                   {[["Sensor", "1.0″"], ["Range", "14 EV"], ["ISO", "25–204k"]].map(([dt, dd]) => (
                     <div key={dt} className="flex flex-col gap-1">
@@ -375,15 +382,39 @@ export default function T06ProductLaunchPage() {
           </section>
 
           <section id="specs" className="py-20 px-5 bg-surface-container sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
-            <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12">
-              <div className="md:col-span-4 flex flex-col gap-6">
-                <span className="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Spec Sheet · 04</span>
-                <h2 className="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
-                  Every figure, <span className="italic text-primary-container">measured.</span>
-                </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant text-pretty">
-                  No marketing roundings. Calibrated against an EBU studio reference, signed off by Aperture Labs metrology, Q2 2024.
-                </p>
+            <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-stretch">
+              <div className="md:col-span-4 flex flex-col gap-6 md:h-full md:justify-between">
+                <div className="flex flex-col gap-6">
+                  <span className="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Spec Sheet · 04</span>
+                  <h2 className="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                    Every figure, <span className="italic text-primary-container">measured.</span>
+                  </h2>
+                  <p className="font-body-md text-body-md text-on-surface-variant text-pretty">
+                    No marketing roundings. Calibrated against an EBU studio reference, signed off by Aperture Labs metrology, Q2 2024.
+                  </p>
+                </div>
+
+                {/* Calibration certificate — pins to bottom */}
+                <aside className="border border-outline/20 bg-surface-container-low p-5 sm:p-6 flex flex-col gap-3 relative">
+                  <span aria-hidden="true" className="absolute left-0 top-3 bottom-3 w-[2px] bg-primary-container"></span>
+                  <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-outline/15 pl-4">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.3em]">Calibration · Cert 04</span>
+                    <span className="font-mono-data text-mono-data text-on-surface-variant tabular-nums">SIGNED · Q2&thinsp;2024</span>
+                  </div>
+                  <dl className="grid grid-cols-2 gap-x-4 gap-y-3 pl-4 font-mono-data text-mono-data">
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Reference</dt>
+                      <dd className="text-on-surface">EBU Tech 3320</dd>
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Signed by</dt>
+                      <dd className="text-on-surface">Aperture Labs Metrology</dd>
+                    </div>
+                  </dl>
+                  <p className="font-body-md text-xs text-on-surface-variant border-t border-outline/15 pt-3 pl-4 leading-relaxed text-pretty">
+                    Every sensor passes through three calibration passes — colour, latitude, and noise floor — before leaving Lisbon. Certificate ships taped inside the lid.
+                  </p>
+                </aside>
               </div>
               <dl className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 divide-y divide-outline/15 sm:divide-y-0 sm:[&>*]:border-b sm:[&>*]:border-outline/15 sm:[&>*]:py-6 [&>*]:py-5">
                 {APV2_SPECS.map(([k, v], i) => {
@@ -400,28 +431,61 @@ export default function T06ProductLaunchPage() {
           </section>
 
           <section id="process" className="py-20 px-5 bg-background sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
-            <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-16">
-              <figure className="md:col-span-5 md:sticky md:top-32 md:self-start aspect-[3/4] overflow-hidden bg-surface-container">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop" alt="Macro of green circuit board representing the Aperture v2 image-processing pipeline" width="1200" height="1600" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 opacity-90" />
-              </figure>
-              <ol className="md:col-span-7 flex flex-col divide-y divide-outline/15 border-y border-outline/15">
-                {APV2_PROCESS.map(p => (
-                  <li key={p.numeral} className="grid grid-cols-12 gap-4 py-8 md:py-12">
-                    <span className="col-span-2 font-display-lg text-[clamp(1.75rem,3vw,2.5rem)] text-primary-container italic tabular-nums">{p.numeral}</span>
-                    <div className="col-span-10 flex flex-col gap-3">
-                      <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{p.stage}</span>
-                      <h3 className="font-headline-md text-headline-md text-on-surface">{p.title}</h3>
-                      <p className="font-body-md text-body-md text-on-surface-variant text-pretty">{p.body}</p>
+            <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-16 items-stretch">
+              <div className="md:col-span-5 flex">
+                <figure className="relative aspect-[3/4] md:aspect-auto w-full md:h-full md:min-h-[640px] overflow-hidden bg-surface-container">
+                  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop" alt="Macro of green circuit board representing the Aperture v2 image-processing pipeline" width="1200" height="1600" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-90" />
+                </figure>
+              </div>
+              <div className="md:col-span-7 flex flex-col gap-8 md:h-full md:justify-between">
+                <ol className="flex flex-col divide-y divide-outline/15 border-y border-outline/15">
+                  {APV2_PROCESS.map(p => (
+                    <li key={p.numeral} className="grid grid-cols-12 gap-4 py-8 md:py-12">
+                      <span className="col-span-2 font-display-lg text-[clamp(1.75rem,3vw,2.5rem)] text-primary-container italic tabular-nums">{p.numeral}</span>
+                      <div className="col-span-10 flex flex-col gap-3">
+                        <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{p.stage}</span>
+                        <h3 className="font-headline-md text-headline-md text-on-surface">{p.title}</h3>
+                        <p className="font-body-md text-body-md text-on-surface-variant text-pretty">{p.body}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+
+                {/* Pipeline metadata footer — pins to bottom */}
+                <aside className="border border-outline/20 bg-surface-container-low p-5 sm:p-6 flex flex-col gap-3">
+                  <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-outline/15">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.3em]">Pipeline · Trace</span>
+                    <span className="font-mono-data text-mono-data text-on-surface-variant tabular-nums">EC_FRAME · 01</span>
+                  </div>
+                  <dl className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-3 font-mono-data text-mono-data">
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Capture</dt>
+                      <dd className="text-on-surface tabular-nums">1/64 000 s</dd>
                     </div>
-                  </li>
-                ))}
-              </ol>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Cores</dt>
+                      <dd className="text-on-surface tabular-nums">8 · neural</dd>
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Pipeline</dt>
+                      <dd className="text-on-surface tabular-nums">14&thinsp;ms</dd>
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Output</dt>
+                      <dd className="text-on-surface">RAW · ProRes · HEVC</dd>
+                    </div>
+                  </dl>
+                  <p className="font-body-md text-xs text-on-surface-variant border-t border-outline/15 pt-3 leading-relaxed text-pretty">
+                    Each frame leaves Helios already graded — colour-managed, exposure-anchored, lens-corrected. Metadata travels in-band: lens, ISO, body temperature, GPS, lat-lng-alt.
+                  </p>
+                </aside>
+              </div>
             </div>
           </section>
 
           <section id="comparison" className="relative py-24 sm:py-32 md:py-40 overflow-hidden bg-background">
-            <div className="absolute inset-0 z-0 pointer-events-none" style={{ clipPath: "polygon(0 0, 100% 14%, 100% 86%, 0 100%)" }}>
-              <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1920&q=85&auto=format&fit=crop" alt="Industrial machinery in golden tungsten light, Aperture v2 vs v1 backdrop" width="1920" height="1080" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 opacity-50" />
+            <div className="absolute inset-0 z-0 pointer-events-none">
+              <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1920&q=85&auto=format&fit=crop" alt="Industrial machinery in golden tungsten light, Aperture v2 vs v1 backdrop" width="1920" height="1080" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 opacity-50" />
               <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/40 to-background/85"></div>
               <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(245,166,35,0.12) 0%, transparent 70%)" }}></div>
             </div>
@@ -549,15 +613,43 @@ export default function T06ProductLaunchPage() {
           </section>
 
           <section id="faq" className="py-20 px-5 bg-surface-container-lowest sm:py-24 sm:px-8 md:py-32 md:px-margin scroll-mt-20">
-            <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-16">
-              <div className="md:col-span-4 flex flex-col gap-6">
-                <span className="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 08 — FAQ</span>
-                <h2 className="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
-                  Questions <span className="italic text-primary-container">we hear most.</span>
-                </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant text-pretty">
-                  Anything not covered here, our atelier desk is at <a href="mailto:concierge@aperturelabs.co" className="underline decoration-outline/40 hover:decoration-primary-container hover:text-primary-container transition">concierge@aperturelabs.co</a>.
-                </p>
+            <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-16 items-stretch">
+              <div className="md:col-span-4 flex flex-col gap-6 md:h-full md:justify-between">
+                <div className="flex flex-col gap-6">
+                  <span className="font-label-caps text-label-caps text-primary-container tracking-widest uppercase">Detail · 08 — FAQ</span>
+                  <h2 className="font-display-lg text-[clamp(2rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] text-on-surface text-balance">
+                    Questions <span className="italic text-primary-container">we hear most.</span>
+                  </h2>
+                  <p className="font-body-md text-body-md text-on-surface-variant text-pretty">
+                    Anything not covered here, our atelier desk is at <a href="mailto:concierge@aperturelabs.co" className="underline decoration-outline/40 hover:decoration-primary-container hover:text-primary-container transition">concierge@aperturelabs.co</a>.
+                  </p>
+                </div>
+
+                {/* Concierge desk card — text only, content-sized so column never overflows right */}
+                <aside className="border border-outline/20 bg-surface-container-low p-5 sm:p-6 flex flex-col gap-3 relative">
+                  <span aria-hidden="true" className="absolute left-0 top-3 bottom-3 w-[2px] bg-primary-container"></span>
+                  <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-outline/15 pl-4">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.3em]">Atelier · Desk 08</span>
+                    <span className="font-mono-data text-mono-data text-on-surface-variant tabular-nums">LISBON</span>
+                  </div>
+                  <dl className="flex flex-col gap-2 pl-4 font-mono-data text-mono-data">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Desk hours</dt>
+                      <dd className="text-on-surface tabular-nums">Mon–Fri · 09:00–18:00 WET</dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Avg reply</dt>
+                      <dd className="text-on-surface tabular-nums">2&thinsp;h 14&thinsp;m</dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Languages</dt>
+                      <dd className="text-on-surface">EN · PT · DE · JA</dd>
+                    </div>
+                  </dl>
+                  <p className="font-body-md text-xs text-on-surface-variant border-t border-outline/15 pt-3 pl-4 leading-relaxed text-pretty">
+                    Concierge questions answered by a real person at the Lisbon atelier. We don&apos;t route through a queue; the desk is two engineers and one editor.
+                  </p>
+                </aside>
               </div>
               <div className="md:col-span-8 flex flex-col divide-y divide-outline/15 border-y border-outline/15">
                 {APV2_FAQ.map(item => (
@@ -575,7 +667,7 @@ export default function T06ProductLaunchPage() {
 
           <section id="preorder" className="relative py-24 px-5 sm:py-32 md:py-40 md:px-margin overflow-hidden scroll-mt-20">
             <div className="absolute inset-0 z-0">
-              <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1920&q=85&auto=format&fit=crop" alt="Server rack in cool blue light, Aperture v2 pre-order backdrop" width="1920" height="1080" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 opacity-50" />
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=85&auto=format&fit=crop" alt="Server rack in cool blue light, Aperture v2 pre-order backdrop" width="1920" height="1080" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 opacity-50" />
               <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background"></div>
               <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245,166,35,0.18) 0%, transparent 70%)" }}></div>
             </div>
@@ -628,7 +720,7 @@ export default function T06ProductLaunchPage() {
 
           <section id="community" className="relative py-20 px-5 bg-surface-dim overflow-hidden flex items-center justify-center text-center sm:py-28 sm:px-8 md:py-48 md:px-margin scroll-mt-20">
             <div className="absolute inset-0 z-0">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUrbSFR2HFfemX7_pPoUUL9Hd6L2qwBZl3E8xusJhSnaSIZ3iplLqmHzeBU8k3PAwLpNRLjTKkJ6TkDUcLQ-LOtFmBxjOlER0UykwBc2xb9YCGPGXd7OMW9HCQSNWHb7SlIvZ3DhiFR5ZpRpB38Zj69OpCJ5Hvzbll-XNbCDqQG6iS1ggXPyVs_D7yWu9CdAm4zxpy7wIt9STRP-4ZhF_uRf-Ul-fiP3UwV-N5MIkxumrBvlDj9tqTZAu-464pr_jFwaKH7KdpHKo" alt="Photographer working in studio" width="1920" height="1080" loading="lazy" decoding="async" className="w-full h-full object-cover opacity-20 blur-sm grayscale" />
+              <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1920&q=85&auto=format&fit=crop" alt="Editorial portrait — cinematographer at work" width="1920" height="1080" loading="lazy" decoding="async" className="w-full h-full object-cover opacity-20 blur-sm grayscale" />
               <div className="absolute inset-0 bg-background/60"></div>
             </div>
             <figure className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">

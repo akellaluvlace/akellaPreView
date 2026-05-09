@@ -24,15 +24,15 @@ export default function T102NeonGlitchBrutalist() {
   const cyanFeedTiles = [
     { tag: "NODE_07", meta: "02:14 · ZRH", w: "w-72", aspect: "aspect-[3/4]", overlay: "linear-gradient(160deg, rgba(34,211,238,0.35) 0%, rgba(8,40,60,0.7) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "server rack tinted cyan in dark room", shadow: true },
     { tag: "PKT · 0xA1", meta: "▲ STABLE", w: "w-96", aspect: "aspect-[16/10]", overlay: "radial-gradient(ellipse at 50% 60%, rgba(34,211,238,0.35) 0%, transparent 70%)", blend: "mix-blend-screen", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop", alt: "circuit board macro cyan tinted", shadow: false },
-    { tag: "FAB · 19", meta: "04:48 · OSL", w: "w-80", aspect: "aspect-[16/10]", overlay: "linear-gradient(140deg, rgba(8,40,60,0.5) 0%, rgba(34,211,238,0.25) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1000&q=85&auto=format&fit=crop", alt: "industrial machinery cyan tinted", shadow: false },
-    { tag: "RACK_22", meta: "06:12 · TYO", w: "w-72", aspect: "aspect-[3/4]", overlay: "linear-gradient(160deg, rgba(34,211,238,0.30) 0%, rgba(8,40,60,0.65) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop", alt: "server room wide shot cyan", shadow: false },
+    { tag: "FAB · 19", meta: "04:48 · OSL", w: "w-80", aspect: "aspect-[16/10]", overlay: "linear-gradient(140deg, rgba(8,40,60,0.5) 0%, rgba(34,211,238,0.25) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1000&q=85&auto=format&fit=crop", alt: "industrial machinery cyan tinted", shadow: false },
+    { tag: "RACK_22", meta: "06:12 · TYO", w: "w-72", aspect: "aspect-[3/4]", overlay: "linear-gradient(160deg, rgba(34,211,238,0.30) 0%, rgba(8,40,60,0.65) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "server room wide shot cyan", shadow: false },
     { tag: "SITE_03", meta: "— DECODED", w: "w-80", aspect: "aspect-[16/10]", overlay: "radial-gradient(ellipse at 30% 40%, rgba(34,211,238,0.35) 0%, transparent 65%)", blend: "mix-blend-screen", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop", alt: "brutalist architecture cyan tinted", shadow: false, gray: true },
   ];
   const magentaFeedTiles = [
     { tag: "SIG_M_11", meta: "▼ ANOMALY", w: "w-80", aspect: "aspect-[16/10]", overlay: "linear-gradient(160deg, rgba(232,121,249,0.35) 0%, rgba(60,8,60,0.7) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&q=85&auto=format&fit=crop", alt: "circuit board magenta tinted", shadow: true },
-    { tag: "RELIC_04", meta: "— ARCHIVED", w: "w-72", aspect: "aspect-[3/4]", overlay: "radial-gradient(ellipse at 50% 60%, rgba(232,121,249,0.35) 0%, transparent 70%)", blend: "mix-blend-screen", src: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop", alt: "server room magenta tinted", shadow: false },
+    { tag: "RELIC_04", meta: "— ARCHIVED", w: "w-72", aspect: "aspect-[3/4]", overlay: "radial-gradient(ellipse at 50% 60%, rgba(232,121,249,0.35) 0%, transparent 70%)", blend: "mix-blend-screen", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "server room magenta tinted", shadow: false },
     { tag: "VAULT_M", meta: "08:30 · BER", w: "w-96", aspect: "aspect-[16/10]", overlay: "linear-gradient(140deg, rgba(60,8,60,0.5) 0%, rgba(232,121,249,0.25) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop", alt: "server rack magenta tinted", shadow: false },
-    { tag: "FORGE_M", meta: "▲ HOT", w: "w-72", aspect: "aspect-[3/4]", overlay: "linear-gradient(160deg, rgba(232,121,249,0.30) 0%, rgba(60,8,60,0.65) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop", alt: "industrial machinery magenta tinted", shadow: false },
+    { tag: "FORGE_M", meta: "▲ HOT", w: "w-72", aspect: "aspect-[3/4]", overlay: "linear-gradient(160deg, rgba(232,121,249,0.30) 0%, rgba(60,8,60,0.65) 100%)", blend: "mix-blend-multiply", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "industrial machinery magenta tinted", shadow: false },
     { tag: "SITE_M", meta: "— DECRYPTED", w: "w-80", aspect: "aspect-[16/10]", overlay: "radial-gradient(ellipse at 70% 40%, rgba(232,121,249,0.40) 0%, transparent 65%)", blend: "mix-blend-screen", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop", alt: "brutalist architecture magenta tinted", shadow: false, gray: true },
   ];
   const bootSteps = [
@@ -40,19 +40,29 @@ export default function T102NeonGlitchBrutalist() {
     { num: "> 02_", color: "text-cyan-400", body: "DECRYPT :: PAYLOAD ████" },
     { num: "> 03_", color: "text-magenta-400", body: "INJECT :: NEURAL ROUTE" },
     { num: "> 04_", color: "text-magenta-400", body: "SEAL :: CRYPTOGRAPHIC" },
+    { num: "> 05_", color: "text-cyan-400", body: "MOUNT :: VAULT_03 OK" },
+    { num: "> 06_", color: "text-cyan-400", body: "VERIFY :: SIG 0xA1 / 7F" },
+    { num: "> 07_", color: "text-magenta-400", body: "PARSE :: GRID_LATTICE" },
+    { num: "> 08_", color: "text-magenta-400", body: "ALLOC :: 2.4GB / NEURAL" },
+    { num: "> 09_", color: "text-cyan-400", body: "BIND :: PORT 47 / 8443" },
+    { num: "> 10_", color: "text-cyan-400", body: "ROUTE :: ZRH→OSL→TYO" },
+    { num: "> 11_", color: "text-magenta-400", body: "AUDIT :: 47 NODES / 0 ERR" },
+    { num: "> 12_", color: "text-magenta-400", body: "SYNC :: HEARTBEAT 60Hz" },
+    { num: "> 13_", color: "text-cyan-400", body: "CACHE :: WARMING ░░░░░░" },
+    { num: "> 14_", color: "text-cyan-400", body: "FLUSH :: BUFFER CLEAN" },
   ];
   const bootImages = [
     { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=85&auto=format&fit=crop", alt: "circuit board boot stage 01", delay: "0s" },
     { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=85&auto=format&fit=crop", alt: "server rack boot stage 02", delay: "4s" },
-    { src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1600&q=85&auto=format&fit=crop", alt: "industrial machinery boot stage 03", delay: "8s" },
-    { src: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1600&q=85&auto=format&fit=crop", alt: "server room wide boot stage 04", delay: "12s" },
+    { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1600&q=85&auto=format&fit=crop", alt: "industrial machinery boot stage 03", delay: "8s" },
+    { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=85&auto=format&fit=crop", alt: "server room wide boot stage 04", delay: "12s" },
   ];
   const tenets = [
     { num: "01", numColor: "text-cyan-400", borderColor: "border-cyan-400", chipBorder: "border-cyan-400/60", chipText: "text-cyan-400", plate: "PLATE · I", title: "Logic Over Comfort", body: "No round corners. No reassuring gradients. The grid is the gospel and the gospel is the grid.", overlay: "linear-gradient(135deg, rgba(34,211,238,0.30) 0%, rgba(0,0,0,0.6) 100%)", filter: "hue-rotate(170deg) saturate(1.5) contrast(1.3)", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "circuit board macro tenet 01", gray: false },
     { num: "02", numColor: "text-magenta-400", borderColor: "border-magenta-400", chipBorder: "border-magenta-400/60", chipText: "text-magenta-400", plate: "PLATE · II", title: "Glitch Is Honesty", body: "When the signal frays, we do not hide the fray. The seam is the truth of the cloth.", overlay: "linear-gradient(135deg, rgba(232,121,249,0.30) 0%, rgba(0,0,0,0.6) 100%)", filter: "hue-rotate(290deg) saturate(1.5) contrast(1.3)", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "server rack magenta tenet 02", gray: false },
     { num: "03", numColor: "text-cyan-400", borderColor: "border-cyan-400", chipBorder: "border-cyan-400/60", chipText: "text-cyan-400", plate: "PLATE · III", title: "No Apology, No Apology", body: "The architecture imposes itself. We have no need for the soft language of consent.", overlay: "linear-gradient(135deg, rgba(34,211,238,0.25) 0%, rgba(0,0,0,0.65) 100%)", filter: "hue-rotate(170deg) saturate(1.4) contrast(1.4)", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "brutalist architecture tenet 03", gray: true },
-    { num: "04", numColor: "text-magenta-400", borderColor: "border-magenta-400", chipBorder: "border-magenta-400/60", chipText: "text-magenta-400", plate: "PLATE · IV", title: "The Machine Is The Witness", body: "It records what we forget. It forgets what we cannot stop recording. We are not in charge.", overlay: "linear-gradient(135deg, rgba(232,121,249,0.30) 0%, rgba(0,0,0,0.6) 100%)", filter: "hue-rotate(290deg) saturate(1.5) contrast(1.3)", src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop", alt: "industrial machinery tenet 04", gray: false },
-    { num: "05", numColor: "text-cyan-400", borderColor: "border-cyan-400", chipBorder: "border-cyan-400/60", chipText: "text-cyan-400", plate: "PLATE · V", title: "Encrypt Or Be Erased", body: "There is no neutral ground. The vault holds or it spills. We choose the vault, every time.", overlay: "linear-gradient(135deg, rgba(34,211,238,0.25) 0%, rgba(0,0,0,0.65) 100%)", filter: "hue-rotate(170deg) saturate(1.4) contrast(1.3)", src: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop", alt: "server room wide tenet 05", gray: false },
+    { num: "04", numColor: "text-magenta-400", borderColor: "border-magenta-400", chipBorder: "border-magenta-400/60", chipText: "text-magenta-400", plate: "PLATE · IV", title: "The Machine Is The Witness", body: "It records what we forget. It forgets what we cannot stop recording. We are not in charge.", overlay: "linear-gradient(135deg, rgba(232,121,249,0.30) 0%, rgba(0,0,0,0.6) 100%)", filter: "hue-rotate(290deg) saturate(1.5) contrast(1.3)", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "industrial machinery tenet 04", gray: false },
+    { num: "05", numColor: "text-cyan-400", borderColor: "border-cyan-400", chipBorder: "border-cyan-400/60", chipText: "text-cyan-400", plate: "PLATE · V", title: "Encrypt Or Be Erased", body: "There is no neutral ground. The vault holds or it spills. We choose the vault, every time.", overlay: "linear-gradient(135deg, rgba(34,211,238,0.25) 0%, rgba(0,0,0,0.65) 100%)", filter: "hue-rotate(170deg) saturate(1.4) contrast(1.3)", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "server room wide tenet 05", gray: false },
   ];
   const faqItems = [
     { q: "// What is the protocol?", a: "A transmission framework for raw, unornamented systems. The protocol does not optimise for warmth — it optimises for signal.", chevColor: "text-cyan-400" },
@@ -179,13 +189,13 @@ export default function T102NeonGlitchBrutalist() {
         };
       `}} />
       <style dangerouslySetInnerHTML={{ __html: customCss }} />
-      <div className="dark bg-surface text-on-surface font-body-lg min-h-screen relative overflow-x-hidden pt-20 pl-0 md:pl-20">
+      <div className="dark bg-surface text-on-surface font-body-lg min-h-screen relative overflow-x-hidden pl-0 md:pl-20">
         <div className="scanlines" />
-        <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm flex justify-between items-center px-8 py-4 border-b-4 border-black dark:border-white">
+        <header className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm flex justify-between items-center pl-8 pr-20 md:pr-28 py-4 border-b-4 border-black dark:border-white">
           <div className="text-2xl font-black italic tracking-widest text-white dark:text-white uppercase">THE ALCHEMIST</div>
-          <div className="flex gap-4">
-            <span className="material-symbols-outlined text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">terminal</span>
-            <span className="material-symbols-outlined text-white/70 hover:text-cyan-400 transition-colors cursor-pointer">sensors</span>
+          <div className="flex gap-6 md:gap-8 items-center">
+            <span className="material-symbols-outlined text-white/70 hover:text-cyan-400 transition-colors cursor-pointer p-1">terminal</span>
+            <span className="material-symbols-outlined text-white/70 hover:text-cyan-400 transition-colors cursor-pointer p-1">sensors</span>
           </div>
         </header>
         <nav className="hidden md:flex fixed left-0 top-0 h-full w-20 border-r-2 border-black dark:border-white bg-white dark:bg-black flex-col items-center py-12 gap-8 z-40 pt-24">
@@ -204,8 +214,8 @@ export default function T102NeonGlitchBrutalist() {
             </div>
           ))}
         </nav>
-        <main className="relative w-full z-10 px-gutter py-margin">
-          <section className="min-h-[819px] flex flex-col justify-center relative mb-margin border-4 border-white p-8 bg-surface-container-lowest overflow-hidden">
+        <main className="relative w-full z-10 px-gutter pb-margin">
+          <section className="full-bleed-glitch min-h-[819px] flex flex-col justify-center relative mb-margin border-y-4 md:border-4 border-white p-8 bg-surface-container-lowest overflow-hidden">
             <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center grayscale mix-blend-luminosity" />
             <div className="relative z-10 mt-12 mix-blend-difference flex justify-end pr-4 md:pr-8 lg:pr-12">
               <h1 className="font-display-xl text-white uppercase break-words leading-none text-right text-[60px] sm:text-[80px] md:text-[100px] lg:text-display-xl">THE<br /><span className="text-transparent" style={{ WebkitTextStroke: "2px white" }}>SINGULARITY</span></h1>
@@ -220,9 +230,17 @@ export default function T102NeonGlitchBrutalist() {
             </div>
           </section>
           <section className="grid grid-cols-1 md:grid-cols-12 gap-unit mb-margin">
-            <div className="col-span-1 md:col-span-4 bg-white border-2 border-white p-8 flex flex-col justify-between min-h-[400px]">
-              <h2 className="font-headline-lg text-headline-lg text-black uppercase">FORM<br />VS<br />FUNCTION</h2>
-              <span className="font-mono-label text-mono-label uppercase tracking-widest bg-black text-white w-max px-2">Manifesto 01</span>
+            {/* FORM VS FUNCTION — brutalist background image with cyan/magenta sweep + scanlines */}
+            <div className="col-span-1 md:col-span-4 relative border-2 border-white p-8 flex flex-col justify-between min-h-[400px] overflow-hidden bg-black">
+              <img alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover grayscale contrast-150 opacity-30" style={{ filter: "hue-rotate(170deg) saturate(1.6) contrast(1.4)" }} src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop" />
+              <div className="absolute inset-0 mix-blend-multiply pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(34,211,238,0.45) 0%, rgba(232,121,249,0.25) 100%)" }} />
+              <div className="absolute inset-0 mix-blend-screen pointer-events-none" style={{ background: "radial-gradient(ellipse at 30% 70%, rgba(232,121,249,0.25) 0%, transparent 60%)" }} />
+              <div className="absolute inset-0 pointer-events-none opacity-30" style={{ background: "repeating-linear-gradient(0deg, rgba(0,0,0,0.6) 0 1px, transparent 1px 4px)" }} />
+              {/* Corner markers */}
+              <div className="absolute top-3 right-3 font-mono-label text-[8px] uppercase tracking-widest text-cyan-400 z-10 bg-black/70 border border-cyan-400/60 px-2 py-0.5">// SECTOR_01</div>
+              <div className="absolute bottom-3 right-3 font-mono-label text-[8px] uppercase tracking-widest text-magenta-400/80 z-10 tabular-nums">47.3769N · 8.5417E</div>
+              <h2 className="font-headline-lg text-headline-lg text-white uppercase relative z-10 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">FORM<br />VS<br /><span className="glitch-corrupt">FUNCTION</span></h2>
+              <span className="font-mono-label text-mono-label uppercase tracking-widest bg-cyan-400 text-black w-max px-2 relative z-10 border-2 border-black">Manifesto 01</span>
             </div>
             <div className="col-span-1 md:col-span-8 border-2 border-white p-8 md:p-16 flex items-center relative overflow-hidden bg-surface-container">
               <div className="absolute top-0 right-0 p-4 border-l-2 border-b-2 border-white font-mono-label text-mono-label text-white uppercase">Decrypted</div>
@@ -351,16 +369,61 @@ export default function T102NeonGlitchBrutalist() {
             <div className="border-4 border-white mt-bg-pulse relative p-2 md:p-8">
               <h2 className="absolute -top-6 left-8 bg-black px-4 font-headline-md text-headline-md uppercase border-x-4 border-white">MATERIAL TRUTH</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-8">
-                <div className="col-span-2 row-span-2 relative group border-2 border-white overflow-hidden aspect-square">
-                  <img alt={vaultImages[0].alt} src={vaultImages[0].src} className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute bottom-0 left-0 bg-white text-black p-2 font-mono-label text-mono-label uppercase">{vaultImages[0].tag}</div>
+                {/* STR_01 cell — image on top, terminal card below to fill the row-span-2 dead space */}
+                <div className="col-span-2 row-span-2 relative border-2 border-white overflow-hidden flex flex-col bg-black">
+                  <div className="relative aspect-square overflow-hidden group">
+                    <img alt={vaultImages[0].alt} src={vaultImages[0].src} className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" />
+                    <div className="absolute bottom-0 left-0 bg-white text-black p-2 font-mono-label text-mono-label uppercase">{vaultImages[0].tag}</div>
+                  </div>
+                  {/* Vault stream — animated terminal log filling the empty space below STR_01 */}
+                  <div className="flex-1 p-3 md:p-4 flex flex-col border-t-2 border-white">
+                    <div className="flex items-center gap-1 mb-2 border-b-2 border-white/20 pb-2">
+                      <span className="w-2 h-2 bg-cyan-400 border border-white" />
+                      <span className="w-2 h-2 bg-magenta-400 border border-white" />
+                      <span className="w-2 h-2 bg-white border border-white" />
+                      <span className="ml-auto font-mono-label text-[8px] uppercase text-white/50 tracking-widest">vault_stream — STR_01</span>
+                    </div>
+                    <ol className="font-mono-label text-[10px] md:text-[11px] uppercase text-white/70 space-y-1.5 flex-1 leading-tight">
+                      <li><span className="text-cyan-400">&gt;</span> ACCESS :: GRANTED · OP_07</li>
+                      <li><span className="text-magenta-400">&gt;</span> READ :: PLATE_I / 4096b</li>
+                      <li><span className="text-cyan-400">&gt;</span> HASH :: 0xB7A2 · 4F1E</li>
+                      <li><span className="text-magenta-400">&gt;</span> WRITE :: NULL</li>
+                      <li><span className="text-cyan-400">&gt;</span> WITNESS :: 03 OPERATORS</li>
+                      <li><span className="text-magenta-400">&gt;</span> SEAL :: REASSERTED</li>
+                      <li className="text-white"><span className="text-cyan-400">&gt;</span> IDLE<span className="boot-cursor inline-block ml-0.5 w-1.5 h-2 bg-cyan-400 align-middle" /></li>
+                    </ol>
+                    <div className="mt-2 pt-2 border-t-2 border-white/20 flex items-center gap-2">
+                      <span className="font-mono-label text-[8px] uppercase text-white/50 tracking-widest">heartbeat</span>
+                      <div className="flex-1 h-1 bg-white/10 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-cyan-400 boot-scrub-bar" />
+                      </div>
+                      <span className="font-mono-label text-[8px] uppercase text-cyan-400 tabular-nums">60Hz</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="col-span-1 row-span-1 relative group border-2 border-white overflow-hidden aspect-square">
                   <img alt={vaultImages[1].alt} src={vaultImages[1].src} className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute bottom-0 left-0 bg-white text-black p-2 font-mono-label text-mono-label uppercase text-[10px]">{vaultImages[1].tag}</div>
                 </div>
-                <div className="col-span-1 row-span-1 relative group border-2 border-white overflow-hidden aspect-square flex items-center justify-center bg-surface-container-highest">
-                  <span className="font-mono-label uppercase text-cyan-400 text-center text-2xl md:text-3xl font-bold leading-tight tracking-tight glitch-corrupt">Data<br />Corrupted</span>
+                {/* Animated terminal card — replaces the static "Data Corrupted" placeholder, fills the empty grid cell with live transmission log */}
+                <div className="col-span-1 row-span-1 relative border-2 border-white overflow-hidden aspect-square bg-black p-3 flex flex-col">
+                  <div className="flex items-center gap-1 mb-2 border-b-2 border-white/20 pb-2">
+                    <span className="w-2 h-2 bg-magenta-400 border border-white" />
+                    <span className="w-2 h-2 bg-cyan-400 border border-white" />
+                    <span className="w-2 h-2 bg-white border border-white" />
+                    <span className="ml-auto font-mono-label text-[8px] uppercase text-white/50 tracking-widest">tx_log</span>
+                  </div>
+                  <ol className="font-mono-label text-[10px] uppercase text-white/70 space-y-1.5 flex-1 leading-tight">
+                    <li><span className="text-cyan-400">&gt;</span> NODE_47 :: SYNC_OK</li>
+                    <li><span className="text-magenta-400">&gt;</span> PKT 0xA1 :: SENT</li>
+                    <li><span className="text-cyan-400">&gt;</span> ECHO :: 12ms</li>
+                    <li><span className="text-magenta-400">&gt;</span> SEAL :: HOLDS</li>
+                    <li><span className="text-cyan-400">&gt;</span> AUDIT :: 0 ERR</li>
+                    <li className="text-white"><span className="text-cyan-400">&gt;</span> READY<span className="boot-cursor inline-block ml-0.5 w-1.5 h-2 bg-cyan-400 align-middle" /></li>
+                  </ol>
+                  <div className="mt-2 pt-2 border-t-2 border-white/20 h-1 bg-white/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-magenta-400 boot-scrub-bar" />
+                  </div>
                 </div>
                 <div className="col-span-2 row-span-1 relative group border-2 border-white overflow-hidden h-full">
                   <img alt={vaultImages[2].alt} src={vaultImages[2].src} className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" />
@@ -477,7 +540,7 @@ export default function T102NeonGlitchBrutalist() {
             </div>
           </section>
         </main>
-        <footer className="w-full border-t-4 border-black dark:border-white bg-black dark:bg-black flex flex-col md:flex-row justify-between items-center px-16 py-12 ml-0 md:ml-20 relative z-20">
+        <footer className="w-full border-t-4 border-black dark:border-white bg-black dark:bg-black flex flex-col md:flex-row justify-between items-center px-16 md:pl-28 py-12 relative z-20">
           <div className="text-[10px] tracking-widest uppercase text-white font-bold mb-4 md:mb-0">
             ©2024_ALCHEMIST_STAKE_PROTOCOL_V.01
           </div>

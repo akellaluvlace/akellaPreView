@@ -7,10 +7,37 @@ export default function T60AuroraGradients() {
   ];
 
   const logos = [
-    { icon: "hexagon", name: "Acme" },
-    { icon: "triangle", name: "Vertex" },
-    { icon: "circle", name: "Sphere" },
-    { icon: "box", name: "Cube" },
+    { slug: "headspace", name: "Headspace" },
+    { slug: "strava", name: "Strava" },
+    { slug: "nike", name: "Nike" },
+    { slug: "spotify", name: "Spotify" },
+    { slug: "applemusic", name: "Apple" },
+    { slug: "garmin", name: "Garmin" },
+    { slug: "fitbit", name: "Fitbit" },
+    { slug: "peloton", name: "Peloton" },
+  ];
+
+  const atlasQuadrants = [
+    { id: "Calm · 02", title: "Sumatra Ridge · 04:42", body: "Pre-dawn mountain air, recorded at 1,840m. Pulled into a 6Hz theta envelope for resting-attention recovery.", img: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=1200&q=85&auto=format&fit=crop", alt: "Yoga pose on a mist-wrapped mountain ridge", meta: ["96 kHz · lossless", "Field · Mar 2024"], accent: "emerald" },
+    { id: "Focus · 04", title: "Tide Mantle · 38:00", body: "Faroe Islands swell, captured as a stem and folded under a 40Hz gamma carrier — clarity without the caffeine fade.", img: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&q=85&auto=format&fit=crop", alt: "Ocean wave at twilight, close-up", meta: ["Binaural · stems", "Studio cut · v2.1"], accent: "cyan" },
+    { id: "Sleep · 07", title: "Quiet Sky · 7h 12m", body: "Delta-pinned through the night. The audio narrows as your HRV settles — auto-fades at the edges of REM.", img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=85&auto=format&fit=crop", alt: "Mountains under the milky way at night", meta: ["Adaptive · HRV-led", "2.1 Hz delta"], accent: "purple" },
+    { id: "Wake · 11", title: "First Light · 18:00", body: "Solfeggio 528Hz with a slow alpha rise. Calibrated to your local sunrise — not a one-size-fits-all loop.", img: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=1200&q=85&auto=format&fit=crop", alt: "Snowy mountain peak at twilight", meta: ["Solfeggio · 528Hz", "Geo-aware"], accent: "amber" },
+  ];
+
+  const scienceSpecs = [
+    { num: "Spec · 01", icon: "microscope", title: "Peer-reviewed", body: "11 published studies underpin the carrier library — Frontiers in Neuroscience, J. Cognitive Enhancement, NeuroReport. Every DOI listed inside the app under each track.", accent: "cyan" },
+    { num: "Spec · 02", icon: "shield-check", title: "On-device · zero-egress", body: "HRV, breath, posture — every biometric stays on your phone. Adaptation models run on Neural Engine. Nothing reaches our servers, ever, end of conversation.", accent: "purple" },
+    { num: "Spec · 03", icon: "activity", title: "Adaptive in five seconds", body: "Psychoacoustic re-tuning every 5s — we narrow the carrier when you focus, warm the bed when you drift. No crossfades. No jarring shifts. The audio simply leans.", accent: "emerald" },
+    { num: "Spec · 04", icon: "award", title: "Mastered, not generated", body: "Every soundscape is hand-mixed by engineers who've worked on Apple, BBC and Headspace catalogues. No AI slop, no algorithmic loops, no hold-music dressed as wellness.", accent: "amber" },
+  ];
+
+  const fieldRecordings = [
+    { n: "F · 01", title: "Provence Field", img: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&q=85&auto=format&fit=crop", alt: "Poppies in a field of wheat", accent: "emerald" },
+    { n: "F · 02", title: "Stillwater Pond", img: "https://images.unsplash.com/photo-1474557157379-8aa74a6ef541?w=600&q=85&auto=format&fit=crop", alt: "Water lily on a still pond", accent: "cyan" },
+    { n: "F · 03", title: "Lone Oak", img: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=600&q=85&auto=format&fit=crop", alt: "A solitary tree on a plain", accent: "amber" },
+    { n: "F · 04", title: "Cumulus Drift", img: "https://images.unsplash.com/photo-1509803874385-db7c23652552?w=600&q=85&auto=format&fit=crop", alt: "A cumulus cloud in a blue sky", accent: "cyan" },
+    { n: "F · 05", title: "Faroe Swell", img: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&q=85&auto=format&fit=crop&sat=-40", alt: "Ocean wave at dusk", accent: "cyan" },
+    { n: "F · 06", title: "Dolomite Quiet", img: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=600&q=85&auto=format&fit=crop", alt: "Snowy mountain peak at dusk", accent: "purple" },
   ];
 
   const features = [
@@ -283,14 +310,14 @@ body { background-color: #0F172A; color: white; overflow-x: hidden; -webkit-font
 
             <div className="mt-16 md:mt-24 w-full px-4">
               <p className="text-xs text-slate-500 uppercase tracking-widest mb-6 font-semibold">Trusted by mindful teams at</p>
-              <div className="flex flex-wrap justify-center gap-x-8 gap-y-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+              <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-x-8 gap-y-6 items-center justify-items-center max-w-4xl mx-auto opacity-80">
                 {logos.map(l => (
-                  <div key={l.name} className="flex items-center gap-2">
-                    <i data-lucide={l.icon} className="w-5 h-5"></i>
-                    <span className="font-display font-bold text-lg">{l.name}</span>
-                  </div>
+                  <li key={l.slug} className="flex flex-col items-center gap-1.5">
+                    <img src={`https://cdn.simpleicons.org/${l.slug}/cbd5e1`} alt={l.name} className="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24" />
+                    <span className="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">{l.name}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </section>
 
@@ -435,6 +462,96 @@ body { background-color: #0F172A; color: white; overflow-x: hidden; -webkit-font
           </section>
 
           {/* Testimonials / Stories */}
+          {/* ATLAS — 2x2 Premium quadrants with state-tagged photo backdrops */}
+          <section id="atlas" className="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-28">
+            <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
+              <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">Soundscape · Atlas</span>
+              <h2 className="font-display text-3xl md:text-5xl font-bold mt-3 mb-4">Four states, <span className="text-gradient">mapped to place</span>.</h2>
+              <p className="text-slate-400 text-sm md:text-base">Every track in the library traces back to a real horizon. Field-recorded, then tuned with neuroscientists.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+              {atlasQuadrants.map(q => (
+                <article key={q.id} className="relative group overflow-hidden rounded-3xl border border-white/10 aspect-[4/3] bg-deep">
+                  <img src={q.img} alt={q.alt} className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(15,23,42,0.20) 0%, rgba(15,23,42,0.55) 55%, rgba(15,23,42,0.95) 100%)" }}></div>
+                  <div className={`absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-${q.accent}-300/30 bg-${q.accent}-400/10 backdrop-blur-md`}>
+                    <span className={`w-1.5 h-1.5 rounded-full bg-${q.accent}-300`}></span>
+                    <span className={`text-[10px] font-bold tracking-[0.2em] uppercase text-${q.accent}-200`}>{q.id}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <h3 className="font-display text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight mb-2">{q.title}</h3>
+                    <p className="text-slate-200/85 text-sm md:text-base leading-relaxed max-w-md">{q.body}</p>
+                    <div className="flex items-center gap-3 mt-4 text-[10px] uppercase tracking-widest text-slate-300/80 font-mono">
+                      <span>{q.meta[0]}</span><span className="w-1 h-1 rounded-full bg-slate-500"></span><span>{q.meta[1]}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* INSIDE A SESSION — mockup feature */}
+          <section id="session" className="w-full max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
+              <div className="md:col-span-7 relative">
+                <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-30px_rgba(34,211,238,0.35)]">
+                  <img src="https://images.unsplash.com/photo-1532009324734-20a7a5813719?w=1400&q=85&auto=format&fit=crop" alt="Layered misty mountain ridges at dusk" className="w-full aspect-[16/10] object-cover" loading="lazy" decoding="async" width="1400" height="875" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/80 via-deep/15 to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-deep/80 backdrop-blur-md border border-white/15">
+                    <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span></span>
+                    <span className="text-[10px] font-bold tracking-[0.25em] uppercase text-cyan-100">Session · 18:42 elapsed</span>
+                  </div>
+                  <div className="absolute -bottom-8 -right-6 hidden md:flex flex-col gap-3 w-60 rounded-2xl border border-white/10 bg-deep/85 backdrop-blur-xl p-5 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500">HRV · live</span>
+                      <span className="text-[10px] font-mono text-emerald-400">+12%</span>
+                    </div>
+                    <div className="font-display text-3xl font-bold text-white tabular-nums leading-none">68 <span className="text-base font-medium text-slate-400">ms</span></div>
+                    <div className="flex items-end gap-1 h-10">
+                      {[30,55,40,70,60,85,75,92].map((h,i) => (
+                        <span key={i} className="flex-1 bg-cyan-400 rounded-sm" style={{ height: `${h}%`, opacity: 0.3 + (i*0.09) }}></span>
+                      ))}
+                    </div>
+                    <div className="flex justify-between text-[10px] font-mono text-slate-500"><span>0:00</span><span>now</span></div>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-5 flex flex-col gap-5">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-cyan-300/80 font-bold">// Inside a session</span>
+                <h2 className="font-display text-3xl md:text-5xl font-bold leading-tight">The audio learns you, <span className="text-gradient">not the other way around.</span></h2>
+                <p className="text-slate-400 text-base md:text-lg leading-relaxed">Every five seconds, the engine reads your HRV trace. If you slip into focus, the carrier narrows. If you start to drift, the bed warms. You won't notice — but your nervous system will.</p>
+                <ul className="flex flex-col gap-3 text-sm md:text-base text-slate-300">
+                  <li className="flex items-start gap-3"><i data-lucide="activity" className="w-4 h-4 text-cyan-300 mt-1 shrink-0"></i><span><strong className="text-white">5-second adaptive loop</strong> — psychoacoustic re-tuning, not crossfades.</span></li>
+                  <li className="flex items-start gap-3"><i data-lucide="bluetooth" className="w-4 h-4 text-purple-300 mt-1 shrink-0"></i><span><strong className="text-white">Apple Health · Oura · Whoop</strong> — pick one, all three, none. We run from breath alone if you ask.</span></li>
+                  <li className="flex items-start gap-3"><i data-lucide="shield-check" className="w-4 h-4 text-emerald-300 mt-1 shrink-0"></i><span><strong className="text-white">Local-first</strong> — biometrics never leave the device. Models run on Neural Engine.</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* FIELD RECORDINGS — 6-up static image strip */}
+          <section id="field" className="w-full max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-20">
+            <div className="flex items-end justify-between mb-8 md:mb-10 border-b border-white/10 pb-4">
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">// Field recordings</span>
+                <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-white mt-2">Recorded in the wild.</h2>
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 hidden md:inline-block">Vol · 04 · 2024</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+              {fieldRecordings.map(f => (
+                <figure key={f.n} className="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-deep">
+                  <img src={f.img} alt={f.alt} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-deep/85 via-transparent to-transparent"></div>
+                  <figcaption className="absolute bottom-2 left-2 right-2">
+                    <p className={`text-[9px] font-mono uppercase tracking-[0.2em] text-${f.accent}-300/80`}>{f.n}</p>
+                    <p className="text-xs text-white font-semibold leading-tight mt-0.5">{f.title}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
+
           <section id="testimonials" className="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32">
             <div className="text-center mb-12 md:mb-20 max-w-3xl mx-auto">
               <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">Stories from the practice</span>
@@ -481,6 +598,39 @@ body { background-color: #0F172A; color: white; overflow-x: hidden; -webkit-font
           </section>
 
           {/* Pricing */}
+          {/* THE SCIENCE — 2-column premium (left text · right card stack with matching heights) */}
+          <section id="science" className="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-28">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 lg:gap-x-16 gap-y-10 md:items-stretch">
+              <div className="md:col-span-5 flex flex-col h-full">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-cyan-300/80 font-bold mb-5">// The science underneath</span>
+                <h2 className="font-display text-3xl md:text-5xl font-bold leading-[1.05] mb-6">Built on <span className="text-gradient">peer-reviewed sound</span>, not vibes.</h2>
+                <p className="text-slate-400 text-base md:text-lg leading-relaxed mb-5">Every track ships against an evidence file. We cite the studies, list the engineers, expose the hardware. If you want to read the underlying papers before you press play — we'll point you at the DOIs.</p>
+                <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-8">Four standing guarantees that separate Flow State from the wellness shelf at the back of the App Store.</p>
+                <div className="mt-auto pt-6 border-t border-white/10 flex flex-col gap-3">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-slate-500 font-bold">From the engineering log</p>
+                  <p className="font-display text-lg md:text-xl italic text-slate-200 leading-snug">"If we cannot show the EEG trace, we do not ship the track."</p>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-slate-500 font-mono">— L. Park · Lead audio engineer</p>
+                </div>
+              </div>
+              <div className="md:col-span-7 flex flex-col gap-4 md:gap-5 h-full md:justify-between">
+                {scienceSpecs.map(s => (
+                  <article key={s.num} className="glass-card rounded-3xl p-5 md:p-7 flex items-start gap-5">
+                    <div className={`shrink-0 w-12 h-12 rounded-2xl bg-${s.accent}-500/10 border border-${s.accent}-500/25 flex items-center justify-center text-${s.accent}-300`}>
+                      <i data-lucide={s.icon} className="w-5 h-5"></i>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-baseline justify-between gap-3 mb-1">
+                        <h3 className="font-display text-lg md:text-xl text-white leading-tight">{s.title}</h3>
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-slate-500 shrink-0">{s.num}</span>
+                      </div>
+                      <p className="text-slate-400 text-sm md:text-base leading-relaxed">{s.body}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
           <section id="pricing" className="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32">
             <div className="text-center mb-12">
               <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">Invest in your <span className="text-white">Mind</span></h2>

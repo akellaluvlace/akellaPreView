@@ -43,17 +43,17 @@ export default function T76MaterialDesign() {
     { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", status: "Live", statusColor: "text-emerald-600", statusDot: "bg-emerald-500", version: "Sage · v3.2", title: "Aurora Banking", meta: "Shipped 2 days ago · 4 swatch palette", swatches: ["bg-primary-600", "bg-secondary-500", "bg-pink-500", "bg-orange-400"] },
     { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", status: "Review", statusColor: "text-orange-500", statusDot: "bg-orange-400", version: "Concrete · v1.0", title: "Halcyon Realty", meta: "In review · 6 swatch palette", swatches: ["bg-gray-700", "bg-orange-400", "bg-amber-300", "bg-stone-200"] },
     { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", status: "Beta", statusColor: "text-primary-600", statusDot: "bg-primary-500", version: "Volt · v0.9", title: "Relay Telemetry", meta: "Closed beta · 5 swatch palette", swatches: ["bg-primary-600", "bg-blue-500", "bg-purple-500", "bg-cyan-400", "bg-slate-700"] },
-    { src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop", status: "Live", statusColor: "text-emerald-600", statusDot: "bg-emerald-500", version: "Linen · v2.1", title: "Atrium Health", meta: "Shipped 1 week ago · 4 swatch palette", swatches: ["bg-emerald-500", "bg-stone-100", "bg-emerald-100", "bg-stone-700"] },
-    { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", status: "Draft", statusColor: "text-gray-500", statusDot: "bg-gray-400", version: "Field · v0.4", title: "Wayland Logistics", meta: "Drafting · 3 swatch palette", swatches: ["bg-amber-700", "bg-stone-300", "bg-stone-900"] },
-    { src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", status: "Live", statusColor: "text-emerald-600", statusDot: "bg-emerald-500", version: "Atrium · v4.0", title: "Cornice Studio", meta: "Shipped 3 days ago · 5 swatch palette", swatches: ["bg-rose-300", "bg-amber-200", "bg-teal-400", "bg-stone-100", "bg-stone-800"] },
+    { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", status: "Live", statusColor: "text-emerald-600", statusDot: "bg-emerald-500", version: "Linen · v2.1", title: "Atrium Health", meta: "Shipped 1 week ago · 4 swatch palette", swatches: ["bg-emerald-500", "bg-stone-100", "bg-emerald-100", "bg-stone-700"] },
+    { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", status: "Draft", statusColor: "text-gray-500", statusDot: "bg-gray-400", version: "Field · v0.4", title: "Wayland Logistics", meta: "Drafting · 3 swatch palette", swatches: ["bg-amber-700", "bg-stone-300", "bg-stone-900"] },
+    { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", status: "Live", statusColor: "text-emerald-600", statusDot: "bg-emerald-500", version: "Atrium · v4.0", title: "Cornice Studio", meta: "Shipped 3 days ago · 5 swatch palette", swatches: ["bg-rose-300", "bg-amber-200", "bg-teal-400", "bg-stone-100", "bg-stone-800"] },
     { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", status: "Beta", statusColor: "text-primary-600", statusDot: "bg-primary-500", version: "Heritage · v1.4", title: "Kestrel Insurance", meta: "Closed beta · 4 swatch palette", swatches: ["bg-blue-900", "bg-amber-400", "bg-stone-100", "bg-rose-700"] },
   ];
 
   // ===== Foundations rows =====
   const foundations = [
-    { roman: "I", numeral: "I — Color", chipBg: "bg-primary-50", chipText: "text-primary-600", title: <>Tonal palettes, not <span className="font-bold">paint chips</span>.</>, body: "Every brand colour expands into a 13-step tonal palette. Light surfaces, dark surfaces, contrast pairs, and on-state variants are derivations, not authored states. Pick one seed; ship the whole product.", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1400&q=85&auto=format&fit=crop", reverse: false, kind: "list", listDot: "bg-primary-500", list: ["13 tones · 4 contrast pairs", "Auto-derived dark mode", "WCAG AA pre-checked"] },
+    { roman: "I", numeral: "I — Color", chipBg: "bg-primary-50", chipText: "text-primary-600", title: <>Tonal palettes, not <span className="font-bold">paint chips</span>.</>, body: "Every brand colour expands into a 13-step tonal palette. Light surfaces, dark surfaces, contrast pairs, and on-state variants are derivations, not authored states. Pick one seed; ship the whole product.", img: "https://images.unsplash.com/photo-1690743300892-cb813b420c36?w=1400&q=85&auto=format&fit=crop", reverse: false, kind: "list", listDot: "bg-primary-500", list: ["13 tones · 4 contrast pairs", "Auto-derived dark mode", "WCAG AA pre-checked"] },
     { roman: "II", numeral: "II — Typography", chipBg: "bg-pink-50", chipText: "text-pink-600", title: <>A type stack that <span className="font-bold">reads at every step</span>.</>, body: "Display, headline, title, body, label — five rolls, one weight scale, four sizes each. Roboto loaded once, applied everywhere. The cascade is opinionated so designers don't have to be.", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=85&auto=format&fit=crop", reverse: true, kind: "type", typeBorder: "border-pink-300" },
-    { roman: "III", numeral: "III — Motion", chipBg: "bg-secondary-50", chipText: "text-secondary-600", title: <>Easing is a <span className="font-bold">design decision</span>, not a default.</>, body: "Standard, decelerated, accelerated. Three curves, expressive variants for hero moments. Reduced-motion respected by default. Ripples, sheet transitions and FAB rotations all share one timing language.", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop", reverse: false, kind: "pills", pillBg: "bg-secondary-50", pillText: "text-secondary-600", pills: ["cubic-bezier(.4,0,.2,1)", "200ms · 300ms · 500ms", "prefers-reduced-motion"] },
+    { roman: "III", numeral: "III — Motion", chipBg: "bg-secondary-50", chipText: "text-secondary-600", title: <>Easing is a <span className="font-bold">design decision</span>, not a default.</>, body: "Standard, decelerated, accelerated. Three curves, expressive variants for hero moments. Reduced-motion respected by default. Ripples, sheet transitions and FAB rotations all share one timing language.", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop", reverse: false, kind: "pills", pillBg: "bg-secondary-50", pillText: "text-secondary-600", pills: ["cubic-bezier(.4,0,.2,1)", "200ms · 300ms · 500ms", "prefers-reduced-motion"] },
   ];
 
   // ===== Process roadmap =====
@@ -87,7 +87,7 @@ export default function T76MaterialDesign() {
   const voices = [
     { quoteColor: "text-primary-200", quote: "Tokens removed five rounds of theming back-and-forth from every release. Two weeks back, every quarter, in our pocket.", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop", border: "border-primary-100", name: "Sasha Linde", role: "Head of Design · Aurora", chipText: "text-primary-600", chipBg: "bg-primary-50", chipLabel: "Sage" },
     { quoteColor: "text-pink-200", quote: "The motion library is the part nobody mentions until it's gone. We swapped to G_TASK and three engineers stopped writing custom easing.", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop", border: "border-pink-100", name: "Marie-Rose Otieno", role: "Principal Eng · Halcyon", chipText: "text-pink-600", chipBg: "bg-pink-50", chipLabel: "Peach" },
-    { quoteColor: "text-secondary-200", quote: "Our brand colour got a 13-step palette overnight. The dashboard, the mobile app, the marketing site — all reading from the same seed.", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop", border: "border-secondary-100", name: "Daniel Ng", role: "Director · Atrium Health", chipText: "text-secondary-600", chipBg: "bg-secondary-50", chipLabel: "Mint" },
+    { quoteColor: "text-secondary-200", quote: "Our brand colour got a 13-step palette overnight. The dashboard, the mobile app, the marketing site — all reading from the same seed.", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", border: "border-secondary-100", name: "Daniel Ng", role: "Director · Atrium Health", chipText: "text-secondary-600", chipBg: "bg-secondary-50", chipLabel: "Mint" },
   ];
 
   // ===== FAQ =====
@@ -444,7 +444,7 @@ export default function T76MaterialDesign() {
                   {foundations.map((f, i) => (
                     <div key={f.roman} className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-center">
                       <figure className={`md:col-span-7 relative rounded-2xl overflow-hidden shadow-md-2 aspect-[4/3] bg-gray-100 ${f.reverse ? "md:order-2" : ""}`}>
-                        <img className="absolute inset-0 w-full h-full object-cover" src={f.img} alt={f.numeral} loading="lazy" />
+                        <img className="absolute inset-0 w-full h-full object-cover" src={f.img} alt={`${f.numeral.replace(/^[IVX]+\s*—\s*/, "")} foundation`} loading="lazy" />
                         <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
                           <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Foundation · {f.roman}</span>
                           <span className="text-[10px] font-bold tracking-widest uppercase text-white/80 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · {f.roman}</span>
@@ -623,12 +623,15 @@ export default function T76MaterialDesign() {
             {/* ================================================== */}
             <section id="faq" className="full-bleed bg-white py-20 md:py-24 overflow-hidden">
               <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-10">
-                <div className="md:col-span-5">
+                {/* flex-col + mt-auto on the figure pushes the toolkit image to the bottom of
+                    the left column so its bottom edge aligns with the right column's bottom
+                    (FAQ list + migration kit card stack). */}
+                <div className="md:col-span-5 flex flex-col">
                   <p className="text-[11px] font-bold text-secondary-600 uppercase tracking-[0.2em] mb-2">// FAQ · 09</p>
                   <h3 className="text-3xl md:text-4xl font-light text-gray-800 mb-4">Common <span className="font-bold text-primary-600">questions</span>.</h3>
                   <p className="text-sm md:text-base text-gray-500 mb-6">If your team is migrating from Material 2, has questions about token export, or wants to evaluate G_TASK against your existing system — start here.</p>
-                  <figure className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-gray-100 shadow-md-1">
-                    <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1000&q=85&auto=format&fit=crop" alt="Toolkit" loading="lazy" />
+                  <figure className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-gray-100 shadow-md-1 mt-auto">
+                    <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1000&q=85&auto=format&fit=crop" alt="Building aperture · the toolkit reference plate, photographed in late afternoon light" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 to-transparent"></div>
                     <figcaption className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
                       <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">The toolkit</span>
@@ -637,18 +640,54 @@ export default function T76MaterialDesign() {
                   </figure>
                 </div>
 
-                <div className="md:col-span-7 divide-y divide-gray-100 border-t border-b border-gray-100">
-                  {faqs.map((f) => (
-                    <details key={f.q} className="md-faq group py-5 px-1">
-                      <summary className="flex items-center justify-between gap-4">
-                        <h4 className="text-base md:text-lg font-medium text-gray-800">{f.q}</h4>
-                        <span className="md-chevron text-primary-500 shrink-0">
-                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" /></svg>
-                        </span>
-                      </summary>
-                      <p className="text-sm text-gray-500 leading-relaxed mt-3">{f.a}</p>
-                    </details>
-                  ))}
+                {/* Right rail: FAQ list + Get-the-toolkit card. flex-col + flex-1 on the
+                    card so its height stretches to bottom-align with the left rail's
+                    paragraph + aspect-[4/3] toolkit plate. */}
+                <div className="md:col-span-7 flex flex-col">
+                  <div className="divide-y divide-gray-100 border-t border-b border-gray-100">
+                    {faqs.map((f) => (
+                      <details key={f.q} className="md-faq group py-5 px-1">
+                        <summary className="flex items-center justify-between gap-4">
+                          <h4 className="text-base md:text-lg font-medium text-gray-800">{f.q}</h4>
+                          <span className="md-chevron text-primary-500 shrink-0">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" /></svg>
+                          </span>
+                        </summary>
+                        <p className="text-sm text-gray-500 leading-relaxed mt-3">{f.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                  <aside className="mt-8 flex-1 flex flex-col gap-5 p-6 md:p-7 rounded-2xl bg-gradient-to-br from-primary-50 via-white to-secondary-50/50 border border-primary-100/60 shadow-md-1">
+                    <div className="flex items-center gap-3">
+                      <span className="w-10 h-10 rounded-xl bg-primary-600 text-white flex items-center justify-center shadow-md-1">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary-600">// Migration · 09b</span>
+                        <span className="text-base md:text-lg font-medium text-gray-800">Get the migration kit by email</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-500 leading-relaxed">A short PDF with token-name diffs, codemod usage, and the ~6% of cases that need a manual decision. Sent once — no follow-ups, no marketing.</p>
+                    <form className="flex flex-col gap-3 mt-auto" action="#" method="POST" onSubmit={(e) => e.preventDefault()}>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="md-team" className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Team</label>
+                          <input id="md-team" name="team" type="text" placeholder="Aurora Banking" className="w-full border border-gray-200 rounded-md px-3 py-2.5 bg-white text-gray-800 placeholder:text-gray-300 transition-colors hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm" />
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label htmlFor="md-email" className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Email</label>
+                          <input id="md-email" name="email" type="email" placeholder="design@aurora.bank" className="w-full border border-gray-200 rounded-md px-3 py-2.5 bg-white text-gray-800 placeholder:text-gray-300 transition-colors hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm" />
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap items-center justify-between gap-3 mt-1">
+                        <span className="text-xs text-gray-400">No newsletter. One PDF, then silence.</span>
+                        <button type="submit" className="ripple px-5 py-2.5 bg-primary-600 text-white rounded-md text-sm font-medium shadow-md hover:bg-primary-700 hover:shadow-lg transition-all inline-flex items-center gap-2">
+                          Send the kit
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </button>
+                      </div>
+                    </form>
+                  </aside>
                 </div>
               </div>
             </section>
@@ -657,7 +696,7 @@ export default function T76MaterialDesign() {
             {/* 10 — TOOLKIT CTA                                    */}
             {/* ================================================== */}
             <section id="cta" className="full-bleed relative overflow-hidden">
-              <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1920&q=85&auto=format&fit=crop" alt="" loading="lazy" />
+              <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1920&q=85&auto=format&fit=crop" alt="" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-b from-primary-900/85 via-primary-700/75 to-primary-900/90"></div>
               <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 25% 80%, rgba(20,184,166,0.25) 0%, transparent 60%)" }}></div>
 

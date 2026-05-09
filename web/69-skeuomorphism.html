@@ -441,6 +441,72 @@
 </head>
 <body>
 
+    <!-- HERO — image left, content right, screen-wide -->
+    <section class="editorial-band-soft w-full px-6 md:px-12 py-20 md:py-28 lg:py-32">
+        <div class="max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <!-- LEFT: hero image inside a brushed plate frame -->
+            <figure class="lg:col-span-7 order-2 lg:order-1 m-0">
+                <div class="relative panel-brushed p-3 md:p-4 rounded-sm shadow-[0_30px_60px_-30px_rgba(0,0,0,0.45)]">
+                    <div class="relative overflow-hidden bg-black aspect-[5/4]">
+                        <img class="w-full h-full object-cover" style="mix-blend-mode: luminosity; filter: contrast(1.25) saturate(0.85);" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1600&q=85&auto=format&fit=crop" alt="MODEL-808 prototype on the workbench in raking studio light" />
+                        <div class="absolute inset-0 pointer-events-none" style="background-color: rgba(255,85,0,0.06); mix-blend-mode: overlay;"></div>
+                        <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.45) 100%);"></div>
+                        <div class="absolute top-4 left-4 flex items-center gap-2">
+                            <span class="num-chip">PLATE · 01</span>
+                            <span class="label-mono-mute" style="color:#e8e0d3;">Workshop · Tjuvholmen pier</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <span class="label-mono" style="color:#e8e0d3;">F/2.8 · 1/60s · ISO 200</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-3 px-1">
+                        <span class="label-mono">MODEL-808 · serial 00041</span>
+                        <span class="label-mono-mute">2024 · hand-finished</span>
+                    </div>
+                </div>
+            </figure>
+
+            <!-- RIGHT: content -->
+            <div class="lg:col-span-5 order-1 lg:order-2 flex flex-col gap-7">
+                <div class="flex items-center gap-3">
+                    <span class="num-chip">EST · 2017 · OSLO</span>
+                    <span class="label-mono-mute">Edition of 240 · numbered</span>
+                </div>
+                <h1 class="display-headline text-5xl md:text-6xl lg:text-7xl leading-[1.02]">
+                    The hand<br>was always<br>
+                    <span class="text-[#ff5500]">the interface.</span>
+                </h1>
+                <p class="body-prose max-w-xl">A desk-bound radio &amp; tape player built from CNC&apos;d aluminium, an electroformed brass grille, and ALPS RK16 potentiometers tuned to a centre detent you can feel through your wrist. Two hundred and forty units. One workshop. No app.</p>
+                <div class="flex flex-wrap items-center gap-4 pt-2">
+                    <a href="#order" class="inline-flex items-center gap-2 bg-[#ff5500] text-white px-6 py-3 rounded font-bold tracking-wide shadow-[0_3px_0_#a83800,0_8px_16px_rgba(255,85,0,0.35)] hover:translate-y-[-1px] active:translate-y-[2px] active:shadow-[0_1px_0_#a83800] transition-all">
+                        <span>Reserve a unit</span>
+                        <span class="text-lg leading-none">→</span>
+                    </a>
+                    <a href="#materials" class="inline-flex items-center gap-2 px-6 py-3 rounded border border-black/15 hover:border-black/35 transition-colors body-prose font-semibold">
+                        <span>The doctrine</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-3 gap-4 pt-6 mt-2 border-t border-black/10">
+                    <div class="flex flex-col gap-1">
+                        <span class="label-mono">Run</span>
+                        <span class="display-headline text-2xl">240</span>
+                        <span class="label-mono-mute text-[10px]">units, lifetime</span>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="label-mono">Weight</span>
+                        <span class="display-headline text-2xl">3.4 kg</span>
+                        <span class="label-mono-mute text-[10px]">stays where it sits</span>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="label-mono">Lead</span>
+                        <span class="display-headline text-2xl">14 wk</span>
+                        <span class="label-mono-mute text-[10px]">order to delivery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION 1: HERITAGE / ORIGIN STORY (BEFORE existing device) -->
     <section class="editorial-band-soft py-24 lg:py-32 px-6 md:px-12">
         <div class="max-w-3xl mx-auto">
@@ -469,17 +535,84 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
-                <!-- Sticky photo column -->
-                <figure class="md:col-span-5 sticky-photo">
+                <!-- Left column — bottom aligns with right column via h-full + justify-between -->
+                <figure class="md:col-span-5 flex flex-col h-full gap-8 md:justify-between m-0">
+                    <!-- Plate · 02 (existing) -->
                     <div class="relative panel-brushed p-3 rounded-sm">
                         <div class="relative overflow-hidden bg-black aspect-[4/5]">
-                            <img class="w-full h-full object-cover" style="mix-blend-mode: luminosity; filter: contrast(1.25) saturate(0.9);" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&q=85&auto=format&fit=crop" alt="Brass apothecary still life — material study for ANALOG_UI MODEL-808" />
+                            <img class="w-full h-full object-cover" style="mix-blend-mode: luminosity; filter: contrast(1.25) saturate(0.9);" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop" alt="Circuit board macro — material study for ANALOG_UI MODEL-808" />
                             <div class="absolute inset-0 pointer-events-none" style="background-color: rgba(255,85,0,0.06); mix-blend-mode: overlay;"></div>
                         </div>
                         <div class="flex items-center justify-between pt-3 px-1">
                             <span class="label-mono">Plate · 02</span>
                             <span class="label-mono-mute">Material study · Brass &amp; Aluminium</span>
                         </div>
+                    </div>
+
+                    <!-- Card A — Bill of materials (alloy ledger) -->
+                    <div class="relative panel-brushed p-5 sm:p-6 rounded-sm">
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b" style="border-color: rgba(255,85,0,0.18);">
+                            <span class="label-mono">Bill of materials</span>
+                            <span class="label-mono-mute">Run · 2026.04</span>
+                        </div>
+                        <dl class="flex flex-col divide-y" style="border-color: rgba(255,85,0,0.12);">
+                            <div class="grid grid-cols-[auto_1fr] items-baseline gap-x-6 py-2.5">
+                                <dt class="label-mono-mute">Front-plate</dt>
+                                <dd class="label-mono text-right" style="color: #d4d4d4;">6061-T6 · 14 mm billet</dd>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-baseline gap-x-6 py-2.5" style="border-top: 1px solid rgba(255,85,0,0.12);">
+                                <dt class="label-mono-mute">Knob caps</dt>
+                                <dd class="label-mono text-right" style="color: #d4d4d4;">6061 · brass collet</dd>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-baseline gap-x-6 py-2.5" style="border-top: 1px solid rgba(255,85,0,0.12);">
+                                <dt class="label-mono-mute">Speaker mesh</dt>
+                                <dd class="label-mono text-right" style="color: #d4d4d4;">Electroformed brass · 0.6 mm</dd>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-baseline gap-x-6 py-2.5" style="border-top: 1px solid rgba(255,85,0,0.12);">
+                                <dt class="label-mono-mute">Mainboard</dt>
+                                <dd class="label-mono text-right" style="color: #d4d4d4;">2-layer FR-4 · cream mask</dd>
+                            </div>
+                            <div class="grid grid-cols-[auto_1fr] items-baseline gap-x-6 py-2.5" style="border-top: 1px solid rgba(255,85,0,0.12);">
+                                <dt class="label-mono-mute">Faders</dt>
+                                <dd class="label-mono text-right" style="color: #d4d4d4;">ALPS RK16 · 50K log</dd>
+                            </div>
+                        </dl>
+                        <p class="label-mono-mute mt-4 pt-3" style="border-top: 1px solid rgba(255,85,0,0.18);">Sourced within 400 km of the Antwerp shop. Each ingot logged against the unit's serial card.</p>
+                    </div>
+
+                    <!-- Card B — Manufacturing dossier -->
+                    <div class="relative panel-brushed p-5 sm:p-6 rounded-sm">
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b" style="border-color: rgba(255,85,0,0.18);">
+                            <span class="label-mono">Manufacturing · dossier</span>
+                            <span class="label-mono-mute">Tooling · five-axis</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-x-5 gap-y-4">
+                            <div>
+                                <p class="label-mono-mute mb-1">Mill</p>
+                                <p class="label-mono" style="color: #d4d4d4;">Hermle C22</p>
+                            </div>
+                            <div>
+                                <p class="label-mono-mute mb-1">Tolerance</p>
+                                <p class="label-mono" style="color: #d4d4d4;">± 0.02 mm</p>
+                            </div>
+                            <div>
+                                <p class="label-mono-mute mb-1">Brush · pass 1</p>
+                                <p class="label-mono" style="color: #d4d4d4;">220 grit · long axis</p>
+                            </div>
+                            <div>
+                                <p class="label-mono-mute mb-1">Brush · pass 2</p>
+                                <p class="label-mono" style="color: #d4d4d4;">320 grit · cross-axis</p>
+                            </div>
+                            <div>
+                                <p class="label-mono-mute mb-1">Anodise</p>
+                                <p class="label-mono" style="color: #d4d4d4;">Type II hard · oxide colour</p>
+                            </div>
+                            <div>
+                                <p class="label-mono-mute mb-1">QA · per board</p>
+                                <p class="label-mono" style="color: #d4d4d4;">12 MP raked-light photo</p>
+                            </div>
+                        </div>
+                        <p class="label-mono-mute mt-5 pt-3" style="border-top: 1px solid rgba(255,85,0,0.18);">Three board revisions to date — each etched into the bottom-left corner so the unit is field-serviceable in 2046.</p>
                     </div>
                 </figure>
 
@@ -685,7 +818,7 @@
                     </div>
                 </article>
                 <article class="catalog-card">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop" alt="MIDI-V Mixer" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop" alt="MIDI-V Mixer" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">MIDI-V · MIXER</span>
                         <h3 class="display-headline text-lg">Six-channel MIDI router with VU plate</h3>
@@ -693,7 +826,7 @@
                     </div>
                 </article>
                 <article class="catalog-card">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop" alt="SR-09 Server" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop" alt="SR-09 Server" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">SR-09 · SERVER</span>
                         <h3 class="display-headline text-lg">1U archival audio file server</h3>
@@ -725,7 +858,7 @@
                     </div>
                 </article>
                 <article class="catalog-card">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="ME-808 Player" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1700951372714-98979a8803a4?w=900&q=85&auto=format&fit=crop" alt="ME-808 Player" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">MODEL-808 · PLAYER</span>
                         <h3 class="display-headline text-lg">High-fidelity FM &amp; tape playback</h3>
@@ -741,7 +874,7 @@
                     </div>
                 </article>
                 <article class="catalog-card">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" alt="CL-12 Clock" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" alt="CL-12 Clock" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">CL-12 · CLOCK</span>
                         <h3 class="display-headline text-lg">Master word-clock for the studio rack</h3>
@@ -767,7 +900,7 @@
                     </div>
                 </article>
                 <article class="catalog-card" aria-hidden="true">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop" alt="" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop" alt="" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">MIDI-V · MIXER</span>
                         <h3 class="display-headline text-lg">Six-channel MIDI router with VU plate</h3>
@@ -775,7 +908,7 @@
                     </div>
                 </article>
                 <article class="catalog-card" aria-hidden="true">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop" alt="" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop" alt="" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">SR-09 · SERVER</span>
                         <h3 class="display-headline text-lg">1U archival audio file server</h3>
@@ -807,7 +940,7 @@
                     </div>
                 </article>
                 <article class="catalog-card" aria-hidden="true">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1700951372714-98979a8803a4?w=900&q=85&auto=format&fit=crop" alt="" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">MODEL-808 · PLAYER</span>
                         <h3 class="display-headline text-lg">High-fidelity FM &amp; tape playback</h3>
@@ -823,7 +956,7 @@
                     </div>
                 </article>
                 <article class="catalog-card" aria-hidden="true">
-                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" alt="" /></div>
+                    <div class="catalog-img-wrap"><img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" alt="" /></div>
                     <div class="p-4 flex flex-col gap-2">
                         <span class="label-mono">CL-12 · CLOCK</span>
                         <h3 class="display-headline text-lg">Master word-clock for the studio rack</h3>
@@ -896,7 +1029,7 @@
                 <figure class="md:col-span-5 relative md:mt-16">
                     <div class="relative panel-brushed p-3">
                         <div class="relative overflow-hidden aspect-[3/4] bg-black">
-                            <img class="w-full h-full object-cover" style="mix-blend-mode: multiply; filter: contrast(1.2) brightness(1.1) saturate(0.95);" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1200&q=85&auto=format&fit=crop" alt="MODEL-808 chassis on black studio backdrop" />
+                            <img class="w-full h-full object-cover" style="mix-blend-mode: multiply; filter: contrast(1.2) brightness(1.1) saturate(0.95);" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1200&q=85&auto=format&fit=crop" alt="MODEL-808 chassis on black studio backdrop" />
                             <div class="absolute inset-0 pointer-events-none" style="background-color: rgba(255,85,0,0.05); mix-blend-mode: overlay;"></div>
                         </div>
                         <div class="flex items-center justify-between pt-3 px-1">

@@ -158,6 +158,10 @@ export default function T98OpArtBendaydots() {
         background-image: radial-gradient(#b7102a 20%, transparent 20%), radial-gradient(#b7102a 20%, transparent 20%);
         background-color: #ffdad8; background-position: 0 0, 10px 10px; background-size: 20px 20px;
       }
+      .halftone-yellow {
+        background-image: radial-gradient(#745c00 20%, transparent 20%), radial-gradient(#745c00 20%, transparent 20%);
+        background-color: #ffe089; background-position: 0 0, 10px 10px; background-size: 20px 20px;
+      }
     }
   `;
 
@@ -231,9 +235,13 @@ export default function T98OpArtBendaydots() {
                     <div className="absolute -bottom-4 right-8 w-8 h-8 bg-surface-container-lowest border-r-[5px] border-b-[5px] border-on-surface rotate-45"></div>
                   </div>
                 </div>
-                <a href="#subscribe" className="shrink-0 self-center md:self-end inline-flex items-center justify-center bg-primary text-on-primary font-headline-md uppercase px-8 md:px-10 py-4 comic-border comic-shadow hover-btn-fx tracking-wider whitespace-nowrap">
-                  SUBSCRIBE NOW!
-                </a>
+                <div className="flex justify-center md:justify-end w-full">
+                  <a href="#subscribe" className="shrink-0 inline-flex items-center justify-center gap-3 bg-primary text-on-primary font-headline-md uppercase text-2xl md:text-3xl lg:text-4xl px-10 md:px-14 lg:px-16 py-5 md:py-6 lg:py-7 comic-border comic-shadow hover-btn-fx tracking-wider whitespace-nowrap rotate-[-2deg] hover:rotate-0 active:rotate-1 shadow-[8px_8px_0_0_#271717] hover:shadow-[12px_12px_0_0_#271717] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-200 ml-auto">
+                    <span aria-hidden="true" className="material-symbols-outlined text-3xl md:text-4xl">bolt</span>
+                    SUBSCRIBE NOW!
+                    <span aria-hidden="true" className="material-symbols-outlined text-3xl md:text-4xl">arrow_forward</span>
+                  </a>
+                </div>
               </div>
             </div>
             <div className="w-full md:w-1/2 min-h-[400px] md:min-h-full comic-border border-l-0 md:border-l-[5px] border-t-[5px] md:border-t-0 relative">
@@ -319,6 +327,153 @@ export default function T98OpArtBendaydots() {
                     </div>
                   </article>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          {/* AS SEEN ON — trusted-by row */}
+          <section className="p-6 md:p-8 lg:p-12 xl:p-16 bg-secondary-container border-t-[5px] border-on-surface">
+            <div className="max-w-[1600px] mx-auto">
+              <div className="flex items-end justify-between mb-8 flex-wrap gap-4 border-b-[3px] border-on-surface pb-4">
+                <h2 className="font-headline-lg text-on-surface text-4xl md:text-5xl uppercase tracking-wider">As seen on</h2>
+                <span className="font-label-bold text-on-surface text-xs uppercase tracking-widest hidden md:inline">/// shelves · stages · feeds ///</span>
+              </div>
+              <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-x-8 gap-y-9 items-center justify-items-center bg-surface-container-lowest comic-border p-6 md:p-8">
+                {[
+                  { slug: "behance", name: "Behance" },
+                  { slug: "dribbble", name: "Dribbble" },
+                  { slug: "instagram", name: "Instagram" },
+                  { slug: "pinterest", name: "Pinterest" },
+                  { slug: "substack", name: "Substack" },
+                  { slug: "medium", name: "Medium" },
+                  { slug: "etsy", name: "Etsy" },
+                  { slug: "twitch", name: "Twitch" },
+                  { slug: "spotify", name: "Spotify" },
+                ].map(b => (
+                  <li key={b.slug} className="flex flex-col items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/271717`} alt={b.name} className="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32" />
+                    <span className="font-label-bold text-[9px] uppercase tracking-[0.2em] text-on-surface">{b.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* HOUSE RULES — Premium 2x2 cards with icons */}
+          <section className="p-6 md:p-8 lg:p-12 xl:p-16 bg-tertiary-fixed border-t-[5px] border-on-surface">
+            <div className="max-w-[1600px] mx-auto">
+              <div className="flex items-end justify-between mb-10 flex-wrap gap-4 border-b-[3px] border-on-surface pb-4">
+                <div>
+                  <span className="inline-block bg-on-surface text-surface font-label-bold text-[10px] uppercase tracking-[0.3em] px-2 py-1 mb-3">/// House rules ///</span>
+                  <h2 className="font-headline-lg text-on-surface text-4xl md:text-6xl uppercase tracking-wider">Four panels we live by</h2>
+                </div>
+                <span className="font-label-bold text-on-surface text-xs uppercase tracking-widest hidden md:inline">/// printed in every back-cover ///</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {[
+                  { id: "PANEL · 01", icon: "brush", iconBg: "bg-primary text-on-primary", rotate: "rotate-[-3deg]", title: "Creator-owned, always.", body: "No work-for-hire. No moral-rights waivers. Every page in the catalog still belongs to the artist who drew it — they take 70% on the issue, 100% on the IP.", left: "Royalty · 70%", right: "IP · creator", rightBg: "bg-secondary-container" },
+                  { id: "PANEL · 02", icon: "print", iconBg: "bg-tertiary text-on-tertiary", rotate: "rotate-[3deg]", title: "Print on stock that lasts.", body: "120 gsm uncoated, soy ink, glue-spine — every issue is built to outlive the website. Reprints are open until the run sells out, then the plate is destroyed.", left: "Stock · 120 gsm", right: "Soy ink", rightBg: "bg-tertiary-container text-on-tertiary" },
+                  { id: "PANEL · 03", icon: "local_post_office", iconBg: "bg-secondary-container text-on-surface", rotate: "rotate-[-2deg]", title: "Posted by hand, every month.", body: "Each subscriber's package is hand-stamped at the BIG PANEL warehouse. Postage paid; tracking included; one creator note slipped in by the founder herself.", left: "Ship · 1st of month", right: "Tracked · always", rightBg: "bg-primary text-on-primary" },
+                  { id: "PANEL · 04", icon: "groups", iconBg: "bg-on-surface text-surface", rotate: "rotate-[2deg]", title: "Champion the strange ones.", body: "If a story scares the algorithms, it gets a panel here. The catalog leans toward the difficult, the political, the joyfully weird — read them in print before the feeds catch up.", left: "Catalog · 84 series", right: "Strange · always", rightBg: "bg-secondary-container" },
+                ].map(p => (
+                  <article key={p.id} className="bg-surface-container-lowest comic-border p-6 md:p-8 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#271717] transition-all duration-200 motion-reduce:transition-none">
+                    <div className="flex items-start justify-between mb-5">
+                      <div className={`w-14 h-14 comic-border flex items-center justify-center ${p.iconBg} ${p.rotate}`}>
+                        <span className="material-symbols-outlined text-[28px]" aria-hidden="true">{p.icon}</span>
+                      </div>
+                      <span className="font-headline-md text-on-surface text-xl">{p.id}</span>
+                    </div>
+                    <h3 className="font-headline-md text-on-surface text-2xl md:text-3xl uppercase mb-3 tracking-wide">{p.title}</h3>
+                    <p className="font-body-md text-on-surface text-base leading-relaxed mb-4">{p.body}</p>
+                    <div className="flex items-baseline justify-between border-t-[3px] border-on-surface pt-3 font-label-bold text-[10px] uppercase tracking-[0.3em] text-on-surface">
+                      <span>{p.left}</span>
+                      <span className={`${p.rightBg} px-2 py-0.5`}>{p.right}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION A — image LEFT, content RIGHT */}
+          <section className="p-6 md:p-8 lg:p-12 xl:p-16 bg-[#F6EFD8] border-t-[5px] border-on-surface">
+            <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+              <div className="md:col-span-7 relative">
+                <div className="relative aspect-[4/3] overflow-hidden comic-border bg-tertiary">
+                  <div className="absolute inset-0 halftone-blue opacity-70 z-0"></div>
+                  <img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1400&q=85&auto=format&fit=crop" alt="Editorial portrait — close framing in dramatic light, halftone print register" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-primary/20 mix-blend-color z-20"></div>
+                  <div className="absolute top-4 left-4 z-30 bg-secondary-container text-on-surface comic-border px-3 py-1 font-label-bold text-[10px] uppercase tracking-[0.3em] rotate-[-3deg]">Issue 042 · cover</div>
+                </div>
+              </div>
+              <div className="md:col-span-5 flex flex-col justify-center">
+                <span className="inline-block bg-primary text-on-primary font-label-bold text-[10px] uppercase tracking-[0.3em] px-2 py-1 mb-4 w-fit">/// CHAPTER A · STUDIO ///</span>
+                <h2 className="font-headline-lg text-on-surface text-4xl md:text-6xl uppercase leading-[0.95] tracking-wider mb-5">Drawn at the big table.</h2>
+                <p className="font-body-md text-on-surface text-base md:text-lg leading-relaxed mb-4">Every cover, every interior page, every back-matter ad — ruled and inked at one long oak table on the third floor of the warehouse. No Figma boards, no AI assists, no remote pen-pals.</p>
+                <p className="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">Light from the north window. Bristol stock by Strathmore. Ink by Speedball. Music kept to one pair of headphones at a time.</p>
+                <ul className="flex flex-col gap-3 font-label-bold text-[11px] uppercase tracking-[0.25em] text-on-surface border-t-[3px] border-on-surface pt-5">
+                  <li className="flex justify-between"><span>Table · oak · 3.6 m</span><span className="text-primary">Since 2017</span></li>
+                  <li className="flex justify-between"><span>Stock · Bristol 270 gsm</span><span className="text-primary">Strathmore</span></li>
+                  <li className="flex justify-between"><span>Headphones · 1 pair</span><span className="text-primary">No exceptions</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION B — image RIGHT, content LEFT */}
+          <section className="p-6 md:p-8 lg:p-12 xl:p-16 bg-tertiary-fixed border-t-[5px] border-on-surface">
+            <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+              <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1">
+                <span className="inline-block bg-tertiary text-on-tertiary font-label-bold text-[10px] uppercase tracking-[0.3em] px-2 py-1 mb-4 w-fit md:self-end">/// CHAPTER B · PRESS ///</span>
+                <h2 className="font-headline-lg text-on-surface text-4xl md:text-6xl uppercase leading-[0.95] tracking-wider mb-5 md:text-right">Printed at midnight.</h2>
+                <p className="font-body-md text-on-surface text-base md:text-lg leading-relaxed mb-4 md:text-right">Two-colour offset on a 1976 Heidelberg, run by a printer who has been on that machine since 1989. The press starts at 22:00, finishes by 04:00 — that's the whole month's run, every month.</p>
+                <p className="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6 md:text-right">No digital print, no print-on-demand. The screw, the rubber blanket, the ink-fountain — the same ones that printed our first issue in 2017.</p>
+                <ul className="flex flex-col gap-3 font-label-bold text-[11px] uppercase tracking-[0.25em] text-on-surface border-t-[3px] border-on-surface pt-5">
+                  <li className="flex justify-between"><span className="text-tertiary">Heidelberg · 1976</span><span>Press · GTO 52</span></li>
+                  <li className="flex justify-between"><span className="text-tertiary">22:00 → 04:00</span><span>Run · 1 night</span></li>
+                  <li className="flex justify-between"><span className="text-tertiary">Two-colour · offset</span><span>Soy · always</span></li>
+                </ul>
+              </div>
+              <div className="md:col-span-7 relative order-1 md:order-2">
+                <div className="relative aspect-[4/3] overflow-hidden comic-border bg-primary">
+                  <div className="absolute inset-0 halftone-red opacity-70 z-0"></div>
+                  <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1400&q=85&auto=format&fit=crop" alt="Profile portrait — high-contrast B&amp;W reading as printed comic frame" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-tertiary/20 mix-blend-color z-20"></div>
+                  <div className="absolute top-4 right-4 z-30 bg-on-surface text-surface comic-border px-3 py-1 font-label-bold text-[10px] uppercase tracking-[0.3em] rotate-[3deg]">Press · 22:00</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* COVER WALL — 7-up static comic-portrait strip */}
+          <section className="p-6 md:p-8 lg:p-12 xl:p-16 bg-surface-container border-t-[5px] border-on-surface">
+            <div className="max-w-[1600px] mx-auto">
+              <div className="flex items-end justify-between mb-8 flex-wrap gap-4 border-b-[3px] border-on-surface pb-4">
+                <h2 className="font-headline-lg text-on-surface text-4xl md:text-5xl uppercase tracking-wider">Cover wall · vol. 04</h2>
+                <span className="font-label-bold text-on-surface text-xs uppercase tracking-widest hidden md:inline">/// 7 of 84 catalog covers ///</span>
+              </div>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3 md:gap-4">
+                {[
+                  { n: "042", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=85&auto=format&fit=crop", alt: "Cover 042 · editorial portrait halftone", bg: "bg-primary", halftone: "halftone-red" },
+                  { n: "041", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&q=85&auto=format&fit=crop", alt: "Cover 041 · younger figure in soft light", bg: "bg-tertiary", halftone: "halftone-blue" },
+                  { n: "040", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&q=85&auto=format&fit=crop", alt: "Cover 040 · profile in chiaroscuro", bg: "bg-secondary-container", halftone: "halftone-yellow" },
+                  { n: "039", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&q=85&auto=format&fit=crop", alt: "Cover 039 · low-key studio portrait", bg: "bg-primary", halftone: "halftone-red" },
+                  { n: "038", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=85&auto=format&fit=crop", alt: "Cover 038 · dramatic editorial figure", bg: "bg-tertiary", halftone: "halftone-blue" },
+                  { n: "037", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=400&q=85&auto=format&fit=crop", alt: "Cover 037 · figure in coat", bg: "bg-secondary-container", halftone: "halftone-yellow" },
+                  { n: "036", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=400&q=85&auto=format&fit=crop", alt: "Cover 036 · close framing portrait", bg: "bg-primary", halftone: "halftone-red" },
+                ].map(c => (
+                  <figure key={c.n} className="group relative">
+                    <div className={`relative aspect-square overflow-hidden comic-border ${c.bg}`}>
+                      <div className={`absolute inset-0 ${c.halftone} opacity-70 z-0`}></div>
+                      <img src={c.img} alt={c.alt} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" loading="lazy" decoding="async" width="400" height="400" />
+                      <span className="absolute bottom-1 left-1 z-30 bg-on-surface text-surface px-1.5 py-0.5 font-label-bold text-[9px] uppercase tracking-widest">№ {c.n}</span>
+                    </div>
+                  </figure>
+                ))}
+              </div>
+              <div className="mt-6 pt-4 border-t-[3px] border-on-surface flex flex-col md:flex-row items-center justify-between gap-3 font-label-bold text-[11px] uppercase tracking-widest">
+                <span className="text-on-surface">/// vol 04 · panels 036 → 042</span>
+                <a href="#" className="bg-on-surface text-surface px-4 py-2 hover:bg-primary transition-colors">Browse 84 covers →</a>
               </div>
             </div>
           </section>

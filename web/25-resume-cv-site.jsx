@@ -64,8 +64,8 @@ export default function T25ResumeCvSite() {
         "Day-one activation +18%, sustained over four quarters",
         "Support tickets per signup down 31%"
       ],
-      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop",
-      alt: "Brutalist concrete facade in raking light, representing the Notion API onboarding rebuild",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop",
+      alt: "Macro view of a green circuit board representing the API onboarding rebuild",
       imageLeft: true
     },
     {
@@ -77,8 +77,8 @@ export default function T25ResumeCvSite() {
         "Net revenue retention +9 points; logo churn flat",
         "Migrated in 11 weeks, two engineers, zero rollback"
       ],
-      image: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop",
-      alt: "Architectural highway in raking light, representing the pricing migration project",
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop",
+      alt: "Wide-angle datacentre interior representing the pricing migration project at scale",
       imageLeft: false
     },
     {
@@ -90,8 +90,8 @@ export default function T25ResumeCvSite() {
         "Median resolution time down 42% across tier-1 issues",
         "CSM headcount held flat through 3x account growth"
       ],
-      image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop",
-      alt: "Architectural lobby in monochrome, representing the unified dashboard rollout",
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop",
+      alt: "Server rack with green status indicators representing the unified console rollout",
       imageLeft: true
     }
   ];
@@ -108,44 +108,57 @@ export default function T25ResumeCvSite() {
       venue: "ProductCon Stockholm — 2024",
       title: "Pricing without panic",
       excerpt: "A patient, methodical talk on charging more without losing your nerve.",
-      image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&h=400&q=85&auto=format&fit=crop",
-      alt: "Architectural cornicing detail"
+      image: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop",
+      alt: "Editorial portrait of a speaker, side-lit"
     },
     {
       venue: "Tech Today Nordics — 2022",
       title: "Top 50 Product Leaders",
       excerpt: "Among the operators redefining what serious product work looks like in the region.",
-      image: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=400&h=400&q=85&auto=format&fit=crop",
-      alt: "Architectural shadow play on facade"
+      image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&q=85&auto=format&fit=crop",
+      alt: "Editorial portrait, contemplative dark backdrop"
     },
     {
       venue: "Nordic PM Summit — 2023",
       title: "Quiet roadmaps, loud results",
       excerpt: "On choosing fewer bets, naming them clearly and protecting the calendar.",
-      image: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=400&h=400&q=85&auto=format&fit=crop",
-      alt: "Brutalist concrete interior"
+      image: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop",
+      alt: "Editorial portrait in soft light"
     },
     {
       venue: "Lenny's Newsletter — 2024",
       title: "Guest essay on launch reviews",
       excerpt: "A practical playbook for running launch retros that teams actually attend twice.",
-      image: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop",
-      alt: "Editorial portrait, low-key lighting"
+      image: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=400&q=85&auto=format&fit=crop",
+      alt: "Editorial portrait, low-key studio"
     },
     {
       venue: "Acme Corp — 2021",
       title: "Innovation Award · Project Phoenix",
       excerpt: "Recognised internally for the cleanest large migration the platform org had run.",
-      image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400&h=400&q=85&auto=format&fit=crop",
-      alt: "Brutalist staircase under hard sun"
+      image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=400&q=85&auto=format&fit=crop",
+      alt: "Editorial portrait, dramatic dark wardrobe"
     },
     {
       venue: "Mind the Product — 2025",
       title: "Panel: hiring senior PMs in 2025",
       excerpt: "The strongest signal is a candidate who can name a decision they got wrong.",
-      image: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=400&h=400&q=85&auto=format&fit=crop",
-      alt: "Editorial portrait in monochrome"
+      image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&q=85&auto=format&fit=crop",
+      alt: "Editorial portrait, fashion studio shot"
     }
+  ];
+
+  const stripImages = [
+    { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&q=85&auto=format&fit=crop", alt: "Press portrait, contemplative" },
+    { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop", alt: "Conference talk portrait" },
+    { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&q=85&auto=format&fit=crop", alt: "Circuit board macro — platform work" },
+    { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop", alt: "Speaker side profile" },
+    { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop", alt: "Datacentre wide shot" },
+    { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=400&q=85&auto=format&fit=crop", alt: "Editorial portrait, low-key" },
+    { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop", alt: "Server rack detail" },
+    { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=400&q=85&auto=format&fit=crop", alt: "Press portrait, dramatic" },
+    { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&q=85&auto=format&fit=crop", alt: "Editorial studio shot" },
+    { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=400&h=400&q=85&auto=format&fit=crop", alt: "Industrial machinery — infrastructure metaphor" }
   ];
 
   const faq = [
@@ -221,9 +234,9 @@ export default function T25ResumeCvSite() {
       <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
       <script type="text/plain" dangerouslySetInnerHTML={{ __html: tailwindConfig }} />
 
-      <div className="light scroll-smooth bg-background text-on-background antialiased selection:bg-primary-container selection:text-white">
+      <div className="light scroll-smooth bg-background text-on-background antialiased selection:bg-primary-container selection:text-white overflow-x-hidden">
         <header className="bg-white/95 w-full sticky top-0 z-50 border-b border-primary-container/20 shadow-sm backdrop-blur-md">
-          <div className="max-w-[720px] mx-auto flex flex-wrap gap-4 justify-between items-center py-4 sm:py-5 md:py-6 px-4 sm:px-6">
+          <div className="max-w-[1240px] mx-auto flex flex-wrap gap-4 justify-between items-center py-4 sm:py-5 md:py-6 px-4 sm:px-8 lg:px-12">
             <a className="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 transition-colors" href="#">Jonas Lindqvist</a>
             <nav className="hidden sm:flex gap-4 md:gap-6 items-center" aria-label="Main Navigation">
               {navLinks.map((l) => (
@@ -238,40 +251,74 @@ export default function T25ResumeCvSite() {
           </div>
         </header>
 
-        <main className="max-w-[720px] w-full mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24">
-          <section className="mb-section_gap scroll-mt-24" id="contact">
-            <h1 className="font-h1 text-h1 text-on-background mb-2 text-balance">Jonas Lindqvist</h1>
-            <p className="font-body-main text-body-main text-on-surface-variant mb-6 text-balance">Senior Product Manager</p>
-            <address className="flex flex-wrap items-center gap-x-4 gap-y-2 font-meta-mono text-meta-mono text-on-surface-variant not-italic">
-              {contactBits.map((b, i) => (
-                <span key={i} className="contents">
-                  {b.kind === "text"
-                    ? <span>{b.value}</span>
-                    : <a className="hover:underline hover:text-on-background transition-colors" href={b.href} target={b.external ? "_blank" : undefined} rel={b.external ? "noopener noreferrer" : undefined}>{b.value}</a>}
-                  {i < contactBits.length - 1 && <span className="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>}
-                </span>
-              ))}
-            </address>
+        <main className="max-w-[1240px] w-full mx-auto px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 pb-16 sm:pb-24">
+          {/* Contact / Hero — pushed left */}
+          <section className="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-8 items-end" id="contact">
+            <div className="md:col-span-8">
+              <h1 className="font-h1 text-h1 text-on-background mb-2 text-balance" style={{ fontSize: "clamp(2.5rem, 1.5rem + 4vw, 4rem)" }}>Jonas Lindqvist</h1>
+              <p className="font-body-main text-body-main text-on-surface-variant mb-6 text-balance text-lg">Senior Product Manager — building boring, dependable B2B SaaS in Stockholm.</p>
+              <address className="flex flex-wrap items-center gap-x-4 gap-y-2 font-meta-mono text-meta-mono text-on-surface-variant not-italic">
+                {contactBits.map((b, i) => (
+                  <span key={i} className="contents">
+                    {b.kind === "text"
+                      ? <span>{b.value}</span>
+                      : <a className="hover:underline hover:text-on-background transition-colors" href={b.href} target={b.external ? "_blank" : undefined} rel={b.external ? "noopener noreferrer" : undefined}>{b.value}</a>}
+                    {i < contactBits.length - 1 && <span className="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>}
+                  </span>
+                ))}
+              </address>
+            </div>
+            <aside className="md:col-span-4 flex flex-col gap-2 border-l-2 border-primary-container/30 pl-4 sm:pl-6 md:ml-auto">
+              <span className="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">Status</span>
+              <span className="font-body-main text-body-main text-on-background">Open to senior PM &amp; head-of-product roles, EU-remote.</span>
+              <span className="font-meta-mono text-meta-mono text-on-surface-variant mt-2">Updated · April 2026</span>
+            </aside>
           </section>
 
-          <section className="mb-section_gap scroll-mt-24" id="summary">
-            <SectionHead>Summary</SectionHead>
-            <p className="font-body-main text-body-main text-on-background text-lg leading-relaxed max-w-[75ch] text-pretty">
-              Strategic Senior Product Manager with over 8 years of experience scaling B2B SaaS platforms. Adept at bridging the gap between complex engineering capabilities and compelling user narratives to drive measurable business growth and user retention.
-            </p>
+          {/* Summary — narrow text left, stat card right */}
+          <section className="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-start" id="summary">
+            <div className="md:col-span-7">
+              <SectionHead>Summary</SectionHead>
+              <p className="font-body-main text-body-main text-on-background text-lg leading-relaxed text-pretty">
+                Strategic Senior Product Manager with over 8 years of experience scaling B2B SaaS platforms. Adept at bridging the gap between complex engineering capabilities and compelling user narratives to drive measurable business growth and user retention.
+              </p>
+            </div>
+            <aside className="md:col-span-4 md:col-start-9 bg-surface-container-high rounded-sm border border-outline-variant/40 p-5 sm:p-6 flex flex-col gap-4">
+              <span className="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">By the numbers</span>
+              <dl className="grid grid-cols-2 gap-x-4 gap-y-4 font-meta-mono text-meta-mono">
+                <div className="flex flex-col gap-1">
+                  <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Years shipping</dt>
+                  <dd className="font-h3-company text-h3-company text-on-background tabular-nums">8+</dd>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Teams led</dt>
+                  <dd className="font-h3-company text-h3-company text-on-background tabular-nums">4</dd>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Largest team</dt>
+                  <dd className="font-h3-company text-h3-company text-on-background tabular-nums">15</dd>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <dt className="text-on-surface-variant uppercase tracking-widest text-[10px]">Advisory seats</dt>
+                  <dd className="font-h3-company text-h3-company text-on-background tabular-nums">2</dd>
+                </div>
+              </dl>
+              <p className="font-body-main text-body-main text-on-surface-variant text-sm border-t border-outline-variant/40 pt-3 italic text-pretty">Numbers updated quarterly. The boring ones are tracked at <span className="font-meta-mono not-italic">jonas.lindqvist.se/notes</span>.</p>
+            </aside>
           </section>
 
+          {/* Experience — wide 2-col, label left, bullets right */}
           <section className="mb-section_gap scroll-mt-24" id="experience">
             <SectionHead>Experience</SectionHead>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-12">
               {experience.map((role) => (
-                <article key={role.company}>
-                  <h3 className="font-h3-company text-h3-company text-primary-container mb-1 text-balance">{role.company}</h3>
-                  <div className="font-meta-mono text-meta-mono text-on-surface-variant mb-4 flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4">
-                    <span className="font-medium text-on-background">{role.title}</span>
-                    <span>{role.period}</span>
-                  </div>
-                  <ul className="font-body-main text-body-main text-on-background space-y-3">
+                <article key={role.company} className="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10">
+                  <header className="md:col-span-4">
+                    <h3 className="font-h3-company text-h3-company text-primary-container mb-1 text-balance">{role.company}</h3>
+                    <p className="font-body-main text-body-main font-medium text-on-background mb-1">{role.title}</p>
+                    <p className="font-meta-mono text-meta-mono text-on-surface-variant">{role.period}</p>
+                  </header>
+                  <ul className="font-body-main text-body-main text-on-background space-y-3 md:col-span-7 md:col-start-6">
                     {role.bullets.map((b, i) => <Bullet key={i}>{b}</Bullet>)}
                   </ul>
                 </article>
@@ -279,47 +326,103 @@ export default function T25ResumeCvSite() {
             </div>
           </section>
 
+          {/* Projects — alternating L/R with meta tag on opposite side */}
           <section className="mb-section_gap scroll-mt-24" id="projects">
             <SectionHead>Selected Projects</SectionHead>
-            <div className="flex flex-col gap-8">
-              {projects.map((p) => (
-                <article key={p.title}>
-                  <h3 className="font-h3-company text-h3-company text-on-background mb-2 text-balance">{p.title}</h3>
-                  <p className="font-body-main text-body-main text-on-background text-pretty max-w-[75ch]">{p.body}</p>
-                </article>
-              ))}
+            <div className="flex flex-col gap-10">
+              {projects.map((p, i) => {
+                const meta = [
+                  { num: "01", year: "2022", role: "Lead PM", scope: "Platform" },
+                  { num: "02", year: "2023", role: "Lead PM", scope: "Growth" },
+                  { num: "03", year: "2024", role: "Lead PM", scope: "B2B Console" }
+                ][i];
+                const left = i % 2 === 0;
+                return (
+                  <article key={p.title} className="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10 items-start">
+                    <div className={`md:col-span-7 ${left ? "" : "md:col-start-6 md:text-right"}`}>
+                      <h3 className="font-h3-company text-h3-company text-on-background mb-2 text-balance">{p.title}</h3>
+                      <p className="font-body-main text-body-main text-on-background text-pretty">{p.body}</p>
+                    </div>
+                    <aside className={`md:col-span-3 ${left ? "md:col-start-10" : "md:col-start-1 md:row-start-1"} flex flex-col gap-2 border-l-2 border-primary-container/30 pl-4`}>
+                      <span className="font-meta-mono text-meta-mono text-primary-container tabular-nums">{meta.num}</span>
+                      <span className="font-h2-section text-h2-section text-on-background uppercase tracking-widest">{meta.scope}</span>
+                      <span className="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest">{meta.role} · {meta.year}</span>
+                    </aside>
+                  </article>
+                );
+              })}
             </div>
           </section>
 
-          <section className="mb-section_gap scroll-mt-24" id="skills">
+          {/* Skills — centred chip flow */}
+          <section className="mb-section_gap scroll-mt-24 max-w-[900px] mx-auto text-center" id="skills">
             <SectionHead>Skills</SectionHead>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               {skills.map((s) => (
                 <span key={s} className="border border-on-background px-3 py-1.5 font-chip-label text-chip-label text-on-background uppercase tracking-wider rounded-sm cursor-default hover:bg-on-background hover:text-background transition-colors">{s}</span>
               ))}
             </div>
           </section>
 
-          <section className="mb-section_gap scroll-mt-24" id="education">
-            <SectionHead>Education</SectionHead>
-            <div className="flex flex-col gap-8">
-              {education.map((e) => (
-                <article key={e.title}>
-                  <h3 className="font-h3-company text-h3-company text-on-background mb-1 text-balance">{e.title}</h3>
-                  <div className="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4 mt-1">
-                    <span className="font-medium text-on-background">{e.school}</span>
-                    <span>{e.period}</span>
-                  </div>
-                </article>
-              ))}
+          {/* Education — text left, certifications card right */}
+          <section className="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-start" id="education">
+            <div className="md:col-span-7">
+              <SectionHead>Education</SectionHead>
+              <div className="flex flex-col gap-8">
+                {education.map((e) => (
+                  <article key={e.title}>
+                    <h3 className="font-h3-company text-h3-company text-on-background mb-1 text-balance">{e.title}</h3>
+                    <div className="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4 mt-1">
+                      <span className="font-medium text-on-background">{e.school}</span>
+                      <span>{e.period}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
+            <aside className="md:col-span-4 md:col-start-9 bg-surface-container-low rounded-sm border border-outline-variant/40 p-5 sm:p-6 flex flex-col gap-3">
+              <span className="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">Continuing Study</span>
+              <ul className="font-body-main text-body-main text-on-background flex flex-col gap-2 m-0 p-0 list-none divide-y divide-outline-variant/40">
+                <li className="flex justify-between items-baseline gap-3 pb-2">
+                  <span>PSPO I · Scrum.org</span>
+                  <span className="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2018</span>
+                </li>
+                <li className="flex justify-between items-baseline gap-3 pb-2">
+                  <span>Reforge · Pricing &amp; Monetisation</span>
+                  <span className="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2021</span>
+                </li>
+                <li className="flex justify-between items-baseline gap-3 pb-2">
+                  <span>RSA · Service Design intensive</span>
+                  <span className="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2023</span>
+                </li>
+                <li className="flex justify-between items-baseline gap-3">
+                  <span>Lenny&apos;s · PM Mentor cohort</span>
+                  <span className="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2024</span>
+                </li>
+              </ul>
+              <p className="font-body-main text-body-main text-on-surface-variant text-sm italic border-t border-outline-variant/40 pt-3 text-pretty">Self-directed reading list lives in the public Notion at <span className="font-meta-mono not-italic">jonas.lindqvist.se/library</span>.</p>
+            </aside>
           </section>
 
-          <section className="mb-section_gap scroll-mt-24" id="awards">
-            <SectionHead>Awards & Press</SectionHead>
-            <ul className="font-body-main text-body-main text-on-background space-y-3">
-              {awards.map((a, i) => <Bullet key={i}>{a}</Bullet>)}
-            </ul>
+          {/* Awards — supporting card left, awards right with right-aligned list */}
+          <section className="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-start" id="awards">
+            <aside className="md:col-span-4 bg-surface-container-high rounded-sm border border-outline-variant/40 p-5 sm:p-6 flex flex-col gap-3 md:order-1 order-2">
+              <span className="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">Press archive</span>
+              <p className="font-body-main text-body-main text-on-background text-pretty">Six talks, two essays, and one panel since 2022. Slides live behind a public Notion; recordings cited inline below.</p>
+              <div className="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col gap-1 border-t border-outline-variant/40 pt-3">
+                <span className="flex justify-between"><span className="uppercase tracking-widest text-[10px]">Talks</span><span className="tabular-nums text-on-background">06</span></span>
+                <span className="flex justify-between"><span className="uppercase tracking-widest text-[10px]">Essays</span><span className="tabular-nums text-on-background">02</span></span>
+                <span className="flex justify-between"><span className="uppercase tracking-widest text-[10px]">Panels</span><span className="tabular-nums text-on-background">01</span></span>
+              </div>
+            </aside>
+            <div className="md:col-span-7 md:col-start-6 md:text-right md:order-2 order-1">
+              <SectionHead>Awards &amp; Press</SectionHead>
+              <ul className="font-body-main text-body-main text-on-background space-y-3 md:list-none">
+                {awards.map((a, i) => (
+                  <li key={i} className="md:text-right text-pretty">{a}</li>
+                ))}
+              </ul>
+            </div>
           </section>
 
           <section className="mb-section_gap scroll-mt-24" id="case-studies">
@@ -397,14 +500,40 @@ export default function T25ResumeCvSite() {
             </div>
           </section>
 
-          <section className="scroll-mt-24" id="references">
+          <section className="scroll-mt-24 max-w-[640px] mx-auto text-center" id="references">
             <SectionHead>References</SectionHead>
             <p className="font-body-main text-body-main text-on-surface-variant italic text-pretty">Available upon request.</p>
           </section>
         </main>
 
-        <footer className="bg-white/95 w-full border-t border-primary-container/20 mt-12">
-          <div className="max-w-[720px] mx-auto flex flex-col sm:flex-row justify-between items-center py-6 sm:py-8 px-4 sm:px-6 gap-4">
+        {/* Continuous square image strip — full bleed, marquee */}
+        <section aria-label="Press, talks and platform work — visual archive" className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-12 sm:mt-20 border-y border-primary-container/20 bg-surface-container-low overflow-hidden">
+          <div className="resume-strip-track flex gap-px">
+            {[...stripImages, ...stripImages].map((img, idx) => (
+              <figure key={`s-${idx}`} aria-hidden={idx >= stripImages.length ? "true" : undefined} className="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden">
+                <img src={img.src} alt={idx >= stripImages.length ? "" : img.alt} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
+              </figure>
+            ))}
+          </div>
+        </section>
+
+        <style dangerouslySetInnerHTML={{ __html: `
+          .resume-strip-track {
+            width: max-content;
+            animation: resumeStripScroll 90s linear infinite;
+          }
+          .resume-strip-track:hover { animation-play-state: paused; }
+          @keyframes resumeStripScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .resume-strip-track { animation: none; }
+          }
+        ` }} />
+
+        <footer className="bg-white/95 w-full border-t border-primary-container/20">
+          <div className="max-w-[1240px] mx-auto flex flex-col sm:flex-row justify-between items-center py-6 sm:py-8 px-4 sm:px-8 lg:px-12 gap-4">
             <p className="font-sans text-xs uppercase tracking-widest text-zinc-500 mb-2 sm:mb-0 text-center sm:text-left text-balance">© 2024 Jonas Lindqvist</p>
             <nav className="flex flex-wrap justify-center gap-4 sm:gap-6" aria-label="Footer Navigation">
               {footerLinks.map((l) => (

@@ -4,7 +4,7 @@ const WITNESSED_TILES = [
   { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=600", alt: "Hands", caption: "hands · margins", plate: "PL · III", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-1", mt: "" },
   { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=900", alt: "Wide field", caption: "field, then nothing", plate: "PL · IV", w: "w-96", aspect: "aspect-[16/10]", filter: "filter contrast-110 sepia-[.1]", rot: "rotate-2", mt: "" },
   { src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=600", alt: "Coat on chair", caption: "coat · empty chair", plate: "PL · V", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-115", rot: "-rotate-3", mt: "mt-4" },
-  { src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=80&w=600", alt: "Brick wall and shadow", caption: "wall, 4pm", plate: "PL · VI", w: "w-80", aspect: "aspect-[16/10]", filter: "filter sepia-[.15] contrast-110", rot: "rotate-1", mt: "mt-6" },
+  { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=80&w=600", alt: "Brick wall and shadow", caption: "wall, 4pm", plate: "PL · VI", w: "w-80", aspect: "aspect-[16/10]", filter: "filter sepia-[.15] contrast-110", rot: "rotate-1", mt: "mt-6" },
   { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600", alt: "Quiet portrait", caption: "— she said nothing", plate: "PL · VII", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-2", mt: "" },
 ];
 
@@ -15,9 +15,9 @@ const MT_CLASS = { "": "", "mt-4": "mt-4", "mt-6": "mt-6" };
 
 const FIELD_NOTES = [
   { src: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=500", alt: "Notebook page", caption: "tea & a list", filter: "filter sepia-[0.25]", pos: "top-4 left-2 md:left-12", w: "w-52 md:w-60", rot: "-rotate-6", hoverRot: "hover:-rotate-2", deco: "pin-chip", z: "z-10 hover:z-30" },
-  { src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=500", alt: "Window light", caption: "window, soft", filter: "filter contrast-110", pos: "top-2 left-1/3 md:left-[28%]", w: "w-48 md:w-56", rot: "rotate-3", hoverRot: "", deco: "polaroid-tape", z: "z-20 hover:z-30" },
+  { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&q=80&w=500", alt: "Window light", caption: "window, soft", filter: "filter contrast-110", pos: "top-2 left-1/3 md:left-[28%]", w: "w-48 md:w-56", rot: "rotate-3", hoverRot: "", deco: "polaroid-tape", z: "z-20 hover:z-30" },
   { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=500", alt: "Interior corner", caption: "borrowed room", filter: "filter grayscale contrast-110", pos: "top-8 right-4 md:right-16", w: "w-52 md:w-60", rot: "rotate-6", hoverRot: "hover:rotate-2", deco: "pin-chip", z: "z-10 hover:z-30" },
-  { src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&q=80&w=500", alt: "Brass objects", caption: "desk · brass", filter: "filter sepia-[0.2] contrast-110", pos: "top-[42%] left-8 md:left-24", w: "w-48 md:w-56", rot: "rotate-2", hoverRot: "", deco: "polaroid-tape", z: "z-20 hover:z-30" },
+  { src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?auto=format&fit=crop&q=80&w=500", alt: "Brass objects", caption: "desk · brass", filter: "filter sepia-[0.2] contrast-110", pos: "top-[42%] left-8 md:left-24", w: "w-48 md:w-56", rot: "rotate-2", hoverRot: "", deco: "polaroid-tape", z: "z-20 hover:z-30" },
   { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=500", alt: "Portrait, looking down", caption: "— v.", filter: "filter grayscale", pos: "top-[44%] right-2 md:right-32", w: "w-52 md:w-60", rot: "-rotate-4", hoverRot: "hover:-rotate-1", deco: "pin-chip", z: "z-20 hover:z-30" },
   { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500", alt: "Hands at table", caption: "supper, after", filter: "filter sepia-[0.15] contrast-110", pos: "bottom-2 left-1/2 -translate-x-1/2", w: "w-52 md:w-64", rot: "-rotate-1", hoverRot: "", deco: "polaroid-tape", z: "z-30" },
 ];
@@ -27,6 +27,13 @@ const ATELIER_LOOKS = [
   { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=200", alt: "Look 2", filter: "filter sepia-[0.18] contrast-110", thumbFilter: "filter sepia-[0.18]", delay: "4s" },
   { src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=200", alt: "Look 3", filter: "filter grayscale contrast-110", thumbFilter: "filter grayscale", delay: "8s" },
   { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=200", alt: "Look 4", filter: "filter sepia-[0.2] contrast-110", thumbFilter: "filter sepia-[0.2]", delay: "12s" },
+];
+
+const ATELIER_DRAFTS = [
+  { src: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=200", alt: "Archive draft 1", filter: "filter sepia-[0.25]", thumbFilter: "filter sepia-[0.25]", delay: "2s" },
+  { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=200", alt: "Archive draft 2", filter: "filter sepia-[0.18] contrast-110", thumbFilter: "filter sepia-[0.18] contrast-110", delay: "6s" },
+  { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=80&w=200", alt: "Archive draft 3", filter: "filter sepia-[0.15] contrast-110", thumbFilter: "filter sepia-[0.15] contrast-110", delay: "10s" },
+  { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=200", alt: "Archive draft 4", filter: "filter contrast-110 sepia-[0.1]", thumbFilter: "filter contrast-110 sepia-[0.1]", delay: "14s" },
 ];
 
 const VOICES = [
@@ -105,7 +112,6 @@ function PaperCollage() {
         .texture-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9999; opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         .paper-shadow { filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15)); }
         .paper-shadow-lg { filter: drop-shadow(5px 10px 15px rgba(0,0,0,0.2)); }
@@ -274,7 +280,7 @@ function PaperCollage() {
 
       <div className="selection:bg-yellow-200 selection:text-black bg-paper text-ink">
 
-        <div className="texture-overlay"></div>
+        <div className="texture-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }}></div>
 
         {/* Sticky Navbar */}
         <nav id="navbar" className="fixed top-0 w-full z-50 transition-all duration-300">
@@ -397,11 +403,53 @@ function PaperCollage() {
                   Why We Need Messy Webs
                 </h3>
                 <div className="columns-2 gap-4 text-xs font-serif text-justify leading-tight mb-4 text-gray-700">
-                  <p>In a world of perfect grids, the human touch is lost. We crave the tear, the smudge, the error.</p>
-                  <p>Let's bring back the feeling of holding something real, even through a glass screen.</p>
+                  <p>In a world of perfect grids, the human touch is lost. We crave the tear, the smudge, the error. The wrinkled corner of a notebook page, the coffee ring on a manuscript, the line crossed out and rewritten beside it. These accidents are not failures. They are the writer's hand making contact with the paper.</p>
+                  <p>Let's bring back the feeling of holding something real, even through a glass screen. Sites that breathe. Layouts that lean a little. Margins that wander, the way a good letter does when the writer can't quite hide their hurry. Pixels can fray. Edges can curl. The web should remember that it was made by people, not by templates.</p>
                 </div>
                 <div className="mt-4 pt-4 border-t border-gray-300 border-dashed">
                   <span className="font-marker text-sm text-ink underline decoration-wavy decoration-red-400">Read Full Article →</span>
+                </div>
+
+                {/* Sticker sub-card — circular stamp + editor's pick teaser */}
+                <div className="mt-5 relative">
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-4 bg-yellow-200/60 rotate-1 shadow-sm"></div>
+                  <div className="relative bg-paper/70 border border-dashed border-ink/30 p-3 transform -rotate-[0.5deg] flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full border-2 border-red-stamp/60 text-red-stamp flex items-center justify-center transform -rotate-12 shrink-0 bg-paper">
+                      <i data-lucide="bookmark" className="w-5 h-5"></i>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-typewriter text-[10px] uppercase tracking-[0.2em] text-ink/60 mb-0.5">— editor's pick</p>
+                      <p className="font-hand text-base text-ink leading-snug">also try: "On margins, &amp; the art of leaving room."</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sticker sub-card — filed-under tags */}
+                <div className="mt-4 relative">
+                  <div className="absolute -top-1.5 right-6 w-12 h-4 bg-red-stamp/30 -rotate-2 shadow-sm"></div>
+                  <div className="relative bg-paper/70 border border-dashed border-ink/30 p-3 transform rotate-[0.4deg] flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full border-2 border-ink/40 text-ink/70 flex items-center justify-center transform rotate-6 shrink-0 bg-paper">
+                      <i data-lucide="hash" className="w-5 h-5"></i>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-typewriter text-[10px] uppercase tracking-[0.2em] text-ink/60 mb-0.5">— filed under</p>
+                      <p className="font-hand text-base text-ink leading-snug">essay · web · typography · making</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sticker sub-card — from the margins (handwritten note) */}
+                <div className="mt-4 relative">
+                  <div className="absolute -top-2 left-4 w-10 h-4 bg-yellow-200/60 rotate-3 shadow-sm"></div>
+                  <div className="relative bg-paper/70 border border-dashed border-ink/30 p-3 transform -rotate-[0.4deg] flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-full border-2 border-red-stamp/60 text-red-stamp flex items-center justify-center transform rotate-3 shrink-0 bg-paper">
+                      <i data-lucide="pen-tool" className="w-5 h-5"></i>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-typewriter text-[10px] uppercase tracking-[0.2em] text-ink/60 mb-0.5">— from the margins</p>
+                      <p className="font-hand text-base text-ink leading-snug">scribbled in pencil at 2am, never erased.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="tape w-24 h-6 -top-3 left-1/2 -translate-x-1/2 rotate-1"></div>
@@ -504,6 +552,14 @@ function PaperCollage() {
               </figure>
             ))}
 
+            {/* 7th polaroid — fills the top-row gap between #2 (window, soft) and #3 (borrowed room) */}
+            <figure className="absolute top-1 md:top-2 left-[48%] md:left-[49%] w-44 md:w-52 transform rotate-2 polaroid-tape z-20 hover:z-30 hover:rotate-0 transition-all duration-300 hover:scale-105">
+              <div className="polaroid">
+                <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=500" className="w-full aspect-[4/5] object-cover filter sepia-[0.25] contrast-105" alt="Sofa, half-light" />
+                <figcaption className="absolute bottom-3 left-0 right-0 text-center font-hand text-base text-ink">— scrap iv</figcaption>
+              </div>
+            </figure>
+
             <div className="absolute bottom-12 right-2 md:right-12 w-44 transform rotate-3 bg-highlighter px-4 py-3 shadow-md z-30">
               <p className="font-typewriter text-[10px] uppercase tracking-widest text-ink/60 mb-1">— note to self</p>
               <p className="font-hand text-lg text-ink leading-snug">don't fix the corner. let it curl.</p>
@@ -523,7 +579,7 @@ function PaperCollage() {
             <div className="flex flex-wrap justify-center gap-8 relative z-10">
 
               <div className="relative w-64 h-64 md:w-80 md:h-80 paper-shadow bg-white p-2 transform -rotate-3 hover:rotate-0 transition-transform duration-500 hover:z-20">
-                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=500" className="w-full h-full object-cover" alt="Texture" />
+                <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=500" className="w-full h-full object-cover" alt="Texture" />
                 <div className="tape tape-pattern w-32 h-8 -top-3 left-10 transform -rotate-2"></div>
               </div>
 
@@ -555,20 +611,20 @@ function PaperCollage() {
             <div className="lg:col-span-7 order-2 lg:order-1">
               <div className="relative w-full h-[480px] md:h-[560px]">
                 <div className="layered-photo edge-torn-all w-72 md:w-[26rem] h-80 md:h-[24rem] top-0 left-0 transform -rotate-3 z-10">
-                  <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=900" className="w-full h-full object-cover filter sepia-[0.25] contrast-105" alt="Texture" />
+                  <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=900" className="w-full h-full object-cover filter sepia-[0.25] contrast-105" alt="Texture" />
                 </div>
                 <div className="layered-photo edge-torn-diagonal w-64 md:w-80 h-72 md:h-96 top-12 md:top-16 left-32 md:left-48 transform rotate-2 z-20">
                   <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover filter grayscale contrast-110" alt="Brutalist concrete" />
                 </div>
                 <div className="layered-photo edge-torn-bottom w-56 md:w-72 h-64 md:h-80 bottom-0 left-12 md:left-24 transform -rotate-2 z-30">
-                  <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&q=80&w=700" className="w-full h-full object-cover filter contrast-110" alt="Editorial portrait" />
+                  <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=80&w=700" className="w-full h-full object-cover filter contrast-110" alt="Editorial portrait" />
                   <span className="absolute top-2 left-3 font-hand text-base text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">— overlap</span>
                 </div>
                 <div className="layered-photo w-40 md:w-48 h-40 md:h-48 top-4 right-0 transform rotate-6 z-30 polaroid-tape">
                   <img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&q=80&w=500" className="w-full h-full object-cover filter grayscale" alt="Hand" />
                 </div>
                 <div className="layered-photo w-28 md:w-36 h-28 md:h-36 bottom-12 right-4 md:right-12 transform -rotate-6 z-30 pin-chip">
-                  <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover filter sepia-[0.2]" alt="Detail" />
+                  <img src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover filter sepia-[0.2]" alt="Detail" />
                 </div>
               </div>
             </div>
@@ -602,50 +658,94 @@ function PaperCollage() {
 
           <div className="container mx-auto px-6 py-24 md:py-32 relative">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
-              <div className="md:col-span-5 md:sticky md:top-32 md:self-start mb-12 md:mb-0">
-                <span className="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Sequence 06</span>
-                <h2 className="font-marker text-4xl md:text-5xl text-ink mt-2 mb-6 transform -rotate-1">From the<br />atelier.</h2>
-                <div className="font-serif text-base md:text-lg text-gray-800 leading-relaxed space-y-4 mb-8">
-                  <p>I keep five working images stuck above the desk. They rotate like the moon — one at a time, every few seconds, on no particular axis.</p>
-                  <p className="font-hand text-xl text-gray-600 transform -rotate-1">— what's pinned today, anyway.</p>
+              <div className="md:col-span-5 flex flex-col md:h-full md:justify-between gap-12 mb-12 md:mb-0">
+                <div>
+                  <span className="font-typewriter text-xs tracking-[0.3em] uppercase text-pencil">— Sequence 06</span>
+                  <h2 className="font-marker text-4xl md:text-5xl text-ink mt-2 mb-6 transform -rotate-1">From the<br />atelier.</h2>
+                  <div className="font-serif text-base md:text-lg text-gray-800 leading-relaxed space-y-4 mb-8">
+                    <p>I keep five working images stuck above the desk. They rotate like the moon — one at a time, every few seconds, on no particular axis.</p>
+                    <p className="font-hand text-xl text-gray-600 transform -rotate-1">— what's pinned today, anyway.</p>
+                  </div>
+
+                  <div className="flex items-center gap-4 max-w-sm mb-6">
+                    <div className="flex-1 h-px bg-ink/20 relative overflow-hidden">
+                      <div className="absolute inset-0 origin-left bg-red-stamp scrap-scrub-bar"></div>
+                    </div>
+                    <span className="font-typewriter text-[10px] uppercase tracking-widest text-pencil whitespace-nowrap">04 looks · 16s loop</span>
+                  </div>
+
+                  <a href="#field-notes" className="group relative inline-block">
+                    <div className="absolute inset-0 bg-black translate-y-1 translate-x-1 transition-transform group-hover:translate-y-2 group-hover:translate-x-2"></div>
+                    <div className="relative bg-paper border-2 border-black px-7 py-3 font-marker text-base hover:-translate-y-1 transition-transform">
+                      More from the desk
+                    </div>
+                  </a>
                 </div>
 
-                <div className="flex items-center gap-4 max-w-sm mb-6">
-                  <div className="flex-1 h-px bg-ink/20 relative overflow-hidden">
-                    <div className="absolute inset-0 origin-left bg-red-stamp scrap-scrub-bar"></div>
+                {/* Bottom block: ledger card. md:mb-12 lifts it 3rem so its bottom aligns with ATELIER·06's 4-thumbs bottom (right sub-col is lg:mt-12 = 3rem deeper). */}
+                <div className="md:mb-12">
+                  <div className="relative bg-paper/80 border border-kraft/40 p-5 shadow-paper transform -rotate-[0.6deg]">
+                    <div className="tape tape-pattern w-16 h-5 -top-2 right-4 -rotate-3"></div>
+                    <span className="font-typewriter text-[10px] uppercase tracking-[0.25em] text-pencil block mb-3">— ledger 06.iv</span>
+                    <ul className="font-typewriter text-xs text-ink-light leading-7 space-y-0.5">
+                      <li>iv / framed prints, walnut</li>
+                      <li>iii / contact sheets, march</li>
+                      <li>ii / typewriter ribbon, used</li>
+                      <li>i / brass scissors, sharp</li>
+                    </ul>
                   </div>
-                  <span className="font-typewriter text-[10px] uppercase tracking-widest text-pencil whitespace-nowrap">04 looks · 16s loop</span>
                 </div>
-
-                <a href="#field-notes" className="group relative inline-block">
-                  <div className="absolute inset-0 bg-black translate-y-1 translate-x-1 transition-transform group-hover:translate-y-2 group-hover:translate-x-2"></div>
-                  <div className="relative bg-paper border-2 border-black px-7 py-3 font-marker text-base hover:-translate-y-1 transition-transform">
-                    More from the desk
-                  </div>
-                </a>
               </div>
 
               <div className="md:col-span-7">
-                <div className="relative max-w-md mx-auto md:mx-0">
-                  <div className="tape tape-translucent w-32 h-8 -top-4 left-1/2 -translate-x-1/2 rotate-2 z-30"></div>
-                  <div className="polaroid transform rotate-1 shadow-float">
-                    <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100">
-                      {ATELIER_LOOKS.map((look, i) => (
-                        <img key={i} className={`scrap-cycle-img absolute inset-0 w-full h-full object-cover ${look.filter}`} style={{ animationDelay: look.delay }} src={look.src} alt={look.alt} />
-                      ))}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8">
+                  {/* Original: polaroid + 4 thumbs BELOW */}
+                  <div className="relative">
+                    <div className="tape tape-translucent w-28 h-7 -top-3 left-1/2 -translate-x-1/2 rotate-2 z-30"></div>
+                    <div className="polaroid transform rotate-1 shadow-float">
+                      <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100">
+                        {ATELIER_LOOKS.map((look, i) => (
+                          <img key={i} className={`scrap-cycle-img absolute inset-0 w-full h-full object-cover ${look.filter}`} style={{ animationDelay: look.delay }} src={look.src} alt={look.alt} />
+                        ))}
+                      </div>
+                      <div className="pt-4 px-2 flex items-end justify-between gap-3">
+                        <span className="font-hand text-xl text-ink">— pinned today.</span>
+                        <span className="font-typewriter text-[10px] uppercase tracking-widest text-pencil">ATELIER · 06</span>
+                      </div>
                     </div>
-                    <div className="pt-4 px-2 flex items-end justify-between gap-3">
-                      <span className="font-hand text-xl text-ink">— pinned today.</span>
-                      <span className="font-typewriter text-[10px] uppercase tracking-widest text-pencil">ATELIER · 06</span>
+
+                    <div className="grid grid-cols-4 gap-2 mt-5">
+                      {ATELIER_LOOKS.map((look, i) => (
+                        <div key={i} className="aspect-square overflow-hidden border border-ink/20">
+                          <img src={look.thumb} className={`w-full h-full object-cover ${look.thumbFilter}`} alt="" />
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-4 gap-3 mt-6">
-                    {ATELIER_LOOKS.map((look, i) => (
-                      <div key={i} className="aspect-square overflow-hidden border border-ink/20">
-                        <img src={look.thumb} className={`w-full h-full object-cover ${look.thumbFilter}`} alt="" />
+                  {/* Reverse: 4 thumbs ABOVE + polaroid */}
+                  <div className="relative lg:mt-12">
+                    <div className="grid grid-cols-4 gap-2 mb-5">
+                      {ATELIER_DRAFTS.map((d, i) => (
+                        <div key={i} className="aspect-square overflow-hidden border border-ink/20">
+                          <img src={d.thumb} className={`w-full h-full object-cover ${d.thumbFilter}`} alt="" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="relative">
+                      <div className="tape tape-pattern w-24 h-7 -top-3 right-6 -rotate-3 z-30"></div>
+                      <div className="polaroid transform -rotate-2 shadow-float">
+                        <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100">
+                          {ATELIER_DRAFTS.map((d, i) => (
+                            <img key={i} className={`scrap-cycle-img absolute inset-0 w-full h-full object-cover ${d.filter}`} style={{ animationDelay: d.delay }} src={d.src} alt={d.alt} />
+                          ))}
+                        </div>
+                        <div className="pt-4 px-2 flex items-end justify-between gap-3">
+                          <span className="font-hand text-xl text-ink">— archive · 03.</span>
+                          <span className="font-typewriter text-[10px] uppercase tracking-widest text-pencil">ATELIER · 07</span>
+                        </div>
                       </div>
-                    ))}
+                    </div>
                   </div>
                 </div>
               </div>

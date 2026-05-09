@@ -100,42 +100,46 @@
 </head>
 <body class="bg-surface text-primary font-body flex flex-col md:flex-row min-h-screen">
 
-    <!-- Navigation / Sidebar -->
-    <nav class="hidden md:flex fixed left-0 top-0 h-screen w-64 border-r-2 border-primary bg-surface z-40 flex-col justify-between" aria-label="Main Navigation">
+    <!-- Navigation / Sidebar — PREMIUM CONTRASTED -->
+    <nav class="hidden md:flex fixed left-0 top-0 h-screen w-64 border-r-4 border-primary bg-primary text-surface z-40 flex-col justify-between shadow-[6px_0_0_0_#0000e1]" aria-label="Main Navigation">
         <div class="flex flex-col p-p-base pb-0">
             <div class="mb-16">
-                <h2 class="font-h3 text-primary uppercase mb-2">INDEX</h2>
-                <div class="font-data-sm text-primary border-b-2 border-primary pb-2">V.07 / DE</div>
+                <h2 class="font-h3 text-surface uppercase mb-2 tracking-wide">INDEX</h2>
+                <div class="font-data-sm text-surface border-b-2 border-surface pb-2">V.07 / DE</div>
             </div>
             <ul class="flex flex-col gap-1 w-full" role="list">
                 <li>
-                    <a class="group flex items-center justify-between py-2 text-secondary hover:bg-secondary hover:text-surface transition-none" href="#exhibitions" aria-current="page">
-                        <span class="font-h3 uppercase pl-2 before:content-['>'] before:-ml-4 before:absolute relative">EXHIBITIONS</span>
+                    <a class="group flex items-center justify-between py-2 text-secondary hover:bg-surface hover:text-primary transition-none" href="#exhibitions" aria-current="page">
+                        <span class="font-h3 uppercase pl-2 tracking-wide before:content-['>'] before:-ml-4 before:absolute relative">EXHIBITIONS</span>
                         <span class="material-symbols-outlined pr-2 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
                     </a>
                 </li>
                 <li>
-                    <a class="group flex items-center justify-between py-2 text-primary hover:bg-primary hover:text-surface transition-none" href="#programs">
-                        <span class="font-h3 uppercase pl-2">PROGRAMS</span>
+                    <a class="group flex items-center justify-between py-2 text-surface hover:bg-surface hover:text-primary transition-none" href="#programs">
+                        <span class="font-h3 uppercase pl-2 tracking-wide">PROGRAMS</span>
                         <span class="material-symbols-outlined pr-2 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
                     </a>
                 </li>
                 <li>
-                    <a class="group flex items-center justify-between py-2 text-primary hover:bg-primary hover:text-surface transition-none" href="#collection">
-                        <span class="font-h3 uppercase pl-2">COLLECTION</span>
+                    <a class="group flex items-center justify-between py-2 text-surface hover:bg-surface hover:text-primary transition-none" href="#collection">
+                        <span class="font-h3 uppercase pl-2 tracking-wide">COLLECTION</span>
                         <span class="material-symbols-outlined pr-2 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
                     </a>
                 </li>
                 <li>
-                    <a class="group flex items-center justify-between py-2 text-primary hover:bg-primary hover:text-surface transition-none" href="#research">
-                        <span class="font-h3 uppercase pl-2">RESEARCH</span>
+                    <a class="group flex items-center justify-between py-2 text-surface hover:bg-surface hover:text-primary transition-none" href="#research">
+                        <span class="font-h3 uppercase pl-2 tracking-wide">RESEARCH</span>
                         <span class="material-symbols-outlined pr-2 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_right_alt</span>
                     </a>
                 </li>
             </ul>
+            <a href="#inquiry" class="mt-8 inline-flex items-center justify-between py-3 px-3 bg-secondary text-on-secondary border-2 border-surface font-data-sm uppercase tracking-wider shadow-[4px_4px_0_0_#ffffff] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#ffffff] transition-transform">
+                <span>INQUIRE</span>
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+            </a>
         </div>
-        <div class="p-p-base border-t-2 border-primary">
-            <div class="font-data-sm text-primary uppercase leading-tight">
+        <div class="p-p-base border-t-2 border-surface">
+            <div class="font-data-sm text-surface uppercase leading-tight">
                 EST. 1994<br>BERLIN, DE
             </div>
         </div>
@@ -157,21 +161,21 @@
                         Berlin's premier experimental art space. Documenting the intersection of brutalist architecture, digital decay, and systemic structures.
                     </p>
                     
-                    <!-- Mobile Navigation Fallback -->
-                    <nav class="md:hidden flex flex-col gap-2 border-t-2 border-primary pt-6" aria-label="Mobile Navigation">
-                        <a class="flex items-center justify-between py-2 text-secondary hover:bg-secondary hover:text-surface transition-none font-h3" href="#exhibitions">
+                    <!-- Mobile Navigation Fallback — Contrasted Block -->
+                    <nav class="md:hidden flex flex-col gap-0 border-2 border-primary bg-primary text-surface shadow-[6px_6px_0_0_#0000e1]" aria-label="Mobile Navigation">
+                        <a class="flex items-center justify-between py-3 px-3 text-secondary hover:bg-surface hover:text-primary transition-none font-h3 tracking-wide border-b-2 border-surface/30" href="#exhibitions">
                             <span class="before:content-['>'] before:mr-2">EXHIBITIONS</span>
                             <span class="material-symbols-outlined">arrow_right_alt</span>
                         </a>
-                        <a class="flex items-center justify-between py-2 text-primary hover:bg-primary hover:text-surface transition-none font-h3" href="#programs">
+                        <a class="flex items-center justify-between py-3 px-3 text-surface hover:bg-surface hover:text-primary transition-none font-h3 tracking-wide border-b-2 border-surface/30" href="#programs">
                             <span>PROGRAMS</span>
                             <span class="material-symbols-outlined">arrow_right_alt</span>
                         </a>
-                        <a class="flex items-center justify-between py-2 text-primary hover:bg-primary hover:text-surface transition-none font-h3" href="#collection">
+                        <a class="flex items-center justify-between py-3 px-3 text-surface hover:bg-surface hover:text-primary transition-none font-h3 tracking-wide border-b-2 border-surface/30" href="#collection">
                             <span>COLLECTION</span>
                             <span class="material-symbols-outlined">arrow_right_alt</span>
                         </a>
-                        <a class="flex items-center justify-between py-2 text-primary hover:bg-primary hover:text-surface transition-none font-h3" href="#research">
+                        <a class="flex items-center justify-between py-3 px-3 text-surface hover:bg-surface hover:text-primary transition-none font-h3 tracking-wide" href="#research">
                             <span>RESEARCH</span>
                             <span class="material-symbols-outlined">arrow_right_alt</span>
                         </a>
@@ -195,6 +199,24 @@
                     FIG. 01 — ARCHITECTURE
                 </div>
             </div>
+        </section>
+
+        <!-- Trusted-By / Press Ledger -->
+        <section class="w-full border-b-2 border-primary bg-surface" aria-label="Press and Institutional Partners">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center p-p-base md:px-p-lg md:py-6 border-b-2 border-primary gap-4">
+                <div class="font-data-sm text-primary uppercase tracking-wide">// PRESS &amp; PARTNERS · N=08</div>
+                <div class="font-data-sm text-primary/70 uppercase tabular-nums">REF / 0052 // PUBLIC RECORD</div>
+            </div>
+            <ul class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 w-full" role="list">
+                <li class="aspect-[3/2] flex items-center justify-center border-r-0 sm:border-r-2 lg:border-r-2 last:border-r-0 border-b-2 lg:border-b-0 border-primary px-6"><img src="https://cdn.simpleicons.org/behance" alt="Behance" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+                <li class="aspect-[3/2] flex items-center justify-center border-r-0 sm:border-r-2 lg:border-r-2 last:border-r-0 border-b-2 lg:border-b-0 border-primary px-6"><img src="https://cdn.simpleicons.org/dribbble" alt="Dribbble" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+                <li class="aspect-[3/2] flex items-center justify-center border-r-0 sm:border-r-0 lg:border-r-2 border-b-2 lg:border-b-0 border-primary px-6"><img src="https://cdn.simpleicons.org/vimeo" alt="Vimeo" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+                <li class="aspect-[3/2] flex items-center justify-center border-r-0 sm:border-r-2 lg:border-r-2 border-b-2 lg:border-b-0 border-primary px-6"><img src="https://cdn.simpleicons.org/medium" alt="Medium" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+                <li class="aspect-[3/2] flex items-center justify-center border-r-0 sm:border-r-2 lg:border-r-2 border-b-2 lg:border-b-0 border-primary px-6"><img src="https://cdn.simpleicons.org/issuu" alt="Issuu" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+                <li class="aspect-[3/2] flex items-center justify-center border-r-0 sm:border-r-2 lg:border-r-2 border-b-2 lg:border-b-0 border-primary px-6"><img src="https://cdn.simpleicons.org/wetransfer" alt="WeTransfer" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+                <li class="aspect-[3/2] flex items-center justify-center border-r-0 sm:border-r-0 lg:border-r-2 border-b-2 sm:border-b-2 lg:border-b-0 border-primary px-6"><img src="https://cdn.simpleicons.org/theguardian" alt="The Guardian" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+                <li class="aspect-[3/2] flex items-center justify-center border-primary px-6"><img src="https://cdn.simpleicons.org/substack" alt="Substack" class="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24"/></li>
+            </ul>
         </section>
 
         <!-- Below the Fold: Exhibitions List -->
@@ -227,7 +249,16 @@
                             10.12.94<br>01.15.95
                         </time>
                     </div>
-                    <div class="mt-8 pt-4 border-t-2 border-primary/20 font-body text-primary uppercase tracking-wide flex justify-between items-end">
+                    <!-- Centered sidebar-style info card (fills empty space) -->
+                    <div class="my-6 max-w-md md:max-w-sm md:mx-auto w-full relative z-10">
+                        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 border-2 border-primary bg-surface p-4 md:p-5 font-data-sm text-primary uppercase tracking-wide">
+                            <dt class="opacity-50">// VENUE</dt><dd class="text-right tabular-nums">HALL_03 · FLR_02</dd>
+                            <dt class="opacity-50">// HOURS</dt><dd class="text-right tabular-nums">11:00 — 19:00</dd>
+                            <dt class="opacity-50">// OPEN</dt><dd class="text-right tabular-nums">TUE — SUN</dd>
+                            <dt class="opacity-50">// ADM.</dt><dd class="text-right">FREE / DONATION</dd>
+                        </dl>
+                    </div>
+                    <div class="pt-4 border-t-2 border-primary/20 font-body text-primary uppercase tracking-wide flex justify-between items-end">
                         <span>MARIA KOZLOV</span>
                         <span class="material-symbols-outlined text-4xl text-secondary opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">arrow_outward</span>
                     </div>
@@ -261,7 +292,16 @@
                             02.01.95<br>04.10.95
                         </time>
                     </div>
-                    <div class="mt-8 pt-4 border-t-2 border-primary/20 font-body text-primary uppercase tracking-wide flex justify-between items-end">
+                    <!-- Centered sidebar-style info card (fills empty space) -->
+                    <div class="my-6 max-w-md md:max-w-sm md:mx-auto w-full relative z-10">
+                        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 border-2 border-primary bg-surface p-4 md:p-5 font-data-sm text-primary uppercase tracking-wide">
+                            <dt class="opacity-50">// VENUE</dt><dd class="text-right tabular-nums">HALL_05 · FLR_03</dd>
+                            <dt class="opacity-50">// PREVIEW</dt><dd class="text-right tabular-nums">01.31.95 · 18:00</dd>
+                            <dt class="opacity-50">// TICKETS</dt><dd class="text-right tabular-nums">REQ / RSVP</dd>
+                            <dt class="opacity-50">// CURATOR</dt><dd class="text-right">N. RIVERA</dd>
+                        </dl>
+                    </div>
+                    <div class="pt-4 border-t-2 border-primary/20 font-body text-primary uppercase tracking-wide flex justify-between items-end">
                         <span>J.T. BARKER &amp; THE COLLECTIVE</span>
                         <span class="material-symbols-outlined text-4xl text-secondary opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">arrow_outward</span>
                     </div>
@@ -292,7 +332,7 @@
                     <div class="absolute bottom-0 inset-x-0 px-3 py-2 bg-surface border-t-2 border-primary font-data-sm text-primary uppercase flex justify-between"><span>TOWER_M</span><span class="tabular-nums opacity-60">88×120</span></div>
                 </li>
                 <li class="group relative aspect-square border-r-0 md:border-r-2 last:border-r-0 border-b-2 md:border-b-0 border-primary overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=900&auto=format&fit=crop" alt="Stripped industrial interior with raw concrete" class="w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="900" height="900"/>
+                    <img src="https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=900&auto=format&fit=crop" alt="Stripped industrial interior with raw concrete" class="w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="900" height="900"/>
                     <div class="absolute top-0 left-0 bg-secondary text-on-secondary border-r-2 border-b-2 border-primary px-2 py-1 font-data-sm uppercase">FIG.04</div>
                     <div class="absolute bottom-0 inset-x-0 px-3 py-2 bg-surface border-t-2 border-primary font-data-sm text-primary uppercase flex justify-between"><span>INT_RAW</span><span class="tabular-nums opacity-60">72×96</span></div>
                 </li>
@@ -302,7 +342,7 @@
                     <div class="absolute bottom-0 inset-x-0 px-3 py-2 bg-surface border-t-2 border-primary font-data-sm text-primary uppercase flex justify-between"><span>CANTILEVER</span><span class="tabular-nums opacity-60">96×72</span></div>
                 </li>
                 <li class="group relative aspect-square overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop" alt="Architectural detail of columns and shadow" class="w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="900" height="900"/>
+                    <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=900&auto=format&fit=crop" alt="Architectural detail of columns and shadow" class="w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="900" height="900"/>
                     <div class="absolute top-0 left-0 bg-surface border-r-2 border-b-2 border-primary px-2 py-1 font-data-sm text-primary uppercase">FIG.06</div>
                     <div class="absolute bottom-0 inset-x-0 px-3 py-2 bg-surface border-t-2 border-primary font-data-sm text-primary uppercase flex justify-between"><span>COL_DET</span><span class="tabular-nums opacity-60">120×80</span></div>
                 </li>
@@ -431,11 +471,154 @@
             </div>
         </section>
 
-        <!-- Archive Section -->
+        <!-- Four Disciplines — Premium 2x2 Image-BG Cards -->
+        <section class="w-full border-b-2 border-primary bg-surface" aria-label="Four Disciplines">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end p-p-base md:p-p-lg border-b-2 border-primary gap-4">
+                <div>
+                    <span class="block font-data-sm text-primary uppercase mb-2 tracking-wide">// FOUR DISCIPLINES</span>
+                    <h2 class="font-h2 text-primary text-balance">PROGRAMME AXES</h2>
+                </div>
+                <div class="font-data-sm text-primary uppercase tabular-nums text-left md:text-right">
+                    AXES I — IV<br>UNIT 07 / 1995
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 w-full">
+                <!-- Card I — Featured / Primary -->
+                <article class="group relative min-h-[420px] md:min-h-[480px] overflow-hidden border-b-2 md:border-b-2 md:border-r-2 border-primary ring-4 ring-secondary ring-inset">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1400&auto=format&fit=crop" alt="Brutalist concrete cantilever exhibition wing" class="absolute inset-0 w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="1400" height="1050"/>
+                    <div class="absolute inset-0 bg-primary/70"></div>
+                    <div class="relative z-10 flex flex-col h-full min-h-[420px] md:min-h-[480px] p-p-base md:p-p-lg text-surface">
+                        <div class="flex items-start justify-between">
+                            <span class="font-h2 italic text-secondary leading-none">I</span>
+                            <span class="bg-secondary text-on-secondary px-2 py-1 font-data-sm uppercase tracking-wide">PRIMARY</span>
+                        </div>
+                        <span class="material-symbols-outlined text-5xl mt-8 text-surface" aria-hidden="true">apartment</span>
+                        <h3 class="font-h3 uppercase mt-4 tracking-wide">EXHIBITION ARCHITECTURE</h3>
+                        <p class="font-body mt-3 max-w-[48ch] text-surface/90">Permanent occupation of an unfinished concrete wing. Every wall is load-bearing; every constraint is the curatorial brief.</p>
+                        <div class="mt-auto pt-6 border-t-2 border-surface/30 font-data-sm uppercase flex justify-between items-end">
+                            <span class="bg-surface text-primary px-2 py-1 tracking-wide">HALL_03</span>
+                            <span class="material-symbols-outlined text-3xl translate-x-0 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card II -->
+                <article class="group relative min-h-[420px] md:min-h-[480px] overflow-hidden border-b-2 md:border-b-2 border-primary">
+                    <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=1400&auto=format&fit=crop" alt="Concrete tower block in stark light" class="absolute inset-0 w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="1400" height="1050"/>
+                    <div class="absolute inset-0 bg-primary/70"></div>
+                    <div class="relative z-10 flex flex-col h-full min-h-[420px] md:min-h-[480px] p-p-base md:p-p-lg text-surface">
+                        <div class="flex items-start justify-between">
+                            <span class="font-h2 italic text-secondary leading-none">II</span>
+                            <span class="border-2 border-surface px-2 py-1 font-data-sm uppercase tracking-wide">AXIS_02</span>
+                        </div>
+                        <span class="material-symbols-outlined text-5xl mt-8 text-surface" aria-hidden="true">photo_camera</span>
+                        <h3 class="font-h3 uppercase mt-4 tracking-wide">PHOTOGRAPHIC RECORD</h3>
+                        <p class="font-body mt-3 max-w-[48ch] text-surface/90">Silver-gelatin documentation of every installation, every dismantling. The negative is the canonical artefact.</p>
+                        <div class="mt-auto pt-6 border-t-2 border-surface/30 font-data-sm uppercase flex justify-between items-end">
+                            <span class="bg-surface text-primary px-2 py-1 tracking-wide">REF_0046</span>
+                            <span class="material-symbols-outlined text-3xl translate-x-0 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card III -->
+                <article class="group relative min-h-[420px] md:min-h-[480px] overflow-hidden border-b-2 md:border-b-0 md:border-r-2 border-primary">
+                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop" alt="Brutalist facade with shadow grid" class="absolute inset-0 w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="1400" height="1050"/>
+                    <div class="absolute inset-0 bg-primary/70"></div>
+                    <div class="relative z-10 flex flex-col h-full min-h-[420px] md:min-h-[480px] p-p-base md:p-p-lg text-surface">
+                        <div class="flex items-start justify-between">
+                            <span class="font-h2 italic text-secondary leading-none">III</span>
+                            <span class="border-2 border-surface px-2 py-1 font-data-sm uppercase tracking-wide">AXIS_03</span>
+                        </div>
+                        <span class="material-symbols-outlined text-5xl mt-8 text-surface" aria-hidden="true">menu_book</span>
+                        <h3 class="font-h3 uppercase mt-4 tracking-wide">PUBLISHED RESEARCH</h3>
+                        <p class="font-body mt-3 max-w-[48ch] text-surface/90">Risograph monographs printed in-house each season. Distribution is institutional, not commercial.</p>
+                        <div class="mt-auto pt-6 border-t-2 border-surface/30 font-data-sm uppercase flex justify-between items-end">
+                            <span class="bg-surface text-primary px-2 py-1 tracking-wide">VOL_07</span>
+                            <span class="material-symbols-outlined text-3xl translate-x-0 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card IV -->
+                <article class="group relative min-h-[420px] md:min-h-[480px] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=1400&auto=format&fit=crop" alt="Architectural columns and shadow detail" class="absolute inset-0 w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="1400" height="1050"/>
+                    <div class="absolute inset-0 bg-primary/70"></div>
+                    <div class="relative z-10 flex flex-col h-full min-h-[420px] md:min-h-[480px] p-p-base md:p-p-lg text-surface">
+                        <div class="flex items-start justify-between">
+                            <span class="font-h2 italic text-secondary leading-none">IV</span>
+                            <span class="border-2 border-surface px-2 py-1 font-data-sm uppercase tracking-wide">AXIS_04</span>
+                        </div>
+                        <span class="material-symbols-outlined text-5xl mt-8 text-surface" aria-hidden="true">groups</span>
+                        <h3 class="font-h3 uppercase mt-4 tracking-wide">PUBLIC INSTRUCTION</h3>
+                        <p class="font-body mt-3 max-w-[48ch] text-surface/90">Open lectures, screenings and symposia. Free entry. The audience is part of the constraint.</p>
+                        <div class="mt-auto pt-6 border-t-2 border-surface/30 font-data-sm uppercase flex justify-between items-end">
+                            <span class="bg-surface text-primary px-2 py-1 tracking-wide">SCREENING_02</span>
+                            <span class="material-symbols-outlined text-3xl translate-x-0 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_outward</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Press / Reviews — Quote Ledger -->
+        <section id="press" class="w-full border-b-2 border-primary bg-surface-container" aria-label="Press and Reviews">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end p-p-base md:p-p-lg border-b-2 border-primary gap-4">
+                <div>
+                    <span class="block font-data-sm text-primary uppercase mb-2 tracking-wide">// PRESS LEDGER</span>
+                    <h2 class="font-h2 text-primary text-balance">CRITICAL RECEPTION</h2>
+                </div>
+                <div class="font-data-sm text-primary uppercase tabular-nums text-left md:text-right">
+                    REVIEWS · N=03<br>1994 — 1995
+                </div>
+            </div>
+            <ol class="grid grid-cols-1 md:grid-cols-3 w-full" role="list">
+                <li class="group flex flex-col p-p-base md:p-p-lg border-b-2 md:border-b-0 md:border-r-2 border-primary bg-surface min-h-[300px]">
+                    <span class="material-symbols-outlined text-4xl text-secondary leading-none" aria-hidden="true">format_quote</span>
+                    <blockquote class="font-h3 text-primary mt-4 normal-case leading-tight">"UNIT 07 refuses the gallery's politeness. What you walk into is closer to a structural autopsy than an exhibition."</blockquote>
+                    <div class="mt-auto pt-6 border-t-2 border-primary/20 font-data-sm uppercase flex justify-between items-end">
+                        <span>FRIEZE · 11.94</span>
+                        <span class="bg-primary text-surface px-2 py-1 tracking-wide">REV_01</span>
+                    </div>
+                </li>
+                <li class="group flex flex-col p-p-base md:p-p-lg border-b-2 md:border-b-0 md:border-r-2 border-primary bg-surface min-h-[300px]">
+                    <span class="material-symbols-outlined text-4xl text-secondary leading-none" aria-hidden="true">format_quote</span>
+                    <blockquote class="font-h3 text-primary mt-4 normal-case leading-tight">"The most rigorous editorial position to come out of Berlin in a decade. Read the wall labels — they are the work."</blockquote>
+                    <div class="mt-auto pt-6 border-t-2 border-primary/20 font-data-sm uppercase flex justify-between items-end">
+                        <span>THE GUARDIAN · 02.95</span>
+                        <span class="bg-primary text-surface px-2 py-1 tracking-wide">REV_02</span>
+                    </div>
+                </li>
+                <li class="group flex flex-col p-p-base md:p-p-lg bg-surface min-h-[300px]">
+                    <span class="material-symbols-outlined text-4xl text-secondary leading-none" aria-hidden="true">format_quote</span>
+                    <blockquote class="font-h3 text-primary mt-4 normal-case leading-tight">"There is no merchandise. There is no soft exit. UNIT 07 is the rare institution that means what it printed."</blockquote>
+                    <div class="mt-auto pt-6 border-t-2 border-primary/20 font-data-sm uppercase flex justify-between items-end">
+                        <span>MONOPOL · 04.95</span>
+                        <span class="bg-primary text-surface px-2 py-1 tracking-wide">REV_03</span>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Archive Section — premium initial state w/ layered patterns + corner brackets + status caps; popping image fill preserved -->
         <section class="w-full p-p-base md:p-p-lg border-b-2 border-primary bg-surface-container min-h-[40vh] flex flex-col justify-center items-center overflow-hidden relative group">
-            <!-- Background brutalist grid lines -->
+            <!-- Background pattern layer 1: dot grid -->
             <div class="absolute inset-0 w-full h-full pointer-events-none opacity-10" style="background-image: radial-gradient(circle at 2px 2px, black 1px, transparent 0); background-size: 32px 32px;"></div>
-            
+            <!-- Background pattern layer 2: diagonal stripes (cross-hatch with the dots) -->
+            <div class="absolute inset-0 w-full h-full pointer-events-none opacity-[0.05]" style="background-image: repeating-linear-gradient(45deg, black 0 1px, transparent 1px 14px);"></div>
+            <!-- Edge vignette for depth -->
+            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.18) 100%);"></div>
+            <!-- 4 corner brackets (technical-readout chrome) -->
+            <div aria-hidden="true" class="absolute top-4 left-4 w-10 h-10 md:w-12 md:h-12 border-l-2 border-t-2 border-primary pointer-events-none z-10"></div>
+            <div aria-hidden="true" class="absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 border-r-2 border-t-2 border-primary pointer-events-none z-10"></div>
+            <div aria-hidden="true" class="absolute bottom-4 left-4 w-10 h-10 md:w-12 md:h-12 border-l-2 border-b-2 border-primary pointer-events-none z-10"></div>
+            <div aria-hidden="true" class="absolute bottom-4 right-4 w-10 h-10 md:w-12 md:h-12 border-r-2 border-b-2 border-primary pointer-events-none z-10"></div>
+            <!-- Top status caption (centred) -->
+            <div class="absolute top-6 md:top-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 font-data-sm text-primary uppercase tracking-widest pointer-events-none whitespace-nowrap">
+                <span class="w-1.5 h-1.5 bg-secondary animate-pulse" aria-hidden="true"></span>
+                // ARCHIVE · 1994 — PRESENT · N=247
+            </div>
+            <!-- Existing ARCHIVE link with the popping hover-fill image -->
             <a href="#" class="font-h1 text-primary hover:text-surface relative z-10 flex items-center justify-center w-full h-full focus-visible:outline-none" aria-label="View complete archive">
                 <!-- Hover fill: image + secondary colour wash, rises together via scale-y -->
                 <span class="absolute inset-x-0 inset-y-[-20px] scale-y-0 group-hover:scale-y-100 group-focus-within:scale-y-100 transition-transform origin-bottom duration-300 ease-out z-[-1] overflow-hidden" aria-hidden="true">
@@ -445,6 +628,14 @@
                 </span>
                 ARCHIVE
             </a>
+            <!-- Bottom mono caption (centred) -->
+            <div class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-wrap items-center justify-center gap-3 font-data-sm text-primary uppercase tracking-widest opacity-70 pointer-events-none whitespace-nowrap">
+                <span class="tabular-nums">// HOVER_TO_ACCESS</span>
+                <span class="w-px h-3 bg-primary/40"></span>
+                <span class="tabular-nums">SILVER_GELATIN</span>
+                <span class="w-px h-3 bg-primary/40"></span>
+                <span class="tabular-nums">UPDATED MMXXIV</span>
+            </div>
         </section>
 
         <!-- Footer -->

@@ -50,9 +50,9 @@ export default function T32StudioShowcase() {
     { name: "Solon",          meta: "NL / health · 2023",       img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait, dramatic side-light" },
     { name: "Meridian Cargo", meta: "UK / logistics · 2023",    img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=85&w=600", alt: "Brutalist tower against stark sky" },
     { name: "Norah & Sons",   meta: "IE / commerce · 2022",     img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=85&w=600", alt: "Portrait of a thoughtful subject in soft window light" },
-    { name: "Forge.io",       meta: "DE / industrial · 2022",   img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&q=85&w=600", alt: "Industrial machinery detail" },
-    { name: "Verba Press",    meta: "FR / publishing · 2022",   img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait in monochrome" },
-    { name: "Anvil Capital",  meta: "IE / fintech · 2021",      img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=85&w=600", alt: "Architectural shadow play on facade" },
+    { name: "Forge.io",       meta: "DE / industrial · 2022",   img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&q=85&w=600", alt: "Industrial machinery detail" },
+    { name: "Verba Press",    meta: "FR / publishing · 2022",   img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait in monochrome" },
+    { name: "Anvil Capital",  meta: "IE / fintech · 2021",      img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=85&w=600", alt: "Architectural shadow play on facade" },
     { name: "Hexall",         meta: "US / SaaS · 2021",         img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=85&w=600", alt: "Black and white editorial figure with deep shadow" },
     { name: "Lumen Hotel Co.",meta: "PT / hospitality · 2020",  img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=85&w=600", alt: "Architectural lobby" },
     { name: "Garda Bureau",   meta: "IE / public · 2020",       img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait with drape lighting" },
@@ -78,7 +78,7 @@ export default function T32StudioShowcase() {
     {
       n: "03", client: "Forge.io · 2022–24", reverse: false,
       title: "A 26-month build for a precision-machining cooperative",
-      img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&q=85&w=1200",
+      img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&q=85&w=1200",
       alt: "Industrial machinery detail in tungsten light, evoking the Forge.io shop floor",
       body: "Forge.io is a Munich cooperative of seventeen machine shops sharing capacity and quoting jobs together. We engaged in 2022 to design the shared quoting layer; what started as a four-month engagement turned into a 26-month partnership covering the quoting engine, the floor-side scheduling tool, and a customer portal that publishes live capacity. Two of our partners spent extended residencies on the shop floor in Augsburg and Rosenheim — there's no remote-only path to a control loop that respects how a CNC operator actually thinks. Today the cooperative quotes 41% more jobs per week with the same headcount."
     }
@@ -114,22 +114,28 @@ export default function T32StudioShowcase() {
 
   const principles = [
     {
-      n: "01", title: "Decisions, not deliverables",
-      body: "We sell judgment, not artefacts. A wireframe deck or a Figma file is a side-effect of thinking — it is not the thing we charge for. What clients are paying us to do is sit with their hardest open question for as many hours as it takes, propose a coherent answer, and stand behind it when it ships. If you want a vendor to execute someone else's spec, you should hire someone cheaper. If you want someone to argue with you about the spec until it is right, that is the thing we do."
+      n: "01", icon: "gavel", accent: "charcoal",
+      title: "Decisions, not deliverables", kicker: "We sell judgment, not artefacts",
+      bullets: ["Hardest open question, as many hours as it takes", "Coherent answer signed in our name", "Argue the spec until it is right"]
     },
     {
-      n: "02", title: "Ten years of compounding",
-      body: "Code we ship today should still read well in 2034. We optimise for the team that will inherit the codebase three years from now — not for the velocity demo at the end of week six. That means modest dependencies, plain functions over clever abstractions, and migrations checked in as code rather than narrated in Notion. We are willing to take a slower week one in exchange for a maintainable year three. Most of our long-tenured clients describe this trade as the single biggest quiet contributor to their engineering culture."
+      n: "02", icon: "layers", accent: "tertiary-container",
+      title: "Ten years of compounding", kicker: "Reads well in 2034",
+      bullets: ["Modest dependencies, plain functions", "Migrations as code, not as Notion narratives", "Slower week one for maintainable year three"]
     },
     {
-      n: "03", title: "Two-deep, no contractors",
-      body: "Every commit is by a Akella inMotion partner. We do not sub-contract, we do not staff-augment, and we do not put a senior name on a brief that a junior is going to execute. There are six of us and there will be six of us next year — when a partner goes on holiday, the work pauses or the second-deep partner picks it up, and the client knows that on day one. This is the unfashionable answer to scale. It is also the only one we have found that does not quietly degrade quality over a four-year horizon."
+      n: "03", icon: "groups", accent: "charcoal",
+      title: "Two-deep, no contractors", kicker: "Every commit by a partner",
+      bullets: ["Six of us, six of us next year", "Second-deep picks up, never a contractor", "No senior name on junior execution"]
     },
     {
-      n: "04", title: "Public mistakes",
-      body: "Postmortems published quarterly under CC0. Every quarter we sit down for an afternoon, list the four worst calls we made on live engagements, write each one up with names redacted but root causes intact, and publish them on the studio site under a Creative Commons zero licence. Anyone is free to lift them, attribute them, or anonymously borrow the lessons. The discipline of writing a mistake down for strangers is the most expensive and most useful learning loop we have found in twelve years of running studios."
+      n: "04", icon: "edit_note", accent: "tertiary-container",
+      title: "Public mistakes", kicker: "Postmortems quarterly · CC0",
+      bullets: ["Four worst calls of the quarter, written up", "Names redacted, root causes intact", "The most expensive learning loop we use"]
     }
   ];
+  const principleBorderColor = { charcoal: "border-charcoal", "tertiary-container": "border-tertiary-container" };
+  const principleTextColor = { charcoal: "text-charcoal", "tertiary-container": "text-tertiary-container" };
 
   const faqs = [
     {
@@ -365,13 +371,46 @@ export default function T32StudioShowcase() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
-              <div className="md:col-span-5 md:sticky md:top-28 md:self-start">
+              <div className="md:col-span-5 md:sticky md:top-28 md:self-start flex flex-col gap-6">
                 <div className="aspect-[3/4] overflow-hidden bg-surface-variant border border-charcoal relative">
                   <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=85&w=900" alt="Tall brutalist concrete facade catching warm raking light — evoking sustained build cadence" width="900" height="1200" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale" />
-                  <div className="absolute inset-0 bg-surface-variant/40 mix-blend-overlay pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-surface-variant/40 mix-blend-overlay pointer-events-none" />
                   <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent">
                     <span className="font-technical-label uppercase tracking-widest text-[10px] text-offwhite block mb-2">[ figure 01 ]</span>
                     <span className="font-h2 text-base font-bold text-offwhite leading-snug">Sustained build cadence — fourteen weeks of weekly deliverables, no sprint theatre.</span>
+                  </div>
+                </div>
+                <div className="border border-charcoal p-5 bg-offwhite">
+                  <span className="font-technical-label uppercase tracking-widest text-[10px] text-on-tertiary-fixed-variant block mb-4">[ cadence ]</span>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+                    <div className="flex flex-col gap-1">
+                      <span className="font-stat-value text-stat-value text-charcoal tabular-nums">14 wk</span>
+                      <span className="font-technical-label uppercase tracking-widest text-[10px] text-secondary">total run</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="font-stat-value text-stat-value text-charcoal tabular-nums">5</span>
+                      <span className="font-technical-label uppercase tracking-widest text-[10px] text-secondary">stages</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="font-stat-value text-stat-value text-charcoal tabular-nums">Fri 16:00</span>
+                      <span className="font-technical-label uppercase tracking-widest text-[10px] text-secondary">ship window</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="font-stat-value text-stat-value text-charcoal tabular-nums">2/yr</span>
+                      <span className="font-technical-label uppercase tracking-widest text-[10px] text-secondary">engagements</span>
+                    </div>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-charcoal/20 flex items-center justify-between gap-3">
+                    <span className="font-technical-label uppercase tracking-widest text-[10px] text-on-tertiary-fixed-variant">[ next cohort ]</span>
+                    <span className="font-technical-label uppercase tracking-widest text-[10px] text-charcoal">Q3 · 2026</span>
+                  </div>
+                </div>
+                <div className="aspect-[5/4] overflow-hidden bg-surface-variant border border-charcoal relative">
+                  <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=85&w=900" alt="Engagement-lead reviewing the weekly Friday changelog with a client counterpart" width="900" height="720" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale" />
+                  <div className="absolute inset-0 bg-surface-variant/30 mix-blend-overlay pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent">
+                    <span className="font-technical-label uppercase tracking-widest text-[10px] text-offwhite block mb-1">[ figure 02 ]</span>
+                    <span className="font-h2 text-sm font-bold text-offwhite leading-snug">Friday changelog · the only status report we ship</span>
                   </div>
                 </div>
               </div>
@@ -392,23 +431,32 @@ export default function T32StudioShowcase() {
             </div>
           </section>
 
-          <section id="doctrine" className="w-full bg-surface-container-high border-y border-charcoal py-xl scroll-mt-24">
+          <section id="doctrine" className="w-full py-xl scroll-mt-24">
             <div className="max-w-7xl mx-auto px-6 md:px-margin">
-              <div className="border-b border-charcoal pb-6 mb-12 md:mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                <div>
-                  <span className="font-technical-label text-technical-label uppercase tracking-widest text-on-tertiary-fixed-variant block mb-3">[ doctrine ]</span>
-                  <h2 className="font-h2 text-h2 text-charcoal text-balance max-w-xl">Operating principles</h2>
+              <div className="flex items-end justify-between flex-wrap gap-6 mb-12 md:mb-16">
+                <div className="flex flex-col gap-3 max-w-xl">
+                  <span className="font-technical-label text-technical-label uppercase tracking-widest text-on-tertiary-fixed-variant">[ doctrine ]</span>
+                  <h2 className="font-h2 text-h2 text-charcoal text-balance">Operating principles</h2>
                 </div>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-md text-pretty">Four sentences we use to decide. They show up on the wall in the studio, in the first slide of every kickoff, and at the top of every retrospective.</p>
+                <span className="font-technical-label uppercase tracking-widest text-[10px] text-on-tertiary-fixed-variant">Four sentences · on the wall</span>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-charcoal border border-charcoal">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12">
                 {principles.map(p => (
-                  <article key={p.n} className="bg-surface-container-high p-8 md:p-10 flex flex-col gap-5">
-                    <span className="font-stat-value text-stat-value text-tertiary-container tabular-nums leading-none">{p.n}</span>
-                    <h3 className="font-h2 text-xl font-bold text-charcoal leading-tight">{p.title}</h3>
-                    <p className="font-body-md text-body-md text-on-surface-variant text-pretty">{p.body}</p>
-                  </article>
+                  <div key={p.n} className={`flex flex-col gap-6 border-t-2 pt-6 ${principleBorderColor[p.accent]}`}>
+                    <div className="flex items-center justify-between">
+                      <span className={`font-stat-value text-stat-value tabular-nums leading-none ${principleTextColor[p.accent]}`}>{p.n}</span>
+                      <span className={`material-symbols-outlined text-[44px] md:text-[52px] ${principleTextColor[p.accent]}`} aria-hidden="true">{p.icon}</span>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <h3 className="font-h2 text-[22px] text-charcoal leading-tight">{p.title}</h3>
+                      <p className="font-technical-label text-[11px] uppercase tracking-[0.18em] text-on-tertiary-fixed-variant">{p.kicker}</p>
+                    </div>
+                    <ul className="flex flex-col gap-3 font-body-md text-body-md text-on-surface-variant">
+                      {p.bullets.map(b => (
+                        <li key={b} className="flex gap-3"><span className={`mt-[2px] font-bold ${principleTextColor[p.accent]}`}>→</span><span>{b}</span></li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
               </div>
             </div>

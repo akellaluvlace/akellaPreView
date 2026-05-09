@@ -26,19 +26,19 @@ export default function T51Glassmorphism() {
   ];
 
   const testimonials = [
-    { quote: "I've never seen a banking app this beautiful and fast. The glass card always gets compliments when I pay.", name: "Sarah Jenkins", role: "Freelance Designer", avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d" },
-    { quote: "The transparency is real. I finally understand my fee structure and the international rates are unbeatable.", name: "Michael Chen", role: "Digital Nomad", avatar: "https://i.pravatar.cc/150?u=a04258a2462d826712d" },
-    { quote: "ClearBank has completely replaced my traditional bank. The analytics tools saved me so much money last year.", name: "Elena Rodriguez", role: "Small Business Owner", avatar: "https://i.pravatar.cc/150?u=2042581f4e29026704d" },
+    { quote: "I've never seen a banking app this beautiful and fast. The glass card always gets compliments when I pay.", name: "Sarah Jenkins", role: "Freelance Designer", avatar: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=160&q=80&auto=format&fit=crop" },
+    { quote: "The transparency is real. I finally understand my fee structure and the international rates are unbeatable.", name: "Michael Chen", role: "Digital Nomad", avatar: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=160&q=80&auto=format&fit=crop" },
+    { quote: "ClearBank has completely replaced my traditional bank. The analytics tools saved me so much money last year.", name: "Elena Rodriguez", role: "Small Business Owner", avatar: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=160&q=80&auto=format&fit=crop" },
   ];
 
   const cities = [
-    { id: "1502672260266-1c1ef2d93688", flag: "🇯🇵", city: "Tokyo",     status: "Open",   pair: "USD / JPY", rate: "154.32", delta: "▲ 0.21%", trend: "up" },
-    { id: "1487958449943-2429e8be8625", flag: "🇬🇧", city: "London",    status: "Open",   pair: "USD / GBP", rate: "0.7892", delta: "▼ 0.08%", trend: "down" },
-    { id: "1517021897933-0e0319cfbc28", flag: "🇪🇺", city: "Frankfurt", status: "Open",   pair: "USD / EUR", rate: "0.9214", delta: "▲ 0.14%", trend: "up" },
-    { id: "1481349518771-20055b2a7b24", flag: "🇺🇸", city: "NYC",       status: "Open",   pair: "USD · BASE", rate: "1.0000", delta: "— FLAT",  trend: "flat" },
-    { id: "1469041797191-50ace28483c3", flag: "🇸🇬", city: "Singapore", status: "Open",   pair: "USD / SGD", rate: "1.3521", delta: "▲ 0.32%", trend: "up" },
-    { id: "1493663284031-b7e3aefcae8e", flag: "🇦🇺", city: "Sydney",    status: "Closed", pair: "USD / AUD", rate: "1.5189", delta: "▼ 0.18%", trend: "down" },
-    { id: "1542038784456-1ea8e935640e", flag: "🇨🇦", city: "Toronto",   status: "Open",   pair: "USD / CAD", rate: "1.3712", delta: "▲ 0.05%", trend: "up" },
+    { id: "1542051841857-5f90071e7989", flag: "🇯🇵", city: "Tokyo",     status: "Open",   pair: "USD / JPY", rate: "154.32", delta: "▲ 0.21%", trend: "up" },
+    { id: "1486299267070-83823f5448dd", flag: "🇬🇧", city: "London",    status: "Open",   pair: "USD / GBP", rate: "0.7892", delta: "▼ 0.08%", trend: "down" },
+    { id: "1499856871958-5b9627545d1a", flag: "🇪🇺", city: "Frankfurt", status: "Open",   pair: "USD / EUR", rate: "0.9214", delta: "▲ 0.14%", trend: "up" },
+    { id: "1496442226666-8d4d0e62e6e9", flag: "🇺🇸", city: "NYC",       status: "Open",   pair: "USD · BASE", rate: "1.0000", delta: "— FLAT",  trend: "flat" },
+    { id: "1525625293386-3f8f99389edd", flag: "🇸🇬", city: "Singapore", status: "Open",   pair: "USD / SGD", rate: "1.3521", delta: "▲ 0.32%", trend: "up" },
+    { id: "1506973035872-a4ec16b8e8d9", flag: "🇦🇺", city: "Sydney",    status: "Closed", pair: "USD / AUD", rate: "1.5189", delta: "▼ 0.18%", trend: "down" },
+    { id: "1517090504586-fde19ea6066f", flag: "🇨🇦", city: "Toronto",   status: "Open",   pair: "USD / CAD", rate: "1.3712", delta: "▲ 0.05%", trend: "up" },
   ];
 
   const faqs = [
@@ -53,6 +53,48 @@ export default function T51Glassmorphism() {
   const companyLinks = ["About", "Careers", "Blog", "Contact"];
   const legalLinks = ["Privacy Policy", "Terms of Use", "Cookie Policy"];
   const socials = ["twitter", "linkedin", "instagram"];
+
+  const trustedLogos = [
+    { slug: "stripe",          name: "Stripe",          caption: "Payments" },
+    { slug: "mastercard",      name: "Mastercard",      caption: "Network" },
+    { slug: "visa",            name: "Visa",            caption: "Network" },
+    { slug: "americanexpress", name: "American Express", caption: "Network" },
+    { slug: "monzo",           name: "Monzo",           caption: "UK · Bank" },
+    { slug: "wise",            name: "Wise",            caption: "FX Rails" },
+    { slug: "revolut",         name: "Revolut",         caption: "EU · Bank" },
+    { slug: "n26",             name: "N26",             caption: "EU · Bank" },
+    { slug: "coinbase",        name: "Coinbase",        caption: "Crypto Rail" },
+    { slug: "barclays",        name: "Barclays",        caption: "UK · Custody" },
+    { slug: "hsbc",            name: "HSBC",            caption: "APAC · Custody" },
+    { slug: "goldmansachs",    name: "Goldman Sachs",   caption: "US · Custody" },
+  ];
+
+  // 28 LED dots (varying opacity) for "Regions live" small card
+  const ledOpacities = [0.9, 0.7, 1, 0.6, 0.9, 0.8, 1, 0.7, 0.9, 0.6, 0.8, 1, 0.7, 0.9, 1, 0.8, 0.6, 0.9, 1, 0.7, 0.8, 0.9, 0.6, 1, 0.8, 0.9, 0.7, 1];
+
+  const liveFeed = [
+    { d: "0s",   t: "14:02:11", arrow: "▲", arrowCls: "text-emerald-400", amount: "$ 4,210.00",  meta: "salary · acme · NYC → SF",         status: "[OK · 0.02s]", statusCls: "text-emerald-300" },
+    { d: "0.3s", t: "14:02:12", arrow: "▼", arrowCls: "text-rose-400",    amount: "€ 84.20",     meta: "caffè nero · london",              status: "[OK · 0.04s]", statusCls: "text-emerald-300" },
+    { d: "0.6s", t: "14:02:14", arrow: "▲", arrowCls: "text-emerald-400", amount: "¥ 250,000",   meta: "FX lock · USD → JPY · 60min",      status: "[FLOW]",       statusCls: "text-blue-300" },
+    { d: "0.9s", t: "14:02:15", arrow: "▼", arrowCls: "text-rose-400",    amount: "$ 18.80",     meta: "uber · berlin · split 2 ways",     status: "[OK · 0.03s]", statusCls: "text-emerald-300" },
+    { d: "1.2s", t: "14:02:18", arrow: "▲", arrowCls: "text-emerald-400", amount: "£ 1,200.00",  meta: "rent · standing order · cleared",  status: "[OK · 0.06s]", statusCls: "text-emerald-300" },
+    { d: "1.5s", t: "14:02:21", arrow: "▼", arrowCls: "text-rose-400",    amount: "S$ 32.40",    meta: "grab · singapore · evening",       status: "[OK · 0.02s]", statusCls: "text-emerald-300" },
+    { d: "1.8s", t: "14:02:23", arrow: "●", arrowCls: "text-amber-400",   amount: "$ 89.99",     meta: "photoshelter · annual · review?",  status: "[WARN]",       statusCls: "text-amber-300" },
+    { d: "2.1s", t: "14:02:25", arrow: "▲", arrowCls: "text-emerald-400", amount: "CA$ 540.00",  meta: "freelance · invoice 0214",         status: "[OK · 0.05s]", statusCls: "text-emerald-300" },
+    { d: "2.4s", t: "14:02:28", arrow: "▼", arrowCls: "text-rose-400",    amount: "A$ 12.50",    meta: "flat white · sydney · cbd",        status: "[OK · 0.03s]", statusCls: "text-emerald-300" },
+    { d: "2.7s", t: "14:02:30", arrow: "▲", arrowCls: "text-emerald-400", amount: "$ 2,000.00",  meta: "vault · USD → SGD · executed",     status: "[FLOW]",       statusCls: "text-blue-300" },
+    { d: "3.0s", t: "14:02:33", arrow: "▼", arrowCls: "text-rose-400",    amount: "€ 9.80",      meta: "metro · paris · navigo",           status: "[OK · 0.02s]", statusCls: "text-emerald-300" },
+    { d: "3.3s", t: "14:02:35", arrow: "▲", arrowCls: "text-emerald-400", amount: "$ 75.00",     meta: "refund · airline · processed",     status: "[OK · 0.04s]", statusCls: "text-emerald-300" },
+    { d: "3.6s", t: "14:02:38", arrow: "▼", arrowCls: "text-rose-400",    amount: "¥ 1,820",     meta: "ramen · shibuya · 22:11 jst",      status: "[OK · 0.03s]", statusCls: "text-emerald-300" },
+    { d: "3.9s", t: "14:02:40", arrow: "▲", arrowCls: "text-emerald-400", amount: "$ 312.04",    meta: "interest · uninvested · 1.4%",     status: "[FLOW]",       statusCls: "text-blue-300" },
+  ];
+
+  const premiumPillars = [
+    { icon: "phone-call", title: "Concierge · 24/7",   body: "A real human, on a real number, in 90 seconds. Speak about money the way you'd speak about a flight.", meta: "Geneva · Singapore" },
+    { icon: "lock",       title: "Glass Vault",        body: "Up to $5M segregated, FDIC-insured per pool, with same-day access. The kind of vault that doesn't echo.", meta: "3 banking partners" },
+    { icon: "gem",        title: "Black Glass Card",   body: "Stainless steel, edge-lit, 28 g. Ships engraved within 72 hours. The chip is recessed flush.",         meta: "Twice-yearly replacement" },
+    { icon: "landmark",   title: "Estate Suite",       body: "Beneficiary routing, trust handoff, and tax-export rails. Pre-wired for the conversation you've been avoiding.", meta: "Counsel on call" },
+  ];
 
   const tailwindConfig = `tailwind.config = {
   theme: { extend: {
@@ -143,8 +185,43 @@ export default function T51Glassmorphism() {
 .clear-tier-featured {
   box-shadow: 0 0 0 1px rgba(45,212,191,0.45), 0 20px 60px -20px rgba(45,212,191,0.35);
 }
+@keyframes clear-term-reveal {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.clear-term-line {
+  opacity: 0;
+  animation: clear-term-reveal 0.5s cubic-bezier(0.2,0.8,0.2,1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes clear-term-blink { 50% { opacity: 0; } }
+.clear-term-caret {
+  display: inline-block;
+  width: 8px; height: 1em;
+  background: currentColor;
+  vertical-align: middle;
+  animation: clear-term-blink 1.05s steps(2) infinite;
+}
+@keyframes clear-bar-fill {
+  0% { width: 0%; }
+  60% { width: 76%; }
+  100% { width: 76%; }
+}
+.clear-bar-fill {
+  width: 0%;
+  animation: clear-bar-fill 2.5s cubic-bezier(0.2,0.8,0.2,1) 0.4s forwards;
+}
+@keyframes clear-pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(45,212,191,0.45); }
+  50%      { box-shadow: 0 0 0 6px rgba(45,212,191,0); }
+}
+.clear-pulse { animation: clear-pulse-ring 2s ease-out infinite; }
 @media (prefers-reduced-motion: reduce) {
   .clear-marquee-track { animation: none; }
+  .clear-term-line { animation: none; opacity: 1; transform: none; }
+  .clear-term-caret { animation: none; }
+  .clear-bar-fill { animation: none; width: 76%; }
+  .clear-pulse { animation: none; }
 }`;
 
   const initScript = `(function init(){
@@ -248,14 +325,6 @@ export default function T51Glassmorphism() {
                   <i data-lucide="play-circle" className="w-5 h-5"></i> Watch Demo
                 </button>
               </div>
-              <div className="pt-8 border-t border-white/10 mt-8">
-                <p className="text-xs text-slate-400 uppercase tracking-widest mb-4">Trusted by modern teams</p>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                  <div className="flex items-center gap-2"><i data-lucide="triangle" className="fill-current"></i> <span className="font-bold">Vercel</span></div>
-                  <div className="flex items-center gap-2"><i data-lucide="box" className="fill-current"></i> <span className="font-bold">Stripe</span></div>
-                  <div className="flex items-center gap-2"><i data-lucide="hexagon" className="fill-current"></i> <span className="font-bold">Acme</span></div>
-                </div>
-              </div>
             </div>
 
             <div className="relative perspective-container flex justify-center items-center h-[400px] sm:h-[500px]">
@@ -297,6 +366,41 @@ export default function T51Glassmorphism() {
                   <div className="text-sm text-slate-400">{s.label}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Trusted-by */}
+        <section id="trusted" className="py-24 relative">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <span className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-white/30"></span>
+                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] text-teal-300">— Trusted across borders —</span>
+                <span className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-white/30"></span>
+              </div>
+              <h3 className="text-3xl md:text-4xl font-extrabold font-sans text-white mb-4">Banks the way the world does business.</h3>
+              <p className="text-slate-300 text-base md:text-lg">Built on the same rails as Stripe, Wise, and Mastercard — the infrastructure your money is already moving on.</p>
+            </div>
+            <div className="glass-high-contrast rounded-3xl border border-white/15 p-8 md:p-12 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
+              <ul className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-10 items-center justify-items-center">
+                {trustedLogos.map(b => (
+                  <li key={b.slug} className="group flex flex-col items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/f8fafc`} alt={b.name} className="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400">{b.caption}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+                <span className="uppercase tracking-widest">+ 28 partner banks across 47 jurisdictions</span>
+                <span className="flex items-center gap-2 uppercase tracking-widest">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                  </span>
+                  Live since MMXIX
+                </span>
+              </div>
             </div>
           </div>
         </section>
@@ -386,6 +490,87 @@ export default function T51Glassmorphism() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Live now (animated ticker + terminal feed) */}
+        <section id="live" className="py-24 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <h2 className="text-sm font-bold text-teal-400 uppercase tracking-widest mb-2">— Live now</h2>
+              <h3 className="text-3xl md:text-4xl font-bold font-sans text-white mb-4">Watch the ledger breathe.</h3>
+              <p className="text-slate-300 text-base md:text-lg">Three tickers, one feed. Each line below appeared somewhere in the network in the last sixty seconds.</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div className="lg:col-span-5 flex flex-col gap-5">
+                {/* Big card */}
+                <div className="glass-high-contrast rounded-3xl border border-white/15 p-6 md:p-7 relative overflow-hidden">
+                  <div className="absolute -top-12 -right-12 w-40 h-40 bg-teal-500/15 rounded-full blur-[60px] pointer-events-none"></div>
+                  <div className="flex items-start justify-between gap-3 mb-5">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400">Volume · last 60s</span>
+                    <span className="px-2 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-[10px] font-bold uppercase tracking-widest">▲ live</span>
+                  </div>
+                  <div className="font-mono text-4xl md:text-5xl text-white tabular-nums leading-none mb-4">$ 1,281,902</div>
+                  <div className="flex items-center gap-2 text-xs text-slate-400">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-60 clear-pulse"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+                    </span>
+                    <span className="uppercase tracking-widest">Across 47 jurisdictions</span>
+                  </div>
+                </div>
+                {/* Bottom 2-col */}
+                <div className="grid grid-cols-2 gap-5">
+                  <div className="glass rounded-3xl border border-white/15 p-5 flex flex-col">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-2">Latency p99</span>
+                    <span className="font-mono text-3xl text-white tabular-nums leading-none mb-4">38<span className="text-base text-slate-400 ml-1">ms</span></span>
+                    <div className="mt-auto h-1.5 rounded-full bg-white/10 overflow-hidden">
+                      <div className="h-full rounded-full clear-bar-fill bg-gradient-to-r from-teal-400 via-blue-400 to-purple-400"></div>
+                    </div>
+                  </div>
+                  <div className="glass rounded-3xl border border-white/15 p-5 flex flex-col">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-2">Regions live</span>
+                    <span className="font-mono text-3xl text-white tabular-nums leading-none mb-4">28<span className="text-base text-slate-400">/28</span></span>
+                    <div className="mt-auto grid grid-cols-7 gap-1.5">
+                      {ledOpacities.map((o, j) => (
+                        <span key={j} className="h-2 w-2 rounded-full bg-emerald-400" style={{ opacity: o }}></span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT: terminal feed */}
+              <div className="lg:col-span-7">
+                <div className="glass-high-contrast rounded-3xl border border-white/15 overflow-hidden shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
+                  <div className="flex items-center gap-3 px-5 py-3 border-b border-white/10 bg-white/[0.03]">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-400/80"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
+                    </div>
+                    <span className="font-mono text-xs text-slate-400 truncate">/ledger · ws → live</span>
+                    <span className="ml-auto font-mono text-[10px] text-slate-500 uppercase tracking-widest hidden sm:inline">UTF-8 · LN 124</span>
+                  </div>
+                  <ol className="font-mono text-xs sm:text-sm p-5 sm:p-6 space-y-2 leading-relaxed">
+                    {liveFeed.map((row, j) => (
+                      <li key={j} className="clear-term-line flex items-center gap-3 flex-wrap" style={{ "--d": row.d }}>
+                        <span className="text-slate-500 tabular-nums">{row.t}</span>
+                        <span className={row.arrowCls}>{row.arrow}</span>
+                        <span className="text-white tabular-nums">{row.amount}</span>
+                        <span className="text-slate-400">{row.meta}</span>
+                        <span className={`ml-auto text-[10px] uppercase tracking-widest ${row.statusCls}`}>{row.status}</span>
+                      </li>
+                    ))}
+                    <li className="clear-term-line flex items-center gap-3" style={{ "--d": "4.2s" }}>
+                      <span className="text-slate-500 tabular-nums">14:02:41</span>
+                      <span className="text-teal-300">→ READY</span>
+                      <span className="text-teal-300 clear-term-caret"></span>
+                    </li>
+                  </ol>
                 </div>
               </div>
             </div>
@@ -675,6 +860,34 @@ export default function T51Glassmorphism() {
               </div>
             </div>
             <p className="text-xs text-slate-500 text-center mt-8">Prices in USD. EU/UK pricing local-equivalent — exact figures inside the app.</p>
+          </div>
+        </section>
+
+        {/* Section: By Invitation (premium pillars) */}
+        <section id="premium" className="py-24 relative">
+          <div className="absolute inset-x-0 top-1/3 -translate-y-1/2 mx-auto w-[60%] h-72 bg-gradient-to-r from-amber-300/10 via-amber-400/15 to-amber-300/10 blur-[100px] pointer-events-none -z-0"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-300/30 bg-gradient-to-r from-amber-300/15 to-amber-200/5 text-amber-200 text-[10px] font-bold uppercase tracking-[0.3em] mb-6">— By Invitation</span>
+              <h3 className="text-4xl md:text-5xl font-extrabold font-sans text-white mb-5 leading-[1.1]">For people whose money has people of its own.</h3>
+              <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto">A quiet tier inside Premium. Four pillars built on the same glass; reserved for the 2% of accounts whose ledger needs a name on the door.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 items-stretch">
+              {premiumPillars.map(p => (
+                <div key={p.title} className="glass-high-contrast rounded-3xl border border-amber-300/20 p-6 md:p-7 flex flex-col group hover:border-amber-300/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden relative">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-300/20 to-amber-500/10 border border-amber-300/30 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <i data-lucide={p.icon} className="w-6 h-6 text-amber-200"></i>
+                  </div>
+                  <h4 className="font-sans font-bold text-white text-xl mb-3">{p.title}</h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">{p.body}</p>
+                  <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-amber-200/70">
+                    <span>{p.meta}</span>
+                    <span>↗</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-slate-500 text-center mt-10 uppercase tracking-widest">Available on Premium · invitation extended after first quarter on the platform</p>
           </div>
         </section>
 

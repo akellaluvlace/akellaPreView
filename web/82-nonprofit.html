@@ -110,7 +110,7 @@
             max-width: none;
         }
         .diagonal-band {
-            clip-path: polygon(0 0, 100% 6%, 100% 94%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
         }
         .polaroid {
             background: #fdfaf3;
@@ -166,7 +166,7 @@
 <section class="relative w-full h-[870px] flex items-center bg-primary-container overflow-hidden">
 <img alt="Documentary photograph of a coral reef with a diver in silhouette" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-multiply" data-alt="underwater documentary photography showing vast coral reef illuminated by surface sunlight with silhouette of a single scuba diver floating peacefully above" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIZlVld3i4SbBupQs5qPifY7W9oeEhp03QGDhFWa4FlZcXWr9aK63KcB1tgEnbq4jd11wqRDY_HzakOfOArD5YMDwWg5AZUgbP_OwCWniEXSvQptrldd9mlb49R15AYfv4CWeWs6eEexdU35IUmE-u_WrUpcqcuB4Q7o68j010MeLgQpXvlj1HtS8QSJUvAdY9JSQJxKw53qIBrxVZidUUu6QVrsyBYChR9xmcoyonLsNSuuu3pjnby0BAIQQ6tTaCQ-5V24InewKS"/>
 <div class="relative z-10 w-full max-w-[1440px] mx-auto px-8 md:px-16 flex flex-col items-start gap-md">
-<h1 class="font-display-xl text-display-xl text-surface-container-lowest max-w-4xl">Protecting the oceans we depend on</h1>
+<h1 class="font-display-xl text-[36px] sm:text-[52px] md:text-[64px] lg:text-display-xl text-surface-container-lowest max-w-4xl">Protecting the oceans we depend on</h1>
 <p class="font-body-lg text-body-lg text-surface-container-lowest/90 max-w-2xl">Our mission is to safeguard marine ecosystems through science and community action.</p>
 <div class="flex gap-4 mt-sm">
 <button class="bg-secondary text-surface-container-lowest font-label-caps text-label-caps px-8 py-4 uppercase hover:bg-on-secondary-container transition-colors">Donate now</button>
@@ -287,8 +287,8 @@
 <!-- Voices from the Field — polaroid stack (NOVEL pattern 3) -->
 <section class="py-xl bg-surface-container-low border-y border-outline/15 relative overflow-hidden">
 <div class="max-w-[1440px] mx-auto px-8 md:px-16">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-<div class="lg:col-span-4 flex flex-col gap-md lg:sticky lg:top-32">
+<!-- Heading row — sits at the top so the voice rows below get the full container width -->
+<div class="flex flex-col gap-md max-w-3xl mb-xl pb-xl border-b border-outline/15">
 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">III — Voices</span>
 <h2 class="font-display-xl text-[40px] md:text-[56px] leading-[1.05] tracking-tight text-primary-container">From the field, in their words.</h2>
 <p class="font-body-md text-body-md text-on-surface-variant max-w-md">Field rangers, community elders, and the next generation of marine biologists tell us why the work matters. We listen first; the science follows.</p>
@@ -296,36 +296,82 @@
                         Read all stories <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
 </a>
 </div>
-<div class="lg:col-span-8 relative min-h-[520px] md:min-h-[640px]">
-<figure class="polaroid relative absolute md:left-[2%] md:top-[2%] w-[68%] md:w-[42%] -rotate-3 z-10">
-<img alt="Marine ranger Lala Putri" class="w-full aspect-[3/4] object-cover" data-alt="black and white documentary portrait of indonesian woman in field uniform standing near coastal mangrove forest with soft afternoon light" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<div class="flex flex-col gap-28 md:gap-36">
+<figure class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+<div class="polaroid relative w-full md:w-1/3 shrink-0 transform -rotate-3">
+<img alt="Marine ranger Lala Putri" class="w-full aspect-[3/4] object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
 <span class="font-['Newsreader'] italic text-base">Lala Putri</span>
 <span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Ranger · ID</span>
 </figcaption>
+</div>
+<div class="flex-1 flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">Ranger · ID</span>
+<p class="font-['Newsreader'] text-[26px] md:text-[34px] leading-snug italic text-primary-container border-l-2 border-secondary/40 pl-6">"Patrol days start at four. By the time the boats turn back, we already know which reef coughed something up overnight."</p>
+<div class="flex items-baseline justify-between border-t border-outline/15 pt-3 mt-2">
+<span class="font-headline-md text-[18px] text-primary-container">— Lala Putri</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Raja Ampat · 2018–</span>
+</div>
+</div>
 </figure>
-<figure class="polaroid relative absolute md:left-[36%] md:top-[10%] w-[64%] md:w-[40%] rotate-2 z-20 mt-8 md:mt-0">
-<img alt="Community elder Tomás Ndoye" class="w-full aspect-[3/4] object-cover" data-alt="dignified portrait of senior coastal village elder wearing traditional fishing cap looking off camera with weathered face and warm afternoon backlight" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figure class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16">
+<div class="polaroid relative w-full md:w-1/3 shrink-0 transform rotate-2">
+<img alt="Community elder Tomás Ndoye" class="w-full aspect-[3/4] object-cover" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
 <span class="font-['Newsreader'] italic text-base">Tomás Ndoye</span>
 <span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Elder · SN</span>
 </figcaption>
+</div>
+<div class="flex-1 flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">Elder · SN</span>
+<p class="font-['Newsreader'] text-[26px] md:text-[34px] leading-snug italic text-primary-container border-l-2 border-secondary/40 pl-6">"The reef remembers what we forget. The job is to listen first — to the boats, the women, the tides — and let the science follow."</p>
+<div class="flex items-baseline justify-between border-t border-outline/15 pt-3 mt-2">
+<span class="font-headline-md text-[18px] text-primary-container">— Tomás Ndoye</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Casamance · 2014–</span>
+</div>
+</div>
 </figure>
-<figure class="polaroid relative absolute md:left-[8%] md:top-[44%] w-[64%] md:w-[40%] rotate-1 z-20 mt-8 md:mt-0">
-<img alt="Marine biologist Dr. Anika Reyes" class="w-full aspect-[3/4] object-cover" data-alt="documentary portrait of filipino marine biologist in lab coat smiling subtly while holding coral fragment specimen in soft natural light" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figure class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+<div class="polaroid relative hidden md:block md:w-1/5 shrink-0 -order-1 transform -rotate-2">
+<img alt="Coastline near the field station" class="w-full aspect-[3/4] object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
+<span class="font-['Newsreader'] italic text-base">Coastline</span>
+<span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Field · PH</span>
+</figcaption>
+</div>
+<div class="polaroid relative w-full md:w-1/3 shrink-0 transform rotate-1">
+<img alt="Marine biologist Dr. Anika Reyes" class="w-full aspect-[3/4] object-cover" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
 <span class="font-['Newsreader'] italic text-base">Dr. Anika Reyes</span>
 <span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Biologist · PH</span>
 </figcaption>
+</div>
+<div class="flex-1 flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">Biologist · PH</span>
+<p class="font-['Newsreader'] text-[26px] md:text-[34px] leading-snug italic text-primary-container border-l-2 border-secondary/40 pl-6">"Conservation isn't a verb you finish. It's a relationship that takes a generation, and we're now on year fourteen with the same fishing village."</p>
+<div class="flex items-baseline justify-between border-t border-outline/15 pt-3 mt-2">
+<span class="font-headline-md text-[18px] text-primary-container">— Dr. Anika Reyes</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Palawan · 2011–</span>
+</div>
+</div>
 </figure>
-<figure class="polaroid relative absolute md:left-[42%] md:top-[52%] w-[68%] md:w-[42%] -rotate-2 z-30 mt-8 md:mt-0">
-<img alt="Youth volunteer Issa Marwa" class="w-full aspect-[3/4] object-cover" data-alt="quiet portrait of teenage volunteer in shirt holding clipboard standing on wooden jetty during golden hour with calm tropical lagoon behind" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<figure class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-16">
+<div class="polaroid relative w-full md:w-1/3 shrink-0 transform -rotate-2">
+<img alt="Youth volunteer Issa Marwa" class="w-full aspect-[3/4] object-cover" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <figcaption class="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
 <span class="font-['Newsreader'] italic text-base">Issa Marwa</span>
 <span class="font-label-caps text-[10px] uppercase tracking-widest opacity-70">Volunteer · KE</span>
 </figcaption>
-</figure>
 </div>
+<div class="flex-1 flex flex-col gap-4">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">Volunteer · KE</span>
+<p class="font-['Newsreader'] text-[26px] md:text-[34px] leading-snug italic text-primary-container border-l-2 border-secondary/40 pl-6">"I came for one summer of fieldwork on a scholarship. I stayed because the long answer turned out to be more interesting than my degree."</p>
+<div class="flex items-baseline justify-between border-t border-outline/15 pt-3 mt-2">
+<span class="font-headline-md text-[18px] text-primary-container">— Issa Marwa</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Watamu · 2022–</span>
+</div>
+</div>
+</figure>
 </div>
 </div>
 </section>
@@ -394,7 +440,7 @@
 </section>
 <!-- Transparency — image-as-bg under financial breakdown card (NOVEL pattern 6) -->
 <section class="full-bleed relative overflow-hidden" style="min-height: 640px;">
-<img alt="Open ocean reef footage as backdrop" class="absolute inset-0 w-full h-full object-cover" data-alt="documentary wide shot of healthy coral reef ecosystem with sunlit shallow water and schools of small fish creating natural movement" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<img alt="Open ocean reef footage as backdrop" class="absolute inset-0 w-full h-full object-cover" data-alt="documentary wide shot of healthy coral reef ecosystem with sunlit shallow water and schools of small fish creating natural movement" src="https://images.unsplash.com/photo-1760556415132-533affdd9ccf?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <div class="absolute inset-0 bg-primary-container/75"></div>
 <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0) 0%, rgba(11,35,64,0.55) 80%);"></div>
 <div class="relative z-10 max-w-5xl mx-auto px-8 md:px-16 py-xl">

@@ -58,20 +58,20 @@ export default function T26AboutMeCard() {
   ];
 
   const verticalGallery = [
-    { cut: "cut-v1", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&q=80&auto=format&fit=crop", alt: "Brass apothecary objects on a warm dark surface — studio craft tools" },
-    { cut: "cut-v2", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=80&auto=format&fit=crop", alt: "Minimal interior bathed in natural light, soft shadow study" },
+    { cut: "cut-v1", src: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=600&q=80&auto=format&fit=crop", alt: "Studio still-life — minimal flatlay with brass-finish pens, glasses and notepad" },
+    { cut: "cut-v2", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=80&auto=format&fit=crop", alt: "Minimal interior bathed in natural light, soft shadow study" },
     { cut: "cut-v3", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=600&q=80&auto=format&fit=crop", alt: "Quiet architectural composition with a soft palette" },
-    { cut: "cut-v4", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=600&q=80&auto=format&fit=crop", alt: "Editorial architecture frame in soft daylight" },
+    { cut: "cut-v4", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=600&q=80&auto=format&fit=crop", alt: "Editorial architecture frame in soft daylight" },
     { cut: "cut-v5", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80&auto=format&fit=crop", alt: "Studio detail — concrete and texture in mid-tone" },
     { cut: "cut-v6", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=600&q=80&auto=format&fit=crop", alt: "Architectural fragment, hand-tactile reference" },
   ];
 
   const horizontalGallery = [
     { cut: "cut-h1", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=480&q=80&auto=format&fit=crop", alt: "Soft architectural plane in low light" },
-    { cut: "cut-h2", src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=800&h=480&q=80&auto=format&fit=crop", alt: "Minimal interior corner with warm wash" },
-    { cut: "cut-h3", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&h=480&q=80&auto=format&fit=crop&crop=entropy", alt: "Brass studio objects, side detail" },
+    { cut: "cut-h2", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=800&h=480&q=80&auto=format&fit=crop", alt: "Minimal interior corner with warm wash" },
+    { cut: "cut-h3", src: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=800&h=480&q=80&auto=format&fit=crop&crop=entropy", alt: "Studio still-life — minimal flatlay with brass-finish writing instruments" },
     { cut: "cut-h4", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=480&q=80&auto=format&fit=crop&crop=edges", alt: "Concrete shelf and texture study" },
-    { cut: "cut-h5", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=800&h=480&q=80&auto=format&fit=crop&crop=top", alt: "Soft daylight on architectural fragment" },
+    { cut: "cut-h5", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=800&h=480&q=80&auto=format&fit=crop&crop=top", alt: "Soft daylight on architectural fragment" },
   ];
 
   const tailwindConfig = `
@@ -344,6 +344,44 @@ export default function T26AboutMeCard() {
               ))}
             </aside>
           </div>
+
+          {/* PRACTICE PILLARS — 2x2 Premium cards with image backgrounds */}
+          <section className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-20 lg:py-28 border-t border-outline-variant" aria-label="Practice pillars">
+            <div className="text-center mb-14 max-w-2xl mx-auto">
+              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-on-surface-variant">— § Studio · Doctrine</span>
+              <h2 className="font-headline-lg text-3xl md:text-5xl text-on-surface mt-4 leading-[1.05] tracking-tight">Four standing notes from the bench.</h2>
+              <p className="font-body-md text-on-surface-variant mt-5 leading-relaxed">Pinned over the desk, kept since the studio opened. None negotiable; all written long-hand.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+              {[
+                { id: "N · 01", icon: "edit", title: "Sketch first, type second.", body: "Every brief leaves the bench as graphite on bond paper before it touches a screen. The hand finds the shape; the cursor confirms it.", left: "Notebook · 0214", right: "Bond · 100 gsm", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop", alt: "Board-formed concrete facade in raking light" },
+                { id: "N · 02", icon: "grid_view", title: "Grid, then break it.", body: "Every layout starts on a 12-column baseline. The break — the one element that ignores the grid — is what gives the page its register.", left: "Baseline · 8 px", right: "Break · always 1", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop", alt: "Minimal architectural light study" },
+                { id: "N · 03", icon: "format_quote", title: "One voice per page.", body: "Two type-faces, never three. One italic for the editorial line; one mono for the metadata. Anything that asks for a third is asking for a redesign.", left: "Faces · 2 max", right: "Cuts · per project", img: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=1200&q=85&auto=format&fit=crop", alt: "Minimal studio flatlay — keyboard, pens and glasses" },
+                { id: "N · 04", icon: "handshake", title: "Show the working.", body: "Every commission ships with the source — sketch, file, version log. Clients should be able to read the path the work took, not just admire the destination.", left: "Source · always", right: "Log · per release", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop", alt: "Modernist gallery interior in soft daylight" },
+              ].map(n => (
+                <article key={n.id} className="group relative overflow-hidden rounded-2xl border border-outline-variant aspect-[5/3] md:aspect-[7/4] bg-surface-container-low">
+                  <img src={n.img} alt={n.alt} className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-30 grayscale-[20%] transition-opacity duration-500" loading="lazy" decoding="async" width="1200" height="685" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-surface/95 via-surface/85 to-surface/95"></div>
+                  <div className="relative z-10 h-full flex flex-col justify-between p-6 md:p-8">
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-full border border-outline flex items-center justify-center bg-surface-container">
+                        <span className="material-symbols-outlined text-on-surface text-[22px]" style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden="true">{n.icon}</span>
+                      </div>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-on-surface-variant tabular-nums">{n.id}</span>
+                    </div>
+                    <div>
+                      <h3 className="font-headline-md text-2xl md:text-3xl text-on-surface tracking-tight leading-[1.05] mb-2">{n.title}</h3>
+                      <p className="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed max-w-md">{n.body}</p>
+                      <div className="flex items-baseline justify-between border-t border-outline-variant/60 pt-3 mt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-on-surface-variant">
+                        <span>{n.left}</span>
+                        <span className="text-secondary">{n.right}</span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
         </main>
 
         <footer className="bg-transparent font-serif text-sm italic w-full py-10 mt-auto border-t border-stone-200 text-[#3D2B1F]">

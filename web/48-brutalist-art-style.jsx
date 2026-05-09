@@ -9,9 +9,9 @@ export default function T48BrutalistArtStyle() {
   const photoIndex = [
     { fig: "FIG.02", title: "FACADE_03", size: "94×120", filled: false, src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop", alt: "Brutalist concrete facade with shadow grid" },
     { fig: "FIG.03", title: "TOWER_M",   size: "88×120", filled: false, src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop", alt: "High-rise concrete tower in stark light" },
-    { fig: "FIG.04", title: "INT_RAW",   size: "72×96",  filled: true,  src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=900&auto=format&fit=crop", alt: "Stripped industrial interior with raw concrete" },
+    { fig: "FIG.04", title: "INT_RAW",   size: "72×96",  filled: true,  src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=900&auto=format&fit=crop", alt: "Stripped industrial interior with raw concrete" },
     { fig: "FIG.05", title: "CANTILEVER",size: "96×72",  filled: false, src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop", alt: "Geometric concrete cantilever roofline" },
-    { fig: "FIG.06", title: "COL_DET",   size: "120×80", filled: false, src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop", alt: "Architectural detail of columns and shadow" }
+    { fig: "FIG.06", title: "COL_DET",   size: "120×80", filled: false, src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=900&auto=format&fit=crop", alt: "Architectural detail of columns and shadow" }
   ];
 
   const programs = [
@@ -38,7 +38,13 @@ export default function T48BrutalistArtStyle() {
       dates: ["10.12.94", "01.15.95"],
       artist: "MARIA KOZLOV",
       img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop",
-      alt: "High contrast geometric concrete structure against a stark sky"
+      alt: "High contrast geometric concrete structure against a stark sky",
+      details: [
+        { label: "// VENUE",   value: "HALL_03 · FLR_02"    },
+        { label: "// HOURS",   value: "11:00 — 19:00"       },
+        { label: "// OPEN",    value: "TUE — SUN"           },
+        { label: "// ADM.",    value: "FREE / DONATION"     },
+      ]
     },
     {
       tag: "UPCOMING",
@@ -48,7 +54,13 @@ export default function T48BrutalistArtStyle() {
       dates: ["02.01.95", "04.10.95"],
       artist: "J.T. BARKER & THE COLLECTIVE",
       img: "https://images.unsplash.com/photo-1448318440207-ef1893eb8ac0?q=80&w=1000&auto=format&fit=crop",
-      alt: "Tangled wires and industrial metallic debris in high contrast"
+      alt: "Tangled wires and industrial metallic debris in high contrast",
+      details: [
+        { label: "// VENUE",   value: "HALL_05 · FLR_03"    },
+        { label: "// PREVIEW", value: "01.31.95 · 18:00"    },
+        { label: "// TICKETS", value: "REQ / RSVP"          },
+        { label: "// CURATOR", value: "N. RIVERA"           },
+      ]
     }
   ];
 
@@ -59,22 +71,27 @@ export default function T48BrutalistArtStyle() {
   // preview iframe (call-stack overflow). React skips an attribute when the
   // prop value is `undefined`, so a plain conditional attribute is
   // equivalent and avoids the spread path entirely.
-  const NavLink = ({ item, isMobile }) => {
+  // Premium contrasted navbar: pure black bg + white text. Mobile mirrors
+  // the same block with a row-divider variant and chunky offset shadow.
+  const NavLink = ({ item, isMobile, isLast }) => {
     const baseColor = item.current
-      ? "text-secondary hover:bg-secondary hover:text-surface"
-      : "text-primary hover:bg-primary hover:text-surface";
+      ? "text-secondary hover:bg-surface hover:text-primary"
+      : "text-surface hover:bg-surface hover:text-primary";
     const labelClasses = [
       isMobile ? "" : "font-h3",
-      "uppercase",
+      "uppercase tracking-wide",
       isMobile ? "" : "pl-2",
       item.prefix && !isMobile ? " before:content-['>'] before:-ml-4 before:absolute relative" : "",
       item.prefix && isMobile ? " before:content-['>'] before:mr-2" : "",
     ].join(" ");
+    const mobileClasses = isMobile
+      ? `flex items-center justify-between py-3 px-3 ${baseColor} transition-none font-h3 tracking-wide${isLast ? "" : " border-b-2 border-surface/30"}`
+      : `group flex items-center justify-between py-2 ${baseColor} transition-none`;
     return (
       <a
         href={item.href}
         aria-current={item.current ? "page" : undefined}
-        className={`group flex items-center justify-between py-2 ${baseColor} transition-none ${isMobile ? "font-h3" : ""}`}
+        className={mobileClasses}
       >
         <span className={labelClasses}>{item.label}</span>
         <span
@@ -86,6 +103,87 @@ export default function T48BrutalistArtStyle() {
       </a>
     );
   };
+
+  const disciplines = [
+    {
+      numeral: "I",
+      icon: "apartment",
+      title: "EXHIBITION ARCHITECTURE",
+      body: "Permanent occupation of an unfinished concrete wing. Every wall is load-bearing; every constraint is the curatorial brief.",
+      chip: "HALL_03",
+      featured: true,
+      img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1400&auto=format&fit=crop",
+      alt: "Brutalist concrete cantilever exhibition wing"
+    },
+    {
+      numeral: "II",
+      icon: "photo_camera",
+      title: "PHOTOGRAPHIC RECORD",
+      body: "Silver-gelatin documentation of every installation, every dismantling. The negative is the canonical artefact.",
+      chip: "REF_0046",
+      axisLabel: "AXIS_02",
+      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=1400&auto=format&fit=crop",
+      alt: "Concrete tower block in stark light"
+    },
+    {
+      numeral: "III",
+      icon: "menu_book",
+      title: "PUBLISHED RESEARCH",
+      body: "Risograph monographs printed in-house each season. Distribution is institutional, not commercial.",
+      chip: "VOL_07",
+      axisLabel: "AXIS_03",
+      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop",
+      alt: "Brutalist facade with shadow grid"
+    },
+    {
+      numeral: "IV",
+      icon: "groups",
+      title: "PUBLIC INSTRUCTION",
+      body: "Open lectures, screenings and symposia. Free entry. The audience is part of the constraint.",
+      chip: "SCREENING_02",
+      axisLabel: "AXIS_04",
+      img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=1400&auto=format&fit=crop",
+      alt: "Architectural columns and shadow detail"
+    }
+  ];
+
+  // Pre-computed per-card border classes — no template-string interpolation
+  // inside .map() (avoids Tailwind purge gotcha + keeps strings static).
+  const disciplineBorderCls = [
+    "border-b-2 md:border-b-2 md:border-r-2 border-primary",
+    "border-b-2 md:border-b-2 border-primary",
+    "border-b-2 md:border-b-0 md:border-r-2 border-primary",
+    ""
+  ];
+
+  const reviews = [
+    { quote: "UNIT 07 refuses the gallery's politeness. What you walk into is closer to a structural autopsy than an exhibition.", source: "FRIEZE · 11.94", id: "REV_01" },
+    { quote: "The most rigorous editorial position to come out of Berlin in a decade. Read the wall labels — they are the work.", source: "THE GUARDIAN · 02.95", id: "REV_02" },
+    { quote: "There is no merchandise. There is no soft exit. UNIT 07 is the rare institution that means what it printed.", source: "MONOPOL · 04.95", id: "REV_03" }
+  ];
+
+  const partnerSlugs = [
+    { slug: "behance", name: "Behance" },
+    { slug: "dribbble", name: "Dribbble" },
+    { slug: "vimeo", name: "Vimeo" },
+    { slug: "medium", name: "Medium" },
+    { slug: "issuu", name: "Issuu" },
+    { slug: "wetransfer", name: "WeTransfer" },
+    { slug: "theguardian", name: "The Guardian" },
+    { slug: "substack", name: "Substack" }
+  ];
+
+  // Pre-computed border classes for the 8-cell partners grid (mirrors HTML).
+  const partnerBorderCls = [
+    "border-r-0 sm:border-r-2 lg:border-r-2 last:border-r-0 border-b-2 lg:border-b-0 border-primary",
+    "border-r-0 sm:border-r-2 lg:border-r-2 last:border-r-0 border-b-2 lg:border-b-0 border-primary",
+    "border-r-0 sm:border-r-0 lg:border-r-2 border-b-2 lg:border-b-0 border-primary",
+    "border-r-0 sm:border-r-2 lg:border-r-2 border-b-2 lg:border-b-0 border-primary",
+    "border-r-0 sm:border-r-2 lg:border-r-2 border-b-2 lg:border-b-0 border-primary",
+    "border-r-0 sm:border-r-2 lg:border-r-2 border-b-2 lg:border-b-0 border-primary",
+    "border-r-0 sm:border-r-0 lg:border-r-2 border-b-2 sm:border-b-2 lg:border-b-0 border-primary",
+    "border-primary"
+  ];
 
   return (
     <>
@@ -139,12 +237,12 @@ export default function T48BrutalistArtStyle() {
       ` }} />
 
       <div className="scroll-smooth bg-surface text-primary font-body flex flex-col md:flex-row min-h-screen">
-        {/* Sidebar Navigation */}
-        <nav className="hidden md:flex fixed left-0 top-0 h-screen w-64 border-r-2 border-primary bg-surface z-40 flex-col justify-between" aria-label="Main Navigation">
+        {/* Sidebar Navigation — PREMIUM CONTRASTED */}
+        <nav className="hidden md:flex fixed left-0 top-0 h-screen w-64 border-r-4 border-primary bg-primary text-surface z-40 flex-col justify-between shadow-[6px_0_0_0_#0000e1]" aria-label="Main Navigation">
           <div className="flex flex-col p-p-base pb-0">
             <div className="mb-16">
-              <h2 className="font-h3 text-primary uppercase mb-2">INDEX</h2>
-              <div className="font-data-sm text-primary border-b-2 border-primary pb-2">V.07 / DE</div>
+              <h2 className="font-h3 text-surface uppercase mb-2 tracking-wide">INDEX</h2>
+              <div className="font-data-sm text-surface border-b-2 border-surface pb-2">V.07 / DE</div>
             </div>
             <ul className="flex flex-col gap-1 w-full" role="list">
               {navItems.map(item => (
@@ -153,9 +251,13 @@ export default function T48BrutalistArtStyle() {
                 </li>
               ))}
             </ul>
+            <a href="#inquiry" className="mt-8 inline-flex items-center justify-between py-3 px-3 bg-secondary text-on-secondary border-2 border-surface font-data-sm uppercase tracking-wider shadow-[4px_4px_0_0_#ffffff] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#ffffff] transition-transform">
+              <span>INQUIRE</span>
+              <span className="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+            </a>
           </div>
-          <div className="p-p-base border-t-2 border-primary">
-            <div className="font-data-sm text-primary uppercase leading-tight">
+          <div className="p-p-base border-t-2 border-surface">
+            <div className="font-data-sm text-surface uppercase leading-tight">
               EST. 1994<br />BERLIN, DE
             </div>
           </div>
@@ -171,9 +273,9 @@ export default function T48BrutalistArtStyle() {
                 <p className="font-body text-primary uppercase max-w-[40ch] text-pretty">
                   Berlin's premier experimental art space. Documenting the intersection of brutalist architecture, digital decay, and systemic structures.
                 </p>
-                <nav className="md:hidden flex flex-col gap-2 border-t-2 border-primary pt-6" aria-label="Mobile Navigation">
-                  {navItems.map(item => (
-                    <NavLink key={item.label} item={item} isMobile />
+                <nav className="md:hidden flex flex-col gap-0 border-2 border-primary bg-primary text-surface shadow-[6px_6px_0_0_#0000e1]" aria-label="Mobile Navigation">
+                  {navItems.map((item, i) => (
+                    <NavLink key={item.label} item={item} isMobile isLast={i === navItems.length - 1} />
                   ))}
                 </nav>
               </div>
@@ -193,6 +295,21 @@ export default function T48BrutalistArtStyle() {
                 FIG. 01 — ARCHITECTURE
               </div>
             </div>
+          </section>
+
+          {/* Trusted-By / Press Ledger */}
+          <section className="w-full border-b-2 border-primary bg-surface" aria-label="Press and Institutional Partners">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-p-base md:px-p-lg md:py-6 border-b-2 border-primary gap-4">
+              <div className="font-data-sm text-primary uppercase tracking-wide">// PRESS &amp; PARTNERS · N=08</div>
+              <div className="font-data-sm text-primary/70 uppercase tabular-nums">REF / 0052 // PUBLIC RECORD</div>
+            </div>
+            <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 w-full" role="list">
+              {partnerSlugs.map((p, i) => (
+                <li key={p.slug} className={`aspect-[3/2] flex items-center justify-center px-6 ${partnerBorderCls[i]}`}>
+                  <img src={`https://cdn.simpleicons.org/${p.slug}`} alt={p.name} className="h-6 w-auto opacity-80 grayscale brightness-0" loading="lazy" decoding="async" width="80" height="24" />
+                </li>
+              ))}
+            </ul>
           </section>
 
           {/* Exhibitions */}
@@ -224,7 +341,18 @@ export default function T48BrutalistArtStyle() {
                       {ex.dates[0]}<br />{ex.dates[1]}
                     </time>
                   </div>
-                  <div className="mt-8 pt-4 border-t-2 border-primary/20 font-body text-primary uppercase tracking-wide flex justify-between items-end">
+                  {/* Centered sidebar-style info card (fills empty space) */}
+                  <div className="my-6 max-w-md md:max-w-sm md:mx-auto w-full relative z-10">
+                    <dl className="grid grid-cols-2 gap-x-4 gap-y-2 border-2 border-primary bg-surface p-4 md:p-5 font-data-sm text-primary uppercase tracking-wide">
+                      {ex.details.map(d => (
+                        <React.Fragment key={d.label}>
+                          <dt className="opacity-50">{d.label}</dt>
+                          <dd className="text-right tabular-nums">{d.value}</dd>
+                        </React.Fragment>
+                      ))}
+                    </dl>
+                  </div>
+                  <div className="pt-4 border-t-2 border-primary/20 font-body text-primary uppercase tracking-wide flex justify-between items-end">
                     <span>{ex.artist}</span>
                     <span className="material-symbols-outlined text-4xl text-secondary opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true">arrow_outward</span>
                   </div>
@@ -316,9 +444,87 @@ export default function T48BrutalistArtStyle() {
             </div>
           </section>
 
-          {/* Archive */}
+          {/* Four Disciplines — Premium 2x2 Image-BG Cards */}
+          <section className="w-full border-b-2 border-primary bg-surface" aria-label="Four Disciplines">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end p-p-base md:p-p-lg border-b-2 border-primary gap-4">
+              <div>
+                <span className="block font-data-sm text-primary uppercase mb-2 tracking-wide">// FOUR DISCIPLINES</span>
+                <h2 className="font-h2 text-primary text-balance">PROGRAMME AXES</h2>
+              </div>
+              <div className="font-data-sm text-primary uppercase tabular-nums text-left md:text-right">
+                AXES I — IV<br />UNIT 07 / 1995
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 w-full">
+              {disciplines.map((d, i) => (
+                <article key={d.numeral} className={`group relative min-h-[420px] md:min-h-[480px] overflow-hidden ${disciplineBorderCls[i]} ${d.featured ? "ring-4 ring-secondary ring-inset" : ""}`}>
+                  <img src={d.img} alt={d.alt} className="absolute inset-0 w-full h-full object-cover img-brutalist" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-primary/70" />
+                  <div className="relative z-10 flex flex-col h-full min-h-[420px] md:min-h-[480px] p-p-base md:p-p-lg text-surface">
+                    <div className="flex items-start justify-between">
+                      <span className="font-h2 italic text-secondary leading-none">{d.numeral}</span>
+                      {d.featured ? (
+                        <span className="bg-secondary text-on-secondary px-2 py-1 font-data-sm uppercase tracking-wide">PRIMARY</span>
+                      ) : (
+                        <span className="border-2 border-surface px-2 py-1 font-data-sm uppercase tracking-wide">{d.axisLabel}</span>
+                      )}
+                    </div>
+                    <span className="material-symbols-outlined text-5xl mt-8 text-surface" aria-hidden="true">{d.icon}</span>
+                    <h3 className="font-h3 uppercase mt-4 tracking-wide">{d.title}</h3>
+                    <p className="font-body mt-3 max-w-[48ch] text-surface/90">{d.body}</p>
+                    <div className="mt-auto pt-6 border-t-2 border-surface/30 font-data-sm uppercase flex justify-between items-end">
+                      <span className="bg-surface text-primary px-2 py-1 tracking-wide">{d.chip}</span>
+                      <span className="material-symbols-outlined text-3xl translate-x-0 group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_outward</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* Press / Reviews — Quote Ledger */}
+          <section id="press" className="w-full border-b-2 border-primary bg-surface-container" aria-label="Press and Reviews">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end p-p-base md:p-p-lg border-b-2 border-primary gap-4">
+              <div>
+                <span className="block font-data-sm text-primary uppercase mb-2 tracking-wide">// PRESS LEDGER</span>
+                <h2 className="font-h2 text-primary text-balance">CRITICAL RECEPTION</h2>
+              </div>
+              <div className="font-data-sm text-primary uppercase tabular-nums text-left md:text-right">
+                REVIEWS · N=03<br />1994 — 1995
+              </div>
+            </div>
+            <ol className="grid grid-cols-1 md:grid-cols-3 w-full" role="list">
+              {reviews.map((r, i) => (
+                <li key={r.id} className={`group flex flex-col p-p-base md:p-p-lg bg-surface min-h-[300px] ${i < reviews.length - 1 ? "border-b-2 md:border-b-0 md:border-r-2 border-primary" : ""}`}>
+                  <span className="material-symbols-outlined text-4xl text-secondary leading-none" aria-hidden="true">format_quote</span>
+                  <blockquote className="font-h3 text-primary mt-4 normal-case leading-tight">"{r.quote}"</blockquote>
+                  <div className="mt-auto pt-6 border-t-2 border-primary/20 font-data-sm uppercase flex justify-between items-end">
+                    <span>{r.source}</span>
+                    <span className="bg-primary text-surface px-2 py-1 tracking-wide">{r.id}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* Archive — premium initial state w/ layered patterns + corner brackets + status caps; popping image fill preserved */}
           <section className="w-full p-p-base md:p-p-lg border-b-2 border-primary bg-surface-container min-h-[40vh] flex flex-col justify-center items-center overflow-hidden relative group">
+            {/* Background pattern layer 1: dot grid */}
             <div className="absolute inset-0 w-full h-full pointer-events-none opacity-10" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, black 1px, transparent 0)", backgroundSize: "32px 32px" }} />
+            {/* Background pattern layer 2: diagonal stripes (cross-hatch with the dots) */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.05]" style={{ backgroundImage: "repeating-linear-gradient(45deg, black 0 1px, transparent 1px 14px)" }} />
+            {/* Edge vignette for depth */}
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.18) 100%)" }} />
+            {/* 4 corner brackets (technical-readout chrome) */}
+            <div aria-hidden="true" className="absolute top-4 left-4 w-10 h-10 md:w-12 md:h-12 border-l-2 border-t-2 border-primary pointer-events-none z-10" />
+            <div aria-hidden="true" className="absolute top-4 right-4 w-10 h-10 md:w-12 md:h-12 border-r-2 border-t-2 border-primary pointer-events-none z-10" />
+            <div aria-hidden="true" className="absolute bottom-4 left-4 w-10 h-10 md:w-12 md:h-12 border-l-2 border-b-2 border-primary pointer-events-none z-10" />
+            <div aria-hidden="true" className="absolute bottom-4 right-4 w-10 h-10 md:w-12 md:h-12 border-r-2 border-b-2 border-primary pointer-events-none z-10" />
+            {/* Top status caption (centred) */}
+            <div className="absolute top-6 md:top-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 font-data-sm text-primary uppercase tracking-widest pointer-events-none whitespace-nowrap">
+              <span className="w-1.5 h-1.5 bg-secondary animate-pulse" aria-hidden="true" />
+              // ARCHIVE · 1994 — PRESENT · N=247
+            </div>
             <a href="#" className="font-h1 text-primary hover:text-surface relative z-10 flex items-center justify-center w-full h-full focus-visible:outline-none" aria-label="View complete archive">
               <span className="absolute inset-x-0 inset-y-[-20px] scale-y-0 group-hover:scale-y-100 group-focus-within:scale-y-100 transition-transform origin-bottom duration-300 ease-out z-[-1] overflow-hidden" aria-hidden="true">
                 <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=1600&auto=format&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-90" />
@@ -327,6 +533,14 @@ export default function T48BrutalistArtStyle() {
               </span>
               ARCHIVE
             </a>
+            {/* Bottom mono caption (centred) */}
+            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-wrap items-center justify-center gap-3 font-data-sm text-primary uppercase tracking-widest opacity-70 pointer-events-none whitespace-nowrap">
+              <span className="tabular-nums">// HOVER_TO_ACCESS</span>
+              <span className="w-px h-3 bg-primary/40" />
+              <span className="tabular-nums">SILVER_GELATIN</span>
+              <span className="w-px h-3 bg-primary/40" />
+              <span className="tabular-nums">UPDATED MMXXIV</span>
+            </div>
           </section>
 
           {/* Footer */}

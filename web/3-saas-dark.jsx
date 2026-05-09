@@ -205,11 +205,18 @@ export default function T3SaasDark() {
 
         <main className="flex-grow pt-[64px] sm:pt-[72px]">
 
-          {/* Hero Section */}
-          <section aria-labelledby="hero-heading" className="relative min-h-[100svh] md:min-h-[850px] flex flex-col items-center justify-center px-5 py-12 sm:px-6 md:py-0 overflow-hidden">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#B4FF39]/15 to-transparent blur-[120px] rounded-full pointer-events-none transform-gpu" aria-hidden="true"></div>
+          {/* Hero Section — full screen, text + buttons only, ambient grid bg */}
+          <section aria-labelledby="hero-heading" className="relative min-h-[100svh] flex flex-col items-center justify-center px-5 py-12 sm:px-6 overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
+              backgroundImage: "linear-gradient(to right, rgba(180,255,57,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(180,255,57,0.05) 1px, transparent 1px)",
+              backgroundSize: "64px 64px",
+              maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%)",
+              WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%)"
+            }}></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] bg-gradient-to-tr from-[#B4FF39]/20 via-[#B4FF39]/5 to-transparent blur-[140px] rounded-full pointer-events-none transform-gpu" aria-hidden="true"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" aria-hidden="true"></div>
 
-            <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6 sm:gap-lg mt-8 md:mt-0">
+            <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6 sm:gap-lg">
               <a href="#changelog" className="inline-flex items-center gap-sm bg-surface-container-low border border-white/5 px-4 py-1.5 rounded-full mb-md hover:bg-surface-container hover:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B4FF39] focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#B4FF39] opacity-75"></span>
@@ -218,7 +225,7 @@ export default function T3SaasDark() {
                 <span className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wide">v2.4.0 Live on Edge Network</span>
               </a>
 
-              <h1 id="hero-heading" className="font-display text-[clamp(2.25rem,5vw+1rem,3.5rem)] leading-[1.05] text-primary tracking-tight text-balance">
+              <h1 id="hero-heading" className="font-display text-[clamp(2.5rem,7vw+1rem,5.5rem)] leading-[1.02] text-primary tracking-tight text-balance">
                 Real-time edge compute <br className="hidden md:block" />for AI workloads.
               </h1>
 
@@ -235,21 +242,13 @@ export default function T3SaasDark() {
                 </a>
               </div>
 
-              {/* Terminal Mockup */}
-              <figure className="mt-12 md:mt-16 w-full max-w-3xl bg-[#050505] border border-white/10 rounded-xl overflow-hidden shadow-2xl shadow-[#B4FF39]/5 text-left">
-                <figcaption className="flex items-center justify-between px-4 py-3 bg-[#1A1A1D] border-b border-white/5">
-                  <div className="flex gap-2" aria-hidden="true">
-                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
-                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
-                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
-                  </div>
-                  <span className="font-mono-label text-[10px] text-on-surface-variant uppercase tracking-wider">bash — edgecraft-cli</span>
-                  <div className="w-10"></div>
-                </figcaption>
-                <div className="p-5 sm:p-6 overflow-x-auto custom-scrollbar">
-                  <pre><code className="block font-code-block text-code-block min-w-max"><span className="text-[#8A8A8F] select-none">$ </span><span className="text-[#E8E8EA]">curl -X POST https://api.edgecraft.dev/v1/inference \</span>{"\n"}<span className="text-[#E8E8EA]">    -H <span className="text-[#B4FF39]">"Authorization: Bearer $EC_TOKEN"</span> \</span>{"\n"}<span className="text-[#E8E8EA]">    -d <span className="text-[#B4FF39]">{`'{"model": "llama-3-8b", "prompt": "Hello edge."}'`}</span></span>{"\n"}{"\n"}<span className="text-[#8A8A8F] select-none"># Response (8ms latency)</span>{"\n"}<span className="text-[#E8E8EA]">{`{`}</span>{"\n"}<span className="text-[#E8E8EA]">  "id": <span className="text-[#B4FF39]">"inf_9x8f7"</span>,</span>{"\n"}<span className="text-[#E8E8EA]">  "object": <span className="text-[#B4FF39]">"text_completion"</span>,</span>{"\n"}<span className="text-[#E8E8EA]">  "created": <span className="text-[#B4FF39]">1715429381</span>,</span>{"\n"}<span className="text-[#E8E8EA]">  "choices": [{`{`}</span>{"\n"}<span className="text-[#E8E8EA]">    "text": <span className="text-[#B4FF39]">"Hello world. I am running at the edge."</span>,</span>{"\n"}<span className="text-[#E8E8EA]">    "finish_reason": <span className="text-[#B4FF39]">"stop"</span></span>{"\n"}<span className="text-[#E8E8EA]">  {`}`}]</span>{"\n"}<span className="text-[#E8E8EA]">{`}`}</span></code></pre>
-                </div>
-              </figure>
+              <div className="mt-12 sm:mt-16 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono-label text-[10px] uppercase tracking-[0.3em] text-slate-500">
+                <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#B4FF39]"></span>12 edge regions</span>
+                <span className="hidden sm:inline-block w-px h-3 bg-white/10"></span>
+                <span>p99 · 47ms</span>
+                <span className="hidden sm:inline-block w-px h-3 bg-white/10"></span>
+                <span>SOC 2 Type II</span>
+              </div>
             </div>
           </section>
 
@@ -264,6 +263,98 @@ export default function T3SaasDark() {
                 <span className="font-display font-bold text-xl text-white tracking-tighter select-none hidden sm:block">Quantum</span>
                 <span className="font-display font-bold text-xl text-white tracking-tighter select-none hidden md:block">Synergy</span>
               </div>
+            </div>
+          </section>
+
+          {/* Live Inference Demo — animated terminal + streamed completion (2-col) */}
+          <section id="live-demo" aria-labelledby="live-demo-heading" className="max-w-container-max mx-auto px-5 sm:px-6 py-16 sm:py-24 md:py-28 scroll-mt-24">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
+              <div className="flex flex-col gap-3 max-w-2xl">
+                <span className="inline-flex items-center gap-2 self-start bg-surface-container-low border border-white/10 px-3 py-1 rounded-full font-mono-label text-[10px] uppercase tracking-[0.3em] text-on-surface-variant">
+                  <span className="text-on-surface">Step 02</span>
+                  <span className="w-px h-3 bg-white/15"></span>
+                  <span className="text-[#B4FF39] flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#B4FF39] animate-pulse"></span>Inference · Live</span>
+                </span>
+                <h2 id="live-demo-heading" className="font-display text-[clamp(2rem,3vw+1rem,2.5rem)] leading-tight text-primary text-balance">Watch Edgecraft think.</h2>
+              </div>
+              <p className="font-body-md text-on-surface-variant max-w-md text-pretty">A single curl call leaves the terminal on the left and streams a token-by-token completion on the right — in real time, from the nearest edge.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/10 rounded-xl overflow-hidden shadow-2xl shadow-[#B4FF39]/5">
+              {/* Left column — animated terminal */}
+              <figure className="bg-[#050505] flex flex-col">
+                <figcaption className="flex items-center justify-between px-4 py-3 bg-[#1A1A1D] border-b border-white/5">
+                  <div className="flex gap-2" aria-hidden="true">
+                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                    <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                  </div>
+                  <span className="font-mono-label text-[10px] text-on-surface-variant uppercase tracking-wider">bash — edgecraft-cli</span>
+                  <span className="font-mono-label text-[10px] text-[#B4FF39] uppercase tracking-wider">FRA-1</span>
+                </figcaption>
+                <div className="p-5 sm:p-6 overflow-x-auto custom-scrollbar font-code-block text-code-block min-h-[460px] flex-1 flex flex-col">
+                  <div className="ec-cli-line"><span className="text-[#8A8A8F] select-none">$ </span><span className="ec-cli-typewrite ec-cli-line-1"><span className="text-[#E8E8EA]">curl -X POST https://api.edgecraft.dev/v1/inference \</span></span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-2"><span className="text-[#E8E8EA] pl-4">    -H </span><span className="text-[#B4FF39]">"Authorization: Bearer $EC_TOKEN"</span><span className="text-[#E8E8EA]"> \</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-3"><span className="text-[#E8E8EA] pl-4">    -d </span><span className="text-[#B4FF39]">{`'{"model": "llama-3-8b", "prompt": "Hello edge."}'`}</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-4 mt-3"><span className="text-[#8A8A8F] select-none"># Response · 8ms · first-token 12ms</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">{`{`}</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">  "id": </span><span className="text-[#B4FF39]">"inf_9x8f7"</span><span className="text-[#E8E8EA]">,</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">  "object": </span><span className="text-[#B4FF39]">"text_completion"</span><span className="text-[#E8E8EA]">,</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">  "created": </span><span className="text-[#B4FF39]">1715429381</span><span className="text-[#E8E8EA]">,</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">  "choices": [{`{`}</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">    "text": </span><span className="text-[#B4FF39]">"Hello world. I am running at the edge."</span><span className="text-[#E8E8EA]">,</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">    "finish_reason": </span><span className="text-[#B4FF39]">"stop"</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">  {`}`}]</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-5"><span className="text-[#E8E8EA]">{`}`}</span></div>
+                  <div className="ec-cli-line ec-cli-fade ec-cli-fade-6 mt-4"><span className="text-[#8A8A8F] select-none">$ </span><span className="ec-cli-cursor"></span></div>
+                </div>
+              </figure>
+
+              {/* Right column — synthesised completion stream */}
+              <div className="bg-[#0A0A0B] flex flex-col p-6 sm:p-8 min-h-[460px]">
+                <div className="flex items-center justify-between mb-6 gap-4">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#B4FF39] animate-pulse" aria-hidden="true"></span>
+                    <span className="font-mono-label text-[10px] text-[#B4FF39] uppercase tracking-[0.3em]">Streamed Completion</span>
+                  </div>
+                  <span className="font-mono-label text-[10px] text-slate-500 uppercase tracking-[0.25em]">SSE · v2</span>
+                </div>
+
+                <div className="flex-1 flex flex-col gap-4 font-body-md text-on-surface text-pretty">
+                  <p className="ec-stream-line ec-stream-1 leading-relaxed">
+                    Tokens arrive at the edge in <span className="text-[#B4FF39] font-mono">12&thinsp;ms</span>, streamed back through the same socket the request arrived on — no proxy hop, no warm-up.
+                  </p>
+                  <p className="ec-stream-line ec-stream-2 leading-relaxed">
+                    A consistent-hash router pinned the call to a node already holding <span className="bg-[#B4FF39]/10 text-[#B4FF39] font-mono px-1.5 py-0.5 rounded-sm">llama-3-8b</span> weights, so the snapshot resurrected in <span className="text-[#B4FF39] font-mono">4.6&thinsp;ms</span>.
+                  </p>
+                  <p className="ec-stream-line ec-stream-3 leading-relaxed text-on-surface-variant">
+                    Below: the same exchange, replayed as <span className="font-mono text-on-surface">choices[0].text</span> with cited route metrics. SOC&nbsp;2 trail signed inline.
+                  </p>
+                </div>
+
+                <div className="ec-stream-line ec-stream-4 mt-6 pt-4 border-t border-white/5 grid grid-cols-3 gap-3 font-mono-label text-[10px] uppercase tracking-[0.25em] text-slate-500">
+                  <span className="flex flex-col gap-1">
+                    <span>Route</span>
+                    <span className="text-[#B4FF39] tabular-nums">EC_ROUTE · 04</span>
+                  </span>
+                  <span className="flex flex-col gap-1">
+                    <span>Tokens</span>
+                    <span className="text-on-surface tabular-nums">38 / sec</span>
+                  </span>
+                  <span className="flex flex-col gap-1">
+                    <span>Confidence</span>
+                    <span className="text-on-surface tabular-nums">99.4%</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="h-7 mt-px bg-gradient-to-r from-[#B4FF39] via-[#B4FF39]/70 to-transparent px-3 flex items-center font-mono-label text-[10px] text-[#0A0A0B] font-bold uppercase tracking-[0.25em] gap-3 select-none rounded-b-xl">
+              <span>main</span>
+              <span className="hidden sm:inline">UTF-8</span>
+              <span>cURL</span>
+              <span className="ml-auto">12ms</span>
+              <span>p99 · 47ms</span>
             </div>
           </section>
 
@@ -363,8 +454,8 @@ export default function T3SaasDark() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16">
-              <div className="md:col-span-7 lg:col-span-7">
-                <figure className="md:sticky md:top-32 md:self-start relative aspect-[4/5] md:aspect-[5/6] lg:aspect-[4/5] w-full overflow-hidden rounded-xl border border-white/10 bg-surface-container-lowest">
+              <div className="md:col-span-7 lg:col-span-7 flex">
+                <figure className="relative aspect-[4/5] md:aspect-auto w-full md:h-full md:min-h-[640px] overflow-hidden rounded-xl border border-white/10 bg-surface-container-lowest">
                   <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=85&w=1600&auto=format&fit=crop" alt="Macro view of a green circuit board representing edge inference hardware" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity contrast-110 grayscale opacity-90" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-primary-fixed/10 mix-blend-overlay pointer-events-none" aria-hidden="true"></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/15 to-transparent pointer-events-none" aria-hidden="true"></div>
@@ -376,25 +467,56 @@ export default function T3SaasDark() {
                 </figure>
               </div>
 
-              <ol className="md:col-span-5 lg:col-span-5 flex flex-col list-none m-0 p-0 divide-y divide-white/10 border-y border-white/10">
-                {ROUTING_STAGES.map((s) => (
-                  <li key={s.n} className="py-7 sm:py-8 grid grid-cols-[auto_1fr] gap-5 items-start">
-                    <span className="font-display text-3xl text-[#B4FF39] tabular-nums leading-none pt-1">{s.n}</span>
-                    <div className="flex flex-col gap-2">
-                      <h3 className="font-h2 text-h2 text-primary">{s.title}</h3>
-                      <p className="font-body-md text-on-surface-variant text-pretty">{s.body}</p>
-                      <span className="font-mono-label text-[10px] text-[#B4FF39] uppercase tracking-widest mt-1">{s.metric}</span>
+              <div className="md:col-span-5 lg:col-span-5 flex flex-col h-full md:justify-between gap-6 md:gap-8">
+                <ol className="flex flex-col list-none m-0 p-0 divide-y divide-white/10 border-y border-white/10">
+                  {ROUTING_STAGES.map((s) => (
+                    <li key={s.n} className="py-7 sm:py-8 grid grid-cols-[auto_1fr] gap-5 items-start">
+                      <span className="font-display text-3xl text-[#B4FF39] tabular-nums leading-none pt-1">{s.n}</span>
+                      <div className="flex flex-col gap-2">
+                        <h3 className="font-h2 text-h2 text-primary">{s.title}</h3>
+                        <p className="font-body-md text-on-surface-variant text-pretty">{s.body}</p>
+                        <span className="font-mono-label text-[10px] text-[#B4FF39] uppercase tracking-widest mt-1">{s.metric}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+
+                {/* SLA & residency dossier — pins to bottom of column to align with sticky image */}
+                <aside className="rounded-lg border border-white/10 bg-surface-container-low/70 p-5 sm:p-6 flex flex-col gap-4">
+                  <div className="flex items-center justify-between gap-3 pb-3 border-b border-white/10">
+                    <span className="font-mono-label text-[10px] text-[#B4FF39] uppercase tracking-[0.3em]">SLA · Dossier 04</span>
+                    <span className="font-mono-label text-[10px] text-on-surface-variant uppercase tracking-widest tabular-nums">SIGNED · 14:02 UTC</span>
+                  </div>
+                  <dl className="grid grid-cols-2 gap-x-5 gap-y-3 font-mono text-xs">
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="font-mono-label text-[10px] text-slate-500 uppercase tracking-widest">Uptime</dt>
+                      <dd className="text-on-surface tabular-nums">99.99%</dd>
                     </div>
-                  </li>
-                ))}
-              </ol>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="font-mono-label text-[10px] text-slate-500 uppercase tracking-widest">RTO</dt>
+                      <dd className="text-on-surface tabular-nums">15&thinsp;min</dd>
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="font-mono-label text-[10px] text-slate-500 uppercase tracking-widest">Residency</dt>
+                      <dd className="text-on-surface">eu-only · pinned</dd>
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="font-mono-label text-[10px] text-slate-500 uppercase tracking-widest">Audit</dt>
+                      <dd className="text-on-surface">SOC 2 · ISO 27001</dd>
+                    </div>
+                  </dl>
+                  <p className="font-body-md text-xs text-on-surface-variant border-t border-white/5 pt-3 leading-relaxed">
+                    Each route signs a per-region SLA dossier inline with the response. Snapshot retention, residency, and incident commander details travel with the trace ID — exportable to any APM that speaks OTLP.
+                  </p>
+                </aside>
+              </div>
             </div>
           </section>
 
           {/* In production at — wide cinema strip with image bookends (NOVEL #11 + #9) */}
-          <section aria-labelledby="customers-heading" className="w-full border-y border-white/5 bg-surface-container-lowest/60 py-16 md:py-24 overflow-hidden">
+          <section aria-labelledby="customers-heading" className="w-full border-y border-white/5 bg-surface-container-lowest/60 overflow-hidden">
             <div className="relative w-full h-32 md:h-40 overflow-hidden border-b border-white/5">
-              <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=85&w=1920&auto=format&fit=crop" alt="Wide-angle photograph of an industrial server room" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale contrast-110" loading="lazy" decoding="async" />
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=85&w=1920&auto=format&fit=crop" alt="Wide-angle photograph of an industrial server room" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity grayscale contrast-110" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none" aria-hidden="true"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background pointer-events-none" aria-hidden="true"></div>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -511,8 +633,34 @@ export default function T3SaasDark() {
             .ec-faq summary { list-style: none; }
             .ec-faq .ec-chevron { transition: transform 250ms ease; }
             .ec-faq[open] .ec-chevron { transform: rotate(90deg); }
+
+            /* Live demo terminal — staggered line reveal + cursor */
+            .ec-cli-line { white-space: pre; min-height: 1.7em; }
+            .ec-cli-fade { opacity: 0; animation: ecFade 0.4s ease forwards; }
+            .ec-cli-fade-2 { animation-delay: 0.9s; }
+            .ec-cli-fade-3 { animation-delay: 1.4s; }
+            .ec-cli-fade-4 { animation-delay: 2.0s; }
+            .ec-cli-fade-5 { animation-delay: 2.4s; }
+            .ec-cli-fade-6 { animation-delay: 3.4s; }
+            .ec-cli-typewrite { display: inline-block; overflow: hidden; white-space: nowrap; border-right: 0.55ch solid #B4FF39; vertical-align: bottom; max-width: 100%; animation: ecType 1.4s steps(60, end) 0.2s forwards, ecCaret 1s step-end infinite; width: 0; }
+            .ec-cli-cursor { display: inline-block; width: 0.55ch; height: 1.05em; background: #B4FF39; vertical-align: -2px; animation: ecCaretBlink 1s step-end infinite; }
+            @keyframes ecFade { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+            @keyframes ecType { from { width: 0; } to { width: 100%; } }
+            @keyframes ecCaret { 50% { border-color: transparent; } }
+            @keyframes ecCaretBlink { 50% { opacity: 0; } }
+
+            /* Live demo right column — staggered prose fade */
+            .ec-stream-line { opacity: 0; transform: translateY(6px); animation: ecFade 0.5s ease forwards; }
+            .ec-stream-1 { animation-delay: 1.6s; }
+            .ec-stream-2 { animation-delay: 2.2s; }
+            .ec-stream-3 { animation-delay: 2.8s; }
+            .ec-stream-4 { animation-delay: 3.4s; }
+
             @media (prefers-reduced-motion: reduce) {
               .ec-faq .ec-chevron { transition: none; }
+              .ec-cli-typewrite { animation: none; width: 100%; border-right: none; }
+              .ec-cli-fade, .ec-stream-line { animation: none; opacity: 1; transform: none; }
+              .ec-cli-cursor { animation: none; }
             }
           ` }} />
         </main>

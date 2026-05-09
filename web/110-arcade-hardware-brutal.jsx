@@ -123,7 +123,7 @@ export default function T110ArcadeHardwareBrutal() {
         <main className="flex-grow pt-[80px]">
           <section className="relative min-h-[921px] flex items-center justify-center overflow-hidden px-gutter" style={{ backgroundColor: "#1a0f00" }}>
             <div className="absolute inset-0 z-0 pointer-events-none">
-              <img alt="Hardware backdrop" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover opacity-35 mix-blend-luminosity grayscale contrast-125" />
+              <img alt="Hardware backdrop" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover opacity-35 mix-blend-luminosity grayscale contrast-125" />
               <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background" />
               <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 30%, #1a0f00 110%)" }} />
               <div className="absolute inset-0 crt-scanline opacity-60" />
@@ -195,7 +195,7 @@ export default function T110ArcadeHardwareBrutal() {
                 <div className="border-[3px] border-[#8B5A2B] wood-texture bg-[#2A1B12] p-2 relative group">
                   <div className="absolute top-0 right-0 p-1 font-label-mono text-[8px] text-primary-container bg-surface-container-lowest border-b-2 border-l-2 border-[#8B5A2B] z-20">MOD-C3</div>
                   <div className="h-64 border-2 border-primary-container relative overflow-hidden p-4 flex flex-col justify-center items-center" style={{ backgroundColor: "#1a0f00" }}>
-                    <img alt="Control panel" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1000&q=85&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity grayscale contrast-125 pointer-events-none" />
+                    <img alt="Industrial coolant pipework" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1000&q=85&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity grayscale contrast-125 pointer-events-none" />
                     <div className="absolute inset-0 crt-scanline pointer-events-none" style={{ zIndex: 5 }} />
                     <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle, transparent 40%, #1a0f00 100%)", zIndex: 6 }} />
                     <span className="material-symbols-outlined text-headline-display text-primary-container opacity-25 absolute z-10 drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]">account_tree</span>
@@ -207,6 +207,34 @@ export default function T110ArcadeHardwareBrutal() {
               </div>
             </div>
           </section>
+          {/* Trusted Vendors — real brand logos */}
+          <section className="py-margin px-gutter bg-surface-container relative border-t-2 border-outline-variant">
+            <div className="max-w-[1440px] mx-auto">
+              <div className="flex justify-between items-end mb-10 border-b-2 border-primary-container pb-4">
+                <h2 className="font-headline-lg text-headline-lg text-primary-container uppercase">Vendor Index</h2>
+                <span className="font-label-mono text-label-mono text-surface-variant">SEC. 02.5 // PARTNERS</span>
+              </div>
+              <p className="font-body-md text-body-md text-on-surface-variant mb-8 max-w-2xl">— Components, runtimes and frequencies sourced from those who have shipped before us. The bench borrows from giants.</p>
+              <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-x-8 gap-y-9 items-center justify-items-center bg-surface-container-lowest border-2 border-outline px-6 py-8 shadow-[inset_0_0_30px_rgba(0,0,0,0.6)]">
+                {[
+                  { slug: "arduino", name: "Arduino" },
+                  { slug: "raspberrypi", name: "Raspberry Pi" },
+                  { slug: "intel", name: "Intel" },
+                  { slug: "nvidia", name: "Nvidia" },
+                  { slug: "amd", name: "AMD" },
+                  { slug: "github", name: "GitHub" },
+                  { slug: "cloudflare", name: "Cloudflare" },
+                  { slug: "sentry", name: "Sentry" },
+                ].map(b => (
+                  <li key={b.slug} className="flex flex-col items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/d4af37`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                    <span className="font-label-mono text-[9px] uppercase tracking-[0.18em] text-surface-variant">{b.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
           <section className="py-4 bg-secondary overflow-hidden border-y-4 border-outline whitespace-nowrap flex items-center shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
             <div className="animate-[marquee_20s_linear_infinite] flex items-center gap-8 text-on-secondary-fixed font-label-mono text-label-mono uppercase tracking-widest">
               {[0, 1].map((dup) => (
@@ -369,7 +397,105 @@ export default function T110ArcadeHardwareBrutal() {
               </div>
             </div>
           </section>
-          <section className="py-margin px-gutter bg-surface-container relative">
+          {/* Premium 2x2 — Operator's Doctrine on faint hardware backdrop */}
+          <section className="py-margin px-gutter bg-surface-container-lowest relative border-t-2 border-outline-variant overflow-hidden">
+            <div className="absolute inset-0 -z-10">
+              <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-15 grayscale contrast-125" loading="lazy" />
+              <div className="absolute inset-0 bg-surface-container-lowest/80" />
+              <div className="absolute inset-0 crt-scanline opacity-50" />
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, transparent 25%, rgba(14,14,14,0.95) 90%)" }} />
+            </div>
+            <div className="max-w-[1440px] mx-auto">
+              <div className="flex justify-between items-end mb-12 border-b-2 border-primary-container pb-4">
+                <h2 className="font-headline-lg text-headline-lg text-primary-container uppercase">Operator's Doctrine</h2>
+                <span className="font-label-mono text-label-mono text-surface-variant">SEC. 04 // PROTOCOL</span>
+              </div>
+              <p className="font-body-md text-body-md text-on-surface-variant mb-12 max-w-2xl">— Four standing protocols. Each module ships with the doctrine printed on the rear panel — not in the manual.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                {[
+                  { id: "PROT · 01", icon: "power", title: "Cold Boot, Daily", body: "Power-cycle every twenty-four hours. Capacitors prefer rest, the bench-log prefers timestamps, the operator prefers silence at 03:00 sharp.", left: "Cycle · 24h", right: "220V triple-phase", accentText: "text-primary", chipBg: "bg-primary text-on-primary", borderHover: "hover:border-primary", iconBg: "bg-primary/10 border-primary text-primary" },
+                  { id: "PROT · 02", icon: "memory", title: "Audit Every Pin", body: "Visual inspection of every solder joint, every contact, every cap before the rack is closed. The probe is a microscope. The note is in graphite.", left: "Tolerance · ±0.5%", right: "Mil-spec only", accentText: "text-secondary", chipBg: "bg-secondary text-on-secondary", borderHover: "hover:border-secondary", iconBg: "bg-secondary/15 border-secondary text-secondary" },
+                  { id: "PROT · 03", icon: "tune", title: "Calibrate Cold", body: "Voltage, current, frequency — calibrated against a sealed reference once per quarter. The reference is older than the bench. The bench respects it.", left: "Drift · <3ppm", right: "Quarterly", accentText: "text-tertiary", chipBg: "bg-tertiary text-on-tertiary", borderHover: "hover:border-tertiary", iconBg: "bg-tertiary/20 border-tertiary text-tertiary" },
+                  { id: "PROT · 04", icon: "archive", title: "Log Or Lose It", body: "Every action ledgered: time, hand, current draw, anomaly. The book has been kept for fourteen years; nothing leaves the bench undocumented.", left: "Ledger · 14 yrs", right: "Graphite · cloth", accentText: "text-primary-container", chipBg: "bg-primary-container text-on-primary-container", borderHover: "hover:border-primary-container", iconBg: "bg-primary-container/20 border-primary-container text-primary-container" },
+                ].map(p => (
+                  <article key={p.id} className={`relative bg-surface-container-low border-2 border-outline p-7 md:p-9 group transition-colors ${p.borderHover}`}>
+                    <div className={`absolute top-0 right-0 ${p.chipBg} font-label-mono text-[10px] tracking-[0.3em] uppercase px-3 py-1`}>{p.id}</div>
+                    <div className={`w-14 h-14 border-2 flex items-center justify-center mb-5 ${p.iconBg}`}>
+                      <span className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 0" }}>{p.icon}</span>
+                    </div>
+                    <h3 className="font-headline-lg text-2xl md:text-3xl text-primary-container mb-3 uppercase tracking-tight leading-[0.95]">{p.title}</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-5">{p.body}</p>
+                    <div className="flex items-baseline justify-between border-t border-outline-variant pt-4 font-label-mono text-[10px] uppercase tracking-[0.25em]">
+                      <span className="text-surface-variant">{p.left}</span>
+                      <span className={p.accentText}>{p.right}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Alternating section A — images LEFT, content RIGHT centered */}
+          <section className="pt-margin pb-32 md:pb-40 px-gutter bg-surface-container relative border-t-2 border-outline-variant">
+            <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-center">
+              <div className="md:col-span-7 relative min-h-[480px] md:min-h-[560px]">
+                <div className="absolute top-0 left-0 w-[68%] aspect-[4/5] border-2 border-primary-container shadow-[8px_8px_0_0_rgba(212,175,55,0.85)] overflow-hidden bg-surface-container-lowest">
+                  <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=900&q=85&auto=format&fit=crop" alt="Vintage boombox cassette deck on a hardwood floor" className="w-full h-full object-cover opacity-90 mix-blend-luminosity sepia-[0.3] contrast-110" loading="lazy" decoding="async" width="900" height="1125" />
+                  <div className="absolute inset-0 crt-scanline opacity-40" />
+                  <div className="absolute bottom-2 left-2 font-label-mono text-[10px] text-primary-container bg-surface-container-lowest/90 px-1.5 py-0.5">FIG · A.01</div>
+                </div>
+                <div className="absolute bottom-0 right-0 w-[58%] aspect-[3/4] border-2 border-secondary shadow-[8px_8px_0_0_rgba(233,186,205,0.7)] overflow-hidden bg-surface-container-lowest translate-y-12">
+                  <img src="https://images.unsplash.com/photo-1525362081669-2b476bb628c3?w=900&q=85&auto=format&fit=crop" alt="Audio mixer with neon-lit pads and faders" className="w-full h-full object-cover opacity-90 mix-blend-luminosity sepia-[0.2] contrast-110" loading="lazy" decoding="async" width="900" height="1200" />
+                  <div className="absolute inset-0 crt-scanline opacity-40" />
+                  <div className="absolute bottom-2 left-2 font-label-mono text-[10px] text-secondary bg-surface-container-lowest/90 px-1.5 py-0.5">FIG · A.02</div>
+                </div>
+                <div className="absolute top-1/2 left-1/3 w-12 h-3 bg-primary opacity-80 rotate-12 hidden md:block" aria-hidden="true" />
+              </div>
+              <div className="md:col-span-5 flex flex-col justify-center pl-0 md:pl-6 mt-20 md:mt-0">
+                <span className="font-label-mono text-label-mono text-primary-container mb-3">// CHAPTER A · THE CONSOLE</span>
+                <h2 className="font-headline-lg text-headline-lg md:text-5xl text-primary-container mb-5 uppercase leading-[0.95] border-l-4 border-primary pl-4">Ribbon, tape, fader.</h2>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-4 text-lg">The console begins where the carrier ends. Magnetic tape, cold ferrite, three-band parametric — every signal that leaves The Nexus passes through analog before the operator signs off.</p>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">No DSP shortcut. No "vintage modeling" plug-in. The hum on the master is real hum, the saturation is real iron in the transformer, and the warmth is the price of admission.</p>
+                <ul className="flex flex-col gap-3 font-label-mono text-[11px] uppercase tracking-[0.25em] text-on-surface-variant border-t border-outline-variant pt-5">
+                  <li className="flex justify-between"><span>Tape · 1/2 inch</span><span className="text-primary">Studer A810</span></li>
+                  <li className="flex justify-between"><span>Mixer · 24 ch</span><span className="text-primary">SSL E-series</span></li>
+                  <li className="flex justify-between"><span>Bench · since</span><span className="text-primary">1984</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Alternating section B — images RIGHT, content LEFT centered */}
+          <section className="pt-margin pb-32 md:pb-40 px-gutter bg-surface-container-lowest relative border-t-2 border-outline-variant">
+            <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-center">
+              <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1 pr-0 md:pr-6 mt-20 md:mt-0">
+                <span className="font-label-mono text-label-mono text-primary-container mb-3">// CHAPTER B · THE BENCH</span>
+                <h2 className="font-headline-lg text-headline-lg md:text-5xl text-primary-container mb-5 uppercase leading-[0.95] border-r-4 border-secondary pr-4 md:text-right">Solder, scope, stock.</h2>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-4 md:text-right text-lg">Twenty-four feet of pegboard. Every component in its drawer. The bench is open from nine until the kettle is empty — usually around midnight, sometimes later if the trace is unfinished.</p>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6 md:text-right">If we don't have the part, we wind it. If we don't have the tool, we make it. The shelf above the iron carries thirty-two notebooks of every repair logged since the founding.</p>
+                <ul className="flex flex-col gap-3 font-label-mono text-[11px] uppercase tracking-[0.25em] text-on-surface-variant border-t border-outline-variant pt-5">
+                  <li className="flex justify-between"><span className="text-secondary">Hakko FX-888D</span><span>Solder · station</span></li>
+                  <li className="flex justify-between"><span className="text-secondary">Tek 2465B</span><span>Scope · 400 MHz</span></li>
+                  <li className="flex justify-between"><span className="text-secondary">3,200 SKU</span><span>Stock · ledger</span></li>
+                </ul>
+              </div>
+              <div className="md:col-span-7 relative min-h-[480px] md:min-h-[560px] order-1 md:order-2">
+                <div className="absolute top-0 right-0 w-[68%] aspect-[4/5] border-2 border-secondary shadow-[-8px_8px_0_0_rgba(233,186,205,0.7)] overflow-hidden bg-surface-container-lowest">
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop" alt="Server rack — patch cables and indicator LEDs" className="w-full h-full object-cover opacity-90 mix-blend-luminosity sepia-[0.2] contrast-110" loading="lazy" decoding="async" width="900" height="1125" />
+                  <div className="absolute inset-0 crt-scanline opacity-40" />
+                  <div className="absolute bottom-2 left-2 font-label-mono text-[10px] text-secondary bg-surface-container-lowest/90 px-1.5 py-0.5">FIG · B.01</div>
+                </div>
+                <div className="absolute bottom-0 left-0 w-[58%] aspect-[3/4] border-2 border-primary shadow-[-8px_8px_0_0_rgba(242,202,80,0.85)] overflow-hidden bg-surface-container-lowest translate-y-12">
+                  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" alt="Macro photograph of a green circuit board with traces and chips" className="w-full h-full object-cover opacity-90 mix-blend-luminosity sepia-[0.3] contrast-125" loading="lazy" decoding="async" width="900" height="1200" />
+                  <div className="absolute inset-0 crt-scanline opacity-40" />
+                  <div className="absolute bottom-2 left-2 font-label-mono text-[10px] text-primary bg-surface-container-lowest/90 px-1.5 py-0.5">FIG · B.02</div>
+                </div>
+                <div className="absolute top-1/2 right-1/3 w-12 h-3 bg-secondary opacity-80 -rotate-12 hidden md:block" aria-hidden="true" />
+              </div>
+            </div>
+          </section>
+
+          <section className="py-margin px-gutter bg-surface-container relative border-t-4 border-double border-[#D4AF37]">
             <div className="max-w-[1024px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter relative">
               <div className="absolute left-0 top-1/2 w-32 h-64 bg-error opacity-10 mix-blend-overlay -translate-y-1/2 blur-md" />
               <div className="md:col-span-8 relative z-10">

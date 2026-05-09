@@ -8,8 +8,8 @@ export default function T77MeshGradient() {
   ];
 
   const atelierStages = [
-    { delay: "0s", stage: "Stage I", title: "Breath Capture", tint: "text-indigo-200", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=300&q=85&auto=format&fit=crop", alt: "Breath capture" },
-    { delay: "4s", stage: "Stage II", title: "Field Recording", tint: "text-pink-200", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=300&q=85&auto=format&fit=crop", alt: "Field recording" },
+    { delay: "0s", stage: "Stage I", title: "Breath Capture", tint: "text-indigo-200", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1400&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=300&q=85&auto=format&fit=crop", alt: "Breath capture" },
+    { delay: "4s", stage: "Stage II", title: "Field Recording", tint: "text-pink-200", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1400&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=300&q=85&auto=format&fit=crop", alt: "Field recording" },
     { delay: "8s", stage: "Stage III", title: "Composition", tint: "text-teal-200", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=300&q=85&auto=format&fit=crop", alt: "Composition" },
     { delay: "12s", stage: "Stage IV", title: "Mastering Pass", tint: "text-purple-200", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=300&q=85&auto=format&fit=crop", alt: "Mastering pass" },
   ];
@@ -20,8 +20,8 @@ export default function T77MeshGradient() {
     { aspect: "w-96 aspect-[16/10]", shadow: "shadow-pink-500/5", dot: "bg-pink-400", label: "Field · Kyoto", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&q=85&auto=format&fit=crop", alt: "Field Note · Kyoto" },
     { aspect: "w-72 aspect-[3/4]", shadow: "shadow-teal-500/5", dot: "bg-teal-400", label: "The Atlantic", quote: "\"Generative calm, finally.\"", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop", alt: "The Atlantic" },
     { aspect: "w-80 aspect-[16/10]", shadow: "shadow-orange-500/5", dot: "bg-orange-400", label: "Studio · Lisbon", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=800&q=85&auto=format&fit=crop", alt: "Studio · Lisbon" },
-    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-purple-500/5", dot: "bg-purple-400", label: "Wired", quote: "\"The first app that listens back.\"", img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=600&q=85&auto=format&fit=crop", alt: "Wired" },
-    { aspect: "w-96 aspect-[16/10]", shadow: "shadow-emerald-500/5", dot: "bg-emerald-400", label: "Atelier · Marfa", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "Atelier · Marfa" },
+    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-purple-500/5", dot: "bg-purple-400", label: "Wired", quote: "\"The first app that listens back.\"", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=85&auto=format&fit=crop", alt: "Wired" },
+    { aspect: "w-96 aspect-[16/10]", shadow: "shadow-emerald-500/5", dot: "bg-emerald-400", label: "Atelier · Marfa", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Atelier · Marfa" },
     { aspect: "w-72 aspect-[3/4]", shadow: "shadow-rose-500/5", dot: "bg-rose-400", label: "Monocle Radio", quote: "\"My new on-air silence.\"", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=85&auto=format&fit=crop", alt: "Monocle Radio" },
   ];
 
@@ -80,6 +80,25 @@ export default function T77MeshGradient() {
     { title: "Product", items: ["Features", "Pricing", "Download", "Changelog"] },
     { title: "Company", items: ["Manifesto", "Careers", "Blog", "Contact"] },
     { title: "Legal", items: ["Privacy Policy", "Terms of Service", "Cookie Settings"] },
+  ];
+
+  // Trusted-by teams — real brands via simpleicons.org CDN (free brand-icon SVGs by slug).
+  // Hex 64748b matches slate-500 for the muted/grayscale opacity-60 base state.
+  const trustedTeams = [
+    { name: "Notion",  slug: "notion" },
+    { name: "Linear",  slug: "linear" },
+    { name: "Figma",   slug: "figma" },
+    { name: "Vercel",  slug: "vercel" },
+    { name: "Stripe",  slug: "stripe" },
+  ];
+
+  // Atelier process notes — 4 micro-cards stacked under the headline so the left rail
+  // bottom aligns with the right column's tall image. Inline SVGs (no extra fonts loaded).
+  const atelierNotes = [
+    { title: "Soundproofed live room", body: "An anechoic chamber buffered against street traffic — captures from 20 Hz to 22 kHz at 32-bit depth.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M19 12a7 7 0 01-2.05 4.95M16 12a4 4 0 01-1.17 2.83" /> },
+    { title: "Field recordings", body: "Spring-fed streams in Iceland, dawn chorus in the Cotswolds, monsoon rain on a Kerala roof — composed into the carrier layer.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /> },
+    { title: "Real-time composition", body: "Each session seeds itself from your current biometric state — no two listens are ever identical.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /> },
+    { title: "Mastering pass", body: "Spectral cleanup, gentle compression, and a final loudness pass to LUFS-16 — calm at every volume.", icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /> },
   ];
 
   const Avatar = () => (
@@ -267,11 +286,13 @@ export default function T77MeshGradient() {
         <section className="py-10 border-y border-black/5 bg-white/20 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <p className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8">Trusted by teams at</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-              <svg className="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><path d="M10,15 L20,5 L30,15 L20,25 Z M40,5 H50 V25 H40 Z M60,5 H80 V10 H65 V12 H75 V17 H65 V25 H60 Z" /></svg>
-              <svg className="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><circle cx="15" cy="15" r="10" /><rect x="35" y="5" width="20" height="20" /><path d="M70,25 L80,5 L90,25" stroke="currentColor" strokeWidth="5" /></svg>
-              <svg className="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><path d="M10,5 Q25,25 40,5 T70,5" stroke="currentColor" strokeWidth="4" fill="none" /></svg>
-              <svg className="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><rect x="10" y="5" width="20" height="20" rx="5" /><circle cx="50" cy="15" r="8" /><rect x="80" y="5" width="5" height="20" /></svg>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+              {trustedTeams.map((t) => (
+                <span key={t.slug} className="group inline-flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-colors">
+                  <img src={`https://cdn.simpleicons.org/${t.slug}/64748b`} alt={`${t.name} logo`} width="20" height="20" loading="lazy" decoding="async" className="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  <span className="font-display font-bold text-base md:text-lg tracking-tight">{t.name}</span>
+                </span>
+              ))}
             </div>
           </div>
         </section>
@@ -311,7 +332,9 @@ export default function T77MeshGradient() {
           <div aria-hidden="true" className="absolute right-[-8%] top-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full bg-indigo-200/40 blur-3xl pointer-events-none"></div>
           <div aria-hidden="true" className="absolute right-[6%] top-[20%] w-[22rem] h-[22rem] rounded-full bg-pink-200/40 blur-3xl pointer-events-none"></div>
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 relative z-10">
-            <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
+            {/* Left rail — sticky removed so the column can grow to match the right column's
+                tall aspect-[4/5] image; atelierNotes card stack fills the height delta. */}
+            <div className="md:col-span-5 flex flex-col">
               <span className="text-indigo-600 font-bold uppercase tracking-widest text-sm mb-4 block">Inside the Atelier</span>
               <h2 className="font-display font-bold text-4xl md:text-5xl text-slate-900 mb-6 leading-[1.1]">
                 Composed in cycles.<br />
@@ -326,12 +349,33 @@ export default function T77MeshGradient() {
                 </div>
                 <span className="text-xs font-bold uppercase tracking-widest text-slate-500">04 stages &middot; 16s loop</span>
               </div>
-              <div className="grid grid-cols-4 gap-3 max-w-sm">
+              <div className="grid grid-cols-4 gap-3 max-w-sm mb-8">
                 {atelierStages.map((s) => (
                   <div key={s.stage} className="atelier-thumb rounded-xl overflow-hidden aspect-square border border-white/60 shadow-sm" style={{ animationDelay: s.delay }}>
                     <img className="w-full h-full object-cover" src={s.thumb} alt={s.alt} />
                   </div>
                 ))}
+              </div>
+              {/* Process Notes card — fills the rest of the column to bottom-align with the
+                  right column's aspect-[4/5] image. flex-1 stretches it to whatever's left. */}
+              <div className="glass-card rounded-3xl p-6 md:p-7 flex-1 flex flex-col gap-4">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-indigo-600 font-bold uppercase tracking-widest text-xs">— Process Notes</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 tabular-nums">No. 04</span>
+                </div>
+                <ul className="flex flex-col gap-4">
+                  {atelierNotes.map((n, i) => (
+                    <li key={n.title} className="flex items-start gap-4">
+                      <span className={`shrink-0 w-9 h-9 rounded-xl flex items-center justify-center ${i === 0 ? "bg-indigo-100 text-indigo-600" : i === 1 ? "bg-pink-100 text-pink-600" : i === 2 ? "bg-teal-100 text-teal-600" : "bg-purple-100 text-purple-600"}`}>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">{n.icon}</svg>
+                      </span>
+                      <div className="flex flex-col gap-1">
+                        <span className="font-display font-semibold text-sm text-slate-900">{n.title}</span>
+                        <span className="text-xs text-slate-600 leading-relaxed">{n.body}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
             <div className="md:col-span-7">
@@ -379,12 +423,23 @@ export default function T77MeshGradient() {
               </div>
             </div>
             <div className="w-full md:w-1/2 relative">
-              <div className="glass-panel rounded-full aspect-square relative flex items-center justify-center p-12">
+              <div className="glass-panel rounded-full aspect-square relative flex items-center justify-center p-4 md:p-6 overflow-hidden">
                 <div className="absolute inset-0 border border-indigo-200 rounded-full scale-50 opacity-0 animate-[ping_3s_linear_infinite]"></div>
                 <div className="absolute inset-0 border border-purple-200 rounded-full scale-75 opacity-0 animate-[ping_3s_linear_1s_infinite]"></div>
-                <div className="relative z-10 text-center">
-                  <div className="text-6xl mb-2">🧠</div>
-                  <div className="font-display font-bold text-slate-900">Neuro-Audio</div>
+                {/* Inner photo disc — a listener mid-session in soft afternoon light. */}
+                <div className="relative z-10 w-[80%] aspect-square rounded-full overflow-hidden border-4 border-white/60 shadow-2xl">
+                  <img
+                    src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop"
+                    alt="A listener in soft afternoon light, eyes briefly closed mid-session — the calm Aura Flow is built around"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/35 via-transparent to-transparent"></div>
+                </div>
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-white/70 shadow-sm z-20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                  <span className="font-display font-bold text-xs uppercase tracking-widest text-slate-900">Neuro-Audio</span>
                 </div>
               </div>
             </div>
@@ -450,7 +505,9 @@ export default function T77MeshGradient() {
 
         <section id="faq" className="py-24 px-4 relative">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
-            <div className="md:col-span-5 relative">
+            {/* md:self-end pushes the image card down so its bottom aligns with the right
+                column's FAQ list bottom (right col is taller from heading + 5 details). */}
+            <div className="md:col-span-5 relative md:self-end">
               <div aria-hidden="true" className="absolute -inset-6 bg-gradient-to-br from-indigo-300/40 via-purple-300/30 to-pink-300/40 blur-3xl rounded-[3rem] -z-10"></div>
               <div className="relative rounded-[2rem] overflow-hidden glass-panel p-2 shadow-2xl">
                 <div className="rounded-[1.5rem] overflow-hidden aspect-[4/5] relative">

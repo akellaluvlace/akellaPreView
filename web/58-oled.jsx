@@ -2,25 +2,25 @@ const OLED_CYCLE_IMAGES = [
   { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Onyx", label: "01 Onyx", delay: "0s" },
   { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Sapphire", label: "02 Sapphire", delay: "4s" },
   { src: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Aurum", label: "03 Aurum", delay: "8s" },
-  { src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Obsidian", label: "04 Obsidian", delay: "12s" },
+  { src: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Obsidian", label: "04 Obsidian", delay: "12s" },
 ];
 
 const OLED_POLAROIDS = [
-  { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop", caption: "Tokyo · 03.07", pos: "top-4 left-[6%] w-44 md:w-56", rot: "oled-polaroid-rot-1", z: "" },
-  { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=600&auto=format&fit=crop", caption: "Geneva · 05.18", pos: "top-12 left-[28%] w-48 md:w-60", rot: "oled-polaroid-rot-2", z: "z-10" },
-  { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=600&auto=format&fit=crop", caption: "Reykjavík · 10.02", pos: "top-2 right-[18%] w-44 md:w-56", rot: "oled-polaroid-rot-3", z: "" },
-  { src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?q=80&w=600&auto=format&fit=crop", caption: "Marrakech · 12.20", pos: "bottom-4 left-[18%] w-44 md:w-52", rot: "oled-polaroid-rot-4", z: "z-10" },
-  { src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=600&auto=format&fit=crop", caption: "Private · ⌀", pos: "bottom-8 right-[6%] w-40 md:w-52", rot: "oled-polaroid-rot-2", z: "" },
+  { src: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?q=80&w=600&auto=format&fit=crop", caption: "Tokyo · 03.07", pos: "top-4 left-[6%] w-44 md:w-56", rot: "oled-polaroid-rot-1", z: "" },
+  { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=600&auto=format&fit=crop", caption: "Geneva · 05.18", pos: "top-12 left-[28%] w-48 md:w-60", rot: "oled-polaroid-rot-2", z: "z-10" },
+  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=600&auto=format&fit=crop", caption: "Reykjavík · 10.02", pos: "top-2 right-[18%] w-44 md:w-56", rot: "oled-polaroid-rot-3", z: "" },
+  { src: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=600&auto=format&fit=crop", caption: "Marrakech · 12.20", pos: "bottom-4 left-[18%] w-44 md:w-52", rot: "oled-polaroid-rot-4", z: "z-10" },
+  { src: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600&auto=format&fit=crop", caption: "Private · ⌀", pos: "bottom-8 right-[6%] w-40 md:w-52", rot: "oled-polaroid-rot-2", z: "" },
 ];
 
 const OLED_ATELIER_TILES = [
   { src: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Calibre · 09", title: "Movement Lift", meta: "412 hrs · M. Vasseur" },
-  { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Atelier · I", title: "Case Polish", meta: "196 hrs · Grade 5 Ti" },
+  { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Atelier · I", title: "Case Polish", meta: "196 hrs · Grade 5 Ti" },
   { src: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Strap · IV", title: "Hand Stitch", meta: "38 hrs · L. Roche" },
-  { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Vault · 03", title: "Final Inspection", meta: "22 hrs · 14 checks" },
+  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Vault · 03", title: "Final Inspection", meta: "22 hrs · 14 checks" },
   { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Crystal · II", title: "Sapphire Cut", meta: "82 hrs · Double dome" },
-  { src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Dial · V", title: "Lume Application", meta: "14 hrs · Gold flake" },
-  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Vault · 09", title: "Allocation", meta: "500 / 500 reserved" },
+  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Dial · V", title: "Lume Application", meta: "14 hrs · Gold flake" },
+  { src: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Vault · 09", title: "Allocation", meta: "500 / 500 reserved" },
 ];
 
 const OLED_FAQ = [
@@ -232,7 +232,7 @@ function Oled() {
 
           <div className="relative w-full h-[280px] md:h-[420px] oled-diagonal-band overflow-hidden" data-aos="fade-up" data-aos-delay="200">
             <img
-              src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=2000&auto=format&fit=crop"
               alt="Spectrum calibration display"
               className="absolute inset-0 w-full h-full object-cover opacity-70 grayscale contrast-125"
             />
@@ -314,30 +314,91 @@ function Oled() {
           <div className="max-w-7xl mx-auto px-6 md:px-12">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
 
-              {/* Sticky text rail */}
-              <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="h-[1px] w-12 bg-luxury-gold"></div>
-                  <span className="text-luxury-gold text-[10px] uppercase tracking-ultra">— 02 / In Sight</span>
-                </div>
-                <h2 className="font-serif text-3xl md:text-5xl text-white mb-8 leading-tight" data-aos="fade-up">
-                  Four faces. <br /><span className="italic text-neutral-500">One silhouette.</span>
-                </h2>
-                <p className="font-sans text-neutral-400 text-sm leading-8 tracking-wide mb-8" data-aos="fade-up" data-aos-delay="100">
-                  Eclipse Noir is offered in four dial finishes — each photographed under emissive lighting at the Geneva atelier. Every 4 seconds, a new face emerges from the dark.
-                </p>
-
-                <div className="flex items-center gap-4 max-w-sm mb-10" data-aos="fade-up" data-aos-delay="150">
-                  <div className="flex-1 h-px bg-white/15 relative overflow-hidden">
-                    <div className="absolute inset-0 origin-left bg-luxury-gold oled-cycle-scrub"></div>
+              {/* Text rail — drop sticky, flex column with bottom-aligned dial-spec card per CLAUDE.md rule 7 */}
+              <div className="md:col-span-5 flex flex-col md:h-full md:justify-between gap-12">
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="h-[1px] w-12 bg-luxury-gold"></div>
+                    <span className="text-luxury-gold text-[10px] uppercase tracking-ultra">— 02 / In Sight</span>
                   </div>
-                  <span className="text-neutral-500 text-[9px] uppercase tracking-widest whitespace-nowrap">04 dials · 16s loop</span>
+                  <h2 className="font-serif text-3xl md:text-5xl text-white mb-8 leading-tight" data-aos="fade-up">
+                    Four faces. <br /><span className="italic text-neutral-500">One silhouette.</span>
+                  </h2>
+                  <p className="font-sans text-neutral-400 text-sm leading-8 tracking-wide mb-8" data-aos="fade-up" data-aos-delay="100">
+                    Eclipse Noir is offered in four dial finishes — each photographed under emissive lighting at the Geneva atelier. Every 4 seconds, a new face emerges from the dark.
+                  </p>
+
+                  <div className="flex items-center gap-4 max-w-sm mb-10" data-aos="fade-up" data-aos-delay="150">
+                    <div className="flex-1 h-px bg-white/15 relative overflow-hidden">
+                      <div className="absolute inset-0 origin-left bg-luxury-gold oled-cycle-scrub"></div>
+                    </div>
+                    <span className="text-neutral-500 text-[9px] uppercase tracking-widest whitespace-nowrap">04 dials · 16s loop</span>
+                  </div>
+
+                  <a href="#" className="inline-flex items-center gap-3 text-white text-xs uppercase tracking-widest group" data-aos="fade-up" data-aos-delay="200">
+                    Explore Editions
+                    <i data-lucide="arrow-right" className="w-4 h-4 text-luxury-gold group-hover:translate-x-2 transition-transform"></i>
+                  </a>
                 </div>
 
-                <a href="#" className="inline-flex items-center gap-3 text-white text-xs uppercase tracking-widest group" data-aos="fade-up" data-aos-delay="200">
-                  Explore Editions
-                  <i data-lucide="arrow-right" className="w-4 h-4 text-luxury-gold group-hover:translate-x-2 transition-transform"></i>
-                </a>
+                {/* Bottom stack: two cards — Allocation Waves (paired above) + Dial Index */}
+                <div className="flex flex-col gap-6">
+                  {/* Allocation Waves card — same shape as Dial Index but tracks reservation phases */}
+                  <div className="border border-luxury-gold/20 bg-pure-black/40 backdrop-blur-sm" data-aos="fade-up" data-aos-delay="225">
+                    <div className="flex items-baseline justify-between border-b border-luxury-gold/15 px-5 py-3">
+                      <span className="text-luxury-gold text-[9px] uppercase tracking-ultra">— Allocation Waves</span>
+                      <span className="text-neutral-500 text-[9px] uppercase tracking-widest">2026 · Q1–Q4</span>
+                    </div>
+                    <dl className="divide-y divide-white/5">
+                      <div className="flex items-baseline justify-between px-5 py-3">
+                        <dt className="text-luxury-gold text-[9px] uppercase tracking-ultra">I · Atelier</dt>
+                        <dd className="font-serif text-[11px] text-neutral-400 tracking-wide">Heritage clients · 200</dd>
+                      </div>
+                      <div className="flex items-baseline justify-between px-5 py-3">
+                        <dt className="text-luxury-gold text-[9px] uppercase tracking-ultra">II · Cellar</dt>
+                        <dd className="font-serif text-[11px] text-neutral-400 tracking-wide">Waitlist · 240</dd>
+                      </div>
+                      <div className="flex items-baseline justify-between px-5 py-3">
+                        <dt className="text-luxury-gold text-[9px] uppercase tracking-ultra">III · Reserve</dt>
+                        <dd className="font-serif text-[11px] text-neutral-400 tracking-wide">Auction · 60</dd>
+                      </div>
+                    </dl>
+                    <div className="flex items-center justify-between border-t border-luxury-gold/15 px-5 py-3">
+                      <span className="text-neutral-500 text-[9px] uppercase tracking-widest">Reservations open</span>
+                      <span className="font-serif text-[11px] text-luxury-gold">Q1 · 2026</span>
+                    </div>
+                  </div>
+
+                  {/* Dial-spec card — aligns with the 4-thumb strip on the right */}
+                  <div className="border border-luxury-gold/20 bg-pure-black/40 backdrop-blur-sm" data-aos="fade-up" data-aos-delay="250">
+                    <div className="flex items-baseline justify-between border-b border-luxury-gold/15 px-5 py-3">
+                      <span className="text-luxury-gold text-[9px] uppercase tracking-ultra">— Dial Index</span>
+                      <span className="text-neutral-500 text-[9px] uppercase tracking-widest">CH-9000-BLK</span>
+                    </div>
+                    <dl className="divide-y divide-white/5">
+                      <div className="flex items-baseline justify-between px-5 py-3">
+                        <dt className="text-luxury-gold text-[9px] uppercase tracking-ultra">01 · Onyx</dt>
+                        <dd className="font-serif text-[11px] text-neutral-400 tracking-wide">Ceramic dial · matte</dd>
+                      </div>
+                      <div className="flex items-baseline justify-between px-5 py-3">
+                        <dt className="text-luxury-gold text-[9px] uppercase tracking-ultra">02 · Sapphire</dt>
+                        <dd className="font-serif text-[11px] text-neutral-400 tracking-wide">DCI-P3 lacquer</dd>
+                      </div>
+                      <div className="flex items-baseline justify-between px-5 py-3">
+                        <dt className="text-luxury-gold text-[9px] uppercase tracking-ultra">03 · Aurum</dt>
+                        <dd className="font-serif text-[11px] text-neutral-400 tracking-wide">22kt vapor</dd>
+                      </div>
+                      <div className="flex items-baseline justify-between px-5 py-3">
+                        <dt className="text-luxury-gold text-[9px] uppercase tracking-ultra">04 · Obsidian</dt>
+                        <dd className="font-serif text-[11px] text-neutral-400 tracking-wide">Hand-painted</dd>
+                      </div>
+                    </dl>
+                    <div className="flex items-center justify-between border-t border-luxury-gold/15 px-5 py-3">
+                      <span className="text-neutral-500 text-[9px] uppercase tracking-widest">Allocation Q4 · 2026</span>
+                      <span className="font-serif text-[11px] text-luxury-gold">500 / 500</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Cycling image frame + thumbnail strip */}
@@ -557,7 +618,7 @@ function Oled() {
         <div className="w-full bg-pure-black pb-20">
           <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1533158307587-828f0a76ef93?q=80&w=2000&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1636639818651-d97365346a5c?q=80&w=2000&auto=format&fit=crop"
               className="absolute inset-0 w-full h-full object-cover opacity-40 fixed-bg"
               style={{ backgroundAttachment: "fixed" }}
               alt="Lifestyle"

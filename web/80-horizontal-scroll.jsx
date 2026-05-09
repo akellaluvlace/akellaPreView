@@ -5,9 +5,19 @@ export default function T80HorizontalScroll() {
     { href: "#project-2", label: "Project 2", short: "02" },
     { href: "#services", label: "Services", short: "Services" },
     { href: "#manifesto", label: "Manifesto", short: "M" },
+    { href: "#press", label: "Press", short: "Press" },
     { href: "#plates", label: "Plates", short: "P" },
     { href: "#atelier", label: "Atelier", short: "A" },
     { href: "#contact", label: "Contact", short: "Contact" },
+  ];
+
+  // Press scene — featured-in row with simpleicons.org slugs all HEAD-checked before commit
+  // (theguardian/telegraph/substack/medium all 200).
+  const pressOutlets = [
+    { name: "The Guardian",  slug: "theguardian" },
+    { name: "Telegraph",     slug: "telegraph" },
+    { name: "Substack",      slug: "substack" },
+    { name: "Medium",        slug: "medium" },
   ];
 
   const tenets = [
@@ -21,10 +31,10 @@ export default function T80HorizontalScroll() {
   const plates = [
     { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", n: "I", title: "Concrete bay.", meta: "Berlin · 11/24", w: "w-72", grad: "from-inverse-surface via-inverse-surface/30 to-transparent", dir: "t", extra: "opacity-90" },
     { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop", n: "II", title: "North light.", meta: "Lisbon · 12/24", w: "w-80", grad: "from-inverse-surface/60 via-transparent to-tertiary-fixed-dim/15", dir: "bl", extra: "" },
-    { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", n: "III", title: "Stair, mid-day.", meta: "Madrid · 02/25", w: "w-64", grad: "from-inverse-surface via-transparent to-transparent", dir: "t", extra: "" },
-    { src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop", n: "IV", title: "Vault & fold.", meta: "Paris · 03/25", w: "w-80", grad: "from-inverse-surface via-transparent to-tertiary-fixed-dim/10", dir: "tr", extra: "" },
+    { src: "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=900&q=85&auto=format&fit=crop", n: "III", title: "Stair, mid-day.", meta: "Madrid · 02/25", w: "w-64", grad: "from-inverse-surface via-transparent to-transparent", dir: "t", extra: "" },
+    { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=85&auto=format&fit=crop", n: "IV", title: "Vault & fold.", meta: "Paris · 03/25", w: "w-80", grad: "from-inverse-surface via-transparent to-tertiary-fixed-dim/10", dir: "tr", extra: "" },
     { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", n: "V", title: "Cornice study.", meta: "Rome · 04/25", w: "w-72", grad: "from-inverse-surface/80 via-transparent to-transparent", dir: "t", extra: "" },
-    { src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1000&q=85&auto=format&fit=crop", n: "VI", title: "Studio interior.", meta: "Geneva · 05/25", w: "w-80", grad: "from-inverse-surface via-transparent to-tertiary-fixed-dim/15", dir: "r", extra: "" },
+    { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1000&q=85&auto=format&fit=crop", n: "VI", title: "Studio interior.", meta: "Geneva · 05/25", w: "w-80", grad: "from-inverse-surface via-transparent to-tertiary-fixed-dim/15", dir: "r", extra: "" },
   ];
 
   const services = [
@@ -263,6 +273,47 @@ export default function T80HorizontalScroll() {
             </div>
           </section>
 
+          {/* Press scene — full-screen press wall, premium image background + featured-in row */}
+          <section id="press" className="scene relative bg-inverse-surface text-inverse-on-surface overflow-hidden">
+            <img
+              alt="Stacked architectural reference plates on the studio's press wall, reflecting late afternoon light"
+              className="absolute inset-0 w-full h-full object-cover opacity-25"
+              src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1920&q=85&auto=format&fit=crop"
+              loading="lazy" decoding="async"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-inverse-surface via-inverse-surface/60 to-tertiary-fixed-dim/15"></div>
+            <div className="relative h-full w-full flex flex-col justify-center px-6 md:px-margin-edge py-16 md:py-section-gap">
+              <div className="max-w-5xl mx-auto w-full">
+                <span className="font-label-sm text-label-sm uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-6">— Press · 04B</span>
+                <h2 className="font-display-lg text-display-lg italic mb-12 md:mb-16 text-inverse-on-surface leading-[1.05] max-w-3xl">
+                  The studio in print, every quarter.
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-end">
+                  <blockquote className="md:col-span-7 font-serif italic text-2xl md:text-3xl leading-[1.3] text-inverse-on-surface border-l-2 border-tertiary-fixed-dim pl-6 md:pl-8">
+                    "Format Studio reads architecture like an editor reads a manuscript — with a red pencil, a square of vellum, and a lot of patience."
+                    <cite className="block not-italic font-label-sm text-label-sm uppercase tracking-[0.25em] text-tertiary-fixed-dim mt-6">— Apartamento Magazine, Issue 33</cite>
+                  </blockquote>
+                  <div className="md:col-span-5 flex flex-col gap-5">
+                    <span className="font-label-sm text-label-sm uppercase tracking-[0.3em] text-tertiary-fixed-dim">— Featured in · MMXXIV</span>
+                    <div className="flex flex-col gap-4">
+                      {pressOutlets.map((p) => (
+                        <span key={p.slug} className="group inline-flex items-center gap-4 text-inverse-on-surface/70 hover:text-inverse-on-surface transition-colors py-2 border-b border-inverse-on-surface/15">
+                          <img src={`https://cdn.simpleicons.org/${p.slug}/f8f0de`} alt={`${p.name} logo`} width="24" height="24" loading="lazy" decoding="async" className="w-6 h-6 opacity-60 group-hover:opacity-100 transition-opacity" />
+                          <span className="font-serif italic text-xl">{p.name}</span>
+                          <span className="ml-auto font-label-sm text-label-sm uppercase tracking-widest text-inverse-on-surface/50">2024</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-12 md:mt-16 pt-6 border-t border-inverse-on-surface/15 flex flex-wrap items-baseline justify-between gap-4 text-inverse-on-surface/70">
+                  <span className="font-label-sm text-label-sm uppercase tracking-[0.3em]">Press dossier · spring '26</span>
+                  <a href="#" className="font-serif italic text-xl underline decoration-1 underline-offset-4 hover:text-inverse-on-surface transition-colors">Request the clippings →</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Plates marquee */}
           <section id="plates" className="scene relative bg-inverse-surface text-inverse-on-surface flex flex-col justify-center overflow-hidden">
             <div className="absolute top-1/4 -translate-y-1/2 px-6 md:px-margin-edge max-w-3xl">
@@ -296,7 +347,7 @@ export default function T80HorizontalScroll() {
               <figure className="md:col-span-7 relative">
                 <div className="absolute -top-3 -left-3 w-8 h-8 border-t border-l border-on-tertiary-container"></div>
                 <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b border-r border-on-tertiary-container"></div>
-                <img alt="Atelier interior" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=85&auto=format&fit=crop" />
+                <img alt="Atelier interior" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1600&q=85&auto=format&fit=crop" />
                 <span className="absolute top-5 left-5 inline-block px-3 py-1 border border-on-background bg-background/90 backdrop-blur-sm font-label-sm text-label-sm uppercase tracking-widest text-on-background">Studio · 06</span>
               </figure>
               <div className="md:col-span-5">

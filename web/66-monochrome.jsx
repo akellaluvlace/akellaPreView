@@ -34,7 +34,7 @@ export default function T66Monochrome() {
     { num: "II", caption: "Threshold", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop" },
     { num: "III", caption: "Pasture", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=900&auto=format&fit=crop" },
     { num: "IV", caption: "Interior", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop" },
-    { num: "V", caption: "Cornice", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop" },
+    { num: "V", caption: "Cornice", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=900&auto=format&fit=crop" },
   ];
 
   const witnessed = [
@@ -64,7 +64,7 @@ export default function T66Monochrome() {
 
   const tailwindConfig = `tailwind.config = {
   theme: { extend: {
-    fontFamily: { sans: ['Inter','sans-serif'], serif: ['Cinzel','serif'] },
+    fontFamily: { sans: ['Inter','sans-serif'], serif: ['Cinzel','serif'], script: ['Caveat','cursive'] },
     colors: { brand: { 50:'#f8fafc', 100:'#f1f5f9', 200:'#e2e8f0', 300:'#cbd5e1', 400:'#94a3b8', 500:'#64748b', 600:'#475569', 700:'#334155', 800:'#1e293b', 900:'#0f172a' } },
     animation: { 'fade-in-up': 'fadeInUp 1s ease-out forwards' },
     keyframes: {
@@ -156,7 +156,7 @@ body { font-family: 'Inter', sans-serif; }
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
       <script src="https://cdn.tailwindcss.com/3.4.1"></script>
       <script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.min.js"></script>
       <script type="text/plain" dangerouslySetInnerHTML={{ __html: tailwindConfig }} />
@@ -207,7 +207,8 @@ body { font-family: 'Inter', sans-serif; }
           </div>
         </nav>
 
-        <main className="lg:ml-72 w-full">
+        {/* Drop w-full: with lg:ml-72 + w-full main overflows 18rem past viewport's right edge */}
+        <main className="lg:ml-72">
           <section id="hero" className="relative h-screen w-full overflow-hidden bg-slate-900">
             <div className="absolute inset-0 z-0">
               <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000&auto=format&fit=crop" alt="Hero Background" className="w-full h-full object-cover grayscale opacity-50 transform scale-105" />
@@ -336,14 +337,16 @@ body { font-family: 'Inter', sans-serif; }
                 <p className="text-slate-600 leading-relaxed mb-8 font-light">
                   With over a decade of experience in monochrome photography shooting for architectural firms and fashion houses, my work aims to strip away the noise of the modern world, leaving only what is essential.
                 </p>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Signature_sample.svg" alt="Signature" className="h-12 opacity-50 mx-auto md:mx-0" />
+                {/* Cursive sign-off using Caveat (Google Fonts) — replaces failing external SVG */}
+                <p className="font-script text-4xl md:text-5xl text-slate-800 opacity-70 mx-auto md:mx-0 leading-none" aria-label="Elias Vance signature">Elias Vance</p>
               </div>
             </div>
           </section>
 
-          <section id="numbers" className="relative overflow-hidden py-24 md:py-32">
-            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=2000&auto=format&fit=crop" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-25" />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-slate-50/85 to-slate-50"></div>
+          {/* By the Numbers — slightly darker shade + subtle dot pattern (photo blob removed per user) */}
+          <section id="numbers" className="relative overflow-hidden py-24 md:py-32 bg-slate-100" style={{ backgroundImage: 'radial-gradient(rgba(15,23,42,0.06) 1px, transparent 1px)', backgroundSize: '28px 28px' }}>
+            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-slate-100 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-100 to-transparent pointer-events-none"></div>
 
             <div className="relative max-w-6xl mx-auto px-6 md:px-16">
               <div className="text-center mb-16 reveal">

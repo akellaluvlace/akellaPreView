@@ -207,30 +207,70 @@ function CreativeAgency() {
         </header>
 
         <main>
-          {/* MANIFESTO — full-bleed darker grey */}
-          <section className="w-full px-margin-canvas py-section-padding border-b-2 border-outline-variant relative" style={{ backgroundColor: "#0a0a14" }}>
+          {/* TRUSTED BY — press wall */}
+          <section className="w-full px-margin-canvas py-section-padding border-b-2 border-outline-variant bg-surface-container-low">
+            <div className="container mx-auto">
+              <div className="text-center max-w-3xl mx-auto mb-stack-lg">
+                <span className="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container mb-8 md:mb-10 block">// FEATURED IN · TRUSTED BY · 12 OUTLETS</span>
+                <h2 className="font-headline-lg text-on-background uppercase border-b-4 border-secondary-container pb-base inline-block">Built for brands that take design seriously.</h2>
+                <p className="font-body-lg text-on-surface-variant mt-stack-md">Our work has been picked up, picked apart and picked first by the editors and platforms our clients actually read.</p>
+              </div>
+              <div className="border-2 border-outline-variant bg-background p-stack-md md:p-stack-lg shadow-[12px_12px_0_0_theme(colors.outline-variant)]">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-8 items-center justify-items-center">
+                  {[
+                    { slug: "medium",       name: "Medium",         caption: "Editor's pick" },
+                    { slug: "theguardian",  name: "The Guardian",   caption: "Long read · 2024" },
+                    { slug: "substack",     name: "Substack",       caption: "Featured studio" },
+                    { slug: "behance",      name: "Behance",        caption: "Project of the day" },
+                    { slug: "dribbble",     name: "Dribbble",       caption: "Top shot · 6×" },
+                    { slug: "vimeo",        name: "Vimeo",          caption: "Staff pick · 3×" },
+                    { slug: "framer",       name: "Framer",         caption: "Site of the week" },
+                    { slug: "figma",        name: "Figma",          caption: "Community case" },
+                    { slug: "webflow",      name: "Webflow",        caption: "Showcase 2024" },
+                    { slug: "notion",       name: "Notion",         caption: "Design partner" },
+                    { slug: "linear",       name: "Linear",         caption: "Brand client" },
+                    { slug: "stripe",       name: "Stripe",         caption: "Press partner" },
+                  ].map(b => (
+                    <div key={b.slug} className="flex flex-col items-center gap-3 group">
+                      <img src={`https://cdn.simpleicons.org/${b.slug}/64748b`} alt={`${b.name} logo`} width="56" height="56" loading="lazy" decoding="async" className="h-10 md:h-12 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-200" />
+                      <span className="font-label-caps text-[0.65rem] uppercase tracking-widest text-on-surface-variant">{b.caption}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-stack-md pt-stack-sm border-t-2 border-outline-variant flex flex-col md:flex-row justify-between gap-stack-sm font-label-caps text-label-caps uppercase text-on-surface-variant">
+                  <span>+ 20 more partners · 4 continents</span>
+                  <span className="tabular-nums">MMXVIII — present</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* MANIFESTO — full-bleed darker grey, refusal stamps + faint industrial bg */}
+          <section className="w-full px-margin-canvas py-section-padding border-b-2 border-outline-variant relative overflow-hidden" style={{ backgroundColor: "#0a0a14" }}>
+            <img alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover opacity-[0.07] blur-2xl mix-blend-luminosity pointer-events-none select-none" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=1600&auto=format&fit=crop" />
             <div className="container mx-auto relative">
               <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-stack-md mb-stack-lg">
                 <div>
-                  <span className="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container mb-stack-sm inline-block">// MANIFESTO · 04 MANTRAS</span>
-                  <h2 className="font-headline-lg text-on-background uppercase border-b-4 border-secondary-container pb-base inline-block">FOUR THINGS WE WILL NOT DO.</h2>
+                  <span className="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container mb-8 md:mb-10 block">// MANIFESTO · 04 MANTRAS</span>
+                  <h2 className="font-headline-lg text-on-background uppercase italic border-b-4 border-secondary-container pb-base inline-block">FOUR THINGS WE WILL NOT DO.</h2>
                 </div>
                 <p className="font-body-lg text-on-surface-variant max-w-md lg:text-right">Drafted at the founding. Pinned to the studio wall. Read aloud at every kick-off. Non-negotiable.</p>
               </div>
               <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
                 {[
-                  { num: "/01", numColor: "text-secondary-container", title: "SAFE WORK.",      body: "If a brief lets you sleep through it, the answer is no. We pick the projects that scare us a little.",          shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)]" },
-                  { num: "/02", numColor: "text-primary-fixed",       title: "FOCUS GROUPS.",   body: "A brand designed to please everyone moves no one. Decisions are made by 3 people in a room, not by surveys.",        shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.primary-container)]" },
-                  { num: "/03", numColor: "text-tertiary-fixed-dim",  title: "DECK CULTURE.",   body: "We ship the work, not 80 slides about the work. The deliverable is the brand, not a Keynote rehearsal.",            shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.tertiary-container)]" },
-                  { num: "/04", numColor: "text-secondary-container", title: "SOFT EXITS.",     body: "A brand that fades out is a brand that asked to. End where the work ends. The audience leaves the way they came in: alert.", shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)]" },
+                  { num: "/01", numColor: "text-secondary-container", stampColor: "text-secondary-container", title: "SAFE WORK.",      body: "If a brief lets you sleep through it, the answer is no. We pick the projects that scare us a little.",          shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)]" },
+                  { num: "/02", numColor: "text-primary-fixed",       stampColor: "text-primary-fixed",       title: "FOCUS GROUPS.",   body: "A brand designed to please everyone moves no one. Decisions are made by 3 people in a room, not by surveys.",        shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.primary-container)]" },
+                  { num: "/03", numColor: "text-tertiary-fixed-dim",  stampColor: "text-tertiary-fixed-dim",  title: "DECK CULTURE.",   body: "We ship the work, not 80 slides about the work. The deliverable is the brand, not a Keynote rehearsal.",            shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.tertiary-container)]" },
+                  { num: "/04", numColor: "text-secondary-container", stampColor: "text-secondary-container", title: "SOFT EXITS.",     body: "A brand that fades out is a brand that asked to. End where the work ends. The audience leaves the way they came in: alert.", shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)]" },
                 ].map(m => (
-                  <li key={m.num} className={`border-2 border-outline-variant p-stack-sm bg-background flex flex-col gap-stack-sm shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 ${m.shadowHover} transition-all duration-300 group`}>
-                    <div className="flex justify-between items-start">
+                  <li key={m.num} className={`relative overflow-hidden border-2 border-outline-variant p-stack-sm bg-background flex flex-col gap-stack-sm shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 ${m.shadowHover} transition-all duration-300 group`}>
+                    <span aria-hidden="true" className={`material-symbols-outlined absolute -top-4 -right-4 text-[8rem] leading-none ${m.stampColor} opacity-[0.08] rotate-12 pointer-events-none select-none`}>gpp_bad</span>
+                    <div className="flex justify-between items-start relative z-10">
                       <span className={`font-display-xl text-[clamp(2.5rem,5vw,4rem)] ${m.numColor} leading-none italic tabular-nums`}>{m.num}</span>
-                      <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">REFUSE</span>
+                      <span className="inline-flex items-center gap-1 font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums border border-outline-variant px-2 py-1"><span className="material-symbols-outlined text-base leading-none">block</span>REFUSE</span>
                     </div>
-                    <h3 className="font-headline-md text-on-background uppercase">{m.title}</h3>
-                    <p className="font-body-md text-on-surface-variant">{m.body}</p>
+                    <h3 className="font-headline-md text-on-background uppercase relative z-10">{m.title}</h3>
+                    <p className="font-body-md text-on-surface-variant relative z-10">{m.body}</p>
                   </li>
                 ))}
               </ol>
@@ -332,34 +372,43 @@ function CreativeAgency() {
             </div>
           </section>
 
-          {/* THE OUTPUT — process pipeline, full-bleed darker grey */}
+          {/* THE OUTPUT — horizontal phase pipeline with icons + connector dots */}
           <section className="w-full px-margin-canvas py-section-padding border-b-2 border-outline-variant relative" style={{ backgroundColor: "#0a0a14" }}>
             <div className="container mx-auto">
               <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-stack-md mb-stack-lg">
                 <div>
-                  <span className="font-label-caps text-label-caps uppercase tracking-widest text-primary-fixed mb-stack-sm inline-block">// THE OUTPUT · 04 PHASES</span>
+                  <span className="font-label-caps text-label-caps uppercase tracking-widest text-primary-fixed mb-8 md:mb-10 block">// THE OUTPUT · 04 PHASES</span>
                   <h2 className="font-headline-lg text-on-background uppercase border-b-4 border-primary-fixed pb-base inline-block">FROM BRIEF TO BLAST.</h2>
                 </div>
                 <p className="font-body-lg text-on-surface-variant max-w-md lg:text-right">Every engagement runs the same four phases. 12 weeks, no extensions. The pipeline is the deliverable.</p>
               </div>
-              <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-                {[
-                  { num: "01", numColor: "text-primary-fixed",      weeks: "Wks 01–02", title: "Listen.", body: "Two-week deep-dive. Founders, ops, customer interviews, competitive teardown. We finish with a list of three uncomfortable truths.", cta: "→ Truth deck",  ctaColor: "text-primary-fixed" },
-                  { num: "02", numColor: "text-secondary-container", weeks: "Wks 03–05", title: "Sketch.", body: "Three opposing routes drawn in parallel. We refuse to converge early. Every route gets killed in the room before one survives.",       cta: "→ 3 routes",    ctaColor: "text-secondary-container" },
-                  { num: "03", numColor: "text-tertiary-fixed-dim",  weeks: "Wks 06–10", title: "Forge.",  body: "Brand system, voice, motion, code, and the launch site. Built in the open with the client team in our Figma all day.",                cta: "→ Live build",  ctaColor: "text-tertiary-fixed-dim" },
-                  { num: "04", numColor: "text-primary-fixed",      weeks: "Wks 11–12", title: "Ship.",   body: "Hard launch. Press kit, asset library, governance handoff. We disappear at week 13. Your team owns the brand from day one.",            cta: "→ Hand-off",    ctaColor: "text-primary-fixed" },
-                ].map(p => (
-                  <li key={p.num} className="bg-background border-2 border-outline-variant p-stack-sm flex flex-col gap-stack-sm group">
-                    <div className="flex items-baseline justify-between border-b-2 border-outline-variant pb-base">
-                      <span className={`font-display-xl text-[clamp(3rem,5vw,5rem)] ${p.numColor} leading-none tabular-nums`}>{p.num}</span>
-                      <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">{p.weeks}</span>
-                    </div>
-                    <h3 className="font-headline-md text-on-background uppercase">{p.title}</h3>
-                    <p className="font-body-md text-on-surface-variant flex-grow">{p.body}</p>
-                    <span className={`font-label-caps text-label-caps uppercase ${p.ctaColor} pt-base border-t border-outline-variant`}>{p.cta}</span>
-                  </li>
-                ))}
-              </ol>
+              <div className="relative">
+                <div aria-hidden="true" className="hidden lg:block absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-fixed via-secondary-container to-tertiary-fixed-dim"></div>
+                <ol className="grid grid-cols-1 md:grid-cols-2 gap-gutter lg:grid-cols-none lg:flex lg:items-stretch lg:gap-0">
+                  {[
+                    { num: "01", numColor: "text-primary-fixed",      icon: "hearing",       dotBg: "bg-primary-fixed",       weeks: "Wks 01–02", title: "Listen.", body: "Two-week deep-dive. Founders, ops, customer interviews, competitive teardown. We finish with a list of three uncomfortable truths.", cta: "→ Truth deck",  ctaColor: "text-primary-fixed",      isLast: false },
+                    { num: "02", numColor: "text-secondary-container", icon: "draw",          dotBg: "bg-secondary-container", weeks: "Wks 03–05", title: "Sketch.", body: "Three opposing routes drawn in parallel. We refuse to converge early. Every route gets killed in the room before one survives.",       cta: "→ 3 routes",    ctaColor: "text-secondary-container", isLast: false },
+                    { num: "03", numColor: "text-tertiary-fixed-dim",  icon: "construction",  dotBg: "bg-tertiary-fixed-dim",  weeks: "Wks 06–10", title: "Forge.",  body: "Brand system, voice, motion, code, and the launch site. Built in the open with the client team in our Figma all day.",                cta: "→ Live build",  ctaColor: "text-tertiary-fixed-dim",  isLast: false },
+                    { num: "04", numColor: "text-primary-fixed",      icon: "rocket_launch", dotBg: "bg-primary-fixed",       weeks: "Wks 11–12", title: "Ship.",   body: "Hard launch. Press kit, asset library, governance handoff. We disappear at week 13. Your team owns the brand from day one.",            cta: "→ Hand-off",    ctaColor: "text-primary-fixed",      isLast: true  },
+                  ].map(p => (
+                    <li key={p.num} className="relative bg-background border-2 border-outline-variant p-stack-sm flex flex-col gap-stack-sm group lg:flex-1 lg:border-r-0 lg:last:border-r-2">
+                      <span aria-hidden="true" className={`material-symbols-outlined ${p.numColor} text-5xl leading-none`}>{p.icon}</span>
+                      <div className="flex items-baseline justify-between border-b-2 border-outline-variant pb-base">
+                        <span className={`font-display-xl text-[clamp(3rem,5vw,5rem)] ${p.numColor} leading-none tabular-nums`}>{p.num}</span>
+                        <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">{p.weeks}</span>
+                      </div>
+                      <h3 className="font-headline-md text-on-background uppercase">{p.title}</h3>
+                      <p className="font-body-md text-on-surface-variant flex-grow">{p.body}</p>
+                      <span className={`font-label-caps text-label-caps uppercase ${p.ctaColor} pt-base border-t border-outline-variant`}>{p.cta}</span>
+                      {!p.isLast && (
+                        <span aria-hidden="true" className={`hidden lg:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 ${p.dotBg} border-2 items-center justify-center`} style={{ borderColor: "#0a0a14" }}>
+                          <span className="material-symbols-outlined text-base leading-none" style={{ color: "#0a0a14" }}>arrow_forward</span>
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
           </section>
 
@@ -400,6 +449,44 @@ function CreativeAgency() {
                   <p className="font-body-md text-on-surface-variant group-hover:text-white max-w-[45ch] text-left lg:text-right mt-stack-sm lg:mt-0 transition-colors duration-300">High-fidelity production that tells radical stories.</p>
                 </a>
 
+              </div>
+            </div>
+          </section>
+
+          {/* BEDROCK — premium 2x2 differentiators */}
+          <section className="py-section-padding border-b-2 border-outline-variant bg-background relative overflow-hidden">
+            <div className="absolute inset-0 bg-dots-pattern opacity-30 pointer-events-none" aria-hidden="true"></div>
+            <div className="container mx-auto px-margin-canvas relative">
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-stack-md mb-stack-lg">
+                <div>
+                  <span className="font-label-caps text-label-caps uppercase tracking-widest text-primary-fixed mb-8 md:mb-10 block">// BEDROCK · 04 NON-NEGOTIABLES</span>
+                  <h2 className="font-headline-lg text-on-background uppercase border-b-4 border-primary-fixed pb-base inline-block">Why brands keep coming back.</h2>
+                </div>
+                <p className="font-body-lg text-on-surface-variant max-w-md lg:text-right">The four things that built our reputation. Picked apart, hardened, then carved into how the studio actually runs.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch">
+                {[
+                  { num: "I",   numColor: "text-secondary-container", icon: "verified",        title: "Senior team. Full stop.",     body: "Every project is led by a partner who's shipped at least a hundred brands. No interns hidden in the org chart, no junior strategists rehearsing on your dime, no bait-and-switch after the SOW signs. The names in the kick-off deck do every line of work, every week, until launch.", meta: "Avg 12 yrs in seat",   metaColor: "text-secondary-container", arrowHover: "group-hover:text-secondary-container", shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)]", featured: true,  pillLabel: "Lead pillar" },
+                  { num: "II",  numColor: "text-primary-fixed",       icon: "design_services", title: "In-house craft.",             body: "Strategy, design, motion, code — all under one roof in Berlin and Tokyo. Nothing brokered to a downstream studio you've never met. The hand that draws the wordmark also writes the manifesto, also names the colour, also commits the front-end. The work stays coherent because the same people stay accountable.",       meta: "Zero subcontractors", metaColor: "text-primary-fixed",       arrowHover: "group-hover:text-primary-fixed",       shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.primary-container)]",   featured: false, pillLabel: ""             },
+                  { num: "III", numColor: "text-tertiary-fixed-dim",  icon: "handshake",       title: "Honest pricing.",             body: "One number, posted up-front the day we agree to engage. Not an estimate, not a range, not a ladder of optional add-ons. Twelve weeks of senior work. The price doesn't move because you said something interesting in week six. If the brief grows, we tell you the day it grows — and we tell you why.",                       meta: "No change orders",    metaColor: "text-tertiary-fixed-dim",  arrowHover: "group-hover:text-tertiary-fixed-dim",  shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.tertiary-container)]",  featured: false, pillLabel: ""             },
+                  { num: "IV",  numColor: "text-secondary-container", icon: "bolt",            title: "Long-after partners.",        body: "We disappear at week 13, then we pick up the phone every quarter for the next decade. The brand belongs to your team — the institutional memory of every decision, every kill, every reason behind a glyph stays here, on tap, free, for as long as the brand lives. Most studios bill the hand-off. We bill the work.",          meta: "10-yr open line",     metaColor: "text-secondary-container", arrowHover: "group-hover:text-secondary-container", shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)]", featured: false, pillLabel: ""             },
+                ].map(c => (
+                  <article key={c.num} className={`relative p-8 md:p-10 bg-surface-container border-2 border-outline-variant shadow-[8px_8px_0_0_theme(colors.outline-variant)] flex flex-col gap-5 group hover:-translate-y-1 hover:translate-x-1 ${c.shadowHover} transition-all duration-300${c.featured ? " ring-2 ring-secondary-container/60 ring-offset-2 ring-offset-background" : ""}`}>
+                    {c.featured ? (
+                      <span className="absolute -top-4 left-6 bg-secondary-container text-black font-label-caps text-label-caps uppercase tracking-widest px-3 py-1 border-2 border-on-background shadow-[3px_3px_0_0_theme(colors.on-background)] tabular-nums">{c.pillLabel}</span>
+                    ) : null}
+                    <div className="flex items-center justify-between border-b-2 border-outline-variant pb-4">
+                      <span className={`font-display-xl text-[clamp(2.5rem,4vw,3.5rem)] ${c.numColor} leading-none italic tabular-nums`}>{c.num}</span>
+                      <span className={`material-symbols-outlined ${c.numColor} text-3xl`} aria-hidden="true">{c.icon}</span>
+                    </div>
+                    <h3 className="font-headline-md text-on-background uppercase">{c.title}</h3>
+                    <p className="font-body-md text-on-surface-variant flex-grow">{c.body}</p>
+                    <div className="pt-4 border-t border-outline-variant flex items-center justify-between">
+                      <span className={`font-label-caps text-label-caps uppercase ${c.metaColor} tabular-nums`}>{c.meta}</span>
+                      <span className={`material-symbols-outlined text-on-surface-variant ${c.arrowHover} group-hover:translate-x-1 transition-all duration-300`}>arrow_forward</span>
+                    </div>
+                  </article>
+                ))}
               </div>
             </div>
           </section>
@@ -445,6 +532,47 @@ function CreativeAgency() {
                   <p className="font-body-md text-on-background max-w-[45ch] flex-grow">With a decade scaling tech decacorns, Sarah engineers brand positioning that physically disrupts market expectations.</p>
                 </div>
 
+              </div>
+            </div>
+          </section>
+
+          {/* ON RECORD — testimonials, full-bleed darker grey */}
+          <section className="w-full px-margin-canvas py-section-padding border-b-2 border-outline-variant relative" style={{ backgroundColor: "#0a0a14" }}>
+            <div className="container mx-auto">
+              <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-stack-md mb-stack-lg">
+                <div>
+                  <span className="font-label-caps text-label-caps uppercase tracking-widest text-tertiary-fixed-dim mb-8 md:mb-10 block">// ON RECORD · 03 CLIENTS</span>
+                  <h2 className="font-headline-lg text-on-background uppercase border-b-4 border-tertiary-fixed-dim pb-base inline-block">What they said after launch.</h2>
+                </div>
+                <p className="font-body-lg text-on-surface-variant max-w-md lg:text-right">No NDAs. No "verified buyer" widgets. The same founders we worked with, the same week the brand went live, on the record.</p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                {[
+                  { project: "Nexus Core · 2024", accentColor: "text-tertiary-fixed-dim", shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.tertiary-container)]", quote: "They killed two of our three favourite routes in week four. We hated it for a weekend. Then we shipped the survivor, and our category got rewritten in six months.",      photo: "1488161628813-04466f872be2", alt: "Portrait of Mara Okafor, founder of Nexus Core",       name: "Mara Okafor", role: "Founder · Nexus Core" },
+                  { project: "Pulse Tech · 2023", accentColor: "text-secondary-container", shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.secondary-container)]", quote: "Twelve weeks. One number. The deck was the brand, not 80 slides about the brand. I have hired studios for fifteen years — nobody else delivers like this.",                       photo: "1776275758873-31603dd06112", alt: "Portrait of Daniel Reyes, CEO of Pulse Tech",          name: "Daniel Reyes", role: "CEO · Pulse Tech" },
+                  { project: "Echo Void · 2024",  accentColor: "text-primary-fixed",       shadowHover: "hover:shadow-[12px_12px_0_0_theme(colors.primary-container)]",   quote: "Foundry built us a brand that walks into the room and refuses to apologise. Press cycle quadrupled. Hiring funnel tripled. The wordmark is on the office wall in concrete.", photo: "1517677208171-0bc6725a3e60", alt: "Portrait of Yuki Tanaka, head of brand at Echo Void", name: "Yuki Tanaka", role: "Head of Brand · Echo Void" },
+                ].map(t => (
+                  <figure key={t.project} className={`border-2 border-outline-variant p-stack-sm bg-background flex flex-col gap-stack-sm shadow-[8px_8px_0_0_theme(colors.outline-variant)] hover:-translate-y-1 hover:translate-x-1 ${t.shadowHover} transition-all duration-300 group`}>
+                    <div className="flex items-center justify-between border-b-2 border-outline-variant pb-base">
+                      <span className={`font-display-xl text-[clamp(3rem,5vw,4.5rem)] ${t.accentColor} leading-none italic tabular-nums`} aria-hidden="true">"</span>
+                      <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">{t.project}</span>
+                    </div>
+                    <blockquote className="font-body-lg text-on-background flex-grow">
+                      {t.quote}
+                    </blockquote>
+                    <figcaption className="pt-base border-t border-outline-variant flex items-center gap-4">
+                      <img src={`https://images.unsplash.com/photo-${t.photo}?w=120&q=80&auto=format&fit=crop`} alt={t.alt} width="120" height="120" loading="lazy" decoding="async" className="h-12 w-12 object-cover grayscale border-2 border-outline-variant" />
+                      <div className="flex flex-col">
+                        <span className="font-headline-md text-on-background uppercase text-base leading-tight">{t.name}</span>
+                        <span className={`font-label-caps text-label-caps uppercase ${t.accentColor}`}>{t.role}</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+              <div className="mt-stack-lg pt-stack-sm border-t-2 border-outline-variant flex flex-col md:flex-row justify-between gap-stack-sm font-label-caps text-label-caps uppercase text-on-surface-variant">
+                <span>Quotes printed verbatim · No edits · No incentives</span>
+                <span className="tabular-nums">FULL CASE STUDIES → /WORK</span>
               </div>
             </div>
           </section>

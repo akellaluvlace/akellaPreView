@@ -182,23 +182,33 @@
 </button>
 </header>
 <main class="max-w-screen-2xl mx-auto px-margin-site">
-<!-- Hero Section -->
+<!-- Hero Section — bigger, punchier, more contrast -->
 <section class="py-stack-lg flex flex-col md:flex-row items-center gap-stack-lg border-b-2 border-on-surface">
-<div class="w-full md:w-1/2 relative group">
-<div class="absolute inset-0 bg-secondary translate-x-2 translate-y-2 rough-border"></div>
-<img alt="Risograph style illustration of a lung paper flower with misaligned cyan and magenta fills and thick black outlines" class="w-full h-auto object-cover aspect-square rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" data-alt="Risograph style illustration of an abstract botanical shape resembling lungs and flowers, thick irregular black outlines, misaligned bright pink and blue color blocks, raw paper texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4p_Coj6RcCRC5vC2WfbcUF_gG-LO6plqRLd-DwDaoWuTMOy3FBdPweARjpqX7GeaxZ3MLijcWJArRMnvIzXZgRpmQwhb3BEan2iLpqw-mNAR0npFS639144cxZqTeFgynkYUlKsAHE2-F4nJK6uMYEA0H4coJ-_KwSRpyGOHGQvmngbkrLQs13EL0esnZGJAPtK83bIiT8r7ycNao0ST-xR1xvDr7UeZpyHlg2vogrpcP6osue4rksEw9rNgMXhtVrFGARXeW6O8"/>
+<div class="w-full md:w-5/12 relative group">
+<div class="absolute inset-0 bg-secondary translate-x-3 translate-y-3 rough-border"></div>
+<img alt="Risograph style illustration of a lung paper flower with misaligned cyan and magenta fills and thick black outlines" class="w-full h-auto object-cover aspect-square rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4p_Coj6RcCRC5vC2WfbcUF_gG-LO6plqRLd-DwDaoWuTMOy3FBdPweARjpqX7GeaxZ3MLijcWJArRMnvIzXZgRpmQwhb3BEan2iLpqw-mNAR0npFS639144cxZqTeFgynkYUlKsAHE2-F4nJK6uMYEA0H4coJ-_KwSRpyGOHGQvmngbkrLQs13EL0esnZGJAPtK83bIiT8r7ycNao0ST-xR1xvDr7UeZpyHlg2vogrpcP6osue4rksEw9rNgMXhtVrFGARXeW6O8"/>
 </div>
-<div class="w-full md:w-1/2 flex flex-col gap-stack-md">
-<h1 class="font-display-xl text-on-surface leading-none relative">
-<span class="absolute text-secondary translate-x-1 translate-y-1 z-0">Small books. Loud colors.</span>
-<span class="relative z-10 text-primary-container multiply-blend">Small books. Loud colors.</span>
+<div class="w-full md:w-7/12 flex flex-col gap-stack-md">
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.4em] text-xs text-secondary font-bold flex items-center gap-3">
+<span class="w-10 h-px bg-on-surface"></span>
+Independent · Hand-printed · MMXVII
+</span>
+<h1 class="font-display-xl text-on-surface leading-[0.95] relative tracking-tighter text-[44px] sm:text-[56px] md:text-[68px] lg:text-[88px] xl:text-[104px]">
+<span aria-hidden="true" class="absolute inset-0 text-secondary translate-x-[4px] translate-y-[4px] md:translate-x-[6px] md:translate-y-[6px] z-0"><span class="block whitespace-nowrap">Small books.</span><span class="block whitespace-nowrap">Loud colors.</span></span>
+<span aria-hidden="true" class="absolute inset-0 text-primary translate-x-[2px] translate-y-[2px] z-[1] opacity-30"><span class="block whitespace-nowrap">Small books.</span><span class="block whitespace-nowrap">Loud colors.</span></span>
+<span class="relative z-10 text-primary-container multiply-blend"><span class="block whitespace-nowrap">Small books.</span><span class="block whitespace-nowrap">Loud colors.</span></span>
 </h1>
-<p class="font-body-lg text-on-surface-variant max-w-lg border-l-4 border-primary-container pl-4">
+<p class="font-body-lg text-on-surface max-w-xl border-l-4 border-primary-container pl-5 text-xl md:text-2xl leading-snug">
                     An independent publishing house dedicated to the tactile, the unrefined, and the intentionally misregistered. We print analog artifacts for a digital world.
                 </p>
-<a class="inline-block bg-primary-container text-on-primary font-caption uppercase border-2 border-on-surface py-3 px-6 w-max misregister-hover relative group" href="#">
+<div class="flex flex-wrap items-center gap-4 mt-2">
+<a class="inline-block bg-primary-container text-on-primary font-caption uppercase border-2 border-on-surface py-3.5 px-7 w-max misregister-hover relative group shadow-[4px_4px_0_0_#1f1b0f]" href="#">
 <span class="relative z-10 font-bold tracking-widest">Shop the catalogue</span>
 </a>
+<a class="inline-block bg-transparent text-on-surface font-caption uppercase border-2 border-on-surface py-3.5 px-7 w-max misregister-hover relative group hover:bg-secondary hover:text-on-secondary" href="#">
+<span class="relative z-10 font-bold tracking-widest">Reading room</span>
+</a>
+</div>
 </div>
 </section>
 <!-- Catalogue Section -->
@@ -243,20 +253,163 @@
 </article>
 </div>
 </section>
-<!-- About Section -->
-<section class="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Specimens Section — content #4 (NEW) — image + editorial -->
+<section class="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
+<div class="md:col-span-7 flex flex-col gap-stack-sm md:pr-stack-md order-2 md:order-1 md:justify-between md:h-full">
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-secondary font-bold">Detail · 02 — Specimens</span>
+<h2 class="font-headline-lg text-on-surface">Four inks. Two papers. No exceptions.</h2>
+<p class="font-body-md text-on-surface-variant max-w-xl">
+We've stocked the same shortlist since 2017. Two papers that drink soy ink and don't smudge in transit. Four colours that argue with each other beautifully. Anything else and the registration starts lying.
+</p>
+<ul class="grid grid-cols-2 gap-3 mt-stack-sm m-0 p-0 list-none">
+<li class="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+<span class="w-full h-6 bg-primary-container rough-border"></span>
+<span class="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 01</span>
+<span class="font-['Newsreader'] italic text-base text-on-surface">Magenta · #FF5CA8</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">House signature</span>
+</li>
+<li class="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+<span class="w-full h-6 bg-secondary rough-border"></span>
+<span class="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 02</span>
+<span class="font-['Newsreader'] italic text-base text-on-surface">Cobalt · #305CAC</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Skies, shadow, sleep</span>
+</li>
+<li class="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+<span class="w-full h-6 bg-[#fff200] rough-border"></span>
+<span class="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 03</span>
+<span class="font-['Newsreader'] italic text-base text-on-surface">Fluo Yellow · #FFF200</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Use sparingly · burns the eye</span>
+</li>
+<li class="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+<span class="w-full h-6 bg-on-surface rough-border"></span>
+<span class="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 04</span>
+<span class="font-['Newsreader'] italic text-base text-on-surface">Black · #1F1B0F</span>
+<span class="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Lines, type, weight</span>
+</li>
+</ul>
+<div class="grid grid-cols-2 gap-3 mt-stack-sm border-t-2 border-on-surface border-dotted pt-4 font-['Space_Grotesk'] text-xs">
+<div class="flex flex-col gap-0.5">
+<span class="uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Cover stock</span>
+<span class="font-['Newsreader'] italic text-on-surface">Mohawk Superfine · 80lb</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">Interior stock</span>
+<span class="font-['Newsreader'] italic text-on-surface">Munken Pure · 90gsm</span>
+</div>
+</div>
+
+<!-- Press receipts ledger — pins to bottom of column to match image -->
+<div class="rough-border bg-surface-container-low p-stack-sm flex flex-col gap-3">
+<div class="flex items-baseline justify-between gap-3 border-b-2 border-on-surface border-dotted pb-2">
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Press receipts · 2024</span>
+<span class="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface-variant tabular-nums">YTD · 142 runs</span>
+</div>
+<ul class="font-['Space_Grotesk'] text-xs text-on-surface flex flex-col gap-1.5 m-0 p-0 list-none">
+<li class="flex items-baseline justify-between gap-3 border-b border-on-surface border-dotted pb-1.5">
+<span class="font-['Newsreader'] italic">Magenta · drum 04</span>
+<span class="tabular-nums text-on-surface-variant">3,820 sheets · 2 reloads</span>
+</li>
+<li class="flex items-baseline justify-between gap-3 border-b border-on-surface border-dotted pb-1.5">
+<span class="font-['Newsreader'] italic">Cobalt · drum 02</span>
+<span class="tabular-nums text-on-surface-variant">2,914 sheets · 1 reload</span>
+</li>
+<li class="flex items-baseline justify-between gap-3 border-b border-on-surface border-dotted pb-1.5">
+<span class="font-['Newsreader'] italic">Fluo Yellow · drum 07</span>
+<span class="tabular-nums text-on-surface-variant">684 sheets · 0 reloads</span>
+</li>
+<li class="flex items-baseline justify-between gap-3">
+<span class="font-['Newsreader'] italic">Black · drum 01</span>
+<span class="tabular-nums text-on-surface-variant">5,201 sheets · 3 reloads</span>
+</li>
+</ul>
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface-variant pt-1">Each reload is hand-mixed · weighed · stamped on the floor ledger.</span>
+</div>
+</div>
+<div class="md:col-span-5 relative group order-1 md:order-2">
+<div class="absolute inset-0 bg-primary-container translate-x-[4px] translate-y-[4px] rough-border" aria-hidden="true"></div>
+<img alt="Stack of risograph ink drums and folded paper signatures arranged on a press-floor table, magenta and cobalt swatches mid-page" class="w-full h-full object-cover aspect-[4/5] rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" loading="lazy" decoding="async"/>
+<span class="absolute top-3 left-3 z-20 font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface bg-primary-container px-2 py-1 rough-border">Plate · I · Specimens</span>
+</div>
+</section>
+
+<!-- About Section — top / middle / bottom rhythm matching Diary -->
+<section class="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
 <div class="md:col-span-5 relative group">
 <div class="absolute inset-0 bg-primary-container translate-x-[-4px] translate-y-[4px] rough-border"></div>
 <img alt="Portrait of editor" class="w-full h-full object-cover aspect-[4/5] rough-border relative z-10 multiply-blend grayscale contrast-150" data-alt="Gritty high-contrast portrait of a woman in a printing studio, risograph style halftones, deep blue ink on cream paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQJDBD0mXiblSnn4Q6aFqUsO7H9g8t1AQ4D497hLaH7ulEqdkU7qKDa5wMqu3wkPbevFxRYhrh273y1rg586VzKlpXkhqQRGP7J9y9Ix2hIkFkCQIxCRAsyBe3LKHopaE6mpqpXhJngFUVPygtclFg7kka7eJAKcR3MC4ei1M6dJEWWAUXqt_ULRdanJmiDOyUBnBe84ojFVsxfaIuf0mz0ChslejvU7FxpdZJF96pSQ5YRi5N4CMqvslcEqSDZtjqO2HDyUklG-Y"/>
 </div>
-<div class="md:col-span-7 flex flex-col justify-center gap-stack-sm md:pl-stack-md">
-<h2 class="font-display-xl text-on-surface">Misregistration is a feature.</h2>
-<div class="font-body-lg text-on-surface-variant flex flex-col gap-4">
-<p>Founded in a damp basement with a refurbished MZ790, Paper Lung Press believes in the physical artifact. We publish works that are too odd for the mainstream, too messy for digital perfection.</p>
-<p>Every book is printed, folded, and bound by hand. If your copy has an ink smudge on page 42, consider it a signature from the machine.</p>
+<div class="md:col-span-7 flex flex-col gap-stack-sm md:pl-stack-md md:justify-between">
+<div class="flex flex-col gap-4">
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-secondary font-bold flex items-center gap-3">
+<span class="w-8 h-px bg-on-surface"></span>
+Detail · 01 — Doctrine
+</span>
+<h2 class="font-headline-lg text-on-surface">Misregistration is a feature.</h2>
+</div>
+<div class="font-['Newsreader'] italic text-on-surface text-xl md:text-2xl leading-snug flex flex-col gap-stack-sm">
+<p>
+<span class="not-italic font-display-xl text-5xl float-left mr-3 leading-[0.8] text-primary-container riso-shift-sm">F</span>ounded in a damp basement with a refurbished MZ790, Paper Lung Press believes in the physical artifact. We publish works that are too odd for the mainstream, too messy for digital perfection.
+</p>
+<p class="not-italic font-body-md text-on-surface-variant text-base">
+Every book is printed, folded, and bound by hand. If your copy has an ink smudge on page 42, consider it a signature from the machine.
+</p>
+</div>
+<div class="flex flex-wrap items-center gap-stack-sm border-t-2 border-on-surface border-dashed pt-stack-sm mt-2">
+<div class="flex flex-col gap-0.5 font-['Space_Grotesk'] text-xs">
+<span class="uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Founded · MMXVII</span>
+<span class="font-['Newsreader'] italic text-on-surface text-base">Basement &middot; MZ790 &middot; one editor &middot; one drum</span>
+</div>
+<a class="ml-auto inline-block bg-primary-container text-on-primary font-caption uppercase border-2 border-on-surface py-2.5 px-5 misregister-hover relative shadow-[3px_3px_0_0_#1f1b0f]" href="#">
+<span class="font-bold tracking-widest">Read the full doctrine</span>
+</a>
 </div>
 </div>
 </section>
+<!-- Studio Diary — content #5 (NEW) — letter from the editor with image right -->
+<section class="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
+<div class="md:col-span-7 flex flex-col gap-stack-sm md:pr-stack-md md:justify-between">
+<div class="flex flex-col gap-4">
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-primary-container font-bold flex items-center gap-3">
+<span class="w-8 h-px bg-on-surface"></span>
+Detail · 03 — Letter from the editor
+</span>
+<h2 class="font-headline-lg text-on-surface">A note, smudged, mailed twice a year.</h2>
+</div>
+<div class="font-['Newsreader'] italic text-on-surface text-xl md:text-2xl leading-snug flex flex-col gap-stack-sm">
+<p>
+<span class="not-italic font-display-xl text-5xl float-left mr-3 leading-[0.8] text-primary-container riso-shift-sm">D</span>ear reader — the press is loud again. We've spent the spring re-stocking magenta, arguing about a fluorescent yellow, and deciding which two zines deserve a second printing. The diary is short this issue.
+</p>
+<p class="not-italic font-body-md text-on-surface-variant text-base">
+Every quarter we send a kraft envelope to subscribers — a single signature, hand-stamped, soy-stained, no plastic. Inside: a riso print, a poem we mistyped, and a paragraph about whatever broke this month on the press floor.
+</p>
+</div>
+<div class="flex flex-wrap items-center gap-stack-sm border-t-2 border-on-surface border-dashed pt-stack-sm mt-2">
+<div class="flex flex-col gap-0.5 font-['Space_Grotesk'] text-xs">
+<span class="uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">Issue 014 · Spring MMXXV</span>
+<span class="font-['Newsreader'] italic text-on-surface text-base">Mailed · 412 envelopes · 41 countries</span>
+</div>
+<a class="ml-auto inline-block bg-secondary text-on-secondary font-caption uppercase border-2 border-on-surface py-2.5 px-5 misregister-hover relative shadow-[3px_3px_0_0_#1f1b0f]" href="#">
+<span class="font-bold tracking-widest">Subscribe by post</span>
+</a>
+</div>
+</div>
+<div class="md:col-span-5 relative group flex flex-col gap-gutter">
+<div class="relative flex-1">
+<div class="absolute inset-0 bg-secondary translate-x-[-4px] translate-y-[4px] rough-border" aria-hidden="true"></div>
+<img alt="Hand-folded zine signatures stacked on a wooden bench, magenta envelope corner peeking out" class="w-full h-full object-cover aspect-[4/5] rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1503694978374-8a2fa686963a?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" loading="lazy" decoding="async"/>
+<span class="absolute top-3 right-3 z-20 font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] bg-secondary text-on-secondary px-2 py-1 rough-border">Diary · 014</span>
+</div>
+<div class="rough-border bg-surface-container-low p-4 flex flex-col gap-2 font-['Space_Grotesk']">
+<span class="uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Postmark trail</span>
+<ul class="text-xs text-on-surface-variant flex flex-col gap-1 m-0 p-0 list-none">
+<li class="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1"><span class="font-['Newsreader'] italic">012 · Autumn</span><span class="tabular-nums">387 mailed</span></li>
+<li class="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1"><span class="font-['Newsreader'] italic">013 · Winter</span><span class="tabular-nums">404 mailed</span></li>
+<li class="flex justify-between gap-3"><span class="font-['Newsreader'] italic text-primary-container">014 · Spring</span><span class="tabular-nums text-primary-container">412 mailed</span></li>
+</ul>
+</div>
+</div>
+</section>
+
 <!-- Process Section -->
 <section class="py-stack-lg border-b-2 border-on-surface">
 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-stack-md border-b-2 border-on-surface pb-2">
@@ -269,9 +422,9 @@
 <ol class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
 <!-- Step 01 -->
 <li class="rough-border bg-surface-container-low p-stack-md flex flex-col gap-4 misregister-hover relative">
-<div class="flex items-baseline gap-4">
+<div class="flex items-start justify-between gap-4">
 <span class="font-display-xl text-[120px] leading-none text-primary-container riso-shift">01</span>
-<span class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-secondary border-l-2 border-on-surface pl-3 self-end pb-3">Phase · I</span>
+<span class="material-symbols-outlined text-secondary text-5xl md:text-6xl leading-none mt-3 select-none" aria-hidden="true" style="font-variation-settings: 'wght' 300, 'FILL' 0;">layers</span>
 </div>
 <h3 class="font-['Newsreader'] italic text-3xl text-on-surface leading-tight">Strip the artwork to its skeleton.</h3>
 <p class="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant leading-relaxed">Each colour gets its own bare-bones layer. Black goes solid; magenta goes halftone; cobalt fills the negatives. We separate by hand because the software always over-thinks the dot grid.</p>
@@ -279,9 +432,9 @@
 </li>
 <!-- Step 02 -->
 <li class="rough-border bg-surface-container-low p-stack-md flex flex-col gap-4 misregister-hover relative">
-<div class="flex items-baseline gap-4">
+<div class="flex items-start justify-between gap-4">
 <span class="font-display-xl text-[120px] leading-none text-secondary riso-shift">02</span>
-<span class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-primary-container border-l-2 border-on-surface pl-3 self-end pb-3">Phase · II</span>
+<span class="material-symbols-outlined text-primary-container text-5xl md:text-6xl leading-none mt-3 select-none" aria-hidden="true" style="font-variation-settings: 'wght' 300, 'FILL' 0;">local_fire_department</span>
 </div>
 <h3 class="font-['Newsreader'] italic text-3xl text-on-surface leading-tight">Burn the masters onto wax.</h3>
 <p class="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant leading-relaxed">A xenon lamp blasts each separation onto a thermal master. The MZ790 hisses, the cylinder spins, and the master accepts soy ink in the only places we told it to.</p>
@@ -289,9 +442,9 @@
 </li>
 <!-- Step 03 -->
 <li class="rough-border bg-surface-container-low p-stack-md flex flex-col gap-4 misregister-hover relative">
-<div class="flex items-baseline gap-4">
+<div class="flex items-start justify-between gap-4">
 <span class="font-display-xl text-[120px] leading-none text-primary-container riso-shift">03</span>
-<span class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-secondary border-l-2 border-on-surface pl-3 self-end pb-3">Phase · III</span>
+<span class="material-symbols-outlined text-secondary text-5xl md:text-6xl leading-none mt-3 select-none" aria-hidden="true" style="font-variation-settings: 'wght' 300, 'FILL' 0;">cycle</span>
 </div>
 <h3 class="font-['Newsreader'] italic text-3xl text-on-surface leading-tight">Run the paper through, four times.</h3>
 <p class="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant leading-relaxed">Each pass lays a single colour. Between passes the paper rests on a drying rack — soy ink takes its time. We change drums by hand and feed the stack with a cotton glove.</p>
@@ -299,9 +452,9 @@
 </li>
 <!-- Step 04 -->
 <li class="rough-border bg-surface-container-low p-stack-md flex flex-col gap-4 misregister-hover relative">
-<div class="flex items-baseline gap-4">
+<div class="flex items-start justify-between gap-4">
 <span class="font-display-xl text-[120px] leading-none text-secondary riso-shift">04</span>
-<span class="font-['Space_Grotesk'] uppercase tracking-widest text-xs text-primary-container border-l-2 border-on-surface pl-3 self-end pb-3">Phase · IV</span>
+<span class="material-symbols-outlined text-primary-container text-5xl md:text-6xl leading-none mt-3 select-none" aria-hidden="true" style="font-variation-settings: 'wght' 300, 'FILL' 0;">inventory_2</span>
 </div>
 <h3 class="font-['Newsreader'] italic text-3xl text-on-surface leading-tight">Bind, stamp, smudge, ship.</h3>
 <p class="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant leading-relaxed">Saddle-stitched or perfect-bound, depending on the page count. Every cover gets a hand-stamp in our studio's magenta. Every edition gets a number. Every thumbprint stays.</p>
@@ -375,7 +528,7 @@
 <!-- card 05 -->
 <figure class="w-72 flex-shrink-0 rough-border bg-surface-container-lowest p-3 flex flex-col gap-2 misregister-hover">
 <div class="aspect-[3/4] overflow-hidden bg-primary-container relative">
-<img alt="Fashion editorial portrait riso-treated" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<img alt="Fashion editorial portrait riso-treated" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 </div>
 <figcaption class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface flex justify-between"><span>BOOKLET · MARROW</span><span class="text-primary-container">№05</span></figcaption>
 </figure>
@@ -396,7 +549,7 @@
 <!-- card 08 -->
 <figure class="w-72 flex-shrink-0 rough-border bg-surface-container-lowest p-3 flex flex-col gap-2 misregister-hover">
 <div class="aspect-[3/4] overflow-hidden bg-secondary relative">
-<img alt="Architectural archway riso-treated" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<img alt="Architectural archway riso-treated" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 </div>
 <figcaption class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface flex justify-between"><span>PRINT 041 · QUIET</span><span class="text-secondary">№08</span></figcaption>
 </figure>
@@ -441,7 +594,7 @@
 </figure>
 <figure aria-hidden="true" class="w-72 flex-shrink-0 rough-border bg-surface-container-lowest p-3 flex flex-col gap-2 misregister-hover">
 <div class="aspect-[3/4] overflow-hidden bg-primary-container relative">
-<img alt="" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<img alt="" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 </div>
 <figcaption class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface flex justify-between"><span>BOOKLET · MARROW</span><span class="text-primary-container">№05</span></figcaption>
 </figure>
@@ -459,7 +612,7 @@
 </figure>
 <figure aria-hidden="true" class="w-72 flex-shrink-0 rough-border bg-surface-container-lowest p-3 flex flex-col gap-2 misregister-hover">
 <div class="aspect-[3/4] overflow-hidden bg-secondary relative">
-<img alt="" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<img alt="" class="w-full h-full object-cover riso-photo" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
 </div>
 <figcaption class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface flex justify-between"><span>PRINT 041 · QUIET</span><span class="text-secondary">№08</span></figcaption>
 </figure>
@@ -484,18 +637,44 @@
 </section>
 <!-- FAQ Section -->
 <main class="max-w-screen-2xl mx-auto px-margin-site">
-<section class="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter">
-<div class="md:col-span-4 flex flex-col gap-4">
+<section class="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-x-24 lg:gap-x-32">
+<div class="md:col-span-4 flex flex-col gap-stack-sm h-full md:justify-between">
+<div class="flex flex-col gap-4">
 <span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-secondary font-bold">Detail · 07 — Field Manual</span>
 <h2 class="font-headline-lg text-on-surface">Plain answers, ink-stained.</h2>
 <p class="font-body-md italic text-on-surface-variant">Six questions we get every Tuesday. The answers haven't changed since the basement days.</p>
-<div class="hidden md:flex flex-col gap-2 mt-stack-md border-t-2 border-on-surface border-dashed pt-4">
+</div>
+
+<!-- Press-floor study image -->
+<figure class="relative group hidden md:block">
+<div class="absolute inset-0 bg-secondary translate-x-[3px] translate-y-[3px] rough-border" aria-hidden="true"></div>
+<img alt="Risograph drum and ink master mid-press, treated with magenta-cobalt overprint" class="w-full h-auto object-cover aspect-[4/3] rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&amp;q=85&amp;auto=format&amp;fit=crop" loading="lazy" decoding="async"/>
+<figcaption class="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface bg-surface-container-lowest/85 px-2 py-1 rough-border">
+<span>Press · MZ790</span>
+<span class="text-primary-container">Plate · II</span>
+</figcaption>
+</figure>
+
+<!-- Reading room hours card -->
+<div class="hidden md:flex flex-col gap-2 border-t-2 border-on-surface border-dashed pt-4">
 <span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-primary-container">Reading room hours</span>
 <span class="font-['Newsreader'] italic text-on-surface text-lg">Wed–Sat · 14h00 → 19h00</span>
 <span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface-variant">Or by knock · side alley · #4</span>
 </div>
+
+<!-- What we don't print -->
+<div class="hidden md:flex flex-col gap-3 rough-border bg-surface-container-low p-5">
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">What we don't print</span>
+<ul class="font-['Space_Grotesk'] text-xs tracking-wide text-on-surface-variant flex flex-col gap-1.5 m-0 p-0 list-none">
+<li class="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1.5"><span>Wedding invitations</span><span class="text-primary-container">— No.</span></li>
+<li class="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1.5"><span>Restaurant coupons</span><span class="text-primary-container">— No.</span></li>
+<li class="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1.5"><span>Crypto whitepapers</span><span class="text-primary-container">— Hard no.</span></li>
+<li class="flex justify-between gap-3"><span>Anything &gt; 500 copies</span><span class="text-secondary">— Ask.</span></li>
+</ul>
 </div>
-<div class="md:col-span-8 flex flex-col">
+</div>
+<div class="md:col-span-8 flex flex-col gap-stack-sm h-full md:justify-between">
+<div class="flex flex-col">
 <details class="riso-faq border-t-2 border-b-2 border-on-surface py-4 group" open="">
 <summary class="flex items-center justify-between gap-4 cursor-pointer">
 <span class="flex items-baseline gap-4">
@@ -556,6 +735,21 @@
 </summary>
 <p class="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant mt-4 leading-relaxed pl-[4.5rem]">Worldwide, kraft-wrapped, twine-tied. Customs forms get stamped in magenta. We've shipped to forty-one countries and lost exactly two boxes — both to the same Dutch sorting office.</p>
 </details>
+</div>
+
+<!-- Send a project — fills bottom of right column -->
+<div class="rough-border bg-surface-container-low p-stack-md flex flex-col md:flex-row md:items-center gap-stack-sm shadow-[6px_6px_0_0_#1f1b0f] mt-stack-sm">
+<div class="flex flex-col gap-2 flex-1">
+<span class="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Still curious?</span>
+<h3 class="font-['Newsreader'] italic text-2xl md:text-3xl text-on-surface leading-tight">Send us a project, a sentence, a smudge.</h3>
+<p class="font-['Space_Grotesk'] text-sm text-on-surface-variant leading-relaxed max-w-md">We answer Mondays and Thursdays. Attach a PDF or just describe what's in your head. We'll write back honestly about whether the press is the right tool.</p>
+</div>
+<div class="flex flex-col gap-2 md:items-end font-['Space_Grotesk']">
+<span class="uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">Direct line</span>
+<a href="mailto:press@paperlung.example" class="font-['Newsreader'] italic text-lg text-on-surface hover:text-primary-container transition-colors">press@paperlung</a>
+<a class="inline-block bg-primary-container text-on-primary border-2 border-on-surface py-2.5 px-5 misregister-hover w-max font-bold tracking-widest uppercase text-sm shadow-[3px_3px_0_0_#1f1b0f]" href="#">Start a brief</a>
+</div>
+</div>
 </div>
 </section>
 </main>

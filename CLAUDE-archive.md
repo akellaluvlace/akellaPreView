@@ -47,6 +47,10 @@ Contract: every engine takes a source string + an op, returns `{ source, unchang
 
 `template-upgrade-playbook.md` — when user pastes a batch of `http://localhost:3001/t/<NN>-<slug>` URLs and asks to add sections / make premium. Read `§O` first for the parallel-batch workflow (6 parallel subagents per batch, self-contained briefs, §A trap inoculation, audit greps, NOVEL LAYOUT MENU). Memory pointer: `~/.claude/projects/C--Users-nikit-akellaPreView/memory/project_template_upgrade_2026_05_01.md` lists templates already touched + what to skip on resume.
 
+### Layout rule — sticky-photo + scrolling-text columns must bottom-align (moved 2026-05-04 from CLAUDE.md rule 7)
+
+When `md:col-span-5 md:sticky md:top-32` sits beside a long `md:col-span-7` text column, drop sticky and use `flex flex-col h-full md:justify-between gap-N` with 3–5 children (image + spec card + image + ledger panel). "Fill the empty space" = align the column bottoms — adding a card *inside* a still-sticky wrapper doesn't fix it. See playbook `§B.4.1` for the canonical fix recipe.
+
 ---
 
 ## JSX template hand-conversion — full per-file checklist
@@ -279,7 +283,7 @@ app/
 components/
   Editor.tsx     Preview.tsx     PreviewModal.tsx
   TemplateCard.tsx   Workspace.tsx
-  FocusEditor.tsx   DiceBar.tsx   KindToggle.tsx
+  FocusEditor.tsx   ToolBar.tsx   KindToggle.tsx
   SelectionOverlay.tsx           # host-side bbox-tracked overlay (coral outline + 8 size + 8 spacing handles)
   ast/PropertiesPanel/           # Phase 2 Step 9 — pixel-precise spacing/sizing/radius sections (Figma-style, OID-based)
   library/                       # Asset library — Sidebar shell + 4-tab + 15 sub-panels

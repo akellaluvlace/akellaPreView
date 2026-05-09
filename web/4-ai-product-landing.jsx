@@ -246,7 +246,6 @@ export default function T4AiProductLanding() {
         .noise-bg {
           position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
           pointer-events: none; z-index: 50; opacity: 0.035;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         .glass { background: rgba(15, 15, 15, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .gradient-border-wrapper { position: relative; background: #121212; border-radius: 1rem; z-index: 1; }
@@ -288,7 +287,7 @@ export default function T4AiProductLanding() {
       ` }} />
 
       <div className="relative flex flex-col min-h-screen bg-[#030303] text-white dark overflow-x-hidden">
-        <div className="noise-bg" aria-hidden="true"></div>
+        <div className="noise-bg" aria-hidden="true" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }}></div>
         <div className="absolute top-0 left-[-10%] w-[40vw] h-[40vw] rounded-full bg-indigo-900/20 blur-[120px] pointer-events-none mix-blend-screen" aria-hidden="true"></div>
         <div className="absolute top-[20%] right-[-10%] w-[30vw] h-[30vw] rounded-full bg-fuchsia-900/10 blur-[100px] pointer-events-none mix-blend-screen" aria-hidden="true"></div>
 
@@ -340,6 +339,29 @@ export default function T4AiProductLanding() {
               </a>
             </div>
 
+          </section>
+
+          {/* TRUSTED BY — research-stack brands */}
+          <section className="relative w-full px-6 mt-20 sm:mt-24 max-w-[1100px] mx-auto">
+            <p className="text-center font-mono text-[10px] uppercase tracking-[0.4em] text-secondary mb-8">— Trusted by research teams running on —</p>
+            <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-x-8 gap-y-9 items-center justify-items-center">
+              {[
+                { slug: "anthropic", name: "Anthropic" },
+                { slug: "huggingface", name: "Hugging Face" },
+                { slug: "langchain", name: "LangChain" },
+                { slug: "replit", name: "Replit" },
+                { slug: "notion", name: "Notion" },
+                { slug: "vercel", name: "Vercel" },
+                { slug: "supabase", name: "Supabase" },
+                { slug: "palantir", name: "Palantir" },
+                { slug: "mongodb", name: "MongoDB" },
+              ].map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/A1A1AA`} alt={b.name} className="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24" />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-secondary">{b.name}</span>
+                </li>
+              ))}
+            </ul>
           </section>
 
           {/* STEP 01 :: Drop a PDF — onboarding dropzone */}
@@ -477,6 +499,133 @@ export default function T4AiProductLanding() {
                 </div>
               </div>
 
+            </div>
+          </section>
+
+          {/* PREMIUM 2x2 — Why Parse on faint data-tunnel backdrop */}
+          <section className="relative w-full px-6 py-24 sm:py-32 border-t border-white/5 z-10 overflow-hidden">
+            <div className="absolute inset-0 -z-10">
+              <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-[0.07] grayscale contrast-125" loading="lazy" />
+              <div className="absolute inset-0 bg-background/85"></div>
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, transparent 25%, rgba(3,3,3,0.92) 90%)" }}></div>
+              <div className="absolute -left-40 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-accent/[0.06] blur-3xl pointer-events-none"></div>
+              <div className="absolute -right-40 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-accent2/[0.06] blur-3xl pointer-events-none"></div>
+            </div>
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center max-w-2xl mx-auto mb-16">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-accent font-semibold">// § 04 / Why Parse</span>
+                <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl text-primary leading-[1.05] tracking-tight font-semibold">Built for the second draft, not the first.</h2>
+                <p className="mt-5 text-secondary text-base md:text-lg leading-relaxed">Four guarantees that separate Parse from the wrapper-of-the-week. Each printed inside the docs, audited each release.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
+                {[
+                  { id: "P · 01", bgImg: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1200&q=80&auto=format&fit=crop", glow: "bg-accent/[0.10]", iconBorder: "border-accent/40 bg-accent/10 text-accent", borderHover: "hover:border-accent/40", title: "Cited, never made up.", body: "Every claim links back to the page, paragraph, and clause. Parse cannot synthesize what it cannot cite — hallucinations fail the post-flight checker before the answer ships.", left: "Citation rate · 100%", right: "Source · checked", rightClass: "text-accent",
+                    iconPath: "M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" },
+                  { id: "P · 02", bgImg: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=1200&q=80&auto=format&fit=crop", glow: "bg-accent2/[0.10]", iconBorder: "border-accent2/40 bg-accent2/10 text-accent2", borderHover: "hover:border-accent2/40", title: "Local, never lifted.", body: "Documents stay on your tenant. Vector store private, embeddings disposable, prompts never leave the perimeter. Compliant out of the box for SOC-2, HIPAA-aligned, EU-resident deployments available.", left: "Egress · zero", right: "SOC-2 · audited", rightClass: "text-accent2",
+                    iconPath: "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+                  { id: "P · 03", bgImg: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop", glow: "bg-emerald-400/[0.10]", iconBorder: "border-emerald-400/40 bg-emerald-400/10 text-emerald-300", borderHover: "hover:border-emerald-400/40", title: "Sub-second on a thousand pages.", body: "Indexed once, queried in milliseconds — even at thousand-page scale. Median first-token under 480 ms. Streaming throughout. The interface waits for you, not the other way around.", left: "P50 · 480 ms", right: "P99 · 1.2 s", rightClass: "text-emerald-300",
+                    iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" },
+                  { id: "P · 04", bgImg: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=80&auto=format&fit=crop", glow: "bg-amber-400/[0.10]", iconBorder: "border-amber-400/40 bg-amber-400/10 text-amber-300", borderHover: "hover:border-amber-400/40", title: "Audit-grade trail, every query.", body: "Every prompt, retrieval, and output ledgered with hash, model, version, and reviewer. Replay any past answer with a single ID — and prove what the system saw. Required by counsel; appreciated by the rest.", left: "Retention · 7 yr", right: "Replayable · always", rightClass: "text-amber-300",
+                    iconPath: "M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" },
+                ].map(p => (
+                  <article key={p.id} className={`group relative bg-surface2 border border-white/10 ${p.borderHover} transition-colors p-7 md:p-9 rounded-2xl overflow-hidden`}>
+                    <img src={p.bgImg} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover opacity-[0.10] grayscale group-hover:opacity-[0.16] transition-opacity duration-500" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-surface2/95 via-surface2/85 to-surface2/95"></div>
+                    <div className={`absolute -right-8 -top-8 w-40 h-40 rounded-full ${p.glow} blur-3xl pointer-events-none`}></div>
+                    <div className="relative z-10 flex items-start justify-between mb-6">
+                      <div className={`w-12 h-12 rounded-xl border backdrop-blur-sm flex items-center justify-center ${p.iconBorder}`}>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d={p.iconPath} /></svg>
+                      </div>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-secondary tabular-nums">{p.id}</span>
+                    </div>
+                    <h3 className="relative z-10 text-2xl md:text-3xl text-primary mb-3 tracking-tight leading-[1.05] font-semibold">{p.title}</h3>
+                    <p className="relative z-10 text-secondary text-sm md:text-base leading-relaxed mb-6">{p.body}</p>
+                    <div className="relative z-10 flex items-baseline justify-between border-t border-white/10 pt-4 font-mono text-[10px] uppercase tracking-[0.3em]">
+                      <span className="text-secondary">{p.left}</span>
+                      <span className={p.rightClass}>{p.right}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION A — image LEFT, content RIGHT centered */}
+          <section className="w-full px-6 py-20 sm:py-28 max-w-6xl mx-auto relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-7 relative">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-surface2">
+                  <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=1400&q=85&auto=format&fit=crop" alt="Analytics dashboard on a dual-monitor research workstation" className="absolute inset-0 w-full h-full object-cover opacity-90" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-background/70 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/85 border border-white/15 backdrop-blur-md">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-secondary">Live · 14k queries / day</span>
+                  </div>
+                  <div className="absolute -bottom-6 -right-6 hidden md:flex flex-col gap-2 w-56 rounded-xl border border-white/10 bg-surface2/95 backdrop-blur-md p-4 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-secondary">Models · live</span>
+                      <span className="text-[10px] font-mono text-accent">Auto-route</span>
+                    </div>
+                    <ul className="flex flex-col gap-1.5 text-[11px] text-primary">
+                      <li className="flex justify-between"><span>Claude Sonnet 4.6</span><span className="text-secondary tabular-nums">62%</span></li>
+                      <li className="flex justify-between"><span>Claude Opus 4.7</span><span className="text-secondary tabular-nums">28%</span></li>
+                      <li className="flex justify-between"><span>Local · 8B fallback</span><span className="text-secondary tabular-nums">10%</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-5 flex flex-col justify-center">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-accent font-semibold mb-4">// CHAPTER A · ROUTING</span>
+                <h2 className="text-3xl md:text-4xl text-primary leading-[1.05] tracking-tight font-semibold mb-5 border-l-2 border-accent pl-4">Right model, right page, right second.</h2>
+                <p className="text-secondary text-base md:text-lg leading-relaxed mb-4">Parse routes each query to the model that answers it best — Sonnet for fast traversal, Opus for slow synthesis, a local 8B fallback when the room goes air-gapped. The router is open: you see the choice, the cost, the receipt.</p>
+                <p className="text-secondary text-sm md:text-base leading-relaxed mb-6">Cost is published per-token. Latency is published per-call. No black-box billing, no surprise tiers, no consumption-based gotchas at the renewal.</p>
+                <ul className="flex flex-col gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-secondary border-t border-white/10 pt-5">
+                  <li className="flex justify-between"><span>Models · 4</span><span className="text-accent">Auto-routed</span></li>
+                  <li className="flex justify-between"><span>Cost · per-token</span><span className="text-accent">Published</span></li>
+                  <li className="flex justify-between"><span>Fallback · 8B local</span><span className="text-accent">Air-gap ready</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION B — image RIGHT, content LEFT centered */}
+          <section className="w-full px-6 py-20 sm:py-28 max-w-6xl mx-auto relative z-10">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1">
+                <span className="text-[10px] uppercase tracking-[0.4em] text-accent2 font-semibold mb-4 md:text-right">// CHAPTER B · INDEXING</span>
+                <h2 className="text-3xl md:text-4xl text-primary leading-[1.05] tracking-tight font-semibold mb-5 border-r-2 border-accent2 pr-4 md:text-right">Read once. Query forever.</h2>
+                <p className="text-secondary text-base md:text-lg leading-relaxed mb-4 md:text-right">Drop in a thousand-page PDF, a code repository, a deposition transcript — Parse builds the embedding index in minutes, then queries it in milliseconds. The index is yours: export it, version it, mirror it.</p>
+                <p className="text-secondary text-sm md:text-base leading-relaxed mb-6 md:text-right">Documents are chunked with semantic boundaries, not byte counts. The retrieval surfaces the page-paragraph-clause, with the citation embedded in the answer.</p>
+                <ul className="flex flex-col gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-secondary border-t border-white/10 pt-5">
+                  <li className="flex justify-between"><span className="text-accent2">2.4 min</span><span>Index · 1k pages</span></li>
+                  <li className="flex justify-between"><span className="text-accent2">Semantic</span><span>Chunking · always</span></li>
+                  <li className="flex justify-between"><span className="text-accent2">Yours</span><span>Index · exportable</span></li>
+                </ul>
+              </div>
+              <div className="md:col-span-7 relative order-1 md:order-2">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-surface2">
+                  <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1400&q=85&auto=format&fit=crop" alt="Code editor close-up — semantic chunking visualization" className="absolute inset-0 w-full h-full object-cover opacity-90" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-gradient-to-tl from-background/70 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 right-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/85 border border-white/15 backdrop-blur-md">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-secondary">Indexed · 1,284 pages</span>
+                    <span className="text-[10px] font-mono text-accent2">2:14</span>
+                  </div>
+                  <div className="absolute -bottom-6 -left-6 hidden md:flex flex-col gap-2 w-60 rounded-xl border border-white/10 bg-surface2/95 backdrop-blur-md p-4 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-secondary">Last index · 02:14</span>
+                      <span className="text-[10px] font-mono text-emerald-400">✓ ready</span>
+                    </div>
+                    <ul className="flex flex-col gap-1.5 text-[11px] text-primary">
+                      <li className="flex justify-between"><span>SEC 10-K · Q4</span><span className="text-secondary tabular-nums">428 p</span></li>
+                      <li className="flex justify-between"><span>Deposition · v2</span><span className="text-secondary tabular-nums">311 p</span></li>
+                      <li className="flex justify-between"><span>Repo · /core</span><span className="text-secondary tabular-nums">545 f</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 

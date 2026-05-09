@@ -1,17 +1,35 @@
 function BentoGridLanding() {
   const integrations = [
-    { initials: "S", name: "Slack", grad: "linear-gradient(135deg, #4A154B, #ECB22E)" },
-    { initials: "L", name: "Linear", grad: "linear-gradient(135deg, #5E6AD2, #8A9BFF)" },
-    { initials: "G", name: "Gmail", grad: "linear-gradient(135deg, #EA4335, #FBBC04)" },
-    { initials: "N", name: "Notion", grad: "linear-gradient(135deg, #000000, #2D2D2D)" },
-    { initials: "Gh", name: "GitHub", grad: "linear-gradient(135deg, #181717, #4078C0)" },
-    { initials: "F", name: "Figma", grad: "linear-gradient(135deg, #F24E1E, #A259FF)" },
-    { initials: "A", name: "Asana", grad: "linear-gradient(135deg, #F06A6A, #E84A82)" },
-    { initials: "D", name: "Discord", grad: "linear-gradient(135deg, #5865F2, #404EED)" },
-    { initials: "Z", name: "Zoom", grad: "linear-gradient(135deg, #2D8CFF, #4A9EFF)" },
-    { initials: "T", name: "Teams", grad: "linear-gradient(135deg, #036C70, #1A9BA1)" },
-    { initials: "Tr", name: "Trello", grad: "linear-gradient(135deg, #0079BF, #51A1F5)" },
-    { initials: "In", name: "Intercom", grad: "linear-gradient(135deg, #FC636B, #FF9D6E)" }
+    { slug: "slack", name: "Slack" },
+    { slug: "linear", name: "Linear" },
+    { slug: "gmail", name: "Gmail" },
+    { slug: "notion", name: "Notion" },
+    { slug: "github", name: "GitHub" },
+    { slug: "figma", name: "Figma" },
+    { slug: "asana", name: "Asana" },
+    { slug: "discord", name: "Discord" },
+    { slug: "zoom", name: "Zoom" },
+    { slug: "microsoftteams", name: "Teams" },
+    { slug: "trello", name: "Trello" },
+    { slug: "intercom", name: "Intercom" }
+  ];
+
+  const trustedBrands = [
+    { slug: "stripe", name: "Stripe" },
+    { slug: "shopify", name: "Shopify" },
+    { slug: "vercel", name: "Vercel" },
+    { slug: "cloudflare", name: "Cloudflare" },
+    { slug: "datadog", name: "Datadog" },
+    { slug: "supabase", name: "Supabase" },
+    { slug: "airbnb", name: "Airbnb" },
+    { slug: "spotify", name: "Spotify" },
+  ];
+
+  const premiumQuadrants = [
+    { id: "Q.01", title: "Audit-grade trail", body: "Every keystroke, route, and reply lands in a tamper-evident log — exportable for SOC-2 and ISO 27001 review without an extra screen.", img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=85&auto=format&fit=crop", alt: "Top-down team workspace with multiple laptops and notes" },
+    { id: "Q.02", title: "Zero-flake routing", body: "Adaptive priority queues catch the message before the noise. Median first-touch under 90 seconds — even at 10k DAU.", img: "https://images.unsplash.com/photo-1488229297570-58520851e868?w=1200&q=85&auto=format&fit=crop", alt: "Data-centre tunnel of golden lights" },
+    { id: "Q.03", title: "Native to the keyboard", body: "Cmd+K opens every action — search, draft, file, schedule, deflect. The mouse becomes optional, then forgotten.", img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=85&auto=format&fit=crop", alt: "Code editor close-up with syntax-highlighted source" },
+    { id: "Q.04", title: "Dashboards that decide", body: "Live triage, throughput, and saturation panels — built into the inbox, not bolted on. Decision-grade, never decorative.", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=85&auto=format&fit=crop", alt: "Analytics dashboard with charts on screen" },
   ];
 
   return (
@@ -419,6 +437,115 @@ function BentoGridLanding() {
             </article>
           </section>
 
+          {/* Trusted-by row — real brand logos */}
+          <section className="mx-auto w-full max-w-6xl py-6" aria-label="Trusted by leading teams">
+            <p className="text-center font-label-caps uppercase tracking-[0.25em] text-on-surface-variant text-[11px] mb-7">Trusted by teams at</p>
+            <ul role="list" className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-8 gap-y-7 items-center justify-items-center bg-surface-container-lowest border border-surface-container-highest rounded-2xl px-6 py-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+              {trustedBrands.map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}`} alt={b.name} className="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32" />
+                  <span className="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">{b.name}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Mockup feature section A — image LEFT, content RIGHT */}
+          <section className="mx-auto w-full max-w-6xl" aria-labelledby="feat-a-heading">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-7 relative">
+                <div className="relative rounded-2xl overflow-hidden border border-surface-container-highest bg-white shadow-[0_24px_60px_-20px_rgba(79,55,138,0.25)]">
+                  <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=1400&q=85&auto=format&fit=crop" alt="Triage dashboard mockup on a dual-monitor workstation" className="w-full aspect-[16/10] object-cover" loading="lazy" decoding="async" width="1400" height="875" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-on-surface/30 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-white/95 backdrop-blur px-3 py-1 shadow-sm">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">Live · 1,284 events / hr</span>
+                  </div>
+                  <div className="absolute -bottom-6 -right-6 hidden md:block w-44 rounded-xl border border-surface-container-highest bg-white p-3 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.18)]">
+                    <p className="font-label-caps text-[10px] uppercase tracking-wider text-primary">Median TTFR</p>
+                    <p className="font-display-xl text-on-background tabular-nums leading-none mt-1">82s</p>
+                    <p className="text-[10px] text-on-surface-variant mt-1">−63% vs. legacy stack</p>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-5 flex flex-col gap-5">
+                <span className="font-label-caps uppercase tracking-[0.2em] text-primary">// Feature · 01 / Triage</span>
+                <h2 id="feat-a-heading" className="font-headline-lg text-on-background text-balance">A triage queue that thinks two threads ahead.</h2>
+                <p className="text-on-surface-variant text-body-lg leading-relaxed">Every Slack ping, email, and Linear update lands in one priority queue, sorted by impact — never by recency. The team's first reply is informed before anyone has to read the room.</p>
+                <ul className="flex flex-col gap-3 text-body-md text-on-surface-variant">
+                  <li className="flex items-start gap-3"><span className="material-symbols-outlined text-primary text-lg mt-0.5" aria-hidden="true">bolt</span><span><strong className="text-on-background">90s median first-touch</strong> across three channels — measured, not promised.</span></li>
+                  <li className="flex items-start gap-3"><span className="material-symbols-outlined text-primary text-lg mt-0.5" aria-hidden="true">filter_alt</span><span><strong className="text-on-background">Auto-collapse</strong> chatty threads behind a single decision card.</span></li>
+                  <li className="flex items-start gap-3"><span className="material-symbols-outlined text-primary text-lg mt-0.5" aria-hidden="true">replay</span><span><strong className="text-on-background">One keystroke undo</strong> — every triage decision is reversible for 30 days.</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Mockup feature section B — image RIGHT, content LEFT */}
+          <section className="mx-auto w-full max-w-6xl" aria-labelledby="feat-b-heading">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-5 flex flex-col gap-5 md:order-1 order-2">
+                <span className="font-label-caps uppercase tracking-[0.2em] text-primary" style={{ color: "#765b00" }}>// Feature · 02 / Command</span>
+                <h2 id="feat-b-heading" className="font-headline-lg text-on-background text-balance">The command bar your fingers already know.</h2>
+                <p className="text-on-surface-variant text-body-lg leading-relaxed">Cmd+K is the new Cmd+T. Search across every connected tool, draft replies with cited context, file an issue, schedule a follow-up — all without breaking your typing rhythm.</p>
+                <div className="grid grid-cols-2 gap-4 mt-2">
+                  <div className="rounded-xl border border-surface-container-highest bg-surface-container-lowest p-4">
+                    <p className="font-display-xl tabular-nums leading-none" style={{ color: "#765b00" }}>2,400+</p>
+                    <p className="text-xs text-on-surface-variant mt-2 uppercase tracking-widest font-semibold">Hotkey actions</p>
+                  </div>
+                  <div className="rounded-xl border border-surface-container-highest bg-surface-container-lowest p-4">
+                    <p className="font-display-xl tabular-nums leading-none" style={{ color: "#765b00" }}>0 ms</p>
+                    <p className="text-xs text-on-surface-variant mt-2 uppercase tracking-widest font-semibold">Network on open</p>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-7 relative md:order-2 order-1">
+                <div className="relative rounded-2xl overflow-hidden border border-surface-container-highest bg-white shadow-[0_24px_60px_-20px_rgba(118,91,0,0.18)]">
+                  <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1400&q=85&auto=format&fit=crop" alt="Hands typing on a laptop keyboard close-up" className="w-full aspect-[16/10] object-cover" loading="lazy" decoding="async" width="1400" height="875" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-on-surface/40 via-transparent to-transparent pointer-events-none"></div>
+                  {/* Cmd+K floating panel */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[78%] max-w-md rounded-2xl border border-white/40 bg-white/95 backdrop-blur-md shadow-[0_24px_60px_-12px_rgba(0,0,0,0.35)] p-4">
+                    <div className="flex items-center gap-3 px-2 py-2 border-b border-surface-container-highest">
+                      <span className="material-symbols-outlined text-outline text-base" aria-hidden="true">search</span>
+                      <span className="text-on-surface-variant text-body-md flex-1">Reply to Sarah · auth flow PR</span>
+                      <span className="flex gap-1"><kbd className="rounded bg-surface-container px-1.5 text-[10px]">⌘</kbd><kbd className="rounded bg-surface-container px-1.5 text-[10px]">K</kbd></span>
+                    </div>
+                    <ul className="flex flex-col py-2 text-sm">
+                      <li className="flex items-center gap-3 px-2 py-1.5 rounded bg-primary-container/10"><span className="material-symbols-outlined text-primary text-base">reply</span><span className="text-on-background">Draft reply with PR context…</span></li>
+                      <li className="flex items-center gap-3 px-2 py-1.5"><span className="material-symbols-outlined text-outline text-base">add_task</span><span className="text-on-surface-variant">Create Linear issue ORB-…</span></li>
+                      <li className="flex items-center gap-3 px-2 py-1.5"><span className="material-symbols-outlined text-outline text-base">schedule</span><span className="text-on-surface-variant">Snooze 2 hours</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 2x2 Premium pillars — image-bg quadrants */}
+          <section className="mx-auto w-full max-w-6xl" aria-label="Premium platform">
+            <div className="text-center mb-10 max-w-2xl mx-auto">
+              <span className="font-label-caps uppercase tracking-[0.2em] text-primary mb-3 block">// Premium platform</span>
+              <h2 className="font-headline-lg text-on-background text-balance">Built for teams that don't get a second take.</h2>
+              <p className="text-on-surface-variant text-body-lg mt-3">Four guarantees that make Orbit the inbox of record — not a copy.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {premiumQuadrants.map(q => (
+                <article key={q.id} className="relative group overflow-hidden rounded-2xl border border-surface-container-highest aspect-[4/3] bg-on-background">
+                  <img src={q.img} alt={q.alt} className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900" />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(14,10,31,0.30) 0%, rgba(14,10,31,0.55) 50%, rgba(14,10,31,0.92) 100%)" }}></div>
+                  <div className="absolute top-4 right-4 rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1 font-label-caps text-[10px] uppercase tracking-[0.2em] text-white">{q.id}</div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <h3 className="font-headline-md text-white tracking-tight leading-tight mb-2">{q.title}</h3>
+                    <p className="text-white/85 text-body-md leading-relaxed max-w-md text-pretty">{q.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
           {/* Integrations Marquee — soft lavender wash, full-bleed */}
           <section className="full-bleed px-4 sm:px-6 md:px-12 py-12 md:py-16 overflow-hidden" aria-label="Integrations" style={{ background: "linear-gradient(180deg, transparent 0%, #f5eefb 25%, #efe5f7 75%, transparent 100%)" }}>
             <div className="max-w-6xl mx-auto mb-8 flex items-end justify-between gap-6">
@@ -432,7 +559,7 @@ function BentoGridLanding() {
               <div className="marquee-x py-2">
                 {[...integrations, ...integrations].map((it, i) => (
                   <span key={i} className="integration-pill">
-                    <span className="ipill-mark" style={{ background: it.grad }}>{it.initials}</span>
+                    <img src={`https://cdn.simpleicons.org/${it.slug}`} alt="" aria-hidden="true" className="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20" />
                     <span className="font-medium text-on-background">{it.name}</span>
                   </span>
                 ))}

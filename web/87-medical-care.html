@@ -423,7 +423,7 @@
                     <span class="font-label-caps text-terracotta tabular-nums">Step 01</span>
                     <h3 class="font-headline-sm text-pine">Inquiry</h3>
                     <p class="font-body-sm text-pine/70 leading-relaxed">Online or by phone, in under 90 seconds. No referral needed.</p>
-                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                    <div class="mt-auto rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
                         <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=85&auto=format&fit=crop" alt="Patient using a phone to book a clinic appointment" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
                     </div>
                 </li>
@@ -435,7 +435,7 @@
                     <span class="font-label-caps text-terracotta tabular-nums">Step 02</span>
                     <h3 class="font-headline-sm text-pine">Consultation</h3>
                     <p class="font-body-sm text-pine/70 leading-relaxed">A 30-minute conversation. We listen, examine, and explain.</p>
-                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                    <div class="mt-auto rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
                         <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=85&auto=format&fit=crop" alt="Doctor and patient in conversation during consultation" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
                     </div>
                 </li>
@@ -447,7 +447,7 @@
                     <span class="font-label-caps text-terracotta tabular-nums">Step 03 · Live</span>
                     <h3 class="font-headline-sm text-pine">Personal Plan</h3>
                     <p class="font-body-sm text-pine/70 leading-relaxed">Co-created with your practitioner. Sent to your portal within 24 hours.</p>
-                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                    <div class="mt-auto rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
                         <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600&q=85&auto=format&fit=crop" alt="Care plan being prepared on a tablet in a consultation room" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
                     </div>
                 </li>
@@ -459,7 +459,7 @@
                     <span class="font-label-caps text-pine/50 tabular-nums">Step 04</span>
                     <h3 class="font-headline-sm text-pine">Treatment</h3>
                     <p class="font-body-sm text-pine/70 leading-relaxed">In-clinic procedures, medication, or onward referral — coordinated end-to-end.</p>
-                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                    <div class="mt-auto rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
                         <img src="https://images.unsplash.com/photo-1631815587646-b85a1bb027e1?w=600&q=85&auto=format&fit=crop" alt="Treatment instruments laid out neatly on a clinical surface" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
                     </div>
                 </li>
@@ -471,7 +471,7 @@
                     <span class="font-label-caps text-pine/50 tabular-nums">Step 05</span>
                     <h3 class="font-headline-sm text-pine">Follow-up</h3>
                     <p class="font-body-sm text-pine/70 leading-relaxed">A scheduled check-in by your practitioner — every plan ends with a review.</p>
-                    <div class="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                    <div class="mt-auto rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
                         <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&q=85&auto=format&fit=crop" alt="A practitioner reviewing notes with a patient at a follow-up appointment" class="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
                     </div>
                 </li>
@@ -553,48 +553,85 @@
                         <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=900&q=85&auto=format&fit=crop" alt="Patient at the clinic reception desk being greeted by friendly staff" class="w-full h-full object-cover" width="700" height="875" loading="lazy" decoding="async" />
                     </div>
                 </div>
-                <div class="md:col-span-7 flex flex-col divide-y divide-pine/10 border-t border-b border-pine/10">
+                <!-- Right rail: FAQ list + Email-Us mini form. flex-col + flex-1 on the form
+                     card so its height stretches to bottom-align with the left rail's
+                     paragraph + aspect-[4/5] image. -->
+                <div class="md:col-span-7 flex flex-col">
+                    <div class="flex flex-col divide-y divide-pine/10 border-t border-b border-pine/10">
 
-                    <details class="wb-faq group py-5 md:py-6">
-                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
-                            <h3 class="font-headline-sm text-pine pr-2">Do I need a referral to be seen?</h3>
-                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
-                        </summary>
-                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">No referral is required for general practice or any of our specialty programmes. Walk-ins are welcome between 8am and 6pm; same-day slots typically open at 7am for that day.</p>
-                    </details>
+                        <details class="wb-faq group py-5 md:py-6">
+                            <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                                <h3 class="font-headline-sm text-pine pr-2">Do I need a referral to be seen?</h3>
+                                <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                            </summary>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">No referral is required for general practice or any of our specialty programmes. Walk-ins are welcome between 8am and 6pm; same-day slots typically open at 7am for that day.</p>
+                        </details>
 
-                    <details class="wb-faq group py-5 md:py-6">
-                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
-                            <h3 class="font-headline-sm text-pine pr-2">Which insurance providers do you accept?</h3>
-                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
-                        </summary>
-                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">VHI, Laya, Irish Life Health and HSF — direct settlement on most consultations. We provide an itemised receipt for any out-of-pocket fees so you can claim back in minutes.</p>
-                    </details>
+                        <details class="wb-faq group py-5 md:py-6">
+                            <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                                <h3 class="font-headline-sm text-pine pr-2">Which insurance providers do you accept?</h3>
+                                <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                            </summary>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">VHI, Laya, Irish Life Health and HSF — direct settlement on most consultations. We provide an itemised receipt for any out-of-pocket fees so you can claim back in minutes.</p>
+                        </details>
 
-                    <details class="wb-faq group py-5 md:py-6">
-                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
-                            <h3 class="font-headline-sm text-pine pr-2">How quickly can I get test results?</h3>
-                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
-                        </summary>
-                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Standard blood work returns in 24–48 hours via your patient portal. Pathology and imaging are usually back within 5 working days; urgent results trigger a same-day phone call from your practitioner.</p>
-                    </details>
+                        <details class="wb-faq group py-5 md:py-6">
+                            <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                                <h3 class="font-headline-sm text-pine pr-2">How quickly can I get test results?</h3>
+                                <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                            </summary>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Standard blood work returns in 24–48 hours via your patient portal. Pathology and imaging are usually back within 5 working days; urgent results trigger a same-day phone call from your practitioner.</p>
+                        </details>
 
-                    <details class="wb-faq group py-5 md:py-6">
-                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
-                            <h3 class="font-headline-sm text-pine pr-2">Do you offer telehealth consultations?</h3>
-                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
-                        </summary>
-                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Yes — repeat-prescription reviews, mental health follow-ups and many general consultations can be done by secure video call. Booking flow is identical; just choose "video" instead of "in-clinic".</p>
-                    </details>
+                        <details class="wb-faq group py-5 md:py-6">
+                            <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                                <h3 class="font-headline-sm text-pine pr-2">Do you offer telehealth consultations?</h3>
+                                <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                            </summary>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Yes — repeat-prescription reviews, mental health follow-ups and many general consultations can be done by secure video call. Booking flow is identical; just choose "video" instead of "in-clinic".</p>
+                        </details>
 
-                    <details class="wb-faq group py-5 md:py-6">
-                        <summary class="flex items-start justify-between gap-6 cursor-pointer">
-                            <h3 class="font-headline-sm text-pine pr-2">Is there parking on site?</h3>
-                            <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
-                        </summary>
-                        <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Six on-site spaces (one accessible) plus the public lot at Wellington Place two minutes away. Pearse Street DART is a 6-minute walk; bicycle parking is covered, secured and at street level.</p>
-                    </details>
+                        <details class="wb-faq group py-5 md:py-6">
+                            <summary class="flex items-start justify-between gap-6 cursor-pointer">
+                                <h3 class="font-headline-sm text-pine pr-2">Is there parking on site?</h3>
+                                <span class="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                            </summary>
+                            <p class="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">Six on-site spaces (one accessible) plus the public lot at Wellington Place two minutes away. Pearse Street DART is a 6-minute walk; bicycle parking is covered, secured and at street level.</p>
+                        </details>
 
+                    </div>
+                    <aside class="mt-8 md:mt-10 flex-1 flex flex-col gap-5 p-6 md:p-8 rounded-2xl bg-offwhite border border-pine/10 shadow-soft">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-lg bg-terracotta/10 flex items-center justify-center text-terracotta">
+                                <span class="material-symbols-outlined text-[22px]" aria-hidden="true">mail</span>
+                            </span>
+                            <div class="flex flex-col">
+                                <span class="font-label-caps text-terracotta">Still have a question?</span>
+                                <span class="font-headline-sm text-pine">Email the admin team</span>
+                            </div>
+                        </div>
+                        <p class="font-body-sm text-pine/70 leading-relaxed">A short message — we reply within one working day. For anything clinical, please call the practice instead.</p>
+                        <form class="flex flex-col gap-4 mt-auto" action="#" method="POST" onsubmit="event.preventDefault();">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="flex flex-col gap-1.5">
+                                    <label for="faq-name" class="font-label-caps text-pine/60">Your name</label>
+                                    <input id="faq-name" name="name" type="text" placeholder="Jane Murphy" class="w-full border border-pine/20 rounded-lg px-3 py-2.5 bg-white text-pine placeholder:text-pine/40 transition-colors hover:border-pine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:border-transparent text-sm" />
+                                </div>
+                                <div class="flex flex-col gap-1.5">
+                                    <label for="faq-email" class="font-label-caps text-pine/60">Email</label>
+                                    <input id="faq-email" name="email" type="email" placeholder="jane@example.com" class="w-full border border-pine/20 rounded-lg px-3 py-2.5 bg-white text-pine placeholder:text-pine/40 transition-colors hover:border-pine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:border-transparent text-sm" />
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label for="faq-msg" class="font-label-caps text-pine/60">Message</label>
+                                <textarea id="faq-msg" name="message" rows="3" placeholder="A sentence or two on what you'd like to ask…" class="w-full border border-pine/20 rounded-lg px-3 py-2.5 bg-white text-pine placeholder:text-pine/40 transition-colors hover:border-pine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:border-transparent text-sm resize-none"></textarea>
+                            </div>
+                            <button type="submit" class="self-start bg-terracotta text-white px-5 py-3 rounded-lg font-label-caps tracking-wider hover:bg-[#b86b4d] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-offwhite transition-all inline-flex items-center gap-2 group shadow-sm">
+                                Send Message
+                                <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                            </button>
+                        </form>
+                    </aside>
                 </div>
             </div>
         </section>

@@ -3,23 +3,41 @@ function DarkAcademia() {
     { label: "Vellum & Sepia", meta: "Restoration Ledger · No. II", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC2OCzU3XWvgc9dkwbHMgQQ4y9jwGaRdjOudE--xNEBCCQZmIAFWQByZUOHXXA7IR6mfW8Uxyv1uD_aj_nXdbXn77xori7Ylx_ZAZPaSXilw8sBvr_uIgOrJqFURlDwloU0Bzvbe4lkdb9UKbIIXMcD7X9TrVeobCueFEvzZBxwPBTbdvmJCQvxbJCsZAIbxGWpir5xmuOF-Zt8UyNsJ1NMTjcAkG-4mbxzhPLTreT5-hRsULdWHoceUUOLiqJmzqsnu-iIs5HS-6uH" },
     { label: "Newcastle, c. 1731", meta: "Provenance Note · 014", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuB9WkrYzItu10hlG6COyZ965tOKglm7AVs_o3kdnpfdsag31atSQ3xwEHm0nuxIGaA9TMs-nKoi6_Q9JLytIyB5xmxEdpb1T-3lRNALKf5ufWBtvn696gqCLugpv0TvN27YVJwBLfg2sKsjM777aDTvHTo1yLNKyc-YYepLu0_jxPNkGWHyPZ6qMUems9zJ-HxNrRaq6ZJSUSM_dvUUIh-p2I-T7-7ezEAaHI1y9yT3HHey6BaLZgCdugZU6HRzdJ1tve-iJ2Jk8Han" },
     { label: "Quarto · No. XII", meta: "Imprint Folio · MMIV", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAQMkvanduR0us5h0TEDN3dtAPuU-aB3jpBc5SrjINMBI_SIfi5nh7pmA7wYkGBHOqc2m4dwYauHFGn_0YdsGVxXgpIuzpEx1SNWRy6yEzbzaqf9rcnk_GWrgqCi9aHoFBCKMJXv4TyFUaOzCwepJCo1nRM-Mh6ivPwUAxUtldEom0AgOzUj_e-1ievSCQaSfQdahBgyn8drhyMeIUOs5CGRxRXk2dJIYCxfjxNwPrZXnOjAAhsM3EyIKbX-eeXfNr8j1DsRLDIRVPq" },
-    { label: "Florentine Press", meta: "Bookplate · Δ-1612", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&q=80&auto=format&fit=crop" },
+    { label: "Florentine Press", meta: "Bookplate · Δ-1612", img: "https://images.unsplash.com/photo-1604516087408-a7cde81ecf0f?w=400&q=80&auto=format" },
     { label: "Earl of Bracknell", meta: "Acquisition · MCMLXXXII", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD7dJghdM_Sn7Zs7akejIhwTFN0AU4u_KSqD3DrxFF6JFXLhMZTBTGWVX59ytTKWBi8fIdOKVLhdWUxhoLRE8Mhmte5Uhhth18hCvZB6U9vThF1SF2vIUj1S2ThUSjW12JqlwqO8XjusknX8tDHwUavMRdZE0I2jLxf9t1o1g4UYwVsOuP4vZZmssirLHJ8lk7oFC0Fa6c8h74jM2LOXnwYQhfFai4-gAGnGnznt28Jkp45zoZKzQbU2tNgDvOFKqkywtPDnfxXjo9g" },
-    { label: "Reading Room IV", meta: "By Appointment · MMXXIV", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80&auto=format&fit=crop" },
+    { label: "Reading Room IV", meta: "By Appointment · MMXXIV", img: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?w=400&q=80&auto=format" },
   ];
 
   const bindings = [
-    { span: "lg:col-span-7", aspect: "aspect-[4/3]", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&q=85&auto=format&fit=crop", chip: "Plate I", title: "The North Reading Room", body: "By appointment · 1st floor", roman: "I" },
-    { span: "lg:col-span-5", aspect: "aspect-[4/3]", stretch: true, img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1100&q=85&auto=format&fit=crop", chip: "Plate II", title: "Calf, Gilt-Tooled", body: "Rebound · Newcastle, 1731", roman: "II" },
-    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", chip: "Plate III", title: "The Antechamber", body: "Candlelight · Dusk", roman: "III" },
-    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", chip: "Plate IV", title: "Apparatus", body: "Brass & Bone, c. 1730", roman: "IV" },
-    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", chip: "Plate V", title: "The West Wing", body: "Stone · Vellum · Hush", roman: "V" },
+    { span: "lg:col-span-7", aspect: "aspect-[4/3]", img: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1400&q=85&auto=format", chip: "Plate I", title: "The North Reading Room", body: "By appointment · 1st floor", roman: "I" },
+    { span: "lg:col-span-5", aspect: "aspect-[4/3]", stretch: true, img: "https://images.unsplash.com/photo-1532153975070-2e9ab71f1b14?w=1100&q=85&auto=format", chip: "Plate II", title: "Calf, Gilt-Tooled", body: "Rebound · Newcastle, 1731", roman: "II" },
+    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=900&q=85&auto=format", chip: "Plate III", title: "The Antechamber", body: "Candlelight · Dusk", roman: "III" },
+    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format", chip: "Plate IV", title: "Apparatus", body: "Brass & Bone, c. 1730", roman: "IV" },
+    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=900&q=85&auto=format", chip: "Plate V", title: "The West Wing", body: "Stone · Vellum · Hush", roman: "V" },
   ];
 
   const doctrineCol2Images = [
-    { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=700&q=85&auto=format&fit=crop", alt: "Heritage stone", caption: "Plate · 06", roman: "VI" },
-    { src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=700&q=85&auto=format&fit=crop", alt: "Apothecary brass", caption: "Plate · 07", roman: "VII" },
-    { src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=700&q=85&auto=format&fit=crop", alt: "Reading interior", caption: "Plate · 08", roman: "VIII" },
+    { src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=900&q=85&auto=format", alt: "Quarto folio", caption: "Plate · 06", roman: "VI" },
+    { src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format", alt: "Apothecary brass", caption: "Plate · 07", roman: "VII" },
+    { src: "https://images.unsplash.com/photo-1568667256549-094345857637?w=900&q=85&auto=format", alt: "Open folio", caption: "Plate · 08", roman: "VIII" },
+  ];
+
+  const trustedLogos = [
+    { slug: "medium", name: "Medium" },
+    { slug: "telegraph", name: "Telegraph" },
+    { slug: "theguardian", name: "Guardian" },
+    { slug: "substack", name: "Substack" },
+    { slug: "behance", name: "Behance" },
+    { slug: "vimeo", name: "Vimeo" },
+    { slug: "wetransfer", name: "WeTransfer" },
+    { slug: "framer", name: "Framer" },
+  ];
+
+  const stations = [
+    { icon: "auto_stories", title: "The Stacks", body: "Six rooms of catalogued shelving, ledger-tracked, climate-stilled. The principal floor is open by appointment; the closed stacks remain so.", chip: "Open · By appointment", featured: false },
+    { icon: "gesture", title: "The Atelier", body: "In-house rebinding in calf, morocco, and vellum. We mend with restraint, retaining the patina that authored the artifact.", chip: "Most asked", featured: true },
+    { icon: "bookmark", title: "The Marginalia", body: "We catalogue every prior keeper, ex-libris, and inscription. A book without provenance is, to us, a book without an author.", chip: "Folio · Three vols.", featured: false },
+    { icon: "mail", title: "The Letter", body: "All inquiries answered in longhand, on house paper, within a fortnight. The reading room is reached by written request only.", chip: "Reply within 14 days", featured: false },
   ];
 
   const doctrines = [
@@ -32,8 +50,8 @@ function DarkAcademia() {
 
   const provenance = [
     { num: "I", title: "The Macclesfield Sale", year: "MCMLXXII", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC2OCzU3XWvgc9dkwbHMgQQ4y9jwGaRdjOudE--xNEBCCQZmIAFWQByZUOHXXA7IR6mfW8Uxyv1uD_aj_nXdbXn77xori7Ylx_ZAZPaSXilw8sBvr_uIgOrJqFURlDwloU0Bzvbe4lkdb9UKbIIXMcD7X9TrVeobCueFEvzZBxwPBTbdvmJCQvxbJCsZAIbxGWpir5xmuOF-Zt8UyNsJ1NMTjcAkG-4mbxzhPLTreT5-hRsULdWHoceUUOLiqJmzqsnu-iIs5HS-6uH", body: "A 1731 Virgil with the bookplate of George Parker, recovered from a Norfolk estate. Bound in original calf, spine lettering intact, kept exactly as we found it." },
-    { num: "II", title: "Norfolk Folio Cache", year: "MCMXCVI", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", body: "Twelve folio editions found in a sealed library, last opened during the war. Each leaf catalogued, each provenance traced to a 17th-century Italian press." },
-    { num: "III", title: "The Bracknell Donation", year: "MMXIV", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", body: "A complete first edition of 'On the Origin of Species' donated by an anonymous reader. Authenticated, conserved, and now offered with the original correspondence." },
+    { num: "II", title: "Norfolk Folio Cache", year: "MCMXCVI", img: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=900&q=85&auto=format", body: "Twelve folio editions found in a sealed library, last opened during the war. Each leaf catalogued, each provenance traced to a 17th-century Italian press." },
+    { num: "III", title: "The Bracknell Donation", year: "MMXIV", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=900&q=85&auto=format", body: "A complete first edition of 'On the Origin of Species' donated by an anonymous reader. Authenticated, conserved, and now offered with the original correspondence." },
   ];
 
   return (
@@ -270,15 +288,15 @@ function DarkAcademia() {
           </div>
 
           {/* Recent Acquisitions */}
-          <section className="w-full max-w-container-max mx-auto px-gutter pb-24">
-            <div className="text-center mb-16">
+          <section className="w-full max-w-container-max mx-auto px-gutter pb-32 md:pb-40">
+            <div className="text-center mb-20 md:mb-24">
               <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase mb-4">Recent Acquisitions</h3>
               <p className="font-body-md text-body-md text-on-surface-variant italic">A selection from our latest folio.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 lg:gap-x-28 gap-y-16 md:gap-y-20">
 
               {/* Entry 1 */}
-              <article className="flex gap-6 items-start group border border-transparent hover:border-outline-variant/30 p-4 transition-colors duration-500 rounded-sm">
+              <article className="flex gap-8 items-start group border border-transparent hover:border-outline-variant/30 p-6 md:p-8 transition-colors duration-500 rounded-sm">
                 <div className="w-24 h-36 shrink-0 bg-surface-container overflow-hidden shadow-md">
                   <img
                     alt="Book spine"
@@ -298,7 +316,7 @@ function DarkAcademia() {
               </article>
 
               {/* Entry 2 */}
-              <article className="flex gap-6 items-start group border border-transparent hover:border-outline-variant/30 p-4 transition-colors duration-500 rounded-sm">
+              <article className="flex gap-8 items-start group border border-transparent hover:border-outline-variant/30 p-6 md:p-8 transition-colors duration-500 rounded-sm">
                 <div className="w-24 h-36 shrink-0 bg-surface-container overflow-hidden shadow-md">
                   <img
                     alt="Book spine"
@@ -318,7 +336,7 @@ function DarkAcademia() {
               </article>
 
               {/* Entry 3 */}
-              <article className="flex gap-6 items-start group border border-transparent hover:border-outline-variant/30 p-4 transition-colors duration-500 rounded-sm">
+              <article className="flex gap-8 items-start group border border-transparent hover:border-outline-variant/30 p-6 md:p-8 transition-colors duration-500 rounded-sm">
                 <div className="w-24 h-36 shrink-0 bg-surface-container overflow-hidden shadow-md">
                   <img
                     alt="Book spine"
@@ -338,7 +356,7 @@ function DarkAcademia() {
               </article>
 
               {/* Entry 4 */}
-              <article className="flex gap-6 items-start group border border-transparent hover:border-outline-variant/30 p-4 transition-colors duration-500 rounded-sm">
+              <article className="flex gap-8 items-start group border border-transparent hover:border-outline-variant/30 p-6 md:p-8 transition-colors duration-500 rounded-sm">
                 <div className="w-24 h-36 shrink-0 bg-surface-container overflow-hidden shadow-md">
                   <img
                     alt="Book spine"
@@ -360,6 +378,42 @@ function DarkAcademia() {
 
             <div className="mt-12 text-center">
               <a className="inline-block font-label-sm text-label-sm text-on-surface uppercase tracking-widest border-b border-outline-variant hover:border-tertiary-fixed-dim hover:text-tertiary-fixed-dim transition-all pb-2" href="#">View the Complete Catalogue</a>
+            </div>
+          </section>
+
+          {/* Trusted by — editorial press / stockists, cream-on-dark */}
+          <section className="relative w-full overflow-hidden py-20 md:py-28" style={{ backgroundColor: "#1a1409" }}>
+            <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none paper-grain"></div>
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-tertiary-fixed-dim/40 to-transparent"></div>
+            <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-on-tertiary-container/40 to-transparent"></div>
+
+            <div className="max-w-container-max mx-auto px-gutter relative z-10">
+              <div className="text-center mb-12">
+                <div className="flex items-center justify-center gap-4 mb-5">
+                  <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
+                  <span className="font-label-sm text-label-sm text-tertiary-fixed-dim uppercase tracking-[0.3em]">— Praised in print · Stocked at —</span>
+                  <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
+                </div>
+                <h3 className="font-display-md text-display-md text-on-surface italic font-serif">Quoted by the <em className="text-tertiary-fixed-dim">careful</em> presses.</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant italic mt-4 max-w-xl mx-auto">A short list of journals, presses, and stockists who have quoted, reviewed, or carried titles from the house.</p>
+              </div>
+
+              <div className="bg-surface-container-lowest/60 border border-outline-variant/30 backdrop-blur-sm p-10 md:p-14">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-10 items-center justify-items-center">
+                  {trustedLogos.map(l => (
+                    <div key={l.slug} className="flex flex-col items-center gap-3 group">
+                      <img src={`https://cdn.simpleicons.org/${l.slug}/c5a059`} alt={l.name} className="h-7 w-auto opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+                      <span className="font-label-sm text-[9px] tracking-[0.3em] uppercase text-on-secondary-container opacity-70 group-hover:opacity-100 transition-opacity">{l.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-10 flex items-center justify-center gap-4 font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-secondary-container opacity-70 text-center flex-wrap">
+                <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
+                <span>+ 12 indie booksellers · 4 universities · MMXII — present</span>
+                <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
+              </div>
             </div>
           </section>
 
@@ -413,7 +467,7 @@ function DarkAcademia() {
             <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none paper-grain"></div>
 
             <div className="max-w-7xl mx-auto px-gutter relative z-10">
-              <div className="grid grid-cols-1 lg:grid-cols-[4fr_3fr_5fr] gap-x-32 gap-y-12">
+              <div className="grid grid-cols-1 lg:grid-cols-[4fr_3fr_5fr] gap-x-32 gap-y-12 items-stretch">
 
                 {/* Col 1 — header + intro + blockquote + bottom-anchored plate pair */}
                 <div className="flex flex-col">
@@ -430,15 +484,15 @@ function DarkAcademia() {
                     <cite className="block font-label-sm text-[10px] not-italic tracking-[0.3em] uppercase text-on-secondary-container mt-3">— Julian Thorne, Proprietor</cite>
                   </blockquote>
                   {/* Plate pair — anchored at bottom with equal gap between */}
-                  <div className="mt-auto flex flex-col gap-10 pt-10">
+                  <div className="mt-auto flex flex-col gap-14 pt-10">
                     <figure className="group relative overflow-hidden bg-surface-container-lowest border border-outline-variant/30">
                       <div className="aspect-[4/3] relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="The Stairwell" className="w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
+                        <img src="https://images.unsplash.com/photo-1530538987395-032d1800fdd4?w=900&q=85&auto=format" alt="The Stairwell" className="w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/15 to-transparent"></div>
                         <div className="absolute top-3 left-3 font-label-sm text-label-sm tracking-[0.3em] uppercase text-tertiary-fixed-dim bg-background/70 backdrop-blur-sm border border-tertiary-fixed-dim/30 px-2 py-1 text-[10px]">Plate · 04</div>
                         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3">
                           <div>
-                            <h4 className="font-headline-sm text-base italic text-on-surface leading-tight">The Stairwell</h4>
+                            <h4 className="font-headline-sm text-base italic text-on-surface leading-tight">The Closed Stack</h4>
                             <p className="font-label-sm text-[9px] tracking-[0.25em] uppercase text-on-secondary-container mt-1">East Wing · Quarter past four</p>
                           </div>
                           <span className="font-display-md text-2xl italic font-thin text-tertiary-fixed-dim leading-none">IV</span>
@@ -447,13 +501,13 @@ function DarkAcademia() {
                     </figure>
                     <figure className="group relative overflow-hidden bg-surface-container-lowest border border-outline-variant/30">
                       <div className="aspect-[4/3] relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="House facade" className="w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
+                        <img src="https://images.unsplash.com/photo-1576613109753-27804de2cba8?w=900&q=85&auto=format" alt="Bookshelf spines" className="w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/15 to-transparent"></div>
                         <div className="absolute top-3 left-3 font-label-sm text-label-sm tracking-[0.3em] uppercase text-tertiary-fixed-dim bg-background/70 backdrop-blur-sm border border-tertiary-fixed-dim/30 px-2 py-1 text-[10px]">Plate · 05</div>
                         <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3">
                           <div>
-                            <h4 className="font-headline-sm text-base italic text-on-surface leading-tight">House Façade</h4>
-                            <p className="font-label-sm text-[9px] tracking-[0.25em] uppercase text-on-secondary-container mt-1">Antiquary Lane · Dawn</p>
+                            <h4 className="font-headline-sm text-base italic text-on-surface leading-tight">Bound Spines</h4>
+                            <p className="font-label-sm text-[9px] tracking-[0.25em] uppercase text-on-secondary-container mt-1">East Stack · Shelf XII</p>
                           </div>
                           <span className="font-display-md text-2xl italic font-thin text-tertiary-fixed-dim leading-none">V</span>
                         </div>
@@ -462,21 +516,52 @@ function DarkAcademia() {
                   </div>
                 </div>
 
-                {/* Col 2 — 3 stacked vertical images, each stretches to flex share */}
-                <div className="flex flex-col gap-6">
-                  {doctrineCol2Images.map(img => (
-                    <figure key={img.caption} className="group relative overflow-hidden bg-surface-container-lowest border border-outline-variant/30 flex-1 lg:min-h-0">
-                      <div className="aspect-[3/4] lg:aspect-auto lg:h-full relative overflow-hidden">
-                        <img src={img.src} alt={img.alt} className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent"></div>
-                        <div className="absolute top-3 left-3 font-label-sm text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim bg-background/70 backdrop-blur-sm border border-tertiary-fixed-dim/30 px-2 py-1">{img.caption}</div>
-                        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-                          <span className="font-label-sm text-[9px] tracking-[0.25em] uppercase text-on-secondary-container">— {img.alt}</span>
-                          <span className="font-display-md text-xl italic font-thin text-tertiary-fixed-dim leading-none">{img.roman}</span>
-                        </div>
+                {/* Col 2 — 3 squared plates with text inserts between, justify-between distributes through */}
+                <div className="flex flex-col gap-6 md:gap-8 lg:h-full lg:justify-between">
+                  <figure className="group relative overflow-hidden bg-surface-container-lowest border border-outline-variant/30">
+                    <div className="aspect-square relative overflow-hidden">
+                      <img src={doctrineCol2Images[0].src} alt={doctrineCol2Images[0].alt} className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent"></div>
+                      <div className="absolute top-3 left-3 font-label-sm text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim bg-background/70 backdrop-blur-sm border border-tertiary-fixed-dim/30 px-2 py-1">{doctrineCol2Images[0].caption}</div>
+                      <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                        <span className="font-label-sm text-[9px] tracking-[0.25em] uppercase text-on-secondary-container">— {doctrineCol2Images[0].alt}</span>
+                        <span className="font-display-md text-xl italic font-thin text-tertiary-fixed-dim leading-none">{doctrineCol2Images[0].roman}</span>
                       </div>
-                    </figure>
-                  ))}
+                    </div>
+                  </figure>
+                  {/* Pull-quote between Plate 06 and 07 */}
+                  <div className="flex flex-col gap-2 px-1">
+                    <span className="material-symbols-outlined text-tertiary-fixed-dim text-2xl leading-none">format_quote</span>
+                    <blockquote className="font-headline-sm text-on-background italic text-base leading-relaxed">"Bound twice; once at Lyon, once with patience."</blockquote>
+                    <cite className="font-label-sm text-on-secondary-container uppercase tracking-widest text-[10px] not-italic">— Catalogue Note · Lib. 04</cite>
+                  </div>
+                  <figure className="group relative overflow-hidden bg-surface-container-lowest border border-outline-variant/30">
+                    <div className="aspect-square relative overflow-hidden">
+                      <img src={doctrineCol2Images[1].src} alt={doctrineCol2Images[1].alt} className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent"></div>
+                      <div className="absolute top-3 left-3 font-label-sm text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim bg-background/70 backdrop-blur-sm border border-tertiary-fixed-dim/30 px-2 py-1">{doctrineCol2Images[1].caption}</div>
+                      <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                        <span className="font-label-sm text-[9px] tracking-[0.25em] uppercase text-on-secondary-container">— {doctrineCol2Images[1].alt}</span>
+                        <span className="font-display-md text-xl italic font-thin text-tertiary-fixed-dim leading-none">{doctrineCol2Images[1].roman}</span>
+                      </div>
+                    </div>
+                  </figure>
+                  {/* Marginalia between Plate 07 and 08 */}
+                  <div className="border-l-2 border-tertiary-fixed-dim/50 pl-4 py-1 font-mono text-[11px] text-on-surface-variant uppercase tracking-widest leading-relaxed">
+                    <span className="text-tertiary-fixed-dim block mb-1">// MARGINALIA · 07b</span>
+                    <p>Acquired Hay-on-Wye, MMXIX. Accompanies Plate 07 in the East Stack.</p>
+                  </div>
+                  <figure className="group relative overflow-hidden bg-surface-container-lowest border border-outline-variant/30">
+                    <div className="aspect-square relative overflow-hidden">
+                      <img src={doctrineCol2Images[2].src} alt={doctrineCol2Images[2].alt} className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent"></div>
+                      <div className="absolute top-3 left-3 font-label-sm text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim bg-background/70 backdrop-blur-sm border border-tertiary-fixed-dim/30 px-2 py-1">{doctrineCol2Images[2].caption}</div>
+                      <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                        <span className="font-label-sm text-[9px] tracking-[0.25em] uppercase text-on-secondary-container">— {doctrineCol2Images[2].alt}</span>
+                        <span className="font-display-md text-xl italic font-thin text-tertiary-fixed-dim leading-none">{doctrineCol2Images[2].roman}</span>
+                      </div>
+                    </div>
+                  </figure>
                 </div>
 
                 {/* Col 3 — tenets */}
@@ -501,52 +586,103 @@ function DarkAcademia() {
             <hr className="ornamental-rule" />
           </div>
 
-          {/* About / By Appointment */}
-          <section className="w-full max-w-container-max mx-auto px-gutter py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* About / By Appointment — wider/shorter cards, more gap, less internal padding */}
+          <section className="w-full max-w-container-max mx-auto px-gutter py-20 md:py-28">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-stretch">
 
               {/* About the House */}
-              <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 p-8 border border-outline-variant/20 bg-surface-container-lowest">
-                <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-primary-container p-1 mx-auto lg:mx-0">
-                  <div className="w-full h-full rounded-full overflow-hidden">
-                    <img
-                      alt="Proprietor Portrait"
-                      className="w-full h-full object-cover grayscale contrast-125 sepia-[0.3]"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7v6GSpXxuAdH8U4VDJpsc2w6eYYd_0cboMWZDlfZKRMkAdIHGFBFhWKhNJ4ErBpR7Tqt00l4URCdYyEErhbnUN2EVvvhGKNb1DzKZyrDNDE494xlcHXECP45qJQBxMShWQ2W--Jxfq6s4S38DZDeTeZcioLbk5opwCXpTcbmM2FgcCmpVCSn4p1AeRcmQt8GkcNNSs6JCHK34Rm9UIPqoz0kVec3I9qqM21R7ZEv2xSRREf4SooFxcWOwebszk3R88Hhbl0dNbwaX"
-                    />
+              <article className="relative flex flex-col gap-4 p-6 md:p-8 lg:p-10 border border-outline-variant/30 border-l-4 border-l-tertiary-fixed-dim/60 bg-surface-container-lowest">
+                <div className="absolute top-4 right-4 font-label-sm text-[10px] tracking-[0.3em] uppercase text-tertiary-fixed-dim/70 hidden md:block">— Folio · Notes</div>
+                <div className="flex items-center gap-4">
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-tertiary-fixed-dim/40 p-1 flex-shrink-0">
+                    <div className="w-full h-full rounded-full overflow-hidden">
+                      <img
+                        alt="Proprietor Portrait"
+                        className="w-full h-full object-cover grayscale contrast-125 sepia-[0.3]"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7v6GSpXxuAdH8U4VDJpsc2w6eYYd_0cboMWZDlfZKRMkAdIHGFBFhWKhNJ4ErBpR7Tqt00l4URCdYyEErhbnUN2EVvvhGKNb1DzKZyrDNDE494xlcHXECP45qJQBxMShWQ2W--Jxfq6s4S38DZDeTeZcioLbk5opwCXpTcbmM2FgcCmpVCSn4p1AeRcmQt8GkcNNSs6JCHK34Rm9UIPqoz0kVec3I9qqM21R7ZEv2xSRREf4SooFxcWOwebszk3R88Hhbl0dNbwaX"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1 min-w-0">
+                    <span className="font-label-sm text-label-sm text-tertiary-fixed-dim uppercase tracking-[0.3em] block">— Proprietor · Julian Thorne —</span>
+                    <h3 className="font-display-md text-2xl md:text-3xl text-on-surface italic font-serif leading-tight">About the <em className="text-tertiary-fixed-dim">House</em>.</h3>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase mb-4">About the House</h3>
-                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                    Founded on the principle that the physical artifact carries history as weightily as the text it bears. Vellum &amp; Morocco is curated by Julian Thorne, bringing three decades of archival expertise to the acquisition and placement of significant printed matter. We specialize in early modern philosophy, classical translations, and fine bindings from the 16th to 19th centuries.
-                  </p>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed first-letter:font-display-md first-letter:text-4xl first-letter:font-serif first-letter:italic first-letter:text-tertiary-fixed-dim first-letter:float-left first-letter:mr-2 first-letter:leading-none first-letter:mt-1">Founded on the principle that the physical artifact carries history as weightily as the text it bears. Vellum &amp; Morocco is curated by Julian Thorne, bringing three decades of archival expertise to the acquisition and placement of significant printed matter.</p>
+                <div className="mt-auto pt-4 border-t border-outline-variant/30 flex flex-wrap items-center gap-x-5 gap-y-2 font-label-sm text-[10px] tracking-[0.3em] uppercase text-on-secondary-container">
+                  <span>Est. MMIV</span>
+                  <span className="w-px h-3 bg-tertiary-fixed-dim/40"></span>
+                  <span>ABA · ILAB Member</span>
+                  <span className="w-px h-3 bg-tertiary-fixed-dim/40"></span>
+                  <span>Three Decades</span>
                 </div>
-              </div>
+              </article>
 
               {/* By Appointment */}
-              <div className="flex flex-col justify-center space-y-6 bg-surface-container p-12 text-center h-full border-t-4 border-primary-container relative">
-                <span className="material-symbols-outlined text-4xl text-on-surface-variant opacity-50 mx-auto mb-2">menu_book</span>
-                <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase tracking-widest">By Appointment</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant italic max-w-sm mx-auto">
-                  The reading room is open to scholars, collectors, and the quietly curious, by prior arrangement only.
-                </p>
-                <div className="pt-6">
+              <article className="relative flex flex-col gap-4 bg-surface-container p-6 md:p-8 lg:p-10 border-t-4 border-tertiary-fixed-dim/60">
+                <div className="flex items-center gap-4">
+                  <span className="material-symbols-outlined text-4xl text-tertiary-fixed-dim/70 flex-shrink-0">menu_book</span>
+                  <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase tracking-widest">By Appointment</h3>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant italic leading-relaxed">The reading room is open to scholars, collectors, and the quietly curious, by prior arrangement only. Inquiries answered in longhand within a fortnight.</p>
+                <div className="mt-auto pt-4 border-t border-outline-variant/30 flex items-center justify-between">
+                  <span className="font-label-sm text-[10px] tracking-[0.3em] uppercase text-on-secondary-container">— Reply within 14 days</span>
                   <a className="inline-flex items-center gap-2 font-label-sm text-label-sm text-tertiary-fixed-dim uppercase tracking-widest text-link-hover pb-1" href="#">
-                    <span>Request an hour</span>
+                    <span>Request an hour →</span>
                   </a>
                 </div>
+              </article>
+            </div>
+          </section>
+
+          {/* Stations — premium 4-pillar 2x2, content/icon-driven */}
+          <section className="relative w-full overflow-hidden py-24 md:py-32" style={{ backgroundColor: "#1c1608" }}>
+            <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none paper-grain"></div>
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-tertiary-fixed-dim/40 to-transparent"></div>
+
+            <div className="max-w-5xl mx-auto px-gutter relative z-10">
+              <div className="text-center mb-16 md:mb-20">
+                <div className="flex items-center justify-center gap-4 mb-5">
+                  <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
+                  <span className="font-label-sm text-label-sm text-tertiary-fixed-dim uppercase tracking-[0.3em]">— Inside the House —</span>
+                  <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
+                </div>
+                <h3 className="font-display-md text-display-md text-on-surface italic font-serif">Four stations of the <em className="text-tertiary-fixed-dim">quiet</em> trade.</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant italic mt-4 max-w-xl mx-auto">The reading room is not a shop. The four rooms below describe what we keep, mend, catalogue, and answer.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
+                {stations.map(s => (
+                  <article key={s.title} className={`relative flex flex-col p-8 md:p-10 bg-surface-container-lowest border border-outline-variant/30 ${s.featured ? "ring-1 ring-tertiary-fixed-dim/50 shadow-[0_12px_40px_-12px_rgba(178,133,76,0.25)]" : ""}`}>
+                    {s.featured ? (
+                      <span className="absolute -top-3 right-6 bg-tertiary-fixed-dim text-on-tertiary px-3 py-1 font-label-sm text-[9px] tracking-[0.3em] uppercase">Most asked</span>
+                    ) : null}
+                    <span className="material-symbols-outlined text-4xl text-tertiary-fixed-dim/80 mb-5">{s.icon}</span>
+                    <h4 className="font-display-md text-2xl md:text-3xl italic font-serif text-on-surface leading-tight mb-4">{s.title}</h4>
+                    <hr className="border-outline-variant/30 mb-5" />
+                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-7">{s.body}</p>
+                    <div className="mt-auto pt-5 border-t border-outline-variant/30">
+                      <span className="font-label-sm text-[10px] tracking-[0.3em] uppercase text-on-secondary-container">— {s.chip}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+
+              <div className="mt-16 flex items-center justify-center gap-4 font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-secondary-container opacity-70">
+                <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
+                Four rooms · One ledger · MMIV — present
+                <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
               </div>
             </div>
           </section>
 
-          {/* Provenance Inquiries — case studies, full-bleed slight shade */}
+          {/* Provenance Inquiries — wider/shorter cards, more gap, less internal padding */}
           <section className="relative w-full overflow-hidden py-20 md:py-28" style={{ backgroundColor: "#1a140b" }}>
             <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay pointer-events-none paper-grain"></div>
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-on-tertiary-container/40 to-transparent"></div>
 
             <div className="max-w-container-max mx-auto px-gutter relative z-10">
-              <div className="text-center mb-16">
+              <div className="text-center mb-16 md:mb-20">
                 <div className="flex items-center justify-center gap-4 mb-4">
                   <span className="w-12 h-px bg-tertiary-fixed-dim/40"></span>
                   <span className="font-label-sm text-label-sm text-tertiary-fixed-dim uppercase tracking-[0.3em]">Chapter Four · Provenance</span>
@@ -556,19 +692,20 @@ function DarkAcademia() {
                 <p className="font-body-md text-body-md text-on-surface-variant italic mt-4 max-w-xl mx-auto">A short ledger of acquisitions, in their own right small histories of how a book reached our shelf.</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 items-stretch">
                 {provenance.map(p => (
-                  <article key={p.num} className="group flex flex-col bg-surface-container-lowest border border-outline-variant/25 hover:border-tertiary-fixed-dim/40 transition-colors duration-700">
-                    <div className="aspect-[4/5] relative overflow-hidden">
+                  <article key={p.num} className="group flex flex-col bg-surface-container-lowest border border-outline-variant/30 ring-1 ring-tertiary-fixed-dim/10 hover:ring-tertiary-fixed-dim/40 hover:border-tertiary-fixed-dim/40 transition-all duration-700 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.6)] hover:shadow-[0_16px_48px_-16px_rgba(178,133,76,0.25)]">
+                    <div className="aspect-[4/3] relative overflow-hidden">
                       <img src={p.img} alt={p.title} className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 sepia-[0.3] opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent"></div>
-                      <div className="absolute top-4 left-4 font-display-md text-2xl italic font-thin text-tertiary-fixed-dim leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{p.num}</div>
-                      <div className="absolute bottom-4 left-4 right-4 font-label-sm text-[10px] tracking-[0.3em] uppercase text-on-secondary-container">— Acquired · {p.year}</div>
+                      <div className="absolute top-5 left-5 font-display-md text-3xl italic font-thin text-tertiary-fixed-dim leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">{p.num}</div>
+                      <div className="absolute bottom-5 left-5 right-5 font-label-sm text-[10px] tracking-[0.3em] uppercase text-on-secondary-container">— Acquired · {p.year}</div>
                     </div>
-                    <div className="p-7 flex flex-col flex-1">
-                      <h4 className="font-headline-sm text-xl italic text-on-surface leading-snug mb-2 group-hover:text-tertiary-fixed-dim transition-colors">{p.title}</h4>
-                      <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">{p.body}</p>
-                      <div className="mt-auto flex items-center justify-between border-t border-outline-variant/30 pt-4">
+                    <div className="p-5 md:p-6 lg:p-7 flex flex-col flex-1">
+                      <h4 className="font-headline-sm text-xl italic text-on-surface leading-snug mb-3 group-hover:text-tertiary-fixed-dim transition-colors">{p.title}</h4>
+                      <hr className="border-outline-variant/30 mb-5" />
+                      <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-5">{p.body}</p>
+                      <div className="mt-auto flex items-center justify-between border-t border-outline-variant/30 pt-5">
                         <span className="font-label-sm text-[10px] tracking-[0.25em] uppercase text-on-secondary-container">Inquiry · No. {p.num}</span>
                         <a href="#" className="font-label-sm text-label-sm text-tertiary-fixed-dim hover:text-secondary-fixed transition-colors uppercase tracking-widest">Inquire →</a>
                       </div>
@@ -577,7 +714,7 @@ function DarkAcademia() {
                 ))}
               </div>
 
-              <div className="mt-16 flex items-center justify-center gap-4 font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-secondary-container opacity-70">
+              <div className="mt-14 md:mt-16 flex items-center justify-center gap-4 font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-secondary-container opacity-70">
                 <span className="w-16 h-px bg-tertiary-fixed-dim/40"></span>
                 Further inquiries upon written request
                 <span className="w-16 h-px bg-tertiary-fixed-dim/40"></span>

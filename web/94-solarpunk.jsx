@@ -2,10 +2,10 @@ const FIELD_STATIONS = [
   { code: "STATION 04", name: "Oaxaca Highlands", meta: "MX · 17.0610°N · ALT 2840m", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop" },
   { code: "STATION 11", name: "Portuguese Coast", meta: "PT · 38.7223°N · COASTAL", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop" },
   { code: "STATION 17", name: "Auvergne Plateau", meta: "FR · 45.7770°N · BASALT", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 22", name: "Western Ghats", meta: "IN · 11.0510°N · MONSOON", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 22", name: "Western Ghats", meta: "IN · 11.0510°N · MONSOON", img: "https://images.unsplash.com/photo-1761429569511-fa812103fc21?w=1000&q=85&auto=format&fit=crop" },
   { code: "STATION 28", name: "Rift Valley", meta: "KE · 0.5236°S · SEMI-ARID", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 33", name: "Atacama Verge", meta: "CL · 23.6500°S · ALPINE", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=85&auto=format&fit=crop" },
-  { code: "STATION 41", name: "Yorkshire Beck", meta: "GB · 54.2070°N · CHALK", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 33", name: "Atacama Verge", meta: "CL · 23.6500°S · ALPINE", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop" },
+  { code: "STATION 41", name: "Yorkshire Beck", meta: "GB · 54.2070°N · CHALK", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1000&q=85&auto=format&fit=crop" },
   { code: "STATION 49", name: "Hokkaido Margin", meta: "JP · 43.0660°N · SUB-BOREAL", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1000&q=85&auto=format&fit=crop&sat=-40" }
 ];
 
@@ -50,7 +50,7 @@ const STEWARDS = [
   {
     name: "Aiyana Whitehorse",
     region: "Rift Valley · KE",
-    img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1000&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1000&q=85&auto=format&fit=crop",
     p1: "Aiyana leads the Rift Valley node, a semi-arid commons of just under 600 hectares that sits across two county boundaries and four pastoralist grazing routes. She trained as an agronomist in Nairobi and as a livestock veterinarian in Wageningen, and she is unusual in the network for holding an active practice in both fields at the same site.",
     p2: "Most of her published work concerns rotational grazing as a tool for watershed recovery rather than a competitor with it. Her field notebooks — which the commons publishes openly each February — read like a hybrid of veterinary log and hydrological record. \"A herd well-routed is a kind of water infrastructure,\" she has written. \"It moves the rain into the soil instead of off it.\""
   }
@@ -315,8 +315,8 @@ export default function T94Solarpunk() {
               <div className="station-marquee">
                 {[...FIELD_STATIONS, ...FIELD_STATIONS].map((s, i) => (
                   <div key={i} className="relative w-72 md:w-80 aspect-[4/5] flex-shrink-0 overflow-hidden rounded-[18px] border-2 border-secondary/30 ambient-shadow group">
-                    <img alt={s.name} className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity grayscale-[20%] contrast-110" src={s.img} />
-                    <div className="absolute inset-0 bg-tertiary-fixed-dim/15 mix-blend-overlay pointer-events-none"></div>
+                    <img alt={s.name} className="absolute inset-0 w-full h-full object-cover sepia-[35%] hue-rotate-[55deg] saturate-150 contrast-105 brightness-95" src={s.img} />
+                    <div className="absolute inset-0 bg-primary/35 mix-blend-color pointer-events-none"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-transparent pointer-events-none"></div>
                     <div className="absolute top-4 left-4 right-4 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-secondary-container"></span>
@@ -347,16 +347,32 @@ export default function T94Solarpunk() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
               <div className="md:col-span-5">
-                <div className="md:sticky md:top-32">
-                  <div className="relative aspect-[4/5] organic-shape-alt overflow-hidden border-4 border-primary-fixed ambient-shadow">
-                    <img alt="restored watershed" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity grayscale-[15%]" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1400&q=85&auto=format&fit=crop" />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/55 via-primary/15 to-tertiary-fixed-dim/20 mix-blend-multiply"></div>
+                <div className="flex flex-col h-full gap-8 md:justify-between">
+                  <div>
+                    <div className="relative aspect-[4/5] organic-shape-alt overflow-hidden border-4 border-primary-fixed ambient-shadow">
+                      <img alt="restored watershed" className="absolute inset-0 w-full h-full object-cover sepia-[35%] hue-rotate-[55deg] saturate-150 contrast-105 brightness-95" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1400&q=85&auto=format&fit=crop" />
+                      <div className="absolute inset-0 bg-primary/30 mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-primary/55 via-primary/15 to-tertiary-fixed-dim/20 mix-blend-multiply" />
+                    </div>
+                    <div className="mt-6 flex items-baseline gap-3">
+                      <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[11px] font-bold text-secondary">Plate</span>
+                      <span className="font-['Newsreader'] italic text-xl text-primary">A regenerative cycle</span>
+                    </div>
+                    <p className="mt-2 font-body-md text-[14px] text-on-surface-variant max-w-xs">Composite — Auvergne plateau, third-cohort site. Photographed in late spring of the restoration's eighth year.</p>
                   </div>
-                  <div className="mt-6 flex items-baseline gap-3">
-                    <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[11px] font-bold text-secondary">Plate</span>
-                    <span className="font-['Newsreader'] italic text-xl text-primary">A regenerative cycle</span>
+
+                  <div>
+                    <div className="relative aspect-video organic-shape-alt overflow-hidden border-4 border-tertiary-fixed-dim ambient-shadow">
+                      <img alt="cohort earthworks at year zero" className="absolute inset-0 w-full h-full object-cover sepia-[40%] hue-rotate-[40deg] saturate-150 contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" />
+                      <div className="absolute inset-0 bg-secondary/25 mix-blend-color" />
+                      <div className="absolute inset-0 bg-gradient-to-bl from-secondary/40 via-tertiary-fixed-dim/15 to-primary/35 mix-blend-multiply" />
+                    </div>
+                    <div className="mt-4 flex items-baseline gap-3 flex-wrap">
+                      <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.3em] text-[11px] font-bold text-secondary">Plate · II</span>
+                      <span className="font-['Newsreader'] italic text-xl text-primary">Year-zero earthworks</span>
+                    </div>
+                    <p className="mt-2 font-body-md text-[14px] text-on-surface-variant max-w-xs">Same site, opening season — swales freshly cut, gabions stacked, hessian still visible.</p>
                   </div>
-                  <p className="mt-2 font-body-md text-[14px] text-on-surface-variant max-w-xs">Composite — Auvergne plateau, third-cohort site. Photographed in late spring of the restoration's eighth year.</p>
                 </div>
               </div>
               <div className="md:col-span-7 flex flex-col gap-12">
@@ -384,16 +400,16 @@ export default function T94Solarpunk() {
             <div className="flex flex-col gap-24">
               {STEWARDS.map((s, i) => (
                 <article key={i} className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-                  <div className={"md:col-span-7 " + (i % 2 === 1 ? "md:order-2" : "md:order-1")}>
+                  <div className={"md:col-span-4 " + (i % 2 === 1 ? "md:order-2" : "md:order-1")}>
                     <div className="relative aspect-square organic-shape overflow-hidden border-4 border-surface-container-high ambient-shadow">
                       <img alt={s.name} className="absolute inset-0 w-full h-full object-cover grayscale-[35%] contrast-105" src={s.img} />
-                      <div className="absolute inset-0 bg-gradient-to-br from-tertiary-fixed-dim/25 via-transparent to-primary/25 mix-blend-overlay"></div>
-                      <div className="absolute bottom-6 left-6 bg-background/85 backdrop-blur-sm px-4 py-2 rounded-full border border-secondary/30">
+                      <div className="absolute inset-0 bg-gradient-to-br from-tertiary-fixed-dim/25 via-transparent to-primary/25 mix-blend-overlay" />
+                      <div className="absolute bottom-4 left-4 bg-background/85 backdrop-blur-sm px-3 py-1.5 rounded-full border border-secondary/30">
                         <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[10px] font-bold text-secondary">Steward · {String(i + 1).padStart(2, "0")}</span>
                       </div>
                     </div>
                   </div>
-                  <div className={"md:col-span-5 flex flex-col gap-5 " + (i % 2 === 1 ? "md:order-1" : "md:order-2")}>
+                  <div className={"md:col-span-8 flex flex-col gap-5 " + (i % 2 === 1 ? "md:order-1" : "md:order-2")}>
                     <div>
                       <h3 className="font-headline-md text-[28px] md:text-[32px] leading-tight text-primary font-['Plus_Jakarta_Sans'] font-bold">{s.name}</h3>
                       <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.2em] text-[11px] font-bold text-secondary mt-1 block">{s.region}</span>
@@ -478,21 +494,23 @@ export default function T94Solarpunk() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="w-full rounded-t-[4rem] mt-20 bg-emerald-950 dark:bg-stone-950 text-orange-50 font-['Plus_Jakarta_Sans'] text-sm leading-relaxed grid grid-cols-1 md:grid-cols-3 gap-12 px-12 py-20 max-w-screen-2xl mx-auto">
-          <div className="flex flex-col gap-4">
-            <span className="text-orange-400 font-bold text-lg">Sunroot Commons</span>
-            <p>© 2024 Sunroot Commons. Flourishing together under the sun.</p>
-          </div>
-          <div className="flex flex-col gap-4">
-            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Manifesto</a>
-            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Energy Grid</a>
-          </div>
-          <div className="flex flex-col gap-4">
-            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Partner Directory</a>
-            <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Privacy Root</a>
-          </div>
-        </footer>
+        {/* Footer band — matches doctrine pattern with slightly deeper cream shade */}
+        <div className="full-bleed commons-pattern pt-12 md:pt-16 pb-10 md:pb-14" style={{ backgroundColor: "#ebdfc8" }}>
+          <footer className="w-full rounded-[3rem] md:rounded-[4rem] bg-emerald-950 dark:bg-stone-950 text-orange-50 font-['Plus_Jakarta_Sans'] text-sm leading-relaxed grid grid-cols-1 md:grid-cols-3 gap-12 px-12 py-16 md:py-20 max-w-screen-2xl mx-auto">
+            <div className="flex flex-col gap-4">
+              <span className="text-orange-400 font-bold text-lg">Sunroot Commons</span>
+              <p>© 2024 Sunroot Commons. Flourishing together under the sun.</p>
+            </div>
+            <div className="flex flex-col gap-4">
+              <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Manifesto</a>
+              <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Energy Grid</a>
+            </div>
+            <div className="flex flex-col gap-4">
+              <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Partner Directory</a>
+              <a className="text-emerald-100/70 hover:text-orange-300 transition-colors duration-200" href="#">Privacy Root</a>
+            </div>
+          </footer>
+        </div>
       </div>
     </>
   );

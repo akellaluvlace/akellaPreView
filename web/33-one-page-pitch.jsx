@@ -337,7 +337,7 @@ function OnePagePitch() {
               </div>
               <div className="md:col-span-5 md:sticky md:top-32 md:self-start mb-12 md:mb-0">
                 <div className="aspect-[3/4] overflow-hidden filter grayscale max-w-md">
-                  <img alt="Founder at desk, in dialogue" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1200&q=85&auto=format&fit=crop" />
+                  <img alt="Founder at desk, in dialogue" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1200&q=85&auto=format&fit=crop" />
                 </div>
                 <div className="mt-stack-sm flex items-center justify-between max-w-md">
                   <span className="font-label-caps uppercase tracking-widest text-xs opacity-60">— Method · Plate II</span>
@@ -380,7 +380,7 @@ function OnePagePitch() {
                 </div>
               </div>
               <div className="relative flex-grow rounded overflow-hidden min-h-[480px]">
-                <img alt="Industrial machinery — discipline as backdrop" className="absolute inset-0 w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1920&q=85&auto=format&fit=crop" />
+                <img alt="Industrial machinery — discipline as backdrop" className="absolute inset-0 w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1920&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1F1F1F]/85 via-[#1F1F1F]/70 to-[#1F1F1F]/55"></div>
                 <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between text-[#FAF6EC]">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-x-gutter gap-y-stack-md flex-grow content-center max-w-5xl">

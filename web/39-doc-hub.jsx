@@ -122,6 +122,64 @@ function DocHub() {
             .doc-faq summary .doc-chevron { transition: none; }
         }
 ` }} />
+      {/* Premium polish — pulse / stagger / caret / pillar lift. Kept in a second <style> per playbook §N.8 (less brittle Edits). */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes doc-pulse-dot {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); opacity: 1; }
+            50%      { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); opacity: 0.85; }
+        }
+        .doc-pulse-dot { animation: doc-pulse-dot 1.8s ease-out infinite; }
+
+        @keyframes doc-row-rise {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .doc-stagger > * {
+            opacity: 0;
+            animation: doc-row-rise 520ms cubic-bezier(.2,.8,.2,1) forwards;
+        }
+        .doc-stagger > *:nth-child(1)  { animation-delay: 0ms; }
+        .doc-stagger > *:nth-child(2)  { animation-delay: 80ms; }
+        .doc-stagger > *:nth-child(3)  { animation-delay: 160ms; }
+        .doc-stagger > *:nth-child(4)  { animation-delay: 240ms; }
+        .doc-stagger > *:nth-child(5)  { animation-delay: 320ms; }
+        .doc-stagger > *:nth-child(6)  { animation-delay: 400ms; }
+        .doc-stagger > *:nth-child(7)  { animation-delay: 480ms; }
+        .doc-stagger > *:nth-child(8)  { animation-delay: 560ms; }
+        .doc-stagger > *:nth-child(9)  { animation-delay: 640ms; }
+        .doc-stagger > *:nth-child(10) { animation-delay: 720ms; }
+        .doc-stagger > *:nth-child(11) { animation-delay: 800ms; }
+        .doc-stagger > *:nth-child(12) { animation-delay: 880ms; }
+
+        @keyframes doc-caret-blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .doc-caret {
+            display: inline-block;
+            width: 7px;
+            height: 1em;
+            margin-left: 4px;
+            background: currentColor;
+            vertical-align: -2px;
+            animation: doc-caret-blink 1.05s step-end infinite;
+        }
+
+        .doc-pillar { transition: transform 300ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms cubic-bezier(.2,.8,.2,1), border-color 300ms ease; }
+        .doc-pillar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -12px rgba(108, 92, 231, 0.28), 0 4px 12px -6px rgba(20, 16, 40, 0.12);
+            border-color: rgba(108, 92, 231, 0.45);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .doc-pulse-dot { animation: none; }
+            .doc-stagger > * { opacity: 1; animation: none; }
+            .doc-caret { animation: none; opacity: 1; }
+            .doc-pillar { transition: none; }
+            .doc-pillar:hover { transform: none; box-shadow: none; }
+        }
+` }} />
 
       {/* HTML had <html class="light"> + body classes — wrapped here so the React mount carries them. */}
       <div className="bg-surface text-on-surface font-body-base antialiased min-h-screen">
@@ -185,8 +243,9 @@ function DocHub() {
             </div>
           </aside>
 
-          {/* Main Content (Center) */}
-          <main className="flex-1 md:ml-nav_width xl:max-w-content_max_width px-8 py-12">
+          {/* Main Content (Center) — content centered between left sidebar (260) and TOC (240) on xl+. Inner mx-auto wrapper caps at 820 so the article doesn't sprawl. */}
+          <main className="flex-1 md:ml-nav_width xl:mr-toc_width px-6 sm:px-10 lg:px-14 xl:px-16 py-12 min-w-0">
+            <div className="mx-auto w-full max-w-[820px]">
             <article className="max-w-prose">
               <h1 className="font-h1 text-h1 text-on-surface mb-stack_md">Getting Started with Palette API</h1>
               <p className="font-body-base text-body-base text-on-surface-variant leading-relaxed mb-stack_lg">
@@ -207,19 +266,19 @@ function DocHub() {
                   <button className="font-code-base text-code-base text-inverse-on-surface/60 px-4 py-2 border-b-2 border-transparent text-[13px] hover:text-inverse-on-surface hover:bg-white/5 transition-colors">Python</button>
                   <button className="font-code-base text-code-base text-inverse-on-surface/60 px-4 py-2 border-b-2 border-transparent text-[13px] hover:text-inverse-on-surface hover:bg-white/5 transition-colors">Ruby</button>
                 </div>
-                {/* Code Content */}
-                <div className="p-4 relative group overflow-x-auto">
-                  <button className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 text-inverse-on-surface p-1.5 rounded hover:bg-white/20">
+                {/* Code Content — overflow-hidden + whitespace-pre-wrap so long lines wrap rather than scroll horizontally on narrow viewports */}
+                <div className="p-4 relative group overflow-hidden">
+                  <button className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 text-inverse-on-surface p-1.5 rounded hover:bg-white/20 z-10">
                     <span className="material-symbols-outlined text-[16px]">content_copy</span>
                   </button>
-                  <pre className="font-code-base text-code-base text-inverse-on-surface/90 leading-relaxed"><code className="language-bash"><span className="text-primary-fixed-dim">curl</span> -X POST https://api.palette.dev/v1/generate \
+                  <pre className="font-code-base text-code-base text-inverse-on-surface/90 leading-relaxed whitespace-pre-wrap break-words m-0"><code className="language-bash"><span className="text-primary-fixed-dim">curl</span> -X POST https://api.palette.dev/v1/generate \
 {`  -H `}<span className="text-tertiary-fixed-dim">"Authorization: Bearer YOUR_API_KEY"</span>{` \\
   -H `}<span className="text-tertiary-fixed-dim">"Content-Type: application/json"</span>{` \\
   -d `}<span className="text-tertiary-fixed-dim">{`'{
     "base_color": "#6C5CE7",
     "strategy": "complementary",
     "steps": 5
-  }'`}</span></code></pre>
+  }'`}</span><span className="doc-caret text-primary-fixed-dim/80" aria-hidden="true"></span></code></pre>
                 </div>
               </div>
 
@@ -268,6 +327,38 @@ function DocHub() {
               </div>
             </article>
 
+            {/* Section: Trusted-by — dev/docs ecosystem brand wall (R.11 Light/SaaS flavor) */}
+            <section id="trusted" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="trusted-heading">
+              <div className="mb-stack_md">
+                <span className="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ adopted by</span>
+                <h2 id="trusted-heading" className="font-h2 text-h2 text-on-surface">Shipping in production at engineering teams you know</h2>
+                <p className="font-body-base text-body-base text-on-surface-variant mt-2 max-w-prose">From single-developer side projects to design systems at Series-B SaaS, the Palette client SDK is installed on more than 47k repositories. A small selection:</p>
+              </div>
+              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest px-6 py-8">
+                <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-7">
+                  {[
+                    { slug: "vercel",       name: "Vercel" },
+                    { slug: "stripe",       name: "Stripe" },
+                    { slug: "linear",       name: "Linear" },
+                    { slug: "supabase",     name: "Supabase" },
+                    { slug: "notion",       name: "Notion" },
+                    { slug: "github",       name: "GitHub" },
+                    { slug: "cloudflare",   name: "Cloudflare" },
+                    { slug: "sentry",       name: "Sentry" },
+                  ].map((b) => (
+                    <img key={b.slug} src={`https://cdn.simpleicons.org/${b.slug}/64748b`} alt={b.name} loading="lazy" className="h-7 w-auto opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
+                  ))}
+                </div>
+                <div className="mt-7 pt-6 border-t border-outline-variant/40 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-code-base text-[12px] text-on-surface-variant">
+                  <span>Plus 47k repos via <span className="text-on-surface">npm install @palette/sdk</span></span>
+                  <span className="hidden sm:inline w-1 h-1 rounded-full bg-outline-variant"></span>
+                  <span>92 design systems on the public registry</span>
+                  <span className="hidden sm:inline w-1 h-1 rounded-full bg-outline-variant"></span>
+                  <span>Discussed in 38 talks at Config &amp; React Conf 2024</span>
+                </div>
+              </div>
+            </section>
+
             {/* Section: Themes in Production (image strip / marquee) */}
             <section id="themes" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="themes-heading">
               <div className="flex items-end justify-between gap-4 mb-stack_md">
@@ -283,18 +374,18 @@ function DocHub() {
                 <div className="doc-marquee-track px-8">
                   {[
                     { id: "1487958449943-2429e8be8625", name: "Venice Bank", code: "venice_bank", strategy: "linear-cool", tokens: 5, swatches: ["#0F1A4D","#3B4FA9","#7E92E0","#C9D2F2","#F4F6FB"], wash: "linear-gradient(135deg, rgba(108,92,231,0.55) 0%, rgba(83,65,205,0.30) 50%, rgba(0,0,0,0.45) 100%)" },
-                    { id: "1611652022419-a9419f74343d", name: "Apothecary & Co.", code: "apothecary", strategy: "monochrome-warm", tokens: 7, swatches: ["#2F1500","#6E3900","#AC5D00","#FFB77D","#FFDCC3"], wash: "linear-gradient(135deg, rgba(255,183,125,0.45) 0%, rgba(172,93,0,0.30) 60%, rgba(0,0,0,0.45) 100%)" },
+                    { id: "1527844817887-9b937993518b", name: "Apothecary & Co.", code: "apothecary", strategy: "monochrome-warm", tokens: 7, swatches: ["#2F1500","#6E3900","#AC5D00","#FFB77D","#FFDCC3"], wash: "linear-gradient(135deg, rgba(255,183,125,0.45) 0%, rgba(172,93,0,0.30) 60%, rgba(0,0,0,0.45) 100%)" },
                     { id: "1517021897933-0e0319cfbc28", name: "Atrium Health", code: "atrium_health", strategy: "complementary", tokens: 6, swatches: ["#053C3A","#0E6B66","#3FB1A6","#9EE0D7","#E6F6F2"], wash: "linear-gradient(135deg, rgba(50,180,160,0.55) 0%, rgba(7,103,99,0.35) 55%, rgba(0,0,0,0.40) 100%)" },
-                    { id: "1481349518771-20055b2a7b24", name: "Field Atlas", code: "field_atlas", strategy: "analogous-warm", tokens: 5, swatches: ["#1F0A0A","#7E1A1A","#C9382E","#F2A187","#FBE6DC"], wash: "linear-gradient(135deg, rgba(195,58,58,0.45) 0%, rgba(112,30,30,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                    { id: "1723306009175-dca7d26f3350", name: "Field Atlas", code: "field_atlas", strategy: "analogous-warm", tokens: 5, swatches: ["#1F0A0A","#7E1A1A","#C9382E","#F2A187","#FBE6DC"], wash: "linear-gradient(135deg, rgba(195,58,58,0.45) 0%, rgba(112,30,30,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
                     { id: "1502672260266-1c1ef2d93688", name: "North Aperture", code: "north_aperture", strategy: "grayscale-tuned", tokens: 8, swatches: ["#0B0C0F","#1E2128","#3A3F4A","#838B9C","#D7DBE3"], wash: "linear-gradient(135deg, rgba(60,60,72,0.45) 0%, rgba(28,27,35,0.45) 60%, rgba(0,0,0,0.55) 100%)" },
-                    { id: "1493663284031-b7e3aefcae8e", name: "Petal & Press", code: "petal_press", strategy: "split-complementary", tokens: 6, swatches: ["#3B0F22","#8A2A55","#D45B92","#F8B5D0","#FDE6F0"], wash: "linear-gradient(135deg, rgba(232,118,170,0.45) 0%, rgba(146,49,99,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                    { id: "1762215781547-2ac20ed42cd1", name: "Petal & Press", code: "petal_press", strategy: "split-complementary", tokens: 6, swatches: ["#3B0F22","#8A2A55","#D45B92","#F8B5D0","#FDE6F0"], wash: "linear-gradient(135deg, rgba(232,118,170,0.45) 0%, rgba(146,49,99,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
                   ].concat([
                     { id: "1487958449943-2429e8be8625", name: "Venice Bank", code: "venice_bank", strategy: "linear-cool", tokens: 5, swatches: ["#0F1A4D","#3B4FA9","#7E92E0","#C9D2F2","#F4F6FB"], wash: "linear-gradient(135deg, rgba(108,92,231,0.55) 0%, rgba(83,65,205,0.30) 50%, rgba(0,0,0,0.45) 100%)" },
-                    { id: "1611652022419-a9419f74343d", name: "Apothecary & Co.", code: "apothecary", strategy: "monochrome-warm", tokens: 7, swatches: ["#2F1500","#6E3900","#AC5D00","#FFB77D","#FFDCC3"], wash: "linear-gradient(135deg, rgba(255,183,125,0.45) 0%, rgba(172,93,0,0.30) 60%, rgba(0,0,0,0.45) 100%)" },
+                    { id: "1527844817887-9b937993518b", name: "Apothecary & Co.", code: "apothecary", strategy: "monochrome-warm", tokens: 7, swatches: ["#2F1500","#6E3900","#AC5D00","#FFB77D","#FFDCC3"], wash: "linear-gradient(135deg, rgba(255,183,125,0.45) 0%, rgba(172,93,0,0.30) 60%, rgba(0,0,0,0.45) 100%)" },
                     { id: "1517021897933-0e0319cfbc28", name: "Atrium Health", code: "atrium_health", strategy: "complementary", tokens: 6, swatches: ["#053C3A","#0E6B66","#3FB1A6","#9EE0D7","#E6F6F2"], wash: "linear-gradient(135deg, rgba(50,180,160,0.55) 0%, rgba(7,103,99,0.35) 55%, rgba(0,0,0,0.40) 100%)" },
-                    { id: "1481349518771-20055b2a7b24", name: "Field Atlas", code: "field_atlas", strategy: "analogous-warm", tokens: 5, swatches: ["#1F0A0A","#7E1A1A","#C9382E","#F2A187","#FBE6DC"], wash: "linear-gradient(135deg, rgba(195,58,58,0.45) 0%, rgba(112,30,30,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                    { id: "1723306009175-dca7d26f3350", name: "Field Atlas", code: "field_atlas", strategy: "analogous-warm", tokens: 5, swatches: ["#1F0A0A","#7E1A1A","#C9382E","#F2A187","#FBE6DC"], wash: "linear-gradient(135deg, rgba(195,58,58,0.45) 0%, rgba(112,30,30,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
                     { id: "1502672260266-1c1ef2d93688", name: "North Aperture", code: "north_aperture", strategy: "grayscale-tuned", tokens: 8, swatches: ["#0B0C0F","#1E2128","#3A3F4A","#838B9C","#D7DBE3"], wash: "linear-gradient(135deg, rgba(60,60,72,0.45) 0%, rgba(28,27,35,0.45) 60%, rgba(0,0,0,0.55) 100%)" },
-                    { id: "1493663284031-b7e3aefcae8e", name: "Petal & Press", code: "petal_press", strategy: "split-complementary", tokens: 6, swatches: ["#3B0F22","#8A2A55","#D45B92","#F8B5D0","#FDE6F0"], wash: "linear-gradient(135deg, rgba(232,118,170,0.45) 0%, rgba(146,49,99,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                    { id: "1762215781547-2ac20ed42cd1", name: "Petal & Press", code: "petal_press", strategy: "split-complementary", tokens: 6, swatches: ["#3B0F22","#8A2A55","#D45B92","#F8B5D0","#FDE6F0"], wash: "linear-gradient(135deg, rgba(232,118,170,0.45) 0%, rgba(146,49,99,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
                   ]).map((p, i) => (
                     <figure key={i} className="shrink-0 w-72 group" aria-hidden={i >= 6 ? true : undefined}>
                       <div className="relative h-44 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
@@ -321,6 +412,78 @@ function DocHub() {
               <p className="font-body-sm text-body-sm text-on-surface-variant mt-stack_md max-w-prose">A small selection of recent shipping themes — generated from a single brand hex, exported as design tokens, deployed as CSS variables &amp; iOS asset catalogs.</p>
             </section>
 
+            {/* Section: Workflow — where Palette fits in your dev loop (R.6 bottom-align FILE_HEADER mono dossier) */}
+            <section id="workflow" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="workflow-heading">
+              <div className="mb-stack_md">
+                <span className="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ workflow</span>
+                <h2 id="workflow-heading" className="font-h2 text-h2 text-on-surface">Where it fits in your dev loop</h2>
+                <p className="font-body-base text-body-base text-on-surface-variant mt-2 max-w-prose">Palette plugs into the same places you already trust: the editor, the PR, the deploy, the design system. Five integration surfaces, zero ceremony.</p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+                <aside className="lg:col-span-4 flex flex-col">
+                  <div className="rounded-xl border border-outline-variant bg-surface-container-low p-6">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-wider block mb-3">— editor &amp; ci</span>
+                    <h3 className="font-h3 text-h3 text-on-surface mb-2">Two installs, one flag</h3>
+                    <p className="font-body-base text-body-base text-on-surface-variant mb-5">Add the SDK to your repo and the VS Code extension to your editor. Tokens autocomplete; PR previews diff palettes; deploys publish a versioned slug to the CDN.</p>
+                    <div className="flex flex-col gap-2 font-code-base text-[12px] text-inverse-on-surface bg-inverse-surface rounded-lg p-3 border border-outline-variant/30">
+                      <span className="text-primary-fixed-dim">$ npm i @palette/sdk @palette/vscode</span>
+                      <span className="text-tertiary-fixed-dim">→ Authenticated via PALETTE_API_KEY</span>
+                      <span className="text-inverse-on-surface/70">→ 12 tokens synced · build_021 live</span>
+                    </div>
+                  </div>
+                  <div className="mt-auto pt-6 hidden lg:block">
+                    <div className="rounded-xl border border-outline-variant bg-inverse-surface text-inverse-on-surface p-5 font-code-base text-[12px] leading-relaxed">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+                        <div className="flex items-center gap-2">
+                          <span className="doc-pulse-dot w-2 h-2 rounded-full bg-emerald-400"></span>
+                          <span className="text-inverse-on-surface/70">PALETTE · build_021</span>
+                        </div>
+                        <span className="text-primary-fixed-dim">live</span>
+                      </div>
+                      <div className="doc-stagger grid grid-cols-2 gap-x-4 gap-y-2">
+                        <span className="text-inverse-on-surface/60">build</span><span className="text-tertiary-fixed-dim tabular-nums text-right">1.2.4</span>
+                        <span className="text-inverse-on-surface/60">last_sync</span><span className="text-tertiary-fixed-dim tabular-nums text-right">14:02 UTC</span>
+                        <span className="text-inverse-on-surface/60">tokens_indexed</span><span className="text-tertiary-fixed-dim tabular-nums text-right">47,128</span>
+                        <span className="text-inverse-on-surface/60">workspaces</span><span className="text-tertiary-fixed-dim tabular-nums text-right">214</span>
+                        <span className="text-inverse-on-surface/60">cdn_pops</span><span className="text-tertiary-fixed-dim tabular-nums text-right">214 / 214</span>
+                        <span className="text-inverse-on-surface/60">p99_latency</span><span className="text-tertiary-fixed-dim tabular-nums text-right">31 ms</span>
+                      </div>
+                      <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[11px]">
+                        <span className="text-inverse-on-surface/60">// status.palette.dev</span>
+                        <span className="text-emerald-300">all systems nominal</span>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+
+                <div className="lg:col-span-8 min-w-0">
+                  <ol className="rounded-xl border border-outline-variant bg-surface-container-lowest divide-y divide-outline-variant/60 overflow-hidden">
+                    {[
+                      { num: "01", icon: "code_blocks", surface: "VS Code extension", body: "Inline preview swatches on every token, palette-diff in the gutter when a PR rotates a brand hex.", chip: "@palette/vscode" },
+                      { num: "02", icon: "merge_type",  surface: "GitHub Action", body: "Posts a palette-comparison comment on every PR that touches design tokens. Approves WCAG-compliant rotations automatically.", chip: "palette-bot v1.4" },
+                      { num: "03", icon: "design_services", surface: "Figma plugin", body: "Two-way sync between local Figma styles and remote Palette tokens. One designer, one source of truth.", chip: "Figma · 4.2 ★" },
+                      { num: "04", icon: "rocket_launch", surface: "Vercel / Netlify deploy hook", body: "Webhook fires on rotation; Storybook + design-system docs rebuild against the new slug, with the old one cached for 24h.", chip: "webhook v2" },
+                      { num: "05", icon: "extension", surface: "Storybook addon", body: "Theme switcher generated from your live tokens. Drop the addon in, every component story gets a palette toggle.", chip: "@palette/storybook" },
+                    ].map((row) => (
+                      <li key={row.num} className="flex items-start gap-5 p-5 hover:bg-surface-container-low transition-colors">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-container-high border border-outline-variant/50 flex items-center justify-center">
+                          <span className="material-symbols-outlined text-primary-container text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>{row.icon}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-baseline justify-between gap-3 mb-1">
+                            <h3 className="font-h3 text-h3 text-on-surface">{row.surface}</h3>
+                            <span className="font-code-base text-[11px] text-on-surface-variant tabular-nums hidden sm:inline">{row.num}</span>
+                          </div>
+                          <p className="font-body-base text-body-base text-on-surface-variant mb-2">{row.body}</p>
+                          <span className="font-code-base text-[11px] bg-surface-container-low border border-outline-variant rounded px-2 py-0.5 text-on-surface inline-block">{row.chip}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </section>
+
             {/* Section: From brand colour to palette */}
             <section id="lifecycle" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="lifecycle-heading">
               <div className="mb-stack_md">
@@ -332,7 +495,7 @@ function DocHub() {
               {/* Row 1: image left, content right */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch mb-6">
                 <figure className="md:col-span-7 relative aspect-[4/3] md:aspect-auto md:min-h-[300px] rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
-                  <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&q=85&auto=format&fit=crop" alt="Designer's desk with colour swatches" loading="lazy" />
+                  <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1400&q=85&auto=format&fit=crop" alt="Designer's desk with colour swatches" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-on-surface/30 via-transparent to-transparent"></div>
                   <div className="absolute top-4 left-4 flex items-center gap-2 bg-surface/85 backdrop-blur-sm border border-outline-variant rounded-lg px-3 py-1.5">
                     <span className="material-symbols-outlined text-primary-container text-[18px]">colorize</span>
@@ -371,7 +534,7 @@ function DocHub() {
                   </div>
                 </div>
                 <figure className="md:col-span-7 md:order-2 order-1 relative aspect-[4/3] md:aspect-auto md:min-h-[300px] rounded-xl overflow-hidden border border-outline-variant bg-inverse-surface">
-                  <img className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&q=85&auto=format&fit=crop" alt="Architectural detail" loading="lazy" />
+                  <img className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1400&q=85&auto=format&fit=crop" alt="Architectural detail" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-br from-inverse-surface/85 via-inverse-surface/70 to-inverse-surface/95"></div>
                   <div className="absolute inset-4 sm:inset-6 rounded-lg border border-white/10 bg-inverse-surface/85 p-4 sm:p-5 flex flex-col gap-2 font-code-base text-[12px] sm:text-code-base text-inverse-on-surface">
                     <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-1">
@@ -406,7 +569,7 @@ function DocHub() {
               {/* Row 3: image left, content right */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch">
                 <figure className="md:col-span-7 relative aspect-[4/3] md:aspect-auto md:min-h-[300px] rounded-xl overflow-hidden border border-outline-variant bg-surface-container-low">
-                  <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1400&q=85&auto=format&fit=crop" alt="Production rollout" loading="lazy" />
+                  <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85&auto=format&fit=crop" alt="Production rollout — edge servers" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/40 via-transparent to-transparent mix-blend-multiply"></div>
                   <div className="absolute top-4 left-4 flex items-center gap-2 bg-surface/85 backdrop-blur-sm border border-outline-variant rounded-lg px-3 py-1.5">
                     <span className="material-symbols-outlined text-primary-container text-[18px]">cloud_done</span>
@@ -470,6 +633,116 @@ function DocHub() {
               </div>
             </section>
 
+            {/* Section: Pillars — premium 2x2 grid (R.12, dev/docs register) */}
+            <section id="pillars" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="pillars-heading">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+                <div className="max-w-xl">
+                  <span className="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ pillars</span>
+                  <h2 id="pillars-heading" className="font-h2 text-h2 text-on-surface">Built for <em className="not-italic text-primary-container">buyers</em> your platform team will sign off on <em className="italic text-primary-container">Friday</em></h2>
+                </div>
+                <p className="font-body-base text-body-base text-on-surface-variant max-w-md md:text-right">No procurement scramble. SOC 2, audit logs, regional residency, named-engineer migration — all on the same SKU as the developer plan.</p>
+              </div>
+              {(() => {
+                const PILLAR_CARD_BASE = "doc-pillar group relative p-8 md:p-10 bg-gradient-to-br from-surface-container-low to-background border border-outline-variant rounded-xl flex flex-col gap-5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary-container/15 hover:border-primary-container/40 transition-all duration-300";
+                const PILLAR_CARD_FEATURED = PILLAR_CARD_BASE + " ring-2 ring-primary-container/40 ring-offset-4 ring-offset-background";
+                const pillars = [
+                  {
+                    title: "Pro tier",
+                    chip: "$24 / dev / mo",
+                    roman: "I",
+                    caption: "Pillar I · Tier",
+                    featured: false,
+                    body: "Unlimited palettes, the full SDK suite, GitHub Actions integration, and access to every output format including iOS asset catalogs, Android colors.xml, Tailwind theme extends, CSS custom properties, Figma variables, and Style Dictionary token sets — all from one source of truth.",
+                    icon: (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-primary-container">
+                        <path d="M12 2l2.39 6.95H22l-6.18 4.49L18.21 22 12 17.27 5.79 22l2.39-8.56L2 8.95h7.61L12 2z"/>
+                      </svg>
+                    ),
+                  },
+                  {
+                    title: "Enterprise SLA",
+                    chip: "99.99% · 24/7",
+                    roman: "II",
+                    caption: "Pillar II · Reliability",
+                    featured: true,
+                    body: "Four-nines uptime backed by edge cache at 214 PoPs across six continents. Named on-call engineer with 15-minute response on Sev-1, regional palette residency in EU & APAC, and an audit-log API that streams every rotation event into your SIEM in real time.",
+                    icon: (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-primary-container">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                      </svg>
+                    ),
+                  },
+                  {
+                    title: "Custom themes",
+                    chip: "OKLCH studio",
+                    roman: "III",
+                    caption: "Pillar III · Brand",
+                    featured: false,
+                    body: "Bring your own brand pigments and constraints. Lock specific tokens to canonical hex values, declare contrast minimums per token pair, seed from a single photograph or a museum-grade swatch book. Reviewed by our colour systems team in 48 hours, returned with a written rationale.",
+                    icon: (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-primary-container">
+                        <circle cx="12" cy="12" r="9"/>
+                        <circle cx="12" cy="7" r="1.4" fill="currentColor"/>
+                        <circle cx="17" cy="12" r="1.4" fill="currentColor"/>
+                        <circle cx="14" cy="17" r="1.4" fill="currentColor"/>
+                        <circle cx="8" cy="15" r="1.4" fill="currentColor"/>
+                        <circle cx="7" cy="10" r="1.4" fill="currentColor"/>
+                      </svg>
+                    ),
+                  },
+                  {
+                    title: "White-glove migration",
+                    chip: "≤ 14 days",
+                    roman: "IV",
+                    caption: "Pillar IV · Migration",
+                    featured: false,
+                    body: "Coming from Material Theme Builder, Tokens Studio, Style Dictionary, or a hand-rolled Sass map? Our migration team writes the codemod against your repo, runs the cutover during your maintenance window, and stays on the call for the post-mortem and the first two production rotations afterwards.",
+                    icon: (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7 text-primary-container">
+                        <path d="M3 12h13"/>
+                        <path d="M12 5l7 7-7 7"/>
+                        <path d="M3 5v14"/>
+                      </svg>
+                    ),
+                  },
+                ];
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
+                    {pillars.map((c) => (
+                      <article key={c.title} className={c.featured ? PILLAR_CARD_FEATURED : PILLAR_CARD_BASE}>
+                        <span aria-hidden="true" className="absolute top-5 right-6 font-h3 italic text-primary-container/30 select-none">{c.roman}</span>
+                        {c.featured ? (
+                          <span className="absolute -top-3 left-8 px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-caps text-label-caps uppercase tracking-wider">Most popular</span>
+                        ) : null}
+                        <div className="inline-flex w-14 h-14 rounded-xl bg-gradient-to-br from-primary-container/20 via-primary-container/10 to-transparent border border-primary-container/30 items-center justify-center">
+                          {c.icon}
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <span className="font-label-bold text-[10px] uppercase tracking-[0.3em] text-primary-container/70">{c.caption}</span>
+                          <h3 className="font-h3 text-h3 text-on-surface">{c.title}</h3>
+                        </div>
+                        <p className="font-body-base text-body-base text-on-surface-variant flex-1">{c.body}</p>
+                        <div className="pt-5 mt-auto border-t border-outline-variant/60 flex items-center justify-between gap-4">
+                          <span className="font-code-base text-[12px] text-primary-container tabular-nums">{c.chip}</span>
+                          <a href="#reference" className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider inline-flex items-center gap-1 hover:text-primary-container transition-colors">Learn more <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-1">→</span></a>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                );
+              })()}
+              {/* Compliance pill strip */}
+              <div className="mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">
+                {["SOC 2 Type II", "ISO 27001", "GDPR · DPA", "HIPAA-ready", "EU residency"].map((tag) => (
+                  <span key={tag} className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-outline-variant/60 bg-surface-container-lowest">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary-container/70"></span>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </section>
+
             {/* Section: FAQ */}
             <section id="faq" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40 mb-stack_lg" aria-labelledby="faq-heading">
               <div className="mb-stack_md">
@@ -514,6 +787,34 @@ function DocHub() {
                 </details>
               </div>
             </section>
+
+            {/* Section: Gallery — 8 tinted-overlay tiles before page end (M.10 + R.17) */}
+            <section id="gallery" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40 mb-stack_lg" aria-labelledby="gallery-heading">
+              <div className="mb-stack_md">
+                <span className="font-label-caps text-label-caps text-primary uppercase tracking-wider block mb-1">/ in the wild</span>
+                <h2 id="gallery-heading" className="font-h2 text-h2 text-on-surface">Eight palettes, one Friday afternoon</h2>
+                <p className="font-body-base text-body-base text-on-surface-variant mt-2 max-w-prose">A handful of recently-rotated themes, each generated from one brand hex and serving live at production scale.</p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+                {[
+                  { src: "1487958449943-2429e8be8625", code: "venice_bank",   wash: "linear-gradient(135deg, rgba(108,92,231,0.55) 0%, rgba(83,65,205,0.30) 50%, rgba(0,0,0,0.45) 100%)" },
+                  { src: "1723306009175-dca7d26f3350", code: "field_atlas",   wash: "linear-gradient(135deg, rgba(195,58,58,0.45) 0%, rgba(112,30,30,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                  { src: "1502672260266-1c1ef2d93688", code: "north_aperture",wash: "linear-gradient(135deg, rgba(60,60,72,0.45) 0%, rgba(28,27,35,0.45) 60%, rgba(0,0,0,0.55) 100%)" },
+                  { src: "1762215781547-2ac20ed42cd1", code: "petal_press",   wash: "linear-gradient(135deg, rgba(232,118,170,0.45) 0%, rgba(146,49,99,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                  { src: "1469041797191-50ace28483c3", code: "halberd_oil",   wash: "linear-gradient(135deg, rgba(15,140,180,0.50) 0%, rgba(7,90,130,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                  { src: "1518770660439-4636190af475", code: "circuit_violet",wash: "linear-gradient(135deg, rgba(168,85,247,0.50) 0%, rgba(91,33,182,0.35) 60%, rgba(0,0,0,0.50) 100%)" },
+                  { src: "1776524039930-ea1ed83b0f97", code: "machineworks",  wash: "linear-gradient(135deg, rgba(245,158,11,0.50) 0%, rgba(180,83,9,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                  { src: "1573164574001-518958d9baa2", code: "whiteboard_oss",wash: "linear-gradient(135deg, rgba(20,184,166,0.50) 0%, rgba(15,118,110,0.35) 60%, rgba(0,0,0,0.45) 100%)" },
+                ].map((t) => (
+                  <figure key={t.code} className="relative aspect-square rounded-2xl overflow-hidden border border-outline-variant bg-surface-container-low group">
+                    <img className="absolute inset-0 w-full h-full object-cover grayscale contrast-105 group-hover:scale-105 transition-transform duration-500" src={`https://images.unsplash.com/photo-${t.src}?w=600&q=80&auto=format&fit=crop`} alt={`${t.code} theme tile`} loading="lazy" decoding="async" />
+                    <div className="absolute inset-0" style={{ background: t.wash, mixBlendMode: "multiply" }}></div>
+                    <figcaption className="absolute bottom-2 left-2 right-2 font-code-base text-[10px] text-white/95 bg-black/30 backdrop-blur-sm rounded px-1.5 py-0.5 text-center tracking-widest uppercase truncate">{t.code}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+            </div>
           </main>
 
           {/* TOC Sidebar (Right) */}
@@ -523,10 +824,14 @@ function DocHub() {
               <a className="font-body-sm text-body-sm text-primary-container font-medium hover:text-surface-tint border-l-2 border-primary-container pl-3 -ml-[14px]" href="#">Getting Started</a>
               <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#quickstart">Quickstart</a>
               <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#integration-steps">Integration Steps</a>
+              <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#trusted">Adopted by</a>
               <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#themes">Themes in production</a>
+              <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#workflow">Dev workflow</a>
               <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#lifecycle">Brand colour → palette</a>
               <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#reference">API at a glance</a>
+              <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#pillars">Built for buyers</a>
               <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#faq">FAQ</a>
+              <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface pl-3" href="#gallery">In the wild</a>
             </nav>
           </aside>
         </div>

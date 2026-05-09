@@ -395,6 +395,68 @@
             </div>
         </section>
 
+        <!-- Air Atlas — neumorphic gauge cards (NEW SECTION 1) -->
+        <section id="air-atlas" class="fade-in" style="animation-delay: 0.225s;">
+            <div class="flex items-end justify-between mb-8 px-2 gap-4">
+                <div>
+                    <span class="inline-block text-xs font-bold text-neu-accent uppercase tracking-[0.25em] mb-2">— Sensors · 04</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-neu-text-main">Air atlas, this hour</h2>
+                </div>
+                <p class="hidden md:block text-sm text-neu-text-sub max-w-sm">Four sensors, sampled every ninety seconds. Every reading sits between the linen-wrapped ceiling node and the hub.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="bg-neu-bg p-6 rounded-3xl shadow-neu-flat flex flex-col gap-5 hover:translate-y-[-4px] transition-transform duration-300">
+                    <div class="flex items-center justify-between">
+                        <div class="h-12 w-12 rounded-xl shadow-neu-flat flex items-center justify-center text-emerald-500"><i data-lucide="leaf" class="w-6 h-6"></i></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Air Quality</span>
+                    </div>
+                    <div class="rounded-full shadow-neu-pressed-sm h-3 overflow-hidden"><div class="h-full rounded-full bg-emerald-500 shadow-neu-flat" style="width: 94%;"></div></div>
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-3xl md:text-4xl font-extrabold text-neu-text-main tabular-nums">94<span class="text-base font-bold text-neu-text-sub ml-1">AQI</span></span>
+                        <span class="text-xs font-bold text-emerald-500">Excellent</span>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl shadow-neu-flat text-xs font-bold text-neu-text-sub hover:text-neu-accent active:shadow-neu-pressed transition-all flex items-center justify-center gap-2"><i data-lucide="activity" class="w-3.5 h-3.5"></i><span>View trend</span></button>
+                </div>
+                <div class="bg-neu-bg p-6 rounded-3xl shadow-neu-flat flex flex-col gap-5 hover:translate-y-[-4px] transition-transform duration-300">
+                    <div class="flex items-center justify-between">
+                        <div class="h-12 w-12 rounded-xl shadow-neu-flat flex items-center justify-center text-blue-500"><i data-lucide="wind" class="w-6 h-6"></i></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">CO₂</span>
+                    </div>
+                    <div class="rounded-full shadow-neu-pressed-sm h-3 overflow-hidden"><div class="h-full rounded-full bg-blue-500 shadow-neu-flat" style="width: 70%;"></div></div>
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-3xl md:text-4xl font-extrabold text-neu-text-main tabular-nums">612<span class="text-base font-bold text-neu-text-sub ml-1">ppm</span></span>
+                        <span class="text-xs font-bold text-blue-500">Comfortable</span>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl shadow-neu-flat text-xs font-bold text-neu-text-sub hover:text-neu-accent active:shadow-neu-pressed transition-all flex items-center justify-center gap-2"><i data-lucide="activity" class="w-3.5 h-3.5"></i><span>View trend</span></button>
+                </div>
+                <div class="bg-neu-bg p-6 rounded-3xl shadow-neu-flat flex flex-col gap-5 hover:translate-y-[-4px] transition-transform duration-300">
+                    <div class="flex items-center justify-between">
+                        <div class="h-12 w-12 rounded-xl shadow-neu-flat flex items-center justify-center text-cyan-500"><i data-lucide="droplets" class="w-6 h-6"></i></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Humidity</span>
+                    </div>
+                    <div class="rounded-full shadow-neu-pressed-sm h-3 overflow-hidden"><div class="h-full rounded-full bg-cyan-500 shadow-neu-flat" style="width: 44%;"></div></div>
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-3xl md:text-4xl font-extrabold text-neu-text-main tabular-nums">44<span class="text-base font-bold text-neu-text-sub ml-1">%</span></span>
+                        <span class="text-xs font-bold text-cyan-500">Balanced</span>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl shadow-neu-flat text-xs font-bold text-neu-text-sub hover:text-neu-accent active:shadow-neu-pressed transition-all flex items-center justify-center gap-2"><i data-lucide="activity" class="w-3.5 h-3.5"></i><span>View trend</span></button>
+                </div>
+                <div class="bg-neu-bg p-6 rounded-3xl shadow-neu-flat flex flex-col gap-5 hover:translate-y-[-4px] transition-transform duration-300">
+                    <div class="flex items-center justify-between">
+                        <div class="h-12 w-12 rounded-xl shadow-neu-flat flex items-center justify-center text-purple-500"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">VOC Index</span>
+                    </div>
+                    <div class="rounded-full shadow-neu-pressed-sm h-3 overflow-hidden"><div class="h-full rounded-full bg-purple-500 shadow-neu-flat" style="width: 22%;"></div></div>
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-3xl md:text-4xl font-extrabold text-neu-text-main tabular-nums">120</span>
+                        <span class="text-xs font-bold text-purple-500">Low</span>
+                    </div>
+                    <button class="w-full py-2.5 rounded-xl shadow-neu-flat text-xs font-bold text-neu-text-sub hover:text-neu-accent active:shadow-neu-pressed transition-all flex items-center justify-center gap-2"><i data-lucide="activity" class="w-3.5 h-3.5"></i><span>View trend</span></button>
+                </div>
+            </div>
+        </section>
+
         <!-- Atelier Showcase: image marquee with raised neumorphic frames -->
         <section id="showcase" class="fade-in" style="animation-delay: 0.25s;">
             <div class="flex items-end justify-between mb-8 px-2 gap-4">
@@ -410,47 +472,83 @@
                 <div class="neu-edge-fade-r"></div>
                 <div class="neu-track px-6">
                     <!-- Tile 1 -->
-                    <figure class="neu-frame w-72 shrink-0 p-4">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
-                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="Living room" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="Living room" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Living Room</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · I</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">22°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">04</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Home</span>
+                            </div>
+                        </div>
                     </figure>
                     <!-- Tile 2 -->
-                    <figure class="neu-frame w-80 shrink-0 p-4">
+                    <figure class="neu-frame w-80 shrink-0 p-4 flex flex-col">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[16/10]">
-                            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop" alt="Master bedroom" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop" alt="Master bedroom" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Master Bedroom</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · II</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">19°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">03</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Sleep</span>
+                            </div>
+                        </div>
                     </figure>
                     <!-- Tile 3 -->
-                    <figure class="neu-frame w-72 shrink-0 p-4">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
-                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="Hallway" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop" alt="Hallway" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Hallway</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · III</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">20°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">02</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Auto</span>
+                            </div>
+                        </div>
                     </figure>
                     <!-- Tile 4 -->
-                    <figure class="neu-frame w-96 shrink-0 p-4">
+                    <figure class="neu-frame w-96 shrink-0 p-4 flex flex-col">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[16/10]">
-                            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1200&q=85&auto=format&fit=crop" alt="Kitchen" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" alt="Kitchen" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Kitchen</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · IV</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">21°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">06</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Cook</span>
+                            </div>
+                        </div>
                     </figure>
                     <!-- Tile 5 -->
-                    <figure class="neu-frame w-72 shrink-0 p-4">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
                             <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="Studio" class="w-full h-full object-cover" />
                         </div>
@@ -458,66 +556,129 @@
                             <span class="text-sm font-bold text-neu-text-main">Studio</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · V</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">23°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">05</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Focus</span>
+                            </div>
+                        </div>
                     </figure>
                     <!-- Tile 6 -->
-                    <figure class="neu-frame w-80 shrink-0 p-4">
+                    <figure class="neu-frame w-80 shrink-0 p-4 flex flex-col">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[16/10]">
-                            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=85&auto=format&fit=crop" alt="Sunroom" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop" alt="Sunroom" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Sunroom</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · VI</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">24°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">02</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Read</span>
+                            </div>
+                        </div>
                     </figure>
                     <!-- Tile 7 -->
-                    <figure class="neu-frame w-72 shrink-0 p-4">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
-                            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop" alt="Atrium" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop" alt="Atrium" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Atrium</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · VII</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">21°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">03</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Auto</span>
+                            </div>
+                        </div>
                     </figure>
 
                     <!-- Duplicate set for seamless loop (aria-hidden) -->
-                    <figure class="neu-frame w-72 shrink-0 p-4" aria-hidden="true">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col" aria-hidden="true">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
-                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Living Room</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · I</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">22°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">04</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Home</span>
+                            </div>
+                        </div>
                     </figure>
-                    <figure class="neu-frame w-80 shrink-0 p-4" aria-hidden="true">
+                    <figure class="neu-frame w-80 shrink-0 p-4 flex flex-col" aria-hidden="true">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[16/10]">
-                            <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Master Bedroom</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · II</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">19°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">03</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Sleep</span>
+                            </div>
+                        </div>
                     </figure>
-                    <figure class="neu-frame w-72 shrink-0 p-4" aria-hidden="true">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col" aria-hidden="true">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
-                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Hallway</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · III</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">20°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">02</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Auto</span>
+                            </div>
+                        </div>
                     </figure>
-                    <figure class="neu-frame w-96 shrink-0 p-4" aria-hidden="true">
+                    <figure class="neu-frame w-96 shrink-0 p-4 flex flex-col" aria-hidden="true">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[16/10]">
-                            <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1200&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Kitchen</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · IV</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">21°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">06</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Cook</span>
+                            </div>
+                        </div>
                     </figure>
-                    <figure class="neu-frame w-72 shrink-0 p-4" aria-hidden="true">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col" aria-hidden="true">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
                             <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
                         </div>
@@ -525,24 +686,51 @@
                             <span class="text-sm font-bold text-neu-text-main">Studio</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · V</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">23°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">05</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Focus</span>
+                            </div>
+                        </div>
                     </figure>
-                    <figure class="neu-frame w-80 shrink-0 p-4" aria-hidden="true">
+                    <figure class="neu-frame w-80 shrink-0 p-4 flex flex-col" aria-hidden="true">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[16/10]">
-                            <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Sunroom</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · VI</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">24°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">02</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Read</span>
+                            </div>
+                        </div>
                     </figure>
-                    <figure class="neu-frame w-72 shrink-0 p-4" aria-hidden="true">
+                    <figure class="neu-frame w-72 shrink-0 p-4 flex flex-col" aria-hidden="true">
                         <div class="rounded-2xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
-                            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
+                            <img src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover" />
                         </div>
                         <figcaption class="flex items-center justify-between mt-4 px-1">
                             <span class="text-sm font-bold text-neu-text-main">Atrium</span>
                             <span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">Plate · VII</span>
                         </figcaption>
+                        <div class="mt-auto pt-4">
+                            <div class="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="thermometer" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">21°</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <div class="flex items-center gap-1.5 text-neu-text-sub"><i data-lucide="zap" class="w-3.5 h-3.5"></i><span class="text-xs font-bold tabular-nums">03</span></div>
+                                <span class="h-3 w-px bg-neu-text-sub/30"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-neu-accent">Auto</span>
+                            </div>
+                        </div>
                     </figure>
                 </div>
             </div>
@@ -689,6 +877,63 @@
             </div>
         </section>
 
+        <!-- Activity Pulse — neumorphic timeline of recent home events (NEW SECTION 2) -->
+        <section id="pulse" class="fade-in" style="animation-delay: 0.425s;">
+            <div class="flex items-end justify-between mb-10 px-2 gap-4">
+                <div>
+                    <span class="inline-block text-xs font-bold text-neu-accent uppercase tracking-[0.25em] mb-2">— Pulse · 08</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-neu-text-main">Today, in the order it happened</h2>
+                </div>
+                <p class="hidden md:block text-sm text-neu-text-sub max-w-sm">A quiet log of the morning. Auto-routines stay grey; manual presses carry an accent.</p>
+            </div>
+
+            <div class="bg-neu-bg p-6 md:p-8 rounded-3xl shadow-neu-flat">
+                <ol class="flex flex-col gap-4">
+                    <li class="flex items-center gap-4 md:gap-5 group">
+                        <span class="text-xs font-bold tabular-nums text-neu-text-sub w-14 shrink-0">07:14</span>
+                        <div class="h-11 w-11 shrink-0 rounded-xl shadow-neu-flat flex items-center justify-center text-neu-text-sub group-hover:shadow-neu-flat-lg transition-shadow"><i data-lucide="sunrise" class="w-5 h-5"></i></div>
+                        <div class="flex-1 rounded-2xl shadow-neu-pressed-sm px-4 py-3 flex items-center justify-between gap-3"><span class="text-sm font-semibold text-neu-text-main">Morning scene started</span><span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub whitespace-nowrap">Whole home</span></div>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">auto</span>
+                    </li>
+                    <li class="flex items-center gap-4 md:gap-5 group">
+                        <span class="text-xs font-bold tabular-nums text-neu-text-sub w-14 shrink-0">07:42</span>
+                        <div class="h-11 w-11 shrink-0 rounded-xl shadow-neu-flat flex items-center justify-center text-neu-accent group-hover:shadow-neu-flat-lg transition-shadow"><i data-lucide="lock" class="w-5 h-5"></i></div>
+                        <div class="flex-1 rounded-2xl shadow-neu-pressed-sm px-4 py-3 flex items-center justify-between gap-3"><span class="text-sm font-semibold text-neu-text-main">Front door unlocked</span><span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub whitespace-nowrap">Entrance</span></div>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-500">ok</span>
+                    </li>
+                    <li class="flex items-center gap-4 md:gap-5 group">
+                        <span class="text-xs font-bold tabular-nums text-neu-text-sub w-14 shrink-0">08:03</span>
+                        <div class="h-11 w-11 shrink-0 rounded-xl shadow-neu-flat flex items-center justify-center text-neu-text-sub group-hover:shadow-neu-flat-lg transition-shadow"><i data-lucide="lamp-ceiling" class="w-5 h-5"></i></div>
+                        <div class="flex-1 rounded-2xl shadow-neu-pressed-sm px-4 py-3 flex items-center justify-between gap-3"><span class="text-sm font-semibold text-neu-text-main">Studio lamp dimmed to 40%</span><span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub whitespace-nowrap">Studio</span></div>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">auto</span>
+                    </li>
+                    <li class="flex items-center gap-4 md:gap-5 group">
+                        <span class="text-xs font-bold tabular-nums text-neu-text-sub w-14 shrink-0">08:31</span>
+                        <div class="h-11 w-11 shrink-0 rounded-xl shadow-neu-flat flex items-center justify-center text-neu-text-sub group-hover:shadow-neu-flat-lg transition-shadow"><i data-lucide="fan" class="w-5 h-5"></i></div>
+                        <div class="flex-1 rounded-2xl shadow-neu-pressed-sm px-4 py-3 flex items-center justify-between gap-3"><span class="text-sm font-semibold text-neu-text-main">AC set to 21° from schedule</span><span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub whitespace-nowrap">Bedroom</span></div>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">auto</span>
+                    </li>
+                    <li class="flex items-center gap-4 md:gap-5 group">
+                        <span class="text-xs font-bold tabular-nums text-neu-text-sub w-14 shrink-0">09:05</span>
+                        <div class="h-11 w-11 shrink-0 rounded-xl shadow-neu-flat flex items-center justify-center text-neu-accent group-hover:shadow-neu-flat-lg transition-shadow"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                        <div class="flex-1 rounded-2xl shadow-neu-pressed-sm px-4 py-3 flex items-center justify-between gap-3"><span class="text-sm font-semibold text-neu-text-main">Perimeter armed (away)</span><span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub whitespace-nowrap">Entrance</span></div>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-500">ok</span>
+                    </li>
+                    <li class="flex items-center gap-4 md:gap-5 group">
+                        <span class="text-xs font-bold tabular-nums text-neu-text-sub w-14 shrink-0">09:18</span>
+                        <div class="h-11 w-11 shrink-0 rounded-xl shadow-neu-flat flex items-center justify-center text-neu-accent group-hover:shadow-neu-flat-lg transition-shadow"><i data-lucide="droplets" class="w-5 h-5"></i></div>
+                        <div class="flex-1 rounded-2xl shadow-neu-pressed-sm px-4 py-3 flex items-center justify-between gap-3"><span class="text-sm font-semibold text-neu-text-main">Humidity returned to comfort</span><span class="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub whitespace-nowrap">Living Room</span></div>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest text-emerald-500">ok</span>
+                    </li>
+                </ol>
+
+                <div class="mt-6 pt-6 border-t border-neu-text-sub/15 flex items-center justify-between gap-3">
+                    <span class="text-xs text-neu-text-sub italic">06 events · last refreshed two minutes ago</span>
+                    <button class="px-5 py-2.5 rounded-xl shadow-neu-flat text-xs font-bold text-neu-accent hover:shadow-neu-flat-lg active:shadow-neu-pressed transition-all flex items-center gap-2"><span>View full log</span><i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></button>
+                </div>
+            </div>
+        </section>
+
         <!-- Voices — testimonial trio with circular portraits -->
         <section id="voices" class="fade-in" style="animation-delay: 0.45s;">
             <div class="flex items-end justify-between mb-10 px-2 gap-4">
@@ -749,7 +994,7 @@
                     <div class="flex items-center gap-4">
                         <div class="h-16 w-16 rounded-full shadow-neu-flat p-1.5 shrink-0">
                             <div class="rounded-full overflow-hidden shadow-neu-pressed-sm w-full h-full">
-                                <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=240&q=85&auto=format&fit=crop" alt="Priya M." class="w-full h-full object-cover" />
+                                <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=240&q=85&auto=format&fit=crop" alt="Priya M." class="w-full h-full object-cover" />
                             </div>
                         </div>
                         <div>

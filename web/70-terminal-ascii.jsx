@@ -269,11 +269,11 @@ status: available
                   <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>kern.log · tail</div>
                 </div>
                 <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
-                  <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=400&q=70" alt="proc cpuinfo" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&w=400&q=70" alt="proc cpuinfo" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
                   <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>proc · cpuinfo</div>
                 </div>
                 <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
-                  <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=400&q=70" alt="rack 04 capture" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=400&q=70" alt="rack 04 capture" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
                   <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>rack-04 · psu</div>
                 </div>
                 <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
@@ -285,11 +285,11 @@ status: available
                   <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>auth.log · 09</div>
                 </div>
                 <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
-                  <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=400&q=70" alt="thermal" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "80% 50%" }} />
+                  <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&w=400&q=70" alt="thermal" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(50%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "80% 50%" }} />
                   <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>thermal · 78c</div>
                 </div>
                 <div className="relative aspect-square overflow-hidden border border-[rgba(57,255,20,0.4)]" style={{ backgroundColor: "rgba(57, 255, 20, 0.15)" }}>
-                  <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=400&q=70" alt="rack 12" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "20% 50%" }} />
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=400&q=70" alt="rack 12" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply", objectPosition: "20% 50%" }} />
                   <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 px-1 py-0.5 text-[9px] text-[#39ff14]" style={{ fontFamily: "'Fira Code', monospace" }}>rack-12 · uplink</div>
                 </div>
               </div>
@@ -348,7 +348,7 @@ status: available
             <div className="grid md:grid-cols-12 gap-6 items-start">
               <div className="md:col-span-5">
                 <div className="relative overflow-hidden border border-[rgba(57,255,20,0.4)] aspect-[4/3]" style={{ backgroundColor: "rgba(57, 255, 20, 0.12)" }}>
-                  <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=700&q=75" alt="machinery detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&w=700&q=75" alt="machinery detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.6) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
                   <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.45) 3px)" }}></div>
                   <div className="absolute top-2 left-2 text-[10px] text-[#39ff14]" style={{ fontFamily: "'VT323', monospace" }}>/proc/meminfo · capture</div>
                 </div>
@@ -380,7 +380,7 @@ status: available
             <div className="grid md:grid-cols-12 gap-6 items-start">
               <div className="md:col-span-5">
                 <div className="relative overflow-hidden border border-[rgba(57,255,20,0.4)] aspect-[4/3]" style={{ backgroundColor: "rgba(57, 255, 20, 0.12)" }}>
-                  <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=700&q=75" alt="rack detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=75" alt="rack detail" loading="lazy" className="w-full h-full object-cover" style={{ filter: "contrast(140%) saturate(0%) brightness(0.55) sepia(55%) hue-rotate(80deg)", mixBlendMode: "multiply" }} />
                   <div className="absolute inset-0 pointer-events-none" style={{ background: "repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.45) 3px)" }}></div>
                   <div className="absolute top-2 left-2 text-[10px] text-[#39ff14]" style={{ fontFamily: "'VT323', monospace" }}>/var/log/auth.log</div>
                 </div>

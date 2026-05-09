@@ -28,9 +28,9 @@ export default function T15ArtisanHandmadeStore() {
 
   const glazes = [
     { name: "Iron Ash", num: "№ 04", spec: "Cone 10 · Reduction", src: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=600&q=85&auto=format&fit=crop", filter: "grayscale-[10%] sepia-[15%]" },
-    { name: "Chalk White", num: "№ 07", spec: "Cone 9 · Matte", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=85&auto=format&fit=crop", filter: "grayscale-[10%] sepia-[8%]" },
-    { name: "Cardigan Cobalt", num: "№ 12", spec: "Cone 10 · Salt", src: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=85&auto=format&fit=crop", filter: "grayscale-[15%] sepia-[20%]" },
-    { name: "Oatmeal", num: "№ 19", spec: "Cone 9 · Speckle", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&q=85&auto=format&fit=crop", filter: "grayscale-[10%] sepia-[12%]" }
+    { name: "Chalk White", num: "№ 07", spec: "Cone 9 · Matte", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=85&auto=format&fit=crop", filter: "grayscale-[10%] sepia-[8%]" },
+    { name: "Cardigan Cobalt", num: "№ 12", spec: "Cone 10 · Salt", src: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=85&auto=format&fit=crop", filter: "grayscale-[15%] sepia-[20%]" },
+    { name: "Oatmeal", num: "№ 19", spec: "Cone 9 · Speckle", src: "https://images.unsplash.com/photo-1677776401672-ab7d96c7e63b?w=600&q=85&auto=format&fit=crop", filter: "grayscale-[10%] sepia-[12%]" }
   ];
 
   const studioStats = [
@@ -38,6 +38,39 @@ export default function T15ArtisanHandmadeStore() {
     { value: "1280", suffix: "°C", suffixClass: "text-secondary", label: "Peak kiln temperature" },
     { value: "30", suffix: " days", suffixClass: "font-headline-md text-[20px] md:text-[24px] not-italic align-middle", label: "Average vessel cycle" },
     { value: "2014", suffix: "", label: "Studio established" }
+  ];
+
+  const pressLogos = [
+    { slug: "etsy", name: "Etsy" },
+    { slug: "pinterest", name: "Pinterest" },
+    { slug: "instagram", name: "Instagram" },
+    { slug: "substack", name: "Substack" },
+    { slug: "medium", name: "Medium" },
+    { slug: "vimeo", name: "Vimeo" },
+    { slug: "mailchimp", name: "Mailchimp" },
+  ];
+
+  const livedQuadrants = [
+    { id: "Plate · 01", label: "— On the shelf", body: "Cuts of oak, ten years of service. The Iron Ash plates outlasted three kettles.", img: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=1200&q=85&auto=format&fit=crop", alt: "Ceramic dishware on a wooden shelf in warm afternoon light" },
+    { id: "Plate · 02", label: "— At the wheel", body: "Each form pulled by hand — no jiggers, no slip-cast moulds, no shortcuts.", img: "https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=1200&q=85&auto=format&fit=crop", alt: "Hands shaping a clay vessel on a pottery wheel" },
+    { id: "Plate · 03", label: "— In the home", body: "A cylinder vase on the windowsill — one peony, one stem, all summer.", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1200&q=85&auto=format&fit=crop", alt: "Plaster wall and ceramic shelving in soft natural light" },
+    { id: "Plate · 04", label: "— On the table", body: "An object that earns its place by being held — daily, slowly, without fanfare.", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=1200&q=85&auto=format&fit=crop", alt: "Brass apothecary objects on a dark surface in directional light" },
+  ];
+
+  const selectedVessels = [
+    { num: "№ 01", title: "Iron Ash Set", meta: "£ 285 · 4 pieces", img: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=600&q=85&auto=format&fit=crop", alt: "Iron Ash dinner set" },
+    { num: "№ 02", title: "Brass & Stoneware Tray", meta: "£ 220 · ed. 12", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=600&q=85&auto=format&fit=crop", alt: "Apothecary still-life" },
+    { num: "№ 03", title: "Chalk Cylinder Vase", meta: "£ 110 · matte", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=85&auto=format&fit=crop", alt: "Chalk wall and ceramics" },
+    { num: "№ 04", title: "Cardigan Cobalt Plates", meta: "£ 160 · 6 pieces", img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=85&auto=format&fit=crop", alt: "Cardigan Cobalt plate stack" },
+    { num: "№ 05", title: "Wheel-Thrown Pour", meta: "£ 95 · ea.", img: "https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=600&q=85&auto=format&fit=crop", alt: "Hand-thrown vessel on the wheel" },
+    { num: "№ 06", title: "Harvest Table Spread", meta: "£ 540 · full set", img: "https://images.unsplash.com/photo-1576020799627-aeac74d58064?w=600&q=85&auto=format&fit=crop", alt: "Table setting with assorted ceramics" },
+  ];
+
+  const careNotes = [
+    { num: "Note · 01", icon: "water_drop", title: "Hand-wash · never the dishwasher", body: "Warm water, soft cloth, a beat of mild soap. The matte glazes carry their character because they are porous — the dishwasher will dull them within a season." },
+    { num: "Note · 02", icon: "restaurant", title: "Season the matte glaze", body: "Olive oil, a few minutes' rub, a clean cloth. Repeat once a month for the first year. The glaze deepens with each treatment and stops absorbing the morning's coffee." },
+    { num: "Note · 03", icon: "build", title: "Repair, don't replace", body: "Send the broken piece back. We re-fire, gold-line in the kintsugi tradition, and return it. Postage one way, no labour charged. The crack becomes the most-watched line in the vessel." },
+    { num: "Note · 04", icon: "menu_book", title: "Lifetime ledger", body: "Each vessel is logged in the studio's hand-written register — clay batch, glaze recipe, kiln position, firing curve. Send the foot-stamp number; we'll send back the page." },
   ];
 
   const footerLinks = ["Privacy", "Terms", "Studio Visit"];
@@ -76,9 +109,10 @@ export default function T15ArtisanHandmadeStore() {
     .noise-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none; opacity: 0.4;
-      background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
     }
   `;
+
+  const noiseStyle = { backgroundImage: "url('data:image/svg+xml;utf8,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.65\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E')" };
 
   return (
     <>
@@ -112,7 +146,7 @@ export default function T15ArtisanHandmadeStore() {
             <img alt="Grainy, warm photograph of clay-stained hands shaping a bowl on a pottery wheel" className="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfOdZbO5yT-TjINQT3kOlgwOlA0i2mgb-L5QXLSVeMMadz9Lf6RpSOeOcLKRTpBDsEG6-tyaeWVxFIeypC62MHKC2mOXkhNs-Q_Ve48heSRlwGTm-V5nkE3EQ9r-b84vra0kPIo3R-4pyVg1fG48nXFitT-k2W4jOnrtQSohOhj9QqVEO1LuUcTxAqnGcLzMG2u7fMDrqKDBb3Gm1KTpAQfVFqPU5QdSrK0LCyIMb93Rhe316XayJ7C6c2zn0T8hmOiX5emIUW-A" />
             <div className="absolute inset-0 bg-gradient-to-b from-stone-950/40 via-stone-900/15 to-stone-950/85"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-transparent to-stone-950/30"></div>
-            <div className="noise-overlay opacity-20"></div>
+            <div className="noise-overlay opacity-20" style={noiseStyle}></div>
 
             <div className="absolute top-6 left-4 right-4 flex justify-between items-center text-stone-200/80 sm:top-8 sm:left-8 sm:right-8 md:top-12 md:left-12 md:right-12">
               <span className="font-label-sm text-label-sm uppercase tracking-[0.3em] hidden sm:inline-block">Volume III · MMXXIV</span>
@@ -142,6 +176,20 @@ export default function T15ArtisanHandmadeStore() {
             </p>
           </section>
 
+          {/* Press & Stocked-At — real brand logos */}
+          <section className="px-4 py-14 max-w-container-max mx-auto text-center sm:px-6 sm:py-16 md:px-margin md:py-20 border-b border-outline-variant">
+            <p className="font-label-sm text-label-sm uppercase tracking-[0.3em] text-on-surface-variant mb-2">— Featured · Stocked · Followed</p>
+            <p className="font-headline-md italic text-[20px] sm:text-[22px] md:text-[24px] leading-snug text-on-surface mb-10 max-w-xl mx-auto">"Quietly considered." — and other notes from the press.</p>
+            <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-x-8 gap-y-9 items-center justify-items-center max-w-4xl mx-auto">
+              {pressLogos.map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/40484d`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                  <span className="font-label-sm text-[9px] uppercase tracking-[0.2em] text-on-surface-variant">{b.name}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           <section className="max-w-container-max mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-12 gap-6 sm:px-6 sm:py-20 md:px-margin md:py-24">
             <div className="col-span-1 md:col-span-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-16">
@@ -149,7 +197,7 @@ export default function T15ArtisanHandmadeStore() {
                   <article key={p.num} className="group relative">
                     <div className={`${p.aspect} ${p.offset} overflow-hidden bg-surface-variant mb-4 border border-outline-variant relative`}>
                       <img alt={p.alt} className="w-full h-full object-cover filter contrast-125 sepia-0 group-hover:scale-105 transition-transform duration-700" src={p.src} />
-                      <div className="noise-overlay opacity-30"></div>
+                      <div className="noise-overlay opacity-30" style={noiseStyle}></div>
                       <span className="absolute top-0 right-0 bg-background border-l border-b border-outline-variant px-3 py-1 font-label-sm text-label-sm text-on-surface-variant">{p.num}</span>
                     </div>
                     <h3 className="font-body-lg text-body-lg text-on-surface">{p.title}</h3>
@@ -163,7 +211,7 @@ export default function T15ArtisanHandmadeStore() {
               <div className="sticky top-32">
                 <div className="aspect-[2/3] w-full overflow-hidden bg-surface-variant mb-6 border border-outline-variant relative">
                   <img alt="Portrait of the ceramic maker" className="w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkHoUSIFCL9RBijXPLtbkJP_0qblGj2s-RLJRxw9OTe4RV42O8XPpCbfxYMjwXJrkPJk_ETaTE5CM6DcZBSC8lIATw8K-uJf4usjpjZiIDfflDxpoeNSED54mkIrHgj8sZpQGaSoqGLQOpGaDhj0loIxwpOTsBG1HZm4oXgXHa1LbFGf8C2FAICiNkgr2V_p_zJ13gt5sTctRgMz0vr_CZ1C9HSMjKK5HzhqLW4cuvMGBQYIQRMhQj-U18nE6Hv6CqFdLFisvj5g" />
-                  <div className="noise-overlay opacity-50"></div>
+                  <div className="noise-overlay opacity-50" style={noiseStyle}></div>
                 </div>
                 <p className="font-headline-md text-headline-md text-on-surface italic text-xl leading-relaxed">
                   &quot;The wheel dictates the pace. You cannot rush the form without risking collapse. It demands presence.&quot;
@@ -184,7 +232,7 @@ export default function T15ArtisanHandmadeStore() {
                   <div key={s.label} className={`flex flex-col ${s.offset}`}>
                     <div className="aspect-square bg-surface-variant border border-outline-variant overflow-hidden relative mb-3">
                       <img alt={s.alt} className="w-full h-full object-cover filter grayscale sepia-[20%]" src={s.src} />
-                      <div className="noise-overlay opacity-40"></div>
+                      <div className="noise-overlay opacity-40" style={noiseStyle}></div>
                     </div>
                     <p className="font-label-sm text-label-sm text-on-surface-variant uppercase font-mono tracking-widest">{s.label}</p>
                   </div>
@@ -198,7 +246,7 @@ export default function T15ArtisanHandmadeStore() {
               <div className="md:col-span-7 relative">
                 <div className="aspect-[4/5] w-full overflow-hidden bg-surface-variant border border-outline-variant relative">
                   <img alt="Studio interior, soft afternoon light, ceramic shelves" className="w-full h-full object-cover grayscale-[15%] sepia-[5%]" src="https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=1600&q=85&auto=format&fit=crop" />
-                  <div className="noise-overlay opacity-30"></div>
+                  <div className="noise-overlay opacity-30" style={noiseStyle}></div>
                   <div className="absolute top-0 left-0 bg-background border-r border-b border-outline-variant px-4 py-2">
                     <span className="font-label-sm text-label-sm uppercase tracking-[0.25em] text-on-surface-variant">Detail · 02</span>
                   </div>
@@ -243,7 +291,7 @@ export default function T15ArtisanHandmadeStore() {
                   <figure key={g.name} className="group">
                     <div className="aspect-square overflow-hidden bg-surface-variant border border-outline-variant relative">
                       <img alt={`${g.name} glaze swatch`} className={`w-full h-full object-cover filter ${g.filter} group-hover:scale-105 transition-transform duration-700`} src={g.src} />
-                      <div className="noise-overlay opacity-30"></div>
+                      <div className="noise-overlay opacity-30" style={noiseStyle}></div>
                     </div>
                     <figcaption className="mt-3 flex items-baseline justify-between">
                       <span className="font-body-md text-body-md text-on-surface">{g.name}</span>
@@ -260,6 +308,98 @@ export default function T15ArtisanHandmadeStore() {
                     <div className="font-display-xl text-[40px] md:text-[56px] leading-none text-on-surface italic">{s.value}{s.suffix && <span className={s.suffixClass || "text-secondary"}>{s.suffix}</span>}</div>
                     <p className="font-label-sm text-label-sm uppercase tracking-[0.25em] text-on-surface-variant mt-3">{s.label}</p>
                   </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Where the work lives — 2x2 Premium image-bg quadrants */}
+          <section className="max-w-container-max mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-margin md:py-28">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+              <div className="max-w-2xl">
+                <p className="font-label-sm text-label-sm uppercase tracking-[0.3em] text-secondary mb-4">— IV · The Living Vessel</p>
+                <h2 className="font-headline-lg text-[32px] sm:text-[40px] md:text-headline-lg leading-tight text-on-surface tracking-tight">Where the work <em className="italic font-light text-secondary">lives.</em></h2>
+              </div>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">A vessel is finished only when it earns a place in someone's morning. Four scenes from kitchens that have welcomed our work for a decade.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+              {livedQuadrants.map(q => (
+                <article key={q.id} className="relative group overflow-hidden border border-outline-variant aspect-[4/3] bg-surface-variant">
+                  <img src={q.img} alt={q.alt} className="absolute inset-0 w-full h-full object-cover grayscale-[10%] transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="1200" height="900" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-950/35 to-transparent"></div>
+                  <div className="noise-overlay opacity-25" style={noiseStyle}></div>
+                  <div className="absolute top-4 left-4 bg-background/90 border border-outline-variant px-3 py-1 backdrop-blur-sm">
+                    <span className="font-label-sm text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">{q.id}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <p className="font-label-sm text-label-sm uppercase tracking-[0.25em] text-stone-300/80 mb-2">{q.label}</p>
+                    <h3 className="font-headline-md text-[22px] md:text-[26px] italic font-light text-stone-50 leading-snug max-w-md">{q.body}</h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* Selected Vessels — 6-up static image strip */}
+          <section className="bg-surface-container-low py-16 border-y border-outline-variant sm:py-20 md:py-24">
+            <div className="max-w-container-max mx-auto px-4 sm:px-6 md:px-margin">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 border-b border-outline-variant pb-6">
+                <div>
+                  <p className="font-label-sm text-label-sm uppercase tracking-[0.3em] text-secondary mb-3">— V · Catalog</p>
+                  <h2 className="font-headline-lg text-[28px] sm:text-[36px] md:text-headline-lg leading-tight text-on-surface tracking-tight">Selected vessels · Vol III</h2>
+                </div>
+                <span className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">12 of 23 · Drops Nov 02</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-5">
+                {selectedVessels.map(v => (
+                  <figure key={v.num} className="group">
+                    <div className="relative aspect-square overflow-hidden border border-outline-variant bg-surface-variant">
+                      <span className="absolute top-2 left-2 z-10 font-label-sm text-[10px] uppercase tracking-widest bg-background/95 border border-outline-variant px-1.5 py-0.5 backdrop-blur-sm">{v.num}</span>
+                      <img src={v.img} alt={v.alt} className="w-full h-full object-cover filter grayscale-[10%] sepia-[5%] transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="600" height="600" />
+                      <div className="noise-overlay opacity-30" style={noiseStyle}></div>
+                    </div>
+                    <figcaption className="mt-3">
+                      <h3 className="font-body-md text-on-surface leading-tight">{v.title}</h3>
+                      <p className="font-label-sm text-[10px] uppercase tracking-widest text-on-surface-variant mt-1 font-mono">{v.meta}</p>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+              <div className="mt-12 pt-6 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4 font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">
+                <span>Each vessel signed · numbered · stamped on the foot</span>
+                <a href="#" className="border-b border-on-surface text-on-surface pb-1 hover:text-secondary hover:border-secondary transition-colors">View full catalog →</a>
+              </div>
+            </div>
+          </section>
+
+          {/* Care, Use, Repair — 2-column premium (left text · right card stack with matching heights) */}
+          <section className="max-w-container-max mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-margin md:py-28 border-t border-outline-variant">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-10 md:items-stretch">
+              <div className="md:col-span-5 flex flex-col h-full">
+                <p className="font-label-sm text-label-sm uppercase tracking-[0.3em] text-secondary mb-5">— VI · Stewardship</p>
+                <h2 className="font-display-xl text-[36px] sm:text-[44px] md:text-[56px] leading-[1.05] text-on-surface mb-6 tracking-tight">Care. Use. <em className="italic font-light text-secondary">Repair.</em></h2>
+                <p className="font-body-lg text-body-lg text-on-surface mb-5 leading-relaxed">A vessel that earns a place in your daily ritual deserves more than a tag in a bag. Four standing notes from the studio, written in long-hand and shipped with every piece.</p>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">If a piece breaks — and over a lifetime, it might — we will repair it for the cost of postage. The kiln has a long memory.</p>
+                <div className="mt-auto pt-6 border-t border-outline-variant flex flex-col gap-3">
+                  <p className="font-label-sm text-label-sm uppercase tracking-[0.25em] text-on-surface-variant">From the studio diary</p>
+                  <p className="font-headline-md italic text-[20px] md:text-[22px] text-on-surface leading-snug">"A pot that you have repaired is more yours than a pot that arrived intact."</p>
+                  <p className="font-label-sm text-label-sm uppercase tracking-[0.25em] text-on-surface-variant">— Eluned · Entry № 184 · Mar 2024</p>
+                </div>
+              </div>
+              <div className="md:col-span-7 flex flex-col gap-4 md:gap-5 h-full md:justify-between">
+                {careNotes.map(n => (
+                  <article key={n.num} className="border border-outline-variant bg-surface-container-low p-5 md:p-7 flex items-start gap-5 group hover:border-secondary/60 transition-colors">
+                    <div className="shrink-0 w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center bg-background">
+                      <span className="material-symbols-outlined text-secondary text-[22px]" style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden="true">{n.icon}</span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-baseline justify-between gap-3 mb-1">
+                        <h3 className="font-body-lg text-body-lg text-on-surface">{n.title}</h3>
+                        <span className="font-label-sm text-[10px] uppercase tracking-widest text-on-surface-variant font-mono shrink-0">{n.num}</span>
+                      </div>
+                      <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{n.body}</p>
+                    </div>
+                  </article>
                 ))}
               </div>
             </div>
@@ -289,10 +429,6 @@ export default function T15ArtisanHandmadeStore() {
                 <a key={l} href="#" className="text-stone-500 hover:text-stone-900 transition-colors duration-300">{l}</a>
               ))}
             </div>
-            <svg className="absolute right-0 bottom-full translate-y-1/2 opacity-20 pointer-events-none w-64 h-32 text-secondary" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 200 100">
-              <path d="M10,80 Q50,20 90,60 T180,40"></path>
-              <path d="M80,90 Q120,50 160,80"></path>
-            </svg>
           </div>
         </footer>
       </div>

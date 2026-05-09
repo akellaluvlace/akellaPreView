@@ -26,7 +26,7 @@ const VOICES = [
     name: 'Hana Vesely',
     role: 'Designer · Prague',
     quote: '"A year of entries reads back like a quiet film. I keep returning to spring — the colours, not the words."',
-    portrait: 'https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=160&q=80',
+    portrait: 'https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&w=160&q=80',
     portraitAlt: 'Portrait of Hana Vesely, designer, looking calm and curious',
     quoteTint: 'text-tertiary-container/80',
   },
@@ -59,6 +59,35 @@ const IN_USE_FACETS = [
   { icon: 'spa',                label: 'Calm by default' },
   { icon: 'notifications_off',  label: 'No streaks. No nags.' },
   { icon: 'lock',               label: 'End-to-end private' },
+];
+
+// Carousel cards — each is a CSS UI mockup of a different Sundial screen, layered over a faded photo backdrop
+const CAROUSEL_CARDS = [
+  { tag: 'Write',           tagBg: 'bg-primary-container/90 text-primary',                 active: 'edit_note',  bgImg: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80', bgAlt: 'Warm sunlit desk — backdrop for the Write screen',           overlayClass: 'bg-gradient-to-b from-white/40 to-white/70', textColor: 'text-on-surface', clock: '9:41' },
+  { tag: 'Calendar · May',  tagBg: 'bg-secondary-container/90 text-secondary',             active: 'mood',       bgImg: 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=800&q=80', bgAlt: 'Calming landscape — backdrop for the Calendar screen',       overlayClass: 'bg-gradient-to-b from-white/50 to-white/75', textColor: 'text-on-surface', clock: '10:02' },
+  { tag: 'Insights · Week 18', tagBg: 'bg-tertiary-container/90 text-tertiary',           active: 'history',    bgImg: 'https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=800&q=80', bgAlt: 'Abstract minimal curves — backdrop for the Insights screen', overlayClass: 'bg-gradient-to-b from-white/55 to-white/80', textColor: 'text-on-surface', clock: '16:30' },
+  { tag: 'Settings',        tagBg: 'bg-primary-container/90 text-primary',                 active: 'spa',        bgImg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80', bgAlt: 'Soft pastel gradient — backdrop for the Settings screen',    overlayClass: 'bg-gradient-to-b from-white/55 to-white/80', textColor: 'text-on-surface', clock: '20:14' },
+  { tag: 'Bedtime',         tagBg: 'bg-white/15 backdrop-blur text-white border border-white/30', active: 'bedtime', bgImg: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80', bgAlt: 'Sunset clouds — backdrop for the Bedtime screen',           overlayClass: 'bg-gradient-to-b from-black/30 via-black/20 to-black/55', textColor: 'text-white', clock: '22:07' },
+];
+
+// Real brand logos via Simple Icons CDN (D.0.1) replacing fake Press names
+const TRUSTED_BRANDS = [
+  { name: 'Apple',    slug: 'apple',    color: '1A1A1A' },
+  { name: 'Spotify',  slug: 'spotify',  color: '1DB954' },
+  { name: 'Notion',   slug: 'notion',   color: '1A1A1A' },
+  { name: 'Figma',    slug: 'figma',    color: 'F24E1E' },
+  { name: 'Linear',   slug: 'linear',   color: '5E6AD2' },
+  { name: 'Airbnb',   slug: 'airbnb',   color: 'FF5A5F' },
+  { name: 'Medium',   slug: 'medium',   color: '1A1A1A' },
+  { name: 'Buffer',   slug: 'buffer',   color: '231F20' },
+];
+
+// Promise — full-bleed dark commitment strip facets
+const PROMISE_FACETS = [
+  { icon: 'lock',               iconColor: 'text-tertiary-fixed-dim',  title: 'End-to-end private',     body: 'Encrypted on device. Synced through your iCloud or Google. We never see a word.' },
+  { icon: 'notifications_off',  iconColor: 'text-primary-fixed-dim',   title: 'No streaks. No nags.',   body: 'One optional sunset reminder, set to your evening. Skip a week — the rhythm holds.' },
+  { icon: 'devices',            iconColor: 'text-secondary-fixed-dim', title: 'iPhone, iPad, web',      body: 'Pick up the page where you left it — sleeper train, kitchen window, lunch break.' },
+  { icon: 'file_export',        iconColor: 'text-tertiary-fixed-dim',  title: 'Yours to take',          body: 'Markdown, plain text, or a printable photobook with mood-tinted pages.' },
 ];
 
 function MobileAppLanding() {
@@ -288,14 +317,118 @@ function MobileAppLanding() {
               <span><span className="font-bold text-on-surface">4.9</span> stars, <span className="font-bold text-on-surface">12k</span> reviews</span>
             </div>
 
+            {/* Hero phone mockups — pure CSS UI replacing abstract photos */}
             <div className="flex justify-center items-end gap-6 sm:gap-10 md:gap-16 mt-16 w-full max-w-4xl mx-auto">
-              <div className="w-[45%] max-w-[320px] aspect-[9/19.5] shrink-0 bg-white rounded-[2rem] sm:rounded-[3rem] border-[6px] sm:border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(196,181,253,0.6)] relative overflow-hidden ring-1 ring-black/5 motion-safe:transition-transform motion-safe:duration-500 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(196,181,253,0.8)] z-10">
+
+              {/* Phone 1 — Morning Journal Entry */}
+              <div className="w-[45%] max-w-[320px] aspect-[9/19.5] shrink-0 rounded-[2rem] sm:rounded-[3rem] border-[6px] sm:border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(196,181,253,0.6)] relative overflow-hidden ring-1 ring-black/5 motion-safe:transition-transform motion-safe:duration-500 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(196,181,253,0.8)] z-10" role="img" aria-label="Sundial app — morning journal entry screen">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-5 sm:h-6 bg-white rounded-b-xl sm:rounded-b-2xl z-20 shadow-sm"></div>
-                <img width="1080" height="2340" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1080&q=80" alt="Abstract fluid gradient resembling a soft, calming digital journal interface" fetchPriority="high" />
+                <div className="absolute inset-0 bg-gradient-to-b from-primary-container/50 via-background to-secondary-container/30"></div>
+                <div className="absolute top-12 -right-8 w-32 h-32 rounded-full bg-primary-container/60 blur-2xl"></div>
+                <div className="absolute inset-0 z-10 flex flex-col px-3 pt-6 pb-3 text-on-surface">
+                  <div className="flex justify-between items-center text-[8px] sm:text-[9px] font-semibold tabular-nums">
+                    <span>9:41</span>
+                    <div className="flex gap-1 items-center">
+                      <span className="material-symbols-outlined text-[9px] sm:text-[11px]">network_wifi</span>
+                      <span className="material-symbols-outlined text-[9px] sm:text-[11px]">battery_full</span>
+                    </div>
+                  </div>
+                  <div className="mt-2 sm:mt-3 flex items-center justify-between">
+                    <div className="flex flex-col leading-tight">
+                      <span className="text-on-surface-variant text-[6px] sm:text-[7px] uppercase tracking-[0.25em]">Sunday</span>
+                      <span className="font-headline-md text-base sm:text-lg font-bold leading-none">12 May</span>
+                    </div>
+                    <span className="material-symbols-outlined text-on-surface text-[14px] sm:text-[16px]">menu</span>
+                  </div>
+                  <div className="mt-2 flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-primary text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>wb_sunny</span>
+                    <span className="text-[8px] sm:text-[10px] font-medium leading-none">Good morning, Sarah.</span>
+                  </div>
+                  <div className="mt-2 rounded-2xl bg-white/85 border border-white/60 p-2 shadow-inner">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[6px] sm:text-[7px] uppercase tracking-[0.2em] text-on-surface-variant font-bold">Today's note</span>
+                      <span className="bg-primary-container text-primary text-[6px] sm:text-[7px] px-1.5 py-0.5 rounded-full font-bold tabular-nums">07:14</span>
+                    </div>
+                    <p className="text-[8px] sm:text-[9px] leading-snug">Walked to the lighthouse before the rain. Tea on the way back, watched the gulls.</p>
+                    <span className="inline-block w-[1px] h-2.5 bg-primary mt-0.5 align-middle motion-safe:animate-pulse"></span>
+                  </div>
+                  <div className="mt-2 self-start flex items-center gap-1 bg-secondary-container/40 rounded-full px-2 py-0.5 border border-white/40">
+                    <span className="w-1 h-1 rounded-full bg-secondary"></span>
+                    <span className="text-[6px] sm:text-[7px] uppercase tracking-[0.2em] text-on-surface font-bold">Mood · Calm</span>
+                  </div>
+                  <div className="mt-2 flex items-center gap-2 rounded-xl bg-white/60 border border-white/50 p-1.5">
+                    <span className="material-symbols-outlined text-tertiary text-[10px] sm:text-[12px]">photo_camera</span>
+                    <span className="text-[6px] sm:text-[8px] uppercase tracking-[0.18em] text-on-surface-variant">Attach a moment</span>
+                  </div>
+                  <div className="flex-1"></div>
+                  <div className="flex justify-around items-center bg-white/85 backdrop-blur rounded-full px-2 py-1 sm:py-1.5 border border-white/60 shadow">
+                    <span className="material-symbols-outlined text-primary text-[12px] sm:text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
+                    <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px] sm:text-[14px]">mood</span>
+                    <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px] sm:text-[14px]">history</span>
+                    <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px] sm:text-[14px]">spa</span>
+                  </div>
+                </div>
               </div>
-              <div className="w-[45%] max-w-[320px] aspect-[9/19.5] shrink-0 bg-white rounded-[2rem] sm:rounded-[3rem] border-[6px] sm:border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(232,180,217,0.6)] relative overflow-hidden ring-1 ring-black/5 mt-16 sm:mt-24 motion-safe:transition-transform motion-safe:duration-500 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(232,180,217,0.8)] z-10">
+
+              {/* Phone 2 — Mood Slider */}
+              <div className="w-[45%] max-w-[320px] aspect-[9/19.5] shrink-0 rounded-[2rem] sm:rounded-[3rem] border-[6px] sm:border-[8px] border-white shadow-[0_20px_50px_-10px_rgba(232,180,217,0.6)] relative overflow-hidden ring-1 ring-black/5 mt-16 sm:mt-24 motion-safe:transition-transform motion-safe:duration-500 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(232,180,217,0.8)] z-10" role="img" aria-label="Sundial app — afternoon mood slider screen">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-5 sm:h-6 bg-white rounded-b-xl sm:rounded-b-2xl z-20 shadow-sm"></div>
-                <img width="1080" height="2340" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80" alt="Soft pastel sunset view demonstrating a visual timeline of memories in the app" fetchPriority="high" />
+                <div className="absolute inset-0 bg-gradient-to-b from-primary-container via-secondary-container/70 to-tertiary-container/60"></div>
+                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-primary-container/50 blur-3xl"></div>
+                <div className="absolute inset-0 z-10 flex flex-col px-3 pt-6 pb-3 text-on-surface">
+                  <div className="flex justify-between items-center text-[8px] sm:text-[9px] font-semibold tabular-nums">
+                    <span>15:02</span>
+                    <div className="flex gap-1 items-center">
+                      <span className="material-symbols-outlined text-[9px] sm:text-[11px]">network_wifi</span>
+                      <span className="material-symbols-outlined text-[9px] sm:text-[11px]">battery_full</span>
+                    </div>
+                  </div>
+                  <div className="mt-2 sm:mt-3 flex items-center justify-between">
+                    <span className="material-symbols-outlined text-on-surface text-[14px] sm:text-[16px]">arrow_back</span>
+                    <span className="text-[6px] sm:text-[8px] uppercase tracking-[0.25em] text-on-surface-variant font-bold">Mood · Afternoon</span>
+                    <span className="material-symbols-outlined text-on-surface text-[14px] sm:text-[16px]">more_horiz</span>
+                  </div>
+                  <div className="mt-3 sm:mt-4 flex items-center justify-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-primary-container via-primary-fixed-dim to-secondary-container border-2 border-white/80 shadow-[0_0_40px_-5px_rgba(244,186,154,0.7)]"></div>
+                  </div>
+                  <div className="mt-3 text-center">
+                    <p className="text-[6px] sm:text-[7px] uppercase tracking-[0.2em] text-on-surface-variant font-bold">How does today feel?</p>
+                    <p className="mt-0.5 font-headline-md text-base sm:text-lg font-bold leading-tight">Soft</p>
+                  </div>
+                  <div className="mt-3 px-1">
+                    <div className="relative h-3 sm:h-4 rounded-full bg-gradient-to-r from-tertiary-fixed-dim via-primary-container to-secondary-container border border-white/60 shadow-inner flex items-center">
+                      <div className="absolute left-[55%] -translate-x-1/2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-white border-2 border-primary shadow"></div>
+                    </div>
+                    <div className="flex justify-between text-[5px] sm:text-[7px] uppercase tracking-[0.18em] text-on-surface-variant mt-1.5 font-bold">
+                      <span>Tense</span>
+                      <span>Soft</span>
+                      <span>Bright</span>
+                    </div>
+                  </div>
+                  <div className="mt-3 rounded-xl bg-white/70 border border-white/60 p-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[6px] sm:text-[7px] uppercase tracking-[0.2em] text-on-surface-variant font-bold">7-day arc</span>
+                      <span className="text-[6px] sm:text-[7px] tabular-nums text-primary font-bold">+12%</span>
+                    </div>
+                    <div className="flex items-end justify-between h-5 gap-0.5">
+                      <span className="flex-1 bg-tertiary-container rounded-sm" style={{ height: '30%' }}></span>
+                      <span className="flex-1 bg-secondary-container rounded-sm" style={{ height: '50%' }}></span>
+                      <span className="flex-1 bg-secondary-container rounded-sm" style={{ height: '45%' }}></span>
+                      <span className="flex-1 bg-primary-container rounded-sm" style={{ height: '65%' }}></span>
+                      <span className="flex-1 bg-primary-container rounded-sm" style={{ height: '70%' }}></span>
+                      <span className="flex-1 bg-primary rounded-sm" style={{ height: '85%' }}></span>
+                      <span className="flex-1 bg-primary rounded-sm" style={{ height: '90%' }}></span>
+                    </div>
+                  </div>
+                  <div className="flex-1"></div>
+                  <button type="button" className="bg-on-surface text-on-primary rounded-full py-1.5 sm:py-2 font-label-bold text-[8px] sm:text-[10px] tracking-wide uppercase">Save mood</button>
+                  <div className="mt-1.5 flex justify-around items-center bg-white/85 backdrop-blur rounded-full px-2 py-1 sm:py-1.5 border border-white/60 shadow">
+                    <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px] sm:text-[14px]">edit_note</span>
+                    <span className="material-symbols-outlined text-secondary text-[12px] sm:text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>mood</span>
+                    <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px] sm:text-[14px]">history</span>
+                    <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px] sm:text-[14px]">spa</span>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -312,24 +445,149 @@ function MobileAppLanding() {
             <div className="flex overflow-x-auto pb-12 pt-4 snap-x snap-mandatory hide-scrollbar focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background" tabIndex={0} aria-label="App features gallery">
               <div className="m-auto flex w-max gap-6 sm:gap-8 px-4 sm:px-8 md:px-12">
 
-                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
-                  <img width="800" height="1733" loading="lazy" decoding="async" className="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80" alt="Clean minimal text editor screen with warm lighting perfect for daily journaling" />
+                {/* Card 1 — Write screen */}
+                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2" role="img" aria-label="Sundial Write screen mockup">
+                  <img width="800" height="1733" loading="lazy" decoding="async" className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover rounded-[1.5rem] opacity-70" src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80" alt="Warm sunlit desk — backdrop for the Write screen" />
+                  <div className="absolute inset-3 z-10 flex flex-col rounded-[1.5rem] p-2.5 text-on-surface bg-gradient-to-b from-white/40 to-white/70">
+                    <div className="flex justify-between items-center text-[8px] font-bold tabular-nums">
+                      <span>9:41</span>
+                      <span className="material-symbols-outlined text-[10px]">battery_full</span>
+                    </div>
+                    <span className="mt-2 self-start bg-primary-container/90 text-primary text-[7px] font-bold uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full">Write</span>
+                    <p className="mt-2 font-headline-md text-sm font-bold leading-tight">Today's note</p>
+                    <div className="mt-1.5 rounded-lg bg-white/85 border border-white/60 p-1.5 shadow-inner">
+                      <p className="text-[8px] leading-snug">The light went pink at twenty past seven.</p>
+                      <span className="inline-block w-[1px] h-2 bg-primary mt-0.5 motion-safe:animate-pulse"></span>
+                    </div>
+                    <div className="flex-1"></div>
+                    <div className="flex justify-around items-center bg-white/85 backdrop-blur rounded-full py-1 border border-white/60">
+                      <span className="material-symbols-outlined text-primary text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">mood</span>
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">history</span>
+                    </div>
+                  </div>
                 </article>
 
-                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
-                  <img width="800" height="1733" loading="lazy" decoding="async" className="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=800&q=80" alt="Stylized calendar view showing emotional tracking mapped across calming landscape colors" />
+                {/* Card 2 — Calendar / mood map */}
+                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2" role="img" aria-label="Sundial Calendar screen mockup">
+                  <img width="800" height="1733" loading="lazy" decoding="async" className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover rounded-[1.5rem] opacity-60" src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=800&q=80" alt="Calming landscape — backdrop for the Calendar screen" />
+                  <div className="absolute inset-3 z-10 flex flex-col rounded-[1.5rem] p-2.5 text-on-surface bg-gradient-to-b from-white/50 to-white/75">
+                    <div className="flex justify-between items-center text-[8px] font-bold tabular-nums">
+                      <span>10:02</span>
+                      <span className="material-symbols-outlined text-[10px]">battery_full</span>
+                    </div>
+                    <span className="mt-2 self-start bg-secondary-container/90 text-secondary text-[7px] font-bold uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full">Calendar · May</span>
+                    <p className="mt-2 font-headline-md text-sm font-bold leading-tight">Your month, in mood</p>
+                    <div className="mt-2 grid grid-cols-7 gap-0.5">
+                      {["bg-primary-container/60","bg-secondary-container/60","bg-tertiary-container/60","bg-primary-container/80","bg-primary","bg-secondary-container/70","bg-tertiary-container/40","bg-primary-container/40","bg-primary-container/70","bg-primary","bg-secondary","bg-secondary-container/80","bg-tertiary-container/70","bg-primary-container/50","bg-primary-container/85","bg-primary","bg-secondary","bg-tertiary","bg-secondary-container/65","bg-primary-container/65","bg-tertiary-container/55"].map((cls, i) => (
+                        <span key={i} className={`aspect-square rounded-sm ${cls}`}></span>
+                      ))}
+                    </div>
+                    <div className="flex-1"></div>
+                    <div className="flex justify-around items-center bg-white/85 backdrop-blur rounded-full py-1 border border-white/60">
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">edit_note</span>
+                      <span className="material-symbols-outlined text-secondary text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>mood</span>
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">history</span>
+                    </div>
+                  </div>
                 </article>
 
-                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
-                  <img width="800" height="1733" loading="lazy" decoding="async" className="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=800&q=80" alt="Abstract minimal curved charts demonstrating weekly personal growth analytics" />
+                {/* Card 3 — Insights / weekly arc chart */}
+                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2" role="img" aria-label="Sundial Insights screen mockup">
+                  <img width="800" height="1733" loading="lazy" decoding="async" className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover rounded-[1.5rem] opacity-50" src="https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=800&q=80" alt="Abstract minimal curves — backdrop for the Insights screen" />
+                  <div className="absolute inset-3 z-10 flex flex-col rounded-[1.5rem] p-2.5 text-on-surface bg-gradient-to-b from-white/55 to-white/80">
+                    <div className="flex justify-between items-center text-[8px] font-bold tabular-nums">
+                      <span>16:30</span>
+                      <span className="material-symbols-outlined text-[10px]">battery_full</span>
+                    </div>
+                    <span className="mt-2 self-start bg-tertiary-container/90 text-tertiary text-[7px] font-bold uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full">Insights · Week 18</span>
+                    <p className="mt-2 font-headline-md text-sm font-bold leading-tight">A softer arc this week.</p>
+                    <p className="text-[8px] text-on-surface-variant mt-0.5">Mood up 12%. Energy steadier.</p>
+                    <div className="mt-2 flex items-end justify-between gap-0.5 h-12 px-0.5">
+                      {[
+                        { cls: "bg-tertiary-container/70", h: "35%" },
+                        { cls: "bg-secondary-container/80", h: "50%" },
+                        { cls: "bg-primary-container/80", h: "60%" },
+                        { cls: "bg-primary-container", h: "65%" },
+                        { cls: "bg-primary", h: "78%" },
+                        { cls: "bg-primary", h: "88%" },
+                        { cls: "bg-primary-fixed-dim shadow-[0_0_8px_rgba(244,186,154,0.6)]", h: "95%" },
+                      ].map((b, i) => (
+                        <span key={i} className={`flex-1 rounded-sm ${b.cls}`} style={{ height: b.h }}></span>
+                      ))}
+                    </div>
+                    <div className="mt-1 flex justify-between text-[6px] uppercase tracking-[0.18em] text-on-surface-variant font-bold">
+                      <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                    </div>
+                    <div className="flex-1"></div>
+                    <div className="flex justify-around items-center bg-white/85 backdrop-blur rounded-full py-1 border border-white/60">
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">edit_note</span>
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">mood</span>
+                      <span className="material-symbols-outlined text-tertiary text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>history</span>
+                    </div>
+                  </div>
                 </article>
 
-                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
-                  <img width="800" height="1733" loading="lazy" decoding="async" className="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Settings screen showcasing beautiful pastel toggles and soft typography" />
+                {/* Card 4 — Settings */}
+                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2" role="img" aria-label="Sundial Settings screen mockup">
+                  <img width="800" height="1733" loading="lazy" decoding="async" className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover rounded-[1.5rem] opacity-55" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Soft pastel gradient — backdrop for the Settings screen" />
+                  <div className="absolute inset-3 z-10 flex flex-col rounded-[1.5rem] p-2.5 text-on-surface bg-gradient-to-b from-white/55 to-white/80">
+                    <div className="flex justify-between items-center text-[8px] font-bold tabular-nums">
+                      <span>20:14</span>
+                      <span className="material-symbols-outlined text-[10px]">battery_full</span>
+                    </div>
+                    <span className="mt-2 self-start bg-primary-container/90 text-primary text-[7px] font-bold uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full">Settings</span>
+                    <p className="mt-2 font-headline-md text-sm font-bold leading-tight">Your rhythm</p>
+                    <ul className="mt-2 flex flex-col gap-1.5">
+                      <li className="flex items-center justify-between rounded-lg bg-white/80 border border-white/60 px-2 py-1">
+                        <span className="text-[8px] font-medium">Sunset reminder</span>
+                        <span className="w-6 h-3 rounded-full bg-primary relative"><span className="absolute right-0.5 top-0.5 w-2 h-2 rounded-full bg-white"></span></span>
+                      </li>
+                      <li className="flex items-center justify-between rounded-lg bg-white/80 border border-white/60 px-2 py-1">
+                        <span className="text-[8px] font-medium">End-to-end private</span>
+                        <span className="w-6 h-3 rounded-full bg-primary relative"><span className="absolute right-0.5 top-0.5 w-2 h-2 rounded-full bg-white"></span></span>
+                      </li>
+                      <li className="flex items-center justify-between rounded-lg bg-white/80 border border-white/60 px-2 py-1">
+                        <span className="text-[8px] font-medium">Streaks</span>
+                        <span className="w-6 h-3 rounded-full bg-on-surface-variant/30 relative"><span className="absolute left-0.5 top-0.5 w-2 h-2 rounded-full bg-white"></span></span>
+                      </li>
+                      <li className="flex items-center justify-between rounded-lg bg-white/80 border border-white/60 px-2 py-1">
+                        <span className="text-[8px] font-medium">Mood palette</span>
+                        <span className="text-[7px] text-on-surface-variant">Sunset →</span>
+                      </li>
+                    </ul>
+                    <div className="flex-1"></div>
+                    <div className="flex justify-around items-center bg-white/85 backdrop-blur rounded-full py-1 border border-white/60">
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">edit_note</span>
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[12px]">mood</span>
+                      <span className="material-symbols-outlined text-primary text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>spa</span>
+                    </div>
+                  </div>
                 </article>
 
-                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2">
-                  <img width="800" height="1733" loading="lazy" decoding="async" className="w-full h-full object-cover rounded-[1.5rem]" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Relaxing night mode view featuring deep sunset clouds and muted tones" />
+                {/* Card 5 — Bedtime */}
+                <article className="shrink-0 snap-start w-[240px] sm:w-[280px] aspect-[9/19.5] glass-card rounded-[2rem] p-3 flex flex-col relative overflow-hidden ring-1 ring-white/50 shadow-xl motion-safe:transition-transform motion-safe:duration-300 hover:-translate-y-2" role="img" aria-label="Sundial Bedtime screen mockup">
+                  <img width="800" height="1733" loading="lazy" decoding="async" className="absolute inset-3 w-[calc(100%-1.5rem)] h-[calc(100%-1.5rem)] object-cover rounded-[1.5rem] opacity-80" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="Sunset clouds — backdrop for the Bedtime screen" />
+                  <div className="absolute inset-3 z-10 flex flex-col rounded-[1.5rem] p-2.5 text-white bg-gradient-to-b from-black/30 via-black/20 to-black/55">
+                    <div className="flex justify-between items-center text-[8px] font-bold tabular-nums drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">
+                      <span>22:07</span>
+                      <span className="material-symbols-outlined text-[10px]">battery_full</span>
+                    </div>
+                    <span className="mt-2 self-start bg-white/15 backdrop-blur text-white text-[7px] font-bold uppercase tracking-[0.18em] px-1.5 py-0.5 rounded-full border border-white/30">Bedtime</span>
+                    <p className="mt-2 font-headline-md text-sm font-bold leading-tight drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">Wind down softly.</p>
+                    <p className="text-[8px] mt-1 opacity-80 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">21 min until your sunset reminder.</p>
+                    <div className="mt-3 mx-auto w-16 h-8 relative">
+                      <div className="absolute inset-x-0 bottom-0 h-px bg-white/40"></div>
+                      <div className="absolute left-1/2 -translate-x-1/2 bottom-0 w-12 h-12 rounded-full bg-gradient-to-t from-primary-container to-secondary-container/0 border-2 border-white/60 -translate-y-1/4 shadow-[0_0_24px_rgba(244,186,154,0.55)]"></div>
+                    </div>
+                    <div className="flex-1"></div>
+                    <button type="button" className="rounded-full bg-white/20 backdrop-blur border border-white/30 py-1.5 text-[8px] font-bold uppercase tracking-[0.2em]">Start ritual</button>
+                    <div className="mt-1.5 flex justify-around items-center bg-white/15 backdrop-blur rounded-full py-1 border border-white/30">
+                      <span className="material-symbols-outlined text-white/60 text-[12px]">edit_note</span>
+                      <span className="material-symbols-outlined text-white/60 text-[12px]">mood</span>
+                      <span className="material-symbols-outlined text-white text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>bedtime</span>
+                    </div>
+                  </div>
                 </article>
               </div>
             </div>
@@ -406,11 +664,28 @@ function MobileAppLanding() {
                     <img key={"img-" + f.tag} loading="lazy" decoding="async" className="sundial-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: f.delay }} src={f.src} alt={f.alt} />
                   ))}
 
-                  <div className="absolute inset-x-0 bottom-0 h-20 z-20 bg-gradient-to-t from-black/55 to-transparent pointer-events-none"></div>
-                  <div className="absolute inset-x-0 bottom-0 p-5 z-20 text-white" style={{ minHeight: '56px' }}>
+                  {/* Persistent status bar overlay */}
+                  <div className="absolute top-2 inset-x-0 z-25 px-5 flex justify-between items-center text-white text-[10px] font-bold tabular-nums drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+                    <span>9:41</span>
+                    <div className="flex gap-1.5 items-center">
+                      <span className="material-symbols-outlined text-[12px]">network_wifi</span>
+                      <span className="material-symbols-outlined text-[12px]">battery_full</span>
+                    </div>
+                  </div>
+
+                  <div className="absolute inset-x-0 bottom-14 h-24 z-20 bg-gradient-to-t from-black/65 to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-x-0 bottom-16 p-5 z-20 text-white" style={{ minHeight: '56px' }}>
                     {SCREEN_FRAMES.map(f => (
-                      <span key={"cap-" + f.tag} className="sundial-cycle-img font-caption uppercase tracking-[0.3em] text-[10px] absolute left-5 bottom-5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" style={{ animationDelay: f.delay }}>{f.caption}</span>
+                      <span key={"cap-" + f.tag} className="sundial-cycle-img font-caption uppercase tracking-[0.3em] text-[10px] absolute left-5 bottom-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]" style={{ animationDelay: f.delay }}>{f.caption}</span>
                     ))}
+                  </div>
+
+                  {/* Persistent bottom tab bar */}
+                  <div className="absolute bottom-3 inset-x-3 z-25 flex justify-around items-center bg-white/90 backdrop-blur-md rounded-full px-3 py-2 border border-white/60 shadow-lg">
+                    <span className="material-symbols-outlined text-primary text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
+                    <span className="material-symbols-outlined text-secondary text-[18px]">mood</span>
+                    <span className="material-symbols-outlined text-tertiary text-[18px]">history</span>
+                    <span className="material-symbols-outlined text-on-surface-variant/60 text-[18px]">spa</span>
                   </div>
                 </div>
               </div>
@@ -446,19 +721,62 @@ function MobileAppLanding() {
               </div>
 
               <div className="md:col-span-5 flex justify-center md:justify-end">
-                <div className="w-full max-w-[280px] aspect-[9/19.5] bg-white rounded-[2.5rem] sm:rounded-[3rem] border-[8px] border-white shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-black/10 motion-safe:transition-transform motion-safe:duration-700 hover:rotate-0 rotate-[6deg]">
+                <div className="w-full max-w-[280px] aspect-[9/19.5] bg-white rounded-[2.5rem] sm:rounded-[3rem] border-[8px] border-white shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-black/10 motion-safe:transition-transform motion-safe:duration-700 hover:rotate-0 rotate-[6deg]" role="img" aria-label="Sundial app — evening rewind on the phone, sunset photo of the day">
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[35%] h-6 bg-white rounded-b-2xl z-20 shadow-sm"></div>
                   <img loading="lazy" decoding="async" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1080&q=80" alt="Sundial app open on a phone — sunset tones reflecting the moment captured" />
+                  {/* UI chrome */}
+                  <div className="absolute inset-0 z-10 flex flex-col px-3 pt-3 pb-3 text-white pointer-events-none">
+                    <div className="flex justify-between items-center text-[9px] font-bold tabular-nums drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">
+                      <span>21:48</span>
+                      <div className="flex gap-1 items-center">
+                        <span className="material-symbols-outlined text-[11px]">network_wifi</span>
+                        <span className="material-symbols-outlined text-[11px]">battery_full</span>
+                      </div>
+                    </div>
+                    <div className="mt-3 flex items-center justify-between">
+                      <span className="material-symbols-outlined text-white text-[16px] drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">arrow_back</span>
+                      <span className="text-[7px] uppercase tracking-[0.25em] font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">— Evening · Rewind</span>
+                      <span className="material-symbols-outlined text-white text-[16px] drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">share</span>
+                    </div>
+                    <div className="flex-1"></div>
+                    <div className="rounded-2xl bg-white/15 backdrop-blur-md border border-white/30 p-2.5 shadow-lg">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[7px] uppercase tracking-[0.2em] font-bold opacity-90">Sunday · Recap</span>
+                        <span className="bg-primary-container/90 text-primary text-[7px] px-1.5 py-0.5 rounded-full font-bold tabular-nums">3 notes</span>
+                      </div>
+                      <p className="text-[9px] leading-snug">Tea by the lighthouse. Light went pink at twenty past seven.</p>
+                      <div className="mt-2 flex items-center gap-1.5">
+                        <span className="bg-secondary-container/70 text-on-surface text-[7px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-[0.15em]">Calm</span>
+                        <span className="bg-primary-container/70 text-on-surface text-[7px] px-1.5 py-0.5 rounded-full font-bold uppercase tracking-[0.15em]">Bright</span>
+                      </div>
+                    </div>
+                    <div className="mt-2 flex justify-around items-center bg-white/85 backdrop-blur rounded-full px-2 py-1.5 border border-white/60 shadow">
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[14px]">edit_note</span>
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[14px]">mood</span>
+                      <span className="material-symbols-outlined text-tertiary text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>history</span>
+                      <span className="material-symbols-outlined text-on-surface-variant/60 text-[14px]">spa</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Press strip */}
-          <section className="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12 border-y border-outline-variant/30 py-8 flex justify-center items-center gap-10 flex-wrap opacity-60 grayscale motion-safe:transition-all motion-safe:duration-500 hover:grayscale-0 hover:opacity-100 sm:py-10 sm:gap-14 md:py-12 md:gap-20" aria-label="Featured in press">
-            <span className="font-headline-md text-xl font-bold tracking-tighter text-on-surface sm:text-2xl md:text-[28px] cursor-default">THE VERGE</span>
-            <span className="font-headline-md text-xl font-bold text-[#00A33B] sm:text-2xl md:text-[28px] cursor-default">TechCrunch</span>
-            <span className="font-headline-md text-xl font-bold tracking-widest uppercase text-on-surface sm:text-2xl md:text-[28px] cursor-default">Wired</span>
+          {/* Trusted by — real brand logos via Simple Icons CDN replacing fake press names */}
+          <section className="w-full max-w-7xl mx-auto px-4 sm:px-8 md:px-12" aria-labelledby="trusted-heading">
+            <div className="flex flex-col items-center text-center gap-3 mb-8 md:mb-10">
+              <span className="font-caption uppercase tracking-[0.3em] text-[11px] text-on-surface-variant">— Trusted by</span>
+              <h2 id="trusted-heading" className="font-headline-md text-[clamp(1.25rem,2.5vw,1.75rem)] text-balance">Quietly used at studios you'll know.</h2>
+            </div>
+            <div className="glass-card rounded-[2rem] sm:rounded-[2.5rem] py-8 sm:py-10 px-6 sm:px-8 ring-1 ring-white/40 shadow-md">
+              <ul role="list" className="flex flex-wrap justify-center gap-x-8 gap-y-6 sm:gap-x-12 md:gap-x-14 items-center">
+                {TRUSTED_BRANDS.map(b => (
+                  <li key={b.slug}>
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/${b.color}`} alt={b.name} className="h-7 sm:h-8 w-auto opacity-75 hover:opacity-100 motion-safe:transition-opacity duration-300" loading="lazy" decoding="async" />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </section>
 
           {/* Testimonial */}
@@ -504,6 +822,40 @@ function MobileAppLanding() {
                   </figcaption>
                 </figure>
               ))}
+            </div>
+          </section>
+
+          {/* Promise — full-bleed deep tertiary strip with 4 commitment columns (premium colour break against the pastel sunset page) */}
+          <section className="full-bleed relative overflow-hidden" aria-labelledby="promise-heading" style={{ background: 'linear-gradient(135deg, #1a1530 0%, #2a2050 50%, #1d1838 100%)' }}>
+            <div className="absolute top-0 left-0 w-[40vw] h-[40vw] rounded-full bg-tertiary-container opacity-15 blur-[100px] pointer-events-none"></div>
+            <div className="absolute bottom-0 right-0 w-[35vw] h-[35vw] rounded-full bg-primary-container opacity-12 blur-[100px] pointer-events-none"></div>
+            <div className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay" style={{ backgroundImage: 'repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 3px)' }}></div>
+
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-8 md:px-12 py-20 md:py-28">
+              <div className="flex flex-col items-center text-center gap-3 mb-12 md:mb-16">
+                <span className="font-caption uppercase tracking-[0.3em] text-[11px] text-white/55">— IV · The Promise</span>
+                <h2 id="promise-heading" className="font-headline-xl text-[clamp(1.75rem,4vw+0.5rem,3rem)] text-white text-balance leading-[1.05] max-w-3xl">Built for the slow part of your day.</h2>
+                <p className="font-body-md text-[clamp(1rem,1.5vw,1.125rem)] text-white/70 max-w-[55ch] text-pretty mt-2">Four commitments we won't quietly rewrite over the years.</p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                {PROMISE_FACETS.map(f => (
+                  <div key={f.title} className="flex flex-col gap-3 text-white">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center">
+                      <span className={`material-symbols-outlined ${f.iconColor} text-[24px]`} aria-hidden="true" style={{ fontVariationSettings: "'FILL' 1" }}>{f.icon}</span>
+                    </div>
+                    <h3 className="font-headline-md text-base sm:text-lg leading-tight">{f.title}</h3>
+                    <p className="font-body-md text-xs sm:text-sm text-white/65 leading-relaxed text-pretty">{f.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-12 md:mt-16 flex justify-center">
+                <span className="inline-flex items-center gap-3 bg-white/5 backdrop-blur border border-white/10 rounded-full px-5 py-2 text-white/80">
+                  <span className="w-2 h-2 rounded-full bg-tertiary-fixed-dim sundial-pulse"></span>
+                  <span className="font-caption text-[11px] uppercase tracking-[0.25em]">Sundial · Made for slow mornings</span>
+                </span>
+              </div>
             </div>
           </section>
 

@@ -45,7 +45,7 @@ export default function T34EditorialMagazine() {
   const photographers = [
     { id: "1490481651871-ab68de25d43d", name: "Renaud Vidal",   city: "PARIS",       caption: "Cover · & the Cartographer.",          aspect: "aspect-[3/4]",  width: "w-72" },
     { id: "1487958449943-2429e8be8625", name: "Hana Sato",      city: "TOKYO",       caption: "Architecture plates · Concrete Utopias.", aspect: "aspect-[16/10]", width: "w-80" },
-    { id: "1492707892479-7bc8d5a4ee93", name: "Lior Halpern",   city: "BERLIN",      caption: "Reportage · Field Notes I.",          aspect: "aspect-[3/4]",  width: "w-72" },
+    { id: "1776275758873-31603dd06112", name: "Lior Halpern",   city: "BERLIN",      caption: "Reportage · Field Notes I.",          aspect: "aspect-[3/4]",  width: "w-72" },
     { id: "1469041797191-50ace28483c3", name: "Inès Moreau",    city: "MARSEILLE",   caption: "Long-form · Faroe diary.",            aspect: "aspect-[16/10]", width: "w-80" },
     { id: "1485231183945-fffde7cc051e", name: "Theo Almeida",   city: "LISBON",      caption: "Portraits · Silence is a Language.",  aspect: "aspect-[3/4]",  width: "w-72" },
     { id: "1502672260266-1c1ef2d93688", name: "Eli Cano",       city: "MEXICO CITY", caption: "Travel essay · Field Notes III.",     aspect: "aspect-[16/10]", width: "w-80" },
@@ -58,7 +58,7 @@ export default function T34EditorialMagazine() {
       title: "Letters to a country with no road.",
       body: "Three weeks on Streymoy with a Polaroid camera, a cassette recorder, and a postman who has memorised every household on his island. What he carries is rarely letters. It is news, condolences, the silence between ferries.",
       byline: "by Inès Moreau",
-      img: "1493663284031-b7e3aefcae8e", alt: "Faroe Islands cliffs in heavy weather",
+      img: "1742339548967-5d0a45af57c2", alt: "Faroe Islands cliffs in heavy weather",
       reverse: false,
     },
     {
@@ -66,7 +66,7 @@ export default function T34EditorialMagazine() {
       title: "A train at the edge of Hokkaido.",
       body: "For seven years, the Mashike branch line ran a single carriage to a single passenger — a high-school student walking out of one life and into another. We rode it the day it closed, with the conductor who had taken the job specifically to keep her safe.",
       byline: "by Hana Sato",
-      img: "1481349518771-20055b2a7b24", alt: "Hokkaido railway in snow",
+      img: "1707186563546-71a3e11d6b39", alt: "Hokkaido railway in snow",
       reverse: true,
     },
     {
@@ -81,7 +81,7 @@ export default function T34EditorialMagazine() {
 
   const contributors = [
     { numeral: "I",   name: "Renaud Vidal",  img: "1490481651871-ab68de25d43d", body: <>Cover photograph &amp; portfolio. Has worked the Sahel, the Sicilian salt flats, the Highlands. Is rarely in the same country twice in a calendar year.</>, tags: ["Photography", "Reportage"] },
-    { numeral: "II",  name: "Elena Vranas",  img: "1492707892479-7bc8d5a4ee93", body: <>Author of <em>The Last Cartographer</em>. Greek-Namibian writer, longtime contributor since 2014. This is her ninth feature for Periphery.</>, tags: ["Long-form", "Memoir"] },
+    { numeral: "II",  name: "Elena Vranas",  img: "1776275758873-31603dd06112", body: <>Author of <em>The Last Cartographer</em>. Greek-Namibian writer, longtime contributor since 2014. This is her ninth feature for Periphery.</>, tags: ["Long-form", "Memoir"] },
     { numeral: "III", name: "Sarah Jenkins", img: "1485231183945-fffde7cc051e", body: <>Architecture critic. <em>Concrete Utopias</em> began as a footnote in her 2022 monograph and grew into the longest essay in this issue.</>, tags: ["Criticism", "Architecture"] },
     { numeral: "IV",  name: "David Chen",    img: "1502716119720-b23a93e5fe1b", body: <>Memoirist. <em>The Mechanics of Memory</em> is the first piece he has published since the 2021 closure of <em>Lapham's</em>. We are pleased he chose us.</>, tags: ["Essay", "Memoir"] },
     { numeral: "V",   name: "Maria Rossi",   img: "1483985988355-763728e1935b", body: <>Subject of our cover interview, <em>Silence is a Language</em>. Ms Rossi's first published words since 2004 appear in these pages.</>, tags: ["Interview", "Fiction"] },
@@ -93,6 +93,58 @@ export default function T34EditorialMagazine() {
     { num: "03", title: "The Mechanics of Memory",                meta: "Essay · David Chen",         read: "14 min" },
     { num: "04", title: "Letters to a country with no road",      meta: "Field Notes · Inès Moreau",  read: "14 min" },
     { num: "05", title: "Silence is a Language",                  meta: "Interview · Maria Rossi",    read: "31 min" },
+  ];
+
+  // Press shelf — editorial flavor of R.11 (trusted-by). All slugs curl-checked 200 with -L.
+  const pressShelf = [
+    "medium", "theguardian", "substack", "telegraph",
+    "behance", "vimeo", "framer", "wetransfer",
+  ];
+
+  // Premium 4-card editorial subscription tiers (R.12 editorial: Salon / Subscription / Vault / Salon Series).
+  const tiers = [
+    {
+      tag: "Issue · One",
+      title: "The Salon",
+      body: "A single, hand-stitched copy posted from London the week of release. Includes the printed inserts and the editor's note.",
+      chip: "£24 · per issue",
+      glyph: "M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4M3 17l9 4 9-4",
+    },
+    {
+      tag: "Quartet",
+      title: "Subscription",
+      body: "Four printed issues a year, posted ten days before newsstand. Members receive the full digital archive and the bi-monthly Periphery letter.",
+      chip: "£86 · annual",
+      glyph: "M4 6h16M4 12h16M4 18h10",
+      featured: true,
+    },
+    {
+      tag: "Patron",
+      title: "The Vault",
+      body: "Everything in the Quartet, plus a numbered linen-bound volume of the year's complete archive, hand-pressed in Saint-Pierre.",
+      chip: "£240 · annual · 220 made",
+      glyph: "M5 4h14a2 2 0 012 2v14l-9-4-9 4V6a2 2 0 012-2z",
+    },
+    {
+      tag: "Conversation",
+      title: "Salon Series",
+      body: "Four small evenings a year — one writer, one reader, no podium. London, Paris, Tokyo, and one elsewhere. Twenty-four seats; eight reserved for subscribers.",
+      chip: "By invitation",
+      glyph: "M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z",
+    },
+  ];
+
+  // Image strip before footer (R.17, 8 squares). Pulled from the verified editorial / workspace / portrait pool.
+  // Subjects: type / paper / shelves / printer / light-on-desk / portrait studio / typewriter / page-spread.
+  const closingPlates = [
+    { id: "1521405924368-64c5b84bec60", alt: "Type cases and metal sorts laid out on the editor's desk." },
+    { id: "1611224923853-80b023f02d71", alt: "A folded broadsheet beside a black coffee, raking morning light." },
+    { id: "1455390582262-044cdead277a", alt: "Wall of bound back-issues in the production office." },
+    { id: "1481627834876-b7833e8f5570", alt: "Open spread of the previous issue, gutter centred." },
+    { id: "1495446815901-a7297e633e8d", alt: "Reading lamp, marked-up galley, and a felt-tip pen." },
+    { id: "1483985988355-763728e1935b", alt: "Studio portrait — feature subject, between sittings." },
+    { id: "1499744937866-d7e566a20a61", alt: "An old typewriter on a writing desk, daylight from the left." },
+    { id: "1499951360447-b19be8fe80f5", alt: "Stack of essays in proof, page numbers visible at the corner." },
   ];
 
   const tailwindConfig = `
@@ -147,6 +199,7 @@ export default function T34EditorialMagazine() {
         animation: mag-marquee 65s linear infinite;
         width: max-content;
         display: flex;
+        align-items: center;
         gap: 28px;
     }
     .mag-marquee-track:hover { animation-play-state: paused; }
@@ -159,9 +212,27 @@ export default function T34EditorialMagazine() {
         padding: 0.15em 0.18em 0 0;
         color: #ae2d3e;
     }
+    .mag-tier-featured {
+        box-shadow: 0 0 0 1px rgba(174, 45, 62, 0.45),
+                    0 24px 60px -28px rgba(174, 45, 62, 0.35);
+    }
+    .mag-noise {
+        background-image:
+            repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 3px),
+            repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 3px);
+    }
+    .mag-press-mark img {
+        filter: grayscale(100%) opacity(0.55);
+        transition: filter 360ms ease, transform 360ms ease;
+    }
+    .mag-press-mark:hover img {
+        filter: grayscale(20%) opacity(1);
+        transform: translateY(-1px);
+    }
     @media (prefers-reduced-motion: reduce) {
       *, ::before, ::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
       .mag-marquee-track { animation: none; }
+      .mag-press-mark img { transition: none; }
     }
   `;
 
@@ -262,6 +333,22 @@ export default function T34EditorialMagazine() {
                 <p>We invite you to slow down, disconnect from the relentless digital feed, and explore the periphery with us.</p>
               </div>
               <div className="mt-10 pt-8 border-t border-on-background/10 text-center font-headline-lg text-primary italic text-2xl">Marcus Vance</div>
+
+              {/* P.12 FILE_HEADER metadata card — pinned to aside floor for R.6 bottom-align */}
+              <div className="mt-auto pt-10">
+                <div className="border border-on-background/30 bg-background p-4 font-mono text-[11px] text-on-surface-variant">
+                  <p className="font-bold uppercase tracking-[0.22em] underline underline-offset-4 text-primary mb-3">MASTHEAD · ISSUE 14</p>
+                  <ul className="flex flex-col gap-1.5">
+                    <li className="flex justify-between"><span>VOLUME:</span><span className="font-bold text-primary">XIV · Spring MMXXVI</span></li>
+                    <li className="flex justify-between"><span>PRESSED:</span><span>Saint-Pierre · 02-04</span></li>
+                    <li className="flex justify-between"><span>PAPER:</span><span>Munken Pure · 120 g/m²</span></li>
+                    <li className="flex justify-between"><span>TYPE:</span><span>Newsreader · Noto Serif</span></li>
+                    <li className="flex justify-between"><span>EDITION:</span><span>2,400 numbered</span></li>
+                  </ul>
+                  <hr className="border-on-background/20 my-3" />
+                  <p className="uppercase tracking-[0.18em] text-[9px]">SIGNED OFF BY THE EDITOR.<br/>Plates verified against the negative.</p>
+                </div>
+              </div>
             </aside>
           </div>
 
@@ -294,6 +381,30 @@ export default function T34EditorialMagazine() {
             </div>
           </section>
 
+          {/* Section: Press Shelf — quoted by, syndicated to, reprinted in */}
+          <section className="mt-section-gap pt-16 border-t border-on-background/10">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-end mb-12">
+              <div className="md:col-span-7">
+                <div className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— On the press shelf</div>
+                <h3 className="font-headline-lg text-headline-lg text-primary leading-tight text-balance">Reprinted, syndicated, & quoted at length.</h3>
+              </div>
+              <p className="md:col-span-5 font-body-md text-body-md text-on-surface-variant text-pretty md:text-right">A small number of houses we trust to carry our long-form on. We do not syndicate widely; the list below is the entirety of the past four issues.</p>
+            </div>
+            <div className="border-y border-on-background/10 py-10">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                {pressShelf.map(slug => (
+                  <a key={slug} href="#" className="mag-press-mark inline-flex items-center justify-center h-10" aria-label={`Reprinted in ${slug}`}>
+                    <img src={`https://cdn.simpleicons.org/${slug}/1d1c15`} alt={slug} className="h-7 md:h-8 w-auto" loading="lazy" decoding="async" />
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3 text-on-surface-variant">
+              <span className="font-metadata text-metadata italic">+ 19 mentions in trade press, Spring 2024 — full ledger on request.</span>
+              <span className="font-label-caps text-label-caps uppercase tracking-widest">Periphery · House register · MMXXIV</span>
+            </div>
+          </section>
+
           {/* Section: Field Notes (3 alternating image+content rows) */}
           <section className="mt-section-gap pt-16 border-t border-on-background/10">
             <div className="mb-12">
@@ -320,6 +431,40 @@ export default function T34EditorialMagazine() {
                   </div>
                 </article>
               ))}
+            </div>
+          </section>
+
+          {/* Section: Subscription tiers (R.12 premium 4-card editorial) */}
+          <section className="mt-section-gap pt-16 border-t border-on-background/10">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+              <div className="max-w-xl">
+                <div className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— How to read Periphery</div>
+                <h3 className="font-headline-lg text-headline-lg text-primary leading-tight text-balance">Four ways to keep the journal on the table.</h3>
+              </div>
+              <p className="md:max-w-md font-body-md text-body-md text-on-surface-variant text-pretty md:text-right">Each issue is hand-stitched in Saint-Pierre, posted in a linen wrap. We print to order; the closing date for the next issue is the eighth of every quarter.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {tiers.map(t => (
+                <article key={t.title} className={`relative bg-surface-container-low border border-on-background/10 rounded-sm p-7 lg:p-8 flex flex-col gap-5 hover:-translate-y-1 transition-all duration-500 ${t.featured ? "mag-tier-featured" : ""}`}>
+                  {t.featured ? (
+                    <span className="absolute -top-3 left-7 font-label-caps text-label-caps uppercase tracking-widest bg-secondary text-on-secondary px-2.5 py-1 rounded-sm">Most chosen</span>
+                  ) : null}
+                  <div className="inline-flex w-12 h-12 rounded-sm bg-background border border-on-background/15 items-center justify-center text-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d={t.glyph} />
+                    </svg>
+                  </div>
+                  <div className="font-label-caps text-label-caps text-secondary uppercase tracking-widest">{t.tag}</div>
+                  <h4 className="font-headline-md text-primary italic text-2xl leading-tight">{t.title}</h4>
+                  <p className="font-body-md text-body-md text-on-surface-variant text-pretty flex-1">{t.body}</p>
+                  <span className="mt-3 pt-4 border-t border-on-background/10 font-label-caps text-label-caps uppercase tracking-widest text-primary tabular-nums">{t.chip}</span>
+                </article>
+              ))}
+            </div>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-metadata text-metadata text-on-surface-variant">
+              <span className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>Unconditional refund within 30 days.</span>
+              <span className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>Posted from Saint-Pierre · 2,400 copies.</span>
+              <span className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>No advertising in the printed pages.</span>
             </div>
           </section>
 
@@ -353,6 +498,38 @@ export default function T34EditorialMagazine() {
             </ol>
           </section>
 
+          {/* Section: The Reading Room — R.18 Inner Circle premium image-bg */}
+          <section className="relative mt-section-gap py-24 md:py-32 border-y border-on-background/15 overflow-hidden bg-on-background text-background">
+            <div className="absolute inset-0">
+              <img
+                src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=1800&q=85&auto=format&fit=crop"
+                alt="Editor's reading room — folio paper, brass lamp, low evening light."
+                className="w-full h-full object-cover opacity-30 grayscale"
+                loading="lazy" decoding="async"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-on-background via-on-background/85 to-on-background"></div>
+              <div className="absolute inset-0 mag-noise opacity-20"></div>
+            </div>
+            <div className="relative max-w-2xl mx-auto px-6 text-center">
+              <div aria-hidden="true" className="w-16 h-px bg-secondary/60 mx-auto mb-10"></div>
+              <span className="inline-block font-label-caps text-label-caps uppercase tracking-widest border border-secondary/50 text-secondary-container px-3 py-1.5 rounded-sm">By invitation</span>
+              <h3 className="mt-8 font-display-masthead text-[clamp(2.25rem,4vw+1rem,3.75rem)] leading-[1.05] text-background italic text-balance">The Reading Room.</h3>
+              <p className="mt-6 font-body-lg text-body-lg text-background/85 italic text-pretty">A small, untracked correspondence between the editor and ninety-six readers. One letter a fortnight, one essay in proof, one piece of marginalia per quarter — sent by post, in a paper envelope, signed by hand.</p>
+              <p className="mt-5 font-label-caps text-label-caps uppercase tracking-[0.28em] text-background/60">Ninety-six seats · London · Paris · Tokyo · Buenos Aires</p>
+
+              <form className="mt-10 max-w-md mx-auto flex items-end gap-3 border-b border-background/40 pb-3" onSubmit={(e) => e.preventDefault()}>
+                <label className="flex-1 text-left">
+                  <span className="block font-label-caps text-label-caps uppercase tracking-widest text-background/60 mb-2">Postal address</span>
+                  <input type="email" required placeholder="reader@city.com" className="w-full bg-transparent text-background placeholder:text-background/40 font-body-md text-body-md focus:outline-none focus:ring-0 border-0" />
+                </label>
+                <button type="submit" className="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container hover:text-background transition-colors pb-1 whitespace-nowrap">Request →</button>
+              </form>
+
+              <div aria-hidden="true" className="w-16 h-px bg-secondary/60 mx-auto mt-12"></div>
+              <p className="mt-6 font-metadata text-metadata text-background/55 italic">MMXIV — present · No public roster · Reply by post within 21 days.</p>
+            </div>
+          </section>
+
           {/* Section: Reading Order */}
           <section className="mt-section-gap pt-16 pb-section-gap border-t border-on-background/10">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-end mb-12">
@@ -376,6 +553,27 @@ export default function T34EditorialMagazine() {
               ))}
             </ol>
             <p className="font-metadata text-metadata text-on-surface-variant italic text-center mt-8">Total reading time, end to end: roughly one hour and forty-four minutes. Tea is permitted between pieces three and four.</p>
+          </section>
+
+          {/* Section: Closing plates — image strip before footer (R.17, 8 squares, static) */}
+          <section className="border-t border-on-background/10 pt-16 pb-12">
+            <div className="text-center mb-10">
+              <div className="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— From the production room</div>
+              <h3 className="font-headline-lg text-headline-lg text-primary leading-tight text-balance max-w-2xl mx-auto">Eight plates from the week we went to press.</h3>
+              <p className="mt-4 font-metadata text-metadata text-on-surface-variant italic">Photographed in-house by the editorial team · Saint-Pierre, March 2024.</p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+              {closingPlates.map(p => (
+                <figure key={p.id} className="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                  <img
+                    src={`https://images.unsplash.com/photo-${p.id}?w=600&q=80&auto=format&fit=crop`}
+                    alt={p.alt}
+                    className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                    loading="lazy" decoding="async"
+                  />
+                </figure>
+              ))}
+            </div>
           </section>
         </main>
 

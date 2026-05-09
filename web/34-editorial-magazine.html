@@ -116,6 +116,7 @@
             animation: mag-marquee 65s linear infinite;
             width: max-content;
             display: flex;
+            align-items: center;
             gap: 28px;
         }
         .mag-marquee-track:hover { animation-play-state: paused; }
@@ -128,6 +129,23 @@
             padding: 0.15em 0.18em 0 0;
             color: #ae2d3e;
         }
+        .mag-tier-featured {
+            box-shadow: 0 0 0 1px rgba(174, 45, 62, 0.45),
+                        0 24px 60px -28px rgba(174, 45, 62, 0.35);
+        }
+        .mag-noise {
+            background-image:
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 3px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 3px);
+        }
+        .mag-press-mark img {
+            filter: grayscale(100%) opacity(0.55);
+            transition: filter 360ms ease, transform 360ms ease;
+        }
+        .mag-press-mark:hover img {
+            filter: grayscale(20%) opacity(1);
+            transform: translateY(-1px);
+        }
         @media (prefers-reduced-motion: reduce) {
             *, ::before, ::after {
                 animation-duration: 0.01ms !important;
@@ -136,6 +154,7 @@
                 scroll-behavior: auto !important;
             }
             .mag-marquee-track { animation: none; }
+            .mag-press-mark img { transition: none; }
         }
     </style>
 </head>
@@ -381,6 +400,22 @@
                 <div class="mt-10 pt-8 border-t border-on-background/10 text-center font-headline-lg text-primary italic text-2xl">
                     Marcus Vance
                 </div>
+
+                <!-- P.12 FILE_HEADER metadata card — pinned to aside floor for R.6 bottom-align -->
+                <div class="mt-auto pt-10">
+                    <div class="border border-on-background/30 bg-background p-4 font-mono text-[11px] text-on-surface-variant">
+                        <p class="font-bold uppercase tracking-[0.22em] underline underline-offset-4 text-primary mb-3">MASTHEAD &middot; ISSUE 14</p>
+                        <ul class="flex flex-col gap-1.5">
+                            <li class="flex justify-between"><span>VOLUME:</span><span class="font-bold text-primary">XIV &middot; Spring MMXXVI</span></li>
+                            <li class="flex justify-between"><span>PRESSED:</span><span>Saint-Pierre &middot; 02-04</span></li>
+                            <li class="flex justify-between"><span>PAPER:</span><span>Munken Pure &middot; 120 g/m&sup2;</span></li>
+                            <li class="flex justify-between"><span>TYPE:</span><span>Newsreader &middot; Noto Serif</span></li>
+                            <li class="flex justify-between"><span>EDITION:</span><span>2,400 numbered</span></li>
+                        </ul>
+                        <hr class="border-on-background/20 my-3" />
+                        <p class="uppercase tracking-[0.18em] text-[9px]">SIGNED OFF BY THE EDITOR.<br/>Plates verified against the negative.</p>
+                    </div>
+                </div>
             </aside>
             
         </div>
@@ -420,7 +455,7 @@
                     </figure>
                     <figure class="shrink-0 w-72">
                         <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative">
-                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Portrait by Lior Halpern" loading="lazy" />
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-1000" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="Portrait by Lior Halpern" loading="lazy" />
                         </div>
                         <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3">
                             <span class="font-headline-md text-primary italic text-xl leading-tight">Lior Halpern</span>
@@ -480,7 +515,7 @@
                         <p class="font-metadata text-metadata text-on-surface-variant mt-1">Architecture plates · Concrete Utopias.</p>
                     </figure>
                     <figure class="shrink-0 w-72" aria-hidden="true">
-                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+                        <div class="aspect-[3/4] overflow-hidden rounded-sm bg-surface-container relative"><img class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-110" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&amp;q=85&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
                         <figcaption class="mt-4 flex items-baseline justify-between gap-3 border-t border-on-background/10 pt-3"><span class="font-headline-md text-primary italic text-xl leading-tight">Lior Halpern</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">BERLIN</span></figcaption>
                         <p class="font-metadata text-metadata text-on-surface-variant mt-1">Reportage · Field Notes I.</p>
                     </figure>
@@ -508,6 +543,33 @@
             </div>
         </section>
 
+        <!-- Section: Press Shelf — quoted by, syndicated to, reprinted in -->
+        <section class="mt-section-gap pt-16 border-t border-on-background/10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-end mb-12">
+                <div class="md:col-span-7">
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— On the press shelf</div>
+                    <h3 class="font-headline-lg text-headline-lg text-primary leading-tight text-balance">Reprinted, syndicated, &amp; quoted at length.</h3>
+                </div>
+                <p class="md:col-span-5 font-body-md text-body-md text-on-surface-variant text-pretty md:text-right">A small number of houses we trust to carry our long-form on. We do not syndicate widely; the list below is the entirety of the past four issues.</p>
+            </div>
+            <div class="border-y border-on-background/10 py-10">
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in medium"><img src="https://cdn.simpleicons.org/medium/1d1c15" alt="medium" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in theguardian"><img src="https://cdn.simpleicons.org/theguardian/1d1c15" alt="theguardian" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in substack"><img src="https://cdn.simpleicons.org/substack/1d1c15" alt="substack" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in telegraph"><img src="https://cdn.simpleicons.org/telegraph/1d1c15" alt="telegraph" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in behance"><img src="https://cdn.simpleicons.org/behance/1d1c15" alt="behance" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in vimeo"><img src="https://cdn.simpleicons.org/vimeo/1d1c15" alt="vimeo" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in framer"><img src="https://cdn.simpleicons.org/framer/1d1c15" alt="framer" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                    <a href="#" class="mag-press-mark inline-flex items-center justify-center h-10" aria-label="Reprinted in wetransfer"><img src="https://cdn.simpleicons.org/wetransfer/1d1c15" alt="wetransfer" class="h-7 md:h-8 w-auto" loading="lazy" decoding="async" /></a>
+                </div>
+            </div>
+            <div class="mt-6 flex flex-wrap items-baseline justify-between gap-3 text-on-surface-variant">
+                <span class="font-metadata text-metadata italic">+ 19 mentions in trade press, Spring 2024 — full ledger on request.</span>
+                <span class="font-label-caps text-label-caps uppercase tracking-widest">Periphery &middot; House register &middot; MMXXIV</span>
+            </div>
+        </section>
+
         <!-- Section: Field Notes (3 alternating image+content rows, NOT a grid) -->
         <section class="mt-section-gap pt-16 border-t border-on-background/10">
             <div class="mb-12">
@@ -520,7 +582,7 @@
                 <article class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center group">
                     <a href="#" class="contents">
                         <figure class="md:col-span-7 relative aspect-[4/3] overflow-hidden rounded-sm bg-surface-container">
-                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-[0.2] group-hover:scale-105 transition-all duration-[1500ms] ease-out" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Faroe Islands cliffs in heavy weather" loading="lazy" />
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-[0.2] group-hover:scale-105 transition-all duration-[1500ms] ease-out" src="https://images.unsplash.com/photo-1742339548967-5d0a45af57c2?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Faroe Islands cliffs in heavy weather" loading="lazy" />
                             <span class="absolute top-4 left-4 font-label-caps text-label-caps uppercase tracking-widest bg-background/85 backdrop-blur-sm text-primary px-3 py-1.5 rounded-sm">No. I · Faroe Islands</span>
                         </figure>
                     </a>
@@ -548,7 +610,7 @@
                     </div>
                     <a href="#" class="md:col-span-7 md:order-2 order-1">
                         <figure class="relative aspect-[4/3] overflow-hidden rounded-sm bg-surface-container">
-                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-[0.2] group-hover:scale-105 transition-all duration-[1500ms] ease-out" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Hokkaido railway in snow" loading="lazy" />
+                            <img class="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:grayscale-[0.2] group-hover:scale-105 transition-all duration-[1500ms] ease-out" src="https://images.unsplash.com/photo-1707186563546-71a3e11d6b39?w=1600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Hokkaido railway in snow" loading="lazy" />
                             <span class="absolute top-4 left-4 font-label-caps text-label-caps uppercase tracking-widest bg-background/85 backdrop-blur-sm text-primary px-3 py-1.5 rounded-sm">No. II · Hokkaido</span>
                         </figure>
                     </a>
@@ -573,6 +635,74 @@
                     </div>
                 </article>
 
+            </div>
+        </section>
+
+        <!-- Section: Subscription tiers (R.12 premium 4-card editorial) -->
+        <section class="mt-section-gap pt-16 border-t border-on-background/10">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+                <div class="max-w-xl">
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— How to read Periphery</div>
+                    <h3 class="font-headline-lg text-headline-lg text-primary leading-tight text-balance">Four ways to keep the journal on the table.</h3>
+                </div>
+                <p class="md:max-w-md font-body-md text-body-md text-on-surface-variant text-pretty md:text-right">Each issue is hand-stitched in Saint-Pierre, posted in a linen wrap. We print to order; the closing date for the next issue is the eighth of every quarter.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+                <article class="relative bg-surface-container-low border border-on-background/10 rounded-sm p-7 lg:p-8 flex flex-col gap-5 hover:-translate-y-1 transition-all duration-500">
+                    <div class="inline-flex w-12 h-12 rounded-sm bg-background border border-on-background/15 items-center justify-center text-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4M3 17l9 4 9-4" />
+                        </svg>
+                    </div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Issue &middot; One</div>
+                    <h4 class="font-headline-md text-primary italic text-2xl leading-tight">The Salon</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty flex-1">A single, hand-stitched copy posted from London the week of release. Includes the printed inserts and the editor's note.</p>
+                    <span class="mt-3 pt-4 border-t border-on-background/10 font-label-caps text-label-caps uppercase tracking-widest text-primary tabular-nums">&pound;24 &middot; per issue</span>
+                </article>
+
+                <article class="relative bg-surface-container-low border border-on-background/10 rounded-sm p-7 lg:p-8 flex flex-col gap-5 hover:-translate-y-1 transition-all duration-500 mag-tier-featured">
+                    <span class="absolute -top-3 left-7 font-label-caps text-label-caps uppercase tracking-widest bg-secondary text-on-secondary px-2.5 py-1 rounded-sm">Most chosen</span>
+                    <div class="inline-flex w-12 h-12 rounded-sm bg-background border border-on-background/15 items-center justify-center text-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 6h16M4 12h16M4 18h10" />
+                        </svg>
+                    </div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Quartet</div>
+                    <h4 class="font-headline-md text-primary italic text-2xl leading-tight">Subscription</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty flex-1">Four printed issues a year, posted ten days before newsstand. Members receive the full digital archive and the bi-monthly Periphery letter.</p>
+                    <span class="mt-3 pt-4 border-t border-on-background/10 font-label-caps text-label-caps uppercase tracking-widest text-primary tabular-nums">&pound;86 &middot; annual</span>
+                </article>
+
+                <article class="relative bg-surface-container-low border border-on-background/10 rounded-sm p-7 lg:p-8 flex flex-col gap-5 hover:-translate-y-1 transition-all duration-500">
+                    <div class="inline-flex w-12 h-12 rounded-sm bg-background border border-on-background/15 items-center justify-center text-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M5 4h14a2 2 0 012 2v14l-9-4-9 4V6a2 2 0 012-2z" />
+                        </svg>
+                    </div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Patron</div>
+                    <h4 class="font-headline-md text-primary italic text-2xl leading-tight">The Vault</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty flex-1">Everything in the Quartet, plus a numbered linen-bound volume of the year's complete archive, hand-pressed in Saint-Pierre.</p>
+                    <span class="mt-3 pt-4 border-t border-on-background/10 font-label-caps text-label-caps uppercase tracking-widest text-primary tabular-nums">&pound;240 &middot; annual &middot; 220 made</span>
+                </article>
+
+                <article class="relative bg-surface-container-low border border-on-background/10 rounded-sm p-7 lg:p-8 flex flex-col gap-5 hover:-translate-y-1 transition-all duration-500">
+                    <div class="inline-flex w-12 h-12 rounded-sm bg-background border border-on-background/15 items-center justify-center text-secondary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+                        </svg>
+                    </div>
+                    <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Conversation</div>
+                    <h4 class="font-headline-md text-primary italic text-2xl leading-tight">Salon Series</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant text-pretty flex-1">Four small evenings a year — one writer, one reader, no podium. London, Paris, Tokyo, and one elsewhere. Twenty-four seats; eight reserved for subscribers.</p>
+                    <span class="mt-3 pt-4 border-t border-on-background/10 font-label-caps text-label-caps uppercase tracking-widest text-primary tabular-nums">By invitation</span>
+                </article>
+
+            </div>
+            <div class="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-metadata text-metadata text-on-surface-variant">
+                <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>Unconditional refund within 30 days.</span>
+                <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>Posted from Saint-Pierre &middot; 2,400 copies.</span>
+                <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true"></span>No advertising in the printed pages.</span>
             </div>
         </section>
 
@@ -606,7 +736,7 @@
                     <span class="col-span-2 md:col-span-1 font-headline-lg text-primary italic text-2xl md:text-3xl tabular-nums">II</span>
                     <div class="col-span-10 md:col-span-2 flex items-center gap-3">
                         <div class="w-14 h-14 rounded-full overflow-hidden bg-surface-container shrink-0">
-                            <img class="w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Elena Vranas" loading="lazy" />
+                            <img class="w-full h-full object-cover filter grayscale" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&amp;q=80&amp;auto=format&amp;fit=crop" alt="Elena Vranas" loading="lazy" />
                         </div>
                         <span class="font-headline-md text-primary italic text-xl">Elena Vranas</span>
                     </div>
@@ -663,6 +793,38 @@
                 </li>
 
             </ol>
+        </section>
+
+        <!-- Section: The Reading Room — R.18 Inner Circle premium image-bg -->
+        <section class="relative mt-section-gap py-24 md:py-32 border-y border-on-background/15 overflow-hidden bg-on-background text-background">
+            <div class="absolute inset-0">
+                <img
+                    src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=1800&amp;q=85&amp;auto=format&amp;fit=crop"
+                    alt="Editor's reading room — folio paper, brass lamp, low evening light."
+                    class="w-full h-full object-cover opacity-30 grayscale"
+                    loading="lazy" decoding="async"
+                />
+                <div class="absolute inset-0 bg-gradient-to-b from-on-background via-on-background/85 to-on-background"></div>
+                <div class="absolute inset-0 mag-noise opacity-20"></div>
+            </div>
+            <div class="relative max-w-2xl mx-auto px-6 text-center">
+                <div aria-hidden="true" class="w-16 h-px bg-secondary/60 mx-auto mb-10"></div>
+                <span class="inline-block font-label-caps text-label-caps uppercase tracking-widest border border-secondary/50 text-secondary-container px-3 py-1.5 rounded-sm">By invitation</span>
+                <h3 class="mt-8 font-display-masthead text-[clamp(2.25rem,4vw+1rem,3.75rem)] leading-[1.05] text-background italic text-balance">The Reading Room.</h3>
+                <p class="mt-6 font-body-lg text-body-lg text-background/85 italic text-pretty">A small, untracked correspondence between the editor and ninety-six readers. One letter a fortnight, one essay in proof, one piece of marginalia per quarter — sent by post, in a paper envelope, signed by hand.</p>
+                <p class="mt-5 font-label-caps text-label-caps uppercase tracking-[0.28em] text-background/60">Ninety-six seats &middot; London &middot; Paris &middot; Tokyo &middot; Buenos Aires</p>
+
+                <form class="mt-10 max-w-md mx-auto flex items-end gap-3 border-b border-background/40 pb-3" onsubmit="event.preventDefault();">
+                    <label class="flex-1 text-left">
+                        <span class="block font-label-caps text-label-caps uppercase tracking-widest text-background/60 mb-2">Postal address</span>
+                        <input type="email" required placeholder="reader@city.com" class="w-full bg-transparent text-background placeholder:text-background/40 font-body-md text-body-md focus:outline-none focus:ring-0 border-0" />
+                    </label>
+                    <button type="submit" class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-container hover:text-background transition-colors pb-1 whitespace-nowrap">Request &rarr;</button>
+                </form>
+
+                <div aria-hidden="true" class="w-16 h-px bg-secondary/60 mx-auto mt-12"></div>
+                <p class="mt-6 font-metadata text-metadata text-background/55 italic">MMXIV — present &middot; No public roster &middot; Reply by post within 21 days.</p>
+            </div>
         </section>
 
         <!-- Section: Reading Order (content / numbered prescription) -->
@@ -724,6 +886,41 @@
 
             </ol>
             <p class="font-metadata text-metadata text-on-surface-variant italic text-center mt-8">Total reading time, end to end: roughly one hour and forty-four minutes. Tea is permitted between pieces three and four.</p>
+        </section>
+
+        <!-- Section: Closing plates — image strip before footer (R.17, 8 squares, static) -->
+        <section class="border-t border-on-background/10 pt-16 pb-12">
+            <div class="text-center mb-10">
+                <div class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3">— From the production room</div>
+                <h3 class="font-headline-lg text-headline-lg text-primary leading-tight text-balance max-w-2xl mx-auto">Eight plates from the week we went to press.</h3>
+                <p class="mt-4 font-metadata text-metadata text-on-surface-variant italic">Photographed in-house by the editorial team &middot; Saint-Pierre, March 2024.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1521405924368-64c5b84bec60?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Type cases and metal sorts laid out on the editor's desk." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="A folded broadsheet beside a black coffee, raking morning light." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Wall of bound back-issues in the production office." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Open spread of the previous issue, gutter centred." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Reading lamp, marked-up galley, and a felt-tip pen." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Studio portrait — feature subject, between sittings." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1499744937866-d7e566a20a61?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="An old typewriter on a writing desk, daylight from the left." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-square rounded-sm overflow-hidden border border-on-background/10 bg-surface-container group">
+                    <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Stack of essays in proof, page numbers visible at the corner." class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" loading="lazy" decoding="async" />
+                </figure>
+            </div>
         </section>
     </main>
 

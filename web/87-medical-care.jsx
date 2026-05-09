@@ -554,7 +554,10 @@ function MedicalCare() {
                     <span className={stepCaps}>{j.step}</span>
                     <h3 className="font-headline-sm text-pine">{j.title}</h3>
                     <p className="font-body-sm text-pine/70 leading-relaxed">{j.body}</p>
-                    <div className="mt-2 rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
+                    {/* mt-auto pushes the image to the bottom of each li so all 5 step images
+                        bottom-align even when bodies wrap to different line counts. The grid
+                        row stretches all li to the tallest li's height. */}
+                    <div className="mt-auto rounded-lg overflow-hidden aspect-[4/3] w-full bg-pine/5">
                       <img src={j.img} alt={j.alt} className="w-full h-full object-cover" width="500" height="375" loading="lazy" decoding="async" />
                     </div>
                   </li>
@@ -606,16 +609,53 @@ function MedicalCare() {
                   <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=900&q=85&auto=format&fit=crop" alt="Patient at the clinic reception desk being greeted by friendly staff" className="w-full h-full object-cover" width="700" height="875" loading="lazy" decoding="async" />
                 </div>
               </div>
-              <div className="md:col-span-7 flex flex-col divide-y divide-pine/10 border-t border-b border-pine/10">
-                {FAQS.map((f) => (
-                  <details key={f.q} className="wb-faq group py-5 md:py-6">
-                    <summary className="flex items-start justify-between gap-6 cursor-pointer">
-                      <h3 className="font-headline-sm text-pine pr-2">{f.q}</h3>
-                      <span className="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
-                    </summary>
-                    <p className="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">{f.a}</p>
-                  </details>
-                ))}
+              {/* Right rail: FAQ list + Email-Us mini form. flex-col + flex-1 on the form
+                  card so its height stretches to bottom-align with the left rail's
+                  paragraph + aspect-[4/5] image. */}
+              <div className="md:col-span-7 flex flex-col">
+                <div className="flex flex-col divide-y divide-pine/10 border-t border-b border-pine/10">
+                  {FAQS.map((f) => (
+                    <details key={f.q} className="wb-faq group py-5 md:py-6">
+                      <summary className="flex items-start justify-between gap-6 cursor-pointer">
+                        <h3 className="font-headline-sm text-pine pr-2">{f.q}</h3>
+                        <span className="wb-chevron material-symbols-outlined text-pine/60 shrink-0 mt-0.5" aria-hidden="true">expand_more</span>
+                      </summary>
+                      <p className="font-body-md text-pine/70 leading-relaxed text-pretty mt-4 pr-12">{f.a}</p>
+                    </details>
+                  ))}
+                </div>
+                <aside className="mt-8 md:mt-10 flex-1 flex flex-col gap-5 p-6 md:p-8 rounded-2xl bg-offwhite border border-pine/10 shadow-soft">
+                  <div className="flex items-center gap-3">
+                    <span className="w-10 h-10 rounded-lg bg-terracotta/10 flex items-center justify-center text-terracotta">
+                      <span className="material-symbols-outlined text-[22px]" aria-hidden="true">mail</span>
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="font-label-caps text-terracotta">Still have a question?</span>
+                      <span className="font-headline-sm text-pine">Email the admin team</span>
+                    </div>
+                  </div>
+                  <p className="font-body-sm text-pine/70 leading-relaxed">A short message — we reply within one working day. For anything clinical, please call the practice instead.</p>
+                  <form className="flex flex-col gap-4 mt-auto" action="#" method="POST" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="faq-name" className="font-label-caps text-pine/60">Your name</label>
+                        <input id="faq-name" name="name" type="text" placeholder="Jane Murphy" className="w-full border border-pine/20 rounded-lg px-3 py-2.5 bg-white text-pine placeholder:text-pine/40 transition-colors hover:border-pine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:border-transparent text-sm" />
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label htmlFor="faq-email" className="font-label-caps text-pine/60">Email</label>
+                        <input id="faq-email" name="email" type="email" placeholder="jane@example.com" className="w-full border border-pine/20 rounded-lg px-3 py-2.5 bg-white text-pine placeholder:text-pine/40 transition-colors hover:border-pine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:border-transparent text-sm" />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label htmlFor="faq-msg" className="font-label-caps text-pine/60">Message</label>
+                      <textarea id="faq-msg" name="message" rows="3" placeholder="A sentence or two on what you'd like to ask…" className="w-full border border-pine/20 rounded-lg px-3 py-2.5 bg-white text-pine placeholder:text-pine/40 transition-colors hover:border-pine/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:border-transparent text-sm resize-none"></textarea>
+                    </div>
+                    <button type="submit" className="self-start bg-terracotta text-white px-5 py-3 rounded-lg font-label-caps tracking-wider hover:bg-[#b86b4d] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-offwhite transition-all inline-flex items-center gap-2 group shadow-sm">
+                      Send Message
+                      <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                    </button>
+                  </form>
+                </aside>
               </div>
             </div>
           </section>

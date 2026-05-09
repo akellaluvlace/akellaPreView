@@ -4,15 +4,15 @@ const footerLinksB = ["Sustainability", "Our Farms", "Privacy"];
 
 // Marquee tile data — verified §D.1 IDs only.
 const boxTiles = [
-  { num: "01", name: "Heirloom tomatoes", farm: "Owl Stream Farm", weight: "800 g", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(68,103,56,0.22) 100%)", alt: "Warm-toned still life evoking heirloom tomato cluster on linen" },
+  { num: "01", name: "Heirloom tomatoes", farm: "Owl Stream Farm", weight: "800 g", src: "https://images.unsplash.com/photo-1758221055853-479a0de23e66?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(68,103,56,0.22) 100%)", alt: "Warm-toned still life evoking heirloom tomato cluster on linen" },
   { num: "02", name: "Bronze fennel", farm: "Wren Hollow", weight: "1 bunch", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 50%, rgba(68,103,56,0.30) 100%)", alt: "Cropped architectural facade tinted warm-cream as a textural produce stand-in" },
   { num: "03", name: "Tuscan kale", farm: "Cedar & Sage", weight: "600 g", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.32) 0%, transparent 60%, rgba(122,85,0,0.18) 100%)", alt: "Brutalist concrete texture cropped tight, recoloured warm-cream and red" },
   { num: "04", name: "Sungold tomatoes", farm: "Owl Stream Farm", weight: "500 g", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(68,103,56,0.32) 0%, transparent 60%, rgba(179,39,37,0.18) 100%)", alt: "Stone wall texture warm-cream tinted" },
-  { num: "05", name: "Roasting carrots", farm: "Hare's Field", weight: "1 kg", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.28) 0%, transparent 55%, rgba(68,103,56,0.30) 100%)", alt: "Concrete texture cropped, warm-tinted" },
+  { num: "05", name: "Roasting carrots", farm: "Hare's Field", weight: "1 kg", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.28) 0%, transparent 55%, rgba(68,103,56,0.30) 100%)", alt: "Concrete texture cropped, warm-tinted" },
   { num: "06", name: "Pink lady apples", farm: "Bramble & Nine", weight: "6 ct", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.30) 0%, transparent 60%, rgba(122,85,0,0.20) 100%)", alt: "Architectural cluster warm-tinted" },
-  { num: "07", name: "Marigold squash", farm: "Wren Hollow", weight: "1.4 kg", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(68,103,56,0.30) 0%, transparent 55%, rgba(179,39,37,0.18) 100%)", alt: "Concrete and clay texture, warm-cream tint" },
-  { num: "08", name: "Field rocket", farm: "Cedar & Sage", weight: "220 g", src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 55%, rgba(68,103,56,0.22) 100%)", alt: "Architectural detail warm-tinted" },
-  { num: "09", name: "Black mission figs", farm: "Bramble & Nine", weight: "350 g", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop&sat=-15", grad: "linear-gradient(160deg, rgba(179,39,37,0.22) 0%, transparent 60%, rgba(122,85,0,0.28) 100%)", alt: "Brass apothecary still life as warm-toned harvest stand-in" },
+  { num: "07", name: "Marigold squash", farm: "Wren Hollow", weight: "1.4 kg", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(68,103,56,0.30) 0%, transparent 55%, rgba(179,39,37,0.18) 100%)", alt: "Concrete and clay texture, warm-cream tint" },
+  { num: "08", name: "Field rocket", farm: "Cedar & Sage", weight: "220 g", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 55%, rgba(68,103,56,0.22) 100%)", alt: "Architectural detail warm-tinted" },
+  { num: "09", name: "Black mission figs", farm: "Bramble & Nine", weight: "350 g", src: "https://images.unsplash.com/photo-1758221055853-479a0de23e66?w=900&q=85&auto=format&fit=crop&sat=-15", grad: "linear-gradient(160deg, rgba(179,39,37,0.22) 0%, transparent 60%, rgba(122,85,0,0.28) 100%)", alt: "Brass apothecary still life as warm-toned harvest stand-in" },
   { num: "10", name: "Soft farm eggs", farm: "Hare's Field", weight: "6 ct", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop&sat=-10", grad: "linear-gradient(160deg, rgba(68,103,56,0.34) 0%, transparent 55%, rgba(179,39,37,0.16) 100%)", alt: "Concrete cluster warm-tinted" }
 ];
 
@@ -79,7 +79,7 @@ const farms = [
     estLabel: "Est. 2007",
     eyebrow: "— Theo & Salomé Vance",
     title: "Cedar & Sage · Hollow Brook",
-    src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1200&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1200&q=85&auto=format&fit=crop",
     overlay: "linear-gradient(135deg, rgba(255,248,247,0.30) 0%, transparent 50%, rgba(68,103,56,0.34) 100%)",
     multiply: "linear-gradient(160deg, rgba(179,39,37,0.16) 0%, transparent 55%, rgba(122,85,0,0.18) 100%)",
     p1: "Theo and Salomé came to Hollow Brook by way of two failed restaurant ventures and a season cooking on a Greek freighter. They grow leafy greens, brassicas, and the most insistently aromatic herbs in the cooperative — the rocket has a peppery edge that's made it into more than one chef's spec sheet, and their bronze fennel is the reason a particular pastry kitchen calls every Friday at 14:02 sharp.",
@@ -186,7 +186,7 @@ export default function T16SubscriptionBoxLanding() {
       className="w-72 shrink-0 bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-[0_2px_12px_rgba(179,39,37,0.06)]"
     >
       <div className="aspect-[4/5] relative overflow-hidden">
-        <img alt={hidden ? "" : "Produce still life"} className="w-full h-full object-cover" src={t.src} />
+        <img alt={hidden ? "" : "Produce still life"} className="w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src={t.src} />
         <div className="absolute inset-0 mix-blend-multiply" style={{ background: t.grad }}></div>
         <span className="absolute top-3 left-3 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">№ {t.num}</span>
       </div>
@@ -287,19 +287,43 @@ export default function T16SubscriptionBoxLanding() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
               <div className="md:col-span-5">
-                <div className="md:sticky md:top-32 md:self-start">
-                  <div className="aspect-[4/5] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
-                    <img alt="Architectural facade tinted as ritual portrait" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(255,248,247,0.10) 0%, transparent 30%, rgba(68,103,56,0.40) 100%)" }}></div>
-                    <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(122,85,0,0.28) 100%)" }}></div>
-                    <div className="absolute bottom-5 left-5 right-5 flex justify-between items-end">
-                      <span className="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · I</span>
-                      <span className="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">04 days · 12 hands</span>
+                <div className="md:sticky md:top-32 md:self-start flex flex-col gap-6">
+                  <div>
+                    <div className="aspect-[4/5] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
+                      <img alt="Architectural facade tinted as ritual portrait" className="w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(255,248,247,0.10) 0%, transparent 30%, rgba(68,103,56,0.40) 100%)" }} />
+                      <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(122,85,0,0.28) 100%)" }} />
+                      <div className="absolute bottom-5 left-5 right-5 flex justify-between items-end">
+                        <span className="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · I</span>
+                        <span className="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">04 days · 12 hands</span>
+                      </div>
                     </div>
+                    <p className="font-body-md text-sm text-on-surface-variant italic mt-4 max-w-sm">The cooperative loading shed at Wren Hollow, photographed at 04:50 the morning before any box ships.</p>
                   </div>
-                  <p className="font-body-md text-sm text-on-surface-variant italic mt-4 max-w-sm">
-                    The cooperative loading shed at Wren Hollow, photographed at 04:50 the morning before any box ships.
-                  </p>
+                  <div>
+                    <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
+                      <img alt="Hand-packing layer in butcher's paper, Wednesday afternoon" className="w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop" />
+                      <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(122,85,0,0.32) 0%, transparent 55%, rgba(68,103,56,0.30) 100%)" }} />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(20,15,8,0.45) 100%)" }} />
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                        <span className="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · II</span>
+                        <span className="font-label-sm text-white/80 uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">14:20 · Wed</span>
+                      </div>
+                    </div>
+                    <p className="font-body-md text-sm text-on-surface-variant italic mt-3 max-w-sm">Wool liners, butcher&apos;s paper, hand-stamped weekly note tucked under the lid.</p>
+                  </div>
+                  <div>
+                    <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
+                      <img alt="Refrigerated electric van leaving the shed at 04:30 Thursday" className="w-full h-full object-cover sepia-[55%] saturate-[1.45] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1200&q=85&auto=format&fit=crop" />
+                      <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(68,103,56,0.32) 0%, transparent 55%, rgba(179,39,37,0.22) 100%)" }} />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(20,15,8,0.45) 100%)" }} />
+                      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                        <span className="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · III</span>
+                        <span className="font-label-sm text-white/80 uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">04:30 · Thu</span>
+                      </div>
+                    </div>
+                    <p className="font-body-md text-sm text-on-surface-variant italic mt-3 max-w-sm">First electric van pulls out · cream-card route on the dash · six-hour cap from shed to stoop.</p>
+                  </div>
                 </div>
               </div>
               <ol className="md:col-span-7 flex flex-col divide-y divide-outline-variant border-t border-b border-outline-variant">
@@ -332,41 +356,64 @@ export default function T16SubscriptionBoxLanding() {
                 Three sizes, all the same growers, all the same Friday window. The right tier is the one your fridge can actually hold without anything wilting before Wednesday — that, in our experience, is the most honest test.
               </p>
             </div>
-            <div className="overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-low">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-outline-variant">
-                    <th className="font-label-sm uppercase tracking-wider text-on-surface-variant px-5 py-5">Spec</th>
-                    {tiers.map((t) => (
-                      <th key={t.name} className={`px-5 py-5 ${t.popular ? "bg-surface-container-high relative" : ""}`}>
-                        {t.popular ? (
-                          <span className="absolute -top-2 left-5 bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-0.5 rounded">Most popular</span>
-                        ) : null}
-                        <div className="flex flex-col">
-                          <span className="font-headline-md italic text-[22px] text-on-background">{t.name}</span>
-                          <span className="font-label-sm uppercase tracking-wider text-on-surface-variant mt-1">{t.meta}</span>
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="font-body-md">
-                  {tierRows.map((row, ri) => {
-                    const isLast = ri === tierRows.length - 1;
-                    return (
-                      <tr key={row.spec} className={isLast ? "" : "border-b border-outline-variant"}>
-                        <td className="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">{row.spec}</td>
-                        {row.values.map((v, ci) => {
-                          const popular = tiers[ci].popular;
-                          const tone = (row.tones && row.tones[ci]) || "default";
-                          const cls = `px-5 py-4 ${popular ? "bg-surface-container-high" : ""} ${toneCls[tone]}`.trim();
-                          return <td key={ci} className={cls}>{v}</td>;
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
+              <aside className="lg:col-span-4 flex flex-col gap-5">
+                <div className="relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)] flex-1 min-h-[480px] lg:min-h-0">
+                  <img alt="Cooperative cold-pack room at dawn, hand-tinted as harvest still" className="absolute inset-0 w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1200&q=85&auto=format&fit=crop" />
+                  <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(122,85,0,0.32) 0%, transparent 55%, rgba(68,103,56,0.34) 100%)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(20,15,8,0.45) 100%)" }} />
+                  <div className="absolute top-5 left-5 right-5 flex items-baseline justify-between">
+                    <span className="font-label-sm text-white uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · II</span>
+                    <span className="font-label-sm text-white/80 uppercase tracking-[0.2em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">04:50 · Wed</span>
+                  </div>
+                  <div className="absolute bottom-5 left-5 right-5 flex flex-col gap-2">
+                    <span className="font-headline-md italic text-2xl text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">Cold-pack room</span>
+                    <span className="font-body-md text-sm text-white/85 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Wren Hollow · co-op shed</span>
+                  </div>
+                </div>
+                <div className="border border-outline-variant rounded-xl p-5 bg-surface-container-low">
+                  <span className="font-label-sm text-secondary uppercase tracking-[0.2em] block mb-3">— Honest test</span>
+                  <p className="font-body-md text-sm text-on-surface-variant italic leading-relaxed">"The right tier is the one your fridge can actually hold without anything wilting before Wednesday."</p>
+                </div>
+              </aside>
+              <div className="lg:col-span-8 overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-low">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-outline-variant">
+                      <th className="font-label-sm uppercase tracking-wider text-on-surface-variant px-5 py-5">Spec</th>
+                      {tiers.map((t) => (
+                        <th key={t.name} className={`px-5 py-5 ${t.popular ? "bg-surface-container-high" : ""}`}>
+                          <div className="flex flex-col gap-2">
+                            {t.popular ? (
+                              <span className="inline-flex self-start bg-primary text-on-primary font-label-sm uppercase tracking-wider px-2 py-1 text-[10px] rounded">Most popular</span>
+                            ) : (
+                              <span className="inline-flex self-start font-label-sm uppercase tracking-wider text-on-surface-variant/0 px-2 py-1 text-[10px]">·</span>
+                            )}
+                            <span className="font-headline-md italic text-[22px] text-on-background">{t.name}</span>
+                            <span className="font-label-sm uppercase tracking-wider text-on-surface-variant">{t.meta}</span>
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="font-body-md">
+                    {tierRows.map((row, ri) => {
+                      const isLast = ri === tierRows.length - 1;
+                      return (
+                        <tr key={row.spec} className={isLast ? "" : "border-b border-outline-variant"}>
+                          <td className="px-5 py-4 font-label-sm uppercase tracking-wider text-on-surface-variant">{row.spec}</td>
+                          {row.values.map((v, ci) => {
+                            const popular = tiers[ci].popular;
+                            const tone = (row.tones && row.tones[ci]) || "default";
+                            const cls = `px-5 py-4 ${popular ? "bg-surface-container-high" : ""} ${toneCls[tone]}`.trim();
+                            return <td key={ci} className={cls}>{v}</td>;
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <p className="font-body-md text-on-surface-variant max-w-3xl mt-8 italic">
               Everything is flexible — pause without notice, skip a week, swap a tier in either direction with no fee. The only ask we make is that you let us know by the Sunday before delivery. After that the produce has already been pulled from the soil with your name on it, and we&apos;d rather it ends up on your table than in the cooperative&apos;s compost. Studio subscribers can split the box between two households at no extra cost; we&apos;ll deliver to two addresses on the same route.

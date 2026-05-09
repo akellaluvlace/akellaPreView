@@ -9,9 +9,9 @@ export default function T6290sGrunge() {
   const ransomChars = ["E", "S", "T", ".", "1", "9", "9", "4"];
 
   const members = [
-    { img: "https://images.unsplash.com/photo-1563841930606-67e2bce48b78?q=80&w=800&auto=format&fit=crop", alt: "Vocalist", caption: "Jax (Vocals/Pain)", outerRotate: "rotate-2 hover:-rotate-1", tape: "-top-4 left-10 w-24 h-8 -rotate-12", captionRotate: "-rotate-2", marginTop: "" },
-    { img: "https://images.unsplash.com/photo-1525203135335-74d272fc8d9c?q=80&w=800&auto=format&fit=crop", alt: "Guitarist", caption: "Sid (Strings/Noise)", outerRotate: "-rotate-3 hover:rotate-1", tape: "-top-4 right-10 w-24 h-8 rotate-45", captionRotate: "rotate-1", marginTop: "mt-8 md:mt-0" },
-    { img: "https://images.unsplash.com/photo-1485579149621-3123dd979885?q=80&w=800&auto=format&fit=crop", alt: "Drummer", caption: "Bones (Drums)", outerRotate: "rotate-1 hover:rotate-3", tape: "-top-4 left-1/2 w-24 h-8 -translate-x-1/2", captionRotate: "-rotate-1", marginTop: "" },
+    { img: "https://images.unsplash.com/photo-1485579149621-3123dd979885?q=80&w=800&auto=format&fit=crop", alt: "Vocalist — vintage chrome microphone in stage light", caption: "Jax (Vocals/Pain)", outerRotate: "rotate-2 hover:-rotate-1", tape: "-top-4 left-10 w-24 h-8 -rotate-12", captionRotate: "-rotate-2", marginTop: "" },
+    { img: "https://images.unsplash.com/photo-1471478331149-c72f17e33c73?q=80&w=800&auto=format&fit=crop", alt: "Guitarist — hands on acoustic guitar fretboard", caption: "Sid (Strings/Noise)", outerRotate: "-rotate-3 hover:rotate-1", tape: "-top-4 right-10 w-24 h-8 rotate-45", captionRotate: "rotate-1", marginTop: "mt-8 md:mt-0" },
+    { img: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=800&auto=format&fit=crop", alt: "Drummer — drum kit with sticks crossed on snare", caption: "Bones (Drums)", outerRotate: "rotate-1 hover:rotate-3", tape: "-top-4 left-1/2 w-24 h-8 -translate-x-1/2", captionRotate: "-rotate-1", marginTop: "" },
   ];
 
   const tourDates = [
@@ -24,7 +24,7 @@ export default function T6290sGrunge() {
   const merch = [
     { img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800&auto=format&fit=crop", alt: "T-Shirt", title: "Vintage Tee", price: "$30.00", soldOut: true },
     { img: "https://images.unsplash.com/photo-1619983081563-430f63602796?q=80&w=800&auto=format&fit=crop", alt: "Vinyl", title: "LP Vinyl (Red)", price: "$25.00", soldOut: false },
-    { img: "https://images.unsplash.com/photo-1576506542790-51244b486a6b?q=80&w=800&auto=format&fit=crop", alt: "Cassette", title: "Demo Tape", price: "$10.00", soldOut: false },
+    { img: "https://images.unsplash.com/photo-1487180144351-b8472da7d491?q=80&w=800&auto=format&fit=crop", alt: "Cassette — vintage boombox tape deck", title: "Demo Tape", price: "$10.00", soldOut: false },
   ];
 
   const socials = [
@@ -64,7 +64,6 @@ export default function T6290sGrunge() {
 .texture-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 9999;
-  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%221.5%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.35%22/%3E%3C/svg%3E');
   mix-blend-mode: overlay;
 }
 .tape {
@@ -137,7 +136,7 @@ export default function T6290sGrunge() {
       <style dangerouslySetInnerHTML={{ __html: customCss }} />
 
       <div className="text-grunge-white font-typewriter selection:bg-grunge-red selection:text-white">
-        <div className="texture-overlay"></div>
+        <div className="texture-overlay" style={{ backgroundImage: "url('data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%221.5%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22 opacity=%220.35%22/%3E%3C/svg%3E')" }}></div>
 
         <nav className="fixed top-0 w-full z-50 p-4 mix-blend-difference pointer-events-none">
           <div className="max-w-7xl mx-auto flex justify-between items-center pointer-events-auto">
@@ -170,7 +169,7 @@ export default function T6290sGrunge() {
 
         <header className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
           <div className="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover opacity-40 grayscale contrast-125" alt="Concert Atmosphere" />
+            <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?q=80&w=2670&auto=format&fit=crop" className="w-full h-full object-cover opacity-40 grayscale contrast-125" alt="Concert Atmosphere" />
             <div className="absolute inset-0 bg-gradient-to-t from-grunge-black via-transparent to-black opacity-90"></div>
           </div>
 
@@ -183,7 +182,7 @@ export default function T6290sGrunge() {
               </div>
             </div>
 
-            <h1 className="text-[15vw] md:text-[10rem] leading-[0.8] font-glitch text-transparent bg-clip-text bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1590529853874-12968846df72?auto=format&fit=crop&q=80')] stroke-white drop-shadow-[8px_8px_0_rgba(139,0,0,0.8)] animate-flicker">
+            <h1 className="text-[15vw] md:text-[10rem] leading-[0.8] font-glitch text-transparent bg-clip-text bg-cover bg-center bg-[url('https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&q=80')] stroke-white drop-shadow-[8px_8px_0_rgba(139,0,0,0.8)] animate-flicker">
               NOISE<br />_FLOOR
             </h1>
 
@@ -326,20 +325,156 @@ export default function T6290sGrunge() {
           </div>
         </section>
 
-        <section className="py-24 bg-grunge-red relative text-center px-4">
-          <div className="paper-tear absolute top-0 left-0 w-full h-8 bg-black transform rotate-180"></div>
-
-          <div className="max-w-2xl mx-auto border-4 border-black p-8 md:p-12 bg-grunge-white transform rotate-1 shadow-hard">
-            <h2 className="text-4xl md:text-6xl font-glitch text-black mb-4">JOIN THE CULT</h2>
-            <p className="text-black font-typewriter mb-8">Get the zine, secret show locations, and hate mail delivered to your inbox.</p>
-
-            <form className="flex flex-col gap-4" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="YOUR@EMAIL.HERE" className="bg-transparent border-b-4 border-black text-black text-xl p-3 placeholder-black/50 focus:outline-none focus:bg-black/5 font-typewriter" />
-              <button type="submit" className="bg-black text-white py-4 text-xl font-bold hover:bg-grunge-red transition-colors uppercase tracking-widest mt-4">Sign Up Now</button>
-            </form>
+        {/* DOCTRINE — Premium 3-card row with image bg, squarish */}
+        <section className="py-20 bg-grunge-charcoal text-grunge-white relative overflow-hidden border-t-4 border-grunge-red">
+          <div className="paper-tear absolute top-0 left-0 w-full h-8 bg-grunge-red transform rotate-180"></div>
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <span className="inline-block bg-grunge-red text-grunge-white px-3 py-1 font-glitch text-sm uppercase tracking-widest mb-3 transform -rotate-2">/// MANIFESTO ///</span>
+              <h2 className="text-5xl md:text-7xl font-glitch text-grunge-white">THREE RULES, ONE BAND.</h2>
+              <p className="font-typewriter text-grunge-white/70 mt-4 max-w-xl mx-auto">Spray-painted on the rehearsal-room wall. Same paint, same wall, since 1994.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {[
+                { id: "RULE · 01", icon: "zap", iconBg: "bg-grunge-red", iconText: "text-grunge-white", iconRotate: "-rotate-3", numColor: "text-grunge-red", title: "PLAY LOUD. MEAN IT.", body: "No backing track. No click. No pre-recorded vocals. Every note that leaves the stage was made on the stage, in the moment, by the four humans standing on it.", left: "// 50 KW · stage rig", right: "RIGHT NOW", rightColor: "text-grunge-red", divider: "border-grunge-red/50", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=900&q=85&auto=format&fit=crop", alt: "Vinyl record with a red THE ACT album sleeve", outer: "hover:rotate-[-1deg]" },
+                { id: "RULE · 02", icon: "cassette-tape", iconBg: "bg-grunge-white text-grunge-charcoal", iconText: "", iconRotate: "rotate-3", numColor: "text-grunge-white", title: "RECORD TO TAPE.", body: "2-inch reel, two takes max, no comping. The hum stays in. The amp buzz stays in. The drummer's bad rim-click in bar 17 of \"Tar\" stays in. The record is the room.", left: "// Studer A827 · 2\"", right: "2 TAKES", rightColor: "text-grunge-white", divider: "border-grunge-white/30", img: "https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=900&q=85&auto=format&fit=crop", alt: "Vintage boombox cassette deck on hardwood", outer: "hover:rotate-[1deg]" },
+                { id: "RULE · 03", icon: "disc-3", iconBg: "bg-grunge-red", iconText: "text-grunge-white", iconRotate: "-rotate-3", numColor: "text-grunge-red", title: "PRESS YOUR OWN.", body: "No major label. No streaming-only release. Vinyl pressed by United in Nashville, jacket screen-printed by us at the warehouse, the band signs every test pressing — 800 / run, no repress.", left: "// 800 / run · no repress", right: "SIGNED", rightColor: "text-grunge-red", divider: "border-grunge-red/50", img: "https://images.unsplash.com/photo-1619983081563-430f63602796?w=900&q=85&auto=format&fit=crop", alt: "Magenta and yellow vinyl records stacked on press", outer: "hover:rotate-[-1deg]" },
+              ].map(r => (
+                <article key={r.id} className={`group relative aspect-square overflow-hidden border-4 border-grunge-white bg-grunge-charcoal transform transition-transform duration-300 ${r.outer}`}>
+                  <img src={r.img} alt={r.alt} className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale contrast-150 group-hover:opacity-40 transition-opacity duration-500" loading="lazy" decoding="async" width="900" height="900" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 to-black/85"></div>
+                  <div className="absolute inset-0 flex flex-col p-6 md:p-8">
+                    <div className="flex items-start justify-between">
+                      <div className={`w-14 h-14 border-2 border-grunge-white flex items-center justify-center transform ${r.iconBg} ${r.iconText} ${r.iconRotate}`}>
+                        <i data-lucide={r.icon} className="w-7 h-7"></i>
+                      </div>
+                      <span className={`font-glitch text-xl tracking-widest ${r.numColor}`}>{r.id}</span>
+                    </div>
+                    <div className="mt-auto">
+                      <h3 className="text-2xl md:text-3xl font-glitch text-grunge-white mb-3 leading-[0.95]">{r.title}</h3>
+                      <p className="font-typewriter text-grunge-white/85 text-sm leading-relaxed mb-4">{r.body}</p>
+                      <div className={`border-t-2 ${r.divider} pt-3 font-typewriter text-[10px] uppercase tracking-widest text-grunge-white/60 flex items-center justify-between`}>
+                        <span>{r.left}</span>
+                        <span className={r.rightColor}>{r.right}</span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
+          <div className="paper-tear absolute bottom-0 left-0 w-full h-8 bg-grunge-red"></div>
+        </section>
 
-          <div className="paper-tear absolute bottom-0 left-0 w-full h-8 bg-black"></div>
+        {/* ALTERNATING SECTION A */}
+        <section className="py-20 bg-grunge-red text-grunge-white relative">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            <div className="md:col-span-7 relative">
+              <div className="relative aspect-[4/3] overflow-hidden border-4 border-grunge-white transform -rotate-1 shadow-[8px_8px_0_0_#000]">
+                <img src="https://images.unsplash.com/photo-1471478331149-c72f17e33c73?w=1400&q=85&auto=format&fit=crop" alt="Hands on acoustic guitar fretboard, low light" className="absolute inset-0 w-full h-full object-cover grunge-img" loading="lazy" decoding="async" width="1400" height="1050" />
+                <div className="absolute top-4 left-4 bg-black text-grunge-white px-3 py-1 font-glitch text-sm uppercase tracking-widest transform -rotate-3 border-2 border-grunge-white">SIDE A · WRITING</div>
+              </div>
+            </div>
+            <div className="md:col-span-5 flex flex-col justify-center">
+              <span className="inline-block bg-black text-grunge-white px-2 py-1 font-typewriter text-[10px] uppercase tracking-[0.3em] mb-4 w-fit">/// CHAPTER A · WRITING ///</span>
+              <h2 className="text-4xl md:text-6xl font-glitch text-grunge-white leading-[0.9] mb-5 transform -rotate-1">SONGS WRITTEN IN THE BASEMENT.</h2>
+              <p className="font-typewriter text-grunge-white text-base md:text-lg leading-relaxed mb-4">Every track on every record built from a four-track demo cut downstairs at the bassist's house. No co-writers, no song-camps, no Nashville polish. If a chorus needs eight people to land, the chorus needs to die.</p>
+              <p className="font-typewriter text-grunge-white/70 text-sm leading-relaxed mb-6">Tape preserved. Demos pressed as B-sides every fifth release. The flaw is the receipt.</p>
+              <ul className="flex flex-col gap-2 font-typewriter text-xs uppercase tracking-widest text-grunge-white border-t-4 border-grunge-white pt-4">
+                <li className="flex justify-between"><span>Tape · Tascam 388</span><span className="bg-black px-2 py-0.5">Since 1994</span></li>
+                <li className="flex justify-between"><span>Co-writers · 0</span><span className="bg-black px-2 py-0.5">Forever</span></li>
+                <li className="flex justify-between"><span>Demos · pressed</span><span className="bg-black px-2 py-0.5">Every 5th</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ALTERNATING SECTION B — image RIGHT */}
+        <section className="py-20 bg-grunge-charcoal text-grunge-white relative">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1">
+              <span className="inline-block bg-grunge-red text-white px-2 py-1 font-typewriter text-[10px] uppercase tracking-[0.3em] mb-4 w-fit md:self-end">/// CHAPTER B · STAGE ///</span>
+              <h2 className="text-4xl md:text-6xl font-glitch text-grunge-white leading-[0.9] mb-5 transform rotate-1 md:text-right">PLAYED ON STAGES THAT SMELL.</h2>
+              <p className="font-typewriter text-grunge-white text-base md:text-lg leading-relaxed mb-4 md:text-right">No corporate plazas. No festival-circuit revivals. The tour books rooms with sticky floors, low ceilings, and at least one broken urinal — the kind of room where you remember the songs because they were too loud to hear properly.</p>
+              <p className="font-typewriter text-grunge-white/60 text-sm leading-relaxed mb-6 md:text-right">Capacity 400 max. Tickets cash at the door. No VIP, no meet-and-greet, no second night.</p>
+              <ul className="flex flex-col gap-2 font-typewriter text-xs uppercase tracking-widest text-grunge-white border-t-4 border-grunge-red pt-4">
+                <li className="flex justify-between"><span className="text-grunge-red">400 cap · max</span><span>Cash · door</span></li>
+                <li className="flex justify-between"><span className="text-grunge-red">No VIP</span><span>No 2nd night</span></li>
+                <li className="flex justify-between"><span className="text-grunge-red">12 cities · year</span><span>Van · always</span></li>
+              </ul>
+            </div>
+            <div className="md:col-span-7 relative order-1 md:order-2">
+              <div className="relative aspect-[4/3] overflow-hidden border-4 border-grunge-white transform rotate-1 shadow-[8px_8px_0_0_#cc0000]">
+                <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=1400&q=85&auto=format&fit=crop" alt="Stage with crowd at night, stage lights and smoke" className="absolute inset-0 w-full h-full object-cover grunge-img" loading="lazy" decoding="async" width="1400" height="1050" />
+                <div className="absolute top-4 right-4 bg-black text-grunge-white border-2 border-grunge-white px-3 py-1 font-glitch text-sm uppercase tracking-widest transform rotate-3">SIDE B · TOUR</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ALTERNATING SECTION C */}
+        <section className="py-20 bg-grunge-red text-grunge-white relative border-t-4 border-black">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+            <div className="md:col-span-7 relative">
+              <div className="relative aspect-[4/3] overflow-hidden border-4 border-grunge-white transform -rotate-1 shadow-[8px_8px_0_0_#000]">
+                <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=1400&q=85&auto=format&fit=crop" alt="Vinyl record with red THE ACT album sleeve" className="absolute inset-0 w-full h-full object-cover grunge-img" loading="lazy" decoding="async" width="1400" height="1050" />
+                <div className="absolute top-4 left-4 bg-black text-grunge-white px-3 py-1 font-glitch text-sm uppercase tracking-widest transform -rotate-3 border-2 border-grunge-white">SIDE C · PRESS</div>
+              </div>
+            </div>
+            <div className="md:col-span-5 flex flex-col justify-center">
+              <span className="inline-block bg-black text-grunge-white px-2 py-1 font-typewriter text-[10px] uppercase tracking-[0.3em] mb-4 w-fit">/// CHAPTER C · PRESS ///</span>
+              <h2 className="text-4xl md:text-6xl font-glitch text-grunge-white leading-[0.9] mb-5 transform rotate-1">VINYL SIGNED, SLEEVES GLUED.</h2>
+              <p className="font-typewriter text-grunge-white text-base md:text-lg leading-relaxed mb-4">Every record cut at 33⅓ on 180 gsm black wax — coloured pressings exist for the bassist's birthday only. Sleeves screen-printed Tuesday nights at the warehouse, signed by the band on Wednesday, mailed by Friday.</p>
+              <p className="font-typewriter text-grunge-white/70 text-sm leading-relaxed mb-6">No streaming-first release. The vinyl drops on the first of the month; the digital follows two weeks later. The order matters.</p>
+              <ul className="flex flex-col gap-2 font-typewriter text-xs uppercase tracking-widest text-grunge-white border-t-4 border-grunge-white pt-4">
+                <li className="flex justify-between"><span>180 gsm · black</span><span className="bg-black px-2 py-0.5">United · TN</span></li>
+                <li className="flex justify-between"><span>Sleeve · screen-print</span><span className="bg-black px-2 py-0.5">Hand-folded</span></li>
+                <li className="flex justify-between"><span>Run · 800</span><span className="bg-black px-2 py-0.5">No repress</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* DARKROOM CAROUSEL — replaces cream Newsletter strip with grunge image carousel */}
+        <section className="py-20 bg-black text-grunge-white relative overflow-hidden border-t-4 border-grunge-red">
+          <div className="paper-tear absolute top-0 left-0 w-full h-8 bg-grunge-red transform rotate-180"></div>
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex items-end justify-between mb-10 flex-wrap gap-4 border-b-2 border-grunge-red pb-4">
+              <div>
+                <span className="inline-block bg-grunge-red text-white px-2 py-1 font-typewriter text-[10px] uppercase tracking-[0.3em] mb-3">/// FILM · DARKROOM ///</span>
+                <h2 className="text-4xl md:text-6xl font-glitch text-grunge-white leading-[0.9] transform -rotate-1">FROM THE PIT.</h2>
+              </div>
+              <span className="font-typewriter text-grunge-white/60 text-xs uppercase tracking-widest">/// shot on Tri-X · pushed +2 ///</span>
+            </div>
+            <div className="relative">
+              <div className="overflow-x-auto pb-4 -mx-6 px-6 snap-x snap-mandatory" style={{ scrollbarWidth: "thin", scrollbarColor: "#cc0000 #1a1a1a" }}>
+                <ul className="flex gap-4 md:gap-6 min-w-max">
+                  {[
+                    { n: "01", tag: "VOX",   img: "https://images.unsplash.com/photo-1485579149621-3123dd979885?w=600&q=85&auto=format&fit=crop", alt: "Vintage chrome microphone — vocalist position", rotate: "-rotate-1" },
+                    { n: "02", tag: "GTR",   img: "https://images.unsplash.com/photo-1471478331149-c72f17e33c73?w=600&q=85&auto=format&fit=crop", alt: "Hands on acoustic guitar fretboard", rotate: "rotate-1" },
+                    { n: "03", tag: "DRM",   img: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=600&q=85&auto=format&fit=crop", alt: "Drum kit with sticks crossed on snare", rotate: "-rotate-1" },
+                    { n: "04", tag: "PIT",   img: "https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=600&q=85&auto=format&fit=crop", alt: "Stage and crowd at night with smoke", rotate: "rotate-1" },
+                    { n: "05", tag: "WAX",   img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=600&q=85&auto=format&fit=crop", alt: "Red THE ACT vinyl record album cover", rotate: "-rotate-1" },
+                    { n: "06", tag: "TAPE",  img: "https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=600&q=85&auto=format&fit=crop", alt: "Vintage boombox cassette deck", rotate: "rotate-1" },
+                    { n: "07", tag: "PRESS", img: "https://images.unsplash.com/photo-1619983081563-430f63602796?w=600&q=85&auto=format&fit=crop", alt: "Magenta and yellow vinyl records stacked", rotate: "-rotate-1" },
+                    { n: "08", tag: "SHIRT", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=85&auto=format&fit=crop", alt: "White t-shirt — band merch", rotate: "rotate-1" },
+                  ].map(f => (
+                    <li key={f.n} className="snap-start w-64 md:w-72 shrink-0">
+                      <figure className={`relative aspect-square overflow-hidden border-4 border-grunge-white transform ${f.rotate} hover:rotate-0 hover:scale-[1.03] transition-all duration-300 shadow-[6px_6px_0_0_#cc0000]`}>
+                        <img src={f.img} alt={f.alt} className="w-full h-full object-cover grunge-img" loading="lazy" decoding="async" width="600" height="600" />
+                        <figcaption className="absolute bottom-2 left-2 right-2 bg-black/85 text-grunge-white px-2 py-1 font-typewriter text-[10px] uppercase tracking-widest flex justify-between"><span>FRM · {f.n}</span><span className="text-grunge-red">{f.tag}</span></figcaption>
+                      </figure>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-4 flex flex-col md:flex-row items-center justify-between gap-3 font-typewriter text-[11px] uppercase tracking-widest text-grunge-white/60">
+                <span>← scroll · 8 frames · contact-sheet 04 ←→</span>
+                <a href="#" className="bg-grunge-red text-grunge-white px-4 py-2 hover:bg-grunge-white hover:text-black transition-colors">View 124 frames →</a>
+              </div>
+            </div>
+          </div>
+          <div className="paper-tear absolute bottom-0 left-0 w-full h-8 bg-grunge-red"></div>
         </section>
 
         <footer className="bg-black text-white pt-20 pb-10 relative overflow-hidden">

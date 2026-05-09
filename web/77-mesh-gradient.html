@@ -307,12 +307,27 @@
     <section class="py-10 border-y border-black/5 bg-white/20 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <p class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8">Trusted by teams at</p>
-            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                <!-- Simple SVG Logos -->
-                <svg class="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><path d="M10,15 L20,5 L30,15 L20,25 Z M40,5 H50 V25 H40 Z M60,5 H80 V10 H65 V12 H75 V17 H65 V25 H60 Z" /></svg>
-                <svg class="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><circle cx="15" cy="15" r="10" /> <rect x="35" y="5" width="20" height="20" /> <path d="M70,25 L80,5 L90,25" stroke="currentColor" stroke-width="5" /></svg>
-                <svg class="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><path d="M10,5 Q25,25 40,5 T70,5" stroke="currentColor" stroke-width="4" fill="none"/></svg>
-                <svg class="h-6 md:h-8 w-auto" viewBox="0 0 100 30" fill="currentColor"><rect x="10" y="5" width="20" height="20" rx="5" /> <circle cx="50" cy="15" r="8" /> <rect x="80" y="5" width="5" height="20" /></svg>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                <span class="group inline-flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-colors">
+                    <img src="https://cdn.simpleicons.org/notion/64748b" alt="Notion logo" width="20" height="20" loading="lazy" decoding="async" class="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity"/>
+                    <span class="font-display font-bold text-base md:text-lg tracking-tight">Notion</span>
+                </span>
+                <span class="group inline-flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-colors">
+                    <img src="https://cdn.simpleicons.org/linear/64748b" alt="Linear logo" width="20" height="20" loading="lazy" decoding="async" class="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity"/>
+                    <span class="font-display font-bold text-base md:text-lg tracking-tight">Linear</span>
+                </span>
+                <span class="group inline-flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-colors">
+                    <img src="https://cdn.simpleicons.org/figma/64748b" alt="Figma logo" width="20" height="20" loading="lazy" decoding="async" class="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity"/>
+                    <span class="font-display font-bold text-base md:text-lg tracking-tight">Figma</span>
+                </span>
+                <span class="group inline-flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-colors">
+                    <img src="https://cdn.simpleicons.org/vercel/64748b" alt="Vercel logo" width="20" height="20" loading="lazy" decoding="async" class="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity"/>
+                    <span class="font-display font-bold text-base md:text-lg tracking-tight">Vercel</span>
+                </span>
+                <span class="group inline-flex items-center gap-2.5 text-slate-500 hover:text-slate-900 transition-colors">
+                    <img src="https://cdn.simpleicons.org/stripe/64748b" alt="Stripe logo" width="20" height="20" loading="lazy" decoding="async" class="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity"/>
+                    <span class="font-display font-bold text-base md:text-lg tracking-tight">Stripe</span>
+                </span>
             </div>
         </div>
     </section>
@@ -392,8 +407,9 @@
         <div aria-hidden="true" class="absolute right-[6%] top-[20%] w-[22rem] h-[22rem] rounded-full bg-pink-200/40 blur-3xl pointer-events-none"></div>
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 relative z-10">
 
-            <!-- Sticky rail -->
-            <div class="md:col-span-5 md:sticky md:top-32 md:self-start">
+            <!-- Left rail — sticky removed so the column can grow to match the right column's
+                 tall aspect-[4/5] image; Process Notes card stack fills the height delta. -->
+            <div class="md:col-span-5 flex flex-col">
                 <span class="text-indigo-600 font-bold uppercase tracking-widest text-sm mb-4 block">Inside the Atelier</span>
                 <h2 class="font-display font-bold text-4xl md:text-5xl text-slate-900 mb-6 leading-[1.1]">
                     Composed in cycles.<br />
@@ -412,12 +428,12 @@
                 </div>
 
                 <!-- Synced thumbnail grid -->
-                <div class="grid grid-cols-4 gap-3 max-w-sm">
+                <div class="grid grid-cols-4 gap-3 max-w-sm mb-8">
                     <div class="atelier-thumb rounded-xl overflow-hidden aspect-square border border-white/60 shadow-sm" style="animation-delay: 0s;">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=300&q=85&auto=format&fit=crop" alt="Breath capture" />
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=300&q=85&auto=format&fit=crop" alt="Breath capture" />
                     </div>
                     <div class="atelier-thumb rounded-xl overflow-hidden aspect-square border border-white/60 shadow-sm" style="animation-delay: 4s;">
-                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=300&q=85&auto=format&fit=crop" alt="Field recording" />
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=300&q=85&auto=format&fit=crop" alt="Field recording" />
                     </div>
                     <div class="atelier-thumb rounded-xl overflow-hidden aspect-square border border-white/60 shadow-sm" style="animation-delay: 8s;">
                         <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=300&q=85&auto=format&fit=crop" alt="Composition" />
@@ -426,14 +442,61 @@
                         <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=300&q=85&auto=format&fit=crop" alt="Mastering pass" />
                     </div>
                 </div>
+
+                <!-- Process Notes card — fills the rest of the column to bottom-align with the
+                     right column's aspect-[4/5] image. flex-1 stretches it to whatever's left. -->
+                <div class="glass-card rounded-3xl p-6 md:p-7 flex-1 flex flex-col gap-4">
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-indigo-600 font-bold uppercase tracking-widest text-xs">— Process Notes</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 tabular-nums">No. 04</span>
+                    </div>
+                    <ul class="flex flex-col gap-4">
+                        <li class="flex items-start gap-4">
+                            <span class="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center bg-indigo-100 text-indigo-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z M19 12a7 7 0 01-2.05 4.95M16 12a4 4 0 01-1.17 2.83"/></svg>
+                            </span>
+                            <div class="flex flex-col gap-1">
+                                <span class="font-display font-semibold text-sm text-slate-900">Soundproofed live room</span>
+                                <span class="text-xs text-slate-600 leading-relaxed">An anechoic chamber buffered against street traffic — captures from 20 Hz to 22 kHz at 32-bit depth.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center bg-pink-100 text-pink-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                            </span>
+                            <div class="flex flex-col gap-1">
+                                <span class="font-display font-semibold text-sm text-slate-900">Field recordings</span>
+                                <span class="text-xs text-slate-600 leading-relaxed">Spring-fed streams in Iceland, dawn chorus in the Cotswolds, monsoon rain on a Kerala roof — composed into the carrier layer.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center bg-teal-100 text-teal-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </span>
+                            <div class="flex flex-col gap-1">
+                                <span class="font-display font-semibold text-sm text-slate-900">Real-time composition</span>
+                                <span class="text-xs text-slate-600 leading-relaxed">Each session seeds itself from your current biometric state — no two listens are ever identical.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center bg-purple-100 text-purple-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+                            </span>
+                            <div class="flex flex-col gap-1">
+                                <span class="font-display font-semibold text-sm text-slate-900">Mastering pass</span>
+                                <span class="text-xs text-slate-600 leading-relaxed">Spectral cleanup, gentle compression, and a final loudness pass to LUFS-16 — calm at every volume.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Cycling image frame -->
             <div class="md:col-span-7">
                 <div class="relative w-full aspect-[4/5] md:aspect-[4/5] rounded-[2rem] overflow-hidden glass-panel p-2 md:p-3 shadow-2xl">
                     <div class="relative w-full h-full rounded-[1.5rem] overflow-hidden bg-slate-100">
-                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 0s;" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&q=85&auto=format&fit=crop" alt="Stage I — Breath Capture" />
-                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 4s;" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&q=85&auto=format&fit=crop" alt="Stage II — Field Recording" />
+                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 0s;" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1400&q=85&auto=format&fit=crop" alt="Stage I — Breath Capture" />
+                        <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 4s;" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1400&q=85&auto=format&fit=crop" alt="Stage II — Field Recording" />
                         <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 8s;" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&q=85&auto=format&fit=crop" alt="Stage III — Composition" />
                         <img class="atelier-cycle-img absolute inset-0 w-full h-full object-cover" style="animation-delay: 12s;" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop" alt="Stage IV — Mastering" />
 
@@ -495,14 +558,25 @@
 
             <!-- Right: Visual -->
             <div class="w-full md:w-1/2 relative">
-                <div class="glass-panel rounded-full aspect-square relative flex items-center justify-center p-12">
+                <div class="glass-panel rounded-full aspect-square relative flex items-center justify-center p-4 md:p-6 overflow-hidden">
                      <!-- Concentric Circles representing sound waves -->
                      <div class="absolute inset-0 border border-indigo-200 rounded-full scale-50 opacity-0 animate-[ping_3s_linear_infinite]"></div>
                      <div class="absolute inset-0 border border-purple-200 rounded-full scale-75 opacity-0 animate-[ping_3s_linear_1s_infinite]"></div>
-                     
-                     <div class="relative z-10 text-center">
-                        <div class="text-6xl mb-2">🧠</div>
-                        <div class="font-display font-bold text-slate-900">Neuro-Audio</div>
+
+                     <!-- Inner photo disc — a listener mid-session in soft afternoon light. -->
+                     <div class="relative z-10 w-[80%] aspect-square rounded-full overflow-hidden border-4 border-white/60 shadow-2xl">
+                        <img
+                            src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop"
+                            alt="A listener in soft afternoon light, eyes briefly closed mid-session — the calm Aura Flow is built around"
+                            data-alt="A listener in soft afternoon light, eyes briefly closed mid-session — the calm Aura Flow is built around"
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-indigo-900/35 via-transparent to-transparent"></div>
+                     </div>
+                     <div class="absolute bottom-6 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/85 backdrop-blur-md border border-white/70 shadow-sm z-20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                        <span class="font-display font-bold text-xs uppercase tracking-widest text-slate-900">Neuro-Audio</span>
                      </div>
                 </div>
             </div>
@@ -577,7 +651,7 @@
 
                 <!-- Tile 5 — portrait -->
                 <figure class="relative w-72 aspect-[3/4] rounded-3xl overflow-hidden shrink-0 border border-white/60 shadow-lg shadow-purple-500/5">
-                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=600&q=85&auto=format&fit=crop" alt="Wired" />
+                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=85&auto=format&fit=crop" alt="Wired" />
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
                     <figcaption class="absolute bottom-4 left-4 right-4">
                         <span class="inline-flex items-center gap-2 rounded-full bg-white/40 backdrop-blur-md border border-white/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white drop-shadow-sm">
@@ -589,7 +663,7 @@
 
                 <!-- Tile 6 — landscape -->
                 <figure class="relative w-96 aspect-[16/10] rounded-3xl overflow-hidden shrink-0 border border-white/60 shadow-lg shadow-emerald-500/5">
-                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="Atelier · Marfa" />
+                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop" alt="Atelier · Marfa" />
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
                     <figcaption class="absolute bottom-4 left-4 right-4">
                         <span class="inline-flex items-center gap-2 rounded-full bg-white/40 backdrop-blur-md border border-white/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white drop-shadow-sm">
@@ -650,7 +724,7 @@
                     </figcaption>
                 </figure>
                 <figure aria-hidden="true" class="relative w-72 aspect-[3/4] rounded-3xl overflow-hidden shrink-0 border border-white/60 shadow-lg shadow-purple-500/5">
-                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=600&q=85&auto=format&fit=crop" alt="" />
+                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=85&auto=format&fit=crop" alt="" />
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
                     <figcaption class="absolute bottom-4 left-4 right-4">
                         <span class="inline-flex items-center gap-2 rounded-full bg-white/40 backdrop-blur-md border border-white/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white drop-shadow-sm">
@@ -660,7 +734,7 @@
                     </figcaption>
                 </figure>
                 <figure aria-hidden="true" class="relative w-96 aspect-[16/10] rounded-3xl overflow-hidden shrink-0 border border-white/60 shadow-lg shadow-emerald-500/5">
-                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="" />
+                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop" alt="" />
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
                     <figcaption class="absolute bottom-4 left-4 right-4">
                         <span class="inline-flex items-center gap-2 rounded-full bg-white/40 backdrop-blur-md border border-white/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white drop-shadow-sm">
@@ -741,7 +815,9 @@
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
 
             <!-- Left: image rail with halo -->
-            <div class="md:col-span-5 relative">
+            <!-- md:self-end pushes the image card down so its bottom aligns with the right
+                 column's FAQ list bottom (right col is taller from heading + 5 details). -->
+            <div class="md:col-span-5 relative md:self-end">
                 <div aria-hidden="true" class="absolute -inset-6 bg-gradient-to-br from-indigo-300/40 via-purple-300/30 to-pink-300/40 blur-3xl rounded-[3rem] -z-10"></div>
                 <div class="relative rounded-[2rem] overflow-hidden glass-panel p-2 shadow-2xl">
                     <div class="rounded-[1.5rem] overflow-hidden aspect-[4/5] relative">

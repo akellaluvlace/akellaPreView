@@ -6,6 +6,65 @@ export default function T13EditorialFashionStyle() {
     { label: "Studio", active: false },
   ];
   const footerLinks = ["Privacy Policy", "Terms of Service", "Shipping & Returns", "Contact"];
+  const pressBrands = [
+    { slug: "theguardian", alt: "The Guardian" },
+    { slug: "telegraph",   alt: "The Telegraph" },
+    { slug: "medium",      alt: "Medium" },
+    { slug: "substack",    alt: "Substack" },
+    { slug: "behance",     alt: "Behance" },
+    { slug: "vimeo",       alt: "Vimeo" },
+    { slug: "issuu",       alt: "Issuu" },
+  ];
+  const lookbookHeader = [
+    { k: "NAME",      v: "SS-2026 · No. 04" },
+    { k: "PLATES",    v: "22 / 22 negatives" },
+    { k: "STUDIO",    v: "9 mo. · in-house" },
+    { k: "MATERIALS", v: "wool / silk / lambskin" },
+    { k: "ATELIER",   v: "14, rue de la Verrerie" },
+    { k: "EDITION",   v: "Series 14 · 47 pieces" },
+    { k: "SIGNED",    v: "@MATHILDE · @RENAUD" },
+  ];
+  const houseOffer = [
+    {
+      title: "Atelier visit",
+      body: "An hour with the founder at No. 14, rue de la Verrerie. Cloth on the table, not on a hanger. By appointment, weekdays only.",
+      chip: "— Paris · in person",
+      icon: <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-7h6v7"/></svg>,
+    },
+    {
+      title: "Made-to-order",
+      body: "Three fittings, twelve weeks, one piece. Drafted from the season's pattern but cut for the body — not the body cut for the pattern.",
+      chip: "— 12 weeks · 3 fittings",
+      icon: <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M3 6l3-3h12l3 3"/><path d="M3 6v15h18V6"/><path d="M3 6h18"/><path d="M9 11a3 3 0 0 0 6 0"/></svg>,
+    },
+    {
+      title: "Trunk Show",
+      body: "Twice a year, four cities. London, Milan, Tokyo, Geneva. Forty pieces in a private suite for two evenings, by invitation only.",
+      chip: "— 4 cities · 2x / yr",
+      icon: <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M4 7l10-4 10 4v3a4 4 0 0 1-4 4h-1l-1 7H8l-1-7H6a4 4 0 0 1-4-4V7z"/></svg>,
+    },
+    {
+      title: "Private Edit",
+      body: "A four-piece capsule the founder edits to the wearer's existing wardrobe. A coat, a trouser, a shirt, an evening piece. Held back from the season.",
+      chip: "— 4 pieces · held back",
+      icon: <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M3 4h18v3H3z"/><path d="M5 7v13h14V7"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>,
+    },
+  ];
+  const offerMeta = [
+    { icon: "place", label: "Atelier",   value: "Paris IIIᵉ" },
+    { icon: "event", label: "Cadence",   value: "Two seasons / yr" },
+    { icon: "mail",  label: "Allotment", value: "96 invitations only" },
+  ];
+  const platesStrip = [
+    { id: "1502672260266-1c1ef2d93688", alt: "Light study, atelier corridor", grayscale: true },
+    { id: "1469041797191-50ace28483c3", alt: "Studio gallery interior",        grayscale: true },
+    { id: "1517677208171-0bc6725a3e60", alt: "Editorial portrait, low key",     grayscale: true },
+    { id: "1762215781547-2ac20ed42cd1", alt: "Cornice detail, salon",           grayscale: true },
+    { id: "1618488373960-404fe668e524", alt: "Long perspective corridor",       grayscale: true },
+    { id: "1527844817887-9b937993518b", alt: "Apothecary still-life, brass objects", grayscale: false },
+    { id: "1485231183945-fffde7cc051e", alt: "Close portrait, intimate framing", grayscale: true },
+    { id: "1766604106308-58b6d0d676bf", alt: "Building aperture, raking light",  grayscale: true },
+  ];
   return (
     <>
       <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -138,6 +197,20 @@ export default function T13EditorialFashionStyle() {
             </div>
           </section>
 
+          {/* New Section: Featured In (R.11 luxury press wall — flex-wrap simpleicons strip with date subtitle) */}
+          <section className="px-4 pt-16 pb-12 max-w-[1400px] mx-auto sm:px-8 sm:pt-20 sm:pb-14 md:px-margin-edge md:pt-24 md:pb-16 border-b border-outline-variant/30">
+            <div className="flex flex-col items-center text-center gap-3 mb-10">
+              <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em]">— I · Featured In</span>
+              <p className="font-headline-md text-on-surface italic text-[24px] sm:text-[28px] md:text-[32px] leading-snug max-w-2xl">Quietly noted by editors who do not chase noise.</p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:gap-x-16 md:gap-x-20 max-w-4xl mx-auto opacity-90">
+              {pressBrands.map(b => (
+                <img key={b.slug} alt={b.alt} className="h-5 sm:h-6 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300" src={`https://cdn.simpleicons.org/${b.slug}/c8c6c5`} loading="lazy" />
+              ))}
+            </div>
+            <p className="text-center font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mt-10">+ 14 mentions in trade press · MMXXIII — MMXXIV · No paid placement</p>
+          </section>
+
           {/* New Section: Atelier Manifesto */}
           <section className="px-4 pt-24 pb-12 max-w-[1400px] mx-auto sm:px-8 sm:pt-32 sm:pb-16 md:px-margin-edge md:pt-[140px] md:pb-20">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
@@ -167,13 +240,46 @@ export default function T13EditorialFashionStyle() {
 
           {/* Asymmetric Editorial Grid — right column extended with editorial text cards */}
           <section className="px-4 py-20 max-w-[1600px] mx-auto sm:px-8 sm:py-28 md:px-margin-edge md:py-section-gap">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
-              <div className="md:col-span-7 aspect-[3/4] md:aspect-auto md:h-[1228px] relative group overflow-hidden bg-surface-container-low">
-                <img alt="Editorial Portrait" className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-[2000ms] ease-out opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALdD8oMTGKXuK386hhNGZ5_hFJF3A3VR_HqyME-PlzE1uazMx70NlF4fF6ZYA-JoDVSXz48YIzkdn9n0efk3t0TkvMcVLIDip0chMiizeT2VHZQJL0TrSY_zhwkORL0ufU3wJZFecWfyGozGGoNP_H1iYdimovJpHz2oeF0hcvhLpdKq2A2Iewlhaa54oO0SKZ6w2xNd1TMf3cFYhURHDeqPpaYScDsh6HjS8sGogEuotJkJmPhAXBZl9TjxZUpLWOeVTIiIxj-pY" />
-                <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between gap-4">
-                  <p className="font-label-caps text-label-caps text-white uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">01 — The Void</p>
-                  <span className="font-label-caps text-label-caps text-white/80 uppercase tracking-widest hidden sm:inline drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">PLATE · I</span>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
+              {/* Left Column (Tall Portrait + Twin-Plate Card + Solo-Study Card — flex-col, natural height matches right column via items-stretch on parent grid) */}
+              <div className="md:col-span-7 flex flex-col gap-6">
+                <div className="aspect-[3/4] md:aspect-auto md:flex-1 md:min-h-0 relative group overflow-hidden bg-surface-container-low">
+                  <img alt="Editorial Portrait" className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-[2000ms] ease-out opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALdD8oMTGKXuK386hhNGZ5_hFJF3A3VR_HqyME-PlzE1uazMx70NlF4fF6ZYA-JoDVSXz48YIzkdn9n0efk3t0TkvMcVLIDip0chMiizeT2VHZQJL0TrSY_zhwkORL0ufU3wJZFecWfyGozGGoNP_H1iYdimovJpHz2oeF0hcvhLpdKq2A2Iewlhaa54oO0SKZ6w2xNd1TMf3cFYhURHDeqPpaYScDsh6HjS8sGogEuotJkJmPhAXBZl9TjxZUpLWOeVTIiIxj-pY" />
+                  <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between gap-4">
+                    <p className="font-label-caps text-label-caps text-white uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">01 — The Void</p>
+                    <span className="font-label-caps text-label-caps text-white/80 uppercase tracking-widest hidden sm:inline drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">PLATE · I</span>
+                  </div>
                 </div>
+                {/* Twin-plate study card — pinned to the bottom of the left column, bottoms-align with the right column's LOOKBOOK_HEADER mono plate */}
+                <div className="border border-white/10 rounded-sm overflow-hidden bg-surface-container/40">
+                  <div className="flex items-center justify-between gap-3 px-4 pt-3 pb-2 border-b border-white/10">
+                    <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em]">— PLATE · Ib & Ic</span>
+                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">TWIN STUDY</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 p-2">
+                    <figure className="aspect-square overflow-hidden bg-surface-container-low">
+                      <img alt="Atelier paper studies, hand-marked patterns" className="w-full h-full object-cover object-center grayscale contrast-110 hover:scale-105 transition-transform duration-[2000ms] ease-out" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&q=85&auto=format&fit=crop" loading="lazy" />
+                    </figure>
+                    <figure className="aspect-square overflow-hidden bg-surface-container-low">
+                      <img alt="Studio workbench, ink and graphite drafts" className="w-full h-full object-cover object-center grayscale contrast-110 hover:scale-105 transition-transform duration-[2000ms] ease-out" src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&q=85&auto=format&fit=crop" loading="lazy" />
+                    </figure>
+                  </div>
+                  <p className="px-4 pt-1 pb-3 font-label-caps text-label-caps text-on-surface-variant/70 uppercase tracking-widest">PLATES · TWIN STUDY · MAY 2026</p>
+                </div>
+                {/* Solo-Study card (PLATE · Id) — 3rd block in the left column, fills remaining gap below the twin-plate card. */}
+                <figure className="border border-white/10 rounded-sm overflow-hidden bg-surface-container/40 flex flex-col">
+                  <div className="px-3 py-2 flex items-center justify-between border-b border-white/10">
+                    <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.4em]">PLATE · Id</span>
+                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">SOLO STUDY</span>
+                  </div>
+                  <div className="aspect-[4/3] relative">
+                    <img alt="Atelier proof, single matte print on Hahnemühle paper" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1499744937866-d7e566a20a61?w=900&q=85&auto=format&fit=crop" loading="lazy" />
+                  </div>
+                  <div className="px-3 py-2 border-t border-white/10 flex items-center justify-between">
+                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest italic">SS-2026 · No. 04 · matte print on Hahnemühle</span>
+                    <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-widest">⌬</span>
+                  </div>
+                </figure>
               </div>
 
               <div className="md:col-span-5 flex flex-col gap-gutter mt-24 md:mt-48">
@@ -208,23 +314,19 @@ export default function T13EditorialFashionStyle() {
                   </div>
                 </div>
 
-                {/* 4. Specifications meta card */}
-                <div className="border border-outline-variant/60 p-6 md:p-7 md:ml-12 flex flex-col gap-4 bg-surface-container-low/40">
-                  <div className="flex items-center justify-between border-b border-outline-variant/40 pb-3">
-                    <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em]">— Specifications</span>
-                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">PLATE I — III</span>
-                  </div>
-                  <dl className="grid grid-cols-[112px_1fr] gap-x-4 gap-y-3 text-[14px]">
-                    <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Materials</dt>
-                    <dd className="font-body-md text-on-surface italic">Wool / silk / lambskin · undyed</dd>
-                    <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Atelier</dt>
-                    <dd className="font-body-md text-on-surface italic">No. 14, rue de la Verrerie · Paris IIIᵉ</dd>
-                    <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Edition</dt>
-                    <dd className="font-body-md text-on-surface italic tabular-nums">Series 14 · 47 pieces</dd>
-                    <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Released</dt>
-                    <dd className="font-body-md text-on-surface italic">Aug · MMXXIV</dd>
-                  </dl>
-                  <a className="inline-flex items-center gap-2 self-start font-label-caps text-label-caps uppercase tracking-[0.25em] text-on-surface border-b border-on-surface/40 pb-1 hover:border-tertiary hover:text-tertiary transition-colors duration-300 mt-2" href="#">Read the full sheet <span className="material-symbols-outlined text-[14px]">arrow_forward</span></a>
+                {/* 4. LOOKBOOK_HEADER metadata plate (§P.12 — monospace bordered card with title rule + 2-col label/value list + hr + verified-by line) */}
+                <div className="border border-on-surface/60 bg-surface-container-low/60 p-5 md:p-6 md:ml-12 font-mono text-[11px]">
+                  <p className="font-bold uppercase tracking-[0.22em] underline underline-offset-4 mb-4 text-on-surface">LOOKBOOK_HEADER</p>
+                  <ul className="flex flex-col gap-2">
+                    {lookbookHeader.map(r => (
+                      <li key={r.k} className="flex justify-between gap-3">
+                        <span className="text-on-surface-variant">{r.k}:</span>
+                        <span className={r.k === "NAME" ? "font-bold text-on-surface" : "text-on-surface"}>{r.v}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <hr className="border-outline-variant my-4" />
+                  <p className="text-on-surface-variant uppercase tracking-[0.18em] text-[9px]">VERIFIED BY THE HOUSE.<br />Hash matches negative · MMXXIV.</p>
                 </div>
               </div>
             </div>
@@ -294,11 +396,52 @@ export default function T13EditorialFashionStyle() {
             </div>
           </section>
 
+          {/* New Section: Atelier Services (R.12 premium 4-card — Atelier visit / Made-to-order / Trunk Show / Private Edit. Inline SVG icons, flex-col cards, mt-auto chip) */}
+          <section className="px-4 py-20 max-w-[1600px] mx-auto sm:px-8 sm:py-28 md:px-margin-edge md:py-section-gap border-t border-outline-variant/30">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+              <div className="max-w-2xl">
+                <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em] block mb-3">— V · The House Offer</span>
+                <h2 className="font-headline-md text-[30px] leading-tight text-on-surface italic sm:text-[40px] md:text-headline-md">Four ways to enter the room.</h2>
+              </div>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">Direct rapport with the founder, on a calendar that respects the cloth. No public list, no waiting room.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+              {houseOffer.map(c => (
+                <article key={c.title} className="border border-outline-variant/60 bg-surface-container-low/40 p-6 md:p-7 hover:bg-surface-container-low/70 transition-colors duration-300 flex flex-col">
+                  <div className="mb-5 inline-flex w-12 h-12 items-center justify-center border border-tertiary/40 text-tertiary">
+                    {c.icon}
+                  </div>
+                  <h3 className="font-headline-md text-on-surface italic text-[22px] sm:text-[24px] leading-tight mb-3">{c.title}</h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant flex-1">{c.body}</p>
+                  <span className="mt-5 pt-4 border-t border-outline-variant/40 font-label-caps text-label-caps text-tertiary uppercase tracking-[0.25em]">{c.chip}</span>
+                </article>
+              ))}
+            </div>
+            {/* Premium spec-plate: 3 squared-up tiles (Atelier / Cadence / Allotment), centered in max-w-3xl, with a Discretion footer line below. */}
+            <div className="mt-12 pt-8 border-t border-outline-variant/30">
+              <div className="max-w-3xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+                  {offerMeta.map(m => (
+                    <div key={m.label} className="aspect-square bg-surface-container-low/40 backdrop-blur-sm border border-tertiary/30 rounded-sm flex flex-col items-center justify-center gap-2 p-5 text-center hover:border-tertiary/60 transition-colors duration-300">
+                      <span className="material-symbols-outlined text-tertiary text-3xl mb-1" aria-hidden="true">{m.icon}</span>
+                      <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-[0.3em] text-[10px]">{m.label}</span>
+                      <span className="font-headline-md text-on-surface italic text-lg leading-tight">{m.value}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-center font-metadata text-metadata text-on-surface-variant italic mt-4 md:mt-6">
+                  <span className="material-symbols-outlined align-middle text-tertiary text-base mr-2" aria-hidden="true">lock</span>
+                  Discretion · No public list
+                </p>
+              </div>
+            </div>
+          </section>
+
           {/* Archive Section — auto-cycling vertical image with blur cross-fade + sync'd thumbnail strip */}
           <section className="px-4 py-20 bg-background max-w-[1800px] mx-auto border-t border-outline/10 sm:px-8 sm:py-28 md:px-margin-edge md:py-section-gap">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10">
               <div className="md:col-span-5 md:sticky md:top-32 md:self-start mb-12 md:mb-0">
-                <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em] block mb-4">— V · Archive</span>
+                <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em] block mb-4">— VI · Archive</span>
                 <h2 className="font-headline-md text-[30px] leading-tight text-on-surface italic mb-6 sm:text-[40px] md:text-headline-md">Archive</h2>
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-sm mb-8">
                   A curated selection of silhouettes. Each piece is a study in precise tailoring and unapologetic form. Watch the frame — it changes every four seconds.
@@ -316,7 +459,7 @@ export default function T13EditorialFashionStyle() {
                 <div className="relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-surface-container-low border border-outline-variant/60">
                   {[
                     { id: "1490481651871-ab68de25d43d", num: "01", title: "Structured wool overcoat", delay: "0s" },
-                    { id: "1492707892479-7bc8d5a4ee93", num: "02", title: "Asymmetric silk drape",     delay: "4s" },
+                    { id: "1776275758873-31603dd06112", num: "02", title: "Asymmetric silk drape",     delay: "4s" },
                     { id: "1539109136881-3be0616acf4b", num: "03", title: "High-collar tunic",         delay: "8s" },
                     { id: "1483985988355-763728e1935b", num: "04", title: "Geometric harness",        delay: "12s" },
                   ].map(l => (
@@ -350,7 +493,7 @@ export default function T13EditorialFashionStyle() {
                 <div className="grid grid-cols-4 gap-3 mt-6">
                   {[
                     { id: "1490481651871-ab68de25d43d", num: "01", delay: "0s" },
-                    { id: "1492707892479-7bc8d5a4ee93", num: "02", delay: "4s" },
+                    { id: "1776275758873-31603dd06112", num: "02", delay: "4s" },
                     { id: "1539109136881-3be0616acf4b", num: "03", delay: "8s" },
                     { id: "1483985988355-763728e1935b", num: "04", delay: "12s" },
                   ].map(t => (
@@ -372,6 +515,48 @@ export default function T13EditorialFashionStyle() {
                 "We do not dress to be seen.<br />
                 <span className="text-tertiary">We dress to be felt.</span>"
               </blockquote>
+            </div>
+          </section>
+
+          {/* New Section: The Inner Circle (R.18 premium upgrade — image bg + gradient + scanline overlay + decorative tertiary rules + by-invitation chip + dark form) */}
+          <section className="relative w-full bg-background py-28 md:py-36 border-t border-outline-variant/40 overflow-hidden">
+            <div className="absolute inset-0">
+              <img alt="Atelier interior" className="absolute inset-0 w-full h-full object-cover opacity-25 grayscale" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=2000&q=85&auto=format&fit=crop" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background"></div>
+              <div className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-50" style={{ backgroundImage: "repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 3px)" }}></div>
+            </div>
+            <div className="relative max-w-2xl mx-auto px-6 text-center">
+              <div aria-hidden="true" className="w-16 h-px bg-tertiary/60 mx-auto mb-10"></div>
+              <span className="inline-block font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em] border border-tertiary/50 px-4 py-2 mb-8">— By Invitation</span>
+              <h3 className="font-display-lg text-[32px] sm:text-[44px] md:text-[56px] leading-tight italic text-on-surface mb-5">The Inner Circle</h3>
+              <p className="font-headline-md text-on-surface-variant italic text-[18px] sm:text-[20px] md:text-[22px] leading-relaxed mb-6 max-w-xl mx-auto">Access to limited editions, trunk-show invitations and a quarterly letter from the studio. Held back from the public season.</p>
+              <p className="font-label-caps text-label-caps text-on-surface-variant/70 uppercase tracking-[0.25em] mb-10">96 invitations issued annually · Paris · Milan · Tokyo · Geneva</p>
+              <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
+                <input type="email" placeholder="your.address@maison.com" aria-label="Email address" className="flex-1 bg-transparent border-b border-on-surface/40 focus:border-tertiary outline-none px-2 py-3 font-body-md text-on-surface placeholder:text-on-surface-variant/50 italic transition-colors duration-300" />
+                <button type="submit" className="font-label-caps text-label-caps uppercase tracking-[0.25em] text-on-surface border border-tertiary/60 px-6 py-3 hover:bg-tertiary hover:text-on-tertiary transition-colors duration-300">Request Invitation</button>
+              </form>
+              <div aria-hidden="true" className="w-16 h-px bg-tertiary/60 mx-auto mt-12 mb-6"></div>
+              <p className="font-label-caps text-label-caps text-on-surface-variant/60 uppercase tracking-widest">MMXXIV — present · No public list</p>
+            </div>
+          </section>
+
+          {/* New Section: Plates · Inside the Atelier (R.17 image strip — 8 squares, full-width, hover scale only, no marquee) */}
+          <section className="w-full bg-surface-container-lowest border-t border-outline-variant/30 py-14 md:py-16">
+            <div className="max-w-[1600px] mx-auto px-4 md:px-margin-edge mb-10 text-center">
+              <span className="font-label-caps text-label-caps text-tertiary uppercase tracking-[0.3em] block mb-3">— Inside the Atelier · 04</span>
+              <h2 className="font-headline-md text-on-surface italic text-[26px] sm:text-[32px] md:text-[40px] leading-tight max-w-3xl mx-auto">Eight rooms, one Friday afternoon.</h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 px-3 md:px-6">
+              {platesStrip.map(p => (
+                <figure key={p.id} className="aspect-square overflow-hidden bg-surface-container-low border border-outline-variant/40">
+                  <img alt={p.alt} className={p.grayscale ? "w-full h-full object-cover hover:scale-105 transition-transform duration-500 grayscale contrast-110" : "w-full h-full object-cover hover:scale-105 transition-transform duration-500"} src={`https://images.unsplash.com/photo-${p.id}?w=600&q=80&auto=format&fit=crop`} loading="lazy" decoding="async" />
+                </figure>
+              ))}
+            </div>
+            <div className="max-w-[1600px] mx-auto px-4 md:px-margin-edge mt-8 flex items-center justify-center gap-4">
+              <span className="w-8 h-px bg-tertiary/40"></span>
+              <span className="font-label-caps text-label-caps text-on-surface-variant/70 uppercase tracking-widest">Photographs by House · Floor No. 02 · MMXXIV</span>
+              <span className="w-8 h-px bg-tertiary/40"></span>
             </div>
           </section>
         </main>

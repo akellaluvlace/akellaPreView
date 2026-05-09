@@ -1,3 +1,88 @@
+// Hoisted: tech-brand wall for the Daily_Stack section.
+const DAILY_STACK_BRANDS = [
+  { slug: "rust", label: "rust", alt: "Rust" },
+  { slug: "go", label: "go", alt: "Go" },
+  { slug: "typescript", label: "typescript", alt: "TypeScript" },
+  { slug: "kubernetes", label: "k8s", alt: "Kubernetes" },
+  { slug: "docker", label: "docker", alt: "Docker" },
+  { slug: "terraform", label: "terraform", alt: "Terraform" },
+  { slug: "postgresql", label: "postgres", alt: "PostgreSQL" },
+  { slug: "redis", label: "redis", alt: "Redis" },
+  { slug: "cloudflare", label: "cloudflare", alt: "Cloudflare" },
+  { slug: "github", label: "github", alt: "GitHub" },
+  { slug: "gitlab", label: "gitlab", alt: "GitLab" },
+  { slug: "vercel", label: "vercel", alt: "Vercel" },
+  { slug: "nextdotjs", label: "next", alt: "Next.js" },
+  { slug: "nodedotjs", label: "node", alt: "Node.js" },
+  { slug: "npm", label: "npm", alt: "npm" },
+  { slug: "stripe", label: "stripe", alt: "Stripe" },
+  { slug: "linear", label: "linear", alt: "Linear" },
+  { slug: "sentry", label: "sentry", alt: "Sentry" },
+  { slug: "datadog", label: "datadog", alt: "Datadog" },
+  { slug: "grafana", label: "grafana", alt: "Grafana" },
+];
+
+// Hoisted: pillars for Engagement_Model. Inline mini-icons via Material Symbols.
+const ENGAGEMENT_PILLARS = [
+  {
+    idx: "[01 / 04]",
+    icon: "terminal",
+    eyebrow: "// embed",
+    title: "Open-source ledger",
+    body: <>Sponsor a feature on <code className="text-primary">k8s-mesh-analyzer</code> or <code className="text-primary">go-ratelimit-cluster</code>. Public roadmap, public PRs, your name in the commit log.</>,
+    chipL: "milestone · 2–6 wks",
+    chipR: "from $4k",
+  },
+  {
+    idx: "[02 / 04]",
+    icon: "deployed_code",
+    eyebrow: "// rebuild",
+    title: "Engagement — fractional infra",
+    body: "2–3 days a week alongside your platform team. Migration audits, on-call rotation cleanup, eBPF tracing, p99 budgets you can defend in review.",
+    chipL: "retainer · 90d min",
+    chipR: "$18k / mo",
+  },
+  {
+    idx: "[03 / 04]",
+    icon: "campaign",
+    eyebrow: "// stage",
+    title: "Speaking circuit",
+    body: "Conference keynotes, internal eng all-hands, workshop track. Topics: kernel-side observability, lock-free pitfalls, rolling state migrations without downtime.",
+    chipL: "booked · q3 · q4",
+    chipR: "on request",
+  },
+  {
+    idx: "[04 / 04]",
+    icon: "forum",
+    eyebrow: "// office hours",
+    title: "$ ssh hello@lindqvist",
+    body: "Free 30-minute slot for working engineers debugging a real production problem. Bring a flame graph, a tcpdump, or a stack trace. No sales calls.",
+    chipL: "tue / thu · 17:00 cet",
+    chipR: "free",
+  },
+];
+
+// Hoisted: 8 worklog photos before footer (§R.17). All HEAD-checked 200.
+const WORKLOG_FRAMES = [
+  { id: "1454165804606-c3d57bc86b40", alt: "Dual-monitor terminal workspace", tag: "term" },
+  { id: "1517245386807-bb43f82c33c4", alt: "Engineer pair-debugging on laptop", tag: "pair" },
+  { id: "1573164574001-518958d9baa2", alt: "Whiteboard sprint planning", tag: "brd" },
+  { id: "1517048676732-d65bc937f952", alt: "Pull-request review", tag: "pr" },
+  { id: "1521737711867-e3b97375f902", alt: "Remote video call", tag: "sync" },
+  { id: "1556761175-5973dc0f32e7", alt: "Cross-functional design review", tag: "rev" },
+  { id: "1531403009284-440f080d1e12", alt: "Standup with sticky notes", tag: "stand" },
+  { id: "1499951360447-b19be8fe80f5", alt: "Designer wireframes on tablet", tag: "wire" },
+];
+
+// Pre-computed static class strings (avoids inline conditional template-literal bloat per §M.14).
+const PILLAR_CARD_CLASS = "bg-surface-container border border-outline-variant rounded-[2px] p-5 sm:p-6 flex flex-col gap-4 hover:border-primary/40 hover:bg-surface-variant/30 transition-colors";
+const PILLAR_ICON_BOX_CLASS = "inline-flex items-center justify-center w-11 h-11 rounded-[2px] bg-primary/[0.08] border border-primary/30 text-primary";
+const BRAND_LINK_CLASS = "group flex flex-col items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm p-1.5 -m-1.5";
+const BRAND_IMG_CLASS = "h-8 w-8 opacity-70 group-hover:opacity-100 group-hover:[filter:invert(76%)_sepia(40%)_saturate(489%)_hue-rotate(70deg)] transition-all";
+const BRAND_LABEL_CLASS = "font-code text-[9px] uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors";
+const WORKLOG_FIGURE_CLASS = "aspect-square overflow-hidden border border-outline-variant rounded-[2px] relative group";
+const WORKLOG_IMG_CLASS = "w-full h-full object-cover grayscale contrast-110 brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-500";
+
 function DeveloperPortfolio() {
   return (
     <>
@@ -368,6 +453,34 @@ function DeveloperPortfolio() {
             </div>
           </section>
 
+          {/* Daily_Stack — trusted-by tech wall (§R.11 Light/SaaS flavor in terminal palette) */}
+          <section id="stack-used" className="w-full flex flex-col gap-6 scroll-mt-24" aria-labelledby="dailystack-heading">
+            <h2 id="dailystack-heading" className="font-h2 text-xl sm:text-[24px] font-semibold tracking-tight text-on-surface border-b border-outline-variant pb-3 flex items-center justify-between gap-3">
+              <span className="flex items-center gap-3">
+                <span className="text-primary font-bold" aria-hidden="true">#</span> Daily_Stack
+              </span>
+              <span className="font-code text-[10px] sm:text-[12px] text-on-surface-variant font-normal tracking-widest hidden sm:inline">// in_production · 84 nodes</span>
+            </h2>
+            <div className="bg-surface-container border border-outline-variant ascii-border ascii-border-tl ascii-border-br rounded-[2px] p-5 sm:p-6 flex flex-col gap-5">
+              <div className="flex items-center justify-between border-b border-outline-variant pb-3">
+                <span className="font-code text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface-variant">$ uname --tools | sort</span>
+                <span className="font-code text-[10px] sm:text-[11px] uppercase tracking-widest text-primary">[20 / 20 ok]</span>
+              </div>
+              <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-x-3 gap-y-5 items-center">
+                {DAILY_STACK_BRANDS.map((b) => (
+                  <a key={b.slug} className={BRAND_LINK_CLASS} href="#" aria-label={b.alt} rel="noopener noreferrer">
+                    <img className={BRAND_IMG_CLASS} src={`https://cdn.simpleicons.org/${b.slug}/879485`} alt={b.alt} loading="lazy" />
+                    <span className={BRAND_LABEL_CLASS}>{b.label}</span>
+                  </a>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-outline-variant pt-3 font-code text-[10px] sm:text-[11px] text-on-surface-variant tracking-widest">
+                <span>// + 11 mentions across NATS, OTel, ClickHouse, eBPF, Loki, Tempo, Caddy, Bun, Deno, Bazel, Nix</span>
+                <span className="text-primary">v · 2026.05</span>
+              </div>
+            </div>
+          </section>
+
           {/* Featured Projects */}
           <section id="work" className="w-full flex flex-col gap-6 scroll-mt-24" aria-labelledby="work-heading">
             <h2 id="work-heading" className="font-h2 text-xl sm:text-[24px] font-semibold tracking-tight text-on-surface border-b border-outline-variant pb-3 flex items-center gap-3">
@@ -647,6 +760,74 @@ function DeveloperPortfolio() {
             </div>
           </section>
 
+          {/* Engagement_Model — premium 4-pillar (§R.12) + bottom-pinned dossier card (§R.6 + §P.12) */}
+          <section id="engagement" className="w-full flex flex-col gap-6 scroll-mt-24" aria-labelledby="engagement-heading">
+            <h2 id="engagement-heading" className="font-h2 text-xl sm:text-[24px] font-semibold tracking-tight text-on-surface border-b border-outline-variant pb-3 flex items-center justify-between gap-3">
+              <span className="flex items-center gap-3">
+                <span className="text-primary font-bold" aria-hidden="true">#</span> Engagement_Model
+              </span>
+              <span className="font-code text-[10px] sm:text-[12px] text-on-surface-variant font-normal tracking-widest hidden sm:inline">// 4 ways to ship together</span>
+            </h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
+              {/* Left aside (4 cols) — bottom-aligned dossier card */}
+              <aside className="lg:col-span-4 flex flex-col gap-5 bg-surface-container border border-outline-variant ascii-border ascii-border-tl ascii-border-br rounded-[2px] p-5 sm:p-6">
+                <div className="flex items-center justify-between border-b border-outline-variant pb-3">
+                  <span className="font-code text-[10px] uppercase tracking-widest text-on-surface-variant">// brief</span>
+                  <span className="font-code text-[10px] uppercase tracking-widest text-primary">[open]</span>
+                </div>
+                <p className="font-code text-on-surface text-[14px] sm:text-base leading-relaxed">
+                  I work with a small number of teams a year, on infra problems most search engines won't surface answers to. Pick the lane that matches the failure mode you're chasing.
+                </p>
+                <div className="flex flex-col gap-1 font-code text-[12px] text-on-surface-variant">
+                  <div><span className="text-primary">[OK]</span> q3 · 2 slots open</div>
+                  <div><span className="text-secondary">[I]</span> response sla &lt; 36h</div>
+                  <div><span className="text-on-surface-variant">[NOTE]</span> rates on request · invoice net-15</div>
+                </div>
+
+                {/* Bottom-pinned FILE_HEADER mono dossier per §P.12 */}
+                <div className="mt-auto pt-5 border-t border-outline-variant">
+                  <div className="font-code text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">// dossier</div>
+                  <div className="bg-background border border-outline-variant rounded-[2px] p-3 flex flex-col gap-1 font-code text-[10.5px] sm:text-[11px] leading-[1.65] text-on-surface-variant">
+                    <div className="flex items-center justify-between text-primary"><span>FILE</span><span>resume.pdf</span></div>
+                    <div className="flex items-center justify-between"><span>VER</span><span className="text-on-surface tabular-nums">v4.2 · build 21,408</span></div>
+                    <div className="flex items-center justify-between"><span>LAST_BUILD</span><span className="tabular-nums">2026-05-06 · 14:12 utc</span></div>
+                    <div className="flex items-center justify-between"><span>COMMITS_7D</span><span className="text-primary tabular-nums">+ 14</span></div>
+                    <div className="flex items-center justify-between"><span>SIZE</span><span className="tabular-nums">182 kb · sha 9f4c</span></div>
+                    <div className="flex items-center justify-between"><span>CHKSUM</span><span className="text-primary">[ok]</span></div>
+                  </div>
+                  <a href="#" className="mt-3 inline-flex items-center gap-2 font-code text-[12px] uppercase tracking-widest text-[#6FA0F0] hover:text-primary focus-visible:text-primary hover:underline decoration-1 underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm px-1 -ml-1">
+                    <span>$ download</span>
+                    <span className="material-symbols-outlined text-[16px] leading-none" aria-hidden="true">arrow_outward</span>
+                  </a>
+                </div>
+              </aside>
+
+              {/* Right: 4 pillars (8 cols) */}
+              <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                {ENGAGEMENT_PILLARS.map((p) => (
+                  <article key={p.idx} className={PILLAR_CARD_CLASS}>
+                    <div className="flex items-center justify-between">
+                      <div className={PILLAR_ICON_BOX_CLASS}>
+                        <span className="material-symbols-outlined text-[22px] leading-none" aria-hidden="true">{p.icon}</span>
+                      </div>
+                      <span className="font-code text-[10px] uppercase tracking-widest text-on-surface-variant tabular-nums">{p.idx}</span>
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <span className="font-code text-[10px] uppercase tracking-widest text-primary">{p.eyebrow}</span>
+                      <h3 className="font-code text-on-surface text-[15px] sm:text-base font-bold">{p.title}</h3>
+                      <p className="font-body text-on-surface-variant text-[13.5px] sm:text-sm leading-relaxed flex-1">{p.body}</p>
+                    </div>
+                    <div className="mt-auto pt-3 border-t border-outline-variant flex items-center justify-between font-code text-[11px]">
+                      <span className="text-on-surface-variant">{p.chipL}</span>
+                      <span className="text-primary tabular-nums">{p.chipR}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* Section: Field_Photographs (image strip / marquee) */}
           <section id="field" className="w-full flex flex-col gap-6 scroll-mt-24" aria-labelledby="field-heading">
             <h2 id="field-heading" className="font-h2 text-xl sm:text-[24px] font-semibold tracking-tight text-on-surface border-b border-outline-variant pb-3 flex items-center justify-between gap-3">
@@ -662,14 +843,14 @@ function DeveloperPortfolio() {
                 {[
                   { id: "1558494949-ef010cbdcc31", w: "w-72", q: 900, label: "[ NODE_07 ]", meta: "FRA · 02:14", alt: "Server rack interior" },
                   { id: "1518770660439-4636190af475", w: "w-72", q: 900, label: "[ TRACE.MAP ]", meta: "macro · 01x", alt: "Circuit board macro" },
-                  { id: "1551808525-51a94da548ce", w: "w-96", q: 1200, label: "[ AISLE_B / RACK_14 ]", meta: "stockholm · prd", alt: "Server-room wide shot" },
-                  { id: "1531259683007-016a7b628fc3", w: "w-72", q: 900, label: "[ COOL_LOOP ]", meta: "delta-T · 04°", alt: "Industrial machinery" },
+                  { id: "1558494949-ef010cbdcc31", w: "w-96", q: 1200, label: "[ AISLE_B / RACK_14 ]", meta: "stockholm · prd", alt: "Server-room wide shot" },
+                  { id: "1776524039930-ea1ed83b0f97", w: "w-72", q: 900, label: "[ COOL_LOOP ]", meta: "delta-T · 04°", alt: "Industrial machinery" },
                   { id: "1487958449943-2429e8be8625", w: "w-80", q: 1100, label: "[ DC_FACADE ]", meta: "site_a · ext", alt: "Architecture" },
                   { id: "1517021897933-0e0319cfbc28", w: "w-72", q: 900, label: "[ ENV.CTRL ]", meta: "hvac · 21°c", alt: "Architecture detail" },
                   { id: "1558494949-ef010cbdcc31", w: "w-72", q: 900, label: "[ NODE_07 ]", meta: "FRA · 02:14", alt: "" },
                   { id: "1518770660439-4636190af475", w: "w-72", q: 900, label: "[ TRACE.MAP ]", meta: "macro · 01x", alt: "" },
-                  { id: "1551808525-51a94da548ce", w: "w-96", q: 1200, label: "[ AISLE_B / RACK_14 ]", meta: "stockholm · prd", alt: "" },
-                  { id: "1531259683007-016a7b628fc3", w: "w-72", q: 900, label: "[ COOL_LOOP ]", meta: "delta-T · 04°", alt: "" },
+                  { id: "1558494949-ef010cbdcc31", w: "w-96", q: 1200, label: "[ AISLE_B / RACK_14 ]", meta: "stockholm · prd", alt: "" },
+                  { id: "1776524039930-ea1ed83b0f97", w: "w-72", q: 900, label: "[ COOL_LOOP ]", meta: "delta-T · 04°", alt: "" },
                   { id: "1487958449943-2429e8be8625", w: "w-80", q: 1100, label: "[ DC_FACADE ]", meta: "site_a · ext", alt: "" },
                   { id: "1517021897933-0e0319cfbc28", w: "w-72", q: 900, label: "[ ENV.CTRL ]", meta: "hvac · 21°c", alt: "" },
                 ].map((p, i) => (
@@ -701,7 +882,7 @@ function DeveloperPortfolio() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
               <figure className="lg:col-span-7 relative overflow-hidden border border-outline-variant bg-surface-container rounded-[2px] aspect-[4/3] lg:aspect-auto lg:min-h-[440px] lg:h-full">
-                <img className="absolute inset-0 w-full h-full object-cover grayscale contrast-105 brightness-90" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1600&q=85&auto=format&fit=crop" alt="Production server room aisle" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover grayscale contrast-105 brightness-90" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=85&auto=format&fit=crop" alt="Production server room aisle" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-background/90 via-background/30 to-transparent"></div>
                 <div className="absolute inset-0 scanline-veneer pointer-events-none"></div>
                 <span className="absolute top-4 right-4 font-code text-[10px] uppercase tracking-widest border border-primary/40 bg-background/70 backdrop-blur-sm text-primary px-2 py-1 rounded-sm">env · prd-eu</span>
@@ -754,7 +935,7 @@ function DeveloperPortfolio() {
             <div className="grid grid-cols-1 md:grid-cols-3 border border-outline-variant md:divide-x divide-outline-variant rounded-[2px] overflow-hidden bg-surface-container">
               {[
                 { id: "1518770660439-4636190af475", code: "site_b", name: "aurora-stg-04", meta: "helsinki · 32 nodes · staging", alt: "Site b" },
-                { id: "1531259683007-016a7b628fc3", code: "site_c", name: "pyrite-dev-09", meta: "frankfurt · 12 nodes · dev", alt: "Site c" },
+                { id: "1776524039930-ea1ed83b0f97", code: "site_c", name: "pyrite-dev-09", meta: "frankfurt · 12 nodes · dev", alt: "Site c" },
                 { id: "1487958449943-2429e8be8625", code: "site_d", name: "solstice-edge-22", meta: "london · pop · canary", alt: "Site d" },
               ].map((s, i) => (
                 <article key={i} className={`p-4 flex gap-4 items-center ${i > 0 ? "border-t md:border-t-0 border-outline-variant" : ""}`}>
@@ -769,6 +950,31 @@ function DeveloperPortfolio() {
                 </article>
               ))}
             </div>
+          </section>
+
+          {/* Worklog — 8-frame image strip before footer (§R.17, dev/workspace photos) */}
+          <section id="worklog" className="w-full flex flex-col gap-6 scroll-mt-24" aria-labelledby="worklog-heading">
+            <h2 id="worklog-heading" className="font-h2 text-xl sm:text-[24px] font-semibold tracking-tight text-on-surface border-b border-outline-variant pb-3 flex items-center justify-between gap-3">
+              <span className="flex items-center gap-3">
+                <span className="text-primary font-bold" aria-hidden="true">#</span> Worklog
+              </span>
+              <span className="font-code text-[10px] sm:text-[12px] text-on-surface-variant font-normal tracking-widest hidden sm:inline">// 2024 — present · stockholm</span>
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-3">
+              {WORKLOG_FRAMES.map((f, i) => (
+                <figure key={f.id} className={WORKLOG_FIGURE_CLASS}>
+                  <img className={WORKLOG_IMG_CLASS} src={`https://images.unsplash.com/photo-${f.id}?w=600&q=80&auto=format&fit=crop`} alt={f.alt} loading="lazy" decoding="async" />
+                  <div className="absolute inset-0 scanline-veneer pointer-events-none"></div>
+                  <figcaption className="absolute bottom-1.5 left-1.5 right-1.5 flex items-center justify-between font-code text-[9px] uppercase tracking-widest">
+                    <span className="text-primary">[ {String(i + 1).padStart(2, "0")} ]</span>
+                    <span className="text-on-surface">{f.tag}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <p className="font-code text-[10px] sm:text-[11px] text-on-surface-variant text-center tabular-nums tracking-widest">
+              // 8 frames · q1 — q3 · on-prem visits, sprint rooms, recovered postmortems
+            </p>
           </section>
 
         </main>

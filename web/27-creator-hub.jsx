@@ -70,10 +70,10 @@ export default function T27CreatorHub() {
     { num: "Plate · 01", aspect: "aspect-[4/3]", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBdZFlz1tVGJ1OLeUbP7o6gYofS5zvnQJD5Uv94QsJ-DRf3L7j1tbBSzFB5hA7Rag8qTWiUVoTU1y8vboSRT9ijMxeuANBTPfCxmr2wOnGmLy0YbWcAILXmCSfvOKH1-XMM3Ywe61JVtQMSRErx8SiojINwwlNqoijR4-hxAl3XZFI5iVW6HyPEQDK5ZNYXaELv4XcMwmN05QsyvPJmMzOvagMIGivQOatHf5r6dbXT-I7KtqKXdSZBQEMZGch6008SVLqV9G5MB9w", alt: "Editorial portrait of Ren Park, B&W treatment" },
     { num: "Plate · 02", aspect: "aspect-[4/3]", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=900&auto=format&fit=crop", alt: "Editorial portrait, warm colour treatment" },
     { num: "Plate · 03", aspect: "aspect-[4/3]", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDPGDaCbkIeis7FNPX-dskaNMPfl0fKOtpuV4_Sh0ShdtGSTiDilJfuQxkuvF4J04WwSJJ2kghSZKQmNuMAcIT6AEsB-3VzdTnMPrd4JfQDV5o2iTe0coQkSA2Iggagf4d6jEb--TN0v56fuf-fBlguvx-1PfRjiRBwwQ8sf4-McS8WoGppGSg0QXrR7QOyeMeuwRYmrp0tp6NWbg55hW-JuHzOfhJcxwzlYUKcirWGTLpH9FJL6lmsHYXHInwRqarKrh9qHVGI3HQ", alt: "Workspace desk setup, B&W treatment" },
-    { num: "Plate · 04", aspect: "aspect-[4/3]", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop", alt: "Architectural facade, warm colour" },
-    { num: "Plate · 05", aspect: "aspect-square", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop", alt: "Architectural cantilever, warm colour" },
+    { num: "Plate · 04", aspect: "aspect-[4/3]", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=900&auto=format&fit=crop", alt: "Designer at tablet sketching wireframes" },
+    { num: "Plate · 05", aspect: "aspect-square", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=900&auto=format&fit=crop", alt: "Sticky-note storyboarding wall" },
     { num: "Plate · 06", aspect: "aspect-square", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuD3UeVxu95IIiG1EcLqduDtkopQvJRg_croEOzTvx8z1LCiHouN4ej5AXHzU9KtAB33TOy66cxnLL1RS031rnEj6E4zT5mQb3qKKq5TZ3AWxez-tr__2C5VC5tRBLCwxmjG8Cr4cPIvucogZAEGnVOknXa6WkCanItxaDsip1MoCgAcJ3yGL1jhLktrMsMlii5BjyNat9JEzEdlTmjFDyRi5BKVwuIcoLRN8G61jZjqIKncx8HlCN9eWUFUp-Gr64Yo-KSNS__g_38", alt: "Architectural stairs, B&W treatment" },
-    { num: "Plate · 07", aspect: "aspect-square", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?q=80&w=900&auto=format&fit=crop", alt: "Editorial portrait in profile, warm colour" },
+    { num: "Plate · 07", aspect: "aspect-square", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=900&auto=format&fit=crop", alt: "Editorial portrait of woman in coat, warm colour" },
     { num: "Plate · 08", aspect: "aspect-square", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBjC98mLmNd1GxykooTfayD6BLueLYzSnxrxqr3dzLm5Agc-YGHmO2dkQi-JU4vKiJllDnIao2o6xMaF_cGjrYUVR3xxFipkiESf0onCpfoWxQcyJUZZp-rH_uRtiH-Nv254y1AGZnQJa86BzBu0G31BibwzDvcJAc3rGo6PxKDb7PAhROhwwcoeeJr5qS5R-tu5wsVtJpwa3HruualqCKcPzbo_AfSn35LDoi1NIQYgmEClYs36AN06qjWS-R7u9nDQFkaJNM9l8k", alt: "Notepad and pen, B&W treatment" },
   ];
 
@@ -83,6 +83,27 @@ export default function T27CreatorHub() {
     { num: "Tool · 03", icon: "mic",         title: "Shure MV7",        body: "USB-and-XLR mic on the podcast desk since episode 4. The treated room matters more than the mic, but the mic still matters.", tag: "Audio", meta: "$249" },
     { num: "Tool · 04", icon: "menu_book",   title: "Leuchtturm 1917",  body: "Three of these on the shelf, dated by quarter. Where ideas live before they earn a doc. The dotted-grid edition, ink black.", tag: "Notebook", meta: "$25" },
   ];
+
+  const stripItems = [
+    // Row 1
+    { kind: "image", n: "01", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80&auto=format&fit=crop", alt: "Editorial portrait, woman in soft light" },
+    { kind: "card",  eyebrow: "Audience", value: "127K", label: "Followers", meta: "+ 8.4% MoM" },
+    { kind: "image", n: "02", src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80&auto=format&fit=crop", alt: "Engineering laptop pair workspace" },
+    { kind: "card",  eyebrow: "Cadence",  value: "4h",   label: "Avg edit",  meta: "Per issue · 2024" },
+    { kind: "image", n: "03", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=80&auto=format&fit=crop", alt: "Editorial portrait, man in profile" },
+    { kind: "card",  eyebrow: "Revenue",  value: "$8.4K", label: "Monthly",  meta: "Sponsors + memberships" },
+    { kind: "image", n: "04", src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80&auto=format&fit=crop", alt: "Pull request review on screen" },
+    // Row 2
+    { kind: "image", n: "05", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=80&auto=format&fit=crop", alt: "Low-key studio portrait, woman" },
+    { kind: "card",  eyebrow: "Ranking",  value: "Top 3%", label: "Creator", meta: "Substack · 2024" },
+    { kind: "image", n: "06", src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80&auto=format&fit=crop", alt: "Remote video call, candid" },
+    { kind: "card",  eyebrow: "Reach",    value: "12",     label: "Live cities", meta: "Tour · Q4 2024" },
+    { kind: "image", n: "07", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80&auto=format&fit=crop", alt: "Fashion model studio, dark" },
+    { kind: "card",  eyebrow: "Growth",   value: "47%",    label: "YoY",     meta: "Subscribers · 2023→24" },
+    { kind: "image", n: "08", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80&auto=format&fit=crop", alt: "Younger creator, soft window light" },
+  ];
+  const stripRow1 = stripItems.slice(0, 7);
+  const stripRow2 = stripItems.slice(7, 14);
 
   const notes = [
     { num: "Note · 138", date: "Oct 02 · 2024", title: "Why I stopped reading my own analytics.", body: "Six months without opening Plausible. Open rates are up. Writing is better. Correlation, not causation — but I'm not running the experiment.", meta: "7 min · Newsletter" },
@@ -225,6 +246,38 @@ export default function T27CreatorHub() {
             </div>
           </section>
 
+          {/* Editorial Spread 1 — image LEFT / content RIGHT */}
+          <section className="mb-xl border-t border-secondary-container pt-xl grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div className="md:col-span-7 aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-lg border border-secondary-container bg-surface-container">
+              <img alt="Dual-monitor terminal workstation" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1400&q=80&auto=format&fit=crop" />
+            </div>
+            <div className="md:col-span-5 flex flex-col gap-5 justify-center">
+              <span className="font-label-sm text-label-sm text-primary-container uppercase tracking-widest">— The Studio</span>
+              <h2 className="font-display-lg text-display-lg text-[#0F0F0F] leading-tight">Build the studio you've always wanted.</h2>
+              <p className="font-body-md text-body-md text-secondary">A creator's workspace is half the work. Two monitors, a clean desk, the right light. We've spent three years tuning this room — what stays, what goes, what plugs into what — and the operating manual is now a 24-page PDF inside the membership. Set up your studio in a weekend, not a year.</p>
+              <div className="flex items-center gap-md pt-sm">
+                <a className="bg-[#1B5E5A] text-white px-5 py-3 rounded font-label-md text-label-md hover:bg-surface-tint transition-colors uppercase tracking-widest" href="#">Tour the Studio</a>
+                <a className="font-label-md text-label-md text-primary-container uppercase tracking-widest hover:underline" href="#">Gear list →</a>
+              </div>
+            </div>
+          </section>
+
+          {/* Editorial Spread 2 — content LEFT / image RIGHT (REVERSED) */}
+          <section className="mb-xl border-t border-secondary-container pt-xl grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div className="md:col-span-5 md:order-1 flex flex-col gap-5 justify-center">
+              <span className="font-label-sm text-label-sm text-primary-container uppercase tracking-widest">— The Practice</span>
+              <h2 className="font-display-lg text-display-lg text-[#0F0F0F] leading-tight">From the first frame to the first paycheck.</h2>
+              <p className="font-body-md text-body-md text-secondary">Most creators ship for two years before a sponsor returns an email. We compressed that into seven months by writing the brief, sending the cold pitch, and pricing the deck the same week we shot the first issue. The Practice is a quarterly cohort — eighteen creators, one studio, four months — for the people doing the slow work in public.</p>
+              <div className="flex items-center gap-md pt-sm">
+                <a className="bg-[#1B5E5A] text-white px-5 py-3 rounded font-label-md text-label-md hover:bg-surface-tint transition-colors uppercase tracking-widest" href="#">Apply for Cohort 04</a>
+                <a className="font-label-md text-label-md text-primary-container uppercase tracking-widest hover:underline" href="#">Read the syllabus →</a>
+              </div>
+            </div>
+            <div className="md:col-span-7 md:order-2 aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-lg border border-secondary-container bg-surface-container">
+              <img alt="Creator at whiteboard planning sprint" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1573164574001-518958d9baa2?w=1400&q=80&auto=format&fit=crop" />
+            </div>
+          </section>
+
           <section className="mb-xl py-lg border-y border-secondary-container">
             <p className="font-label-sm text-label-sm text-secondary uppercase text-center tracking-widest mb-md">Featured In & Trusted By</p>
             <div className="flex flex-wrap justify-center gap-xl items-center opacity-40 grayscale">
@@ -316,6 +369,59 @@ export default function T27CreatorHub() {
                   </a>
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* Strip — 2 rows × 7 items, image-card alternating, square */}
+          <section className="full-bleed py-xl px-8" style={{ backgroundColor: "#F3EDE4" }}>
+            <div className="max-w-[1280px] mx-auto">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-md mb-lg">
+                <div>
+                  <p className="font-label-sm text-label-sm text-primary-container uppercase tracking-widest mb-xs">— By the Numbers</p>
+                  <h2 className="font-headline-md text-headline-md text-[#0F0F0F]">Fourteen frames, six receipts.</h2>
+                </div>
+                <p className="font-body-md text-body-md text-secondary max-w-md md:text-right">A static index of the studio in motion — portraits, workspaces, and the metrics that pay rent. Two rows of seven, alternating image and ledger card.</p>
+              </div>
+
+              {/* Row 1 */}
+              <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-7 gap-3 mb-3">
+                {stripRow1.map((it, i) => it.kind === "image" ? (
+                  <figure key={`r1-${i}`} className="relative aspect-square overflow-hidden rounded-md border border-secondary-container bg-surface-container">
+                    <img alt={it.alt} className="w-full h-full object-cover" src={it.src} />
+                    <figcaption className="absolute top-2 left-2 bg-[#FAF6F0]/90 backdrop-blur-sm px-2 py-1 font-label-sm text-label-sm uppercase tracking-widest text-[#0F0F0F]">{it.n}</figcaption>
+                  </figure>
+                ) : (
+                  <div key={`r1-${i}`} className="aspect-square bg-[#FAF6F0] border border-secondary-container p-4 flex flex-col gap-2 items-start justify-between">
+                    <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">{it.eyebrow}</span>
+                    <div className="flex flex-col">
+                      <span className="font-display-lg text-display-lg text-[#0F0F0F] leading-none">{it.value}</span>
+                      <span className="font-label-sm text-label-sm text-primary-container uppercase tracking-widest mt-1">{it.label}</span>
+                    </div>
+                    <span className="font-label-sm text-label-sm text-secondary tabular-nums">{it.meta}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Row 2 */}
+              <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-7 gap-3">
+                {stripRow2.map((it, i) => it.kind === "image" ? (
+                  <figure key={`r2-${i}`} className="relative aspect-square overflow-hidden rounded-md border border-secondary-container bg-surface-container">
+                    <img alt={it.alt} className="w-full h-full object-cover" src={it.src} />
+                    <figcaption className="absolute top-2 left-2 bg-[#FAF6F0]/90 backdrop-blur-sm px-2 py-1 font-label-sm text-label-sm uppercase tracking-widest text-[#0F0F0F]">{it.n}</figcaption>
+                  </figure>
+                ) : (
+                  <div key={`r2-${i}`} className="aspect-square bg-[#FAF6F0] border border-secondary-container p-4 flex flex-col gap-2 items-start justify-between">
+                    <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">{it.eyebrow}</span>
+                    <div className="flex flex-col">
+                      <span className="font-display-lg text-display-lg text-[#0F0F0F] leading-none">{it.value}</span>
+                      <span className="font-label-sm text-label-sm text-primary-container uppercase tracking-widest mt-1">{it.label}</span>
+                    </div>
+                    <span className="font-label-sm text-label-sm text-secondary tabular-nums">{it.meta}</span>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-md text-center font-label-sm text-label-sm text-secondary uppercase tracking-widest">Index · Eight portraits, six metrics · Updated quarterly</p>
             </div>
           </section>
 

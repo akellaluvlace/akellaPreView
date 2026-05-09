@@ -162,6 +162,31 @@ export default function T08AppleStyleHero() {
             </div>
           </section>
 
+          {/* TRUSTED BY — desk-tool brands the typist already owns */}
+          <section className="w-full bg-surface-container-lowest border-y border-tertiary/10 py-12 sm:py-16">
+            <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-margin-edge text-center">
+              <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-on-surface-variant/70 mb-8">— Pairs cleanly with —</p>
+              <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-x-8 gap-y-9 items-center justify-items-center">
+                {[
+                  { slug: "apple", name: "Apple" },
+                  { slug: "github", name: "GitHub" },
+                  { slug: "vercel", name: "Vercel" },
+                  { slug: "figma", name: "Figma" },
+                  { slug: "framer", name: "Framer" },
+                  { slug: "linear", name: "Linear" },
+                  { slug: "notion", name: "Notion" },
+                  { slug: "razer", name: "Razer" },
+                  { slug: "stripe", name: "Stripe" },
+                ].map(b => (
+                  <li key={b.slug} className="flex flex-col items-center gap-1.5">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/d4d4d4`} alt={b.name} className="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24" />
+                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-on-surface-variant/60">{b.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
           {/* DETAIL · 02 — Material */}
           <section id="detail" className="h-[80vh] min-h-[500px] w-full relative overflow-hidden bg-tertiary flex items-end sm:h-screen scroll-mt-0">
             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz3g8SxRhMTNiD8RIiE86pa6JX5oiyvy_QkwvrbMATzGlh-yn6K-PuR6RzSa51G6Wk6xB6tqYgUZSbMNT99HYFLVDTk6ZAlb_rgM6jqHqwRbimVsuL6EnUm9SLMUpQNT1ooB6e-wHMNaGIugswF-LuJYjgjnrcN0i2J6T5b6VrpfJQtyIdNpcOCB8WVhT8XzQFpz6FskUAe0JLLOwLRMItRdE0Y56E_Eh-aGx6GLVAoYJ5HJ3xl2W7G-J47fHZwEPpame7p6J-Lqc" alt="Macro keycap" width="1920" height="1080" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover opacity-80" />
@@ -226,6 +251,48 @@ export default function T08AppleStyleHero() {
                     </div>
                     <p className="font-body-md text-body-md text-tertiary/80 leading-relaxed text-pretty max-w-prose">{n.body}</p>
                   </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* PREMIUM 2x2 — Why We Built It on faint photo bg */}
+          <section className="relative w-full bg-surface-container-lowest overflow-hidden py-20 sm:py-28 md:py-section-gap border-t border-tertiary/10">
+            <div className="absolute inset-0 -z-10">
+              <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-[0.06] grayscale" loading="lazy" />
+              <div className="absolute inset-0 bg-surface-container-lowest/85"></div>
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, transparent 25%, rgba(10,10,10,0.85) 90%)" }}></div>
+            </div>
+
+            <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-margin-edge">
+              <div className="text-center max-w-2xl mx-auto mb-14 md:mb-20">
+                <span className="font-label-caps text-label-caps uppercase tracking-[0.4em] text-surface-tint">— § 04 / Doctrine</span>
+                <h2 className="font-display-lg text-3xl sm:text-4xl md:text-5xl text-on-surface mt-4 leading-[1.05] tracking-tight">Four reasons it weighs more than it should.</h2>
+                <p className="font-body-md text-body-md text-on-surface-variant mt-5 leading-relaxed">Every gram carries an argument. Each card below is one of them — printed on the underside of the chassis, not the box.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+                {[
+                  { id: "D · 01", icon: "precision_manufacturing", title: "CNC, not cast.", body: "Milled from a single block of 6061-T6 aluminum on a five-axis machine — never die-cast, never injection-shelled. The case rings like a tuning fork; the typing bed lies dead-flat to ±0.05 mm.", left: "Lisbon · Tagus floor", right: "5-axis · 14 hr" },
+                  { id: "D · 02", icon: "graphic_eq", title: "Voiced, not silent.", body: "Three internal foam layers — Poron, EVA, silicone — tuned by an acoustic engineer with credits at Bowers & Wilkins. Resonance flat below 380 Hz, full-range room-tone above. Sounds like wood, not plastic.", left: "22 dB · typing distance", right: "B&W consult · 7 wk" },
+                  { id: "D · 03", icon: "tune", title: "Hand-lubed, hand-soldered.", body: "Every switch dipped in Krytox 205G0 by a human hand. Every contact through-hole soldered, never hot-swap. The chassis is closed once, sealed for the life of the board — quieter, tighter, cheaper to repair.", left: "104 keys · 24 hr burn-in", right: "Krytox 205G0" },
+                  { id: "D · 04", icon: "history_edu", title: "Numbered, signed, kept.", body: "Each Monolith carries a hand-stamped serial and the assembler's signature etched on the underside. Twelve hundred boards a year — never more. Replacements honoured for fifteen years; the schematic ships with each unit.", left: "Edition · 1,200 / yr", right: "Warranty · 15 yrs" },
+                ].map(d => (
+                  <article key={d.id} className="group relative bg-surface-container/85 backdrop-blur-md border border-tertiary/15 p-7 md:p-9 rounded-sm hover:border-surface-tint/40 transition-colors overflow-hidden">
+                    <div className="absolute -right-6 -top-6 w-32 h-32 bg-surface-tint/[0.04] blur-3xl pointer-events-none"></div>
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="w-12 h-12 rounded-sm border border-surface-tint/40 bg-surface-tint/5 flex items-center justify-center text-surface-tint">
+                        <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 0" }}>{d.icon}</span>
+                      </div>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-on-surface-variant/70 tabular-nums">{d.id}</span>
+                    </div>
+                    <h3 className="font-display-md text-2xl md:text-3xl text-on-surface mb-3 tracking-tight leading-[1.05]">{d.title}</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6">{d.body}</p>
+                    <div className="flex items-baseline justify-between border-t border-tertiary/15 pt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-on-surface-variant/70">
+                      <span>{d.left}</span>
+                      <span className="text-surface-tint">{d.right}</span>
+                    </div>
+                  </article>
                 ))}
               </div>
             </div>

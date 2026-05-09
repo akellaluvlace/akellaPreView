@@ -21,16 +21,54 @@ export default function T85CourseEducation() {
     {
       icon: "credit_card", title: "Virtual Cards",
       body: "Generate unlimited virtual cards for distinct vendor expenses with zero friction.",
+      bullets: ["Single-use or merchant-locked", "Freeze · resume in two taps", "Per-vendor spend caps"],
+      metaLabel: "// LIVE LEDGER", metaValue: "47 vendors · $0 fee", metaIcon: "trending_up",
     },
     {
       icon: "receipt_long", title: "Expense Tracking",
       body: "Automated categorization with AI-powered receipt matching and logging.",
+      bullets: ["OCR receipt capture · 99.4% accurate", "Auto-routes to GL accounts", "VAT & mileage detection"],
+      metaLabel: "// QUARTER · Q3", metaValue: "2,418 receipts · 14h saved", metaIcon: "monitoring",
     },
     {
       large: true, icon: "account_balance_wallet", title: "Tax Integration",
       body: "Seamlessly export to preferred accounting software or grant access to CPAs directly from your dashboard.",
       img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
       alt: "Financial charts, graphs and tax documents being analyzed on a desk",
+    },
+  ];
+
+  const trustedLogos = [
+    { slug: "vercel",     alt: "Vercel" },
+    { slug: "cloudflare", alt: "Cloudflare" },
+    { slug: "github",     alt: "GitHub" },
+    { slug: "docker",     alt: "Docker" },
+    { slug: "stripe",     alt: "Stripe" },
+    { slug: "linear",     alt: "Linear" },
+    { slug: "notion",     alt: "Notion" },
+    { slug: "supabase",   alt: "Supabase" },
+  ];
+
+  const pillars = [
+    {
+      numeral: "I",   icon: "verified", title: "Real banking, not a wrapper.",
+      body: "FDIC-insured deposits up to $250k held by partner banks, audited annually. No fintech-on-fintech daisy chain — your dollars sit in a chartered institution from day one, with Ledger's interface on top.",
+      meta: "// MEMBER · FDIC", featured: true,
+    },
+    {
+      numeral: "II",  icon: "bolt", title: "Instant where it matters.",
+      body: "Domestic and cross-border transfers settle in seconds, not business days. Pay contractors in 14 currencies the moment a project ships — no batched queue, no surprise FX cut, no Friday cut-off.",
+      meta: "// SETTLES · < 8 SEC", featured: false,
+    },
+    {
+      numeral: "III", icon: "shield", title: "Auditable by design.",
+      body: "SOC 2 Type II compliant, with role-based access for CPAs and bookkeepers, plus a tamper-evident transaction log. Hand your year-end folder to your accountant in a single signed link — no zip files, no email attachments.",
+      meta: "// SOC 2 · TYPE II", featured: false,
+    },
+    {
+      numeral: "IV",  icon: "groups", title: "Humans, not a chatbot.",
+      body: "Every Professional and Enterprise account is paired with a named relationship lead — a working operator, not a script reader. Median first-response on chat is 4 minutes; on phone it's two rings, weekdays.",
+      meta: "// MEDIAN · 4 MIN", featured: false,
     },
   ];
 
@@ -53,11 +91,11 @@ export default function T85CourseEducation() {
   ];
 
   const fields = [
-    { col: "md:col-span-7", aspect: "aspect-[4/3] md:aspect-auto md:h-full", num: "Field · 01", title: "The studio · Berlin",     titleSize: "text-xl",  showChip: true,  chip: "Pro", alt: "Concrete facade of a contemporary office building", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop" },
-    { col: "md:col-span-5", aspect: "aspect-[4/3] md:aspect-[3/4]",          num: "Field · 02", title: "The HQ · Singapore",      titleSize: "text-xl",  showChip: false, chip: "",    alt: "Brutalist tower against open sky",                  src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop" },
-    { col: "md:col-span-4", aspect: "aspect-square",                          num: "Field · 03", title: "The desk · Lisbon",       titleSize: "text-base", showChip: false, chip: "",    alt: "Brass apothecary objects on a deep desk",          src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop" },
-    { col: "md:col-span-4", aspect: "aspect-square",                          num: "Field · 04", title: "The atelier · Antwerp",   titleSize: "text-base", showChip: false, chip: "",    alt: "Stripped industrial interior with raw concrete",   src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=900&auto=format&fit=crop" },
-    { col: "md:col-span-4", aspect: "aspect-square",                          num: "Field · 05", title: "The bureau · Zürich",     titleSize: "text-base", showChip: false, chip: "",    alt: "Architectural detail of columns and shadow",        src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop" },
+    { col: "md:col-span-7", aspect: "aspect-[4/3] md:aspect-auto md:h-full", num: "Field · 01", title: "The studio · Berlin",     titleSize: "text-xl",  showChip: true,  chip: "Pro", alt: "Workspace with laptop, notebook and coffee — early morning planning", src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&q=80&auto=format&fit=crop" },
+    { col: "md:col-span-5", aspect: "aspect-[4/3] md:aspect-[3/4]",          num: "Field · 02", title: "The HQ · Singapore",      titleSize: "text-xl",  showChip: false, chip: "",    alt: "Designer workstation with dual monitors and notes",                  src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=900&q=80&auto=format&fit=crop" },
+    { col: "md:col-span-4", aspect: "aspect-square",                          num: "Field · 03", title: "The desk · Lisbon",       titleSize: "text-base", showChip: false, chip: "",    alt: "Hands typing on a laptop with notebook in foreground",              src: "https://images.unsplash.com/photo-1573164574001-518958d9baa2?w=900&q=80&auto=format&fit=crop" },
+    { col: "md:col-span-4", aspect: "aspect-square",                          num: "Field · 04", title: "The atelier · Antwerp",   titleSize: "text-base", showChip: false, chip: "",    alt: "Open laptop on a wooden desk with stationery",                       src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=80&auto=format&fit=crop" },
+    { col: "md:col-span-4", aspect: "aspect-square",                          num: "Field · 05", title: "The bureau · Zürich",     titleSize: "text-base", showChip: false, chip: "",    alt: "Architectural detail of columns and shadow",        src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=900&auto=format&fit=crop" },
   ];
 
   const cardFeatures = [
@@ -143,7 +181,14 @@ export default function T85CourseEducation() {
   const customCss = `
     :root { color-scheme: light; }
     ::selection { background-color: #101b34; color: #ffffff; }
+    html, body { overflow-x: clip; }
     html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    .full-bleed {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      max-width: none;
+    }
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       display: inline-flex; align-items: center; justify-content: center;
@@ -176,41 +221,48 @@ export default function T85CourseEducation() {
           </nav>
         </header>
 
-        <main className="flex-grow pt-[120px] pb-24 md:pb-32">
-          <section className="max-w-container-max mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-24 md:mb-32">
-            <div className="space-y-stack-md pr-0 lg:pr-8 text-center lg:text-left">
-              <h1 className="font-display-lg text-display-lg text-primary-container text-balance">Banking built for the self-employed</h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[65ch] mx-auto lg:mx-0 text-pretty">
-                Manage your business finances with precision. No hidden fees, seamless tax integration, and a premium card that matches your ambition.
-              </p>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-4 pt-4">
-                <button type="button" className="bg-primary-container text-on-primary font-label-md px-8 py-4 rounded-full shadow-[0px_4px_20px_rgba(15,26,51,0.15)] hover:shadow-[0px_6px_24px_rgba(15,26,51,0.2)] hover:bg-primary-container/90 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2">Open an account</button>
-                <a href="#features" className="text-on-surface-variant font-label-md px-8 py-4 border border-outline-variant rounded-full hover:bg-surface-container-low active:bg-surface-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 flex items-center justify-center">Explore features</a>
+        <main className="flex-grow pt-20 pb-24 md:pb-32">
+          {/* Hero — fullscreen / full-bleed */}
+          <section className="full-bleed relative w-full min-h-[92vh] overflow-hidden bg-gradient-to-br from-surface-container-low via-surface to-surface-container/40 mb-24 md:mb-32 flex items-center">
+            <div className="absolute inset-0 pointer-events-none opacity-60" style={{ backgroundImage: "radial-gradient(circle at 12% 18%, rgba(16,27,52,0.08), transparent 50%), radial-gradient(circle at 92% 88%, rgba(109,254,156,0.10), transparent 55%)" }} />
+            <div className="relative z-10 w-full max-w-container-max mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-24 pb-16 md:pt-28 md:pb-24">
+              <div className="space-y-stack-md pr-0 lg:pr-8 text-center lg:text-left">
+                <span className="font-label-md text-label-md uppercase tracking-widest text-secondary block mb-4">— MMXXIV · Member FDIC</span>
+                <h1 className="font-display-lg text-display-lg text-primary-container text-balance">Banking built for the self-employed</h1>
+                <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[65ch] mx-auto lg:mx-0 text-pretty">
+                  Manage your business finances with precision. No hidden fees, seamless tax integration, and a premium card that matches your ambition.
+                </p>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-4 pt-4">
+                  <button type="button" className="bg-primary-container text-on-primary font-label-md px-8 py-4 rounded-full shadow-[0px_4px_20px_rgba(15,26,51,0.15)] hover:shadow-[0px_6px_24px_rgba(15,26,51,0.2)] hover:bg-primary-container/90 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2">Open an account</button>
+                  <a href="#features" className="text-on-surface-variant font-label-md px-8 py-4 border border-outline-variant rounded-full hover:bg-surface-container-low active:bg-surface-container transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 flex items-center justify-center">Explore features</a>
+                </div>
               </div>
-            </div>
-            <div className="relative w-full aspect-video bg-surface-container rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.06)] isolate">
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube-nocookie.com/embed/-EoNrg_DR3s"
-                title="YouTube video player"
-                loading="lazy"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              ></iframe>
+              <div className="relative w-full aspect-video bg-surface-container rounded-2xl overflow-hidden shadow-[0_30px_60px_-20px_rgba(15,26,51,0.25)] isolate">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube-nocookie.com/embed/-EoNrg_DR3s"
+                  title="YouTube video player"
+                  loading="lazy"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           </section>
 
-          <section className="border-y border-surface-variant bg-surface py-8 mb-24 md:mb-32">
-            <div className="max-w-container-max mx-auto px-6 md:px-8 flex flex-col sm:flex-row flex-wrap justify-center gap-6 sm:gap-16 items-center text-on-surface-variant font-body-sm opacity-80">
-              {trust.map((t) => (
-                <div key={t.text} className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[20px]" aria-hidden="true">{t.icon}</span>
-                  <span>{t.text}</span>
+          {/* Trust Badge Bar */}
+          <section className="full-bleed flex flex-wrap items-center justify-center gap-6 md:gap-8 lg:gap-12 py-6 md:py-8 px-4 border-y border-outline-variant bg-surface-container/40 mb-24 md:mb-32">
+            {trust.map((t, i) => (
+              <React.Fragment key={t.text}>
+                {i > 0 && <span className="hidden md:block w-px h-5 bg-outline-variant" />}
+                <div className="flex items-center gap-2.5">
+                  <span className="material-symbols-outlined text-primary-container text-xl" aria-hidden="true">{t.icon}</span>
+                  <span className="font-label-md text-on-surface uppercase tracking-wider text-xs md:text-sm font-semibold">{t.text}</span>
                 </div>
-              ))}
-            </div>
+              </React.Fragment>
+            ))}
           </section>
 
           <section id="features" className="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32 scroll-mt-32">
@@ -219,7 +271,7 @@ export default function T85CourseEducation() {
               {tiles.map((t) => (
                 <div
                   key={t.title}
-                  className={`${t.large ? "md:col-span-2 group " : ""}bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-6 md:p-8 flex flex-col ${t.large ? "justify-between" : "justify-start"} min-h-[300px] transition-shadow hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)]`}
+                  className={`${t.large ? "md:col-span-2 group " : ""}bg-white rounded-2xl shadow-[0px_4px_20px_rgba(15,26,51,0.04)] border border-surface-container p-6 md:p-8 flex flex-col justify-between min-h-[300px] transition-shadow hover:shadow-[0px_8px_30px_rgba(15,26,51,0.08)]`}
                 >
                   <div className={`space-y-stack-sm${t.large ? " mb-8" : ""}`}>
                     <div className="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center text-primary-container mb-4">
@@ -227,11 +279,30 @@ export default function T85CourseEducation() {
                     </div>
                     <h3 className="font-headline-md text-headline-md text-primary-container">{t.title}</h3>
                     <p className={`font-body-md text-body-md text-on-surface-variant${t.large ? " max-w-[65ch]" : ""} text-pretty`}>{t.body}</p>
+                    {t.bullets && (
+                      <ul className="space-y-2 pt-2" role="list">
+                        {t.bullets.map((b) => (
+                          <li key={b} className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+                            <span className="material-symbols-outlined text-secondary-fixed-dim text-[16px]" aria-hidden="true">check_circle</span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                   {t.large && (
                     <div className="h-48 md:h-64 bg-surface-container-low rounded-xl border border-surface-variant relative overflow-hidden">
                       <img src={t.img} alt={t.alt} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" />
                       <div className="absolute inset-0 bg-gradient-to-t from-primary-container/80 via-primary-container/20 to-transparent mix-blend-multiply pointer-events-none"></div>
+                    </div>
+                  )}
+                  {t.metaLabel && (
+                    <div className="mt-6 pt-4 border-t border-surface-container -mx-2 px-3 py-3 rounded-lg bg-surface-container-low/60 flex items-center justify-between gap-3">
+                      <div>
+                        <p className="font-label-md text-[10px] uppercase tracking-widest text-secondary mb-1">{t.metaLabel}</p>
+                        <p className="font-body-sm text-body-sm text-primary-container font-medium tabular-nums">{t.metaValue}</p>
+                      </div>
+                      <span className="material-symbols-outlined text-primary-container text-[18px]" aria-hidden="true">{t.metaIcon}</span>
                     </div>
                   )}
                 </div>
@@ -370,6 +441,56 @@ export default function T85CourseEducation() {
                   <p className={`font-headline-md text-lg ${i.api ? "text-white" : "text-primary-container"}`}>{i.name}</p>
                   <p className={`font-body-sm text-body-sm ${i.api ? "text-primary-fixed-dim" : "text-on-surface-variant"}`}>{i.sub}</p>
                 </a>
+              ))}
+            </div>
+          </section>
+
+          {/* Trusted by — logo wall */}
+          <section className="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32">
+            <div className="text-center mb-10 md:mb-12">
+              <span className="font-label-md text-label-md uppercase tracking-widest text-secondary block mb-4">— Trusted by ambitious teams</span>
+              <h2 className="font-headline-lg text-headline-lg text-primary-container text-balance max-w-2xl mx-auto">Used by operators at fast-moving teams.</h2>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mt-4">From bootstrapped studios to Series-B engineering orgs — Ledger keeps the books steady wherever the work happens.</p>
+            </div>
+            <div className="bg-surface-container border border-outline-variant rounded-2xl p-8 md:p-12">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-10 items-center justify-items-center">
+                {trustedLogos.map((l) => (
+                  <img key={l.slug} src={`https://cdn.simpleicons.org/${l.slug}/64748b`} alt={l.alt} className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity" loading="lazy" />
+                ))}
+              </div>
+              <div className="mt-10 pt-6 border-t border-outline-variant text-center">
+                <p className="font-body-sm text-body-sm text-on-surface-variant uppercase tracking-wider text-xs">+ 240 engineering teams · 47 countries · MMXXII — present</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Premium 2x2 — Why teams pick Ledger */}
+          <section className="max-w-container-max mx-auto px-6 md:px-8 mb-24 md:mb-32 py-4">
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+              <span className="font-label-md text-label-md uppercase tracking-widest text-secondary block mb-8 md:mb-10">— The Four Pillars</span>
+              <h2 className="font-headline-lg text-headline-lg text-primary-container text-balance">Why operators pick us — and stay.</h2>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto mt-4">Four pillars, audited every quarter, calibrated for the way independent teams actually run their books.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch">
+              {pillars.map((p) => (
+                <div
+                  key={p.numeral}
+                  className={`bg-surface-container border border-outline-variant rounded-2xl p-8 md:p-10 flex flex-col gap-5 group hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary-container/15 hover:border-primary-container/40 transition-all duration-300${p.featured ? " ring-2 ring-primary-container/30 relative" : ""}`}
+                >
+                  {p.featured && (
+                    <span className="absolute top-4 right-4 bg-secondary-fixed text-primary-container font-label-md uppercase tracking-wider px-3 py-1 rounded-full text-[10px] font-bold">Leading pillar</span>
+                  )}
+                  <div className="flex items-center gap-4">
+                    <span className="font-display-lg italic text-2xl text-secondary tabular-nums">{p.numeral}</span>
+                    <span className="material-symbols-outlined text-primary-container text-[32px]" aria-hidden="true">{p.icon}</span>
+                  </div>
+                  <h3 className="font-headline-md text-2xl text-primary-container leading-tight">{p.title}</h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant text-pretty leading-relaxed">{p.body}</p>
+                  <div className="mt-auto pt-5 border-t border-outline-variant flex items-center justify-between gap-3">
+                    <span className="font-label-md text-[10px] uppercase tracking-widest text-on-surface-variant">{p.meta}</span>
+                    <span className="material-symbols-outlined text-primary-container text-[18px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                  </div>
+                </div>
               ))}
             </div>
           </section>

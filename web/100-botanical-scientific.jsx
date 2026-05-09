@@ -52,6 +52,24 @@ export default function T100BotanicalScientific() {
       img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBi8h5AP_9zvdBmrRkycbtTFjtPF4DIvRKhbsRFkNmiJlG1q_BE5lpL4KeppYD1Ura4DDe64xkXx_gNFxPB6oxlKpGbUPY8aHQGpjVxbnYPpq7q51hMBH4cF1o5HC_6OAAeKgneBTdODjhmPXhuzUvnWbKXfFFCwBS6zajXhZz34Rx3bXEKz145q9hGkH28-UvSS4xLXqzky5dtgMnu5SHux0Lya0--UqD9mFBmcFPg1iTveGZ_XscYyXWGeDIS0nmHTlHlsSPhzPMq" }
   ];
 
+  const trustedBrands = [
+    { name: "Medium", slug: "medium", h: "h-7" },
+    { name: "Substack", slug: "substack", h: "h-7" },
+    { name: "The Guardian", slug: "theguardian", h: "h-6" },
+    { name: "Behance", slug: "behance", h: "h-6" },
+    { name: "Issuu", slug: "issuu", h: "h-6" },
+    { name: "Pinterest", slug: "pinterest", h: "h-7" },
+    { name: "WordPress", slug: "wordpress", h: "h-7" },
+    { name: "Notion", slug: "notion", h: "h-6" },
+  ];
+
+  const pillars = [
+    { roman: "I", title: "Provenance", icon: "local_florist", body: "Every accession is traced to the gardener, the date, and the soil. We accept no anonymous seed; the ledger refuses it.", chip: "Verified · 412", featured: true },
+    { roman: "II", title: "Curation", icon: "science", body: "A single curator decides what enters and what is set aside. The decision is slow, written, and never delegated to a committee.", chip: "Curator IV" },
+    { roman: "III", title: "Documentation", icon: "nature", body: "A plate is engraved at one-to-one scale, a Latin binomial assigned, and a written field note filed with the specimen until it leaves the building.", chip: "Plates · 240" },
+    { roman: "IV", title: "Preservation", icon: "eco", body: "Climate-controlled, light-shielded, and hand-turned every fourteen days. The specimen outlasts the gardener; that is the entire point.", chip: "Since · 1888" },
+  ];
+
   const letters = [
     { quote: "Found a single jar of Calabrian fava, sealed in 1952. Two seeds germinated in the warm bed. We are quiet about it.", meta: "Mar 14 · Greenhouse 2" },
     { quote: "Clematis 'Rosalind' — written off as lost in 1989 — recovered from a private estate in Cornwall. Twelve viable cuttings now in propagation.", meta: "Apr 02 · Cornwall Field" },
@@ -320,11 +338,148 @@ export default function T100BotanicalScientific() {
             </div>
           </section>
 
-          {/* V — Letters from the Curator */}
+          {/* VI — Editorial Spread A: From the herbarium (image LEFT) */}
+          <div className="etched-divider w-full"></div>
+          <section className="grid grid-cols-12 gap-gutter items-center">
+            <div className="col-span-12 md:col-span-7 md:order-1 etched-border bg-surface p-md relative">
+              <img alt="pressed botanical specimen — tomato plate" className="w-full h-[420px] md:h-[520px] object-cover grayscale opacity-85 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWc5ed4tM4w3zeq6QwgtyHqDVN_-N-e1H6BOBKvqLER9TWrXWlYIJa-vC_YQFxfkC6DoewqaNZhHTWWH5JJahtVZZ3BD5DSmfCBstpzSjbYhRFN10mqpOvtywYyhzhtLg-cG-9I4-N0DHaOUVhATEbiSUu0ocsLOQkCRc1LUw4I-UA6-alnWYX8KOzg4sVOAQ1qE8uKnHg3Rq1MIBk1-HgQ5UbIZV09K8Jvl3_gPB1g6vclgarBqohQAWAjnY5N-xXqfvjBXVt9SLx" />
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                <span className="font-headline-md text-base italic text-sepia">Fig. 7 — Specimen, mounted</span>
+                <span className="font-label-caps text-label-caps uppercase text-sepia/70">Plate XXXI</span>
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-5 md:order-2 flex flex-col justify-center md:pl-lg">
+              <span className="font-label-caps text-label-caps uppercase text-foxing block mb-8 md:mb-10">— VI · From the Herbarium</span>
+              <h2 className="font-display-lg text-4xl text-sepia italic leading-tight mb-md">Pressed, papered, <span className="text-leaf-green">remembered.</span></h2>
+              <p className="font-body-main text-body-main text-sepia/85 leading-relaxed mb-md">
+                Each cutting is laid between sheets of acid-free linen, weighted, and turned over the course of fourteen days. We index by binomial name, by date of accession, and by the hand that pressed it.
+              </p>
+              <p className="font-body-main text-body-main text-sepia/70 italic leading-relaxed mb-lg">
+                The herbarium holds 412 mounted specimens, each catalogued in a single ledger that has not left this room since 1903.
+              </p>
+              <a href="#" className="inline-flex items-center space-x-2 font-label-caps text-label-caps uppercase text-sepia border-b border-sepia pb-1 w-max hover:bg-foxing/10 transition-colors">
+                <span>Open the ledger</span>
+                <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
+              </a>
+            </div>
+          </section>
+
+          {/* VII — Editorial Spread B: In the field (image RIGHT) */}
+          <div className="etched-divider w-full"></div>
+          <section className="grid grid-cols-12 gap-gutter items-center">
+            <div className="col-span-12 md:col-span-5 md:order-1 flex flex-col justify-center md:pr-lg">
+              <span className="font-label-caps text-label-caps uppercase text-foxing block mb-8 md:mb-10">— VII · In the Field</span>
+              <h2 className="font-display-lg text-4xl text-sepia italic leading-tight mb-md">Hand-pollinated, <span className="text-leaf-green">hand-counted.</span></h2>
+              <p className="font-body-main text-body-main text-sepia/85 leading-relaxed mb-md">
+                Field season runs from April to first frost. Pollination is performed with sable brush; isolation cages are linen, pegged at the corners. Yield is measured pod by pod, into a single hand-thrown stoneware bowl.
+              </p>
+              <ul className="font-label-caps text-[11px] uppercase tracking-widest text-sepia/70 space-y-2 mb-lg border-l border-[#5C4326]/30 pl-md">
+                <li>— No tractors. No irrigation lines.</li>
+                <li>— Trial plots rotated on a seven-year cycle.</li>
+                <li>— Every accession witnessed by two curators.</li>
+              </ul>
+              <a href="#" className="inline-flex items-center space-x-2 font-label-caps text-label-caps uppercase text-sepia border-b border-sepia pb-1 w-max hover:bg-foxing/10 transition-colors">
+                <span>The field protocols</span>
+                <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
+              </a>
+            </div>
+            <div className="col-span-12 md:col-span-7 md:order-2 etched-border bg-surface p-md relative">
+              <img alt="naturalist field study — pea plant pods and tendrils" className="w-full h-[420px] md:h-[520px] object-cover grayscale opacity-85 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFaVFFkx48rMaZ_jd40xhgVhZhKZWuiD572p27CFdxwjWriQcw0-w8orNDm5hE30tracEysHtFD9idcAaHeHP2KTgzxBx2kw812e1xjnJOGM8k2OdAW43KjvhUHJZudc6F_DTC0Qb0JOtjtXzL65MsGAa3tBSoCGT7LwsAGnIMj7Fne5kY6Yi7VNxhqSyo4S6F1jC9WPV_9BypVl12KX_kPPBYX1NG_4qka9ZCqyFs1UQvwceJoMw0k4qX5sKZx5UkR-ndjLBpYX9k" />
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                <span className="font-headline-md text-base italic text-sepia">Fig. 22 — Pisum sativum, field cage</span>
+                <span className="font-label-caps text-label-caps uppercase text-sepia/70">Devon Hills</span>
+              </div>
+            </div>
+          </section>
+
+          {/* VIII — Editorial Spread C: On the desk (image LEFT) */}
+          <div className="etched-divider w-full"></div>
+          <section className="grid grid-cols-12 gap-gutter items-center">
+            <div className="col-span-12 md:col-span-7 md:order-1 etched-border bg-surface p-md relative">
+              <img alt="botanical inkwork on the curator's desk — marigold study" className="w-full h-[420px] md:h-[520px] object-contain grayscale opacity-85 mix-blend-multiply bg-surface-variant/30 p-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi8h5AP_9zvdBmrRkycbtTFjtPF4DIvRKhbsRFkNmiJlG1q_BE5lpL4KeppYD1Ura4DDe64xkXx_gNFxPB6oxlKpGbUPY8aHQGpjVxbnYPpq7q51hMBH4cF1o5HC_6OAAeKgneBTdODjhmPXhuzUvnWbKXfFFCwBS6zajXhZz34Rx3bXEKz145q9hGkH28-UvSS4xLXqzky5dtgMnu5SHux0Lya0--UqD9mFBmcFPg1iTveGZ_XscYyXWGeDIS0nmHTlHlsSPhzPMq" />
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                <span className="font-headline-md text-base italic text-sepia">Fig. 109 — Tagetes patula, ink study</span>
+                <span className="font-label-caps text-label-caps uppercase text-sepia/70">Atelier · Folio C</span>
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-5 md:order-2 flex flex-col justify-center md:pl-lg">
+              <span className="font-label-caps text-label-caps uppercase text-foxing block mb-8 md:mb-10">— VIII · On the Desk</span>
+              <h2 className="font-display-lg text-4xl text-sepia italic leading-tight mb-md">Paper, ink, <span className="text-leaf-green">long mornings.</span></h2>
+              <p className="font-body-main text-body-main text-sepia/85 leading-relaxed mb-md">
+                Every plate is drawn at one-to-one scale on Fabriano cotton, in iron-gall ink mixed weekly. The hand falters; the press does not. We trust the printed plate to outlast the seedling that posed for it.
+              </p>
+              <div className="grid grid-cols-2 gap-gutter mt-md mb-lg">
+                <div className="border-l border-[#5C4326]/30 pl-md">
+                  <div className="font-display-lg text-3xl text-sepia italic leading-none">240</div>
+                  <p className="font-label-caps text-[10px] uppercase tracking-widest text-sepia/60 mt-2">Plates engraved</p>
+                </div>
+                <div className="border-l border-[#5C4326]/30 pl-md">
+                  <div className="font-display-lg text-3xl text-leaf-green italic leading-none">14d</div>
+                  <p className="font-label-caps text-[10px] uppercase tracking-widest text-sepia/60 mt-2">Per specimen</p>
+                </div>
+              </div>
+              <a href="#" className="inline-flex items-center space-x-2 font-label-caps text-label-caps uppercase text-sepia border-b border-sepia pb-1 w-max hover:bg-foxing/10 transition-colors">
+                <span>The atelier process</span>
+                <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
+              </a>
+            </div>
+          </section>
+
+          {/* IX — Trusted by */}
+          <div className="etched-divider w-full"></div>
+          <section className="space-y-lg">
+            <header className="flex flex-col items-center text-center gap-2">
+              <span className="font-label-caps text-label-caps uppercase text-foxing block mb-8 md:mb-10">— IX · Cited &amp; Catalogued</span>
+              <h2 className="font-headline-md text-headline-md text-sepia italic">In the company of careful presses</h2>
+              <p className="font-body-main text-body-main text-sepia/70 max-w-xl mt-2">Our plates and field notes have been catalogued, cited, and quietly admired by editors who keep their own ledgers.</p>
+            </header>
+            <div className="etched-border bg-foxing/5 px-lg py-xl">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-gutter gap-y-lg items-center">
+                {trustedBrands.map(b => (
+                  <div key={b.slug} className="flex items-center justify-center h-10 grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all">
+                    <img alt={b.name} className={`${b.h} max-w-[120px] object-contain`} src={`https://cdn.simpleicons.org/${b.slug}/5C4326`} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* X — Four Pillars 2x2 */}
+          <div className="etched-divider w-full"></div>
+          <section className="space-y-lg">
+            <header className="flex flex-col sm:flex-row justify-between items-baseline gap-2">
+              <div>
+                <span className="font-label-caps text-label-caps uppercase text-foxing block mb-8 md:mb-10">— X · The Pillars</span>
+                <h2 className="font-headline-md text-headline-md text-sepia italic">Four pillars of the herbarium</h2>
+              </div>
+              <p className="font-label-caps text-label-caps uppercase text-sepia/70 max-w-xs sm:text-right">The principles by which a specimen earns a plate number.</p>
+            </header>
+            <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto items-stretch gap-gutter">
+              {pillars.map(p => (
+                <article key={p.roman} className={`etched-border bg-surface p-8 md:p-10 flex flex-col relative ${p.featured ? "ring-2 ring-leaf-green/40" : ""}`}>
+                  {p.featured && (
+                    <span className="absolute -top-3 left-6 bg-leaf-green text-white font-label-caps text-[10px] uppercase tracking-widest px-3 py-1">Cornerstone</span>
+                  )}
+                  <div className="flex items-baseline justify-between mb-md">
+                    <span className={`font-display-lg italic text-3xl leading-none ${p.featured ? "text-leaf-green" : "text-sepia"}`}>{p.roman}</span>
+                    <span className={`material-symbols-outlined text-3xl ${p.featured ? "text-leaf-green" : "text-sepia"}`}>{p.icon}</span>
+                  </div>
+                  <h3 className="font-headline-md text-headline-md text-sepia italic mb-3">{p.title}</h3>
+                  <p className="font-body-main text-body-main text-sepia/85 leading-relaxed mb-lg">{p.body}</p>
+                  <div className="mt-auto pt-md border-t border-[#5C4326]/15 flex items-center justify-between">
+                    <span className={`font-label-caps text-[10px] uppercase tracking-widest px-2 py-1 ${p.featured ? "text-leaf-green bg-leaf-green/10" : "text-sepia/70 bg-foxing/10"}`}>{p.chip}</span>
+                    <span className="material-symbols-outlined text-sepia/60 text-base">arrow_forward</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* XI — Letters from the Curator */}
           <div className="etched-divider w-full"></div>
           <section className="grid grid-cols-12 gap-gutter">
             <div className="col-span-12 md:col-span-3">
-              <span className="font-label-caps text-label-caps uppercase text-foxing block mb-2">— V · Correspondence</span>
+              <span className="font-label-caps text-label-caps uppercase text-foxing block mb-2">— XI · Correspondence</span>
               <h3 className="font-headline-md text-headline-md text-sepia italic">Letters from the Curator</h3>
               <p className="font-label-caps text-[10px] uppercase tracking-widest text-sepia/60 mt-2">Field notes · Vol. III</p>
             </div>

@@ -15,21 +15,25 @@ export default function T19MinimalistPortfolio() {
     { numeral: "V", num: "05", title: "Ship, then sand.", body: "Get the structure right, put it in front of users, polish under daylight. Studio time alone never resolves the awkward edges." }
   ];
 
+  // Image-context cleanup 2026-05-05: alts rewritten to match what each verified §D.1 ID
+  // actually depicts (architectural / brutalist subset — see playbook §Q.1). The "Now Reading"
+  // strip reads as a wall of architectural reference plates rather than fake content shots.
   const reading = [
-    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=600&h=800", alt: "Brutalist concrete corner under raking light", title: "Concrete · Vol. II", num: "001" },
-    { w: "w-80", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=800&h=500", alt: "Open monograph spread on a hairline-paper desk", title: "Müller-Brockmann", num: "002" },
+    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=600&h=800", alt: "Concrete stair · raking afternoon shadow", title: "Concrete · Vol. II", num: "001" },
+    { w: "w-80", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=800&h=500", alt: "Brutalist corridor · perspective deep into the building", title: "Corridor · Vol. III", num: "002" },
     { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600&h=800", alt: "Archival fashion plate, high-contrast monochrome", title: "Plate · Helvetica", num: "003" },
-    { w: "w-96", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=900&h=560", alt: "Minimal interior with raking shadow line across the wall", title: "Atrium · Berlin", num: "004" },
-    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=600&h=800", alt: "Long-shadow study, single figure, urban concrete", title: "Field Note · 12", num: "005" },
-    { w: "w-80", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=800&h=500", alt: "Concrete stair geometry with hard diagonal shadow", title: "Sequence · Stair", num: "006" },
-    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=80&w=600&h=800", alt: "Hairline-perpendicular interior detail", title: "Detail · Mute", num: "007" }
+    { w: "w-96", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=900&h=560", alt: "Interior cornice detail · raking shadow across the wall", title: "Atrium · Berlin", num: "004" },
+    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=600&h=800", alt: "Minimal architectural light study · single window, slow shadow", title: "Field Note · 12", num: "005" },
+    { w: "w-80", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&q=80&w=800&h=500", alt: "Building aperture · facade window in late light", title: "Aperture · South", num: "006" },
+    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=80&w=600&h=800", alt: "Brick wall study · long-form weathering", title: "Wall · Mute", num: "007" }
   ];
 
+  // studioFrames rewritten to fit architectural source imagery — process narrative still scans.
   const studioFrames = [
-    { delay: "0s", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 01 · Research — desk with paper notes and reference plates", stage: "Stage 01 — Research", caption: "Field interviews, archive review, audit of the existing surface." },
-    { delay: "4s", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 02 · Wireframe — annotated low-fidelity layouts", stage: "Stage 02 — Wireframe", caption: "Pencil first, Figma second. Information architecture is decided here." },
-    { delay: "8s", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 03 · System — design tokens and component library", stage: "Stage 03 — System", caption: "Tokens, primitives, and the smallest set of components that carry the work." },
-    { delay: "12s", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 04 · Build — production handover and shipping cycles", stage: "Stage 04 — Build", caption: "Pairing with engineering. Polishing under daylight and real data." }
+    { delay: "0s", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 01 — the studio's east-wall reference plate, photographed first thing", stage: "Stage 01 — Research", caption: "Field interviews, archive review, audit of the existing surface." },
+    { delay: "4s", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 02 — working corridor of the studio at midday, after the wireframes are pinned", stage: "Stage 02 — Wireframe", caption: "Pencil first, Figma second. Information architecture is decided here." },
+    { delay: "8s", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 03 — material light study, the room where the system is decided", stage: "Stage 03 — System", caption: "Tokens, primitives, and the smallest set of components that carry the work." },
+    { delay: "12s", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 04 — final-stage interior detail, photographed before the project ships", stage: "Stage 04 — Build", caption: "Pairing with engineering. Polishing under daylight and real data." }
   ];
 
   const faqs = [
@@ -50,7 +54,15 @@ export default function T19MinimalistPortfolio() {
     { title: "Vela Health", desc: "Patient management portal", year: "2023", alt: "Abstract geometric shapes representing modular software components on a white background", src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800&h=800" }
   ];
 
-  const clients = ["Figma", "Linear", "Vercel", "Stripe", "Raycast"];
+  // Selected Clients with brand marks via simpleicons.org (free CDN, monochrome SVGs by slug).
+  // Color hex 1a1c1c matches the on-surface token; loading="lazy" so they don't block hero.
+  const clients = [
+    { name: "Figma",   slug: "figma" },
+    { name: "Linear",  slug: "linear" },
+    { name: "Vercel",  slug: "vercel" },
+    { name: "Stripe",  slug: "stripe" },
+    { name: "Raycast", slug: "raycast" },
+  ];
   const socialLinks = [
     { label: "Email", href: "mailto:hello@example.com" },
     { label: "LinkedIn", href: "#" },
@@ -281,9 +293,12 @@ export default function T19MinimalistPortfolio() {
               <div className="col-span-12 md:col-span-3 mb-4 md:mb-0">
                 <h2 className="text-balance font-label-bold text-label-bold uppercase text-primary tracking-widest">Selected Clients</h2>
               </div>
-              <div className="col-span-12 md:col-span-9 flex flex-wrap gap-x-6 gap-y-4 text-on-surface-variant font-headline-md text-[22px] uppercase tracking-tighter items-center sm:gap-x-10 sm:gap-y-6 sm:text-[26px] md:gap-x-12 md:gap-y-8 md:justify-between md:text-headline-md">
+              <div className="col-span-12 md:col-span-9 flex flex-wrap gap-x-8 gap-y-5 items-center sm:gap-x-10 sm:gap-y-6 md:gap-x-12 md:gap-y-8 md:justify-between">
                 {clients.map((c) => (
-                  <span key={c} className="hover:text-primary transition-colors cursor-default">{c}</span>
+                  <span key={c.slug} className="group inline-flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors cursor-default">
+                    <img src={`https://cdn.simpleicons.org/${c.slug}/1a1c1c`} alt={`${c.name} logo`} width="22" height="22" loading="lazy" decoding="async" className="w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity sm:w-6 sm:h-6" />
+                    <span className="font-headline-md text-[20px] uppercase tracking-tighter sm:text-[24px] md:text-[28px]">{c.name}</span>
+                  </span>
                 ))}
               </div>
             </div>
@@ -394,13 +409,16 @@ export default function T19MinimalistPortfolio() {
             <div className="grid grid-cols-12 gap-8">
               <div className="col-span-12 md:col-span-4">
                 <div className="aspect-[4/5] w-full border border-primary bg-surface-container overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=80&w=800&h=1000" alt="Quiet desk corner with paper, ruler and a single pencil" width="800" height="1000" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale" />
+                  <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800&h=1000" alt="Studio interior — light study, the room where most of the work happens before it reaches the screen" width="800" height="1000" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale" />
                 </div>
                 <p className="text-pretty mt-6 max-w-[40ch] font-body-md text-body-md text-on-surface-variant">
                   Practical answers, kept short. For anything not covered, the studio replies inside two working days.
                 </p>
               </div>
-              <div className="col-span-12 md:col-span-7 md:col-start-6">
+              {/* Right rail: FAQ list + availability card. flex-col + flex-1 on the card so its
+                  height stretches to match the left rail's bottom (image aspect-[4/5] + paragraph
+                  is taller than 5 collapsed FAQ rows). */}
+              <div className="col-span-12 md:col-span-7 md:col-start-6 flex flex-col">
                 <div className="border-t border-b border-on-surface-variant/25 divide-y divide-on-surface-variant/25">
                   {faqs.map((f, i) => (
                     <details key={`faq-${i}`} className="mk-faq group py-5 sm:py-6">
@@ -412,6 +430,22 @@ export default function T19MinimalistPortfolio() {
                     </details>
                   ))}
                 </div>
+                <aside className="mt-8 sm:mt-10 flex-1 flex flex-col gap-5 p-6 sm:p-8 border border-primary bg-surface-container">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-label-bold text-label-bold uppercase text-[#B0322A] tracking-widest">— Next Availability</span>
+                    <span className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant tabular-nums">Q3 · 2026</span>
+                  </div>
+                  <p className="text-pretty font-headline-md text-[20px] leading-tight text-primary tracking-tight sm:text-[22px] max-w-[40ch]">
+                    The studio is currently booked into Q2. Two slots open from June onward.
+                  </p>
+                  <p className="text-pretty font-body-md text-body-md text-on-surface-variant max-w-[60ch]">
+                    Early conversations welcomed for the autumn cohort. A short brief and a deadline are enough — no scoping document required to start the conversation.
+                  </p>
+                  <div className="flex flex-wrap items-baseline justify-between gap-4 mt-auto pt-5 border-t border-on-surface-variant/25">
+                    <span className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">hello@example.com · CET</span>
+                    <a href="mailto:hello@example.com" className="font-label-bold text-label-bold uppercase text-primary border-b-2 border-[#B0322A] pb-1 hover:text-[#B0322A] transition-colors">Get in touch →</a>
+                  </div>
+                </aside>
               </div>
             </div>
           </section>

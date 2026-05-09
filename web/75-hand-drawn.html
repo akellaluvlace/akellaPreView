@@ -50,11 +50,15 @@
         /* --- Global Textures & Animations --- */
         body {
             background-color: #fdfbf7;
-            background-image: radial-gradient(#a3a3a3 1px, transparent 1px);
-            background-size: 24px 24px;
             color: #2d2d2d;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+        /* Dot pattern bg — applied as a class on the hero only so it doesn't bleed past the trust strip into sections that already have their own bg-paper / bg-white. */
+        .dot-paper {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#a3a3a3 1px, transparent 1px);
+            background-size: 24px 24px;
         }
 
         /* SVG texture overlay for paper feel */
@@ -187,10 +191,9 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
-        <!-- Background Doodles -->
-        <svg class="absolute top-20 left-0 w-32 h-32 opacity-20 -rotate-12 pointer-events-none md:block hidden" viewBox="0 0 100 100"><path fill="none" stroke="#2d2d2d" stroke-width="2" d="M10,50 Q30,10 50,50 T90,50 M20,60 Q40,20 60,60 T90,60"/></svg>
+    <!-- Hero Section — dot-paper class confines the dot pattern to this section so it doesn't bleed past the trust strip below (body bg is now solid #fdfbf7). -->
+    <header class="dot-paper relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden w-full">
+        <!-- Background Doodle (left-corner squiggle removed per spec; only the bottom-right dashed circle remains). -->
         <svg class="absolute bottom-10 right-0 w-48 h-48 opacity-10 rotate-45 pointer-events-none" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="#2d2d2d" stroke-width="2" fill="none" stroke-dasharray="10 5"/></svg>
 
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12 md:gap-20">
@@ -237,7 +240,7 @@
 
                     <h2 class="font-display text-4xl mb-6 border-b-2 border-ink border-dashed pb-2 text-center">Master Plan</h2>
                     
-                    <ul class="text-xl md:text-2xl space-y-4 list-none font-sans flex-1">
+                    <ul class="text-xl md:text-2xl space-y-4 list-none font-sans">
                         <li class="flex items-start gap-3 group cursor-pointer">
                             <div class="w-6 h-6 border-2 border-ink rounded bg-white mt-1 group-hover:bg-ink transition-colors"></div> 
                             <span class="group-hover:line-through decoration-2 decoration-ink">Launch Website</span>
@@ -250,15 +253,62 @@
                             <div class="w-6 h-6 border-2 border-ink rounded bg-white mt-1"></div> 
                             <span>Sketch new logo</span>
                         </li>
-                        <li class="relative mt-4">
-                             <!-- Drawn doodle image placeholder -->
-                             <svg class="w-32 h-20 text-blue-pen absolute -right-2 top-0 rotate-12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 100 60">
-                                <path d="M10,30 Q30,10 50,30 T90,30" stroke-dasharray="4 2"/>
-                                <path d="M80,25 L90,30 L85,40" />
-                                <text x="0" y="55" class="font-display text-sm" stroke="none" fill="currentColor">Needs more coffee</text>
-                             </svg>
-                        </li>
                     </ul>
+                    <!-- Coffee log — 4 stacked entries (#0 → #3) filling the lower portion of the sticky note. flex-1 + justify-between distribute the rows across the empty card area instead of crowding them at the bottom. Inline-SVG cup icons; only #3 has steam wisps + red star. -->
+                    <div class="mt-4 pt-4 border-t-2 border-ink border-dashed flex-1 flex flex-col justify-between gap-3">
+                      <div class="flex items-center gap-4 rotate-[-2deg]">
+                        <svg class="w-12 h-12 shrink-0 text-ink rotate-[3deg]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 64 64">
+                          <path d="M14 28 h32 v18 a8 8 0 0 1 -8 8 h-16 a8 8 0 0 1 -8 -8 z"/>
+                          <path d="M46 32 h6 a4 4 0 0 1 4 4 v4 a4 4 0 0 1 -4 4 h-6"/>
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                          <p class="font-display text-2xl leading-tight">Coffee #0.</p>
+                          <p class="text-sm text-ink-light leading-snug">Just opened the lid. Nothing on the page yet.</p>
+                        </div>
+                        <span class="font-display text-gray-400 text-xl rotate-12 shrink-0">·</span>
+                      </div>
+                      <div class="flex items-center gap-4 rotate-[1deg]">
+                        <svg class="w-12 h-12 shrink-0 text-ink rotate-[-4deg]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 64 64">
+                          <path d="M14 28 h32 v18 a8 8 0 0 1 -8 8 h-16 a8 8 0 0 1 -8 -8 z"/>
+                          <path d="M46 32 h6 a4 4 0 0 1 4 4 v4 a4 4 0 0 1 -4 4 h-6"/>
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                          <p class="font-display text-2xl leading-tight">Coffee #1.</p>
+                          <p class="text-sm text-ink-light leading-snug">Three lines down, two crossed out. Felt fine.</p>
+                        </div>
+                        <span class="font-display text-gray-400 text-xl rotate-12 shrink-0">·</span>
+                      </div>
+                      <div class="flex items-center gap-4 rotate-[-1deg]">
+                        <svg class="w-12 h-12 shrink-0 text-ink rotate-[2deg]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 64 64">
+                          <path d="M14 28 h32 v18 a8 8 0 0 1 -8 8 h-16 a8 8 0 0 1 -8 -8 z"/>
+                          <path d="M46 32 h6 a4 4 0 0 1 4 4 v4 a4 4 0 0 1 -4 4 h-6"/>
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                          <p class="font-display text-2xl leading-tight">Coffee #2.</p>
+                          <p class="text-sm text-ink-light leading-snug">Hit the wall. Drew a small turtle in the margin.</p>
+                        </div>
+                        <span class="font-display text-gray-400 text-xl rotate-12 shrink-0">·</span>
+                      </div>
+                      <div class="flex items-center gap-4 rotate-[2deg]">
+                        <svg class="w-12 h-12 shrink-0 text-ink rotate-[-4deg]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 64 64">
+                          <path d="M14 28 h32 v18 a8 8 0 0 1 -8 8 h-16 a8 8 0 0 1 -8 -8 z"/>
+                          <path d="M46 32 h6 a4 4 0 0 1 4 4 v4 a4 4 0 0 1 -4 4 h-6"/>
+                          <path d="M22 22 c 2 -4 -2 -8 0 -12" stroke-dasharray="2 2"/>
+                          <path d="M30 22 c 2 -4 -2 -8 0 -12" stroke-dasharray="2 2"/>
+                          <path d="M38 22 c 2 -4 -2 -8 0 -12" stroke-dasharray="2 2"/>
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                          <p class="font-display text-2xl leading-tight">Coffee #3.</p>
+                          <p class="text-sm text-ink-light leading-snug">Wrote 4 ideas. <span class="bg-highlight px-1">Kept 2.</span> Crossed out 1. The fourth is still loud.</p>
+                        </div>
+                        <span class="font-display text-red-pen text-3xl rotate-12 shrink-0">★</span>
+                      </div>
+                    </div>
+                    <svg class="w-40 h-24 text-blue-pen absolute top-1/2 right-10 -translate-y-1/2 rotate-6 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 100 60" aria-hidden="true">
+                      <path d="M10,30 Q30,10 50,30 T90,30" stroke-dasharray="4 2"/>
+                      <path d="M80,25 L90,30 L85,40" />
+                      <text x="0" y="55" class="font-display text-sm" stroke="none" fill="currentColor">Needs more coffee</text>
+                    </svg>
                 </div>
             </div>
         </div>
@@ -351,28 +401,38 @@
         <div class="container mx-auto px-4">
             <h2 class="text-5xl font-display font-bold text-center mb-16">How it Works</h2>
             
-            <div class="flex flex-col md:flex-row justify-center items-center gap-12 relative">
-                <!-- Connecting Line (Desktop) -->
-                <svg class="hidden md:block absolute top-12 left-[15%] w-[70%] h-20 z-0 text-gray-300" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="10 5">
-                    <path d="M0,40 Q150,-20 300,40 T600,40" />
+            <div class="flex flex-col md:flex-row justify-center items-start gap-12 relative">
+                <!-- Hand-drawn dashed connector — viewBox + preserveAspectRatio="none" so the path scales to span all 3 circles. The path traces two arches, peaking between the circle centers, dipping below to align with circle midline (y=30 in viewBox). -->
+                <svg aria-hidden="true" class="hidden md:block absolute top-12 left-[14%] right-[14%] h-12 z-0 text-red-pen pointer-events-none" preserveAspectRatio="none" viewBox="0 0 600 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path d="M30,30 C 100,-10 200,-10 300,30 C 400,70 500,70 570,30" stroke-dasharray="6 6"/>
+                    <path d="M560,22 L572,30 L562,40" stroke-linejoin="round"/>
+                </svg>
+                <!-- Second red scribble — copy of the first connector, sized to start under node 2 and point to node 3 (so the eye is led from "Scribble" to "Done"). Two stacked copies: full arc at z-0 (behind nodes) + identical overlay at z-20 with CSS inset clip showing only the last 20%, so the arrowhead tip renders ON TOP of node 3's circle. -->
+                <svg aria-hidden="true" class="hidden md:block absolute top-14 left-[45%] right-[17%] h-12 z-0 text-red-pen opacity-80 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 600 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path d="M30,30 C 100,-10 200,-10 300,30 C 400,70 500,70 570,30" stroke-dasharray="6 6"/>
+                    <path d="M560,22 L572,30 L562,40" stroke-linejoin="round"/>
+                </svg>
+                <svg aria-hidden="true" class="hidden md:block absolute top-14 left-[45%] right-[17%] h-12 z-20 text-red-pen opacity-80 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 600 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="clip-path: inset(0 0 0 80%);">
+                    <path d="M30,30 C 100,-10 200,-10 300,30 C 400,70 500,70 570,30" stroke-dasharray="6 6"/>
+                    <path d="M560,22 L572,30 L562,40" stroke-linejoin="round"/>
                 </svg>
 
                 <!-- Step 1 -->
-                <div class="relative z-10 flex flex-col items-center text-center max-w-xs">
+                <div class="relative z-10 flex flex-col items-center text-center max-w-xs flex-1">
                     <div class="w-24 h-24 bg-paper border-2 border-ink blob-circle flex items-center justify-center text-5xl font-display shadow-sketch mb-6 rotate-2">1</div>
                     <h3 class="text-2xl font-bold mb-2">Open App</h3>
                     <p>Click the icon. It loads instantly. No splash screens, no loading bars.</p>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0">
+                <div class="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0 flex-1">
                     <div class="w-24 h-24 bg-paper border-2 border-ink blob-circle flex items-center justify-center text-5xl font-display shadow-sketch mb-6 -rotate-3">2</div>
                     <h3 class="text-2xl font-bold mb-2">Scribble</h3>
                     <p>Use your finger, mouse, or stylus. Draw diagrams or write lists.</p>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0">
+                <div class="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0 flex-1">
                     <div class="w-24 h-24 bg-paper border-2 border-ink blob-circle flex items-center justify-center text-5xl font-display shadow-sketch mb-6 rotate-1">3</div>
                     <h3 class="text-2xl font-bold mb-2">Done</h3>
                     <p>Close it. It saves automatically. Go drink some coffee.</p>
@@ -404,7 +464,7 @@
                     <span class="text-sm text-ink-light">5 sticky notes · 2 arrows</span>
                 </figure>
                 <figure class="pin-tack relative shrink-0 w-64 bg-yellow-50 border-2 border-ink shadow-sketch-lg p-3 -rotate-1">
-                    <img alt="Page 03" class="w-full aspect-[4/5] object-cover border border-ink/50" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=640&q=85&auto=format&fit=crop"/>
+                    <img alt="Page 03" class="w-full aspect-[4/5] object-cover border border-ink/50" src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=640&q=85&auto=format&fit=crop"/>
                     <figcaption class="font-display text-2xl mt-3 text-ink">Studio Tour</figcaption>
                     <span class="text-sm text-ink-light">Annotated · 12 pins</span>
                 </figure>
@@ -445,7 +505,7 @@
                     <span class="text-sm text-ink-light">5 sticky notes · 2 arrows</span>
                 </figure>
                 <figure aria-hidden="true" class="pin-tack relative shrink-0 w-64 bg-yellow-50 border-2 border-ink shadow-sketch-lg p-3 -rotate-1">
-                    <img alt="" class="w-full aspect-[4/5] object-cover border border-ink/50" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=640&q=85&auto=format&fit=crop"/>
+                    <img alt="" class="w-full aspect-[4/5] object-cover border border-ink/50" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=640&q=85&auto=format&fit=crop"/>
                     <figcaption class="font-display text-2xl mt-3 text-ink">Studio Tour</figcaption>
                     <span class="text-sm text-ink-light">Annotated · 12 pins</span>
                 </figure>
@@ -519,7 +579,7 @@
                     <figure class="md:col-span-7 md:order-2 order-1 relative">
                         <div class="absolute -inset-3 bg-yellow-50 blob-1 rotate-2"></div>
                         <div class="absolute -top-5 right-16 w-28 h-10 scotch-tape -rotate-3 z-30"></div>
-                        <img alt="Field 02" class="relative w-full aspect-[16/10] object-cover border-2 border-ink blob-1 shadow-sketch-lg -rotate-1" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&q=85&auto=format&fit=crop"/>
+                        <img alt="Field 02" class="relative w-full aspect-[16/10] object-cover border-2 border-ink blob-1 shadow-sketch-lg -rotate-1" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1400&q=85&auto=format&fit=crop"/>
                     </figure>
                 </div>
                 <!-- Row 3: image-left -->

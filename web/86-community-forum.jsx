@@ -38,6 +38,24 @@ export default function T86CommunityForum() {
     { rule: "border-primary-fixed-dim", title: "One subscription.", body: "$19/mo, no tiers, no upsells. Pays for the events, the moderation, and exactly one full-time human." },
   ];
 
+  const trustedLogos = [
+    { slug: "notion", name: "Notion" },
+    { slug: "discord", name: "Discord" },
+    { slug: "figma", name: "Figma" },
+    { slug: "framer", name: "Framer" },
+    { slug: "webflow", name: "Webflow" },
+    { slug: "intercom", name: "Intercom" },
+    { slug: "linear", name: "Linear" },
+    { slug: "substack", name: "Substack" },
+  ];
+
+  const pillars = [
+    { numeral: "I.",   icon: "verified",       title: "Quality threads, by design.",                  body: "Every thread starts with a stake — a question, a draft, a problem worth fifteen minutes. Replies that aren't useful get folded under a \"more\" tab. The signal stays loud because the noise has nowhere to live.", meta: "Curated daily",          featured: true  },
+    { numeral: "II.",  icon: "shield",         title: "No-noise policy, signed at the door.",         body: "No \"first!\" replies. No screenshot dunks. No outrage threads about other forums. The four-line code-of-conduct is short on purpose — every member ticks it on the way in and three moderators read every flag.", meta: "3 strikes · 0 saved",     featured: false },
+    { numeral: "III.", icon: "support_agent",  title: "Senior moderators, paid.",                     body: "Three people are paid to read every thread on a rotating schedule — a working producer, a touring drummer, a label A&R. They reply to feedback within the day and they vote on every member who applies.",  meta: "Mods on call · 09—21 GMT", featured: false },
+    { numeral: "IV.",  icon: "psychology",     title: "Real-name optional, vouching mandatory.",      body: "Pick any handle you like. The only thing required is a vouch from a member already inside, and a single line on what you're working on. Anonymity is fine. Hiding the work isn't — that's how trust gets built.", meta: "1 vouch · 1 line · entry", featured: false },
+  ];
+
   const footerLinks = ["Privacy", "Terms", "Support", "Contact"];
 
   const tailwindConfig = `
@@ -216,6 +234,23 @@ export default function T86CommunityForum() {
             </div>
           </section>
 
+          {/* Trusted by — surface tone, between Channels and Spotlight */}
+          <section aria-labelledby="trusted-title" className="w-full py-20 md:py-24 px-4 md:px-8 bg-surface">
+            <div className="max-w-container-max mx-auto">
+              <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+                <span className="font-label-caps uppercase tracking-widest text-secondary block mb-8 md:mb-10">— Members at</span>
+                <h2 id="trusted-title" className="font-h1 text-h2 md:text-h1 text-primary text-balance mb-4">A community of 12,000+ builders.</h2>
+                <p className="font-body-md text-on-surface-variant max-w-xl mx-auto">Members ship at companies you've heard of and ones you haven't. The good ones don't lead with the logo.</p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                {trustedLogos.map(b => (
+                  <img key={b.slug} src={`https://cdn.simpleicons.org/${b.slug}/013626`} alt={b.name} loading="lazy" className="h-7 md:h-8 opacity-70 hover:opacity-100 transition-opacity" />
+                ))}
+              </div>
+              <p className="text-center font-label-caps uppercase tracking-widest text-on-surface-variant mt-12 text-[11px] tabular-nums">+ 240 active threads · 47 host servers · MMXXII — present</p>
+            </div>
+          </section>
+
           {/* Member Spotlight — full-bleed deep emerald (image strip) */}
           <section aria-labelledby="spotlight-title" className="w-full py-20 md:py-24 px-4 md:px-8" style={{ backgroundColor: "#1e4d3b", backgroundImage: "radial-gradient(circle at 15% 20%, rgba(187,238,213,0.08), transparent 40%), radial-gradient(circle at 85% 80%, rgba(254,135,108,0.08), transparent 45%)" }}>
             <div className="max-w-container-max mx-auto">
@@ -240,6 +275,34 @@ export default function T86CommunityForum() {
                 ))}
               </div>
               <p className="text-center font-label-caps uppercase tracking-widest text-primary-fixed-dim mt-10 text-[11px]">Photographs · Member portraits · Vol. 14, May 2026</p>
+            </div>
+          </section>
+
+          {/* Premium 2x2 — Why members stay */}
+          <section aria-labelledby="premium-title" className="w-full py-20 md:py-28 px-4 md:px-8 bg-surface-container-low">
+            <div className="max-w-container-max mx-auto">
+              <div className="text-center mb-14 md:mb-16 max-w-3xl mx-auto">
+                <span className="font-label-caps uppercase tracking-widest text-secondary block mb-8 md:mb-10">[ Why members stay · 04 pillars ]</span>
+                <h2 id="premium-title" className="font-h1 text-h2 md:text-h1 text-primary text-balance mb-4">Built like a private kitchen.</h2>
+                <p className="font-body-md text-on-surface-variant max-w-xl mx-auto">Four pillars hold it up. Each one is the answer to a complaint we had about every other forum we ever loved and quit.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch">
+                {pillars.map(p => (
+                  <article key={p.title} className={`relative bg-surface rounded-xl p-8 md:p-10 flex flex-col gap-5 group hover:-translate-y-1 transition-all duration-300 ${p.featured ? "ring-2 ring-primary shadow-[0_8px_30px_-12px_rgba(1,54,38,0.18)]" : "shadow-[0_4px_20px_-12px_rgba(1,54,38,0.15)] hover:shadow-[0_12px_30px_-12px_rgba(1,54,38,0.22)]"}`}>
+                    {p.featured && <span className="absolute -top-3 right-6 bg-primary text-on-primary text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-sm">Lead pillar</span>}
+                    <div className="flex items-start justify-between">
+                      <span className="font-h1 italic text-3xl text-secondary tracking-tight">{p.numeral}</span>
+                      <span className="material-symbols-outlined text-primary" style={{ fontSize: "28px" }}>{p.icon}</span>
+                    </div>
+                    <h3 className="font-h3 text-2xl md:text-3xl text-primary leading-tight">{p.title}</h3>
+                    <p className="font-body-md text-on-surface-variant text-sm md:text-base flex-grow">{p.body}</p>
+                    <div className="pt-5 border-t border-outline-variant flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant bg-surface-container px-2 py-1 rounded-full">{p.meta}</span>
+                      <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -271,6 +334,46 @@ export default function T86CommunityForum() {
                     </div>
                   </article>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Image + Content A: image LEFT, content RIGHT */}
+          <section aria-labelledby="gather-title" className="w-full py-20 md:py-28 px-4 md:px-8 bg-surface">
+            <div className="max-w-container-max mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+                <div className="md:col-span-7 aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-xl shadow-[0_12px_40px_-20px_rgba(1,54,38,0.35)]">
+                  <img alt="A small collaborative workspace — laptop, notebook, hands gesturing mid-conversation" loading="lazy" decoding="async" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&q=80&auto=format&fit=crop" />
+                </div>
+                <div className="md:col-span-5 flex flex-col gap-5 justify-center">
+                  <span className="font-label-caps uppercase tracking-widest text-secondary block mb-2">[ How it feels · 01 ]</span>
+                  <h2 id="gather-title" className="font-h1 text-h2 md:text-[2.5rem] text-primary leading-tight text-balance">Where the builders gather.</h2>
+                  <p className="font-body-md text-on-surface-variant">Most threads start with a half-finished thing. A track that's almost mixed. A song that doesn't land. A live set that's missing something. The room reads it, says the useful part, and goes back to its own work — the way a small studio share would, if it were honest about its blind spots.</p>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
+                    <button className="bg-primary text-on-primary px-6 py-3 rounded-full font-label-caps uppercase tracking-widest hover:bg-primary-container transition-colors active:scale-95 duration-200 shadow-sm">Tour the channels</button>
+                    <a href="#" className="text-secondary font-h3 text-sm hover:underline underline-offset-4 decoration-2">Read a thread sample &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Image + Content B: image RIGHT, content LEFT (alternating) */}
+          <section aria-labelledby="people-title" className="w-full py-20 md:py-28 px-4 md:px-8 bg-surface-container-low">
+            <div className="max-w-container-max mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+                <div className="md:col-span-5 md:order-1 flex flex-col gap-5 justify-center">
+                  <span className="font-label-caps uppercase tracking-widest text-secondary block mb-2">[ How it feels · 02 ]</span>
+                  <h2 id="people-title" className="font-h1 text-h2 md:text-[2.5rem] text-primary leading-tight text-balance">Find your people. Quietly.</h2>
+                  <p className="font-body-md text-on-surface-variant">Members come from twenty-eight countries and most of them never post on the open internet. The reason is the same in every interview we run — they wanted somewhere small enough to remember the names of the people they were talking to, and big enough that someone always had a useful answer.</p>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
+                    <button className="bg-primary text-on-primary px-6 py-3 rounded-full font-label-caps uppercase tracking-widest hover:bg-primary-container transition-colors active:scale-95 duration-200 shadow-sm">Meet the members</button>
+                    <a href="#" className="text-secondary font-h3 text-sm hover:underline underline-offset-4 decoration-2">Apply with one vouch &rarr;</a>
+                  </div>
+                </div>
+                <div className="md:col-span-7 md:order-2 aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-xl shadow-[0_12px_40px_-20px_rgba(1,54,38,0.35)]">
+                  <img alt="A community member portrait — soft natural light, contemplative posture" loading="lazy" decoding="async" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1400&q=80&auto=format&fit=crop" />
+                </div>
               </div>
             </div>
           </section>

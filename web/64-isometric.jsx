@@ -12,11 +12,15 @@ export default function T64Isometric() {
     { label: "LOG", top: "20%", left: "20%", z: 5, anim: "animate-float-4", textClass: "text-xs" },
   ];
 
+  // Trusted-by row — real customer brands via simpleicons.org CDN.
+  // Slugs HEAD-checked before commit (stripe/shopify/notion/hubspot/airtable/vercel all 200).
   const proofLogos = [
-    { name: "ACME_CORP", shape: <div className="w-6 h-6 bg-slate-800 rounded-sm"></div> },
-    { name: "GLOBEX", shape: <div className="w-6 h-6 border-4 border-slate-800 rounded-full"></div> },
-    { name: "UMBRELLA", shape: <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-slate-800"></div> },
-    { name: "MASSIVE", shape: <div className="w-6 h-6 bg-slate-800 transform rotate-45"></div> },
+    { name: "Stripe",   slug: "stripe" },
+    { name: "Shopify",  slug: "shopify" },
+    { name: "Notion",   slug: "notion" },
+    { name: "HubSpot",  slug: "hubspot" },
+    { name: "Vercel",   slug: "vercel" },
+    { name: "Airtable", slug: "airtable" },
   ];
 
   const services = [
@@ -61,9 +65,9 @@ export default function T64Isometric() {
 
   const edgeNodes = [
     { id: "NODE_07", region: "US-EAST-1", city: "Virginia · 12ms", racks: "42 racks", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", w: "w-72", grad: "from-slate-900 via-slate-900/50 to-brand-600/20", dir: "tr", status: "ONLINE", statusColor: "text-green-400", live: true, racksColor: "text-brand-400" },
-    { id: "NODE_12", region: "EU-CENTRAL", city: "Frankfurt · 4ms", racks: "68 racks", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1000&q=85&auto=format&fit=crop", w: "w-80", grad: "from-brand-700/30 via-transparent to-slate-900", dir: "bl", status: "ONLINE", statusColor: "text-green-400", live: true, racksColor: "text-brand-400" },
+    { id: "NODE_12", region: "EU-CENTRAL", city: "Frankfurt · 4ms", racks: "68 racks", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=85&auto=format&fit=crop", w: "w-80", grad: "from-brand-700/30 via-transparent to-slate-900", dir: "bl", status: "ONLINE", statusColor: "text-green-400", live: true, racksColor: "text-brand-400" },
     { id: "NODE_19", region: "ASIA-SOUTH", city: "Mumbai · 47ms", racks: "31 racks", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", w: "w-72", grad: "from-yellow-700/30 via-transparent to-slate-900/50", dir: "t", status: "LATENCY", statusColor: "text-yellow-400", live: false, racksColor: "text-yellow-400" },
-    { id: "NODE_24", region: "JP-EAST", city: "Tokyo · 8ms", racks: "54 racks", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1000&q=85&auto=format&fit=crop", w: "w-80", grad: "from-slate-900/60 via-transparent to-brand-600/30", dir: "r", status: "ONLINE", statusColor: "text-green-400", live: true, racksColor: "text-brand-400" },
+    { id: "NODE_24", region: "JP-EAST", city: "Tokyo · 8ms", racks: "54 racks", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1000&q=85&auto=format&fit=crop", w: "w-80", grad: "from-slate-900/60 via-transparent to-brand-600/30", dir: "r", status: "ONLINE", statusColor: "text-green-400", live: true, racksColor: "text-brand-400" },
     { id: "NODE_31", region: "SA-EAST", city: "São Paulo · 22ms", racks: "19 racks", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", w: "w-72", grad: "from-slate-900 via-transparent to-brand-700/20", dir: "tr", status: "ONLINE", statusColor: "text-green-400", live: true, racksColor: "text-brand-400" },
     { id: "NODE_44", region: "AU-CENTRAL", city: "Sydney · 28ms", racks: "+8 racks", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop", w: "w-80", grad: "from-slate-900/40 via-transparent to-slate-900", dir: "bl", status: "SCALING", statusColor: "text-blue-400", live: false, racksColor: "text-brand-400" },
     { id: "NODE_52", region: "CA-WEST", city: "Vancouver · 17ms", racks: "36 racks", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", w: "w-72", grad: "from-slate-900 via-transparent to-brand-600/15", dir: "t", status: "ONLINE", statusColor: "text-green-400", live: true, racksColor: "text-brand-400" },
@@ -286,9 +290,12 @@ html, body { overflow-x: clip; }
         <section className="border-y border-slate-200 bg-white py-10">
           <div className="max-w-7xl mx-auto px-6">
             <p className="text-center font-mono text-xs text-slate-400 mb-6 tracking-widest uppercase">Powering logistics for</p>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+            <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 md:gap-x-14">
               {proofLogos.map(l => (
-                <div key={l.name} className="flex items-center gap-2 font-bold text-xl">{l.shape} {l.name}</div>
+                <span key={l.slug} className="group inline-flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors">
+                  <img src={`https://cdn.simpleicons.org/${l.slug}/64748b`} alt={`${l.name} logo`} width="22" height="22" loading="lazy" decoding="async" className="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  <span className="font-mono font-bold text-base md:text-lg tracking-tight">{l.name}</span>
+                </span>
               ))}
             </div>
           </div>
@@ -452,7 +459,7 @@ html, body { overflow-x: clip; }
                   <div className="absolute -top-3 -right-3 w-10 h-10 bg-brand-200 -z-10"></div>
                   <div className="absolute -bottom-3 -left-3 w-10 h-10 border-2 border-brand-600 -z-10"></div>
                   <div className="relative aspect-[16/10] overflow-hidden border-2 border-slate-900 shadow-block">
-                    <img alt="Globex Bonded" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1494412651409-8dd6494dc6ad?w=1400&q=85&auto=format&fit=crop" />
+                    <img alt="Globex Bonded — shipping containers stacked at a customs-bonded warehouse, four-zone hand-off" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1400&q=85&auto=format&fit=crop" />
                     <div className="absolute inset-0 bg-gradient-to-bl from-slate-900/60 via-transparent to-brand-600/15"></div>
                     <span className="absolute top-4 right-4 bg-white text-slate-900 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 border border-slate-900">CASE · 02</span>
                     <span className="absolute bottom-4 left-4 bg-slate-900 text-brand-300 font-mono text-xs font-bold uppercase tracking-widest px-3 py-1.5">−99% loss</span>
@@ -464,7 +471,7 @@ html, body { overflow-x: clip; }
                   <div className="absolute -top-3 -left-3 w-10 h-10 bg-brand-200 -z-10"></div>
                   <div className="absolute -bottom-3 -right-3 w-10 h-10 border-2 border-brand-600 -z-10"></div>
                   <div className="relative aspect-[16/10] overflow-hidden border-2 border-slate-900 shadow-block">
-                    <img alt="Massive Auto Parts" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop" />
+                    <img alt="Massive Auto Parts" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop" />
                     <div className="absolute inset-0 bg-gradient-to-r from-slate-900/65 via-transparent to-transparent"></div>
                     <span className="absolute top-4 left-4 bg-white text-slate-900 font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 border border-slate-900">CASE · 03</span>
                     <span className="absolute bottom-4 right-4 bg-brand-600 text-white font-mono text-xs font-bold uppercase tracking-widest px-3 py-1.5">42min → 6min</span>
@@ -481,14 +488,167 @@ html, body { overflow-x: clip; }
           </div>
         </section>
 
+        {/* Mesh Stack — premium 4-card section explaining infra principles */}
+        <section className="py-20 md:py-28 bg-white border-t border-slate-200">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 pb-6 border-b-2 border-slate-200">
+              <div className="max-w-xl">
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">// STACK · 05B</span>
+                <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">Why teams choose the mesh.</h2>
+              </div>
+              <p className="text-slate-600 max-w-md">Four engineering decisions that shape every node in the grid. Active CPU billing, region-aware replication, status that doesn't lie, and migrations that finish in days, not quarters.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200">
+              {[
+                {
+                  icon: "cpu",
+                  tag: "STACK · 01",
+                  title: "Active-CPU pricing.",
+                  body: "Idle nodes do not bill. The mesh measures CPU-seconds against the routing plane and only meters when traffic is actually flowing — same model as Vercel Functions, applied to logistics.",
+                  foot: "Idle · €0.00",
+                },
+                {
+                  icon: "globe",
+                  tag: "STACK · 02",
+                  title: "Cross-region by default.",
+                  body: "Every payload writes to two regions before the request returns. Reads route to the nearest healthy node automatically — no per-region SDK, no manual failover scripts.",
+                  foot: "2× write · 1ms read",
+                },
+                {
+                  icon: "activity",
+                  tag: "STACK · 03",
+                  title: "Status page that doesn't lie.",
+                  body: "Live, unfiltered, region-by-region. The same telemetry we use to wake the on-call engineer is the same telemetry your customers see — no cached banners, no marketing prose.",
+                  foot: "≤ 30s · per region",
+                },
+                {
+                  icon: "zap",
+                  tag: "STACK · 04",
+                  title: "Migration in days.",
+                  body: "Sandbox node into your VPC inside 24 hours. Ledger-signed handoff to production inside two weeks. The first manifest ships before the docs do — that's the rule, not the exception.",
+                  foot: "≤ 14d · sandbox → prod",
+                },
+              ].map((c, i) => (
+                <article key={i} className="bg-white p-7 md:p-8 flex flex-col gap-4 hover:bg-brand-50/30 transition-colors min-h-[260px]">
+                  <div className="flex items-center justify-between">
+                    <span className="w-12 h-12 border-2 border-slate-900 bg-brand-50 flex items-center justify-center text-brand-700">
+                      <i data-lucide={c.icon} className="w-6 h-6"></i>
+                    </span>
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-500 tabular-nums">{c.tag}</span>
+                  </div>
+                  <h3 className="font-extrabold text-xl leading-tight text-slate-900">{c.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed">{c.body}</p>
+                  <div className="mt-auto pt-5 border-t-2 border-slate-100 flex items-center justify-between">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-brand-600">{c.foot}</span>
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">[ ARMED ]</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Customer Compact — premium 4-card section on dark band */}
+        <section className="full-bleed-iso py-20 md:py-28 bg-slate-900 text-white border-y-2 border-slate-700">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 pb-6 border-b-2 border-slate-700">
+              <div className="max-w-xl">
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-400 block mb-3">// COMPACT · 05C</span>
+                <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">What every contract carries.</h2>
+              </div>
+              <p className="text-slate-400 max-w-md">Four standing terms in every Cube_Logic contract. Signed at engagement, audited at renewal. None of it lives in fine print.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-800">
+              {[
+                {
+                  icon: "shield-check",
+                  tag: "COMPACT · I",
+                  title: "Free 14-day trial, no card.",
+                  body: "Sandbox node into your VPC. Real manifests, real telemetry, your domain. We delete the sandbox on day fifteen if you decline — no follow-up email, no resurrection sequence.",
+                  foot: "0 · CARD · REQUIRED",
+                },
+                {
+                  icon: "lock",
+                  tag: "COMPACT · II",
+                  title: "Single-tenant on Enterprise.",
+                  body: "Self-host on AWS, GCP, or Azure. SSO wired before launch, audit log forwarding to your SIEM, routing connector signed against your existing WMS — no multi-tenant database, no shared CPU.",
+                  foot: "AWS · GCP · AZURE",
+                },
+                {
+                  icon: "gauge",
+                  tag: "COMPACT · III",
+                  title: "99.99% routing SLA.",
+                  body: "Routing plane and storage have separate SLOs because they fail differently. Enterprise plan adds custom SLOs against your peak windows. Penalties auto-credit at the next invoice cycle.",
+                  foot: "99.99 · ROUTING",
+                },
+                {
+                  icon: "users",
+                  tag: "COMPACT · IV",
+                  title: "Migration assistance.",
+                  body: "Two engineers from our side for the first sprint. We help you wire SSO, audit log forwarding, and the routing connector. The first ledger-signed handoff happens with us in the room.",
+                  foot: "2 · ENGINEERS · WK01",
+                },
+              ].map((c, i) => (
+                <article key={i} className="bg-slate-900 p-7 md:p-8 flex flex-col gap-4 hover:bg-slate-800 transition-colors min-h-[260px] border border-transparent hover:border-brand-400">
+                  <div className="flex items-center justify-between">
+                    <span className="w-12 h-12 border-2 border-brand-400 bg-slate-800 flex items-center justify-center text-brand-400">
+                      <i data-lucide={c.icon} className="w-6 h-6"></i>
+                    </span>
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-500 tabular-nums">{c.tag}</span>
+                  </div>
+                  <h3 className="font-extrabold text-xl leading-tight text-white">{c.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{c.body}</p>
+                  <div className="mt-auto pt-5 border-t-2 border-slate-800 flex items-center justify-between">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-brand-400 tabular-nums">{c.foot}</span>
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-slate-600">[ ARMED ]</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Principles doctrine */}
         <section className="full-bleed-iso py-20 md:py-28 bg-white border-y-2 border-slate-200" id="principles">
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-            <aside className="lg:col-span-4">
+            {/* Left rail — flex-col with the Onboarding Telemetry card filling space below
+                READ_HANDBOOK so the column bottom aligns with the right column's 5-rule list. */}
+            <aside className="lg:col-span-4 flex flex-col">
               <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-brand-600 block mb-3">// PRINCIPLES · 06</span>
               <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">Five rules<br />the grid runs on.</h2>
               <p className="text-slate-600 mt-5">Pulled from 240 onboarding interviews. The teams who scale past 10 nodes always settle into these five.</p>
-              <a className="mt-8 inline-flex items-center gap-2 font-mono text-sm font-bold border-2 border-slate-900 px-5 py-2.5 hover:bg-slate-900 hover:text-white transition-colors" href="#">READ_HANDBOOK <i data-lucide="arrow-right" className="w-4 h-4"></i></a>
+              <a className="mt-8 inline-flex items-center gap-2 font-mono text-sm font-bold border-2 border-slate-900 px-5 py-2.5 hover:bg-slate-900 hover:text-white transition-colors w-fit" href="#">READ_HANDBOOK <i data-lucide="arrow-right" className="w-4 h-4"></i></a>
+              {/* Onboarding Telemetry card — fills the rest of the column. flex-1 stretches it
+                  to bottom-align with the right rail's 5-rule list. */}
+              <div className="mt-12 flex-1 flex flex-col gap-5 p-6 md:p-7 border-2 border-slate-900 bg-slate-50 shadow-block">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-brand-600">// TELEMETRY · 06B</span>
+                  <span className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> LIVE
+                  </span>
+                </div>
+                <h3 className="font-extrabold text-xl leading-tight text-slate-900">How the rules took shape.</h3>
+                <p className="font-mono text-xs leading-relaxed text-slate-600">240 onboarding interviews, 31 customers post-launch, 6 quarters of telemetry. Re-tested every cohort; once a rule fails to predict a five-node deploy, it leaves the handbook the same week.</p>
+                <dl className="grid grid-cols-2 gap-px bg-slate-200 mt-auto">
+                  <div className="bg-white p-3 flex flex-col gap-0.5">
+                    <dt className="font-mono text-[10px] uppercase tracking-widest text-slate-500">Interviews</dt>
+                    <dd className="font-extrabold text-2xl text-slate-900 tabular-nums">240</dd>
+                  </div>
+                  <div className="bg-white p-3 flex flex-col gap-0.5">
+                    <dt className="font-mono text-[10px] uppercase tracking-widest text-slate-500">Cohorts</dt>
+                    <dd className="font-extrabold text-2xl text-brand-600 tabular-nums">31</dd>
+                  </div>
+                  <div className="bg-white p-3 flex flex-col gap-0.5">
+                    <dt className="font-mono text-[10px] uppercase tracking-widest text-slate-500">Mean TTFD</dt>
+                    <dd className="font-extrabold text-2xl text-slate-900 tabular-nums">14d</dd>
+                  </div>
+                  <div className="bg-white p-3 flex flex-col gap-0.5">
+                    <dt className="font-mono text-[10px] uppercase tracking-widest text-slate-500">Adherence</dt>
+                    <dd className="font-extrabold text-2xl text-brand-600 tabular-nums">99.4%</dd>
+                  </div>
+                </dl>
+                <a href="#" className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-brand-600 border-b-2 border-brand-600 self-start pb-1 hover:text-slate-900 hover:border-slate-900 transition-colors">Open the dataset →</a>
+              </div>
             </aside>
             <ol className="lg:col-span-8 divide-y-2 divide-slate-200 border-y-2 border-slate-200">
               {principles.map((p, i) => (

@@ -40,32 +40,32 @@ export default function T50CyberpunkHighTech() {
   const dossiers = [
     { id: "DOSSIER_007", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", color: "cyan", colorRgb: "0,255,255", offColor: "magenta", classification: "OFFENSIVE", title: "OP: BLACKOUT_VEIL", body: "Counter-strike on a polymorphic ransomware swarm. Trace-back successful in 11 seconds; payload neutralized at source node.", date: "2077.03.14", outcome: "[OUTCOME: NEUTRALIZED]", offset: "" },
     { id: "DOSSIER_014", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", color: "magenta", colorRgb: "255,0,255", offColor: "cyan", classification: "DEFENSIVE", title: "OP: GHOST_PROTOCOL", body: "Identity-erasure for a high-value asset under nation-state surveillance. Full digital exfiltration; phantom node persistence achieved.", date: "2076.11.02", outcome: "[OUTCOME: PHANTOM]", offset: "md:translate-y-6" },
-    { id: "DOSSIER_021", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop", color: "cyan", colorRgb: "0,255,255", offColor: "magenta", classification: "INFILTRATION", title: "OP: VOID_CIPHER", body: "Penetration test of a corporate ICE-stack. Twelve zero-days harvested; full mainframe access obtained without leaving an artifact.", date: "2076.07.28", outcome: "[OUTCOME: SILENT]", offset: "" },
+    { id: "DOSSIER_021", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", color: "cyan", colorRgb: "0,255,255", offColor: "magenta", classification: "INFILTRATION", title: "OP: VOID_CIPHER", body: "Penetration test of a corporate ICE-stack. Twelve zero-days harvested; full mainframe access obtained without leaving an artifact.", date: "2076.07.28", outcome: "[OUTCOME: SILENT]", offset: "" },
   ];
 
   const streamCyan = [
     { label: "NODE_TKY_42", meta: "PING_OK · 03:42:17", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" },
     { label: "RELAY_NRT_07", meta: "SYNC_OK · 03:43:01", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" },
-    { label: "UPLINK_OSAKA_19", meta: "TX_GHOST · 03:43:48", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" },
-    { label: "NODE_HKG_91", meta: "TRACE_LOST · 03:44:22", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" },
+    { label: "UPLINK_OSAKA_19", meta: "TX_GHOST · 03:43:48", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=200&q=80&auto=format&fit=crop" },
+    { label: "NODE_HKG_91", meta: "TRACE_LOST · 03:44:22", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" },
     { label: "SECTOR_7G_MAIN", meta: "SCAN_CLR · 03:44:55", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" },
     { label: "NODE_SEA_03", meta: "HEARTBEAT · 03:45:11", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" },
   ];
   const streamMagenta = [
-    { label: "ICE_NETWATCH", meta: "BREACH_WALL · 03:45:48", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" },
+    { label: "ICE_NETWATCH", meta: "BREACH_WALL · 03:45:48", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" },
     { label: "RELAY_BNK_44", meta: "ENCR_KEY · 03:46:14", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80&auto=format&fit=crop" },
-    { label: "NODE_BERLIN_21", meta: "GHOSTED · 03:46:45", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" },
+    { label: "NODE_BERLIN_21", meta: "GHOSTED · 03:46:45", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=200&q=80&auto=format&fit=crop" },
     { label: "UPLINK_OSL_06", meta: "SHADOW_WALK · 03:47:02", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" },
-    { label: "NODE_DUB_18", meta: "REROUTE · 03:47:28", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=200&q=80&auto=format&fit=crop" },
-    { label: "SECTOR_DELTA-9", meta: "VOID_ENTRY · 03:48:01", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=200&q=80&auto=format&fit=crop" },
+    { label: "NODE_DUB_18", meta: "REROUTE · 03:47:28", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=200&q=80&auto=format&fit=crop" },
+    { label: "SECTOR_DELTA-9", meta: "VOID_ENTRY · 03:48:01", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=200&q=80&auto=format&fit=crop" },
   ];
 
   const ghostGrid = [
-    { span: "md:col-span-7 aspect-[16/9]", color: "cyan", colorRgb: "0,255,255", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1400&q=85&auto=format&fit=crop", chip: "CHANNEL_07 // PRIMARY", title: "Sector 7G — Mainframe", status: "[ACTIVE]", titleSize: "text-xs" },
+    { span: "md:col-span-7 aspect-[16/9]", color: "cyan", colorRgb: "0,255,255", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85&auto=format&fit=crop", chip: "CHANNEL_07 // PRIMARY", title: "Sector 7G — Mainframe", status: "[ACTIVE]", titleSize: "text-xs" },
     { span: "md:col-span-5 aspect-[16/9]", color: "magenta", colorRgb: "255,0,255", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1100&q=85&auto=format&fit=crop", chip: "CHANNEL_12 // RELAY", title: "Node Δ-22 — Encrypted", status: "[GHOSTED]", titleSize: "text-xs" },
     { span: "md:col-span-4 aspect-[4/3]", color: "cyan", colorRgb: "0,255,255", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", chip: "CH_02", title: "CIRCUIT_TRACE", status: "SCAN", small: true },
-    { span: "md:col-span-4 aspect-[4/3]", color: "magenta", colorRgb: "255,0,255", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop", chip: "CH_15", title: "NODE_DELTA", status: "RELAY", small: true },
-    { span: "md:col-span-4 aspect-[4/3]", color: "cyan", colorRgb: "0,255,255", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop", chip: "CH_28", title: "SECTOR_7G", status: "MAIN", small: true },
+    { span: "md:col-span-4 aspect-[4/3]", color: "magenta", colorRgb: "255,0,255", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", chip: "CH_15", title: "NODE_DELTA", status: "RELAY", small: true },
+    { span: "md:col-span-4 aspect-[4/3]", color: "cyan", colorRgb: "0,255,255", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", chip: "CH_28", title: "SECTOR_7G", status: "MAIN", small: true },
   ];
 
   const coreOps = [
@@ -74,6 +74,42 @@ export default function T50CyberpunkHighTech() {
     { hex: "0x03", roman: "III", icon: "zap", color: "cyan", colorRgb: "0,255,255", title: "COUNTER_STRIKE", body: "Reactive payload deployment. Trace-back and de-escalate inside the hostile timeframe.", phase: "γ", status: "→ ARMED" },
     { hex: "0x04", roman: "IV", icon: "ghost", color: "magenta", colorRgb: "255,0,255", title: "PHANTOM_FORK", body: "Distributed identity scattering. The asset is everywhere and nowhere; trace lost in noise floor.", phase: "δ", status: "→ STEALTH" },
   ];
+
+  const trustLogos = [
+    { slug: "vercel", label: "Vercel" },
+    { slug: "cloudflare", label: "Cloudflare" },
+    { slug: "github", label: "GitHub" },
+    { slug: "docker", label: "Docker" },
+    { slug: "kubernetes", label: "Kubernetes" },
+    { slug: "nodedotjs", label: "Node.js" },
+    { slug: "bun", label: "Bun" },
+    { slug: "typescript", label: "TypeScript" },
+  ];
+
+  const termCyanLines = [
+    { d: "0s",   dot: "cyan",    text: "NODE_07 :: SYNC_OK",    tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "0.3s", dot: "magenta", text: "PKT 0xA1 :: SENT",      tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "0.6s", dot: "cyan",    text: "HANDSHAKE :: ECHO 22ms", tag: "",     tagColor: "" },
+    { d: "0.9s", dot: "cyan",    text: "PKT 0xA2 :: SENT",      tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "1.2s", dot: "magenta", text: "KEY_ROTATE :: NEW",     tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "1.5s", dot: "cyan",    text: "PKT 0xA3 :: SENT",      tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "1.8s", dot: "cyan",    text: "HEARTBEAT :: 18ms",     tag: "",      tagColor: "" },
+    { d: "2.1s", dot: "magenta", text: "RELAY_NRT_07 :: BOUND", tag: "",      tagColor: "" },
+    { d: "2.4s", dot: "cyan",    text: "PIPE :: STABLE",        tag: "",      tagColor: "" },
+  ];
+  const termMagentaLines = [
+    { d: "0s",   dot: "magenta", text: "SCAN :: SECTOR_7G",     tag: "[WARN]", tagColor: "text-yellow-400" },
+    { d: "0.3s", dot: "magenta", text: "ICE_PROBE :: 0xC4 traced", tag: "",   tagColor: "" },
+    { d: "0.6s", dot: "cyan",    text: "COUNTER :: ARMED",      tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "0.9s", dot: "magenta", text: "PKT 0xC5 :: BLOCKED",   tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "1.2s", dot: "magenta", text: "SOURCE :: ASN 5xxxx",   tag: "",      tagColor: "" },
+    { d: "1.5s", dot: "magenta", text: "NEUTRALIZE :: 11s",     tag: "[OK]",  tagColor: "text-green-400" },
+    { d: "1.8s", dot: "cyan",    text: "ARTIFACT :: NONE",      tag: "",      tagColor: "" },
+    { d: "2.1s", dot: "magenta", text: "LOG :: SEALED 0xFE",    tag: "",      tagColor: "" },
+    { d: "2.4s", dot: "magenta", text: "RING :: GHOSTED",       tag: "",      tagColor: "" },
+  ];
+
+  const dotColorClass = (c) => (c === "cyan" ? "text-cyan" : "text-magenta");
 
   const tailwindConfig = `tailwind.config = {
   theme: { extend: {
@@ -151,7 +187,28 @@ export default function T50CyberpunkHighTech() {
 @keyframes marquee-magenta { 0% { transform: translateX(calc(-50% - 12px)); } 100% { transform: translateX(0); } }
 .marquee-cyan { animation: marquee-cyan 60s linear infinite; }
 .marquee-magenta { animation: marquee-magenta 75s linear infinite; }
-.marquee-track:hover { animation-play-state: paused; }`;
+.marquee-track:hover { animation-play-state: paused; }
+.cyber-trust-logo { filter: grayscale(1) brightness(1.4) contrast(0.9); opacity: 0.55; transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease; }
+.cyber-trust-logo:hover { filter: grayscale(0) drop-shadow(0 0 6px rgba(0,255,255,0.55)); opacity: 1; transform: translateY(-2px); }
+@keyframes cyber-term-reveal {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.cyber-term-line {
+  opacity: 0;
+  animation: cyber-term-reveal 0.4s cubic-bezier(0.2,0.8,0.2,1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes cyber-blink { 50% { opacity: 0; } }
+.cyber-cursor { animation: cyber-blink 1.05s steps(2) infinite; }
+@keyframes cyber-scrub {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.cyber-scrub-bar { animation: cyber-scrub 3s cubic-bezier(0.4,0,0.6,1) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .cyber-term-line, .cyber-cursor, .cyber-scrub-bar { animation: none; opacity: 1; transform: none; }
+}`;
 
   const initScript = `(function init(){
   if (typeof lucide !== 'undefined' && lucide.createIcons) {
@@ -500,7 +557,7 @@ export default function T50CyberpunkHighTech() {
                   </div>
                 </figure>
                 <figure className="aspect-[16/9] md:aspect-auto md:flex-1 relative overflow-hidden bg-black border border-magenta/30 group">
-                  <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1100&q=85&auto=format&fit=crop" alt="Sub-Node Φ-9 trace" className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
+                  <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1100&q=85&auto=format&fit=crop" alt="Sub-Node Φ-9 trace" className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-55 group-hover:scale-105 transition-transform duration-1000" />
                   <div className="absolute inset-0 mix-blend-multiply pointer-events-none" style={{ background: "linear-gradient(160deg, rgba(40,0,30,0.6), rgba(70,0,55,0.78) 60%, rgba(0,20,30,0.55))" }}></div>
                   <div className="absolute inset-0 mix-blend-screen pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(255,0,255,0.3), transparent 70%)" }}></div>
                   <div className="absolute inset-0 bg-cyber-grid bg-[length:30px_30px] opacity-25 pointer-events-none"></div>
@@ -601,6 +658,142 @@ export default function T50CyberpunkHighTech() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 md:py-24 relative overflow-hidden" style={{ backgroundColor: "#060611" }}>
+          <div className="absolute inset-0 bg-cyber-grid opacity-5 pointer-events-none"></div>
+          <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent 0%, #00FFFF 25%, #FF00FF 75%, transparent 100%)" }}></div>
+          <div className="container mx-auto px-6 relative z-10 text-center">
+            <p className="font-mono text-cyan text-xs tracking-[0.3em] mb-3">// TRUSTED · NETWORK</p>
+            <h2 className="font-orbitron text-3xl md:text-4xl text-white mb-3 glow-cyan">// Operating across the meshnet.</h2>
+            <p className="font-rajdhani text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-10">
+              Forty-seven sovereign nodes; twelve geo-isolated zones. Net_Runner is wired into the same primitives that ship the rest of the dark stack.
+            </p>
+            <div className="border border-cyan/30 bg-dim/40 backdrop-blur-sm cyber-card p-6 md:p-8 max-w-5xl mx-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-6 items-center">
+                {trustLogos.map(t => (
+                  <a key={t.slug} href="#" aria-label={t.label} className="block">
+                    <img src={`https://cdn.simpleicons.org/${t.slug}/00FFFF`} alt={t.label} className="cyber-trust-logo h-7 mx-auto" loading="lazy" />
+                  </a>
+                ))}
+              </div>
+              <div className="mt-8 pt-5 border-t border-cyan/20 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[11px] tracking-widest">
+                <span className="text-cyan/80">// 47 nodes &middot; 12 zones &middot; uptime 99.97%</span>
+                <span className="text-magenta/80">// integrity_check :: PASS</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative bg-black border-y border-cyan/30 py-20 md:py-28 overflow-hidden">
+          <div className="absolute inset-0 bg-cyber-grid opacity-10 pointer-events-none"></div>
+          <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent 0%, #00FFFF 25%, #FF00FF 75%, transparent 100%)" }}></div>
+          <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent 0%, #FF00FF 25%, #00FFFF 75%, transparent 100%)" }}></div>
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="flex flex-col md:flex-row items-end justify-between mb-12 border-b border-gray-800 pb-4 gap-4">
+              <div>
+                <p className="font-mono text-cyan text-xs tracking-[0.3em] mb-2">// SUBSYSTEMS_04</p>
+                <h2 className="font-orbitron text-3xl md:text-4xl text-white glow-cyan">Four engines run the relay.</h2>
+                <p className="font-rajdhani text-gray-400 mt-3 max-w-2xl">Two telemetry streams, two doctrine modules. Every packet that touches NET_RUNNER passes the diagonal.</p>
+              </div>
+              <span className="font-mono text-gray-500 text-xs">// GRID_2x2 &middot; DIAGONAL_LIVE</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-6xl mx-auto">
+              {/* [0][0] TOP-LEFT — Terminal: node_07 packet sync (cyan) */}
+              <div className="border-2 border-cyan bg-black p-4 md:p-5 flex flex-col">
+                <div className="flex items-center gap-1.5 mb-3 border-b border-cyan/30 pb-2">
+                  <span className="w-2 h-2 bg-cyan border border-white/40 rounded-sm"></span>
+                  <span className="w-2 h-2 bg-magenta border border-white/40 rounded-sm"></span>
+                  <span className="w-2 h-2 bg-white border border-white/40 rounded-sm"></span>
+                  <span className="ml-auto font-mono text-[8px] uppercase tracking-widest text-cyan">// node_07 :: ws &rarr; live</span>
+                </div>
+                <ol className="font-mono text-[11px] uppercase text-gray-300 space-y-1.5 flex-1 min-h-[200px] list-none p-0 m-0">
+                  {termCyanLines.map(l => (
+                    <li key={l.d} className="cyber-term-line" style={{ "--d": l.d }}>
+                      <span className={dotColorClass(l.dot)}>&gt;</span> {l.text}{l.tag ? <> <span className={l.tagColor}>{l.tag}</span></> : null}
+                    </li>
+                  ))}
+                  <li className="cyber-term-line" style={{ "--d": "2.7s" }}>
+                    <span className="text-cyan">&gt;</span> READY<span className="cyber-cursor inline-block w-1.5 h-2 bg-cyan align-middle ml-1"></span>
+                  </li>
+                </ol>
+                <div className="mt-2 pt-2 border-t border-cyan/30 h-1 bg-white/5 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-magenta cyber-scrub-bar"></div>
+                </div>
+              </div>
+
+              {/* [0][1] TOP-RIGHT — Icon card: Edge Shield (magenta) */}
+              <div className="border-2 border-magenta/40 bg-dim p-6 md:p-8 flex flex-col gap-4 group hover:border-magenta transition-colors duration-300">
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-12 h-12 border-2 border-magenta/60 bg-magenta/10 flex items-center justify-center">
+                    <i data-lucide="shield" className="text-magenta w-6 h-6"></i>
+                  </div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-magenta">// 03</span>
+                </div>
+                <h3 className="font-orbitron text-xl text-white uppercase">EDGE_SHIELD</h3>
+                <p className="font-rajdhani text-gray-400 text-sm leading-relaxed">Mesh-validated, packet-signed, replay-resistant. Every transit clears three guards before reaching the inner ring.</p>
+                <ul className="font-mono text-[10px] uppercase tracking-wider text-gray-500 space-y-1.5">
+                  <li><span className="text-magenta">&gt;</span> entropy_seed :: atmospheric</li>
+                  <li><span className="text-magenta">&gt;</span> sig_window :: 90s rolling</li>
+                  <li><span className="text-magenta">&gt;</span> replay_cache :: 64k entries</li>
+                </ul>
+                <div className="mt-auto pt-3 border-t border-magenta/20 flex items-center justify-between text-[10px] uppercase tracking-widest text-magenta/80 font-mono">
+                  <span>// guards :: 3 / 3 active</span>
+                  <i data-lucide="arrow-right" className="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+              </div>
+
+              {/* [1][0] BOTTOM-LEFT — Icon card: Routing Mesh (cyan) */}
+              <div className="border-2 border-cyan/40 bg-dim p-6 md:p-8 flex flex-col gap-4 group hover:border-cyan transition-colors duration-300">
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-12 h-12 border-2 border-cyan/60 bg-cyan/10 flex items-center justify-center">
+                    <i data-lucide="router" className="text-cyan w-6 h-6"></i>
+                  </div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-cyan">// 04</span>
+                </div>
+                <h3 className="font-orbitron text-xl text-white uppercase">ROUTING_MESH</h3>
+                <p className="font-rajdhani text-gray-400 text-sm leading-relaxed">Adaptive uplink across 47 sovereign nodes. Failover under 220 ms; trace-back resistant by construction.</p>
+                <ul className="font-mono text-[10px] uppercase tracking-wider text-gray-500 space-y-1.5">
+                  <li><span className="text-cyan">&gt;</span> nodes :: 47 / 47 online</li>
+                  <li><span className="text-cyan">&gt;</span> p99_failover :: 217ms</li>
+                  <li><span className="text-cyan">&gt;</span> hop_diversity :: &gt;= 4</li>
+                </ul>
+                <div className="mt-auto pt-3 border-t border-cyan/20 flex items-center justify-between text-[10px] uppercase tracking-widest text-cyan/80 font-mono">
+                  <span>// uplink :: nominal</span>
+                  <i data-lucide="arrow-right" className="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </div>
+              </div>
+
+              {/* [1][1] BOTTOM-RIGHT — Terminal: node_31 security audit (magenta) */}
+              <div className="border-2 border-magenta bg-black p-4 md:p-5 flex flex-col">
+                <div className="flex items-center gap-1.5 mb-3 border-b border-magenta/30 pb-2">
+                  <span className="w-2 h-2 bg-cyan border border-white/40 rounded-sm"></span>
+                  <span className="w-2 h-2 bg-magenta border border-white/40 rounded-sm"></span>
+                  <span className="w-2 h-2 bg-white border border-white/40 rounded-sm"></span>
+                  <span className="ml-auto font-mono text-[8px] uppercase tracking-widest text-magenta">// node_31 :: audit &rarr; rolling</span>
+                </div>
+                <ol className="font-mono text-[11px] uppercase text-gray-300 space-y-1.5 flex-1 min-h-[200px] list-none p-0 m-0">
+                  {termMagentaLines.map(l => (
+                    <li key={l.d} className="cyber-term-line" style={{ "--d": l.d }}>
+                      <span className={dotColorClass(l.dot)}>&gt;</span> {l.text}{l.tag ? <> <span className={l.tagColor}>{l.tag}</span></> : null}
+                    </li>
+                  ))}
+                  <li className="cyber-term-line" style={{ "--d": "2.7s" }}>
+                    <span className="text-magenta">&gt;</span> READY<span className="cyber-cursor inline-block w-1.5 h-2 bg-magenta align-middle ml-1"></span>
+                  </li>
+                </ol>
+                <div className="mt-2 pt-2 border-t border-magenta/30 h-1 bg-white/5 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-cyan cyber-scrub-bar"></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-10 flex items-center justify-between max-w-6xl mx-auto font-mono text-[10px] md:text-xs text-gray-500 tracking-widest">
+              <span>// DIAGONAL_PATTERN :: TERM[0,0] &middot; ICON[0,1] &middot; ICON[1,0] &middot; TERM[1,1]</span>
+              <span className="text-magenta">&rarr; STATUS :: ALL_FOUR_NOMINAL</span>
             </div>
           </div>
         </section>

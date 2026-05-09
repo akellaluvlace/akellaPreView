@@ -19,8 +19,8 @@ export default function T44WeddingInvitation() {
     { caption: "First Look", alt: "The couple", overlay: "bg-primary-fixed-dim/15", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAOtsdLW3lPeNipqZ7On12BgQtEj_aJD6yfO99WRRolYRboYOErF6gWJf5tU33Gex-gV7Y4QDNBZRyKYEQuaTzjx8KogELWRAN--NBcMuY_S-uFAhhbCMgdB1zRqoaFr9i5GKJmNgCyi1yTVt6pray9MGbp67plq2UCfmRmYnIvYbxCDfBHQjkuvHPjGeX91Af2nb1qHDW28nP_lG50h4dlQzElVhH1ork0nHVnMC6UpuauQZ-h2m7PZcecXrdAakIedgGg_8kSAZU" },
     { caption: "The Orchard Walk", alt: "Orchard path", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80" },
     { caption: "A Guest, Arriving", alt: "A guest", overlay: "bg-primary-fixed-dim/20", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80" },
-    { caption: "The Long Table", alt: "Long table", overlay: "bg-primary-fixed-dim/30", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&w=600&q=80" },
-    { caption: "Last Light, the Hall", alt: "Last light", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=600&q=80" }
+    { caption: "The Long Table", alt: "Long table", overlay: "bg-primary-fixed-dim/30", img: "https://images.unsplash.com/photo-1743793054819-37e412d65295?auto=format&fit=crop&w=600&q=80" },
+    { caption: "Last Light, the Hall", alt: "Last light", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&w=600&q=80" }
   ];
 
   const hotels = [
@@ -40,13 +40,13 @@ export default function T44WeddingInvitation() {
 
   const archive = [
     { caption: "Edinburgh · 2018", alt: "Edinburgh 2018", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=400&q=80" },
-    { caption: "Rome · 2019", alt: "Rome 2019", img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=400&q=80" },
+    { caption: "Rome · 2019", alt: "Rome 2019", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&w=400&q=80" },
     { caption: "Cork · 2020", alt: "Cork 2020", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=400&q=80" },
     { caption: "Lisbon · 2021", alt: "Lisbon 2021", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=400&q=80" },
     { caption: "Donegal · 2022", alt: "Donegal 2022", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=400&q=80" },
     { caption: "Paris · 2023", alt: "Paris 2023", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80" },
     { caption: "Wicklow · 2024", alt: "Wicklow 2024", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&w=400&q=80" },
-    { caption: "Glendalough · 2025", alt: "Glendalough 2025", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=400&q=80" }
+    { caption: "Glendalough · 2025", alt: "Glendalough 2025", img: "https://images.unsplash.com/photo-1670463016037-86e95c96529c?auto=format&fit=crop&w=400&q=80" }
   ];
 
   const storyChapters = [
@@ -84,14 +84,14 @@ export default function T44WeddingInvitation() {
       time: "4pm",
       title: "Drinks on the lawn",
       body: "If the day is fine, we will spill out across the south lawn until about half six. Expect Wicklow gin, an Irish sparkling, a non-alcoholic pear and rosemary cordial that we are very proud of, and small things on toast. There is a stone wall along the west edge that catches the light beautifully around five — we will be wandering between groups, so do please grab us. A small jazz trio will be set up under the elm. Family photographs will happen briefly here too, painlessly we hope; we will round people up rather than print a list. If it rains, the same drinks move into the long barn, which is just as good and slightly warmer.",
-      img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=1400&q=80",
+      img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&w=1400&q=80",
       alt: "Lawn drinks"
     },
     {
       time: "7pm",
       title: "Long dinner, no speeches before tarte tatin",
       body: "Dinner is served at seven sharp at one long table in the barn — no top table, no place cards beyond your section, just find your name in the seating plan at the door. The menu is five courses, paced slowly, with a real intermission between the main and dessert so people can move chairs and talk to someone new. We have asked the kindest of our friends to keep speeches short, warm, and strictly after tarte tatin has been served. Wine is generous; water is plentiful; please flag any allergy on the RSVP form below and the kitchen will handle it discreetly. Music starts at half ten in the same room.",
-      img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&w=1400&q=80",
+      img: "https://images.unsplash.com/photo-1743793054819-37e412d65295?auto=format&fit=crop&w=1400&q=80",
       alt: "Long table dinner"
     }
   ];

@@ -1,7 +1,7 @@
 const ESSAY_ROWS = [
   {
     side: "left",
-    img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1200&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop",
     alt: "Server rack interior with cabling",
     read: "11 min read",
     date: "Apr 29, 2024",
@@ -11,7 +11,7 @@ const ESSAY_ROWS = [
   },
   {
     side: "right",
-    img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1200&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1200&q=85&auto=format&fit=crop",
     alt: "Industrial machinery — gauge cluster",
     read: "14 min read",
     date: "Apr 12, 2024",
@@ -67,9 +67,9 @@ const PROJECTS = [
   { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85&auto=format&fit=crop", alt: "Circuit board macro", caption: "snapshot · 2023" },
   { img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=85&auto=format&fit=crop&crop=focalpoint&fp-x=0.3", alt: "Server rack tight crop", caption: "scaffold · 2023" },
   { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85&auto=format&fit=crop&crop=focalpoint&fp-x=0.7", alt: "Circuit board low-angle macro", caption: "helix · 2023" },
-  { img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=600&q=85&auto=format&fit=crop&crop=focalpoint&fp-x=0.7", alt: "Server hardware deep crop", caption: "lattice · 2022" },
-  { img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=600&q=85&auto=format&fit=crop", alt: "Industrial machinery cluster", caption: "forge · 2022" },
-  { img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=600&q=85&auto=format&fit=crop&crop=focalpoint&fp-x=0.3", alt: "Industrial machinery tight crop", caption: "cornice · 2022" },
+  { img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=85&auto=format&fit=crop&crop=focalpoint&fp-x=0.7", alt: "Server hardware deep crop", caption: "lattice · 2022" },
+  { img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=600&q=85&auto=format&fit=crop", alt: "Industrial machinery cluster", caption: "forge · 2022" },
+  { img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=600&q=85&auto=format&fit=crop&crop=focalpoint&fp-x=0.3", alt: "Industrial machinery tight crop", caption: "cornice · 2022" },
   { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85&auto=format&fit=crop&crop=focalpoint&fp-x=0.3", alt: "Circuit detail with copper traces", caption: "aperture · 2021" }
 ];
 
@@ -461,7 +461,7 @@ export default function T36TechBlog() {
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
                 <aside className="md:col-span-5 md:sticky md:top-24 md:self-start">
                   <figure className="relative overflow-hidden rounded-lg border border-surface-container-highest">
-                    <img alt="Server room aisle stretching into cool blue indicator lights" className="w-full aspect-[3/4] object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1000&q=85&auto=format&fit=crop" />
+                    <img alt="Server room aisle stretching into cool blue indicator lights" className="w-full aspect-[3/4] object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=85&auto=format&fit=crop" />
                     <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(53,37,205,0.18) 0%, rgba(53,37,205,0) 35%, rgba(53,37,205,0.32) 100%)" }} />
                     <figcaption className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
                       <span className="font-label-caps text-label-caps text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] tracking-[0.2em]">FIELD · STILL · 04</span>

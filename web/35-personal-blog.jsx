@@ -1,7 +1,7 @@
 const STRIP_LEFT = [
   { id: "1490481651871-ab68de25d43d", caption: "2024 · NYC",  tone: "grayscale opacity-80" },
   { id: "1487958449943-2429e8be8625", caption: "field notes", tone: "grayscale-0 opacity-100" },
-  { id: "1492707892479-7bc8d5a4ee93", caption: "Mar · studio", tone: "grayscale opacity-80" },
+  { id: "1776275758873-31603dd06112", caption: "Mar · studio", tone: "grayscale opacity-80" },
   { id: "1469041797191-50ace28483c3", caption: "Brooklyn",    tone: "grayscale-0 opacity-100" },
   { id: "1517677208171-0bc6725a3e60", caption: "portrait",    tone: "grayscale opacity-80" },
   { id: "1502672260266-1c1ef2d93688", caption: "window",      tone: "grayscale-0 opacity-100" }
@@ -9,29 +9,29 @@ const STRIP_LEFT = [
 
 const STRIP_RIGHT = [
   { id: "1539109136881-3be0616acf4b", caption: "desk · ix",    tone: "grayscale-0 opacity-100" },
-  { id: "1481349518771-20055b2a7b24", caption: "corridor",     tone: "grayscale opacity-80" },
+  { id: "1618488373960-404fe668e524", caption: "corridor",     tone: "grayscale opacity-80" },
   { id: "1502716119720-b23a93e5fe1b", caption: "2023 · ME",    tone: "grayscale-0 opacity-100" },
-  { id: "1493663284031-b7e3aefcae8e", caption: "interior",     tone: "grayscale opacity-80" },
+  { id: "1762215781547-2ac20ed42cd1", caption: "interior",     tone: "grayscale opacity-80" },
   { id: "1483985988355-763728e1935b", caption: "portrait, ii", tone: "grayscale-0 opacity-100" },
-  { id: "1542038784456-1ea8e935640e", caption: "building",     tone: "grayscale opacity-80" }
+  { id: "1766604106308-58b6d0d676bf", caption: "building",     tone: "grayscale opacity-80" }
 ];
 
 const ARCHIVE_POSTS = [
   { id: "1518770660439-4636190af475", date: "Apr 12 · 2023", kind: "Notes", read: "8 min",  title: "Parsing attention.", href: "/archive/parsing-attention", alt: "A circuit board macro photograph." },
-  { id: "1493663284031-b7e3aefcae8e", date: "Feb 03 · 2023", kind: "Essay", read: "14 min", title: "A long, quiet tool.", href: "/archive/long-quiet-tools", alt: "An empty architectural interior." },
+  { id: "1762215781547-2ac20ed42cd1", date: "Feb 03 · 2023", kind: "Essay", read: "14 min", title: "A long, quiet tool.", href: "/archive/long-quiet-tools", alt: "An empty architectural interior." },
   { id: "1502672260266-1c1ef2d93688", date: "Nov 18 · 2022", kind: "Field", read: "6 min",  title: "The notebook as operating system.", href: "/archive/notebook-as-os", alt: "A still architectural light study." },
-  { id: "1485231183945-fffde7cc051e", date: "Jul 22 · 2022", kind: "Essay", read: "11 min", title: "The computer as instrument.", href: "/archive/computer-as-instrument", alt: "A black-and-white editorial portrait." },
-  { id: "1611652022419-a9419f74343d", date: "May 06 · 2022", kind: "Notes", read: "9 min",  title: "Keeping a commonplace.", href: "/archive/keeping-a-commonplace", alt: "A still life of small objects in amber light." },
+  { id: "1518770660439-4636190af475", date: "Jul 22 · 2022", kind: "Essay", read: "11 min", title: "The computer as instrument.", href: "/archive/computer-as-instrument", alt: "Macro photograph of a green circuit board." },
+  { id: "1527844817887-9b937993518b", date: "May 06 · 2022", kind: "Notes", read: "9 min",  title: "Keeping a commonplace.", href: "/archive/keeping-a-commonplace", alt: "A still life of small objects in amber light." },
   { id: "1487958449943-2429e8be8625", date: "Mar 11 · 2022", kind: "Essay", read: "12 min", title: "Against launch week.", href: "/archive/against-launch-week", alt: "A heavy concrete facade in raking light." }
 ];
 
 const SHELF = [
   { id: "1487958449943-2429e8be8625", title: "A Pattern Language", author: "Christopher Alexander", note: '"The first design book that ever made me cry."' },
   { id: "1469041797191-50ace28483c3", title: "In Praise of Shadows", author: "Junichirō Tanizaki", note: '"On the dignity of dim rooms."' },
-  { id: "1481349518771-20055b2a7b24", title: "The Craftsman", author: "Richard Sennett", note: '"Why we make things, even badly."' },
+  { id: "1664786200000-b1424aa47dff", title: "The Craftsman", author: "Richard Sennett", note: '"Why we make things, even badly."' },
   { id: "1502672260266-1c1ef2d93688", title: "How To Do Nothing", author: "Jenny Odell", note: '"Attention as a kind of refusal."' },
-  { id: "1493663284031-b7e3aefcae8e", title: "The Order of Time", author: "Carlo Rovelli", note: '"A small physics book about waiting."' },
-  { id: "1542038784456-1ea8e935640e", title: "Getting Lost", author: "Rebecca Solnit", note: '"Maps as confession."' }
+  { id: "1762215781547-2ac20ed42cd1", title: "The Order of Time", author: "Carlo Rovelli", note: '"A small physics book about waiting."' },
+  { id: "1664786200000-b1424aa47dff", title: "Getting Lost", author: "Rebecca Solnit", note: '"Maps as confession."' }
 ];
 
 const NOW_COLS = [
@@ -49,15 +49,15 @@ const FAQS = [
 ];
 
 const FIELD_PLATES = [
-  { id: "1531259683007-016a7b628fc3", caption: "Plate · 03 — A machine asleep.", alt: "An industrial shape in evening light." },
-  { id: "1481349518771-20055b2a7b24", caption: "Plate · 04 — Corridor, late.",   alt: "A long architectural corridor." }
+  { id: "1776524039930-ea1ed83b0f97", caption: "Plate · 03 — A machine asleep.", alt: "An industrial shape in evening light." },
+  { id: "1618488373960-404fe668e524", caption: "Plate · 04 — Corridor, late.",   alt: "A long architectural corridor." }
 ];
 
 // B&W image rails flanking the centered masthead (full-width navbar fill)
 const MASTHEAD_LEFT = [
   "1490481651871-ab68de25d43d",
   "1488161628813-04466f872be2",
-  "1492707892479-7bc8d5a4ee93",
+  "1776275758873-31603dd06112",
   "1517677208171-0bc6725a3e60",
   "1539109136881-3be0616acf4b"
 ];
@@ -90,6 +90,7 @@ const customCss = `
   }
   .mira-archive-fade { opacity: 0.78; transition: opacity 400ms ease, filter 400ms ease; }
   .mira-archive-fade:hover { opacity: 1; filter: saturate(1.05); }
+
   @media (prefers-reduced-motion: reduce) {
     .mira-shelf-track { animation: none; }
     .mira-strip-img, .mira-archive-fade { transition: none; }
@@ -281,7 +282,7 @@ export default function T35PersonalBlog() {
                   <img alt="Large editorial portrait in deep contrast." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1200&q=85&auto=format&fit=crop" />
                 </div>
                 <div className="absolute -bottom-8 -right-4 sm:-right-12 w-32 sm:w-44 aspect-[3/4] overflow-hidden rounded bg-surface-container-low border-4 border-background rotate-3 shadow-lg">
-                  <img alt="A still-life of brass and amber objects." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&q=85&auto=format&fit=crop" />
+                  <img alt="A still-life of brass and amber objects." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=600&q=85&auto=format&fit=crop" />
                 </div>
                 <div className="absolute -top-6 -left-4 sm:-left-10 w-28 sm:w-36 aspect-[3/4] overflow-hidden rounded bg-surface-container-low border-4 border-background -rotate-2 shadow-lg hidden sm:block">
                   <img alt="A b&w portrait, half in shadow." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop" />
@@ -324,11 +325,26 @@ export default function T35PersonalBlog() {
             <section className="flex flex-col gap-8">
               <span className="font-metadata text-metadata uppercase tracking-[0.2em] text-on-surface-variant border-b border-outline-variant pb-3">About · Mira Halloran</span>
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10">
-                <figure className="md:col-span-5 md:sticky md:top-24 md:self-start flex flex-col gap-3">
+                <figure className="md:col-span-5 md:sticky md:top-24 md:self-start flex flex-col gap-4">
+                  {/* Plain B&W photo — no overlay */}
                   <div className="overflow-hidden rounded bg-surface-container-low aspect-[4/5]">
-                    <img alt="Portrait of the writer at a desk." loading="lazy" className="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" />
+                    <img alt="Portrait of the writer at a desk." loading="lazy" className="w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" />
                   </div>
-                  <figcaption className="font-metadata text-[12px] uppercase tracking-[0.18em] text-on-surface-variant">Photographed at the desk · 2024</figcaption>
+
+                  {/* PLATE_HEADER — modeled on the FILE_HEADER from 61-brutalism-raw */}
+                  <div className="border border-on-surface bg-surface-container-low p-4 font-metadata text-[11px] text-on-surface">
+                    <p className="font-bold uppercase tracking-[0.22em] underline underline-offset-4 mb-3">PLATE_HEADER</p>
+                    <ul className="flex flex-col gap-1.5 m-0 p-0 list-none">
+                      <li className="flex justify-between gap-3 uppercase tracking-[0.05em]"><span className="text-on-surface-variant">NAME:</span><span className="font-bold">portrait_03.jpg</span></li>
+                      <li className="flex justify-between gap-3 uppercase tracking-[0.05em]"><span className="text-on-surface-variant">SIZE:</span><span>2.4 MB</span></li>
+                      <li className="flex justify-between gap-3 uppercase tracking-[0.05em]"><span className="text-on-surface-variant">ROLL:</span><span>42 / 36</span></li>
+                      <li className="flex justify-between gap-3 uppercase tracking-[0.05em]"><span className="text-on-surface-variant">SHOT:</span><span>2024-03-08</span></li>
+                      <li className="flex justify-between gap-3 uppercase tracking-[0.05em]"><span className="text-on-surface-variant">LENS:</span><span>50mm · f/2.8</span></li>
+                      <li className="flex justify-between gap-3 uppercase tracking-[0.05em]"><span className="text-on-surface-variant">SIGNED:</span><span>@MIRA</span></li>
+                    </ul>
+                    <hr className="border-outline-variant my-3" />
+                    <p className="text-on-surface-variant uppercase tracking-[0.18em] text-[9px] leading-relaxed">VERIFIED BY DARKROOM.<br/>Hash matches negative.</p>
+                  </div>
                 </figure>
                 <div className="md:col-span-7 flex flex-col gap-paragraph_gap">
                   <p className="font-body-lg text-body-lg text-on-surface italic">I write essays about working with computers — slowly, mostly — from a small studio in Brooklyn.</p>
@@ -424,13 +440,35 @@ export default function T35PersonalBlog() {
           <Strip items={STRIP_RIGHT} label="Margin notes · II" />
         </div>
 
-        <footer className="w-full max-w-[680px] mx-auto mt-24 mb-16 border-t border-zinc-200 pt-8 bg-white flex flex-col md:flex-row justify-between items-center px-6 gap-4">
-          <span className="text-zinc-900 text-[10px] uppercase tracking-[0.2em] font-metadata text-metadata">© mira.writing</span>
-          <nav aria-label="Footer Navigation" className="flex gap-6">
-            {footerLinks.map(l => (
-              <a key={l.href} href={l.href} className="text-zinc-400 text-[10px] uppercase tracking-[0.2em] font-metadata text-metadata hover:text-zinc-900 transition-all duration-200">{l.label}</a>
-            ))}
-          </nav>
+        {/* Footer — full screen width, mirrors the navbar with image rails flanking centred meta */}
+        <footer className="w-full mt-24 border-t border-zinc-100 bg-white grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-stretch md:min-h-[180px]">
+          <aside aria-hidden="true" className="hidden md:flex items-stretch overflow-hidden">
+            <div className="flex flex-1 gap-1.5 items-stretch py-2">
+              {MASTHEAD_RIGHT.map((id) => (
+                <div key={`fl-${id}`} className="flex-1 overflow-hidden bg-zinc-100">
+                  <img alt="" loading="lazy" src={`https://images.unsplash.com/photo-${id}?w=320&q=85&auto=format&fit=crop`} className="w-full h-full object-cover grayscale opacity-90"/>
+                </div>
+              ))}
+            </div>
+          </aside>
+          <div className="w-full max-w-[680px] mx-auto px-6 py-10 md:py-12 flex flex-col items-center gap-4">
+            <a className="text-2xl font-h1 text-h1 lowercase tracking-tight text-zinc-900 hover:opacity-70 transition-opacity" href="/">mira</a>
+            <nav aria-label="Footer Navigation" className="flex flex-wrap justify-center gap-6">
+              {footerLinks.map(l => (
+                <a key={l.href} href={l.href} className="text-zinc-500 text-[10px] uppercase tracking-[0.2em] font-metadata text-metadata hover:text-zinc-900 transition-all duration-200">{l.label}</a>
+              ))}
+            </nav>
+            <span className="text-zinc-400 text-[10px] uppercase tracking-[0.2em] font-metadata text-metadata pt-2">© mira.writing · MMXXVI</span>
+          </div>
+          <aside aria-hidden="true" className="hidden md:flex items-stretch overflow-hidden">
+            <div className="flex flex-1 gap-1.5 items-stretch py-2">
+              {MASTHEAD_LEFT.map((id) => (
+                <div key={`fr-${id}`} className="flex-1 overflow-hidden bg-zinc-100">
+                  <img alt="" loading="lazy" src={`https://images.unsplash.com/photo-${id}?w=320&q=85&auto=format&fit=crop`} className="w-full h-full object-cover grayscale opacity-90"/>
+                </div>
+              ))}
+            </div>
+          </aside>
         </footer>
       </div>
     </>

@@ -3,14 +3,14 @@ const SWISS_INDEX_TILES = [
   { n: "01", name: "Haus am See",    yr: "2025", typ: "RESIDENTIAL · LU", img: "1487958449943-2429e8be8625" },
   { n: "02", name: "Vertex Tower",   yr: "2024", typ: "COMMERCIAL · BS",  img: "1517021897933-0e0319cfbc28" },
   { n: "03", name: "Gallery X",      yr: "2024", typ: "CULTURAL · GE",    img: "1469041797191-50ace28483c3" },
-  { n: "04", name: "Atelier Nord",   yr: "2024", typ: "STUDIO · ZH",      img: "1481349518771-20055b2a7b24" },
+  { n: "04", name: "Atelier Nord",   yr: "2024", typ: "STUDIO · ZH",      img: "1618488373960-404fe668e524" },
   { n: "05", name: "Maison Rive",    yr: "2023", typ: "RESIDENTIAL · GE", img: "1502672260266-1c1ef2d93688" },
-  { n: "06", name: "Stadtbibliothek",yr: "2023", typ: "CIVIC · BE",       img: "1493663284031-b7e3aefcae8e" },
-  { n: "07", name: "Werkhof",        yr: "2023", typ: "INDUSTRIAL · ZH",  img: "1542038784456-1ea8e935640e" },
+  { n: "06", name: "Stadtbibliothek",yr: "2023", typ: "CIVIC · BE",       img: "1762215781547-2ac20ed42cd1" },
+  { n: "07", name: "Werkhof",        yr: "2023", typ: "INDUSTRIAL · ZH",  img: "1766604106308-58b6d0d676bf" },
   { n: "08", name: "Pavillon Léman", yr: "2022", typ: "PAVILION · VD",    img: "1487958449943-2429e8be8625" },
   { n: "09", name: "Lager 12",       yr: "2022", typ: "ADAPTIVE · ZH",    img: "1517021897933-0e0319cfbc28" },
   { n: "10", name: "Schule Aspen",   yr: "2021", typ: "EDUCATION · GR",   img: "1469041797191-50ace28483c3" },
-  { n: "11", name: "Höhenweg",       yr: "2021", typ: "RESIDENTIAL · VS", img: "1481349518771-20055b2a7b24" },
+  { n: "11", name: "Höhenweg",       yr: "2021", typ: "RESIDENTIAL · VS", img: "1618488373960-404fe668e524" },
   { n: "12", name: "Kontor Nord",    yr: "2020", typ: "OFFICE · SG",      img: "1502672260266-1c1ef2d93688" },
 ];
 
@@ -453,7 +453,7 @@ export default function T52SwissMinimalist() {
               <div className="col-span-12 md:col-span-6 md:border-r border-swiss-black/10 relative">
                 <div className="md:sticky md:top-20 md:self-start">
                   <div className="aspect-[4/5] md:aspect-auto md:h-[calc(100vh-5rem)] overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=85&auto=format&fit=crop"
+                    <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1600&q=85&auto=format&fit=crop"
                          alt="Architectural facade detail"
                          loading="lazy"
                          className="w-full h-full object-cover grayscale" />

@@ -7,14 +7,22 @@ export default function T79NeoBrutalism() {
   ];
   const mobileLinks = ["Work", "Services", "Agency", "FAQ"];
 
-  // Plates marquee — mixed-aspect tiles in chunky brutalist frames (M.8 + K.6 + K.10)
+  // Plates marquee — ONLY landscape tiles (PLATE_02/04/06) get nested cards (R2 user fix).
+  // Portrait tiles fill their height naturally and stay clean.
+  // Landscape cards use flex-1 to absorb whitespace below the short image and carry a 3-stat grid.
   const plates = [
     { id: "PLATE_01", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop", alt: "Plate 01 — Seoul backstreet", loc: "SEL · 02:14", locColor: "text-neo-red", frameBg: "bg-white", txtColor: "", rot: "transform -rotate-2", w: "w-72 sm:w-80", aspect: "aspect-[4/5]" },
-    { id: "PLATE_02", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop", alt: "Plate 02 — Circuit close-up", loc: "BER · 14:08", locColor: "", frameBg: "bg-neo-yellow", txtColor: "", rot: "", w: "w-96", aspect: "aspect-[16/10]" },
+    { id: "PLATE_02", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop", alt: "Plate 02 — Circuit close-up", loc: "BER · 14:08", locColor: "", frameBg: "bg-neo-yellow", txtColor: "", rot: "", w: "w-96", aspect: "aspect-[16/10]",
+      hasCard: true, icon: "terminal", iconBg: "bg-neo-black", iconColor: "text-white", cardBg: "bg-white", cardTitle: "Hardware", cardMeta: "Sprint 03 · OK",
+      stats: [{ label: "Audit", value: "12d" }, { label: "Build", value: "22d" }, { label: "QA", value: "5d" }] },
     { id: "PLATE_03", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop", alt: "Plate 03 — Studio portrait", loc: "LIS · 09:42", locColor: "text-neo-red", frameBg: "bg-white", txtColor: "", rot: "transform rotate-2", w: "w-72 sm:w-80", aspect: "aspect-[3/4]" },
-    { id: "PLATE_04", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1000&auto=format&fit=crop", alt: "Plate 04 — Brutalist facade", loc: "SEL · 17:01", locColor: "", frameBg: "bg-neo-red", txtColor: "text-white", rot: "transform -rotate-1", w: "w-96", aspect: "aspect-[16/10]" },
-    { id: "PLATE_05", img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop", alt: "Plate 05 — Editorial portrait", loc: "NYC · 22:30", locColor: "", frameBg: "bg-white", txtColor: "", rot: "", w: "w-72 sm:w-80", aspect: "aspect-[3/4]" },
-    { id: "PLATE_06", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1000&auto=format&fit=crop", alt: "Plate 06 — Concrete corridor", loc: "TYO · 06:18", locColor: "text-neo-red", frameBg: "bg-neo-bg", txtColor: "", rot: "transform rotate-1", w: "w-96", aspect: "aspect-[16/10]" },
+    { id: "PLATE_04", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1000&auto=format&fit=crop", alt: "Plate 04 — Brutalist facade", loc: "SEL · 17:01", locColor: "", frameBg: "bg-neo-red", txtColor: "text-white", rot: "transform -rotate-1", w: "w-96", aspect: "aspect-[16/10]",
+      hasCard: true, icon: "bar-chart-3", iconBg: "bg-neo-yellow", iconColor: "text-black", cardBg: "bg-white", cardTitle: "Identity", cardMeta: "+48% lift · launch",
+      stats: [{ label: "Logos", value: "3" }, { label: "Pages", value: "24" }, { label: "Tokens", value: "86" }] },
+    { id: "PLATE_05", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop", alt: "Plate 05 — Editorial portrait", loc: "NYC · 22:30", locColor: "", frameBg: "bg-white", txtColor: "", rot: "", w: "w-72 sm:w-80", aspect: "aspect-[3/4]" },
+    { id: "PLATE_06", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=1000&auto=format&fit=crop", alt: "Plate 06 — Concrete corridor", loc: "TYO · 06:18", locColor: "text-neo-red", frameBg: "bg-neo-bg", txtColor: "", rot: "transform rotate-1", w: "w-96", aspect: "aspect-[16/10]",
+      hasCard: true, icon: "globe", iconBg: "bg-neo-black", iconColor: "text-white", cardBg: "bg-neo-yellow", cardTitle: "City Map", cardMeta: "Tokyo cycle · 14h",
+      stats: [{ label: "Cities", value: "4" }, { label: "Routes", value: "12" }, { label: "Spots", value: "47" }] },
   ];
 
   const faqs = [
@@ -25,14 +33,25 @@ export default function T79NeoBrutalism() {
     { q: "Where are you based?", a: "HQ in Seoul. The studio runs across three time zones — Asia, Europe, and the Americas — so handoffs cross calendars cleanly. We ship 24/7 without all-nighters.", chip: "bg-neo-black", chipText: "text-white" },
   ];
 
-  const heroChips = ["Brand Systems", "Web Experiences", "Launch Campaigns"];
   const heroStats = [
     { num: "25+", label: "Launches" },
     { num: "12", label: "Industries" },
     { num: "96%", label: "Repeat Rate" },
   ];
 
-  const trustChips = ["Nimbus", "Orbit", "Volt Lab", "Prism", "Kinetic"];
+  // Real brand logos via Simple Icons CDN (D.0.1) — 10 chips (R2: added GitHub + Slack)
+  const trustChips = [
+    { name: "Vercel", slug: "vercel", color: "000000" },
+    { name: "Linear", slug: "linear", color: "5E6AD2" },
+    { name: "Notion", slug: "notion", color: "000000" },
+    { name: "Figma", slug: "figma", color: "F24E1E" },
+    { name: "Stripe", slug: "stripe", color: "635BFF" },
+    { name: "Webflow", slug: "webflow", color: "146EF5" },
+    { name: "Loom", slug: "loom", color: "625DF5" },
+    { name: "Spotify", slug: "spotify", color: "1DB954" },
+    { name: "GitHub", slug: "github", color: "000000" },
+    { name: "Discord", slug: "discord", color: "5865F2" },
+  ];
   const trustStats = [
     { num: "2-4", label: "Week Sprints" },
     { num: "9.4", label: "Client NPS" },
@@ -138,9 +157,16 @@ export default function T79NeoBrutalism() {
         .neo-faq summary { list-style: none; }
         .neo-faq summary .neo-chevron { transition: transform 200ms ease; }
         .neo-faq[open] summary .neo-chevron { transform: rotate(180deg); }
+        /* Selected Chaos — italic red word with subtle scale pulse */
+        @keyframes chaos-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+        .chaos-pulse { display: inline-block; transform-origin: center; animation: chaos-pulse 1.6s ease-in-out infinite; }
+        /* Decorative square layer — sits behind content, never blocks clicks */
+        .deco-squares { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+        .deco-squares > span { position: absolute; display: block; border: 3px solid #000000; }
         @media (prefers-reduced-motion: reduce) {
           .animate-marquee, .animate-plate-marquee, .animate-spin-slow, .animate-bounce { animation: none !important; }
           .neo-faq summary .neo-chevron { transition: none; }
+          .chaos-pulse { animation: none; }
         }
       ` }} />
 
@@ -175,24 +201,28 @@ export default function T79NeoBrutalism() {
           </div>
         </nav>
 
-        <header className="relative overflow-hidden pt-12 pb-16 lg:pt-32 lg:pb-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <header className="relative overflow-hidden min-h-screen flex items-center pt-24 pb-12 lg:pt-28 lg:pb-16">
+          {/* Decorative squares — bottom-left red→yellow + mirrored red top-right; black squares removed (R3) */}
+          <div className="deco-squares" aria-hidden="true">
+            <span className="bg-neo-yellow shadow-neo" style={{ width: "18rem", height: "18rem", bottom: "-5rem", left: "-4rem", transform: "rotate(10deg)" }}></span>
+            <span className="bg-neo-red shadow-neo" style={{ width: "18rem", height: "18rem", top: "-5rem", right: "-4rem", transform: "rotate(-10deg)" }}></span>
+            <span className="bg-neo-red" style={{ width: "1.5rem", height: "1.5rem", top: "7rem", left: "32%", transform: "rotate(8deg)" }}></span>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               <div className="lg:col-span-7 flex flex-col items-start" data-aos="fade-right">
                 <div className="inline-block bg-neo-yellow border-hard px-4 py-1 mb-6 shadow-neo transform -rotate-2 hover:rotate-0 transition-transform">
                   <span className="font-bold uppercase tracking-widest text-xs sm:text-sm">Est. 2024 // Seoul - Global</span>
                 </div>
-                <h1 className="font-display font-extrabold text-5xl sm:text-7xl lg:text-8xl leading-none uppercase mb-6 sm:mb-8 break-words w-full">
-                  We Build <span className="text-neo-red underline decoration-4 decoration-black underline-offset-4 md:underline-offset-8">Loud</span> Brands
+                {/* 3-line stacked headline: "We build / LOUD / BRANDS" — smaller clamps per user (R2) */}
+                <h1 className="font-display font-extrabold leading-[0.85] mb-6 sm:mb-8 w-full">
+                  <span className="block whitespace-nowrap text-[clamp(2rem,5vw,3.5rem)]">We build</span>
+                  <span className="block whitespace-nowrap uppercase text-[clamp(3.5rem,11vw,8rem)] text-neo-red stroke-black tracking-tighter -my-1 sm:-my-2">LOUD</span>
+                  <span className="block whitespace-nowrap uppercase text-[clamp(2.25rem,7vw,5rem)]">BRANDS</span>
                 </h1>
-                <p className="text-lg sm:text-2xl font-medium mb-6 sm:mb-8 max-w-xl border-l-4 border-black pl-4 sm:pl-6">
+                <p className="text-base sm:text-xl font-medium mb-6 sm:mb-8 max-w-xl border-l-4 border-black pl-4 sm:pl-6">
                   No fluff. No corporate jargon. Just raw creativity and digital chaos designed to convert.
                 </p>
-                <div className="flex flex-wrap gap-3 mb-8">
-                  {heroChips.map((c) => (
-                    <span key={c} className="bg-white border-hard px-3 py-1 text-xs font-bold uppercase shadow-neo">{c}</span>
-                  ))}
-                </div>
                 <div className="flex flex-col w-full sm:w-auto sm:flex-row gap-4">
                   <a href="mailto:hello@raw.kr" className="btn-neo w-full sm:w-auto bg-neo-red text-white border-hard px-8 py-4 text-lg sm:text-xl font-bold uppercase shadow-neo flex items-center justify-center gap-2">
                     Start Project <i data-lucide="arrow-right" className="w-6 h-6"></i>
@@ -232,7 +262,10 @@ export default function T79NeoBrutalism() {
               </div>
               <div className="flex flex-wrap gap-3" data-aos="fade-left">
                 {trustChips.map((c) => (
-                  <div key={c} className="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">{c}</div>
+                  <div key={c.slug} className="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${c.slug}/${c.color}`} alt="" className="h-4 sm:h-5 w-auto" loading="lazy" decoding="async" />
+                    <span className="text-xs sm:text-sm font-bold uppercase">{c.name}</span>
+                  </div>
                 ))}
               </div>
             </div>
@@ -262,14 +295,36 @@ export default function T79NeoBrutalism() {
           </div>
 
           {/* Marquee track — py-3 wrapper for chunky-shadow clearance (K.10) */}
+          {/* Only landscape tiles (hasCard) render the big card filling whitespace below short image (R2) */}
           <div className="overflow-hidden py-3">
             <div className="plate-track animate-plate-marquee">
               {plates.map((p) => (
-                <figure key={p.id} className={`shrink-0 ${p.w} ${p.frameBg} border-hard p-2 shadow-neo ${p.rot}`}>
+                <figure key={p.id} className={`shrink-0 ${p.w} ${p.frameBg} border-hard p-2 shadow-neo ${p.rot} flex flex-col`}>
                   <div className={`${p.aspect} bg-neo-black border-hard overflow-hidden`}>
                     <img src={p.img} alt={p.alt} className="w-full h-full object-cover grayscale contrast-110" />
                   </div>
-                  <figcaption className={`flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase ${p.txtColor}`}>
+                  {p.hasCard && (
+                    <div className={`mt-2 flex-1 ${p.cardBg} border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3`}>
+                      <div className="flex items-center gap-2.5">
+                        <span className={`${p.iconBg} ${p.iconColor} border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0`}>
+                          <i data-lucide={p.icon} className="w-4 h-4"></i>
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-display font-bold text-base uppercase truncate">{p.cardTitle}</div>
+                          <div className="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">{p.cardMeta}</div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                        {p.stats.map((s) => (
+                          <div key={s.label}>
+                            <span className="font-mono text-[9px] uppercase tracking-widest opacity-70 block">{s.label}</span>
+                            <span className="font-display text-sm font-bold tabular-nums">{s.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <figcaption className={`flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase ${p.txtColor} ${p.hasCard ? "" : "mt-auto"}`}>
                     <span>{`[ ${p.id} ]`}</span>
                     <span className={p.locColor}>{p.loc}</span>
                   </figcaption>
@@ -277,11 +332,32 @@ export default function T79NeoBrutalism() {
               ))}
               {/* Duplicate set for seamless loop */}
               {plates.map((p) => (
-                <figure key={`dup-${p.id}`} aria-hidden="true" className={`shrink-0 ${p.w} ${p.frameBg} border-hard p-2 shadow-neo ${p.rot}`}>
+                <figure key={`dup-${p.id}`} aria-hidden="true" className={`shrink-0 ${p.w} ${p.frameBg} border-hard p-2 shadow-neo ${p.rot} flex flex-col`}>
                   <div className={`${p.aspect} bg-neo-black border-hard overflow-hidden`}>
                     <img src={p.img} alt="" className="w-full h-full object-cover grayscale contrast-110" />
                   </div>
-                  <figcaption className={`flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase ${p.txtColor}`}>
+                  {p.hasCard && (
+                    <div className={`mt-2 flex-1 ${p.cardBg} border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3`}>
+                      <div className="flex items-center gap-2.5">
+                        <span className={`${p.iconBg} ${p.iconColor} border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0`}>
+                          <i data-lucide={p.icon} className="w-4 h-4"></i>
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-display font-bold text-base uppercase truncate">{p.cardTitle}</div>
+                          <div className="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">{p.cardMeta}</div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                        {p.stats.map((s) => (
+                          <div key={s.label}>
+                            <span className="font-mono text-[9px] uppercase tracking-widest opacity-70 block">{s.label}</span>
+                            <span className="font-display text-sm font-bold tabular-nums">{s.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <figcaption className={`flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase ${p.txtColor} ${p.hasCard ? "" : "mt-auto"}`}>
                     <span>{`[ ${p.id} ]`}</span>
                     <span className={p.locColor}>{p.loc}</span>
                   </figcaption>
@@ -298,8 +374,16 @@ export default function T79NeoBrutalism() {
           </div>
         </div>
 
-        <section id="services" className="py-16 sm:py-24 bg-white border-b-3 border-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="services" className="relative overflow-hidden py-16 sm:py-24 bg-white border-b-3 border-black">
+          {/* Decorative squares — medium / small / tiny */}
+          <div className="deco-squares" aria-hidden="true">
+            <span className="bg-neo-bg" style={{ width: "8rem", height: "8rem", top: "3rem", right: "5%", transform: "rotate(6deg)" }}></span>
+            <span className="bg-neo-yellow shadow-neo-mob" style={{ width: "4rem", height: "4rem", bottom: "6rem", left: "4%", transform: "rotate(-12deg)" }}></span>
+            <span className="bg-neo-black" style={{ width: "1.5rem", height: "1.5rem", top: "9rem", left: "18%" }}></span>
+            <span className="bg-neo-red" style={{ width: "1.5rem", height: "1.5rem", bottom: "11rem", right: "14%", transform: "rotate(8deg)" }}></span>
+            <span className="bg-neo-black" style={{ width: "0.75rem", height: "0.75rem", top: "50%", left: "50%" }}></span>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 sm:mb-16 gap-6">
               <div>
                 <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase" data-aos="fade-up">Our <span className="bg-neo-bg px-2">Arsenal</span></h2>
@@ -351,10 +435,17 @@ export default function T79NeoBrutalism() {
           </div>
         </section>
 
-        <section id="about" className="py-16 sm:py-24 bg-white border-b-3 border-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-              <div className="lg:col-span-7" data-aos="fade-right">
+        <section id="about" className="relative overflow-hidden py-16 sm:py-24 bg-white border-b-3 border-black">
+          {/* Decorative squares — black squares removed per user (R2). 3 left: large grey / small red / tiny yellow */}
+          <div className="deco-squares" aria-hidden="true">
+            <span className="bg-neo-bg" style={{ width: "18rem", height: "18rem", top: "50%", right: "-7rem", transform: "translateY(-50%) rotate(8deg)" }}></span>
+            <span className="bg-neo-red shadow-neo-mob" style={{ width: "5rem", height: "5rem", top: "4rem", left: "8%", transform: "rotate(-10deg)" }}></span>
+            <span className="bg-neo-yellow" style={{ width: "1.5rem", height: "1.5rem", top: "9rem", right: "38%" }}></span>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* items-stretch + flex-col on each col so column bottoms align */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+              <div className="lg:col-span-7 flex flex-col" data-aos="fade-right">
                 <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase mb-6">Agency, Not a Factory</h2>
                 <p className="text-lg sm:text-xl font-medium max-w-xl">RAW.kr is a senior, hands-on studio focused on bold identities and fast-moving digital experiences. We do fewer projects so every launch hits harder.</p>
                 <ul className="mt-6 space-y-3 text-base sm:text-lg font-medium">
@@ -365,14 +456,35 @@ export default function T79NeoBrutalism() {
                     </li>
                   ))}
                 </ul>
+                {/* Bottom-pinned signature footer so left col fills row height */}
+                <div className="mt-auto pt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                  <span className="font-mono text-xs uppercase tracking-widest border-t-3 border-black pt-3">Est. 2024 · Seoul HQ</span>
+                  <span className="font-mono text-xs uppercase tracking-widest text-neo-red border-t-3 border-neo-red pt-3">Next intake · Q3 — 2 slots left</span>
+                </div>
               </div>
-              <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4" data-aos="fade-left">
-                {aboutCards.map((c) => (
-                  <div key={c.title} className="bg-neo-bg border-hard p-5 shadow-neo">
-                    <h3 className="font-display font-bold text-xl uppercase mb-2">{c.title}</h3>
-                    <p className="font-medium">{c.body}</p>
+              {/* Right col: 2x2 grid + bottom-pinned wide cadence card */}
+              <div className="lg:col-span-5 flex flex-col gap-4" data-aos="fade-left">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {aboutCards.map((c) => (
+                    <div key={c.title} className="bg-neo-bg border-hard p-5 shadow-neo">
+                      <h3 className="font-display font-bold text-xl uppercase mb-2">{c.title}</h3>
+                      <p className="font-medium">{c.body}</p>
+                    </div>
+                  ))}
+                </div>
+                {/* New wide cadence card — bottom-pinned via mt-auto so column heights align (P.4 + B.4.1) */}
+                <div className="mt-auto bg-neo-black text-white border-hard p-5 shadow-neo flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs uppercase tracking-widest opacity-70">// Cadence</span>
+                    <span className="bg-neo-yellow text-black border-hard px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest font-bold">LIVE</span>
                   </div>
-                ))}
+                  <h3 className="font-display font-bold text-lg sm:text-xl uppercase leading-tight">Friday Demos. Monday Ships.</h3>
+                  <ul className="grid grid-cols-3 gap-2 text-[10px] font-mono uppercase tracking-widest pt-2 border-t border-white/20">
+                    <li className="flex flex-col"><span className="text-neo-yellow">FRI</span><span className="opacity-80">Demo</span></li>
+                    <li className="flex flex-col"><span className="text-neo-yellow">MON</span><span className="opacity-80">Sprint</span></li>
+                    <li className="flex flex-col"><span className="text-neo-yellow">QTR</span><span className="opacity-80">Review</span></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -380,7 +492,7 @@ export default function T79NeoBrutalism() {
 
         <section id="work" className="py-16 sm:py-24 bg-neo-bg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-display font-black text-4xl sm:text-6xl uppercase mb-4 text-center" data-aos="fade-up">Selected <span className="underline decoration-wavy decoration-neo-red decoration-4">Chaos</span></h2>
+            <h2 className="font-display font-black text-4xl sm:text-6xl uppercase mb-4 text-center" data-aos="fade-up">Selected <span className="text-neo-red italic chaos-pulse">Chaos</span></h2>
             <p className="text-lg sm:text-xl font-medium text-center max-w-2xl mx-auto mb-12 sm:mb-16" data-aos="fade-up" data-aos-delay="100">Case studies where bold design met measurable results.</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
@@ -425,8 +537,12 @@ export default function T79NeoBrutalism() {
           </div>
         </section>
 
-        <section className="py-16 sm:py-24 bg-white border-t-3 border-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden py-16 sm:py-24 bg-white border-t-3 border-black">
+          {/* Decorative squares — only the bottom-right yellow corner kept per user (R2) */}
+          <div className="deco-squares" aria-hidden="true">
+            <span className="bg-neo-yellow shadow-neo" style={{ width: "10rem", height: "10rem", bottom: "-3rem", right: "-3rem", transform: "rotate(14deg)" }}></span>
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 sm:mb-16">
               <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase" data-aos="fade-up">Client Proof</h2>
               <p className="text-lg sm:text-xl font-medium max-w-xl" data-aos="fade-up" data-aos-delay="100">Real teams. Real wins. No fluff testimonials.</p>
@@ -443,19 +559,26 @@ export default function T79NeoBrutalism() {
         </section>
 
         {/* FAQ — brutalist details accordion */}
-        <section id="faq" className="py-16 sm:py-24 bg-neo-bg border-t-3 border-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-              <div className="lg:col-span-5" data-aos="fade-right">
-                <span className="inline-block bg-neo-red text-white border-hard px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest mb-4">// Read Me First</span>
+        <section id="faq" className="relative overflow-hidden py-16 sm:py-24 bg-neo-bg border-t-3 border-black">
+          {/* Decorative squares — both blacks removed per user (R3). Yellow + red kept. */}
+          <div className="deco-squares" aria-hidden="true">
+            <span className="bg-neo-yellow shadow-neo-mob" style={{ width: "5rem", height: "5rem", top: "5rem", right: "6%", transform: "rotate(-12deg)" }}></span>
+            <span className="bg-neo-red" style={{ width: "1.25rem", height: "1.25rem", top: "13rem", left: "8%", transform: "rotate(10deg)" }}></span>
+          </div>
+          {/* Wider container (R3): pushes left col closer to viewport edge on wide screens */}
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* 2-track fractional template (R4): bigger gap without 12-col math collapsing the right column past viewport (playbook L.6) */}
+            <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-y-10 gap-x-12 lg:gap-x-24 xl:gap-x-32 items-stretch">
+              <div className="flex flex-col" data-aos="fade-right">
+                <span className="inline-block bg-neo-red text-white border-hard px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest mb-4 self-start">// Read Me First</span>
                 <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase mb-6 leading-none">
-                  Loud Questions.<br />
+                  Loud Questions<br />
                   <span className="bg-neo-yellow border-hard px-2 inline-block transform -rotate-1 mt-2">Plain Answers.</span>
                 </h2>
                 <p className="text-lg font-medium mb-8 max-w-md">Everything we get asked twice. Pricing, timelines, scope, the boring legal bit.</p>
                 <div className="relative bg-white border-hard p-2 shadow-neo-lg transform rotate-1 max-w-sm">
                   <div className="aspect-[4/5] bg-neo-black border-hard overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" alt="Studio at work" className="w-full h-full object-cover grayscale contrast-110" />
+                    <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop" alt="Studio at work" className="w-full h-full object-cover grayscale contrast-110" />
                   </div>
                   <div className="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
                     <span>[ STUDIO_LOG ]</span>
@@ -464,18 +587,47 @@ export default function T79NeoBrutalism() {
                 </div>
               </div>
 
-              <div className="lg:col-span-7 bg-white border-hard shadow-neo-lg" data-aos="fade-left">
-                {faqs.map((f, i) => (
-                  <details key={f.q} className={`neo-faq ${i === faqs.length - 1 ? "" : "border-b-3 border-black"} p-5 sm:p-6 group`} open={i === 0 ? true : undefined}>
-                    <summary className="flex justify-between items-center gap-4 cursor-pointer">
-                      <h3 className="font-display font-bold text-lg sm:text-xl uppercase pr-4">{f.q}</h3>
-                      <span className={`neo-chevron shrink-0 ${f.chip} ${f.chipText} border-hard w-10 h-10 flex items-center justify-center shadow-neo`}>
-                        <i data-lucide="chevron-down" className="w-5 h-5"></i>
-                      </span>
-                    </summary>
-                    <p className="mt-4 text-base sm:text-lg font-medium leading-relaxed">{f.a}</p>
-                  </details>
-                ))}
+              {/* Right rail — accordion + image plate (fills empty space) + "Still have questions?" card (R2) */}
+              <div className="flex flex-col gap-6 lg:gap-8" data-aos="fade-left">
+                <div className="bg-white border-hard shadow-neo-lg">
+                  {faqs.map((f, i) => (
+                    <details key={f.q} className={`neo-faq ${i === faqs.length - 1 ? "" : "border-b-3 border-black"} p-5 sm:p-6 group`} open={i === 0 ? true : undefined}>
+                      <summary className="flex justify-between items-center gap-4 cursor-pointer">
+                        <h3 className="font-display font-bold text-lg sm:text-xl uppercase pr-4">{f.q}</h3>
+                        <span className={`neo-chevron shrink-0 ${f.chip} ${f.chipText} border-hard w-10 h-10 flex items-center justify-center shadow-neo`}>
+                          <i data-lucide="chevron-down" className="w-5 h-5"></i>
+                        </span>
+                      </summary>
+                      <p className="mt-4 text-base sm:text-lg font-medium leading-relaxed">{f.a}</p>
+                    </details>
+                  ))}
+                </div>
+                {/* Image plate — flex-1 grows to fill any remaining vertical space so right col bottoms with left col */}
+                <figure className="flex-1 bg-white border-hard p-2 shadow-neo flex flex-col">
+                  <div className="flex-1 relative bg-neo-black border-hard overflow-hidden min-h-[180px]">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop" alt="Studio frame — late build" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110" />
+                  </div>
+                  <figcaption className="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                    <span>[ STUDIO_FRAME_02 ]</span>
+                    <span className="text-neo-red">BUILD · 04:21</span>
+                  </figcaption>
+                </figure>
+                {/* "Still have questions?" card — bigger padding + extra meta row */}
+                <div className="bg-neo-black text-white border-hard shadow-neo p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6">
+                  <span className="bg-neo-yellow border-hard w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-neo-mob shrink-0">
+                    <i data-lucide="mail" className="w-7 h-7 sm:w-8 sm:h-8 text-black"></i>
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display font-bold text-lg sm:text-2xl uppercase mb-1">Still have questions?</h3>
+                    <p className="font-mono text-[11px] sm:text-xs uppercase tracking-widest opacity-80 mb-3">Reply within 4 hrs · Asia + EU + Americas</p>
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono uppercase tracking-widest">
+                      <span><span className="text-neo-yellow">FRI</span> Demo</span>
+                      <span><span className="text-neo-yellow">MON</span> Sprint</span>
+                      <span><span className="text-neo-yellow">QTR</span> Review</span>
+                    </div>
+                  </div>
+                  <a href="mailto:hello@raw.kr" className="btn-neo bg-neo-red border-3 border-white px-5 py-3 sm:px-6 sm:py-4 text-sm sm:text-base font-bold uppercase shadow-[4px_4px_0px_0px_#FFFFFF] shrink-0 self-start sm:self-auto">Ask →</a>
+                </div>
               </div>
             </div>
           </div>

@@ -2,11 +2,11 @@ const WORLD_TILES = [
   { id: "T-014", caption: "PALE_CITY", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Architecture facade" },
   { id: "T-022", caption: "CONCRETE_HUM", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Brutalist hall" },
   { id: "T-031", caption: "SPIRAL_AXIS", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Tower stair" },
-  { id: "T-047", caption: "GLASS_LATTICE", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "Geometric facade" },
+  { id: "T-047", caption: "GLASS_LATTICE", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Geometric facade" },
   { id: "T-058", caption: "VAULT_NULL", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Modern interior" },
-  { id: "T-066", caption: "SERVER_HYMN", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop", alt: "Server rack" },
+  { id: "T-066", caption: "SERVER_HYMN", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "Server rack" },
   { id: "T-073", caption: "TRACE_FIELD", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "Circuit macro" },
-  { id: "T-089", caption: "METAL_DRIFT", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop", alt: "Industrial machinery" },
+  { id: "T-089", caption: "METAL_DRIFT", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Industrial machinery" },
 ];
 
 const MANIFESTO_BLOCKS = [
@@ -55,7 +55,7 @@ const PROTOCOLS = [
     code: "PROTO_ID · 0xMS-01",
     title: "MIRROR SYNC",
     accent: "primary-fixed",
-    img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1200&q=85&auto=format&fit=crop",
     alt: "Mirrored facade",
     body: "Mirror Sync is the canonical handshake between two collaborators editing the same manifest in different timezones. The protocol is symmetric — neither party is treated as the source of truth, and merge resolution is deferred until both parties have voluntarily flagged a session as resolved. Cursor presence, selection, and clipboard history travel together as a single triplet, encrypted with a session key that rotates every twelve seconds. The result is a working surface that feels less like a document and more like a shared room with two windows. We use Mirror Sync as the default for any manifest opened by more than one collaborator inside a single calendar week.",
     tags: [
@@ -91,7 +91,7 @@ const PROTOCOLS = [
     code: "PROTO_ID · 0xEB-03",
     title: "ECHO BIND",
     accent: "primary-fixed",
-    img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1200&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1200&q=85&auto=format&fit=crop",
     alt: "Industrial machinery",
     body: "Echo Bind is the closing protocol — the part of the system responsible for stitching a finished manifest back into the canonical timeline so that downstream consumers see a coherent revision. Bindings are append-only and cryptographically chained; once an echo is bound, it can be superseded but never silently rewritten. The protocol introduces a deliberate twelve-minute settle window during which any party with read access can flag a bind as suspicious, after which the bind either commits or returns to the drift pool. Echo Bind is what makes the multiverse legible to outsiders. Without it, every manifest would be private folklore.",
     tags: [

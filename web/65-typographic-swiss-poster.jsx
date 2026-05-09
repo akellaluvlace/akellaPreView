@@ -281,7 +281,7 @@ export default function T65TypographicSwissPoster() {
             {[
               { n: "01", id: "1490481651871-ab68de25d43d", name: "Anya Reuter", role: "Director, Edition.werk · DE", dot: true },
               { n: "02", id: "1488161628813-04466f872be2", name: "Lior Mensch", role: "Variable Type Lead · IL" },
-              { n: "03", id: "1492707892479-7bc8d5a4ee93", name: "Marisol Cano", role: "Editorial Critic · ES" },
+              { n: "03", id: "1776275758873-31603dd06112", name: "Marisol Cano", role: "Editorial Critic · ES" },
               { n: "04", id: "1517677208171-0bc6725a3e60", name: "Theo Vance", role: "Foundry Programmer · UK" },
               { n: "05", id: "1539109136881-3be0616acf4b", name: "Hana Sato", role: "Kanji System Design · JP" },
               { n: "06", id: "1502716119720-b23a93e5fe1b", name: "Daniel Okafor", role: "Brand Systems · NG" },
@@ -405,7 +405,7 @@ export default function T65TypographicSwissPoster() {
           <div className="grid grid-cols-1 lg:grid-cols-12">
             <div className="lg:col-span-5 lg:border-r-2 border-swiss-black bg-swiss-offwhite">
               <div className="lg:sticky lg:top-0 lg:h-screen flex items-stretch">
-                <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1200&q=85&auto=format&fit=crop" alt="Bauakademie portrait — venue" className="w-full h-full object-cover aspect-[3/4] lg:aspect-auto grayscale" />
+                <img src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=1200&q=85&auto=format&fit=crop" alt="Bauakademie portrait — venue" className="w-full h-full object-cover aspect-[3/4] lg:aspect-auto grayscale" />
               </div>
             </div>
 

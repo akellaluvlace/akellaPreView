@@ -52,7 +52,7 @@ export default function T89EditorialMagazine() {
     { name: "Hannah Keats", piece: '"The Quiet Years" · 8 min', kind: "ESSAY", study: "I", w: "w-72", aspect: "aspect-[3/4]", grad: "from-[#1A1915] via-[#1A1915]/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" },
     { name: "Julian Barnes", piece: '"Mechanics of Memory" · 6 min', kind: "ESSAY", study: "II", w: "w-80", aspect: "aspect-[16/10]", grad: "from-[#1A1915]/60 via-transparent to-transparent", dir: "r", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=85&auto=format&fit=crop" },
     { name: "Elena Rostova", piece: '"Brutalism Revisited" · 12 min', kind: "CRITIQUE", study: "III", w: "w-72", aspect: "aspect-[3/4]", grad: "from-[#1A1915] via-[#1A1915]/40 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" },
-    { name: "Thomas Vance", piece: '"The Empty Stage" · 18 min', kind: "INTERVIEW", study: "IV", w: "w-96", aspect: "aspect-[16/10]", grad: "from-[#1A1915]/70 via-transparent to-[#A8802C]/15", dir: "tr", src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1100&q=85&auto=format&fit=crop" },
+    { name: "Thomas Vance", piece: '"The Empty Stage" · 18 min', kind: "INTERVIEW", study: "IV", w: "w-96", aspect: "aspect-[16/10]", grad: "from-[#1A1915]/70 via-transparent to-[#A8802C]/15", dir: "tr", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1100&q=85&auto=format&fit=crop" },
     { name: "Sarah Chen", piece: "In conversation with TV · 18 min", kind: "INTERVIEWER", study: "V", w: "w-72", aspect: "aspect-[3/4]", grad: "from-[#1A1915] via-[#1A1915]/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&q=85&auto=format&fit=crop" },
     { name: "Arthur Penhaligon", piece: '"Autumnal Decay" · three poems', kind: "POETRY", study: "VI", w: "w-80", aspect: "aspect-[16/10]", grad: "from-[#A8802C]/15 via-transparent to-[#1A1915]", dir: "bl", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1000&q=85&auto=format&fit=crop" },
     { name: "The Editors", piece: '"Marginalia #42" · 3 min', kind: "NOTES", study: "VII", w: "w-72", aspect: "aspect-[3/4]", grad: "from-[#1A1915] via-[#1A1915]/40 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop" },
@@ -65,6 +65,39 @@ export default function T89EditorialMagazine() {
     { i: "III", title: "Cite the marginalia.", body: "Every issue carries a Notes column. Half the marginalia are corrections to the previous issue; the other half are corrections to the next one.", tag: "rule_03" },
     { i: "IV", title: "Pay the contributor before the printer.", body: "The contributor closed the laptop. The printer closed the press. Both wait, but the contributor waits first.", tag: "rule_04" },
     { i: "V", title: "Print four issues a year. Quietly.", body: "A quarterly is a discipline before it is a publication. The first deadline kept is the founding act of the next issue.", tag: "rule_05" },
+  ];
+
+  const pressBrands = [
+    { slug: "medium", name: "Medium" },
+    { slug: "theguardian", name: "The Guardian" },
+    { slug: "telegraph", name: "The Telegraph" },
+    { slug: "substack", name: "Substack" },
+    { slug: "behance", name: "Behance" },
+    { slug: "vimeo", name: "Vimeo" },
+  ];
+
+  const pillarIconBookmark = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+  );
+  const pillarIconBox = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="8" width="18" height="13" rx="0"/><path d="M3 8L12 3l9 5"/><path d="M3 12h18"/></svg>
+  );
+  const pillarIconLibrary = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A8802C" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+  );
+  const pillarIconUsers = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  );
+
+  const studioPlates = [
+    { id: "1611224923853-80b023f02d71", alt: "The desk, before the proof comes back" },
+    { id: "1521405924368-64c5b84bec60", alt: "Galley sheets, marked up" },
+    { id: "1499744937866-d7e566a20a61", alt: "The press, end of run" },
+    { id: "1457369804613-52c61a468e7d", alt: "A second draft, in pencil" },
+    { id: "1481627834876-b7833e8f5570", alt: "The bindery shelf" },
+    { id: "1495446815901-a7297e633e8d", alt: "Type case, slanted light" },
+    { id: "1455390582262-044cdead277a", alt: "Folded sheets, awaiting trim" },
+    { id: "1529655683826-aba9b3e77383", alt: "The editor's window, late" },
   ];
 
   const folioFaq = [
@@ -192,6 +225,23 @@ export default function T89EditorialMagazine() {
             </div>
           </section>
 
+          {/* Press masthead — trusted-by, editorial flavor */}
+          <section className="border-y-[0.5px] border-[#1A1915] mb-stack-xl py-10 md:py-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+              <div>
+                <span className="font-label-caps text-label-caps text-[#A8802C] uppercase tracking-widest block mb-2">— Press · 02</span>
+                <h2 className="font-display-hero text-2xl md:text-3xl italic text-[#1A1915] leading-tight">Reviewed in the long-form columns of:</h2>
+              </div>
+              <p className="font-body-italic italic text-[#1A1915]/60 max-w-sm md:text-right text-sm">Folio Quarterly does not advertise. We are mentioned where the writing earns the line.</p>
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-6">
+              {pressBrands.map(b => (
+                <img key={b.slug} alt={b.name} className="h-6 md:h-7 opacity-50 hover:opacity-100 transition-opacity duration-300" src={`https://cdn.simpleicons.org/${b.slug}/1A1915`} />
+              ))}
+            </div>
+            <p className="mt-8 pt-6 border-t-[0.5px] border-[#1A1915]/20 font-label-ui text-label-ui text-[#1A1915]/50 uppercase tracking-widest">+ 14 mentions in trade press · Spring 2024 · Folio is read by 2,400 print subscribers in 31 countries.</p>
+          </section>
+
           <hr className="border-t-[0.5px] border-[#1A1915] w-full mb-stack-lg" />
 
           <section className="grid grid-cols-1 md:grid-cols-3 gap-gutter-grid mb-stack-xl">
@@ -284,7 +334,7 @@ export default function T89EditorialMagazine() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter-grid items-center">
               <figure className="md:col-span-7 relative">
-                <img alt="Solitary practices" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&q=85&auto=format&fit=crop" />
+                <img alt="Solitary practices" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1400&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-gradient-to-r from-[#1A1915]/55 via-transparent to-transparent"></div>
                 <span className="absolute top-5 left-5 bg-[#FDFCFB] text-[#1A1915] font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 border-[0.5px] border-[#1A1915]">PLATE · III</span>
                 <span className="absolute bottom-5 right-5 bg-[#1A1915] text-[#FDFCFB] font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5">Solitary Practices</span>
@@ -301,11 +351,26 @@ export default function T89EditorialMagazine() {
 
         {/* Doctrine */}
         <section className="full-bleed-folio py-stack-xl bg-[#1A1915] text-[#FDFCFB] border-y-[0.5px] border-[#1A1915]">
-          <div className="max-w-[1440px] mx-auto px-12 grid grid-cols-1 lg:grid-cols-12 gap-stack-md lg:gap-stack-lg">
-            <aside className="lg:col-span-4">
+          <div className="max-w-[1440px] mx-auto px-12 grid grid-cols-1 lg:grid-cols-12 gap-stack-md lg:gap-stack-lg items-stretch">
+            <aside className="lg:col-span-4 flex flex-col">
               <span className="font-label-caps text-label-caps text-[#A8802C] uppercase tracking-widest block mb-4">— Doctrine · 06</span>
               <h2 className="font-display-hero text-[4.5vw] italic leading-[1.05]">Five rules<br />of the page.</h2>
               <p className="font-body-italic text-body-italic text-[#FDFCFB]/70 mt-stack-sm">Pinned above the editor's desk since the founding issue. Bent twice. Broken once.</p>
+              <div className="mt-auto pt-10 hidden lg:block">
+                <div className="border-[0.5px] border-[#FDFCFB]/30 bg-[#1A1915] p-5 font-mono text-[11px] text-[#FDFCFB]/85">
+                  <p className="font-bold uppercase tracking-[0.22em] text-[#A8802C] underline underline-offset-4 decoration-[0.5px] mb-3">ISSUE_HEADER</p>
+                  <ul className="flex flex-col gap-1.5">
+                    <li className="flex justify-between"><span className="text-[#FDFCFB]/50">VOLUME:</span><span className="font-bold">No. 12 · MMXXIV</span></li>
+                    <li className="flex justify-between"><span className="text-[#FDFCFB]/50">SERIES:</span><span>Volume IV · Autumn</span></li>
+                    <li className="flex justify-between"><span className="text-[#FDFCFB]/50">FORMAT:</span><span>Quarto · 232 × 305 mm</span></li>
+                    <li className="flex justify-between"><span className="text-[#FDFCFB]/50">PAPER:</span><span>Munken Pure 120 gsm</span></li>
+                    <li className="flex justify-between"><span className="text-[#FDFCFB]/50">RUN:</span><span>2,400 numbered</span></li>
+                    <li className="flex justify-between"><span className="text-[#FDFCFB]/50">SIGNED:</span><span>@H.KEATS · ED.</span></li>
+                  </ul>
+                  <hr className="border-[#FDFCFB]/20 my-3" />
+                  <p className="text-[#FDFCFB]/50 uppercase tracking-[0.18em] text-[9px]">VERIFIED BY THE PRINTER.<br />Atelier No. 03, Leith — sealed Wednesdays.</p>
+                </div>
+              </div>
             </aside>
             <ol className="lg:col-span-8 border-t-[0.5px] border-[#FDFCFB]/30">
               {folioRules.map((r, i) => (
@@ -322,11 +387,71 @@ export default function T89EditorialMagazine() {
           </div>
         </section>
 
+        {/* Membership — premium 4-card pillars */}
+        <section className="max-w-[1440px] mx-auto px-12 py-stack-xl">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-stack-lg">
+            <div>
+              <span className="font-label-caps text-label-caps text-[#A8802C] uppercase tracking-widest block mb-3">— Membership · 07</span>
+              <h2 className="font-display-hero text-[4.5vw] italic leading-[1.05] text-[#1A1915]">Four ways to keep<br />the paper close.</h2>
+            </div>
+            <p className="font-body-italic italic text-body-italic text-[#1A1915]/70 max-w-md md:text-right">No tiering, no upsell. Each is a complete relationship to the magazine. Choose the one that matches the shape of your year.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <article className="border-[0.5px] border-[#1A1915] p-7 bg-[#FDFCFB] hover:bg-[#1A1915] hover:text-[#FDFCFB] transition-colors duration-500 flex flex-col group">
+              <div className="mb-6 inline-flex w-12 h-12 items-center justify-center border-[0.5px] border-[#1A1915] group-hover:border-[#FDFCFB]">{pillarIconBookmark}</div>
+              <span className="font-label-caps text-label-caps text-[#A8802C] uppercase block mb-3">Pillar I</span>
+              <h3 className="font-headline-md text-2xl italic mb-3 leading-tight">Subscriber Vault</h3>
+              <p className="font-body-italic italic text-label-ui opacity-80 mb-6 flex-1">Every issue, ever printed. Twelve back-issues digitised, indexed, searchable by phrase. The marginalia made findable.</p>
+              <div className="mt-auto pt-5 border-t-[0.5px] border-[#1A1915]/30 group-hover:border-[#FDFCFB]/30 flex justify-between font-label-ui text-label-ui uppercase tracking-widest">
+                <span>£48 / year</span>
+                <span className="opacity-60">12 issues</span>
+              </div>
+            </article>
+            <article className="border-[0.5px] border-[#1A1915] p-7 bg-[#FDFCFB] hover:bg-[#1A1915] hover:text-[#FDFCFB] transition-colors duration-500 flex flex-col group">
+              <div className="mb-6 inline-flex w-12 h-12 items-center justify-center border-[0.5px] border-[#1A1915] group-hover:border-[#FDFCFB]">{pillarIconBox}</div>
+              <span className="font-label-caps text-label-caps text-[#A8802C] uppercase block mb-3">Pillar II</span>
+              <h3 className="font-headline-md text-2xl italic mb-3 leading-tight">The Annual Box</h3>
+              <p className="font-body-italic italic text-label-ui opacity-80 mb-6 flex-1">All four issues of the year, hand-collated in a linen-bound slipcase, shipped each January. Numbered. Signed by the editor.</p>
+              <div className="mt-auto pt-5 border-t-[0.5px] border-[#1A1915]/30 group-hover:border-[#FDFCFB]/30 flex justify-between font-label-ui text-label-ui uppercase tracking-widest">
+                <span>£196 / year</span>
+                <span className="opacity-60">Limited · 400</span>
+              </div>
+            </article>
+            <article className="border-[0.5px] border-[#1A1915] p-7 bg-[#1A1915] text-[#FDFCFB] flex flex-col relative">
+              <span className="absolute top-4 right-4 font-label-caps text-label-caps text-[#A8802C] uppercase tracking-widest border-[0.5px] border-[#A8802C] px-2 py-1">RECOMMENDED</span>
+              <div className="mb-6 inline-flex w-12 h-12 items-center justify-center border-[0.5px] border-[#A8802C]">{pillarIconLibrary}</div>
+              <span className="font-label-caps text-label-caps text-[#A8802C] uppercase block mb-3">Pillar III</span>
+              <h3 className="font-headline-md text-2xl italic mb-3 leading-tight">Library Access</h3>
+              <p className="font-body-italic italic text-label-ui text-[#FDFCFB]/80 mb-6 flex-1">Print + Vault + a year of monthly Editor's Letters with the cuts that didn't make the page. The relationship most subscribers settle into.</p>
+              <div className="mt-auto pt-5 border-t-[0.5px] border-[#FDFCFB]/30 flex justify-between font-label-ui text-label-ui uppercase tracking-widest">
+                <span className="text-[#A8802C]">£124 / year</span>
+                <span className="opacity-60">Print + Digital</span>
+              </div>
+            </article>
+            <article className="border-[0.5px] border-[#1A1915] p-7 bg-[#FDFCFB] hover:bg-[#1A1915] hover:text-[#FDFCFB] transition-colors duration-500 flex flex-col group">
+              <div className="mb-6 inline-flex w-12 h-12 items-center justify-center border-[0.5px] border-[#1A1915] group-hover:border-[#FDFCFB]">{pillarIconUsers}</div>
+              <span className="font-label-caps text-label-caps text-[#A8802C] uppercase block mb-3">Pillar IV</span>
+              <h3 className="font-headline-md text-2xl italic mb-3 leading-tight">Salon Series</h3>
+              <p className="font-body-italic italic text-label-ui opacity-80 mb-6 flex-1">Four evenings a year, in a small room, with a contributor and a glass of something. London, Edinburgh, Paris. Twenty-five seats per night.</p>
+              <div className="mt-auto pt-5 border-t-[0.5px] border-[#1A1915]/30 group-hover:border-[#FDFCFB]/30 flex justify-between font-label-ui text-label-ui uppercase tracking-widest">
+                <span>£280 / year</span>
+                <span className="opacity-60">By invitation</span>
+              </div>
+            </article>
+          </div>
+          <div className="mt-12 pt-8 border-t-[0.5px] border-[#1A1915]/30 flex flex-wrap items-center justify-center gap-x-10 gap-y-3 font-label-ui text-label-ui text-[#1A1915]/60 uppercase tracking-widest">
+            <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#A8802C]"></span>Cancel any quarter</span>
+            <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#A8802C]"></span>Ships from Leith on Wednesdays</span>
+            <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#A8802C]"></span>Carbon-offset by the printer</span>
+            <span className="flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-[#A8802C]"></span>VAT included · UK & EU</span>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="max-w-[1440px] mx-auto px-12 py-stack-xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
             <aside className="lg:col-span-4">
-              <span className="font-label-caps text-label-caps text-[#A8802C] uppercase tracking-widest block mb-3">— Subscribers · 07</span>
+              <span className="font-label-caps text-label-caps text-[#A8802C] uppercase tracking-widest block mb-3">— Pre-issue · 08</span>
               <h2 className="font-display-hero text-[4.5vw] italic leading-[1.05]">Pre-issue queries.</h2>
               <p className="font-body-italic text-body-italic text-[#1A1915]/70 mt-stack-sm">Asked by readers in the months between issues. Answered by the editors, in five lines or fewer.</p>
             </aside>
@@ -343,6 +468,27 @@ export default function T89EditorialMagazine() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Inside the studio — image strip before footer */}
+        <section className="full-bleed-folio border-t-[0.5px] border-[#1A1915] bg-[#FDFCFB] py-stack-lg">
+          <div className="max-w-[1440px] mx-auto px-12 mb-10">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+              <div>
+                <span className="font-label-caps text-label-caps text-[#A8802C] uppercase tracking-widest block mb-3">— Inside the Studio · 09</span>
+                <h2 className="font-display-hero text-[4.5vw] italic leading-[1.05] text-[#1A1915]">Eight rooms, one Wednesday.</h2>
+              </div>
+              <p className="font-body-italic italic text-[#1A1915]/60 max-w-md md:text-right">A walk through the atelier the day Issue No. 12 went to press. Plates from the photo desk; no captions, on purpose.</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 px-3 md:px-6">
+            {studioPlates.map(p => (
+              <figure key={p.id} className="aspect-square overflow-hidden border-[0.5px] border-[#1A1915] bg-[#1A1915]">
+                <img alt={p.alt} className="w-full h-full object-cover grayscale hover:grayscale-0 hover:scale-105 transition-all duration-500" decoding="async" loading="lazy" src={`https://images.unsplash.com/photo-${p.id}?w=600&q=80&auto=format&fit=crop`} />
+              </figure>
+            ))}
+          </div>
+          <p className="max-w-[1440px] mx-auto px-12 mt-10 pt-6 border-t-[0.5px] border-[#1A1915]/20 font-label-ui text-label-ui text-[#1A1915]/50 uppercase tracking-widest text-center">Photographs by the editorial desk · No. 12 · MMXXIV · plates 01—08 of an unpublished sequence</p>
         </section>
 
         <footer className="bg-[#FDFCFB] text-[#1A1915] font-sans uppercase text-[10px] tracking-[0.2em] border-t-[0.5px] border-[#1A1915] w-full grid grid-cols-12 gap-8 py-16 px-12 max-w-[1440px] mx-auto">

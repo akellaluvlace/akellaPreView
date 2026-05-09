@@ -1,7 +1,7 @@
 const PINBOARD_TILES = [
   { src: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=640&q=85&auto=format&fit=crop", title: "Daily Standup", meta: "Mon · Bench 04", w: "w-64", bg: "bg-white", rot: "-rotate-3", aspect: "aspect-[4/5]", extra: "" },
   { src: "https://images.unsplash.com/photo-1488998427799-e3362cec87c3?w=720&q=85&auto=format&fit=crop", title: "Roadmap Q3", meta: "5 sticky notes · 2 arrows", w: "w-72", bg: "bg-blue-100", rot: "rotate-2", aspect: "aspect-[5/4]", extra: "grayscale contrast-110" },
-  { src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=640&q=85&auto=format&fit=crop", title: "Studio Tour", meta: "Annotated · 12 pins", w: "w-64", bg: "bg-yellow-50", rot: "-rotate-1", aspect: "aspect-[4/5]", extra: "" },
+  { src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=640&q=85&auto=format&fit=crop", title: "Studio Tour", meta: "Annotated · 12 pins", w: "w-64", bg: "bg-yellow-50", rot: "-rotate-1", aspect: "aspect-[4/5]", extra: "" },
   { src: "https://images.unsplash.com/photo-1606327054629-64c8b0fd6e4f?w=720&q=85&auto=format&fit=crop", title: "Recipe Tests", meta: "12 sketches · 3 stains", w: "w-72", bg: "bg-red-100", rot: "rotate-3", aspect: "aspect-[5/4]", extra: "" },
   { src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=640&q=85&auto=format&fit=crop", title: "Camera Notes", meta: "Lens diagram · sun-side", w: "w-64", bg: "bg-green-100", rot: "-rotate-2", aspect: "aspect-[4/5]", extra: "" },
   { src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=720&q=85&auto=format&fit=crop", title: "Trip · Lisbon", meta: "14 maps · 4 doodles", w: "w-72", bg: "bg-white", rot: "rotate-1", aspect: "aspect-[5/4]", extra: "" },
@@ -69,20 +69,15 @@ function HandDrawn() {
       <style dangerouslySetInnerHTML={{ __html: `
         body {
           background-color: #fdfbf7;
-          background-image: radial-gradient(#a3a3a3 1px, transparent 1px);
-          background-size: 24px 24px;
           color: #2d2d2d;
           overflow-x: hidden;
           -webkit-font-smoothing: antialiased;
         }
-        .paper-grain::before {
-          content: "";
-          position: absolute;
-          top: 0; left: 0; width: 100%; height: 100%;
-          opacity: 0.4;
-          pointer-events: none;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
-          z-index: 50;
+        /* Dot pattern bg — applied as a class on the hero only so it doesn't bleed past the trust strip into sections that already have their own bg-paper / bg-white. */
+        .dot-paper {
+          background-color: #fdfbf7;
+          background-image: radial-gradient(#a3a3a3 1px, transparent 1px);
+          background-size: 24px 24px;
         }
         .blob-1 { border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; }
         .blob-2 { border-radius: 25px 225px 25px 225px / 225px 25px 225px 25px; }
@@ -179,11 +174,8 @@ function HandDrawn() {
           </div>
         </nav>
 
-        {/* Hero */}
-        <header className="relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
-          <svg className="absolute top-20 left-0 w-32 h-32 opacity-20 -rotate-12 pointer-events-none md:block hidden" viewBox="0 0 100 100">
-            <path fill="none" stroke="#2d2d2d" strokeWidth="2" d="M10,50 Q30,10 50,50 T90,50 M20,60 Q40,20 60,60 T90,60" />
-          </svg>
+        {/* Hero — dot-paper class confines the dot pattern to this section so it doesn't bleed past the trust strip below (body bg is now solid #fdfbf7). */}
+        <header className="dot-paper relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden w-full">
           <svg className="absolute bottom-10 right-0 w-48 h-48 opacity-10 rotate-45 pointer-events-none" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="40" stroke="#2d2d2d" strokeWidth="2" fill="none" strokeDasharray="10 5" />
           </svg>
@@ -234,7 +226,7 @@ function HandDrawn() {
 
                 <h2 className="font-display text-4xl mb-6 border-b-2 border-ink border-dashed pb-2 text-center">Master Plan</h2>
 
-                <ul className="text-xl md:text-2xl space-y-4 list-none font-sans flex-1">
+                <ul className="text-xl md:text-2xl space-y-4 list-none font-sans">
                   <li className="flex items-start gap-3 group cursor-pointer">
                     <div className="w-6 h-6 border-2 border-ink rounded bg-white mt-1 group-hover:bg-ink transition-colors"></div>
                     <span className="group-hover:line-through decoration-2 decoration-ink">Launch Website</span>
@@ -247,14 +239,38 @@ function HandDrawn() {
                     <div className="w-6 h-6 border-2 border-ink rounded bg-white mt-1"></div>
                     <span>Sketch new logo</span>
                   </li>
-                  <li className="relative mt-4">
-                    <svg className="w-32 h-20 text-blue-pen absolute -right-2 top-0 rotate-12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 100 60">
-                      <path d="M10,30 Q30,10 50,30 T90,30" strokeDasharray="4 2" />
-                      <path d="M80,25 L90,30 L85,40" />
-                      <text x="0" y="55" className="font-display text-sm" stroke="none" fill="currentColor">Needs more coffee</text>
-                    </svg>
-                  </li>
                 </ul>
+                {/* Coffee log — 4 stacked entries (#0 → #3) filling the lower portion of the sticky note. flex-1 + justify-between distribute the rows across the empty card area instead of crowding them at the bottom. Inline-SVG cup icons rotate slightly per row to match the wobble. */}
+                <div className="mt-4 pt-4 border-t-2 border-ink border-dashed flex-1 flex flex-col justify-between gap-3">
+                  {[
+                    { n: "0", note: "Just opened the lid. Nothing on the page yet.", tilt: "rotate-[-2deg]", iconRot: "rotate-[3deg]", star: "·" },
+                    { n: "1", note: "Three lines down, two crossed out. Felt fine.", tilt: "rotate-[1deg]", iconRot: "rotate-[-4deg]", star: "·" },
+                    { n: "2", note: "Hit the wall. Drew a small turtle in the margin.", tilt: "rotate-[-1deg]", iconRot: "rotate-[2deg]", star: "·" },
+                    { n: "3", note: <>Wrote 4 ideas. <span className="bg-highlight px-1">Kept 2.</span> Crossed out 1. The fourth is still loud.</>, tilt: "rotate-[2deg]", iconRot: "rotate-[-4deg]", star: "★" },
+                  ].map((c, i) => (
+                    <div key={c.n} className={`flex items-center gap-4 ${c.tilt}`}>
+                      <svg className={`w-12 h-12 shrink-0 text-ink ${c.iconRot}`} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 64 64">
+                        <path d="M14 28 h32 v18 a8 8 0 0 1 -8 8 h-16 a8 8 0 0 1 -8 -8 z"/>
+                        <path d="M46 32 h6 a4 4 0 0 1 4 4 v4 a4 4 0 0 1 -4 4 h-6"/>
+                        {i === 3 && <>
+                          <path d="M22 22 c 2 -4 -2 -8 0 -12" strokeDasharray="2 2"/>
+                          <path d="M30 22 c 2 -4 -2 -8 0 -12" strokeDasharray="2 2"/>
+                          <path d="M38 22 c 2 -4 -2 -8 0 -12" strokeDasharray="2 2"/>
+                        </>}
+                      </svg>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-display text-2xl leading-tight">Coffee #{c.n}.</p>
+                        <p className="text-sm text-ink-light leading-snug">{c.note}</p>
+                      </div>
+                      <span className={`font-display ${i === 3 ? "text-red-pen text-3xl" : "text-gray-400 text-xl"} rotate-12 shrink-0`}>{c.star}</span>
+                    </div>
+                  ))}
+                </div>
+                <svg className="w-40 h-24 text-blue-pen absolute top-1/2 right-10 -translate-y-1/2 rotate-6 pointer-events-none" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 100 60" aria-hidden="true">
+                  <path d="M10,30 Q30,10 50,30 T90,30" strokeDasharray="4 2" />
+                  <path d="M80,25 L90,30 L85,40" />
+                  <text x="0" y="55" className="font-display text-sm" stroke="none" fill="currentColor">Needs more coffee</text>
+                </svg>
               </div>
             </div>
           </div>
@@ -360,24 +376,35 @@ function HandDrawn() {
           <div className="container mx-auto px-4">
             <h2 className="text-5xl font-display font-bold text-center mb-16">How it Works</h2>
 
-            <div className="flex flex-col md:flex-row justify-center items-center gap-12 relative">
-              <svg className="hidden md:block absolute top-12 left-[15%] w-[70%] h-20 z-0 text-gray-300" fill="none" stroke="currentColor" strokeWidth="3" strokeDasharray="10 5">
-                <path d="M0,40 Q150,-20 300,40 T600,40" />
+            <div className="flex flex-col md:flex-row justify-center items-start gap-12 relative">
+              {/* Hand-drawn dashed connector — viewBox + preserveAspectRatio="none" so the path scales to span all 3 circles. The path traces two arches, peaking between the circle centers, dipping below to align with circle midline (y=50 in viewBox). */}
+              <svg aria-hidden="true" className="hidden md:block absolute top-12 left-[14%] right-[14%] h-12 z-0 text-red-pen pointer-events-none" preserveAspectRatio="none" viewBox="0 0 600 60" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <path d="M30,30 C 100,-10 200,-10 300,30 C 400,70 500,70 570,30" strokeDasharray="6 6"/>
+                <path d="M560,22 L572,30 L562,40" strokeLinejoin="round"/>
+              </svg>
+              {/* Second red scribble — copy of the first connector, sized to start under node 2 and point to node 3 (so the eye is led from "Scribble" to "Done"). Two stacked copies: full arc at z-0 (behind nodes) + identical overlay at z-20 with CSS inset clip showing only the last 20%, so the arrowhead tip renders ON TOP of node 3's circle. */}
+              <svg aria-hidden="true" className="hidden md:block absolute top-14 left-[45%] right-[17%] h-12 z-0 text-red-pen opacity-80 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 600 60" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <path d="M30,30 C 100,-10 200,-10 300,30 C 400,70 500,70 570,30" strokeDasharray="6 6"/>
+                <path d="M560,22 L572,30 L562,40" strokeLinejoin="round"/>
+              </svg>
+              <svg aria-hidden="true" className="hidden md:block absolute top-14 left-[45%] right-[17%] h-12 z-20 text-red-pen opacity-80 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 600 60" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{ clipPath: "inset(0 0 0 80%)" }}>
+                <path d="M30,30 C 100,-10 200,-10 300,30 C 400,70 500,70 570,30" strokeDasharray="6 6"/>
+                <path d="M560,22 L572,30 L562,40" strokeLinejoin="round"/>
               </svg>
 
-              <div className="relative z-10 flex flex-col items-center text-center max-w-xs">
+              <div className="relative z-10 flex flex-col items-center text-center max-w-xs flex-1">
                 <div className="w-24 h-24 bg-paper border-2 border-ink blob-circle flex items-center justify-center text-5xl font-display shadow-sketch mb-6 rotate-2">1</div>
                 <h3 className="text-2xl font-bold mb-2">Open App</h3>
                 <p>Click the icon. It loads instantly. No splash screens, no loading bars.</p>
               </div>
 
-              <div className="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0">
+              <div className="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0 flex-1">
                 <div className="w-24 h-24 bg-paper border-2 border-ink blob-circle flex items-center justify-center text-5xl font-display shadow-sketch mb-6 -rotate-3">2</div>
                 <h3 className="text-2xl font-bold mb-2">Scribble</h3>
                 <p>Use your finger, mouse, or stylus. Draw diagrams or write lists.</p>
               </div>
 
-              <div className="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0">
+              <div className="relative z-10 flex flex-col items-center text-center max-w-xs mt-8 md:mt-0 flex-1">
                 <div className="w-24 h-24 bg-paper border-2 border-ink blob-circle flex items-center justify-center text-5xl font-display shadow-sketch mb-6 rotate-1">3</div>
                 <h3 className="text-2xl font-bold mb-2">Done</h3>
                 <p>Close it. It saves automatically. Go drink some coffee.</p>
@@ -449,7 +476,7 @@ function HandDrawn() {
                 <figure className="md:col-span-7 md:order-2 order-1 relative">
                   <div className="absolute -inset-3 bg-yellow-50 blob-1 rotate-2"></div>
                   <div className="absolute -top-5 right-16 w-28 h-10 scotch-tape -rotate-3 z-30"></div>
-                  <img alt="Field 02" className="relative w-full aspect-[16/10] object-cover border-2 border-ink blob-1 shadow-sketch-lg -rotate-1" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&q=85&auto=format&fit=crop" />
+                  <img alt="Field 02" className="relative w-full aspect-[16/10] object-cover border-2 border-ink blob-1 shadow-sketch-lg -rotate-1" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1400&q=85&auto=format&fit=crop" />
                 </figure>
               </div>
               {/* Row 3 */}

@@ -1,11 +1,27 @@
 const SHOWCASE_TILES = [
-  { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop",  alt: "Living room",      title: "Living Room",      plate: "Plate · I",   width: "w-72", aspect: "aspect-[3/4]" },
-  { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop", alt: "Master bedroom",   title: "Master Bedroom",   plate: "Plate · II",  width: "w-80", aspect: "aspect-[16/10]" },
-  { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop",  alt: "Hallway",          title: "Hallway",          plate: "Plate · III", width: "w-72", aspect: "aspect-[3/4]" },
-  { src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1200&q=85&auto=format&fit=crop", alt: "Kitchen",          title: "Kitchen",          plate: "Plate · IV",  width: "w-96", aspect: "aspect-[16/10]" },
-  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop",  alt: "Studio",           title: "Studio",           plate: "Plate · V",   width: "w-72", aspect: "aspect-[3/4]" },
-  { src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=85&auto=format&fit=crop", alt: "Sunroom",          title: "Sunroom",          plate: "Plate · VI",  width: "w-80", aspect: "aspect-[16/10]" },
-  { src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop",  alt: "Atrium",           title: "Atrium",           plate: "Plate · VII", width: "w-72", aspect: "aspect-[3/4]" },
+  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop",  alt: "Living room",      title: "Living Room",      plate: "Plate · I",   width: "w-72", aspect: "aspect-[3/4]",   temp: "22°", devices: "04", scene: "Home" },
+  { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop", alt: "Master bedroom",   title: "Master Bedroom",   plate: "Plate · II",  width: "w-80", aspect: "aspect-[16/10]", temp: "19°", devices: "03", scene: "Sleep" },
+  { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop",  alt: "Hallway",          title: "Hallway",          plate: "Plate · III", width: "w-72", aspect: "aspect-[3/4]",   temp: "20°", devices: "02", scene: "Auto" },
+  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop", alt: "Kitchen",          title: "Kitchen",          plate: "Plate · IV",  width: "w-96", aspect: "aspect-[16/10]", temp: "21°", devices: "06", scene: "Cook" },
+  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop",  alt: "Studio",           title: "Studio",           plate: "Plate · V",   width: "w-72", aspect: "aspect-[3/4]",   temp: "23°", devices: "05", scene: "Focus" },
+  { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop", alt: "Sunroom",          title: "Sunroom",          plate: "Plate · VI",  width: "w-80", aspect: "aspect-[16/10]", temp: "24°", devices: "02", scene: "Read" },
+  { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop",  alt: "Atrium",           title: "Atrium",           plate: "Plate · VII", width: "w-72", aspect: "aspect-[3/4]",   temp: "21°", devices: "03", scene: "Auto" },
+];
+
+const AIR_SENSORS = [
+  { label: "Air Quality", value: "94", unit: "AQI", sub: "Excellent", icon: "leaf",       pct: 94, accent: "text-emerald-500" },
+  { label: "CO₂",         value: "612", unit: "ppm", sub: "Comfortable", icon: "wind",    pct: 70, accent: "text-blue-500" },
+  { label: "Humidity",    value: "44",  unit: "%",   sub: "Balanced",  icon: "droplets",   pct: 44, accent: "text-cyan-500" },
+  { label: "VOC Index",   value: "120", unit: null,  sub: "Low",       icon: "shield-check", pct: 22, accent: "text-purple-500" },
+];
+
+const ACTIVITY_EVENTS = [
+  { time: "07:14",  icon: "sunrise",       action: "Morning scene started",         room: "Whole home", state: "auto"  },
+  { time: "07:42",  icon: "lock",          action: "Front door unlocked",           room: "Entrance",   state: "ok"    },
+  { time: "08:03",  icon: "lamp-ceiling",  action: "Studio lamp dimmed to 40%",     room: "Studio",     state: "auto"  },
+  { time: "08:31",  icon: "fan",           action: "AC set to 21° from schedule",   room: "Bedroom",    state: "auto"  },
+  { time: "09:05",  icon: "shield-check",  action: "Perimeter armed (away)",        room: "Entrance",   state: "ok"    },
+  { time: "09:18",  icon: "droplets",      action: "Humidity returned to comfort",  room: "Living Room", state: "ok" },
 ];
 
 const ROADMAP_STEPS = [
@@ -26,7 +42,7 @@ const NUMBERS = [
 const VOICES = [
   { name: "Maren V.",    role: "Architect · Aarhus", quote: "The first week I kept testing it. The second week I forgot it was there. That's the highest compliment I have for software.", note: "Note · I",   since: "Owner since '23", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=240&q=85&auto=format&fit=crop" },
   { name: "Joaquín R.",  role: "Composer · Lisbon",  quote: "I needed a thermostat. I got a small companion that lowers the lights when I sit at the piano. I am unreasonably fond of it.", note: "Note · II",  since: "Owner since '22", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=240&q=85&auto=format&fit=crop" },
-  { name: "Priya M.",    role: "Editor · Brooklyn",  quote: "Every other home app yelled at me with red dots and notifications. This one just sits there, beige and patient, and the house works.", note: "Note · III", since: "Owner since '24", img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=240&q=85&auto=format&fit=crop" },
+  { name: "Priya M.",    role: "Editor · Brooklyn",  quote: "Every other home app yelled at me with red dots and notifications. This one just sits there, beige and patient, and the house works.", note: "Note · III", since: "Owner since '24", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=240&q=85&auto=format&fit=crop" },
 ];
 
 const FAQS = [
@@ -396,6 +412,48 @@ function Neumorphism() {
             </div>
           </section>
 
+          {/* Air Atlas — neumorphic gauge cards (NEW SECTION 1) */}
+          <section id="air-atlas" className="fade-in" style={{ animationDelay: "0.225s" }}>
+            <div className="flex items-end justify-between mb-8 px-2 gap-4">
+              <div>
+                <span className="inline-block text-xs font-bold text-neu-accent uppercase tracking-[0.25em] mb-2">— Sensors · 04</span>
+                <h2 className="text-2xl md:text-3xl font-bold text-neu-text-main">Air atlas, this hour</h2>
+              </div>
+              <p className="hidden md:block text-sm text-neu-text-sub max-w-sm">Four sensors, sampled every ninety seconds. Every reading sits between the linen-wrapped ceiling node and the hub.</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              {AIR_SENSORS.map((s, i) => (
+                <div key={i} className="bg-neu-bg p-6 rounded-3xl shadow-neu-flat flex flex-col gap-5 hover:translate-y-[-4px] transition-transform duration-300">
+                  <div className="flex items-center justify-between">
+                    <div className={`h-12 w-12 rounded-xl shadow-neu-flat flex items-center justify-center ${s.accent}`}>
+                      <i data-lucide={s.icon} className="w-6 h-6"></i>
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">{s.label}</span>
+                  </div>
+
+                  {/* Neumorphic gauge — pressed track + raised fill */}
+                  <div className="rounded-full shadow-neu-pressed-sm h-3 overflow-hidden">
+                    <div className={`h-full rounded-full ${s.accent.replace("text-", "bg-")} shadow-neu-flat`} style={{ width: `${s.pct}%` }}></div>
+                  </div>
+
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-3xl md:text-4xl font-extrabold text-neu-text-main tabular-nums">
+                      {s.value}
+                      {s.unit && <span className="text-base font-bold text-neu-text-sub ml-1">{s.unit}</span>}
+                    </span>
+                    <span className={`text-xs font-bold ${s.accent}`}>{s.sub}</span>
+                  </div>
+
+                  <button className="w-full py-2.5 rounded-xl shadow-neu-flat text-xs font-bold text-neu-text-sub hover:text-neu-accent active:shadow-neu-pressed transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="activity" className="w-3.5 h-3.5"></i>
+                    <span>View trend</span>
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* Atelier Showcase — image marquee with raised neumorphic frames */}
           <section id="showcase" className="fade-in" style={{ animationDelay: "0.25s" }}>
             <div className="flex items-end justify-between mb-8 px-2 gap-4">
@@ -413,7 +471,7 @@ function Neumorphism() {
                 {[...SHOWCASE_TILES, ...SHOWCASE_TILES].map((tile, i) => (
                   <figure
                     key={i}
-                    className={`neu-frame ${tile.width} shrink-0 p-4`}
+                    className={`neu-frame ${tile.width} shrink-0 p-4 flex flex-col`}
                     aria-hidden={i >= SHOWCASE_TILES.length ? "true" : undefined}
                   >
                     <div className={`rounded-2xl shadow-neu-pressed-sm overflow-hidden ${tile.aspect}`}>
@@ -423,6 +481,22 @@ function Neumorphism() {
                       <span className="text-sm font-bold text-neu-text-main">{tile.title}</span>
                       <span className="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub">{tile.plate}</span>
                     </figcaption>
+                    {/* Nested neumorphic mini-card — mt-auto pins it to the bottom so cards with shorter aspects fill the empty space too */}
+                    <div className="mt-auto pt-4">
+                      <div className="rounded-xl shadow-neu-pressed-sm p-3 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5 text-neu-text-sub">
+                          <i data-lucide="thermometer" className="w-3.5 h-3.5"></i>
+                          <span className="text-xs font-bold tabular-nums">{tile.temp}</span>
+                        </div>
+                        <span className="h-3 w-px bg-neu-text-sub/30"></span>
+                        <div className="flex items-center gap-1.5 text-neu-text-sub">
+                          <i data-lucide="zap" className="w-3.5 h-3.5"></i>
+                          <span className="text-xs font-bold tabular-nums">{tile.devices}</span>
+                        </div>
+                        <span className="h-3 w-px bg-neu-text-sub/30"></span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-neu-accent">{tile.scene}</span>
+                      </div>
+                    </div>
                   </figure>
                 ))}
               </div>
@@ -532,6 +606,45 @@ function Neumorphism() {
                   <span className="text-xs italic text-neu-text-sub/80">{n.sub}</span>
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* Activity Pulse — neumorphic timeline of recent home events (NEW SECTION 2) */}
+          <section id="pulse" className="fade-in" style={{ animationDelay: "0.425s" }}>
+            <div className="flex items-end justify-between mb-10 px-2 gap-4">
+              <div>
+                <span className="inline-block text-xs font-bold text-neu-accent uppercase tracking-[0.25em] mb-2">— Pulse · 08</span>
+                <h2 className="text-2xl md:text-3xl font-bold text-neu-text-main">Today, in the order it happened</h2>
+              </div>
+              <p className="hidden md:block text-sm text-neu-text-sub max-w-sm">A quiet log of the morning. Auto-routines stay grey; manual presses carry an accent.</p>
+            </div>
+
+            <div className="bg-neu-bg p-6 md:p-8 rounded-3xl shadow-neu-flat">
+              <ol className="flex flex-col gap-4">
+                {ACTIVITY_EVENTS.map((e, i) => (
+                  <li key={i} className="flex items-center gap-4 md:gap-5 group">
+                    <span className="text-xs font-bold tabular-nums text-neu-text-sub w-14 shrink-0">{e.time}</span>
+                    <div className={`h-11 w-11 shrink-0 rounded-xl shadow-neu-flat flex items-center justify-center ${e.state === "auto" ? "text-neu-text-sub" : "text-neu-accent"} group-hover:shadow-neu-flat-lg transition-shadow`}>
+                      <i data-lucide={e.icon} className="w-5 h-5"></i>
+                    </div>
+                    <div className="flex-1 rounded-2xl shadow-neu-pressed-sm px-4 py-3 flex items-center justify-between gap-3">
+                      <span className="text-sm font-semibold text-neu-text-main">{e.action}</span>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-neu-text-sub whitespace-nowrap">{e.room}</span>
+                    </div>
+                    <span className={`hidden sm:inline-block text-[10px] font-bold uppercase tracking-widest ${e.state === "auto" ? "text-neu-text-sub" : "text-emerald-500"}`}>
+                      {e.state}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="mt-6 pt-6 border-t border-neu-text-sub/15 flex items-center justify-between gap-3">
+                <span className="text-xs text-neu-text-sub italic">06 events · last refreshed two minutes ago</span>
+                <button className="px-5 py-2.5 rounded-xl shadow-neu-flat text-xs font-bold text-neu-accent hover:shadow-neu-flat-lg active:shadow-neu-pressed transition-all flex items-center gap-2">
+                  <span>View full log</span>
+                  <i data-lucide="arrow-right" className="w-3.5 h-3.5"></i>
+                </button>
+              </div>
             </div>
           </section>
 

@@ -78,6 +78,52 @@ export default function T84GameStudio() {
     { date: "2026 · 2027",   title: "The Wake",       sub: "Two free expansions · post-launch",     status: "upcoming", icon: "flag" },
   ];
 
+  const termLog = [
+    { txt: "> BOOT_COMPLETE :: VESSEL_READY",  cls: "text-secondary" },
+    { txt: "> LANTERN_LIT :: FUEL_∞",          cls: "" },
+    { txt: "> BLADE_DRAWN :: PARRY +3",        cls: "" },
+    { txt: "> SIGIL_BIND :: ECHO 22ms",        cls: "text-secondary" },
+    { txt: "> THREAT @ 12m :: HUSK",           cls: "text-tertiary" },
+    { txt: "> PARRY · LATE -7 SAN",            cls: "text-error red-glow-text" },
+    { txt: "> KILL :: SAINT_HUSK_03",          cls: "text-secondary" },
+    { txt: "> EXALT_GAINED :: 14",             cls: "" },
+    { txt: "> SAVE_POINT :: WAYSHRINE_07",     cls: "text-secondary" },
+  ];
+
+  const editions = [
+    {
+      numeral: "I", icon: "auto_stories", title: "Standard", sub: "Digital · Base", price: "$59.99",
+      featured: false,
+      perks: ["Game (PC · Console · Cloud)", "Original soundtrack (FLAC)", "Bestiary PDF (52 pp)", "24h pre-load"],
+    },
+    {
+      numeral: "II", icon: "local_library", title: "Iron-Bound Edition", sub: "Physical · Hardback", price: "$89.99",
+      featured: false,
+      perks: ["Everything in Standard", "Inquisitor's Manual hardback (192 pp)", "Steel enamel pin (raven sigil)", "Foil-stamped slipcase"],
+    },
+    {
+      numeral: "III", icon: "verified", title: "Cathedral Edition", sub: "Physical · Reliquary", price: "$149.99",
+      featured: true,
+      perks: ["Everything in Iron-Bound", "Reliquary box (cast resin)", "90-min lore reel (4K download)", "Map cloth (60 × 40 cm)"],
+    },
+    {
+      numeral: "IV", icon: "flag", title: "Inquisitor's Vault", sub: "Numbered · 1 / 2026", price: "$249.99",
+      featured: false,
+      perks: ["Everything in Cathedral", "Petty Lantern replica (cast resin)", "Numbered certificate (1 / 2026)", "Composer's vinyl LP (180g)"],
+    },
+  ];
+
+  const relics = [
+    { src: "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&w=600&auto=format&fit=crop", alt: "Cathedral chamber, plate I",      label: "PLATE · 01 · I VESPERS" },
+    { src: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=600&auto=format&fit=crop", alt: "Foggy forest, plate II",          label: "PLATE · 02 · II HOLLOW" },
+    { src: "https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?q=80&w=600&auto=format&fit=crop", alt: "Raven on branch, plate III",      label: "PLATE · 03 · III CARRION" },
+    { src: "https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&w=600&auto=format&fit=crop", alt: "Moon over clouds, plate IV",      label: "PLATE · 04 · IV ECLIPSE" },
+    { src: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600&auto=format&fit=crop", alt: "Plate armor, plate V",            label: "PLATE · 05 · V HARNESS" },
+    { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop", alt: "Architectural detail, plate VI",  label: "PLATE · 06 · VI VAULT" },
+    { src: "https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&w=600&auto=format&fit=crop", alt: "Lone figure & cathedral, plate VII", label: "PLATE · 07 · VII END" },
+    { src: "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&w=600&auto=format&fit=crop", alt: "Cathedral chamber reprise, plate VIII", label: "PLATE · 08 · VIII WAKE" },
+  ];
+
   const tailwindConfig = `
     tailwind.config = {
       darkMode: "class",
@@ -163,8 +209,42 @@ export default function T84GameStudio() {
       50% { opacity: 1; box-shadow: 0 0 0 8px rgba(77, 224, 130, 0); }
     }
     .raven-pulse { animation: raven-pulse 3s ease-in-out infinite; }
+    @keyframes raven-sanity-drain {
+      0%, 100% { height: 42%; background-color: rgba(255,180,171,0.85); }
+      35%      { height: 18%; background-color: rgba(147,0,10,0.9); }
+      70%      { height: 65%; background-color: rgba(77,224,130,0.8); }
+    }
+    .raven-sanity-bar { animation: raven-sanity-drain 9s ease-in-out infinite; }
+    @keyframes raven-term-reveal {
+      from { opacity: 0; transform: translateX(-4px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .raven-term-line {
+      opacity: 0;
+      animation: raven-term-reveal 0.4s cubic-bezier(0.2,0.8,0.2,1) forwards;
+      animation-delay: var(--d, 0s);
+    }
+    @keyframes raven-blink { 50% { opacity: 0; } }
+    .raven-cursor {
+      display: inline-block;
+      width: 8px; height: 1em;
+      background: currentColor;
+      vertical-align: middle;
+      animation: raven-blink 1.05s steps(2) infinite;
+    }
+    @keyframes raven-led-flicker {
+      0%, 95%, 100% { opacity: 1; }
+      97%           { opacity: 0.4; }
+    }
+    .raven-led { animation: raven-led-flicker 4s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) {
-      .raven-marquee-track, .raven-pulse { animation: none; }
+      .raven-marquee-track,
+      .raven-pulse,
+      .raven-sanity-bar,
+      .raven-term-line,
+      .raven-cursor,
+      .raven-led { animation: none; }
+      .raven-term-line { opacity: 1; transform: none; }
     }
   `;
 
@@ -435,7 +515,13 @@ export default function T84GameStudio() {
               <p className="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Five milestones from now to launch. Dates may shift; the work will not.</p>
             </div>
             <div className="relative">
-              <div className="hidden md:block absolute top-7 left-[8%] right-[8%] h-px bg-gradient-to-r from-secondary/0 via-secondary/40 to-secondary/0" aria-hidden="true"></div>
+              {/* SVG roadmap connector: solid (done) → dashed emerald (current) → dashed dim (upcoming) → arrowhead */}
+              <svg aria-hidden="true" className="hidden md:block absolute top-7 left-[8%] right-[8%] h-4 z-0 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1000 16" fill="none">
+                <line x1="0" y1="8" x2="400" y2="8" stroke="#4de082" strokeWidth="2" strokeLinecap="round" />
+                <line x1="400" y1="8" x2="600" y2="8" stroke="#4de082" strokeWidth="2" strokeDasharray="6 6" strokeLinecap="round" opacity="0.7" />
+                <line x1="600" y1="8" x2="985" y2="8" stroke="#929095" strokeWidth="2" strokeDasharray="4 8" strokeLinecap="round" opacity="0.5" />
+                <path d="M978 4 L990 8 L978 12" stroke="#929095" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" opacity="0.6" />
+              </svg>
               <ol className="grid grid-cols-1 md:grid-cols-5 gap-stack-md md:gap-4 relative">
                 {calendar.map((m, i) => {
                   const dot = m.status === "done"
@@ -446,7 +532,7 @@ export default function T84GameStudio() {
                   const ringCls = m.status === "upcoming"
                     ? "bg-primary-container border-2 border-on-surface-variant/30"
                     : m.status === "current"
-                      ? "bg-secondary/20 border-2 border-secondary"
+                      ? "bg-secondary/20 border-2 border-secondary shadow-[0_0_24px_rgba(77,224,130,0.45)]"
                       : "bg-secondary/10 border-2 border-secondary emerald-glow";
                   const dateCls = m.status === "upcoming" ? "text-on-surface-variant" : "text-secondary";
                   const subCls = m.status === "current" ? "text-tertiary" : "text-on-surface-variant";
@@ -467,12 +553,156 @@ export default function T84GameStudio() {
             </div>
           </section>
 
+          {/* Section: HUD telemetry (animated gaming UI) */}
+          <section id="hud" aria-labelledby="hud-title" className="py-20 px-margin-page max-w-container-max mx-auto scroll-mt-32">
+            <div className="text-center space-y-stack-md mb-10 md:mb-12">
+              <p className="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Telemetry</p>
+              <h2 id="hud-title" className="font-headline-lg text-on-surface text-balance">The Inquisitor sees, even when you don't.</h2>
+              <p className="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Sanity drains. Sigils restore. Saves are autonomous. The HUD is unobtrusive but never silent.</p>
+            </div>
+            <div className="border border-secondary/30 bg-surface-container-lowest rounded-xl p-4 md:p-6 shadow-[0_0_30px_rgba(77,224,130,0.05)]">
+              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-surface-container-highest">
+                {/* LEFT: Sanity bar */}
+                <div className="flex flex-col gap-3 p-4 md:pr-8">
+                  <div className="flex items-center justify-between">
+                    <span className="font-label-sm text-secondary uppercase tracking-widest">Sanity</span>
+                    <span className="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">042 / 100</span>
+                  </div>
+                  <div className="flex items-end gap-3 h-40">
+                    <div className="relative w-8 h-full bg-primary-container border border-surface-container-highest rounded-DEFAULT overflow-hidden" aria-hidden="true">
+                      <div className="raven-sanity-bar absolute bottom-0 left-0 right-0 rounded-b-DEFAULT shadow-[0_0_18px_rgba(147,0,10,0.4)]"></div>
+                    </div>
+                    <ul className="flex-1 flex flex-col gap-1.5 text-[11px] font-label-sm uppercase tracking-widest text-on-surface-variant">
+                      <li className="flex items-center justify-between"><span>Threshold</span><span className="text-tertiary tabular-nums">25</span></li>
+                      <li className="flex items-center justify-between"><span>Drain</span><span className="tabular-nums">-3 / m</span></li>
+                      <li className="flex items-center justify-between"><span>Recover</span><span className="text-secondary tabular-nums">+12 / sigil</span></li>
+                      <li className="flex items-center justify-between"><span>State</span><span className="text-tertiary">FRAGILE</span></li>
+                    </ul>
+                  </div>
+                </div>
+                {/* CENTER: Sigil charges */}
+                <div className="flex flex-col gap-3 p-4 md:px-8">
+                  <div className="flex items-center justify-between">
+                    <span className="font-label-sm text-secondary uppercase tracking-widest">Charges</span>
+                    <span className="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">03 / 07</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2 py-6" aria-hidden="true">
+                    <span className="raven-led w-6 h-6 rounded-DEFAULT bg-secondary border border-secondary shadow-[0_0_12px_rgba(77,224,130,0.7)]" style={{ animationDelay: "0s" }}></span>
+                    <span className="raven-led w-6 h-6 rounded-DEFAULT bg-secondary border border-secondary shadow-[0_0_12px_rgba(77,224,130,0.7)]" style={{ animationDelay: "0.4s" }}></span>
+                    <span className="raven-led w-6 h-6 rounded-DEFAULT bg-secondary border border-secondary shadow-[0_0_12px_rgba(77,224,130,0.7)]" style={{ animationDelay: "0.8s" }}></span>
+                    <span className="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                    <span className="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                    <span className="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                    <span className="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                  </div>
+                  <ul className="flex flex-col gap-1.5 text-[11px] font-label-sm uppercase tracking-widest text-on-surface-variant">
+                    <li className="flex items-center justify-between"><span>Sigil</span><span className="text-secondary">LAMBENT HOURS</span></li>
+                    <li className="flex items-center justify-between"><span>Cooldown</span><span className="tabular-nums">22s</span></li>
+                    <li className="flex items-center justify-between"><span>Echo</span><span className="text-secondary tabular-nums">22 ms</span></li>
+                  </ul>
+                </div>
+                {/* RIGHT: Terminal log */}
+                <div className="flex flex-col gap-3 p-4 md:pl-8">
+                  <div className="flex items-center justify-between">
+                    <span className="font-label-sm text-secondary uppercase tracking-widest">Log</span>
+                    <span className="flex items-center gap-2 font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">
+                      <span className="w-2 h-2 rounded-full bg-secondary raven-pulse" aria-hidden="true"></span>
+                      LIVE
+                    </span>
+                  </div>
+                  <div className="bg-primary-container border border-surface-container-highest rounded-DEFAULT p-3 font-mono text-[11px] leading-relaxed text-on-surface-variant overflow-hidden">
+                    {termLog.map((l, i) => (
+                      <p key={i} className={`raven-term-line ${l.cls}`} style={{ "--d": `${i * 0.25}s` }}>{l.txt}</p>
+                    ))}
+                    <p className="raven-term-line" style={{ "--d": `${termLog.length * 0.25}s` }}>&gt; <span className="raven-cursor" aria-hidden="true"></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Section: Editions of Note (premium 4-card) */}
+          <section id="editions" aria-labelledby="editions-title" className="py-20 px-margin-page bg-surface-container-low scroll-mt-32 border-y border-surface-container-highest">
+            <div className="max-w-container-max mx-auto flex flex-col gap-stack-xl">
+              <div className="flex flex-col gap-stack-md max-w-3xl">
+                <p className="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Editions of note</p>
+                <h2 id="editions-title" className="font-headline-lg text-on-surface text-balance">Bind the lantern. Choose the vessel.</h2>
+                <p className="font-body-md text-on-surface-variant text-pretty">Four bindings. The Inquisitor's chronicle ships in three of them. The lantern only in one.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter items-stretch">
+                {editions.map((ed) => {
+                  const cardCls = ed.featured
+                    ? "bg-surface-container-low border border-secondary/40 hover:-translate-y-1 transition-all duration-300 rounded-xl p-6 flex flex-col group relative overflow-hidden red-glow"
+                    : "bg-surface-container-low border border-surface-container-highest hover:border-secondary/40 transition-all duration-300 hover:-translate-y-1 rounded-xl p-6 flex flex-col group relative overflow-hidden";
+                  const numeralCls = ed.featured
+                    ? "absolute top-4 right-5 font-headline-lg italic text-error red-glow-text text-3xl tabular-nums leading-none"
+                    : "absolute top-4 right-5 font-headline-lg italic text-secondary/40 text-3xl tabular-nums leading-none";
+                  const iconExtraCls = ed.featured ? "mt-8" : "";
+                  return (
+                    <article key={ed.numeral} className={cardCls}>
+                      {ed.featured && (
+                        <span className="absolute top-4 left-4 px-3 py-1 rounded-DEFAULT bg-secondary/15 border border-secondary/40 text-secondary text-[10px] uppercase tracking-widest font-label-sm">Most chosen</span>
+                      )}
+                      <span aria-hidden="true" className={numeralCls}>{ed.numeral}</span>
+                      <span className={`material-symbols-outlined text-secondary mb-4 ${iconExtraCls}`} style={{ fontSize: "32px" }} aria-hidden="true">{ed.icon}</span>
+                      <h3 className="font-headline-md italic text-on-surface text-2xl mb-1">{ed.title}</h3>
+                      <p className="font-label-sm text-on-surface-variant uppercase tracking-widest mb-4">{ed.sub}</p>
+                      <ul className="space-y-1.5 text-sm text-on-surface-variant mb-6 flex-1">
+                        {ed.perks.map((p, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span>
+                            <span>{p}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="font-headline-md italic text-secondary tabular-nums leading-none mb-4">{ed.price}</p>
+                      <a href="#" className="font-label-sm text-secondary uppercase tracking-widest inline-flex items-center gap-1 hover:text-secondary-fixed transition-colors">
+                        Wishlist <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                      </a>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
           <section id="studio" aria-labelledby="studio-title" className="py-24 px-margin-page bg-surface-container scroll-mt-32 border-y border-surface-container-highest">
             <div className="max-w-3xl mx-auto text-center flex flex-col gap-stack-md">
               <h2 id="studio-title" className="font-headline-lg text-on-surface text-balance">Crafted by Ravenlight Studios</h2>
               <p className="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">
                 We are a small, passionate indie team dedicated to creating atmospheric, challenging experiences that respect the player's intelligence. Founded in 2024, our mission is to resurrect the uncompromising design of classic gothic adventures with modern fidelity.
               </p>
+            </div>
+          </section>
+
+          {/* Section: Relics — B&W image strip with alternating glitch / colour bleed */}
+          <section id="relics" aria-labelledby="relics-title" className="py-20 scroll-mt-32 bg-primary-container">
+            <div className="text-center space-y-stack-md mb-8 px-margin-page">
+              <p className="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Plates · Recovered</p>
+              <h2 id="relics-title" className="font-headline-lg text-on-surface text-balance">Eight relics, found in the dark.</h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 px-3 md:px-6">
+              {relics.map((r, i) => {
+                const isOdd = i % 2 === 1;
+                const imgCls = isOdd
+                  ? "w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
+                  : "w-full h-full object-cover grayscale opacity-90 contrast-110 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700";
+                return (
+                  <figure key={i} className="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src={r.src} alt={r.alt} loading="lazy" className={imgCls} width="600" height="600" />
+                    {isOdd ? (
+                      <>
+                        <div className="absolute inset-0 mix-blend-multiply pointer-events-none" style={{ background: "linear-gradient(160deg, rgba(11,28,16,0.55) 0%, rgba(8,40,22,0.85) 60%, rgba(31,1,0,0.7) 100%)" }}></div>
+                        <div className="absolute inset-0 mix-blend-screen pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(127,199,116,0.35) 0%, transparent 70%)" }}></div>
+                        <div className="absolute inset-0 pointer-events-none opacity-30" style={{ background: "repeating-linear-gradient(0deg, rgba(0,0,0,0.6) 0 1px, transparent 1px 4px)" }}></div>
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/70 via-transparent to-transparent pointer-events-none"></div>
+                    )}
+                    <span className="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">{r.label}</span>
+                  </figure>
+                );
+              })}
             </div>
           </section>
         </main>

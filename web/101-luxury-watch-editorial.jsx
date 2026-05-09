@@ -31,12 +31,19 @@ export default function T101LuxuryWatchEditorial() {
     { roman: "III", label: "Regulate" },
     { roman: "IV", label: "Clean" },
   ];
+  // Atmosphere plates — image-context cleanup 2026-05-06: 3 of the original Unsplash IDs
+  // were on the playbook §Q.1 verified-mismatch list (woman portrait posing as "Tools",
+  // NES PCB posing as "Index", brick wall posing as "Bench"). Swapped to aida-public
+  // watch-atelier images already loaded by this template (HD, on-brand, depict actual
+  // atelier work). Cornice + Stair kept since the architectural Unsplash IDs read true.
+  // (URLs duplicated inline rather than referencing refImgN consts which are declared
+  // later in this same function — order-of-declaration matters in this template.)
   const atmospherePlates = [
-    { roman: "I", title: "Tools", alt: "Loupe and pliers laid on a tan leather mat in soft side light", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop" },
-    { roman: "II", title: "Index", alt: "Brass screw assortment in a watchmaker's tray", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" },
-    { roman: "III", title: "Cornice", alt: "Architectural detail of the atelier ceiling cornice", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" },
-    { roman: "IV", title: "Bench", alt: "Window light catching the long bench at the atelier", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" },
-    { roman: "V", title: "Stair", alt: "Stairwell receding into the upper floor of the workshop", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" },
+    { roman: "I",   title: "Tools",   alt: "Watchmaker's hand bevelling a movement bridge under loupe — the tool work at the bench", src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAoxAsRwSdDt9pIakDdZOef1RPM6Wmc8j1fKH-dh1koHyQZd8YO8dY4i5S7ka4-I1jz-J6KWMwZjCmgUEMmAxMHXq0soRa17eDuqurp1BlMtgh4RV1I2oGc5vuL0tUE4ZPiuBSjbbnDpqKYrCiZl3Fr-hiqvlwcqiz3h0FxJtA50dRKBRecwWEMkqjg2NrWRWG6zWiO78qUeShPYma_b30GW5XWqERUqyD1_by16hnkex879BB8OJv3M4AqnnKGnRtk4x8Vw_Nqxh8" },
+    { roman: "II",  title: "Index",   alt: "Component schematic — every part indexed before assembly",                              src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBBwOBi63mkZdvC5cYAjxxD2_fas9UcdzjOdeKbmEUr9Vlu9n2G5191A9U7fdykrBwPjAEv0QvXqOw7UOd75iMk-7rx1-1H88MCVTmWMpV6rGVtk6DF4sSh0Yc-mVhE2FRT606PdzWe5nS93ZXTTd3qJ8HKeNLLnlKUF1nvptmtJWdVwF5WHnMPJZxf_1HGFtk4Dur5QhMTxn0Qi1nVL12MQ_IVFnRcyveL17428QBihOJZOGdkb1pNrIIHRKNGO3bNs1hj3fWHJY0" },
+    { roman: "III", title: "Cornice", alt: "Architectural cornice of the atelier ceiling, photographed at noon",                    src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" },
+    { roman: "IV",  title: "Bench",   alt: "Final cleaning under sterile light, between the pliers and the loupe",                  src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAHPNubmbUzes4dINs3h9UMPOdR-hZXblnelMAoFdFnAlLnFfZYf72VbhzlKVc0e9Y6Yxul3BnUY3tUakTsEVvc_bm5tlK9CNTicvEAyXzYCXB7PLO5hceRvoENokH8SpDoxa438rSUj4victwYn5CWENQac8JLdrO0fFy_CbaTQNPQZci4wUsdUCMSDPjrgSUIqUAkdWxhaBhkJnD3h-1lICz_VyVrUvXSLxkqPkmSxJ6HPZAjRlNC5PQKkB7YmOLg8OTQtLYc9Uw" },
+    { roman: "V",   title: "Stair",   alt: "Architectural light study at the upper-floor stair of the workshop",                     src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" },
   ];
   // Marquee references — reuse existing aida-public URLs (per playbook §H.12 / §M.9)
   const refImg1 = "https://lh3.googleusercontent.com/aida-public/AB6AXuAvcVRPGeEb6RQVOWXtrhWnADmsMNIqxbQ1d15EB6P7WaB76U5Z06IsIBmzysXl0jXfGPTFJ6EeC98GINJMnxNYimgTL1s8Db8p7PuBHXDgg6Ftw0-CBU7ocDhSrVfnpCKW_6osdguvrMtXlByGnlaqisl1d_OeM4OHPfkeFzU7ftBUdhg3zLirGT7NOljaTM7U3-SVtBkRFN9CGU76mxV1DKTTczZQsUUPMdj99jmlSxCAXlCpq3MXm4qVR-WoK37V6X6IOmGNDRY";
@@ -64,6 +71,45 @@ export default function T101LuxuryWatchEditorial() {
     { n: "324", label: "Components per calibre", sub: "Each hand-finished, indexed" },
     { n: "XLVII", label: "Pieces per year", sub: "Strictly allocated" },
     { n: "II", label: "Master watchmakers", sub: "No outsourced labour" },
+  ];
+
+  // The Owner's Compact — 4-card section explaining what custodianship of a Masterpiece
+  // actually means. Each card has an inline SVG icon (line-weight 1.5, 24×24, currentColor
+  // so it inherits the section's text color), a Roman-numeralled chapter label, a title,
+  // body, and a footnote. Premium feel: hairline borders + sepia/0 grayscale.
+  const ownerCompact = [
+    {
+      roman: "I",
+      label: "Compact No. I",
+      title: "Lifetime service.",
+      body: "Every Masterpiece returns to the Geneva atelier on a fifteen-year cycle. Disassembly, ultrasonic cleaning, lubrication, and re-regulation — performed by the same two watchmakers who built the calibre. Cost is included in the original allocation.",
+      foot: "Service interval · 15 yrs · Geneva, CH",
+      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+    },
+    {
+      roman: "II",
+      label: "Compact No. II",
+      title: "Heritage documents.",
+      body: "Each piece ships with a leather-bound dossier — original drawings, signed assembly card, the watchmaker's regulation log, and a short history of the calibre's place in the registry. Replacements never issued, only re-stamped.",
+      foot: "Includes signed dossier · 24 pages",
+      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+    },
+    {
+      roman: "III",
+      label: "Compact No. III",
+      title: "Private atelier visit.",
+      body: "Once allocated, you receive a year's standing invitation to the bench. We ask twenty-four hours of notice. Coffee is on the long table, the loupe is yours to look through, and the watchmaker will close the day with you.",
+      foot: "By appointment · Geneva atelier",
+      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+    },
+    {
+      roman: "IV",
+      label: "Compact No. IV",
+      title: "Generational custody.",
+      body: "Your name in the registry remains permanent. When the piece passes to the next custodian, we update the dossier in person — at no cost — and re-tune the calibre to the new wrist. The piece is always returned to the original specification on request.",
+      foot: "No re-issue fee · Custody log kept",
+      icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+    },
   ];
 
   const customCss = `
@@ -168,7 +214,7 @@ export default function T101LuxuryWatchEditorial() {
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
             </div>
             <div className="relative z-10 text-center px-gutter text-white">
-              <h1 className="font-display-xl text-display-xl italic drop-shadow-[0_4px_24px_rgba(0,0,0,0.65)]">Form. Function. Soul.</h1>
+              <h1 className="font-display-xl text-[36px] sm:text-[52px] md:text-[64px] lg:text-display-xl italic drop-shadow-[0_4px_24px_rgba(0,0,0,0.65)]">Form. Function. Soul.</h1>
             </div>
             <div className="absolute bottom-12 z-10 flex flex-col items-center gap-unit text-white">
               <span className="font-ui-technical text-ui-technical uppercase tracking-widest text-[10px]">Scroll</span>
@@ -333,6 +379,38 @@ export default function T101LuxuryWatchEditorial() {
               ))}
             </div>
           </section>
+          {/* Section 4.85 (NEW): The Owner's Compact — 4 cards with icons (premium custodianship terms) */}
+          <section className="full-bleed bg-primary text-on-primary py-xl border-y border-on-primary/10 overflow-hidden">
+            <div className="max-w-screen-xl mx-auto px-gutter md:px-margin">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-md mb-lg pb-md border-b border-on-primary/15">
+                <div className="max-w-xl">
+                  <span className="font-ui-technical text-ui-technical text-primary-fixed-dim uppercase block mb-xs">[VI_COMPACT]</span>
+                  <h2 className="font-headline-lg text-headline-lg italic text-on-primary">The Owner's Compact.</h2>
+                </div>
+                <p className="font-body-md text-body-md text-on-primary/70 max-w-md">A piece allocated from the registry travels with four standing terms. Each one is signed at delivery, and remains in force for the lifetime of the calibre — including its custodians yet to come.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-on-primary/10">
+                {ownerCompact.map((c) => (
+                  <article key={c.roman} className="bg-primary p-lg flex flex-col gap-sm md:gap-md min-h-[280px]">
+                    <div className="flex items-center justify-between">
+                      <span className="w-12 h-12 border border-on-primary/30 flex items-center justify-center text-on-primary">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">{c.icon}</svg>
+                      </span>
+                      <span className="font-ui-technical text-[10px] uppercase tracking-widest text-primary-fixed-dim tabular-nums">{c.label}</span>
+                    </div>
+                    <h3 className="font-headline-md text-[26px] italic leading-tight text-on-primary mt-sm">{c.title}</h3>
+                    <p className="font-body-md text-body-md text-on-primary/75 leading-relaxed">{c.body}</p>
+                    <div className="mt-auto pt-md border-t border-on-primary/15 flex items-baseline justify-between gap-md">
+                      <span className="font-ui-technical text-[10px] uppercase tracking-widest text-primary-fixed-dim">{c.foot}</span>
+                      <span className="font-display-xl text-[32px] italic leading-none text-on-primary/40 tabular-nums">{c.roman}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <p className="text-center mt-lg font-ui-technical text-[10px] uppercase tracking-widest text-on-primary/50">Signed at delivery · Held in registry · MMXII — present</p>
+            </div>
+          </section>
+
           {/* Section 5: The Inquiry (CTA) */}
           <section className="py-xl bg-surface border-t border-outline-variant/30 flex justify-center items-center">
             <div className="max-w-md w-full px-gutter text-center flex flex-col items-center gap-md">

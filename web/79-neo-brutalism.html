@@ -128,6 +128,31 @@
             transform: rotate(180deg);
         }
 
+        /* Selected Chaos — italic red word with subtle scale pulse */
+        @keyframes chaos-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        .chaos-pulse {
+            display: inline-block;
+            transform-origin: center;
+            animation: chaos-pulse 1.6s ease-in-out infinite;
+        }
+
+        /* Decorative square layer — sits behind content, never blocks clicks */
+        .deco-squares {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .deco-squares > span {
+            position: absolute;
+            display: block;
+            border: 3px solid #000000;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .animate-marquee,
             .animate-plate-marquee,
@@ -137,6 +162,9 @@
             }
             .neo-faq summary .neo-chevron {
                 transition: none;
+            }
+            .chaos-pulse {
+                animation: none;
             }
         }
     </style>
@@ -185,28 +213,31 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative overflow-hidden pt-12 pb-16 lg:pt-32 lg:pb-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Hero Section — full-screen height -->
+    <header class="relative overflow-hidden min-h-screen flex items-center pt-24 pb-12 lg:pt-28 lg:pb-16">
+        <!-- Decorative squares — bottom-left red→yellow + mirrored red top-right; black squares removed (R3) -->
+        <div class="deco-squares" aria-hidden="true">
+            <span class="bg-neo-yellow shadow-neo" style="width:18rem;height:18rem;bottom:-5rem;left:-4rem;transform:rotate(10deg);"></span>
+            <span class="bg-neo-red shadow-neo" style="width:18rem;height:18rem;top:-5rem;right:-4rem;transform:rotate(-10deg);"></span>
+            <span class="bg-neo-red" style="width:1.5rem;height:1.5rem;top:7rem;left:32%;transform:rotate(8deg);"></span>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
+
                 <!-- Hero Text -->
                 <div class="lg:col-span-7 flex flex-col items-start" data-aos="fade-right">
                     <div class="inline-block bg-neo-yellow border-hard px-4 py-1 mb-6 shadow-neo transform -rotate-2 hover:rotate-0 transition-transform">
                         <span class="font-bold uppercase tracking-widest text-xs sm:text-sm">Est. 2024 // Seoul - Global</span>
                     </div>
-                    <!-- Responsive Text Sizing -->
-                    <h1 class="font-display font-extrabold text-5xl sm:text-7xl lg:text-8xl leading-none uppercase mb-6 sm:mb-8 break-words w-full">
-                        We Build <span class="text-neo-red underline decoration-4 decoration-black underline-offset-4 md:underline-offset-8">Loud</span> Brands
+                    <!-- 3-line stacked headline: "We build / LOUD / BRANDS" — smaller clamps per user (R2) -->
+                    <h1 class="font-display font-extrabold leading-[0.85] mb-6 sm:mb-8 w-full">
+                        <span class="block whitespace-nowrap text-[clamp(2rem,5vw,3.5rem)]">We build</span>
+                        <span class="block whitespace-nowrap uppercase text-[clamp(3.5rem,11vw,8rem)] text-neo-red stroke-black tracking-tighter -my-1 sm:-my-2">LOUD</span>
+                        <span class="block whitespace-nowrap uppercase text-[clamp(2.25rem,7vw,5rem)]">BRANDS</span>
                     </h1>
-                    <p class="text-lg sm:text-2xl font-medium mb-6 sm:mb-8 max-w-xl border-l-4 border-black pl-4 sm:pl-6">
+                    <p class="text-base sm:text-xl font-medium mb-6 sm:mb-8 max-w-xl border-l-4 border-black pl-4 sm:pl-6">
                         No fluff. No corporate jargon. Just raw creativity and digital chaos designed to convert.
                     </p>
-                    <div class="flex flex-wrap gap-3 mb-8">
-                        <span class="bg-white border-hard px-3 py-1 text-xs font-bold uppercase shadow-neo">Brand Systems</span>
-                        <span class="bg-white border-hard px-3 py-1 text-xs font-bold uppercase shadow-neo">Web Experiences</span>
-                        <span class="bg-white border-hard px-3 py-1 text-xs font-bold uppercase shadow-neo">Launch Campaigns</span>
-                    </div>
                     <div class="flex flex-col w-full sm:w-auto sm:flex-row gap-4">
                         <a href="mailto:hello@raw.kr" class="btn-neo w-full sm:w-auto bg-neo-red text-white border-hard px-8 py-4 text-lg sm:text-xl font-bold uppercase shadow-neo flex items-center justify-center gap-2">
                             Start Project <i data-lucide="arrow-right" class="w-6 h-6"></i>
@@ -257,12 +288,48 @@
                         Partnering with founders, product teams, and cultural brands across Seoul and beyond.
                     </p>
                 </div>
+                <!-- Real brand logos via Simple Icons CDN (D.0.1) — 8 chips, original 5 + 3 new (Webflow / Loom / Spotify) -->
                 <div class="flex flex-wrap gap-3" data-aos="fade-left">
-                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Nimbus</div>
-                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Orbit</div>
-                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Volt Lab</div>
-                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Prism</div>
-                    <div class="bg-neo-bg border-hard px-4 py-2 shadow-neo text-xs sm:text-sm font-bold uppercase">Kinetic</div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/vercel/000000" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Vercel</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/linear/5E6AD2" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Linear</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/notion/000000" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Notion</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/figma/F24E1E" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Figma</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/stripe/635BFF" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Stripe</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/webflow/146EF5" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Webflow</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/loom/625DF5" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Loom</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/spotify/1DB954" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Spotify</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/github/000000" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">GitHub</span>
+                    </div>
+                    <div class="bg-neo-bg border-hard px-3 py-2 shadow-neo flex items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/discord/5865F2" alt="" class="h-4 sm:h-5 w-auto" loading="lazy" decoding="async"/>
+                        <span class="text-xs sm:text-sm font-bold uppercase">Discord</span>
+                    </div>
                 </div>
             </div>
             <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="150">
@@ -301,62 +368,111 @@
         </div>
 
         <!-- Marquee track — py-3 wrapper for chunky-shadow clearance (K.10) -->
+        <!-- ONLY landscape tiles (PLATE_02/04/06) get nested cards — they need the cards because their image is shorter and stretch-fill leaves whitespace below. Cards use flex-1 to fill that whitespace and carry a 3-stat grid for substance. Portrait tiles fill their height naturally and stay clean. -->
         <div class="overflow-hidden py-3">
             <div class="plate-track animate-plate-marquee">
-                <!-- Tile 01 -->
-                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform -rotate-2">
+                <!-- Tile 01 — portrait, no card -->
+                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform -rotate-2 flex flex-col">
                     <div class="aspect-[4/5] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop" alt="Plate 01 — Seoul backstreet" class="w-full h-full object-cover grayscale contrast-110">
                     </div>
-                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase mt-auto">
                         <span>[ PLATE_01 ]</span>
                         <span class="text-neo-red">SEL · 02:14</span>
                     </figcaption>
                 </figure>
-                <!-- Tile 02 (landscape, no rotate) -->
-                <figure class="shrink-0 w-96 bg-neo-yellow border-hard p-2 shadow-neo">
+                <!-- Tile 02 — landscape, BIG card fills whitespace below short image -->
+                <figure class="shrink-0 w-96 bg-neo-yellow border-hard p-2 shadow-neo flex flex-col">
                     <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="Plate 02 — Circuit close-up" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <div class="mt-2 flex-1 bg-white border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-neo-black text-white border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0">
+                                <i data-lucide="terminal" class="w-4 h-4"></i>
+                            </span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-display font-bold text-base uppercase truncate">Hardware</div>
+                                <div class="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">Sprint 03 · OK</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Audit</span><span class="font-display text-sm font-bold tabular-nums">12d</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Build</span><span class="font-display text-sm font-bold tabular-nums">22d</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">QA</span><span class="font-display text-sm font-bold tabular-nums">5d</span></div>
+                        </div>
                     </div>
                     <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
                         <span>[ PLATE_02 ]</span>
                         <span>BER · 14:08</span>
                     </figcaption>
                 </figure>
-                <!-- Tile 03 -->
-                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform rotate-2">
+                <!-- Tile 03 — portrait, no card -->
+                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform rotate-2 flex flex-col">
                     <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop" alt="Plate 03 — Studio portrait" class="w-full h-full object-cover grayscale contrast-110">
                     </div>
-                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase mt-auto">
                         <span>[ PLATE_03 ]</span>
                         <span class="text-neo-red">LIS · 09:42</span>
                     </figcaption>
                 </figure>
-                <!-- Tile 04 -->
-                <figure class="shrink-0 w-96 bg-neo-red border-hard p-2 shadow-neo transform -rotate-1">
+                <!-- Tile 04 — landscape, BIG card -->
+                <figure class="shrink-0 w-96 bg-neo-red border-hard p-2 shadow-neo transform -rotate-1 flex flex-col">
                     <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1000&auto=format&fit=crop" alt="Plate 04 — Brutalist facade" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <div class="mt-2 flex-1 bg-white border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-neo-yellow text-black border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                            </span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-display font-bold text-base uppercase truncate">Identity</div>
+                                <div class="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">+48% lift · launch</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Logos</span><span class="font-display text-sm font-bold tabular-nums">3</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Pages</span><span class="font-display text-sm font-bold tabular-nums">24</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Tokens</span><span class="font-display text-sm font-bold tabular-nums">86</span></div>
+                        </div>
                     </div>
                     <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase text-white">
                         <span>[ PLATE_04 ]</span>
                         <span>SEL · 17:01</span>
                     </figcaption>
                 </figure>
-                <!-- Tile 05 -->
-                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo">
+                <!-- Tile 05 — portrait, no card -->
+                <figure class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo flex flex-col">
                     <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" alt="Plate 05 — Editorial portrait" class="w-full h-full object-cover grayscale contrast-110">
+                        <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop" alt="Plate 05 — Editorial portrait" class="w-full h-full object-cover grayscale contrast-110">
                     </div>
-                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase mt-auto">
                         <span>[ PLATE_05 ]</span>
                         <span>NYC · 22:30</span>
                     </figcaption>
                 </figure>
-                <!-- Tile 06 -->
-                <figure class="shrink-0 w-96 bg-neo-bg border-hard p-2 shadow-neo transform rotate-1">
+                <!-- Tile 06 — landscape, BIG card -->
+                <figure class="shrink-0 w-96 bg-neo-bg border-hard p-2 shadow-neo transform rotate-1 flex flex-col">
                     <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1000&auto=format&fit=crop" alt="Plate 06 — Concrete corridor" class="w-full h-full object-cover grayscale contrast-110">
+                        <img src="https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=1000&auto=format&fit=crop" alt="Plate 06 — Concrete corridor" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <div class="mt-2 flex-1 bg-neo-yellow border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-neo-black text-white border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0">
+                                <i data-lucide="globe" class="w-4 h-4"></i>
+                            </span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-display font-bold text-base uppercase truncate">City Map</div>
+                                <div class="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">Tokyo cycle · 14h</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Cities</span><span class="font-display text-sm font-bold tabular-nums">4</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Routes</span><span class="font-display text-sm font-bold tabular-nums">12</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Spots</span><span class="font-display text-sm font-bold tabular-nums">47</span></div>
+                        </div>
                     </div>
                     <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
                         <span>[ PLATE_06 ]</span>
@@ -365,54 +481,102 @@
                 </figure>
 
                 <!-- Duplicate tiles for seamless loop (aria-hidden) -->
-                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform -rotate-2">
+                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform -rotate-2 flex flex-col">
                     <div class="aspect-[4/5] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
                     </div>
-                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase mt-auto">
                         <span>[ PLATE_01 ]</span>
                         <span class="text-neo-red">SEL · 02:14</span>
                     </figcaption>
                 </figure>
-                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-yellow border-hard p-2 shadow-neo">
+                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-yellow border-hard p-2 shadow-neo flex flex-col">
                     <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <div class="mt-2 flex-1 bg-white border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-neo-black text-white border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0">
+                                <i data-lucide="terminal" class="w-4 h-4"></i>
+                            </span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-display font-bold text-base uppercase truncate">Hardware</div>
+                                <div class="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">Sprint 03 · OK</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Audit</span><span class="font-display text-sm font-bold tabular-nums">12d</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Build</span><span class="font-display text-sm font-bold tabular-nums">22d</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">QA</span><span class="font-display text-sm font-bold tabular-nums">5d</span></div>
+                        </div>
                     </div>
                     <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
                         <span>[ PLATE_02 ]</span>
                         <span>BER · 14:08</span>
                     </figcaption>
                 </figure>
-                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform rotate-2">
+                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo transform rotate-2 flex flex-col">
                     <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
                     </div>
-                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase mt-auto">
                         <span>[ PLATE_03 ]</span>
                         <span class="text-neo-red">LIS · 09:42</span>
                     </figcaption>
                 </figure>
-                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-red border-hard p-2 shadow-neo transform -rotate-1">
+                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-red border-hard p-2 shadow-neo transform -rotate-1 flex flex-col">
                     <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1000&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <div class="mt-2 flex-1 bg-white border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-neo-yellow text-black border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                            </span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-display font-bold text-base uppercase truncate">Identity</div>
+                                <div class="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">+48% lift · launch</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Logos</span><span class="font-display text-sm font-bold tabular-nums">3</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Pages</span><span class="font-display text-sm font-bold tabular-nums">24</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Tokens</span><span class="font-display text-sm font-bold tabular-nums">86</span></div>
+                        </div>
                     </div>
                     <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase text-white">
                         <span>[ PLATE_04 ]</span>
                         <span>SEL · 17:01</span>
                     </figcaption>
                 </figure>
-                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo">
+                <figure aria-hidden="true" class="shrink-0 w-72 sm:w-80 bg-white border-hard p-2 shadow-neo flex flex-col">
                     <div class="aspect-[3/4] bg-neo-black border-hard overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                        <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
                     </div>
-                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                    <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase mt-auto">
                         <span>[ PLATE_05 ]</span>
                         <span>NYC · 22:30</span>
                     </figcaption>
                 </figure>
-                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-bg border-hard p-2 shadow-neo transform rotate-1">
+                <figure aria-hidden="true" class="shrink-0 w-96 bg-neo-bg border-hard p-2 shadow-neo transform rotate-1 flex flex-col">
                     <div class="aspect-[16/10] bg-neo-black border-hard overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=1000&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                        <img src="https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=1000&auto=format&fit=crop" alt="" class="w-full h-full object-cover grayscale contrast-110">
+                    </div>
+                    <div class="mt-2 flex-1 bg-neo-yellow border-hard p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <span class="bg-neo-black text-white border-hard w-9 h-9 flex items-center justify-center shadow-neo-mob shrink-0">
+                                <i data-lucide="globe" class="w-4 h-4"></i>
+                            </span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-display font-bold text-base uppercase truncate">City Map</div>
+                                <div class="font-mono text-[10px] uppercase tracking-widest opacity-70 truncate">Tokyo cycle · 14h</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t-3 border-black mt-auto">
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Cities</span><span class="font-display text-sm font-bold tabular-nums">4</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Routes</span><span class="font-display text-sm font-bold tabular-nums">12</span></div>
+                            <div><span class="font-mono text-[9px] uppercase tracking-widest opacity-70 block">Spots</span><span class="font-display text-sm font-bold tabular-nums">47</span></div>
+                        </div>
                     </div>
                     <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
                         <span>[ PLATE_06 ]</span>
@@ -432,8 +596,16 @@
     </div>
 
     <!-- Services / Features Section -->
-    <section id="services" class="py-16 sm:py-24 bg-white border-b-3 border-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" class="relative overflow-hidden py-16 sm:py-24 bg-white border-b-3 border-black">
+        <!-- Decorative squares — medium / small / tiny -->
+        <div class="deco-squares" aria-hidden="true">
+            <span class="bg-neo-bg" style="width:8rem;height:8rem;top:3rem;right:5%;transform:rotate(6deg);"></span>
+            <span class="bg-neo-yellow shadow-neo-mob" style="width:4rem;height:4rem;bottom:6rem;left:4%;transform:rotate(-12deg);"></span>
+            <span class="bg-neo-black" style="width:1.5rem;height:1.5rem;top:9rem;left:18%;"></span>
+            <span class="bg-neo-red" style="width:1.5rem;height:1.5rem;bottom:11rem;right:14%;transform:rotate(8deg);"></span>
+            <span class="bg-neo-black" style="width:0.75rem;height:0.75rem;top:50%;left:50%;"></span>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 sm:mb-16 gap-6">
                 <div>
                     <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase" data-aos="fade-up">Our <span class="bg-neo-bg px-2">Arsenal</span></h2>
@@ -562,10 +734,17 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 sm:py-24 bg-white border-b-3 border-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-                <div class="lg:col-span-7" data-aos="fade-right">
+    <section id="about" class="relative overflow-hidden py-16 sm:py-24 bg-white border-b-3 border-black">
+        <!-- Decorative squares — black squares removed per user (R2). 3 left: large grey / small red / tiny yellow -->
+        <div class="deco-squares" aria-hidden="true">
+            <span class="bg-neo-bg" style="width:18rem;height:18rem;top:50%;right:-7rem;transform:translateY(-50%) rotate(8deg);"></span>
+            <span class="bg-neo-red shadow-neo-mob" style="width:5rem;height:5rem;top:4rem;left:8%;transform:rotate(-10deg);"></span>
+            <span class="bg-neo-yellow" style="width:1.5rem;height:1.5rem;top:9rem;right:38%;"></span>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- items-stretch + flex-col h-full on each col so column bottoms align -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+                <div class="lg:col-span-7 flex flex-col" data-aos="fade-right">
                     <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase mb-6">Agency, Not a Factory</h2>
                     <p class="text-lg sm:text-xl font-medium max-w-xl">
                         RAW.kr is a senior, hands-on studio focused on bold identities and fast-moving digital experiences.
@@ -585,23 +764,44 @@
                             Clear scope, clear timeline, no surprises.
                         </li>
                     </ul>
+                    <!-- Bottom-pinned signature footer so left col fills row height -->
+                    <div class="mt-auto pt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                        <span class="font-mono text-xs uppercase tracking-widest border-t-3 border-black pt-3">Est. 2024 · Seoul HQ</span>
+                        <span class="font-mono text-xs uppercase tracking-widest text-neo-red border-t-3 border-neo-red pt-3">Next intake · Q3 — 2 slots left</span>
+                    </div>
                 </div>
-                <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4" data-aos="fade-left">
-                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
-                        <h3 class="font-display font-bold text-xl uppercase mb-2">Studio</h3>
-                        <p class="font-medium">Seoul + Remote</p>
+                <!-- Right col: 2x2 grid + bottom-pinned wide cadence card -->
+                <div class="lg:col-span-5 flex flex-col gap-4" data-aos="fade-left">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                            <h3 class="font-display font-bold text-xl uppercase mb-2">Studio</h3>
+                            <p class="font-medium">Seoul + Remote</p>
+                        </div>
+                        <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                            <h3 class="font-display font-bold text-xl uppercase mb-2">Team</h3>
+                            <p class="font-medium">Strategy, Design, Dev</p>
+                        </div>
+                        <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                            <h3 class="font-display font-bold text-xl uppercase mb-2">Focus</h3>
+                            <p class="font-medium">Product, Culture, Tech</p>
+                        </div>
+                        <div class="bg-neo-bg border-hard p-5 shadow-neo">
+                            <h3 class="font-display font-bold text-xl uppercase mb-2">Availability</h3>
+                            <p class="font-medium">Q3 - 2 slots</p>
+                        </div>
                     </div>
-                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
-                        <h3 class="font-display font-bold text-xl uppercase mb-2">Team</h3>
-                        <p class="font-medium">Strategy, Design, Dev</p>
-                    </div>
-                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
-                        <h3 class="font-display font-bold text-xl uppercase mb-2">Focus</h3>
-                        <p class="font-medium">Product, Culture, Tech</p>
-                    </div>
-                    <div class="bg-neo-bg border-hard p-5 shadow-neo">
-                        <h3 class="font-display font-bold text-xl uppercase mb-2">Availability</h3>
-                        <p class="font-medium">Q3 - 2 slots</p>
+                    <!-- New wide cadence card — bottom-pinned via mt-auto so column heights align (P.4 + B.4.1) -->
+                    <div class="mt-auto bg-neo-black text-white border-hard p-5 shadow-neo flex flex-col gap-3">
+                        <div class="flex items-center justify-between">
+                            <span class="font-mono text-xs uppercase tracking-widest opacity-70">// Cadence</span>
+                            <span class="bg-neo-yellow text-black border-hard px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest font-bold">LIVE</span>
+                        </div>
+                        <h3 class="font-display font-bold text-lg sm:text-xl uppercase leading-tight">Friday Demos. Monday Ships.</h3>
+                        <ul class="grid grid-cols-3 gap-2 text-[10px] font-mono uppercase tracking-widest pt-2 border-t border-white/20">
+                            <li class="flex flex-col"><span class="text-neo-yellow">FRI</span><span class="opacity-80">Demo</span></li>
+                            <li class="flex flex-col"><span class="text-neo-yellow">MON</span><span class="opacity-80">Sprint</span></li>
+                            <li class="flex flex-col"><span class="text-neo-yellow">QTR</span><span class="opacity-80">Review</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -611,7 +811,7 @@
     <!-- Portfolio Grid -->
     <section id="work" class="py-16 sm:py-24 bg-neo-bg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-display font-black text-4xl sm:text-6xl uppercase mb-4 text-center" data-aos="fade-up">Selected <span class="underline decoration-wavy decoration-neo-red decoration-4">Chaos</span></h2>
+            <h2 class="font-display font-black text-4xl sm:text-6xl uppercase mb-4 text-center" data-aos="fade-up">Selected <span class="text-neo-red italic chaos-pulse">Chaos</span></h2>
             <p class="text-lg sm:text-xl font-medium text-center max-w-2xl mx-auto mb-12 sm:mb-16" data-aos="fade-up" data-aos-delay="100">
                 Case studies where bold design met measurable results.
             </p>
@@ -735,8 +935,12 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="py-16 sm:py-24 bg-white border-t-3 border-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative overflow-hidden py-16 sm:py-24 bg-white border-t-3 border-black">
+        <!-- Decorative squares — only the bottom-right yellow corner kept per user (R2) -->
+        <div class="deco-squares" aria-hidden="true">
+            <span class="bg-neo-yellow shadow-neo" style="width:10rem;height:10rem;bottom:-3rem;right:-3rem;transform:rotate(14deg);"></span>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 sm:mb-16">
                 <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase" data-aos="fade-up">Client Proof</h2>
                 <p class="text-lg sm:text-xl font-medium max-w-xl" data-aos="fade-up" data-aos-delay="100">
@@ -774,20 +978,27 @@
     </section>
 
     <!-- FAQ — brutalist details accordion -->
-    <section id="faq" class="py-16 sm:py-24 bg-neo-bg border-t-3 border-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+    <section id="faq" class="relative overflow-hidden py-16 sm:py-24 bg-neo-bg border-t-3 border-black">
+        <!-- Decorative squares — both blacks removed per user (R3). Yellow + red kept. -->
+        <div class="deco-squares" aria-hidden="true">
+            <span class="bg-neo-yellow shadow-neo-mob" style="width:5rem;height:5rem;top:5rem;right:6%;transform:rotate(-12deg);"></span>
+            <span class="bg-neo-red" style="width:1.25rem;height:1.25rem;top:13rem;left:8%;transform:rotate(10deg);"></span>
+        </div>
+        <!-- Wider container (R3): pushes left col closer to viewport edge on wide screens -->
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- 2-track fractional template (R4): bigger gap without 12-col math collapsing the right column past viewport (playbook L.6) -->
+            <div class="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-y-10 gap-x-12 lg:gap-x-24 xl:gap-x-32 items-stretch">
 
                 <!-- Left rail — image plate + eyebrow + heading -->
-                <div class="lg:col-span-5" data-aos="fade-right">
-                    <span class="inline-block bg-neo-red text-white border-hard px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest mb-4">// Read Me First</span>
-                    <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase mb-6 leading-none">Loud Questions.<br><span class="bg-neo-yellow border-hard px-2 inline-block transform -rotate-1 mt-2">Plain Answers.</span></h2>
+                <div class="flex flex-col" data-aos="fade-right">
+                    <span class="inline-block bg-neo-red text-white border-hard px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest mb-4 self-start">// Read Me First</span>
+                    <h2 class="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase mb-6 leading-none">Loud Questions<br><span class="bg-neo-yellow border-hard px-2 inline-block transform -rotate-1 mt-2">Plain Answers.</span></h2>
                     <p class="text-lg font-medium mb-8 max-w-md">
                         Everything we get asked twice. Pricing, timelines, scope, the boring legal bit.
                     </p>
                     <div class="relative bg-white border-hard p-2 shadow-neo-lg transform rotate-1 max-w-sm">
                         <div class="aspect-[4/5] bg-neo-black border-hard overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" alt="Studio at work" class="w-full h-full object-cover grayscale contrast-110">
+                            <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop" alt="Studio at work" class="w-full h-full object-cover grayscale contrast-110">
                         </div>
                         <div class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
                             <span>[ STUDIO_LOG ]</span>
@@ -796,67 +1007,96 @@
                     </div>
                 </div>
 
-                <!-- Right rail — accordion -->
-                <div class="lg:col-span-7 bg-white border-hard shadow-neo-lg" data-aos="fade-left">
-                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group" open>
-                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
-                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">How fast can you actually ship?</h3>
-                            <span class="neo-chevron shrink-0 bg-neo-yellow border-hard w-10 h-10 flex items-center justify-center shadow-neo">
-                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                            </span>
-                        </summary>
-                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
-                            Most launches land in 6-10 weeks. Tight scope can hit 5 days. We refuse projects we cannot ship without losing the edge — fast is a constraint, not a feature.
-                        </p>
-                    </details>
+                <!-- Right rail — accordion + image plate (fills empty space) + "Still have questions?" card (R2) -->
+                <div class="flex flex-col gap-6 lg:gap-8" data-aos="fade-left">
+                    <div class="bg-white border-hard shadow-neo-lg">
+                        <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group" open>
+                            <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                                <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">How fast can you actually ship?</h3>
+                                <span class="neo-chevron shrink-0 bg-neo-yellow border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                                Most launches land in 6-10 weeks. Tight scope can hit 5 days. We refuse projects we cannot ship without losing the edge — fast is a constraint, not a feature.
+                            </p>
+                        </details>
 
-                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
-                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
-                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Do you take retainers?</h3>
-                            <span class="neo-chevron shrink-0 bg-neo-red text-white border-hard w-10 h-10 flex items-center justify-center shadow-neo">
-                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                            </span>
-                        </summary>
-                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
-                            Yes — capped at three at a time so we stay senior on every account. Retainers are billed monthly and scoped to a clear roadmap. No babysitting.
-                        </p>
-                    </details>
+                        <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
+                            <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                                <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Do you take retainers?</h3>
+                                <span class="neo-chevron shrink-0 bg-neo-red text-white border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                                Yes — capped at three at a time so we stay senior on every account. Retainers are billed monthly and scoped to a clear roadmap. No babysitting.
+                            </p>
+                        </details>
 
-                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
-                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
-                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Will you work with our internal team?</h3>
-                            <span class="neo-chevron shrink-0 bg-neo-bg border-hard w-10 h-10 flex items-center justify-center shadow-neo">
-                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                            </span>
-                        </summary>
-                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
-                            Always. We embed in your Slack, run weekly demos, and document everything we ship in a handover doc your team owns. No black boxes.
-                        </p>
-                    </details>
+                        <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
+                            <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                                <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Will you work with our internal team?</h3>
+                                <span class="neo-chevron shrink-0 bg-neo-bg border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                                Always. We embed in your Slack, run weekly demos, and document everything we ship in a handover doc your team owns. No black boxes.
+                            </p>
+                        </details>
 
-                    <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
-                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
-                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">What is your minimum project?</h3>
-                            <span class="neo-chevron shrink-0 bg-neo-yellow border-hard w-10 h-10 flex items-center justify-center shadow-neo">
-                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                            </span>
-                        </summary>
-                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
-                            Identity sprints from $14k. Web builds from $32k. Launch campaigns scoped per channel. We send a fixed quote within 48h of the brief.
-                        </p>
-                    </details>
+                        <details class="neo-faq border-b-3 border-black p-5 sm:p-6 group">
+                            <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                                <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">What is your minimum project?</h3>
+                                <span class="neo-chevron shrink-0 bg-neo-yellow border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                                Identity sprints from $14k. Web builds from $32k. Launch campaigns scoped per channel. We send a fixed quote within 48h of the brief.
+                            </p>
+                        </details>
 
-                    <details class="neo-faq p-5 sm:p-6 group">
-                        <summary class="flex justify-between items-center gap-4 cursor-pointer">
-                            <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Where are you based?</h3>
-                            <span class="neo-chevron shrink-0 bg-neo-black text-white border-hard w-10 h-10 flex items-center justify-center shadow-neo">
-                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
-                            </span>
-                        </summary>
-                        <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
-                            HQ in Seoul. The studio runs across three time zones — Asia, Europe, and the Americas — so handoffs cross calendars cleanly. We ship 24/7 without all-nighters.
-                        </p>
-                    </details>
+                        <details class="neo-faq p-5 sm:p-6 group">
+                            <summary class="flex justify-between items-center gap-4 cursor-pointer">
+                                <h3 class="font-display font-bold text-lg sm:text-xl uppercase pr-4">Where are you based?</h3>
+                                <span class="neo-chevron shrink-0 bg-neo-black text-white border-hard w-10 h-10 flex items-center justify-center shadow-neo">
+                                    <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                                </span>
+                            </summary>
+                            <p class="mt-4 text-base sm:text-lg font-medium leading-relaxed">
+                                HQ in Seoul. The studio runs across three time zones — Asia, Europe, and the Americas — so handoffs cross calendars cleanly. We ship 24/7 without all-nighters.
+                            </p>
+                        </details>
+                    </div>
+
+                    <!-- Image plate — flex-1 grows to fill any remaining vertical space so right col bottoms with left col -->
+                    <figure class="flex-1 bg-white border-hard p-2 shadow-neo flex flex-col">
+                        <div class="flex-1 relative bg-neo-black border-hard overflow-hidden min-h-[180px]">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop" alt="Studio frame — late build" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110">
+                        </div>
+                        <figcaption class="flex justify-between items-center pt-2 px-1 font-mono text-xs font-bold uppercase">
+                            <span>[ STUDIO_FRAME_02 ]</span>
+                            <span class="text-neo-red">BUILD · 04:21</span>
+                        </figcaption>
+                    </figure>
+                    <!-- "Still have questions?" card — bigger padding + extra meta row -->
+                    <div class="bg-neo-black text-white border-hard shadow-neo p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6">
+                        <span class="bg-neo-yellow border-hard w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center shadow-neo-mob shrink-0">
+                            <i data-lucide="mail" class="w-7 h-7 sm:w-8 sm:h-8 text-black"></i>
+                        </span>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-display font-bold text-lg sm:text-2xl uppercase mb-1">Still have questions?</h3>
+                            <p class="font-mono text-[11px] sm:text-xs uppercase tracking-widest opacity-80 mb-3">Reply within 4 hrs · Asia + EU + Americas</p>
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono uppercase tracking-widest">
+                                <span><span class="text-neo-yellow">FRI</span> Demo</span>
+                                <span><span class="text-neo-yellow">MON</span> Sprint</span>
+                                <span><span class="text-neo-yellow">QTR</span> Review</span>
+                            </div>
+                        </div>
+                        <a href="mailto:hello@raw.kr" class="btn-neo bg-neo-red border-3 border-white px-5 py-3 sm:px-6 sm:py-4 text-sm sm:text-base font-bold uppercase shadow-[4px_4px_0px_0px_#FFFFFF] shrink-0 self-start sm:self-auto">Ask →</a>
+                    </div>
                 </div>
             </div>
         </div>

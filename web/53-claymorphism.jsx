@@ -60,6 +60,35 @@ export default function T53Claymorphism() {
 
   const pressShelf = ["NYT", "The Verge", "Wired", "Common Sense Media", "Fast Company"];
 
+  const trustedBrands = [
+    { slug: "notion",    name: "Notion" },
+    { slug: "linear",    name: "Linear" },
+    { slug: "figma",     name: "Figma" },
+    { slug: "framer",    name: "Framer" },
+    { slug: "webflow",   name: "Webflow" },
+    { slug: "mailchimp", name: "Mailchimp" },
+    { slug: "intercom",  name: "Intercom" },
+    { slug: "dropbox",   name: "Dropbox" },
+  ];
+
+  const storyChecklist = [
+    "Auto-adjust vocabulary by age 3–8",
+    "Print drawings & save bedtime moments",
+    "Works fully offline on plane mode",
+  ];
+
+  const safeModeBullets = [
+    "COPPA + GDPR-K compliant",
+    "No third-party trackers",
+    "PIN-locked parent dashboard",
+  ];
+
+  const educatorStats = [
+    { num: "40+", color: "text-clay-green", label: "classrooms" },
+    { num: "15k", color: "text-clay-blue",  label: "play-tests" },
+    { num: "98%", color: "text-clay-pink",  label: '"again!" rate' },
+  ];
+
   const proFeatures = ["Unlimited Lessons", "Offline Mode", "Progress Reports", "Multiple Profiles"];
   const productLinks = ["Games", "Pricing", "For Schools"];
   const companyLinks = ["About Us", "Careers", "Contact"];
@@ -246,6 +275,20 @@ export default function T53Claymorphism() {
           </div>
         </section>
 
+        {/* Trusted-by — claymorphic brand strip */}
+        <section className="relative z-10 py-16 px-4">
+          <div className="max-w-5xl mx-auto bg-white/80 backdrop-blur-sm rounded-[2.5rem] shadow-clay-card p-8 md:p-10">
+            <p className="text-center text-clay-sub font-extrabold uppercase tracking-widest text-xs mb-8">Loved by playful teams at</p>
+            <div className="grid grid-cols-4 md:grid-cols-8 gap-4 md:gap-6 items-center">
+              {trustedBrands.map(b => (
+                <div key={b.slug} className="aspect-square bg-clay-bg rounded-2xl shadow-clay-inset flex items-center justify-center p-3 hover:shadow-clay-btn transition-shadow group">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/64748b`} alt={b.name} className="w-8 h-8 md:w-10 md:h-10 opacity-70 group-hover:opacity-100 transition-opacity" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="features" className="relative z-10 py-24 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16 max-w-2xl mx-auto">
@@ -309,6 +352,43 @@ export default function T53Claymorphism() {
           </div>
         </section>
 
+        {/* Editorial Spread #1 — image LEFT (Story Time) */}
+        <section className="relative z-10 py-24 px-4">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+            <div className="relative">
+              <div className="absolute -top-8 -left-8 w-40 h-40 bg-clay-pinkLight rounded-full blur-2xl opacity-70 pointer-events-none"></div>
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-clay-card bg-white p-3">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80&auto=format&fit=crop" alt="Child reading and exploring an illustrated story together with parent" className="w-full aspect-[4/5] object-cover rounded-[2rem]" loading="lazy" />
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-clay-float p-4 hidden md:flex items-center gap-3">
+                <div className="w-12 h-12 bg-clay-pink rounded-xl shadow-clay-btn flex items-center justify-center text-white">
+                  <i data-lucide="book-heart"></i>
+                </div>
+                <div>
+                  <p className="font-display font-bold text-clay-text">Story Cove</p>
+                  <p className="text-xs font-bold text-clay-sub">Chapter 12 · 4 mins</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span className="text-clay-pink font-extrabold uppercase tracking-widest text-sm mb-3 block">Bedtime, but better</span>
+              <h2 className="font-display font-bold text-4xl md:text-5xl leading-tight text-clay-text mb-6">Stories that read along, not over.</h2>
+              <p className="text-clay-sub font-medium text-lg leading-relaxed mb-6">Each chapter pauses for the right questions, slows down on the hard words, and lets your child choose what happens next. Recorded by real voice actors. Co-read with you when you want it.</p>
+              <ul className="space-y-3 mb-8">
+                {storyChecklist.map(item => (
+                  <li key={item} className="flex items-start gap-3 text-clay-text font-semibold">
+                    <span className="w-6 h-6 bg-clay-greenLight rounded-lg shadow-clay-btn flex items-center justify-center mt-0.5 shrink-0"><i data-lucide="check" className="w-3.5 h-3.5 text-clay-green"></i></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <button className="bg-clay-pink text-white font-bold px-6 py-3 rounded-2xl shadow-clay-btn squish hover:-translate-y-1 transition-all inline-flex items-center gap-2">
+                Try a Free Chapter <i data-lucide="arrow-right" className="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
         <section className="py-24 px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             <h2 className="font-display font-bold text-4xl text-center text-clay-text mb-16">Happy Parents say...</h2>
@@ -336,6 +416,8 @@ export default function T53Claymorphism() {
 
         {/* Three Pillars — full-bleed gradient */}
         <section className="relative z-10 w-full py-24 px-4 overflow-hidden" style={{ background: "linear-gradient(135deg, #F472B6 0%, #A78BFA 50%, #60A5FA 100%)" }}>
+          {/* Top blend: fade from sky bg into the pink-leading gradient */}
+          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none" style={{ background: "linear-gradient(180deg, #E0F2FE 0%, rgba(224,242,254,0) 100%)" }} />
           <div className="absolute -top-12 -left-12 w-48 h-48 bg-white/20 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute -bottom-16 right-20 w-64 h-64 bg-white/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute top-32 right-12 w-24 h-24 bg-yellow-300/60 rounded-full shadow-clay-float animate-float hidden md:block pointer-events-none" />
@@ -369,8 +451,10 @@ export default function T53Claymorphism() {
         </section>
 
         {/* Designed by Educators */}
-        <section className="relative z-10 py-24 px-4">
-          <div className="max-w-6xl mx-auto">
+        <section className="relative z-10 py-24 px-4 overflow-hidden">
+          {/* Top blend: fade from pillars-gradient blue end into the sky bg */}
+          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none" style={{ background: "linear-gradient(180deg, #60A5FA 0%, rgba(96,165,250,0) 100%)", opacity: 0.5 }} />
+          <div className="max-w-6xl mx-auto relative">
             <div className="text-center mb-14 max-w-2xl mx-auto">
               <span className="text-clay-green font-extrabold uppercase tracking-widest text-sm mb-2 block">The Team</span>
               <h2 className="font-display font-bold text-4xl text-clay-text mb-4">Designed by real educators</h2>
@@ -392,6 +476,106 @@ export default function T53Claymorphism() {
                   </div>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Premium 2x2 — claymorphic capability tiles */}
+        <section className="relative z-10 py-24 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-14 max-w-2xl mx-auto">
+              <span className="text-clay-purple font-extrabold uppercase tracking-widest text-sm mb-2 block">What's inside</span>
+              <h2 className="font-display font-bold text-4xl md:text-5xl text-clay-text mb-4">Built for the way kids actually learn</h2>
+              <p className="text-clay-sub font-medium text-lg">Four pillars that turn every screen-on minute into a bite-sized win.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {/* Featured card */}
+              <article className="md:row-span-2 relative rounded-[2.5rem] p-8 md:p-10 shadow-clay-float overflow-hidden border border-pink-200" style={{ background: "linear-gradient(135deg, #FBCFE8 0%, #F5D0FE 100%)" }}>
+                <div className="absolute -top-12 -right-12 w-48 h-48 bg-white/40 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-clay-pink/30 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="relative flex flex-col h-full">
+                  <span className="inline-flex items-center gap-1.5 self-start bg-white/70 backdrop-blur-sm text-clay-pink font-extrabold uppercase tracking-widest text-[10px] px-3 py-1.5 rounded-full shadow-clay-btn mb-6">
+                    <i data-lucide="sparkles" className="w-3 h-3"></i> Featured
+                  </span>
+                  <div className="w-20 h-20 bg-white rounded-3xl shadow-clay-btn flex items-center justify-center text-clay-pink mb-6">
+                    <i data-lucide="shield-check" className="w-10 h-10"></i>
+                  </div>
+                  <h3 className="font-display font-bold text-3xl md:text-4xl text-clay-text mb-3">Safe Mode by Default</h3>
+                  <p className="text-clay-text/80 font-medium leading-relaxed mb-6 max-w-md">Zero ads. Zero outbound links inside the kid view. COPPA-certified, parent-locked settings, and an offline-first design so the app never leaks attention to the open web.</p>
+                  <ul className="space-y-2 text-sm font-bold text-clay-text mb-auto">
+                    {safeModeBullets.map(b => (
+                      <li key={b} className="flex items-center gap-2"><i data-lucide="check" className="w-4 h-4 text-clay-pink"></i> {b}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-8 flex items-center gap-3 pt-6 border-t border-white/60">
+                    <div className="flex -space-x-2">
+                      <div className="w-8 h-8 rounded-full bg-clay-pink border-2 border-white shadow-clay-btn"></div>
+                      <div className="w-8 h-8 rounded-full bg-clay-purple border-2 border-white shadow-clay-btn"></div>
+                      <div className="w-8 h-8 rounded-full bg-clay-blue border-2 border-white shadow-clay-btn"></div>
+                    </div>
+                    <p className="text-xs font-bold text-clay-text/80">Approved by 12,000+ parents</p>
+                  </div>
+                </div>
+              </article>
+              {/* Card 2 */}
+              <article className="relative rounded-[2.5rem] p-8 shadow-clay-card overflow-hidden border border-blue-100" style={{ background: "linear-gradient(135deg, #DBEAFE 0%, #E0F2FE 100%)" }}>
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-clay-blue/20 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="relative">
+                  <div className="w-14 h-14 bg-white rounded-2xl shadow-clay-btn flex items-center justify-center text-clay-blue mb-5">
+                    <i data-lucide="download" className="w-7 h-7"></i>
+                  </div>
+                  <h3 className="font-display font-bold text-2xl text-clay-text mb-2">Learn Anywhere</h3>
+                  <p className="text-clay-sub font-medium leading-relaxed">Download a full week of lessons before that long flight. Syncs progress when Wi-Fi is back.</p>
+                </div>
+              </article>
+              {/* Card 3 */}
+              <article className="relative rounded-[2.5rem] p-8 shadow-clay-card overflow-hidden border border-green-100" style={{ background: "linear-gradient(135deg, #DCFCE7 0%, #ECFCCB 100%)" }}>
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-clay-green/20 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="relative">
+                  <div className="w-14 h-14 bg-white rounded-2xl shadow-clay-btn flex items-center justify-center text-clay-green mb-5">
+                    <i data-lucide="line-chart" className="w-7 h-7"></i>
+                  </div>
+                  <h3 className="font-display font-bold text-2xl text-clay-text mb-2">Parent Insights</h3>
+                  <p className="text-clay-sub font-medium leading-relaxed">A weekly digest with what your child loved, what they struggled with, and what to celebrate.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* Editorial Spread #2 — image RIGHT (Made by Real Educators) */}
+        <section className="relative z-10 py-24 px-4">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+            <div className="order-2 md:order-1">
+              <span className="text-clay-green font-extrabold uppercase tracking-widest text-sm mb-3 block">Built in classrooms</span>
+              <h2 className="font-display font-bold text-4xl md:text-5xl leading-tight text-clay-text mb-6">Every level is play-tested with real kids.</h2>
+              <p className="text-clay-sub font-medium text-lg leading-relaxed mb-6">We pilot every new lesson in 40+ classrooms before it ships. Teachers tweak the pacing, kids vote on the rewards, and our team rebuilds anything that doesn't earn a giggle.</p>
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                {educatorStats.map(s => (
+                  <div key={s.label} className="bg-white rounded-2xl shadow-clay-card p-4 text-center">
+                    <p className={`font-display font-bold text-3xl ${s.color}`}>{s.num}</p>
+                    <p className="text-xs font-bold text-clay-sub mt-1">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+              <button className="bg-clay-green text-white font-bold px-6 py-3 rounded-2xl shadow-clay-btn squish hover:-translate-y-1 transition-all inline-flex items-center gap-2">
+                Meet the Team <i data-lucide="arrow-right" className="w-4 h-4"></i>
+              </button>
+            </div>
+            <div className="order-1 md:order-2 relative">
+              <div className="absolute -top-8 -right-8 w-40 h-40 bg-clay-greenLight rounded-full blur-2xl opacity-70 pointer-events-none"></div>
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-clay-card bg-white p-3">
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900&q=80&auto=format&fit=crop" alt="Educators collaborating on lesson design at a bright table" className="w-full aspect-[4/5] object-cover rounded-[2rem]" loading="lazy" />
+              </div>
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-clay-float p-4 hidden md:flex items-center gap-3">
+                <div className="w-12 h-12 bg-clay-green rounded-xl shadow-clay-btn flex items-center justify-center text-white">
+                  <i data-lucide="users"></i>
+                </div>
+                <div>
+                  <p className="font-display font-bold text-clay-text">Curriculum Lab</p>
+                  <p className="text-xs font-bold text-clay-sub">Live this week</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>

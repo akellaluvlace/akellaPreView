@@ -168,20 +168,37 @@
 </header>
 
 <main class="flex-grow">
-    <!-- Hero Section -->
-    <section class="bg-primary-container text-on-primary-container py-[80px] md:py-section-gap px-margin-mobile md:px-gutter">
-        <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 items-center">
-            
+    <!-- Hero Section — bigger, moodier -->
+    <section class="relative bg-primary-container text-on-primary-container py-[80px] md:py-section-gap px-margin-mobile md:px-gutter overflow-hidden">
+        <!-- Atmospheric backdrop -->
+        <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop" alt="" class="w-full h-full object-cover opacity-15 mix-blend-luminosity grayscale contrast-110"/>
+            <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(249,180,197,0.18) 0%, transparent 70%);"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-primary-container via-primary-container/85 to-primary-container"></div>
+        </div>
+
+        <div class="relative z-10 max-w-container-max mx-auto grid md:grid-cols-12 gap-10 md:gap-12 items-center">
+
             <!-- Left: Image -->
-            <div class="aspect-square relative rounded-2xl overflow-hidden shadow-2xl">
-                <img alt="Portrait of Dr. Elena Rostova with warm studio lighting, deep merlot and gold background tones" class="object-cover w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1dAHwwZgiQ9QHxJ9gfnqVYtq-OXgNwB7Qz6tbIEmLOKnOPiBRxp-dUn39Q1IWNcnwRlAfHDqBYHLGAM-arnuCC5UiHsQEUM8R6OCZBVHl6qg6E_rLZ1-bdu06yzeUcNDEwZ4OM2VEJlgiHw24gNox1_Y9tfFlBFAmchJAf01ReXp3UoS6rAoFXvmu1JdEylzdKXk8Tp-fggDn-EipRs9I9_8O89-SQxiyJ5LPy_yHXfmtuLAqNRDPSCn735ziVrxDPL-OUWkeLiI" width="800" height="800" loading="eager" fetchpriority="high" decoding="async"/>
+            <div class="md:col-span-5 aspect-square relative rounded-2xl overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)] ring-1 ring-secondary-fixed/20">
+                <img alt="Editorial portrait of Dr. Elena Rostova in warm studio light — guest of Episode 24" class="object-cover w-full h-full grayscale contrast-110" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" width="800" height="800" loading="eager" fetchpriority="high" decoding="async"/>
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary/45 via-transparent to-secondary-fixed/10 mix-blend-multiply pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
+                    <span class="font-label-caps text-label-caps text-on-primary uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Episode · 024</span>
+                    <span class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">— ROSTOVA</span>
+                </div>
             </div>
-            
+
             <!-- Right: Content & Player -->
-            <div class="flex flex-col gap-6">
+            <div class="md:col-span-7 flex flex-col gap-6">
                 <div>
-                    <span class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest mb-3 block">Latest Episode</span>
-                    <h1 class="font-display-xl text-[clamp(2.5rem,5vw,4.5rem)] text-on-primary mb-4 text-balance">The Architecture of Systems</h1>
+                    <span class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-[0.4em] mb-4 flex items-center gap-3">
+                        <span class="w-10 h-px bg-secondary-fixed"></span>
+                        Latest Episode · 54 min
+                    </span>
+                    <h1 class="font-display-xl text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.98] tracking-[-0.02em] text-on-primary mb-6 text-balance">
+                        The Architecture <em class="text-secondary-fixed">of Systems.</em>
+                    </h1>
                     <p class="font-body-lg text-primary-fixed-dim max-w-[60ch] text-pretty">
                         We sit down with Dr. Elena Rostova to unpack the hidden structures governing modern distributed networks, and why simplicity is the hardest metric to optimize.
                     </p>
@@ -353,7 +370,7 @@
                 </article>
                 <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
                     <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
-                        <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop" alt="Brass apothecary objects on a dark surface" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <img src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop" alt="Brass apothecary objects on a dark surface" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
                         <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E13</span>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
@@ -392,7 +409,7 @@
                 </article>
                 <article class="group flex flex-col gap-4 bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/20 hover:border-outline-variant/50 hover:shadow-md transition-all">
                     <div class="aspect-square overflow-hidden rounded-xl bg-surface-variant relative">
-                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop" alt="Concrete stairwell receding into shadow" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
+                        <img src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop" alt="Concrete stairwell receding into shadow" class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" decoding="async" />
                         <span class="absolute top-3 left-3 font-label-caps text-label-caps text-on-primary bg-primary/90 backdrop-blur-sm px-3 py-1.5 rounded-full">S03 · E10</span>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 font-label-caps text-label-caps text-on-surface-variant tabular-nums">
@@ -427,45 +444,42 @@
                 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest mb-3 block">Voices · Behind the Show</span>
                 <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">Two ears, one long table.</h2>
             </div>
+            <!-- All 4 images aligned in a single row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-12 md:mb-16">
+                <figure class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop" alt="David Sterling — editorial portrait, soft window light" class="object-cover w-full h-full grayscale contrast-110 hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
+                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=800&q=85&auto=format&fit=crop" alt="David at the studio desk, mid-thought" class="object-cover w-full h-full grayscale contrast-110 hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=85&auto=format&fit=crop" alt="Nori Aldama — editorial portrait, low key" class="object-cover w-full h-full grayscale contrast-110 hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                </figure>
+                <figure class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
+                    <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=800&q=85&auto=format&fit=crop" alt="Nori at the mixing desk" class="object-cover w-full h-full grayscale contrast-110 hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                </figure>
+            </div>
+
+            <!-- Bios — 2-col underneath -->
             <div class="grid md:grid-cols-2 gap-12 md:gap-16">
-                <article class="flex flex-col gap-6">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
-                            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop" alt="David Sterling — editorial portrait, soft window light" class="object-cover w-full h-full" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant mt-8">
-                            <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=800&q=85&auto=format&fit=crop" alt="David at the studio desk, mid-thought" class="object-cover w-full h-full" loading="lazy" decoding="async" />
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-3">
-                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Host · Editorial</span>
-                        <h3 class="font-headline-md text-3xl text-on-surface">David Sterling</h3>
-                        <p class="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">Former staff writer at <em>The Atlantic Review</em>; nine years in long-form interviews with system architects, civic technologists, and the occasional sound engineer who refuses to be one.</p>
-                        <div class="flex flex-wrap gap-2 mt-2">
-                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Letters</a>
-                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Mastodon</a>
-                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Are.na</a>
-                        </div>
+                <article class="flex flex-col gap-3">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Host · Editorial</span>
+                    <h3 class="font-headline-md text-3xl text-on-surface">David Sterling</h3>
+                    <p class="font-body-md text-on-surface-variant max-w-[42ch] text-pretty">Former staff writer at <em>The Atlantic Review</em>; nine years in long-form interviews with system architects, civic technologists, and the occasional sound engineer who refuses to be one.</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Letters</a>
+                        <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Mastodon</a>
+                        <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Are.na</a>
                     </div>
                 </article>
-                <article class="flex flex-col gap-6">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant mt-8">
-                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=85&auto=format&fit=crop" alt="Nori Aldama — editorial portrait, low key" class="object-cover w-full h-full" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="aspect-[3/4] overflow-hidden rounded-2xl bg-surface-variant">
-                            <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=800&q=85&auto=format&fit=crop" alt="Nori at the mixing desk" class="object-cover w-full h-full" loading="lazy" decoding="async" />
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-3">
-                        <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Co-Host · Producer</span>
-                        <h3 class="font-headline-md text-3xl text-on-surface">Nori Aldama</h3>
-                        <p class="font-body-md text-on-surface-variant max-w-[40ch] text-pretty">Field-recordist turned producer. Builds the show's sound from the room up — preferring close mics, slow rooms, and the kind of edit that doesn't announce itself. Co-founded The Lateral with David in 2021.</p>
-                        <div class="flex flex-wrap gap-2 mt-2">
-                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Studio Notes</a>
-                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Bandcamp</a>
-                            <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Mastodon</a>
-                        </div>
+                <article class="flex flex-col gap-3">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Co-Host · Producer</span>
+                    <h3 class="font-headline-md text-3xl text-on-surface">Nori Aldama</h3>
+                    <p class="font-body-md text-on-surface-variant max-w-[42ch] text-pretty">Field-recordist turned producer. Builds the show's sound from the room up — preferring close mics, slow rooms, and the kind of edit that doesn't announce itself. Co-founded The Lateral with David in 2021.</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Studio Notes</a>
+                        <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Bandcamp</a>
+                        <a href="#" class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low border border-outline-variant/40 px-4 py-2 rounded-full hover:border-primary hover:text-primary transition-colors">Mastodon</a>
                     </div>
                 </article>
             </div>
@@ -544,17 +558,17 @@
     </section>
 
     <!-- Behind-the-Mic Half-Bleed (NOVEL #7) -->
-    <section id="studio" class="py-[80px] md:py-section-gap bg-surface-container-low scroll-mt-20 overflow-hidden">
-        <div class="grid md:grid-cols-2 items-stretch gap-10 md:gap-16">
-            <div class="lateral-half-bleed relative aspect-[4/5] md:aspect-auto md:min-h-[600px] overflow-hidden rounded-r-2xl shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1600&q=85&auto=format&fit=crop" alt="Recording-room interior at dusk, mic suspended over a wooden desk" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
-                <div class="absolute inset-0 bg-gradient-to-tr from-primary/40 via-transparent to-transparent pointer-events-none"></div>
-                <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-3">
+    <section id="studio" class="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface-container-low scroll-mt-20">
+        <div class="max-w-container-max mx-auto grid md:grid-cols-2 items-center gap-10 md:gap-16">
+            <figure class="relative aspect-[4/5] md:aspect-[5/6] overflow-hidden rounded-2xl bg-surface-container shadow-xl">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" alt="Recording-room interior — soft daylight in a converted carriage house" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110" loading="lazy" decoding="async" />
+                <div class="absolute inset-0 bg-gradient-to-tr from-primary/35 via-transparent to-transparent pointer-events-none"></div>
+                <figcaption class="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
                     <p class="font-label-caps text-label-caps text-on-primary uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Studio · Carriage House</p>
                     <span class="font-label-caps text-label-caps text-on-primary/80 uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Plate · IV</span>
-                </div>
-            </div>
-            <div class="flex flex-col justify-center gap-6 px-margin-mobile md:px-12 lg:px-16 max-w-[52ch]">
+                </figcaption>
+            </figure>
+            <div class="flex flex-col gap-6 max-w-[52ch]">
                 <span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Behind the Mic</span>
                 <h2 class="font-headline-lg text-[clamp(2rem,4vw,3rem)] text-on-surface text-balance">A long room, two warm mics, and a list of questions we'd rather not ask.</h2>
                 <div class="font-body-md text-on-surface-variant space-y-4 text-pretty">
@@ -608,7 +622,7 @@
                         </a>
                     </div>
                     <div class="md:col-span-5 md:order-1 aspect-[4/5] overflow-hidden rounded-2xl bg-surface-variant">
-                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop" alt="Editorial portrait — Okafor at a desk by a window" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
+                        <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop" alt="Editorial portrait — Okafor at a desk by a window" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" loading="lazy" decoding="async" />
                     </div>
                 </article>
                 <article class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
@@ -650,7 +664,7 @@
                 </div>
             </div>
             <div class="order-1 md:order-2 aspect-[4/5] relative rounded-2xl overflow-hidden shadow-xl">
-                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="David Sterling, host of The Lateral podcast, sitting thoughtfully in a modern recording studio" class="object-cover w-full h-full" loading="lazy" decoding="async" width="800" height="1000"/>
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop" alt="David Sterling, host of The Lateral podcast — editorial portrait, contemplative low light" class="object-cover w-full h-full grayscale contrast-110" loading="lazy" decoding="async" width="800" height="1000"/>
             </div>
         </div>
     </section>

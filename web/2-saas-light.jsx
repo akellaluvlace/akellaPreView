@@ -1,12 +1,3 @@
-const FLOWLINE_TYPED_PREFIX = "$ flowline run ";
-const FLOWLINE_TYPED_QUOTED = '"Ship engineering review weekly"';
-const FLOWLINE_RESULT_LINES = [
-  "  → triage backlog",
-  "  → notify reviewers",
-  "  → draft summary in Notion",
-  "  ✓ ran in 2.3s · 4 actions completed",
-];
-
 const FLOWLINE_LOGOS = [
   { name: "Atlasworks", mark: "●" },
   { name: "Pixelpath", mark: null },
@@ -54,40 +45,6 @@ const FLOWLINE_FAQ = [
 ];
 
 function FlowlineTerminal() {
-  const fullCommand = FLOWLINE_TYPED_PREFIX + FLOWLINE_TYPED_QUOTED;
-  const [typedIdx, setTypedIdx] = React.useState(0);
-  const [revealCount, setRevealCount] = React.useState(0);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    let timer;
-    const tick = (i) => {
-      if (cancelled) return;
-      if (i <= fullCommand.length) {
-        setTypedIdx(i);
-        timer = setTimeout(() => tick(i + 1), 38);
-      }
-    };
-    tick(0);
-    return () => { cancelled = true; if (timer) clearTimeout(timer); };
-  }, [fullCommand.length]);
-
-  React.useEffect(() => {
-    if (typedIdx < fullCommand.length) return;
-    let cancelled = false;
-    const timers = [];
-    for (let n = 1; n <= FLOWLINE_RESULT_LINES.length; n++) {
-      timers.push(setTimeout(() => {
-        if (!cancelled) setRevealCount(n);
-      }, n * 380));
-    }
-    return () => { cancelled = true; timers.forEach(clearTimeout); };
-  }, [typedIdx, fullCommand.length]);
-
-  const typedSlice = fullCommand.slice(0, typedIdx);
-  const showCommandCaret = typedIdx < fullCommand.length;
-  const promptDone = typedIdx >= fullCommand.length;
-
   return (
     <div className="relative rounded-xl overflow-hidden border border-[#1f2630] shadow-[0_24px_60px_rgba(11,11,12,0.18)] bg-[#0f1419] flowline-frame">
       <div className="flex items-center gap-3 px-4 py-3 border-b border-white/5 bg-[#161b22]">
@@ -98,21 +55,13 @@ function FlowlineTerminal() {
         </div>
         <span className="text-[11px] uppercase tracking-[0.2em] text-white/40 ml-2">flowline · my-team</span>
       </div>
-      <div className="p-5 sm:p-6 text-[13.5px] leading-7 text-[#c9d1d9]" aria-live="polite">
-        <div className="whitespace-pre-wrap break-words">
-          <span className="text-emerald-400">{typedSlice.length > 0 ? typedSlice.charAt(0) : "$"}</span>
-          <span className="text-white">{typedSlice.slice(1, Math.min(typedSlice.length, FLOWLINE_TYPED_PREFIX.length))}</span>
-          <span className="text-[#a5d6ff]">{typedSlice.slice(FLOWLINE_TYPED_PREFIX.length)}</span>
-          {showCommandCaret ? <span className="flowline-caret" aria-hidden="true"></span> : null}
-        </div>
-        {FLOWLINE_RESULT_LINES.slice(0, revealCount).map((line, i) => (
-          <div key={i} className={"mt-1 " + (i === FLOWLINE_RESULT_LINES.length - 1 ? "text-emerald-300 mt-2" : "text-[#8b949e]")}>
-            {line}
-          </div>
-        ))}
-        {promptDone && revealCount === FLOWLINE_RESULT_LINES.length ? (
-          <div className="mt-3"><span className="text-emerald-400">$</span> <span className="flowline-caret" aria-hidden="true"></span></div>
-        ) : null}
+      <div className="p-5 sm:p-6 text-[13.5px] leading-7 text-[#c9d1d9]">
+        <div className="flowline-type t0 whitespace-pre"><span className="text-emerald-400">$</span> <span className="text-white">flowline run</span> <span className="text-[#a5d6ff]">"Ship engineering review weekly"</span><span className="flowline-caret" aria-hidden="true"></span></div>
+        <div className="flowline-line l1 mt-2 text-[#8b949e]">  <span className="text-[#79c0ff]">→</span> triage backlog</div>
+        <div className="flowline-line l2 text-[#8b949e]">  <span className="text-[#79c0ff]">→</span> notify reviewers</div>
+        <div className="flowline-line l3 text-[#8b949e]">  <span className="text-[#79c0ff]">→</span> draft summary in Notion</div>
+        <div className="flowline-line l4 mt-2 text-emerald-300">  ✓ ran in 2.3s · 4 actions completed</div>
+        <div className="mt-3"><span className="text-emerald-400">$</span> <span className="flowline-caret" aria-hidden="true"></span></div>
       </div>
     </div>
   );
@@ -221,11 +170,21 @@ export default function T2SaasLight() {
         .flowline-frame { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
         .flowline-caret { display: inline-block; width: 0.55ch; height: 1.05em; background: #c9d1d9; margin-left: 1px; vertical-align: -2px; animation: flowlineCaretBlink 1s step-end infinite; }
         @keyframes flowlineCaretBlink { 50% { opacity: 0; } }
+        /* Typing animation — frame paints at once, only the text types in */
+        .flowline-type { display: block; overflow: hidden; white-space: nowrap; width: 0; }
+        .flowline-type.t0 { animation: flowlineType 1.4s steps(48, end) 0.15s forwards; }
+        .flowline-line { display: block; overflow: hidden; white-space: nowrap; width: 0; }
+        .flowline-line.l1 { animation: flowlineType 0.55s steps(18, end) 1.7s forwards; }
+        .flowline-line.l2 { animation: flowlineType 0.6s steps(20, end) 2.35s forwards; }
+        .flowline-line.l3 { animation: flowlineType 0.85s steps(28, end) 3.05s forwards; }
+        .flowline-line.l4 { animation: flowlineType 1.05s steps(37, end) 4.05s forwards; }
+        @keyframes flowlineType { to { width: 100%; } }
         .flowline-marquee-track { display: flex; gap: 3rem; animation: flowlineMarquee 40s linear infinite; will-change: transform; }
         .flowline-marquee:hover .flowline-marquee-track { animation-play-state: paused; }
         @keyframes flowlineMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @media (prefers-reduced-motion: reduce) {
           .flowline-caret { animation: none; }
+          .flowline-type, .flowline-line { width: auto; animation: none; overflow: visible; white-space: normal; }
           .flowline-marquee-track { animation: none; }
         }
       ` }} />
@@ -310,7 +269,13 @@ export default function T2SaasLight() {
 
           <section id="demo" aria-labelledby="terminal-heading" className="bg-surface-container py-16 sm:py-20 lg:py-xl overflow-hidden">
             <div className="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-center">
+              <header className="mb-10 sm:mb-14">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-variant bg-surface-container-lowest font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse motion-reduce:animate-none" aria-hidden="true"></span>
+                  Workflow as code
+                </span>
+              </header>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-start">
                 <div className="lg:col-span-7 relative">
                   <div className="absolute -inset-6 bg-primary-container opacity-10 blur-[80px] rounded-full pointer-events-none motion-reduce:hidden" aria-hidden="true"></div>
                   <div className="relative">
@@ -318,10 +283,6 @@ export default function T2SaasLight() {
                   </div>
                 </div>
                 <div className="lg:col-span-5 space-y-6 sm:space-y-8">
-                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-variant bg-surface-container-lowest font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse motion-reduce:animate-none" aria-hidden="true"></span>
-                    Workflow as code
-                  </span>
                   <h2 id="terminal-heading" className="font-display-lg text-[clamp(2rem,4vw+1rem,2.5rem)] leading-tight text-on-background text-balance">
                     Describe the work. Flowline runs it.
                   </h2>
@@ -349,39 +310,24 @@ export default function T2SaasLight() {
               <span className="font-label-sm text-[11px] uppercase tracking-[0.25em] text-secondary">Section · 04</span>
               <h2 id="enterprise-heading" className="mt-3 font-display-lg text-[clamp(1.75rem,3vw+1rem,2.25rem)] leading-tight text-on-background text-balance">Trusted in production by 2,400+ teams</h2>
             </header>
-            <div className="grid grid-cols-12 gap-3 sm:gap-4 items-stretch">
-              <div className="col-span-2 hidden md:block relative rounded-xl overflow-hidden border border-surface-variant aspect-[3/4]">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover" width="600" height="800" loading="lazy" decoding="async" />
-                <div className="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
-              </div>
-              <div className="col-span-12 md:col-span-8 flowline-marquee relative overflow-hidden rounded-xl border border-surface-variant bg-surface-container-lowest py-8 sm:py-10">
-                <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
-                <div className="flowline-marquee-track" aria-hidden="true">
-                  <div className="flex items-center gap-12 shrink-0 px-6">
-                    {FLOWLINE_LOGOS.map((logo, i) => (
-                      <span key={"a-" + i} className="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">
-                        {logo.mark ? <span className="text-primary-container">{logo.mark}</span> : null}
-                        {logo.mark ? " " : null}
-                        {logo.name}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-12 shrink-0 px-6">
-                    {FLOWLINE_LOGOS.map((logo, i) => (
-                      <span key={"b-" + i} className="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">
-                        {logo.mark ? <span className="text-primary-container">{logo.mark}</span> : null}
-                        {logo.mark ? " " : null}
-                        {logo.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-2 hidden md:block relative rounded-xl overflow-hidden border border-surface-variant aspect-[3/4]">
-                <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=600&q=85&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover" width="600" height="800" loading="lazy" decoding="async" />
-                <div className="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
-              </div>
+            <div className="rounded-2xl border border-surface-variant bg-surface-container-lowest px-6 py-10 sm:px-10 sm:py-12">
+              <ul role="list" className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                {[
+                  { slug: "vercel", name: "Vercel" },
+                  { slug: "stripe", name: "Stripe" },
+                  { slug: "linear", name: "Linear" },
+                  { slug: "notion", name: "Notion" },
+                  { slug: "discord", name: "Discord" },
+                  { slug: "figma", name: "Figma" },
+                  { slug: "github", name: "GitHub" },
+                  { slug: "cloudflare", name: "Cloudflare" },
+                ].map((b) => (
+                  <li key={b.slug} className="flex flex-col items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}`} alt={b.name} className="h-9 w-auto" loading="lazy" decoding="async" />
+                    <span className="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">{b.name}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
             <p className="mt-6 text-center font-body-md text-sm text-secondary">From Series-A teams to Fortune 500 ops orgs — Flowline runs the boring middle.</p>
           </section>
@@ -393,8 +339,8 @@ export default function T2SaasLight() {
             </header>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter">
               <div className="lg:col-span-5">
-                <div className="lg:sticky lg:top-32 relative rounded-xl overflow-hidden border border-surface-variant aspect-[4/5] bg-primary/10">
-                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop" alt="Server racks rendered in cool blue tones suggesting infrastructure backbone" className="w-full h-full object-cover mix-blend-luminosity opacity-90" width="1200" height="1500" loading="lazy" decoding="async" />
+                <div className="relative rounded-xl overflow-hidden border border-surface-variant aspect-[4/5] lg:aspect-auto lg:h-full bg-primary/10 min-h-[420px]">
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop" alt="Server racks rendered in cool blue tones suggesting infrastructure backbone" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-90" width="1200" height="1500" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-primary-container/30 mix-blend-multiply" aria-hidden="true"></div>
                   <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/90">
                     <span>Backbone · v4.2</span>
@@ -419,6 +365,111 @@ export default function T2SaasLight() {
                     </div>
                   </article>
                 ))}
+              </div>
+            </div>
+          </section>
+
+          <section aria-label="Flowline in production" className="bg-on-background py-12 sm:py-16">
+            <div className="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter">
+              <header className="mb-8 sm:mb-10 flex items-baseline justify-between gap-4 flex-wrap">
+                <span className="font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/60">Section · 06</span>
+                <span className="font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/60">In production · 2031</span>
+              </header>
+              <ul role="list" className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
+                {[
+                  { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Architectural curves — control plane room", tint: "from-primary/55 via-primary/10" },
+                  { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "Circuit board macro — telemetry surface", tint: "from-primary-container/60 via-primary-container/15" },
+                  { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Industrial machine bay — backbone", tint: "from-emerald-500/55 via-emerald-500/10" },
+                  { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Concrete monumental architecture — uptime", tint: "from-amber-500/55 via-amber-500/10" },
+                  { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete columns — substrate", tint: "from-fuchsia-500/55 via-fuchsia-500/10", hideMobile: true },
+                ].map((p, i) => (
+                  <li key={i} className={`relative rounded-2xl overflow-hidden aspect-[4/5] bg-primary/15 ${p.hideMobile ? "hidden md:block" : ""}`}>
+                    <img src={p.src} alt={p.alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
+                    <div className={`absolute inset-0 bg-gradient-to-tr ${p.tint} to-transparent mix-blend-multiply`} aria-hidden="true"></div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section aria-labelledby="middle-heading" className="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter py-16 sm:py-20 lg:py-xl">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-center">
+              <div className="lg:col-span-6">
+                <div className="relative rounded-2xl overflow-hidden border border-surface-variant aspect-[4/5] lg:aspect-[5/4] bg-primary/5">
+                  <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop" alt="Industrial machine bay — the boring, repetitive middle of the workflow" className="absolute inset-0 w-full h-full object-cover" width="1400" height="1100" loading="lazy" decoding="async" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-on-background/30 via-transparent to-primary-container/15 mix-blend-multiply" aria-hidden="true"></div>
+                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/90">
+                    <span>Field study · Stamping line · 2031</span>
+                    <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse motion-reduce:animate-none"></span>1,840 hr saved / qtr</span>
+                  </div>
+                </div>
+              </div>
+              <div className="lg:col-span-6 space-y-6 sm:space-y-7">
+                <span className="font-label-sm text-[11px] uppercase tracking-[0.25em] text-secondary">Section · 07</span>
+                <h2 id="middle-heading" className="font-display-lg text-[clamp(1.75rem,3vw+1rem,2.25rem)] leading-tight text-on-background text-balance">Built for the boring middle.</h2>
+                <p className="font-body-md text-body-md text-secondary text-pretty max-w-[58ch]">The flashy parts of an ops org get the demos. The boring middle — the triage, the routing, the status updates that keep three teams aligned — gets the time. Flowline runs that middle so your operators get their week back.</p>
+                <ul role="list" className="space-y-sm">
+                  {[
+                    { i: "schedule", t: "19-min median time-to-route", b: "from inbound signal to owned ticket." },
+                    { i: "repeat", t: "Replays every 15 min", b: "against a deterministic state machine — no quiet drift." },
+                    { i: "groups", t: "Operators stay in their existing tools", b: "— no new dashboard to learn." },
+                  ].map((x) => (
+                    <li key={x.i} className="flex items-start gap-3 font-body-md text-body-md text-secondary text-pretty">
+                      <span className="material-symbols-outlined text-[20px] text-primary-container shrink-0 mt-0.5" aria-hidden="true">{x.i}</span>
+                      <span><strong className="text-on-background font-semibold">{x.t}</strong> {x.b}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-end gap-6 border-t border-surface-variant pt-5 flex-wrap">
+                  <div>
+                    <p className="font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary mb-1.5">Hours reclaimed · per operator · 2031</p>
+                    <p className="font-display-lg text-[2.25rem] text-on-background tabular-nums leading-none">1,840 / yr</p>
+                  </div>
+                  <a className="ml-auto inline-flex items-center gap-2 font-label-sm text-[11px] uppercase tracking-[0.2em] text-primary-container hover:text-on-background transition-colors" href="#"><span>Read the field study</span><span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="ship-heading" className="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter pb-16 sm:pb-20 lg:pb-xl">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-center">
+              <div className="lg:col-span-6 lg:order-1 order-2 space-y-6 sm:space-y-7">
+                <span className="font-label-sm text-[11px] uppercase tracking-[0.25em] text-secondary">Section · 08</span>
+                <h2 id="ship-heading" className="font-display-lg text-[clamp(1.75rem,3vw+1rem,2.25rem)] leading-tight text-on-background text-balance">From triage to ship — in one place.</h2>
+                <p className="font-body-md text-body-md text-secondary text-pretty max-w-[58ch]">Atlasworks moved their incident-to-postmortem loop onto Flowline in one week. Pages stay in PagerDuty, threads stay in Slack, decisions land in Notion — and Flowline keeps the spine across all three so nothing falls between channels.</p>
+                <figure className="bg-surface-container-lowest border border-surface-variant rounded-2xl p-6 sm:p-7">
+                  <span className="material-symbols-outlined text-primary-container text-3xl leading-none mb-3 block" aria-hidden="true">format_quote</span>
+                  <blockquote className="font-headline-md text-lg text-on-background leading-relaxed text-pretty">"Two of our three on-call rotations folded into one channel after we shipped Flowline. We stopped writing the same status update three times. That alone paid for a year of the contract."</blockquote>
+                  <figcaption className="mt-5 flex items-center gap-3">
+                    <span className="w-9 h-9 rounded-full bg-primary-container/30 flex items-center justify-center font-headline-md text-on-background">MK</span>
+                    <span className="flex flex-col">
+                      <span className="font-label-sm text-sm text-on-background">Maya Kowalski</span>
+                      <span className="font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary">VP Engineering · Atlasworks</span>
+                    </span>
+                  </figcaption>
+                </figure>
+                <div className="grid grid-cols-3 gap-4 border-t border-surface-variant pt-5">
+                  {[
+                    { k: "Loops merged", v: "3 → 1" },
+                    { k: "Time-to-page", v: "42 s" },
+                    { k: "Postmortem · auto", v: "100%" },
+                  ].map((s) => (
+                    <div key={s.k}>
+                      <p className="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary mb-1">{s.k}</p>
+                      <p className="font-headline-md text-2xl text-on-background tabular-nums leading-none">{s.v}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="lg:col-span-6 lg:order-2 order-1">
+                <div className="relative rounded-2xl overflow-hidden border border-surface-variant aspect-[4/5] lg:aspect-[5/4] bg-primary/5">
+                  <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1400&q=85&auto=format&fit=crop" alt="Architectural curves — composed structure across teams" className="absolute inset-0 w-full h-full object-cover" width="1400" height="1100" loading="lazy" decoding="async" />
+                  <div className="absolute inset-0 bg-gradient-to-bl from-primary-container/40 via-transparent to-on-background/25 mix-blend-multiply" aria-hidden="true"></div>
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/90">
+                    <span>Atlasworks · Q3 2031</span>
+                    <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse motion-reduce:animate-none"></span>0 missed pages</span>
+                  </div>
+                </div>
               </div>
             </div>
           </section>

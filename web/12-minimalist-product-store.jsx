@@ -7,15 +7,14 @@ const BOWL_IMG = "https://lh3.googleusercontent.com/aida-public/AB6AXuBVMkgUFVKp
 const ATELIER_IMG = "https://lh3.googleusercontent.com/aida-public/AB6AXuDFIaLSyr-bW-9SjSjBqhM6b-IhEvFp8v6no2y71y43Y_KC6GU8CFu7EBXE3M1KJiPioCdgRbHXaabvocFNQOyfTvJ-l4Wblvk1USOGSDkdnyjtBqc3Gm6wsQeC1SHPKw-1AYRJZdO4i5gl-xQke40q0tiD8ilCo41xU95k0HfksUfVf_z_y_1E97LZl7Cv_YnhQaiH3Aetsz4W60trVUm1BugdKkrQWYFSmDMn-gfFUQiRT0vJk9b2VcVOtUrf-YGea6bJ17VNNiM";
 
 // Verified Unsplash IDs (§D.1 architecture / heritage subset).
-const UNSPLASH_INTERIOR = "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&q=85&auto=format&fit=crop";
+// Image-context cleanup 2026-05-05: removed UNSPLASH_ATELIER / UNSPLASH_KILN / UNSPLASH_PACKING
+// per playbook §Q.1 — those IDs depict concrete stair / brutalist corridor / outdoor desert,
+// not the alts the template claimed. Process Frame I now uses KNIFE_IMG, Frame III uses
+// BOWL_IMG, FAQ left rail uses ATELIER_IMG. UNSPLASH_DAWN kept (architectural perspective).
+const UNSPLASH_INTERIOR = "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1400&q=85&auto=format&fit=crop";
 const UNSPLASH_WINDOW = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&q=85&auto=format&fit=crop";
 const UNSPLASH_WINDOW_SM = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop";
-const UNSPLASH_DAWN = "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1920&q=85&auto=format&fit=crop";
-const UNSPLASH_ATELIER = "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop";
-const UNSPLASH_ATELIER_SM = "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&q=85&auto=format&fit=crop";
-const UNSPLASH_KILN = "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1400&q=85&auto=format&fit=crop";
-const UNSPLASH_KILN_SM = "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=400&q=85&auto=format&fit=crop";
-const UNSPLASH_PACKING = "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop";
+const UNSPLASH_DAWN = "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=1920&q=85&auto=format&fit=crop";
 
 const products = [
   { name: "Steel Knife", alt: "Japanese steel chef knife with a dark wooden handle on a pristine off-white background with sharp shadows", src: KNIFE_IMG },
@@ -31,7 +30,7 @@ const lookbookPlates = [
   { roman: "III", title: "On the Plinth",        span: "md:col-span-4", aspect: "aspect-square", src: BOWL_IMG,          alt: "Hand-thrown ceramic bowl filled with sea salt resting on a sun-warmed plinth" },
   { roman: "IV",  title: "Working Light",        span: "md:col-span-4", aspect: "aspect-square", src: LAMP_IMG,          alt: "Architectural black metal task lamp on a desk with stacked notebooks and a brass paperweight" },
   { roman: "V",   title: "On the Board",         span: "md:col-span-4", aspect: "aspect-square", src: KNIFE_IMG,         alt: "Single Japanese chef knife resting on a folded raw linen napkin on a chestnut chopping board" },
-  { roman: "VI",  title: "First Light, Whole House", span: "md:col-span-12", aspect: "aspect-[21/9]", src: UNSPLASH_DAWN, alt: "Wide-format dawn light spilling across a sparsely furnished room with a single oak chair and the matte white kettle on a low slate plinth", wide: true },
+  { roman: "VI",  title: "Long Light, South Wall",   span: "md:col-span-12", aspect: "aspect-[21/9]", src: UNSPLASH_DAWN, alt: "Wide-format architectural perspective — the warm-rust south wall of the atelier washed by long morning light", wide: true },
 ];
 
 // Selected Pieces — 3 alternating image+content rows. reverse=true flips order at md+.
@@ -99,10 +98,10 @@ const studioTiles = [
 
 // Process — 4 frames cross-fading. Captions auto-rotate via shared keyframe.
 const processFrames = [
-  { delay: "0s",  roman: "I",   tag: "Frame I · Matter",    headline: "Carbon steel, raw, weighed and stamped.",       img: UNSPLASH_ATELIER, thumb: UNSPLASH_ATELIER_SM, alt: "Frame I — raw carbon steel sheets stacked in the atelier under window light" },
-  { delay: "4s",  roman: "II",  tag: "Frame II · Cut",      headline: "Sheet pressed, drawn, planished by hand.",      img: ATELIER_IMG,      thumb: ATELIER_IMG,         alt: "Frame II — hands pressing and drawing the sheet at the bench" },
-  { delay: "8s",  roman: "III", tag: "Frame III · Finish",  headline: "Bone-white enamel, three slow firings.",        img: UNSPLASH_KILN,    thumb: UNSPLASH_KILN_SM,    alt: "Frame III — a freshly enamelled body cooling in the kiln" },
-  { delay: "12s", roman: "IV",  tag: "Frame IV · Ship",     headline: "Wrapped in raw linen, packed in cedar.",        img: KETTLE_IMG,       thumb: KETTLE_IMG,          alt: "Frame IV — the finished kettle wrapped in raw linen on a cedar bench" },
+  { delay: "0s",  roman: "I",   tag: "Frame I · Matter",    headline: "Forged steel, raw, weighed and stamped.",       img: KNIFE_IMG,    thumb: KNIFE_IMG,    alt: "Frame I — a single forged steel blank resting on the chestnut weighing block at first light" },
+  { delay: "4s",  roman: "II",  tag: "Frame II · Cut",      headline: "Sheet pressed, drawn, planished by hand.",      img: ATELIER_IMG,  thumb: ATELIER_IMG,  alt: "Frame II — hands pressing and drawing the sheet at the bench" },
+  { delay: "8s",  roman: "III", tag: "Frame III · Finish",  headline: "Bone-white enamel, three slow firings.",        img: BOWL_IMG,     thumb: BOWL_IMG,     alt: "Frame III — a bone-white ceramic body cooling on the plinth between the second and third firings" },
+  { delay: "12s", roman: "IV",  tag: "Frame IV · Ship",     headline: "Wrapped in raw linen, packed in cedar.",        img: KETTLE_IMG,   thumb: KETTLE_IMG,   alt: "Frame IV — the finished kettle wrapped in raw linen on a cedar bench" },
 ];
 
 // FAQ entries — chevron rotates 0→180 (§M.7).
@@ -258,14 +257,28 @@ export default function T12MinimalistProductStore() {
           </nav>
         </header>
 
-        <main className="flex-grow pt-[72px] sm:pt-24 md:pt-[120px]">
-          {/* Hero */}
-          <section className="w-full aspect-[3/4] md:h-[819px] md:min-h-[600px] md:aspect-auto flex flex-col relative px-4 mb-20 sm:px-6 sm:mb-28 md:px-margin-edge md:mb-section-gap">
-            <div className="w-full h-full relative overflow-hidden group">
-              <img alt="Minimalist matte white electric kettle resting on a smooth cream stone surface with soft, diffused studio lighting" className="w-full h-full object-cover object-center bg-[#141414]/5 transition-transform duration-1000 group-hover:scale-105" src={KETTLE_IMG} />
-              <div className="absolute bottom-6 left-4 flex flex-col gap-2 sm:bottom-8 sm:left-6 md:bottom-10 md:left-10">
-                <h2 className="font-h1 text-h1 tracking-[0.05em] uppercase text-[#141414]">The Kettle</h2>
-                <p className="font-body-md text-body-md text-[#141414]/70 tracking-widest">$145</p>
+        <main className="flex-grow pt-[48px] sm:pt-[64px] md:pt-[80px]">
+          {/* Hero — full-bleed, taller, editorial. No horizontal padding so the image scales to screen width. */}
+          <section className="w-full mb-20 sm:mb-28 md:mb-section-gap">
+            <div className="w-full aspect-[3/4] md:aspect-auto md:h-[calc(100vh-80px)] md:min-h-[700px] md:max-h-[1080px] relative overflow-hidden group bg-[#141414]/5">
+              <img alt="The matte white Kettle, photographed full-frame on smooth cream Tuscan stone in raking morning light" className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" src={KETTLE_IMG} />
+              {/* Top-left edition tag */}
+              <div className="absolute top-4 left-4 flex items-center gap-3 sm:top-6 sm:left-6 md:top-10 md:left-10">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#141414]"></span>
+                <span className="font-label text-label uppercase tracking-[0.3em] text-[#141414]">Edition 02 · Spring 2026</span>
+              </div>
+              {/* Top-right atelier meta — desktop only */}
+              <div className="hidden md:flex absolute top-10 right-10 flex-col items-end gap-1">
+                <span className="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">Bottega Vetro</span>
+                <span className="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">Faenza, IT</span>
+              </div>
+              {/* Bottom rail: title + price (left); read CTA (right) */}
+              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-6 px-4 pb-6 sm:px-6 sm:pb-8 md:flex-row md:items-end md:justify-between md:gap-12 md:px-10 md:pb-10">
+                <div className="flex flex-col gap-2">
+                  <h2 className="font-display tracking-[-0.025em] leading-[0.95] text-[#141414] text-[48px] sm:text-[72px] md:text-[104px] uppercase">The Kettle.</h2>
+                  <p className="font-body-md text-body-md text-[#141414]/70 tracking-widest">$145 · 200 / year · 3–4 weeks</p>
+                </div>
+                <a className="self-start md:self-end inline-flex items-center gap-2 font-label text-label uppercase tracking-[0.25em] text-[#141414] border-b border-[#141414] pb-1 hover:opacity-70 transition-opacity duration-300" href="#">Read the Object <span className="material-symbols-outlined text-[14px]">arrow_forward</span></a>
               </div>
             </div>
           </section>
@@ -282,7 +295,45 @@ export default function T12MinimalistProductStore() {
               </a>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
-              {lookbookPlates.map(p => (
+              {/* Row 1 — Plate I (col-7) + a column with Plate II (col-5) on top of a Field Note card.
+                  The flex-col wrapper auto-stretches to row height (matches Plate I's aspect-[4/3]
+                  height); aspect-[4/3] keeps Plate II at its original size and the card uses flex-1
+                  to fill the height delta — so no empty white slab below Plate II. */}
+              {(() => {
+                const p1 = lookbookPlates[0];
+                const p2 = lookbookPlates[1];
+                return (
+                  <>
+                    <figure className={`md:col-span-7 relative aspect-[4/3] overflow-hidden bg-[#141414]/5 group`}>
+                      <img alt={p1.alt} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]" src={p1.src} />
+                      <figcaption className="absolute left-4 bottom-4 sm:left-6 sm:bottom-6 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <span className="font-label text-label uppercase tracking-widest text-[#141414]/60">Plate · {p1.roman}</span>
+                        <span className="font-body-md text-body-md text-[#141414] tracking-wide">{p1.title}</span>
+                      </figcaption>
+                    </figure>
+                    <div className="md:col-span-5 flex flex-col gap-3 md:gap-4">
+                      <figure className="relative aspect-[4/3] overflow-hidden bg-[#141414]/5 group">
+                        <img alt={p2.alt} className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]" src={p2.src} />
+                        <figcaption className="absolute left-4 bottom-4 sm:left-6 sm:bottom-6 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <span className="font-label text-label uppercase tracking-widest text-[#141414]/60">Plate · {p2.roman}</span>
+                          <span className="font-body-md text-body-md text-[#141414] tracking-wide">{p2.title}</span>
+                        </figcaption>
+                      </figure>
+                      {/* Field Note card — fills the empty space below Plate II so the row reads square. */}
+                      <aside className="relative flex-1 min-h-[120px] flex flex-col justify-between gap-4 p-5 md:p-6 border border-[#141414]/15 bg-[#F4F0E8]">
+                        <div className="flex flex-col gap-2">
+                          <span className="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">— Field Note · No. 02</span>
+                          <h3 className="font-h2 text-h2 text-[#141414] leading-snug">Each room is one edition.</h3>
+                        </div>
+                        <p className="font-body-md text-body-md text-[#141414]/70 leading-relaxed">Photographed in the season the room was finished — never staged, never relit, never re-shot for the catalogue.</p>
+                        <a className="inline-flex items-center gap-2 font-label text-label uppercase tracking-[0.25em] text-[#141414] border-b border-[#141414] pb-1 self-start hover:opacity-70 transition-opacity duration-300" href="#">The Field Notes <span className="material-symbols-outlined text-[14px]">arrow_forward</span></a>
+                      </aside>
+                    </div>
+                  </>
+                );
+              })()}
+              {/* Remaining plates: III, IV, V (squares) + VI (cinema strip) */}
+              {lookbookPlates.slice(2).map(p => (
                 <figure key={p.roman} className={`${p.span} relative ${p.aspect} overflow-hidden bg-[#141414]/5 group`}>
                   <img alt={p.alt} className={`absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ${p.wide ? "group-hover:scale-[1.02]" : "group-hover:scale-[1.03]"}`} src={p.src} />
                   <figcaption className={`absolute ${p.wide ? "left-6 bottom-6 sm:left-10 sm:bottom-10" : "left-4 bottom-4 sm:left-6 sm:bottom-6"} bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}>
@@ -467,8 +518,8 @@ export default function T12MinimalistProductStore() {
                 <h2 className="font-display text-display tracking-[-0.02em] text-[#141414]">Common questions, answered plainly.</h2>
                 <p className="font-body-md text-body-md text-[#141414]/70 leading-relaxed">If your question isn't here, our small team replies in person within one working day.</p>
                 <figure className="relative aspect-[4/5] overflow-hidden bg-[#141414]/5 mt-2">
-                  <img alt="Quiet packing room with linen-wrapped parcels stacked on a wide cedar bench" className="absolute inset-0 w-full h-full object-cover grayscale" src={UNSPLASH_PACKING} />
-                  <figcaption className="absolute left-4 bottom-4 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 font-label text-label uppercase tracking-widest text-[#141414]/70">Packing Room · Faenza</figcaption>
+                  <img alt="Hands at the Faenza atelier bench — every piece that leaves the studio passes through this workshop first" className="absolute inset-0 w-full h-full object-cover grayscale" src={ATELIER_IMG} />
+                  <figcaption className="absolute left-4 bottom-4 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 font-label text-label uppercase tracking-widest text-[#141414]/70">Workshop · Faenza</figcaption>
                 </figure>
                 <dl className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[#141414]/10 pt-5">
                   {[
@@ -484,17 +535,44 @@ export default function T12MinimalistProductStore() {
                   ))}
                 </dl>
               </div>
-              {/* Right rail: FAQ list */}
-              <div className="md:col-span-8 divide-y divide-[#141414]/15 border-y border-[#141414]/15">
-                {faqs.map(item => (
-                  <details key={item.q} className="plain-faq group py-6 px-1">
-                    <summary className="flex items-baseline justify-between gap-6 cursor-pointer">
-                      <h3 className="font-h2 text-h2 text-[#141414]">{item.q}</h3>
-                      <span className="plain-chevron material-symbols-outlined text-[#141414]/70 text-[20px] shrink-0">expand_more</span>
-                    </summary>
-                    <p className="font-body-md text-body-md text-[#141414]/75 leading-relaxed mt-4 max-w-2xl">{item.a}</p>
-                  </details>
-                ))}
+              {/* Right rail: FAQ list + disclaimer card. flex-col + flex-1 on the disclaimer so its
+                  height stretches to match the left rail's bottom (image + meta dl is much taller
+                  than 5 collapsed FAQ rows). */}
+              <div className="md:col-span-8 flex flex-col">
+                <div className="divide-y divide-[#141414]/15 border-y border-[#141414]/15">
+                  {faqs.map(item => (
+                    <details key={item.q} className="plain-faq group py-6 px-1">
+                      <summary className="flex items-baseline justify-between gap-6 cursor-pointer">
+                        <h3 className="font-h2 text-h2 text-[#141414]">{item.q}</h3>
+                        <span className="plain-chevron material-symbols-outlined text-[#141414]/70 text-[20px] shrink-0">expand_more</span>
+                      </summary>
+                      <p className="font-body-md text-body-md text-[#141414]/75 leading-relaxed mt-4 max-w-2xl">{item.a}</p>
+                    </details>
+                  ))}
+                </div>
+                <aside className="mt-8 md:mt-10 flex-1 flex flex-col gap-5 p-6 md:p-8 border border-[#141414]/15 bg-[#141414]/[0.025]">
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-[#141414]/60 text-[20px]">info</span>
+                    <span className="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">— A note on plainness</span>
+                  </div>
+                  <p className="font-body-md text-body-md text-[#141414]/75 leading-relaxed max-w-2xl">
+                    We do not run sales. We do not stock anything we wouldn't keep ourselves. Every piece is photographed where it was made — never on a white seamless, never with a stock background. If a piece you'd like is sold out, write to us; the next edition is always being planned.
+                  </p>
+                  <dl className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3 border-t border-[#141414]/10 pt-5 mt-auto">
+                    <div className="flex flex-col gap-1">
+                      <dt className="font-label text-label uppercase tracking-widest text-[#141414]/50">Studio</dt>
+                      <dd className="font-body-md text-body-md text-[#141414]">studio@plain.studio</dd>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <dt className="font-label text-label uppercase tracking-widest text-[#141414]/50">Phone</dt>
+                      <dd className="font-body-md text-body-md text-[#141414]">+39 0546 21 04</dd>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <dt className="font-label text-label uppercase tracking-widest text-[#141414]/50">Hours</dt>
+                      <dd className="font-body-md text-body-md text-[#141414]">Mon–Fri · 09–17 CET</dd>
+                    </div>
+                  </dl>
+                </aside>
               </div>
             </div>
           </section>

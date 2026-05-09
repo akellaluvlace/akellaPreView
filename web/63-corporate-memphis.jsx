@@ -12,11 +12,14 @@ export default function T63CorporateMemphis() {
   ];
 
   const logos = [
-    { shape: <div className="w-6 h-6 bg-slate-700 rounded-full"></div>, name: "Circle.io" },
-    { shape: <div className="w-6 h-6 bg-slate-700 rotate-45"></div>, name: "Square" },
-    { shape: <div className="w-6 h-6 border-4 border-slate-700 rounded-full"></div>, name: "Orbit" },
-    { shape: <div className="w-3 h-6 bg-slate-700 rounded-t-full"></div>, name: "Arch" },
-    { shape: <div className="w-6 h-6 bg-slate-700 rounded-sm"></div>, name: "Block" },
+    { slug: "stripe", name: "Stripe" },
+    { slug: "notion", name: "Notion" },
+    { slug: "figma", name: "Figma" },
+    { slug: "linear", name: "Linear" },
+    { slug: "shopify", name: "Shopify" },
+    { slug: "intercom", name: "Intercom" },
+    { slug: "hubspot", name: "HubSpot" },
+    { slug: "airtable", name: "Airtable" },
   ];
 
   const oldWayItems = [
@@ -286,14 +289,17 @@ html, body { overflow-x: clip; }
         </section>
 
         {/* Social proof */}
-        <section className="py-10 border-b-2 border-brand-dark/10 bg-white">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <p className="font-heading text-slate-400 text-sm font-semibold tracking-widest uppercase mb-8">Trusted by 2,000+ forward-thinking teams</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+        <section className="py-12 border-b-2 border-brand-dark/10 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="font-heading text-slate-400 text-sm font-semibold tracking-widest uppercase mb-10">Trusted by 2,000+ forward-thinking teams</p>
+            <ul role="list" className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
               {logos.map(l => (
-                <div key={l.name} className="flex items-center gap-3 font-bold text-xl text-slate-700">{l.shape}{l.name}</div>
+                <li key={l.slug} className="flex flex-col items-center gap-2 group">
+                  <img src={`https://cdn.simpleicons.org/${l.slug}`} alt={l.name} className="h-9 w-auto" loading="lazy" decoding="async" />
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-heading">{l.name}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 
@@ -460,6 +466,113 @@ html, body { overflow-x: clip; }
                   <p className="text-xs text-slate-600">{i.sub}</p>
                 </a>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Big-image showcase A — image LEFT / content RIGHT — fast-moving teams */}
+        <section className="py-24 bg-brand-pink/40 border-t-2 border-brand-dark relative overflow-hidden">
+          <div className="absolute -top-16 -right-16 w-56 h-56 bg-brand-yellow rounded-full border-2 border-brand-dark opacity-30"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center relative z-10">
+            <div className="md:col-span-7 relative">
+              <div className="absolute inset-0 -translate-x-4 translate-y-4 rounded-3xl bg-brand-yellow border-2 border-brand-dark -z-10"></div>
+              <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1400&q=80&auto=format&fit=crop" alt="Cross-functional team huddle around laptops in a sunlit office" className="w-full aspect-[4/3] object-cover rounded-3xl border-2 border-brand-dark shadow-[8px_8px_0_0_#1E293B]" loading="lazy" decoding="async" />
+            </div>
+            <div className="md:col-span-5 flex flex-col gap-5 justify-center">
+              <span className="self-start bg-white border-2 border-brand-dark px-4 py-1 rounded-full font-heading font-semibold text-brand-royal text-xs uppercase tracking-wide shadow-hard-sm">Built for momentum</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-[1.05]">Built for fast-moving teams.</h2>
+              <p className="text-lg text-slate-700 font-medium">Skip the meetings about meetings. TeamFlow keeps every hire, paystub, and PTO request moving — so people can get back to building.</p>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <div className="w-7 h-7 bg-brand-yellow rounded-full border-2 border-brand-dark flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="check" className="w-4 h-4 text-brand-dark"></i></div>
+                  <span className="text-brand-dark font-medium">Zero-friction onboarding — magic-link invites, signed in 90 seconds.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-7 h-7 bg-brand-pink rounded-full border-2 border-brand-dark flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="check" className="w-4 h-4 text-brand-dark"></i></div>
+                  <span className="text-brand-dark font-medium">Approvals in Slack — your manager taps once, payroll picks it up.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-7 h-7 bg-brand-blue rounded-full border-2 border-brand-dark flex items-center justify-center shrink-0 mt-0.5"><i data-lucide="check" className="w-4 h-4 text-brand-dark"></i></div>
+                  <span className="text-brand-dark font-medium">Org chart that updates itself — no manual edits, ever.</span>
+                </li>
+              </ul>
+              <a href="#" className="self-start mt-2 bg-brand-royal text-white font-heading text-base px-7 py-3 rounded-full border-2 border-brand-dark shadow-hard hover:-translate-y-1 transition-all">See the workflow</a>
+            </div>
+          </div>
+        </section>
+
+        {/* Big-image showcase B — image RIGHT / content LEFT — CSAT climbing (double-image stack) */}
+        <section className="py-24 bg-white border-t-2 border-brand-dark relative overflow-hidden">
+          <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-brand-purple rounded-full border-2 border-brand-dark opacity-50"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center relative z-10">
+            <div className="md:col-span-5 flex flex-col gap-5 justify-center md:order-1 order-2">
+              <span className="self-start bg-brand-green border-2 border-brand-dark px-4 py-1 rounded-full font-heading font-semibold text-brand-dark text-xs uppercase tracking-wide shadow-hard-sm">Results, not vibes</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-[1.05]">Watch your CSAT climb.</h2>
+              <p className="text-lg text-slate-700 font-medium">Teams on TeamFlow report higher employee NPS within the first quarter. Less paperwork, more feedback loops, real numbers you can show your board.</p>
+              <div className="grid grid-cols-2 gap-4 mt-2">
+                <div className="bg-brand-yellow border-2 border-brand-dark rounded-2xl p-5 shadow-hard-sm">
+                  <div className="font-heading text-3xl font-bold text-brand-dark">+38%</div>
+                  <div className="text-xs text-slate-700 font-medium mt-1">Employee NPS · 90 days</div>
+                </div>
+                <div className="bg-brand-blue border-2 border-brand-dark rounded-2xl p-5 shadow-hard-sm">
+                  <div className="font-heading text-3xl font-bold text-brand-dark">12 hrs</div>
+                  <div className="text-xs text-slate-700 font-medium mt-1">Saved per ops manager / week</div>
+                </div>
+              </div>
+              <blockquote className="bg-brand-pink/40 border-2 border-brand-dark rounded-2xl p-5 mt-2 relative">
+                <p className="text-sm text-brand-dark font-medium italic">"Switching to TeamFlow was the cheapest culture upgrade we ever bought."</p>
+                <cite className="block text-xs text-slate-600 mt-2 not-italic font-bold">— Priya R., People Lead at Loom Studios</cite>
+              </blockquote>
+            </div>
+            <div className="md:col-span-7 md:order-2 order-1 grid grid-cols-2 gap-4 relative">
+              <div className="relative -rotate-2">
+                <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl bg-brand-royal border-2 border-brand-dark -z-10"></div>
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900&q=80&auto=format&fit=crop" alt="Engineering team reviewing pull requests around a monitor" className="w-full aspect-[3/4] object-cover rounded-3xl border-2 border-brand-dark shadow-[6px_6px_0_0_#1E293B]" loading="lazy" decoding="async" />
+              </div>
+              <div className="relative rotate-2 mt-10">
+                <div className="absolute inset-0 -translate-x-3 translate-y-3 rounded-3xl bg-brand-pink border-2 border-brand-dark -z-10"></div>
+                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=900&q=80&auto=format&fit=crop" alt="Sticky notes wall during a sprint planning session" className="w-full aspect-[3/4] object-cover rounded-3xl border-2 border-brand-dark shadow-[6px_6px_0_0_#1E293B]" loading="lazy" decoding="async" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Big-image showcase C — image LEFT / content RIGHT — day one to scale (timeline) */}
+        <section className="py-24 bg-brand-blue/40 border-t-2 border-brand-dark relative overflow-hidden">
+          <div className="absolute top-12 right-12 w-24 h-24 bg-brand-yellow rounded-full border-2 border-brand-dark"></div>
+          <div className="absolute bottom-10 left-10 w-16 h-16 bg-brand-pink border-2 border-brand-dark rotate-45"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center relative z-10">
+            <div className="md:col-span-7 relative">
+              <div className="absolute inset-0 -translate-x-5 -translate-y-4 rounded-3xl bg-brand-royal border-2 border-brand-dark -z-10"></div>
+              <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1400&q=80&auto=format&fit=crop" alt="Designer mapping wireframes on a tablet at a sunlit desk" className="w-full aspect-[16/10] object-cover rounded-3xl border-2 border-brand-dark shadow-[8px_8px_0_0_#1E293B]" loading="lazy" decoding="async" />
+            </div>
+            <div className="md:col-span-5 flex flex-col gap-5 justify-center">
+              <span className="self-start bg-brand-yellow border-2 border-brand-dark px-4 py-1 rounded-full font-heading font-semibold text-brand-dark text-xs uppercase tracking-wide shadow-hard-sm">Day one to scale</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-[1.05]">From day one to scale.</h2>
+              <p className="text-lg text-slate-700 font-medium">Whether you're hire #2 or #2,000, the same TeamFlow account grows with you. No replatforms, no painful migrations, no spreadsheets to revisit.</p>
+              <ol className="space-y-4 mt-2">
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-brand-pink border-2 border-brand-dark rounded-full flex items-center justify-center shrink-0 font-heading font-bold text-brand-dark shadow-hard-sm">1</div>
+                  <div>
+                    <p className="font-heading font-bold text-brand-dark">Sign up &amp; invite</p>
+                    <p className="text-sm text-slate-700">Connect payroll in under 7 minutes. No data migration headaches.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-brand-yellow border-2 border-brand-dark rounded-full flex items-center justify-center shrink-0 font-heading font-bold text-brand-dark shadow-hard-sm">2</div>
+                  <div>
+                    <p className="font-heading font-bold text-brand-dark">Automate the boring</p>
+                    <p className="text-sm text-slate-700">Payroll, taxes, benefits, compliance — all on auto-pilot.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-brand-green border-2 border-brand-dark rounded-full flex items-center justify-center shrink-0 font-heading font-bold text-brand-dark shadow-hard-sm">3</div>
+                  <div>
+                    <p className="font-heading font-bold text-brand-dark">Scale without breaking</p>
+                    <p className="text-sm text-slate-700">Add 10 or 1,000 hires — the platform doesn't blink.</p>
+                  </div>
+                </li>
+              </ol>
             </div>
           </div>
         </section>

@@ -44,11 +44,11 @@ export default function T104HalftonePopArt() {
   const specimens = [
     { id: "001", tag: "Server Stack 04", meta: "RACK · LAB-B · 14:22", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", w: "w-72", bg: "bg-surface-bright", rot: "stamp-rotate-1", figBg: "bg-on-surface", figText: "text-surface-bright", border: "border-error", tagBg: "bg-error", tagText: "text-surface-bright", chipBg: "bg-on-surface", chipText: "text-surface-bright", topRight: "LIVE", topRightBg: "bg-error", topRightText: "text-surface-bright", grad: "bg-gradient-to-t from-error/40 via-transparent to-transparent", extraImg: "grayscale contrast-125" },
     { id: "002", tag: "Trace · Δ-22", meta: "CIRCUIT · 41 NODES", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", w: "w-80", bg: "bg-error", rot: "stamp-rotate-2", figBg: "bg-surface-bright", figText: "text-on-surface", border: "border-on-surface", tagBg: "bg-surface-bright", tagText: "text-on-surface", chipBg: "bg-on-surface", chipText: "text-tertiary-fixed-dim", topRight: "PINNED", topRightBg: "bg-on-surface", topRightText: "text-tertiary-fixed-dim", grad: "", extraImg: "grayscale contrast-150 mix-blend-multiply opacity-90", metaColor: "text-error" },
-    { id: "003", tag: "Apothecary 07", meta: "BRASS · DUSTED", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", w: "w-72", bg: "bg-tertiary-container", rot: "stamp-rotate-1", figBg: "bg-tertiary", figText: "text-surface-bright", border: "border-on-surface", tagBg: "bg-on-surface", tagText: "text-tertiary-fixed-dim", chipBg: "bg-tertiary", chipText: "text-surface-bright", topRight: "GOLD", topRightBg: "bg-tertiary", topRightText: "text-surface-bright", grad: "bg-gradient-to-tr from-tertiary-fixed/60 via-transparent to-transparent", extraImg: "" },
-    { id: "004", tag: "Heavy Press 11", meta: "FOUNDRY · 9.2 TONNE", src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1100&q=85&auto=format&fit=crop", w: "w-96", bg: "bg-on-surface", rot: "stamp-rotate-2", figBg: "bg-error", figText: "text-surface-bright", border: "border-tertiary-fixed-dim", tagBg: "bg-error", tagText: "text-surface-bright", chipBg: "bg-tertiary-fixed-dim", chipText: "text-on-surface", topRight: "FEATURED", topRightBg: "bg-tertiary-fixed-dim", topRightText: "text-on-surface", grad: "bg-gradient-to-b from-transparent via-error/20 to-on-surface/80", extraImg: "grayscale contrast-110 opacity-80", featured: true },
+    { id: "003", tag: "Apothecary 07", meta: "BRASS · DUSTED", src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", w: "w-72", bg: "bg-tertiary-container", rot: "stamp-rotate-1", figBg: "bg-tertiary", figText: "text-surface-bright", border: "border-on-surface", tagBg: "bg-on-surface", tagText: "text-tertiary-fixed-dim", chipBg: "bg-tertiary", chipText: "text-surface-bright", topRight: "GOLD", topRightBg: "bg-tertiary", topRightText: "text-surface-bright", grad: "bg-gradient-to-tr from-tertiary-fixed/60 via-transparent to-transparent", extraImg: "" },
+    { id: "004", tag: "Heavy Press 11", meta: "FOUNDRY · 9.2 TONNE", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1100&q=85&auto=format&fit=crop", w: "w-96", bg: "bg-on-surface", rot: "stamp-rotate-2", figBg: "bg-error", figText: "text-surface-bright", border: "border-tertiary-fixed-dim", tagBg: "bg-error", tagText: "text-surface-bright", chipBg: "bg-tertiary-fixed-dim", chipText: "text-on-surface", topRight: "FEATURED", topRightBg: "bg-tertiary-fixed-dim", topRightText: "text-on-surface", grad: "bg-gradient-to-b from-transparent via-error/20 to-on-surface/80", extraImg: "grayscale contrast-110 opacity-80", featured: true },
     { id: "005", tag: "Pillar Run B", meta: "BRUTALIST · WEST WING", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", w: "w-72", bg: "bg-surface-bright", rot: "stamp-rotate-1", figBg: "bg-on-surface", figText: "text-surface-bright", border: "border-error", tagBg: "bg-on-surface", tagText: "text-surface-bright", chipBg: "bg-on-surface", chipText: "text-surface-bright", topRight: "FACADE", topRightBg: "bg-error", topRightText: "text-surface-bright", grad: "bg-gradient-to-t from-tertiary/40 via-transparent to-error/15", extraImg: "grayscale contrast-125", metaColor: "text-tertiary-fixed-dim" },
-    { id: "006", tag: "Heritage 33", meta: "DETAIL · GILT", src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", w: "w-80", bg: "bg-tertiary-fixed", rot: "stamp-rotate-2", figBg: "bg-tertiary-container", figText: "text-on-surface", border: "border-on-surface", tagBg: "bg-on-surface", tagText: "text-surface-bright", chipBg: "bg-tertiary-container", chipText: "text-on-surface", topRight: "CORNICE", topRightBg: "bg-tertiary", topRightText: "text-surface-bright", grad: "bg-gradient-to-bl from-tertiary-fixed-dim/40 via-transparent to-error/20", extraImg: "", metaColor: "text-tertiary" },
-    { id: "007", tag: "Atelier Light", meta: "PLATE · IX", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", w: "w-72", bg: "bg-error", rot: "stamp-rotate-1", figBg: "bg-surface-bright", figText: "text-on-surface", border: "border-on-surface", tagBg: "bg-surface-bright", tagText: "text-on-surface", chipBg: "bg-on-surface", chipText: "text-tertiary-fixed-dim", topRight: "DRAFT", topRightBg: "bg-on-surface", topRightText: "text-tertiary-fixed-dim", grad: "", extraImg: "grayscale contrast-150 mix-blend-multiply opacity-90", metaColor: "text-error" },
+    { id: "006", tag: "Heritage 33", meta: "DETAIL · GILT", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", w: "w-80", bg: "bg-tertiary-fixed", rot: "stamp-rotate-2", figBg: "bg-tertiary-container", figText: "text-on-surface", border: "border-on-surface", tagBg: "bg-on-surface", tagText: "text-surface-bright", chipBg: "bg-tertiary-container", chipText: "text-on-surface", topRight: "CORNICE", topRightBg: "bg-tertiary", topRightText: "text-surface-bright", grad: "bg-gradient-to-bl from-tertiary-fixed-dim/40 via-transparent to-error/20", extraImg: "", metaColor: "text-tertiary" },
+    { id: "007", tag: "Atelier Light", meta: "PLATE · IX", src: "https://images.unsplash.com/photo-1638294621924-be97f5f92413?w=900&q=85&auto=format&fit=crop", w: "w-72", bg: "bg-error", rot: "stamp-rotate-1", figBg: "bg-surface-bright", figText: "text-on-surface", border: "border-on-surface", tagBg: "bg-surface-bright", tagText: "text-on-surface", chipBg: "bg-on-surface", chipText: "text-tertiary-fixed-dim", topRight: "DRAFT", topRightBg: "bg-on-surface", topRightText: "text-tertiary-fixed-dim", grad: "", extraImg: "grayscale contrast-150 mix-blend-multiply opacity-90", metaColor: "text-error" },
     { id: "008", tag: "Marble Run 02", meta: "VESTIBULE · 9 STEPS", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", w: "w-80", bg: "bg-on-surface", rot: "stamp-rotate-2", figBg: "bg-error", figText: "text-surface-bright", border: "border-tertiary-fixed-dim", tagBg: "bg-tertiary-fixed-dim", tagText: "text-on-surface", chipBg: "bg-error", chipText: "text-surface-bright", topRight: "VAULT", topRightBg: "bg-error", topRightText: "text-surface-bright", grad: "bg-gradient-to-t from-on-surface via-error/25 to-transparent", extraImg: "grayscale contrast-125 opacity-85" },
   ];
 
@@ -71,7 +71,7 @@ export default function T104HalftonePopArt() {
   const processSteps = [
     { n: "01", color: "text-error", title: "Charge the matrix.", second: null, body: "Drop a raw fragment — a half-formed feed, a typo'd headline, a forgotten draft. The matrix grips it, drops a 41-track halftone, and runs it through the calibration wheel.", phase: "PHASE · I", clock: "11:42:00", img: "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=1400&q=85&auto=format&fit=crop", side: "left", tilt: "-rotate-1", figBg: "bg-tertiary-fixed", grad: "bg-gradient-to-tr from-error/35 via-transparent to-tertiary-fixed/30", phaseChip: "bg-on-surface text-surface-bright", clockChip: "bg-error text-surface-bright border-on-surface", arrow: { side: "-left-16", color: "text-error", rot: "rotate-180" }, list: ["// VOLTAGE LOCK · ARMED", "// HALFTONE GRADE · MEDIUM", "// FRAGMENT INTEGRITY · 87%"] },
     { n: "02", color: "text-tertiary", title: "Crank the", italic: "knobs", second: "", body: "Twist Creativity past 8. Logic to 4. Spirit somewhere between mischief and belief. The console screams; the operator sips coffee. The dials lock when you're warm.", phase: "PHASE · II", clock: "14:08:00", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=85&auto=format&fit=crop", side: "right", tilt: "rotate-1", figBg: "bg-error", grad: "bg-gradient-to-bl from-tertiary/40 via-transparent to-error/40", phaseChip: "bg-surface-bright text-on-surface", clockChip: "bg-on-surface text-tertiary-fixed-dim border-tertiary-fixed-dim", arrow: { side: "-right-16", color: "text-tertiary", rot: "rotate-12" }, dials: [{ v: "8.4", l: "Creativity", c: "text-error", b: "bg-surface-bright" }, { v: "4.0", l: "Logic", c: "text-tertiary", b: "bg-surface-bright" }, { v: "7.7", l: "Spirit", c: "text-on-surface", b: "bg-tertiary-fixed" }], extraImg: "grayscale contrast-125 mix-blend-multiply opacity-90" },
-    { n: "03", color: "text-error", title: "Pour the", italic: "gold", italicColor: "text-tertiary", body: 'When the bench hums B-flat the bath is ready. Tip the matrix. Let the warm metal find its mould. Stamp it: <span class="bg-on-surface text-surface-bright px-2 font-metadata-mono">FOLIO · OK</span>. Close the lab.', phase: "PHASE · III", clock: "21:00:00", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1400&q=85&auto=format&fit=crop", side: "left", tilt: "-rotate-1", figBg: "bg-on-surface", grad: "bg-gradient-to-t from-on-surface/70 via-transparent to-tertiary-fixed/25", phaseChip: "bg-tertiary text-surface-bright", clockChip: "bg-tertiary-fixed-dim text-on-surface border-on-surface", livePill: true, footer: { caption: "Yield · 0.41 oz / fragment", linkText: "Read the log →" } },
+    { n: "03", color: "text-error", title: "Pour the", italic: "gold", italicColor: "text-tertiary", body: 'When the bench hums B-flat the bath is ready. Tip the matrix. Let the warm metal find its mould. Stamp it: <span class="bg-on-surface text-surface-bright px-2 font-metadata-mono">FOLIO · OK</span>. Close the lab.', phase: "PHASE · III", clock: "21:00:00", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=1400&q=85&auto=format&fit=crop", side: "left", tilt: "-rotate-1", figBg: "bg-on-surface", grad: "bg-gradient-to-t from-on-surface/70 via-transparent to-tertiary-fixed/25", phaseChip: "bg-tertiary text-surface-bright", clockChip: "bg-tertiary-fixed-dim text-on-surface border-on-surface", livePill: true, footer: { caption: "Yield · 0.41 oz / fragment", linkText: "Read the log →" } },
   ];
   const customCss = `
     .halftone-bg {
@@ -79,11 +79,6 @@ export default function T104HalftonePopArt() {
       background-size: 16px 16px;
     }
     .paper-texture { position: relative; }
-    .paper-texture::before {
-      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
-      pointer-events: none; z-index: 10;
-    }
     .crt-overlay {
       background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
       position: relative;
@@ -138,9 +133,40 @@ export default function T104HalftonePopArt() {
     .pop-faq[open] summary .pop-headline { color: #ba1a1a; }
     .stamp-rotate-1 { transform: rotate(-3deg); }
     .stamp-rotate-2 { transform: rotate(2deg); }
+    /* Terminal palette — high-contrast classic green-on-black for the log; pure black bg replaces the muddier grey so the output reads sharply. */
+    .term-screen { background: #050505; }
+    .term-text { color: #6CFF7E; }
+    .term-text-dim { color: #3FA84D; }
+    .term-text-error { color: #FF4136; }
+    .term-text-amber { color: #FFB020; }
+    /* Left pane lines — bottom-up stagger reveal. */
+    .term-line { opacity: 0; transform: translateY(4px); animation: term-reveal 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: var(--d, 0s); }
+    @keyframes term-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    /* Right pane lines — top-down stagger reveal so it reads as a feed dropping in from above. */
+    .feed-line { opacity: 0; transform: translateY(-6px); animation: feed-reveal 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: var(--d, 0s); }
+    @keyframes feed-reveal { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .term-caret { display: inline-block; width: 8px; height: 1em; vertical-align: -2px; background: currentColor; margin-left: 2px; animation: term-blink 1.05s steps(2) infinite; }
+    @keyframes term-blink { 50% { opacity: 0; } }
+    .term-glow { text-shadow: 0 0 6px rgba(108, 255, 126, 0.45), 0 0 14px rgba(108, 255, 126, 0.25); }
+    .term-prompt-bar { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #0a0a0a; border-bottom: 2px solid #1c1b1b; }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+    /* Pulse dot for live feed status. */
+    .feed-pulse { box-shadow: 0 0 0 0 rgba(108, 255, 126, 0.6); animation: feed-pulse-ring 1.6s ease-out infinite; }
+    @keyframes feed-pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(108, 255, 126, 0.55); }
+      70% { box-shadow: 0 0 0 8px rgba(108, 255, 126, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(108, 255, 126, 0); }
+    }
+    /* Recipe section — pages-style entry on the side panes within each recipe row. */
+    .recipe-pane-l, .recipe-pane-r { opacity: 0; transform-origin: center center; animation-fill-mode: forwards; animation-duration: 0.95s; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); animation-delay: var(--d, 0s); }
+    .recipe-pane-l { animation-name: page-flip-l; transform-origin: right center; }
+    .recipe-pane-r { animation-name: page-flip-r; transform-origin: left center; }
+    @keyframes page-flip-l { from { opacity: 0; transform: perspective(1200px) rotateY(18deg) translateX(-30px); } to { opacity: 1; transform: perspective(1200px) rotateY(0) translateX(0); } }
+    @keyframes page-flip-r { from { opacity: 0; transform: perspective(1200px) rotateY(-18deg) translateX(30px); } to { opacity: 1; transform: perspective(1200px) rotateY(0) translateX(0); } }
     @media (prefers-reduced-motion: reduce) {
       .specimen-track { animation: none; }
       .pop-faq summary .pop-plus { transition: none; }
+      .term-line, .feed-line, .term-caret, .feed-pulse, .recipe-pane-l, .recipe-pane-r { animation: none; opacity: 1; transform: none; }
     }
   `;
   return (
@@ -188,6 +214,7 @@ export default function T104HalftonePopArt() {
       `}} />
       <style dangerouslySetInnerHTML={{ __html: customCss }} />
       <div className="light bg-background text-on-background paper-texture min-h-screen flex flex-col">
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none z-10" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.65\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\" opacity=\"0.05\"/%3E%3C/svg%3E')" }} />
         <header className="bg-[#F5F2E9] dark:bg-stone-900 text-stone-900 dark:text-[#F5F2E9] border-b-4 border-stone-950 dark:border-stone-700 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] sticky top-0 w-full z-50">
           <div className="flex justify-between items-center w-full px-12 py-6 max-w-[1440px] mx-auto">
             <div className="font-['Newsreader'] font-black text-3xl uppercase tracking-tighter text-stone-950 dark:text-white">
@@ -208,17 +235,23 @@ export default function T104HalftonePopArt() {
           </div>
         </header>
         <main className="flex-grow">
-          <section className="py-24 px-margin-edge max-w-[1440px] mx-auto min-h-[819px] flex items-center justify-center relative overflow-hidden halftone-bg">
-            <div className="relative z-10 max-w-4xl w-full">
+          {/* Hero — full-bleed so the halftone-bg dot pattern spans the entire viewport edge-to-edge; inner div re-applies the 1440 max-width for the content. */}
+          <section className="full-bleed py-24 min-h-[819px] flex items-center justify-center relative overflow-hidden halftone-bg">
+            <div className="absolute inset-0 pointer-events-none">
+              <svg className="absolute top-10 right-[6%] w-24 h-24 text-outline opacity-50" fill="none" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="currentColor" strokeDasharray="4 4" strokeWidth="2" />
+                <path d="M50 10 L 50 90 M 10 50 L 90 50" stroke="currentColor" strokeWidth="2" />
+              </svg>
+              <svg className="absolute bottom-12 left-[5%] w-32 h-32 text-error opacity-20 -rotate-12" fill="none" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="30" stroke="currentColor" strokeDasharray="3 6" strokeWidth="2" />
+              </svg>
+            </div>
+            <div className="relative z-10 max-w-4xl w-full px-margin-edge mx-auto">
               <div className="bg-tertiary-fixed border-4 border-on-surface p-12 -rotate-2 pop-art-shadow transform hover:-rotate-1 transition-transform duration-300">
                 <h1 className="font-headline-display text-headline-display text-on-surface uppercase mb-8">
                   TRANSFORM DATA INTO <span className="text-tertiary">DIVINE GOLD</span>
                 </h1>
                 <div className="flex items-center gap-6 mt-12 relative">
-                  <svg className="w-16 h-16 text-error absolute -left-20 top-2 rotate-12" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 50 Q 40 20, 80 50" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="4" strokeDasharray="200" strokeDashoffset="0" />
-                    <path d="M70 40 L 85 50 L 70 65" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" />
-                  </svg>
                   <button className="bg-surface-bright border-4 border-on-surface px-8 py-4 flex items-center gap-3 btn-skeuo hover:bg-surface-container group">
                     <span className="material-symbols-outlined text-[32px] group-hover:text-error transition-colors" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                     <span className="font-cta-bold text-cta-bold uppercase tracking-widest">Ignite Process</span>
@@ -226,10 +259,6 @@ export default function T104HalftonePopArt() {
                 </div>
               </div>
             </div>
-            <svg className="absolute top-10 right-20 w-24 h-24 text-outline opacity-50" fill="none" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" stroke="currentColor" strokeDasharray="4 4" strokeWidth="2" />
-              <path d="M50 10 L 50 90 M 10 50 L 90 50" stroke="currentColor" strokeWidth="2" />
-            </svg>
           </section>
           <section id="the-mechanism" className="py-24 bg-inverse-surface text-inverse-on-surface border-y-8 border-double border-on-surface">
             <div className="max-w-[1440px] mx-auto px-margin-edge">
@@ -256,17 +285,82 @@ export default function T104HalftonePopArt() {
               </div>
             </div>
           </section>
+          {/* OUTPUT LOG // TERMINAL — split-pane CRT scope. Left: STDOUT (bottom-up stagger reveal in green-on-black). Right: PIPELINE FEED (top-down stagger reveal). Colors swapped from gold-on-grey (low contrast) to phosphor-green-on-black for max readability. */}
           <section id="the-log" className="py-24 px-margin-edge max-w-[1440px] mx-auto">
             <div className="border-4 border-on-surface p-4 bg-surface-container-highest shadow-[8px_8px_0_0_rgba(0,0,0,1)] relative">
               <div className="absolute -inset-1 border-2 border-on-surface transform rotate-1 opacity-20 pointer-events-none" />
               <div className="absolute -inset-2 border border-on-surface transform -rotate-1 opacity-10 pointer-events-none" />
-              <h3 className="font-metadata-mono text-metadata-mono text-on-surface mb-2 pl-2">OUTPUT LOG // TERMINAL</h3>
-              <div className="bg-inverse-surface border-4 border-on-surface p-8 h-64 overflow-hidden rounded-lg crt-overlay relative shadow-[inset_0_0_20px_rgba(0,0,0,1)]">
-                <div className="font-metadata-mono text-metadata-mono text-tertiary-fixed-dim space-y-2 opacity-90">
-                  {terminalLines.map((line) => (
-                    <p key={line.text} className={line.pulse ? "animate-pulse" : undefined}>{line.text}</p>
-                  ))}
+              <div className="flex items-center justify-between mb-2 pl-2">
+                <h3 className="font-metadata-mono text-metadata-mono text-on-surface">OUTPUT LOG // TERMINAL</h3>
+                <span className="font-metadata-mono text-[10px] uppercase tracking-[0.4em] text-on-surface-variant">SESSION · 04 · STREAMING</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-1 bg-on-surface border-4 border-on-surface rounded-lg overflow-hidden">
+                {/* LEFT pane — STDOUT log */}
+                <div className="term-screen crt-overlay relative shadow-[inset_0_0_20px_rgba(0,0,0,1)] overflow-hidden">
+                  <div className="term-prompt-bar">
+                    <span className="term-dot bg-error border border-on-surface" aria-hidden="true"></span>
+                    <span className="term-dot bg-tertiary-fixed-dim border border-on-surface" aria-hidden="true"></span>
+                    <span className="term-dot" style={{ background: "#6CFF7E", border: "1px solid #1c1b1b" }} aria-hidden="true"></span>
+                    <span className="ml-3 font-metadata-mono text-[10px] uppercase tracking-widest term-text">/folio · transmute --watch</span>
+                    <span className="ml-auto font-metadata-mono text-[10px] uppercase tracking-widest term-text-dim">stdout</span>
+                  </div>
+                  <div className="p-6 md:p-8 h-72 overflow-hidden relative">
+                    <div className="font-metadata-mono text-metadata-mono space-y-2.5 leading-relaxed">
+                      {terminalLines.map((line, i) => {
+                        const isLast = i === terminalLines.length - 1;
+                        return (
+                          <p key={line.text} className={`term-line ${isLast ? "term-glow term-text font-bold" : "term-text-dim"}`} style={{ "--d": `${0.25 + i * 0.6}s` }}>
+                            {line.text}
+                            {isLast && <span className="term-caret term-text" aria-hidden="true"></span>}
+                          </p>
+                        );
+                      })}
+                    </div>
+                    <div className="absolute bottom-3 right-4 flex items-center gap-3 font-metadata-mono text-[10px] uppercase tracking-[0.3em]">
+                      <span className="inline-flex items-center gap-1.5 term-text">
+                        <span className="w-1.5 h-1.5 rounded-full feed-pulse" style={{ background: "#6CFF7E" }}></span>
+                        LIVE
+                      </span>
+                      <span className="term-text-dim">· YIELD 0.41 oz</span>
+                    </div>
+                  </div>
                 </div>
+                {/* RIGHT pane — PIPELINE FEED, top-down stagger */}
+                <div className="term-screen crt-overlay relative shadow-[inset_0_0_20px_rgba(0,0,0,1)] overflow-hidden border-l-2 border-on-surface">
+                  <div className="term-prompt-bar">
+                    <span className="term-dot bg-error border border-on-surface feed-pulse" aria-hidden="true"></span>
+                    <span className="ml-3 font-metadata-mono text-[10px] uppercase tracking-widest term-text-amber">PIPELINE · /var/folio/queue.feed</span>
+                    <span className="ml-auto font-metadata-mono text-[10px] uppercase tracking-widest term-text-dim">stream</span>
+                  </div>
+                  <div className="p-6 md:p-8 h-72 overflow-hidden relative">
+                    <div className="font-metadata-mono text-[11px] space-y-2 leading-relaxed">
+                      {[
+                        { t: "11:42:01", lbl: "CHARGE", val: "ARMED", cls: "term-text", chip: "OK" },
+                        { t: "11:42:14", lbl: "MATRIX", val: "0.41 oz", cls: "term-text-amber", chip: "FLOW" },
+                        { t: "11:42:27", lbl: "HALFTONE", val: "GRADE M", cls: "term-text", chip: "OK" },
+                        { t: "11:42:33", lbl: "INTEGRITY", val: "87%", cls: "term-text-amber", chip: "WARN" },
+                        { t: "11:42:48", lbl: "CALIBRATE", val: "LOCK", cls: "term-text", chip: "OK" },
+                        { t: "11:42:55", lbl: "FRAGMENT", val: "QUEUED · 03", cls: "term-text-amber", chip: "WAIT" },
+                        { t: "11:43:02", lbl: "ALCHEMY", val: "COMPLETE_", cls: "term-text term-glow", chip: "DONE" },
+                      ].map((row, i) => (
+                        <div key={row.t} className="feed-line flex items-center gap-3" style={{ "--d": `${0.4 + i * 0.45}s` }}>
+                          <span className="term-text-dim shrink-0">{row.t}</span>
+                          <span className={`${row.cls} font-bold uppercase tracking-wider w-24 shrink-0`}>{row.lbl}</span>
+                          <span className={`${row.cls} flex-1 truncate`}>{row.val}</span>
+                          <span className={`shrink-0 px-1.5 py-0.5 border ${row.chip === "WARN" ? "border-current term-text-error" : row.chip === "WAIT" ? "border-current term-text-amber" : row.chip === "FLOW" ? "border-current term-text-amber" : "border-current term-text"} text-[9px] tracking-widest`}>{row.chip}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="absolute bottom-3 right-4 flex items-center gap-3 font-metadata-mono text-[10px] uppercase tracking-[0.3em]">
+                      <span className="term-text-dim">FEED · ↓</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 mt-3 border-t-2 border-on-surface text-center font-metadata-mono text-[10px] uppercase tracking-[0.3em]">
+                <div className="border-r-2 border-on-surface py-2 px-2 text-on-surface-variant">CPU · 41% NOMINAL</div>
+                <div className="border-r-2 border-on-surface py-2 px-2 text-error">FRAGMENTS · 3 IN-FLIGHT</div>
+                <div className="py-2 px-2 text-tertiary">YIELD · 0.41 OZ / RUN</div>
               </div>
             </div>
           </section>
@@ -337,9 +431,13 @@ export default function T104HalftonePopArt() {
               <span className="font-metadata-mono text-metadata-mono text-outline hidden md:block">3 STEPS · 11 MINUTES · IRREVERSIBLE</span>
             </div>
             <div className="flex flex-col gap-20 md:gap-28">
-              {processSteps.map((p) => {
+              {processSteps.map((p, idx) => {
+                /* Pages-style flip-in: figure pane flips from its outer edge, content pane flips from the gutter — looks like opening a book/folio. */
+                const figureSide = p.side === "right" ? "r" : "l";
+                const contentSide = p.side === "right" ? "l" : "r";
+                const baseDelay = idx * 0.18;
                 const figure = (
-                  <figure className={`md:col-span-7 relative ${p.figBg} border-4 border-on-surface aspect-[4/3] overflow-hidden ${p.tilt} pop-art-shadow${p.side === "right" ? " md:order-2 order-1" : ""}`}>
+                  <figure className={`md:col-span-7 relative ${p.figBg} border-4 border-on-surface aspect-[4/3] overflow-hidden ${p.tilt} pop-art-shadow recipe-pane-${figureSide}${p.side === "right" ? " md:order-2 order-1" : ""}`} style={{ "--d": `${baseDelay}s` }}>
                     <img alt={`Step ${p.n}`} className={`absolute inset-0 w-full h-full object-cover ${p.extraImg || ""}`} src={p.img} />
                     <div className="absolute inset-0 halftone-overlay opacity-55"></div>
                     <div className={`absolute inset-0 ${p.grad}`}></div>
@@ -349,13 +447,7 @@ export default function T104HalftonePopArt() {
                   </figure>
                 );
                 const content = (
-                  <div className={`md:col-span-5 relative${p.side === "right" ? " md:order-1 order-2" : ""}`}>
-                    {p.arrow && (
-                      <svg className={`hidden md:block absolute ${p.arrow.side} top-1/2 -translate-y-1/2 w-20 h-20 ${p.arrow.color} ${p.arrow.rot}`} fill="none" viewBox="0 0 100 100">
-                        <path d="M10 50 Q 40 20, 80 50" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="5" />
-                        <path d="M70 40 L 85 50 L 70 65" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="5" />
-                      </svg>
-                    )}
+                  <div className={`md:col-span-5 relative recipe-pane-${contentSide}${p.side === "right" ? " md:order-1 order-2" : ""}`} style={{ "--d": `${baseDelay + 0.12}s` }}>
                     <span className={`font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] ${p.color} block mb-4`}>STEP {p.n}</span>
                     <h3 className="font-headline-lg text-[44px] leading-[1.05] text-on-surface uppercase mb-4">
                       {p.italic ? <>{p.title} <span className={`italic${p.italicColor ? " " + p.italicColor : ""}`}>{p.italic}</span>{p.second !== null ? "." : ""}</> : `${p.title}`}
@@ -400,12 +492,13 @@ export default function T104HalftonePopArt() {
           {/* Five Laws of Alchemy — numbered doctrine list */}
           <section id="laws" className="full-bleed py-24 bg-inverse-surface text-inverse-on-surface border-y-8 border-double border-on-surface">
             <div className="max-w-[1440px] mx-auto px-margin-edge">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-                <aside className="lg:col-span-4">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
+                {/* Aside is a flex column so the bench-note figure can be pushed (mt-auto) to the floor of the column, bottoms-aligned with the right column's 5-item ordered list. */}
+                <aside className="lg:col-span-4 flex flex-col">
                   <span className="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-tertiary-fixed-dim block mb-6">// CODICIL · ROMANUS</span>
                   <h2 className="font-headline-display text-[64px] leading-[0.95] uppercase mb-6">Five laws<br />of <span className="italic text-tertiary-fixed-dim">alchemy.</span></h2>
                   <p className="font-body-md text-body-md text-primary-fixed-dim mb-10">Pinned above the kettle since 1954. Bent twice, broken thrice, restated for the new bench. Memorise them or laminate them, but don't ignore them.</p>
-                  <figure className="border-4 border-tertiary-fixed-dim p-6 bg-on-surface relative">
+                  <figure className="mt-auto border-4 border-tertiary-fixed-dim p-6 bg-on-surface relative">
                     <span className="material-symbols-outlined absolute -top-5 -left-3 text-error text-5xl bg-inverse-surface px-2">format_quote</span>
                     <blockquote className="font-headline-lg text-2xl leading-snug italic text-tertiary-fixed-dim">"The matrix takes what it is given. The operator takes the blame."</blockquote>
                     <cite className="font-metadata-mono text-[11px] not-italic uppercase tracking-[0.3em] text-primary-fixed-dim block mt-4">— BENCH NOTE 014 · 2024</cite>
@@ -457,6 +550,80 @@ export default function T104HalftonePopArt() {
                     {f.i === "04" && <div className="pl-16 mt-4 font-body-md text-body-md text-on-surface-variant">Three would suggest hesitation. Five would suggest neurosis. Four screws says: this panel was meant to be opened, but rarely.</div>}
                     {f.i === "05" && <div className="pl-16 mt-4 font-body-md text-body-md text-on-surface-variant">Catastrophically. Once the big red button is hit the matrix consumes the source fragment, the operator's previous lunch, and any unsaved drafts opened on the same network. Print twice. Save once.</div>}
                   </details>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Trusted by — pop-art press wall via simpleicons.org. All slugs curl-verified 200. */}
+          <section className="full-bleed bg-tertiary-fixed border-y-4 border-on-surface py-20 relative">
+            <div className="absolute inset-0 halftone-bg opacity-40 pointer-events-none"></div>
+            <div className="relative max-w-[1440px] mx-auto px-margin-edge">
+              <div className="text-center mb-12">
+                <span className="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-error block mb-3">// VOL. 11 — BENCH NOTES IN PRESS</span>
+                <h2 className="font-headline-display text-[56px] leading-[0.95] uppercase">Stamped onto the pages of<br /><span className="italic text-tertiary">titles that print on Mondays.</span></h2>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+                {[
+                  { slug: "theguardian", name: "Guardian", date: "Q3 · 25" },
+                  { slug: "telegraph", name: "Telegraph", date: "Q4 · 25" },
+                  { slug: "substack", name: "Substack", date: "Q1 · 26" },
+                  { slug: "medium", name: "Medium", date: "Q1 · 26" },
+                  { slug: "behance", name: "Behance", date: "Q2 · 26" },
+                  { slug: "dribbble", name: "Dribbble", date: "Q2 · 26" },
+                ].map((b) => (
+                  <article key={b.slug} className="bg-surface-bright border-4 border-on-surface p-5 pop-art-shadow flex flex-col items-center text-center transform hover:-translate-y-1 hover:rotate-1 transition-transform">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/1c1b1b`} alt={`${b.name} logo`} width="32" height="32" loading="lazy" decoding="async" className="w-8 h-8 mb-3" />
+                    <span className="font-headline-lg text-lg uppercase tracking-tight text-on-surface block">{b.name}</span>
+                    <span className="font-metadata-mono text-[10px] tracking-widest uppercase text-on-surface-variant mt-1">{b.date}</span>
+                  </article>
+                ))}
+              </div>
+              <p className="text-center mt-12 font-metadata-mono text-[11px] uppercase tracking-[0.4em] text-on-surface-variant">+ 14 mentions in trade press · syndication via the wire · cuttings on file</p>
+            </div>
+          </section>
+
+          {/* Premium — four-card lab-stand specs, inline material symbols + halftone accents */}
+          <section className="full-bleed py-24 bg-surface-container-low border-b-4 border-on-surface">
+            <div className="max-w-[1440px] mx-auto px-margin-edge">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 border-b-2 border-on-surface pb-6">
+                <div className="max-w-2xl">
+                  <span className="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-error block mb-3">// LAB SPECS · IV</span>
+                  <h2 className="font-headline-display text-headline-display text-on-surface uppercase leading-[0.95]">What ships with<br /><span className="italic text-tertiary">every folio.</span></h2>
+                </div>
+                <p className="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">Four standing inclusions, packed in the same wax-paper sleeve since 1954. The dust on the seals is the warranty.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { i: "I", icon: "science", title: "Calibration sheet.", body: "A four-quadrant chart, halftone-printed, signed by whichever apprentice closed the bench. Replaces the warranty card; costs nothing to ignore.", chip: "DOC · 12 PP", chipBg: "bg-error", chipText: "text-surface-bright" },
+                  { i: "II", icon: "approval", title: "Lead-foil stamp.", body: "Numbered to the folio. Press it on the back cover; press it again on the apprentice's notebook. Stamps run dry at 400 impressions.", chip: "FOLIO · 001-400", chipBg: "bg-on-surface", chipText: "text-tertiary-fixed-dim" },
+                  { i: "III", icon: "settings_input_component", title: "Bench-knob set.", body: "Three brass knobs in a velvet-lined wallet. Re-zero before every transmutation; the knobs remember even when you don't.", chip: "BRASS · TRIO", chipBg: "bg-tertiary", chipText: "text-surface-bright" },
+                  { i: "IV", icon: "auto_stories", title: "Wax-sealed log.", body: "A leather-bound notebook with the year's first 41 pages tinted halftone-yellow. Open it when the matrix hums; close it when it stops.", chip: "LOG · 240 PP", chipBg: "bg-tertiary-fixed-dim", chipText: "text-on-surface" },
+                ].map((c) => (
+                  <article key={c.i} className="bg-surface-bright border-4 border-on-surface p-6 pop-art-shadow relative flex flex-col">
+                    <div className="flex items-start justify-between mb-5">
+                      <div className="bg-on-surface text-tertiary-fixed-dim w-14 h-14 flex items-center justify-center border-2 border-on-surface">
+                        <span className="material-symbols-outlined text-3xl" aria-hidden="true">{c.icon}</span>
+                      </div>
+                      <span className="font-headline-display text-3xl text-error tabular-nums leading-none">{c.i}</span>
+                    </div>
+                    <h3 className="font-headline-lg text-xl text-on-surface uppercase mb-2 leading-tight">{c.title}</h3>
+                    <p className="font-body-md text-sm text-on-surface-variant leading-relaxed flex-1">{c.body}</p>
+                    <span className={`mt-5 self-start font-metadata-mono text-[10px] uppercase tracking-[0.3em] ${c.chipBg} ${c.chipText} px-2 py-1 border-2 border-on-surface`}>{c.chip}</span>
+                  </article>
+                ))}
+              </div>
+              <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px border-4 border-on-surface bg-on-surface">
+                {[
+                  { v: "1954", l: "First press" },
+                  { v: "240", l: "Folios per yr" },
+                  { v: "0.41", l: "Oz · yield" },
+                  { v: "41", l: "Halftone tracks" },
+                ].map((s) => (
+                  <div key={s.l} className="bg-surface-bright p-5 text-center">
+                    <span className="font-headline-display text-3xl md:text-4xl text-error tabular-nums block">{s.v}</span>
+                    <span className="font-metadata-mono text-[10px] uppercase tracking-[0.3em] text-on-surface-variant">{s.l}</span>
+                  </div>
                 ))}
               </div>
             </div>

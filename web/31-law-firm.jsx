@@ -163,6 +163,31 @@ function LawFirm() {
             </div>
         </section>
 
+        {/* Trusted-by row — corporate clients via simpleicons.org CDN.
+            All slugs verified via HEAD before commit (stripe/shopify/notion/linear/hubspot all 200). */}
+        <section className="bg-surface border-y border-outline-variant py-12 md:py-16">
+          <div className="max-w-container-max mx-auto px-gutter">
+            <div className="text-center mb-8">
+              <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-2">— Trusted counsel for</span>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">A short list of the operators we've shaped engagements with this decade. Names disclosed with permission.</p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
+              {[
+                { name: "Stripe",   slug: "stripe" },
+                { name: "Shopify",  slug: "shopify" },
+                { name: "Notion",   slug: "notion" },
+                { name: "Linear",   slug: "linear" },
+                { name: "HubSpot",  slug: "hubspot" },
+              ].map((b) => (
+                <span key={b.slug} className="group inline-flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/4a473a`} alt={`${b.name} logo`} width="22" height="22" loading="lazy" decoding="async" className="w-5 h-5 md:w-6 md:h-6 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <span className="font-serif text-base md:text-lg tracking-tight">{b.name}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/*  Practice Areas  */}
         <section id="practice-areas" className="bg-surface-container-low py-section-padding border-y border-outline-variant scroll-mt-20">
             <div className="max-w-container-max mx-auto px-gutter">
@@ -230,18 +255,18 @@ function LawFirm() {
           <div className="overflow-hidden relative">
             <div className="law-track">
               {[...[
-                { n: "Sarah Hennessey", role: "Corporate & M&A · Managing Partner", since: "SINCE 1994", lvl: "PARTNER · I", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop" },
+                { n: "Sarah Hennessey", role: "Corporate & M&A · Managing Partner", since: "SINCE 1994", lvl: "PARTNER · I", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" },
                 { n: "Adaeze Okafor", role: "Estate & Trust · Founding Partner", since: "SINCE 1996", lvl: "PARTNER · II", w: "w-80", aspect: "aspect-[16/10]", grad: "from-primary/65 via-transparent to-transparent", dir: "r", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop" },
-                { n: "Mateo Reyes", role: "Family & Custody", since: "SINCE 2002", lvl: "PARTNER · III", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/40 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" },
+                { n: "Mateo Reyes", role: "Family & Custody", since: "SINCE 2002", lvl: "PARTNER · III", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/40 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop" },
                 { n: "Eleanor Vance", role: "Tax & Compliance · Of Counsel", since: "SINCE 2008", lvl: "COUNSEL · IV", w: "w-96", aspect: "aspect-[16/10]", grad: "from-primary/70 via-transparent to-secondary/15", dir: "tr", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&q=85&auto=format&fit=crop" },
                 { n: "Daniel Park", role: "Litigation", since: "SINCE 2011", lvl: "PARTNER · V", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop" },
                 { n: "Rachel Stein", role: "Real Estate & Land", since: "SINCE 2016", lvl: "SENIOR · VI", w: "w-80", aspect: "aspect-[16/10]", grad: "from-secondary/15 via-transparent to-primary", dir: "bl", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=85&auto=format&fit=crop" },
                 { n: "James Bellamy", role: "Probate & Trust", since: "SINCE 2019", lvl: "SENIOR · VII", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/40 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop" },
                 { n: "Priya Iyer", role: "Corporate · Senior Associate", since: "SINCE 2022", lvl: "ASSOC. · VIII", w: "w-80", aspect: "aspect-[16/10]", grad: "from-primary/70 via-transparent to-secondary/15", dir: "tl", src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1000&q=85&auto=format&fit=crop" },
               ]].flat().concat([
-                { n: "Sarah Hennessey", role: "Corporate & M&A · Managing Partner", since: "SINCE 1994", lvl: "PARTNER · I", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop", hidden: true },
+                { n: "Sarah Hennessey", role: "Corporate & M&A · Managing Partner", since: "SINCE 1994", lvl: "PARTNER · I", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", hidden: true },
                 { n: "Adaeze Okafor", role: "Estate & Trust · Founding Partner", since: "SINCE 1996", lvl: "PARTNER · II", w: "w-80", aspect: "aspect-[16/10]", grad: "from-primary/65 via-transparent to-transparent", dir: "r", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop", hidden: true },
-                { n: "Mateo Reyes", role: "Family & Custody", since: "SINCE 2002", lvl: "PARTNER · III", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/40 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", hidden: true },
+                { n: "Mateo Reyes", role: "Family & Custody", since: "SINCE 2002", lvl: "PARTNER · III", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/40 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", hidden: true },
                 { n: "Eleanor Vance", role: "Tax & Compliance · Of Counsel", since: "SINCE 2008", lvl: "COUNSEL · IV", w: "w-96", aspect: "aspect-[16/10]", grad: "from-primary/70 via-transparent to-secondary/15", dir: "tr", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&q=85&auto=format&fit=crop", hidden: true },
                 { n: "Daniel Park", role: "Litigation", since: "SINCE 2011", lvl: "PARTNER · V", w: "w-72", aspect: "aspect-[3/4]", grad: "from-primary via-primary/30 to-transparent", dir: "t", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", hidden: true },
                 { n: "Rachel Stein", role: "Real Estate & Land", since: "SINCE 2016", lvl: "SENIOR · VI", w: "w-80", aspect: "aspect-[16/10]", grad: "from-secondary/15 via-transparent to-primary", dir: "bl", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=85&auto=format&fit=crop", hidden: true },
@@ -332,11 +357,41 @@ function LawFirm() {
         {/* Five principles of counsel */}
         <section className="full-bleed-law py-section-padding bg-primary text-on-primary">
           <div className="max-w-container-max mx-auto px-gutter grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-            <aside className="lg:col-span-4">
+            {/* Left rail — flex-col + the Founding Charter card uses flex-1 to fill space so
+                the bottom aligns with the right column's 5 principles list. */}
+            <aside className="lg:col-span-4 flex flex-col">
               <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-4">— Standard · 05</span>
               <h2 className="font-h2 text-h2 text-on-primary leading-tight">Five principles<br />of counsel.</h2>
               <p className="font-body-md text-body-md text-on-primary/80 mt-6">Adopted by the partnership at founding. Re-affirmed each January at the partners' retreat. Bent twice, broken never.</p>
-              <a className="mt-8 inline-flex items-center gap-2 font-label-caps text-label-caps uppercase border border-on-primary/30 px-5 py-2.5 rounded-md hover:bg-secondary hover:border-secondary hover:text-on-secondary transition-colors" href="#contact">Read the engagement letter →</a>
+              <a className="mt-8 inline-flex items-center gap-2 font-label-caps text-label-caps uppercase border border-on-primary/30 px-5 py-2.5 rounded-md hover:bg-secondary hover:border-secondary hover:text-on-secondary transition-colors w-fit" href="#contact">Read the engagement letter →</a>
+              {/* Founding Charter card — fills the remaining height on the left col so its
+                  bottom aligns with the right col's 5-principles list. */}
+              <div className="mt-12 flex-1 flex flex-col gap-5 p-6 md:p-7 border border-on-primary/15 bg-on-primary/[0.04]">
+                <div className="flex items-baseline justify-between">
+                  <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest">— Founding Charter</span>
+                  <span className="font-label-caps text-label-caps text-on-primary/40 uppercase tracking-widest tabular-nums">[ MMXII ]</span>
+                </div>
+                <h3 className="font-h3 text-h3 text-on-primary leading-tight">Two partners. One signed page.</h3>
+                <p className="font-body-md text-body-md text-on-primary/70 leading-relaxed">The whole charter fits on a single sheet — typewritten by the second partner the week the firm opened. Re-signed each January in the same ink. Visible by appointment in the reception room.</p>
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-3 mt-auto pt-5 border-t border-on-primary/15">
+                  <div>
+                    <dt className="font-label-caps text-label-caps text-on-primary/50 uppercase tracking-widest">Founded</dt>
+                    <dd className="font-h3 text-2xl text-secondary tabular-nums mt-1">1994</dd>
+                  </div>
+                  <div>
+                    <dt className="font-label-caps text-label-caps text-on-primary/50 uppercase tracking-widest">Pages</dt>
+                    <dd className="font-h3 text-2xl text-secondary tabular-nums mt-1">01</dd>
+                  </div>
+                  <div>
+                    <dt className="font-label-caps text-label-caps text-on-primary/50 uppercase tracking-widest">Re-signed</dt>
+                    <dd className="font-h3 text-2xl text-secondary tabular-nums mt-1">30×</dd>
+                  </div>
+                  <div>
+                    <dt className="font-label-caps text-label-caps text-on-primary/50 uppercase tracking-widest">Signatories</dt>
+                    <dd className="font-h3 text-2xl text-secondary tabular-nums mt-1">02</dd>
+                  </div>
+                </dl>
+              </div>
             </aside>
             <ol className="lg:col-span-8 divide-y divide-on-primary/15 border-y border-on-primary/15">
               {[
@@ -356,6 +411,71 @@ function LawFirm() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        {/* Engagement Compact — 4 premium cards between Five Principles and FAQ.
+            Each card holds an inline SVG icon (line 1.5, 24×24, currentColor), a Roman tag,
+            title, body, and a footer metric. Consistent with the firm's serif voice. */}
+        <section className="max-w-container-max mx-auto px-gutter py-section-padding">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 pb-6 border-b border-outline-variant">
+            <div className="max-w-xl">
+              <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest block mb-3">— Engagement · 05B</span>
+              <h2 className="font-h2 text-h2 text-primary leading-tight">What every engagement carries.</h2>
+            </div>
+            <p className="font-body-md text-body-md text-on-surface-variant max-w-md">Four standing terms in every retainer. Signed at the engagement letter, re-confirmed at the close. The engagement letter is one page; nothing in it is buried.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {[
+              {
+                roman: "I",
+                tag: "Standard · 01",
+                title: "Conflict cleared before the meter starts.",
+                body: "Every engagement begins with a 24-hour conflict check across all current and historic matters. The first hour is free and reserved for listening — no work begins until the check returns clean.",
+                foot: "≤ 24 hr · firmwide",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />,
+              },
+              {
+                roman: "II",
+                tag: "Standard · 02",
+                title: "Partner of record reads every page.",
+                body: "No filing leaves the firm without a partner's signature beside the associate's. The cover page is two names, every time. Drafting hours are the associate's; sign-off hours are the partner's.",
+                foot: "Two names per cover",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />,
+              },
+              {
+                roman: "III",
+                tag: "Standard · 03",
+                title: "Flat fee where one is fair.",
+                body: "Predictable matters quote at a flat fee — wills, formations, closings. The hourly meter sleeps the moment we agree on price. Engagements with unknown scope quote both options side by side.",
+                foot: "Hourly meter · off",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />,
+              },
+              {
+                roman: "IV",
+                tag: "Standard · 04",
+                title: "Door stays open after the file closes.",
+                body: "A first matter is half the relationship. The follow-up — five years later — is the test, and we open the file the same week. No re-onboarding fee, no re-conflict fee, no second engagement letter unless the matter requires it.",
+                foot: "No re-onboarding fee",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.25 12 5.25 9m0 0 3-3m-3 3h13.5m-13.5 0v8.25a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25V12" />,
+              },
+            ].map((c) => (
+              <article key={c.roman} className="bg-surface border border-outline-variant rounded-xl p-7 md:p-8 flex flex-col gap-4 hover:border-secondary hover:shadow-lg transition-all min-h-[260px]">
+                <div className="flex items-center justify-between">
+                  <span className="w-12 h-12 rounded-lg border border-outline-variant flex items-center justify-center text-secondary">
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">{c.icon}</svg>
+                  </span>
+                  <span className="font-h2 text-3xl text-secondary tabular-nums">{c.roman}</span>
+                </div>
+                <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{c.tag}</span>
+                <h3 className="font-h3 text-h3 text-primary leading-tight">{c.title}</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{c.body}</p>
+                <div className="mt-auto pt-5 border-t border-outline-variant flex items-center justify-between">
+                  <span className="font-label-caps text-label-caps text-secondary uppercase tracking-widest">{c.foot}</span>
+                  <span className="font-label-caps text-label-caps text-on-surface-variant/60 uppercase tracking-widest">In effect</span>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 

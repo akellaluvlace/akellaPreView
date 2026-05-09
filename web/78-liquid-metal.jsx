@@ -57,7 +57,7 @@ export default function T78LiquidMetal() {
     {
       tilt: "study-tilt-l",
       reverse: false,
-      img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop",
       alt: "Foundry interior, molten flow",
       tag: "01 — The Pour",
       plate: "PLATE · I",
@@ -101,10 +101,10 @@ export default function T78LiquidMetal() {
   const forgeWide80 = "shrink-0 w-80 aspect-[16/10] relative border border-white/10 bg-black overflow-hidden";
 
   const forgeTiles = [
-    { cls: forgePortrait72, img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop", label: "Pour_07", meta: "1064°C" },
+    { cls: forgePortrait72, img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", label: "Pour_07", meta: "1064°C" },
     { cls: forgeWide, img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1100&q=85&auto=format&fit=crop", label: "Trace_03", meta: "SECTOR_7" },
-    { cls: forgePortrait80, img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", label: "Apothecary_11", meta: ".925" },
-    { cls: forgeWide, img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1100&q=85&auto=format&fit=crop", label: "Vault_02", meta: "METAVAULT" },
+    { cls: forgePortrait80, img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", label: "Apothecary_11", meta: ".925" },
+    { cls: forgeWide, img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1100&q=85&auto=format&fit=crop", label: "Vault_02", meta: "METAVAULT" },
     { cls: forgePortrait72, img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", label: "Facade_05", meta: "PARIS" },
     { cls: forgeWide80, img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=85&auto=format&fit=crop", label: "Rack_19", meta: "UPLINK" },
   ];
@@ -112,16 +112,16 @@ export default function T78LiquidMetal() {
   const forgePeople = [
     { img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop", name: "M. Aoki", role: "FORGE_LEAD" },
     { img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=200&q=85&auto=format&fit=crop", name: "L. Reyes", role: "POLISH_CHIEF" },
-    { img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&q=85&auto=format&fit=crop", name: "S. Vidal", role: "METALLURGY" },
+    { img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", name: "S. Vidal", role: "METALLURGY" },
     { img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop", name: "K. Halloran", role: "CASTING" },
     { img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop", name: "D. Park", role: "CRYO_OPS" },
     { img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&q=85&auto=format&fit=crop", name: "E. Mori", role: "QC // SECTOR_7" },
   ];
 
   const atelierFrames = [
-    { delay: "0s",  src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — pour",   caption: "01 — The Pour" },
-    { delay: "4s",  src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — file",   caption: "02 — The File" },
-    { delay: "8s",  src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — polish", caption: "03 — The Polish" },
+    { delay: "0s",  src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — pour",   caption: "01 — The Pour" },
+    { delay: "4s",  src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — file room, server-rack tooling close-up",   caption: "02 — The File" },
+    { delay: "8s",  src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — polish floor, mirror-finish reflections under fluorescents", caption: "03 — The Polish" },
     { delay: "12s", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — vault",  caption: "04 — The Vault" },
   ];
 
@@ -485,7 +485,9 @@ export default function T78LiquidMetal() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-              <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start space-y-8">
+              {/* Sticky removed so left col can grow to match right col's aspect-[3/4] image.
+                  Atelier Signal card fills the remaining height with live-stat cells. */}
+              <div className="lg:col-span-5 flex flex-col gap-8">
                 <h2 className="font-syncopate text-3xl md:text-5xl font-bold chrome-text uppercase leading-[0.95]">
                   In Motion,<br />Held Still.
                 </h2>
@@ -503,12 +505,54 @@ export default function T78LiquidMetal() {
                   ))}
                 </ol>
 
-                <div className="pt-4">
+                <div>
                   <div className="h-px w-full bg-white/10 relative overflow-hidden">
                     <div className="atelier-scrub absolute inset-y-0 left-0 w-full bg-neon-blue"></div>
                   </div>
                   <p className="font-orbitron text-[10px] text-gray-500 tracking-[0.3em] mt-2">FEED // CONTINUOUS</p>
                 </div>
+
+                {/* Atelier Signal — live status card, fills space to bottom-align with image. */}
+                <aside className="flex-1 flex flex-col gap-5 p-6 md:p-7 border border-white/10 bg-white/[0.02] backdrop-blur-sm">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-blue opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-blue"></span>
+                      </span>
+                      <span className="font-syncopate text-xs text-white uppercase tracking-widest">Atelier Signal</span>
+                    </div>
+                    <span className="font-orbitron text-[10px] tracking-widest text-gray-500 tabular-nums">[V_LIVE]</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-px bg-white/10">
+                    <div className="bg-black/40 p-4 flex flex-col gap-1">
+                      <span className="font-orbitron text-[10px] tracking-widest text-gray-500 uppercase">Furnace</span>
+                      <span className="font-syncopate text-2xl font-bold text-white tabular-nums">1064°C</span>
+                      <span className="font-orbitron text-[9px] tracking-widest text-neon-blue uppercase">Operational</span>
+                    </div>
+                    <div className="bg-black/40 p-4 flex flex-col gap-1">
+                      <span className="font-orbitron text-[10px] tracking-widest text-gray-500 uppercase">Crew</span>
+                      <span className="font-syncopate text-2xl font-bold text-white tabular-nums">06 / 08</span>
+                      <span className="font-orbitron text-[9px] tracking-widest text-neon-blue uppercase">On-bench</span>
+                    </div>
+                    <div className="bg-black/40 p-4 flex flex-col gap-1">
+                      <span className="font-orbitron text-[10px] tracking-widest text-gray-500 uppercase">Today</span>
+                      <span className="font-syncopate text-2xl font-bold text-white tabular-nums">03</span>
+                      <span className="font-orbitron text-[9px] tracking-widest text-neon-blue uppercase">Pours logged</span>
+                    </div>
+                    <div className="bg-black/40 p-4 flex flex-col gap-1">
+                      <span className="font-orbitron text-[10px] tracking-widest text-gray-500 uppercase">Vault sync</span>
+                      <span className="font-syncopate text-2xl font-bold text-white tabular-nums">0×7C</span>
+                      <span className="font-orbitron text-[9px] tracking-widest text-neon-blue uppercase">Live</span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-baseline justify-between gap-2 mt-auto pt-4 border-t border-white/10">
+                    <span className="font-orbitron text-[10px] tracking-widest text-gray-500 uppercase">Tokyo · Sector 7 · 14:22 JST</span>
+                    <a href="#" className="font-syncopate text-[10px] tracking-widest text-neon-blue uppercase border-b border-neon-blue/50 hover:border-neon-blue transition-colors">Visit log →</a>
+                  </div>
+                </aside>
               </div>
 
               <div className="lg:col-span-7">

@@ -24,11 +24,28 @@ export default function T67ArtDeco() {
   ];
 
   const atmosphere = [
-    { numeral: "I",   title: "The Velvet Booth", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Dimly lit speakeasy interior with red leather banquettes and brass detailing" },
-    { numeral: "II",  title: "Liquid Gold",      img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Crystal coupe glass holding an amber cocktail with a single twist of citrus peel" },
-    { numeral: "III", title: "Brass & Smoke",    img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Aged brass apothecary still-life with crystal decanters under low directional light" },
-    { numeral: "IV",  title: "The Trio",         img: "https://images.unsplash.com/photo-1467453678174-768ec283a940?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Jazz musician at a vintage microphone bathed in warm stage light" },
-    { numeral: "V",   title: "Last Pour",        img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Bartender pouring spirits behind a marble counter with vintage glassware" },
+    { numeral: "I",   title: "The Velvet Booth", img: "https://images.unsplash.com/photo-1574096079513-d8259312b785?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Dimly lit speakeasy interior with carved wood, stained glass and ranked spirits" },
+    { numeral: "II",  title: "Liquid Gold",      img: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Amber cocktail being strained into a rocks glass with a citrus twist" },
+    { numeral: "III", title: "Brass & Smoke",    img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Aged brass apothecary still-life with crystal decanters under low directional light" },
+    { numeral: "IV",  title: "The Trio",         img: "https://images.unsplash.com/photo-1485579149621-3123dd979885?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Vintage chrome ribbon microphone in soft warm stage light" },
+    { numeral: "V",   title: "Last Pour",        img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", alt: "Three signature cocktails arranged on a wood bar — last pour of the evening" },
+  ];
+
+  const featuredIn = [
+    { slug: "theguardian", name: "Guardian" },
+    { slug: "hermes", name: "Hermès" },
+    { slug: "dior", name: "Dior" },
+    { slug: "airbnb", name: "Airbnb" },
+    { slug: "americanexpress", name: "Amex" },
+    { slug: "medium", name: "Medium" },
+    { slug: "spotify", name: "Spotify" },
+  ];
+
+  const houseHours = [
+    { num: "No · I", icon: "moon", iconShape: "rounded-full", title: "The Late Hour", body: "When the avenues quiet and the gas-lamps narrow their flame — that is when the bar is at its most generous. Doors close at three; conversations rarely do.", time: "11 PM — 3 AM", drink: "Old Fashioned · neat" },
+    { num: "No · II", icon: "music", iconShape: "hex", title: "The Trio Set", body: "Three musicians, one ribbon mic, no amplifier. Bass, brush, vocal — five sets a week, no two alike. The room arranges itself around them by 9.30.", time: "Tue — Sat · 21:30", drink: "French 75 · pre-set" },
+    { num: "No · III", icon: "wine", iconShape: "diamond", title: "The Apothecary", body: "Eighty-four bottles behind the brass rail. Twelve infusions, six bitters, three vermouths house-made and rotated by season. The list is read aloud, never printed.", time: "Master · 11 yrs", drink: "Negroni Sbagliato" },
+    { num: "No · IV", icon: "key-round", iconShape: "triangle", title: "The Members' Door", body: "Two reservations a week held back for those who know to ask. The list is kept in a calf-leather book, written in fountain pen. Your name, once entered, stays.", time: "By introduction", drink: "Bottle service · ask" },
   ];
 
   const guestOptions = ["2 Guests", "3 Guests", "4 Guests", "5+ Guests"];
@@ -178,7 +195,7 @@ export default function T67ArtDeco() {
               <div className="flex flex-col md:flex-row items-center gap-12">
                 <div className="w-full md:w-1/2 relative">
                   <div className="framed-image aspect-[3/4] md:aspect-square w-full bg-deco-dark border-double-deco p-2">
-                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bar Interior" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0" />
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vintage backlit bar with copper counter and ranked spirits" className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0" loading="lazy" decoding="async" width="800" height="800" />
                   </div>
                 </div>
                 <div className="w-full md:w-1/2 text-center md:text-left">
@@ -194,6 +211,65 @@ export default function T67ArtDeco() {
                     <span className="font-header text-xs tracking-widest uppercase">Best Speakeasy 2024</span>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            {/* TRUSTED BY — featured-in row */}
+            <section id="featured" className="w-full max-w-6xl mx-auto px-6 md:px-12 mb-24">
+              <div className="text-center mb-10">
+                <span className="text-deco-golddim uppercase tracking-[0.4em] text-xs">As featured in</span>
+                <div className="w-16 h-px bg-deco-gold mx-auto mt-4 opacity-50"></div>
+              </div>
+              <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-x-8 gap-y-8 items-center justify-items-center border-y border-deco-gold/30 py-8">
+                {featuredIn.map(b => (
+                  <li key={b.slug} className="flex flex-col items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/c9a249`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                    <span className="font-header text-[9px] uppercase tracking-[0.25em] text-deco-golddim">{b.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            {/* PREMIUM 2x2 — Hours of the House (sits on faint photographic backdrop) */}
+            <section id="hours" className="w-full max-w-7xl mx-auto px-6 md:px-12 mb-24 relative overflow-hidden border-y-2 border-double border-deco-gold/40 py-20 md:py-28">
+              <div className="absolute inset-0 -z-10">
+                <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-15 grayscale" loading="lazy" />
+                <div className="absolute inset-0 bg-deco-black/85"></div>
+                <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, transparent 30%, rgba(11,11,15,0.85) 80%)" }}></div>
+              </div>
+
+              <div className="text-center mb-14 md:mb-20 max-w-2xl mx-auto">
+                <span className="text-deco-golddim uppercase tracking-[0.4em] text-xs">Reasons · Sufficient</span>
+                <h2 className="font-header text-4xl md:text-5xl mt-3 tracking-[0.2em] text-glow">Hours of the House</h2>
+                <div className="w-24 h-1 bg-deco-gold mx-auto mt-6"></div>
+                <p className="font-body text-deco-golddim text-xs md:text-sm uppercase tracking-[0.2em] mt-6 leading-loose">Four standing reasons to abandon the daylight world. Each accompanied by its own particular libation.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {houseHours.map(h => {
+                  const shapeStyle = h.iconShape === "hex"
+                    ? { clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }
+                    : h.iconShape === "triangle"
+                    ? { clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }
+                    : undefined;
+                  const shapeClass = h.iconShape === "rounded-full" ? "rounded-full" : h.iconShape === "diamond" ? "rounded-sm rotate-45" : "";
+                  return (
+                    <article key={h.num} className="relative bg-deco-black/85 backdrop-blur-sm border-double-deco p-7 md:p-9 group hover:bg-deco-black/95 transition-colors">
+                      <div className="flex items-start justify-between mb-5">
+                        <div className={`w-14 h-14 border border-deco-gold flex items-center justify-center text-deco-gold group-hover:bg-deco-gold group-hover:text-deco-black transition-colors ${shapeClass}`} style={shapeStyle}>
+                          <i data-lucide={h.icon} className={`w-6 h-6 ${h.iconShape === "diamond" ? "-rotate-45" : ""} ${h.iconShape === "triangle" ? "mt-2 w-5 h-5" : ""}`}></i>
+                        </div>
+                        <span className="font-header text-deco-golddim text-[10px] tracking-[0.4em] uppercase">{h.num}</span>
+                      </div>
+                      <h3 className="font-header text-xl md:text-2xl tracking-[0.15em] text-deco-goldlight mb-3 uppercase">{h.title}</h3>
+                      <p className="font-body text-deco-golddim text-sm leading-loose mb-5">{h.body}</p>
+                      <div className="flex items-baseline justify-between border-t border-deco-gold/20 pt-4 font-header text-[10px] uppercase tracking-[0.3em] text-deco-gold">
+                        <span>{h.time}</span>
+                        <span className="text-deco-goldlight">{h.drink}</span>
+                      </div>
+                    </article>
+                  );
+                })}
               </div>
             </section>
 

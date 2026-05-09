@@ -377,7 +377,7 @@ export default function T96WabiSabiImperfect() {
                 </article>
                 <article className="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
                   <div className="md:col-span-6 order-1 md:order-2">
-                    <img alt="Quiet still life of brass and ceramic objects on a private collector's shelf, warm light" className="w-full aspect-[4/3] object-cover rounded sepia-[0.08] opacity-95" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&q=80&w=900" loading="lazy" decoding="async" />
+                    <img alt="Quiet still life of brass and ceramic objects on a private collector's shelf, warm light" className="w-full aspect-[4/3] object-cover rounded sepia-[0.08] opacity-95" src="https://images.unsplash.com/photo-1527844817887-9b937993518b?auto=format&fit=crop&q=80&w=900" loading="lazy" decoding="async" />
                   </div>
                   <div className="md:col-span-6 order-2 md:order-1 md:pl-6">
                     <p className="font-japanese-accent text-japanese-accent text-tertiary uppercase tracking-[0.2em] mb-2">Berlin · 2024</p>
@@ -389,7 +389,7 @@ export default function T96WabiSabiImperfect() {
                 </article>
                 <article className="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
                   <div className="md:col-span-6 order-1">
-                    <img alt="Architectural interior of a small Lisbon kappo restaurant counter, warm wood and earthen tones" className="w-full aspect-[4/3] object-cover rounded sepia-[0.08] opacity-95" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&q=80&w=900" loading="lazy" decoding="async" />
+                    <img alt="Architectural interior of a small Lisbon kappo restaurant counter, warm wood and earthen tones" className="w-full aspect-[4/3] object-cover rounded sepia-[0.08] opacity-95" src="https://images.unsplash.com/photo-1743793054819-37e412d65295?auto=format&fit=crop&q=80&w=900" loading="lazy" decoding="async" />
                   </div>
                   <div className="md:col-span-6 order-2 md:pr-6">
                     <p className="font-japanese-accent text-japanese-accent text-tertiary uppercase tracking-[0.2em] mb-2">Lisboa · 2024</p>

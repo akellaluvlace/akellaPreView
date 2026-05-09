@@ -100,20 +100,19 @@
     </style>
 </head>
 <body class="bg-surface-container-lowest text-primary min-h-screen overflow-x-hidden relative">
-<!-- Top Navigation Substitute. Responsive: p-margin-edge (32px)
-     ramps down on mobile; nav stack stays vertical on all
-     breakpoints (the design calls for it) but gains tighter
-     margin between the two rows on small screens. -->
-<header class="p-4 w-full flex flex-col md:flex-row justify-between items-start z-50 relative border-b-2 border-primary sm:p-6 md:p-margin-edge">
-<nav class="flex flex-col gap-unit font-body-mono text-body-mono uppercase mb-6 md:mb-0">
-<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">ARCHIVE</a>
-<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">LABS</a>
-<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">BIOGRAPHY</a>
-<a class="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1" href="#">SAY_HELLO</a>
+<!-- Top Navigation — premium contrast: pure black bg, white text,
+     bold wordmark, chunky offset CTA. -->
+<header class="p-4 w-full flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 z-50 relative border-b-2 border-primary bg-primary text-surface-container-lowest sm:p-6 md:p-margin-edge">
+<a class="font-utility-bold text-2xl md:text-3xl font-black uppercase tracking-tight text-surface-container-lowest leading-none" href="#">DANIEL<span class="text-[#F4FF1A]">.</span>V</a>
+<nav class="flex flex-row flex-wrap justify-center gap-x-5 gap-y-2 font-body-mono text-utility-bold uppercase tracking-widest font-bold">
+<a class="text-surface-container-lowest hover:text-[#F4FF1A] transition-colors pb-0.5 border-b-2 border-transparent hover:border-[#F4FF1A]" href="#">ARCHIVE</a>
+<a class="text-surface-container-lowest hover:text-[#F4FF1A] transition-colors pb-0.5 border-b-2 border-transparent hover:border-[#F4FF1A]" href="#">LABS</a>
+<a class="text-surface-container-lowest hover:text-[#F4FF1A] transition-colors pb-0.5 border-b-2 border-transparent hover:border-[#F4FF1A]" href="#">BIOGRAPHY</a>
+<a class="text-surface-container-lowest hover:text-[#F4FF1A] transition-colors pb-0.5 border-b-2 border-transparent hover:border-[#F4FF1A]" href="#">SAY_HELLO</a>
 </nav>
-<div class="font-utility-bold text-utility-bold uppercase border-2 border-primary p-2 chunky-shadow-yellow bg-surface-container-lowest animate-pulse rotate-[-2deg]">
-            AVAILABLE FOR WORK
-        </div>
+<a href="#" class="font-utility-bold text-utility-bold uppercase tracking-widest border-2 border-surface-container-lowest px-3 py-2 bg-[#F4FF1A] text-primary chunky-shadow-pink rotate-[-2deg] hover:rotate-0 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
+            ▸ AVAILABLE FOR WORK
+        </a>
 </header>
 <!-- Hero Section. text-[15vw] already scales with viewport, but the
      -ml-4 nudge overflows a narrow viewport — neutralized on
@@ -128,6 +127,28 @@
             experiences that demand attention. Not for the faint of heart.
         </div>
 </main>
+<!-- Trusted-by — chunky-shadow panel with 8 black-on-white logos -->
+<section class="w-full relative z-10 border-b-2 border-primary bg-surface-container-highest p-4 sm:p-6 md:p-margin-edge md:py-20">
+<div class="max-w-6xl mx-auto">
+<p class="font-utility-bold text-utility-bold uppercase tracking-widest mb-8 md:mb-10 block">// TRUSTED_BY — N=08 // ROSTER_LIVE</p>
+<div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-6 sm:p-8 md:p-10">
+<div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-px bg-primary border-2 border-primary">
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Behance" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/behance/000000"/></div>
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Dribbble" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/dribbble/000000"/></div>
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Vimeo" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/vimeo/000000"/></div>
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Medium" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/medium/000000"/></div>
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Framer" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/framer/000000"/></div>
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Figma" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/figma/000000"/></div>
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Webflow" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/webflow/000000"/></div>
+<div class="bg-surface-container-lowest h-20 flex items-center justify-center p-4"><img alt="Notion" class="max-h-7 w-auto opacity-90 grayscale" src="https://cdn.simpleicons.org/notion/000000"/></div>
+</div>
+<div class="mt-6 pt-6 border-t-2 border-primary flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 font-utility-bold text-utility-bold uppercase tracking-widest">
+<span>STUDIOS / FOUNDERS / PRESS</span>
+<span class="bg-primary text-surface-container-lowest px-2 py-1">▸ 142 SHIPPED // 19 SOTD</span>
+</div>
+</div>
+</div>
+</section>
 <!-- Work Grid. Responsive: p-margin-edge ramps; negative margins
      (md:-ml-8, md:-ml-16) are gated to md+ so they don't push
      tiles off the mobile viewport. Fixed heights swap to
@@ -187,13 +208,13 @@
 </div>
 <div class="md:col-span-3 mt-4 md:mt-16 rotate-[1deg] hover:rotate-0 transition-transform">
 <div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-pink p-2 sm:p-3">
-<img class="w-full aspect-[3/4] object-cover grayscale contrast-150 border-2 border-primary" alt="Industrial machinery detail" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop"/>
+<img class="w-full aspect-[3/4] object-cover grayscale contrast-150 border-2 border-primary" alt="Industrial machinery detail" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=900&auto=format&fit=crop"/>
 <p class="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_04_machine]</span><span class="opacity-50 tabular-nums">05.24</span></p>
 </div>
 </div>
 <div class="col-span-2 md:col-span-12 mt-4 flex justify-center rotate-[-0.5deg] hover:rotate-0 transition-transform">
 <div class="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-2 sm:p-3 w-full md:w-2/3">
-<img class="w-full aspect-[16/9] object-cover grayscale contrast-150 border-2 border-primary" alt="Server room wide shot" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=1600&auto=format&fit=crop"/>
+<img class="w-full aspect-[16/9] object-cover grayscale contrast-150 border-2 border-primary" alt="Server room wide shot" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop"/>
 <p class="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_05_rack_wide]</span><span class="opacity-50 tabular-nums">06.24 — wall-installed reference</span></p>
 </div>
 </div>
@@ -245,6 +266,86 @@
 </div>
 </section>
 
+<!-- Premium 2x2 — image-bg cards with icon + title + body + meta -->
+<section class="w-full relative z-10 border-b-2 border-primary bg-primary text-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-28 overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
+<div>
+<p class="font-utility-bold text-utility-bold uppercase tracking-widest text-[#C6FF3F] mb-8 md:mb-10 block">// SIGNATURE_LANES — N=04 // FLAGSHIP</p>
+<h2 class="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">WHERE I OPERATE</h2>
+</div>
+<p class="font-body-mono text-body-mono max-w-sm md:text-right text-surface-container-lowest/80">Four lanes I refuse to compromise on. Each one a decade-deep rabbit hole. Pick the lane, I'll run it raw.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto items-stretch">
+<article class="relative aspect-[4/3] md:aspect-[5/4] border-2 border-surface-container-lowest overflow-hidden flex flex-col justify-between p-6 md:p-8 group hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#C6FF3F] transition-all duration-300 ring-2 ring-[#C6FF3F]/60 ring-offset-4 ring-offset-primary">
+<img alt="" aria-hidden="true" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60 pointer-events-none"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/50 pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<span class="font-wordmark-italic text-5xl text-surface-container-lowest italic leading-none">I</span>
+<span class="font-utility-bold text-utility-bold uppercase tracking-widest border-2 border-surface-container-lowest px-2 py-1 bg-[#C6FF3F] text-primary">▸ FLAGSHIP</span>
+</div>
+<div class="relative z-10 flex flex-col gap-2">
+<span class="material-symbols-outlined text-surface-container-lowest text-3xl mb-2">architecture</span>
+<h3 class="font-display-lg text-surface-container-lowest uppercase text-2xl md:text-3xl leading-none">RAW INTERFACES</h3>
+<p class="text-surface-container-lowest/90 font-body-mono text-sm leading-relaxed">Brutalist UI for products that refuse to look like everyone else. Naked grids, exposed seams, type that bites. Built native, hand-tuned, no design-system templates.</p>
+<div class="mt-3 pt-3 border-t-2 border-surface-container-lowest/30 flex items-center justify-between text-[10px] uppercase tracking-widest text-surface-container-lowest/80 font-utility-bold">
+<span>// 28 SHIPPED · 7 SOTD</span>
+<span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+<article class="relative aspect-[4/3] md:aspect-[5/4] border-2 border-surface-container-lowest overflow-hidden flex flex-col justify-between p-6 md:p-8 group hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#FF2BA0] transition-all duration-300">
+<img alt="" aria-hidden="true" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60 pointer-events-none"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/50 pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<span class="font-wordmark-italic text-5xl text-surface-container-lowest italic leading-none">II</span>
+<span class="font-utility-bold text-utility-bold uppercase tracking-widest border-2 border-surface-container-lowest px-2 py-1 bg-surface-container-lowest text-primary">/CC</span>
+</div>
+<div class="relative z-10 flex flex-col gap-2"><span class="material-symbols-outlined text-surface-container-lowest text-3xl mb-2">bolt</span>
+<h3 class="font-display-lg text-surface-container-lowest uppercase text-2xl md:text-3xl leading-none">CREATIVE CODING</h3>
+<p class="text-surface-container-lowest/90 font-body-mono text-sm leading-relaxed">WebGL, shaders, audio-reactive canvas rigs. Loops that run for thirty seconds and ruin a board meeting. Performance-budgeted, mobile-tested, deliberately broken on purpose.</p>
+<div class="mt-3 pt-3 border-t-2 border-surface-container-lowest/30 flex items-center justify-between text-[10px] uppercase tracking-widest text-surface-container-lowest/80 font-utility-bold">
+<span>// 41 BUILDS · 12 LIVE</span>
+<span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+<article class="relative aspect-[4/3] md:aspect-[5/4] border-2 border-surface-container-lowest overflow-hidden flex flex-col justify-between p-6 md:p-8 group hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#F4FF1A] transition-all duration-300">
+<img alt="" aria-hidden="true" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60 pointer-events-none"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/50 pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<span class="font-wordmark-italic text-5xl text-surface-container-lowest italic leading-none">III</span>
+<span class="font-utility-bold text-utility-bold uppercase tracking-widest border-2 border-surface-container-lowest px-2 py-1 bg-[#F4FF1A] text-primary">/TY</span>
+</div>
+<div class="relative z-10 flex flex-col gap-2">
+<span class="material-symbols-outlined text-surface-container-lowest text-3xl mb-2">format_quote</span>
+<h3 class="font-display-lg text-surface-container-lowest uppercase text-2xl md:text-3xl leading-none">TYPE SYSTEMS</h3>
+<p class="text-surface-container-lowest/90 font-body-mono text-sm leading-relaxed">Variable-font scales, narrow-grotesk vs serif clashes, wordmarks that hold a room. Letterforms as architecture. Print-press logic ported into the variable-font era.</p>
+<div class="mt-3 pt-3 border-t-2 border-surface-container-lowest/30 flex items-center justify-between text-[10px] uppercase tracking-widest text-surface-container-lowest/80 font-utility-bold">
+<span>// 19 WORDMARKS · 4 LICENCED</span>
+<span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+<article class="relative aspect-[4/3] md:aspect-[5/4] border-2 border-surface-container-lowest overflow-hidden flex flex-col justify-between p-6 md:p-8 group hover:-translate-y-1 hover:shadow-[8px_8px_0_0_white] transition-all duration-300">
+<img alt="" aria-hidden="true" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1200&q=80&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60 pointer-events-none"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/50 pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<span class="font-wordmark-italic text-5xl text-surface-container-lowest italic leading-none">IV</span>
+<span class="font-utility-bold text-utility-bold uppercase tracking-widest border-2 border-surface-container-lowest px-2 py-1 bg-[#FF2BA0] text-surface-container-lowest">/DD</span>
+</div>
+<div class="relative z-10 flex flex-col gap-2">
+<span class="material-symbols-outlined text-surface-container-lowest text-3xl mb-2">gesture</span>
+<h3 class="font-display-lg text-surface-container-lowest uppercase text-2xl md:text-3xl leading-none">DIGITAL DECAY</h3>
+<p class="text-surface-container-lowest/90 font-body-mono text-sm leading-relaxed">Glitch, datamosh, deliberate corruption. Builds that wear their bytecount on the outside. Where the bug is a design feature and the artefact is the whole point.</p>
+<div class="mt-3 pt-3 border-t-2 border-surface-container-lowest/30 flex items-center justify-between text-[10px] uppercase tracking-widest text-surface-container-lowest/80 font-utility-bold">
+<span>// 11 ARTEFACTS · 03 ARCHIVED</span>
+<span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+
 <!-- By the numbers — 4-stat ribbon -->
 <section class="w-full relative z-10 border-b-2 border-primary bg-primary text-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-20 overflow-hidden">
 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-12">
@@ -274,6 +375,79 @@
 <p class="font-display-lg text-[60px] md:text-[96px] leading-none tabular-nums text-[#C6FF3F]">38</p>
 <p class="font-utility-bold text-utility-bold uppercase tracking-widest">REPEAT / CLIENTS</p>
 <p class="font-body-mono text-xs opacity-60">round-the-table // long-haul only</p>
+</div>
+</div>
+</section>
+
+<!-- Manifesto / How I work — content+image row, 5 numbered tenets -->
+<section class="w-full relative z-10 border-b-2 border-primary bg-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-24">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
+<div>
+<p class="font-utility-bold text-utility-bold uppercase tracking-widest mb-8 md:mb-10 block">// DOCTRINE — V.05 // NON_NEGOTIABLE</p>
+<h2 class="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">HOW I WORK</h2>
+</div>
+<p class="font-body-mono text-body-mono max-w-sm md:text-right">Five rules I've broken every other one to keep. Print these. Pin them above the keyboard. Argue with them later.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-stretch">
+<div class="md:col-span-5 relative rotate-[-1deg]">
+<div class="border-2 border-primary chunky-shadow-pink p-3">
+<img class="w-full aspect-[4/5] object-cover grayscale contrast-150 border-2 border-primary" alt="Designer's hands working on a sketch in a brutalist studio" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&q=80&auto=format&fit=crop"/>
+<div class="mt-3 flex justify-between font-body-mono text-xs lowercase">
+<span>[studio_floor / 06.24]</span>
+<span class="opacity-50 tabular-nums">DOC.05</span>
+</div>
+</div>
+<div class="hidden md:block absolute -top-4 -left-4 bg-[#F4FF1A] border-2 border-primary px-3 py-1 font-utility-bold text-utility-bold uppercase tracking-widest rotate-[-4deg]">▸ MANIFESTO</div>
+</div>
+<div class="md:col-span-7 flex flex-col h-full md:justify-between gap-6">
+<ol class="flex flex-col gap-4">
+<li class="border-2 border-primary bg-surface-container-lowest p-5 sm:p-6 chunky-shadow-lime flex gap-5 items-start">
+<span class="font-display-lg text-[48px] leading-none tabular-nums shrink-0">01</span>
+<div class="flex flex-col gap-2 min-w-0">
+<h3 class="font-utility-bold text-utility-bold uppercase tracking-widest">BRIEFS ARE A SKETCH, NOT A SPEC</h3>
+<p class="font-body-mono text-sm leading-relaxed">If the brief solves the problem already, you didn't need me. Every project starts with a fight, ends with a thing that nobody could have written down up front.</p>
+</div>
+</li>
+<li class="border-2 border-primary bg-surface-container-lowest p-5 sm:p-6 chunky-shadow-yellow flex gap-5 items-start">
+<span class="font-display-lg text-[48px] leading-none tabular-nums shrink-0">02</span>
+<div class="flex flex-col gap-2 min-w-0">
+<h3 class="font-utility-bold text-utility-bold uppercase tracking-widest">SHIP THE UGLY VERSION FIRST</h3>
+<p class="font-body-mono text-sm leading-relaxed">Day-one demos are HTML and pure CSS. No Figma comp, no design system, no "let's prototype it." If it doesn't survive a 256-colour render, it isn't going in.</p>
+</div>
+</li>
+<li class="border-2 border-primary bg-surface-container-lowest p-5 sm:p-6 chunky-shadow-pink flex gap-5 items-start">
+<span class="font-display-lg text-[48px] leading-none tabular-nums shrink-0">03</span>
+<div class="flex flex-col gap-2 min-w-0">
+<h3 class="font-utility-bold text-utility-bold uppercase tracking-widest">NO ANIMATIONS WITHOUT A REASON</h3>
+<p class="font-body-mono text-sm leading-relaxed">Motion costs money — yours, the user's, the planet's. Every transition either teaches the interface or pays its own rent. The rest get cut.</p>
+</div>
+</li>
+<li class="border-2 border-primary bg-surface-container-lowest p-5 sm:p-6 chunky-shadow-lime flex gap-5 items-start">
+<span class="font-display-lg text-[48px] leading-none tabular-nums shrink-0">04</span>
+<div class="flex flex-col gap-2 min-w-0">
+<h3 class="font-utility-bold text-utility-bold uppercase tracking-widest">NEVER TWO ROUNDS OF "POLISH"</h3>
+<p class="font-body-mono text-sm leading-relaxed">Polish-passes are where good work goes to die a polite death. One pass to fix the brief, one pass to break it on purpose. The third pass is bikeshedding wearing a costume.</p>
+</div>
+</li>
+<li class="border-2 border-primary bg-primary text-surface-container-lowest p-5 sm:p-6 chunky-shadow-yellow flex gap-5 items-start">
+<span class="font-display-lg text-[48px] leading-none tabular-nums shrink-0 text-[#F4FF1A]">05</span>
+<div class="flex flex-col gap-2 min-w-0">
+<h3 class="font-utility-bold text-utility-bold uppercase tracking-widest text-[#F4FF1A]">THE WORK OUTLASTS THE BRIEF</h3>
+<p class="font-body-mono text-sm leading-relaxed">If you can't print it on a poster five years from now, it isn't worth shipping today. Build for the archive, not the algorithm.</p>
+</div>
+</li>
+</ol>
+<!-- Bottom-pinned signed disclaimer — bottoms-must-align with image on the left -->
+<div class="border-2 border-primary bg-[#F4FF1A] p-5 sm:p-6 chunky-shadow-pink flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-[32px] leading-none shrink-0">verified</span>
+<div class="flex flex-col gap-2 min-w-0">
+<div class="flex flex-wrap items-baseline justify-between gap-2">
+<span class="font-utility-bold text-utility-bold uppercase tracking-widest text-primary">// SIGNED · D.V · MMXXIV</span>
+<span class="font-body-mono text-xs lowercase text-primary opacity-60 tabular-nums">DOCTRINE.V.05</span>
+</div>
+<p class="font-body-mono text-sm leading-relaxed text-primary">These five rules are not opinions — they are scars. Adopted V.01 (2018), revised through five projects that almost killed each other. Reissued V.05.</p>
+</div>
+</div>
 </div>
 </div>
 </section>

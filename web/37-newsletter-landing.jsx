@@ -27,7 +27,7 @@ const PAST_ISSUES = [
     no: '№085',
     title: 'Slow Migrations',
     date: 'Oct 03 · 2023',
-    src: 'https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=800&q=85&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1618488373960-404fe668e524?w=800&q=85&auto=format&fit=crop',
     tilt: 'sb-polaroid-tilt-4',
     tape: false,
   },
@@ -183,6 +183,18 @@ export default function T37NewsletterLanding() {
             margin-right: calc(50% - 50vw);
             max-width: none;
         }
+        .sb-wide {
+            width: 80vw;
+            margin-left: calc(50% - 40vw);
+            margin-right: calc(50% - 40vw);
+            max-width: 1400px;
+        }
+        .sb-wide-narrow {
+            width: 75vw;
+            margin-left: calc(50% - 37.5vw);
+            margin-right: calc(50% - 37.5vw);
+            max-width: 1280px;
+        }
         .sb-polaroid {
             background: #fffaf2;
             padding: 12px 12px 36px 12px;
@@ -273,7 +285,7 @@ export default function T37NewsletterLanding() {
 
           {/* Featured Latest Issue — image-as-bg under content card (NOVEL #6) */}
           <section className="sb-full-bleed relative overflow-hidden" aria-labelledby="featured-heading">
-            <img alt="This week's issue cover" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1920&q=85&auto=format&fit=crop" />
+            <img alt="This week's issue cover" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1920&q=85&auto=format&fit=crop" />
             <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(30,27,21,0.55) 0%, rgba(30,27,21,0.30) 40%, rgba(30,27,21,0.65) 100%)' }}></div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 70% 60% at 18% 80%, rgba(166,75,42,0.18) 0%, transparent 70%)' }}></div>
             <div className="relative max-w-[1100px] mx-auto px-6 py-24 md:py-32 flex flex-col md:flex-row items-stretch md:items-center gap-10">
@@ -309,7 +321,8 @@ export default function T37NewsletterLanding() {
           </section>
 
           {/* Archive */}
-          <section id="archive" className="flex flex-col gap-8">
+          <section id="archive" className="sb-wide grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-stretch">
+            <div className="md:col-span-9 flex flex-col gap-8">
             <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 pb-4">Recent issues</h2>
             <div className="flex flex-col gap-0 divide-y divide-outline-variant/20">
 
@@ -368,21 +381,35 @@ export default function T37NewsletterLanding() {
                 </a>
               </article>
             </div>
-            <div className="text-center mt-4">
-              <a className="font-ui-button text-ui-button text-on-surface-variant border border-outline-variant px-4 py-2 rounded hover:bg-surface-container-low transition-colors" href="#archive-full">View full archive</a>
+            <div className="text-left mt-4">
+              <a className="font-ui-button text-ui-button text-on-surface-variant border border-outline-variant px-4 py-2 rounded hover:bg-surface-container-low transition-colors inline-block" href="#archive-full">View full archive</a>
+            </div>
+            </div>
+            {/* Right column: 3 vertically stacked images, height matches the issues list on the left */}
+            <div className="md:col-span-3 flex flex-col gap-4">
+              <div className="flex-1 overflow-hidden rounded min-h-[180px]">
+                <img alt="Drafts on the desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" />
+              </div>
+              <div className="flex-1 overflow-hidden rounded min-h-[180px]">
+                <img alt="Pencils, paper, and morning light" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" />
+              </div>
+              <div className="flex-1 overflow-hidden rounded min-h-[180px]">
+                <img alt="A second cup of tea" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1458819714733-e5ab3d536722?w=900&q=85&auto=format&fit=crop" />
+              </div>
             </div>
           </section>
 
-          {/* Past Issues — polaroid stack (NOVEL #3) */}
-          <section id="past-issues" className="flex flex-col gap-10">
+          {/* Past Issues — polaroid stack (NOVEL #3). 2x larger polaroids: dropped grid from 5 cols to 3 cols, and the section uses sb-wide. */}
+          <section id="past-issues" className="sb-wide flex flex-col gap-10">
             <div className="flex flex-col gap-3">
               <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 pb-4">From the desk drawer</h2>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-xl">Five issues clipped to the cork board. Pinned, taped, and mostly out of order. Click any cover to read the full piece.</p>
             </div>
             <div className="relative py-12 md:py-16">
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-3 items-center">
+              {/* Flex-wrap with justify-center so the orphan last row (2 of 5) sits centered with equal padding either side */}
+              <div className="flex flex-wrap justify-center gap-10 md:gap-12 items-center">
                 {PAST_ISSUES.map((p) => (
-                  <figure key={p.no} className={`sb-polaroid ${p.tilt} ${p.tape ? 'sb-tape' : ''} relative`}>
+                  <figure key={p.no} className={`sb-polaroid ${p.tilt} ${p.tape ? 'sb-tape' : ''} relative w-full sm:w-[calc(50%-1.25rem)] md:w-[calc(33.333%-2rem)]`}>
                     <img alt={`Cover — Issue ${p.no}`} className="w-full aspect-[3/4] object-cover grayscale" src={p.src} />
                     <figcaption className="pt-3 flex flex-col gap-1 items-center text-center">
                       <span className="font-headline-md text-[14px] text-on-surface italic">{p.no} — {p.title}</span>
@@ -394,12 +421,15 @@ export default function T37NewsletterLanding() {
             </div>
           </section>
 
-          {/* Inside the Studio — sticky-photo + scrolling text (NOVEL #8) */}
-          <section id="studio" className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
-            <div className="md:col-span-5 md:sticky md:top-24 md:self-start flex flex-col gap-4">
-              <div className="relative">
-                <img alt="Inside the studio" className="w-full aspect-[3/4] object-cover rounded grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop" />
-                <span className="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm px-2.5 py-1 font-label-caps text-[10px] text-on-surface uppercase tracking-widest border border-outline-variant/40">Studio · 7:14 AM</span>
+          {/* Inside the Studio — 3-col, middle image bleeds from grayscale (top) to colour (bottom). 80vw section with 5vw outer padding + 5vw column gaps (5/20/5/20/5/20/5 pattern). */}
+          <section id="studio" className="sb-wide grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-[5vw] md:px-[5vw] items-stretch">
+            {/* Left col: heading + intro */}
+            <div className="flex flex-col gap-4">
+              <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 pb-4">Inside the studio</h2>
+              <h3 className="font-headline-lg text-headline-lg text-on-surface">A small room, a kettle, and far too many books.</h3>
+              <div className="font-body-md text-body-md text-on-surface-variant flex flex-col gap-paragraph-gap">
+                <p>The newsletter is written by hand, in pencil, on the back of last week’s drafts. It gets a second pass with tea, a third pass with a kitchen timer, and a fourth pass after a walk. Only then does it find its way into a text editor.</p>
+                <p>I keep three notebooks: one for ideas that arrived too early, one for ideas that arrived too late, and one for the rare middle. The middle is what I send on Sunday.</p>
               </div>
               <div className="flex items-center gap-3 pt-2">
                 <span className="font-label-caps text-label-caps text-[#A64B2A] uppercase tracking-widest">Detail · 03</span>
@@ -407,16 +437,22 @@ export default function T37NewsletterLanding() {
                 <span className="font-label-caps text-label-caps text-on-surface-variant uppercase">Inside</span>
               </div>
             </div>
-            <div className="md:col-span-7 flex flex-col gap-paragraph-gap">
-              <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 pb-4">Inside the studio</h2>
-              <h3 className="font-headline-lg text-headline-lg text-on-surface">A small room, a kettle, and far too many books.</h3>
+
+            {/* Middle col: image with grayscale-to-colour bleed (gray on top, full colour bottom) */}
+            <div className="relative min-h-[420px]">
+              <img alt="Inside the studio — colour layer" className="absolute inset-0 w-full h-full object-cover rounded" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" />
+              <img alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover rounded grayscale" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" style={{ WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 28%, transparent 100%)", maskImage: "linear-gradient(to bottom, #000 0%, #000 28%, transparent 100%)" }} />
+              <span className="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm px-2.5 py-1 font-label-caps text-[10px] text-on-surface uppercase tracking-widest border border-outline-variant/40 z-10">Studio · 7:14 AM</span>
+              <span className="absolute bottom-4 right-4 bg-surface/90 backdrop-blur-sm px-2.5 py-1 font-label-caps text-[10px] text-on-surface uppercase tracking-widest border border-outline-variant/40 z-10">Colour bleeds in ↓</span>
+            </div>
+
+            {/* Right col: rest of narrative + stats */}
+            <div className="flex flex-col gap-paragraph-gap">
               <div className="font-body-md text-body-md text-on-surface-variant flex flex-col gap-paragraph-gap">
-                <p>The newsletter is written by hand, in pencil, on the back of last week’s drafts. It gets a second pass with tea, a third pass with a kitchen timer, and a fourth pass after a walk. Only then does it find its way into a text editor.</p>
-                <p>I keep three notebooks: one for ideas that arrived too early, one for ideas that arrived too late, and one for the rare middle. The middle is what I send on Sunday.</p>
                 <p>There’s a window above the desk that faces a brick wall. The wall is patient, and so is the work. I read each draft aloud at least twice before it ships — if a sentence stumbles in the mouth, it stumbles on the page.</p>
                 <p>The studio is small enough that the cat can reach every surface, which is, in its own way, a useful editorial constraint.</p>
               </div>
-              <dl className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-outline-variant/30">
+              <dl className="grid grid-cols-2 gap-4 pt-6 border-t border-outline-variant/30 mt-auto">
                 {STUDIO_STATS.map((s) => (
                   <div key={s.label} className="flex flex-col gap-1">
                     <dt className="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">{s.label}</dt>
@@ -452,8 +488,8 @@ export default function T37NewsletterLanding() {
             </div>
           </section>
 
-          {/* Testimonials */}
-          <section className="flex flex-col gap-8 bg-surface-container p-8 rounded-lg">
+          {/* Testimonials — 75vw wide */}
+          <section className="sb-wide-narrow flex flex-col gap-8 bg-surface-container p-8 md:p-12 rounded-lg">
             <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-center">From readers</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
               <div className="flex flex-col gap-4 relative">
@@ -474,18 +510,51 @@ export default function T37NewsletterLanding() {
             </div>
           </section>
 
-          {/* About */}
-          <section id="about" className="flex flex-col md:flex-row gap-12 items-start py-8">
-            <div className="w-full md:w-1/3 shrink-0">
-              <img alt="Author desk" className="w-full aspect-[3/4] object-cover rounded grayscale hover:grayscale-0 transition-all duration-500 shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzSHzJWbV_hpglLnAKO8ofi4soTdth3fsTfox-qnwtIGtCGpdLPZmm7h7naWqEvoVNJ5We8bU49YIOccjXkNjTh6yuV4AR34hzp55TQRKmkH85DZ0MuvAITw9-QKo-tqgZtm9I2mPUZQXZDDvvPtUKlcberoHtGVXKrBQlqkZp8A2M3M3nRaT47A7dRsnoW4NCdn5tQ-4BEPvlDxSXOlIhA3eyRQNg-Ds90s6BJ0lyRQ1a2jr57Nq9ppQ0N3J7vSYpRjGfZLvpKkE" />
+          {/* About — 3-col with 2 stacked images on the left, content split across the other two cols. Same 80vw wide / 5/20/5/20/5/20/5 pattern as Inside Studio. */}
+          <section id="about" className="sb-wide grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-[5vw] md:px-[5vw] items-stretch py-8">
+            {/* Left col: 2 images stacked, total height matches the two content cols */}
+            <div className="flex flex-col gap-4">
+              <div className="flex-1 overflow-hidden rounded shadow-sm min-h-[180px]">
+                <img alt="Author desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzSHzJWbV_hpglLnAKO8ofi4soTdth3fsTfox-qnwtIGtCGpdLPZmm7h7naWqEvoVNJ5We8bU49YIOccjXkNjTh6yuV4AR34hzp55TQRKmkH85DZ0MuvAITw9-QKo-tqgZtm9I2mPUZQXZDDvvPtUKlcberoHtGVXKrBQlqkZp8A2M3M3nRaT47A7dRsnoW4NCdn5tQ-4BEPvlDxSXOlIhA3eyRQNg-Ds90s6BJ0lyRQ1a2jr57Nq9ppQ0N3J7vSYpRjGfZLvpKkE" />
+              </div>
+              <div className="flex-1 overflow-hidden rounded shadow-sm min-h-[180px]">
+                <img alt="Manuscript pages on the desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" />
+              </div>
             </div>
-            <div className="flex flex-col gap-6 w-full md:w-2/3">
+            {/* Middle col: heading + first half of bio + "currently" card pinned to bottom */}
+            <div className="flex flex-col gap-6">
               <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 pb-4">About the author</h2>
               <h3 className="font-headline-lg text-headline-lg text-on-surface">Writing against the grain of move fast and break things.</h3>
               <div className="font-body-md text-body-md text-on-surface-variant flex flex-col gap-paragraph-gap">
                 <p>I started Slow Bytes because I was exhausted. Exhausted by the endless churn of new frameworks, the pressure to ship half-baked features, and the creeping bloat of modern applications.</p>
-                <p>Slow software isn't about writing code slowly. It's a philosophy of intentionality. It's about taking the time to design robust architectures, prioritizing user privacy over engagement metrics, and building tools that respect the user's attention.</p>
+                <p>Slow software isn't about writing code slowly. It's a philosophy of intentionality.</p>
+              </div>
+              {/* Bottom-aligned card — bottoms align with the left image stack */}
+              <div className="mt-auto bg-surface-container-low border border-outline-variant/30 rounded p-5 flex flex-col gap-3">
+                <span className="font-label-caps text-label-caps text-[#A64B2A] uppercase tracking-[0.2em]">— Currently working on</span>
+                <ul className="font-body-md text-[14px] text-on-surface-variant flex flex-col gap-2">
+                  <li className="flex items-baseline justify-between border-b border-outline-variant/20 pb-2"><span>The half-life of a framework</span><span className="font-label-caps text-[10px] tabular-nums opacity-70">draft · 04</span></li>
+                  <li className="flex items-baseline justify-between border-b border-outline-variant/20 pb-2"><span>Notes on legible logs</span><span className="font-label-caps text-[10px] tabular-nums opacity-70">draft · 02</span></li>
+                  <li className="flex items-baseline justify-between"><span>A long answer about caching</span><span className="font-label-caps text-[10px] tabular-nums opacity-70">draft · 01</span></li>
+                </ul>
+              </div>
+            </div>
+            {/* Right col: second half of bio + "around the web" card pinned to bottom */}
+            <div className="flex flex-col gap-6">
+              <span className="font-label-caps text-label-caps text-[#A64B2A] uppercase tracking-widest border-b border-outline-variant/30 pb-4">— Editor's note</span>
+              <div className="font-body-md text-body-md text-on-surface-variant flex flex-col gap-paragraph-gap">
+                <p>It's about taking the time to design robust architectures, prioritising user privacy over engagement metrics, and building tools that respect the user's attention.</p>
                 <p>Every week, I explore these themes through essays that draw on history, architecture, and personal experience in the tech industry. If you believe software should be crafted rather than merely assembled, you might feel at home here.</p>
+                <p className="font-['Newsreader'] italic text-[20px] text-on-surface mt-2">— J.</p>
+              </div>
+              {/* Bottom-aligned card — bottoms align with the left image stack */}
+              <div className="mt-auto bg-surface-container-low border border-outline-variant/30 rounded p-5 flex flex-col gap-3">
+                <span className="font-label-caps text-label-caps text-[#A64B2A] uppercase tracking-[0.2em]">— Around the web</span>
+                <ul className="font-body-md text-[14px] text-on-surface-variant flex flex-col gap-2">
+                  <li className="flex items-baseline justify-between border-b border-outline-variant/20 pb-2"><a className="hover:text-[#A64B2A] transition-colors" href="#">RSS · /feed.xml</a><span className="font-label-caps text-[10px] opacity-70">syndicate</span></li>
+                  <li className="flex items-baseline justify-between border-b border-outline-variant/20 pb-2"><a className="hover:text-[#A64B2A] transition-colors" href="#">Mastodon · @j</a><span className="font-label-caps text-[10px] opacity-70">social</span></li>
+                  <li className="flex items-baseline justify-between"><a className="hover:text-[#A64B2A] transition-colors" href="#">hello@slow.bytes</a><span className="font-label-caps text-[10px] opacity-70">post</span></li>
+                </ul>
               </div>
             </div>
           </section>

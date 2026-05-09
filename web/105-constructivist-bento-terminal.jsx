@@ -46,8 +46,8 @@ DIGITAL_ALCHEMY v0.7.4-alpha
   const feeds = [
     { id: "FEED_046", chip: "bg-tertiary-container text-tertiary-fixed-dim", title: "CIPHER_TRACE",  size: "36×48", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop", alt: "Macro circuit board traces in red light" },
     { id: "FEED_047", chip: "bg-error text-on-error",                        title: "UPLINK_RACK",   size: "28×40", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop", alt: "Server rack with blinking status LEDs" },
-    { id: "FEED_048", chip: "bg-primary-fixed text-on-primary-fixed",        title: "FORGE_HEAD",    size: "36×40", src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop", alt: "Industrial machinery in deep shadow" },
-    { id: "FEED_049", chip: "bg-tertiary-container text-tertiary-fixed-dim", title: "SWISS_GRID_03", size: "40×54", src: "https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop", alt: "Wide industrial server room" },
+    { id: "FEED_048", chip: "bg-primary-fixed text-on-primary-fixed",        title: "FORGE_HEAD",    size: "36×40", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=900&auto=format&fit=crop", alt: "Industrial machinery in deep shadow" },
+    { id: "FEED_049", chip: "bg-tertiary-container text-tertiary-fixed-dim", title: "SWISS_GRID_03", size: "40×54", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop", alt: "Wide industrial server room" },
   ];
 
   const tenets = [
@@ -59,6 +59,24 @@ DIGITAL_ALCHEMY v0.7.4-alpha
 
   const ledMatrix = ["a","a","a","a","b","a","a","a","c"];
 
+  const trustedBrands = [
+    { name: "Vercel",     slug: "vercel",     tint: "e5e2e1" },
+    { name: "Cloudflare", slug: "cloudflare", tint: "cc1414" },
+    { name: "GitHub",     slug: "github",     tint: "e5e2e1" },
+    { name: "Docker",     slug: "docker",     tint: "cc1414" },
+    { name: "Kubernetes", slug: "kubernetes", tint: "e5e2e1" },
+    { name: "Node.js",    slug: "nodedotjs",  tint: "cc1414" },
+    { name: "TypeScript", slug: "typescript", tint: "e5e2e1" },
+    { name: "Next.js",    slug: "nextdotjs",  tint: "cc1414" },
+  ];
+
+  const doctrines = [
+    { num: "I",   title: "FORGE PRIMARY", icon: "precision_manufacturing", body: "End-to-end synthesis from spec sheet to signed artefact. We pull the requirement, draft the kernel, run the suite, and hand back the SHA-3 trace. No black boxes, no phone-home. Built for teams who own their grid and refuse to outsource the kiln.", chip: "PRIMARY · 14 DAYS",  featured: true  },
+    { num: "II",  title: "CIPHER ORBIT",  icon: "shield",                  body: "Encryption pipeline retrofit for legacy grids. AES-256-GCM at 1.2 GB/s, signed with your own key, no vendor in the loop. We tear out the soft layer, install the hardened cipher, and stay until the audit binder closes itself.",                                          chip: "RETROFIT · 7 DAYS", featured: false },
+    { num: "III", title: "UPLINK MESH",   icon: "bolt",                    body: "Mesh networking install on the swiss_grid. 7ms latency budget, refuses plain HTTP, signs every payload at the edge. For operators who need 144Hz transit between provinces and zero tolerance for telemetry leakage.",                                                       chip: "INSTALL · 21 DAYS", featured: false },
+    { num: "IV",  title: "GLYPH AUDIT",   icon: "engineering",             body: "Symbol-library audit for grids carrying inherited debt. We trace every glyph back to its parent SHA-3, flag the orphans, sign the survivors. Output: a binder of receipts your audit team will stop asking questions about.",                                                chip: "AUDIT · 10 DAYS",   featured: false },
+  ];
+
   const customCss = `
     .crt-scanlines {
       background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
@@ -66,11 +84,6 @@ DIGITAL_ALCHEMY v0.7.4-alpha
       pointer-events: none;
     }
     .riso-grain { position: relative; }
-    .riso-grain::before {
-      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.15%22/%3E%3C/svg%3E');
-      pointer-events: none; mix-blend-mode: overlay; z-index: 10;
-    }
     .bento-card { border: 2px solid #e5e2e1; position: relative; overflow: hidden; }
     .bento-card-red { border: 2px solid #e82f16; background-color: #1f0100; }
     .glowing-text { text-shadow: 0 0 10px rgba(255, 180, 166, 0.8), 0 0 20px rgba(255, 180, 166, 0.4); }
@@ -120,6 +133,7 @@ DIGITAL_ALCHEMY v0.7.4-alpha
       `}} />
       <style dangerouslySetInnerHTML={{ __html: customCss }} />
       <div className="dark bg-background text-on-background antialiased min-h-screen flex flex-col relative riso-grain">
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none z-10" style={{ mixBlendMode: "overlay", backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.15%22/%3E%3C/svg%3E')" }} />
         <div className="fixed inset-0 crt-scanlines z-50 pointer-events-none" />
         <nav className="bg-[#0A0A0A] text-stone-200 font-mono uppercase tracking-tighter text-xs border-b-2 border-stone-200 fixed top-0 left-0 w-full z-40 flex justify-between items-center px-6 py-3">
           <div className="text-2xl font-black italic tracking-tighter text-red-600">DIGITAL_ALCHEMY</div>
@@ -139,13 +153,15 @@ DIGITAL_ALCHEMY v0.7.4-alpha
             </div>
           </div>
         </nav>
-        <main className="flex-grow pt-24 pb-16 px-6 max-w-[1600px] mx-auto w-full flex flex-col gap-bento-gap">
+        <main className="flex-grow pt-24 pb-16 px-6 max-w-[1600px] mx-auto w-full flex flex-col gap-12 md:gap-16 lg:gap-20">
           <section className="grid grid-cols-1 md:grid-cols-12 grid-rows-none md:grid-rows-[minmax(300px,_auto)_minmax(200px,_auto)] gap-bento-gap">
-            <div className="bento-card-red md:col-span-8 md:row-span-1 p-8 flex flex-col justify-end bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center bg-blend-multiply bg-[#e82f16] group hover:translate-x-[2px] hover:-translate-y-[2px] transition-transform duration-75 cursor-crosshair relative">
-              <div className="absolute top-4 left-4 bg-surface px-2 py-1 border border-outline">
+            <div className="bento-card-red md:col-span-8 md:row-span-1 p-8 flex flex-col justify-end bg-[#e82f16] group hover:translate-x-[2px] hover:-translate-y-[2px] transition-transform duration-75 cursor-crosshair relative overflow-hidden">
+              {/* Use real <img> instead of CSS bg-image — more reliable in JSX iframe (per playbook §A trap on JSX bg-image rendering). mix-blend-multiply on the img achieves the same red-over-image effect. */}
+              <img alt="" aria-hidden="true" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" className="absolute inset-0 w-full h-full object-cover object-center mix-blend-multiply pointer-events-none" />
+              <div className="absolute top-4 left-4 bg-surface px-2 py-1 border border-outline z-20">
                 <span className="font-status-code text-status-code text-on-surface">SYS_ERR_001</span>
               </div>
-              <h1 className="font-display-hero text-display-hero text-background leading-none mix-blend-color-burn z-10 italic">WE<br />TRANSMUTE<br />CODE.</h1>
+              <h1 className="font-display-hero text-display-hero text-background leading-none mix-blend-color-burn z-10 italic relative">WE<br />TRANSMUTE<br />CODE.</h1>
             </div>
             <div className="bento-card md:col-span-4 md:row-span-2 p-6 bg-surface-container-lowest flex flex-col font-terminal-body text-terminal-body text-tertiary-fixed-dim">
               <div className="flex justify-between items-center border-b-2 border-outline pb-2 mb-4">
@@ -218,24 +234,15 @@ DIGITAL_ALCHEMY v0.7.4-alpha
             <div className="bento-card md:col-span-12 p-6 bg-surface-container-lowest flex flex-col md:flex-row md:items-end md:justify-between gap-4">
               <div>
                 <span className="font-status-code text-status-code text-tertiary-fixed-dim uppercase">// SECTOR.07 // TRANSMUTATIONS</span>
-                <h2 className="font-headline-heavy text-headline-heavy text-on-surface mt-2">RAW FEED / N=05.</h2>
+                <h2 className="font-headline-heavy text-headline-heavy text-on-surface mt-2">RAW FEED / N=01.</h2>
               </div>
-              <p className="font-terminal-body text-terminal-body text-on-surface-variant max-w-md md:text-right">Field captures from the kiln rooms, swiss_grid, and cipher orbit. Auto-flushed every cycle.</p>
+              <p className="font-terminal-body text-terminal-body text-on-surface-variant max-w-md md:text-right">Wide cabinet capture from the cipher orbit. Auto-flushed every cycle. Portrait stack — at the bottom of this transmission.</p>
             </div>
-            {feeds.map(f => (
-              <figure key={f.id} className="bento-card md:col-span-3 aspect-[4/5] bg-surface-container-lowest overflow-hidden group">
-                <div className={`absolute top-2 left-2 ${f.chip} px-2 py-1 z-20 font-status-code text-status-code`}>{f.id}</div>
-                <img alt={f.alt} className="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src={f.src} />
-                <div className="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-3 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between">
-                  <span>{f.title}</span><span className="text-tertiary-fixed-dim tabular-nums">{f.size}</span>
-                </div>
-              </figure>
-            ))}
             <figure className="bento-card md:col-span-12 aspect-[16/5] bg-surface-container-lowest overflow-hidden group">
               <div className="absolute top-2 left-2 bg-error text-on-error px-2 py-1 z-20 font-status-code text-status-code">FEED_050 // WIDE</div>
-              <img alt="Brass apothecary objects on a dark surface" className="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=1600&auto=format&fit=crop" />
+              <img alt="Industrial server cabinet, glowing fiber-optic terminations" className="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=1600&auto=format&fit=crop" />
               <div className="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-4 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between">
-                <span>GLYPH_CABINET // BRASS_03</span><span className="text-tertiary-fixed-dim tabular-nums">120×38 // SIGNED #7C0F19</span>
+                <span>GLYPH_CABINET // FIBRE_03</span><span className="text-tertiary-fixed-dim tabular-nums">120×38 // SIGNED #7C0F19</span>
               </div>
             </figure>
           </section>
@@ -290,6 +297,129 @@ DIGITAL_ALCHEMY v0.7.4-alpha
                 <p className="font-terminal-body text-terminal-body text-on-surface-variant">{t.body}</p>
               </article>
             ))}
+          </section>
+
+          {/* TRUSTED_BY — network of nodes */}
+          <section className="py-16 md:py-24 border-y-2 border-outline-variant relative">
+            <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-tertiary-fixed-dim" />
+            <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-tertiary-fixed-dim" />
+            <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-tertiary-fixed-dim" />
+            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-tertiary-fixed-dim" />
+            <div className="max-w-6xl mx-auto px-6">
+              <span className="block mb-8 md:mb-10 font-status-code text-status-code uppercase text-tertiary-fixed-dim">// TRUSTED · NETWORK · 47 NODES</span>
+              <h2 className="font-display-hero text-[clamp(32px,_4vw,_56px)] leading-[0.95] uppercase italic text-on-surface mb-12 md:mb-16">OPERATORS RUNNING<br />OUR <em className="not-italic text-[#e82f16] font-display-hero">DAEMONS</em> IN PROD.</h2>
+              <div className="bento-card-red bg-surface-container-lowest p-8 md:p-12 relative">
+                <div className="absolute top-2 left-2 bg-[#0b1c10] border border-[#7FC774] px-2 py-1 z-10 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7FC774] animate-pulse shadow-[0_0_6px_#7FC774]" />
+                  <span className="font-status-code text-status-code text-[#7FC774] uppercase">// SCAN_ACTIVE</span>
+                </div>
+                <div className="absolute top-2 right-2 bg-[#1f0100] border border-tertiary-fixed-dim px-2 py-1 z-10 font-status-code text-status-code text-tertiary-fixed-dim">N=08 / 47</div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center mt-8">
+                  {trustedBrands.map(b => (
+                    <img key={b.slug} alt={b.name} className="h-7 w-auto opacity-90 hover:opacity-100 transition-opacity" src={`https://cdn.simpleicons.org/${b.slug}/${b.tint}`} />
+                  ))}
+                </div>
+                <div className="mt-10 pt-6 border-t-2 border-outline-variant flex flex-wrap justify-between items-center gap-2 font-status-code text-status-code text-on-surface-variant uppercase">
+                  <span>// 47 NODES · 12 PROVINCES · UPTIME 99.97%</span>
+                  <span className="text-tertiary-fixed-dim tabular-nums">SIGNED #7C0F19</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* TESTIMONIAL — single big quote, operator voice */}
+          <section className="py-20 md:py-28 relative">
+            <div className="max-w-5xl mx-auto px-6">
+              <span className="block mb-8 md:mb-10 font-status-code text-status-code uppercase text-tertiary-fixed-dim">// TRANSCRIPT_017 // OPERATOR_VOICE</span>
+              <h2 className="font-display-hero text-[clamp(32px,_4vw,_56px)] leading-[0.95] uppercase italic text-on-surface mb-12 md:mb-16">FROM THE <em className="not-italic text-[#e82f16] font-display-hero">FIELD</em>.</h2>
+              <div className="bento-card bg-surface-container-low p-8 md:p-12 relative">
+                <div className="absolute top-4 left-4 bg-tertiary-container text-tertiary-fixed-dim px-2 py-1 z-10 font-status-code text-status-code">QUOTE_017</div>
+                <div className="absolute top-4 right-4 bg-[#1f0100] border border-tertiary-fixed-dim px-2 py-1 z-10 font-status-code text-status-code text-tertiary-fixed-dim">VERIFIED</div>
+                <span className="material-symbols-outlined text-[#e82f16] text-[64px] leading-none mt-6 block">format_quote</span>
+                <blockquote className="font-display-hero text-[clamp(22px,_2.4vw,_32px)] leading-[1.2] italic text-on-surface mt-4">&ldquo;We swapped three vendor clouds for the cipher + uplink stack on a Friday afternoon. Monday the audit team asked where the new compliance binder came from. <span className="text-[#e82f16]">It came from the SHA-3 trace.</span> They stopped asking.&rdquo;</blockquote>
+                <div className="mt-8 pt-6 border-t-2 border-outline-variant flex items-center gap-4">
+                  <img alt="Operator portrait, monochrome editorial" className="w-16 h-16 object-cover grayscale contrast-125 border-2 border-tertiary-fixed-dim" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=80&auto=format&fit=crop" />
+                  <div className="flex flex-col">
+                    <span className="font-headline-heavy text-[18px] uppercase text-on-surface">M. KRAVTSOV</span>
+                    <span className="font-status-code text-status-code text-tertiary-fixed-dim uppercase">PRIMARY OPERATOR // SWISS_GRID_03</span>
+                    <span className="font-status-code text-status-code text-on-surface-variant uppercase mt-1">// AUDIT_BINDER_v4.2 // CASE 7C0F19</span>
+                  </div>
+                  <div className="ml-auto hidden md:flex flex-col items-end">
+                    <span className="font-display-hero text-[36px] leading-none text-on-surface tabular-nums glowing-text">04:17</span>
+                    <span className="font-status-code text-status-code text-on-surface-variant uppercase">SWAP // FRI&rarr;MON</span>
+                  </div>
+                </div>
+                <div className="mt-6 pt-4 border-t border-outline-variant font-status-code text-status-code text-on-surface-variant uppercase flex flex-wrap gap-3">
+                  <span>// VERIFIED</span>
+                  <span className="text-tertiary-fixed-dim">·</span>
+                  <span>NO INCENTIVES</span>
+                  <span className="text-tertiary-fixed-dim">·</span>
+                  <span>NO EDITS</span>
+                  <span className="ml-auto text-tertiary-fixed-dim tabular-nums">REC 04.MMXXIV</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FIELD CAPTURES — 4 portrait tiles moved here from top, balances the page image distribution */}
+          <section className="grid grid-cols-1 md:grid-cols-12 gap-bento-gap">
+            <div className="bento-card md:col-span-12 p-6 bg-surface-container-lowest flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+              <div>
+                <span className="font-status-code text-status-code text-tertiary-fixed-dim uppercase">// SECTOR.08b // FIELD CAPTURES</span>
+                <h2 className="font-headline-heavy text-headline-heavy text-on-surface mt-2">RAW FEED / N=04.</h2>
+              </div>
+              <p className="font-terminal-body text-terminal-body text-on-surface-variant max-w-md md:text-right">Portrait stack — operators, kilns, racks, grids. Compiled below the operator transcript so the page reads from voice → evidence → doctrine.</p>
+            </div>
+            {feeds.map(f => (
+              <figure key={f.id} className="bento-card md:col-span-3 aspect-[4/5] bg-surface-container-lowest overflow-hidden group">
+                <div className={`absolute top-2 left-2 ${f.chip} px-2 py-1 z-20 font-status-code text-status-code`}>{f.id}</div>
+                <img alt={f.alt} className="w-full h-full object-cover filter grayscale contrast-150 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src={f.src} />
+                <div className="absolute bottom-0 inset-x-0 bg-surface-container-lowest border-t-2 border-outline-variant px-3 py-2 font-status-code text-status-code text-on-surface-variant uppercase flex justify-between">
+                  <span>{f.title}</span><span className="text-tertiary-fixed-dim tabular-nums">{f.size}</span>
+                </div>
+              </figure>
+            ))}
+          </section>
+
+          {/* PREMIUM 2x2 — Four Doctrines */}
+          <section className="py-20 md:py-28 relative">
+            <div className="max-w-5xl mx-auto px-6">
+              <span className="block mb-8 md:mb-10 font-status-code text-status-code uppercase text-tertiary-fixed-dim">// SECTOR.09 // DOCTRINES</span>
+              <h2 className="font-display-hero text-[clamp(36px,_4.5vw,_60px)] leading-[0.95] uppercase italic text-on-surface mb-4">FOUR ENGINES,<br />ONE <em className="not-italic text-[#e82f16] font-display-hero">DOCTRINE</em>.</h2>
+              <p className="font-terminal-body text-terminal-body text-on-surface-variant max-w-2xl mb-12 md:mb-16">Every engagement runs through one of these four primaries. No &agrave; la carte, no sub-modules. Pick the engine that fits the work.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-stretch">
+                {doctrines.map(d => (
+                  <article key={d.num} className={d.featured
+                    ? "border-2 border-tertiary-fixed-dim bg-[#1f0100] text-tertiary-fixed-dim p-8 md:p-10 flex flex-col gap-5 group hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#e5e2e1] transition-all duration-300 relative"
+                    : "border-2 border-on-background bg-surface-container-low p-8 md:p-10 flex flex-col gap-5 group hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#e82f16] transition-all duration-300"
+                  }>
+                    {d.featured && (
+                      <div className="absolute -top-3 left-6 bg-[#e82f16] text-background px-3 py-1 font-status-code text-status-code uppercase">// MOST_REQUESTED</div>
+                    )}
+                    <div className="flex justify-between items-start">
+                      <span className="font-display-hero text-[44px] leading-none italic text-[#e82f16]">{d.num}</span>
+                      <span className={d.featured ? "material-symbols-outlined text-[28px]" : "material-symbols-outlined text-[28px] text-on-surface"}>{d.icon}</span>
+                    </div>
+                    <h3 className={d.featured ? "font-headline-heavy text-[24px] uppercase" : "font-headline-heavy text-[24px] uppercase text-on-surface"}>{d.title}</h3>
+                    <p className={d.featured ? "font-terminal-body text-terminal-body opacity-90" : "font-terminal-body text-terminal-body text-on-surface-variant"}>{d.body}</p>
+                    <div className={d.featured
+                      ? "mt-auto pt-5 border-t-2 border-tertiary-fixed-dim/40 flex justify-between items-center font-status-code text-status-code uppercase"
+                      : "mt-auto pt-5 border-t-2 border-outline-variant flex justify-between items-center font-status-code text-status-code uppercase text-on-surface-variant"
+                    }>
+                      <span className={d.featured
+                        ? "bg-background text-tertiary-fixed-dim px-2 py-1 border border-tertiary-fixed-dim"
+                        : "border border-on-surface text-on-surface px-2 py-1"
+                      }>{d.chip}</span>
+                      <span className={d.featured ? "material-symbols-outlined text-[20px]" : "material-symbols-outlined text-[20px] text-on-surface"}>arrow_forward</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <div className="mt-10 pt-6 border-t-2 border-outline-variant flex flex-wrap justify-between items-center gap-2 font-status-code text-status-code text-on-surface-variant uppercase">
+                <span>// EACH ENGINE SHIPS WITH SHA-3 TRACE</span>
+                <span className="text-tertiary-fixed-dim tabular-nums">DRAFTED // 04.MMXXIV</span>
+              </div>
+            </div>
           </section>
         </main>
         <footer className="bg-stone-200 text-zinc-950 font-mono font-black uppercase text-sm w-full py-16 px-10 flex flex-col items-start border-t-8 border-zinc-950 mt-auto cursor-crosshair relative z-40">

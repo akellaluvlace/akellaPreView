@@ -110,6 +110,26 @@ export default function T74AcidGraphics() {
         .scanlines { background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2)); background-size: 100% 4px; animation: scanline 0.2s linear infinite; }
         .marquee-track { display: flex; white-space: nowrap; will-change: transform; animation: marquee 15s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .terminal-line { display: inline-block; opacity: 0; transform: translateY(2px); animation: terminal-line-in 0.35s ease-out forwards; }
+        .terminal-line:nth-child(1)  { animation-delay: 0.10s; }
+        .terminal-line:nth-child(2)  { animation-delay: 0.30s; }
+        .terminal-line:nth-child(3)  { animation-delay: 0.50s; }
+        .terminal-line:nth-child(4)  { animation-delay: 0.70s; }
+        .terminal-line:nth-child(5)  { animation-delay: 1.00s; }
+        .terminal-line:nth-child(6)  { animation-delay: 1.30s; }
+        .terminal-line:nth-child(7)  { animation-delay: 1.55s; }
+        .terminal-line:nth-child(8)  { animation-delay: 1.85s; }
+        .terminal-line:nth-child(9)  { animation-delay: 2.15s; }
+        .terminal-line:nth-child(10) { animation-delay: 2.40s; }
+        .terminal-line:nth-child(11) { animation-delay: 2.65s; }
+        .terminal-line:nth-child(12) { animation-delay: 2.90s; }
+        .terminal-line:nth-child(13) { animation-delay: 3.20s; }
+        .terminal-line:nth-child(14) { animation-delay: 3.50s; }
+        .terminal-line:nth-child(15) { animation-delay: 3.90s; }
+        @keyframes terminal-line-in { to { opacity: 1; transform: translateY(0); } }
+        .terminal-cursor { display: inline-block; width: 0.6ch; margin-left: 1px; background: #ccff00; color: #ccff00; animation: terminal-cursor-blink 1s steps(1) infinite; }
+        @keyframes terminal-cursor-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+        @media (prefers-reduced-motion: reduce) { .terminal-line { opacity: 1; transform: none; animation: none; } .terminal-cursor { animation: none; } }
       ` }} />
 
       <div className="relative text-white selection:bg-hot-pink selection:text-white">
@@ -291,6 +311,138 @@ export default function T74AcidGraphics() {
                 <span>{">> END_OF_LOG // SCROLL_LOCK_ENGAGED // PRESS_ENTER_TO_DECRYPT"}</span>
                 <span className="text-hot-pink animate-pulse">█</span>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* BACKED_BY.SYS — Vendor Roster */}
+        <section className="relative z-10 w-full py-20 px-4 md:px-12 border-t border-acid-green/10">
+          <div className="max-w-6xl mx-auto">
+            <div className="inline-block border border-hot-pink bg-black px-2 py-0.5 mb-4">
+              <p className="font-mono text-[10px] text-hot-pink tracking-[0.3em]">{"// 02.5_BACKED_BY.SYS"}</p>
+            </div>
+            <h2 className="font-glitch text-3xl md:text-5xl leading-[0.9] mb-8">
+              <span className="text-acid-green">VENDORS</span><span className="text-chrome">_</span><span className="text-outline">ROSTER</span>
+            </h2>
+            <p className="font-mono text-xs text-acid-green/70 max-w-xl mb-10">— Sound · light · streaming · ticketing · merch. Routed through these protocols, decoded by these counter-parties.</p>
+            <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-x-8 gap-y-9 items-center justify-items-center bg-black border-2 border-acid-green/40 px-6 py-9 shadow-[8px_8px_0px_rgba(204,255,0,0.15)]">
+              {[
+                { slug: "spotify", name: "Spotify" },
+                { slug: "soundcloud", name: "SoundCloud" },
+                { slug: "bandcamp", name: "Bandcamp" },
+                { slug: "twitch", name: "Twitch" },
+                { slug: "discord", name: "Discord" },
+                { slug: "telegram", name: "Telegram" },
+                { slug: "signal", name: "Signal" },
+                { slug: "spotify", name: "Spotify" },
+                { slug: "redbull", name: "Red Bull" },
+              ].map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/ccff00`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-acid-green/70">{b.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* TERMINAL.OUT — animated boot-sequence transmission */}
+        <section className="relative z-10 w-full py-20 md:py-24 px-4 md:px-12 border-t border-acid-green/10">
+          <div className="max-w-5xl mx-auto">
+            <div className="inline-block border border-acid-green bg-black px-2 py-0.5 mb-4">
+              <p className="font-mono text-[10px] text-acid-green tracking-[0.3em]">{"// 02.7_TERMINAL.OUT"}</p>
+            </div>
+            <h2 className="font-glitch text-3xl md:text-5xl leading-[0.9] mb-8">
+              <span className="text-hot-pink">DECODE</span><span className="text-outline">_</span><span className="text-chrome">STREAM</span>
+            </h2>
+
+            <div className="bg-black border-2 border-acid-green/50 acid-window relative overflow-hidden">
+              <div className="absolute inset-0 pointer-events-none opacity-20 mix-blend-overlay" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent 0, transparent 2px, rgba(204,255,0,0.15) 2px, rgba(204,255,0,0.15) 3px)" }}></div>
+
+              <div className="bg-acid-green text-black px-3 py-1.5 flex items-center justify-between border-b-2 border-black">
+                <div className="flex items-center gap-2 font-mono font-bold text-[11px] tracking-widest uppercase">
+                  <span className="w-2 h-2 bg-black"></span>
+                  <span className="w-2 h-2 bg-black"></span>
+                  <span className="w-2 h-2 bg-black"></span>
+                  <span className="ml-3">acid_wave://transmission.log</span>
+                </div>
+                <span className="font-mono font-bold text-[10px] tracking-[0.3em]">[ LIVE ]</span>
+              </div>
+
+              <div className="p-5 md:p-8 font-mono text-[12px] md:text-[13px] leading-relaxed relative">
+                <pre className="text-acid-green whitespace-pre-wrap break-words"><span className="terminal-line text-acid-green/80">$ acid_wave --connect --secure</span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} handshake :::: <span className="text-hot-pink">OK</span></span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} tunnel    :::: <span className="text-hot-pink">tor + i2p</span></span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} latency   :::: <span className="text-hot-pink">14ms</span> // sector_4 // warehouse_7g</span>
+{"\n"}<span className="terminal-line text-acid-green/80">$ acid_wave --decode broadcast.enc</span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} deciphering AES-256 :::: <span className="text-hot-pink">█████████░</span> 92%</span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} deciphering AES-256 :::: <span className="text-hot-pink">██████████</span> 100%</span>
+{"\n"}<span className="terminal-line text-chrome">{">"} SIGNAL ACQUIRED ::::: 23:00 ::: 21·02·26 ::: WAREHOUSE_7G</span>
+{"\n"}<span className="terminal-line text-acid-green/80">$ acid_wave --pull lineup.txt</span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} 23:00 ::: <span className="text-hot-pink">VEYL</span>      // residency</span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} 00:30 ::: <span className="text-hot-pink">KRAYL_X</span>   // industrial</span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} 02:00 ::: <span className="text-hot-pink">N3MES1S</span>   // hard-acid</span>
+{"\n"}<span className="terminal-line text-acid-green/60">{">"} 03:30 ::: <span className="text-hot-pink">SUB_TONIC</span> // closing</span>
+{"\n"}<span className="terminal-line text-acid-green/80">$ acid_wave --listen</span>
+{"\n"}<span className="terminal-line text-acid-green">{">"} awaiting first kick<span className="terminal-cursor">_</span></span></pre>
+              </div>
+
+              <div className="bg-acid-green/10 border-t border-acid-green/40 px-3 py-1.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-acid-green/70">
+                <span>conn · stable · 14ms</span>
+                <span className="hidden md:inline">04 / 11 lines · scrolling · paused</span>
+                <span className="text-hot-pink">▮ live</span>
+              </div>
+            </div>
+
+            <p className="font-mono text-[10px] text-acid-green/40 mt-4 tracking-[0.2em] uppercase">{"// transmission.persistent ::: re-route every 90s ::: do not log"}</p>
+          </div>
+        </section>
+
+        {/* DOCTRINE.SYS — Premium 2x2 */}
+        <section className="relative z-10 w-full py-24 md:py-32 px-4 md:px-12 border-t border-acid-green/10 overflow-hidden">
+          <div className="absolute inset-0 -z-10">
+            <img src="https://images.unsplash.com/photo-1525362081669-2b476bb628c3?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-[0.10] grayscale contrast-125 hue-rotate-90" loading="lazy" />
+            <div className="absolute inset-0 bg-cyber-black/85"></div>
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, transparent 25%, rgba(5,5,5,0.95) 90%)" }}></div>
+          </div>
+
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-14 md:mb-20 max-w-2xl mx-auto">
+              <div className="inline-block border border-acid-green bg-black px-2 py-0.5 mb-4">
+                <p className="font-mono text-[10px] text-acid-green tracking-[0.3em]">{"// 02.8_DOCTRINE.SYS"}</p>
+              </div>
+              <h2 className="font-glitch text-4xl md:text-6xl leading-[0.9]">
+                <span className="text-hot-pink">FOUR</span><span className="text-chrome">_RULES</span>
+              </h2>
+              <p className="font-mono text-xs text-acid-green/70 mt-5 max-w-md mx-auto">{"// non-negotiable. printed on the wristband, enforced at the door."}</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+              {[
+                { id: "RULE · 01", border: "border-acid-green/30 hover:border-acid-green", iconBorder: "border-acid-green text-acid-green", chipText: "text-hot-pink", title: "No phones on the floor.", body: "Cameras taped at the door. The set lives in your skull, not the cloud. Anyone caught filming gets escorted to the rinse-room.", left: "Tape · provided", leftClass: "text-acid-green/60", right: "Enforcement · on", rightClass: "text-hot-pink", divider: "border-acid-green/20",
+                  iconPath: "M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" },
+                { id: "RULE · 02", border: "border-hot-pink/30 hover:border-hot-pink", iconBorder: "border-hot-pink text-hot-pink", chipText: "text-acid-green", title: "No requests, ever.", body: "The lineup decides. The room decides. The DJ does not negotiate. Bring an open jaw or stay outside; both are honourable choices.", left: "Format · 4×4", leftClass: "text-hot-pink/70", right: "160 → 220 BPM", rightClass: "text-acid-green", divider: "border-hot-pink/20",
+                  iconPath: "M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" },
+                { id: "RULE · 03", border: "border-acid-green/30 hover:border-acid-green", iconBorder: "border-acid-green text-acid-green", chipText: "text-hot-pink", title: "Funktion-One only.", body: "50 kilowatts on a four-stack rig, tuned by a sound engineer who has done this for two decades. The bass is felt in the teeth; the treble in the spine.", left: "50 KW · Funktion-One", leftClass: "text-acid-green/60", right: "Tune · 18:00", rightClass: "text-hot-pink", divider: "border-acid-green/20",
+                  iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" },
+                { id: "RULE · 04", border: "border-hot-pink/30 hover:border-hot-pink", iconBorder: "border-hot-pink text-hot-pink", chipText: "text-acid-green", title: "Look out for each other.", body: "Free water, harm-reduction kit, sober crew at every door. Anything that drops the vibe gets you ejected; anything that protects it gets you a wristband for the next one.", left: "Crew · trained", leftClass: "text-hot-pink/70", right: "Water · always free", rightClass: "text-acid-green", divider: "border-hot-pink/20",
+                  iconPath: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
+              ].map(r => (
+                <article key={r.id} className={`group relative bg-black border-2 ${r.border} transition-colors p-6 md:p-8 acid-window`}>
+                  <div className="flex items-start justify-between mb-5">
+                    <div className={`w-12 h-12 border-2 flex items-center justify-center ${r.iconBorder}`}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d={r.iconPath} /></svg>
+                    </div>
+                    <span className={`font-mono text-[10px] uppercase tracking-[0.4em] tabular-nums ${r.chipText}`}>{r.id}</span>
+                  </div>
+                  <h3 className="font-archivo text-2xl md:text-3xl text-chrome-light uppercase mb-3 leading-[0.95]">{r.title}</h3>
+                  <p className="font-mono text-[11px] md:text-xs text-acid-green/70 leading-relaxed mb-5">{r.body}</p>
+                  <div className={`flex items-baseline justify-between border-t pt-3 font-mono text-[10px] uppercase tracking-[0.3em] ${r.divider}`}>
+                    <span className={r.leftClass}>{r.left}</span>
+                    <span className={r.rightClass}>{r.right}</span>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>

@@ -1,12 +1,26 @@
 // Hoisted data — keeps the render tree shallow and mirrors the HTML structure.
 
+// Image-context cleanup 2026-05-06: original RECENT_WORK + PROCESS_STEPS images were all
+// architectural §D.1 mismatches (concrete stair as "oak crown reduction", camels as
+// "sycamore stump grind", brick wall as "beech dead-wooding", etc.). Replaced with
+// outdoor/tree-themed Unsplash IDs (user-authorized expansion beyond §D.1) plus the
+// existing aida-public arborist images.
+const HERO_ARBORIST = "https://lh3.googleusercontent.com/aida-public/AB6AXuCnb_DqbdBB1-thIY3q-IF5Cd3sRmeNuC7-o-07nnzokBnjYGnVblsXaeuSjEQG7qh5zQVP8JaQkP-FdGhaEAEGxdOCGjqRUMVGGzp1IRvceV3l2eJysj-V-JWgZGTmDh3nEboJyOZuJLu0bJ6N5XxFN7gOEZjL_0Uvru8M8_Lf47uz305ZST_5-aEGF9bPHjMao4YvZQPpTE2IjAEWbHu0W0XoNDzv3ALs04kD0Jzo-l0sWT1Hbhaehgjl0jdEwybchDqt_sCta2jd";
+const TREE_OAK     = "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1100&q=85&auto=format&fit=crop";
+const TREE_FOREST  = "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1100&q=85&auto=format&fit=crop";
+const TREE_PATH    = "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1100&q=85&auto=format&fit=crop";
+const TREE_FIELD   = "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1100&q=85&auto=format&fit=crop";
+const TREE_LOGS    = "https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=1100&q=85&auto=format&fit=crop";
+const TREE_LEAVES  = "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1100&q=85&auto=format&fit=crop";
+const TREE_HEDGE   = "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=1100&q=85&auto=format&fit=crop";
+
 const RECENT_WORK = [
   {
     plate: 'Plate · 01',
     title: 'Crown reduction · Mature oak',
     meta: 'Rathmines · 6 hr · 2-person crew',
-    src: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop',
-    alt: 'Mature oak crown reduction in a Dublin garden',
+    src: HERO_ARBORIST,
+    alt: 'Climbing arborist mid-canopy on a mature oak — Rathmines crown reduction',
     width: 'w-72',
     aspect: 'aspect-[4/5]',
   },
@@ -14,8 +28,8 @@ const RECENT_WORK = [
     plate: 'Plate · 02',
     title: 'Boundary hedge · 42 m',
     meta: 'Ranelagh · 1 day · 3-person crew',
-    src: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=85&auto=format&fit=crop',
-    alt: 'Boundary hedge being trimmed and reshaped',
+    src: TREE_HEDGE,
+    alt: 'Long boundary hedge mid-trim — battery shears finishing the editorial face',
     width: 'w-80',
     aspect: 'aspect-[4/3]',
   },
@@ -23,8 +37,8 @@ const RECENT_WORK = [
     plate: 'Plate · 03',
     title: 'Sycamore stump grind',
     meta: 'Drumcondra · 3 hr · 1-person crew',
-    src: 'https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop',
-    alt: 'Stump grinder finishing a sycamore stump',
+    src: TREE_LOGS,
+    alt: 'Cut sycamore rounds stacked beside the stump — grind finishing in Drumcondra',
     width: 'w-72',
     aspect: 'aspect-[4/5]',
   },
@@ -32,8 +46,8 @@ const RECENT_WORK = [
     plate: 'Plate · 04 — Emergency',
     title: 'Storm ash · failed limb',
     meta: 'Glasnevin · 2 hr · 24h call-out',
-    src: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&q=85&auto=format&fit=crop',
-    alt: 'Storm-damaged ash branch removed by a tree surgery team',
+    src: TREE_OAK,
+    alt: 'Storm-damaged ash limb cleared — emergency call-out, Glasnevin',
     width: 'w-96',
     aspect: 'aspect-[16/10]',
   },
@@ -41,8 +55,8 @@ const RECENT_WORK = [
     plate: 'Plate · 05',
     title: 'Garden clearance · 90 m²',
     meta: 'Phibsboro · 1.5 days · 4-person crew',
-    src: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop',
-    alt: 'Garden clearance crew loading green waste into a chipper',
+    src: TREE_FIELD,
+    alt: 'Cleared garden after a 90 m² overgrowth removal — Phibsboro back garden',
     width: 'w-72',
     aspect: 'aspect-[3/4]',
   },
@@ -50,8 +64,8 @@ const RECENT_WORK = [
     plate: 'Plate · 06',
     title: 'Beech dead-wooding',
     meta: 'Sandymount · 5 hr · 2-person crew',
-    src: 'https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop',
-    alt: 'Dead-wooding a beech tree above a residential lane',
+    src: TREE_LEAVES,
+    alt: 'Beech canopy mid-dead-wooding — Sandymount residential lane',
     width: 'w-80',
     aspect: 'aspect-[4/3]',
   },
@@ -59,8 +73,8 @@ const RECENT_WORK = [
     plate: 'Plate · 07',
     title: 'Hedgerow planting · 24 m',
     meta: 'Clontarf · 1 day · 2-person crew',
-    src: 'https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop',
-    alt: 'Newly planted hedgerow along a stone garden wall',
+    src: TREE_FOREST,
+    alt: 'Mature trees along the Clontarf hedgerow — newly planted reinforcement',
     width: 'w-72',
     aspect: 'aspect-[4/5]',
   },
@@ -68,8 +82,8 @@ const RECENT_WORK = [
     plate: 'Plate · 08',
     title: 'Estate walk-through',
     meta: 'Howth · 4 hr · 5-year client',
-    src: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1000&q=85&auto=format&fit=crop',
-    alt: 'Final walk-through of a freshly cleared back garden',
+    src: TREE_PATH,
+    alt: 'Estate walk-through path under the canopy — Howth, 5-year client',
     width: 'w-80',
     aspect: 'aspect-[16/10]',
   },
@@ -107,8 +121,8 @@ const SERVICE_LINES = [
     body: 'Reshaping overgrown beech, laurel and yew hedges to their original line. Petrol shears for height; battery shears at finish for a clean editorial face. Green waste removed in our own chipper.',
     metricA: { label: 'From', value: '€180' },
     metricB: { label: 'Lead time', value: '3–7 days' },
-    image: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&q=85&auto=format&fit=crop',
-    alt: 'Battery hedge shears finishing a long boundary hedge',
+    image: TREE_HEDGE,
+    alt: 'Long boundary hedge mid-trim — battery shears finishing the editorial face',
     reverse: true,
   },
   {
@@ -120,8 +134,8 @@ const SERVICE_LINES = [
     body: 'Two-person make-safe crew on call across Dublin city and county, year-round. Average on-site time 92 minutes. Insurance paperwork begun before we leave the site.',
     metricA: { label: 'Call-out', value: '€220' },
     metricB: { label: 'Response', value: '≤ 2 hr' },
-    image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1400&q=85&auto=format&fit=crop',
-    alt: 'Storm-damaged beech limb being safely lowered to the ground',
+    image: TREE_OAK,
+    alt: 'Storm-damaged beech limb being safely lowered to the ground after make-safe',
     reverse: false,
   },
 ];
@@ -133,8 +147,8 @@ const PROCESS_STEPS = [
     title: 'Site survey',
     body: 'On-site visit, photo log, TPO & conservation checks. Free for jobs under €2 000.',
     icon: 'check_circle',
-    image: 'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=85&auto=format&fit=crop',
-    alt: 'Arborist surveying a mature urban tree with a clipboard',
+    image: TREE_OAK,
+    alt: 'Mature urban tree on the day of the site survey — first photo of the job log',
   },
   {
     status: 'done',
@@ -142,8 +156,8 @@ const PROCESS_STEPS = [
     title: 'Quote & method',
     body: 'Itemised quote, BS 3998 method statement, RAMS document and proof of insurance.',
     icon: 'description',
-    image: 'https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop',
-    alt: 'Method statement and risk assessment paperwork on a workbench',
+    image: TREE_LOGS,
+    alt: 'Cut log stack at the yard — method statement scoped against the volume',
   },
   {
     status: 'current',
@@ -151,8 +165,8 @@ const PROCESS_STEPS = [
     title: 'Crew on site',
     body: 'Two- to four-person crew, dedicated job lead. Neighbours notified the evening before.',
     icon: null,
-    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=85&auto=format&fit=crop',
-    alt: 'Crew working as a team in a Dublin garden',
+    image: HERO_ARBORIST,
+    alt: 'Climbing arborist on the rope with the crew working below — Dublin garden in mid-job',
   },
   {
     status: 'upcoming',
@@ -160,8 +174,8 @@ const PROCESS_STEPS = [
     title: 'Clear & finish',
     body: 'Green waste chipped on site, hard-surface power-washed, ground left tidier than we found it.',
     icon: 'construction',
-    image: 'https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=600&q=85&auto=format&fit=crop',
-    alt: 'Crew chipper unloading green waste at end of day',
+    image: TREE_LEAVES,
+    alt: 'Cleared canopy at end of day — green waste chipped, hard surface power-washed',
   },
   {
     status: 'upcoming',
@@ -169,8 +183,8 @@ const PROCESS_STEPS = [
     title: 'Walk-through',
     body: 'After-photos, written care plan and 6-month follow-up note diarised the same evening.',
     icon: 'task_alt',
-    image: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&q=85&auto=format&fit=crop',
-    alt: 'Final garden after sign-off, looking neat and finished',
+    image: TREE_FIELD,
+    alt: 'Final garden after sign-off — quiet space, written care plan in the inbox',
   },
 ];
 
@@ -235,7 +249,7 @@ const TESTIMONIALS = [
     body: "A 50-metre boundary hedge that hadn't been touched in eight years. Daragh restored a clean editorial line in two days — neighbours have asked us who did it.",
     name: 'Cormac Walsh',
     meta: 'Sandymount · Hedge restoration · 2024',
-    image: 'https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=300&q=85&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1776275758873-31603dd06112?w=300&q=85&auto=format&fit=crop',
     alt: 'Cormac Walsh portrait',
   },
   {
@@ -245,6 +259,48 @@ const TESTIMONIALS = [
     meta: 'Rathmines · TPO oak · 2021',
     image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=300&q=85&auto=format&fit=crop',
     alt: 'Sinead Reilly portrait',
+  },
+];
+
+// Featured-in / audited-by row — real consumer-facing brand marks via simpleicons.org CDN.
+// Hex 2c4a3e matches the primary-container token so icons read as muted forest green.
+const FEATURED_BRANDS = [
+  { name: "Yelp",         slug: "yelp",         sub: "Local listings" },
+  { name: "Trustpilot",   slug: "trustpilot",   sub: "Reviews" },
+  { name: "Google",       slug: "google",       sub: "Business" },
+  { name: "The Guardian", slug: "theguardian",  sub: "Local Press" },
+];
+
+// Sustainability Commitment — 4-card premium section between Crew and Testimonials.
+// Each card: inline SVG icon (line 1.5, 24×24, currentColor), tag, title, body, footnote.
+const SUSTAINABILITY = [
+  {
+    tag: "Compact · I",
+    title: "FSC-certified disposal",
+    body: "Every load of green waste tracked to the Bord na Móna composting facility in Kildare. Larger logs split, seasoned twelve months, and donated to the firewood programme.",
+    foot: "30 m³ donated per year",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m20.893 13.393-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525" />,
+  },
+  {
+    tag: "Compact · II",
+    title: "Wildlife-first pruning",
+    body: "No major work between March and August unless a tree is structurally unsafe — we delay non-urgent jobs across nesting season. Birds run the calendar in spring.",
+    foot: "Mar — Aug · nesting protocol",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />,
+  },
+  {
+    tag: "Compact · III",
+    title: "Heritage tree register",
+    body: "Every protected oak, lime and beech we encounter is logged into our internal heritage register. We share the dataset annually with the Tree Council of Ireland — open data, no fee.",
+    foot: "412 trees in the register",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />,
+  },
+  {
+    tag: "Compact · IV",
+    title: "Local apprenticeship",
+    body: "One paid apprentice hour funded by every job we ship. Currently four apprentices on the books — three Irish, one Ukrainian. NPTC-track training inside two years.",
+    foot: "4 apprentices in training",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />,
   },
 ];
 
@@ -493,6 +549,24 @@ function LocalServicesBusiness() {
           </div>
         </section>
 
+        {/* Featured-in / audited-by row — real brand marks via simpleicons.org CDN. */}
+        <section className="max-w-container-max mx-auto px-gutter pt-lg pb-md">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-md">
+            <span className="font-label-bold text-label-bold uppercase tracking-[0.25em] text-primary-container/70 shrink-0">— Audited &amp; reviewed by</span>
+            <div className="flex flex-wrap items-center gap-x-lg gap-y-md md:flex-1 md:justify-end">
+              {FEATURED_BRANDS.map((b) => (
+                <span key={b.slug} className="group inline-flex items-center gap-3 text-primary-container/80 hover:text-primary-container transition-colors">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/2c4a3e`} alt={`${b.name} logo`} width="22" height="22" loading="lazy" decoding="async" className="w-5 h-5 md:w-6 md:h-6 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  <span className="flex flex-col leading-tight">
+                    <span className="font-display-md text-base md:text-lg tracking-tight">{b.name}</span>
+                    <span className="font-caption text-[10px] uppercase tracking-widest text-on-surface-variant">{b.sub}</span>
+                  </span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Recent Work — paused-on-hover marquee strip of completed jobs */}
         <section className="full-bleed py-xl overflow-hidden" style={{ backgroundColor: '#ECE2CE' }}>
           <div className="max-w-container-max mx-auto px-gutter mb-lg flex items-end justify-between gap-md flex-wrap">
@@ -584,7 +658,11 @@ function LocalServicesBusiness() {
               <p className="font-body-md text-body-md text-on-surface-variant max-w-sm">Same crew leader from quote to sign-off. Every job photographed before, during and after — full record sent to you the same evening.</p>
             </div>
             <ol className="grid grid-cols-1 md:grid-cols-5 gap-lg relative mt-lg">
-              <div aria-hidden="true" className="hidden md:block absolute top-7 left-[8%] right-[8%] h-px bg-gradient-to-r from-primary-container/0 via-primary-container/40 to-primary-container/0"></div>
+              {/* Solid connector line spanning circle 1 center to circle 5 center.
+                  Each circle is w-14 (56px) at the LEFT of its grid column; left-7 +
+                  right-[18%] anchors the line to circle centers. Solid bg-primary-container/40
+                  (no gradient fade) so the strip reads continuous through every step. */}
+              <div aria-hidden="true" className="hidden md:block absolute top-7 left-7 right-[18%] h-px bg-primary-container/40"></div>
               {PROCESS_STEPS.map((step, i) => (
                 <li key={`step-${i}`} className="flex flex-col gap-sm relative z-10">
                   <div className={`w-14 h-14 rounded-full flex items-center justify-center ${STEP_CIRCLE_BY_STATUS[step.status]}`}>
@@ -634,6 +712,39 @@ function LocalServicesBusiness() {
                 </figcaption>
               </figure>
             ))}
+          </div>
+        </section>
+
+        {/* Sustainability Compact — 4-card premium section between Crew and Testimonials.
+            Each card has an inline SVG icon, Roman tag, title, body, and footer metric. */}
+        <section className="full-bleed py-xl overflow-hidden bg-primary-container text-[#EBE2C9] border-y border-[#F9D648]/15">
+          <div className="max-w-container-max mx-auto px-gutter">
+            <div className="flex items-end justify-between gap-md flex-wrap mb-lg pb-md border-b border-[#EBE2C9]/15">
+              <div className="max-w-xl">
+                <span className="font-label-bold text-label-bold uppercase tracking-[0.25em] text-[#F9D648]">— VII · Sustainability Compact</span>
+                <h2 className="font-display-md text-display-md text-[#EBE2C9] mt-xs">Four compacts every job ships with</h2>
+              </div>
+              <p className="font-body-md text-body-md text-[#EBE2C9]/70 max-w-md">Sealed when we walk on site. Audited annually with the Tree Council of Ireland and posted to our public ledger every spring.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
+              {SUSTAINABILITY.map((c) => (
+                <article key={c.tag} className="bg-[#EBE2C9]/[0.04] border border-[#EBE2C9]/15 rounded-xl p-lg flex flex-col gap-sm hover:bg-[#EBE2C9]/[0.08] hover:border-[#F9D648]/40 transition-colors min-h-[260px]">
+                  <div className="flex items-center justify-between mb-xs">
+                    <span className="w-12 h-12 border border-[#EBE2C9]/30 flex items-center justify-center text-[#F9D648] rounded-lg">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">{c.icon}</svg>
+                    </span>
+                    <span className="font-label-bold text-label-bold uppercase tracking-[0.2em] text-[#EBE2C9]/60 tabular-nums">{c.tag}</span>
+                  </div>
+                  <h3 className="font-headline-sm text-headline-sm text-[#EBE2C9]">{c.title}</h3>
+                  <p className="font-body-md text-body-md text-[#EBE2C9]/75 leading-relaxed">{c.body}</p>
+                  <div className="mt-auto pt-md border-t border-[#EBE2C9]/15 flex items-center justify-between">
+                    <span className="font-label-bold text-label-bold uppercase tracking-[0.18em] text-[#F9D648]">{c.foot}</span>
+                    <span className="font-caption text-caption uppercase tracking-widest text-[#EBE2C9]/40">In effect</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="text-center mt-lg font-label-bold text-label-bold uppercase tracking-[0.2em] text-[#EBE2C9]/50">Audited 2024 by the Tree Council of Ireland · Public ledger published each spring</p>
           </div>
         </section>
 

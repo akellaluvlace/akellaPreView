@@ -150,9 +150,42 @@
             0%, 100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(77, 224, 130, 0.4); }
             50% { opacity: 1; box-shadow: 0 0 0 8px rgba(77, 224, 130, 0); }
         }
+        @keyframes raven-sanity-drain {
+            0%, 100% { height: 42%; background-color: rgba(255,180,171,0.85); }
+            35%      { height: 18%; background-color: rgba(147,0,10,0.9); }
+            70%      { height: 65%; background-color: rgba(77,224,130,0.8); }
+        }
+        .raven-sanity-bar { animation: raven-sanity-drain 9s ease-in-out infinite; }
+        @keyframes raven-term-reveal {
+            from { opacity: 0; transform: translateX(-4px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        .raven-term-line {
+            opacity: 0;
+            animation: raven-term-reveal 0.4s cubic-bezier(0.2,0.8,0.2,1) forwards;
+            animation-delay: var(--d, 0s);
+        }
+        @keyframes raven-blink { 50% { opacity: 0; } }
+        .raven-cursor {
+            display: inline-block;
+            width: 8px; height: 1em;
+            background: currentColor;
+            vertical-align: middle;
+            animation: raven-blink 1.05s steps(2) infinite;
+        }
+        @keyframes raven-led-flicker {
+            0%, 95%, 100% { opacity: 1; }
+            97%           { opacity: 0.4; }
+        }
+        .raven-led { animation: raven-led-flicker 4s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce) {
             .raven-marquee-track,
-            .raven-pulse { animation: none; }
+            .raven-pulse,
+            .raven-sanity-bar,
+            .raven-term-line,
+            .raven-cursor,
+            .raven-led { animation: none; }
+            .raven-term-line { opacity: 1; transform: none; }
         }
     </style>
 </head>
@@ -614,8 +647,13 @@
                 <p class="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Five milestones from now to launch. Dates may shift; the work will not.</p>
             </div>
             <div class="relative">
-                <!-- Track line -->
-                <div class="hidden md:block absolute top-7 left-[8%] right-[8%] h-px bg-gradient-to-r from-secondary/0 via-secondary/40 to-secondary/0" aria-hidden="true"></div>
+                <!-- SVG roadmap connector: solid (done) → dashed emerald (current) → dashed dim (upcoming) → arrowhead -->
+                <svg aria-hidden="true" class="hidden md:block absolute top-7 left-[8%] right-[8%] h-4 z-0 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1000 16" fill="none">
+                    <line x1="0" y1="8" x2="400" y2="8" stroke="#4de082" stroke-width="2" stroke-linecap="round" />
+                    <line x1="400" y1="8" x2="600" y2="8" stroke="#4de082" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" opacity="0.7" />
+                    <line x1="600" y1="8" x2="985" y2="8" stroke="#929095" stroke-width="2" stroke-dasharray="4 8" stroke-linecap="round" opacity="0.5" />
+                    <path d="M978 4 L990 8 L978 12" stroke="#929095" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.6" />
+                </svg>
                 <ol class="grid grid-cols-1 md:grid-cols-5 gap-stack-md md:gap-4 relative">
 
                     <li class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 md:text-center">
@@ -641,7 +679,7 @@
                     </li>
 
                     <li class="flex md:flex-col items-start md:items-center gap-4 md:gap-3 md:text-center">
-                        <div class="shrink-0 w-14 h-14 rounded-full bg-secondary/20 border-2 border-secondary flex items-center justify-center relative z-10">
+                        <div class="shrink-0 w-14 h-14 rounded-full bg-secondary/20 border-2 border-secondary flex items-center justify-center relative z-10 shadow-[0_0_24px_rgba(77,224,130,0.45)]">
                             <span class="w-3 h-3 rounded-full bg-secondary raven-pulse" aria-hidden="true"></span>
                         </div>
                         <div class="flex flex-col gap-1 md:items-center">
@@ -677,12 +715,240 @@
             </div>
         </section>
 
+        <!-- Section: HUD telemetry (animated gaming UI) -->
+        <section id="hud" aria-labelledby="hud-title" class="py-20 px-margin-page max-w-container-max mx-auto scroll-mt-32">
+            <div class="text-center space-y-stack-md mb-10 md:mb-12">
+                <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Telemetry</p>
+                <h2 id="hud-title" class="font-headline-lg text-on-surface text-balance">The Inquisitor sees, even when you don't.</h2>
+                <p class="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">Sanity drains. Sigils restore. Saves are autonomous. The HUD is unobtrusive but never silent.</p>
+            </div>
+            <div class="border border-secondary/30 bg-surface-container-lowest rounded-xl p-4 md:p-6 shadow-[0_0_30px_rgba(77,224,130,0.05)]">
+                <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-surface-container-highest">
+                    <!-- LEFT: Sanity bar -->
+                    <div class="flex flex-col gap-3 p-4 md:pr-8">
+                        <div class="flex items-center justify-between">
+                            <span class="font-label-sm text-secondary uppercase tracking-widest">Sanity</span>
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">042 / 100</span>
+                        </div>
+                        <div class="flex items-end gap-3 h-40">
+                            <div class="relative w-8 h-full bg-primary-container border border-surface-container-highest rounded-DEFAULT overflow-hidden" aria-hidden="true">
+                                <div class="raven-sanity-bar absolute bottom-0 left-0 right-0 rounded-b-DEFAULT shadow-[0_0_18px_rgba(147,0,10,0.4)]"></div>
+                            </div>
+                            <ul class="flex-1 flex flex-col gap-1.5 text-[11px] font-label-sm uppercase tracking-widest text-on-surface-variant">
+                                <li class="flex items-center justify-between"><span>Threshold</span><span class="text-tertiary tabular-nums">25</span></li>
+                                <li class="flex items-center justify-between"><span>Drain</span><span class="tabular-nums">-3 / m</span></li>
+                                <li class="flex items-center justify-between"><span>Recover</span><span class="text-secondary tabular-nums">+12 / sigil</span></li>
+                                <li class="flex items-center justify-between"><span>State</span><span class="text-tertiary">FRAGILE</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- CENTER: Sigil charges (LEDs) -->
+                    <div class="flex flex-col gap-3 p-4 md:px-8">
+                        <div class="flex items-center justify-between">
+                            <span class="font-label-sm text-secondary uppercase tracking-widest">Charges</span>
+                            <span class="font-label-sm text-on-surface-variant uppercase tracking-widest tabular-nums">03 / 07</span>
+                        </div>
+                        <div class="flex items-center justify-center gap-2 py-6" aria-hidden="true">
+                            <span class="raven-led w-6 h-6 rounded-DEFAULT bg-secondary border border-secondary shadow-[0_0_12px_rgba(77,224,130,0.7)]" style="animation-delay: 0s;"></span>
+                            <span class="raven-led w-6 h-6 rounded-DEFAULT bg-secondary border border-secondary shadow-[0_0_12px_rgba(77,224,130,0.7)]" style="animation-delay: 0.4s;"></span>
+                            <span class="raven-led w-6 h-6 rounded-DEFAULT bg-secondary border border-secondary shadow-[0_0_12px_rgba(77,224,130,0.7)]" style="animation-delay: 0.8s;"></span>
+                            <span class="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                            <span class="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                            <span class="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                            <span class="w-6 h-6 rounded-DEFAULT bg-primary-container border border-surface-container-highest"></span>
+                        </div>
+                        <ul class="flex flex-col gap-1.5 text-[11px] font-label-sm uppercase tracking-widest text-on-surface-variant">
+                            <li class="flex items-center justify-between"><span>Sigil</span><span class="text-secondary">LAMBENT HOURS</span></li>
+                            <li class="flex items-center justify-between"><span>Cooldown</span><span class="tabular-nums">22s</span></li>
+                            <li class="flex items-center justify-between"><span>Echo</span><span class="text-secondary tabular-nums">22 ms</span></li>
+                        </ul>
+                    </div>
+                    <!-- RIGHT: Terminal log -->
+                    <div class="flex flex-col gap-3 p-4 md:pl-8">
+                        <div class="flex items-center justify-between">
+                            <span class="font-label-sm text-secondary uppercase tracking-widest">Log</span>
+                            <span class="flex items-center gap-2 font-label-sm text-on-surface-variant uppercase tracking-widest text-[10px]">
+                                <span class="w-2 h-2 rounded-full bg-secondary raven-pulse" aria-hidden="true"></span>
+                                LIVE
+                            </span>
+                        </div>
+                        <div class="bg-primary-container border border-surface-container-highest rounded-DEFAULT p-3 font-mono text-[11px] leading-relaxed text-on-surface-variant overflow-hidden">
+                            <p class="raven-term-line text-secondary" style="--d: 0s;">&gt; BOOT_COMPLETE :: VESSEL_READY</p>
+                            <p class="raven-term-line" style="--d: 0.25s;">&gt; LANTERN_LIT :: FUEL_∞</p>
+                            <p class="raven-term-line" style="--d: 0.5s;">&gt; BLADE_DRAWN :: PARRY +3</p>
+                            <p class="raven-term-line text-secondary" style="--d: 0.75s;">&gt; SIGIL_BIND :: ECHO 22ms</p>
+                            <p class="raven-term-line text-tertiary" style="--d: 1s;">&gt; THREAT @ 12m :: HUSK</p>
+                            <p class="raven-term-line text-error red-glow-text" style="--d: 1.25s;">&gt; PARRY · LATE -7 SAN</p>
+                            <p class="raven-term-line text-secondary" style="--d: 1.5s;">&gt; KILL :: SAINT_HUSK_03</p>
+                            <p class="raven-term-line" style="--d: 1.75s;">&gt; EXALT_GAINED :: 14</p>
+                            <p class="raven-term-line text-secondary" style="--d: 2s;">&gt; SAVE_POINT :: WAYSHRINE_07</p>
+                            <p class="raven-term-line" style="--d: 2.25s;">&gt; <span class="raven-cursor" aria-hidden="true"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Editions of Note (premium 4-card) -->
+        <section id="editions" aria-labelledby="editions-title" class="py-20 px-margin-page bg-surface-container-low scroll-mt-32 border-y border-surface-container-highest">
+            <div class="max-w-container-max mx-auto flex flex-col gap-stack-xl">
+                <div class="flex flex-col gap-stack-md max-w-3xl">
+                    <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Editions of note</p>
+                    <h2 id="editions-title" class="font-headline-lg text-on-surface text-balance">Bind the lantern. Choose the vessel.</h2>
+                    <p class="font-body-md text-on-surface-variant text-pretty">Four bindings. The Inquisitor's chronicle ships in three of them. The lantern only in one.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter items-stretch">
+
+                    <!-- Standard -->
+                    <article class="bg-surface-container-low border border-surface-container-highest hover:border-secondary/40 transition-all duration-300 hover:-translate-y-1 rounded-xl p-6 flex flex-col group relative overflow-hidden">
+                        <span aria-hidden="true" class="absolute top-4 right-5 font-headline-lg italic text-secondary/40 text-3xl tabular-nums leading-none">I</span>
+                        <span class="material-symbols-outlined text-secondary mb-4" style="font-size: 32px;" aria-hidden="true">auto_stories</span>
+                        <h3 class="font-headline-md italic text-on-surface text-2xl mb-1">Standard</h3>
+                        <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-4">Digital · Base</p>
+                        <ul class="space-y-1.5 text-sm text-on-surface-variant mb-6 flex-1">
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Game (PC · Console · Cloud)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Original soundtrack (FLAC)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Bestiary PDF (52 pp)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>24h pre-load</span></li>
+                        </ul>
+                        <p class="font-headline-md italic text-secondary tabular-nums leading-none mb-4">$59.99</p>
+                        <a href="#" class="font-label-sm text-secondary uppercase tracking-widest inline-flex items-center gap-1 hover:text-secondary-fixed transition-colors">
+                            Wishlist <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </article>
+
+                    <!-- Iron-Bound -->
+                    <article class="bg-surface-container-low border border-surface-container-highest hover:border-secondary/40 transition-all duration-300 hover:-translate-y-1 rounded-xl p-6 flex flex-col group relative overflow-hidden">
+                        <span aria-hidden="true" class="absolute top-4 right-5 font-headline-lg italic text-secondary/40 text-3xl tabular-nums leading-none">II</span>
+                        <span class="material-symbols-outlined text-secondary mb-4" style="font-size: 32px;" aria-hidden="true">local_library</span>
+                        <h3 class="font-headline-md italic text-on-surface text-2xl mb-1">Iron-Bound Edition</h3>
+                        <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-4">Physical · Hardback</p>
+                        <ul class="space-y-1.5 text-sm text-on-surface-variant mb-6 flex-1">
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Everything in Standard</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Inquisitor's Manual hardback (192 pp)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Steel enamel pin (raven sigil)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Foil-stamped slipcase</span></li>
+                        </ul>
+                        <p class="font-headline-md italic text-secondary tabular-nums leading-none mb-4">$89.99</p>
+                        <a href="#" class="font-label-sm text-secondary uppercase tracking-widest inline-flex items-center gap-1 hover:text-secondary-fixed transition-colors">
+                            Wishlist <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </article>
+
+                    <!-- Cathedral (most chosen) -->
+                    <article class="bg-surface-container-low border border-secondary/40 hover:-translate-y-1 transition-all duration-300 rounded-xl p-6 flex flex-col group relative overflow-hidden red-glow">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-DEFAULT bg-secondary/15 border border-secondary/40 text-secondary text-[10px] uppercase tracking-widest font-label-sm">Most chosen</span>
+                        <span aria-hidden="true" class="absolute top-4 right-5 font-headline-lg italic text-error red-glow-text text-3xl tabular-nums leading-none">III</span>
+                        <span class="material-symbols-outlined text-secondary mb-4 mt-8" style="font-size: 32px;" aria-hidden="true">verified</span>
+                        <h3 class="font-headline-md italic text-on-surface text-2xl mb-1">Cathedral Edition</h3>
+                        <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-4">Physical · Reliquary</p>
+                        <ul class="space-y-1.5 text-sm text-on-surface-variant mb-6 flex-1">
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Everything in Iron-Bound</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Reliquary box (cast resin)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>90-min lore reel (4K download)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Map cloth (60 × 40 cm)</span></li>
+                        </ul>
+                        <p class="font-headline-md italic text-secondary tabular-nums leading-none mb-4">$149.99</p>
+                        <a href="#" class="font-label-sm text-secondary uppercase tracking-widest inline-flex items-center gap-1 hover:text-secondary-fixed transition-colors">
+                            Wishlist <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </article>
+
+                    <!-- Inquisitor's Vault -->
+                    <article class="bg-surface-container-low border border-surface-container-highest hover:border-secondary/40 transition-all duration-300 hover:-translate-y-1 rounded-xl p-6 flex flex-col group relative overflow-hidden">
+                        <span aria-hidden="true" class="absolute top-4 right-5 font-headline-lg italic text-secondary/40 text-3xl tabular-nums leading-none">IV</span>
+                        <span class="material-symbols-outlined text-secondary mb-4" style="font-size: 32px;" aria-hidden="true">flag</span>
+                        <h3 class="font-headline-md italic text-on-surface text-2xl mb-1">Inquisitor's Vault</h3>
+                        <p class="font-label-sm text-on-surface-variant uppercase tracking-widest mb-4">Numbered · 1 / 2026</p>
+                        <ul class="space-y-1.5 text-sm text-on-surface-variant mb-6 flex-1">
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Everything in Cathedral</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Petty Lantern replica (cast resin)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Numbered certificate (1 / 2026)</span></li>
+                            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-base shrink-0 mt-0.5" aria-hidden="true">check_circle</span><span>Composer's vinyl LP (180g)</span></li>
+                        </ul>
+                        <p class="font-headline-md italic text-secondary tabular-nums leading-none mb-4">$249.99</p>
+                        <a href="#" class="font-label-sm text-secondary uppercase tracking-widest inline-flex items-center gap-1 hover:text-secondary-fixed transition-colors">
+                            Wishlist <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                        </a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
         <section id="studio" aria-labelledby="studio-title" class="py-24 px-margin-page bg-surface-container scroll-mt-32 border-y border-surface-container-highest">
             <div class="max-w-3xl mx-auto text-center flex flex-col gap-stack-md">
                 <h2 id="studio-title" class="font-headline-lg text-on-surface text-balance">Crafted by Ravenlight Studios</h2>
                 <p class="font-body-md text-on-surface-variant max-w-[65ch] mx-auto text-pretty">
                     We are a small, passionate indie team dedicated to creating atmospheric, challenging experiences that respect the player's intelligence. Founded in 2024, our mission is to resurrect the uncompromising design of classic gothic adventures with modern fidelity.
                 </p>
+            </div>
+        </section>
+
+        <!-- Section: Relics — B&W image strip with alternating glitch / colour bleed -->
+        <section id="relics" aria-labelledby="relics-title" class="py-20 scroll-mt-32 bg-primary-container">
+            <div class="text-center space-y-stack-md mb-8 px-margin-page">
+                <p class="font-label-sm text-secondary uppercase tracking-[0.3em] emerald-glow-text">— Plates · Recovered</p>
+                <h2 id="relics-title" class="font-headline-lg text-on-surface text-balance">Eight relics, found in the dark.</h2>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 px-3 md:px-6">
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&w=600&auto=format&fit=crop" alt="Cathedral chamber, plate I" loading="lazy" class="w-full h-full object-cover grayscale opacity-90 contrast-110 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/70 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 01 · I VESPERS</span>
+                </figure>
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=600&auto=format&fit=crop" alt="Foggy forest, plate II" loading="lazy" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(11,28,16,0.55) 0%, rgba(8,40,22,0.85) 60%, rgba(31,1,0,0.7) 100%);"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(127,199,116,0.35) 0%, transparent 70%);"></div>
+                    <div class="absolute inset-0 pointer-events-none opacity-30" style="background: repeating-linear-gradient(0deg, rgba(0,0,0,0.6) 0 1px, transparent 1px 4px);"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 02 · II HOLLOW</span>
+                </figure>
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?q=80&w=600&auto=format&fit=crop" alt="Raven on branch, plate III" loading="lazy" class="w-full h-full object-cover grayscale opacity-90 contrast-110 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/70 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 03 · III CARRION</span>
+                </figure>
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&w=600&auto=format&fit=crop" alt="Moon over clouds, plate IV" loading="lazy" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(11,28,16,0.55) 0%, rgba(8,40,22,0.85) 60%, rgba(31,1,0,0.7) 100%);"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(127,199,116,0.35) 0%, transparent 70%);"></div>
+                    <div class="absolute inset-0 pointer-events-none opacity-30" style="background: repeating-linear-gradient(0deg, rgba(0,0,0,0.6) 0 1px, transparent 1px 4px);"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 04 · IV ECLIPSE</span>
+                </figure>
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600&auto=format&fit=crop" alt="Plate armor, plate V" loading="lazy" class="w-full h-full object-cover grayscale opacity-90 contrast-110 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/70 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 05 · V HARNESS</span>
+                </figure>
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop" alt="Architectural detail, plate VI" loading="lazy" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(11,28,16,0.55) 0%, rgba(8,40,22,0.85) 60%, rgba(31,1,0,0.7) 100%);"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(127,199,116,0.35) 0%, transparent 70%);"></div>
+                    <div class="absolute inset-0 pointer-events-none opacity-30" style="background: repeating-linear-gradient(0deg, rgba(0,0,0,0.6) 0 1px, transparent 1px 4px);"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 06 · VI VAULT</span>
+                </figure>
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&w=600&auto=format&fit=crop" alt="Lone figure & cathedral, plate VII" loading="lazy" class="w-full h-full object-cover grayscale opacity-90 contrast-110 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/70 via-transparent to-transparent pointer-events-none"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 07 · VII END</span>
+                </figure>
+
+                <figure class="aspect-square rounded-DEFAULT border border-surface-container-highest overflow-hidden bg-primary-container relative group">
+                    <img src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&w=600&auto=format&fit=crop" alt="Cathedral chamber reprise, plate VIII" loading="lazy" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" width="600" height="600" />
+                    <div class="absolute inset-0 mix-blend-multiply pointer-events-none" style="background: linear-gradient(160deg, rgba(11,28,16,0.55) 0%, rgba(8,40,22,0.85) 60%, rgba(31,1,0,0.7) 100%);"></div>
+                    <div class="absolute inset-0 mix-blend-screen pointer-events-none" style="background: radial-gradient(ellipse at 50% 60%, rgba(127,199,116,0.35) 0%, transparent 70%);"></div>
+                    <div class="absolute inset-0 pointer-events-none opacity-30" style="background: repeating-linear-gradient(0deg, rgba(0,0,0,0.6) 0 1px, transparent 1px 4px);"></div>
+                    <span class="absolute bottom-2 left-2 right-2 text-[9px] uppercase tracking-widest text-on-surface-variant bg-primary-container/70 border border-secondary/20 px-2 py-1 backdrop-blur-sm font-label-sm">PLATE · 08 · VIII WAKE</span>
+                </figure>
+
             </div>
         </section>
     </main>

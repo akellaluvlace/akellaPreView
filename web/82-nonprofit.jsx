@@ -52,28 +52,41 @@ export default function T82Nonprofit() {
       role: "Ranger · ID",
       img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop",
       alt: "Marine ranger Lala Putri",
-      pos: "md:left-[2%] md:top-[2%] w-[68%] md:w-[42%] -rotate-3 z-10",
+      rot: "-rotate-3",
+      quote: "Patrol days start at four. By the time the boats turn back, we already know which reef coughed something up overnight.",
+      site: "Raja Ampat · 2018–",
     },
     {
       name: "Tomás Ndoye",
       role: "Elder · SN",
-      img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop",
       alt: "Community elder Tomás Ndoye",
-      pos: "md:left-[36%] md:top-[10%] w-[64%] md:w-[40%] rotate-2 z-20 mt-8 md:mt-0",
+      rot: "rotate-2",
+      quote: "The reef remembers what we forget. The job is to listen first — to the boats, the women, the tides — and let the science follow.",
+      site: "Casamance · 2014–",
     },
     {
       name: "Dr. Anika Reyes",
       role: "Biologist · PH",
       img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop",
       alt: "Marine biologist Dr. Anika Reyes",
-      pos: "md:left-[8%] md:top-[44%] w-[64%] md:w-[40%] rotate-1 z-20 mt-8 md:mt-0",
+      rot: "rotate-1",
+      quote: "Conservation isn't a verb you finish. It's a relationship that takes a generation, and we're now on year fourteen with the same fishing village.",
+      site: "Palawan · 2011–",
+      extraImg: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop",
+      extraAlt: "Coastline near the field station",
+      extraName: "Coastline",
+      extraRole: "Field · PH",
+      extraRot: "-rotate-2",
     },
     {
       name: "Issa Marwa",
       role: "Volunteer · KE",
       img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&q=85&auto=format&fit=crop",
       alt: "Youth volunteer Issa Marwa",
-      pos: "md:left-[42%] md:top-[52%] w-[68%] md:w-[42%] -rotate-2 z-30 mt-8 md:mt-0",
+      rot: "-rotate-2",
+      quote: "I came for one summer of fieldwork on a scholarship. I stayed because the long answer turned out to be more interesting than my degree.",
+      site: "Watamu · 2022–",
     },
   ];
 
@@ -163,7 +176,7 @@ export default function T82Nonprofit() {
         margin-right: calc(50% - 50vw);
         max-width: none;
     }
-    .diagonal-band { clip-path: polygon(0 0, 100% 6%, 100% 94%, 0 100%); }
+    .diagonal-band { clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%); }
     .polaroid {
         background: #fdfaf3;
         padding: 12px 12px 36px 12px;
@@ -229,7 +242,7 @@ export default function T82Nonprofit() {
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIZlVld3i4SbBupQs5qPifY7W9oeEhp03QGDhFWa4FlZcXWr9aK63KcB1tgEnbq4jd11wqRDY_HzakOfOArD5YMDwWg5AZUgbP_OwCWniEXSvQptrldd9mlb49R15AYfv4CWeWs6eEexdU35IUmE-u_WrUpcqcuB4Q7o68j010MeLgQpXvlj1HtS8QSJUvAdY9JSQJxKw53qIBrxVZidUUu6QVrsyBYChR9xmcoyonLsNSuuu3pjnby0BAIQQ6tTaCQ-5V24InewKS"
           />
           <div className="relative z-10 w-full max-w-[1440px] mx-auto px-8 md:px-16 flex flex-col items-start gap-md">
-            <h1 className="font-display-xl text-display-xl text-surface-container-lowest max-w-4xl">Protecting the oceans we depend on</h1>
+            <h1 className="font-display-xl text-[36px] sm:text-[52px] md:text-[64px] lg:text-display-xl text-surface-container-lowest max-w-4xl">Protecting the oceans we depend on</h1>
             <p className="font-body-lg text-body-lg text-surface-container-lowest/90 max-w-2xl">Our mission is to safeguard marine ecosystems through science and community action.</p>
             <div className="flex gap-4 mt-sm">
               <button className="bg-secondary text-surface-container-lowest font-label-caps text-label-caps px-8 py-4 uppercase hover:bg-on-secondary-container transition-colors">Donate now</button>
@@ -317,26 +330,44 @@ export default function T82Nonprofit() {
         {/* Voices from the Field — polaroid stack (NOVEL pattern 3) */}
         <section className="py-xl bg-surface-container-low border-y border-outline/15 relative overflow-hidden">
           <div className="max-w-[1440px] mx-auto px-8 md:px-16">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-              <div className="lg:col-span-4 flex flex-col gap-md lg:sticky lg:top-32">
-                <span className="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">III — Voices</span>
-                <h2 className="font-display-xl text-[40px] md:text-[56px] leading-[1.05] tracking-tight text-primary-container">From the field, in their words.</h2>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-md">Field rangers, community elders, and the next generation of marine biologists tell us why the work matters. We listen first; the science follows.</p>
-                <a href="#" className="font-label-caps text-label-caps text-primary-container uppercase tracking-widest inline-flex items-center gap-2 border-b border-primary-container/40 pb-1 self-start hover:opacity-70 transition-opacity">
-                  Read all stories <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </a>
-              </div>
-              <div className="lg:col-span-8 relative min-h-[520px] md:min-h-[640px]">
-                {voices.map((v) => (
-                  <figure key={v.name} className={`polaroid relative absolute ${v.pos}`}>
-                    <img alt={v.alt} className="w-full aspect-[3/4] object-cover" src={v.img} />
-                    <figcaption className="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
-                      <span className="font-['Newsreader'] italic text-base">{v.name}</span>
-                      <span className="font-label-caps text-[10px] uppercase tracking-widest opacity-70">{v.role}</span>
-                    </figcaption>
+            {/* Heading row — sits at the top so the voice rows below get the full container width */}
+            <div className="flex flex-col gap-md max-w-3xl mb-xl pb-xl border-b border-outline/15">
+              <span className="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">III — Voices</span>
+              <h2 className="font-display-xl text-[40px] md:text-[56px] leading-[1.05] tracking-tight text-primary-container">From the field, in their words.</h2>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-md">Field rangers, community elders, and the next generation of marine biologists tell us why the work matters. We listen first; the science follows.</p>
+              <a href="#" className="font-label-caps text-label-caps text-primary-container uppercase tracking-widest inline-flex items-center gap-2 border-b border-primary-container/40 pb-1 self-start hover:opacity-70 transition-opacity">
+                Read all stories <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+              </a>
+            </div>
+            <div className="flex flex-col gap-28 md:gap-36">
+                {voices.map((v, i) => (
+                  <figure key={v.name} className={`flex flex-col ${i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-10 md:gap-16`}>
+                    {v.extraImg && (
+                      <div className={`polaroid relative hidden md:block md:w-1/5 shrink-0 -order-1 transform ${v.extraRot}`}>
+                        <img alt={v.extraAlt} className="w-full aspect-[3/4] object-cover" src={v.extraImg} />
+                        <figcaption className="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
+                          <span className="font-['Newsreader'] italic text-base">{v.extraName}</span>
+                          <span className="font-label-caps text-[10px] uppercase tracking-widest opacity-70">{v.extraRole}</span>
+                        </figcaption>
+                      </div>
+                    )}
+                    <div className={`polaroid relative w-full md:w-1/3 shrink-0 transform ${v.rot}`}>
+                      <img alt={v.alt} className="w-full aspect-[3/4] object-cover" src={v.img} />
+                      <figcaption className="absolute bottom-2 left-3 right-3 flex items-end justify-between text-primary-container">
+                        <span className="font-['Newsreader'] italic text-base">{v.name}</span>
+                        <span className="font-label-caps text-[10px] uppercase tracking-widest opacity-70">{v.role}</span>
+                      </figcaption>
+                    </div>
+                    <div className="flex-1 flex flex-col gap-4">
+                      <span className="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">{v.role}</span>
+                      <p className="font-['Newsreader'] text-[26px] md:text-[34px] leading-snug italic text-primary-container border-l-2 border-secondary/40 pl-6">"{v.quote}"</p>
+                      <div className="flex items-baseline justify-between border-t border-outline/15 pt-3 mt-2">
+                        <span className="font-headline-md text-[18px] text-primary-container">— {v.name}</span>
+                        <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">{v.site}</span>
+                      </div>
+                    </div>
                   </figure>
                 ))}
-              </div>
             </div>
           </div>
         </section>
@@ -384,7 +415,7 @@ export default function T82Nonprofit() {
           <img
             alt="Open ocean reef footage as backdrop"
             className="absolute inset-0 w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1920&q=85&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1760556415132-533affdd9ccf?w=1920&q=85&auto=format&fit=crop"
           />
           <div className="absolute inset-0 bg-primary-container/75"></div>
           <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,0,0,0) 0%, rgba(11,35,64,0.55) 80%)" }}></div>

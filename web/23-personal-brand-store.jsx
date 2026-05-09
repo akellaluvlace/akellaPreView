@@ -28,14 +28,14 @@ const ESSAYS = [
 ];
 
 const LIBRARY = [
-  { num: "No. 01", title: "The Lonely City", author: "Olivia Laing", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "A library shelf, photographed in soft light" },
+  { num: "No. 01", title: "The Lonely City", author: "Olivia Laing", img: "https://images.unsplash.com/photo-1664786200000-b1424aa47dff?w=900&q=85&auto=format&fit=crop", alt: "A library shelf, photographed in soft light" },
   { num: "No. 02", title: "High Output Management", author: "Andy Grove", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "A pale interior corridor with classical detail" },
-  { num: "No. 03", title: "Several short sentences about writing", author: "Verlyn Klinkenborg", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", alt: "An architectural cornice photographed against a pale sky" },
-  { num: "No. 04", title: "A Field Guide to Getting Lost", author: "Rebecca Solnit", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop", alt: "A modernist staircase in a pale interior" },
+  { num: "No. 03", title: "Several short sentences about writing", author: "Verlyn Klinkenborg", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "An architectural cornice photographed against a pale sky" },
+  { num: "No. 04", title: "A Field Guide to Getting Lost", author: "Rebecca Solnit", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "A modernist staircase in a pale interior" },
   { num: "No. 05", title: "The Hard Thing About Hard Things", author: "Ben Horowitz", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "A brutalist concrete corridor" },
   { num: "No. 06", title: "On Writing Well", author: "William Zinsser", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "A pale interior with a hanging light fixture" },
   { num: "No. 07", title: "Bird by Bird", author: "Anne Lamott", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "An expansive modernist facade in soft light" },
-  { num: "No. 08", title: "Status and Culture", author: "W. David Marx", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", alt: "A still life of brass apothecary objects on dark wood" }
+  { num: "No. 08", title: "Status and Culture", author: "W. David Marx", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "A still life of brass apothecary objects on dark wood" }
 ];
 
 const PROCESS = [
@@ -47,7 +47,7 @@ const PROCESS = [
 
 const TESTIMONIALS = [
   { quote: "The clearest writing on operating I read all year. I keep one essay open in a tab and re-read it before every board meeting.", name: "Mara Kenji", role: "COO · Linear Supply", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Mara Kenji" },
-  { quote: "Tessa writes like an editor and thinks like an operator. The combination is rare and the essays are how I figure out what I think.", name: "Henry Ahn", role: "Editor · Long Form Quarterly", img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Henry Ahn" },
+  { quote: "Tessa writes like an editor and thinks like an operator. The combination is rare and the essays are how I figure out what I think.", name: "Henry Ahn", role: "Editor · Long Form Quarterly", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Henry Ahn" },
   { quote: "I sent the Operator's Notebook to every founder in our portfolio. Two of them sent it on to their boards within the week.", name: "Iris Vela", role: "Partner · Threadwork Capital", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Iris Vela" }
 ];
 
@@ -65,7 +65,9 @@ const FAQS = [
   { q: "Do you offer team licences?", a: "Yes. Bundles of 10, 25, and 50 are listed on the order page. Larger groups, write to me directly and we'll work something out." },
   { q: "Can I support without buying?", a: "The newsletter is free and will stay that way. The single most useful thing you can do is forward an essay you liked to one person who'd disagree with it." },
   { q: "Are essays DRM-free?", a: "Always. PDFs and ePubs ship without watermarks, expiry, or login walls. They're yours to keep, annotate, and re-read offline." },
-  { q: "How do I get notified about new drops?", a: "Newsletter subscribers see new books, courses, and limited drops 48 hours before anyone else. No social posts, no DMs - just the inbox." }
+  { q: "How do I get notified about new drops?", a: "Newsletter subscribers see new books, courses, and limited drops 48 hours before anyone else. No social posts, no DMs - just the inbox." },
+  { q: "Do you take guest essays or commissions?", a: "I take one or two outside commissions a year and almost no guest essays — the throughline matters more than the rate. If you have a specific brief in mind, send the question first and we'll see whether the answer earns a piece." },
+  { q: "Where do book proceeds go?", a: "After printing and shipping, twenty per cent of the net goes to the Internet Archive and the Newcomers' Library Fund in Lisbon. The rest pays for the next book and the next twelve months of essays — that's it." }
 ];
 
 const FOOTER_LINKS = ["Newsletter", "Privacy Policy", "LinkedIn", "Substack"];
@@ -167,7 +169,7 @@ export default function T23PersonalBrandStore() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center lg:gap-16">
               <div className="lg:col-span-5 order-2 lg:order-1">
                 <div className="relative w-full aspect-[3/4] bg-secondary-container">
-                  <img alt="Tessa Varga portrait" className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1JizoArBLs9JyXP1EqwwMleDJc0gv2WVMmpXZJzh_HDmFHlxhv508V9b8MNQx8sTahXxG7uVb-xC13dgt7J0tERXWpHAtCOpog3M4LtKOrhBTCj22dUZN7vS5y39x31dc2B7M3SS5KfnJBaoWJtbS0_JPMH3WdPJndapdPNVgoz_AUlgDNw1-0LzJq8PlnhOrW06Ktijz4RCnA2lic8g3MgOC8L7-5wjM149pLk1xeWTVdjtdzoUaBdyu9lPtfiVaWlPbU2xUUl3v" />
+                  <img alt="Tessa Varga — editorial portrait, soft window light" className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" />
                 </div>
               </div>
               <div className="lg:col-span-7 order-1 lg:order-2 space-y-8 lg:space-y-12">
@@ -201,10 +203,43 @@ export default function T23PersonalBrandStore() {
           {/* NEW: Manifesto / Doctrine - tinted band */}
           <section className="full-bleed bg-surface-container-high py-20 md:py-28">
             <div className="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
-                <div className="md:col-span-4">
-                  <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block mb-6">— II · Doctrine</span>
-                  <p className="font-body-md text-body-md text-on-surface-variant">A short list of things I believe about the work, kept in plain view so I can be held to them.</p>
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-stretch">
+                <div className="md:col-span-4 flex flex-col gap-6 md:h-full md:justify-between">
+                  <div className="flex flex-col gap-4">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block">— II · Doctrine</span>
+                    <p className="font-body-md text-body-md text-on-surface-variant">A short list of things I believe about the work, kept in plain view so I can be held to them.</p>
+                    <p className="font-body-md text-body-md text-on-surface-variant">Five tenets, drafted on the back of a Lisbon coffee receipt in 2017 and revised every winter since. They are the spine of every piece I publish — and the first thing I cut when an essay starts feeling clever instead of clear.</p>
+                    <p className="font-body-md text-body-md text-on-surface-variant italic">Disagreement is welcome. The doctrine is mine; the work is everyone&apos;s.</p>
+                  </div>
+
+                  {/* Doctrine ledger card — pins to bottom of left column to align with right column */}
+                  <aside className="bg-surface-container-lowest border border-[#222]/10 p-5 sm:p-6 flex flex-col gap-4 mt-6 md:mt-0">
+                    <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-[#222]/15">
+                      <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.3em]">Field log · 2026</span>
+                      <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">REV · IV</span>
+                    </div>
+                    <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
+                      <div className="flex flex-col gap-0.5">
+                        <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Drafted</dt>
+                        <dd className="font-headline-md text-[20px] text-on-surface tabular-nums">2017</dd>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Last revision</dt>
+                        <dd className="font-headline-md text-[20px] text-on-surface tabular-nums">2026</dd>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Tenets</dt>
+                        <dd className="font-headline-md text-[20px] text-on-surface tabular-nums">V</dd>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Cuts</dt>
+                        <dd className="font-headline-md text-[20px] text-on-surface tabular-nums">12</dd>
+                      </div>
+                    </dl>
+                    <p className="font-body-md text-xs text-on-surface-variant border-t border-[#222]/15 pt-3 italic leading-relaxed text-pretty">
+                      Each tenet survived three quarters and one hostile reader before earning a Roman numeral. The folder of cuts is longer than the list itself.
+                    </p>
+                  </aside>
                 </div>
                 <ol className="md:col-span-8 divide-y divide-[#222]/10 border-t border-[#222]/10">
                   {DOCTRINE.map((d) => (
@@ -344,11 +379,38 @@ export default function T23PersonalBrandStore() {
 
           {/* Speaking Section */}
           <section className="max-w-[1280px] mx-auto px-4 py-16 border-t border-[#222]/10 sm:px-6 sm:py-20 md:px-8 md:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
-              <div className="lg:col-span-1">
-                <h2 className="font-headline-lg text-[26px] leading-tight text-primary-container mb-6 sm:text-[36px] md:text-headline-lg">Speaking</h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-8">Selected appearances and keynotes on strategy, scaling, and leadership.</p>
-                <a className="font-label-caps text-label-caps border border-[#222] px-6 py-3 hover:bg-[#222] hover:text-white transition-colors inline-block text-center w-full" href="#">Book Inquiry</a>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 items-stretch">
+              <div className="lg:col-span-1 flex flex-col gap-6 lg:h-full lg:justify-between">
+                <div className="flex flex-col gap-6">
+                  <h2 className="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">Speaking</h2>
+                  <p className="font-body-md text-body-md text-on-surface-variant">Selected appearances and keynotes on strategy, scaling, and leadership.</p>
+                  <a className="font-label-caps text-label-caps border border-[#222] px-6 py-3 hover:bg-[#222] hover:text-white transition-colors inline-block text-center w-full" href="#">Book Inquiry</a>
+                </div>
+
+                {/* Speaking ledger card — pins to bottom of left column to align with events list */}
+                <aside className="bg-surface-container-lowest border border-[#222]/10 p-5 flex flex-col gap-3 mt-6 lg:mt-0">
+                  <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-[#222]/15">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.3em]">2024 · log</span>
+                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">14 stops</span>
+                  </div>
+                  <dl className="flex flex-col gap-2 font-body-md text-[14px]">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Keynotes</dt>
+                      <dd className="text-on-surface tabular-nums">06</dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Panels</dt>
+                      <dd className="text-on-surface tabular-nums">05</dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Workshops</dt>
+                      <dd className="text-on-surface tabular-nums">03</dd>
+                    </div>
+                  </dl>
+                  <p className="font-body-md text-xs text-on-surface-variant border-t border-[#222]/15 pt-3 italic leading-relaxed">
+                    Travel within the EU + East Coast US. One keynote a month, two open weeks each quarter.
+                  </p>
+                </aside>
               </div>
               <div className="lg:col-span-3 space-y-8">
                 {EVENTS.map((ev) => (
@@ -441,11 +503,58 @@ export default function T23PersonalBrandStore() {
 
           {/* NEW: FAQ accordion */}
           <section className="max-w-[1280px] mx-auto px-4 py-20 sm:px-6 sm:py-24 md:px-8 md:py-28">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
-              <div className="md:col-span-4">
-                <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block mb-3">— XII · Questions</span>
-                <h2 className="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">Frequently asked.</h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mt-6">Five questions I hear most often. If yours is not here, the inbox is open.</p>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-24 lg:gap-32 items-stretch">
+              <div className="md:col-span-4 flex flex-col gap-6 md:h-full md:justify-between">
+                <div className="flex flex-col gap-4">
+                  <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.25em] block">— XII · Questions</span>
+                  <h2 className="font-headline-lg text-[26px] leading-tight text-primary-container sm:text-[36px] md:text-headline-lg">Frequently asked.</h2>
+                </div>
+
+                {/* Reply windows card — middle */}
+                <aside className="bg-surface-container-lowest border border-[#222]/10 p-5 sm:p-6 flex flex-col gap-3">
+                  <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-[#222]/15">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.3em]">Reply windows</span>
+                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">2026</span>
+                  </div>
+                  <dl className="flex flex-col gap-2 font-body-md text-[14px]">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Mon — Fri</dt>
+                      <dd className="text-on-surface tabular-nums">≈ 36&thinsp;h</dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Weekends</dt>
+                      <dd className="text-on-surface">paused, on purpose</dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">August</dt>
+                      <dd className="text-on-surface tabular-nums">slow · 5–7 days</dd>
+                    </div>
+                  </dl>
+                  <p className="font-body-md text-xs text-on-surface-variant border-t border-[#222]/15 pt-3 italic leading-relaxed">
+                    Real but unhurried. Long answers live in the essays; the longer-than-long ones arrive in the Sunday newsletter.
+                  </p>
+                </aside>
+
+                {/* Direct line card — pins to bottom of left column to align with FAQ list */}
+                <aside className="bg-surface-container-lowest border border-[#222]/10 p-5 sm:p-6 flex flex-col gap-3">
+                  <div className="flex items-baseline justify-between gap-3 pb-3 border-b border-[#222]/15">
+                    <span className="font-label-caps text-label-caps text-primary-container uppercase tracking-[0.3em]">Direct line</span>
+                    <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest tabular-nums">Q · 06+</span>
+                  </div>
+                  <dl className="flex flex-col gap-2 font-body-md text-[14px]">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Inbox</dt>
+                      <dd className="text-on-surface">hello@tessavarga.com</dd>
+                    </div>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest text-[10px]">Office hours</dt>
+                      <dd className="text-on-surface">First Wed · monthly</dd>
+                    </div>
+                  </dl>
+                  <p className="font-body-md text-xs text-on-surface-variant border-t border-[#222]/15 pt-3 italic leading-relaxed">
+                    Anything not covered above. One sentence, one ask — clarity rewarded.
+                  </p>
+                </aside>
               </div>
               <div className="md:col-span-8 divide-y divide-[#222]/15 border-t border-b border-[#222]/15">
                 {FAQS.map((f) => (

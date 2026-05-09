@@ -2,8 +2,8 @@ const PROCESS_STEPS = [
   {
     n: "01",
     nColor: "text-primary-container",
-    phase: "Phase · I",
-    phaseColor: "text-secondary",
+    icon: "layers",
+    iconColor: "text-secondary",
     title: "Strip the artwork to its skeleton.",
     body: "Each colour gets its own bare-bones layer. Black goes solid; magenta goes halftone; cobalt fills the negatives. We separate by hand because the software always over-thinks the dot grid.",
     meta: "Output · 4 layers · 1 master file · 0 doubts",
@@ -11,8 +11,8 @@ const PROCESS_STEPS = [
   {
     n: "02",
     nColor: "text-secondary",
-    phase: "Phase · II",
-    phaseColor: "text-primary-container",
+    icon: "local_fire_department",
+    iconColor: "text-primary-container",
     title: "Burn the masters onto wax.",
     body: "A xenon lamp blasts each separation onto a thermal master. The MZ790 hisses, the cylinder spins, and the master accepts soy ink in the only places we told it to.",
     meta: "Heat · 0.4 sec · Resolution · 600 dpi",
@@ -20,8 +20,8 @@ const PROCESS_STEPS = [
   {
     n: "03",
     nColor: "text-primary-container",
-    phase: "Phase · III",
-    phaseColor: "text-secondary",
+    icon: "cycle",
+    iconColor: "text-secondary",
     title: "Run the paper through, four times.",
     body: "Each pass lays a single colour. Between passes the paper rests on a drying rack — soy ink takes its time. We change drums by hand and feed the stack with a cotton glove.",
     meta: "Passes · 4 · Drying · 36 hours total",
@@ -29,8 +29,8 @@ const PROCESS_STEPS = [
   {
     n: "04",
     nColor: "text-secondary",
-    phase: "Phase · IV",
-    phaseColor: "text-primary-container",
+    icon: "inventory_2",
+    iconColor: "text-primary-container",
     title: "Bind, stamp, smudge, ship.",
     body: "Saddle-stitched or perfect-bound, depending on the page count. Every cover gets a hand-stamp in our studio's magenta. Every edition gets a number. Every thumbprint stays.",
     meta: "Edition · 50–500 · Stamp · Magenta · Always",
@@ -42,10 +42,10 @@ const RIBBON_PRINTS = [
   { caption: "POSTER · VOID", num: "№02", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Architectural facade study, riso-treated with cobalt overprint" },
   { caption: "PRINT 023 · STATIC", num: "№03", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
   { caption: "FOLIO 07 · BRUISE", num: "№04", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete interior riso-treated" },
-  { caption: "BOOKLET · MARROW", num: "№05", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop", alt: "Fashion editorial portrait riso-treated" },
+  { caption: "BOOKLET · MARROW", num: "№05", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Fashion editorial portrait riso-treated" },
   { caption: "ZINE 18 · KIN", num: "№06", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Architectural minimal interior riso-treated" },
   { caption: "POSTER · MOTH", num: "№07", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
-  { caption: "PRINT 041 · QUIET", num: "№08", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "Architectural archway riso-treated" },
+  { caption: "PRINT 041 · QUIET", num: "№08", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural archway riso-treated" },
   { caption: "FOLIO 12 · CINDER", num: "№09", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
   { caption: "ZINE 22 · PILE", num: "№10", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Marble vestibule architectural detail riso-treated" },
 ];
@@ -224,23 +224,33 @@ export default function T90RisographPrint() {
         </header>
 
         <main className="max-w-screen-2xl mx-auto px-margin-site">
-          {/* Hero Section */}
+          {/* Hero Section — bigger, punchier, more contrast */}
           <section className="py-stack-lg flex flex-col md:flex-row items-center gap-stack-lg border-b-2 border-on-surface">
-            <div className="w-full md:w-1/2 relative group">
-              <div className="absolute inset-0 bg-secondary translate-x-2 translate-y-2 rough-border"></div>
+            <div className="w-full md:w-5/12 relative group">
+              <div className="absolute inset-0 bg-secondary translate-x-3 translate-y-3 rough-border"></div>
               <img alt="Risograph style illustration of a lung paper flower with misaligned cyan and magenta fills and thick black outlines" className="w-full h-auto object-cover aspect-square rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4p_Coj6RcCRC5vC2WfbcUF_gG-LO6plqRLd-DwDaoWuTMOy3FBdPweARjpqX7GeaxZ3MLijcWJArRMnvIzXZgRpmQwhb3BEan2iLpqw-mNAR0npFS639144cxZqTeFgynkYUlKsAHE2-F4nJK6uMYEA0H4coJ-_KwSRpyGOHGQvmngbkrLQs13EL0esnZGJAPtK83bIiT8r7ycNao0ST-xR1xvDr7UeZpyHlg2vogrpcP6osue4rksEw9rNgMXhtVrFGARXeW6O8" />
             </div>
-            <div className="w-full md:w-1/2 flex flex-col gap-stack-md">
-              <h1 className="font-display-xl text-on-surface leading-none relative">
-                <span className="absolute text-secondary translate-x-1 translate-y-1 z-0">Small books. Loud colors.</span>
-                <span className="relative z-10 text-primary-container multiply-blend">Small books. Loud colors.</span>
+            <div className="w-full md:w-7/12 flex flex-col gap-stack-md">
+              <span className="font-['Space_Grotesk'] uppercase tracking-[0.4em] text-xs text-secondary font-bold flex items-center gap-3">
+                <span className="w-10 h-px bg-on-surface"></span>
+                Independent · Hand-printed · MMXVII
+              </span>
+              <h1 className="font-display-xl text-on-surface leading-[0.95] relative tracking-tighter text-[44px] sm:text-[56px] md:text-[68px] lg:text-[88px] xl:text-[104px]">
+                <span aria-hidden="true" className="absolute inset-0 text-secondary translate-x-[4px] translate-y-[4px] md:translate-x-[6px] md:translate-y-[6px] z-0"><span className="block whitespace-nowrap">Small books.</span><span className="block whitespace-nowrap">Loud colors.</span></span>
+                <span aria-hidden="true" className="absolute inset-0 text-primary translate-x-[2px] translate-y-[2px] z-[1] opacity-30"><span className="block whitespace-nowrap">Small books.</span><span className="block whitespace-nowrap">Loud colors.</span></span>
+                <span className="relative z-10 text-primary-container multiply-blend"><span className="block whitespace-nowrap">Small books.</span><span className="block whitespace-nowrap">Loud colors.</span></span>
               </h1>
-              <p className="font-body-lg text-on-surface-variant max-w-lg border-l-4 border-primary-container pl-4">
+              <p className="font-body-lg text-on-surface max-w-xl border-l-4 border-primary-container pl-5 text-xl md:text-2xl leading-snug">
                 An independent publishing house dedicated to the tactile, the unrefined, and the intentionally misregistered. We print analog artifacts for a digital world.
               </p>
-              <a className="inline-block bg-primary-container text-on-primary font-caption uppercase border-2 border-on-surface py-3 px-6 w-max misregister-hover relative group" href="#">
-                <span className="relative z-10 font-bold tracking-widest">Shop the catalogue</span>
-              </a>
+              <div className="flex flex-wrap items-center gap-4 mt-2">
+                <a className="inline-block bg-primary-container text-on-primary font-caption uppercase border-2 border-on-surface py-3.5 px-7 w-max misregister-hover relative group shadow-[4px_4px_0_0_#1f1b0f]" href="#">
+                  <span className="relative z-10 font-bold tracking-widest">Shop the catalogue</span>
+                </a>
+                <a className="inline-block bg-transparent text-on-surface font-caption uppercase border-2 border-on-surface py-3.5 px-7 w-max misregister-hover relative group hover:bg-secondary hover:text-on-secondary" href="#">
+                  <span className="relative z-10 font-bold tracking-widest">Reading room</span>
+                </a>
+              </div>
             </div>
           </section>
 
@@ -287,17 +297,160 @@ export default function T90RisographPrint() {
             </div>
           </section>
 
-          {/* About Section */}
-          <section className="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter">
+          {/* Specimens Section — content #4 (NEW) — image + editorial */}
+          <section className="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
+            <div className="md:col-span-7 flex flex-col gap-stack-sm md:pr-stack-md order-2 md:order-1 md:justify-between md:h-full">
+              <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-secondary font-bold">Detail · 02 — Specimens</span>
+              <h2 className="font-headline-lg text-on-surface">Four inks. Two papers. No exceptions.</h2>
+              <p className="font-body-md text-on-surface-variant max-w-xl">
+                We've stocked the same shortlist since 2017. Two papers that drink soy ink and don't smudge in transit. Four colours that argue with each other beautifully. Anything else and the registration starts lying.
+              </p>
+              <ul className="grid grid-cols-2 gap-3 mt-stack-sm m-0 p-0 list-none">
+                <li className="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+                  <span className="w-full h-6 bg-primary-container rough-border"></span>
+                  <span className="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 01</span>
+                  <span className="font-['Newsreader'] italic text-base text-on-surface">Magenta · #FF5CA8</span>
+                  <span className="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">House signature</span>
+                </li>
+                <li className="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+                  <span className="w-full h-6 bg-secondary rough-border"></span>
+                  <span className="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 02</span>
+                  <span className="font-['Newsreader'] italic text-base text-on-surface">Cobalt · #305CAC</span>
+                  <span className="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Skies, shadow, sleep</span>
+                </li>
+                <li className="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+                  <span className="w-full h-6 bg-[#fff200] rough-border"></span>
+                  <span className="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 03</span>
+                  <span className="font-['Newsreader'] italic text-base text-on-surface">Fluo Yellow · #FFF200</span>
+                  <span className="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Use sparingly · burns the eye</span>
+                </li>
+                <li className="rough-border bg-surface-container-lowest p-4 flex flex-col gap-1.5">
+                  <span className="w-full h-6 bg-on-surface rough-border"></span>
+                  <span className="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface mt-2">Ink · 04</span>
+                  <span className="font-['Newsreader'] italic text-base text-on-surface">Black · #1F1B0F</span>
+                  <span className="font-['Space_Grotesk'] text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">Lines, type, weight</span>
+                </li>
+              </ul>
+              <div className="grid grid-cols-2 gap-3 mt-stack-sm border-t-2 border-on-surface border-dotted pt-4 font-['Space_Grotesk'] text-xs">
+                <div className="flex flex-col gap-0.5">
+                  <span className="uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Cover stock</span>
+                  <span className="font-['Newsreader'] italic text-on-surface">Mohawk Superfine · 80lb</span>
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <span className="uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">Interior stock</span>
+                  <span className="font-['Newsreader'] italic text-on-surface">Munken Pure · 90gsm</span>
+                </div>
+              </div>
+
+              {/* Press receipts ledger — pins to bottom of column to match image */}
+              <div className="rough-border bg-surface-container-low p-stack-sm flex flex-col gap-3">
+                <div className="flex items-baseline justify-between gap-3 border-b-2 border-on-surface border-dotted pb-2">
+                  <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Press receipts · 2024</span>
+                  <span className="font-['Space_Grotesk'] uppercase tracking-widest text-[10px] text-on-surface-variant tabular-nums">YTD · 142 runs</span>
+                </div>
+                <ul className="font-['Space_Grotesk'] text-xs text-on-surface flex flex-col gap-1.5 m-0 p-0 list-none">
+                  <li className="flex items-baseline justify-between gap-3 border-b border-on-surface border-dotted pb-1.5">
+                    <span className="font-['Newsreader'] italic">Magenta · drum 04</span>
+                    <span className="tabular-nums text-on-surface-variant">3,820 sheets · 2 reloads</span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3 border-b border-on-surface border-dotted pb-1.5">
+                    <span className="font-['Newsreader'] italic">Cobalt · drum 02</span>
+                    <span className="tabular-nums text-on-surface-variant">2,914 sheets · 1 reload</span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3 border-b border-on-surface border-dotted pb-1.5">
+                    <span className="font-['Newsreader'] italic">Fluo Yellow · drum 07</span>
+                    <span className="tabular-nums text-on-surface-variant">684 sheets · 0 reloads</span>
+                  </li>
+                  <li className="flex items-baseline justify-between gap-3">
+                    <span className="font-['Newsreader'] italic">Black · drum 01</span>
+                    <span className="tabular-nums text-on-surface-variant">5,201 sheets · 3 reloads</span>
+                  </li>
+                </ul>
+                <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface-variant pt-1">Each reload is hand-mixed · weighed · stamped on the floor ledger.</span>
+              </div>
+            </div>
+            <div className="md:col-span-5 relative group order-1 md:order-2">
+              <div className="absolute inset-0 bg-primary-container translate-x-[4px] translate-y-[4px] rough-border" aria-hidden="true"></div>
+              <img alt="Stack of risograph ink drums and folded paper signatures arranged on a press-floor table, magenta and cobalt swatches mid-page" className="w-full h-full object-cover aspect-[4/5] rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&q=85&auto=format&fit=crop" loading="lazy" decoding="async" />
+              <span className="absolute top-3 left-3 z-20 font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface bg-primary-container px-2 py-1 rough-border">Plate · I · Specimens</span>
+            </div>
+          </section>
+
+          {/* About Section — top / middle / bottom rhythm matching Diary */}
+          <section className="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
             <div className="md:col-span-5 relative group">
               <div className="absolute inset-0 bg-primary-container translate-x-[-4px] translate-y-[4px] rough-border"></div>
               <img alt="Portrait of editor" className="w-full h-full object-cover aspect-[4/5] rough-border relative z-10 multiply-blend grayscale contrast-150" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQJDBD0mXiblSnn4Q6aFqUsO7H9g8t1AQ4D497hLaH7ulEqdkU7qKDa5wMqu3wkPbevFxRYhrh273y1rg586VzKlpXkhqQRGP7J9y9Ix2hIkFkCQIxCRAsyBe3LKHopaE6mpqpXhJngFUVPygtclFg7kka7eJAKcR3MC4ei1M6dJEWWAUXqt_ULRdanJmiDOyUBnBe84ojFVsxfaIuf0mz0ChslejvU7FxpdZJF96pSQ5YRi5N4CMqvslcEqSDZtjqO2HDyUklG-Y" />
             </div>
-            <div className="md:col-span-7 flex flex-col justify-center gap-stack-sm md:pl-stack-md">
-              <h2 className="font-display-xl text-on-surface">Misregistration is a feature.</h2>
-              <div className="font-body-lg text-on-surface-variant flex flex-col gap-4">
-                <p>Founded in a damp basement with a refurbished MZ790, Paper Lung Press believes in the physical artifact. We publish works that are too odd for the mainstream, too messy for digital perfection.</p>
-                <p>Every book is printed, folded, and bound by hand. If your copy has an ink smudge on page 42, consider it a signature from the machine.</p>
+            <div className="md:col-span-7 flex flex-col gap-stack-sm md:pl-stack-md md:justify-between">
+              <div className="flex flex-col gap-4">
+                <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-secondary font-bold flex items-center gap-3">
+                  <span className="w-8 h-px bg-on-surface"></span>
+                  Detail · 01 — Doctrine
+                </span>
+                <h2 className="font-headline-lg text-on-surface">Misregistration is a feature.</h2>
+              </div>
+              <div className="font-['Newsreader'] italic text-on-surface text-xl md:text-2xl leading-snug flex flex-col gap-stack-sm">
+                <p>
+                  <span className="not-italic font-display-xl text-5xl float-left mr-3 leading-[0.8] text-primary-container riso-shift-sm">F</span>ounded in a damp basement with a refurbished MZ790, Paper Lung Press believes in the physical artifact. We publish works that are too odd for the mainstream, too messy for digital perfection.
+                </p>
+                <p className="not-italic font-body-md text-on-surface-variant text-base">
+                  Every book is printed, folded, and bound by hand. If your copy has an ink smudge on page 42, consider it a signature from the machine.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-stack-sm border-t-2 border-on-surface border-dashed pt-stack-sm mt-2">
+                <div className="flex flex-col gap-0.5 font-['Space_Grotesk'] text-xs">
+                  <span className="uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Founded · MMXVII</span>
+                  <span className="font-['Newsreader'] italic text-on-surface text-base">Basement &middot; MZ790 &middot; one editor &middot; one drum</span>
+                </div>
+                <a className="ml-auto inline-block bg-primary-container text-on-primary font-caption uppercase border-2 border-on-surface py-2.5 px-5 misregister-hover relative shadow-[3px_3px_0_0_#1f1b0f]" href="#">
+                  <span className="font-bold tracking-widest">Read the full doctrine</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Studio Diary — content #5 (NEW) — letter from the editor with image right */}
+          <section className="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
+            <div className="md:col-span-7 flex flex-col gap-stack-sm md:pr-stack-md md:justify-between">
+              <div className="flex flex-col gap-4">
+                <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-primary-container font-bold flex items-center gap-3">
+                  <span className="w-8 h-px bg-on-surface"></span>
+                  Detail · 03 — Letter from the editor
+                </span>
+                <h2 className="font-headline-lg text-on-surface">A note, smudged, mailed twice a year.</h2>
+              </div>
+              <div className="font-['Newsreader'] italic text-on-surface text-xl md:text-2xl leading-snug flex flex-col gap-stack-sm">
+                <p>
+                  <span className="not-italic font-display-xl text-5xl float-left mr-3 leading-[0.8] text-primary-container riso-shift-sm">D</span>ear reader — the press is loud again. We've spent the spring re-stocking magenta, arguing about a fluorescent yellow, and deciding which two zines deserve a second printing. The diary is short this issue.
+                </p>
+                <p className="not-italic font-body-md text-on-surface-variant text-base">
+                  Every quarter we send a kraft envelope to subscribers — a single signature, hand-stamped, soy-stained, no plastic. Inside: a riso print, a poem we mistyped, and a paragraph about whatever broke this month on the press floor.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-stack-sm border-t-2 border-on-surface border-dashed pt-stack-sm mt-2">
+                <div className="flex flex-col gap-0.5 font-['Space_Grotesk'] text-xs">
+                  <span className="uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">Issue 014 · Spring MMXXV</span>
+                  <span className="font-['Newsreader'] italic text-on-surface text-base">Mailed · 412 envelopes · 41 countries</span>
+                </div>
+                <a className="ml-auto inline-block bg-secondary text-on-secondary font-caption uppercase border-2 border-on-surface py-2.5 px-5 misregister-hover relative shadow-[3px_3px_0_0_#1f1b0f]" href="#">
+                  <span className="font-bold tracking-widest">Subscribe by post</span>
+                </a>
+              </div>
+            </div>
+            <div className="md:col-span-5 relative group flex flex-col gap-gutter">
+              <div className="relative flex-1">
+                <div className="absolute inset-0 bg-secondary translate-x-[-4px] translate-y-[4px] rough-border" aria-hidden="true"></div>
+                <img alt="Hand-folded zine signatures stacked on a wooden bench, magenta envelope corner peeking out" className="w-full h-full object-cover aspect-[4/5] rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1503694978374-8a2fa686963a?w=1200&q=85&auto=format&fit=crop" loading="lazy" decoding="async" />
+                <span className="absolute top-3 right-3 z-20 font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface bg-secondary text-on-secondary px-2 py-1 rough-border">Diary · 014</span>
+              </div>
+              <div className="rough-border bg-surface-container-low p-4 flex flex-col gap-2 font-['Space_Grotesk']">
+                <span className="uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Postmark trail</span>
+                <ul className="text-xs text-on-surface-variant flex flex-col gap-1 m-0 p-0 list-none">
+                  <li className="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1"><span className="font-['Newsreader'] italic">012 · Autumn</span><span className="tabular-nums">387 mailed</span></li>
+                  <li className="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1"><span className="font-['Newsreader'] italic">013 · Winter</span><span className="tabular-nums">404 mailed</span></li>
+                  <li className="flex justify-between gap-3"><span className="font-['Newsreader'] italic text-primary-container">014 · Spring</span><span className="tabular-nums text-primary-container">412 mailed</span></li>
+                </ul>
               </div>
             </div>
           </section>
@@ -314,9 +467,9 @@ export default function T90RisographPrint() {
             <ol className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
               {PROCESS_STEPS.map((s) => (
                 <li key={s.n} className="rough-border bg-surface-container-low p-stack-md flex flex-col gap-4 misregister-hover relative">
-                  <div className="flex items-baseline gap-4">
+                  <div className="flex items-start justify-between gap-4">
                     <span className={`font-display-xl text-[120px] leading-none ${s.nColor} riso-shift`}>{s.n}</span>
-                    <span className={`font-['Space_Grotesk'] uppercase tracking-widest text-xs ${s.phaseColor} border-l-2 border-on-surface pl-3 self-end pb-3`}>{s.phase}</span>
+                    <span className={`material-symbols-outlined ${s.iconColor} text-5xl md:text-6xl leading-none mt-3 select-none`} aria-hidden="true" style={{ fontVariationSettings: "'wght' 300, 'FILL' 0" }}>{s.icon}</span>
                   </div>
                   <h3 className="font-['Newsreader'] italic text-3xl text-on-surface leading-tight">{s.title}</h3>
                   <p className="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant leading-relaxed">{s.body}</p>
@@ -383,30 +536,71 @@ export default function T90RisographPrint() {
 
         {/* FAQ Section — content #3 */}
         <main className="max-w-screen-2xl mx-auto px-margin-site">
-          <section className="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter">
-            <div className="md:col-span-4 flex flex-col gap-4">
-              <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-secondary font-bold">Detail · 07 — Field Manual</span>
-              <h2 className="font-headline-lg text-on-surface">Plain answers, ink-stained.</h2>
-              <p className="font-body-md italic text-on-surface-variant">Six questions we get every Tuesday. The answers haven't changed since the basement days.</p>
-              <div className="hidden md:flex flex-col gap-2 mt-stack-md border-t-2 border-on-surface border-dashed pt-4">
+          <section className="py-stack-lg border-b-2 border-on-surface grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-x-24 lg:gap-x-32">
+            <div className="md:col-span-4 flex flex-col gap-stack-sm h-full md:justify-between">
+              <div className="flex flex-col gap-4">
+                <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-xs text-secondary font-bold">Detail · 07 — Field Manual</span>
+                <h2 className="font-headline-lg text-on-surface">Plain answers, ink-stained.</h2>
+                <p className="font-body-md italic text-on-surface-variant">Six questions we get every Tuesday. The answers haven't changed since the basement days.</p>
+              </div>
+
+              {/* Press-floor study image — pins middle of column */}
+              <figure className="relative group hidden md:block">
+                <div className="absolute inset-0 bg-secondary translate-x-[3px] translate-y-[3px] rough-border" aria-hidden="true"></div>
+                <img alt="Risograph drum and ink master mid-press, treated with magenta-cobalt overprint" className="w-full h-auto object-cover aspect-[4/3] rough-border relative z-10 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=900&q=85&auto=format&fit=crop" loading="lazy" decoding="async" />
+                <figcaption className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface bg-surface-container-lowest/85 px-2 py-1 rough-border">
+                  <span>Press · MZ790</span>
+                  <span className="text-primary-container">Plate · II</span>
+                </figcaption>
+              </figure>
+
+              {/* Reading room hours card */}
+              <div className="hidden md:flex flex-col gap-2 border-t-2 border-on-surface border-dashed pt-4">
                 <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-primary-container">Reading room hours</span>
                 <span className="font-['Newsreader'] italic text-on-surface text-lg">Wed–Sat · 14h00 → 19h00</span>
                 <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-on-surface-variant">Or by knock · side alley · #4</span>
               </div>
+
+              {/* What we don't print — pins bottom of column */}
+              <div className="hidden md:flex flex-col gap-3 rough-border bg-surface-container-low p-5">
+                <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">What we don't print</span>
+                <ul className="font-['Space_Grotesk'] text-xs tracking-wide text-on-surface-variant flex flex-col gap-1.5 m-0 p-0 list-none">
+                  <li className="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1.5"><span>Wedding invitations</span><span className="text-primary-container">— No.</span></li>
+                  <li className="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1.5"><span>Restaurant coupons</span><span className="text-primary-container">— No.</span></li>
+                  <li className="flex justify-between gap-3 border-b border-on-surface border-dotted pb-1.5"><span>Crypto whitepapers</span><span className="text-primary-container">— Hard no.</span></li>
+                  <li className="flex justify-between gap-3"><span>Anything &gt; 500 copies</span><span className="text-secondary">— Ask.</span></li>
+                </ul>
+              </div>
             </div>
-            <div className="md:col-span-8 flex flex-col">
-              {RISO_FAQ.map((f, i) => (
-                <details key={f.i} open={f.open} className={`riso-faq ${i === 0 ? "border-t-2" : ""} border-b-2 border-on-surface py-4 group`}>
-                  <summary className="flex items-center justify-between gap-4 cursor-pointer">
-                    <span className="flex items-baseline gap-4">
-                      <span className={`font-['Space_Grotesk'] uppercase tracking-widest text-xs ${f.color}`}>{f.i}</span>
-                      <span className="font-['Newsreader'] italic text-2xl md:text-3xl text-on-surface">{f.q}</span>
-                    </span>
-                    <span className={`riso-plus font-display-xl ${f.color} text-3xl leading-none`}>+</span>
-                  </summary>
-                  <p className="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant mt-4 leading-relaxed pl-[4.5rem]">{f.a}</p>
-                </details>
-              ))}
+            <div className="md:col-span-8 flex flex-col gap-stack-sm h-full md:justify-between">
+              <div className="flex flex-col">
+                {RISO_FAQ.map((f, i) => (
+                  <details key={f.i} open={f.open} className={`riso-faq ${i === 0 ? "border-t-2" : ""} border-b-2 border-on-surface py-4 group`}>
+                    <summary className="flex items-center justify-between gap-4 cursor-pointer">
+                      <span className="flex items-baseline gap-4">
+                        <span className={`font-['Space_Grotesk'] uppercase tracking-widest text-xs ${f.color}`}>{f.i}</span>
+                        <span className="font-['Newsreader'] italic text-2xl md:text-3xl text-on-surface">{f.q}</span>
+                      </span>
+                      <span className={`riso-plus font-display-xl ${f.color} text-3xl leading-none`}>+</span>
+                    </summary>
+                    <p className="font-['Space_Grotesk'] text-sm tracking-wide text-on-surface-variant mt-4 leading-relaxed pl-[4.5rem]">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+
+              {/* Send a project — fills bottom of right column */}
+              <div className="rough-border bg-surface-container-low p-stack-md flex flex-col md:flex-row md:items-center gap-stack-sm shadow-[6px_6px_0_0_#1f1b0f] mt-stack-sm">
+                <div className="flex flex-col gap-2 flex-1">
+                  <span className="font-['Space_Grotesk'] uppercase tracking-[0.3em] text-[10px] text-primary-container font-bold">Still curious?</span>
+                  <h3 className="font-['Newsreader'] italic text-2xl md:text-3xl text-on-surface leading-tight">Send us a project, a sentence, a smudge.</h3>
+                  <p className="font-['Space_Grotesk'] text-sm text-on-surface-variant leading-relaxed max-w-md">We answer Mondays and Thursdays. Attach a PDF or just describe what's in your head. We'll write back honestly about whether the press is the right tool.</p>
+                </div>
+                <div className="flex flex-col gap-2 md:items-end font-['Space_Grotesk']">
+                  <span className="uppercase tracking-[0.3em] text-[10px] text-secondary font-bold">Direct line</span>
+                  <a href="mailto:press@paperlung.example" className="font-['Newsreader'] italic text-lg text-on-surface hover:text-primary-container transition-colors">press@paperlung</a>
+                  <a className="inline-block bg-primary-container text-on-primary border-2 border-on-surface py-2.5 px-5 misregister-hover w-max font-bold tracking-widest uppercase text-sm shadow-[3px_3px_0_0_#1f1b0f]" href="#">Start a brief</a>
+                </div>
+              </div>
             </div>
           </section>
         </main>

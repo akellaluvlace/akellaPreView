@@ -30,20 +30,20 @@ export default function T92ArtNoveau() {
     {
       numeral: "I", title: "Harvest at Dawn", season: "Mai · Juin · Juillet",
       body: "Before the sun lifts the dew, our cutters take only what is fully open. Twelve fields, hand-shears, no engines in the rows.",
-      img: "https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=900&q=85&auto=format&fit=crop",
-      alt: "Field of jasmine at dawn, Grasse",
+      img: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=900&q=85&auto=format&fit=crop",
+      alt: "Hand-cut bouquet of cream roses, eucalyptus and seasonal blooms — harvest at dawn",
     },
     {
       numeral: "II", title: "Distill in Copper", season: "Atelier No. 02 · Cuivre",
       body: "Slow steam through hand-hammered copper. A six-hour cycle yields the absolute. Volatile. Honest. Never a synthetic top-up.",
-      img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop",
       alt: "Aged copper distillation apparatus with brass apothecary still-life",
     },
     {
       numeral: "III", title: "Compose by Hand", season: "Repos · 90 Jours",
       body: "Each formula rests in oak for ninety days before the cap is set. Twelve trials. One signature. One decanter at a time.",
-      img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop",
-      alt: "Perfumer's workbench with vials and notes",
+      img: "https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?w=900&q=85&auto=format&fit=crop",
+      alt: "Perfumer's bench with hand-bound notebook, mug and vials in soft daylight",
     },
   ];
 
@@ -254,6 +254,76 @@ export default function T92ArtNoveau() {
           {/* Constrained content */}
           <div className="w-full px-4 sm:px-gutter lg:px-margin-page flex flex-col items-center">
 
+          {/* Maisons & Press — featured-in row */}
+          <section className="w-full max-w-7xl mb-32">
+            <div className="text-center mb-10">
+              <span className="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold">Maisons · Presses · Boutiques</span>
+              <h2 className="font-headline-md text-primary italic mt-3">Carried &amp; written about, in equal measure.</h2>
+              <div className="w-16 h-px bg-gold/60 mx-auto mt-4"></div>
+            </div>
+            <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-x-8 gap-y-9 items-center justify-items-center bg-surface-bright/70 botanical-border py-9 px-6">
+              {[
+                { slug: "hermes", name: "Hermès" },
+                { slug: "elsevier", name: "Elsevier" },
+                { slug: "etsy", name: "Etsy" },
+                { slug: "pinterest", name: "Pinterest" },
+                { slug: "instagram", name: "Instagram" },
+                { slug: "medium", name: "Medium" },
+                { slug: "airbnb", name: "Airbnb" },
+              ].map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/8B6F43`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                  <span className="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">{b.name}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Maison Pillars — premium 2x2 cards on faint floral backdrop */}
+          <section className="w-full max-w-7xl mb-32 relative overflow-hidden p-frame-padding md:p-16">
+            <div className="absolute inset-0 -z-10">
+              <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-25" loading="lazy" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(245,235,208,0.92) 0%, rgba(247,242,229,0.94) 100%)" }}></div>
+              <div className="absolute inset-0 an-pattern opacity-10 pointer-events-none" aria-hidden="true"></div>
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, transparent 25%, rgba(247,242,229,0.7) 80%)" }}></div>
+            </div>
+
+            <svg className="absolute top-6 left-1/2 -translate-x-1/2 w-32 h-12 text-gold/60 pointer-events-none" viewBox="0 0 200 60" aria-hidden="true">
+              <path d="M10 50 Q 100 0 190 50" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+              <circle cx="100" cy="22" r="2" fill="currentColor" />
+            </svg>
+
+            <div className="text-center mb-14 md:mb-20 max-w-2xl mx-auto pt-12">
+              <span className="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold">Quatre · Maximes</span>
+              <h2 className="font-headline-xl text-primary italic mt-3">The Maison's Four Maxims.</h2>
+              <div className="w-24 h-1 bg-gold mx-auto mt-6"></div>
+              <p className="font-body-md text-on-surface/70 mt-6 leading-relaxed">Standing principles, kept since the founding ledger of 1899. Each accompanies an essence; each is signed in the perfumer's own hand.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {[
+                { id: "M · I", icon: "local_florist", title: "Naturel · sans synthétique", body: "Every absolute extracted from the field. No synthetic top-up, no isolate masking, no shortcut to volume. If a flower fails its harvest, the run is held until next May.", meta: "Distilled · Grasse" },
+                { id: "M · II", icon: "edit_note", title: "Composé · à la main", body: "Each formula written in the master's leather book — twelve trial flacons, ninety days of oak rest, one final signature before the cap is set. No factory line. No batch shortcut.", meta: "Atelier · ninety days" },
+                { id: "M · III", icon: "recycling", title: "Refillable · à perpetuité", body: "The crystal flacon is yours for life. Send it back at half-volume; we refill, re-seal in beeswax, and return. Cap, stopper and crest-seal restored at no charge. The bottle is the heirloom.", meta: "Service · perpetuum" },
+                { id: "M · IV", icon: "history_edu", title: "Numéroté · signé", body: "Each decanter numbered, signed, and entered in the maison's ledger — twelve hundred annual editions, never more. Provenance is traceable to the row of the field and the day of the cut.", meta: "Édition · 1,200 / an" },
+              ].map(m => (
+                <article key={m.id} className="relative bg-ivory/85 backdrop-blur-sm botanical-border p-7 md:p-9 group hover:bg-ivory transition-colors flex gap-5">
+                  <div className="shrink-0 w-14 h-14 md:w-16 md:h-16 arch border border-gold flex items-center justify-center bg-surface-bright">
+                    <span className="material-symbols-outlined text-gold text-[26px]" style={{ fontVariationSettings: "'FILL' 0" }} aria-hidden="true">{m.icon}</span>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-baseline justify-between gap-3 mb-2 border-b border-gold/30 pb-2">
+                      <h3 className="font-headline-md text-primary italic leading-tight">{m.title}</h3>
+                      <span className="font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/80 shrink-0">{m.id}</span>
+                    </div>
+                    <p className="font-body-md text-on-surface/75 leading-loose">{m.body}</p>
+                    <p className="font-epilogue tracking-[0.25em] uppercase text-[10px] text-gold/70 mt-4">{m.meta}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <section className="w-full max-w-7xl mb-32">
             <div className="text-center mb-16">
               <h2 className="font-headline-xl text-primary italic relative inline-block">
@@ -367,8 +437,8 @@ export default function T92ArtNoveau() {
               <div className="md:col-span-5 flex flex-col gap-6">
                 <div className="relative aspect-[4/5] arch overflow-hidden gold-frame">
                   <div className="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
-                  <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"
-                       alt="Sun-lit atelier interior with vintage glassware"
+                  <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop"
+                       alt="Atelier ceiling cornice and ornament in afternoon light"
                        loading="lazy" decoding="async"
                        className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute bottom-3 left-3 right-3 z-10 bg-ivory/80 px-3 py-1.5 flex items-center justify-between">

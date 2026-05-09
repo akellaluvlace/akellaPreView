@@ -14,7 +14,7 @@ export default function T72HighLuxury() {
     { src: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=1100&auto=format&fit=crop", plate: "Plate · II", tag: "Movement", calibre: "Tourbillon 18", title: "Open Heart", meta: "25 Jewels · 28,800 vph", w: "w-80 md:w-[26rem]", grad: "bg-gradient-to-tr from-luxury-black/90 via-transparent to-luxury-gold/10" },
     { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=900&auto=format&fit=crop", plate: "Plate · III", tag: "Gold", calibre: "Calibre 18", title: "Rose 18k", meta: "Hand-finished case", w: "w-64 md:w-72", grad: "bg-gradient-to-t from-luxury-black via-transparent to-transparent" },
     { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1100&auto=format&fit=crop", plate: "Plate · IV", tag: "Aviator", calibre: "Calibre 96", title: "Sky · 44mm", meta: "Chronograph · matte", w: "w-80 md:w-96", grad: "bg-gradient-to-bl from-luxury-black/80 via-transparent to-luxury-charcoal/60" },
-    { src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop", plate: "Plate · V", tag: "Tools", calibre: "Of the Bench", title: "Brass · 1924", meta: "Heritage atelier", w: "w-64 md:w-72", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15" },
+    { src: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=900&auto=format&fit=crop", plate: "Plate · V", tag: "Tools", calibre: "Of the Bench", title: "Brass · 1924", meta: "Heritage atelier", w: "w-64 md:w-72", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15" },
     { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1100&auto=format&fit=crop", plate: "Plate · VI", tag: "Workshop", calibre: "Salle · No. 02", title: "Geneva", meta: "14 master watchmakers", w: "w-80 md:w-[26rem]", grad: "bg-gradient-to-r from-luxury-black/85 via-luxury-black/30 to-transparent" },
     { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1000&auto=format&fit=crop", plate: "Plate · VII", tag: "Hall", calibre: "Heritage", title: "MMXXIV", meta: "Centennial vault", w: "w-72 md:w-80", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/40 to-transparent" },
   ];
@@ -318,7 +318,10 @@ export default function T72HighLuxury() {
               <p className="font-sub italic text-gray-400 mt-4 max-w-xl mx-auto">From a single bench in Geneva, 1924, to a vault of 96 calibres a hundred years on.</p>
             </div>
             <ol className="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
-              <div aria-hidden="true" className="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-gradient-to-r from-luxury-gold/0 via-luxury-gold/60 to-luxury-gold/0"></div>
+              {/* Solid connector line — milestones use items-center so circles sit at column
+                  centers (10/30/50/70/90% of the row); left-[10%] right-[10%] spans circle 1
+                  to circle 5 with a solid bg-luxury-gold/40 (no gradient fade). */}
+              <div aria-hidden="true" className="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-luxury-gold/40"></div>
               {milestones.map((m, i) => (
                 <li key={i} className="relative flex flex-col items-center text-center reveal-on-scroll" style={i ? { transitionDelay: `${i * 100}ms` } : undefined}>
                   <div className={`w-14 h-14 rounded-full border ${m.border} ${m.isCurrent ? "border-2 bg-luxury-gold/10 gold-pulse" : "bg-luxury-black"} flex items-center justify-center text-2xl ${m.numColor} relative z-10`}>
@@ -330,6 +333,102 @@ export default function T72HighLuxury() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        {/* Featured in — press wall with simpleicons-rendered brand marks. Slugs HEAD-checked
+            before commit (theguardian/telegraph/substack/medium all 200). */}
+        <section className="bg-luxury-black py-20 md:py-28 border-y border-luxury-gold/15 relative">
+          <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none"></div>
+          <div className="container mx-auto px-6 relative">
+            <div className="text-center mb-14">
+              <span className="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Featured in · V½</span>
+              <h2 className="font-header text-2xl md:text-4xl tracking-widest uppercase text-luxury-white">Held in print, abroad.</h2>
+              <p className="font-sub italic text-gray-400 mt-4 max-w-xl mx-auto">Press mentions across editorial titles. Numbered editions are placed by appointment; press inquiries route through the concierge.</p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-x-16">
+              {[
+                { name: "The Guardian", slug: "theguardian", date: "10 · 2024" },
+                { name: "Telegraph",    slug: "telegraph",   date: "07 · 2024" },
+                { name: "Substack",     slug: "substack",    date: "05 · 2024" },
+                { name: "Medium",       slug: "medium",      date: "02 · 2024" },
+              ].map((p) => (
+                <span key={p.slug} className="group inline-flex items-center gap-4 text-gray-400 hover:text-luxury-gold transition-colors py-2">
+                  <img src={`https://cdn.simpleicons.org/${p.slug}/c5a059`} alt={`${p.name} logo`} width="22" height="22" loading="lazy" decoding="async" className="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <span className="flex flex-col leading-tight">
+                    <span className="font-sub italic text-lg md:text-xl">{p.name}</span>
+                    <span className="font-body text-[10px] tracking-[0.3em] uppercase text-gray-600">{p.date}</span>
+                  </span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Provenance Compact — premium 4-card section between Featured-in and References */}
+        <section className="bg-luxury-charcoal py-24 md:py-32 border-b border-luxury-gold/20 relative">
+          <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none"></div>
+          <div className="container mx-auto px-6 relative">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 pb-6 border-b border-luxury-gold/15">
+              <div className="max-w-xl">
+                <span className="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Provenance · V¾</span>
+                <h2 className="font-header text-3xl md:text-5xl tracking-widest uppercase text-luxury-white leading-tight">Four standing terms, signed at delivery.</h2>
+              </div>
+              <p className="font-sub italic text-gray-400 max-w-md">Every numbered edition leaves Geneva with the same compact. Re-signed by the next custodian when the piece passes hands.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-luxury-gold/15">
+              {[
+                {
+                  roman: "I",
+                  tag: "Compact · I",
+                  title: "Geneva-only service.",
+                  body: "Movements return to the Geneva atelier on a fifteen-year cycle. Disassembly, ultrasonic cleaning, regulation — performed by the same watchmakers who built the calibre. Cost is sealed at allocation.",
+                  foot: "15 yrs · GENEVA",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />,
+                },
+                {
+                  roman: "II",
+                  tag: "Compact · II",
+                  title: "Hand-bound dossier.",
+                  body: "Every piece ships with a leather-bound book — original drawings, signed assembly card, the watchmaker's regulation log, and a short history of the calibre. Re-stamped at hand-over, never re-issued.",
+                  foot: "24 pp · SIGNED",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />,
+                },
+                {
+                  roman: "III",
+                  tag: "Compact · III",
+                  title: "Boutique appointment.",
+                  body: "An unmarked door on Rue du Rhône. Once allocated, you receive a year's standing invitation to the boutique. Coffee on the long table; the loupe is yours; the watchmaker closes the day with you.",
+                  foot: "BY APPOINTMENT",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />,
+                },
+                {
+                  roman: "IV",
+                  tag: "Compact · IV",
+                  title: "Generational custody.",
+                  body: "Your name in the registry remains permanent. When the piece passes to the next custodian, we update the dossier in person — at no cost — and re-tune the calibre to the new wrist. No re-issue fee.",
+                  foot: "NO RE-ISSUE FEE",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />,
+                },
+              ].map((c) => (
+                <article key={c.roman} className="bg-luxury-charcoal p-8 md:p-10 flex flex-col gap-5 hover:bg-luxury-black transition-colors min-h-[300px]">
+                  <div className="flex items-center justify-between">
+                    <span className="w-12 h-12 border border-luxury-gold/40 flex items-center justify-center text-luxury-gold">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">{c.icon}</svg>
+                    </span>
+                    <span className="font-header text-2xl text-luxury-gold/70 tabular-nums tracking-widest">{c.roman}</span>
+                  </div>
+                  <span className="font-body text-[10px] tracking-[0.4em] uppercase text-luxury-gold/70">{c.tag}</span>
+                  <h3 className="font-header text-lg md:text-xl tracking-widest uppercase text-luxury-white leading-tight">{c.title}</h3>
+                  <p className="font-body text-gray-400 leading-loose text-sm tracking-wide">{c.body}</p>
+                  <div className="mt-auto pt-5 border-t border-luxury-gold/15 flex items-center justify-between">
+                    <span className="font-header text-luxury-gold text-[10px] tracking-[0.4em] uppercase tabular-nums">{c.foot}</span>
+                    <span className="font-body text-[10px] tracking-widest uppercase text-gray-600">In effect</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="text-center mt-12 font-body text-[10px] tracking-[0.4em] uppercase text-gray-500">Signed at delivery · held in registry · MMXXIV — present</p>
           </div>
         </section>
 
@@ -400,23 +499,28 @@ export default function T72HighLuxury() {
 
         {/* Concierge FAQ */}
         <section className="bg-luxury-charcoal py-24 md:py-32 border-y border-luxury-gold/20 relative">
-          <div className="container mx-auto px-6 max-w-5xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-              <aside className="lg:col-span-4 reveal-on-scroll">
+          <div className="container mx-auto px-6 max-w-7xl">
+            {/* Container widened max-w-5xl → 7xl so left aside sits further left; right column gets col-span-9 + min-w-0 to prevent FAQ row overflow. */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+              {/* Left aside is a flex-col so the trailing meta block + button can be pushed to the column bottom (mt-auto), making the column visually stretch to match FAQ height. */}
+              <aside className="lg:col-span-3 reveal-on-scroll flex flex-col">
                 <span className="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Concierge · VII</span>
-                <h2 className="font-header text-3xl md:text-5xl tracking-widest uppercase text-luxury-white leading-tight">Quietly,<br />before the appointment.</h2>
-                <p className="font-sub italic text-gray-400 mt-6">Replied to in person within forty-eight hours. The boutique does not list a number; the concierge does.</p>
-                <a className="mt-10 inline-flex items-center gap-3 text-luxury-white text-xs tracking-[0.3em] uppercase border border-luxury-gold/40 px-7 py-3.5 hover:border-luxury-gold hover:text-luxury-gold transition-all" href="#">Request the brief →</a>
+                <h2 className="font-header text-xl md:text-2xl tracking-widest uppercase text-luxury-white leading-[1.25]">Quietly,<br />before the appointment.</h2>
+                <p className="font-sub italic text-gray-400 mt-5 text-sm leading-relaxed">Replied to in person within forty-eight hours. The boutique does not list a number; the concierge does.</p>
+                <a className="mt-8 inline-flex items-center gap-3 text-luxury-white text-[10px] tracking-[0.3em] uppercase border border-luxury-gold/40 px-6 py-3 hover:border-luxury-gold hover:text-luxury-gold transition-all self-start" href="#">Request the brief →</a>
+                <div className="mt-auto pt-10 border-t border-luxury-gold/15 hidden lg:block">
+                  <p className="font-body text-[10px] tracking-[0.35em] uppercase text-gray-500 leading-loose">Geneva · 14:00 — 18:00<br/>By appointment, weekdays</p>
+                </div>
               </aside>
-              <div className="lg:col-span-8 divide-y divide-luxury-gold/20 border-y border-luxury-gold/20">
+              <div className="lg:col-span-9 min-w-0 divide-y divide-luxury-gold/20 border-y border-luxury-gold/20">
                 {luxFaq.map((f, i) => (
-                  <details key={i} className="lux-faq group p-5 md:p-7" open={f.open}>
-                    <summary className="flex items-center gap-6">
-                      <span className="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">{f.i}</span>
-                      <h3 className="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">{f.q}</h3>
-                      <span className="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                  <details key={i} className="lux-faq group p-4 md:p-6" open={f.open}>
+                    <summary className="flex items-center gap-5">
+                      <span className="font-header text-luxury-gold tabular-nums text-sm shrink-0 w-10">{f.i}</span>
+                      <h3 className="flex-1 min-w-0 font-header text-luxury-white tracking-widest text-xs md:text-sm uppercase break-words">{f.q}</h3>
+                      <span className="lux-glyph text-luxury-gold text-2xl shrink-0 leading-none font-thin">+</span>
                     </summary>
-                    <p className="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">{f.a}</p>
+                    <p className="font-body text-gray-400 leading-loose mt-3 pl-14 text-sm tracking-wide">{f.a}</p>
                   </details>
                 ))}
               </div>
@@ -424,18 +528,48 @@ export default function T72HighLuxury() {
           </div>
         </section>
 
-        <section className="bg-luxury-white py-24 md:py-32 border-t border-luxury-gold">
-          <div className="max-w-2xl mx-auto px-6 text-center reveal-on-scroll">
-            <h3 className="font-header text-luxury-black text-2xl md:text-3xl tracking-widest mb-4">The Inner Circle</h3>
-            <p className="font-body text-gray-500 text-xs tracking-widest mb-10">Access to limited editions and private viewings.</p>
-            <form className="flex flex-col md:flex-row gap-4 border-b border-luxury-black pb-2">
-              <input type="email" placeholder="ENTER YOUR EMAIL" className="bg-transparent border-none outline-none text-luxury-black placeholder-gray-400 text-xs tracking-widest w-full text-center md:text-left uppercase p-2" />
-              <button type="submit" className="text-luxury-black font-header text-xs tracking-widest uppercase hover:text-luxury-gold transition-colors whitespace-nowrap">Request Access</button>
+        {/* Inner Circle — premium dark scene with luxury watch image background, gold accents */}
+        <section className="relative py-32 md:py-48 border-y border-luxury-gold overflow-hidden">
+          <img
+            alt="Mechanical watch macro — Inner Circle backdrop"
+            className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale"
+            src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1920&auto=format&fit=crop"
+            loading="lazy" decoding="async"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-luxury-black via-luxury-black/85 to-luxury-black"></div>
+          <div className="absolute inset-0 bg-noise opacity-25 pointer-events-none"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-luxury-gold/60"></div>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-16 bg-luxury-gold/60"></div>
+
+          <div className="relative max-w-3xl mx-auto px-6 text-center reveal-on-scroll">
+            <span className="inline-flex items-center gap-3 mb-8 font-body text-[10px] md:text-xs tracking-[0.4em] uppercase text-luxury-gold">
+              <span className="w-8 h-px bg-luxury-gold/60"></span>
+              By Invitation
+              <span className="w-8 h-px bg-luxury-gold/60"></span>
+            </span>
+            <h3 className="font-header text-luxury-white text-3xl md:text-5xl tracking-widest uppercase mb-6 leading-[1.15]">The Inner Circle</h3>
+            <p className="font-sub italic text-gray-300 text-lg md:text-xl mb-3 max-w-xl mx-auto leading-relaxed">Access to limited editions and private viewings, before they are placed.</p>
+            <p className="font-body text-gray-500 text-[10px] md:text-xs tracking-[0.3em] uppercase mb-12">96 invitations open per annum · Concierge replies within 48 hours</p>
+
+            <form className="max-w-xl mx-auto flex flex-col md:flex-row gap-3 border-b border-luxury-gold/40 pb-3">
+              <input type="email" placeholder="ENTER YOUR EMAIL" className="bg-transparent border-none outline-none text-luxury-white placeholder-gray-500 text-xs md:text-sm tracking-[0.25em] w-full text-center md:text-left uppercase p-2 focus:placeholder-gray-700" />
+              <button type="submit" className="text-luxury-gold font-header text-xs md:text-sm tracking-[0.3em] uppercase hover:text-luxury-white border border-luxury-gold/40 hover:border-luxury-white transition-all whitespace-nowrap px-6 py-2">Request Access →</button>
             </form>
+
+            <div className="mt-12 pt-8 border-t border-luxury-gold/15 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-[10px] tracking-[0.3em] uppercase text-gray-500">
+              <span className="inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-luxury-gold/60"></span>
+                Geneva · Milan · Tokyo
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-luxury-gold/60"></span>
+                MCMXXIV — present
+              </span>
+            </div>
           </div>
         </section>
 
-        <footer className="bg-luxury-black text-white pt-20 pb-10 border-t border-luxury-gray/30">
+        <footer className="bg-luxury-black text-white pt-20 pb-10">
           <div className="container mx-auto px-6 flex flex-col items-center">
             <div className="mb-12">
               <h2 className="font-header text-4xl tracking-mega font-bold text-luxury-gold">C_E</h2>

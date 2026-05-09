@@ -1,14 +1,14 @@
 const CATALOG = [
   { tag: "PT-04 · TAPE",          title: "Calibrated 4-track tape mover",        edition: "Edition · 60 of 60 · 2018",  img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "PT-04 Tape" },
   { tag: "DX-12 · DAW",           title: "Twelve-fader desktop control surface", edition: "Edition · 80 of 80 · 2019",  img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "DX-12 DAW" },
-  { tag: "MIDI-V · MIXER",        title: "Six-channel MIDI router with VU plate", edition: "Edition · 120 of 120 · 2020", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop", alt: "MIDI-V Mixer" },
-  { tag: "SR-09 · SERVER",        title: "1U archival audio file server",        edition: "Edition · 24 of 24 · 2021",  img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?w=900&q=85&auto=format&fit=crop", alt: "SR-09 Server" },
+  { tag: "MIDI-V · MIXER",        title: "Six-channel MIDI router with VU plate", edition: "Edition · 120 of 120 · 2020", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "MIDI-V Mixer" },
+  { tag: "SR-09 · SERVER",        title: "1U archival audio file server",        edition: "Edition · 24 of 24 · 2021",  img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "SR-09 Server" },
   { tag: "EC-02 · ECHO",          title: "Spring-line tape-echo desktop unit",   edition: "Edition · 90 of 90 · 2021",  img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "EC-02 Echo" },
   { tag: "MN-04 · MONITOR",       title: "Near-field passive reference pair",    edition: "Edition · 40 of 40 · 2022",  img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "MN-04 Monitor" },
   { tag: "HD-06 · HEADSTAGE",     title: "Class-A headphone amplifier",          edition: "Edition · 150 of 150 · 2023", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "HD-06 Headstage" },
-  { tag: "MODEL-808 · PLAYER",    title: "High-fidelity FM & tape playback",     edition: "Edition · 240 of 240 · 2024", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "MODEL-808 Player" },
+  { tag: "MODEL-808 · PLAYER",    title: "High-fidelity FM & tape playback",     edition: "Edition · 240 of 240 · 2024", img: "https://images.unsplash.com/photo-1700951372714-98979a8803a4?w=900&q=85&auto=format&fit=crop", alt: "MODEL-808 Player" },
   { tag: "LP-01 · LOUDSPEAKER",   title: "Single-driver desktop full-range",     edition: "Edition · 60 of 60 · 2024",  img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "LP-01 Loudspeaker" },
-  { tag: "CL-12 · CLOCK",         title: "Master word-clock for the studio rack", edition: "Edition · 32 of 32 · 2025",  img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", alt: "CL-12 Clock" },
+  { tag: "CL-12 · CLOCK",         title: "Master word-clock for the studio rack", edition: "Edition · 32 of 32 · 2025",  img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "CL-12 Clock" },
 ];
 
 const MATERIALS = [
@@ -32,6 +32,23 @@ const MATERIALS = [
     title: "0.6 mm electroformed brass · acoustically transparent",
     body: "The speaker grille is electroformed brass, 0.6 mm thick, with a hexagonal cell pattern on a 1.4 mm pitch — the dimensions are the result of three weeks with a B&K calibrated microphone in our acoustic-foam closet, looking for the cell size that did the least to the high-frequency response of the driver. The mesh is then aged in a warm citric-acid bath for ninety minutes to bring up the warm yellow note you see on the unit, and finally lacquered in a matte clear-coat that will take fingerprints without holding them. None of these decisions matter for the unit's performance on a spec sheet. They all matter for the unit's performance in a room.",
   },
+];
+
+const BOM_ROWS = [
+  { k: "Front-plate", v: "6061-T6 · 14 mm billet" },
+  { k: "Knob caps", v: "6061 · brass collet" },
+  { k: "Speaker mesh", v: "Electroformed brass · 0.6 mm" },
+  { k: "Mainboard", v: "2-layer FR-4 · cream mask" },
+  { k: "Faders", v: "ALPS RK16 · 50K log" },
+];
+
+const MFG_FIELDS = [
+  { k: "Mill", v: "Hermle C22" },
+  { k: "Tolerance", v: "± 0.02 mm" },
+  { k: "Brush · pass 1", v: "220 grit · long axis" },
+  { k: "Brush · pass 2", v: "320 grit · cross-axis" },
+  { k: "Anodise", v: "Type II hard · oxide colour" },
+  { k: "QA · per board", v: "12 MP raked-light photo" },
 ];
 
 const SPEC_ROWS = [
@@ -367,6 +384,69 @@ input[type=range].fader::-webkit-slider-thumb {
       <script src="https://cdn.tailwindcss.com/3.4.1"></script>
       <style dangerouslySetInnerHTML={{ __html: customCss }} />
 
+      {/* HERO — image left, content right, screen-wide */}
+      <section className="editorial-band-soft w-full px-6 md:px-12 py-20 md:py-28 lg:py-32">
+        <div className="max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <figure className="lg:col-span-7 order-2 lg:order-1 m-0">
+            <div className="relative panel-brushed p-3 md:p-4 rounded-sm shadow-[0_30px_60px_-30px_rgba(0,0,0,0.45)]">
+              <div className="relative overflow-hidden bg-black aspect-[5/4]">
+                <img className="w-full h-full object-cover" style={{ mixBlendMode: "luminosity", filter: "contrast(1.25) saturate(0.85)" }} src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1600&q=85&auto=format&fit=crop" alt="MODEL-808 prototype on the workbench in raking studio light" />
+                <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: "rgba(255,85,0,0.06)", mixBlendMode: "overlay" }} />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.45) 100%)" }} />
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span className="num-chip">PLATE · 01</span>
+                  <span className="label-mono-mute" style={{ color: "#e8e0d3" }}>Workshop · Tjuvholmen pier</span>
+                </div>
+                <div className="absolute bottom-4 right-4">
+                  <span className="label-mono" style={{ color: "#e8e0d3" }}>F/2.8 · 1/60s · ISO 200</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between pt-3 px-1">
+                <span className="label-mono">MODEL-808 · serial 00041</span>
+                <span className="label-mono-mute">2024 · hand-finished</span>
+              </div>
+            </div>
+          </figure>
+          <div className="lg:col-span-5 order-1 lg:order-2 flex flex-col gap-7">
+            <div className="flex items-center gap-3">
+              <span className="num-chip">EST · 2017 · OSLO</span>
+              <span className="label-mono-mute">Edition of 240 · numbered</span>
+            </div>
+            <h1 className="display-headline text-5xl md:text-6xl lg:text-7xl leading-[1.02]">
+              The hand<br />was always<br />
+              <span className="text-[#ff5500]">the interface.</span>
+            </h1>
+            <p className="body-prose max-w-xl">A desk-bound radio &amp; tape player built from CNC&apos;d aluminium, an electroformed brass grille, and ALPS RK16 potentiometers tuned to a centre detent you can feel through your wrist. Two hundred and forty units. One workshop. No app.</p>
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <a href="#order" className="inline-flex items-center gap-2 bg-[#ff5500] text-white px-6 py-3 rounded font-bold tracking-wide shadow-[0_3px_0_#a83800,0_8px_16px_rgba(255,85,0,0.35)] hover:translate-y-[-1px] active:translate-y-[2px] active:shadow-[0_1px_0_#a83800] transition-all">
+                <span>Reserve a unit</span>
+                <span className="text-lg leading-none">→</span>
+              </a>
+              <a href="#materials" className="inline-flex items-center gap-2 px-6 py-3 rounded border border-black/15 hover:border-black/35 transition-colors body-prose font-semibold">
+                <span>The doctrine</span>
+              </a>
+            </div>
+            <div className="grid grid-cols-3 gap-4 pt-6 mt-2 border-t border-black/10">
+              <div className="flex flex-col gap-1">
+                <span className="label-mono">Run</span>
+                <span className="display-headline text-2xl">240</span>
+                <span className="label-mono-mute text-[10px]">units, lifetime</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="label-mono">Weight</span>
+                <span className="display-headline text-2xl">3.4 kg</span>
+                <span className="label-mono-mute text-[10px]">stays where it sits</span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="label-mono">Lead</span>
+                <span className="display-headline text-2xl">14 wk</span>
+                <span className="label-mono-mute text-[10px]">order to delivery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 1: HERITAGE / ORIGIN STORY (BEFORE existing device) */}
       <section className="editorial-band-soft py-24 lg:py-32 px-6 md:px-12">
         <div className="max-w-3xl mx-auto">
@@ -397,16 +477,48 @@ input[type=range].fader::-webkit-slider-thumb {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
-            <figure className="md:col-span-5 sticky-photo">
+            <figure className="md:col-span-5 flex flex-col h-full gap-8 md:justify-between m-0">
               <div className="relative panel-brushed p-3 rounded-sm">
                 <div className="relative overflow-hidden bg-black aspect-[4/5]">
-                  <img className="w-full h-full object-cover" style={{ mixBlendMode: "luminosity", filter: "contrast(1.25) saturate(0.9)" }} src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&q=85&auto=format&fit=crop" alt="Brass apothecary still life — material study for ANALOG_UI MODEL-808" />
+                  <img className="w-full h-full object-cover" style={{ mixBlendMode: "luminosity", filter: "contrast(1.25) saturate(0.9)" }} src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop" alt="Circuit board macro — material study for ANALOG_UI MODEL-808" />
                   <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: "rgba(255,85,0,0.06)", mixBlendMode: "overlay" }}></div>
                 </div>
                 <div className="flex items-center justify-between pt-3 px-1">
                   <span className="label-mono">Plate · 02</span>
                   <span className="label-mono-mute">Material study · Brass &amp; Aluminium</span>
                 </div>
+              </div>
+
+              <div className="relative panel-brushed p-5 sm:p-6 rounded-sm">
+                <div className="flex items-center justify-between pb-4 mb-4 border-b" style={{ borderColor: "rgba(255,85,0,0.18)" }}>
+                  <span className="label-mono">Bill of materials</span>
+                  <span className="label-mono-mute">Run · 2026.04</span>
+                </div>
+                <dl className="flex flex-col">
+                  {BOM_ROWS.map((r, i) => (
+                    <div key={r.k} className="grid grid-cols-[auto_1fr] items-baseline gap-x-6 py-2.5" style={i === 0 ? undefined : { borderTop: "1px solid rgba(255,85,0,0.12)" }}>
+                      <dt className="label-mono-mute">{r.k}</dt>
+                      <dd className="label-mono text-right" style={{ color: "#d4d4d4" }}>{r.v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="label-mono-mute mt-4 pt-3" style={{ borderTop: "1px solid rgba(255,85,0,0.18)" }}>Sourced within 400 km of the Antwerp shop. Each ingot logged against the unit's serial card.</p>
+              </div>
+
+              <div className="relative panel-brushed p-5 sm:p-6 rounded-sm">
+                <div className="flex items-center justify-between pb-4 mb-4 border-b" style={{ borderColor: "rgba(255,85,0,0.18)" }}>
+                  <span className="label-mono">Manufacturing · dossier</span>
+                  <span className="label-mono-mute">Tooling · five-axis</span>
+                </div>
+                <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+                  {MFG_FIELDS.map(f => (
+                    <div key={f.k}>
+                      <p className="label-mono-mute mb-1">{f.k}</p>
+                      <p className="label-mono" style={{ color: "#d4d4d4" }}>{f.v}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="label-mono-mute mt-5 pt-3" style={{ borderTop: "1px solid rgba(255,85,0,0.18)" }}>Three board revisions to date — each etched into the bottom-left corner so the unit is field-serviceable in 2046.</p>
               </div>
             </figure>
 
@@ -602,7 +714,7 @@ input[type=range].fader::-webkit-slider-thumb {
             <figure className="md:col-span-5 relative md:mt-16">
               <div className="relative panel-brushed p-3">
                 <div className="relative overflow-hidden aspect-[3/4] bg-black">
-                  <img className="w-full h-full object-cover" style={{ mixBlendMode: "multiply", filter: "contrast(1.2) brightness(1.1) saturate(0.95)" }} src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1200&q=85&auto=format&fit=crop" alt="MODEL-808 chassis on black studio backdrop" />
+                  <img className="w-full h-full object-cover" style={{ mixBlendMode: "multiply", filter: "contrast(1.2) brightness(1.1) saturate(0.95)" }} src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1200&q=85&auto=format&fit=crop" alt="MODEL-808 chassis on black studio backdrop" />
                   <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: "rgba(255,85,0,0.05)", mixBlendMode: "overlay" }}></div>
                 </div>
                 <div className="flex items-center justify-between pt-3 px-1">

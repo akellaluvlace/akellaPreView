@@ -109,7 +109,7 @@
 
     <!-- Header / Navbar -->
     <header class="bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md w-full sticky top-0 z-50 border-b border-primary-container/20 dark:border-blue-400/20 shadow-sm">
-        <div class="max-w-[720px] mx-auto flex flex-wrap gap-4 justify-between items-center py-4 sm:py-5 md:py-6 px-4 sm:px-6">
+        <div class="max-w-[1240px] mx-auto flex flex-wrap gap-4 justify-between items-center py-4 sm:py-5 md:py-6 px-4 sm:px-8 lg:px-12">
             <div>
                 <a class="text-2xl sm:text-3xl font-serif font-bold text-zinc-900 dark:text-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-colors" href="#">Jonas Lindqvist</a>
             </div>
@@ -125,123 +125,146 @@
         </div>
     </header>
 
-    <main class="max-w-[720px] w-full mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-16 sm:pb-24">
-        
-        <!-- Header / Contact Info -->
-        <section class="mb-section_gap scroll-mt-24" id="contact">
-            <h1 class="font-h1 text-h1 text-on-background mb-2 text-balance">Jonas Lindqvist</h1>
-            <p class="font-body-main text-body-main text-on-surface-variant mb-6 text-balance">Senior Product Manager</p>
-            <address class="flex flex-wrap items-center gap-x-4 gap-y-2 font-meta-mono text-meta-mono text-on-surface-variant not-italic">
-                <span>Stockholm, Sweden</span>
-                <span class="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>
-                <a class="hover:underline hover:text-on-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-colors" href="mailto:jonas.lindqvist@example.com">jonas.lindqvist@example.com</a>
-                <span class="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>
-                <a class="hover:underline hover:text-on-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-colors" href="tel:+46701234567">+46 70 123 45 67</a>
-                <span class="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>
-                <a class="hover:underline hover:text-on-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm transition-colors" href="https://linkedin.com/in/jonaslindqvist" target="_blank" rel="noopener noreferrer">linkedin.com/in/jonaslindqvist</a>
-            </address>
+    <main class="max-w-[1240px] w-full mx-auto px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 pb-16 sm:pb-24">
+
+        <!-- Contact / Hero — pushed left -->
+        <section class="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-8 items-end" id="contact">
+            <div class="md:col-span-8">
+                <h1 class="font-h1 text-h1 text-on-background mb-2 text-balance" style="font-size: clamp(2.5rem, 1.5rem + 4vw, 4rem);">Jonas Lindqvist</h1>
+                <p class="font-body-main text-body-main text-on-surface-variant mb-6 text-balance text-lg">Senior Product Manager — building boring, dependable B2B SaaS in Stockholm.</p>
+                <address class="flex flex-wrap items-center gap-x-4 gap-y-2 font-meta-mono text-meta-mono text-on-surface-variant not-italic">
+                    <span>Stockholm, Sweden</span>
+                    <span class="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>
+                    <a class="hover:underline hover:text-on-background transition-colors" href="mailto:jonas.lindqvist@example.com">jonas.lindqvist@example.com</a>
+                    <span class="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>
+                    <a class="hover:underline hover:text-on-background transition-colors" href="tel:+46701234567">+46 70 123 45 67</a>
+                    <span class="text-outline/60 select-none hidden sm:inline" aria-hidden="true">|</span>
+                    <a class="hover:underline hover:text-on-background transition-colors" href="https://linkedin.com/in/jonaslindqvist" target="_blank" rel="noopener noreferrer">linkedin.com/in/jonaslindqvist</a>
+                </address>
+            </div>
+            <aside class="md:col-span-4 flex flex-col gap-2 border-l-2 border-primary-container/30 pl-4 sm:pl-6 md:ml-auto">
+                <span class="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">Status</span>
+                <span class="font-body-main text-body-main text-on-background">Open to senior PM &amp; head-of-product roles, EU-remote.</span>
+                <span class="font-meta-mono text-meta-mono text-on-surface-variant mt-2">Updated · April 2026</span>
+            </aside>
         </section>
 
-        <!-- Summary -->
-        <section class="mb-section_gap scroll-mt-24" id="summary">
-            <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Summary</h2>
-            <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
-            <p class="font-body-main text-body-main text-on-background text-lg leading-relaxed max-w-[75ch] text-pretty">
-                Strategic Senior Product Manager with over 8 years of experience scaling B2B SaaS platforms. Adept at bridging the gap between complex engineering capabilities and compelling user narratives to drive measurable business growth and user retention.
-            </p>
+        <!-- Summary — narrow text left, stat card right -->
+        <section class="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-start" id="summary">
+            <div class="md:col-span-7">
+                <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Summary</h2>
+                <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
+                <p class="font-body-main text-body-main text-on-background text-lg leading-relaxed text-pretty">
+                    Strategic Senior Product Manager with over 8 years of experience scaling B2B SaaS platforms. Adept at bridging the gap between complex engineering capabilities and compelling user narratives to drive measurable business growth and user retention.
+                </p>
+            </div>
+            <aside class="md:col-span-4 md:col-start-9 bg-surface-container-high rounded-sm border border-outline-variant/40 p-5 sm:p-6 flex flex-col gap-4">
+                <span class="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">By the numbers</span>
+                <dl class="grid grid-cols-2 gap-x-4 gap-y-4 font-meta-mono text-meta-mono">
+                    <div class="flex flex-col gap-1">
+                        <dt class="text-on-surface-variant uppercase tracking-widest text-[10px]">Years shipping</dt>
+                        <dd class="font-h3-company text-h3-company text-on-background tabular-nums">8+</dd>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <dt class="text-on-surface-variant uppercase tracking-widest text-[10px]">Teams led</dt>
+                        <dd class="font-h3-company text-h3-company text-on-background tabular-nums">4</dd>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <dt class="text-on-surface-variant uppercase tracking-widest text-[10px]">Largest team</dt>
+                        <dd class="font-h3-company text-h3-company text-on-background tabular-nums">15</dd>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <dt class="text-on-surface-variant uppercase tracking-widest text-[10px]">Advisory seats</dt>
+                        <dd class="font-h3-company text-h3-company text-on-background tabular-nums">2</dd>
+                    </div>
+                </dl>
+                <p class="font-body-main text-body-main text-on-surface-variant text-sm border-t border-outline-variant/40 pt-3 italic text-pretty">Numbers updated quarterly. The boring ones are tracked at <span class="font-meta-mono not-italic">jonas.lindqvist.se/notes</span>.</p>
+            </aside>
         </section>
 
-        <!-- Experience -->
+        <!-- Experience — wide 2-col, label left, bullets right -->
         <section class="mb-section_gap scroll-mt-24" id="experience">
             <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Experience</h2>
             <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
-            
-            <div class="flex flex-col gap-8">
-                <!-- Role 1 -->
-                <article>
-                    <h3 class="font-h3-company text-h3-company text-primary-container mb-1 text-balance">Acme Corp</h3>
-                    <div class="font-meta-mono text-meta-mono text-on-surface-variant mb-4 flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4">
-                        <span class="font-medium text-on-background">Senior Product Manager</span>
-                        <span><time datetime="2020">2020</time> — Present</span>
-                    </div>
-                    <ul class="font-body-main text-body-main text-on-background space-y-3">
-                        <li class="flex items-start gap-3">
-                            <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                            <span class="text-pretty max-w-[75ch]">Led cross-functional team of 15 engineers and designers to launch the flagship enterprise analytics suite, resulting in a 40% increase in enterprise tier subscriptions.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                            <span class="text-pretty max-w-[75ch]">Implemented rigorous A/B testing framework that improved user onboarding completion rates by 25% within two quarters.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                            <span class="text-pretty max-w-[75ch]">Spearheaded the transition from a monolithic architecture to microservices, improving deployment frequency by 3x and significantly reducing system downtime.</span>
-                        </li>
+
+            <div class="flex flex-col gap-12">
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10">
+                    <header class="md:col-span-4">
+                        <h3 class="font-h3-company text-h3-company text-primary-container mb-1 text-balance">Acme Corp</h3>
+                        <p class="font-body-main text-body-main font-medium text-on-background mb-1">Senior Product Manager</p>
+                        <p class="font-meta-mono text-meta-mono text-on-surface-variant"><time datetime="2020">2020</time> — Present</p>
+                    </header>
+                    <ul class="font-body-main text-body-main text-on-background space-y-3 md:col-span-7 md:col-start-6">
+                        <li class="flex items-start gap-3"><span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span><span class="text-pretty max-w-[75ch]">Led cross-functional team of 15 engineers and designers to launch the flagship enterprise analytics suite, resulting in a 40% increase in enterprise tier subscriptions.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span><span class="text-pretty max-w-[75ch]">Implemented rigorous A/B testing framework that improved user onboarding completion rates by 25% within two quarters.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span><span class="text-pretty max-w-[75ch]">Spearheaded the transition from a monolithic architecture to microservices, improving deployment frequency by 3x and significantly reducing system downtime.</span></li>
                     </ul>
                 </article>
 
-                <!-- Role 2 -->
-                <article>
-                    <h3 class="font-h3-company text-h3-company text-primary-container mb-1 text-balance">Globex Inc.</h3>
-                    <div class="font-meta-mono text-meta-mono text-on-surface-variant mb-4 flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4">
-                        <span class="font-medium text-on-background">Product Manager</span>
-                        <span><time datetime="2016">2016</time> — <time datetime="2020">2020</time></span>
-                    </div>
-                    <ul class="font-body-main text-body-main text-on-background space-y-3">
-                        <li class="flex items-start gap-3">
-                            <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                            <span class="text-pretty max-w-[75ch]">Managed the end-to-end lifecycle of the core API product, increasing developer adoption by 150% year-over-year.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                            <span class="text-pretty max-w-[75ch]">Collaborated closely with marketing and sales to define go-to-market strategies for three major feature releases.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                            <span class="text-pretty max-w-[75ch]">Established a comprehensive customer feedback loop, integrating Zendesk tickets directly into Jira for prioritized backlog grooming.</span>
-                        </li>
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10">
+                    <header class="md:col-span-4">
+                        <h3 class="font-h3-company text-h3-company text-primary-container mb-1 text-balance">Globex Inc.</h3>
+                        <p class="font-body-main text-body-main font-medium text-on-background mb-1">Product Manager</p>
+                        <p class="font-meta-mono text-meta-mono text-on-surface-variant"><time datetime="2016">2016</time> — <time datetime="2020">2020</time></p>
+                    </header>
+                    <ul class="font-body-main text-body-main text-on-background space-y-3 md:col-span-7 md:col-start-6">
+                        <li class="flex items-start gap-3"><span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span><span class="text-pretty max-w-[75ch]">Managed the end-to-end lifecycle of the core API product, increasing developer adoption by 150% year-over-year.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span><span class="text-pretty max-w-[75ch]">Collaborated closely with marketing and sales to define go-to-market strategies for three major feature releases.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span><span class="text-pretty max-w-[75ch]">Established a comprehensive customer feedback loop, integrating Zendesk tickets directly into Jira for prioritized backlog grooming.</span></li>
                     </ul>
                 </article>
             </div>
         </section>
 
-        <!-- Selected Projects -->
+        <!-- Projects — alternating L/R with meta tag on opposite side -->
         <section class="mb-section_gap scroll-mt-24" id="projects">
             <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Selected Projects</h2>
             <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
-            
-            <div class="flex flex-col gap-8">
-                <!-- Project 1 -->
-                <article>
-                    <h3 class="font-h3-company text-h3-company text-on-background mb-2 text-balance">Project Phoenix</h3>
-                    <p class="font-body-main text-body-main text-on-background text-pretty max-w-[75ch]">
-                        A complete overhaul of the legacy billing system. Orchestrated the migration of 10k+ active accounts with zero data loss and improved invoice processing speed by 80%.
-                    </p>
+
+            <div class="flex flex-col gap-10">
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10 items-start">
+                    <div class="md:col-span-7">
+                        <h3 class="font-h3-company text-h3-company text-on-background mb-2 text-balance">Project Phoenix</h3>
+                        <p class="font-body-main text-body-main text-on-background text-pretty">A complete overhaul of the legacy billing system. Orchestrated the migration of 10k+ active accounts with zero data loss and improved invoice processing speed by 80%.</p>
+                    </div>
+                    <aside class="md:col-span-3 md:col-start-10 flex flex-col gap-2 border-l-2 border-primary-container/30 pl-4">
+                        <span class="font-meta-mono text-meta-mono text-primary-container tabular-nums">01</span>
+                        <span class="font-h2-section text-h2-section text-on-background uppercase tracking-widest">Platform</span>
+                        <span class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest">Lead PM · 2022</span>
+                    </aside>
                 </article>
-                
-                <!-- Project 2 -->
-                <article>
-                    <h3 class="font-h3-company text-h3-company text-on-background mb-2 text-balance">Data Horizon</h3>
-                    <p class="font-body-main text-body-main text-on-background text-pretty max-w-[75ch]">
-                        Developed a machine learning-driven recommendation engine for the e-commerce platform, leading to a 12% lift in average order value during the beta phase.
-                    </p>
+
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10 items-start">
+                    <div class="md:col-span-7 md:col-start-6 md:text-right">
+                        <h3 class="font-h3-company text-h3-company text-on-background mb-2 text-balance">Data Horizon</h3>
+                        <p class="font-body-main text-body-main text-on-background text-pretty">Developed a machine learning-driven recommendation engine for the e-commerce platform, leading to a 12% lift in average order value during the beta phase.</p>
+                    </div>
+                    <aside class="md:col-span-3 md:col-start-1 md:row-start-1 flex flex-col gap-2 border-l-2 border-primary-container/30 pl-4">
+                        <span class="font-meta-mono text-meta-mono text-primary-container tabular-nums">02</span>
+                        <span class="font-h2-section text-h2-section text-on-background uppercase tracking-widest">Growth</span>
+                        <span class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest">Lead PM · 2023</span>
+                    </aside>
                 </article>
-                
-                <!-- Project 3 -->
-                <article>
-                    <h3 class="font-h3-company text-h3-company text-on-background mb-2 text-balance">Unified Dashboard</h3>
-                    <p class="font-body-main text-body-main text-on-background text-pretty max-w-[75ch]">
-                        Designed and launched a centralized command center for B2B clients, consolidating 5 disparate tools into a single pane of glass, dramatically reducing customer support inquiries.
-                    </p>
+
+                <article class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10 items-start">
+                    <div class="md:col-span-7">
+                        <h3 class="font-h3-company text-h3-company text-on-background mb-2 text-balance">Unified Dashboard</h3>
+                        <p class="font-body-main text-body-main text-on-background text-pretty">Designed and launched a centralized command center for B2B clients, consolidating 5 disparate tools into a single pane of glass, dramatically reducing customer support inquiries.</p>
+                    </div>
+                    <aside class="md:col-span-3 md:col-start-10 flex flex-col gap-2 border-l-2 border-primary-container/30 pl-4">
+                        <span class="font-meta-mono text-meta-mono text-primary-container tabular-nums">03</span>
+                        <span class="font-h2-section text-h2-section text-on-background uppercase tracking-widest">B2B Console</span>
+                        <span class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest">Lead PM · 2024</span>
+                    </aside>
                 </article>
             </div>
         </section>
 
-        <!-- Skills -->
-        <section class="mb-section_gap scroll-mt-24" id="skills">
+        <!-- Skills — centred chip flow -->
+        <section class="mb-section_gap scroll-mt-24 max-w-[900px] mx-auto text-center" id="skills">
             <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Skills</h2>
             <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap justify-center gap-3">
                 <span class="border border-on-background px-3 py-1.5 font-chip-label text-chip-label text-on-background uppercase tracking-wider rounded-sm cursor-default hover:bg-on-background hover:text-background transition-colors">Product Strategy</span>
                 <span class="border border-on-background px-3 py-1.5 font-chip-label text-chip-label text-on-background uppercase tracking-wider rounded-sm cursor-default hover:bg-on-background hover:text-background transition-colors">Agile Methodologies</span>
                 <span class="border border-on-background px-3 py-1.5 font-chip-label text-chip-label text-on-background uppercase tracking-wider rounded-sm cursor-default hover:bg-on-background hover:text-background transition-colors">Data Analytics</span>
@@ -251,43 +274,71 @@
             </div>
         </section>
 
-        <!-- Education -->
-        <section class="mb-section_gap scroll-mt-24" id="education">
-            <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Education</h2>
-            <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
-            
-            <div class="flex flex-col gap-8">
-                <article>
-                    <h3 class="font-h3-company text-h3-company text-on-background mb-1 text-balance">M.Sc. Human-Computer Interaction</h3>
-                    <div class="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4 mt-1">
-                        <span class="font-medium text-on-background">KTH Royal Institute of Technology, Stockholm</span>
-                        <span><time datetime="2014">2014</time> — <time datetime="2016">2016</time></span>
-                    </div>
-                </article>
-                <article>
-                    <h3 class="font-h3-company text-h3-company text-on-background mb-1 text-balance">B.Sc. Computer Science</h3>
-                    <div class="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4 mt-1">
-                        <span class="font-medium text-on-background">Lund University, Lund</span>
-                        <span><time datetime="2011">2011</time> — <time datetime="2014">2014</time></span>
-                    </div>
-                </article>
+        <!-- Education — text left, certifications card right -->
+        <section class="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-start" id="education">
+            <div class="md:col-span-7">
+                <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Education</h2>
+                <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
+                <div class="flex flex-col gap-8">
+                    <article>
+                        <h3 class="font-h3-company text-h3-company text-on-background mb-1 text-balance">M.Sc. Human-Computer Interaction</h3>
+                        <div class="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4 mt-1">
+                            <span class="font-medium text-on-background">KTH Royal Institute of Technology, Stockholm</span>
+                            <span><time datetime="2014">2014</time> — <time datetime="2016">2016</time></span>
+                        </div>
+                    </article>
+                    <article>
+                        <h3 class="font-h3-company text-h3-company text-on-background mb-1 text-balance">B.Sc. Computer Science</h3>
+                        <div class="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4 mt-1">
+                            <span class="font-medium text-on-background">Lund University, Lund</span>
+                            <span><time datetime="2011">2011</time> — <time datetime="2014">2014</time></span>
+                        </div>
+                    </article>
+                </div>
             </div>
+            <aside class="md:col-span-4 md:col-start-9 bg-surface-container-low rounded-sm border border-outline-variant/40 p-5 sm:p-6 flex flex-col gap-3">
+                <span class="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">Continuing Study</span>
+                <ul class="font-body-main text-body-main text-on-background flex flex-col gap-2 m-0 p-0 list-none divide-y divide-outline-variant/40">
+                    <li class="flex justify-between items-baseline gap-3 pb-2">
+                        <span>PSPO I · Scrum.org</span>
+                        <span class="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2018</span>
+                    </li>
+                    <li class="flex justify-between items-baseline gap-3 pb-2">
+                        <span>Reforge · Pricing &amp; Monetisation</span>
+                        <span class="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2021</span>
+                    </li>
+                    <li class="flex justify-between items-baseline gap-3 pb-2">
+                        <span>RSA · Service Design intensive</span>
+                        <span class="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2023</span>
+                    </li>
+                    <li class="flex justify-between items-baseline gap-3">
+                        <span>Lenny's · PM Mentor cohort</span>
+                        <span class="font-meta-mono text-meta-mono text-on-surface-variant tabular-nums">2024</span>
+                    </li>
+                </ul>
+                <p class="font-body-main text-body-main text-on-surface-variant text-sm italic border-t border-outline-variant/40 pt-3 text-pretty">Self-directed reading list lives in the public Notion at <span class="font-meta-mono not-italic">jonas.lindqvist.se/library</span>.</p>
+            </aside>
         </section>
 
-        <!-- Awards and Press -->
-        <section class="mb-section_gap scroll-mt-24" id="awards">
-            <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Awards &amp; Press</h2>
-            <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
-            <ul class="font-body-main text-body-main text-on-background space-y-3">
-                <li class="flex items-start gap-3">
-                    <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                    <span class="text-pretty max-w-[75ch]">Featured in "Top 50 Product Leaders in Nordics" by Tech Today (2022)</span>
-                </li>
-                <li class="flex items-start gap-3">
-                    <span class="text-outline shrink-0 mt-[0.3em] select-none" aria-hidden="true">—</span>
-                    <span class="text-pretty max-w-[75ch]">Acme Corp Innovation Award for "Project Phoenix" (2021)</span>
-                </li>
-            </ul>
+        <!-- Awards — supporting card left, awards right -->
+        <section class="mb-section_gap scroll-mt-24 grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-12 items-start" id="awards">
+            <aside class="md:col-span-4 bg-surface-container-high rounded-sm border border-outline-variant/40 p-5 sm:p-6 flex flex-col gap-3 md:order-1 order-2">
+                <span class="font-h2-section text-h2-section text-primary-container uppercase tracking-widest">Press archive</span>
+                <p class="font-body-main text-body-main text-on-background text-pretty">Six talks, two essays, and one panel since 2022. Slides live behind a public Notion; recordings cited inline below.</p>
+                <div class="font-meta-mono text-meta-mono text-on-surface-variant flex flex-col gap-1 border-t border-outline-variant/40 pt-3">
+                    <span class="flex justify-between"><span class="uppercase tracking-widest text-[10px]">Talks</span><span class="tabular-nums text-on-background">06</span></span>
+                    <span class="flex justify-between"><span class="uppercase tracking-widest text-[10px]">Essays</span><span class="tabular-nums text-on-background">02</span></span>
+                    <span class="flex justify-between"><span class="uppercase tracking-widest text-[10px]">Panels</span><span class="tabular-nums text-on-background">01</span></span>
+                </div>
+            </aside>
+            <div class="md:col-span-7 md:col-start-6 md:text-right md:order-2 order-1">
+                <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">Awards &amp; Press</h2>
+                <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
+                <ul class="font-body-main text-body-main text-on-background space-y-3 md:list-none">
+                    <li class="md:text-right text-pretty">Featured in "Top 50 Product Leaders in Nordics" by Tech Today (2022)</li>
+                    <li class="md:text-right text-pretty">Acme Corp Innovation Award for "Project Phoenix" (2021)</li>
+                </ul>
+            </div>
         </section>
 
         <!-- Case Studies (Selected Work) — image section, alt-row split -->
@@ -301,7 +352,7 @@
                 <article class="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8 items-start">
                     <div class="sm:col-span-5">
                         <div class="aspect-[4/3] overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                            <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop" alt="Brutalist concrete facade in raking light, representing the Notion API onboarding rebuild" width="1200" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=85&auto=format&fit=crop" alt="Macro view of a green circuit board representing the API onboarding rebuild" width="1200" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
                         </div>
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant mt-2">Case 01 — 2023</p>
                     </div>
@@ -329,7 +380,7 @@
                     </div>
                     <div class="sm:col-span-5 order-1 sm:order-2">
                         <div class="aspect-[4/3] overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                            <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop" alt="Architectural highway in raking light, representing the pricing migration project" width="1200" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop" alt="Wide-angle datacentre interior representing the pricing migration project at scale" width="1200" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
                         </div>
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant mt-2">Case 02 — 2021</p>
                     </div>
@@ -339,7 +390,7 @@
                 <article class="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-8 items-start">
                     <div class="sm:col-span-5">
                         <div class="aspect-[4/3] overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" alt="Architectural lobby in monochrome, representing the unified dashboard rollout" width="1200" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop" alt="Server rack with green status indicators representing the unified console rollout" width="1200" height="900" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700" />
                         </div>
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant mt-2">Case 03 — 2019</p>
                     </div>
@@ -393,7 +444,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <article class="flex gap-4 items-start">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&h=400&q=85&auto=format&fit=crop" alt="Architectural cornicing detail" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
+                        <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait of a speaker, side-lit" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest mb-1">ProductCon Stockholm — 2024</p>
@@ -403,7 +454,7 @@
                 </article>
                 <article class="flex gap-4 items-start">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                        <img src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=400&h=400&q=85&auto=format&fit=crop" alt="Architectural shadow play on facade" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait, contemplative dark backdrop" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest mb-1">Tech Today Nordics — 2022</p>
@@ -413,7 +464,7 @@
                 </article>
                 <article class="flex gap-4 items-start">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                        <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=400&h=400&q=85&auto=format&fit=crop" alt="Brutalist concrete interior" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait in soft light" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest mb-1">Nordic PM Summit — 2023</p>
@@ -423,7 +474,7 @@
                 </article>
                 <article class="flex gap-4 items-start">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait, low-key lighting" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
+                        <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait, low-key studio" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest mb-1">Lenny's Newsletter — 2024</p>
@@ -433,7 +484,7 @@
                 </article>
                 <article class="flex gap-4 items-start">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=400&h=400&q=85&auto=format&fit=crop" alt="Brutalist staircase under hard sun" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
+                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait, dramatic dark wardrobe" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest mb-1">Acme Corp — 2021</p>
@@ -443,7 +494,7 @@
                 </article>
                 <article class="flex gap-4 items-start">
                     <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden rounded-sm bg-surface-container-high border border-outline-variant/60">
-                        <img src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait in monochrome" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait, fashion studio shot" width="400" height="400" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-meta-mono text-meta-mono text-on-surface-variant uppercase tracking-widest mb-1">Mind the Product — 2025</p>
@@ -517,7 +568,7 @@
         </section>
 
         <!-- References -->
-        <section class="scroll-mt-24" id="references">
+        <section class="scroll-mt-24 max-w-[640px] mx-auto text-center" id="references">
             <h2 class="font-h2-section text-h2-section text-on-background uppercase tracking-widest mb-4">References</h2>
             <hr class="border-0 h-px w-full bg-primary-container mb-6" aria-hidden="true" />
             <p class="font-body-main text-body-main text-on-surface-variant italic text-pretty">
@@ -527,9 +578,51 @@
 
     </main>
 
+    <!-- Continuous square image strip — full bleed, marquee -->
+    <section aria-label="Press, talks and platform work — visual archive" class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-12 sm:mt-20 border-y border-primary-container/20 bg-surface-container-low overflow-hidden">
+        <div class="resume-strip-track flex gap-px">
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&q=85&auto=format&fit=crop" alt="Press portrait, contemplative" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop" alt="Conference talk portrait" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&q=85&auto=format&fit=crop" alt="Circuit board macro — platform work" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop" alt="Speaker side profile" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop" alt="Datacentre wide shot" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial portrait, low-key" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop" alt="Server rack detail" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=400&q=85&auto=format&fit=crop" alt="Press portrait, dramatic" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&q=85&auto=format&fit=crop" alt="Editorial studio shot" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <figure class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=400&h=400&q=85&auto=format&fit=crop" alt="Industrial machinery — infrastructure metaphor" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110 hover:grayscale-0 transition-all duration-700"/></figure>
+            <!-- duplicate set for seamless loop -->
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+            <figure aria-hidden="true" class="w-40 sm:w-48 md:w-56 aspect-square shrink-0 bg-surface-container-high overflow-hidden"><img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=400&h=400&q=85&auto=format&fit=crop" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale contrast-110"/></figure>
+        </div>
+    </section>
+
+    <style>
+        .resume-strip-track {
+            width: max-content;
+            animation: resumeStripScroll 90s linear infinite;
+        }
+        .resume-strip-track:hover { animation-play-state: paused; }
+        @keyframes resumeStripScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .resume-strip-track { animation: none; }
+        }
+    </style>
+
     <!-- Footer -->
-    <footer class="bg-white/95 dark:bg-zinc-950/95 w-full border-t border-primary-container/20 dark:border-blue-400/20 mt-12">
-        <div class="max-w-[720px] mx-auto flex flex-col sm:flex-row justify-between items-center py-6 sm:py-8 px-4 sm:px-6 gap-4">
+    <footer class="bg-white/95 dark:bg-zinc-950/95 w-full border-t border-primary-container/20 dark:border-blue-400/20">
+        <div class="max-w-[1240px] mx-auto flex flex-col sm:flex-row justify-between items-center py-6 sm:py-8 px-4 sm:px-8 lg:px-12 gap-4">
             <p class="font-sans text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-2 sm:mb-0 text-center sm:text-left text-balance">
                 © 2024 Jonas Lindqvist
             </p>

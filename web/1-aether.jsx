@@ -155,6 +155,31 @@ export default function T1Aether() {
             </div>
           </section>
 
+          {/* TRUSTED BY — sourced & shipped with */}
+          <section aria-label="Trusted vendors" className="px-5 w-full max-w-max-width mx-auto mb-12 sm:px-8 sm:mb-16 md:px-margin-edge md:mb-stack-lg">
+            <div className="border-y border-white/10 py-10 sm:py-12">
+              <p className="text-center font-mono text-[10px] uppercase tracking-[0.4em] text-primary-container mb-8">— Sourced &amp; shipped with —</p>
+              <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-x-8 gap-y-9 items-center justify-items-center">
+                {[
+                  { slug: "anthropic", name: "Anthropic" },
+                  { slug: "nvidia", name: "Nvidia" },
+                  { slug: "intel", name: "Intel" },
+                  { slug: "vercel", name: "Vercel" },
+                  { slug: "github", name: "GitHub" },
+                  { slug: "framer", name: "Framer" },
+                  { slug: "linear", name: "Linear" },
+                  { slug: "figma", name: "Figma" },
+                  { slug: "supabase", name: "Supabase" },
+                ].map(b => (
+                  <li key={b.slug} className="flex flex-col items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/B8E552`} alt={b.name} className="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24" />
+                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-primary-container">{b.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
           <section aria-labelledby="collections-heading" className="px-5 w-full max-w-max-width mx-auto mb-12 sm:px-8 sm:mb-16 md:px-margin-edge md:mb-stack-lg">
             <div className="flex flex-col items-start gap-3 mb-8 sm:flex-row sm:justify-between sm:items-end sm:gap-6 sm:mb-stack-md">
               <h2 id="collections-heading" className="font-h2-headline text-[clamp(2rem,3vw+1rem,3rem)] text-primary uppercase leading-tight text-balance tracking-tight">Current Protocol</h2>
@@ -267,6 +292,47 @@ export default function T1Aether() {
             </div>
           </section>
 
+          {/* PREMIUM 2x2 — Engineered guarantees on faint hardware backdrop */}
+          <section aria-label="Engineered guarantees" className="relative w-full mb-12 sm:mb-16 md:mb-stack-lg overflow-hidden py-20 sm:py-24 md:py-stack-xl">
+            <div className="absolute inset-0 -z-10">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-[0.07] grayscale contrast-125 mix-blend-luminosity" loading="lazy" />
+              <div className="absolute inset-0 bg-background/85"></div>
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, transparent 25%, rgba(0,0,0,0.92) 90%)" }}></div>
+              <div className="absolute -left-40 top-1/3 w-[500px] h-[500px] rounded-full bg-primary-container/[0.06] blur-3xl pointer-events-none"></div>
+            </div>
+            <div className="px-5 w-full max-w-max-width mx-auto sm:px-8 md:px-margin-edge">
+              <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+                <span className="font-label-caps text-[10px] uppercase tracking-[0.4em] text-primary-container font-bold">— § 03 / Engineered guarantees</span>
+                <h2 className="font-h2-headline text-[clamp(2rem,3vw+1rem,3rem)] text-primary mt-4 uppercase leading-tight text-balance tracking-tight">What ships in the box, what stays in the schematic.</h2>
+                <p className="font-body-md text-sm sm:text-base text-secondary mt-5 leading-relaxed">Four written promises printed on the underside of every chassis. None negotiable; all auditable.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+                {[
+                  { id: "G · 01", icon: "schema", title: "Schematics in the box.", body: "Every Aether ships with the full schematic — board, firmware revision, BOM. If we stop making it, the file stays open. The artifact survives the company.", left: "BOM · 124 lines", right: "CC-BY-SA · perpetual" },
+                  { id: "G · 02", icon: "cloud_off", title: "Local-first, period.", body: "Inference on-device. Storage on-device. Updates pulled, never pushed. There is no telemetry channel, no cloud companion, no analytics SDK. The device works on a faraday floor.", left: "Egress · 0 packets", right: "Air-gap · ready" },
+                  { id: "G · 03", icon: "build", title: "Repair before replace.", body: "Every component socketed, every fastener torx-T6, every cell user-replaceable. Send the unit back at any point in the next decade — we re-flow, re-flash, return at cost of postage.", left: "Service · 10 yr", right: "Postage · one-way" },
+                  { id: "G · 04", icon: "verified", title: "Numbered. Auditable.", body: "Each unit carries an etched serial, a signed certificate, and an entry in the public ledger. Twelve hundred a year — never more. Provenance traceable to the run, the date, the technician.", left: "Edition · 1,200 / yr", right: "Ledger · public" },
+                ].map(g => (
+                  <article key={g.id} className="group relative bg-surface-container/85 backdrop-blur-md border border-white/10 p-7 md:p-9 rounded-sm hover:border-primary-container/40 transition-colors overflow-hidden">
+                    <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-primary-container/[0.08] blur-3xl pointer-events-none"></div>
+                    <div className="flex items-start justify-between mb-6 relative z-10">
+                      <div className="w-12 h-12 rounded-sm border border-primary-container/40 bg-primary-container/5 flex items-center justify-center text-primary-container">
+                        <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 0" }}>{g.icon}</span>
+                      </div>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-secondary/70 tabular-nums">{g.id}</span>
+                    </div>
+                    <h3 className="font-h3-title text-2xl md:text-3xl text-primary mb-3 tracking-tight leading-[1.05]">{g.title}</h3>
+                    <p className="font-body-md text-sm md:text-base text-secondary leading-relaxed mb-6">{g.body}</p>
+                    <div className="flex items-baseline justify-between border-t border-white/10 pt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-secondary/70">
+                      <span>{g.left}</span>
+                      <span className="text-primary-container">{g.right}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* SECTION 03 :: Capability — Vertical Disciplines */}
           <section aria-labelledby="disciplines-heading" className="px-5 w-full max-w-max-width mx-auto mb-12 sm:px-8 sm:mb-16 md:px-margin-edge md:mb-stack-lg">
             <div className="flex flex-col items-start gap-3 mb-8 sm:flex-row sm:justify-between sm:items-end sm:gap-6 sm:mb-stack-md">
@@ -298,6 +364,66 @@ export default function T1Aether() {
                   </div>
                 </article>
               ))}
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION A — image LEFT, content RIGHT centered */}
+          <section aria-label="Provenance" className="px-5 w-full max-w-max-width mx-auto mb-12 sm:px-8 sm:mb-16 md:px-margin-edge md:mb-stack-lg">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-7 relative">
+                <div className="relative aspect-[4/3] overflow-hidden border border-primary-container/30 bg-surface-container">
+                  <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=1400&q=85&auto=format&fit=crop" alt="Data tunnel of golden lights — server-grade hardware spine" className="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-luminosity grayscale-[10%] contrast-110 group-hover:opacity-100 transition-opacity duration-700" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-background/60 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 left-4 px-3 py-1.5 bg-background/85 border border-primary-container/40 backdrop-blur-sm">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary-container">FRAME · A.01</span>
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] font-mono uppercase tracking-[0.25em] text-secondary/80">
+                    <span>Foundry · Tagus floor</span>
+                    <span className="text-primary-container">Lot 0428 · 2024</span>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-5 flex flex-col justify-center">
+                <span className="font-label-caps text-[10px] uppercase tracking-[0.4em] text-primary-container font-bold mb-4">// CHAPTER A · PROVENANCE</span>
+                <h2 className="font-h2-headline text-[clamp(2rem,3vw+1rem,2.75rem)] text-primary uppercase leading-[0.95] tracking-tight mb-5 border-l-2 border-primary-container pl-4">Where the silicon learns to speak.</h2>
+                <p className="font-body-md text-base text-secondary leading-relaxed mb-4">Every Aether unit emerges from a single foundry on the Tagus floor — temperature-stable, vibration-isolated, four kilometres of cable per board. The yield is forty-five percent; the rest goes back to recycling.</p>
+                <p className="font-body-md text-sm text-secondary/80 leading-relaxed mb-6">No outsourced assembly. No mystery sub-fab. Each chassis carries the foundry stamp before it carries ours.</p>
+                <ul className="flex flex-col gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-secondary border-t border-white/10 pt-5">
+                  <li className="flex justify-between"><span>Yield · per run</span><span className="text-primary-container">45 %</span></li>
+                  <li className="flex justify-between"><span>Foundry · since</span><span className="text-primary-container">2018</span></li>
+                  <li className="flex justify-between"><span>Trace · auditable</span><span className="text-primary-container">to component</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION B — image RIGHT, content LEFT centered */}
+          <section aria-label="Operating temperature" className="px-5 w-full max-w-max-width mx-auto mb-12 sm:px-8 sm:mb-16 md:px-margin-edge md:mb-stack-lg">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1">
+                <span className="font-label-caps text-[10px] uppercase tracking-[0.4em] text-primary-container font-bold mb-4 md:text-right">// CHAPTER B · OPERATING TEMPERATURE</span>
+                <h2 className="font-h2-headline text-[clamp(2rem,3vw+1rem,2.75rem)] text-primary uppercase leading-[0.95] tracking-tight mb-5 border-r-2 border-primary-container pr-4 md:text-right">Cold enough to think.</h2>
+                <p className="font-body-md text-base text-secondary leading-relaxed mb-4 md:text-right">Sustained inference at 18°C ambient. Liquid-immersion cooling on the high-density variants. The chassis is engineered for forty-eight months of continuous operation — and audited every quarter against drift.</p>
+                <p className="font-body-md text-sm text-secondary/80 leading-relaxed mb-6 md:text-right">If your bench runs hotter than the case, you are doing it wrong. The fans are silent, the heat sinks are over-spec'd, the power draw is published per-watt.</p>
+                <ul className="flex flex-col gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-secondary border-t border-white/10 pt-5">
+                  <li className="flex justify-between"><span className="text-primary-container">18 °C</span><span>Ambient · target</span></li>
+                  <li className="flex justify-between"><span className="text-primary-container">48 mo</span><span>Continuous · MTBF</span></li>
+                  <li className="flex justify-between"><span className="text-primary-container">115 W</span><span>Peak · published</span></li>
+                </ul>
+              </div>
+              <div className="md:col-span-7 relative order-1 md:order-2">
+                <div className="relative aspect-[4/3] overflow-hidden border border-primary-container/30 bg-surface-container">
+                  <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=1400&q=85&auto=format&fit=crop" alt="Macro green PCB with traces and chips under directional light" className="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-luminosity grayscale-[10%] contrast-110 group-hover:opacity-100 transition-opacity duration-700" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-gradient-to-tl from-background/60 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 right-4 px-3 py-1.5 bg-background/85 border border-primary-container/40 backdrop-blur-sm">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-primary-container">FRAME · B.01</span>
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-[10px] font-mono uppercase tracking-[0.25em] text-secondary/80">
+                    <span>Bench · cold-room</span>
+                    <span className="text-primary-container">Probe 03 · in tolerance</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </main>

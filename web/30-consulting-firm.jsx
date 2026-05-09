@@ -21,17 +21,35 @@ export default function T30ConsultingFirm() {
   ];
 
   const plates = [
-    { col: "md:col-span-7", aspect: "aspect-[4/3] md:aspect-auto md:h-full",            src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop", alt: "Stripped concrete interior with grid of shadows", caption: "Plate · No.46 — Headquarters, Frankfurt" },
-    { col: "md:col-span-5", aspect: "aspect-[4/3] md:aspect-[3/4]",                     src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop",  alt: "High-rise tower against stark sky",                caption: "Plate · No.47 — Tower, Singapore" },
-    { col: "md:col-span-4", aspect: "aspect-square",                                    src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=900&auto=format&fit=crop",  alt: "Stripped industrial interior with raw concrete",   caption: "Plate · No.48 — Floor 14, Logistics" },
+    { col: "md:col-span-7", aspect: "aspect-[4/3] md:aspect-auto md:h-full",            src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1400&auto=format&fit=crop", alt: "Two analysts reviewing screens at a long workstation", caption: "Plate · No.46 — Analyst floor, Frankfurt" },
+    { col: "md:col-span-5", aspect: "aspect-[4/3] md:aspect-[3/4]",                     src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=900&auto=format&fit=crop",  alt: "Cross-functional review session in glass-walled meeting room", caption: "Plate · No.47 — Boardroom, Singapore" },
+    { col: "md:col-span-4", aspect: "aspect-square",                                    src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=900&auto=format&fit=crop",  alt: "Engineering pair at dual laptops on a long workbench", caption: "Plate · No.48 — Operations floor, Logistics" },
     { col: "md:col-span-4", aspect: "aspect-square",                                    src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop",  alt: "Geometric concrete cantilever roofline",            caption: "Plate · No.49 — Civic Hall, Brussels" },
-    { col: "md:col-span-4", aspect: "aspect-square",                                    src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=900&auto=format&fit=crop",  alt: "Architectural detail of interior columns",         caption: "Plate · No.50 — Lobby, Zurich" },
+    { col: "md:col-span-4", aspect: "aspect-square",                                    src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=900&auto=format&fit=crop",  alt: "Architectural detail of interior columns",         caption: "Plate · No.50 — Lobby, Zurich" },
   ];
 
   const trustedRoman = ["Lyceum & Co.", "Zurich Mercantile", "Brandt Logistik", "Vanbrugh Trust"];
   const trustedItalic = ["Mercator Group", "Halleck Maritime", "Pareto Holdings", "Kepler Industries"];
 
   const footerLinks = ["Archive", "Methodology", "Contact", "Legal"];
+
+  const brandLogos = [
+    { slug: "stripe",      alt: "Stripe" },
+    { slug: "intercom",    alt: "Intercom" },
+    { slug: "hubspot",     alt: "HubSpot" },
+    { slug: "notion",      alt: "Notion" },
+    { slug: "linear",      alt: "Linear" },
+    { slug: "figma",       alt: "Figma" },
+    { slug: "theguardian", alt: "The Guardian" },
+    { slug: "hermes",      alt: "Hermès" }
+  ];
+
+  const pillars = [
+    { num: "I",   title: "Discovery", icon: "psychology",       caption: "Pillar I · Practice",   meta: "Wks 01–06",       featured: false, body: "A six-week period of unscripted listening across three organisational layers. We do not read the org chart until we have read the room. The deliverable is a closed-form diagnostic — never a slide deck." },
+    { num: "II",  title: "Mandate",   icon: "handshake",        caption: "Pillar II · Practice",  meta: "+ 14 boards",     featured: true,  body: "A signed scope, three falsifiable claims, and the kill criteria for each. Mandates are senior-only, referral-only, and confidential by default. We accept fewer than one in five inbound briefs." },
+    { num: "III", title: "Counsel",   icon: "account_balance",  caption: "Pillar III · Practice", meta: "Mandate · 6mo+",  featured: false, body: "A single, surgical structural intervention drafted with the executive team and executed by them. Our partners hold the room weekly, but the institution owns every decision. No deputies, no juniors, no proxies." },
+    { num: "IV",  title: "Hand-off",  icon: "verified",         caption: "Pillar IV · Practice",  meta: "Wks 22–26",       featured: false, body: "A closed-form report, a maintenance protocol, and a clean withdrawal at month nine. We refuse standing retainers as a matter of doctrine — the institution is not a client of ours indefinitely, and discretion compounds." }
+  ];
 
   const tailwindConfig = `
     tailwind.config = {
@@ -226,7 +244,7 @@ export default function T30ConsultingFirm() {
                 <h2 className="font-headline-lg text-headline-lg text-ink mb-6">Five movements that constitute every engagement.</h2>
                 <p className="font-body-prose text-body-prose text-ink/80">The method has been refined across thirty-eight engagements. Each movement is iterative, evidence-led, and unsigned — we do not ship a slide deck and a handshake. We ship a structural intervention you can audit.</p>
                 <figure className="border border-ink overflow-hidden bg-white/40 my-auto relative group">
-                  <img alt="Editorial photograph of a stairwell in brutalist concrete" className="w-full h-auto aspect-[5/4] object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1100&auto=format&fit=crop" />
+                  <img alt="Editorial photograph of a stairwell in brutalist concrete" className="w-full h-auto aspect-[5/4] object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=1100&auto=format&fit=crop" />
                   <figcaption className="absolute bottom-3 left-3 bg-paper border border-ink px-3 py-1 font-label-caps text-label-caps uppercase text-ink">Plate · No.45 — Method, in section</figcaption>
                 </figure>
                 <blockquote className="border-l-2 border-oxblood pl-6 font-body-italic italic text-ink/80">
@@ -295,19 +313,112 @@ export default function T30ConsultingFirm() {
             </div>
           </section>
 
-          {/* Friction Report — full-bleed tinted band, runs from above the card to the footer */}
-          <section className="full-bleed mt-32 pt-20 pb-32 lg:pt-28 lg:pb-40 flex justify-center" style={{ backgroundColor: "#ECE2CE" }}>
-            <div className="max-w-[1280px] mx-auto w-full px-6 md:px-margin-edge flex justify-center">
-              <div className="border border-ink bg-paper p-12 max-w-2xl text-center w-full relative">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#ECE2CE] px-4 border border-ink text-oxblood font-label-caps text-label-caps uppercase">New Publication</div>
-                <h2 className="font-headline-lg text-headline-lg mb-6 mt-4">The Friction Report: Q3</h2>
-                <p className="font-body-prose text-body-prose text-ink/70 mb-8 mx-auto max-w-md">Our quarterly synthesis of empirical findings on organizational drag and operational decay.</p>
-                <button className="bg-ink text-white font-label-caps text-label-caps uppercase px-8 py-4 hover:bg-oxblood transition-colors w-full sm:w-auto tracking-widest">
-                  Request Digital Copy
-                </button>
+          {/* Trusted by — logo wall (simpleicons, ink-tinted) */}
+          <section className="mb-stack-lg">
+            <div className="text-center">
+              <span className="block font-label-caps text-label-caps uppercase tracking-widest text-oxblood mb-8 md:mb-10">— Advisory partners</span>
+              <h2 className="font-headline-lg text-headline-lg text-ink max-w-3xl mx-auto mb-12">Counsel for the next decade.</h2>
+            </div>
+            <div className="border border-ink bg-white/40 p-10 lg:p-14">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                {brandLogos.map(b => (
+                  <img key={b.slug} alt={b.alt} className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity" src={`https://cdn.simpleicons.org/${b.slug}/1A1A1A`} />
+                ))}
+              </div>
+            </div>
+            <p className="mt-6 text-center font-label-caps text-label-caps uppercase tracking-widest text-ink/60">+ 47 board engagements · 14 markets · MMXIV — present</p>
+          </section>
+
+          {/* How we engage — premium 2x2 with icons (no mb so it butts cleanly into the Quarterly/Friction Report band below — both share #ECE2CE) */}
+          <section className="full-bleed py-20 md:py-28" style={{ backgroundColor: "#ECE2CE" }}>
+            <div className="max-w-[1280px] mx-auto px-6 md:px-margin-edge">
+              <div className="text-center mb-14 md:mb-16">
+                <span className="block font-label-caps text-label-caps uppercase tracking-widest text-oxblood mb-8 md:mb-10">— The Engagement</span>
+                <h2 className="font-display-xl text-display-xl text-ink mb-6">How we engage.</h2>
+                <p className="font-body-prose text-body-prose text-ink/70 max-w-2xl mx-auto">Four pillars governing every mandate, refined across thirty-eight engagements and held without exception.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch">
+                {pillars.map(p => (
+                  <article
+                    key={p.num}
+                    className={
+                      p.featured
+                        ? "relative bg-paper border border-ink rounded-xl p-8 md:p-10 lg:p-12 flex flex-col gap-5 group hover:-translate-y-1 hover:shadow-2xl hover:border-oxblood transition-all duration-300 ring-2 ring-oxblood/40 ring-offset-4 ring-offset-[#ECE2CE]"
+                        : "relative bg-paper border border-ink rounded-xl p-8 md:p-10 lg:p-12 flex flex-col gap-5 group hover:-translate-y-1 hover:shadow-2xl hover:border-oxblood transition-all duration-300"
+                    }
+                  >
+                    {p.featured && (
+                      <div className="absolute -top-3 right-6 bg-ink text-paper px-3 py-1 font-label-caps text-label-caps uppercase tracking-widest">Lead practice</div>
+                    )}
+                    <div className="font-label-caps text-label-caps uppercase tracking-widest text-ink/50">{p.caption}</div>
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="font-display-xl text-[44px] leading-none text-oxblood tabular-nums italic">{p.num}</span>
+                      <span className="material-symbols-outlined text-ink" style={{ fontSize: "28px" }}>{p.icon}</span>
+                    </div>
+                    <h3 className="font-headline-md text-headline-md text-ink italic">{p.title}</h3>
+                    <p className="font-body-prose text-body-prose text-ink/75">{p.body}</p>
+                    <div className="mt-auto pt-5 border-t border-ink/20 flex items-center justify-between">
+                      <span className="font-label-caps text-label-caps uppercase tracking-widest text-ink/60">{p.meta}</span>
+                      <span className="material-symbols-outlined text-oxblood transition-transform duration-300 group-hover:translate-x-1" style={{ fontSize: "20px" }}>arrow_forward</span>
+                    </div>
+                  </article>
+                ))}
               </div>
             </div>
           </section>
+
+          {/* Friction Report — full-bleed tinted band with prior-issues teaser strip + Q3 card */}
+          {(() => {
+            const priorIssues = [
+              { quarter: "Q2 · MMXXIV", num: "No. 14", title: "The Decision Lag Index",   body: "How committee structures double cycle-times across fourteen mid-cap firms — and three counterweights we found.", read: "Read · 24 pp" },
+              { quarter: "Q1 · MMXXIV", num: "No. 13", title: "The Mandate Compression",   body: "A short essay on shrinking engagement windows and the architectures that make them survivable.",                read: "Read · 18 pp" },
+              { quarter: "Q4 · MMXXIII", num: "No. 12", title: "On Quiet Operating Models", body: "Why the most resilient mid-caps we audit publish the least — and what their succession ledgers tell us.",            read: "Read · 31 pp" },
+            ];
+            return (
+              <section className="full-bleed pt-20 pb-32 lg:pt-28 lg:pb-40" style={{ backgroundColor: "#ECE2CE" }}>
+                <div className="max-w-[1280px] mx-auto w-full px-6 md:px-margin-edge">
+                  {/* Prior issues — mini-strip */}
+                  <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-12">
+                    <div>
+                      <span className="block mb-4 font-label-caps text-label-caps uppercase tracking-widest text-oxblood">— Quarterly Series</span>
+                      <h3 className="font-headline-md text-headline-md text-ink italic">Earlier reports, in the same series.</h3>
+                    </div>
+                    <a href="#" className="font-label-caps text-label-caps uppercase tracking-widest text-ink/70 hover:text-oxblood transition-colors flex items-center gap-2 self-start md:self-end whitespace-nowrap">
+                      Browse all reports
+                      <span className="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+                    </a>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
+                    {priorIssues.map(p => (
+                      <article key={p.num} className="border border-ink bg-paper p-6 md:p-7 flex flex-col gap-3 group hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(122,30,30,0.25)] transition-all duration-300 cursor-pointer">
+                        <div className="flex items-center justify-between">
+                          <span className="font-label-caps text-label-caps uppercase tracking-widest text-oxblood">{p.quarter}</span>
+                          <span className="font-label-caps text-label-caps text-ink/60 uppercase tracking-widest text-[10px]">{p.num}</span>
+                        </div>
+                        <h4 className="font-headline-sm text-lg md:text-xl italic text-ink leading-snug">{p.title}</h4>
+                        <p className="font-body-md text-sm text-ink/70 flex-1 leading-relaxed">{p.body}</p>
+                        <span className="font-label-caps text-label-caps text-ink/60 uppercase tracking-widest text-[10px] pt-3 border-t border-ink/15 flex items-center justify-between">
+                          <span>{p.read}</span>
+                          <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                        </span>
+                      </article>
+                    ))}
+                  </div>
+                  {/* Friction Report Q3 — primary CTA */}
+                  <div className="flex justify-center">
+                    <div className="border border-ink bg-paper p-12 max-w-2xl text-center w-full relative">
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#ECE2CE] px-4 border border-ink text-oxblood font-label-caps text-label-caps uppercase">New Publication</div>
+                      <h2 className="font-headline-lg text-headline-lg mb-6 mt-4">The Friction Report: Q3</h2>
+                      <p className="font-body-prose text-body-prose text-ink/70 mb-8 mx-auto max-w-md">Our quarterly synthesis of empirical findings on organizational drag and operational decay.</p>
+                      <button className="bg-ink text-white font-label-caps text-label-caps uppercase px-8 py-4 hover:bg-oxblood transition-colors w-full sm:w-auto tracking-widest">
+                        Request Digital Copy
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            );
+          })()}
         </main>
 
         <footer className="w-full border-t border-ink bg-[#F3EDE0] text-[#1A1A1A]">

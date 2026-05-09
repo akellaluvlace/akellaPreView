@@ -55,7 +55,15 @@ export default function T68BentoGridDev() {
   // `bg-[#1DB954]` etc. on the LinkedIn / GitHub / Spotify / Newsletter
   // cards. Cards default to white via a `bg-white` utility on each card
   // that needs it; coloured cards keep their utility classes.
-  const customCss = `body { background-color:#F8F9FA; color:#111827; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; font-family:'Inter',sans-serif; }
+  const customCss = `html, body { overflow-x: hidden; max-width: 100vw; }
+body { background-color:#F8F9FA; color:#111827; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; font-family:'Inter',sans-serif; }
+.marquee-clip { overflow: hidden; }
+.premium-footer { position: relative; isolation: isolate; background-color: #0b0e1a; overflow: hidden; border-radius: 1.75rem; }
+.premium-footer::before { content: ""; position: absolute; inset: 0; background-image: url("https://images.unsplash.com/photo-1488229297570-58520851e868?w=1600&q=80&auto=format&fit=crop"); background-size: cover; background-position: center; filter: blur(28px) saturate(120%) brightness(0.55); transform: scale(1.15); z-index: -2; }
+.premium-footer::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(167,139,250,0.25), transparent 60%), linear-gradient(180deg, rgba(11,14,26,0.4) 0%, rgba(11,14,26,0.85) 100%); z-index: -1; }
+.showcase-bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 140px; gap: 16px; }
+@media (min-width: 768px) { .showcase-bento { grid-auto-rows: 170px; gap: 20px; } }
+.showcase-bento > * { border-radius: 1.5rem; overflow: hidden; position: relative; isolation: isolate; }
 .bento-card {
   border:1px solid #E5E7EB; border-radius:1.75rem;
   overflow:hidden; position:relative;
@@ -76,7 +84,6 @@ export default function T68BentoGridDev() {
 .music-bar:nth-child(4){ animation-delay:0.1s; }
 .noise-bg {
   position:absolute; inset:0; opacity:0.035; pointer-events:none; z-index:1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 .marquee-strip { animation: marquee-x 50s linear infinite; width: max-content; display: flex; gap: 14px; }
 .marquee-strip:hover { animation-play-state: paused; }
@@ -153,7 +160,7 @@ export default function T68BentoGridDev() {
         <main className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 auto-rows-[180px] gap-4 md:gap-6 mb-12 grid-flow-dense">
 
           <div className="bento-card bg-white col-span-1 md:col-span-2 row-span-2 p-8 flex flex-col justify-between group">
-            <div className="noise-bg"></div>
+            <div className="noise-bg" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }}></div>
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-gray-100 px-3 py-1.5 rounded-full shadow-sm w-fit transition-transform hover:scale-105 cursor-default">
@@ -373,6 +380,108 @@ export default function T68BentoGridDev() {
 
         </main>
 
+        {/* TRUSTED BY — clients & shipped-with logos */}
+        <section className="w-full max-w-7xl mb-12 md:mb-16" aria-label="Trusted by clients">
+          <header className="mb-6 md:mb-8 flex items-end justify-between">
+            <div>
+              <span className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-gray-400">// Section 01.5</span>
+              <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mt-1.5">Shipped with — &amp; for.</h2>
+            </div>
+            <span className="font-mono text-[10px] text-gray-400 hidden md:block">14 clients · 2018 — 2024</span>
+          </header>
+          <ul role="list" className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-7 items-center justify-items-center bg-white border border-gray-200 rounded-3xl px-6 py-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            {["vercel","stripe","linear","notion","supabase","cloudflare","sentry","figma","github","anthropic","huggingface","datadog","shopify","loom"].map(slug => (
+              <li key={slug} className="flex flex-col items-center gap-2">
+                <img src={`https://cdn.simpleicons.org/${slug}`} alt={slug} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-gray-500">{slug}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* SHOWCASE BENTO — full-rectangle mix of cards + images */}
+        <section className="w-full max-w-7xl mb-12 md:mb-16" aria-label="Selected work showcase">
+          <header className="mb-6 md:mb-8 flex items-end justify-between">
+            <div>
+              <span className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-gray-400">// Section 01.7</span>
+              <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-gray-900 mt-1.5">Selected craft.</h2>
+            </div>
+            <span className="font-mono text-[10px] text-gray-400 hidden md:block">8 tiles · auto-fill</span>
+          </header>
+          <div className="showcase-bento">
+            <article className="col-span-3 row-span-2 relative group">
+              <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=1400&q=85&auto=format&fit=crop" alt="Dual monitor analytics workstation" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="1400" height="900" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/85 via-gray-900/20 to-transparent"></div>
+              <div className="absolute top-4 left-4 flex items-center gap-2">
+                <span className="bg-emerald-400 text-emerald-950 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.18em] uppercase">Live</span>
+                <span className="bg-white/10 backdrop-blur text-white px-2.5 py-1 rounded-full text-[10px] font-bold tracking-[0.18em] uppercase">CLIENT · ORBIT</span>
+              </div>
+              <div className="absolute bottom-5 left-5 right-5 z-10">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-indigo-200 mb-1">Featured · 01</p>
+                <h3 className="font-display font-bold text-white text-2xl md:text-3xl leading-tight mb-2">Triage console — &lt; 90s first-touch.</h3>
+                <p className="text-sm text-gray-200/85 max-w-md">React 18 · Node · Postgres. Real-time priority queue across Slack, email, Linear.</p>
+              </div>
+            </article>
+            <article className="col-span-3 md:col-span-2 row-span-1 bg-white border border-gray-200 p-5 md:p-6 flex flex-col justify-between">
+              <div className="flex items-center justify-between">
+                <div className="p-2 bg-indigo-50 rounded-lg"><i data-lucide="trending-up" className="w-4 h-4 text-indigo-600"></i></div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-gray-400">YTD</span>
+              </div>
+              <div>
+                <p className="font-display font-bold text-3xl md:text-4xl text-gray-900 leading-none tabular-nums">3.7×</p>
+                <p className="text-xs text-gray-500 mt-2 uppercase tracking-wider font-semibold">Faster ship-to-prod</p>
+              </div>
+            </article>
+            <article className="col-span-3 md:col-span-1 row-span-1 relative group">
+              <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&q=85&auto=format&fit=crop" alt="Code editor close-up" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600" />
+              <div className="absolute inset-0 bg-gray-900/40"></div>
+              <div className="absolute bottom-3 left-3 right-3 z-10">
+                <span className="bg-white/95 text-gray-900 px-2 py-0.5 rounded-full text-[9px] font-bold tracking-[0.18em] uppercase backdrop-blur">.tsx</span>
+              </div>
+            </article>
+            <article className="col-span-3 row-span-1 bg-gradient-to-br from-gray-900 to-gray-800 text-white p-5 md:p-7 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-indigo-500/30 blur-3xl pointer-events-none"></div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-indigo-300/80">// Client · Orbit Inc.</span>
+              <p className="font-display text-base md:text-lg leading-snug text-pretty">"Alex shipped the v2 console in seven weeks. Triage time dropped 63% the day it deployed."</p>
+              <p className="text-xs text-gray-400">— S. Petrov · CTO, Orbit</p>
+            </article>
+            <article className="col-span-3 md:col-span-2 row-span-1 relative group">
+              <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&q=85&auto=format&fit=crop" alt="Two developers at desks pair-programming" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="900" height="600" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent"></div>
+              <div className="absolute bottom-3 left-3 right-3 z-10 flex items-end justify-between">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-200 mb-0.5">Pair programming</p>
+                  <p className="font-display font-bold text-white text-lg leading-tight">Studio · weekly</p>
+                </div>
+                <i data-lucide="arrow-up-right" className="w-5 h-5 text-white/80"></i>
+              </div>
+            </article>
+            <article className="col-span-3 md:col-span-1 row-span-1 bg-gradient-to-br from-cyan-50 to-white border border-cyan-100 p-5 flex flex-col justify-between">
+              <div className="p-2 bg-white rounded-lg border border-cyan-100 w-fit"><i data-lucide="cpu" className="w-4 h-4 text-cyan-600"></i></div>
+              <div>
+                <p className="font-display font-bold text-2xl text-gray-900 leading-none tabular-nums">12</p>
+                <p className="text-[10px] text-gray-500 mt-1.5 uppercase tracking-wider font-semibold">Stacks shipped</p>
+              </div>
+            </article>
+            <article className="col-span-6 md:col-span-4 row-span-1 relative group">
+              <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=1600&q=85&auto=format&fit=crop" alt="Data centre tunnel of golden lights" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="1600" height="600" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(11,14,26,0.85) 0%, rgba(11,14,26,0.35) 60%, transparent 100%)" }}></div>
+              <div className="absolute top-1/2 left-5 right-5 -translate-y-1/2 z-10 max-w-md">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-amber-200 mb-1">Infrastructure</p>
+                <p className="font-display font-bold text-white text-lg md:text-xl leading-tight">99.99% uptime · 14 regions · zero-downtime migrations.</p>
+              </div>
+            </article>
+            <article className="col-span-6 md:col-span-2 row-span-1 bg-gray-900 text-white p-5 md:p-6 flex flex-col justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gray-400">// Available</span>
+              <div>
+                <p className="font-display font-bold text-xl text-white leading-tight">Open for Q1 ’25</p>
+                <p className="text-xs text-gray-400 mt-1.5">2 retainer slots · async-first</p>
+              </div>
+              <a href="#" className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors">Talk shop <i data-lucide="arrow-up-right" className="w-4 h-4"></i></a>
+            </article>
+          </div>
+        </section>
+
         {/* CONTINUOUS IMAGE STRIP (MARQUEE) */}
         <section className="w-full max-w-[100rem] mb-12 md:mb-16" aria-label="Studio capture">
           <div className="max-w-7xl mx-auto px-1 mb-6 md:mb-8 flex items-end justify-between">
@@ -383,7 +492,7 @@ export default function T68BentoGridDev() {
             <span className="font-mono text-[10px] text-gray-400 hidden md:block">Auto-scroll · Hover to pause</span>
           </div>
 
-          <div className="relative">
+          <div className="relative marquee-clip">
             <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 z-10 bg-gradient-to-r from-[#F8F9FA] to-transparent pointer-events-none"></div>
             <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 z-10 bg-gradient-to-l from-[#F8F9FA] to-transparent pointer-events-none"></div>
 
@@ -595,16 +704,65 @@ export default function T68BentoGridDev() {
           </div>
         </section>
 
-        <footer className="text-center pb-8 text-gray-400 text-sm">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            {footerSocials.map((s, i) => (
-              <span key={s} className="contents">
-                <a href="#" className="hover:text-gray-900 transition-colors">{s}</a>
-                {i < footerSocials.length - 1 && <span className="w-1 h-1 bg-gray-300 rounded-full"></span>}
-              </span>
-            ))}
+        <footer className="w-full max-w-7xl premium-footer mb-8 px-6 md:px-12 py-14 md:py-20 text-white">
+          <div className="relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12 md:mb-16">
+            <div className="max-w-2xl">
+              <span className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-indigo-300/80">// Let's build</span>
+              <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight mt-3 leading-[1.05] text-pretty">Want a system that ships in seven weeks, not seven quarters?</h2>
+              <p className="text-white/70 mt-5 max-w-lg leading-relaxed">Two retainer slots open for Q1. Async-first, NDA-friendly, full-stack — React on the way in, Postgres on the way out.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <a href="#" className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 py-3.5 rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors shadow-[0_18px_40px_-16px_rgba(255,255,255,0.55)]">Start a project <i data-lucide="arrow-up-right" className="w-4 h-4"></i></a>
+              <a href="#" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-medium text-sm border border-white/20 bg-white/5 backdrop-blur hover:bg-white/10 transition-colors text-white"><i data-lucide="calendar" className="w-4 h-4"></i> Book intro · 20 min</a>
+            </div>
           </div>
-          <p>&copy; 2024 Alex Dev. Built with HTML, Tailwind & Coffee.</p>
+
+          <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 mb-10 border-b border-white/10">
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/50 mb-3">Work</p>
+              <ul className="flex flex-col gap-2 text-sm text-white/85">
+                <li><a href="#" className="hover:text-white transition-colors">Selected craft</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Open source</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Talks &amp; writing</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/50 mb-3">Practice</p>
+              <ul className="flex flex-col gap-2 text-sm text-white/85">
+                <li><a href="#" className="hover:text-white transition-colors">1:1 mentoring</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Architecture review</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Hiring help</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/50 mb-3">Find me</p>
+              <ul className="flex flex-col gap-2 text-sm text-white/85">
+                <li><a href="#" className="hover:text-white transition-colors inline-flex items-center gap-2"><i data-lucide="github" className="w-3.5 h-3.5"></i> GitHub</a></li>
+                <li><a href="#" className="hover:text-white transition-colors inline-flex items-center gap-2"><i data-lucide="linkedin" className="w-3.5 h-3.5"></i> LinkedIn</a></li>
+                <li><a href="#" className="hover:text-white transition-colors inline-flex items-center gap-2"><i data-lucide="twitter" className="w-3.5 h-3.5"></i> X / Twitter</a></li>
+                <li><a href="#" className="hover:text-white transition-colors inline-flex items-center gap-2"><i data-lucide="rss" className="w-3.5 h-3.5"></i> RSS</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/50 mb-3">Mailbox</p>
+              <p className="text-sm text-white/85 leading-relaxed mb-3">Quarterly notes on systems, taste, and shipping. ~600 words. No spam.</p>
+              <form className="flex flex-col gap-2">
+                <label className="sr-only" htmlFor="footer-email">Email address</label>
+                <input id="footer-email" type="email" placeholder="you@studio.dev" className="bg-white/8 border border-white/15 rounded-full px-4 py-2 text-xs text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 backdrop-blur" required />
+                <button type="submit" className="bg-white text-gray-900 rounded-full px-4 py-2 text-xs font-semibold hover:bg-gray-100 transition-colors">Subscribe</button>
+              </form>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-white/55 font-mono uppercase tracking-[0.18em]">
+            <p>&copy; 2024 Alex Dev · San Francisco · Tokyo</p>
+            <p className="flex items-center gap-3">
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> All systems · 99.99%</span>
+              <span className="w-1 h-1 bg-white/30 rounded-full"></span>
+              <a href="#" className="hover:text-white transition-colors normal-case tracking-normal">Privacy</a>
+              <a href="#" className="hover:text-white transition-colors normal-case tracking-normal">Imprint</a>
+            </p>
+          </div>
         </footer>
       </div>
 

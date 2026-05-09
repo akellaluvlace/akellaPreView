@@ -207,16 +207,32 @@
 </div>
 </nav>
 </header>
-<main class="flex-grow pt-[72px] sm:pt-24 md:pt-[120px]">
-<!-- Hero Section. Responsive: fixed h-[819px] drops to aspect ratio
-     on mobile so the product stays visible without towering off
-     screen. section-gap (160px) + margin-edge (40px) ramp down. -->
-<section class="w-full aspect-[3/4] md:h-[819px] md:min-h-[600px] md:aspect-auto flex flex-col relative px-4 mb-20 sm:px-6 sm:mb-28 md:px-margin-edge md:mb-section-gap">
-<div class="w-full h-full relative overflow-hidden group">
-<img alt="Minimalist matte white electric kettle resting on a smooth cream stone surface with soft, diffused studio lighting" class="w-full h-full object-cover object-center bg-[#141414]/5 transition-transform duration-1000 group-hover:scale-105" data-alt="Minimalist matte white electric kettle resting on a smooth cream stone surface with soft, diffused studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChWhipqYxHTfWPFHSnpgGB-42L-Uz4jnMF0wB0mWfjCl-TpQt-wTE7EX9Dm_5xeT4n3w3pi2LzDU3ICTtuS-sqp2Rv1Ye9qFyo8h11vr7BXVe_ecqkoW4Dk8ZDE3GeIKOp5qKQrCgs18APi-vCdqaQ3HnwjNcbqqalVjFyfd5lb17Q9cQNdCDy0vp3Zk1-4EQNO2WJnrKPXIsH2K-N_3rML18OlzIaJMHQv4EjczCY7iQG7m40ZpQI-GYtfADAyaqggVE6ctKWGA4"/>
-<div class="absolute bottom-6 left-4 flex flex-col gap-2 sm:bottom-8 sm:left-6 md:bottom-10 md:left-10">
-<h2 class="font-h1 text-h1 tracking-[0.05em] uppercase text-[#141414]">The Kettle</h2>
-<p class="font-body-md text-body-md text-[#141414]/70 tracking-widest">$145</p>
+<main class="flex-grow pt-[48px] sm:pt-[64px] md:pt-[80px]">
+<!-- Hero Section. Full-bleed (no horizontal padding); image scales to viewport
+     width. md:h-[calc(100vh-80px)] fills the screen below the 120px header,
+     min-h-[700px] keeps presence on shorter screens, max-h-[1080px] caps it
+     on tall displays. Aspect-[3/4] portrait on mobile keeps the kettle
+     readable without towering. -->
+<section class="w-full mb-20 sm:mb-28 md:mb-section-gap">
+<div class="w-full aspect-[3/4] md:aspect-auto md:h-[calc(100vh-80px)] md:min-h-[700px] md:max-h-[1080px] relative overflow-hidden group bg-[#141414]/5">
+<img alt="The matte white Kettle, photographed full-frame on smooth cream Tuscan stone in raking morning light" class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]" data-alt="The matte white Kettle, photographed full-frame on smooth cream Tuscan stone in raking morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChWhipqYxHTfWPFHSnpgGB-42L-Uz4jnMF0wB0mWfjCl-TpQt-wTE7EX9Dm_5xeT4n3w3pi2LzDU3ICTtuS-sqp2Rv1Ye9qFyo8h11vr7BXVe_ecqkoW4Dk8ZDE3GeIKOp5qKQrCgs18APi-vCdqaQ3HnwjNcbqqalVjFyfd5lb17Q9cQNdCDy0vp3Zk1-4EQNO2WJnrKPXIsH2K-N_3rML18OlzIaJMHQv4EjczCY7iQG7m40ZpQI-GYtfADAyaqggVE6ctKWGA4"/>
+<!-- Top-left edition tag -->
+<div class="absolute top-4 left-4 flex items-center gap-3 sm:top-6 sm:left-6 md:top-10 md:left-10">
+<span class="w-1.5 h-1.5 rounded-full bg-[#141414]"></span>
+<span class="font-label text-label uppercase tracking-[0.3em] text-[#141414]">Edition 02 · Spring 2026</span>
+</div>
+<!-- Top-right atelier meta — desktop only -->
+<div class="hidden md:flex absolute top-10 right-10 flex-col items-end gap-1">
+<span class="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">Bottega Vetro</span>
+<span class="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">Faenza, IT</span>
+</div>
+<!-- Bottom rail: title + price (left); read CTA (right) -->
+<div class="absolute inset-x-0 bottom-0 flex flex-col gap-6 px-4 pb-6 sm:px-6 sm:pb-8 md:flex-row md:items-end md:justify-between md:gap-12 md:px-10 md:pb-10">
+<div class="flex flex-col gap-2">
+<h2 class="font-display tracking-[-0.025em] leading-[0.95] text-[#141414] text-[48px] sm:text-[72px] md:text-[104px] uppercase">The Kettle.</h2>
+<p class="font-body-md text-body-md text-[#141414]/70 tracking-widest">$145 · 200 / year · 3–4 weeks</p>
+</div>
+<a class="self-start md:self-end inline-flex items-center gap-2 font-label text-label uppercase tracking-[0.25em] text-[#141414] border-b border-[#141414] pb-1 hover:opacity-70 transition-opacity duration-300" href="#">Read the Object <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
 </div>
 </div>
 </section>
@@ -237,20 +253,35 @@
 <div class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4">
 <!-- Plate I — wide 7 col -->
 <figure class="md:col-span-7 relative aspect-[4/3] overflow-hidden bg-[#141414]/5 group">
-<img alt="A north-facing reading nook with the matte white kettle on a sand-toned linen runner beside a clay mug" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]" data-alt="A north-facing reading nook with the matte white kettle on a sand-toned linen runner beside a clay mug" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<img alt="A north-facing reading nook with the matte white kettle on a sand-toned linen runner beside a clay mug" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]" data-alt="A north-facing reading nook with the matte white kettle on a sand-toned linen runner beside a clay mug" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1400&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <figcaption class="absolute left-4 bottom-4 sm:left-6 sm:bottom-6 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
 <span class="font-label text-label uppercase tracking-widest text-[#141414]/60">Plate · I</span>
 <span class="font-body-md text-body-md text-[#141414] tracking-wide">Morning Room</span>
 </figcaption>
 </figure>
+<!-- Right column of row 1: Plate II (col-5) stacked with a Field Note card.
+     Wrapper auto-stretches to row height (matches Plate I aspect-[4/3]); Plate II
+     keeps its aspect-[4/3]; the card uses flex-1 to fill the height delta — so
+     no empty white slab below Plate II. -->
+<div class="md:col-span-5 flex flex-col gap-3 md:gap-4">
 <!-- Plate II — narrow 5 col -->
-<figure class="md:col-span-5 relative aspect-[4/3] overflow-hidden bg-[#141414]/5 group">
+<figure class="relative aspect-[4/3] overflow-hidden bg-[#141414]/5 group">
 <img alt="A bentwood oak chair beside a single tall window casting a long winter afternoon shadow on a sanded floor" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]" data-alt="A bentwood oak chair beside a single tall window casting a long winter afternoon shadow on a sanded floor" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <figcaption class="absolute left-4 bottom-4 sm:left-6 sm:bottom-6 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
 <span class="font-label text-label uppercase tracking-widest text-[#141414]/60">Plate · II</span>
 <span class="font-body-md text-body-md text-[#141414] tracking-wide">Long Afternoon</span>
 </figcaption>
 </figure>
+<!-- Field Note card — fills the empty space below Plate II so the row reads square. -->
+<aside class="relative flex-1 min-h-[120px] flex flex-col justify-between gap-4 p-5 md:p-6 border border-[#141414]/15 bg-[#F4F0E8]">
+<div class="flex flex-col gap-2">
+<span class="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">— Field Note · No. 02</span>
+<h3 class="font-h2 text-h2 text-[#141414] leading-snug">Each room is one edition.</h3>
+</div>
+<p class="font-body-md text-body-md text-[#141414]/70 leading-relaxed">Photographed in the season the room was finished — never staged, never relit, never re-shot for the catalogue.</p>
+<a class="inline-flex items-center gap-2 font-label text-label uppercase tracking-[0.25em] text-[#141414] border-b border-[#141414] pb-1 self-start hover:opacity-70 transition-opacity duration-300" href="#">The Field Notes <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
+</aside>
+</div>
 <!-- Plate III — square -->
 <figure class="md:col-span-4 relative aspect-square overflow-hidden bg-[#141414]/5 group">
 <img alt="Hand-thrown ceramic bowl filled with sea salt resting on a sun-warmed plinth" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.03]" data-alt="Hand-thrown ceramic bowl filled with sea salt resting on a sun-warmed plinth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVMkgUFVKpEkCRr2aLgOmw3EZ2ofFSk--MttCGaXyVaX7yv1f-JirqdObIEXvHyYpebHtzTQ7I4w5bGm7Kt_0NZLY1wBc8ZcWyjGthmku_Yp889-Sg2oPxFofDF6uFDESWB60HBminKDZujEVG1ZQLfVk47pDKnA3zTgq-rZXC7bdGTRfU7O5aqp9oX8OvHx40ookbbJaa9A_KMODPgic1HjLcoQFkU2rDSv7TK7a30myp4qPic4h6dTyb0-HjWV5F4YB9VFRgIFs"/>
@@ -277,10 +308,10 @@
 </figure>
 <!-- Plate VI — full-width 21:9 cinema -->
 <figure class="md:col-span-12 relative aspect-[21/9] overflow-hidden bg-[#141414]/5 group">
-<img alt="Wide-format dawn light spilling across a sparsely furnished room with a single oak chair and the matte white kettle on a low slate plinth" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.02]" data-alt="Wide-format dawn light spilling across a sparsely furnished room with a single oak chair and the matte white kettle on a low slate plinth" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
+<img alt="Wide-format architectural perspective — the warm-rust south wall of the atelier washed by long morning light" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-[1.02]" data-alt="Wide-format architectural perspective — the warm-rust south wall of the atelier washed by long morning light" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=1920&amp;q=85&amp;auto=format&amp;fit=crop"/>
 <figcaption class="absolute left-6 bottom-6 sm:left-10 sm:bottom-10 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
 <span class="font-label text-label uppercase tracking-widest text-[#141414]/60">Plate · VI</span>
-<span class="font-body-md text-body-md text-[#141414] tracking-wide">First Light, Whole House</span>
+<span class="font-body-md text-body-md text-[#141414] tracking-wide">Long Light, South Wall</span>
 </figcaption>
 </figure>
 </div>
@@ -588,7 +619,7 @@ Pause on hover
 <div class="relative min-h-[88px]">
 <div class="plain-cycle-caption plain-cycle-rest absolute inset-0 flex flex-col gap-1" style="animation-delay: 0s;">
 <span class="font-label text-label uppercase tracking-widest text-[#141414]/50">Frame I · Matter</span>
-<span class="font-h2 text-h2 text-[#141414]">Carbon steel, raw, weighed and stamped.</span>
+<span class="font-h2 text-h2 text-[#141414]">Forged steel, raw, weighed and stamped.</span>
 </div>
 <div class="plain-cycle-caption absolute inset-0 flex flex-col gap-1" style="animation-delay: 4s;">
 <span class="font-label text-label uppercase tracking-widest text-[#141414]/50">Frame II · Cut</span>
@@ -615,18 +646,18 @@ Pause on hover
 <!-- Cycling image -->
 <div class="md:col-span-7 flex flex-col gap-4">
 <div class="relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-[#141414]/5">
-<img alt="Frame I — raw carbon steel sheets stacked in the atelier under window light" class="plain-cycle-img plain-cycle-rest absolute inset-0 w-full h-full object-cover grayscale" data-alt="Frame I — raw carbon steel sheets stacked in the atelier under window light" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" style="animation-delay: 0s;"/>
+<img alt="Frame I — a single forged steel blank resting on the chestnut weighing block at first light" class="plain-cycle-img plain-cycle-rest absolute inset-0 w-full h-full object-cover grayscale" data-alt="Frame I — a single forged steel blank resting on the chestnut weighing block at first light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApw5u0R2ve0n84DnYERUin6bsv7afid7DMkcK7YM3x_Na6tE7EhJcniwivZCThd9CZZsM4Me9A0EfRRyq_RhIeHwvFrlRAVs05hUGmhUM_k2sFrdrmab3vRG1RPYdgMh02IZesb4HHGelo0QmusL22jY9faLuTGeVXyxs_90tIcTa_MuWhDXB_8AqRQ-jOMi7i28Q0dhNeiZyYxK-V2S5-kQh0K2BjLHMOkeI35cw80_Ycon7S5ZLqYOFa8ZxHKrYxpGCHMGSUaqg" style="animation-delay: 0s;"/>
 <img alt="Frame II — hands pressing and drawing the sheet at the bench" class="plain-cycle-img absolute inset-0 w-full h-full object-cover grayscale" data-alt="Frame II — hands pressing and drawing the sheet at the bench" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFIaLSyr-bW-9SjSjBqhM6b-IhEvFp8v6no2y71y43Y_KC6GU8CFu7EBXE3M1KJiPioCdgRbHXaabvocFNQOyfTvJ-l4Wblvk1USOGSDkdnyjtBqc3Gm6wsQeC1SHPKw-1AYRJZdO4i5gl-xQke40q0tiD8ilCo41xU95k0HfksUfVf_z_y_1E97LZl7Cv_YnhQaiH3Aetsz4W60trVUm1BugdKkrQWYFSmDMn-gfFUQiRT0vJk9b2VcVOtUrf-YGea6bJ17VNNiM" style="animation-delay: 4s;"/>
-<img alt="Frame III — a freshly enamelled body cooling in the kiln" class="plain-cycle-img absolute inset-0 w-full h-full object-cover grayscale" data-alt="Frame III — a freshly enamelled body cooling in the kiln" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" style="animation-delay: 8s;"/>
+<img alt="Frame III — a bone-white ceramic body cooling on the plinth between the second and third firings" class="plain-cycle-img absolute inset-0 w-full h-full object-cover grayscale" data-alt="Frame III — a bone-white ceramic body cooling on the plinth between the second and third firings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVMkgUFVKpEkCRr2aLgOmw3EZ2ofFSk--MttCGaXyVaX7yv1f-JirqdObIEXvHyYpebHtzTQ7I4w5bGm7Kt_0NZLY1wBc8ZcWyjGthmku_Yp889-Sg2oPxFofDF6uFDESWB60HBminKDZujEVG1ZQLfVk47pDKnA3zTgq-rZXC7bdGTRfU7O5aqp9oX8OvHx40ookbbJaa9A_KMODPgic1HjLcoQFkU2rDSv7TK7a30myp4qPic4h6dTyb0-HjWV5F4YB9VFRgIFs" style="animation-delay: 8s;"/>
 <img alt="Frame IV — the finished kettle wrapped in raw linen on a cedar bench" class="plain-cycle-img absolute inset-0 w-full h-full object-cover grayscale" data-alt="Frame IV — the finished kettle wrapped in raw linen on a cedar bench" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChWhipqYxHTfWPFHSnpgGB-42L-Uz4jnMF0wB0mWfjCl-TpQt-wTE7EX9Dm_5xeT4n3w3pi2LzDU3ICTtuS-sqp2Rv1Ye9qFyo8h11vr7BXVe_ecqkoW4Dk8ZDE3GeIKOp5qKQrCgs18APi-vCdqaQ3HnwjNcbqqalVjFyfd5lb17Q9cQNdCDy0vp3Zk1-4EQNO2WJnrKPXIsH2K-N_3rML18OlzIaJMHQv4EjczCY7iQG7m40ZpQI-GYtfADAyaqggVE6ctKWGA4" style="animation-delay: 12s;"/>
 <!-- Roman numeral plate corner -->
 <span class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-1.5 font-label text-label uppercase tracking-widest text-[#141414]/70">Frame · I — IV</span>
 </div>
 <!-- Synced indicator strip — 4 mini thumbnails -->
 <div class="grid grid-cols-4 gap-3">
-<div class="plain-cycle-indicator plain-cycle-rest relative aspect-[4/3] overflow-hidden bg-[#141414]/5" style="animation-delay: 0s;"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&amp;q=85&amp;auto=format&amp;fit=crop"/></div>
+<div class="plain-cycle-indicator plain-cycle-rest relative aspect-[4/3] overflow-hidden bg-[#141414]/5" style="animation-delay: 0s;"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApw5u0R2ve0n84DnYERUin6bsv7afid7DMkcK7YM3x_Na6tE7EhJcniwivZCThd9CZZsM4Me9A0EfRRyq_RhIeHwvFrlRAVs05hUGmhUM_k2sFrdrmab3vRG1RPYdgMh02IZesb4HHGelo0QmusL22jY9faLuTGeVXyxs_90tIcTa_MuWhDXB_8AqRQ-jOMi7i28Q0dhNeiZyYxK-V2S5-kQh0K2BjLHMOkeI35cw80_Ycon7S5ZLqYOFa8ZxHKrYxpGCHMGSUaqg"/></div>
 <div class="plain-cycle-indicator relative aspect-[4/3] overflow-hidden bg-[#141414]/5" style="animation-delay: 4s;"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFIaLSyr-bW-9SjSjBqhM6b-IhEvFp8v6no2y71y43Y_KC6GU8CFu7EBXE3M1KJiPioCdgRbHXaabvocFNQOyfTvJ-l4Wblvk1USOGSDkdnyjtBqc3Gm6wsQeC1SHPKw-1AYRJZdO4i5gl-xQke40q0tiD8ilCo41xU95k0HfksUfVf_z_y_1E97LZl7Cv_YnhQaiH3Aetsz4W60trVUm1BugdKkrQWYFSmDMn-gfFUQiRT0vJk9b2VcVOtUrf-YGea6bJ17VNNiM"/></div>
-<div class="plain-cycle-indicator relative aspect-[4/3] overflow-hidden bg-[#141414]/5" style="animation-delay: 8s;"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=400&amp;q=85&amp;auto=format&amp;fit=crop"/></div>
+<div class="plain-cycle-indicator relative aspect-[4/3] overflow-hidden bg-[#141414]/5" style="animation-delay: 8s;"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVMkgUFVKpEkCRr2aLgOmw3EZ2ofFSk--MttCGaXyVaX7yv1f-JirqdObIEXvHyYpebHtzTQ7I4w5bGm7Kt_0NZLY1wBc8ZcWyjGthmku_Yp889-Sg2oPxFofDF6uFDESWB60HBminKDZujEVG1ZQLfVk47pDKnA3zTgq-rZXC7bdGTRfU7O5aqp9oX8OvHx40ookbbJaa9A_KMODPgic1HjLcoQFkU2rDSv7TK7a30myp4qPic4h6dTyb0-HjWV5F4YB9VFRgIFs"/></div>
 <div class="plain-cycle-indicator relative aspect-[4/3] overflow-hidden bg-[#141414]/5" style="animation-delay: 12s;"><img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChWhipqYxHTfWPFHSnpgGB-42L-Uz4jnMF0wB0mWfjCl-TpQt-wTE7EX9Dm_5xeT4n3w3pi2LzDU3ICTtuS-sqp2Rv1Ye9qFyo8h11vr7BXVe_ecqkoW4Dk8ZDE3GeIKOp5qKQrCgs18APi-vCdqaQ3HnwjNcbqqalVjFyfd5lb17Q9cQNdCDy0vp3Zk1-4EQNO2WJnrKPXIsH2K-N_3rML18OlzIaJMHQv4EjczCY7iQG7m40ZpQI-GYtfADAyaqggVE6ctKWGA4"/></div>
 </div>
 </div>
@@ -644,8 +675,8 @@ Pause on hover
 <h2 class="font-display text-display tracking-[-0.02em] text-[#141414]">Common questions, answered plainly.</h2>
 <p class="font-body-md text-body-md text-[#141414]/70 leading-relaxed">If your question isn't here, our small team replies in person within one working day.</p>
 <figure class="relative aspect-[4/5] overflow-hidden bg-[#141414]/5 mt-2">
-<img alt="Quiet packing room with linen-wrapped parcels stacked on a wide cedar bench" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Quiet packing room with linen-wrapped parcels stacked on a wide cedar bench" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&amp;q=85&amp;auto=format&amp;fit=crop"/>
-<figcaption class="absolute left-4 bottom-4 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 font-label text-label uppercase tracking-widest text-[#141414]/70">Packing Room · Faenza</figcaption>
+<img alt="Hands at the Faenza atelier bench — every piece that leaves the studio passes through this workshop first" class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="Hands at the Faenza atelier bench — every piece that leaves the studio passes through this workshop first" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFIaLSyr-bW-9SjSjBqhM6b-IhEvFp8v6no2y71y43Y_KC6GU8CFu7EBXE3M1KJiPioCdgRbHXaabvocFNQOyfTvJ-l4Wblvk1USOGSDkdnyjtBqc3Gm6wsQeC1SHPKw-1AYRJZdO4i5gl-xQke40q0tiD8ilCo41xU95k0HfksUfVf_z_y_1E97LZl7Cv_YnhQaiH3Aetsz4W60trVUm1BugdKkrQWYFSmDMn-gfFUQiRT0vJk9b2VcVOtUrf-YGea6bJ17VNNiM"/>
+<figcaption class="absolute left-4 bottom-4 bg-[#F4F0E8]/90 backdrop-blur-sm px-3 py-2 font-label text-label uppercase tracking-widest text-[#141414]/70">Workshop · Faenza</figcaption>
 </figure>
 <dl class="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[#141414]/10 pt-5">
 <div class="flex flex-col gap-1"><dt class="font-label text-label uppercase tracking-widest text-[#141414]/50">Reply</dt><dd class="font-body-md text-body-md text-[#141414]">≤ 24 hrs</dd></div>
@@ -654,8 +685,11 @@ Pause on hover
 <div class="flex flex-col gap-1"><dt class="font-label text-label uppercase tracking-widest text-[#141414]/50">Care</dt><dd class="font-body-md text-body-md text-[#141414]">By hand, lifetime</dd></div>
 </dl>
 </div>
-<!-- Right rail: FAQ list -->
-<div class="md:col-span-8 divide-y divide-[#141414]/15 border-y border-[#141414]/15">
+<!-- Right rail: FAQ list + disclaimer card. flex-col + flex-1 on the disclaimer so its
+     height stretches to match the left rail's bottom (image + meta dl is much taller
+     than 5 collapsed FAQ rows). -->
+<div class="md:col-span-8 flex flex-col">
+<div class="divide-y divide-[#141414]/15 border-y border-[#141414]/15">
 <details class="plain-faq group py-6 px-1">
 <summary class="flex items-baseline justify-between gap-6 cursor-pointer">
 <h3 class="font-h2 text-h2 text-[#141414]">When will my order ship?</h3>
@@ -691,6 +725,30 @@ Pause on hover
 </summary>
 <p class="font-body-md text-body-md text-[#141414]/75 leading-relaxed mt-4 max-w-2xl">Occasionally. We take on six private commissions a year — usually furniture or lighting for a single room. Write to commissions@plain.studio with a sentence about the room and we'll reply with a slot.</p>
 </details>
+</div>
+<aside class="mt-8 md:mt-10 flex-1 flex flex-col gap-5 p-6 md:p-8 border border-[#141414]/15 bg-[#141414]/[0.025]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#141414]/60 text-[20px]">info</span>
+<span class="font-label text-label uppercase tracking-[0.3em] text-[#141414]/60">— A note on plainness</span>
+</div>
+<p class="font-body-md text-body-md text-[#141414]/75 leading-relaxed max-w-2xl">
+                    We do not run sales. We do not stock anything we wouldn't keep ourselves. Every piece is photographed where it was made — never on a white seamless, never with a stock background. If a piece you'd like is sold out, write to us; the next edition is always being planned.
+                </p>
+<dl class="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-3 border-t border-[#141414]/10 pt-5 mt-auto">
+<div class="flex flex-col gap-1">
+<dt class="font-label text-label uppercase tracking-widest text-[#141414]/50">Studio</dt>
+<dd class="font-body-md text-body-md text-[#141414]">studio@plain.studio</dd>
+</div>
+<div class="flex flex-col gap-1">
+<dt class="font-label text-label uppercase tracking-widest text-[#141414]/50">Phone</dt>
+<dd class="font-body-md text-body-md text-[#141414]">+39 0546 21 04</dd>
+</div>
+<div class="flex flex-col gap-1">
+<dt class="font-label text-label uppercase tracking-widest text-[#141414]/50">Hours</dt>
+<dd class="font-body-md text-body-md text-[#141414]">Mon–Fri · 09–17 CET</dd>
+</div>
+</dl>
+</aside>
 </div>
 </div>
 </section>

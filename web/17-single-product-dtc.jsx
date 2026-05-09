@@ -1,12 +1,12 @@
 const DRIFT_INVENTORY = [
   { sku: "DRF · 03·14 — Bench Proof", title: "Sleep Tincture · Lot 24·R3", place: "Kyoto · 04:12", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop", alt: "Field study — Kyoto bench" },
-  { sku: "DRF · 03·15 — Apothecary",  title: "Tincture decant · Brass dropper", place: "Copenhagen · 21:48", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", alt: "Apothecary still life" },
+  { sku: "DRF · 03·15 — Apothecary",  title: "Tincture decant · Brass dropper", place: "Copenhagen · 21:48", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "Apothecary still life" },
   { sku: "DRF · 03·17 — Clinic Bay",  title: "Cohort handoff · n=22", place: "Lisbon · 09:02", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Sage interior — Lisbon clinic" },
   { sku: "DRF · 03·18 — Night Proof", title: "Subject log · Restful 7h22m", place: "Brooklyn · 23:11", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&q=85&auto=format&fit=crop", alt: "Night-table proof — portrait" },
-  { sku: "DRF · 03·19 — Editorial",   title: "Evening regimen · Pre-press", place: "Antwerp · 18:55", img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait" },
-  { sku: "DRF · 03·21 — Shelf Audit", title: "Inventory rotation · Q1·24", place: "Helsinki · 14:30", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", alt: "Architectural shelf — apothecary" },
+  { sku: "DRF · 03·19 — Editorial",   title: "Evening regimen · Pre-press", place: "Antwerp · 18:55", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait" },
+  { sku: "DRF · 03·21 — Shelf Audit", title: "Inventory rotation · Q1·24", place: "Helsinki · 14:30", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Architectural shelf — apothecary" },
   { sku: "DRF · 03·22 — Restoration", title: "Cohort review · Week 04", place: "Reykjavík · 06:40", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Quiet portrait — restoration" },
-  { sku: "DRF · 03·24 — Light Study", title: "Bottle stability · 21°C", place: "Geneva · 11:15", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop", alt: "Light study — facade" },
+  { sku: "DRF · 03·24 — Light Study", title: "Bottle stability · 21°C", place: "Geneva · 11:15", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "Light study — facade" },
 ];
 
 const DRIFT_RITUAL = [
@@ -24,9 +24,9 @@ const DRIFT_LEDGER = [
     body: "A short-chain bioactive that primes the GABA-A receptor without binding it. Dosed at 4%, the threshold above which two independent crossover studies showed reduced sleep-onset latency.",
     role: "Receptor primer",
     origin: "Strasbourg · FR",
-    img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop",
     alt: "Brass apothecary still life — peptide flask",
-    overlay: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=85&auto=format&fit=crop",
+    overlay: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=85&auto=format&fit=crop",
     overlayPos: "-bottom-6 -right-6 rotate-3",
     reverse: false,
   },
@@ -52,7 +52,7 @@ const DRIFT_LEDGER = [
     origin: "Pernambuco · BR",
     img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop",
     alt: "Squalane carrier oil — bottle in light",
-    overlay: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&q=85&auto=format&fit=crop",
+    overlay: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=600&q=85&auto=format&fit=crop",
     overlayPos: "-top-6 -right-6 rotate-2",
     reverse: false,
   },

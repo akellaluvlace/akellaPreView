@@ -82,6 +82,54 @@ export default function T42BoutiqueHotel() {
     { v: "2021", l: "Restored" }
   ];
 
+  const pressLogos = [
+    { slug: "medium", alt: "Featured in Medium" },
+    { slug: "theguardian", alt: "Featured in The Guardian" },
+    { slug: "telegraph", alt: "Featured in The Telegraph" },
+    { slug: "substack", alt: "Featured in Substack" },
+    { slug: "hermes", alt: "Recommended by Hermès" },
+    { slug: "wetransfer", alt: "Featured in WeTransfer" },
+    { slug: "pinterest", alt: "Featured in Pinterest" },
+    { slug: "behance", alt: "Featured in Behance" }
+  ];
+
+  const housePromise = [
+    {
+      numeral: "I",
+      icon: "lock",
+      title: "Discretion.",
+      body: "No guest list shared, no arrival photographed, no name spoken in the lobby. The front desk holds your reservation under whatever initial you prefer; staff are briefed weekly on what privacy actually means in a fourteen-room house.",
+      meta: "House rule · No. 01",
+      featured: false
+    },
+    {
+      numeral: "II",
+      icon: "verified",
+      title: "Quality, sourced.",
+      body: "The linen comes from Belfast, the soap from a Cork apothecary, the bread from a baker on Pleasants Street who delivers at six. We name our suppliers because we'd want to know, and because they're easier to find than to hide.",
+      meta: "House rule · No. 02",
+      featured: false
+    },
+    {
+      numeral: "III",
+      icon: "spa",
+      title: "Quietude, kept.",
+      body: "No piped music, no ringing phones at reception, no hum from the bar past eleven. Sash windows close on the courtyard side; the corridor carpet is twelve millimetres thick. The loudest thing you'll hear most evenings is the kettle in your room.",
+      meta: "House rule · No. 03",
+      featured: true
+    },
+    {
+      numeral: "IV",
+      icon: "room_service",
+      title: "Care, attentive.",
+      body: "A turn-down at nine, a small note about tomorrow's weather, a handwritten card on the second night. Three of our staff have been here since opening; the others trained under them. Most of what looks like luxury is, on inspection, just paying attention.",
+      meta: "House rule · No. 04",
+      featured: false
+    }
+  ];
+
+  const pressLogoFilter = "brightness(0) saturate(100%) invert(74%) sepia(34%) saturate(516%) hue-rotate(2deg) brightness(91%) contrast(86%)";
+
   const dublinPicks = [
     { num: "No. 01", category: "Coffee", time: "4 min · 320 m", title: "3FE on Grand Canal", body: "House roastery for the city's flat-white renaissance. Get there before 09:30; pastries vanish." },
     { num: "No. 02", category: "Books", time: "7 min · 540 m", title: "Ulysses Rare Books", body: "Antiquarian shop on Duke Street. Joyce first editions kept behind glass; the rest you can hold." },
@@ -284,6 +332,24 @@ export default function T42BoutiqueHotel() {
 
           <Divider />
 
+          {/* Trusted by / Featured in — editorial press strip */}
+          <section className="text-center">
+            <span className="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim tracking-[0.2em] block mb-8 md:mb-10">— Featured in</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-8 gap-y-10 items-center max-w-5xl mx-auto">
+              {pressLogos.map(l => (
+                <img
+                  key={l.slug}
+                  alt={l.alt}
+                  className="h-6 md:h-7 w-auto mx-auto opacity-60 hover:opacity-100 transition-opacity duration-500"
+                  style={{ filter: pressLogoFilter }}
+                  src={`https://cdn.simpleicons.org/${l.slug}`}
+                />
+              ))}
+            </div>
+          </section>
+
+          <Divider />
+
           {/* III — Lookbook / Pure Image Gallery */}
           <section className="space-y-8">
             <div className="flex justify-between items-end">
@@ -405,7 +471,7 @@ export default function T42BoutiqueHotel() {
 
               {/* 3 · Cornice detail */}
               <figure className="aspect-square overflow-hidden bg-surface-container-high border border-outline-variant/30 relative">
-                <img alt="Original 18th-century cornicing" className="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=85&auto=format&fit=crop" />
+                <img alt="Original 18th-century cornicing" className="w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=85&auto=format&fit=crop" />
                 <div className="absolute top-0 left-0 bg-background border-r border-b border-outline-variant px-3 py-2">
                   <span className="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Detail · Cornice</span>
                 </div>
@@ -417,6 +483,50 @@ export default function T42BoutiqueHotel() {
                 <p className="font-h3 text-2xl tracking-tight leading-tight">Ranked among<br />the Twenty-Four<br />Protected Houses</p>
                 <p className="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim mt-3 tracking-[0.2em]">Dublin City Council · 1985</p>
               </figure>
+            </div>
+          </section>
+
+          <Divider />
+
+          {/* VII — House Promise: premium 2x2 with faded image bg */}
+          <section className="relative py-20 md:py-28 overflow-hidden border border-tertiary-fixed-dim/30">
+            <img
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover opacity-15 grayscale pointer-events-none"
+              src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1800&q=80&auto=format&fit=crop"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/75 to-background/90 pointer-events-none"></div>
+            <div className="relative z-10 px-6 md:px-12 lg:px-16">
+              <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
+                <span className="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim tracking-[0.2em] block mb-8 md:mb-10">— VII · House Promise</span>
+                <h2 className="font-h2 text-h2 text-primary mb-5">What we promise,<br /><em className="italic">quietly.</em></h2>
+                <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  Four small commitments we make to every guest, written without the usual hospitality language.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch relative z-10">
+                {housePromise.map(p => (
+                  <article
+                    key={p.numeral}
+                    className={`bg-background/90 backdrop-blur-sm border border-outline-variant/40 p-8 md:p-10 flex flex-col gap-5 group hover:-translate-y-1 transition-all duration-300${p.featured ? " ring-2 ring-tertiary-fixed-dim relative bg-background/95" : ""}`}
+                  >
+                    {p.featured && (
+                      <span className="absolute -top-3 left-8 bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-caps text-[10px] uppercase tracking-[0.2em] px-3 py-1">Most requested</span>
+                    )}
+                    <div className="flex items-start justify-between">
+                      <span className="font-h1 text-2xl text-tertiary-fixed-dim italic font-thin leading-none">{p.numeral}</span>
+                      <span className="material-symbols-outlined text-primary-container text-[36px]" style={{ fontVariationSettings: "'FILL' 0" }}>{p.icon}</span>
+                    </div>
+                    <h3 className="font-h3 text-h3 text-primary italic">{p.title}</h3>
+                    <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">{p.body}</p>
+                    <div className="mt-auto pt-5 border-t border-tertiary-fixed-dim/30 flex items-center justify-between">
+                      <span className="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">{p.meta}</span>
+                      <span className="material-symbols-outlined text-primary text-[16px] opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all">arrow_forward</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
 

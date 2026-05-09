@@ -37,7 +37,6 @@ export default function T55Y2kWeb10() {
       <style dangerouslySetInnerHTML={{ __html: `
         body {
           background-color: #000000;
-          background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20 L22 18 L20 16 L18 18 Z' fill='white' fill-opacity='0.3'/%3E%3C/svg%3E"), radial-gradient(circle at 10% 10%, rgba(50, 50, 150, 0.4), transparent 40%);
           overflow-y: scroll;
         }
         .bevel-outset { border-top: 2px solid white; border-left: 2px solid white; border-right: 2px solid black; border-bottom: 2px solid black; background-color: #c0c0c0; }
@@ -55,7 +54,7 @@ export default function T55Y2kWeb10() {
         .win-font { font-family: 'Arial', sans-serif; }
       ` }} />
 
-      <div className="min-h-screen p-2 sm:p-4 md:p-8 flex justify-center items-start">
+      <div className="min-h-screen p-2 sm:p-4 md:p-8 flex justify-center items-start" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20 L22 18 L20 16 L18 18 Z' fill='white' fill-opacity='0.3'/%3E%3C/svg%3E\"), radial-gradient(circle at 10% 10%, rgba(50, 50, 150, 0.4), transparent 40%)" }}>
 
         <main className="w-full max-w-6xl bg-winGray bevel-outset flex flex-col shadow-[10px_10px_0_rgba(0,0,0,0.5)]">
 
@@ -330,12 +329,12 @@ export default function T55Y2kWeb10() {
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
                 <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
-                <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover -rotate-1 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
+                <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover -rotate-1 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover rotate-3 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
@@ -347,19 +346,19 @@ export default function T55Y2kWeb10() {
               </div>
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover rotate-2 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover -rotate-1 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover rotate-3 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
@@ -413,7 +412,7 @@ export default function T55Y2kWeb10() {
 
               <article className="bevel-outset bg-white p-3 flex flex-col md:flex-row gap-4 items-stretch">
                 <div className="md:w-2/5 shrink-0 border-2 border-winDarkGray overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&fit=crop&w=600&q=70" alt="MTV Music Generator" className="w-full aspect-[4/3] object-cover saturate-150 contrast-110" loading="lazy" />
+                  <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=70" alt="MTV Music Generator" className="w-full aspect-[4/3] object-cover saturate-150 contrast-110" loading="lazy" />
                 </div>
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
@@ -556,7 +555,7 @@ export default function T55Y2kWeb10() {
               </div>
 
               <div className="md:w-1/2 relative md:mr-[calc(50%-50vw)] border-2 border-winDarkGray overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?auto=format&fit=crop&w=1200&q=70" alt="WWW tips visual" className="w-full h-full object-cover saturate-150 contrast-110" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&w=1200&q=70" alt="WWW tips visual" className="w-full h-full object-cover saturate-150 contrast-110" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-winBlue/40 via-transparent to-transparent pointer-events-none"></div>
                 <div className="absolute bottom-2 left-2 bg-winBlue text-white px-2 py-1 font-pixel text-[10px]">// IMG_0006.JPG // 1024x768</div>
               </div>

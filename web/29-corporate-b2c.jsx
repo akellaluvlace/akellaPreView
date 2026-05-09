@@ -29,10 +29,10 @@ export default function T29CorporateB2c() {
   ];
 
   const fields = [
-    { col: "md:col-span-7", aspect: "aspect-[4/3] md:aspect-auto md:h-full", chip: "Q2 · 2024", showChip: true,  num: "FIELD · 46", title: "Headquarters · Frankfurt", titleSize: "text-xl",  alt: "Concrete facade of a financial-district headquarters", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop" },
-    { col: "md:col-span-5", aspect: "aspect-[4/3] md:aspect-[3/4]",          chip: "",          showChip: false, num: "FIELD · 47", title: "Tower · Singapore",         titleSize: "text-xl",  alt: "High-rise tower against a stark sky",                  src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop" },
+    { col: "md:col-span-7", aspect: "aspect-[4/3] md:aspect-auto md:h-full", chip: "Q2 · 2024", showChip: true,  num: "FIELD · 46", title: "Headquarters · Frankfurt", titleSize: "text-xl",  alt: "Modern corporate boardroom and operations table at headquarters", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=1400&auto=format&fit=crop" },
+    { col: "md:col-span-5", aspect: "aspect-[4/3] md:aspect-[3/4]",          chip: "",          showChip: false, num: "FIELD · 47", title: "Tower · Singapore",         titleSize: "text-xl",  alt: "Architectural detail of an executive office tower interior",      src: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=900&auto=format&fit=crop" },
     { col: "md:col-span-4", aspect: "aspect-square",                          chip: "",          showChip: false, num: "FIELD · 48", title: "Data centre · Dublin",      titleSize: "text-base", alt: "Server-rack interior, blinking status LEDs",          src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop" },
-    { col: "md:col-span-4", aspect: "aspect-square",                          chip: "",          showChip: false, num: "FIELD · 49", title: "Operations floor · Zürich", titleSize: "text-base", alt: "Wide industrial server-room shot",                     src: "https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop" },
+    { col: "md:col-span-4", aspect: "aspect-square",                          chip: "",          showChip: false, num: "FIELD · 49", title: "Operations floor · Zürich", titleSize: "text-base", alt: "Wide industrial server-room shot",                     src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop" },
     { col: "md:col-span-4", aspect: "aspect-square",                          chip: "",          showChip: false, num: "FIELD · 50", title: "Civic block · Brussels",     titleSize: "text-base", alt: "Architectural detail of cantilever roofline",          src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop" },
   ];
 
@@ -46,6 +46,34 @@ export default function T29CorporateB2c() {
     { title: "Offices", links: ["London Office", "New York Office", "Singapore Office"] },
     { title: "Legal", links: ["Privacy Policy", "Terms of Service"] },
     { title: "Connect", links: ["LinkedIn"] }
+  ];
+
+  const trustedBrands = [
+    { name: "Stripe",    slug: "stripe",    code: "ST · 18" },
+    { name: "Mailchimp", slug: "mailchimp", code: "MC · 21" },
+    { name: "Intercom",  slug: "intercom",  code: "IC · 19" },
+    { name: "Zendesk",   slug: "zendesk",   code: "ZD · 22" },
+    { name: "HubSpot",   slug: "hubspot",   code: "HS · 20" },
+    { name: "Notion",    slug: "notion",    code: "NT · 23" },
+    { name: "Figma",     slug: "figma",     code: "FG · 19" },
+    { name: "Shopify",   slug: "shopify",   code: "SH · 21" }
+  ];
+
+  const pillars = [
+    { num: "I",   icon: "support_agent", title: "Onboarding that ends in week three.",       body: "A dedicated solutions architect lands on day one and doesn't leave until your first cohort is shipped. We bring the runbook, the migrations, and the slack channel. You bring the operators. Median time-to-first-value: 19 days across 220 deployments since 2022 — measured, not modelled.", meta: "— 19-day median",  cta: "Read the playbook →",   featured: false },
+    { num: "II",  icon: "shield",        title: "Reliability that survives Black Friday.",   body: "Multi-region active-active by default; chaos drills every Thursday before the merchant peak. We publish a public status page, an internal post-mortem ledger, and a quarterly reliability brief signed by the CTO. Our 2024 trailing-twelve uptime was 99.987% measured from synthetic checkpoints in 14 cities.",          meta: "— 99.987% TTM",    cta: "View status ledger →",  featured: true },
+    { num: "III", icon: "handshake",     title: "Support staffed by senior operators.",      body: "Every L1 ticket is answered by an engineer with at least four years on the platform — no offshore tier, no scripted bots, no escalation queue. Median first response in business hours: under nine minutes. Out of hours: under 27. Tracked monthly and posted to the customer portal.",                                       meta: "— under 9 min",    cta: "Meet the team →",       featured: false },
+    { num: "IV",  icon: "payments",      title: "Pricing that makes sense at scale.",        body: "A flat platform fee plus transparent per-event metering — no rev-share, no minimum commits, no auto-renew traps. Quarterly true-up for fairness in either direction. Customers who outgrow our tier are introduced personally to our enterprise team — never funneled into a sales sequence.",                                       meta: "— flat + metered", cta: "See pricing →",         featured: false }
+  ];
+
+  const inFrame = [
+    { plate: "PLATE · 01 · DESK",   alt: "Engineering pair-programming on a laptop",                src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80&auto=format&fit=crop" },
+    { plate: "PLATE · 02 · WALL",   alt: "Sticky-note wall during a sprint planning session",       src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=400&q=80&auto=format&fit=crop" },
+    { plate: "PLATE · 03 · BOARD",  alt: "Whiteboard sprint with a cross-functional team",          src: "https://images.unsplash.com/photo-1573164574001-518958d9baa2?w=400&q=80&auto=format&fit=crop" },
+    { plate: "PLATE · 04 · STAND",  alt: "Cross-functional standup at a shared workstation",        src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80&auto=format&fit=crop" },
+    { plate: "PLATE · 05 · REVIEW", alt: "Engineer reviewing code on a large display",              src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400&q=80&auto=format&fit=crop" },
+    { plate: "PLATE · 06 · CALL",   alt: "Remote team video call across two continents",            src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80&auto=format&fit=crop" },
+    { plate: "PLATE · 07 · DEEP",   alt: "Dual-monitor terminal at a focused workstation",          src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80&auto=format&fit=crop" }
   ];
 
   const tailwindConfig = `
@@ -143,6 +171,28 @@ export default function T29CorporateB2c() {
             </div>
           </section>
 
+          {/* Trusted by — real B2C companies */}
+          <section className="py-20 md:py-28 px-8 bg-surface border-b border-outline-variant">
+            <div className="max-w-container-max mx-auto">
+              <div className="text-center mb-12 md:mb-16">
+                <span className="block font-label-caps text-label-caps uppercase tracking-widest text-[#B38B3F] mb-8 md:mb-10">— Trusted by 12,000+ businesses</span>
+                <h2 className="font-headline-lg text-headline-lg text-primary italic">Trusted by ambitious B2C brands.</h2>
+                <p className="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-xl mx-auto">From category-defining marketplaces to category-creating fintech — we run alongside the operating teams.</p>
+              </div>
+              <div className="bg-surface-container-lowest border border-outline-variant rounded p-10 md:p-14">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                  {trustedBrands.map((b) => (
+                    <div key={b.slug} className="flex flex-col items-center gap-2">
+                      <img alt={b.name} className="h-8 w-auto opacity-70 hover:opacity-100 transition" src={`https://cdn.simpleicons.org/${b.slug}/64748b`} />
+                      <span className="font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant tabular-nums">— {b.code}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-10 pt-8 border-t border-outline-variant font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest text-center tabular-nums">+ 240 partner brands · 47 countries · MMXXII — present</p>
+              </div>
+            </div>
+          </section>
+
           <section className="py-section-padding px-8 bg-background">
             <div className="max-w-container-max mx-auto">
               <div className="mb-16">
@@ -207,6 +257,36 @@ export default function T29CorporateB2c() {
                       <span className="font-label-caps text-label-caps text-secondary uppercase mb-4 block">{ins.tag}</span>
                       <h3 className="font-headline-md text-headline-md text-primary mb-4">{ins.title}</h3>
                       <p className="font-body-md text-body-md text-on-surface-variant mt-auto">{ins.desc}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Premium — Why teams pick us (2×2) */}
+          <section className="py-20 md:py-28 px-8 bg-surface-container-low border-t border-outline-variant">
+            <div className="max-w-container-max mx-auto">
+              <div className="text-center mb-14 md:mb-16">
+                <span className="block font-label-caps text-label-caps uppercase tracking-widest text-[#B38B3F] mb-8 md:mb-10">— Why teams pick us</span>
+                <h2 className="font-headline-lg text-headline-lg text-primary italic">Four pillars. Zero footnotes.</h2>
+                <p className="font-body-lg text-body-lg text-on-surface-variant mt-4 max-w-2xl mx-auto">Onboarding, reliability, support, and pricing — the four things our customers tell us made the difference, in their language not ours.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch">
+                {pillars.map((p) => (
+                  <article key={p.num} className={`bg-surface-container-lowest border border-outline-variant rounded p-8 md:p-10 flex flex-col gap-5 group hover:-translate-y-1 hover:shadow-2xl hover:border-[#B38B3F]/40 transition-all duration-300 ${p.featured ? "ring-2 ring-[#B38B3F]/40 ring-offset-4 ring-offset-surface-container-low relative" : ""}`}>
+                    {p.featured && (
+                      <span className="absolute -top-3 left-8 bg-[#B38B3F] text-on-primary font-label-caps text-label-caps uppercase tracking-widest px-3 py-1 rounded">Lead pillar</span>
+                    )}
+                    <div className="flex justify-between items-start">
+                      <span className="font-display-xl text-[40px] leading-none text-[#B38B3F] tabular-nums italic">{p.num}</span>
+                      <span className="material-symbols-outlined text-[28px] text-[#B38B3F]">{p.icon}</span>
+                    </div>
+                    <h3 className="font-headline-md text-headline-md text-primary">{p.title}</h3>
+                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{p.body}</p>
+                    <div className="mt-auto pt-5 border-t border-outline-variant flex justify-between items-center">
+                      <span className="font-label-caps text-label-caps uppercase text-on-surface-variant tabular-nums">{p.meta}</span>
+                      <span className="font-label-caps text-label-caps uppercase text-secondary group-hover:translate-x-1 transition-transform">{p.cta}</span>
                     </div>
                   </article>
                 ))}
@@ -294,6 +374,25 @@ export default function T29CorporateB2c() {
                   </figure>
                 ))}
               </div>
+            </div>
+          </section>
+
+          {/* In Frame — B&W image strip */}
+          <section className="py-12 md:py-16 px-8 bg-primary-container border-t border-b border-outline-variant">
+            <div className="max-w-container-max mx-auto">
+              <div className="text-center mb-10 md:mb-12">
+                <span className="block font-label-caps text-label-caps uppercase tracking-widest text-secondary-container mb-8 md:mb-10">— In Frame · Selected moments</span>
+                <h2 className="font-headline-lg text-headline-lg text-on-primary italic">From the field.</h2>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 md:gap-4">
+                {inFrame.map((f) => (
+                  <figure key={f.plate} className="aspect-square rounded-2xl overflow-hidden border border-outline-variant relative group">
+                    <img alt={f.alt} className="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 hover:scale-105 transition-all duration-700 ease-out" src={f.src} />
+                    <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-widest text-white bg-black/70 backdrop-blur-sm px-2 py-1">{f.plate}</span>
+                  </figure>
+                ))}
+              </div>
+              <p className="mt-10 pt-6 border-t border-outline-variant/40 font-label-caps text-label-caps uppercase text-on-primary/50 tracking-widest text-center">— Captured during 2024 fieldwork · Research Desk —</p>
             </div>
           </section>
         </main>

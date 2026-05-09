@@ -33,14 +33,14 @@ export default function T97Blueprintiachitectural() {
   const footerLinks = ["SPECIFICATIONS", "LEGAL", "ARCHIVE"];
 
   const materials = [
-    { id: "MTL.01", title: "BOARD-FORMED CONCRETE", spec: [["FINISH", "NATURAL CURE"], ["DENSITY", "2,400 KG/M³"], ["SOURCE", "CASCADIA AGGREGATES"]], img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900&q=85&auto=format&fit=crop", alt: "Smooth poured concrete macro", filter: "grayscale-[15%]", stamp: "In Stock", tickClass: "tick-tl tick-br", offset: "" },
-    { id: "MTL.02", title: "RIFT-SAWN WHITE OAK", spec: [["FINISH", "HARDWAX OIL"], ["JANKA", "1,360 LBF"], ["SOURCE", "OREGON COAST RANGE"]], img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=85&auto=format&fit=crop", alt: "White oak wood grain", filter: "", stamp: "FSC Cert.", tickClass: "tick-tr", offset: "md:translate-y-8 lg:translate-y-12" },
-    { id: "MTL.03", title: "PATINATED COPPER", spec: [["FINISH", "NATURAL VERDIGRIS"], ["GAUGE", "16 OZ / 0.55MM"], ["SOURCE", "REVERE COPPER"]], img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop", alt: "Patinated copper sheet", filter: "", stamp: "Patina · 5yr", tickClass: "tick-bl", offset: "" }
+    { id: "MTL.01", title: "BOARD-FORMED CONCRETE", spec: [["FINISH", "NATURAL CURE"], ["DENSITY", "2,400 KG/M³"], ["SOURCE", "CASCADIA AGGREGATES"]], img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Board-formed concrete facade in raking light", filter: "grayscale-[15%]", stamp: "In Stock", tickClass: "tick-tl tick-br", offset: "" },
+    { id: "MTL.02", title: "RIFT-SAWN WHITE OAK", spec: [["FINISH", "HARDWAX OIL"], ["JANKA", "1,360 LBF"], ["SOURCE", "OREGON COAST RANGE"]], img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=900&q=85&auto=format&fit=crop", alt: "Rift-sawn white oak floor in raking light", filter: "", stamp: "FSC Cert.", tickClass: "tick-tr", offset: "md:translate-y-8 lg:translate-y-12" },
+    { id: "MTL.03", title: "PATINATED COPPER", spec: [["FINISH", "NATURAL VERDIGRIS"], ["GAUGE", "16 OZ / 0.55MM"], ["SOURCE", "REVERE COPPER"]], img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "Patinated copper sheet", filter: "", stamp: "Patina · 5yr", tickClass: "tick-bl", offset: "" }
   ];
 
   const microMaterials = [
-    { num: "№ 04", title: "Cor-Ten Steel", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=200&q=85&auto=format&fit=crop", alt: "Steel", imgClass: "grayscale" },
-    { num: "№ 11", title: "Honed Limestone", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=200&q=85&auto=format&fit=crop", alt: "Limestone", imgClass: "" },
+    { num: "№ 04", title: "Cor-Ten Steel", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=200&q=85&auto=format&fit=crop", alt: "Cor-Ten Steel", imgClass: "grayscale" },
+    { num: "№ 11", title: "Honed Limestone", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=200&q=85&auto=format&fit=crop", alt: "Limestone", imgClass: "" },
     { num: "№ 18", title: "Cast Bronze", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=200&q=85&auto=format&fit=crop", alt: "Cast bronze", imgClass: "sepia-[40%]" },
     { num: "№ 27", title: "Smooth Stucco", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=200&q=85&auto=format&fit=crop", alt: "Stucco", imgClass: "" }
   ];
@@ -51,10 +51,37 @@ export default function T97Blueprintiachitectural() {
     { seal: { abbr: "WALL", year: "'22", line: "PAPER*" }, source: "Wallpaper* Magazine", title: "House of the Year · Honourable", meta: "Issue 296 · November 2022", rotate: "rotate(-12deg)" }
   ];
 
+  const trustLogos = [
+    { slug: "autodesk", name: "Autodesk" },
+    { slug: "framer", name: "Framer" },
+    { slug: "figma", name: "Figma" },
+    { slug: "notion", name: "Notion" },
+    { slug: "behance", name: "Behance" },
+    { slug: "dribbble", name: "Dribbble" },
+    { slug: "vimeo", name: "Vimeo" },
+    { slug: "pinterest", name: "Pinterest" },
+  ];
+
+  const pillars = [
+    { id: "PIL.01", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=1200&q=85&auto=format&fit=crop", alt: "Geometric metallic facade in raking light", tickClass: "tick-tl", title: "Site & brief", body: "Topology readings, sun studies, and a single-page brief drafted on tracing paper before a line is committed." },
+    { id: "PIL.02", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=85&auto=format&fit=crop", alt: "Minimal interior — drafting in volume", tickClass: "tick-tr", title: "Drawing first", body: "Plans, sections, and elevations at scale 1:50. The model exists to validate the drawing — not the other way around." },
+    { id: "PIL.03", img: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=85&auto=format&fit=crop", alt: "Interior with rift-sawn oak floor and warm light", tickClass: "tick-bl", title: "Material honesty", body: "Every specimen handled in the studio before it lands on a sheet. We do not specify what we have not held." },
+    { id: "PIL.04", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop", alt: "Modernist interior gallery — realised work", tickClass: "tick-br", title: "On-site delivery", body: "Weekly site visits, mock-ups before pours, and revision logs that follow the contractor's clipboard, not ours." },
+  ];
+
+  const folio = [
+    { n: "01", title: "The Ridge House", loc: "Aspen, CO · 2023", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=600&q=85&auto=format&fit=crop", alt: "The Ridge House — gallery interior" },
+    { n: "02", title: "Coastal Pavilion", loc: "Big Sur, CA · 2022", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=85&auto=format&fit=crop", alt: "Coastal Pavilion — minimal volume" },
+    { n: "03", title: "North Atelier", loc: "Portland, OR · 2022", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=600&q=85&auto=format&fit=crop", alt: "North Atelier — facade study" },
+    { n: "04", title: "Mill Bend House", loc: "Hood River, OR · 2021", img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=85&auto=format&fit=crop", alt: "Mill Bend House — living volume" },
+    { n: "05", title: "Quarry Studio", loc: "Marfa, TX · 2020", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=85&auto=format&fit=crop", alt: "Quarry Studio — light study" },
+    { n: "06", title: "Cedar Hollow Cabin", loc: "Methow Valley, WA · 2019", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=600&q=85&auto=format&fit=crop", alt: "Cedar Hollow Cabin — facade aperture" },
+  ];
+
   const clippings = [
     { source: "The New York Times", title: "\"Quietly radical.\"", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Magazine spread of architectural feature" },
-    { source: "Domus", title: "\"On the line.\"", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop", alt: "Drafting interview portrait" },
-    { source: "Wallpaper*", title: "\"Drawing first.\"", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop", alt: "Studio interview reportage" }
+    { source: "Domus", title: "\"On the line.\"", img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=900&q=85&auto=format&fit=crop", alt: "Drafting interview portrait" },
+    { source: "Wallpaper*", title: "\"Drawing first.\"", img: "https://images.unsplash.com/photo-1576250670488-4a00a3ed480e?w=900&q=85&auto=format&fit=crop", alt: "Studio interview reportage" }
   ];
 
   const tailwindConfig = `
@@ -348,6 +375,41 @@ export default function T97Blueprintiachitectural() {
             </div>
           </section>
 
+          {/* Trust Bar + Practice Pillars */}
+          <section id="practice" className="py-16 lg:py-24 px-6 lg:px-margin border-t-2 border-primary-container relative">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex items-end justify-between border-b border-primary-container pb-3 mb-8 lg:mb-10">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary-container">// REGISTER 02 / TRUST</span>
+                <span className="font-technical-data text-technical-data text-primary-container hidden sm:inline-block">SHT A-220</span>
+              </div>
+              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-on-surface-variant mb-6">— DRAFTED &amp; PUBLISHED WITH —</p>
+              <ul role="list" className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center bg-surface/70 backdrop-blur-md border border-primary-container px-6 py-7">
+                {trustLogos.map(b => (
+                  <li key={b.slug} className="flex flex-col items-center gap-2">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/095674`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-on-surface-variant">{b.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="max-w-7xl mx-auto mt-12 lg:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+              {pillars.map(p => (
+                <article key={p.id} className={`relative group overflow-hidden border-2 border-primary-container aspect-[4/3] ${p.tickClass}`}>
+                  <img src={p.img} alt={p.alt} className="absolute inset-0 w-full h-full object-cover grayscale-[35%] transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="1200" height="900" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/45 to-on-surface/15"></div>
+                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(to right, rgba(212,162,74,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(212,162,74,0.12) 1px, transparent 1px)", backgroundSize: "32px 32px" }}></div>
+                  <div className="absolute top-3 right-3 font-technical-data text-[10px] text-ochre-bg border border-ochre/70 px-2 py-0.5 bg-on-surface/40 backdrop-blur-sm">{p.id}</div>
+                  <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-7">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ochre-light mb-2">// PRACTICE PILLAR</p>
+                    <h3 className="font-headline-md text-headline-md text-surface uppercase tracking-tight leading-tight mb-2">{p.title}</h3>
+                    <p className="font-technical-data text-technical-data text-surface/85 max-w-md text-pretty">{p.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
           {/* Materials Library Section */}
           <section id="materials" className="bg-grid-warm py-16 lg:py-24 px-6 lg:px-margin border-t-2 border-primary-container border-b-2 border-ochre relative">
             <div className="max-w-7xl mx-auto flex justify-between items-end mb-8 lg:mb-12 border-b border-ochre-dark pb-4">
@@ -419,6 +481,31 @@ export default function T97Blueprintiachitectural() {
                   <h4 className="font-label-caps text-label-caps text-on-surface mb-3 group-hover:text-surface transition-colors">{s.title}</h4>
                   <p className="font-technical-data text-[12px] text-on-surface-variant group-hover:text-surface/90 transition-colors text-pretty">{s.body}</p>
                 </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Selected Work — 6-up static strip */}
+          <section id="selected-work" className="py-16 lg:py-20 px-6 lg:px-margin border-t-2 border-primary-container relative">
+            <div className="max-w-7xl mx-auto flex justify-between items-end mb-8 lg:mb-12 border-b border-primary-container pb-4">
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-primary-container mb-2 block">// REGISTER 05 / FOLIO</span>
+                <h2 className="font-headline-lg text-headline-lg text-on-surface text-balance">SELECTED WORK · 2018 — 2024</h2>
+              </div>
+              <span className="font-technical-data text-technical-data text-primary-container hidden sm:inline-block">SHT A-350</span>
+            </div>
+            <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-gutter">
+              {folio.map(f => (
+                <figure key={f.n} className="group relative">
+                  <div className="relative aspect-square overflow-hidden border border-primary-container bg-surface/70">
+                    <span className="absolute top-2 left-2 z-10 font-mono text-[10px] text-surface bg-primary-container px-1.5 py-0.5 tabular-nums">{f.n}</span>
+                    <img src={f.img} alt={f.alt} className="w-full h-full object-cover grayscale-[20%] transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="600" height="600" />
+                  </div>
+                  <figcaption className="pt-3 border-t border-primary-container/60 mt-2">
+                    <h3 className="font-headline-md text-sm font-bold uppercase tracking-tight text-on-surface leading-tight">{f.title}</h3>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-on-surface-variant mt-1">{f.loc}</p>
+                  </figcaption>
+                </figure>
               ))}
             </div>
           </section>

@@ -20,7 +20,7 @@ const SESSION_ROWS = [
     badge: "CASE 013 · SSL · MIX · 1:18:42",
     headline: "Stripping A Mix Until Only The Bones Glow",
     body: "Client walked in with a finished record and a feeling something was off. We muted everything but the kick and the lead pad and listened for ninety seconds with the lights out. Then we put the rest back, channel by channel, and asked at each step whether the song was better with that element or without. Twelve tracks went to mute. Three got rewritten. The chorus pad got pushed forward six dB and the snare lost its second reverb. Final master sits at minus eleven LUFS integrated, peaks at minus one true, ready for vinyl cut.",
-    img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=1200&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=1200&auto=format&fit=crop",
     alt: "Industrial machinery",
     border: "border-neonCyan/40",
     badgeColor: "text-retroYellow",
@@ -35,7 +35,7 @@ const SESSION_ROWS = [
     badge: "CASE 012 · DX7 · FM · 0:54:08",
     headline: "Eight Bars Of FM Bell That Took Eight Days",
     body: "Programming an original DX7 patch is its own discipline. Six operators, four algorithms tested before settling on number five, fine-tune coarse-tune ratios calculated on graph paper because the LCD will not show you the harmonic stack the way an oscilloscope will. We tracked direct out, then routed back through a Lexicon 224 on Hall plate at four-second decay, mixed against a dry copy at minus nine, automated to swell on the second half of every other bar. The bell sits in the centre of the record like a chrome lighthouse.",
-    img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=1200&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
     alt: "Synth rack with status indicator LEDs",
     border: "border-retroYellow/40",
     badgeColor: "text-neonPink",
@@ -81,11 +81,11 @@ const CATALOG_CARDS = [
   { code: "MN-014", name: "NEON DRIFT", side: "A1", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPink/35 to-neonCyan/30" },
   { code: "MN-013", name: "CHROMA", side: "A2", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/35 to-neonPurple/30" },
   { code: "MN-012", name: "SUNSET PROTOCOL", side: "A3", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=600&auto=format&fit=crop", overlay: "from-retroOrange/35 to-neonPink/30" },
-  { code: "MN-011", name: "TAPE HISS", side: "A4", img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPink/35 to-retroYellow/30" },
+  { code: "MN-011", name: "TAPE HISS", side: "A4", img: "https://images.unsplash.com/photo-1700951372714-98979a8803a4?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPink/35 to-retroYellow/30" },
   { code: "MN-010", name: "GLASS HIGHWAY", side: "B1", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/35 to-neonPink/30" },
-  { code: "MN-009", name: "VAPOUR BEACH", side: "B2", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPurple/40 to-retroOrange/25" },
-  { code: "MN-008", name: "SUBWAY LIGHTS", side: "B3", img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=600&auto=format&fit=crop", overlay: "from-retroYellow/35 to-neonPink/30" },
-  { code: "MN-007", name: "SERVER SUNRISE", side: "B4", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/40 to-neonPurple/25" },
+  { code: "MN-009", name: "VAPOUR BEACH", side: "B2", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPurple/40 to-retroOrange/25" },
+  { code: "MN-008", name: "SUBWAY LIGHTS", side: "B3", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=600&auto=format&fit=crop", overlay: "from-retroYellow/35 to-neonPink/30" },
+  { code: "MN-007", name: "SERVER SUNRISE", side: "B4", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/40 to-neonPurple/25" },
 ];
 
 const FAQ_ITEMS = [
@@ -440,9 +440,9 @@ export default function T54Synthwave() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {[
-                { vol: "VOL. 1", border: "border-neonPink", img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&fit=crop", title: "Nightcall EP", artist: "The Midnight", genre: "SYNTHWAVE" },
-                { vol: "VOL. 2", border: "border-retroYellow", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=600&fit=crop", title: "Cyber Chase", artist: "LazerHawk", genre: "DARKSYNTH" },
-                { vol: "VOL. 3", border: "border-purple-600", img: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=600&fit=crop", title: "Sunset Run", artist: "FM-84", genre: "CHILLWAVE" },
+                { vol: "VOL. 1", border: "border-neonPink", img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop", title: "Nightcall EP", artist: "The Midnight", genre: "SYNTHWAVE" },
+                { vol: "VOL. 2", border: "border-retroYellow", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=600&auto=format&fit=crop", title: "Cyber Chase", artist: "LazerHawk", genre: "DARKSYNTH" },
+                { vol: "VOL. 3", border: "border-purple-600", img: "https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=600&auto=format&fit=crop", title: "Sunset Run", artist: "FM-84", genre: "CHILLWAVE" },
               ].map((t, i) => (
                 <div key={i} className="tape-card group p-3 bg-[#111] border-2 border-[#333] rounded-xl relative reveal">
                   <div className={`h-40 rounded-t mb-4 overflow-hidden relative border-b-4 ${t.border}`}>

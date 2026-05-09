@@ -228,6 +228,126 @@ export default function T73Abstract3d() {
           </div>
         </section>
 
+        {/* TRUSTED BY — studio + agency brands */}
+        <section className="relative z-10 py-16 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-white/50 uppercase tracking-[0.4em] text-[10px] font-medium mb-8">— Built &amp; rendered with —</p>
+            <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-x-8 gap-y-9 items-center justify-items-center glass-panel rounded-2xl px-6 py-8">
+              {[
+                { slug: "blender", name: "Blender" },
+                { slug: "figma", name: "Figma" },
+                { slug: "framer", name: "Framer" },
+                { slug: "sketchfab", name: "Sketchfab" },
+                { slug: "threedotjs", name: "Three.js" },
+                { slug: "vercel", name: "Vercel" },
+                { slug: "dribbble", name: "Dribbble" },
+                { slug: "behance", name: "Behance" },
+                { slug: "awwwards", name: "Awwwards" },
+              ].map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/F472B6`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                  <span className="font-medium text-[9px] uppercase tracking-[0.2em] text-white/60">{b.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ALTERNATING SECTION A — image LEFT, content RIGHT */}
+        <section className="relative z-10 py-20 md:py-24 px-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div className="md:col-span-7 relative">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] glass-panel">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1400&q=85&auto=format&fit=crop" alt="Abstract gradient flow — purple, blue and orange volumes" className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" width="1400" height="1050" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#0f0c29]/55 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute top-5 left-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+                  <span className="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
+                  <span className="font-medium text-[10px] uppercase tracking-[0.3em] text-white/85">Render · 18 / chapter</span>
+                </div>
+              </div>
+            </div>
+            <div className="md:col-span-5 flex flex-col justify-center">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-pink-300 font-semibold mb-4">// CHAPTER A · MODEL</span>
+              <h2 className="font-display font-bold text-3xl md:text-5xl text-white leading-[1.05] tracking-tight mb-5 border-l-2 border-pink-400 pl-4">Volumes, not vibes.</h2>
+              <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4 font-light">Every campaign begins as a Blender scene — meshes, lights, materials, all named, all versioned. Brand colour calibrated against the camera, not the hex code. Renders are signed off in raw EXR.</p>
+              <p className="text-white/65 text-sm md:text-base leading-relaxed mb-6 font-light">No stock matcap shaders. No "AI-generated abstracts". The mesh ships with the deck — the buyer sees the file behind the frame.</p>
+              <ul className="flex flex-col gap-3 font-medium text-[11px] uppercase tracking-[0.25em] text-white/75 border-t border-white/10 pt-5">
+                <li className="flex justify-between"><span>Renders · per chapter</span><span className="text-pink-300">18</span></li>
+                <li className="flex justify-between"><span>Pass · raw EXR</span><span className="text-pink-300">Sign-off</span></li>
+                <li className="flex justify-between"><span>File · ships with deck</span><span className="text-pink-300">Always</span></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ALTERNATING SECTION B — image RIGHT, content LEFT */}
+        <section className="relative z-10 py-20 md:py-24 px-6">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-cyan-300 font-semibold mb-4 md:text-right">// CHAPTER B · CAST</span>
+              <h2 className="font-display font-bold text-3xl md:text-5xl text-white leading-[1.05] tracking-tight mb-5 border-r-2 border-cyan-400 pr-4 md:text-right">A cast made, not photographed.</h2>
+              <p className="text-white/80 text-base md:text-lg leading-relaxed mb-4 md:text-right font-light">Characters are sculpted in Blender, posed in ZBrush, lit by hand. Every figure carries an internal armature, every fabric a real cloth simulation. The camera observes — it never invents.</p>
+              <p className="text-white/65 text-sm md:text-base leading-relaxed mb-6 md:text-right font-light">No deepfake heads. No "AI-actor" sleight-of-hand. The cast file ships open; you can re-pose any figure on commission and re-render at any resolution.</p>
+              <ul className="flex flex-col gap-3 font-medium text-[11px] uppercase tracking-[0.25em] text-white/75 border-t border-white/10 pt-5">
+                <li className="flex justify-between"><span className="text-cyan-300">Sculpt · ZBrush</span><span>Pose · keyframed</span></li>
+                <li className="flex justify-between"><span className="text-cyan-300">Cloth · simulated</span><span>Frames · 240</span></li>
+                <li className="flex justify-between"><span className="text-cyan-300">File · open</span><span>Re-pose · on demand</span></li>
+              </ul>
+            </div>
+            <div className="md:col-span-7 relative order-1 md:order-2">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] glass-panel">
+                <img src="https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?w=1400&q=85&auto=format&fit=crop" alt="3D-rendered red figure — abstract character study under directional light" className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" width="1400" height="1050" />
+                <div className="absolute inset-0 bg-gradient-to-tl from-[#0f0c29]/55 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute top-5 right-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                  <span className="font-medium text-[10px] uppercase tracking-[0.3em] text-white/85">Cast · 6 figures</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* DOCTRINE — Premium 2x2 with abstract gradient backdrop, masked-fade transitions */}
+        <section className="relative z-10 py-40 md:py-56 px-6 overflow-hidden">
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-[0.32] saturate-[1.1]" loading="lazy" style={{ WebkitMaskImage: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 18%, black 38%, black 62%, rgba(0,0,0,0.4) 82%, transparent 100%)", maskImage: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 18%, black 38%, black 62%, rgba(0,0,0,0.4) 82%, transparent 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 55% at 50% 50%, transparent 30%, rgba(15,12,41,0.55) 100%)", WebkitMaskImage: "linear-gradient(180deg, transparent 0%, black 22%, black 78%, transparent 100%)", maskImage: "linear-gradient(180deg, transparent 0%, black 22%, black 78%, transparent 100%)" }}></div>
+            <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-pink-500/[0.08] blur-3xl"></div>
+            <div className="absolute -right-32 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-cyan-500/[0.08] blur-3xl"></div>
+          </div>
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-14 md:mb-20 max-w-2xl mx-auto">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-pink-300 font-semibold">// § Studio doctrine</span>
+              <h2 className="font-display font-bold text-3xl md:text-5xl text-white mt-4 leading-[1.05] tracking-tight">Four rules of the render.</h2>
+              <p className="text-white/70 mt-5 leading-relaxed font-light">Pinned above the bench, signed by the studio, kept since 2018.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+              {[
+                { id: "D · 01", glowBg: "bg-pink-500/[0.12]", iconBorder: "border-pink-300/40 bg-pink-400/10 text-pink-300", borderHover: "hover:border-pink-400/40", title: "Owned files, always.", body: "Every commission ships with the .blend, the textures, the LUTs. You re-render at any resolution, re-skin in any colour, re-pose any character — without us in the loop. The mesh is the deliverable.", left: "Source · open", right: "License · perpetual", rightClass: "text-pink-300", iconPath: "M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" },
+                { id: "D · 02", glowBg: "bg-cyan-400/[0.12]", iconBorder: "border-cyan-300/40 bg-cyan-400/10 text-cyan-300", borderHover: "hover:border-cyan-400/40", title: "Calibrated colour.", body: "Renders are graded against a calibrated reference monitor — Eizo CG2700X, X-Rite probe, Rec. 2020 working space. The screen-shot you approve is the screen-shot you ship.", left: "Working space · Rec. 2020", right: "Probe · X-Rite", rightClass: "text-cyan-300", iconPath: "M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9 12l2 2 4-4" },
+                { id: "D · 03", glowBg: "bg-amber-400/[0.12]", iconBorder: "border-amber-300/40 bg-amber-400/10 text-amber-300", borderHover: "hover:border-amber-400/40", title: "No AI in the pipeline.", body: "Diffusion models stay out of the studio's deliverables. Every form is modelled, every shot is keyframed. We use the latest tools to plan; never to substitute the maker for the algorithm.", left: "Pipeline · human", right: "No diffusion", rightClass: "text-amber-300", iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" },
+                { id: "D · 04", glowBg: "bg-emerald-400/[0.12]", iconBorder: "border-emerald-300/40 bg-emerald-400/10 text-emerald-300", borderHover: "hover:border-emerald-400/40", title: "Iterate in days, ship in weeks.", body: "Brief on Monday, blockout by Wednesday, first render Friday — final delivery in three weeks for ten frames, six weeks for forty. The cadence is published; the calendar is shared.", left: "Cadence · published", right: "10 frames · 3 wk", rightClass: "text-emerald-300", iconPath: "M3 7.5L7.5 3M21 16.5l-4.5 4.5M9 12h12" },
+              ].map(d => (
+                <article key={d.id} className={`relative glass-panel rounded-[2rem] p-7 md:p-9 transition-colors overflow-hidden ${d.borderHover}`}>
+                  <div className={`absolute -right-8 -top-8 w-40 h-40 rounded-full ${d.glowBg} blur-3xl pointer-events-none`}></div>
+                  <div className="flex items-start justify-between mb-6 relative z-10">
+                    <div className={`w-12 h-12 rounded-2xl border flex items-center justify-center ${d.iconBorder}`}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d={d.iconPath} /></svg>
+                    </div>
+                    <span className="font-medium text-[10px] uppercase tracking-[0.4em] text-white/55 tabular-nums">{d.id}</span>
+                  </div>
+                  <h3 className="font-display font-bold text-2xl md:text-3xl text-white mb-3 leading-[1.05] tracking-tight relative z-10">{d.title}</h3>
+                  <p className="text-white/75 text-sm md:text-base leading-relaxed mb-6 relative z-10 font-light">{d.body}</p>
+                  <div className="flex items-baseline justify-between border-t border-white/10 pt-4 font-medium text-[10px] uppercase tracking-[0.3em] text-white/55 relative z-10">
+                    <span>{d.left}</span>
+                    <span className={d.rightClass}>{d.right}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="work" className="relative z-10 py-24 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16 md:text-center">

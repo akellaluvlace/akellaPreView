@@ -15,18 +15,18 @@ export default function T93CasetteFuturism() {
   ];
 
   const modules = [
-    { code: "MOD-01 // CTRL.A", title: "CONTROL DECK A", price: "CR.4,200",  stock: "IN STOCK", stockCls: "bg-[#5B4226] text-[#FFB947]", led: "#7FC774", img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop", alt: "Industrial machinery control panel close-up", specs: [["CHASSIS","STEEL / 12U"],["KEYS","104 / TACTILE"],["RATING","IP-54 / MIL-STD"]] },
+    { code: "MOD-01 // CTRL.A", title: "CONTROL DECK A", price: "CR.4,200",  stock: "IN STOCK", stockCls: "bg-[#5B4226] text-[#FFB947]", led: "#7FC774", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=900&auto=format&fit=crop", alt: "Industrial machinery control panel close-up", specs: [["CHASSIS","STEEL / 12U"],["KEYS","104 / TACTILE"],["RATING","IP-54 / MIL-STD"]] },
     { code: "MOD-02 // SCAN.B", title: "RACK SCANNER B", price: "CR.9,800",  stock: "IN STOCK", stockCls: "bg-[#5B4226] text-[#FFB947]", led: "#7FC774", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop", alt: "Server rack with status lights",          specs: [["PORTS","32 / RS-232"],["DRAW","4.7 KW / 220V"],["RATING","USCSS / GR-1"]] },
     { code: "MOD-03 // CRT.C",  title: "CRT TERMINAL C", price: "CR.2,150",  stock: "2 LEFT",   stockCls: "bg-[#FFB947] text-[#5B4226]", led: "#FFB947", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop", alt: "Macro view of circuit board traces",      specs: [["TUBE","14\" / AMBER"],["REFRESH","60 HZ / NTSC"],["RATING","FCC-A / 1979"]] },
-    { code: "MOD-04 // PWR.D",  title: "POWER UNIT D",   price: "CR.14,400", stock: "IN STOCK", stockCls: "bg-[#5B4226] text-[#FFB947]", led: "#7FC774", img: "https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=900&auto=format&fit=crop", alt: "Wide industrial server room shot",         specs: [["OUTPUT","12 KW / TRI-Φ"],["FUEL","DIESEL / 90L"],["RATING","EN-60204 / B"]] }
+    { code: "MOD-04 // PWR.D",  title: "POWER UNIT D",   price: "CR.14,400", stock: "IN STOCK", stockCls: "bg-[#5B4226] text-[#FFB947]", led: "#7FC774", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop", alt: "Wide industrial server room shot",         specs: [["OUTPUT","12 KW / TRI-Φ"],["FUEL","DIESEL / 90L"],["RATING","EN-60204 / B"]] }
   ];
 
   const plates = [
     { code: "CAT-46", size: "36×48", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=700&auto=format&fit=crop", alt: "Macro circuit board traces" },
     { code: "CAT-47", size: "28×40", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=700&auto=format&fit=crop", alt: "Server rack lights" },
-    { code: "CAT-48", size: "36×40", src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=700&auto=format&fit=crop", alt: "Industrial machinery panel" },
-    { code: "CAT-49", size: "40×54", src: "https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=700&auto=format&fit=crop", alt: "Server room wide shot" },
-    { code: "CAT-50", size: "32×42", src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=700&auto=format&fit=crop", alt: "Brass apothecary objects on dark surface" }
+    { code: "CAT-48", size: "36×40", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=700&auto=format&fit=crop", alt: "Industrial machinery panel" },
+    { code: "CAT-49", size: "40×54", src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=700&auto=format&fit=crop", alt: "Server room wide shot" },
+    { code: "CAT-50", size: "32×42", src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?q=80&w=700&auto=format&fit=crop", alt: "Brass apothecary objects on dark surface" }
   ];
 
   const schematics = [
@@ -58,6 +58,24 @@ export default function T93CasetteFuturism() {
     "#7FC774","#7FC774","#FFB947","#7FC774",
     "#7FC774","#5B4226","#7FC774","#7FC774",
     "#7FC774","#7FC774","#5B4226","#FFB947"
+  ];
+
+  const brandSlugs = [
+    { slug: "vimeo", name: "Vimeo" },
+    { slug: "mixcloud", name: "Mixcloud" },
+    { slug: "spotify", name: "Spotify" },
+    { slug: "youtube", name: "YouTube" },
+    { slug: "behance", name: "Behance" },
+    { slug: "dribbble", name: "Dribbble" },
+    { slug: "framer", name: "Framer" },
+    { slug: "figma", name: "Figma" },
+  ];
+
+  const pillars = [
+    { roman: "I",   icon: "shield",   title: "DURABILITY",     body: "Riveted steel chassis rated MIL-STD-810. Drop-tested from operator height. Replaceable fascia. Built to outlast the shift, the building, and the operator.", num: "PRINCIPLE 01", featured: true },
+    { roman: "II",  icon: "bolt",     title: "TACTILITY",      body: "Every key has weight, travel, and the snap of a relay. Operators read the panel by hand, not by sight. Glove-compatible.", num: "PRINCIPLE 02" },
+    { roman: "III", icon: "memory",   title: "SERVICEABILITY", body: "Pull two screws and the board is in your hand. Schematics on every fascia. Spare parts at every depot. No factory recall, ever.", num: "PRINCIPLE 03" },
+    { roman: "IV",  icon: "verified", title: "CERTIFICATION",  body: "USCSS-rated, FCC-A logged, EN-60204 stamped. Every unit shipped with its full provenance. Forty-year audit trail by design.", num: "PRINCIPLE 04" },
   ];
 
   const footerLinks = [
@@ -194,6 +212,18 @@ export default function T93CasetteFuturism() {
             </div>
           </div>
 
+          {/* Trusted-by Section */}
+          <section className="hardware-panel p-6">
+            <p className="font-status-code text-status-code text-[#5B4226] uppercase mb-8 md:mb-10 block">// CALIBRATED-WITH — STUDIO STACK</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-x-6 gap-y-8 items-center">
+              {brandSlugs.map(b => (
+                <div key={b.slug} className="flex items-center justify-center h-10 grayscale opacity-70 hover:opacity-100 transition-opacity">
+                  <img alt={b.name} className="h-7 w-auto" src={`https://cdn.simpleicons.org/${b.slug}/5B4226`} />
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* Modules grid */}
           <section className="hardware-panel p-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 mb-6 border-b-2 border-[#5B4226]">
@@ -275,6 +305,38 @@ export default function T93CasetteFuturism() {
             </div>
           </section>
 
+          {/* Premium 2x2 with patterned background */}
+          <section className="hardware-panel p-6 md:p-10 relative" style={{ backgroundImage: "repeating-linear-gradient(45deg, rgba(91,66,38,0.08) 0 8px, transparent 8px 24px)" }}>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 mb-8 border-b-2 border-[#5B4226] relative">
+              <div>
+                <p className="font-status-code text-status-code text-[#5B4226] uppercase mb-2 block">// MK-VII // OPERATOR DOCTRINE</p>
+                <h2 className="font-display-lg text-display-lg text-[#5B4226] uppercase">FOUR PILLARS</h2>
+              </div>
+              <p className="font-body-mono text-body-mono text-[#5B4226] max-w-sm md:text-right">Doctrine etched into every chassis. Four principles that survive vacuum, pressure, and the night shift.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto items-stretch relative">
+              {pillars.map(p => (
+                <article key={p.roman} className={p.featured
+                  ? "bg-[#D9C9A8] border-2 border-[#5B4226] bevel-out p-8 md:p-10 flex flex-col gap-4 ring-4 ring-[#5B4226] ring-offset-2 ring-offset-[#D9C9A8] relative"
+                  : "bg-[#D9C9A8] border-2 border-[#5B4226] bevel-out p-8 md:p-10 flex flex-col gap-4"}>
+                  {p.featured && (
+                    <span className="absolute -top-3 left-6 bg-[#FFB947] text-[#5B4226] font-label-caps text-label-caps px-3 py-1 uppercase border-2 border-[#5B4226] shadow-[2px_2px_0px_#5B4226]">FLAGSHIP</span>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className="font-status-code text-2xl text-[#5B4226] italic">{p.roman}</span>
+                    <span className="material-symbols-outlined text-[#5B4226]" style={{ fontSize: "32px" }}>{p.icon}</span>
+                  </div>
+                  <h3 className="font-display-lg text-2xl text-[#5B4226] uppercase tracking-tight">{p.title}</h3>
+                  <p className="font-body-mono text-sm text-[#5B4226] leading-relaxed">{p.body}</p>
+                  <div className="mt-auto pt-4 border-t border-[#5B4226]/30 flex justify-between items-center">
+                    <span className="font-label-caps text-label-caps text-[#5B4226] uppercase">{p.num}</span>
+                    <span className="material-symbols-outlined text-[#5B4226]" style={{ fontSize: "18px" }}>arrow_forward</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
           {/* Telemetry — 6 instrument tiles */}
           <section className="hardware-panel p-6">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-6 mb-6 border-b-2 border-[#5B4226]">
@@ -337,21 +399,60 @@ _/   \\/   \\__/   \\/   \\_`}</pre>
               </div>
             </div>
           </section>
+          {/* Editorial Spread A — image LEFT, content RIGHT */}
+          <section className="hardware-panel p-6 md:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="hardware-panel p-2 bg-[#1A1A1A]">
+                <img alt="Operator profile in dim industrial light" className="w-full aspect-[4/5] object-cover border-2 border-[#333] opacity-85 mix-blend-luminosity sepia-[0.4] contrast-110" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop" />
+              </div>
+              <div className="flex flex-col gap-6 justify-center">
+                <p className="font-status-code text-status-code text-[#5B4226] uppercase block">// FIELD-NOTE — DECK 14</p>
+                <h2 className="font-display-lg text-display-lg text-[#5B4226] uppercase">BUILT FOR THE NIGHT SHIFT</h2>
+                <p className="font-body-mono text-body-mono text-[#5B4226] leading-relaxed">When the lights drop and the reactor hum is the only company, an operator reads the panel by feel. Detents. Throws. The faint click of a relay seating home. Our hardware speaks in that vocabulary, and only that vocabulary.</p>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <span className="bg-[#5B4226] text-[#FFB947] font-label-caps text-label-caps px-3 py-2 uppercase">CERT. USCSS</span>
+                  <span className="bg-[#FFB947] text-[#5B4226] font-label-caps text-label-caps px-3 py-2 uppercase border-2 border-[#5B4226]">MIL-STD-810</span>
+                  <span className="bg-[#5B4226] text-[#FFB947] font-label-caps text-label-caps px-3 py-2 uppercase">FCC-A LOGGED</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Editorial Spread B — image RIGHT, content LEFT */}
+          <section className="hardware-panel p-6 md:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="flex flex-col gap-6 justify-center md:order-1">
+                <p className="font-status-code text-status-code text-[#5B4226] uppercase block">// BENCH-LOG — TERMINAL.04</p>
+                <h2 className="font-display-lg text-display-lg text-[#5B4226] uppercase">DUAL-CRT WORKBENCH</h2>
+                <p className="font-body-mono text-body-mono text-[#5B4226] leading-relaxed">Two amber tubes, four parallel buses, one operator. The bench is wired for 220V triple-phase and a single coffee cup. Every command echoes back as a glowing line. Every error stays on the screen until the shift signs it off.</p>
+                <ul className="font-body-mono text-sm text-[#5B4226] space-y-2 border-l-4 border-[#5B4226] pl-4">
+                  <li className="flex justify-between border-b border-[#5B4226]/20 pb-2"><span className="opacity-60">REFRESH</span><span className="tabular-nums">60 HZ NTSC</span></li>
+                  <li className="flex justify-between border-b border-[#5B4226]/20 pb-2"><span className="opacity-60">UPTIME</span><span className="tabular-nums">1024:47:12</span></li>
+                  <li className="flex justify-between"><span className="opacity-60">SHIFT</span><span className="tabular-nums">3 OF 3</span></li>
+                </ul>
+              </div>
+              <div className="hardware-panel p-2 bg-[#1A1A1A] md:order-2">
+                <img alt="Industrial data tunnel — operator corridor" className="w-full aspect-[4/5] object-cover border-2 border-[#333] opacity-85 mix-blend-luminosity sepia-[0.4] contrast-110" src="https://images.unsplash.com/photo-1488229297570-58520851e868?q=80&w=900&auto=format&fit=crop" />
+              </div>
+            </div>
+          </section>
         </main>
 
-        <footer className="bg-[#1A1A1A] dark:bg-[#0A0A0A] w-full border-t-8 border-[#5B4226] p-12 shadow-[inset_0_20px_40px_rgba(0,0,0,0.8)] flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto px-8 relative overflow-hidden after:content-[''] after:absolute after:inset-0 after:pointer-events-none after:bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] after:bg-[length:100%_2px,3px_100%] mt-auto">
-          <div className="text-[#FFB947] font-bold font-mono uppercase text-xs tracking-[0.2em] relative z-10">
-            ©1979 PANEL-7 INDUSTRIAL SYSTEMS | USCSS NOSTROMO COMPLIANT
+        <footer className="bg-[#1A1A1A] dark:bg-[#0A0A0A] w-full border-t-8 border-[#5B4226] shadow-[inset_0_20px_40px_rgba(0,0,0,0.8)] relative overflow-hidden after:content-[''] after:absolute after:inset-0 after:pointer-events-none after:bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] after:bg-[length:100%_2px,3px_100%] mt-auto">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
+            <div className="text-[#FFB947] font-bold font-mono uppercase text-xs tracking-[0.2em]">
+              ©1979 PANEL-7 INDUSTRIAL SYSTEMS | USCSS NOSTROMO COMPLIANT
+            </div>
+            <nav className="flex gap-6 font-mono uppercase text-xs tracking-[0.2em]">
+              {footerLinks.map(l => (
+                <a key={l.label} href="#" className={l.active
+                  ? "text-[#FFB947] underline underline-offset-4 transition-opacity duration-300 hover:text-[#FFB947]"
+                  : "text-[#FFB947]/60 transition-opacity duration-300 hover:text-[#FFB947]"}>
+                  {l.label}
+                </a>
+              ))}
+            </nav>
           </div>
-          <nav className="flex gap-6 relative z-10 font-mono uppercase text-xs tracking-[0.2em]">
-            {footerLinks.map(l => (
-              <a key={l.label} href="#" className={l.active
-                ? "text-[#FFB947] underline underline-offset-4 transition-opacity duration-300 hover:text-[#FFB947]"
-                : "text-[#FFB947]/60 transition-opacity duration-300 hover:text-[#FFB947]"}>
-                {l.label}
-              </a>
-            ))}
-          </nav>
         </footer>
       </div>
     </>

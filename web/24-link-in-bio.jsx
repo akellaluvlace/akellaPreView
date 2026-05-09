@@ -22,8 +22,8 @@ export default function T24LinkInBio() {
         { text: "Restocks · monthly", cls: "bg-tertiary-container text-on-tertiary-container" }
       ],
       cta: "Open the shop",
-      img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=85&auto=format&fit=crop",
-      alt: "hands cupping a warm ceramic mug of green tea on a wooden table",
+      img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=1400&q=85&auto=format&fit=crop",
+      alt: "tea ceremony overhead — kettle, brass strainer, ceramic cups arranged on linen",
       tag: "— 01 · Tea",
       reverse: false
     },
@@ -52,8 +52,8 @@ export default function T24LinkInBio() {
         { text: "Restock · soon", cls: "bg-secondary-fixed text-on-secondary-fixed" }
       ],
       cta: "Browse the shop",
-      img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1400&q=85&auto=format&fit=crop",
-      alt: "folded merchandise tees and a tote bag arranged on a linen-covered table",
+      img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1400&q=85&auto=format&fit=crop",
+      alt: "folded organic-cotton tees stacked on a linen-covered table — Lisbon studio drop",
       tag: "— 03 · Merch",
       reverse: false
     }
@@ -63,7 +63,7 @@ export default function T24LinkInBio() {
   const marqueeTiles = [
     {
       size: "w-80 h-56",
-      img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=900&q=85&auto=format&fit=crop",
       alt: "overhead flat-lay of a tea ceremony with cups, kettle and dried leaves",
       chip: { text: "Reel", cls: "bg-surface text-on-surface border-on-surface/30" },
       meta: "42.1k · 7d"
@@ -84,7 +84,7 @@ export default function T24LinkInBio() {
     },
     {
       size: "w-64 h-64",
-      img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900&q=85&auto=format&fit=crop",
       alt: "folded organic-cotton t-shirts in muted tones on a linen surface",
       chip: { text: "Drop", cls: "bg-tertiary-container text-on-tertiary-container border-tertiary" },
       meta: "5.6k · 1w"
@@ -105,7 +105,7 @@ export default function T24LinkInBio() {
     },
     {
       size: "w-80 h-56",
-      img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1000&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1000&q=85&auto=format&fit=crop",
       alt: "warm overhead shot of a tea-steeping ritual with brass strainer",
       chip: { text: "Press · Kinfolk", cls: "bg-secondary-fixed text-on-secondary-fixed border-on-secondary-fixed" },
       meta: "— 03/26"
@@ -116,8 +116,8 @@ export default function T24LinkInBio() {
   const tenets = [
     {
       n: "01",
-      img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&q=85&auto=format&fit=crop",
-      alt: "hands cupping a small ceramic bowl",
+      img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600&q=85&auto=format&fit=crop",
+      alt: "matcha bowl on a linen table — small batch, complete in one sitting",
       title: "Make small. Make often.",
       body: "A 12-jar batch is a complete thing. So is a 3-minute video. Bigger is the trap, not the goal."
     },
@@ -137,15 +137,15 @@ export default function T24LinkInBio() {
     },
     {
       n: "04",
-      img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=85&auto=format&fit=crop",
-      alt: "folded shirts and printed tags on a linen-covered table",
+      img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=85&auto=format&fit=crop",
+      alt: "folded organic-cotton tees stacked on a linen-covered table",
       title: "Sponsor the stuff I'd already buy.",
       body: "No partnerships unless I've used the thing for at least a month. The list is short on purpose."
     },
     {
       n: "05",
-      img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&q=85&auto=format&fit=crop",
-      alt: "brass strainer and tea cups on a linen surface",
+      img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=85&auto=format&fit=crop",
+      alt: "kettle steaming over a teacup on linen — kettle-on protocol",
       title: "Put a kettle on before any meeting.",
       body: "It's mostly a delay tactic. But also: I make better choices three sips in than I do at minute zero."
     }
@@ -155,8 +155,8 @@ export default function T24LinkInBio() {
   const quotes = [
     {
       body: "The newsletter is the only one I open the morning it lands. Steepwell tea is the one I refill when it runs out.",
-      img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=200&q=85&auto=format&fit=crop",
-      alt: "portrait of a smiling young person",
+      img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop",
+      alt: "portrait of Mira in soft afternoon light",
       name: "Mira A.",
       role: "Reader · since '24"
     },
@@ -243,6 +243,7 @@ export default function T24LinkInBio() {
     }
     .kb-marquee-track {
       display: flex;
+      align-items: center;
       gap: 18px;
       width: max-content;
       animation: kb-marquee 55s linear infinite;
@@ -353,7 +354,7 @@ export default function T24LinkInBio() {
         {/* SECTION 2 — full-bleed cinematic */}
         <section className="full-bleed relative overflow-hidden" style={{ backgroundColor: "#1a1c1a" }}>
           <div className="relative w-full h-[60vh] min-h-[420px] max-h-[640px]">
-            <img className="absolute inset-0 w-full h-full object-cover opacity-90" alt="warm overhead shot of loose-leaf tea, brass strainer, and ceramic cups on a linen surface" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1920&q=85&auto=format&fit=crop" />
+            <img className="absolute inset-0 w-full h-full object-cover opacity-90" alt="warm overhead shot of loose-leaf tea, brass strainer, and ceramic cups on a linen surface" src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=1920&q=85&auto=format&fit=crop" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-black/85 pointer-events-none"></div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 70% 60% at 18% 92%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 70%)" }}></div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 60% at 95% 8%, rgba(189,235,199,0.18) 0%, transparent 60%)" }}></div>
@@ -522,6 +523,33 @@ export default function T24LinkInBio() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* SECTION 8 — Black & white snapshot strip. Static (not animated), screen-width,
+            7-square row of moments from the studio. Clean visual breath before the footer. */}
+        <section className="full-bleed py-12 md:py-16 border-t border-on-surface/15 bg-surface-container-low">
+          <div className="max-w-[1400px] mx-auto px-4 md:px-8 mb-6 md:mb-8">
+            <div className="flex items-end justify-between gap-4">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-on-surface-variant">— A quiet contact sheet</span>
+              <span className="text-[10px] uppercase tracking-widest text-on-surface-variant tabular-nums hidden md:inline">No. 24 · Spring '26</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5 md:gap-2 px-1.5 md:px-2">
+            {[
+              { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAQ4xVkRRz0Row3K3O8RQDdE3U2AfePg3BKJh36RAnVzZwxC-ngKB_OjCv0-6KK6QfUekyTT08sEeAskkX3Xj8VKWJPGniodTBfl776e6-B2xnxUgrIOnLxbNC9WiN1LsPMocGez73r4Jp4dBwt3X0By4xdpVncrHhMBP62Mxqe4kqYS5I9ZXfNbYhKkq3JGf0f3xFbvy_KNiQJluVf1t2SPSXGCf__4zps6fvSKzENmw5ckQVU3MLrmFdiwJUIl87fujuY-_buLpyE", alt: "kaia in studio" },
+              { src: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=600&q=85&auto=format&fit=crop", alt: "studio dog asleep" },
+              { src: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600&q=85&auto=format&fit=crop", alt: "matcha tea overhead" },
+              { src: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600&q=85&auto=format&fit=crop", alt: "small dog peeking out of basket" },
+              { src: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=85&auto=format&fit=crop", alt: "folded organic cotton tees" },
+              { src: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600&q=85&auto=format&fit=crop", alt: "tea ceremony with brass strainer" },
+              { src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=85&auto=format&fit=crop", alt: "tea cup with steam, soft afternoon light" },
+            ].map((tile, i) => (
+              <figure key={i} className="aspect-square overflow-hidden bg-on-surface/5">
+                <img src={tile.src} alt={tile.alt} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale contrast-[1.05]" />
+              </figure>
+            ))}
+          </div>
+          <p className="text-center mt-6 md:mt-8 text-[10px] uppercase tracking-widest text-on-surface-variant">Photographed at the kitchen table · Sundays, between brews</p>
         </section>
 
         <footer className="bg-transparent w-full bottom-0 mt-auto z-10 relative">

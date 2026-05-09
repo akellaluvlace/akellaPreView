@@ -178,6 +178,47 @@ function FitnessWellness() {
 
         <main className="max-w-container-max mx-auto px-margin-fluid pb-section-gap w-full flex-grow">
 
+          {/* Section: Trusted by (logo wall) */}
+          {(() => {
+            const brands = [
+              { slug: "strava", name: "Strava" },
+              { slug: "garmin", name: "Garmin" },
+              { slug: "apple", name: "Apple Watch" },
+              { slug: "fitbit", name: "Fitbit" },
+              { slug: "samsung", name: "Samsung Health" },
+              { slug: "spotify", name: "Spotify" },
+              { slug: "nike", name: "Nike" },
+              { slug: "adidas", name: "Adidas" },
+            ];
+            return (
+              <section id="trusted" className="mt-section-gap">
+                <div className="text-center mb-10 md:mb-12">
+                  <div className="flex items-center justify-center gap-4 mb-5" aria-hidden="true">
+                    <span className="h-px w-10 bg-surface-variant"></span>
+                    <span className="font-label-bold text-label-bold text-primary-container/80 uppercase tracking-widest">— Recommended by</span>
+                    <span className="h-px w-10 bg-surface-variant"></span>
+                  </div>
+                  <h3 className="font-headline-md text-headline-md text-on-background uppercase text-balance">Trained on. Worn on. Fueled by.</h3>
+                  <p className="font-body-md text-body-md text-secondary mt-3 max-w-prose mx-auto text-pretty">Twelve thousand lifters log Range workouts onto the gear they already track with.</p>
+                </div>
+                <div className="bg-surface-container-low border border-surface-variant rounded p-6 md:p-10">
+                  <ul className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center" role="list">
+                    {brands.map(b => (
+                      <li key={b.slug} className="flex flex-col items-center gap-2">
+                        <img src={`https://cdn.simpleicons.org/${b.slug}/e4beb6`} alt={b.name} className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity" loading="lazy" decoding="async" width="80" height="28" />
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-secondary">{b.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8 pt-6 border-t border-surface-variant flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-6">
+                    <span className="font-label-bold text-label-bold text-secondary uppercase tracking-widest tabular-nums">+ 12,400 lifters · 47 countries</span>
+                    <span className="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Garmin Connect IQ verified · MMXXIII</span>
+                  </div>
+                </div>
+              </section>
+            );
+          })()}
+
           {/* Programs */}
           <section id="programs" className="mt-section-gap scroll-mt-32">
             <h2 className="font-headline-md text-headline-md text-on-background uppercase mb-8 md:mb-12 border-l-4 border-primary-container pl-4 text-balance">Choose Your Path</h2>
@@ -237,13 +278,13 @@ function FitnessWellness() {
               <article className="relative bg-surface-container-low border border-surface-variant rounded flex flex-col group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-outline/50 focus-within:ring-2 focus-within:ring-primary-container focus-within:ring-offset-2 focus-within:ring-offset-background">
                 <div className="h-48 relative overflow-hidden bg-surface-variant/50">
                   <img
-                    alt="Low angle shot of a heavy deadlift setup with chalked hands"
+                    alt="Heavy barbell mid-deadlift, chalk dust suspended in low light"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100"
                     loading="lazy"
                     decoding="async"
                     width="800"
                     height="600"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtL-xupMgW-2dMWs-QWCd0DOX4BfCRHAF-qIh_doqIgCEJ2mbdHGccmMzwTqtnxpb_s8WDajh3I1EBXa8EdmQHxR71xllhehymkPzVutDpJQwthVDeHDYJGg5V8jZL2RwJk2tfEv2Q0J-AMLUPMTS2POyH7yaM8suuWXNgIExLiw50Id4mKHW-ZsYnVr7TsFr2kUN2OqVHfRizCeV_0vfcA5W8dSuTJM-mgRD_dldsRBdB1yW6PVv0w1BRCc-lMF1OHSZKm_fOOxCA"
+                    src="https://images.unsplash.com/photo-1591311630200-ffa9120a540f?q=80&w=800&auto=format&fit=crop"
                   />
                   <div className="absolute top-4 left-4 bg-background/80 backdrop-blur px-2 py-1 rounded-sm border border-secondary/20 pointer-events-none">
                     <span className="font-label-bold text-label-bold text-primary-container uppercase tabular-nums tracking-widest">12 Weeks</span>
@@ -342,7 +383,7 @@ function FitnessWellness() {
             const motionTiles = [
               { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuB4xxGYVrUay99xOo9YqvsbzQDf_p03c1hGLVeZCcdUMwbcGlA37il1SRAoEnHyVEPEr3mAJWotU8WEWTwIlK58UvjMNnkeJmadIaY3JMg9veejVHso80zxKeAIyKWymYNHK5tjRPq4ufFwQx5EcagP4eVOGGR8wI6u6Na9D568qWSoFmKkX9rbiOL6W1oJ4yvzE7iNxY8pIg3F5va-rU7zTaCCt99EbduXKEeh2CowmVp89WLHGDtcKIpwmJ0sMIP2jrUWyUysCpDI", alt: "Heavy back squat warm-up", badge: "5 × 5 · @RPE 8", lift: "Back Squat", weight: "160 KG" },
               { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuA9AZXv_XM6jUCSZP2rx_8qEnQ_NJnRqZp4ozmdksajwKFLmp9iuRUD5baxMkBOQttRu98Ot5RYL_ecIShPg6K-zQDBUeVpfT0duS1291p0BIaZRFEGRaEAbAdU3J9zuOAhCMcaEac9eyqBXNY6hNv-K_2X3W45rwFSbUTBBGUUUch5FjajpYxPhIHVkwpcqwJFyep6OCvSTpoZz6hw1BjmZ-xR-pAL7FEvsUBQ3afj_mb1hwu5P5mcx8fi3yneITQt6JlFNUmAmEV9", alt: "Dumbbell press top set", badge: "3 × 8 · @RPE 9", lift: "DB Press", weight: "42.5 KG" },
-              { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAtL-xupMgW-2dMWs-QWCd0DOX4BfCRHAF-qIh_doqIgCEJ2mbdHGccmMzwTqtnxpb_s8WDajh3I1EBXa8EdmQHxR71xllhehymkPzVutDpJQwthVDeHDYJGg5V8jZL2RwJk2tfEv2Q0J-AMLUPMTS2POyH7yaM8suuWXNgIExLiw50Id4mKHW-ZsYnVr7TsFr2kUN2OqVHfRizCeV_0vfcA5W8dSuTJM-mgRD_dldsRBdB1yW6PVv0w1BRCc-lMF1OHSZKm_fOOxCA", alt: "Heavy deadlift opener", badge: "1 × 3 · @RPE 9", lift: "Deadlift", weight: "220 KG" },
+              { src: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&q=80&auto=format&fit=crop", alt: "Heavy deadlift opener", badge: "1 × 3 · @RPE 9", lift: "Deadlift", weight: "220 KG" },
               { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCEtAnrPRYknN3EH-gpGqxUvZKzghRnnCqJr2IWywdx3ONWe5SC2rFFRFJ898e_-FwTs9Pox7BSPj5I_uX5EYtcNy00VxzDgb-HPsVaqVSgNAGp3Z6TkMpXhq7_4d28_HYkYh6WzVBbw8t4G6ybkKBoTJmCHMr08CHSOwxtn6TBRqmIeIs0eDWetLeU9IxLRaE1vEVc36bXTLxW26hZCK3NqDK45mceTWni_SpyXiJuXA3LwXPT4ZH4jRgfoSqt6bu2DxWgGQfKH22R", alt: "Ring muscle-up training", badge: "EMOM 12 · BW", lift: "Rings", weight: "3 reps" },
               { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuCKxxsE4tbT32P3AbvOrJlKWvJe3kid5p2o7G9YVhZjKFLzkvuagrVga7iNTPjqvVW-vKeCtak65UP7eiuThDcSLTP63ix7Sgl9rHfxYJzuwYbHVTf9_187DXHwTj4rSz7rF15Y590j54BXsJ1ljY93GW5ticorrcMatQUJkE5cdfBt0CUXASGPhm9T-kJ_poPSBEuRYu4yenG5r60ijK9Mgz5YmpcrDYAOZsw4fJA3lVXra6SqqGNwY0Le4wKZKVfxhZAc_mKvEDYB", alt: "Pull from the floor, set-up", badge: "PAUSE 2s · @RPE 8", lift: "Snatch Pull", weight: "90 KG" },
               { src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDv-AGluRFQxD_hRnjCkI00S_EjO7KJJbiS-21qUZ7n-ohUpS-Arvlo-7wx3xROtsBPXzbqSUV2DFpN7USEgbLuOPr3H7RQsKH6HAtZ5x_VTGsT3gnVjdr6ten9agNvetKPevlD1fM5mzBxH7q5D_noVDk30mC1W7fJ9TV7K1ObHEtKNekTFOUEoi6uZ-toEFxwvt89fdVeG9tI7it0b2gYcVeAF7ePUSu85swgh_0Z4JwSgJAn9bu20kosb8KxOV3HIobFgK6ox7fj", alt: "Athlete reviewing program on phone", badge: "SESSION REVIEW", lift: "Debrief", weight: "12 min" },
@@ -397,7 +438,7 @@ function FitnessWellness() {
               },
               {
                 cycle: "CYCLE 02", name: "Priya · 28 · Toronto", role: "Strength block",
-                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAtL-xupMgW-2dMWs-QWCd0DOX4BfCRHAF-qIh_doqIgCEJ2mbdHGccmMzwTqtnxpb_s8WDajh3I1EBXa8EdmQHxR71xllhehymkPzVutDpJQwthVDeHDYJGg5V8jZL2RwJk2tfEv2Q0J-AMLUPMTS2POyH7yaM8suuWXNgIExLiw50Id4mKHW-ZsYnVr7TsFr2kUN2OqVHfRizCeV_0vfcA5W8dSuTJM-mgRD_dldsRBdB1yW6PVv0w1BRCc-lMF1OHSZKm_fOOxCA",
+                img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&q=80&auto=format&fit=crop",
                 quote: '"I\'d never deadlifted over body-weight. By week ten the bar moved like it owed me an answer."',
                 body: "Priya joined the Strength block on a friend's recommendation. The block rotated her primary lift weekly; the deadlift was the surprise.",
                 stats: [
@@ -557,6 +598,56 @@ function FitnessWellness() {
               ))}
             </div>
           </section>
+
+          {/* Section: Inside the Cycle (premium 4-card lab section) */}
+          {(() => {
+            const labs = [
+              { numeral: "I",   icon: "science",    title: "Form Lab",       chip: "12 / cycle",     meta: "Athlete portal · search index", body: "Every video review is logged, tagged, and indexed against your prior submissions. The fix you got last cycle is still there next cycle." },
+              { numeral: "II",  icon: "monitoring", title: "Strain Index",   chip: "DAILY",          meta: "RPE · HRV · bar speed",         body: "RPE, HRV, and bar speed (if you log them) feed a per-block strain score. Your coach sees red before you feel it." },
+              { numeral: "III", icon: "groups",     title: "Coach Bench",    chip: "PEER REVIEWED",  meta: "CSCS · NSCA · Reps L4",         body: "Three coaches, two assistants, one head — every block-design decision passes a peer review before it hits your plan." },
+              { numeral: "IV",  icon: "restaurant", title: "Recovery Atlas", chip: "4 TABS",         meta: "Sleep · Fuel · Deload",         body: "Sleep, nutrition phase, deload calendar — the recovery side of the program isn't an add-on, it's a tab." },
+            ];
+            const certs = ["CSCS · Cert · NSCA", "Reps · Lvl 4 · UK", "USA-W · Coach · 2024"];
+            return (
+              <section id="lab" className="mt-section-gap">
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+                  <div>
+                    <span className="font-label-bold text-label-bold text-primary-container/80 uppercase tracking-widest block mb-3">— Built into every cycle</span>
+                    <h2 className="font-display-lg text-display-lg text-on-background uppercase border-l-4 border-primary-container pl-4 text-balance">Inside the <em className="text-primary-container not-italic">Cycle.</em></h2>
+                  </div>
+                  <p className="font-body-md text-body-md text-secondary md:text-right max-w-md text-pretty">Four labs you don't see on the spreadsheet. Each one runs in the background of every cycle, paid by the subscription, included for everyone.</p>
+                </div>
+                <div className="h-px bg-gradient-to-r from-transparent via-primary-container/40 to-transparent mb-12"></div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 items-stretch">
+                  {labs.map(l => (
+                    <article key={l.title} className="relative bg-surface-container-low border border-surface-variant rounded-xl flex flex-row items-stretch overflow-hidden group hover:border-primary-container/40 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary-container/10 transition-all duration-300">
+                      <div className="shrink-0 w-24 md:w-32 self-stretch flex flex-col items-center justify-center bg-gradient-to-br from-primary-container/15 via-surface-container-low to-primary-container/5 border-r border-primary-container/30 relative overflow-hidden">
+                        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 60%, rgba(255,88,51,0.18) 0%, transparent 65%)" }}></div>
+                        <span className="relative font-display-lg text-primary-container/90 italic tabular-nums leading-none mt-3">{l.numeral}</span>
+                        <span className="relative material-symbols-outlined text-primary-container mt-2" style={{ fontSize: "32px" }} aria-hidden="true">{l.icon}</span>
+                      </div>
+                      <div className="flex-1 p-5 md:p-6 flex flex-col justify-between gap-3 min-w-0">
+                        <div className="flex items-baseline justify-between gap-3">
+                          <h3 className="font-headline-md text-on-background uppercase text-lg md:text-xl text-balance">{l.title}</h3>
+                          <span className="font-label-bold text-label-bold text-primary-container/80 uppercase tabular-nums tracking-widest border border-primary-container/30 px-2 py-0.5 shrink-0">{l.chip}</span>
+                        </div>
+                        <p className="font-body-md text-body-md text-secondary text-pretty leading-relaxed">{l.body}</p>
+                        <div className="pt-3 border-t border-surface-variant flex items-center justify-between gap-2 text-secondary">
+                          <span className="font-label-bold text-label-bold uppercase tracking-widest text-[10px]">{l.meta}</span>
+                          <span className="material-symbols-outlined text-primary-container/70 text-[18px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+                  {certs.map(c => (
+                    <span key={c} className="font-label-bold text-label-bold text-secondary uppercase tracking-widest border border-surface-variant rounded-full px-4 py-2">{c}</span>
+                  ))}
+                </div>
+              </section>
+            );
+          })()}
 
           {/* Section: Common Questions (FAQ) */}
           <section className="mt-section-gap">

@@ -5,9 +5,80 @@ export default function T108EtherealFashionNoir() {
     { num: "III", title: "Silence", suffix: "03", offset: "", alt: "Silence study", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&q=85&auto=format&fit=crop" },
   ];
   const lookbookSquares = [
-    { num: "03", caption: "SHADOW / GEOMETRY", alt: "Lookbook 3", src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1000&q=85&auto=format&fit=crop" },
+    { num: "03", caption: "SHADOW / GEOMETRY", alt: "Lookbook 3", src: "https://images.unsplash.com/photo-1636471758054-06c6e8c433f7?w=1000&q=85&auto=format&fit=crop" },
     { num: "04", caption: "SPACE / DAYLIGHT", alt: "Lookbook 4", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop" },
     { num: "05", caption: "FIGURE / VOLTAGE", alt: "Lookbook 5", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1000&q=85&auto=format&fit=crop" },
+  ];
+  const trustedBrands = [
+    { slug: "hermes", alt: "Hermès" },
+    { slug: "theguardian", alt: "The Guardian" },
+    { slug: "telegraph", alt: "Telegraph" },
+    { slug: "medium", alt: "Medium" },
+    { slug: "substack", alt: "Substack" },
+    { slug: "behance", alt: "Behance" },
+    { slug: "vimeo", alt: "Vimeo" },
+    { slug: "issuu", alt: "Issuu" },
+  ];
+  const trustedStats = [
+    { value: "04", label: "EDITIONS" },
+    { value: "12", label: "RESIDENCIES" },
+    { value: "340", label: "PRESS NOTICES" },
+    { value: "∞", label: "FIELD NOTES" },
+  ];
+  const atelierRites = [
+    {
+      numeral: "I", icon: "door_front", title: "Atelier Visit",
+      body: "A ninety-minute conversation in the workroom. Walk the line, hold the prototypes, watch the light fall on raw cloth as it does the day a piece is decided.",
+      footLabel: "DURATION", footValue: "90 MIN",
+    },
+    {
+      numeral: "II", icon: "straighten", title: "Made to Measure",
+      body: "Three fittings across a season. The pattern is cut to your geometry, the material chosen against your existing wardrobe — never as accent, only as accord.",
+      footLabel: "FITTINGS", footValue: "03 · SEASON",
+    },
+    {
+      numeral: "III", icon: "travel_explore", title: "Trunk Show",
+      body: "Twice a year the archive travels — Kyoto in spring, Paris in autumn. Twelve invitations issued per city, each address handwritten, each call answered in person.",
+      footLabel: "CITIES", footValue: "02 · YEAR",
+    },
+    {
+      numeral: "IV", icon: "key", title: "Private Edit",
+      body: "For those whose wardrobe predates us. We arrive, listen, withdraw — then return with a slim memorandum proposing what to keep, what to retire, what to commission.",
+      footLabel: "CADENCE", footValue: "ANNUAL",
+    },
+  ];
+  const innerCircleStats = [
+    { value: "40", label: "SEATS" },
+    { value: "07", label: "YEARS" },
+    { value: "∞", label: "REVERENCE" },
+  ];
+  const innerCircleBenefits = [
+    { strong: "Pre-edition access.", body: "Every garment offered to members two weeks before the public announcement." },
+    { strong: "Annual residency.", body: "Three days inside the working studio, the editor's table reserved for one conversation a day." },
+    { strong: "One bespoke commission per season.", body: "At the studio rate, no waitlist, the cloth chosen by hand from the Como mill." },
+    { strong: "Field correspondence.", body: "A printed letter from the editor each solstice — what we are reading, mending, refusing." },
+  ];
+  const canvasSpecs = [
+    { label: "LOCATION", value: "NEO-TOKYO" },
+    { label: "AREA", value: "450 SQM" },
+    { label: "VALUE", value: "ON REQUEST" },
+    { label: "CADENCE", value: "ONCE / YR" },
+  ];
+  const canvasDossier = [
+    { label: "// SLOT", value: "Q1 2027" },
+    { label: "// DRAWINGS", value: "12 wks" },
+    { label: "// FABRICATION", value: "28 wks" },
+    { label: "// CALLS", value: "22 / yr" },
+  ];
+  const stripImages = [
+    { id: "1527844817887-9b937993518b", alt: "Studio still life" },
+    { id: "1611224923853-80b023f02d71", alt: "Atelier interior" },
+    { id: "1499744937866-d7e566a20a61", alt: "Paper editorial" },
+    { id: "1457369804613-52c61a468e7d", alt: "Workspace fragment" },
+    { id: "1481627834876-b7833e8f5570", alt: "Press fragment" },
+    { id: "1521405924368-64c5b84bec60", alt: "Editorial paper" },
+    { id: "1495446815901-a7297e633e8d", alt: "Craft hand-detail" },
+    { id: "1455390582262-044cdead277a", alt: "Paper editorial detail" },
   ];
   const mobileNavIcons = ["adjust", "grid_view", "layers", "fingerprint"];
   const footerLinks = [
@@ -71,7 +142,7 @@ export default function T108EtherealFashionNoir() {
             <span className="material-symbols-outlined">shopping_bag</span>
           </button>
         </header>
-        <main className="pt-16 pb-32">
+        <main className="pt-16">
           <section className="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-margin-edge overflow-hidden">
             <div className="absolute inset-0 z-0">
               <img alt="Hero Background" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover opacity-50 grayscale mix-blend-luminosity" />
@@ -148,6 +219,36 @@ export default function T108EtherealFashionNoir() {
                   </div>
                 </div>
               ))}
+            </div>
+          </section>
+          <section className="py-24 md:py-32 px-4 md:px-margin-edge bg-surface-container-lowest border-y border-white/5 relative overflow-hidden">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-tertiary/40 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-tertiary/30 to-transparent" />
+            <div className="max-w-container-max mx-auto">
+              <div className="text-center mb-16">
+                <span className="font-label-caps text-label-caps text-tertiary tracking-[0.4em] inline-flex items-center gap-3 mb-6">
+                  <span className="w-8 h-px bg-tertiary/60" />
+                  FEATURED IN · AW / 2026
+                  <span className="w-8 h-px bg-tertiary/60" />
+                </span>
+                <h2 className="font-display-2xl text-3xl md:text-5xl text-on-surface tracking-tight uppercase mb-3">A Quiet Reception</h2>
+                <p className="font-narrative-italic text-lg md:text-xl text-on-surface-variant italic max-w-xl mx-auto">Press notices and editorial residencies, gathered without fanfare since the first edition.</p>
+              </div>
+              <div className="rounded-xl border border-white/10 bg-white/[0.025] backdrop-blur-xl p-8 md:p-12 shadow-[0_0_80px_rgba(231,195,101,0.05)]">
+                <div className="flex flex-wrap items-center justify-center gap-x-12 md:gap-x-16 gap-y-8">
+                  {trustedBrands.map((b) => (
+                    <img key={b.slug} alt={b.alt} src={`https://cdn.simpleicons.org/${b.slug}/c5a059`} className="h-7 md:h-8 opacity-70 hover:opacity-100 transition-opacity duration-500" />
+                  ))}
+                </div>
+                <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                  {trustedStats.map((s) => (
+                    <div key={s.label}>
+                      <div className="font-display-2xl text-3xl text-tertiary mb-1">{s.value}</div>
+                      <div className="font-label-caps text-label-caps text-on-surface-variant tracking-widest">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
           <section className="py-section-gap px-4 md:px-margin-edge">
@@ -238,7 +339,7 @@ export default function T108EtherealFashionNoir() {
                 <div className="md:col-span-4 md:mt-8">
                   <div className="relative group rounded-xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 p-4 transition-all duration-700 hover:bg-white/10">
                     <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                      <img alt="Specimen" src="https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                      <img alt="Specimen" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/85 to-transparent" />
                       <div className="absolute top-4 left-4 font-label-caps text-label-caps text-tertiary bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">A · 05</div>
                       <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
@@ -305,34 +406,196 @@ export default function T108EtherealFashionNoir() {
               </div>
             </div>
           </section>
+          <section className="py-section-gap px-4 md:px-margin-edge bg-surface-container-lowest relative overflow-hidden">
+            <div className="absolute -bottom-32 -left-20 font-display-2xl text-[280px] leading-none text-on-surface/[0.03] pointer-events-none select-none uppercase tracking-tighter hidden lg:block">RITE</div>
+            <div className="max-w-container-max mx-auto relative z-10">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
+                <div className="max-w-2xl">
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="font-label-caps text-label-caps text-primary">04 / RITES</span>
+                    <div className="h-[1px] w-16 bg-white/10" />
+                    <span className="font-label-caps text-label-caps text-on-surface-variant">FOUR ENTRANCES</span>
+                  </div>
+                  <h2 className="font-display-2xl text-4xl md:text-6xl lg:text-7xl text-on-surface tracking-tighter uppercase mb-6">Ways to Enter the Studio</h2>
+                  <p className="font-narrative-italic text-narrative-italic text-on-surface-variant italic max-w-lg">
+                    Four rites — each a distinct cadence for meeting the work. None requires a public face. All proceed by appointment.
+                  </p>
+                </div>
+                <div className="hidden md:flex flex-col items-end gap-2 font-label-caps text-label-caps text-on-surface-variant">
+                  <span className="text-tertiary">CAPACITY · LIMITED</span>
+                  <span>EDITION №04 · BY APPOINTMENT</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                {atelierRites.map((r) => (
+                  <div key={r.numeral} className="group relative rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 flex flex-col transition-all duration-700 hover:bg-white/[0.06] hover:border-tertiary/30 hover:shadow-[0_0_60px_rgba(231,195,101,0.12)] min-h-[420px]">
+                    <div className="absolute top-6 right-6 font-label-caps text-label-caps text-on-surface-variant tracking-widest">{r.numeral}</div>
+                    <div className="w-14 h-14 rounded-lg border border-tertiary/30 bg-tertiary/5 flex items-center justify-center mb-8">
+                      <span className="material-symbols-outlined text-tertiary text-3xl">{r.icon}</span>
+                    </div>
+                    <h3 className="font-headline-lg text-2xl text-on-surface mb-3 italic">{r.title}</h3>
+                    <p className="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6 flex-grow">{r.body}</p>
+                    <div className="mt-auto pt-6 border-t border-white/10 flex justify-between items-center">
+                      <span className="font-label-caps text-label-caps text-on-surface-variant">{r.footLabel}</span>
+                      <span className="font-label-caps text-label-caps text-tertiary">{r.footValue}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+          <section className="py-section-gap px-4 md:px-margin-edge relative overflow-hidden">
+            <div className="absolute inset-0 z-0">
+              <img alt="Atelier interior" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-30 mix-blend-luminosity" />
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
+              <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background" />
+            </div>
+            <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-tertiary/10 rounded-full blur-[140px] z-0" />
+            <div className="max-w-container-max mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
+              <aside className="lg:col-span-5 flex flex-col">
+                <div>
+                  <div className="flex items-center gap-3 mb-6 font-label-caps text-label-caps text-tertiary">
+                    <span className="w-8 h-px bg-tertiary" />
+                    INNER CIRCLE
+                    <span className="font-label-caps text-on-surface-variant tracking-widest">· EST. 2019</span>
+                  </div>
+                  <h2 className="font-display-2xl text-4xl md:text-6xl text-on-surface tracking-tight uppercase mb-6 italic">Patrons of the House</h2>
+                  <p className="font-narrative-italic text-narrative-italic text-on-surface italic mb-6 leading-relaxed">
+                    For the forty patrons whose subscription underwrites the studio's quietest work — the mended pieces, the unsold experiments, the long winter of pattern-making before any cloth is cut.
+                  </p>
+                  <p className="font-body-md text-on-surface-variant text-sm leading-relaxed mb-10 max-w-md">
+                    Members receive every edition before announcement, an annual atelier residency, and the standing right to commission a single bespoke piece per season at the studio rate.
+                  </p>
+                </div>
+                <div className="mt-auto pt-8 border-t border-white/15 grid grid-cols-3 gap-4 font-label-caps text-label-caps">
+                  {innerCircleStats.map((s) => (
+                    <div key={s.label}>
+                      <div className="text-tertiary text-2xl font-bold mb-1">{s.value}</div>
+                      <div className="text-on-surface-variant tracking-widest text-[10px]">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </aside>
+              <div className="lg:col-span-7 flex flex-col">
+                <div className="rounded-xl border border-tertiary/30 bg-surface-container-low/70 backdrop-blur-2xl p-8 md:p-10 shadow-[0_0_120px_rgba(231,195,101,0.12)] flex flex-col h-full">
+                  <div className="flex items-start justify-between mb-8 pb-8 border-b border-white/10">
+                    <div>
+                      <div className="font-label-caps text-label-caps text-tertiary tracking-widest mb-2">SUBSCRIPTION · ANNUAL</div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="font-display-2xl text-5xl md:text-6xl text-on-surface tracking-tighter">€8,400</span>
+                        <span className="font-label-caps text-label-caps text-on-surface-variant">/ YR</span>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-label-caps text-label-caps text-on-surface-variant tracking-widest mb-1">SEAT</div>
+                      <div className="font-headline-lg text-3xl text-tertiary">№37</div>
+                      <div className="font-label-caps text-label-caps text-on-surface-variant tracking-widest mt-1">/ 40</div>
+                    </div>
+                  </div>
+                  <ul className="space-y-4 mb-10">
+                    {innerCircleBenefits.map((b) => (
+                      <li key={b.strong} className="flex items-start gap-4 font-body-md text-sm text-on-surface">
+                        <span className="material-symbols-outlined text-tertiary text-base mt-0.5">circle</span>
+                        <span><strong className="text-on-surface">{b.strong}</strong> <span className="text-on-surface-variant">{b.body}</span></span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4">
+                    <button className="flex-1 px-8 py-4 bg-tertiary text-on-tertiary font-label-caps text-label-caps tracking-widest hover:bg-on-surface hover:text-surface transition-colors duration-500">
+                      REQUEST AN INVITATION
+                    </button>
+                    <button className="px-8 py-4 border border-white/20 text-on-surface font-label-caps text-label-caps tracking-widest hover:border-tertiary hover:text-tertiary transition-colors duration-500">
+                      READ THE LETTER
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
           <section className="py-section-gap px-4 md:px-margin-edge relative">
             <div className="absolute inset-0 w-full h-full">
-              <img alt="Interior" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-50 mix-blend-luminosity" />
+              <img alt="Interior" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-50 mix-blend-luminosity" />
               <div className="absolute inset-0 bg-gradient-to-b from-background via-background/30 to-background" />
               <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-transparent" />
             </div>
             <div className="max-w-container-max mx-auto relative z-10 min-h-[618px] flex flex-col justify-end">
               <div className="flex items-center gap-4 mb-12">
-                <span className="font-label-caps text-label-caps text-primary">04 / CANVAS</span>
+                <span className="font-label-caps text-label-caps text-primary">05 / CANVAS</span>
                 <div className="h-[1px] flex-grow bg-white/10" />
                 <span className="font-label-caps text-label-caps text-on-surface-variant hidden md:block">SPACE · COMMISSIONED</span>
               </div>
-              <div className="w-full md:w-1/2 lg:w-1/3 bg-surface-container-low/60 backdrop-blur-2xl border border-white/10 rounded-xl p-8 shadow-2xl">
-                <div className="flex justify-between items-start mb-8">
-                  <h3 className="font-headline-lg text-headline-lg text-on-surface">The Canvas</h3>
-                  <span className="font-label-caps text-label-caps text-primary px-3 py-1 border border-primary/30 rounded-full">AVAIL</span>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
+                <aside className="lg:col-span-7 flex flex-col">
+                  <div>
+                    <span className="font-label-caps text-label-caps text-tertiary tracking-[0.4em] mb-6 inline-block">— A SINGLE COMMISSION —</span>
+                    <h3 className="font-display-2xl text-3xl md:text-5xl lg:text-6xl text-on-surface tracking-tight uppercase mb-6 italic">A Room to Hold the Work</h3>
+                    <p className="font-narrative-italic text-narrative-italic text-on-surface italic mb-6 leading-relaxed max-w-xl">
+                      Once each year, the studio accepts a single spatial commission — a private gallery, a residence's reading room, a quiet corner of a hotel — to be furnished entirely from the archive.
+                    </p>
+                    <p className="font-body-md text-on-surface-variant text-sm leading-relaxed max-w-xl">
+                      Plans drawn in graphite, materials specified in the Como mill's hand, every fixture set against a year of conversation. Not a project; a contract with patience.
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-10">
+                    <div className="rounded-xl border border-white/10 bg-background/40 backdrop-blur-xl p-6 font-mono text-xs text-on-surface-variant">
+                      <div className="flex items-center justify-between mb-4 pb-4 border-b border-white/10">
+                        <span className="text-tertiary tracking-widest">DOSSIER · CANVAS-04</span>
+                        <span className="text-on-surface-variant">v 1.2 · CONFIDENTIAL</span>
+                      </div>
+                      <dl className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {canvasDossier.map((d) => (
+                          <div key={d.label}>
+                            <dt className="text-on-surface-variant/70 mb-1">{d.label}</dt>
+                            <dd className="text-on-surface">{d.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                      <div className="mt-4 pt-4 border-t border-white/5 flex items-center gap-2 text-on-surface-variant/60">
+                        <span className="material-symbols-outlined text-[14px] text-tertiary/80">verified</span>
+                        <span>signed · le studio · ed. n°04</span>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+                <div className="lg:col-span-5 flex flex-col">
+                  <div className="bg-surface-container-low/60 backdrop-blur-2xl border border-white/10 rounded-xl p-8 shadow-2xl flex flex-col h-full">
+                    <div className="flex justify-between items-start mb-8">
+                      <h3 className="font-headline-lg text-headline-lg text-on-surface">The Canvas</h3>
+                      <span className="font-label-caps text-label-caps text-primary px-3 py-1 border border-primary/30 rounded-full">AVAIL</span>
+                    </div>
+                    <div className="w-full h-[1px] bg-white/10 mb-8" />
+                    <div className="space-y-4 mb-10">
+                      {canvasSpecs.map((s) => (
+                        <div key={s.label} className="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant"><span>{s.label}</span><span className="text-on-surface">{s.value}</span></div>
+                      ))}
+                    </div>
+                    <button className="mt-auto w-full py-4 bg-on-surface text-surface font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300">
+                      INQUIRE NOW
+                    </button>
+                  </div>
                 </div>
-                <div className="w-full h-[1px] bg-white/10 mb-8" />
-                <div className="space-y-4 mb-10">
-                  <div className="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant"><span>LOCATION</span><span className="text-on-surface">NEO-TOKYO</span></div>
-                  <div className="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant"><span>AREA</span><span className="text-on-surface">450 SQM</span></div>
-                  <div className="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant"><span>VALUE</span><span className="text-on-surface">ON REQUEST</span></div>
-                </div>
-                <button className="w-full py-4 bg-on-surface text-surface font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors duration-300">
-                  INQUIRE NOW
-                </button>
               </div>
             </div>
+          </section>
+          <section className="py-24 md:py-28 px-4 md:px-margin-edge bg-zinc-950 border-t-2 border-tertiary">
+            <div className="max-w-container-max mx-auto">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+                <div>
+                  <span className="font-label-caps text-label-caps text-tertiary tracking-[0.4em] mb-3 inline-block">— FIELD NOTES —</span>
+                  <h2 className="font-display-2xl text-2xl md:text-4xl text-on-surface tracking-tight uppercase italic">Studio · Off-Frame</h2>
+                </div>
+                <p className="font-narrative-italic text-narrative-italic text-on-surface-variant italic max-w-md">Atmosphere from the worktable, gathered between editions and never published.</p>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+                {stripImages.map((img) => (
+                  <div key={img.id} className="aspect-square overflow-hidden rounded-md border border-white/10 group">
+                    <img alt={img.alt} src={`https://images.unsplash.com/photo-${img.id}?w=600&q=80&auto=format&fit=crop`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" />
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Gold divider above the NEO-ALCHEMY wordmark (sits in strip's bottom padding zone) */}
+            <div aria-hidden="true" className="mt-16 md:mt-20 h-[2px] bg-tertiary -mx-4 md:-mx-margin-edge"></div>
           </section>
         </main>
         <nav className="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] rounded-full border border-white/10 bg-zinc-950/20 backdrop-blur-2xl shadow-2xl flex justify-around items-center h-16 px-4 z-50">
@@ -342,8 +605,8 @@ export default function T108EtherealFashionNoir() {
             </button>
           ))}
         </nav>
-        <footer className="relative w-full py-20 px-10 bg-zinc-950 border-t border-zinc-800 z-40">
-          <div className="text-4xl font-black text-zinc-900 absolute -top-10 left-4 pointer-events-none">NEO-ALCHEMY</div>
+        <footer className="relative w-full py-20 px-10 bg-zinc-950 border-t-2 border-tertiary z-40">
+          <div className="text-4xl md:text-5xl font-black text-tertiary absolute -top-16 md:-top-20 left-4 pointer-events-none drop-shadow-[0_0_18px_rgba(197,160,89,0.35)]">NEO-ALCHEMY</div>
           <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-end">
             <div>
               <p className="font-sans text-xs tracking-tighter uppercase text-zinc-500">© 2024 NEO-ALCHEMY. ALL RIGHTS RESERVED.</p>

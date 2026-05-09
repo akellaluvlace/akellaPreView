@@ -28,7 +28,7 @@ export default function T18MarketplaceHome() {
       cta: "Browse Photography",
       plate: "Plate · II",
       img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop",
-      alt: "Photography category",
+      alt: "Architectural photography example — the kind of editions printed by hand and framed in our studios",
       reverse: true
     },
     {
@@ -60,14 +60,20 @@ export default function T18MarketplaceHome() {
   const makers = [
     { name: "Elena Rust", city: "Brooklyn, NY · Painter", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
     { name: "Marcus Chen", city: "Mexico City · Photographer", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 },
-    { name: "Sarah Jenkins", city: "Lisbon · Ceramicist", img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
-    { name: "David Alis", city: "Berlin · Photographer", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=1300&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_L, w: 1300 },
+    { name: "Sarah Jenkins", city: "Lisbon · Ceramicist", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
+    { name: "David Alis", city: "Berlin · Photographer", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1300&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_L, w: 1300 },
     { name: "Ana Vidal", city: "São Paulo · Printmaker", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
     { name: "Yuki Watanabe", city: "Kyoto · Painter", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 },
     { name: "Theo Marin", city: "Marseille · Sculptor", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
     { name: "Imani Cole", city: "Detroit · Mixed Media", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 }
   ];
 
+  // Steps — image-context cleanup 2026-05-06: original src list was all §D.1 architectural
+  // photos (concrete stair, brick wall, brutalist corridor, facade window, cornice) which
+  // don't fit "Browse / Match / Order / Delivered / Reviewed" narrative. Swapped to
+  // aida-public artwork images already loaded by this template — duplicates the Featured
+  // grid intentionally so the user sees the same pieces journey through the system.
+  const HERO_GALLERY_IMG = "https://lh3.googleusercontent.com/aida-public/AB6AXuAT9kWRvhxUymNClB5PHfVgNEFdi8Ya0idZqk5JZxM_5MwFbJU5zeB3PHuKBeXYT13gVfEhkvS58fycoPB3wOgkX-OFzb6P2qBhS3C1HItK2-nC0UUWoHrUuhKD_jfJBwDhygFIbCX4AF_v1KAiUsTrsEnYToUhPZbCjlZuNYnBl_PZW6YIzXhVsDxs8moQCGpVl7hnh0p3y5b2HlvHmjZvItzv0FcZoxMTg61ye_np97z2Dri52XL5YFkDhEHnRezbMqZXpq4Vu-E";
   const steps = [
     {
       n: "Step · 01",
@@ -77,8 +83,8 @@ export default function T18MarketplaceHome() {
       ringCls: "w-14 h-14 rounded-full bg-secondary/10 border-2 border-secondary flex items-center justify-center mb-4",
       iconCls: "material-symbols-outlined text-secondary",
       eyebrowCls: "font-label-sm text-label-sm uppercase tracking-widest text-secondary tabular-nums",
-      img: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop",
-      alt: "Browse step"
+      img: HERO_GALLERY_IMG,
+      alt: "An abstract gallery wall — what you encounter when you start browsing the Commons catalogue"
     },
     {
       n: "Step · 02",
@@ -88,8 +94,8 @@ export default function T18MarketplaceHome() {
       ringCls: "w-14 h-14 rounded-full bg-secondary/10 border-2 border-secondary flex items-center justify-center mb-4",
       iconCls: "material-symbols-outlined text-secondary",
       eyebrowCls: "font-label-sm text-label-sm uppercase tracking-widest text-secondary tabular-nums",
-      img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop",
-      alt: "Match step"
+      img: artworks[1].src,
+      alt: "A minimalist portrait painting — the kind of piece collectors return to once they've found the right room"
     },
     {
       n: "Step · 03 · Now",
@@ -100,8 +106,8 @@ export default function T18MarketplaceHome() {
       ringCls: "w-14 h-14 rounded-full bg-secondary/20 border-2 border-secondary flex items-center justify-center mb-4",
       iconCls: "",
       eyebrowCls: "font-label-sm text-label-sm uppercase tracking-widest text-secondary tabular-nums",
-      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop",
-      alt: "Order step"
+      img: artworks[0].src,
+      alt: "An abstract painting in escrow — the moment between commit and dispatch"
     },
     {
       n: "Step · 04",
@@ -111,8 +117,8 @@ export default function T18MarketplaceHome() {
       ringCls: "w-14 h-14 rounded-full bg-background border-2 border-on-surface-variant/30 flex items-center justify-center mb-4",
       iconCls: "material-symbols-outlined text-on-surface-variant",
       eyebrowCls: "font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant tabular-nums",
-      img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop",
-      alt: "Delivery step"
+      img: artworks[3].src,
+      alt: "A delivered ceramic vessel, unwrapped from its bespoke crate and sitting in its new room"
     },
     {
       n: "Step · 05",
@@ -122,8 +128,8 @@ export default function T18MarketplaceHome() {
       ringCls: "w-14 h-14 rounded-full bg-background border-2 border-on-surface-variant/30 flex items-center justify-center mb-4",
       iconCls: "material-symbols-outlined text-on-surface-variant",
       eyebrowCls: "font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant tabular-nums",
-      img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop",
-      alt: "Reviewed step"
+      img: artworks[2].src,
+      alt: "An architectural photograph hung on a collector's wall — where the artist note finds its reader"
     }
   ];
 
@@ -131,7 +137,7 @@ export default function T18MarketplaceHome() {
     {
       name: "Marisol Ortega",
       meta: "Collector · Madrid",
-      portrait: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=300&q=85&auto=format&fit=crop",
+      portrait: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=300&q=85&auto=format&fit=crop",
       portraitAlt: "Half-profile portrait of a woman in soft natural light against a cream wall",
       quote: "It arrived crated like a museum loan and the artist had handwritten a note about the colour she chose. That's not a transaction — that's a small ceremony.",
       piece: "\"Quiet Moment\"",
@@ -397,7 +403,13 @@ export default function T18MarketplaceHome() {
               <p className="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl">Five quiet steps. We move slowly so the artists don't have to.</p>
             </div>
             <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6 relative">
-              <div aria-hidden="true" className="hidden lg:block absolute top-7 left-[8%] right-[8%] h-px bg-gradient-to-r from-secondary/0 via-secondary/40 to-secondary/0"></div>
+              {/* Solid connector line spanning circle 1 center to circle 5 center.
+                  Each circle is w-14 (56px) at the LEFT of its grid column; with 5 cols the
+                  circles sit at ~2% / ~21% / ~50% / ~79% / ~98% of li width × col positions.
+                  Using lg:left-7 + arbitrary lg:right-[18%] anchors the line from circle 1
+                  center exactly to circle 5 center. Solid bg-secondary/40 (no gradient fade)
+                  so the strip reads continuous through every step. */}
+              <div aria-hidden="true" className="hidden lg:block absolute top-7 left-7 right-[18%] h-px bg-secondary/40"></div>
               {steps.map((s) => (
                 <li key={s.title} className="relative z-10">
                   <div className={s.ringCls}>
@@ -507,7 +519,7 @@ export default function T18MarketplaceHome() {
           </section>
         </main>
 
-        <footer className="bg-white text-stone-900 font-sans text-xs uppercase tracking-widest w-full border-t border-stone-200 mt-16 ease-in-out duration-300 sm:mt-20">
+        <footer className="bg-white text-stone-900 font-sans text-xs uppercase tracking-widest w-full border-t border-stone-200 ease-in-out duration-300">
           <div className="flex flex-col md:flex-row justify-between items-center px-4 py-10 max-w-[1440px] mx-auto w-full gap-6 sm:px-6 sm:py-12 md:px-10 md:gap-0">
             <div className="text-lg font-serif tracking-widest uppercase text-stone-900 mb-6 md:mb-0">Commons</div>
             <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4 mb-6 md:mb-0">

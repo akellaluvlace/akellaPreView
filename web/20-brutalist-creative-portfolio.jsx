@@ -2,11 +2,81 @@ export default function T20BrutalistCreativePortfolio() {
   const navLinks = ["ARCHIVE", "LABS", "BIOGRAPHY", "SAY_HELLO"];
   const capabilities = ["BRUTALIST UI", "CREATIVE CODING", "TYPOGRAPHIC SYSTEMS", "DIGITAL DESTRUCTION"];
 
+  const trustedBrands = [
+    { name: "Behance",  slug: "behance"  },
+    { name: "Dribbble", slug: "dribbble" },
+    { name: "Vimeo",    slug: "vimeo"    },
+    { name: "Medium",   slug: "medium"   },
+    { name: "Framer",   slug: "framer"   },
+    { name: "Figma",    slug: "figma"    },
+    { name: "Webflow",  slug: "webflow"  },
+    { name: "Notion",   slug: "notion"   }
+  ];
+
+  const lanes = [
+    {
+      roman: "I",
+      chip: "▸ FLAGSHIP",
+      chipCls: "bg-[#C6FF3F] text-primary",
+      featured: true,
+      hoverShadow: "hover:shadow-[8px_8px_0_0_#C6FF3F]",
+      icon: "architecture",
+      title: "RAW INTERFACES",
+      body: "Brutalist UI for products that refuse to look like everyone else. Naked grids, exposed seams, type that bites. Built native, hand-tuned, no design-system templates.",
+      meta: "// 28 SHIPPED · 7 SOTD",
+      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=80&auto=format&fit=crop"
+    },
+    {
+      roman: "II",
+      chip: "/CC",
+      chipCls: "bg-surface-container-lowest text-primary",
+      featured: false,
+      hoverShadow: "hover:shadow-[8px_8px_0_0_#FF2BA0]",
+      icon: "bolt",
+      title: "CREATIVE CODING",
+      body: "WebGL, shaders, audio-reactive canvas rigs. Loops that run for thirty seconds and ruin a board meeting. Performance-budgeted, mobile-tested, deliberately broken on purpose.",
+      meta: "// 41 BUILDS · 12 LIVE",
+      img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&q=80&auto=format&fit=crop"
+    },
+    {
+      roman: "III",
+      chip: "/TY",
+      chipCls: "bg-[#F4FF1A] text-primary",
+      featured: false,
+      hoverShadow: "hover:shadow-[8px_8px_0_0_#F4FF1A]",
+      icon: "format_quote",
+      title: "TYPE SYSTEMS",
+      body: "Variable-font scales, narrow-grotesk vs serif clashes, wordmarks that hold a room. Letterforms as architecture. Print-press logic ported into the variable-font era.",
+      meta: "// 19 WORDMARKS · 4 LICENCED",
+      img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80&auto=format&fit=crop"
+    },
+    {
+      roman: "IV",
+      chip: "/DD",
+      chipCls: "bg-[#FF2BA0] text-surface-container-lowest",
+      featured: false,
+      hoverShadow: "hover:shadow-[8px_8px_0_0_white]",
+      icon: "gesture",
+      title: "DIGITAL DECAY",
+      body: "Glitch, datamosh, deliberate corruption. Builds that wear their bytecount on the outside. Where the bug is a design feature and the artefact is the whole point.",
+      meta: "// 11 ARTEFACTS · 03 ARCHIVED",
+      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1200&q=80&auto=format&fit=crop"
+    }
+  ];
+
+  const manifesto = [
+    { num: "01", shadow: "chunky-shadow-lime",   dark: false, title: "BRIEFS ARE A SKETCH, NOT A SPEC",   body: "If the brief solves the problem already, you didn't need me. Every project starts with a fight, ends with a thing that nobody could have written down up front." },
+    { num: "02", shadow: "chunky-shadow-yellow", dark: false, title: "SHIP THE UGLY VERSION FIRST",        body: "Day-one demos are HTML and pure CSS. No Figma comp, no design system, no \"let's prototype it.\" If it doesn't survive a 256-colour render, it isn't going in." },
+    { num: "03", shadow: "chunky-shadow-pink",   dark: false, title: "NO ANIMATIONS WITHOUT A REASON",    body: "Motion costs money — yours, the user's, the planet's. Every transition either teaches the interface or pays its own rent. The rest get cut." },
+    { num: "04", shadow: "chunky-shadow-lime",   dark: false, title: "NEVER TWO ROUNDS OF \"POLISH\"",     body: "Polish-passes are where good work goes to die a polite death. One pass to fix the brief, one pass to break it on purpose. The third pass is bikeshedding wearing a costume." },
+    { num: "05", shadow: "chunky-shadow-yellow", dark: true,  title: "THE WORK OUTLASTS THE BRIEF",        body: "If you can't print it on a poster five years from now, it isn't worth shipping today. Build for the archive, not the algorithm." }
+  ];
+
   const plates = [
     { col: "md:col-span-3", mt: "",          rot: "rotate-[-1deg]",   shadow: "chunky-shadow-pink",   alt: "Stripped concrete interior with shadow grid", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop", caption: "[plate_01_concrete]", date: "04.24" },
     { col: "md:col-span-3", mt: "mt-4 md:mt-12", rot: "rotate-[1.5deg]",  shadow: "chunky-shadow-yellow", alt: "Macro circuit board traces",                  src: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop", caption: "[plate_02_traces]",   date: "04.24" },
     { col: "md:col-span-3", mt: "",          rot: "rotate-[-2deg]",   shadow: "chunky-shadow-lime",   alt: "Brutalist tower against stark sky",           src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop", caption: "[plate_03_tower]",    date: "05.24" },
-    { col: "md:col-span-3", mt: "mt-4 md:mt-16", rot: "rotate-[1deg]",    shadow: "chunky-shadow-pink",   alt: "Industrial machinery detail",                 src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?q=80&w=900&auto=format&fit=crop", caption: "[plate_04_machine]",  date: "05.24" }
+    { col: "md:col-span-3", mt: "mt-4 md:mt-16", rot: "rotate-[1deg]",    shadow: "chunky-shadow-pink",   alt: "Industrial machinery detail",                 src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=900&auto=format&fit=crop", caption: "[plate_04_machine]",  date: "05.24" }
   ];
 
   const disciplines = [
@@ -59,13 +129,12 @@ export default function T20BrutalistCreativePortfolio() {
   `;
 
   const css = `
-    body {
-      background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
-    }
     .chunky-shadow-lime { box-shadow: 8px 8px 0px 0px #C6FF3F; }
     .chunky-shadow-pink { box-shadow: 8px 8px 0px 0px #FF2BA0; }
     .chunky-shadow-yellow { box-shadow: 8px 8px 0px 0px #F4FF1A; }
   `;
+
+  const noiseStyle = { backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\" opacity=\"0.05\"/%3E%3C/svg%3E')" };
 
   return (
     <>
@@ -74,14 +143,15 @@ export default function T20BrutalistCreativePortfolio() {
       <script type="text/plain" dangerouslySetInnerHTML={{ __html: tailwindConfig }} />
       <style dangerouslySetInnerHTML={{ __html: css }} />
 
-      <div className="bg-surface-container-lowest text-primary min-h-screen overflow-x-hidden relative">
-        <header className="p-4 w-full flex flex-col md:flex-row justify-between items-start z-50 relative border-b-2 border-primary sm:p-6 md:p-margin-edge">
-          <nav className="flex flex-col gap-1 font-body-mono text-body-mono uppercase mb-6 md:mb-0">
+      <div className="bg-surface-container-lowest text-primary min-h-screen overflow-x-hidden relative" style={noiseStyle}>
+        <header className="p-4 w-full flex flex-col md:flex-row justify-between items-center gap-6 md:gap-4 z-50 relative border-b-2 border-primary bg-primary text-surface-container-lowest sm:p-6 md:p-margin-edge">
+          <a className="font-utility-bold text-2xl md:text-3xl font-black uppercase tracking-tight text-surface-container-lowest leading-none" href="#">DANIEL<span className="text-[#F4FF1A]">.</span>V</a>
+          <nav className="flex flex-row flex-wrap justify-center gap-x-5 gap-y-2 font-body-mono text-utility-bold uppercase tracking-widest font-bold">
             {navLinks.map((l) => (
-              <a key={l} href="#" className="border-b-2 border-primary w-max hover:bg-secondary-fixed hover:text-primary transition-colors pb-1">{l}</a>
+              <a key={l} href="#" className="text-surface-container-lowest hover:text-[#F4FF1A] transition-colors pb-0.5 border-b-2 border-transparent hover:border-[#F4FF1A]">{l}</a>
             ))}
           </nav>
-          <div className="font-utility-bold text-utility-bold uppercase border-2 border-primary p-2 chunky-shadow-yellow bg-surface-container-lowest animate-pulse rotate-[-2deg]">AVAILABLE FOR WORK</div>
+          <a href="#" className="font-utility-bold text-utility-bold uppercase tracking-widest border-2 border-surface-container-lowest px-3 py-2 bg-[#F4FF1A] text-primary chunky-shadow-pink rotate-[-2deg] hover:rotate-0 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">▸ AVAILABLE FOR WORK</a>
         </header>
 
         <main className="relative z-10 w-full overflow-hidden border-b-2 border-primary pb-8 sm:pb-16 md:pb-margin-edge">
@@ -90,6 +160,26 @@ export default function T20BrutalistCreativePortfolio() {
             I build <span className="bg-[#F4FF1A] text-primary px-1 font-bold">digital artifacts</span> that reject the sanitized web. Specializing in <span className="bg-[#F4FF1A] text-primary px-1 font-bold">raw interfaces</span>, brutalist layouts, and experiences that demand attention. Not for the faint of heart.
           </div>
         </main>
+
+        {/* Trusted-by — chunky-shadow panel with 8 black-on-white logos */}
+        <section className="w-full relative z-10 border-b-2 border-primary bg-surface-container-highest p-4 sm:p-6 md:p-margin-edge md:py-20">
+          <div className="max-w-6xl mx-auto">
+            <p className="font-utility-bold text-utility-bold uppercase tracking-widest mb-8 md:mb-10 block">// TRUSTED_BY — N=08 // ROSTER_LIVE</p>
+            <div className="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-6 sm:p-8 md:p-10">
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-px bg-primary border-2 border-primary">
+                {trustedBrands.map((b) => (
+                  <div key={b.name} className="bg-surface-container-lowest h-20 flex items-center justify-center p-4">
+                    <img alt={b.name} className="max-h-7 w-auto opacity-90 grayscale" src={`https://cdn.simpleicons.org/${b.slug}/000000`} />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 pt-6 border-t-2 border-primary flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 font-utility-bold text-utility-bold uppercase tracking-widest">
+                <span>STUDIOS / FOUNDERS / PRESS</span>
+                <span className="bg-primary text-surface-container-lowest px-2 py-1">▸ 142 SHIPPED // 19 SOTD</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="p-4 w-full relative z-10 border-b-2 border-primary bg-surface pb-20 sm:p-6 sm:pb-24 md:p-margin-edge md:pb-32">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 relative md:gap-8">
@@ -124,7 +214,7 @@ export default function T20BrutalistCreativePortfolio() {
             ))}
             <div className="col-span-2 md:col-span-12 mt-4 flex justify-center rotate-[-0.5deg] hover:rotate-0 transition-transform">
               <div className="border-2 border-primary bg-surface-container-lowest chunky-shadow-yellow p-2 sm:p-3 w-full md:w-2/3">
-                <img className="w-full aspect-[16/9] object-cover grayscale contrast-150 border-2 border-primary" alt="Server room wide shot" src="https://images.unsplash.com/photo-1551808525-51a94da548ce?q=80&w=1600&auto=format&fit=crop" />
+                <img className="w-full aspect-[16/9] object-cover grayscale contrast-150 border-2 border-primary" alt="Server room wide shot" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop" />
                 <p className="font-body-mono text-xs lowercase mt-3 flex justify-between"><span>[plate_05_rack_wide]</span><span className="opacity-50 tabular-nums">06.24 — wall-installed reference</span></p>
               </div>
             </div>
@@ -154,6 +244,38 @@ export default function T20BrutalistCreativePortfolio() {
           </div>
         </section>
 
+        {/* Premium 2x2 — image-bg cards with icon + title + body + meta */}
+        <section className="w-full relative z-10 border-b-2 border-primary bg-primary text-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-28 overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
+            <div>
+              <p className="font-utility-bold text-utility-bold uppercase tracking-widest text-[#C6FF3F] mb-8 md:mb-10 block">// SIGNATURE_LANES — N=04 // FLAGSHIP</p>
+              <h2 className="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">WHERE I OPERATE</h2>
+            </div>
+            <p className="font-body-mono text-body-mono max-w-sm md:text-right text-surface-container-lowest/80">Four lanes I refuse to compromise on. Each one a decade-deep rabbit hole. Pick the lane, I'll run it raw.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto items-stretch">
+            {lanes.map((lane) => (
+              <article key={lane.title} className={`relative aspect-[4/3] md:aspect-[5/4] border-2 border-surface-container-lowest overflow-hidden flex flex-col justify-between p-6 md:p-8 group hover:-translate-y-1 ${lane.hoverShadow} transition-all duration-300${lane.featured ? " ring-2 ring-[#C6FF3F]/60 ring-offset-4 ring-offset-primary" : ""}`}>
+                <img alt="" aria-hidden="true" src={lane.img} className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 opacity-60 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/50 pointer-events-none"></div>
+                <div className="relative z-10 flex justify-between items-start">
+                  <span className="font-wordmark-italic text-5xl text-surface-container-lowest italic leading-none">{lane.roman}</span>
+                  <span className={`font-utility-bold text-utility-bold uppercase tracking-widest border-2 border-surface-container-lowest px-2 py-1 ${lane.chipCls}`}>{lane.chip}</span>
+                </div>
+                <div className="relative z-10 flex flex-col gap-2">
+                  <span className="material-symbols-outlined text-surface-container-lowest text-3xl mb-2">{lane.icon}</span>
+                  <h3 className="font-display-lg text-surface-container-lowest uppercase text-2xl md:text-3xl leading-none">{lane.title}</h3>
+                  <p className="text-surface-container-lowest/90 font-body-mono text-sm leading-relaxed">{lane.body}</p>
+                  <div className="mt-3 pt-3 border-t-2 border-surface-container-lowest/30 flex items-center justify-between text-[10px] uppercase tracking-widest text-surface-container-lowest/80 font-utility-bold">
+                    <span>{lane.meta}</span>
+                    <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         {/* By the numbers — 4-stat ribbon */}
         <section className="w-full relative z-10 border-b-2 border-primary bg-primary text-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-20 overflow-hidden">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-12">
@@ -171,6 +293,53 @@ export default function T20BrutalistCreativePortfolio() {
                 <p className="font-body-mono text-xs opacity-60">{s.sub}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Manifesto / How I work — content+image row, 5 numbered tenets */}
+        <section className="w-full relative z-10 border-b-2 border-primary bg-surface-container-lowest p-4 sm:p-6 md:p-margin-edge md:py-24">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
+            <div>
+              <p className="font-utility-bold text-utility-bold uppercase tracking-widest mb-8 md:mb-10 block">// DOCTRINE — V.05 // NON_NEGOTIABLE</p>
+              <h2 className="font-display-lg text-[44px] sm:text-[64px] md:text-[80px] leading-[0.9] uppercase">HOW I WORK</h2>
+            </div>
+            <p className="font-body-mono text-body-mono max-w-sm md:text-right">Five rules I've broken every other one to keep. Print these. Pin them above the keyboard. Argue with them later.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-stretch">
+            <div className="md:col-span-5 relative rotate-[-1deg]">
+              <div className="border-2 border-primary chunky-shadow-pink p-3">
+                <img className="w-full aspect-[4/5] object-cover grayscale contrast-150 border-2 border-primary" alt="Designer's hands working on a sketch in a brutalist studio" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&q=80&auto=format&fit=crop" />
+                <div className="mt-3 flex justify-between font-body-mono text-xs lowercase">
+                  <span>[studio_floor / 06.24]</span>
+                  <span className="opacity-50 tabular-nums">DOC.05</span>
+                </div>
+              </div>
+              <div className="hidden md:block absolute -top-4 -left-4 bg-[#F4FF1A] border-2 border-primary px-3 py-1 font-utility-bold text-utility-bold uppercase tracking-widest rotate-[-4deg]">▸ MANIFESTO</div>
+            </div>
+            <div className="md:col-span-7 flex flex-col h-full md:justify-between gap-6">
+              <ol className="flex flex-col gap-4">
+                {manifesto.map((m) => (
+                  <li key={m.num} className={`border-2 border-primary p-5 sm:p-6 ${m.shadow} flex gap-5 items-start ${m.dark ? "bg-primary text-surface-container-lowest" : "bg-surface-container-lowest"}`}>
+                    <span className={`font-display-lg text-[48px] leading-none tabular-nums shrink-0${m.dark ? " text-[#F4FF1A]" : ""}`}>{m.num}</span>
+                    <div className="flex flex-col gap-2 min-w-0">
+                      <h3 className={`font-utility-bold text-utility-bold uppercase tracking-widest${m.dark ? " text-[#F4FF1A]" : ""}`}>{m.title}</h3>
+                      <p className="font-body-mono text-sm leading-relaxed">{m.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              {/* Bottom-pinned signed disclaimer — bottoms-must-align with image on the left */}
+              <div className="border-2 border-primary bg-[#F4FF1A] p-5 sm:p-6 chunky-shadow-pink flex items-start gap-4">
+                <span className="material-symbols-outlined text-primary text-[32px] leading-none shrink-0">verified</span>
+                <div className="flex flex-col gap-2 min-w-0">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <span className="font-utility-bold text-utility-bold uppercase tracking-widest text-primary">// SIGNED · D.V · MMXXIV</span>
+                    <span className="font-body-mono text-xs lowercase text-primary opacity-60 tabular-nums">DOCTRINE.V.05</span>
+                  </div>
+                  <p className="font-body-mono text-sm leading-relaxed text-primary">These five rules are not opinions — they are scars. Adopted V.01 (2018), revised through five projects that almost killed each other. Reissued V.05.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

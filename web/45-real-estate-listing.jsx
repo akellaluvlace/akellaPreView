@@ -14,11 +14,13 @@ export default function T45RealEstateListing() {
   ];
 
   const gallery = [
-    { alt: "Grand living room with high ceilings, original fireplace, and contemporary furniture", className: "md:col-span-2 md:row-span-2 relative group overflow-hidden", src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDZmkbY5cKTlmMdt0FTTpAVcLFZKBFYVTEc6-JXDG4195Z3CsSaMllXA6__fLeLD7TFT-Nnk0irTumcoD_BWSnNqh3hVoxzTR3tUglaXJWRuPFUaGS89qUvGNeqFQlzXEV9Vlh5tK1oodymL3A_V3Nl-SL9RJH-u-u3_RYFoH1EhBYHmeX6ygHM0wGsNyoXn3AypRcjg8-5QeBIwb_QolQgk2F02-rLsjlhxFw6USXdL21veXtcjgWpgH1FGEUJEJ6ZFj2aEv17T3NN" },
-    { alt: "Bespoke modern kitchen with marble island", className: "relative group overflow-hidden", src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBa9oSyyxrky5TgD48ENsZAhSflbGwr7dmSB8X9IUVF6IgEQMhSuC1q8riAqMKopgOIJwGkegBxfhNlFYVBIC7ITcG9lanXoJKH3_OUdSew-mErERag5LIK7vMZEXujVekqqdI76Vnv_OFdUCLg7nXBhOXHlfOE2Spt216LiiimYH50Q6uRDRjNpDLJxVpcBQw83iaU3o18bz-J3-33FHM5-wKbX711xt-WCfB39-Ap4ouXZxbMpIy8QCZLNdB6Hi6TEgtQmbjU21AV" },
-    { alt: "Master suite detail", className: "relative group overflow-hidden", src: "https://lh3.googleusercontent.com/aida-public/AB6AXuD2cEXZqbbZS_gjQzQatn5n-8WfkgM8pEKszYJlMfGqkBlV2yEo20IFy66_E5pF0nDdS0RM3ojM7mr97agzjjbzg-X6MQMg1QYJJgX2qskSjbl18h35d6d0DPjS07b8L4qTMsn48j54mEXopJsAOdsZIJUpLJ82xYGmkwHJkYgv6kem2KoRv3BFjnyDOrtlNfvLy07pDID65AhbOC-nKWCrFXyftXSGDVyl5LdeP2SZcC7TQgSg3QnrDlo-cO2isp8muPYVH2196rcA" },
-    { alt: "West facing landscaped garden", className: "md:col-span-2 md:row-span-1 relative group overflow-hidden", src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDKEB1FLjdNLLGcqp2soK5e-PMpxSEE_0GunYsFWQThRjDOyvgTtF58EojuMzJWgapjOAobTZHbCnoVBZwam3S6K1s5TJ6CcXWECE7gBpijjhfz3AB1igJIOgmJajaC_BdqMjMQHiIEbAWu2Q_Q8HZD9AmRYy80FpqU3GZ55hp6WhljXZ52P41gYJqjr7xqLsjivbX8LODcL8w8qmQgGhNAsuku9IPVsvpzkhPWrC40EvH5lkcX6EpODbtUpCEQzEHIXxVQMuXZ-pzq" },
-    { alt: "Bathroom detail", className: "relative group overflow-hidden", src: "https://lh3.googleusercontent.com/aida-public/AB6AXuAA27MDuRqQSAtKLW680-4T27KQ_w-sjzgKT7vsMRpPBZHkRI2mmTye4Rux2gyTs2iaiS6Vs8y280D_j_rWsEgZh2z9MuVJSOo9q8sFGeQFEpA70DYMxMKAGFCq-vHnbBayrTvTVP0K6igN9DJa1Lr1KOGT5yX68IfTwvLLpn5NnO77-zdc5bKTPqAQ8KBX3KfN5WzNRAXXwR-wIpxhxGS-HibOKrhdetZwK0ItuYyOFOgC2cWc2YXd-HXSz9x6N0YvERHtAQRONjPz" }
+    { alt: "Grand drawing room with classical proportions and tall sash windows", className: "md:col-span-2 md:row-span-2 relative group overflow-hidden", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1600&q=85&auto=format&fit=crop" },
+    { alt: "Heritage interior detail — cornicing and shutter against raking light", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" },
+    { alt: "Master suite — tall sash window and panelled wall in soft daylight", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" },
+    { alt: "West-facing landscaped garden bordered by box hedges and stone paving", className: "md:col-span-2 md:row-span-1 relative group overflow-hidden", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1600&q=85&auto=format&fit=crop" },
+    { alt: "Powder room — Portland stone and brass detailing", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" },
+    { alt: "Library landing with bespoke bookcases and leaded glass", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1664786200000-b1424aa47dff?w=900&q=85&auto=format&fit=crop" },
+    { alt: "Rear mews entrance — wrought iron gate detail under raking light", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" }
   ];
 
   const footerLegal = ["Privacy Policy", "Terms of Service", "Accessibility", "Cookie Policy"];
@@ -43,7 +45,7 @@ export default function T45RealEstateListing() {
       caption: "III · Rear Mews · Garden Entrance",
       aspect: "aspect-[16/9]",
       alt: "Rear mews staircase and private garden entrance in soft daylight",
-      src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=1920&q=85&auto=format&fit=crop"
+      src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=1920&q=85&auto=format&fit=crop"
     }
   ];
 
@@ -89,6 +91,17 @@ export default function T45RealEstateListing() {
     { label: "Parking", value: "Private gated · two cars" },
     { label: "Aspect", value: "South-east principal · west garden" },
     { label: "Guide Price", value: "€1,850,000" }
+  ];
+
+  const interleaveStrip = [
+    { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Heavy stone facade in raking light" },
+    { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Drawing room with classical proportions" },
+    { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Long architectural corridor in perspective" },
+    { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Heritage interior, soft daylight" },
+    { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Original cornicing detail in raking light" },
+    { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "Facade window aperture under hard sun" },
+    { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Heritage exterior elevation" },
+    { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", alt: "Low-key interior detail" }
   ];
 
   const neighbourhood = [
@@ -164,6 +177,27 @@ export default function T45RealEstateListing() {
         .icon-fill {
           font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        html, body { overflow-x: clip; }
+        .full-bleed {
+          width: 100vw;
+          margin-left: calc(50% - 50vw);
+          margin-right: calc(50% - 50vw);
+          max-width: none;
+        }
+        .ac-strip-track {
+          width: max-content;
+          animation: acStripScroll 80s linear infinite;
+        }
+        .ac-strip-track:hover { animation-play-state: paused; }
+        .ac-strip-bw img { filter: grayscale(100%) contrast(1.05); }
+        .ac-strip-color img { filter: saturate(1.05) contrast(1.05); }
+        @keyframes acStripScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ac-strip-track { animation: none; }
+        }
       ` }} />
 
       <div className="light bg-[#FAF6EE] text-[#1A2B3C] antialiased selection:bg-[#B8904A] selection:text-white">
@@ -198,7 +232,7 @@ export default function T45RealEstateListing() {
         {/* Hero */}
         <section className="relative h-screen w-full pt-24">
           <div className="absolute inset-0 z-0">
-            <img alt="Georgian townhouse exterior at dusk with warm interior lighting and classic brick facade" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-771ofPprRqD2hyyiRLc_U74mhKdV3cwNQhqGf5riPiS4lTdHms3SJBGx59wViyfSMKdA2-G6Tf1TXbK-dNB76qf-gyyhG1klFg6Mw59jWQZtx1G_hzEP2YZjzVtztVDN2SvuM_Xh-aa9BhmCuRPM9JUoV_svZz8BXiUfddesnTpaNIGypBCmtG0G3wd8C9xUxYK7NvC1EusiEsxhev87AN5l3xqcnpEGH-DFlMlcQ2hyKtOCHqADKGbUhHvt5W-uVpoh42gA99ZD" />
+            <img alt="Georgian townhouse facade at dusk — heavy stone, raking late-afternoon light" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1A2B3C]/80 via-transparent to-transparent" />
           </div>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full p-margin-edge z-10 flex flex-col md:flex-row justify-between items-end gap-stack-lg max-w-container-max">
@@ -217,27 +251,94 @@ export default function T45RealEstateListing() {
           </div>
         </section>
 
+        {/* As Featured In — trusted publications strip */}
+        <section aria-label="Featured in" className="border-y border-[#1A2B3C]/15 bg-[#FAF6EE] py-stack-md">
+          <div className="max-w-container-max mx-auto px-margin-edge flex flex-col md:flex-row md:items-center gap-stack-md">
+            <span className="font-ui-label text-ui-label uppercase tracking-[0.3em] text-[#B8904A] shrink-0 md:border-r md:border-[#1A2B3C]/15 md:pr-stack-md">Featured in</span>
+            <ul className="flex flex-wrap items-center gap-x-stack-lg gap-y-stack-sm font-headline-md tracking-tight text-[#1A2B3C] m-0 p-0 list-none opacity-80">
+              <li className="text-xl italic">Architectural Digest</li>
+              <li className="text-xl">Wallpaper<sup className="text-[#B8904A]">*</sup></li>
+              <li className="text-xl italic">Country Life</li>
+              <li className="text-xl">FT House &amp; Home</li>
+              <li className="text-xl italic">Apollo Magazine</li>
+              <li className="text-xl">Domus</li>
+            </ul>
+          </div>
+        </section>
+
         {/* Content Canvas */}
         <main className="max-w-container-max mx-auto px-margin-edge py-section-gap space-y-section-gap">
-          {/* About & Specs */}
-          <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-            <div className="md:col-span-7 space-y-stack-md">
-              <h2 className="font-headline-lg text-headline-lg">A Masterpiece of Georgian Elegance</h2>
-              <div className="font-body-lg text-body-lg space-y-4 text-on-surface-variant">
-                <p>Situated in the prestigious enclave of Dublin 4, 42 Grosvenor Square represents a rare opportunity to acquire a meticulously restored piece of architectural history. This imposing residence perfectly balances its grand heritage with contemporary luxury living.</p>
-                <p>The property unfolds over four magnificent levels, characterized by soaring ceiling heights, intricate original cornicing, and an abundance of natural light pouring through magnificent sash windows. The recent renovation has thoughtfully integrated modern technological conveniences without compromising the home's historic integrity.</p>
+          {/* About & Specs — bottoms aligned via flex-col h-full justify-between on both columns */}
+          <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
+            <div className="md:col-span-7 flex flex-col gap-stack-md md:h-full md:justify-between">
+              <div className="space-y-stack-md">
+                <h2 className="font-headline-lg text-headline-lg">A Masterpiece of Georgian Elegance</h2>
+                <div className="font-body-lg text-body-lg space-y-4 text-on-surface-variant">
+                  <p>Situated in the prestigious enclave of Dublin 4, 42 Grosvenor Square represents a rare opportunity to acquire a meticulously restored piece of architectural history. This imposing residence perfectly balances its grand heritage with contemporary luxury living.</p>
+                  <p>The property unfolds over four magnificent levels, characterized by soaring ceiling heights, intricate original cornicing, and an abundance of natural light pouring through magnificent sash windows. The recent renovation has thoughtfully integrated modern technological conveniences without compromising the home's historic integrity.</p>
+                </div>
               </div>
+
+              {/* Architectural pedigree — compact dossier, pinned to bottom */}
+              <aside className="bg-[#EAE1CE] border border-[#1A2B3C]/15 pl-stack-lg pr-stack-md py-stack-md flex flex-col gap-stack-sm relative">
+                <span aria-hidden="true" className="absolute left-0 top-3 bottom-3 w-[2px] bg-[#B8904A]"></span>
+                <header className="flex items-baseline justify-between gap-stack-md">
+                  <span className="font-ui-label text-ui-label uppercase tracking-[0.4em] text-[#B8904A]">Architectural Pedigree</span>
+                  <span className="font-ui-label text-[11px] uppercase tracking-[0.3em] text-on-surface-variant tabular-nums shrink-0 hidden sm:inline">Ref · AC-GS-42 / 2024</span>
+                </header>
+                <dl className="grid grid-cols-2 gap-x-stack-md gap-y-stack-sm">
+                  <div className="flex flex-col gap-0.5">
+                    <dt className="font-ui-label text-[11px] uppercase tracking-[0.3em] text-on-surface-variant">Architect</dt>
+                    <dd className="font-serif italic text-on-surface text-base leading-snug">Tate &amp; Hennessy, Dublin</dd>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <dt className="font-ui-label text-[11px] uppercase tracking-[0.3em] text-on-surface-variant">Built</dt>
+                    <dd className="font-serif italic text-on-surface text-base leading-snug tabular-nums">1873&nbsp;—&nbsp;1875</dd>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <dt className="font-ui-label text-[11px] uppercase tracking-[0.3em] text-on-surface-variant">Restored under</dt>
+                    <dd className="font-serif italic text-on-surface text-base leading-snug">Lambay Conservation</dd>
+                  </div>
+                  <div className="flex flex-col gap-0.5">
+                    <dt className="font-ui-label text-[11px] uppercase tracking-[0.3em] text-on-surface-variant">Designation</dt>
+                    <dd className="font-serif italic text-on-surface text-base leading-snug">Grade II · 1982</dd>
+                  </div>
+                </dl>
+                <p className="font-serif italic text-on-surface-variant text-sm border-t border-[#1A2B3C]/15 pt-2 text-pretty">Conservation works supervised by the Heritage Council. Full dossier on private viewing.</p>
+              </aside>
             </div>
-            <div className="md:col-span-4 md:col-start-9 space-y-stack-md">
-              <h3 className="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A] border-b border-[#1A2B3C]/20 pb-2">Key Features</h3>
-              <ul className="space-y-4">
-                {features.map(f => (
-                  <li key={f.label} className="flex justify-between items-end border-b border-[#1A2B3C]/10 pb-2">
-                    <span className="font-ui-label text-ui-label uppercase text-on-surface-variant">{f.label}</span>
-                    <span className="font-headline-md text-headline-md text-sm">{f.value}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="md:col-span-4 md:col-start-9 flex flex-col gap-stack-md md:h-full md:justify-between">
+              <div className="space-y-stack-md">
+                <h3 className="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A] border-b border-[#1A2B3C]/20 pb-2">Key Features</h3>
+                <ul className="space-y-4">
+                  {features.map(f => (
+                    <li key={f.label} className="flex justify-between items-end border-b border-[#1A2B3C]/10 pb-2">
+                      <span className="font-ui-label text-ui-label uppercase text-on-surface-variant">{f.label}</span>
+                      <span className="font-headline-md text-headline-md text-sm">{f.value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Discreet enquiry — middle card, equal padding above (Key Features) and below (Plate I image) */}
+              <aside className="bg-[#FAF6EE] border-t-2 border-b border-[#1A2B3C]/15 py-stack-md flex flex-col gap-stack-sm relative">
+                <span aria-hidden="true" className="absolute -top-px left-0 w-12 h-[2px] bg-[#B8904A]"></span>
+                <span className="font-ui-label text-[11px] uppercase tracking-[0.4em] text-[#B8904A]">Availability</span>
+                <p className="font-serif italic text-on-surface text-lg leading-snug">By private introduction only.</p>
+                <div className="flex items-baseline justify-between font-ui-label text-[11px] uppercase tracking-[0.25em] text-on-surface-variant">
+                  <span>Viewings · Tue · Fri</span>
+                  <span className="text-[#B8904A]">— Eleanor Whitcombe</span>
+                </div>
+              </aside>
+
+              {/* Plate · I image card — pins to bottom of right column to align with body copy */}
+              <figure className="relative aspect-[4/3] overflow-hidden border border-[#1A2B3C]/15 group">
+                <img alt="Original Georgian fanlight and Portland-stone door surround in raking light" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" loading="lazy" decoding="async" />
+                <figcaption className="absolute bottom-3 left-3 right-3 flex items-center justify-between font-ui-label text-[11px] uppercase tracking-[0.2em] text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">
+                  <span>Detail · Fanlight</span>
+                  <span className="text-[#E1C29B]">— PLATE I</span>
+                </figcaption>
+              </figure>
             </div>
           </section>
 
@@ -281,9 +382,9 @@ export default function T45RealEstateListing() {
             ))}
           </section>
 
-          {/* Provenance Timeline */}
-          <section className="bg-surface-container-low -mx-margin-edge px-margin-edge py-section-gap">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+          {/* Provenance Timeline — full-bleed cream band */}
+          <section className="full-bleed bg-[#EAE1CE] py-section-gap">
+            <div className="max-w-container-max mx-auto px-margin-edge grid grid-cols-1 md:grid-cols-12 gap-gutter">
               <div className="md:col-span-4 space-y-stack-md">
                 <p className="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A]">Folio · 004</p>
                 <h2 className="font-headline-lg text-headline-lg">A Provenance, Quietly Kept</h2>
@@ -306,9 +407,20 @@ export default function T45RealEstateListing() {
             </div>
           </section>
 
-          {/* Specification Sheet */}
-          <section className="bg-surface-container-high -mx-margin-edge px-margin-edge py-section-gap">
-            <div className="max-w-container-max mx-auto space-y-stack-lg">
+          {/* Image strip — alternating B&W ↔ colour, full-bleed marquee between Folio 04 and 05 */}
+          <section aria-label="Plate gallery" className="full-bleed bg-[#1A2B3C] overflow-hidden !mt-0">
+            <div className="ac-strip-track flex">
+              {[...interleaveStrip, ...interleaveStrip].map((img, idx) => (
+                <figure key={`ac-${idx}`} aria-hidden={idx >= interleaveStrip.length ? "true" : undefined} className={`w-40 sm:w-44 md:w-48 lg:w-52 aspect-square shrink-0 overflow-hidden ${idx % 2 === 0 ? "ac-strip-bw" : "ac-strip-color"}`}>
+                  <img src={img.src} alt={idx >= interleaveStrip.length ? "" : img.alt} loading="lazy" decoding="async" className="w-full h-full object-cover" />
+                </figure>
+              ))}
+            </div>
+          </section>
+
+          {/* Specification Sheet — full-bleed cream band */}
+          <section className="full-bleed bg-[#EAE1CE] py-section-gap !mt-0">
+            <div className="max-w-container-max mx-auto px-margin-edge space-y-stack-lg">
               <div className="flex items-end justify-between border-b border-[#1A2B3C]/15 pb-stack-md">
                 <div>
                   <p className="font-ui-label text-ui-label uppercase tracking-widest text-[#B8904A] mb-stack-sm">Folio · 005</p>
@@ -334,10 +446,10 @@ export default function T45RealEstateListing() {
                 <img alt="Heritage district streetscape with classical facades" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1600&q=85&auto=format&fit=crop" />
               </div>
               <div className="hidden md:block absolute -bottom-12 -right-8 w-48 h-60 overflow-hidden border-4 border-background shadow-2xl rotate-2">
-                <img alt="Quiet heritage street corner at dusk" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=85&auto=format&fit=crop" />
+                <img alt="Quiet heritage street corner at dusk" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=85&auto=format&fit=crop" />
               </div>
               <div className="hidden md:block absolute top-12 -left-12 w-40 h-32 overflow-hidden border-4 border-background shadow-xl -rotate-3">
-                <img alt="Wrought iron gate detail of a heritage residence" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=500&q=85&auto=format&fit=crop" />
+                <img alt="Wrought iron gate detail of a heritage residence" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=500&q=85&auto=format&fit=crop" />
               </div>
             </div>
             <div className="md:col-span-4 md:col-start-9 space-y-stack-md self-center">

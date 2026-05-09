@@ -36,7 +36,7 @@ export default function T22PhotographerPortfolio() {
     },
     {
       number: "IV", status: "Closed", title: "Static Ground", plate: "Plate 19 · Salta · 2021",
-      img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1600&auto=format&fit=crop&sat=-100",
+      img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=1600&auto=format&fit=crop&sat=-100",
       alt: "High-contrast architectural detail, light raking across a coffered ceiling.",
       body: "Interiors of houses that have stood empty for more than a decade. Inheritance disputes, pending probate, the slow geometry of dust. A study of suspension.",
       meta: "24 plates · Silver gelatin · Edition of 7",
@@ -46,10 +46,10 @@ export default function T22PhotographerPortfolio() {
 
   const polaroids = [
     { rot: "rotate-[-3deg]", alt: "Silhouette in a doorway, harsh midday light.", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Buenos Aires, 2023" },
-    { rot: "rotate-[2deg]", alt: "A woman's hand on a balcony rail, evening light.", src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Quito, Field" },
+    { rot: "rotate-[2deg]", alt: "A woman's hand on a balcony rail, evening light.", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Quito, Field" },
     { rot: "rotate-[-1deg]", alt: "Concrete stairwell descending into shadow.", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Salta, 2021" },
     { rot: "rotate-[4deg]", alt: "Editorial portrait, jaw-line and cheekbone.", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Tucumán, 2022" },
-    { rot: "rotate-[-2deg]", alt: "Open window onto a textured plaster wall.", src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Recife, 2024" }
+    { rot: "rotate-[-2deg]", alt: "Open window onto a textured plaster wall.", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Recife, 2024" }
   ];
 
   const cycleImgs = [
@@ -71,7 +71,7 @@ export default function T22PhotographerPortfolio() {
     { alt: "Print 01 — wide architectural plate.",  src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 04 / Boundaries",     spec: "11 × 14 in · ed. of 7",  price: "USD 480" },
     { alt: "Print 02 — quiet street, Quito.",        src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 11 / Slow Cities",     spec: "11 × 14 in · ed. of 9",  price: "USD 420" },
     { alt: "Print 03 — portrait study.",             src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 02 / Mothers",         spec: "16 × 20 in · ed. of 12", price: "USD 740" },
-    { alt: "Print 04 — coffered ceiling detail.",    src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 19 / Static Ground",   spec: "11 × 14 in · ed. of 7",  price: "USD 480" },
+    { alt: "Print 04 — coffered ceiling detail.",    src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 19 / Static Ground",   spec: "11 × 14 in · ed. of 7",  price: "USD 480" },
     { alt: "Print 05 — concrete stairwell.",         src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 06 / Boundaries",      spec: "16 × 20 in · ed. of 5",  price: "USD 820" },
     { alt: "Print 06 — coastal breakwater.",         src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 22 / Boundaries",      spec: "11 × 14 in · ed. of 7",  price: "USD 480" }
   ];
@@ -273,7 +273,7 @@ export default function T22PhotographerPortfolio() {
           {/* Diagonal Photo Strip (NOVEL #10) */}
           <section aria-hidden="true" className="w-full relative bg-[#141313] overflow-hidden snap-start py-stack-md">
             <div className="diagonal-strip w-full aspect-[21/6] relative bg-black">
-              <img alt="" className="w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="686" loading="lazy" decoding="async" />
+              <img alt="" className="w-full h-full object-cover grayscale opacity-90" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="686" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60 pointer-events-none" />
               <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-headline-lg text-headline-lg text-[#EDEDED] italic tracking-tight whitespace-nowrap">&mdash; Field, not stage. &mdash;</p>
             </div>
@@ -307,7 +307,7 @@ export default function T22PhotographerPortfolio() {
               </div>
               <div className="md:col-span-7 relative">
                 <img alt="Wide architectural elevation, solitary figure crossing through the frame." className="w-full aspect-[4/3] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1600&auto=format&fit=crop&sat=-100" width="1600" height="1200" loading="lazy" decoding="async" />
-                <img alt="Detail study, plaster detail." className="hidden sm:block absolute -bottom-8 -right-6 sm:-right-8 w-32 h-40 sm:w-44 sm:h-56 object-cover grayscale rotate-3 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
+                <img alt="Detail study, plaster detail." className="hidden sm:block absolute -bottom-8 -right-6 sm:-right-8 w-32 h-40 sm:w-44 sm:h-56 object-cover grayscale rotate-3 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
                 <img alt="Close-up portrait, eyes lowered." className="hidden md:block absolute -top-8 -left-6 w-32 h-44 lg:w-40 lg:h-56 object-cover grayscale -rotate-2 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
               </div>
             </div>
@@ -417,7 +417,7 @@ export default function T22PhotographerPortfolio() {
                 ))}
               </ol>
             </div>
-            <img alt="Bottom bookend image — soft documentary photograph, interior detail." className="w-full h-40 sm:h-56 md:h-72 object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="600" loading="lazy" decoding="async" />
+            <img alt="Bottom bookend image — soft documentary photograph, interior detail." className="w-full h-40 sm:h-56 md:h-72 object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="600" loading="lazy" decoding="async" />
           </section>
 
           {/* Editions / Prints Store Strip */}

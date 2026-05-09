@@ -194,6 +194,147 @@ export default function T103AcidGlassStudio() {
               <div className="absolute -bottom-12 -right-12 w-96 h-96 rounded-full border border-white/5 z-0" />
             </div>
           </section>
+
+          {/* TRUSTED BY — luxury / craft brands */}
+          <section className="py-20 max-w-[1440px] mx-auto px-[48px] w-full border-t border-white/5">
+            <p className="text-center font-mono-label text-[10px] uppercase tracking-[0.4em] text-on-surface-variant/70 mb-8">— Atelier · gallery · press —</p>
+            <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-x-8 gap-y-9 items-center justify-items-center bg-surface-container-low/40 border border-white/8 rounded-lg px-6 py-9 backdrop-blur-md">
+              {[
+                { slug: "hermes", name: "Hermès" },
+                { slug: "dior", name: "Dior" },
+                { slug: "apple", name: "Apple" },
+                { slug: "airbnb", name: "Airbnb" },
+                { slug: "figma", name: "Figma" },
+                { slug: "framer", name: "Framer" },
+                { slug: "theguardian", name: "Guardian" },
+                { slug: "medium", name: "Medium" },
+                { slug: "spotify", name: "Spotify" },
+              ].map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/d4b87a`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                  <span className="font-mono-label text-[9px] uppercase tracking-[0.2em] text-on-surface-variant/70">{b.name}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* ALTERNATING SECTION A — image LEFT, content RIGHT */}
+          <section className="py-24 max-w-[1440px] mx-auto px-[48px] w-full">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-7 relative">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-white/10 bg-surface-container">
+                  <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=1400&q=85&auto=format&fit=crop" alt="Data tunnel of golden lights — atelier corridor in low light" className="absolute inset-0 w-full h-full object-cover opacity-90 grayscale-[15%] contrast-110" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-background/65 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 left-4 px-3 py-1.5 bg-background/85 border border-white/15 backdrop-blur-md rounded-sm">
+                    <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-secondary-container">FRAME · 01 / ATELIER</span>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-5 flex flex-col justify-center">
+                <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-secondary-container mb-4">// CHAPTER A · METHOD</span>
+                <h2 className="font-display text-3xl md:text-5xl text-on-surface leading-[1.05] tracking-tight mb-5 border-l-2 border-secondary-container pl-4">Glass on glass, never on plastic.</h2>
+                <p className="font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-4">Every interface in the studio renders against optical-grade glass — etched panels, polished edges, three layers laminated under inert gas. The reflection is the discipline.</p>
+                <p className="font-body text-sm text-on-surface-variant/80 leading-relaxed mb-6">No simulated frosted-acrylic. No cheap shimmer. The light path is measured at every commission and signed by the technician.</p>
+                <ul className="flex flex-col gap-3 font-mono-label text-[11px] uppercase tracking-[0.25em] text-on-surface-variant border-t border-white/10 pt-5">
+                  <li className="flex justify-between"><span>Stack · 3 layers</span><span className="text-secondary-container">Inert lamination</span></li>
+                  <li className="flex justify-between"><span>Optical grade · Schott</span><span className="text-secondary-container">B270</span></li>
+                  <li className="flex justify-between"><span>Edge · polished</span><span className="text-secondary-container">By hand</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION B — image RIGHT, content LEFT */}
+          <section className="py-24 max-w-[1440px] mx-auto px-[48px] w-full">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-5 flex flex-col justify-center order-2 md:order-1">
+                <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-secondary-container mb-4 md:text-right">// CHAPTER B · MATERIAL</span>
+                <h2 className="font-display text-3xl md:text-5xl text-on-surface leading-[1.05] tracking-tight mb-5 border-r-2 border-secondary-container pr-4 md:text-right">Steel, folded by hand.</h2>
+                <p className="font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-4 md:text-right">Stainless panels machined on a five-axis bed, then bent on a manual press by an operator who has done this for two decades. The break radius is set by feel; the angle held to half a degree.</p>
+                <p className="font-body text-sm text-on-surface-variant/80 leading-relaxed mb-6 md:text-right">No laser-cut shortcuts, no robotic break-presses. Each panel keeps the operator's mark — a single graphite stroke under the inside fold — as a record of the hand that finished it.</p>
+                <ul className="flex flex-col gap-3 font-mono-label text-[11px] uppercase tracking-[0.25em] text-on-surface-variant border-t border-white/10 pt-5">
+                  <li className="flex justify-between"><span className="text-secondary-container">316 stainless</span><span>Mill · Sheffield</span></li>
+                  <li className="flex justify-between"><span className="text-secondary-container">Hand-pressed</span><span>Tolerance · ±0.5°</span></li>
+                  <li className="flex justify-between"><span className="text-secondary-container">Operator's mark</span><span>Graphite · always</span></li>
+                </ul>
+              </div>
+              <div className="md:col-span-7 relative order-1 md:order-2">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-white/10 bg-surface-container">
+                  <img src="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=1400&q=85&auto=format&fit=crop" alt="Geometric metallic facade — folded stainless panels at angled break" className="absolute inset-0 w-full h-full object-cover opacity-90 contrast-110" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-gradient-to-tl from-background/65 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 right-4 px-3 py-1.5 bg-background/85 border border-white/15 backdrop-blur-md rounded-sm">
+                    <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-secondary-container">FRAME · 02 / MILL</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ALTERNATING SECTION C — image LEFT, content RIGHT */}
+          <section className="py-24 max-w-[1440px] mx-auto px-[48px] w-full">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="md:col-span-7 relative">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-white/10 bg-surface-container">
+                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=85&auto=format&fit=crop" alt="Minimal interior gallery — a finished commission in situ" className="absolute inset-0 w-full h-full object-cover opacity-90 grayscale-[10%] contrast-105" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-background/65 via-transparent to-transparent pointer-events-none"></div>
+                  <div className="absolute top-4 left-4 px-3 py-1.5 bg-background/85 border border-white/15 backdrop-blur-md rounded-sm">
+                    <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-secondary-container">FRAME · 03 / IN SITU</span>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-5 flex flex-col justify-center">
+                <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-secondary-container mb-4">// CHAPTER C · COMMISSION</span>
+                <h2 className="font-display text-3xl md:text-5xl text-on-surface leading-[1.05] tracking-tight mb-5 border-l-2 border-secondary-container pl-4">Each piece, sited.</h2>
+                <p className="font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-4">Commissions are visited before they ship. The atelier flies a member of staff, measures the room, the light, the wall colour at three times of day. The piece is finished after the visit, not before.</p>
+                <p className="font-body text-sm text-on-surface-variant/80 leading-relaxed mb-6">Site-fee absorbed by the maison. The first crate carries a calibrated reference card; the second carries the work itself.</p>
+                <ul className="flex flex-col gap-3 font-mono-label text-[11px] uppercase tracking-[0.25em] text-on-surface-variant border-t border-white/10 pt-5">
+                  <li className="flex justify-between"><span>Site visits · before ship</span><span className="text-secondary-container">Always</span></li>
+                  <li className="flex justify-between"><span>Measurements · 3</span><span className="text-secondary-container">Light · times</span></li>
+                  <li className="flex justify-between"><span>Reference card · ships first</span><span className="text-secondary-container">Calibrated</span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* DOCTRINE — Premium 2x2 on faint photo backdrop */}
+          <section className="relative w-full py-24 md:py-32 px-6 md:px-12 overflow-hidden border-t border-white/5">
+            <div className="absolute inset-0 -z-10">
+              <img src="https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" className="w-full h-full object-cover opacity-[0.08] grayscale contrast-110" loading="lazy" />
+              <div className="absolute inset-0 bg-background/85"></div>
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 50%, transparent 25%, rgba(10,10,13,0.95) 90%)" }}></div>
+            </div>
+            <div className="max-w-[1200px] mx-auto">
+              <div className="text-center mb-14 md:mb-20 max-w-2xl mx-auto">
+                <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-secondary-container">— § Atelier doctrine</span>
+                <h2 className="font-display text-3xl md:text-5xl text-on-surface mt-4 leading-[1.05] tracking-tight">Four standing instructions.</h2>
+                <p className="font-body text-on-surface-variant mt-5 leading-relaxed">Hand-set on the back of every contract. None negotiable; all kept.</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+                {[
+                  { id: "D · 01", icon: "draw", title: "Drawn by hand.", body: "Every commission begins as a graphite study on heavy paper. The screen comes after the page; the rendering after the drawing. The hand stays in the file.", left: "Studio · since 2009", right: "Hand · always" },
+                  { id: "D · 02", icon: "verified", title: "Numbered, signed, dated.", body: "Edition of twenty-four per series, never more. The verso carries the maker's mark, the studio seal, and the day the piece left the bench. Forgery is mechanically refused.", left: "Edition · 24 / series", right: "Verso · sealed" },
+                  { id: "D · 03", icon: "build", title: "Repaired by us, forever.", body: "Crack a panel, scuff a mount, lose a screw — send it back. The atelier restores at cost of postage, signs the verso again, returns within the season. The artifact survives the owner.", left: "Service · perpetual", right: "Postage · only" },
+                  { id: "D · 04", icon: "history_edu", title: "Quiet on launch.", body: "No countdowns, no pre-orders, no urgency theatre. Series open quietly to the maison's list, then the public, then the press — in that order, in that month. Reservation closes when full.", left: "List · waitlist-only", right: "Press · last" },
+                ].map(d => (
+                  <article key={d.id} className="relative bg-surface-container-low/85 border border-white/10 hover:border-secondary-container/40 transition-colors p-7 md:p-9 rounded-lg backdrop-blur-md">
+                    <div className="absolute -right-6 -top-6 w-32 h-32 rounded-full bg-secondary-container/[0.08] blur-3xl pointer-events-none"></div>
+                    <div className="flex items-start justify-between mb-6 relative z-10">
+                      <div className="w-12 h-12 rounded-lg border border-secondary-container/40 bg-secondary-container/5 flex items-center justify-center text-secondary-container">
+                        <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 0" }}>{d.icon}</span>
+                      </div>
+                      <span className="font-mono-label text-[10px] uppercase tracking-[0.4em] text-on-surface-variant/70 tabular-nums">{d.id}</span>
+                    </div>
+                    <h3 className="font-display text-2xl md:text-3xl text-on-surface mb-3 tracking-tight leading-[1.05] relative z-10">{d.title}</h3>
+                    <p className="font-body text-sm md:text-base text-on-surface-variant leading-relaxed mb-6 relative z-10">{d.body}</p>
+                    <div className="flex items-baseline justify-between border-t border-white/10 pt-4 font-mono-label text-[10px] uppercase tracking-[0.3em] text-on-surface-variant/70 relative z-10">
+                      <span>{d.left}</span>
+                      <span className="text-secondary-container">{d.right}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
         </main>
         <footer className="w-full px-12 mt-24 relative z-10 border-t-2 border-white/5 pt-12 pb-10 bg-[#0e0e12]">
           <div className="absolute inset-0 pointer-events-none opacity-20 z-0" style={{ background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)" }} />

@@ -411,7 +411,7 @@
                     </figcaption>
                 </figure>
                 <figure class="shrink-0 w-64 md:w-72 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
-                    <img alt="Plate V — Apothecary" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop"/>
+                    <img alt="Plate V — Apothecary" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=900&auto=format&fit=crop"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15"></div>
                     <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · V</span><span class="text-gray-300">Tools</span></div>
                     <figcaption class="absolute bottom-5 left-5 right-5">
@@ -466,7 +466,7 @@
                     <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Calibre 96</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Sky · 44mm</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Chronograph · matte</span></figcaption>
                 </figure>
                 <figure aria-hidden="true" class="shrink-0 w-64 md:w-72 h-[380px] md:h-[440px] relative border border-luxury-gold/40 overflow-hidden bg-luxury-charcoal">
-                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?q=80&w=900&auto=format&fit=crop"/>
+                    <img alt="" class="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=900&auto=format&fit=crop"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15"></div>
                     <div class="absolute top-4 left-4 right-4 flex justify-between text-[10px] tracking-[0.3em] uppercase"><span class="text-luxury-gold">Plate · V</span><span class="text-gray-300">Tools</span></div>
                     <figcaption class="absolute bottom-5 left-5 right-5"><span class="font-sub italic text-luxury-gold-light text-sm block mb-1">Of the Bench</span><h3 class="font-header text-luxury-white text-xl tracking-widest uppercase">Brass · 1924</h3><span class="text-gray-400 text-[10px] tracking-widest uppercase block mt-2">Heritage atelier</span></figcaption>
@@ -545,7 +545,10 @@
             </div>
             <ol class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
                 <!-- gold track-line -->
-                <div aria-hidden="true" class="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-gradient-to-r from-luxury-gold/0 via-luxury-gold/60 to-luxury-gold/0"></div>
+                <!-- Solid connector line — milestones use items-center so circles sit at column
+     centers (10/30/50/70/90% of the row); left-[10%] right-[10%] spans circle 1
+     to circle 5 with a solid bg-luxury-gold/40 (no gradient fade). -->
+<div aria-hidden="true" class="hidden md:block absolute top-7 left-[10%] right-[10%] h-px bg-luxury-gold/40"></div>
                 <li class="relative flex flex-col items-center text-center reveal-on-scroll">
                     <div class="w-14 h-14 rounded-full border border-luxury-gold/70 bg-luxury-black flex items-center justify-center text-luxury-gold-light text-2xl relative z-10">I</div>
                     <span class="font-header text-luxury-gold tabular-nums text-sm mt-5 tracking-widest">MCMXXIV</span>
@@ -580,6 +583,125 @@
                 </li>
             </ol>
         </div>
+    </section>
+
+    <!-- Featured in — press wall with simpleicons-rendered brand marks. -->
+    <section class="bg-luxury-black py-20 md:py-28 border-y border-luxury-gold/15 relative">
+      <div class="absolute inset-0 bg-noise opacity-15 pointer-events-none"></div>
+      <div class="container mx-auto px-6 relative">
+        <div class="text-center mb-14">
+          <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Featured in · V½</span>
+          <h2 class="font-header text-2xl md:text-4xl tracking-widest uppercase text-luxury-white">Held in print, abroad.</h2>
+          <p class="font-sub italic text-gray-400 mt-4 max-w-xl mx-auto">Press mentions across editorial titles. Numbered editions are placed by appointment; press inquiries route through the concierge.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-x-16">
+          <span class="group inline-flex items-center gap-4 text-gray-400 hover:text-luxury-gold transition-colors py-2">
+            <img src="https://cdn.simpleicons.org/theguardian/c5a059" alt="The Guardian logo" width="22" height="22" loading="lazy" decoding="async" class="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity"/>
+            <span class="flex flex-col leading-tight">
+              <span class="font-sub italic text-lg md:text-xl">The Guardian</span>
+              <span class="font-body text-[10px] tracking-[0.3em] uppercase text-gray-600">10 · 2024</span>
+            </span>
+          </span>
+          <span class="group inline-flex items-center gap-4 text-gray-400 hover:text-luxury-gold transition-colors py-2">
+            <img src="https://cdn.simpleicons.org/telegraph/c5a059" alt="Telegraph logo" width="22" height="22" loading="lazy" decoding="async" class="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity"/>
+            <span class="flex flex-col leading-tight">
+              <span class="font-sub italic text-lg md:text-xl">Telegraph</span>
+              <span class="font-body text-[10px] tracking-[0.3em] uppercase text-gray-600">07 · 2024</span>
+            </span>
+          </span>
+          <span class="group inline-flex items-center gap-4 text-gray-400 hover:text-luxury-gold transition-colors py-2">
+            <img src="https://cdn.simpleicons.org/substack/c5a059" alt="Substack logo" width="22" height="22" loading="lazy" decoding="async" class="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity"/>
+            <span class="flex flex-col leading-tight">
+              <span class="font-sub italic text-lg md:text-xl">Substack</span>
+              <span class="font-body text-[10px] tracking-[0.3em] uppercase text-gray-600">05 · 2024</span>
+            </span>
+          </span>
+          <span class="group inline-flex items-center gap-4 text-gray-400 hover:text-luxury-gold transition-colors py-2">
+            <img src="https://cdn.simpleicons.org/medium/c5a059" alt="Medium logo" width="22" height="22" loading="lazy" decoding="async" class="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity"/>
+            <span class="flex flex-col leading-tight">
+              <span class="font-sub italic text-lg md:text-xl">Medium</span>
+              <span class="font-body text-[10px] tracking-[0.3em] uppercase text-gray-600">02 · 2024</span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Provenance Compact — premium 4-card section between Featured-in and References -->
+    <section class="bg-luxury-charcoal py-24 md:py-32 border-b border-luxury-gold/20 relative">
+      <div class="absolute inset-0 bg-noise opacity-15 pointer-events-none"></div>
+      <div class="container mx-auto px-6 relative">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 pb-6 border-b border-luxury-gold/15">
+          <div class="max-w-xl">
+            <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Provenance · V¾</span>
+            <h2 class="font-header text-3xl md:text-5xl tracking-widest uppercase text-luxury-white leading-tight">Four standing terms, signed at delivery.</h2>
+          </div>
+          <p class="font-sub italic text-gray-400 max-w-md">Every numbered edition leaves Geneva with the same compact. Re-signed by the next custodian when the piece passes hands.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-luxury-gold/15">
+          <article class="bg-luxury-charcoal p-8 md:p-10 flex flex-col gap-5 hover:bg-luxury-black transition-colors min-h-[300px]">
+            <div class="flex items-center justify-between">
+              <span class="w-12 h-12 border border-luxury-gold/40 flex items-center justify-center text-luxury-gold">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z"/></svg>
+              </span>
+              <span class="font-header text-2xl text-luxury-gold/70 tabular-nums tracking-widest">I</span>
+            </div>
+            <span class="font-body text-[10px] tracking-[0.4em] uppercase text-luxury-gold/70">Compact · I</span>
+            <h3 class="font-header text-lg md:text-xl tracking-widest uppercase text-luxury-white leading-tight">Geneva-only service.</h3>
+            <p class="font-body text-gray-400 leading-loose text-sm tracking-wide">Movements return to the Geneva atelier on a fifteen-year cycle. Disassembly, ultrasonic cleaning, regulation — performed by the same watchmakers who built the calibre. Cost is sealed at allocation.</p>
+            <div class="mt-auto pt-5 border-t border-luxury-gold/15 flex items-center justify-between">
+              <span class="font-header text-luxury-gold text-[10px] tracking-[0.4em] uppercase tabular-nums">15 yrs · GENEVA</span>
+              <span class="font-body text-[10px] tracking-widest uppercase text-gray-600">In effect</span>
+            </div>
+          </article>
+          <article class="bg-luxury-charcoal p-8 md:p-10 flex flex-col gap-5 hover:bg-luxury-black transition-colors min-h-[300px]">
+            <div class="flex items-center justify-between">
+              <span class="w-12 h-12 border border-luxury-gold/40 flex items-center justify-center text-luxury-gold">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+              </span>
+              <span class="font-header text-2xl text-luxury-gold/70 tabular-nums tracking-widest">II</span>
+            </div>
+            <span class="font-body text-[10px] tracking-[0.4em] uppercase text-luxury-gold/70">Compact · II</span>
+            <h3 class="font-header text-lg md:text-xl tracking-widest uppercase text-luxury-white leading-tight">Hand-bound dossier.</h3>
+            <p class="font-body text-gray-400 leading-loose text-sm tracking-wide">Every piece ships with a leather-bound book — original drawings, signed assembly card, the watchmaker's regulation log, and a short history of the calibre. Re-stamped at hand-over, never re-issued.</p>
+            <div class="mt-auto pt-5 border-t border-luxury-gold/15 flex items-center justify-between">
+              <span class="font-header text-luxury-gold text-[10px] tracking-[0.4em] uppercase tabular-nums">24 pp · SIGNED</span>
+              <span class="font-body text-[10px] tracking-widest uppercase text-gray-600">In effect</span>
+            </div>
+          </article>
+          <article class="bg-luxury-charcoal p-8 md:p-10 flex flex-col gap-5 hover:bg-luxury-black transition-colors min-h-[300px]">
+            <div class="flex items-center justify-between">
+              <span class="w-12 h-12 border border-luxury-gold/40 flex items-center justify-center text-luxury-gold">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg>
+              </span>
+              <span class="font-header text-2xl text-luxury-gold/70 tabular-nums tracking-widest">III</span>
+            </div>
+            <span class="font-body text-[10px] tracking-[0.4em] uppercase text-luxury-gold/70">Compact · III</span>
+            <h3 class="font-header text-lg md:text-xl tracking-widest uppercase text-luxury-white leading-tight">Boutique appointment.</h3>
+            <p class="font-body text-gray-400 leading-loose text-sm tracking-wide">An unmarked door on Rue du Rhône. Once allocated, you receive a year's standing invitation to the boutique. Coffee on the long table; the loupe is yours; the watchmaker closes the day with you.</p>
+            <div class="mt-auto pt-5 border-t border-luxury-gold/15 flex items-center justify-between">
+              <span class="font-header text-luxury-gold text-[10px] tracking-[0.4em] uppercase tabular-nums">BY APPOINTMENT</span>
+              <span class="font-body text-[10px] tracking-widest uppercase text-gray-600">In effect</span>
+            </div>
+          </article>
+          <article class="bg-luxury-charcoal p-8 md:p-10 flex flex-col gap-5 hover:bg-luxury-black transition-colors min-h-[300px]">
+            <div class="flex items-center justify-between">
+              <span class="w-12 h-12 border border-luxury-gold/40 flex items-center justify-center text-luxury-gold">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>
+              </span>
+              <span class="font-header text-2xl text-luxury-gold/70 tabular-nums tracking-widest">IV</span>
+            </div>
+            <span class="font-body text-[10px] tracking-[0.4em] uppercase text-luxury-gold/70">Compact · IV</span>
+            <h3 class="font-header text-lg md:text-xl tracking-widest uppercase text-luxury-white leading-tight">Generational custody.</h3>
+            <p class="font-body text-gray-400 leading-loose text-sm tracking-wide">Your name in the registry remains permanent. When the piece passes to the next custodian, we update the dossier in person — at no cost — and re-tune the calibre to the new wrist. No re-issue fee.</p>
+            <div class="mt-auto pt-5 border-t border-luxury-gold/15 flex items-center justify-between">
+              <span class="font-header text-luxury-gold text-[10px] tracking-[0.4em] uppercase tabular-nums">NO RE-ISSUE FEE</span>
+              <span class="font-body text-[10px] tracking-widest uppercase text-gray-600">In effect</span>
+            </div>
+          </article>
+        </div>
+        <p class="text-center mt-12 font-body text-[10px] tracking-[0.4em] uppercase text-gray-500">Signed at delivery · held in registry · MMXXIV — present</p>
+      </div>
     </section>
 
     <!-- References — three alternating image+content rows (NOT bento) -->
@@ -664,77 +786,91 @@
 
     <!-- Concierge FAQ -->
     <section class="bg-luxury-charcoal py-24 md:py-32 border-y border-luxury-gold/20 relative">
-        <div class="container mx-auto px-6 max-w-5xl">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-                <aside class="lg:col-span-4 reveal-on-scroll">
+        <div class="container mx-auto px-6 max-w-7xl">
+            <!-- Container widened max-w-5xl → 7xl so left aside sits further left; right column gets col-span-9 + min-w-0 to prevent FAQ row overflow. -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+                <!-- Left aside is a flex-col so the trailing meta block + button can be pushed to the column bottom (mt-auto), making the column visually stretch to match FAQ height. -->
+                <aside class="lg:col-span-3 reveal-on-scroll flex flex-col">
                     <span class="text-luxury-gold font-body text-[10px] md:text-xs tracking-[0.4em] uppercase block mb-4">— Concierge · VII</span>
-                    <h2 class="font-header text-3xl md:text-5xl tracking-widest uppercase text-luxury-white leading-tight">Quietly,<br/>before the appointment.</h2>
-                    <p class="font-sub italic text-gray-400 mt-6">Replied to in person within forty-eight hours. The boutique does not list a number; the concierge does.</p>
-                    <a class="mt-10 inline-flex items-center gap-3 text-luxury-white text-xs tracking-[0.3em] uppercase border border-luxury-gold/40 px-7 py-3.5 hover:border-luxury-gold hover:text-luxury-gold transition-all" href="#">Request the brief →</a>
+                    <h2 class="font-header text-xl md:text-2xl tracking-widest uppercase text-luxury-white leading-[1.25]">Quietly,<br/>before the appointment.</h2>
+                    <p class="font-sub italic text-gray-400 mt-5 text-sm leading-relaxed">Replied to in person within forty-eight hours. The boutique does not list a number; the concierge does.</p>
+                    <a class="mt-8 inline-flex items-center gap-3 text-luxury-white text-[10px] tracking-[0.3em] uppercase border border-luxury-gold/40 px-6 py-3 hover:border-luxury-gold hover:text-luxury-gold transition-all self-start" href="#">Request the brief →</a>
+                    <div class="mt-auto pt-10 border-t border-luxury-gold/15 hidden lg:block">
+                        <p class="font-body text-[10px] tracking-[0.35em] uppercase text-gray-500 leading-loose">Geneva · 14:00 — 18:00<br/>By appointment, weekdays</p>
+                    </div>
                 </aside>
-                <div class="lg:col-span-8 divide-y divide-luxury-gold/20 border-y border-luxury-gold/20">
-                    <details class="lux-faq group p-5 md:p-7" open>
-                        <summary class="flex items-center gap-6">
-                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">I.</span>
-                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">Are pieces sold online?</h3>
-                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                <div class="lg:col-span-9 min-w-0 divide-y divide-luxury-gold/20 border-y border-luxury-gold/20">
+                    <details class="lux-faq group p-4 md:p-6" open>
+                        <summary class="flex items-center gap-5">
+                            <span class="font-header text-luxury-gold tabular-nums text-sm shrink-0 w-10">I.</span>
+                            <h3 class="flex-1 min-w-0 font-header text-luxury-white tracking-widest text-xs md:text-sm uppercase break-words">Are pieces sold online?</h3>
+                            <span class="lux-glyph text-luxury-gold text-2xl shrink-0 leading-none font-thin">+</span>
                         </summary>
-                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">Numbered editions are placed by appointment only — Geneva, Milan, Tokyo, New York. Heritage references are reserved for clients of the inner circle.</p>
+                        <p class="font-body text-gray-400 leading-loose mt-3 pl-14 text-sm tracking-wide">Numbered editions are placed by appointment only — Geneva, Milan, Tokyo, New York. Heritage references are reserved for clients of the inner circle.</p>
                     </details>
-                    <details class="lux-faq group p-5 md:p-7">
-                        <summary class="flex items-center gap-6">
-                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">II.</span>
-                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">What does the warranty cover?</h3>
-                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                    <details class="lux-faq group p-4 md:p-6">
+                        <summary class="flex items-center gap-5">
+                            <span class="font-header text-luxury-gold tabular-nums text-sm shrink-0 w-10">II.</span>
+                            <h3 class="flex-1 min-w-0 font-header text-luxury-white tracking-widest text-xs md:text-sm uppercase break-words">What does the warranty cover?</h3>
+                            <span class="lux-glyph text-luxury-gold text-2xl shrink-0 leading-none font-thin">+</span>
                         </summary>
-                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">Eight years on movement, lifetime on case anglage. Service is performed only at the Geneva atelier — we collect, restore, return.</p>
+                        <p class="font-body text-gray-400 leading-loose mt-3 pl-14 text-sm tracking-wide">Eight years on movement, lifetime on case anglage. Service is performed only at the Geneva atelier — we collect, restore, return.</p>
                     </details>
-                    <details class="lux-faq group p-5 md:p-7">
-                        <summary class="flex items-center gap-6">
-                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">III.</span>
-                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">Can I commission a bespoke?</h3>
-                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                    <details class="lux-faq group p-4 md:p-6">
+                        <summary class="flex items-center gap-5">
+                            <span class="font-header text-luxury-gold tabular-nums text-sm shrink-0 w-10">III.</span>
+                            <h3 class="flex-1 min-w-0 font-header text-luxury-white tracking-widest text-xs md:text-sm uppercase break-words">Can I commission a bespoke?</h3>
+                            <span class="lux-glyph text-luxury-gold text-2xl shrink-0 leading-none font-thin">+</span>
                         </summary>
-                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">A studio of three accepts six commissions per annum. Conversations begin with a private viewing; the first calibre is delivered fourteen months later.</p>
+                        <p class="font-body text-gray-400 leading-loose mt-3 pl-14 text-sm tracking-wide">A studio of three accepts six commissions per annum. Conversations begin with a private viewing; the first calibre is delivered fourteen months later.</p>
                     </details>
-                    <details class="lux-faq group p-5 md:p-7">
-                        <summary class="flex items-center gap-6">
-                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">IV.</span>
-                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">How do I authenticate a heritage piece?</h3>
-                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                    <details class="lux-faq group p-4 md:p-6">
+                        <summary class="flex items-center gap-5">
+                            <span class="font-header text-luxury-gold tabular-nums text-sm shrink-0 w-10">IV.</span>
+                            <h3 class="flex-1 min-w-0 font-header text-luxury-white tracking-widest text-xs md:text-sm uppercase break-words">How do I authenticate a heritage piece?</h3>
+                            <span class="lux-glyph text-luxury-gold text-2xl shrink-0 leading-none font-thin">+</span>
                         </summary>
-                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">Each heritage reference carries a hidden signature beneath the rotor. Ship the piece in its original box; we examine, certify, and return within three weeks.</p>
+                        <p class="font-body text-gray-400 leading-loose mt-3 pl-14 text-sm tracking-wide">Each heritage reference carries a hidden signature beneath the rotor. Ship the piece in its original box; we examine, certify, and return within three weeks.</p>
                     </details>
-                    <details class="lux-faq group p-5 md:p-7">
-                        <summary class="flex items-center gap-6">
-                            <span class="font-header text-luxury-gold tabular-nums text-lg shrink-0 w-12">V.</span>
-                            <h3 class="flex-1 font-header text-luxury-white tracking-widest text-base md:text-lg uppercase">Where is the boutique?</h3>
-                            <span class="lux-glyph text-luxury-gold text-3xl shrink-0 leading-none font-thin">+</span>
+                    <details class="lux-faq group p-4 md:p-6">
+                        <summary class="flex items-center gap-5">
+                            <span class="font-header text-luxury-gold tabular-nums text-sm shrink-0 w-10">V.</span>
+                            <h3 class="flex-1 min-w-0 font-header text-luxury-white tracking-widest text-xs md:text-sm uppercase break-words">Where is the boutique?</h3>
+                            <span class="lux-glyph text-luxury-gold text-2xl shrink-0 leading-none font-thin">+</span>
                         </summary>
-                        <p class="font-body text-gray-400 leading-loose mt-4 pl-16 text-sm tracking-wide">An unmarked door on Rue du Rhône. The address is given to clients only. The bell is answered between 14:00 and 18:00, weekdays.</p>
+                        <p class="font-body text-gray-400 leading-loose mt-3 pl-14 text-sm tracking-wide">An unmarked door on Rue du Rhône. The address is given to clients only. The bell is answered between 14:00 and 18:00, weekdays.</p>
                     </details>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Inner Circle / Newsletter -->
-    <section class="bg-luxury-white py-24 md:py-32 border-t border-luxury-gold">
-        <div class="max-w-2xl mx-auto px-6 text-center reveal-on-scroll">
-            <h3 class="font-header text-luxury-black text-2xl md:text-3xl tracking-widest mb-4">The Inner Circle</h3>
-            <p class="font-body text-gray-500 text-xs tracking-widest mb-10">Access to limited editions and private viewings.</p>
-            
-            <form class="flex flex-col md:flex-row gap-4 border-b border-luxury-black pb-2">
-                <input type="email" placeholder="ENTER YOUR EMAIL" class="bg-transparent border-none outline-none text-luxury-black placeholder-gray-400 text-xs tracking-widest w-full text-center md:text-left uppercase p-2">
-                <button type="submit" class="text-luxury-black font-header text-xs tracking-widest uppercase hover:text-luxury-gold transition-colors whitespace-nowrap">
-                    Request Access
-                </button>
-            </form>
-        </div>
+    <!-- Inner Circle / Newsletter — premium dark scene with watch image background -->
+    <section class="relative bg-luxury-black py-32 md:py-40 border-y border-luxury-gold overflow-hidden">
+      <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Mechanical watch macro — Inner Circle backdrop" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-30 grayscale"/>
+        <div class="absolute inset-0 bg-gradient-to-b from-luxury-black via-luxury-black/80 to-luxury-black"></div>
+        <div class="absolute inset-0 bg-noise opacity-20"></div>
+      </div>
+      <div class="relative max-w-2xl mx-auto px-6 text-center reveal-on-scroll">
+        <div aria-hidden="true" class="w-16 h-px bg-luxury-gold/60 mx-auto mb-10"></div>
+        <span class="inline-block px-4 py-2 border border-luxury-gold/50 text-luxury-gold font-body text-[10px] tracking-[0.45em] uppercase mb-8">By Invitation</span>
+        <h3 class="font-header text-luxury-white text-3xl md:text-5xl tracking-widest mb-6 leading-tight">The Inner Circle</h3>
+        <p class="font-sub italic text-gray-400 text-base md:text-lg max-w-lg mx-auto mb-3">Access to limited editions and private viewings, before they are placed.</p>
+        <p class="font-body text-gray-500 text-xs tracking-[0.3em] uppercase mb-12">96 invitations issued annually · Geneva · Milan · Tokyo</p>
+        <form class="flex flex-col md:flex-row gap-4 border-b border-luxury-gold/40 pb-3 max-w-xl mx-auto">
+          <input type="email" placeholder="ENTER YOUR EMAIL" class="bg-transparent border-none outline-none text-luxury-white placeholder-gray-500 text-xs tracking-widest w-full text-center md:text-left uppercase p-2"/>
+          <button type="submit" class="text-luxury-gold font-header text-xs tracking-widest uppercase hover:text-luxury-white transition-colors whitespace-nowrap px-2">
+            Request Access
+          </button>
+        </form>
+        <div aria-hidden="true" class="w-16 h-px bg-luxury-gold/60 mx-auto mt-12"></div>
+        <p class="font-body text-[10px] tracking-[0.4em] uppercase text-gray-600 mt-6">MCMXXIV — present · No public list</p>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-luxury-black text-white pt-20 pb-10 border-t border-luxury-gray/30">
+    <footer class="bg-luxury-black text-white pt-20 pb-10">
         <div class="container mx-auto px-6 flex flex-col items-center">
             
             <div class="mb-12">
@@ -765,7 +901,7 @@
 
     <!-- Intersection Observer for Scroll Animations -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        (function () {
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -783,7 +919,7 @@
 
             const elements = document.querySelectorAll('.reveal-on-scroll');
             elements.forEach(el => observer.observe(el));
-        });
+        })();
     </script>
 </body>
 </html>

@@ -73,7 +73,7 @@ const archiveTiles = [
   },
   {
     alt: "Archive 03",
-    src: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop",
     figCls: "shrink-0 w-72 md:w-80 h-96 relative bg-error border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,180,171,1)] overflow-hidden",
     imgCls: "absolute inset-0 w-full h-full object-cover grayscale contrast-150 mix-blend-multiply opacity-90",
     overlayCls: "absolute inset-0 bg-gradient-to-t from-error/70 via-transparent to-black/40",
@@ -101,7 +101,7 @@ const archiveTiles = [
   },
   {
     alt: "Archive 05",
-    src: "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop",
     figCls: "shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden",
     imgCls: "absolute inset-0 w-full h-full object-cover grayscale opacity-65",
     overlayCls: "absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent",
@@ -129,7 +129,7 @@ const archiveTiles = [
   },
   {
     alt: "Archive 07",
-    src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop",
     figCls: "shrink-0 w-72 md:w-80 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden",
     imgCls: "absolute inset-0 w-full h-full object-cover grayscale opacity-65",
     overlayCls: "absolute inset-0 bg-gradient-to-t from-black via-black/40 to-on-tertiary-container/15",
@@ -217,7 +217,7 @@ const processSteps = [
     figCornerB: "absolute -bottom-4 -right-4 w-12 h-12 border-4 border-error -z-10",
     frameShadow: "shadow-[10px_10px_0px_0px_rgba(255,180,171,1)]",
     alt: "Phase III",
-    src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1400&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop",
     imgCls: "absolute inset-0 w-full h-full object-cover grayscale opacity-70",
     overlayCls: "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-error/15",
     phaseBadgeCls: "absolute top-5 left-5 bg-error text-error-container font-label-mono text-[10px] uppercase tracking-widest px-3 py-1.5",
@@ -331,6 +331,51 @@ const portalFaqs = [
 ];
 
 const footerLinks = ["MANIFESTO", "ENCRYPT", "TERMINAL"];
+
+// Trusted-by collective — design/publishing/dev brands. simpleicons slugs verified before commit.
+const COLLECTIVE_NODES = [
+  { name: "BEHANCE",  slug: "behance" },
+  { name: "DRIBBBLE", slug: "dribbble" },
+  { name: "VIMEO",    slug: "vimeo" },
+  { name: "GITHUB",   slug: "github" },
+  { name: "SUBSTACK", slug: "substack" },
+];
+
+// Lab Stack — 4 premium cards explaining the operator's standing equipment.
+const LAB_STACK = [
+  {
+    roman: "I",
+    tag: "STACK · 01",
+    title: "Halftone matrix.",
+    body: "41-track screening grid. Calibration wheel runs 30 nodes per pass. Every fragment leaves with a coordinate stamp on the back panel.",
+    foot: "// 41 · TRACKS",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />,
+  },
+  {
+    roman: "II",
+    tag: "STACK · 02",
+    title: "Voltage lock.",
+    body: "Dual-bench power conditioning. Three-phase isolation. The matrix never reads dirty current — folio integrity holds at 87% even on bad-grid days.",
+    foot: "// 87% · INTEGRITY",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />,
+  },
+  {
+    roman: "III",
+    tag: "STACK · 03",
+    title: "Knob memory.",
+    body: "Re-zero before crank. The bench remembers what was set yesterday — drag the operator back to today, then push past 8 on Creativity, lock at 4 on Logic, leave Spirit alone.",
+    foot: "// 8.4 · 4.0 · 7.7",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />,
+  },
+  {
+    roman: "IV",
+    tag: "STACK · 04",
+    title: "Folio stamp.",
+    body: "One stamp per folio. One signature per page. The press closes when the lab closes — no retouches, no auto-saves over a stamped output. The work walks out signed.",
+    foot: "// 0.41 OZ · STAMPED",
+    icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />,
+  },
+];
 
 const customCss = `
   .noise-bg {
@@ -508,12 +553,12 @@ export default function T111IsometricGrungeBrutal() {
           <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center opacity-30">
             <div className="w-[200vw] h-[2048px] isometric-grid absolute" />
           </div>
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-on-tertiary-container rounded-full mix-blend-screen filter blur-[100px] opacity-60" />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-error rounded-full mix-blend-screen filter blur-[120px] opacity-40" />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-on-tertiary-container rounded-full mix-blend-screen filter blur-[100px] opacity-30" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-error rounded-full mix-blend-screen filter blur-[120px] opacity-20" />
           <div className="relative z-20 text-center px-4 w-full max-w-7xl mx-auto flex flex-col items-center">
             <div className="bg-surface-container-low/60 backdrop-blur-3xl border border-white/10 p-12 md:p-24 w-full shadow-[20px_20px_0px_0px_rgba(255,255,255,0.05)] relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-on-tertiary-container via-white to-error" />
-              <h1 className="font-display-xl text-display-xl text-white mb-6 uppercase glitch-text" data-text="TRANSMUTATION">TRANSMUTATION</h1>
+              <h1 className="font-display-xl text-[36px] sm:text-[52px] md:text-[64px] lg:text-display-xl text-white mb-6 uppercase glitch-text" data-text="TRANSMUTATION">TRANSMUTATION</h1>
               <p className="font-headline-md text-headline-md text-secondary max-w-3xl mx-auto uppercase tracking-widest border-l-4 border-on-tertiary-container pl-6 text-left">
                 Ordered Anarchy. <br />
                 Tactile Digitalism.
@@ -725,6 +770,62 @@ export default function T111IsometricGrungeBrutal() {
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+
+        {/* Collective Nodes — trusted-by row with brand marks via simpleicons.org. */}
+        <section className="relative py-20 px-gutter z-10 border-b-4 border-dashed border-surface-variant">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-end justify-between border-b-4 border-white pb-6 mb-12">
+              <div>
+                <span className="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">// COLLECTIVE_06B</span>
+                <h2 className="font-headline-lg text-headline-lg text-white uppercase tracking-tighter">Nodes on the wire.</h2>
+              </div>
+              <span className="font-label-mono text-label-mono text-secondary hidden md:block">5 NODES · LIVE · MMXXIV</span>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-white/15">
+              {COLLECTIVE_NODES.map((n) => (
+                <a key={n.slug} href="#" className="group bg-black hover:bg-on-tertiary-container transition-colors p-6 md:p-8 flex flex-col items-center justify-center gap-4 border-2 border-transparent hover:border-white">
+                  <img src={`https://cdn.simpleicons.org/${n.slug}/c8bfff`} alt={`${n.name} logo`} width="32" height="32" loading="lazy" decoding="async" className="w-8 h-8 md:w-10 md:h-10 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  <span className="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim group-hover:text-white">{n.name}</span>
+                </a>
+              ))}
+            </div>
+            <p className="text-center mt-8 font-label-mono text-[10px] uppercase tracking-[0.3em] text-secondary">// FRAGMENTS POURED FOR THE FOLLOWING NODES THIS QUARTER. SCROLL TO TRANSMUTE.</p>
+          </div>
+        </section>
+
+        {/* Lab Stack — 4 premium cards explaining the operator's standing equipment. */}
+        <section className="full-bleed-grunge py-32 px-gutter bg-surface-container-low border-y-4 border-white relative z-10">
+          <div className="absolute inset-0 noise-bg pointer-events-none" />
+          <div className="max-w-7xl mx-auto px-gutter relative">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 pb-6 border-b-4 border-white">
+              <div className="max-w-xl">
+                <span className="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim block mb-3">// LAB_STACK_06C</span>
+                <h2 className="font-headline-lg text-headline-lg text-white uppercase tracking-tighter">Standing equipment.</h2>
+              </div>
+              <p className="font-body-fixed text-body-fixed text-secondary max-w-md">Four panels bolted to the wall above the matrix. Re-painted every six years; never re-arranged. Print, fold, mount.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white">
+              {LAB_STACK.map((s) => (
+                <article key={s.roman} className="bg-surface-container p-8 md:p-10 flex flex-col gap-4 border-2 border-transparent hover:border-error hover:bg-black transition-colors min-h-[300px] shadow-[8px_8px_0px_0px_rgba(255,255,255,0.05)]">
+                  <div className="flex items-center justify-between">
+                    <span className="w-14 h-14 border-2 border-white flex items-center justify-center text-white shadow-[4px_4px_0px_0px_rgba(255,180,171,0.6)]">
+                      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">{s.icon}</svg>
+                    </span>
+                    <span className="font-display-xl text-6xl text-white tabular-nums leading-none">{s.roman}</span>
+                  </div>
+                  <span className="font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim">{s.tag}</span>
+                  <h3 className="font-headline-md text-2xl text-white uppercase tracking-tighter">{s.title}</h3>
+                  <p className="font-body-fixed text-body-fixed text-secondary leading-relaxed">{s.body}</p>
+                  <div className="mt-auto pt-4 border-t-4 border-white flex items-center justify-between">
+                    <span className="font-label-mono text-label-mono uppercase tracking-[0.3em] text-error">{s.foot}</span>
+                    <span className="font-label-mono text-[10px] uppercase tracking-widest text-tertiary-fixed-dim">[ ARMED ]</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="text-center mt-12 font-label-mono text-label-mono uppercase tracking-[0.3em] text-tertiary-fixed-dim">// PANEL CHECK · DAILY · 06:00 · 14:00 · 21:00</p>
           </div>
         </section>
 

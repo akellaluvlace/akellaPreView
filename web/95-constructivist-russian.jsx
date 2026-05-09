@@ -21,8 +21,37 @@ export default function T95ConstructivistRussian() {
     { id: "PORT_01", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-1", name: "M. Volkov",      role: "Lead · Act II",   alt: "Black-and-white actor portrait, intense gaze",          src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC59Q-I6Ili_dZfJd8oOhIZmUq06wRmTEVAvEWU8iH0XRA3NBn6aAmYkDj7E2ayRZu54R4GN_XhRcd_xC_TNo-fVDxFfh6ZjvVoY7AiBfly-6WeGVHV2wgux2a5RPNWDzXi68m-LwwjjcFmtkaoPsbFnETPR6i1lZzSFZ62TDJIkPREzmY3jAylRpI3tbN8lw5L3DBWljb4AkS0Am2QvsAbYzpADAUS3m35f1qQt2KWVN1KXv-qsKUvZMjJb0cIhWjkgSB5BPoIzIs" },
     { id: "PORT_02", chip: "bg-tertiary-fixed text-on-surface border-r-2 border-b-2 border-on-surface",                  rot: "rotate-1",  name: "A. Petrova",     role: "Lead · Act I",    alt: "Stark editorial portrait, theatrical lighting",          src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop" },
     { id: "PORT_03", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-2", name: "D. Sokolov",     role: "Lead · Act III",  alt: "High-contrast b&w portrait of a stage performer",        src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop" },
-    { id: "PORT_04", chip: "bg-tertiary-fixed text-on-surface border-r-2 border-b-2 border-on-surface",                  rot: "rotate-1",  name: "I. Romanenko",   role: "Solo · Act IV",   alt: "Stark portrait, editorial chiaroscuro",                  src: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?q=80&w=900&auto=format&fit=crop" },
+    { id: "PORT_04", chip: "bg-tertiary-fixed text-on-surface border-r-2 border-b-2 border-on-surface",                  rot: "rotate-1",  name: "I. Romanenko",   role: "Solo · Act IV",   alt: "Stark portrait, editorial chiaroscuro",                  src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop" },
     { id: "PORT_05", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-1", name: "L. Mironova",    role: "Director · Mvt 7", alt: "High-contrast monochrome editorial portrait",            src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=900&auto=format&fit=crop" },
+  ];
+
+  const trustedLogos = [
+    { alt: "Stripe",        src: "https://cdn.simpleicons.org/stripe/000000" },
+    { alt: "Mailchimp",     src: "https://cdn.simpleicons.org/mailchimp/d2232a" },
+    { alt: "Intercom",      src: "https://cdn.simpleicons.org/intercom/000000" },
+    { alt: "Notion",        src: "https://cdn.simpleicons.org/notion/000000" },
+    { alt: "The Guardian",  src: "https://cdn.simpleicons.org/theguardian/d2232a" },
+    { alt: "Vimeo",         src: "https://cdn.simpleicons.org/vimeo/000000" },
+    { alt: "Substack",      src: "https://cdn.simpleicons.org/substack/d2232a" },
+    { alt: "Medium",        src: "https://cdn.simpleicons.org/medium/000000" },
+  ];
+
+  const doctrines = [
+    { num: "I",   icon: "precision_manufacturing", iconColor: "text-on-surface",     title: "PRAGMATISM / NO POETRY ABOUT BUDGET.",      body: "A scene that demands a thousand candles gets thirty. A scene that demands one truck gets the truck. Means dictate metaphor; metaphor never dictates means. We name our fixed costs out loud, on stage, in the prologue, before any actor speaks.", cardCls: "bg-surface-container-lowest text-on-surface", numColor: "text-primary-container", borderCls: "border-on-surface",     dividerCls: "border-on-surface",     bodyCls: "text-on-surface-variant", chipCls: "bg-on-surface text-tertiary-fixed border-2 border-on-surface", arrowColor: "text-primary-container", chipLabel: "DOCTRINE_I",   shadowCls: "hover:shadow-[8px_8px_0_0_#d2232a]", featured: false },
+    { num: "II",  icon: "shield",                   iconColor: "text-on-primary",     title: "DISCIPLINE / THE CALL IS 17:00.",            body: "Late is absent. Absent is replaced. Replaced is recorded. The collective survives because the schedule survives — there is no actor whose name protects them from the iron rule of the call sheet. We have built nothing that we are not prepared to lose.",                cardCls: "bg-primary-container text-on-primary",        numColor: "text-on-primary",        borderCls: "border-on-surface",     dividerCls: "border-on-primary",     bodyCls: "opacity-90",              chipCls: "bg-on-primary text-primary-container border-2 border-on-primary", arrowColor: "text-on-primary",         chipLabel: "DOCTRINE_II",  shadowCls: "hover:shadow-[8px_8px_0_0_#1e1b13]", featured: true },
+    { num: "III", icon: "psychology",               iconColor: "text-on-surface",     title: "REFUSAL / WE TURN DOWN MORE THAN WE TAKE.",  body: "Three commissions a season, on average, are declined. Banks, party machines, weapons firms, novelty branding tie-ups. The work that survives is the work we wanted to make; the work we refused is the proof that the survivors are not for sale.",                                  cardCls: "bg-tertiary-fixed text-on-surface",          numColor: "text-primary-container", borderCls: "border-on-surface",     dividerCls: "border-on-surface",     bodyCls: "text-on-surface-variant", chipCls: "bg-primary-container text-on-primary border-2 border-on-surface", arrowColor: "text-primary-container", chipLabel: "DOCTRINE_III", shadowCls: "hover:shadow-[8px_8px_0_0_#d2232a]", featured: false },
+    { num: "IV",  icon: "verified",                 iconColor: "text-surface-bright", title: "CONTINUITY / EVERY ACT IS A SEQUEL.",        body: "No production is invented from nothing. Every show inherits a prop, a costume, a line, a wound from the show before it. The continuity is not nostalgia — it is the receipt that proves the collective existed before today and intends to exist after.",                              cardCls: "bg-on-surface text-surface-bright",          numColor: "text-primary-container", borderCls: "border-on-surface",     dividerCls: "border-surface-bright", bodyCls: "opacity-90",              chipCls: "bg-surface-bright text-on-surface border-2 border-surface-bright", arrowColor: "text-primary-container", chipLabel: "DOCTRINE_IV",  shadowCls: "hover:shadow-[8px_8px_0_0_#d2232a]", featured: false },
+  ];
+
+  const workshopPlates = [
+    { id: "01", alt: "Industrial machinery, pipes, factory floor",     src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
+    { id: "02", alt: "Circuit-board macro, modernist tech",             src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80&auto=format&fit=crop", treatment: "bw-triangle" },
+    { id: "03", alt: "Server room wide, industrial corridor",           src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
+    { id: "04", alt: "Server rack with blue LEDs, propaganda mood",     src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80&auto=format&fit=crop", treatment: "bw-circle" },
+    { id: "05", alt: "Industrial architecture exterior",                src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
+    { id: "06", alt: "Concrete corridor brutalist",                     src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=600&q=80&auto=format&fit=crop", treatment: "bw-triangle" },
+    { id: "07", alt: "Stark man profile B&W, Rodchenko-style",          src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
+    { id: "08", alt: "Intimate B&W portrait",                            src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=80&auto=format&fit=crop", treatment: "bw-circle" },
   ];
 
   const calendar = [
@@ -215,6 +244,97 @@ export default function T95ConstructivistRussian() {
               ))}
             </div>
             <p className="mt-8 font-caption-mono text-caption-mono uppercase text-secondary text-center tracking-widest">— PHOTOGRAPHS · BERLIN STUDIO · MMXXVI · NEGATIVES IN COLLECTIVE ARCHIVE —</p>
+          </section>
+
+          {/* TRUSTED-BY — press / commissioners in constructivist register */}
+          <section className="border-b-thickness-heavy border-on-surface bg-surface-bright px-8 lg:px-margin-page py-16 lg:py-20 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-32 h-thickness-heavy bg-primary-container z-0" />
+            <div className="absolute top-0 right-0 w-thickness-heavy h-32 bg-on-surface z-0" />
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 md:mb-12 relative">
+              <div>
+                <span className="font-caption-mono text-caption-mono uppercase text-primary-container mb-8 md:mb-10 block">— ПЕЧАТЬ · COMMISSIONED BY ·</span>
+                <h2 className="font-headline-lg text-headline-lg uppercase text-on-surface">DELIVERED FOR / TWELVE PROVINCES.</h2>
+              </div>
+              <p className="font-body-lg max-w-md uppercase font-bold tracking-widest text-secondary lg:text-right">No paid placements. No press kit. The list below printed plain ink, set in lead, since MMXIV.</p>
+            </div>
+            <div className="border-thickness-heavy border-on-surface bg-surface-container-lowest p-8 md:p-10 transform -rotate-[0.5deg] relative">
+              <div className="absolute -top-3 left-8 bg-primary-container text-on-primary px-3 py-1 font-caption-mono text-caption-mono uppercase border-2 border-on-surface">DOSSIER · 08</div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                {trustedLogos.map(logo => (
+                  <img key={logo.alt} alt={logo.alt} className="h-8 w-auto" src={logo.src} />
+                ))}
+              </div>
+              <div className="mt-10 pt-6 border-t-thickness-thin border-on-surface flex flex-col sm:flex-row justify-between gap-3 font-caption-mono text-caption-mono uppercase">
+                <span className="text-on-surface">+ 14 ATELIERS · 8 PROVINCES · MMXIV</span>
+                <span className="text-primary-container tabular-nums">PRINTED ON STOCK · 240 GSM</span>
+              </div>
+            </div>
+          </section>
+
+          {/* DOCTRINES — premium 2×2 with chunky red offset shadow */}
+          <section className="border-b-thickness-heavy border-on-surface bg-surface-bright px-8 lg:px-margin-page py-20 md:py-28 relative overflow-hidden">
+            <div className="absolute top-12 right-16 w-32 h-32 bg-primary-container transform rotate-45 border-thickness-heavy border-on-surface z-0 opacity-90" />
+            <div className="absolute bottom-16 left-12 w-24 h-24 bg-on-surface rounded-full z-0" />
+            <div className="absolute bottom-8 right-1/3 w-48 h-thickness-heavy bg-tertiary-fixed-dim z-0 transform -rotate-3" />
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 md:mb-12 relative">
+              <div>
+                <span className="font-caption-mono text-caption-mono uppercase text-primary-container mb-8 md:mb-10 block">— ДОКТРИНЫ · IV PROMISES ·</span>
+                <h2 className="font-headline-lg text-headline-lg uppercase text-on-surface">FOUR DOCTRINES / NO ALTERNATIVES.</h2>
+              </div>
+              <p className="font-body-lg max-w-md uppercase font-bold tracking-widest text-secondary lg:text-right">Drawn up in 1924, redrawn this season. Each doctrine is enforced by the collective, not the box office.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 relative">
+              {doctrines.map(d => (
+                <article key={d.num} className={`border-thickness-heavy ${d.borderCls} ${d.cardCls} p-8 md:p-10 flex flex-col gap-5 group hover:-translate-y-1 ${d.shadowCls} transition-all duration-300 relative`}>
+                  {d.featured ? (
+                    <div className="absolute top-0 right-0 bg-on-surface text-tertiary-fixed px-3 py-1 font-caption-mono text-caption-mono uppercase border-l-2 border-b-2 border-on-surface">ZERO ALTERNATIVE</div>
+                  ) : null}
+                  <div className={`flex items-center justify-between${d.featured ? " mt-3" : ""}`}>
+                    <span className={`font-display-xl text-[64px] leading-none ${d.numColor} italic`}>{d.num}</span>
+                    <span className={`material-symbols-outlined ${d.iconColor}`} style={{ fontSize: 28 }}>{d.icon}</span>
+                  </div>
+                  <h3 className="font-headline-md text-headline-md uppercase">{d.title}</h3>
+                  <p className={`font-body-lg ${d.bodyCls}`}>{d.body}</p>
+                  <div className={`flex justify-between items-center pt-4 border-t-2 ${d.dividerCls} mt-auto`}>
+                    <span className={`${d.chipCls} px-3 py-1 font-caption-mono text-caption-mono uppercase`}>{d.chipLabel}</span>
+                    <span className={`material-symbols-outlined ${d.arrowColor} group-hover:translate-x-1 transition-transform`}>arrow_forward</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {/* WORKSHOP STRIP — alternating red-tint / B&W with geometric overlays */}
+          <section className="border-b-thickness-heavy border-on-surface bg-on-surface text-surface-bright px-8 lg:px-margin-page py-16 md:py-20 relative overflow-hidden">
+            <div className="absolute inset-0 bg-red-stripes opacity-[0.06] pointer-events-none" />
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 md:mb-12 relative">
+              <div>
+                <span className="font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim mb-8 md:mb-10 block">— ПЛАНТА · WORKSHOP · VIII PLATES ·</span>
+                <h2 className="font-headline-lg text-headline-lg uppercase text-surface-bright">FROM THE FACTORY FLOOR.</h2>
+              </div>
+              <p className="font-body-lg max-w-md uppercase font-bold tracking-widest text-tertiary-fixed-dim lg:text-right">Eight plates from the welding shop, the press room, and the loading dock. Photographed during the III Act build, March 2026.</p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 md:gap-4 relative">
+              {workshopPlates.map(plate => (
+                <figure key={plate.id} className="aspect-square overflow-hidden border-thickness-heavy border-surface-bright relative group">
+                  <img alt={plate.alt} className={`w-full h-full object-cover${plate.treatment === "redtint" ? "" : " filter grayscale contrast-200"}`} src={plate.src} />
+                  {plate.treatment === "redtint" ? (
+                    <>
+                      <div className="absolute inset-0 bg-primary-container mix-blend-multiply opacity-60" />
+                      <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_3px,rgba(0,0,0,0.25)_3px,rgba(0,0,0,0.25)_4px)] pointer-events-none" />
+                    </>
+                  ) : null}
+                  {plate.treatment === "bw-triangle" ? (
+                    <div className="absolute top-0 right-0 w-0 h-0 border-l-[60px] border-l-transparent border-t-[60px] border-t-primary-container" />
+                  ) : null}
+                  {plate.treatment === "bw-circle" ? (
+                    <div className="absolute top-3 right-3 w-12 h-12 bg-tertiary-fixed-dim rounded-full border-2 border-on-surface" />
+                  ) : null}
+                  <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-widest bg-on-surface text-surface-bright px-2 py-1 font-caption-mono">ПЛАНТА · {plate.id}</span>
+                </figure>
+              ))}
+            </div>
+            <p className="mt-8 font-caption-mono text-caption-mono uppercase text-tertiary-fixed-dim text-center tracking-widest">— PLATES · WORKSHOP CAMERA · MMXXVI · COLLECTIVE ARCHIVE NEGATIVE BOOK 14 —</p>
           </section>
 
           {/* SEASON CALENDAR */}

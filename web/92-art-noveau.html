@@ -277,6 +277,111 @@
 
 <!-- Constrained-content wrapper for the rest of the page -->
 <div class="w-full px-4 sm:px-gutter lg:px-margin-page flex flex-col items-center">
+
+<!-- Maisons & Press — featured-in row (NEW) -->
+<section class="w-full max-w-7xl mb-32">
+    <div class="text-center mb-10">
+        <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold">Maisons · Presses · Boutiques</span>
+        <h2 class="font-headline-md text-primary italic mt-3">Carried &amp; written about, in equal measure.</h2>
+        <div class="w-16 h-px bg-gold/60 mx-auto mt-4"></div>
+    </div>
+    <ul role="list" class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-x-8 gap-y-9 items-center justify-items-center bg-surface-bright/70 botanical-border py-9 px-6">
+        <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/hermes/8B6F43" alt="Hermès" class="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28"/><span class="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">Hermès</span></li>
+        <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/elsevier/8B6F43" alt="Elsevier" class="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28"/><span class="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">Elsevier</span></li>
+        <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/etsy/8B6F43" alt="Etsy" class="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28"/><span class="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">Etsy</span></li>
+        <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/pinterest/8B6F43" alt="Pinterest" class="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28"/><span class="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">Pinterest</span></li>
+        <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/instagram/8B6F43" alt="Instagram" class="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28"/><span class="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">Instagram</span></li>
+        <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/medium/8B6F43" alt="Medium" class="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28"/><span class="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">Medium</span></li>
+        <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/airbnb/8B6F43" alt="Airbnb" class="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28"/><span class="font-epilogue tracking-[0.25em] uppercase text-[9px] text-gold">Airbnb</span></li>
+    </ul>
+</section>
+
+<!-- Maison Pillars — premium 2x2 cards on faint floral backdrop (NEW) -->
+<section class="w-full max-w-7xl mb-32 relative overflow-hidden p-frame-padding md:p-16">
+    <!-- Faint photographic backdrop: bouquet image at low opacity, with cream wash + radial vignette -->
+    <div class="absolute inset-0 -z-10">
+        <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=1920&q=80&auto=format&fit=crop" alt="" aria-hidden="true" class="w-full h-full object-cover opacity-25" loading="lazy"/>
+        <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(245,235,208,0.92) 0%, rgba(247,242,229,0.94) 100%);"></div>
+        <div class="absolute inset-0 an-pattern opacity-10 pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 25%, rgba(247,242,229,0.7) 80%);"></div>
+    </div>
+
+    <!-- Decorative top arch flourish -->
+    <svg class="absolute top-6 left-1/2 -translate-x-1/2 w-32 h-12 text-gold/60 pointer-events-none" viewBox="0 0 200 60" aria-hidden="true">
+        <path d="M10 50 Q 100 0 190 50" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="100" cy="22" r="2" fill="currentColor"/>
+    </svg>
+
+    <div class="text-center mb-14 md:mb-20 max-w-2xl mx-auto pt-12">
+        <span class="font-epilogue tracking-[0.3em] uppercase text-[10px] text-gold">Quatre · Maximes</span>
+        <h2 class="font-headline-xl text-primary italic mt-3">The Maison's Four Maxims.</h2>
+        <div class="w-24 h-1 bg-gold mx-auto mt-6"></div>
+        <p class="font-body-md text-on-surface/70 mt-6 leading-relaxed">Standing principles, kept since the founding ledger of 1899. Each accompanies an essence; each is signed in the perfumer's own hand.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <!-- Maxim I -->
+        <article class="relative bg-ivory/85 backdrop-blur-sm botanical-border p-7 md:p-9 group hover:bg-ivory transition-colors flex gap-5">
+            <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 arch border border-gold flex items-center justify-center bg-surface-bright">
+                <span class="material-symbols-outlined text-gold text-[26px]" style="font-variation-settings: 'FILL' 0;" aria-hidden="true">local_florist</span>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-baseline justify-between gap-3 mb-2 border-b border-gold/30 pb-2">
+                    <h3 class="font-headline-md text-primary italic leading-tight">Naturel · sans synthétique</h3>
+                    <span class="font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/80 shrink-0">M · I</span>
+                </div>
+                <p class="font-body-md text-on-surface/75 leading-loose">Every absolute extracted from the field. No synthetic top-up, no isolate masking, no shortcut to volume. If a flower fails its harvest, the run is held until next May.</p>
+                <p class="font-epilogue tracking-[0.25em] uppercase text-[10px] text-gold/70 mt-4">Distilled · Grasse</p>
+            </div>
+        </article>
+
+        <!-- Maxim II -->
+        <article class="relative bg-ivory/85 backdrop-blur-sm botanical-border p-7 md:p-9 group hover:bg-ivory transition-colors flex gap-5">
+            <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 arch border border-gold flex items-center justify-center bg-surface-bright">
+                <span class="material-symbols-outlined text-gold text-[26px]" style="font-variation-settings: 'FILL' 0;" aria-hidden="true">edit_note</span>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-baseline justify-between gap-3 mb-2 border-b border-gold/30 pb-2">
+                    <h3 class="font-headline-md text-primary italic leading-tight">Composé · à la main</h3>
+                    <span class="font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/80 shrink-0">M · II</span>
+                </div>
+                <p class="font-body-md text-on-surface/75 leading-loose">Each formula written in the master's leather book — twelve trial flacons, ninety days of oak rest, one final signature before the cap is set. No factory line. No batch shortcut.</p>
+                <p class="font-epilogue tracking-[0.25em] uppercase text-[10px] text-gold/70 mt-4">Atelier · ninety days</p>
+            </div>
+        </article>
+
+        <!-- Maxim III -->
+        <article class="relative bg-ivory/85 backdrop-blur-sm botanical-border p-7 md:p-9 group hover:bg-ivory transition-colors flex gap-5">
+            <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 arch border border-gold flex items-center justify-center bg-surface-bright">
+                <span class="material-symbols-outlined text-gold text-[26px]" style="font-variation-settings: 'FILL' 0;" aria-hidden="true">recycling</span>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-baseline justify-between gap-3 mb-2 border-b border-gold/30 pb-2">
+                    <h3 class="font-headline-md text-primary italic leading-tight">Refillable · à perpetuité</h3>
+                    <span class="font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/80 shrink-0">M · III</span>
+                </div>
+                <p class="font-body-md text-on-surface/75 leading-loose">The crystal flacon is yours for life. Send it back at half-volume; we refill, re-seal in beeswax, and return. Cap, stopper and crest-seal restored at no charge. The bottle is the heirloom.</p>
+                <p class="font-epilogue tracking-[0.25em] uppercase text-[10px] text-gold/70 mt-4">Service · perpetuum</p>
+            </div>
+        </article>
+
+        <!-- Maxim IV -->
+        <article class="relative bg-ivory/85 backdrop-blur-sm botanical-border p-7 md:p-9 group hover:bg-ivory transition-colors flex gap-5">
+            <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 arch border border-gold flex items-center justify-center bg-surface-bright">
+                <span class="material-symbols-outlined text-gold text-[26px]" style="font-variation-settings: 'FILL' 0;" aria-hidden="true">history_edu</span>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-baseline justify-between gap-3 mb-2 border-b border-gold/30 pb-2">
+                    <h3 class="font-headline-md text-primary italic leading-tight">Numéroté · signé</h3>
+                    <span class="font-epilogue tracking-[0.3em] uppercase text-[9px] text-gold/80 shrink-0">M · IV</span>
+                </div>
+                <p class="font-body-md text-on-surface/75 leading-loose">Each decanter numbered, signed, and entered in the maison's ledger — twelve hundred annual editions, never more. Provenance is traceable to the row of the field and the day of the cut.</p>
+                <p class="font-epilogue tracking-[0.25em] uppercase text-[10px] text-gold/70 mt-4">Édition · 1,200 / an</p>
+            </div>
+        </article>
+    </div>
+</section>
+
 <!-- The Collection Section -->
 <section class="w-full max-w-7xl mb-32">
 <div class="text-center mb-16">
@@ -338,8 +443,8 @@
         <div class="flex flex-col items-center text-center group">
             <div class="relative w-full aspect-[3/4] arch overflow-hidden gold-frame bg-surface-bright">
                 <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
-                <img src="https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=900&q=85&auto=format&fit=crop"
-                     alt="Field of jasmine at dawn, Grasse"
+                <img src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=900&q=85&auto=format&fit=crop"
+                     alt="Hand-cut bouquet of cream roses, eucalyptus and seasonal blooms — harvest at dawn"
                      loading="lazy" decoding="async"
                      class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
                 <div class="absolute inset-0 bg-gradient-to-t from-tertiary/40 via-transparent to-transparent"></div>
@@ -357,7 +462,7 @@
         <div class="flex flex-col items-center text-center group">
             <div class="relative w-full aspect-[3/4] arch overflow-hidden gold-frame bg-surface-bright">
                 <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
-                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop"
+                <img src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop"
                      alt="Aged copper distillation apparatus with brass apothecary still-life"
                      loading="lazy" decoding="async"
                      class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
@@ -376,8 +481,8 @@
         <div class="flex flex-col items-center text-center group">
             <div class="relative w-full aspect-[3/4] arch overflow-hidden gold-frame bg-surface-bright">
                 <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
-                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop"
-                     alt="Perfumer's workbench with vials and notes"
+                <img src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?w=900&q=85&auto=format&fit=crop"
+                     alt="Perfumer's bench with hand-bound notebook, mug and vials in soft daylight"
                      loading="lazy" decoding="async"
                      class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
                 <div class="absolute inset-0 bg-gradient-to-t from-tertiary/40 via-transparent to-transparent"></div>
@@ -459,8 +564,8 @@
         <div class="md:col-span-5 flex flex-col gap-6">
             <div class="relative aspect-[4/5] arch overflow-hidden gold-frame">
                 <div class="absolute inset-3 arch border border-gold/40 z-10 pointer-events-none"></div>
-                <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"
-                     alt="Sun-lit atelier interior with vintage glassware"
+                <img src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop"
+                     alt="Atelier ceiling cornice and ornament in afternoon light"
                      loading="lazy" decoding="async"
                      class="absolute inset-0 w-full h-full object-cover" />
                 <div class="absolute bottom-3 left-3 right-3 z-10 bg-ivory/80 px-3 py-1.5 flex items-center justify-between">

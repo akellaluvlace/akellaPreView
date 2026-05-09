@@ -152,9 +152,37 @@
         .pop-faq summary .pop-plus { transition: transform 250ms ease; }
         .pop-faq[open] summary .pop-plus { transform: rotate(45deg); }
         .pop-faq[open] summary .pop-headline { color: #ba1a1a; }
+        /* Terminal palette — high-contrast classic green-on-black for the log; pure black bg replaces the muddier grey so the output reads sharply. */
+        .term-screen { background: #050505; }
+        .term-text { color: #6CFF7E; }
+        .term-text-dim { color: #3FA84D; }
+        .term-text-error { color: #FF4136; }
+        .term-text-amber { color: #FFB020; }
+        .term-line { opacity: 0; transform: translateY(4px); animation: term-reveal 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: var(--d, 0s); }
+        @keyframes term-reveal { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .feed-line { opacity: 0; transform: translateY(-6px); animation: feed-reveal 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: var(--d, 0s); }
+        @keyframes feed-reveal { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+        .term-caret { display: inline-block; width: 8px; height: 1em; vertical-align: -2px; background: currentColor; margin-left: 2px; animation: term-blink 1.05s steps(2) infinite; }
+        @keyframes term-blink { 50% { opacity: 0; } }
+        .term-glow { text-shadow: 0 0 6px rgba(108, 255, 126, 0.45), 0 0 14px rgba(108, 255, 126, 0.25); }
+        .term-prompt-bar { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #0a0a0a; border-bottom: 2px solid #1c1b1b; }
+        .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .feed-pulse { box-shadow: 0 0 0 0 rgba(108, 255, 126, 0.6); animation: feed-pulse-ring 1.6s ease-out infinite; }
+        @keyframes feed-pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(108, 255, 126, 0.55); }
+            70% { box-shadow: 0 0 0 8px rgba(108, 255, 126, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 255, 126, 0); }
+        }
+        /* Recipe section — pages-style entry on the side panes within each recipe row. */
+        .recipe-pane-l, .recipe-pane-r { opacity: 0; transform-origin: center center; animation-fill-mode: forwards; animation-duration: 0.95s; animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1); animation-delay: var(--d, 0s); }
+        .recipe-pane-l { animation-name: page-flip-l; transform-origin: right center; }
+        .recipe-pane-r { animation-name: page-flip-r; transform-origin: left center; }
+        @keyframes page-flip-l { from { opacity: 0; transform: perspective(1200px) rotateY(18deg) translateX(-30px); } to { opacity: 1; transform: perspective(1200px) rotateY(0) translateX(0); } }
+        @keyframes page-flip-r { from { opacity: 0; transform: perspective(1200px) rotateY(-18deg) translateX(30px); } to { opacity: 1; transform: perspective(1200px) rotateY(0) translateX(0); } }
         @media (prefers-reduced-motion: reduce) {
             .specimen-track { animation: none; }
             .pop-faq summary .pop-plus { transition: none; }
+            .term-line, .feed-line, .term-caret, .feed-pulse, .recipe-pane-l, .recipe-pane-r { animation: none; opacity: 1; transform: none; }
         }
         .roman-rule { background-image: repeating-linear-gradient(90deg, #1c1b1b 0 8px, transparent 8px 14px); height: 4px; }
         .stamp-rotate-1 { transform: rotate(-3deg); }
@@ -307,20 +335,24 @@
 </div>
 </header>
 <main class="flex-grow">
-<!-- Section 1: Hero -->
-<section class="py-24 px-margin-edge max-w-[1440px] mx-auto min-h-[819px] flex items-center justify-center relative overflow-hidden halftone-bg">
-<div class="relative z-10 max-w-4xl w-full">
+<!-- Section 1: Hero — full-bleed so the halftone-bg dot pattern spans the entire viewport edge-to-edge; inner div re-applies the 1440 max-width for the content. -->
+<section class="full-bleed py-24 min-h-[819px] flex items-center justify-center relative overflow-hidden halftone-bg">
+<div class="absolute inset-0 pointer-events-none">
+<svg class="absolute top-10 right-[6%] w-24 h-24 text-outline opacity-50" fill="none" viewbox="0 0 100 100">
+<circle cx="50" cy="50" r="40" stroke="currentColor" stroke-dasharray="4 4" stroke-width="2"></circle>
+<path d="M50 10 L 50 90 M 10 50 L 90 50" stroke="currentColor" stroke-width="2"></path>
+</svg>
+<svg class="absolute bottom-12 left-[5%] w-32 h-32 text-error opacity-20 -rotate-12" fill="none" viewbox="0 0 100 100">
+<circle cx="50" cy="50" r="30" stroke="currentColor" stroke-dasharray="3 6" stroke-width="2"></circle>
+</svg>
+</div>
+<div class="relative z-10 max-w-4xl w-full px-margin-edge mx-auto">
 <!-- Tilted Pop-Out Box -->
 <div class="bg-tertiary-fixed border-4 border-on-surface p-12 -rotate-2 pop-art-shadow transform hover:-rotate-1 transition-transform duration-300">
 <h1 class="font-headline-display text-headline-display text-on-surface uppercase mb-8">
                         TRANSFORM DATA INTO <span class="text-tertiary">DIVINE GOLD</span>
 </h1>
 <div class="flex items-center gap-6 mt-12 relative">
-<!-- Hand-drawn arrow SVG -->
-<svg class="w-16 h-16 text-error absolute -left-20 top-2 rotate-12" fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 50 Q 40 20, 80 50" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4" style="stroke-dasharray: 200; stroke-dashoffset: 0;"></path>
-<path d="M70 40 L 85 50 L 70 65" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
-</svg>
 <button class="bg-surface-bright border-4 border-on-surface px-8 py-4 flex items-center gap-3 btn-skeuo hover:bg-surface-container group">
 <span class="material-symbols-outlined text-[32px] group-hover:text-error transition-colors" data-icon="play_arrow" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
 <span class="font-cta-bold text-cta-bold uppercase tracking-widest">Ignite Process</span>
@@ -328,11 +360,6 @@
 </div>
 </div>
 </div>
-<!-- Decorative Doodles -->
-<svg class="absolute top-10 right-20 w-24 h-24 text-outline opacity-50" fill="none" viewbox="0 0 100 100">
-<circle cx="50" cy="50" r="40" stroke="currentColor" stroke-dasharray="4 4" stroke-width="2"></circle>
-<path d="M50 10 L 50 90 M 10 50 L 90 50" stroke="currentColor" stroke-width="2"></path>
-</svg>
 </section>
 <!-- Section 2: The Mechanism -->
 <section class="py-24 bg-inverse-surface text-inverse-on-surface border-y-8 border-double border-on-surface" id="the-mechanism">
@@ -393,22 +420,106 @@
 </div>
 </div>
 </section>
-<!-- Section 3: The Log -->
+<!-- Section 3: The Log — premium CRT scope with traffic-light bar, line-by-line stagger reveal, glow on the active line, and a blinking caret. -->
 <section class="py-24 px-margin-edge max-w-[1440px] mx-auto" id="the-log">
 <div class="border-4 border-on-surface p-4 bg-surface-container-highest shadow-[8px_8px_0_0_rgba(0,0,0,1)] relative">
 <!-- Hand drawn paper frame effect via rough borders -->
 <div class="absolute -inset-1 border-2 border-on-surface transform rotate-1 opacity-20 pointer-events-none"></div>
 <div class="absolute -inset-2 border border-on-surface transform -rotate-1 opacity-10 pointer-events-none"></div>
-<h3 class="font-metadata-mono text-metadata-mono text-on-surface mb-2 pl-2">OUTPUT LOG // TERMINAL</h3>
-<!-- CRT Screen -->
-<div class="bg-inverse-surface border-4 border-on-surface p-8 h-64 overflow-hidden rounded-lg crt-overlay relative shadow-[inset_0_0_20px_rgba(0,0,0,1)]">
-<div class="font-metadata-mono text-metadata-mono text-tertiary-fixed-dim space-y-2 opacity-90">
-<p>&gt; CALIBRATING AESTHETIC ENGINES...</p>
-<p>&gt; LOADING HISTORICAL ARTIFACTS... [OK]</p>
-<p>&gt; INJECTING POP-ART CHAOS... [OK]</p>
-<p>&gt; TRANSMUTING PIXELS...</p>
-<p class="animate-pulse">&gt; ALCHEMY COMPLETE_</p>
+<div class="flex items-center justify-between mb-2 pl-2">
+<h3 class="font-metadata-mono text-metadata-mono text-on-surface">OUTPUT LOG // TERMINAL</h3>
+<span class="font-metadata-mono text-[10px] uppercase tracking-[0.4em] text-on-surface-variant">SESSION · 04 · STREAMING</span>
 </div>
+<!-- Split-pane CRT scope. LEFT: STDOUT (bottom-up stagger reveal in green-on-black). RIGHT: PIPELINE FEED (top-down stagger). Colors swapped from gold-on-grey (low contrast) to phosphor-green-on-black for max readability. -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-1 bg-on-surface border-4 border-on-surface rounded-lg overflow-hidden">
+<!-- LEFT pane — STDOUT log -->
+<div class="term-screen crt-overlay relative shadow-[inset_0_0_20px_rgba(0,0,0,1)] overflow-hidden">
+<div class="term-prompt-bar">
+<span class="term-dot bg-error border border-on-surface" aria-hidden="true"></span>
+<span class="term-dot bg-tertiary-fixed-dim border border-on-surface" aria-hidden="true"></span>
+<span class="term-dot" style="background:#6CFF7E;border:1px solid #1c1b1b" aria-hidden="true"></span>
+<span class="ml-3 font-metadata-mono text-[10px] uppercase tracking-widest term-text">/folio · transmute --watch</span>
+<span class="ml-auto font-metadata-mono text-[10px] uppercase tracking-widest term-text-dim">stdout</span>
+</div>
+<div class="p-6 md:p-8 h-72 overflow-hidden relative">
+<div class="font-metadata-mono text-metadata-mono space-y-2.5 leading-relaxed">
+<p class="term-line term-text-dim" style="--d: 0.25s">&gt; CALIBRATING AESTHETIC ENGINES...</p>
+<p class="term-line term-text-dim" style="--d: 0.85s">&gt; LOADING HISTORICAL ARTIFACTS... [OK]</p>
+<p class="term-line term-text-dim" style="--d: 1.45s">&gt; INJECTING POP-ART CHAOS... [OK]</p>
+<p class="term-line term-text-dim" style="--d: 2.05s">&gt; TRANSMUTING PIXELS...</p>
+<p class="term-line term-glow term-text font-bold" style="--d: 2.65s">&gt; ALCHEMY COMPLETE_<span class="term-caret term-text" aria-hidden="true"></span></p>
+</div>
+<div class="absolute bottom-3 right-4 flex items-center gap-3 font-metadata-mono text-[10px] uppercase tracking-[0.3em]">
+<span class="inline-flex items-center gap-1.5 term-text">
+<span class="w-1.5 h-1.5 rounded-full feed-pulse" style="background:#6CFF7E"></span>
+LIVE
+</span>
+<span class="term-text-dim">· YIELD 0.41 oz</span>
+</div>
+</div>
+</div>
+<!-- RIGHT pane — PIPELINE FEED, top-down stagger -->
+<div class="term-screen crt-overlay relative shadow-[inset_0_0_20px_rgba(0,0,0,1)] overflow-hidden border-l-2 border-on-surface">
+<div class="term-prompt-bar">
+<span class="term-dot bg-error border border-on-surface feed-pulse" aria-hidden="true"></span>
+<span class="ml-3 font-metadata-mono text-[10px] uppercase tracking-widest term-text-amber">PIPELINE · /var/folio/queue.feed</span>
+<span class="ml-auto font-metadata-mono text-[10px] uppercase tracking-widest term-text-dim">stream</span>
+</div>
+<div class="p-6 md:p-8 h-72 overflow-hidden relative">
+<div class="font-metadata-mono text-[11px] space-y-2 leading-relaxed">
+<div class="feed-line flex items-center gap-3" style="--d: 0.40s">
+<span class="term-text-dim shrink-0">11:42:01</span>
+<span class="term-text font-bold uppercase tracking-wider w-24 shrink-0">CHARGE</span>
+<span class="term-text flex-1 truncate">ARMED</span>
+<span class="shrink-0 px-1.5 py-0.5 border border-current term-text text-[9px] tracking-widest">OK</span>
+</div>
+<div class="feed-line flex items-center gap-3" style="--d: 0.85s">
+<span class="term-text-dim shrink-0">11:42:14</span>
+<span class="term-text-amber font-bold uppercase tracking-wider w-24 shrink-0">MATRIX</span>
+<span class="term-text-amber flex-1 truncate">0.41 oz</span>
+<span class="shrink-0 px-1.5 py-0.5 border border-current term-text-amber text-[9px] tracking-widest">FLOW</span>
+</div>
+<div class="feed-line flex items-center gap-3" style="--d: 1.30s">
+<span class="term-text-dim shrink-0">11:42:27</span>
+<span class="term-text font-bold uppercase tracking-wider w-24 shrink-0">HALFTONE</span>
+<span class="term-text flex-1 truncate">GRADE M</span>
+<span class="shrink-0 px-1.5 py-0.5 border border-current term-text text-[9px] tracking-widest">OK</span>
+</div>
+<div class="feed-line flex items-center gap-3" style="--d: 1.75s">
+<span class="term-text-dim shrink-0">11:42:33</span>
+<span class="term-text-amber font-bold uppercase tracking-wider w-24 shrink-0">INTEGRITY</span>
+<span class="term-text-amber flex-1 truncate">87%</span>
+<span class="shrink-0 px-1.5 py-0.5 border border-current term-text-error text-[9px] tracking-widest">WARN</span>
+</div>
+<div class="feed-line flex items-center gap-3" style="--d: 2.20s">
+<span class="term-text-dim shrink-0">11:42:48</span>
+<span class="term-text font-bold uppercase tracking-wider w-24 shrink-0">CALIBRATE</span>
+<span class="term-text flex-1 truncate">LOCK</span>
+<span class="shrink-0 px-1.5 py-0.5 border border-current term-text text-[9px] tracking-widest">OK</span>
+</div>
+<div class="feed-line flex items-center gap-3" style="--d: 2.65s">
+<span class="term-text-dim shrink-0">11:42:55</span>
+<span class="term-text-amber font-bold uppercase tracking-wider w-24 shrink-0">FRAGMENT</span>
+<span class="term-text-amber flex-1 truncate">QUEUED · 03</span>
+<span class="shrink-0 px-1.5 py-0.5 border border-current term-text-amber text-[9px] tracking-widest">WAIT</span>
+</div>
+<div class="feed-line flex items-center gap-3" style="--d: 3.10s">
+<span class="term-text-dim shrink-0">11:43:02</span>
+<span class="term-text term-glow font-bold uppercase tracking-wider w-24 shrink-0">ALCHEMY</span>
+<span class="term-text term-glow flex-1 truncate">COMPLETE_</span>
+<span class="shrink-0 px-1.5 py-0.5 border border-current term-text text-[9px] tracking-widest">DONE</span>
+</div>
+</div>
+<div class="absolute bottom-3 right-4 flex items-center gap-3 font-metadata-mono text-[10px] uppercase tracking-[0.3em]">
+<span class="term-text-dim">FEED · ↓</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 mt-3 border-t-2 border-on-surface text-center font-metadata-mono text-[10px] uppercase tracking-[0.3em]">
+<div class="border-r-2 border-on-surface py-2 px-2 text-on-surface-variant">CPU · 41% NOMINAL</div>
+<div class="border-r-2 border-on-surface py-2 px-2 text-error">FRAGMENTS · 3 IN-FLIGHT</div>
+<div class="py-2 px-2 text-tertiary">YIELD · 0.41 OZ / RUN</div>
 </div>
 </div>
 </section>
@@ -478,14 +589,14 @@
 <figcaption class="absolute bottom-0 inset-x-0 bg-surface-bright text-on-surface px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Trace · Δ-22 <span class="block font-metadata-mono text-[10px] tracking-widest text-error mt-0.5">CIRCUIT · 41 NODES</span></figcaption>
 </figure>
 <figure class="shrink-0 w-72 h-80 bg-tertiary-container border-4 border-on-surface relative pop-art-shadow stamp-rotate-1 overflow-hidden">
-<img alt="Specimen 03" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop"/>
+<img alt="Specimen 03" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-50"></div>
 <div class="absolute inset-0 bg-gradient-to-tr from-tertiary-fixed/60 via-transparent to-transparent"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-on-surface text-tertiary-fixed-dim px-2 py-0.5">SPEC · 003</span><span class="bg-tertiary text-surface-bright px-2 py-0.5">GOLD</span></div>
 <figcaption class="absolute bottom-0 inset-x-0 bg-tertiary text-surface-bright px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Apothecary 07 <span class="block font-metadata-mono text-[10px] tracking-widest mt-0.5">BRASS · DUSTED</span></figcaption>
 </figure>
 <figure class="shrink-0 w-96 h-80 bg-on-surface border-4 border-on-surface relative pop-art-shadow stamp-rotate-2 overflow-hidden">
-<img alt="Specimen 04" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-80" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1100&q=85&auto=format&fit=crop"/>
+<img alt="Specimen 04" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-80" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1100&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-80"></div>
 <div class="absolute inset-0 bg-gradient-to-b from-transparent via-error/20 to-on-surface/80"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-error text-surface-bright px-2 py-0.5">SPEC · 004</span><span class="bg-tertiary-fixed-dim text-on-surface px-2 py-0.5">FEATURED</span></div>
@@ -499,14 +610,14 @@
 <figcaption class="absolute bottom-0 inset-x-0 bg-on-surface text-surface-bright px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-error">Pillar Run B <span class="block font-metadata-mono text-[10px] tracking-widest text-tertiary-fixed-dim mt-0.5">BRUTALIST · WEST WING</span></figcaption>
 </figure>
 <figure class="shrink-0 w-80 h-80 bg-tertiary-fixed border-4 border-on-surface relative pop-art-shadow stamp-rotate-2 overflow-hidden">
-<img alt="Specimen 06" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"/>
+<img alt="Specimen 06" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1638294621924-be97f5f92413?w=900&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-65"></div>
 <div class="absolute inset-0 bg-gradient-to-bl from-tertiary-fixed-dim/40 via-transparent to-error/20"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-on-surface text-surface-bright px-2 py-0.5">SPEC · 006</span><span class="bg-tertiary text-surface-bright px-2 py-0.5">CORNICE</span></div>
 <figcaption class="absolute bottom-0 inset-x-0 bg-tertiary-container text-on-surface px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Heritage 33 <span class="block font-metadata-mono text-[10px] tracking-widest text-tertiary mt-0.5">DETAIL · GILT</span></figcaption>
 </figure>
 <figure class="shrink-0 w-72 h-80 bg-error border-4 border-on-surface relative pop-art-shadow stamp-rotate-1 overflow-hidden">
-<img alt="Specimen 07" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop"/>
+<img alt="Specimen 07" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1638294621924-be97f5f92413?w=900&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-75"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-surface-bright text-on-surface px-2 py-0.5">SPEC · 007</span><span class="bg-on-surface text-tertiary-fixed-dim px-2 py-0.5">DRAFT</span></div>
 <figcaption class="absolute bottom-0 inset-x-0 bg-surface-bright text-on-surface px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Atelier Light <span class="block font-metadata-mono text-[10px] tracking-widest text-error mt-0.5">PLATE · IX</span></figcaption>
@@ -533,14 +644,14 @@
 <figcaption class="absolute bottom-0 inset-x-0 bg-surface-bright text-on-surface px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Trace · Δ-22 <span class="block font-metadata-mono text-[10px] tracking-widest text-error mt-0.5">CIRCUIT · 41 NODES</span></figcaption>
 </figure>
 <figure aria-hidden="true" class="shrink-0 w-72 h-80 bg-tertiary-container border-4 border-on-surface relative pop-art-shadow stamp-rotate-1 overflow-hidden">
-<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=900&q=85&auto=format&fit=crop"/>
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-50"></div>
 <div class="absolute inset-0 bg-gradient-to-tr from-tertiary-fixed/60 via-transparent to-transparent"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-on-surface text-tertiary-fixed-dim px-2 py-0.5">SPEC · 003</span><span class="bg-tertiary text-surface-bright px-2 py-0.5">GOLD</span></div>
 <figcaption class="absolute bottom-0 inset-x-0 bg-tertiary text-surface-bright px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Apothecary 07 <span class="block font-metadata-mono text-[10px] tracking-widest mt-0.5">BRASS · DUSTED</span></figcaption>
 </figure>
 <figure aria-hidden="true" class="shrink-0 w-96 h-80 bg-on-surface border-4 border-on-surface relative pop-art-shadow stamp-rotate-2 overflow-hidden">
-<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-80" src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=1100&q=85&auto=format&fit=crop"/>
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-80" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1100&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-80"></div>
 <div class="absolute inset-0 bg-gradient-to-b from-transparent via-error/20 to-on-surface/80"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-error text-surface-bright px-2 py-0.5">SPEC · 004</span><span class="bg-tertiary-fixed-dim text-on-surface px-2 py-0.5">FEATURED</span></div>
@@ -554,14 +665,14 @@
 <figcaption class="absolute bottom-0 inset-x-0 bg-on-surface text-surface-bright px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-error">Pillar Run B <span class="block font-metadata-mono text-[10px] tracking-widest text-tertiary-fixed-dim mt-0.5">BRUTALIST · WEST WING</span></figcaption>
 </figure>
 <figure aria-hidden="true" class="shrink-0 w-80 h-80 bg-tertiary-fixed border-4 border-on-surface relative pop-art-shadow stamp-rotate-2 overflow-hidden">
-<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop"/>
+<img alt="" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-65"></div>
 <div class="absolute inset-0 bg-gradient-to-bl from-tertiary-fixed-dim/40 via-transparent to-error/20"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-on-surface text-surface-bright px-2 py-0.5">SPEC · 006</span><span class="bg-tertiary text-surface-bright px-2 py-0.5">CORNICE</span></div>
 <figcaption class="absolute bottom-0 inset-x-0 bg-tertiary-container text-on-surface px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Heritage 33 <span class="block font-metadata-mono text-[10px] tracking-widest text-tertiary mt-0.5">DETAIL · GILT</span></figcaption>
 </figure>
 <figure aria-hidden="true" class="shrink-0 w-72 h-80 bg-error border-4 border-on-surface relative pop-art-shadow stamp-rotate-1 overflow-hidden">
-<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=900&q=85&auto=format&fit=crop"/>
+<img alt="" class="absolute inset-0 w-full h-full object-cover grayscale contrast-150 mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1638294621924-be97f5f92413?w=900&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-75"></div>
 <div class="absolute top-3 left-3 right-3 flex justify-between font-metadata-mono text-[10px] uppercase tracking-widest"><span class="bg-surface-bright text-on-surface px-2 py-0.5">SPEC · 007</span><span class="bg-on-surface text-tertiary-fixed-dim px-2 py-0.5">DRAFT</span></div>
 <figcaption class="absolute bottom-0 inset-x-0 bg-surface-bright text-on-surface px-4 py-3 font-cta-bold text-base uppercase tracking-tight border-t-4 border-on-surface">Atelier Light <span class="block font-metadata-mono text-[10px] tracking-widest text-error mt-0.5">PLATE · IX</span></figcaption>
@@ -587,17 +698,16 @@
 <span class="font-metadata-mono text-metadata-mono text-outline hidden md:block">3 STEPS · 11 MINUTES · IRREVERSIBLE</span>
 </div>
 <div class="flex flex-col gap-20 md:gap-28">
-<!-- Row 1: image-left -->
+<!-- Row 1: image-left — pages-style flip-in: figure flips from outer (left) edge, content from gutter (right). Arrows pointing at images removed per spec. -->
 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-<figure class="md:col-span-7 relative bg-tertiary-fixed border-4 border-on-surface aspect-[4/3] overflow-hidden -rotate-1 pop-art-shadow">
+<figure class="md:col-span-7 relative bg-tertiary-fixed border-4 border-on-surface aspect-[4/3] overflow-hidden -rotate-1 pop-art-shadow recipe-pane-l" style="--d: 0s">
 <img alt="Step 1" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=1400&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-55"></div>
 <div class="absolute inset-0 bg-gradient-to-tr from-error/35 via-transparent to-tertiary-fixed/30"></div>
 <span class="absolute top-6 left-6 bg-on-surface text-surface-bright font-metadata-mono text-[11px] uppercase tracking-[0.3em] px-3 py-1.5">PHASE · I</span>
 <span class="absolute bottom-6 right-6 bg-error text-surface-bright font-cta-bold uppercase tracking-tight px-4 py-2 border-2 border-on-surface">11:42:00</span>
 </figure>
-<div class="md:col-span-5 relative">
-<svg class="hidden md:block absolute -left-16 top-1/2 -translate-y-1/2 w-20 h-20 text-error rotate-180" fill="none" viewbox="0 0 100 100"><path d="M10 50 Q 40 20, 80 50" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="5"/><path d="M70 40 L 85 50 L 70 65" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/></svg>
+<div class="md:col-span-5 relative recipe-pane-r" style="--d: 0.12s">
 <span class="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-error block mb-4">STEP 01</span>
 <h3 class="font-headline-lg text-[44px] leading-[1.05] text-on-surface uppercase mb-4">Charge the matrix.</h3>
 <p class="font-body-md text-body-md text-on-surface-variant mb-6">Drop a raw fragment — a half-formed feed, a typo'd headline, a forgotten draft. The matrix grips it, drops a 41-track halftone, and runs it through the calibration wheel.</p>
@@ -608,10 +718,9 @@
 </ul>
 </div>
 </div>
-<!-- Row 2: content-left, image-right -->
+<!-- Row 2: content-left, image-right — pages-style flip-in: figure (right side) flips from outer right edge, content (left) flips from gutter. -->
 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-<div class="md:col-span-5 md:order-1 order-2 relative">
-<svg class="hidden md:block absolute -right-16 top-1/2 -translate-y-1/2 w-20 h-20 text-tertiary rotate-12" fill="none" viewbox="0 0 100 100"><path d="M10 50 Q 40 20, 80 50" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="5"/><path d="M70 40 L 85 50 L 70 65" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/></svg>
+<div class="md:col-span-5 md:order-1 order-2 relative recipe-pane-l" style="--d: 0.30s">
 <span class="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-tertiary block mb-4">STEP 02</span>
 <h3 class="font-headline-lg text-[44px] leading-[1.05] text-on-surface uppercase mb-4">Crank the <span class="italic">knobs</span>.</h3>
 <p class="font-body-md text-body-md text-on-surface-variant mb-6">Twist Creativity past 8. Logic to 4. Spirit somewhere between mischief and belief. The console screams; the operator sips coffee. The dials lock when you're warm.</p>
@@ -621,7 +730,7 @@
 <div class="border-4 border-on-surface bg-tertiary-fixed p-3 text-center"><span class="font-headline-display text-3xl text-on-surface block">7.7</span><span class="font-metadata-mono text-[10px] uppercase tracking-widest text-on-surface-variant">Spirit</span></div>
 </div>
 </div>
-<figure class="md:col-span-7 md:order-2 order-1 relative bg-error border-4 border-on-surface aspect-[4/3] overflow-hidden rotate-1 pop-art-shadow">
+<figure class="md:col-span-7 md:order-2 order-1 relative bg-error border-4 border-on-surface aspect-[4/3] overflow-hidden rotate-1 pop-art-shadow recipe-pane-r" style="--d: 0.18s">
 <img alt="Step 2" class="absolute inset-0 w-full h-full object-cover grayscale contrast-125 mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-65"></div>
 <div class="absolute inset-0 bg-gradient-to-bl from-tertiary/40 via-transparent to-error/40"></div>
@@ -629,17 +738,17 @@
 <span class="absolute bottom-6 right-6 bg-on-surface text-tertiary-fixed-dim font-cta-bold uppercase tracking-tight px-4 py-2 border-2 border-tertiary-fixed-dim">14:08:00</span>
 </figure>
 </div>
-<!-- Row 3: image-left -->
+<!-- Row 3: image-left — pages-style flip-in. -->
 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-<figure class="md:col-span-7 relative bg-on-surface border-4 border-on-surface aspect-[4/3] overflow-hidden -rotate-1 pop-art-shadow">
-<img alt="Step 3" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1400&q=85&auto=format&fit=crop"/>
+<figure class="md:col-span-7 relative bg-on-surface border-4 border-on-surface aspect-[4/3] overflow-hidden -rotate-1 pop-art-shadow recipe-pane-l" style="--d: 0.36s">
+<img alt="Step 3" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=1400&q=85&auto=format&fit=crop"/>
 <div class="absolute inset-0 halftone-overlay opacity-50"></div>
 <div class="absolute inset-0 bg-gradient-to-t from-on-surface/70 via-transparent to-tertiary-fixed/25"></div>
 <span class="absolute top-6 left-6 bg-tertiary text-surface-bright font-metadata-mono text-[11px] uppercase tracking-[0.3em] px-3 py-1.5">PHASE · III</span>
 <span class="absolute bottom-6 right-6 bg-tertiary-fixed-dim text-on-surface font-cta-bold uppercase tracking-tight px-4 py-2 border-2 border-on-surface">21:00:00</span>
 <div class="absolute bottom-6 left-6 bg-error text-surface-bright font-cta-bold uppercase tracking-tight px-4 py-2 border-2 border-tertiary-fixed-dim animate-pulse">GOLD · LIVE</div>
 </figure>
-<div class="md:col-span-5">
+<div class="md:col-span-5 recipe-pane-r" style="--d: 0.48s">
 <span class="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-error block mb-4">STEP 03</span>
 <h3 class="font-headline-lg text-[44px] leading-[1.05] text-on-surface uppercase mb-4">Pour the <span class="italic text-tertiary">gold</span>.</h3>
 <p class="font-body-md text-body-md text-on-surface-variant mb-6">When the bench hums B-flat the bath is ready. Tip the matrix. Let the warm metal find its mould. Stamp it: <span class="bg-on-surface text-surface-bright px-2 font-metadata-mono">FOLIO · OK</span>. Close the lab.</p>
@@ -655,12 +764,13 @@
 <!-- Section 4.7: Five Laws of Alchemy — numbered doctrine list -->
 <section class="full-bleed py-24 bg-inverse-surface text-inverse-on-surface border-y-8 border-double border-on-surface" id="laws">
 <div class="max-w-[1440px] mx-auto px-margin-edge">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-<aside class="lg:col-span-4">
+<!-- Aside is a flex column so the bench-note figure can be pushed (mt-auto) to the floor of the column, bottoms-aligned with the right column's 5-item ordered list. -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
+<aside class="lg:col-span-4 flex flex-col">
 <span class="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-tertiary-fixed-dim block mb-6">// CODICIL · ROMANUS</span>
 <h2 class="font-headline-display text-[64px] leading-[0.95] uppercase mb-6">Five laws<br/>of <span class="italic text-tertiary-fixed-dim">alchemy.</span></h2>
 <p class="font-body-md text-body-md text-primary-fixed-dim mb-10">Pinned above the kettle since 1954. Bent twice, broken thrice, restated for the new bench. Memorise them or laminate them, but don't ignore them.</p>
-<figure class="border-4 border-tertiary-fixed-dim p-6 bg-on-surface relative">
+<figure class="mt-auto border-4 border-tertiary-fixed-dim p-6 bg-on-surface relative">
 <span class="material-symbols-outlined absolute -top-5 -left-3 text-error text-5xl bg-inverse-surface px-2">format_quote</span>
 <blockquote class="font-headline-lg text-2xl leading-snug italic text-tertiary-fixed-dim">"The matrix takes what it is given. The operator takes the blame."</blockquote>
 <cite class="font-metadata-mono text-[11px] not-italic uppercase tracking-[0.3em] text-primary-fixed-dim block mt-4">— BENCH NOTE 014 · 2024</cite>
@@ -769,6 +879,115 @@ Mutter your own
 </summary>
 <div class="pl-16 mt-4 font-body-md text-body-md text-on-surface-variant">Catastrophically. Once the big red button is hit the matrix consumes the source fragment, the operator's previous lunch, and any unsaved drafts opened on the same network. Print twice. Save once.</div>
 </details>
+</div>
+</div>
+</section>
+
+<!-- Trusted by — pop-art press wall via simpleicons.org. All slugs curl-verified 200. -->
+<section class="full-bleed bg-tertiary-fixed border-y-4 border-on-surface py-20 relative">
+<div class="absolute inset-0 halftone-bg opacity-40 pointer-events-none"></div>
+<div class="relative max-w-[1440px] mx-auto px-margin-edge">
+<div class="text-center mb-12">
+<span class="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-error block mb-3">// VOL. 11 — BENCH NOTES IN PRESS</span>
+<h2 class="font-headline-display text-[56px] leading-[0.95] uppercase">Stamped onto the pages of<br/><span class="italic text-tertiary">titles that print on Mondays.</span></h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+<article class="bg-surface-bright border-4 border-on-surface p-5 pop-art-shadow flex flex-col items-center text-center transform hover:-translate-y-1 hover:rotate-1 transition-transform">
+<img src="https://cdn.simpleicons.org/theguardian/1c1b1b" alt="Guardian logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8 mb-3"/>
+<span class="font-headline-lg text-lg uppercase tracking-tight text-on-surface block">Guardian</span>
+<span class="font-metadata-mono text-[10px] tracking-widest uppercase text-on-surface-variant mt-1">Q3 · 25</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-5 pop-art-shadow flex flex-col items-center text-center transform hover:-translate-y-1 hover:rotate-1 transition-transform">
+<img src="https://cdn.simpleicons.org/telegraph/1c1b1b" alt="Telegraph logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8 mb-3"/>
+<span class="font-headline-lg text-lg uppercase tracking-tight text-on-surface block">Telegraph</span>
+<span class="font-metadata-mono text-[10px] tracking-widest uppercase text-on-surface-variant mt-1">Q4 · 25</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-5 pop-art-shadow flex flex-col items-center text-center transform hover:-translate-y-1 hover:rotate-1 transition-transform">
+<img src="https://cdn.simpleicons.org/substack/1c1b1b" alt="Substack logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8 mb-3"/>
+<span class="font-headline-lg text-lg uppercase tracking-tight text-on-surface block">Substack</span>
+<span class="font-metadata-mono text-[10px] tracking-widest uppercase text-on-surface-variant mt-1">Q1 · 26</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-5 pop-art-shadow flex flex-col items-center text-center transform hover:-translate-y-1 hover:rotate-1 transition-transform">
+<img src="https://cdn.simpleicons.org/medium/1c1b1b" alt="Medium logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8 mb-3"/>
+<span class="font-headline-lg text-lg uppercase tracking-tight text-on-surface block">Medium</span>
+<span class="font-metadata-mono text-[10px] tracking-widest uppercase text-on-surface-variant mt-1">Q1 · 26</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-5 pop-art-shadow flex flex-col items-center text-center transform hover:-translate-y-1 hover:rotate-1 transition-transform">
+<img src="https://cdn.simpleicons.org/behance/1c1b1b" alt="Behance logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8 mb-3"/>
+<span class="font-headline-lg text-lg uppercase tracking-tight text-on-surface block">Behance</span>
+<span class="font-metadata-mono text-[10px] tracking-widest uppercase text-on-surface-variant mt-1">Q2 · 26</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-5 pop-art-shadow flex flex-col items-center text-center transform hover:-translate-y-1 hover:rotate-1 transition-transform">
+<img src="https://cdn.simpleicons.org/dribbble/1c1b1b" alt="Dribbble logo" width="32" height="32" loading="lazy" decoding="async" class="w-8 h-8 mb-3"/>
+<span class="font-headline-lg text-lg uppercase tracking-tight text-on-surface block">Dribbble</span>
+<span class="font-metadata-mono text-[10px] tracking-widest uppercase text-on-surface-variant mt-1">Q2 · 26</span>
+</article>
+</div>
+<p class="text-center mt-12 font-metadata-mono text-[11px] uppercase tracking-[0.4em] text-on-surface-variant">+ 14 mentions in trade press · syndication via the wire · cuttings on file</p>
+</div>
+</section>
+
+<!-- Premium — four-card lab-stand specs, inline material symbols + halftone accents -->
+<section class="full-bleed py-24 bg-surface-container-low border-b-4 border-on-surface">
+<div class="max-w-[1440px] mx-auto px-margin-edge">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 border-b-2 border-on-surface pb-6">
+<div class="max-w-2xl">
+<span class="font-metadata-mono text-metadata-mono uppercase tracking-[0.4em] text-error block mb-3">// LAB SPECS · IV</span>
+<h2 class="font-headline-display text-headline-display text-on-surface uppercase leading-[0.95]">What ships with<br/><span class="italic text-tertiary">every folio.</span></h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md md:text-right">Four standing inclusions, packed in the same wax-paper sleeve since 1954. The dust on the seals is the warranty.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<article class="bg-surface-bright border-4 border-on-surface p-6 pop-art-shadow relative flex flex-col">
+<div class="flex items-start justify-between mb-5">
+<div class="bg-on-surface text-tertiary-fixed-dim w-14 h-14 flex items-center justify-center border-2 border-on-surface">
+<span class="material-symbols-outlined text-3xl" aria-hidden="true">science</span>
+</div>
+<span class="font-headline-display text-3xl text-error tabular-nums leading-none">I</span>
+</div>
+<h3 class="font-headline-lg text-xl text-on-surface uppercase mb-2 leading-tight">Calibration sheet.</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed flex-1">A four-quadrant chart, halftone-printed, signed by whichever apprentice closed the bench. Replaces the warranty card; costs nothing to ignore.</p>
+<span class="mt-5 self-start font-metadata-mono text-[10px] uppercase tracking-[0.3em] bg-error text-surface-bright px-2 py-1 border-2 border-on-surface">DOC · 12 PP</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-6 pop-art-shadow relative flex flex-col">
+<div class="flex items-start justify-between mb-5">
+<div class="bg-on-surface text-tertiary-fixed-dim w-14 h-14 flex items-center justify-center border-2 border-on-surface">
+<span class="material-symbols-outlined text-3xl" aria-hidden="true">approval</span>
+</div>
+<span class="font-headline-display text-3xl text-error tabular-nums leading-none">II</span>
+</div>
+<h3 class="font-headline-lg text-xl text-on-surface uppercase mb-2 leading-tight">Lead-foil stamp.</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed flex-1">Numbered to the folio. Press it on the back cover; press it again on the apprentice's notebook. Stamps run dry at 400 impressions.</p>
+<span class="mt-5 self-start font-metadata-mono text-[10px] uppercase tracking-[0.3em] bg-on-surface text-tertiary-fixed-dim px-2 py-1 border-2 border-on-surface">FOLIO · 001-400</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-6 pop-art-shadow relative flex flex-col">
+<div class="flex items-start justify-between mb-5">
+<div class="bg-on-surface text-tertiary-fixed-dim w-14 h-14 flex items-center justify-center border-2 border-on-surface">
+<span class="material-symbols-outlined text-3xl" aria-hidden="true">settings_input_component</span>
+</div>
+<span class="font-headline-display text-3xl text-error tabular-nums leading-none">III</span>
+</div>
+<h3 class="font-headline-lg text-xl text-on-surface uppercase mb-2 leading-tight">Bench-knob set.</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed flex-1">Three brass knobs in a velvet-lined wallet. Re-zero before every transmutation; the knobs remember even when you don't.</p>
+<span class="mt-5 self-start font-metadata-mono text-[10px] uppercase tracking-[0.3em] bg-tertiary text-surface-bright px-2 py-1 border-2 border-on-surface">BRASS · TRIO</span>
+</article>
+<article class="bg-surface-bright border-4 border-on-surface p-6 pop-art-shadow relative flex flex-col">
+<div class="flex items-start justify-between mb-5">
+<div class="bg-on-surface text-tertiary-fixed-dim w-14 h-14 flex items-center justify-center border-2 border-on-surface">
+<span class="material-symbols-outlined text-3xl" aria-hidden="true">auto_stories</span>
+</div>
+<span class="font-headline-display text-3xl text-error tabular-nums leading-none">IV</span>
+</div>
+<h3 class="font-headline-lg text-xl text-on-surface uppercase mb-2 leading-tight">Wax-sealed log.</h3>
+<p class="font-body-md text-sm text-on-surface-variant leading-relaxed flex-1">A leather-bound notebook with the year's first 41 pages tinted halftone-yellow. Open it when the matrix hums; close it when it stops.</p>
+<span class="mt-5 self-start font-metadata-mono text-[10px] uppercase tracking-[0.3em] bg-tertiary-fixed-dim text-on-surface px-2 py-1 border-2 border-on-surface">LOG · 240 PP</span>
+</article>
+</div>
+<div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px border-4 border-on-surface bg-on-surface">
+<div class="bg-surface-bright p-5 text-center"><span class="font-headline-display text-3xl md:text-4xl text-error tabular-nums block">1954</span><span class="font-metadata-mono text-[10px] uppercase tracking-[0.3em] text-on-surface-variant">First press</span></div>
+<div class="bg-surface-bright p-5 text-center"><span class="font-headline-display text-3xl md:text-4xl text-error tabular-nums block">240</span><span class="font-metadata-mono text-[10px] uppercase tracking-[0.3em] text-on-surface-variant">Folios per yr</span></div>
+<div class="bg-surface-bright p-5 text-center"><span class="font-headline-display text-3xl md:text-4xl text-error tabular-nums block">0.41</span><span class="font-metadata-mono text-[10px] uppercase tracking-[0.3em] text-on-surface-variant">Oz · yield</span></div>
+<div class="bg-surface-bright p-5 text-center"><span class="font-headline-display text-3xl md:text-4xl text-error tabular-nums block">41</span><span class="font-metadata-mono text-[10px] uppercase tracking-[0.3em] text-on-surface-variant">Halftone tracks</span></div>
 </div>
 </div>
 </section>

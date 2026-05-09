@@ -180,8 +180,45 @@
             box-shadow: 0 0 0 1px rgba(45,212,191,0.45), 0 20px 60px -20px rgba(45,212,191,0.35);
         }
 
+        /* Live-now terminal pane animations */
+        @keyframes clear-term-reveal {
+            from { opacity: 0; transform: translateY(4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .clear-term-line {
+            opacity: 0;
+            animation: clear-term-reveal 0.5s cubic-bezier(0.2,0.8,0.2,1) forwards;
+            animation-delay: var(--d, 0s);
+        }
+        @keyframes clear-term-blink { 50% { opacity: 0; } }
+        .clear-term-caret {
+            display: inline-block;
+            width: 8px; height: 1em;
+            background: currentColor;
+            vertical-align: middle;
+            animation: clear-term-blink 1.05s steps(2) infinite;
+        }
+        @keyframes clear-bar-fill {
+            0% { width: 0%; }
+            60% { width: 76%; }
+            100% { width: 76%; }
+        }
+        .clear-bar-fill {
+            width: 0%;
+            animation: clear-bar-fill 2.5s cubic-bezier(0.2,0.8,0.2,1) 0.4s forwards;
+        }
+        @keyframes clear-pulse-ring {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(45,212,191,0.45); }
+            50%      { box-shadow: 0 0 0 6px rgba(45,212,191,0); }
+        }
+        .clear-pulse { animation: clear-pulse-ring 2s ease-out infinite; }
+
         @media (prefers-reduced-motion: reduce) {
             .clear-marquee-track { animation: none; }
+            .clear-term-line { animation: none; opacity: 1; transform: none; }
+            .clear-term-caret { animation: none; }
+            .clear-bar-fill { animation: none; width: 76%; }
+            .clear-pulse { animation: none; }
         }
     </style>
 </head>
@@ -269,15 +306,6 @@
                     </button>
                 </div>
 
-                <!-- Social Proof -->
-                <div class="pt-8 border-t border-white/10 mt-8">
-                    <p class="text-xs text-slate-400 uppercase tracking-widest mb-4">Trusted by modern teams</p>
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                        <div class="flex items-center gap-2"><i data-lucide="triangle" class="fill-current"></i> <span class="font-bold">Vercel</span></div>
-                        <div class="flex items-center gap-2"><i data-lucide="box" class="fill-current"></i> <span class="font-bold">Stripe</span></div>
-                        <div class="flex items-center gap-2"><i data-lucide="hexagon" class="fill-current"></i> <span class="font-bold">Acme</span></div>
-                    </div>
-                </div>
             </div>
 
             <!-- Hero 3D Card -->
@@ -342,6 +370,83 @@
                 <div class="space-y-1">
                     <div class="text-3xl sm:text-4xl font-extrabold text-white">0.01s</div>
                     <div class="text-sm text-slate-400">Transaction Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted-by Section -->
+    <section id="trusted" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="flex items-center justify-center gap-4 mb-6">
+                    <span class="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-white/30"></span>
+                    <span class="text-[10px] sm:text-xs font-bold uppercase tracking-[0.3em] text-teal-300">— Trusted across borders —</span>
+                    <span class="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-white/30"></span>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-extrabold font-sans text-white mb-4">Banks the way the world does business.</h3>
+                <p class="text-slate-300 text-base md:text-lg">Built on the same rails as Stripe, Wise, and Mastercard — the infrastructure your money is already moving on.</p>
+            </div>
+            <div class="glass-high-contrast rounded-3xl border border-white/15 p-8 md:p-12 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
+                <ul class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-10 items-center justify-items-center">
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/stripe/f8fafc" alt="Stripe" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Payments</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/mastercard/f8fafc" alt="Mastercard" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Network</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/visa/f8fafc" alt="Visa" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Network</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/americanexpress/f8fafc" alt="American Express" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Network</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/monzo/f8fafc" alt="Monzo" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">UK · Bank</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/wise/f8fafc" alt="Wise" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">FX Rails</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/revolut/f8fafc" alt="Revolut" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">EU · Bank</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/n26/f8fafc" alt="N26" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">EU · Bank</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/coinbase/f8fafc" alt="Coinbase" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Crypto Rail</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/barclays/f8fafc" alt="Barclays" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">UK · Custody</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/hsbc/f8fafc" alt="HSBC" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">APAC · Custody</span>
+                    </li>
+                    <li class="group flex flex-col items-center gap-2">
+                        <img src="https://cdn.simpleicons.org/goldmansachs/f8fafc" alt="Goldman Sachs" class="h-7 w-auto opacity-70 group-hover:opacity-100 transition-opacity duration-300" loading="lazy" />
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">US · Custody</span>
+                    </li>
+                </ul>
+                <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+                    <span class="uppercase tracking-widest">+ 28 partner banks across 47 jurisdictions</span>
+                    <span class="flex items-center gap-2 uppercase tracking-widest">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                        </span>
+                        Live since MMXIX
+                    </span>
                 </div>
             </div>
         </div>
@@ -493,6 +598,207 @@
         </div>
     </section>
 
+    <!-- Live-now (animated) Section -->
+    <section id="live" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <h2 class="text-sm font-bold text-teal-400 uppercase tracking-widest mb-2">— Live now</h2>
+                <h3 class="text-3xl md:text-4xl font-bold font-sans text-white mb-4">Watch the ledger breathe.</h3>
+                <p class="text-slate-300 text-base md:text-lg">Three tickers, one feed. Each line below appeared somewhere in the network in the last sixty seconds.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- LEFT: 3 stat cards -->
+                <div class="lg:col-span-5 flex flex-col gap-5">
+                    <!-- Big card -->
+                    <div class="glass-high-contrast rounded-3xl border border-white/15 p-6 md:p-7 relative overflow-hidden">
+                        <div class="absolute -top-12 -right-12 w-40 h-40 bg-teal-500/15 rounded-full blur-[60px] pointer-events-none"></div>
+                        <div class="flex items-start justify-between gap-3 mb-5">
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400">Volume · last 60s</span>
+                            <span class="px-2 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-[10px] font-bold uppercase tracking-widest">▲ live</span>
+                        </div>
+                        <div class="font-mono text-4xl md:text-5xl text-white tabular-nums leading-none mb-4">$ 1,281,902</div>
+                        <div class="flex items-center gap-2 text-xs text-slate-400">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-60 clear-pulse"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-teal-500"></span>
+                            </span>
+                            <span class="uppercase tracking-widest">Across 47 jurisdictions</span>
+                        </div>
+                    </div>
+
+                    <!-- 2-col bottom -->
+                    <div class="grid grid-cols-2 gap-5">
+                        <!-- Latency -->
+                        <div class="glass rounded-3xl border border-white/15 p-5 flex flex-col">
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-2">Latency p99</span>
+                            <span class="font-mono text-3xl text-white tabular-nums leading-none mb-4">38<span class="text-base text-slate-400 ml-1">ms</span></span>
+                            <div class="mt-auto h-1.5 rounded-full bg-white/10 overflow-hidden">
+                                <div class="h-full rounded-full clear-bar-fill bg-gradient-to-r from-teal-400 via-blue-400 to-purple-400"></div>
+                            </div>
+                        </div>
+                        <!-- Regions -->
+                        <div class="glass rounded-3xl border border-white/15 p-5 flex flex-col">
+                            <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400 mb-2">Regions live</span>
+                            <span class="font-mono text-3xl text-white tabular-nums leading-none mb-4">28<span class="text-base text-slate-400">/28</span></span>
+                            <div class="mt-auto grid grid-cols-7 gap-1.5">
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-90"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-70"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-100"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-60"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-90"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-80"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-100"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-70"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-90"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-60"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-80"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-100"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-70"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-90"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-100"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-80"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-60"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-90"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-100"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-70"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-80"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-90"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-60"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-100"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-80"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-90"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-70"></span>
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 opacity-100"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: terminal feed -->
+                <div class="lg:col-span-7">
+                    <div class="glass-high-contrast rounded-3xl border border-white/15 overflow-hidden shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
+                        <!-- Window chrome -->
+                        <div class="flex items-center gap-3 px-5 py-3 border-b border-white/10 bg-white/[0.03]">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-rose-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/80"></span>
+                            </div>
+                            <span class="font-mono text-xs text-slate-400 truncate">/ledger · ws → live</span>
+                            <span class="ml-auto font-mono text-[10px] text-slate-500 uppercase tracking-widest hidden sm:inline">UTF-8 · LN 124</span>
+                        </div>
+                        <!-- Feed -->
+                        <ol class="font-mono text-xs sm:text-sm p-5 sm:p-6 space-y-2 leading-relaxed">
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 0s;">
+                                <span class="text-slate-500 tabular-nums">14:02:11</span>
+                                <span class="text-emerald-400">▲</span>
+                                <span class="text-white tabular-nums">$ 4,210.00</span>
+                                <span class="text-slate-400">salary · acme · NYC → SF</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.02s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 0.3s;">
+                                <span class="text-slate-500 tabular-nums">14:02:12</span>
+                                <span class="text-rose-400">▼</span>
+                                <span class="text-white tabular-nums">€ 84.20</span>
+                                <span class="text-slate-400">caffè nero · london</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.04s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 0.6s;">
+                                <span class="text-slate-500 tabular-nums">14:02:14</span>
+                                <span class="text-emerald-400">▲</span>
+                                <span class="text-white tabular-nums">¥ 250,000</span>
+                                <span class="text-slate-400">FX lock · USD → JPY · 60min</span>
+                                <span class="ml-auto text-blue-300 text-[10px] uppercase tracking-widest">[FLOW]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 0.9s;">
+                                <span class="text-slate-500 tabular-nums">14:02:15</span>
+                                <span class="text-rose-400">▼</span>
+                                <span class="text-white tabular-nums">$ 18.80</span>
+                                <span class="text-slate-400">uber · berlin · split 2 ways</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.03s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 1.2s;">
+                                <span class="text-slate-500 tabular-nums">14:02:18</span>
+                                <span class="text-emerald-400">▲</span>
+                                <span class="text-white tabular-nums">£ 1,200.00</span>
+                                <span class="text-slate-400">rent · standing order · cleared</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.06s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 1.5s;">
+                                <span class="text-slate-500 tabular-nums">14:02:21</span>
+                                <span class="text-rose-400">▼</span>
+                                <span class="text-white tabular-nums">S$ 32.40</span>
+                                <span class="text-slate-400">grab · singapore · evening</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.02s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 1.8s;">
+                                <span class="text-slate-500 tabular-nums">14:02:23</span>
+                                <span class="text-amber-400">●</span>
+                                <span class="text-white tabular-nums">$ 89.99</span>
+                                <span class="text-slate-400">photoshelter · annual · review?</span>
+                                <span class="ml-auto text-amber-300 text-[10px] uppercase tracking-widest">[WARN]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 2.1s;">
+                                <span class="text-slate-500 tabular-nums">14:02:25</span>
+                                <span class="text-emerald-400">▲</span>
+                                <span class="text-white tabular-nums">CA$ 540.00</span>
+                                <span class="text-slate-400">freelance · invoice 0214</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.05s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 2.4s;">
+                                <span class="text-slate-500 tabular-nums">14:02:28</span>
+                                <span class="text-rose-400">▼</span>
+                                <span class="text-white tabular-nums">A$ 12.50</span>
+                                <span class="text-slate-400">flat white · sydney · cbd</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.03s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 2.7s;">
+                                <span class="text-slate-500 tabular-nums">14:02:30</span>
+                                <span class="text-emerald-400">▲</span>
+                                <span class="text-white tabular-nums">$ 2,000.00</span>
+                                <span class="text-slate-400">vault · USD → SGD · executed</span>
+                                <span class="ml-auto text-blue-300 text-[10px] uppercase tracking-widest">[FLOW]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 3.0s;">
+                                <span class="text-slate-500 tabular-nums">14:02:33</span>
+                                <span class="text-rose-400">▼</span>
+                                <span class="text-white tabular-nums">€ 9.80</span>
+                                <span class="text-slate-400">metro · paris · navigo</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.02s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 3.3s;">
+                                <span class="text-slate-500 tabular-nums">14:02:35</span>
+                                <span class="text-emerald-400">▲</span>
+                                <span class="text-white tabular-nums">$ 75.00</span>
+                                <span class="text-slate-400">refund · airline · processed</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.04s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 3.6s;">
+                                <span class="text-slate-500 tabular-nums">14:02:38</span>
+                                <span class="text-rose-400">▼</span>
+                                <span class="text-white tabular-nums">¥ 1,820</span>
+                                <span class="text-slate-400">ramen · shibuya · 22:11 jst</span>
+                                <span class="ml-auto text-emerald-300 text-[10px] uppercase tracking-widest">[OK · 0.03s]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3 flex-wrap" style="--d: 3.9s;">
+                                <span class="text-slate-500 tabular-nums">14:02:40</span>
+                                <span class="text-emerald-400">▲</span>
+                                <span class="text-white tabular-nums">$ 312.04</span>
+                                <span class="text-slate-400">interest · uninvested · 1.4%</span>
+                                <span class="ml-auto text-blue-300 text-[10px] uppercase tracking-widest">[FLOW]</span>
+                            </li>
+                            <li class="clear-term-line flex items-center gap-3" style="--d: 4.2s;">
+                                <span class="text-slate-500 tabular-nums">14:02:41</span>
+                                <span class="text-teal-300">→ READY</span>
+                                <span class="text-teal-300 clear-term-caret"></span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials -->
     <section id="testimonials" class="py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -503,7 +809,7 @@
                     <div class="text-teal-400 text-6xl absolute top-4 left-6 opacity-20 font-serif">"</div>
                     <p class="text-slate-300 relative z-10 mb-6 italic">"I've never seen a banking app this beautiful and fast. The glass card always gets compliments when I pay."</p>
                     <div class="flex items-center gap-4">
-                        <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="User" class="w-10 h-10 rounded-full border border-white/20">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=160&amp;q=80&amp;auto=format&amp;fit=crop" alt="Portrait of Sarah Jenkins" class="w-10 h-10 rounded-full border border-white/20">
                         <div>
                             <div class="font-bold text-sm">Sarah Jenkins</div>
                             <div class="text-xs text-slate-500">Freelance Designer</div>
@@ -515,7 +821,7 @@
                     <div class="text-teal-400 text-6xl absolute top-4 left-6 opacity-20 font-serif">"</div>
                     <p class="text-slate-300 relative z-10 mb-6 italic">"The transparency is real. I finally understand my fee structure and the international rates are unbeatable."</p>
                     <div class="flex items-center gap-4">
-                        <img src="https://i.pravatar.cc/150?u=a04258a2462d826712d" alt="User" class="w-10 h-10 rounded-full border border-white/20">
+                        <img src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=160&amp;q=80&amp;auto=format&amp;fit=crop" alt="Portrait of Michael Chen" class="w-10 h-10 rounded-full border border-white/20">
                         <div>
                             <div class="font-bold text-sm">Michael Chen</div>
                             <div class="text-xs text-slate-500">Digital Nomad</div>
@@ -527,7 +833,7 @@
                     <div class="text-teal-400 text-6xl absolute top-4 left-6 opacity-20 font-serif">"</div>
                     <p class="text-slate-300 relative z-10 mb-6 italic">"ClearBank has completely replaced my traditional bank. The analytics tools saved me so much money last year."</p>
                     <div class="flex items-center gap-4">
-                        <img src="https://i.pravatar.cc/150?u=2042581f4e29026704d" alt="User" class="w-10 h-10 rounded-full border border-white/20">
+                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=160&amp;q=80&amp;auto=format&amp;fit=crop" alt="Portrait of Elena Rodriguez" class="w-10 h-10 rounded-full border border-white/20">
                         <div>
                             <div class="font-bold text-sm">Elena Rodriguez</div>
                             <div class="text-xs text-slate-500">Small Business Owner</div>
@@ -563,7 +869,7 @@
             <div class="clear-marquee-track px-6 sm:px-12">
                 <figure class="shrink-0 w-72 group">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Tokyo at night" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Tokyo skyline" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
                             <span class="text-2xl">🇯🇵</span>
@@ -581,7 +887,7 @@
                 </figure>
                 <figure class="shrink-0 w-72 group">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="London skyline" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="London skyline" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
                             <span class="text-2xl">🇬🇧</span>
@@ -599,7 +905,7 @@
                 </figure>
                 <figure class="shrink-0 w-72 group">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Berlin architecture" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Frankfurt skyline" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
                             <span class="text-2xl">🇪🇺</span>
@@ -617,7 +923,7 @@
                 </figure>
                 <figure class="shrink-0 w-72 group">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="New York at night" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="NYC skyline" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
                             <span class="text-2xl">🇺🇸</span>
@@ -635,7 +941,7 @@
                 </figure>
                 <figure class="shrink-0 w-72 group">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Singapore harbour" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Singapore harbour" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
                             <span class="text-2xl">🇸🇬</span>
@@ -653,7 +959,7 @@
                 </figure>
                 <figure class="shrink-0 w-72 group">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Architecture detail Sydney" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Sydney skyline" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
                             <span class="text-2xl">🇦🇺</span>
@@ -671,7 +977,7 @@
                 </figure>
                 <figure class="shrink-0 w-72 group">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Toronto street" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="Toronto skyline" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
                             <span class="text-2xl">🇨🇦</span>
@@ -690,7 +996,7 @@
                 <!-- Duplicate set -->
                 <figure class="shrink-0 w-72" aria-hidden="true">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇯🇵</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.21%</span></div>
                         <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Tokyo · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / JPY</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">154.32</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
@@ -698,7 +1004,7 @@
                 </figure>
                 <figure class="shrink-0 w-72" aria-hidden="true">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇬🇧</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-rose-300 border border-rose-400/30">▼ 0.08%</span></div>
                         <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">London · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / GBP</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">0.7892</span><span class="text-[10px] uppercase tracking-widest text-rose-300">24h</span></div></div>
@@ -706,7 +1012,7 @@
                 </figure>
                 <figure class="shrink-0 w-72" aria-hidden="true">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇪🇺</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.14%</span></div>
                         <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Frankfurt · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / EUR</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">0.9214</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
@@ -714,7 +1020,7 @@
                 </figure>
                 <figure class="shrink-0 w-72" aria-hidden="true">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1481349518771-20055b2a7b24?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇺🇸</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-slate-300 border border-white/20">— FLAT</span></div>
                         <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">NYC · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD · BASE</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.0000</span><span class="text-[10px] uppercase tracking-widest text-slate-300">REF</span></div></div>
@@ -722,7 +1028,7 @@
                 </figure>
                 <figure class="shrink-0 w-72" aria-hidden="true">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇸🇬</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.32%</span></div>
                         <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Singapore · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / SGD</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.3521</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
@@ -730,7 +1036,7 @@
                 </figure>
                 <figure class="shrink-0 w-72" aria-hidden="true">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇦🇺</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-rose-300 border border-rose-400/30">▼ 0.18%</span></div>
                         <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Sydney · Closed</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / AUD</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.5189</span><span class="text-[10px] uppercase tracking-widest text-rose-300">24h</span></div></div>
@@ -738,7 +1044,7 @@
                 </figure>
                 <figure class="shrink-0 w-72" aria-hidden="true">
                     <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/15 bg-white/5">
-                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
+                        <img class="absolute inset-0 w-full h-full object-cover opacity-80" src="https://images.unsplash.com/photo-1517090504586-fde19ea6066f?q=80&amp;w=900&amp;auto=format&amp;fit=crop" alt="" loading="lazy" />
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a]/95 via-[#0f172a]/40 to-transparent"></div>
                         <div class="absolute top-4 left-4 right-4 flex items-center justify-between"><span class="text-2xl">🇨🇦</span><span class="px-2 py-1 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-emerald-300 border border-emerald-400/30">▲ 0.05%</span></div>
                         <div class="absolute bottom-4 left-4 right-4 flex flex-col gap-2"><span class="text-xs uppercase tracking-widest text-white/70">Toronto · Open</span><span class="font-sans font-bold text-white text-2xl tracking-tight">USD / CAD</span><div class="px-3 py-2 rounded-xl glass-high-contrast flex items-baseline justify-between border border-white/20"><span class="font-mono text-white text-lg tabular-nums">1.3712</span><span class="text-[10px] uppercase tracking-widest text-emerald-300">24h</span></div></div>
@@ -983,6 +1289,69 @@
                 </div>
             </div>
             <p class="text-xs text-slate-500 text-center mt-8">Prices in USD. EU/UK pricing local-equivalent — exact figures inside the app.</p>
+        </div>
+    </section>
+
+    <!-- Section: By Invitation (premium pillars) -->
+    <section id="premium" class="py-24 relative">
+        <div class="absolute inset-x-0 top-1/3 -translate-y-1/2 mx-auto w-[60%] h-72 bg-gradient-to-r from-amber-300/10 via-amber-400/15 to-amber-300/10 blur-[100px] pointer-events-none -z-0"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-300/30 bg-gradient-to-r from-amber-300/15 to-amber-200/5 text-amber-200 text-[10px] font-bold uppercase tracking-[0.3em] mb-6">— By Invitation</span>
+                <h3 class="text-4xl md:text-5xl font-extrabold font-sans text-white mb-5 leading-[1.1]">For people whose money has people of its own.</h3>
+                <p class="text-slate-300 text-base md:text-lg max-w-2xl mx-auto">A quiet tier inside Premium. Four pillars built on the same glass; reserved for the 2% of accounts whose ledger needs a name on the door.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 items-stretch">
+                <!-- 1: Concierge -->
+                <div class="glass-high-contrast rounded-3xl border border-amber-300/20 p-6 md:p-7 flex flex-col group hover:border-amber-300/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden relative">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-300/20 to-amber-500/10 border border-amber-300/30 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                        <i data-lucide="phone-call" class="w-6 h-6 text-amber-200"></i>
+                    </div>
+                    <h4 class="font-sans font-bold text-white text-xl mb-3">Concierge · 24/7</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">A real human, on a real number, in 90 seconds. Speak about money the way you'd speak about a flight.</p>
+                    <div class="mt-auto pt-5 border-t border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-amber-200/70">
+                        <span>Geneva · Singapore</span>
+                        <span>↗</span>
+                    </div>
+                </div>
+                <!-- 2: Glass Vault -->
+                <div class="glass-high-contrast rounded-3xl border border-amber-300/20 p-6 md:p-7 flex flex-col group hover:border-amber-300/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden relative">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-300/20 to-amber-500/10 border border-amber-300/30 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                        <i data-lucide="lock" class="w-6 h-6 text-amber-200"></i>
+                    </div>
+                    <h4 class="font-sans font-bold text-white text-xl mb-3">Glass Vault</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">Up to $5M segregated, FDIC-insured per pool, with same-day access. The kind of vault that doesn't echo.</p>
+                    <div class="mt-auto pt-5 border-t border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-amber-200/70">
+                        <span>3 banking partners</span>
+                        <span>↗</span>
+                    </div>
+                </div>
+                <!-- 3: Black Glass Card -->
+                <div class="glass-high-contrast rounded-3xl border border-amber-300/20 p-6 md:p-7 flex flex-col group hover:border-amber-300/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden relative">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-300/20 to-amber-500/10 border border-amber-300/30 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                        <i data-lucide="gem" class="w-6 h-6 text-amber-200"></i>
+                    </div>
+                    <h4 class="font-sans font-bold text-white text-xl mb-3">Black Glass Card</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">Stainless steel, edge-lit, 28 g. Ships engraved within 72 hours. The chip is recessed flush.</p>
+                    <div class="mt-auto pt-5 border-t border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-amber-200/70">
+                        <span>Twice-yearly replacement</span>
+                        <span>↗</span>
+                    </div>
+                </div>
+                <!-- 4: Estate Suite -->
+                <div class="glass-high-contrast rounded-3xl border border-amber-300/20 p-6 md:p-7 flex flex-col group hover:border-amber-300/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden relative">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-300/20 to-amber-500/10 border border-amber-300/30 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                        <i data-lucide="landmark" class="w-6 h-6 text-amber-200"></i>
+                    </div>
+                    <h4 class="font-sans font-bold text-white text-xl mb-3">Estate Suite</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">Beneficiary routing, trust handoff, and tax-export rails. Pre-wired for the conversation you've been avoiding.</p>
+                    <div class="mt-auto pt-5 border-t border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-amber-200/70">
+                        <span>Counsel on call</span>
+                        <span>↗</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 text-center mt-10 uppercase tracking-widest">Available on Premium · invitation extended after first quarter on the platform</p>
         </div>
     </section>
 

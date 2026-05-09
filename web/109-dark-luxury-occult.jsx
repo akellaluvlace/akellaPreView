@@ -7,11 +7,11 @@ export default function T109DarkLuxuryOccult() {
     { roman: "IV", icon: "graphic_eq", title: "Resonance", body: "Attuning the interface to the soul of the one who meets it. The final, invisible binding.", phase: "04", offset: "md:translate-y-12" },
   ];
   const atelier = [
-    { span: "lg:col-span-7", aspect: "aspect-[4/3]", img: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1400&q=85&auto=format&fit=crop", chip: "PLATE · I", title: "Brass & Bone, c. 1730", body: "The apothecary's apparatus, kept in its first arrangement.", roman: "I" },
-    { span: "lg:col-span-5", aspect: "aspect-[4/3]", stretch: true, img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1100&q=85&auto=format&fit=crop", chip: "PLATE · II", title: "The Reading Vault", body: "Floor 2 · By appointment · Dusk only", roman: "II" },
-    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=900&q=85&auto=format&fit=crop", chip: "PLATE · III", title: "Antechamber", body: "Stone · Brass · Hush", roman: "III" },
+    { span: "lg:col-span-7", aspect: "aspect-[4/3]", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=1400&q=85&auto=format&fit=crop", chip: "PLATE · I", title: "Brass & Bone, c. 1730", body: "The apothecary's apparatus, kept in its first arrangement.", roman: "I" },
+    { span: "lg:col-span-5", aspect: "aspect-[4/3]", stretch: true, img: "https://images.unsplash.com/photo-1530538987395-032d1800fdd4?w=1100&q=85&auto=format&fit=crop", chip: "PLATE · II", title: "The Reading Vault", body: "Floor 2 · By appointment · Dusk only", roman: "II" },
+    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", chip: "PLATE · III", title: "Antechamber", body: "Stone · Brass · Hush", roman: "III" },
     { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", chip: "PLATE · IV", title: "The West Stair", body: "Heritage facade · MMXXIV", roman: "IV" },
-    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", chip: "PLATE · V", title: "Cathedral, North", body: "Light · Stone · Time", roman: "V" },
+    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1604147495798-57beb5d6af73?w=900&q=85&auto=format&fit=crop", chip: "PLATE · V", title: "Cathedral, North", body: "Light · Stone · Time", roman: "V" },
   ];
 
   const manifesto = [
@@ -29,7 +29,7 @@ export default function T109DarkLuxuryOccult() {
       body: "A whole identity for a private members' library — bookplate, letterhead, and a digital reading room cast in candlelight.",
       offset: "",
       alt: "The Obsidian Vault",
-      src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1000&q=85&auto=format&fit=crop",
+      src: "https://images.unsplash.com/photo-1576613109753-27804de2cba8?w=1000&q=85&auto=format&fit=crop",
     },
     {
       num: "II", year: "MMXXV", tags: "PACKAGING · ART DIRECTION",
@@ -37,7 +37,7 @@ export default function T109DarkLuxuryOccult() {
       body: "Apothecary brand for a small batch of distilled tinctures — labels embossed, drawn from a 1730 herbarium.",
       offset: "md:translate-y-16",
       alt: "Brass & Bone",
-      src: "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1000&q=85&auto=format&fit=crop",
+      src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=1000&q=85&auto=format&fit=crop",
     },
     {
       num: "III", year: "MMXXV", tags: "SPATIAL · DIGITAL",
@@ -45,17 +45,30 @@ export default function T109DarkLuxuryOccult() {
       body: "A nocturnal hotel concept — wayfinding, ambient sound, and a reservation ritual that begins at dusk.",
       offset: "",
       alt: "Hour of the Wolf",
-      src: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=85&auto=format&fit=crop",
+      src: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=1000&q=85&auto=format&fit=crop",
     },
   ];
+  const trustedBy = [
+    { slug: "medium", name: "Medium", caption: "MEDIUM" },
+    { slug: "telegraph", name: "Telegraph", caption: "TELEGRAPH" },
+    { slug: "theguardian", name: "The Guardian", caption: "GUARDIAN" },
+    { slug: "substack", name: "Substack", caption: "SUBSTACK" },
+    { slug: "hermes", name: "Hermès", caption: "HERMÈS" },
+    { slug: "behance", name: "Behance", caption: "BEHANCE" },
+    { slug: "vimeo", name: "Vimeo", caption: "VIMEO" },
+    { slug: "wetransfer", name: "WeTransfer", caption: "WETRANSFER" },
+  ];
+
+  const doctrines = [
+    { roman: "I", icon: "lock", title: "Discretion", body: "We keep no public client list. No name appears in this archive without an invitation we drafted, signed, and sealed in wax. The houses we serve do not need our advertisement, and we, in turn, do not need theirs.", chip: "ADOPTED MMXIV · NO REVISIONS", featured: false },
+    { roman: "II", icon: "verified", title: "Provenance", body: "Every piece is hand-signed at completion and entered, by hand, into the studio ledger. Each entry carries the maker, the hour, and the room in which it was finished. The ledger remains, and the work is traceable to its first breath.", chip: "ADOPTED MMXVI · NO REVISIONS", featured: false },
+    { roman: "III", icon: "auto_awesome", title: "Patience", body: "We work in long windows, never in short ones. A commission begun in autumn is delivered in spring, and a commission begun in spring waits for the next autumn. Haste makes a different object — usually a worse one — and we have no quarrel with the seasons.", chip: "ADOPTED MMXVII · NO REVISIONS", featured: true },
+    { roman: "IV", icon: "nightlight", title: "Quietude", body: "The studio runs on candle and lamp from dusk to first light. No music in the rooms where finishing is done; no voices above a whisper near the press. Quiet is the medium we work in — louder than any tool, and the only one we cannot replace.", chip: "ADOPTED MMXIX · NO REVISIONS", featured: false },
+  ];
+
   const footerLinks = ["Journal", "Privacy", "Archive", "Terms"];
   const customCss = `
     .noise-bg { position: relative; }
-    .noise-bg::before {
-      content: ""; position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      opacity: 0.03; pointer-events: none; z-index: 10;
-    }
     .clay-card {
       background: rgba(42, 42, 42, 0.4);
       backdrop-filter: blur(40px);
@@ -124,6 +137,7 @@ export default function T109DarkLuxuryOccult() {
       `}} />
       <style dangerouslySetInnerHTML={{ __html: customCss }} />
       <div className="dark bg-background text-on-background min-h-screen noise-bg overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none z-10 opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }} />
         <nav className="fixed top-0 w-full z-50 bg-zinc-950/40 backdrop-blur-[40px] border-b border-[#D4AF37]/20 shadow-[inset_0_1px_1px_rgba(212,175,55,0.1)] transition-all duration-500">
           <div className="flex justify-between items-center px-16 py-8 w-full max-w-screen-2xl mx-auto">
             <div className="text-xl tracking-[0.3em] font-bold text-[#D4AF37] uppercase font-headline-md">Design Alchemy</div>
@@ -158,6 +172,39 @@ export default function T109DarkLuxuryOccult() {
             </button>
           </div>
         </section>
+        {/* Section I.b — Trusted By (press & trade) */}
+        <section className="relative px-margin-page py-section-gap overflow-hidden border-t border-primary-container/10">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary-container/[0.03] rounded-full blur-[140px] z-0 pointer-events-none"></div>
+          <div className="max-w-screen-2xl mx-auto relative z-10">
+            <div className="text-center mb-14 max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <span className="w-10 h-px bg-primary-container/40"></span>
+                <span className="font-label-caps text-label-caps text-primary-container tracking-[0.5em]">— QUOTED IN / STOCKED AT —</span>
+                <span className="w-10 h-px bg-primary-container/40"></span>
+              </div>
+              <h2 className="text-cinzel text-[28px] sm:text-[36px] md:text-[44px] lg:text-headline-xl text-on-surface mb-6 uppercase tracking-[0.2em]">
+                Spoken of in the<br /><span className="italic text-playfair lowercase tracking-normal text-primary-container normal-case">right rooms</span>
+              </h2>
+              <div className="w-px h-12 bg-primary-container/50 mx-auto mb-6"></div>
+              <p className="font-body-lg text-on-surface-variant max-w-xl mx-auto opacity-80">
+                A discreet press footprint, kept by editors and trade houses who prefer not to shout.
+              </p>
+            </div>
+            <div className="bg-surface-container-low/60 backdrop-blur-sm border border-primary-container/30 rounded-sm p-10 md:p-14">
+              <ul className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-10 items-center justify-items-center">
+                {trustedBy.map((b) => (
+                  <li key={b.slug} className="flex flex-col items-center gap-3">
+                    <img src={`https://cdn.simpleicons.org/${b.slug}/c5a059`} alt={b.name} className="h-8 w-auto opacity-70 hover:opacity-100 transition" />
+                    <span className="font-label-caps text-[9px] tracking-[0.3em] text-primary-container/40 uppercase">{b.caption}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-10 text-center">
+              <span className="font-label-caps text-label-caps text-primary-container/50 tracking-[0.4em] italic text-playfair">— + 14 partner houses · 8 cities · MMXIV — present —</span>
+            </div>
+          </div>
+        </section>
         <section className="relative px-margin-page py-section-gap overflow-hidden">
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-primary-container/[0.04] rounded-full blur-[160px] z-0 pointer-events-none" />
           <div className="max-w-screen-2xl mx-auto relative z-10">
@@ -167,7 +214,7 @@ export default function T109DarkLuxuryOccult() {
                 <span className="font-label-caps text-label-caps text-primary-container tracking-[0.5em]">II / THE LABORATORY</span>
                 <span className="w-10 h-px bg-primary-container/40" />
               </div>
-              <h2 className="text-cinzel text-headline-xl text-on-surface mb-8 uppercase tracking-[0.2em]">
+              <h2 className="text-cinzel text-[28px] sm:text-[36px] md:text-[44px] lg:text-headline-xl text-on-surface mb-8 uppercase tracking-[0.2em]">
                 Disciplines of the<br /><span className="italic text-playfair lowercase tracking-normal text-primary-container normal-case">craft</span>
               </h2>
               <div className="w-px h-16 bg-primary-container/50 mx-auto mb-8" />
@@ -200,7 +247,7 @@ export default function T109DarkLuxuryOccult() {
                   <span className="w-10 h-px bg-primary-container/40" />
                   <span className="font-label-caps text-label-caps text-primary-container tracking-[0.5em]">III / THE ARCHIVE</span>
                 </div>
-                <h2 className="text-cinzel text-headline-xl text-on-surface uppercase tracking-[0.2em] mb-4">
+                <h2 className="text-cinzel text-[28px] sm:text-[36px] md:text-[44px] lg:text-headline-xl text-on-surface uppercase tracking-[0.2em] mb-4">
                   Recent<br /><span className="italic text-playfair lowercase tracking-normal text-primary-container normal-case">transmutations</span>
                 </h2>
                 <p className="font-body-lg text-on-surface-variant opacity-80 max-w-md mt-4">
@@ -251,7 +298,7 @@ export default function T109DarkLuxuryOccult() {
                 <span className="font-label-caps text-label-caps text-primary-container tracking-[0.5em]">IV / THE ATELIER</span>
                 <span className="w-10 h-px bg-primary-container/40" />
               </div>
-              <h2 className="text-cinzel text-headline-xl text-on-surface mb-8 uppercase tracking-[0.2em]">
+              <h2 className="text-cinzel text-[28px] sm:text-[36px] md:text-[44px] lg:text-headline-xl text-on-surface mb-8 uppercase tracking-[0.2em]">
                 Plates from the<br /><span className="italic text-playfair lowercase tracking-normal text-primary-container normal-case">vault</span>
               </h2>
               <div className="w-px h-16 bg-primary-container/50 mx-auto mb-8"></div>
@@ -288,6 +335,50 @@ export default function T109DarkLuxuryOccult() {
           </div>
         </section>
 
+        {/* Section IV.b — The Four Doctrines (premium 2x2 vows) */}
+        <section className="relative bg-surface-container-lowest border-y border-primary-container/30 py-20 md:py-28 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary-container/[0.04] rounded-full blur-[160px] z-0 pointer-events-none"></div>
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-secondary/[0.03] rounded-full blur-[140px] z-0 pointer-events-none"></div>
+          <div className="max-w-screen-2xl mx-auto px-margin-page relative z-10">
+            <div className="text-center mb-14 md:mb-16 max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-4 mb-8">
+                <span className="w-10 h-px bg-primary-container/40"></span>
+                <span className="font-label-caps text-label-caps text-primary-container tracking-[0.5em]">V / DOCTRINE</span>
+                <span className="w-10 h-px bg-primary-container/40"></span>
+              </div>
+              <h2 className="text-cinzel text-[28px] sm:text-[36px] md:text-[44px] lg:text-headline-xl text-on-surface mb-6 uppercase tracking-[0.2em]">
+                Four vows held<br /><span className="italic text-playfair lowercase tracking-normal text-primary-container normal-case">by the</span> house
+              </h2>
+              <div className="w-px h-12 bg-primary-container/50 mx-auto mb-6"></div>
+              <p className="text-playfair text-lg md:text-xl italic text-on-surface-variant max-w-xl mx-auto opacity-90">
+                Carried in the front of every contract, kept by every hand that signs.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+              {doctrines.map((d) => (
+                <div key={d.roman} className={`p-8 md:p-10 bg-background/60 backdrop-blur-sm border border-primary-container/20 rounded-sm flex flex-col gap-4 group hover:border-primary-container/50 hover:-translate-y-1 transition-all duration-300 relative ${d.featured ? "ring-1 ring-primary-container/40 ring-offset-2 ring-offset-surface-container-lowest" : ""}`}>
+                  {d.featured && (
+                    <div className="absolute -top-3 right-4 font-label-caps text-[9px] text-primary-container bg-surface-container-lowest border border-primary-container/40 px-3 py-1 tracking-[0.3em] rounded-sm">OBSERVED</div>
+                  )}
+                  <div className="flex items-start justify-between mb-2">
+                    <span className="text-cinzel text-3xl text-primary-container italic leading-none">{d.roman}</span>
+                    <span className="material-symbols-outlined text-2xl text-primary-container/70" style={{ fontVariationSettings: "'FILL' 0, 'wght' 200" }}>{d.icon}</span>
+                  </div>
+                  <h3 className="text-cinzel text-2xl text-on-surface uppercase tracking-[0.15em] italic">{d.title}</h3>
+                  <p className="font-body-md text-on-surface-variant opacity-85 leading-relaxed">{d.body}</p>
+                  <div className="mt-auto pt-4 flex items-center gap-3">
+                    <span className="w-10 h-px bg-primary-container/40"></span>
+                    <span className="font-label-caps text-label-caps text-primary-container/50 tracking-[0.3em]">{d.chip}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-14 text-center">
+              <span className="font-label-caps text-label-caps text-primary-container/50 tracking-[0.5em]">— FOUR VOWS · UNCHANGED · UNREVISED —</span>
+            </div>
+          </div>
+        </section>
+
         {/* Section V — The Manifesto (content tenets), full-bleed slight shade */}
         <section className="relative w-full overflow-hidden py-section-gap border-t border-primary-container/10" style={{ backgroundColor: "#1a1310" }}>
           <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-secondary/[0.04] rounded-full blur-[160px] z-0 pointer-events-none"></div>
@@ -302,7 +393,7 @@ export default function T109DarkLuxuryOccult() {
                   <span className="w-10 h-px bg-primary-container/40"></span>
                   <span className="font-label-caps text-label-caps text-primary-container tracking-[0.5em]">V / THE MANIFESTO</span>
                 </div>
-                <h2 className="text-cinzel text-headline-xl text-on-surface mb-6 uppercase tracking-[0.2em] leading-tight">
+                <h2 className="text-cinzel text-[28px] sm:text-[36px] md:text-[44px] lg:text-headline-xl text-on-surface mb-6 uppercase tracking-[0.2em] leading-tight">
                   Five articles<br/><span className="italic text-playfair lowercase tracking-normal text-primary-container normal-case">of the</span> craft
                 </h2>
                 <p className="font-playfair text-xl md:text-2xl italic text-primary-container/90 leading-snug mb-6">— A small ledger, written by the lamp.</p>
@@ -313,7 +404,7 @@ export default function T109DarkLuxuryOccult() {
                 {/* Editorial plate image */}
                 <figure className="group relative overflow-hidden rounded-lg border border-primary-container/20 bg-surface-container mb-10">
                   <div className="aspect-[16/10] relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1100&q=85&auto=format&fit=crop" alt="Lamp & Pen" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out" />
+                    <img src="https://images.unsplash.com/photo-1499744937866-d7e566a20a61?w=1100&q=85&auto=format&fit=crop" alt="Lamp & Pen" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/15 to-transparent"></div>
                     <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 90% 60% at 50% 50%, transparent 40%, rgba(19,19,19,0.5) 100%)" }}></div>
                     <div className="absolute top-5 left-5 font-label-caps text-label-caps text-primary-container bg-background/60 backdrop-blur-sm border border-primary-container/30 px-3 py-1.5 tracking-[0.3em]">PLATE · 06</div>

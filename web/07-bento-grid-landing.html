@@ -418,6 +418,141 @@
         </article>
     </section>
 
+    <!-- Trusted-by row — real brand logos -->
+    <section class="mx-auto w-full max-w-6xl py-6" aria-label="Trusted by leading teams">
+        <p class="text-center font-label-caps uppercase tracking-[0.25em] text-on-surface-variant text-[11px] mb-7">Trusted by teams at</p>
+        <ul role="list" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-8 gap-y-7 items-center justify-items-center bg-surface-container-lowest border border-surface-container-highest rounded-2xl px-6 py-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/stripe" alt="Stripe" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Stripe</span></li>
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/shopify" alt="Shopify" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Shopify</span></li>
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/vercel" alt="Vercel" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Vercel</span></li>
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/cloudflare" alt="Cloudflare" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Cloudflare</span></li>
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/datadog" alt="Datadog" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Datadog</span></li>
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/supabase" alt="Supabase" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Supabase</span></li>
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/airbnb" alt="Airbnb" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Airbnb</span></li>
+            <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/spotify" alt="Spotify" class="h-8 w-auto" loading="lazy" decoding="async" width="32" height="32"/><span class="font-label-caps text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Spotify</span></li>
+        </ul>
+    </section>
+
+    <!-- Mockup feature section A — image LEFT, content RIGHT -->
+    <section class="mx-auto w-full max-w-6xl" aria-labelledby="feat-a-heading">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div class="md:col-span-7 relative">
+                <div class="relative rounded-2xl overflow-hidden border border-surface-container-highest bg-white shadow-[0_24px_60px_-20px_rgba(79,55,138,0.25)]">
+                    <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" alt="Triage dashboard mockup on a dual-monitor workstation" class="w-full aspect-[16/10] object-cover" loading="lazy" decoding="async" width="1400" height="875"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/30 via-transparent to-transparent pointer-events-none"></div>
+                    <div class="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-white/95 backdrop-blur px-3 py-1 shadow-sm">
+                        <span class="relative flex h-2 w-2">
+                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                        </span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">Live · 1,284 events / hr</span>
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 hidden md:block w-44 rounded-xl border border-surface-container-highest bg-white p-3 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.18)]">
+                        <p class="font-label-caps text-[10px] uppercase tracking-wider text-primary">Median TTFR</p>
+                        <p class="font-display-xl text-on-background tabular-nums leading-none mt-1">82s</p>
+                        <p class="text-[10px] text-on-surface-variant mt-1">−63% vs. legacy stack</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-span-5 flex flex-col gap-5">
+                <span class="font-label-caps uppercase tracking-[0.2em] text-primary">// Feature · 01 / Triage</span>
+                <h2 id="feat-a-heading" class="font-headline-lg text-on-background text-balance">A triage queue that thinks two threads ahead.</h2>
+                <p class="text-on-surface-variant text-body-lg leading-relaxed">Every Slack ping, email, and Linear update lands in one priority queue, sorted by impact — never by recency. The team's first reply is informed before anyone has to read the room.</p>
+                <ul class="flex flex-col gap-3 text-body-md text-on-surface-variant">
+                    <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary text-lg mt-0.5" aria-hidden="true">bolt</span><span><strong class="text-on-background">90s median first-touch</strong> across three channels — measured, not promised.</span></li>
+                    <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary text-lg mt-0.5" aria-hidden="true">filter_alt</span><span><strong class="text-on-background">Auto-collapse</strong> chatty threads behind a single decision card.</span></li>
+                    <li class="flex items-start gap-3"><span class="material-symbols-outlined text-primary text-lg mt-0.5" aria-hidden="true">replay</span><span><strong class="text-on-background">One keystroke undo</strong> — every triage decision is reversible for 30 days.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mockup feature section B — image RIGHT, content LEFT -->
+    <section class="mx-auto w-full max-w-6xl" aria-labelledby="feat-b-heading">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
+            <div class="md:col-span-5 flex flex-col gap-5 md:order-1 order-2">
+                <span class="font-label-caps uppercase tracking-[0.2em]" style="color: #765b00;">// Feature · 02 / Command</span>
+                <h2 id="feat-b-heading" class="font-headline-lg text-on-background text-balance">The command bar your fingers already know.</h2>
+                <p class="text-on-surface-variant text-body-lg leading-relaxed">Cmd+K is the new Cmd+T. Search across every connected tool, draft replies with cited context, file an issue, schedule a follow-up — all without breaking your typing rhythm.</p>
+                <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div class="rounded-xl border border-surface-container-highest bg-surface-container-lowest p-4">
+                        <p class="font-display-xl tabular-nums leading-none" style="color: #765b00;">2,400+</p>
+                        <p class="text-xs text-on-surface-variant mt-2 uppercase tracking-widest font-semibold">Hotkey actions</p>
+                    </div>
+                    <div class="rounded-xl border border-surface-container-highest bg-surface-container-lowest p-4">
+                        <p class="font-display-xl tabular-nums leading-none" style="color: #765b00;">0 ms</p>
+                        <p class="text-xs text-on-surface-variant mt-2 uppercase tracking-widest font-semibold">Network on open</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-span-7 relative md:order-2 order-1">
+                <div class="relative rounded-2xl overflow-hidden border border-surface-container-highest bg-white shadow-[0_24px_60px_-20px_rgba(118,91,0,0.18)]">
+                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" alt="Hands typing on a laptop keyboard close-up" class="w-full aspect-[16/10] object-cover" loading="lazy" decoding="async" width="1400" height="875"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 via-transparent to-transparent pointer-events-none"></div>
+                    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[78%] max-w-md rounded-2xl border border-white/40 bg-white/95 backdrop-blur-md shadow-[0_24px_60px_-12px_rgba(0,0,0,0.35)] p-4">
+                        <div class="flex items-center gap-3 px-2 py-2 border-b border-surface-container-highest">
+                            <span class="material-symbols-outlined text-outline text-base" aria-hidden="true">search</span>
+                            <span class="text-on-surface-variant text-body-md flex-1">Reply to Sarah · auth flow PR</span>
+                            <span class="flex gap-1"><kbd class="rounded bg-surface-container px-1.5 text-[10px]">⌘</kbd><kbd class="rounded bg-surface-container px-1.5 text-[10px]">K</kbd></span>
+                        </div>
+                        <ul class="flex flex-col py-2 text-sm">
+                            <li class="flex items-center gap-3 px-2 py-1.5 rounded bg-primary-container/10"><span class="material-symbols-outlined text-primary text-base">reply</span><span class="text-on-background">Draft reply with PR context…</span></li>
+                            <li class="flex items-center gap-3 px-2 py-1.5"><span class="material-symbols-outlined text-outline text-base">add_task</span><span class="text-on-surface-variant">Create Linear issue ORB-…</span></li>
+                            <li class="flex items-center gap-3 px-2 py-1.5"><span class="material-symbols-outlined text-outline text-base">schedule</span><span class="text-on-surface-variant">Snooze 2 hours</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2x2 Premium pillars — image-bg quadrants -->
+    <section class="mx-auto w-full max-w-6xl" aria-label="Premium platform">
+        <div class="text-center mb-10 max-w-2xl mx-auto">
+            <span class="font-label-caps uppercase tracking-[0.2em] text-primary mb-3 block">// Premium platform</span>
+            <h2 class="font-headline-lg text-on-background text-balance">Built for teams that don't get a second take.</h2>
+            <p class="text-on-surface-variant text-body-lg mt-3">Four guarantees that make Orbit the inbox of record — not a copy.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <article class="relative group overflow-hidden rounded-2xl border border-surface-container-highest aspect-[4/3] bg-on-background">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Top-down team workspace with multiple laptops and notes" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(14,10,31,0.30) 0%, rgba(14,10,31,0.55) 50%, rgba(14,10,31,0.92) 100%);"></div>
+                <div class="absolute top-4 right-4 rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1 font-label-caps text-[10px] uppercase tracking-[0.2em] text-white">Q.01</div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <h3 class="font-headline-md text-white tracking-tight leading-tight mb-2">Audit-grade trail</h3>
+                    <p class="text-white/85 text-body-md leading-relaxed max-w-md text-pretty">Every keystroke, route, and reply lands in a tamper-evident log — exportable for SOC-2 and ISO 27001 review without an extra screen.</p>
+                </div>
+            </article>
+            <article class="relative group overflow-hidden rounded-2xl border border-surface-container-highest aspect-[4/3] bg-on-background">
+                <img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Data-centre tunnel of golden lights" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(14,10,31,0.30) 0%, rgba(14,10,31,0.55) 50%, rgba(14,10,31,0.92) 100%);"></div>
+                <div class="absolute top-4 right-4 rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1 font-label-caps text-[10px] uppercase tracking-[0.2em] text-white">Q.02</div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <h3 class="font-headline-md text-white tracking-tight leading-tight mb-2">Zero-flake routing</h3>
+                    <p class="text-white/85 text-body-md leading-relaxed max-w-md text-pretty">Adaptive priority queues catch the message before the noise. Median first-touch under 90 seconds — even at 10k DAU.</p>
+                </div>
+            </article>
+            <article class="relative group overflow-hidden rounded-2xl border border-surface-container-highest aspect-[4/3] bg-on-background">
+                <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Code editor close-up with syntax-highlighted source" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(14,10,31,0.30) 0%, rgba(14,10,31,0.55) 50%, rgba(14,10,31,0.92) 100%);"></div>
+                <div class="absolute top-4 right-4 rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1 font-label-caps text-[10px] uppercase tracking-[0.2em] text-white">Q.03</div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <h3 class="font-headline-md text-white tracking-tight leading-tight mb-2">Native to the keyboard</h3>
+                    <p class="text-white/85 text-body-md leading-relaxed max-w-md text-pretty">Cmd+K opens every action — search, draft, file, schedule, deflect. The mouse becomes optional, then forgotten.</p>
+                </div>
+            </article>
+            <article class="relative group overflow-hidden rounded-2xl border border-surface-container-highest aspect-[4/3] bg-on-background">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Analytics dashboard with charts on screen" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(14,10,31,0.30) 0%, rgba(14,10,31,0.55) 50%, rgba(14,10,31,0.92) 100%);"></div>
+                <div class="absolute top-4 right-4 rounded-full border border-white/25 bg-white/10 backdrop-blur px-3 py-1 font-label-caps text-[10px] uppercase tracking-[0.2em] text-white">Q.04</div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <h3 class="font-headline-md text-white tracking-tight leading-tight mb-2">Dashboards that decide</h3>
+                    <p class="text-white/85 text-body-md leading-relaxed max-w-md text-pretty">Live triage, throughput, and saturation panels — built into the inbox, not bolted on. Decision-grade, never decorative.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
     <!-- Integrations Marquee — soft lavender wash, full-bleed -->
     <section class="full-bleed px-4 sm:px-6 md:px-12 py-12 md:py-16 overflow-hidden" aria-label="Integrations" style="background: linear-gradient(180deg, transparent 0%, #f5eefb 25%, #efe5f7 75%, transparent 100%);">
         <div class="max-w-6xl mx-auto mb-8 flex items-end justify-between gap-6">
@@ -430,31 +565,31 @@
         <div class="relative">
             <div class="marquee-x py-2">
                 <!-- SET 1 -->
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #4A154B, #ECB22E);">S</span><span class="font-medium text-on-background">Slack</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #5E6AD2, #8A9BFF);">L</span><span class="font-medium text-on-background">Linear</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #EA4335, #FBBC04);">G</span><span class="font-medium text-on-background">Gmail</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #000000, #2D2D2D);">N</span><span class="font-medium text-on-background">Notion</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #181717, #4078C0);">Gh</span><span class="font-medium text-on-background">GitHub</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #F24E1E, #A259FF);">F</span><span class="font-medium text-on-background">Figma</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #F06A6A, #E84A82);">A</span><span class="font-medium text-on-background">Asana</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #5865F2, #404EED);">D</span><span class="font-medium text-on-background">Discord</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #2D8CFF, #4A9EFF);">Z</span><span class="font-medium text-on-background">Zoom</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #036C70, #1A9BA1);">T</span><span class="font-medium text-on-background">Teams</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #0079BF, #51A1F5);">Tr</span><span class="font-medium text-on-background">Trello</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #FC636B, #FF9D6E);">In</span><span class="font-medium text-on-background">Intercom</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/slack" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Slack</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/linear" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Linear</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/gmail" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Gmail</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/notion" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Notion</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/github" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">GitHub</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/figma" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Figma</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/asana" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Asana</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/discord" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Discord</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/zoom" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Zoom</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/microsoftteams" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Teams</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/trello" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Trello</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/intercom" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Intercom</span></span>
                 <!-- SET 2 (clone) -->
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #4A154B, #ECB22E);">S</span><span class="font-medium text-on-background">Slack</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #5E6AD2, #8A9BFF);">L</span><span class="font-medium text-on-background">Linear</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #EA4335, #FBBC04);">G</span><span class="font-medium text-on-background">Gmail</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #000000, #2D2D2D);">N</span><span class="font-medium text-on-background">Notion</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #181717, #4078C0);">Gh</span><span class="font-medium text-on-background">GitHub</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #F24E1E, #A259FF);">F</span><span class="font-medium text-on-background">Figma</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #F06A6A, #E84A82);">A</span><span class="font-medium text-on-background">Asana</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #5865F2, #404EED);">D</span><span class="font-medium text-on-background">Discord</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #2D8CFF, #4A9EFF);">Z</span><span class="font-medium text-on-background">Zoom</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #036C70, #1A9BA1);">T</span><span class="font-medium text-on-background">Teams</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #0079BF, #51A1F5);">Tr</span><span class="font-medium text-on-background">Trello</span></span>
-                <span class="integration-pill"><span class="ipill-mark" style="background: linear-gradient(135deg, #FC636B, #FF9D6E);">In</span><span class="font-medium text-on-background">Intercom</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/slack" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Slack</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/linear" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Linear</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/gmail" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Gmail</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/notion" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Notion</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/github" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">GitHub</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/figma" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Figma</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/asana" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Asana</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/discord" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Discord</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/zoom" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Zoom</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/microsoftteams" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Teams</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/trello" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Trello</span></span>
+                <span class="integration-pill"><img src="https://cdn.simpleicons.org/intercom" alt="" aria-hidden="true" class="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20"/><span class="font-medium text-on-background">Intercom</span></span>
             </div>
         </div>
     </section>

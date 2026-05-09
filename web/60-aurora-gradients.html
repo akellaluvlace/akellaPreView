@@ -279,16 +279,19 @@
                 </button>
             </div>
 
-            <!-- Social Proof: Wraps nicely on mobile -->
+            <!-- Social Proof: Real brand logos via Simple Icons CDN, monochromed for the dark backdrop -->
             <div class="mt-16 md:mt-24 w-full px-4">
                 <p class="text-xs text-slate-500 uppercase tracking-widest mb-6 font-semibold">Trusted by mindful teams at</p>
-                <div class="flex flex-wrap justify-center gap-x-8 gap-y-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                    <!-- Simple SVGs or Icons for Logos -->
-                    <div class="flex items-center gap-2"><i data-lucide="hexagon" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Acme</span></div>
-                    <div class="flex items-center gap-2"><i data-lucide="triangle" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Vertex</span></div>
-                    <div class="flex items-center gap-2"><i data-lucide="circle" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Sphere</span></div>
-                    <div class="flex items-center gap-2"><i data-lucide="box" class="w-5 h-5"></i><span class="font-display font-bold text-lg">Cube</span></div>
-                </div>
+                <ul role="list" class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-x-8 gap-y-6 items-center justify-items-center max-w-4xl mx-auto opacity-80">
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/headspace/cbd5e1" alt="Headspace" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Headspace</span></li>
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/strava/cbd5e1" alt="Strava" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Strava</span></li>
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/nike/cbd5e1" alt="Nike" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Nike</span></li>
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/spotify/cbd5e1" alt="Spotify" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Spotify</span></li>
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/applemusic/cbd5e1" alt="Apple Music" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Apple</span></li>
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/garmin/cbd5e1" alt="Garmin" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Garmin</span></li>
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/fitbit/cbd5e1" alt="Fitbit" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Fitbit</span></li>
+                    <li class="flex flex-col items-center gap-1.5"><img src="https://cdn.simpleicons.org/peloton/cbd5e1" alt="Peloton" class="h-6 w-auto" loading="lazy" decoding="async" width="24" height="24"/><span class="text-[9px] font-mono uppercase tracking-[0.18em] text-slate-500">Peloton</span></li>
+                </ul>
             </div>
         </section>
 
@@ -534,6 +537,185 @@
             </div>
         </section>
 
+        <!-- ATLAS — 2x2 Premium photo quadrants with state-tagged content overlays -->
+        <section id="atlas" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-28">
+            <div class="text-center mb-12 md:mb-16 max-w-2xl mx-auto">
+                <span class="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">Soundscape · Atlas</span>
+                <h2 class="font-display text-3xl md:text-5xl font-bold mt-3 mb-4">Four states, <span class="text-gradient">mapped to place</span>.</h2>
+                <p class="text-slate-400 text-sm md:text-base">Every track in the library traces back to a real horizon. Field-recorded, then tuned with neuroscientists.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+                <article class="relative group overflow-hidden rounded-3xl border border-white/10 aspect-[4/3] bg-deep">
+                    <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Yoga pose on a mist-wrapped mountain ridge" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.20) 0%, rgba(15,23,42,0.55) 55%, rgba(15,23,42,0.95) 100%);"></div>
+                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-300/30 bg-emerald-400/10 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-emerald-200">Calm · 02</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                        <h3 class="font-display text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight mb-2">Sumatra Ridge · 04:42</h3>
+                        <p class="text-slate-200/85 text-sm md:text-base leading-relaxed max-w-md">Pre-dawn mountain air, recorded at 1,840m. Pulled into a 6Hz theta envelope for resting-attention recovery.</p>
+                        <div class="flex items-center gap-3 mt-4 text-[10px] uppercase tracking-widest text-slate-300/80 font-mono">
+                            <span>96 kHz · lossless</span><span class="w-1 h-1 rounded-full bg-slate-500"></span><span>Field · Mar 2024</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="relative group overflow-hidden rounded-3xl border border-white/10 aspect-[4/3] bg-deep">
+                    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Ocean wave at twilight, close-up" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.20) 0%, rgba(15,23,42,0.55) 55%, rgba(15,23,42,0.95) 100%);"></div>
+                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-300/30 bg-cyan-400/10 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-300"></span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-cyan-200">Focus · 04</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                        <h3 class="font-display text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight mb-2">Tide Mantle · 38:00</h3>
+                        <p class="text-slate-200/85 text-sm md:text-base leading-relaxed max-w-md">Faroe Islands swell, captured as a stem and folded under a 40Hz gamma carrier — clarity without the caffeine fade.</p>
+                        <div class="flex items-center gap-3 mt-4 text-[10px] uppercase tracking-widest text-slate-300/80 font-mono">
+                            <span>Binaural · stems</span><span class="w-1 h-1 rounded-full bg-slate-500"></span><span>Studio cut · v2.1</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="relative group overflow-hidden rounded-3xl border border-white/10 aspect-[4/3] bg-deep">
+                    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Mountains under the milky way at night" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.20) 0%, rgba(15,23,42,0.55) 55%, rgba(15,23,42,0.95) 100%);"></div>
+                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-300/30 bg-purple-400/10 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-300"></span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-purple-200">Sleep · 07</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                        <h3 class="font-display text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight mb-2">Quiet Sky · 7h 12m</h3>
+                        <p class="text-slate-200/85 text-sm md:text-base leading-relaxed max-w-md">Delta-pinned through the night. The audio narrows as your HRV settles — auto-fades at the edges of REM.</p>
+                        <div class="flex items-center gap-3 mt-4 text-[10px] uppercase tracking-widest text-slate-300/80 font-mono">
+                            <span>Adaptive · HRV-led</span><span class="w-1 h-1 rounded-full bg-slate-500"></span><span>2.1 Hz delta</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="relative group overflow-hidden rounded-3xl border border-white/10 aspect-[4/3] bg-deep">
+                    <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=1200&amp;q=85&amp;auto=format&amp;fit=crop" alt="Snowy mountain peak at twilight" class="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async" width="1200" height="900"/>
+                    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.20) 0%, rgba(15,23,42,0.55) 55%, rgba(15,23,42,0.95) 100%);"></div>
+                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-300/30 bg-amber-400/10 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-300"></span>
+                        <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-amber-200">Wake · 11</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                        <h3 class="font-display text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight mb-2">First Light · 18:00</h3>
+                        <p class="text-slate-200/85 text-sm md:text-base leading-relaxed max-w-md">Solfeggio 528Hz with a slow alpha rise. Calibrated to your local sunrise — not a one-size-fits-all loop.</p>
+                        <div class="flex items-center gap-3 mt-4 text-[10px] uppercase tracking-widest text-slate-300/80 font-mono">
+                            <span>Solfeggio · 528Hz</span><span class="w-1 h-1 rounded-full bg-slate-500"></span><span>Geo-aware</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- INSIDE A SESSION — Mockup feature, image LEFT + content RIGHT -->
+        <section id="session" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
+                <div class="md:col-span-7 relative">
+                    <div class="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_80px_-30px_rgba(34,211,238,0.35)]">
+                        <img src="https://images.unsplash.com/photo-1532009324734-20a7a5813719?w=1400&amp;q=85&amp;auto=format&amp;fit=crop" alt="Layered misty mountain ridges at dusk" class="w-full aspect-[16/10] object-cover" loading="lazy" decoding="async" width="1400" height="875"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-deep/80 via-deep/15 to-transparent pointer-events-none"></div>
+                        <!-- HUD pill (top-left) -->
+                        <div class="absolute top-4 left-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-deep/80 backdrop-blur-md border border-white/15">
+                            <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span></span>
+                            <span class="text-[10px] font-bold tracking-[0.25em] uppercase text-cyan-100">Session · 18:42 elapsed</span>
+                        </div>
+                        <!-- Floating biometric panel -->
+                        <div class="absolute -bottom-8 -right-6 hidden md:flex flex-col gap-3 w-60 rounded-2xl border border-white/10 bg-deep/85 backdrop-blur-xl p-5 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)]">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500">HRV · live</span>
+                                <span class="text-[10px] font-mono text-emerald-400">+12%</span>
+                            </div>
+                            <div class="font-display text-3xl font-bold text-white tabular-nums leading-none">68 <span class="text-base font-medium text-slate-400">ms</span></div>
+                            <!-- Mini HRV sparkline -->
+                            <div class="flex items-end gap-1 h-10">
+                                <span class="flex-1 bg-cyan-400/30 rounded-sm" style="height: 30%"></span>
+                                <span class="flex-1 bg-cyan-400/50 rounded-sm" style="height: 55%"></span>
+                                <span class="flex-1 bg-cyan-400/70 rounded-sm" style="height: 40%"></span>
+                                <span class="flex-1 bg-cyan-400/90 rounded-sm" style="height: 70%"></span>
+                                <span class="flex-1 bg-cyan-400 rounded-sm" style="height: 60%"></span>
+                                <span class="flex-1 bg-cyan-400/80 rounded-sm" style="height: 85%"></span>
+                                <span class="flex-1 bg-cyan-400/60 rounded-sm" style="height: 75%"></span>
+                                <span class="flex-1 bg-cyan-400/90 rounded-sm" style="height: 92%"></span>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-slate-500"><span>0:00</span><span>now</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-5 flex flex-col gap-5">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-cyan-300/80 font-bold">// Inside a session</span>
+                    <h2 class="font-display text-3xl md:text-5xl font-bold leading-tight">The audio learns you, <span class="text-gradient">not the other way around.</span></h2>
+                    <p class="text-slate-400 text-base md:text-lg leading-relaxed">Every five seconds, the engine reads your HRV trace. If you slip into focus, the carrier narrows. If you start to drift, the bed warms. You won't notice — but your nervous system will.</p>
+                    <ul class="flex flex-col gap-3 text-sm md:text-base text-slate-300">
+                        <li class="flex items-start gap-3"><i data-lucide="activity" class="w-4 h-4 text-cyan-300 mt-1 shrink-0"></i><span><strong class="text-white">5-second adaptive loop</strong> — psychoacoustic re-tuning, not crossfades.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="bluetooth" class="w-4 h-4 text-purple-300 mt-1 shrink-0"></i><span><strong class="text-white">Apple Health · Oura · Whoop</strong> — pick one, all three, none. We run from breath alone if you ask.</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-300 mt-1 shrink-0"></i><span><strong class="text-white">Local-first</strong> — biometrics never leave the device. Models run on Neural Engine.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- FIELD RECORDINGS — 6-up static image strip with location + state tags -->
+        <section id="field" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-20">
+            <div class="flex items-end justify-between mb-8 md:mb-10 border-b border-white/10 pb-4">
+                <div>
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">// Field recordings</span>
+                    <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tight text-white mt-2">Recorded in the wild.</h2>
+                </div>
+                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 hidden md:inline-block">Vol · 04 · 2024</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
+                <figure class="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-deep">
+                    <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Poppies in a field of wheat" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep/85 via-transparent to-transparent"></div>
+                    <figcaption class="absolute bottom-2 left-2 right-2">
+                        <p class="text-[9px] font-mono uppercase tracking-[0.2em] text-emerald-300/80">F · 01</p>
+                        <p class="text-xs text-white font-semibold leading-tight mt-0.5">Provence Field</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-deep">
+                    <img src="https://images.unsplash.com/photo-1474557157379-8aa74a6ef541?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="Water lily on a still pond" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep/85 via-transparent to-transparent"></div>
+                    <figcaption class="absolute bottom-2 left-2 right-2">
+                        <p class="text-[9px] font-mono uppercase tracking-[0.2em] text-cyan-300/80">F · 02</p>
+                        <p class="text-xs text-white font-semibold leading-tight mt-0.5">Stillwater Pond</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-deep">
+                    <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="A solitary tree on a plain" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep/85 via-transparent to-transparent"></div>
+                    <figcaption class="absolute bottom-2 left-2 right-2">
+                        <p class="text-[9px] font-mono uppercase tracking-[0.2em] text-amber-300/80">F · 03</p>
+                        <p class="text-xs text-white font-semibold leading-tight mt-0.5">Lone Oak</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-deep">
+                    <img src="https://images.unsplash.com/photo-1509803874385-db7c23652552?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="A cumulus cloud rising in a blue sky" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep/85 via-transparent to-transparent"></div>
+                    <figcaption class="absolute bottom-2 left-2 right-2">
+                        <p class="text-[9px] font-mono uppercase tracking-[0.2em] text-cyan-300/80">F · 04</p>
+                        <p class="text-xs text-white font-semibold leading-tight mt-0.5">Cumulus Drift</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-deep">
+                    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600&amp;q=85&amp;auto=format&amp;fit=crop&amp;sat=-40" alt="Ocean wave at dusk" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep/85 via-transparent to-transparent"></div>
+                    <figcaption class="absolute bottom-2 left-2 right-2">
+                        <p class="text-[9px] font-mono uppercase tracking-[0.2em] text-cyan-300/80">F · 05</p>
+                        <p class="text-xs text-white font-semibold leading-tight mt-0.5">Faroe Swell</p>
+                    </figcaption>
+                </figure>
+                <figure class="group relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-deep">
+                    <img src="https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=600&amp;q=85&amp;auto=format&amp;fit=crop" alt="A snowy mountain peak at dusk" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decoding="async" width="600" height="600"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-deep/85 via-transparent to-transparent"></div>
+                    <figcaption class="absolute bottom-2 left-2 right-2">
+                        <p class="text-[9px] font-mono uppercase tracking-[0.2em] text-purple-300/80">F · 06</p>
+                        <p class="text-xs text-white font-semibold leading-tight mt-0.5">Dolomite Quiet</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
         <!-- TESTIMONIALS / STORIES -->
         <section id="testimonials" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32">
             <div class="text-center mb-12 md:mb-20 max-w-3xl mx-auto">
@@ -625,6 +807,79 @@
                 <div class="bg-deep px-6 py-8 md:py-10 text-center">
                     <div class="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-amber-300 to-orange-500">4.9</div>
                     <div class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold mt-2">App Store rating</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE SCIENCE — 2-column premium (left text · right card stack with matching heights) (NEW) -->
+        <section id="science" class="w-full max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-28">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-x-10 lg:gap-x-16 gap-y-10 md:items-stretch">
+                <!-- Left: editorial column -->
+                <div class="md:col-span-5 flex flex-col h-full">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-cyan-300/80 font-bold mb-5">// The science underneath</span>
+                    <h2 class="font-display text-3xl md:text-5xl font-bold leading-[1.05] mb-6">Built on <span class="text-gradient">peer-reviewed sound</span>, not vibes.</h2>
+                    <p class="text-slate-400 text-base md:text-lg leading-relaxed mb-5">Every track ships against an evidence file. We cite the studies, list the engineers, expose the hardware. If you want to read the underlying papers before you press play — we'll point you at the DOIs.</p>
+                    <p class="text-slate-500 text-sm md:text-base leading-relaxed mb-8">Four standing guarantees that separate Flow State from the wellness shelf at the back of the App Store.</p>
+                    <div class="mt-auto pt-6 border-t border-white/10 flex flex-col gap-3">
+                        <p class="text-[10px] uppercase tracking-[0.25em] text-slate-500 font-bold">From the engineering log</p>
+                        <p class="font-display text-lg md:text-xl italic text-slate-200 leading-snug">"If we cannot show the EEG trace, we do not ship the track."</p>
+                        <p class="text-[10px] uppercase tracking-[0.25em] text-slate-500 font-mono">— L. Park · Lead audio engineer</p>
+                    </div>
+                </div>
+
+                <!-- Right: card stack (4 evenly-spaced cards filling column to match left height) -->
+                <div class="md:col-span-7 flex flex-col gap-4 md:gap-5 h-full md:justify-between">
+                    <article class="glass-card rounded-3xl p-5 md:p-7 flex items-start gap-5">
+                        <div class="shrink-0 w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-300">
+                            <i data-lucide="microscope" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-baseline justify-between gap-3 mb-1">
+                                <h3 class="font-display text-lg md:text-xl text-white leading-tight">Peer-reviewed</h3>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500 shrink-0">Spec · 01</span>
+                            </div>
+                            <p class="text-slate-400 text-sm md:text-base leading-relaxed">11 published studies underpin the carrier library — Frontiers in Neuroscience, J. Cognitive Enhancement, NeuroReport. Every DOI listed inside the app under each track.</p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card rounded-3xl p-5 md:p-7 flex items-start gap-5">
+                        <div class="shrink-0 w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/25 flex items-center justify-center text-purple-300">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-baseline justify-between gap-3 mb-1">
+                                <h3 class="font-display text-lg md:text-xl text-white leading-tight">On-device · zero-egress</h3>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500 shrink-0">Spec · 02</span>
+                            </div>
+                            <p class="text-slate-400 text-sm md:text-base leading-relaxed">HRV, breath, posture — every biometric stays on your phone. Adaptation models run on Neural Engine. Nothing reaches our servers, ever, end of conversation.</p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card rounded-3xl p-5 md:p-7 flex items-start gap-5">
+                        <div class="shrink-0 w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-300">
+                            <i data-lucide="activity" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-baseline justify-between gap-3 mb-1">
+                                <h3 class="font-display text-lg md:text-xl text-white leading-tight">Adaptive in five seconds</h3>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500 shrink-0">Spec · 03</span>
+                            </div>
+                            <p class="text-slate-400 text-sm md:text-base leading-relaxed">Psychoacoustic re-tuning every 5s — we narrow the carrier when you focus, warm the bed when you drift. No crossfades. No jarring shifts. The audio simply leans.</p>
+                        </div>
+                    </article>
+
+                    <article class="glass-card rounded-3xl p-5 md:p-7 flex items-start gap-5">
+                        <div class="shrink-0 w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-300">
+                            <i data-lucide="award" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-baseline justify-between gap-3 mb-1">
+                                <h3 class="font-display text-lg md:text-xl text-white leading-tight">Mastered, not generated</h3>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-500 shrink-0">Spec · 04</span>
+                            </div>
+                            <p class="text-slate-400 text-sm md:text-base leading-relaxed">Every soundscape is hand-mixed by engineers who've worked on Apple, BBC and Headspace catalogues. No AI slop, no algorithmic loops, no hold-music dressed as wellness.</p>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>

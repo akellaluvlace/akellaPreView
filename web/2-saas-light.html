@@ -36,15 +36,18 @@
             animation: flowlineCaretBlink 1s step-end infinite;
         }
         @keyframes flowlineCaretBlink { 50% { opacity: 0; } }
-        .flowline-line { opacity: 0; transform: translateY(4px); animation: flowlineLineIn 0.5s ease-out forwards; }
-        .flowline-line.l1 { animation-delay: 1.6s; }
-        .flowline-line.l2 { animation-delay: 2.0s; }
-        .flowline-line.l3 { animation-delay: 2.4s; }
-        .flowline-line.l4 { animation-delay: 2.8s; }
-        @keyframes flowlineLineIn { to { opacity: 1; transform: translateY(0); } }
+        /* Typing animation — frame paints at once, only the text types in */
+        .flowline-type { display: block; overflow: hidden; white-space: nowrap; width: 0; }
+        .flowline-type.t0 { animation: flowlineType 1.4s steps(48, end) 0.15s forwards; }
+        .flowline-line { display: block; overflow: hidden; white-space: nowrap; width: 0; }
+        .flowline-line.l1 { animation: flowlineType 0.55s steps(18, end) 1.7s forwards; }
+        .flowline-line.l2 { animation: flowlineType 0.6s steps(20, end) 2.35s forwards; }
+        .flowline-line.l3 { animation: flowlineType 0.85s steps(28, end) 3.05s forwards; }
+        .flowline-line.l4 { animation: flowlineType 1.05s steps(37, end) 4.05s forwards; }
+        @keyframes flowlineType { to { width: 100%; } }
         @media (prefers-reduced-motion: reduce) {
             .flowline-caret { animation: none; }
-            .flowline-line { opacity: 1; transform: none; animation: none; }
+            .flowline-type, .flowline-line { width: auto; animation: none; overflow: visible; white-space: normal; }
         }
         /* Logo cinema strip — pure CSS marquee (paused on hover) */
         .flowline-marquee-track { display: flex; gap: 3rem; animation: flowlineMarquee 40s linear infinite; will-change: transform; }
@@ -247,7 +250,13 @@
     <!-- Product Demo — Workflow as Code (terminal animation) -->
     <section id="demo" aria-labelledby="terminal-heading" class="bg-surface-container py-16 sm:py-20 lg:py-xl overflow-hidden">
         <div class="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-center">
+            <header class="mb-10 sm:mb-14">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-variant bg-surface-container-lowest font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse motion-reduce:animate-none" aria-hidden="true"></span>
+                    Workflow as code
+                </span>
+            </header>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-start">
                 <!-- Terminal frame -->
                 <div class="lg:col-span-7 relative">
                     <div class="absolute -inset-6 bg-primary-container opacity-10 blur-[80px] rounded-full pointer-events-none motion-reduce:hidden" aria-hidden="true"></div>
@@ -263,7 +272,7 @@
                         </div>
                         <!-- Body -->
                         <div class="p-5 sm:p-6 text-[13.5px] leading-7 text-[#c9d1d9]">
-                            <div class="whitespace-pre"><span class="text-emerald-400">$</span> <span class="text-white">flowline run</span> <span class="text-[#a5d6ff]">"Ship engineering review weekly"</span><span class="flowline-caret" aria-hidden="true"></span></div>
+                            <div class="flowline-type t0 whitespace-pre"><span class="text-emerald-400">$</span> <span class="text-white">flowline run</span> <span class="text-[#a5d6ff]">"Ship engineering review weekly"</span><span class="flowline-caret" aria-hidden="true"></span></div>
                             <div class="flowline-line l1 mt-2 text-[#8b949e]">  <span class="text-[#79c0ff]">→</span> triage backlog</div>
                             <div class="flowline-line l2 text-[#8b949e]">  <span class="text-[#79c0ff]">→</span> notify reviewers</div>
                             <div class="flowline-line l3 text-[#8b949e]">  <span class="text-[#79c0ff]">→</span> draft summary in Notion</div>
@@ -272,12 +281,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Right column copy -->
+                <!-- Right column copy — top-aligned with terminal title bar -->
                 <div class="lg:col-span-5 space-y-6 sm:space-y-8">
-                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-variant bg-surface-container-lowest font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary">
-                        <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse motion-reduce:animate-none" aria-hidden="true"></span>
-                        Workflow as code
-                    </span>
                     <h2 id="terminal-heading" class="font-display-lg text-[clamp(2rem,4vw+1rem,2.5rem)] leading-tight text-on-background text-balance">
                         Describe the work. Flowline runs it.
                     </h2>
@@ -300,51 +305,23 @@
         </div>
     </section>
 
-    <!-- Trusted by — cinema strip with bookend industrial frames -->
+    <!-- Trusted by — Simple Icons brand grid (real, recognisable, on-brand colour) -->
     <section aria-labelledby="enterprise-heading" class="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter py-16 sm:py-20">
         <header class="text-center mb-10 sm:mb-12">
             <span class="font-label-sm text-[11px] uppercase tracking-[0.25em] text-secondary">Section · 04</span>
             <h2 id="enterprise-heading" class="mt-3 font-display-lg text-[clamp(1.75rem,3vw+1rem,2.25rem)] leading-tight text-on-background text-balance">Trusted in production by 2,400+ teams</h2>
         </header>
-        <div class="grid grid-cols-12 gap-3 sm:gap-4 items-stretch">
-            <div class="col-span-2 hidden md:block relative rounded-xl overflow-hidden border border-surface-variant aspect-[3/4]">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85&auto=format&fit=crop" alt="" aria-hidden="true" class="w-full h-full object-cover" width="600" height="800" loading="lazy" decoding="async"/>
-                <div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
-            </div>
-            <div class="col-span-12 md:col-span-8 flowline-marquee relative overflow-hidden rounded-xl border border-surface-variant bg-surface-container-lowest py-8 sm:py-10">
-                <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
-                <div class="flowline-marquee-track" aria-hidden="true">
-                    <div class="flex items-center gap-12 shrink-0 px-6">
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">●</span> Atlasworks</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Pixelpath</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Northbeam</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">◆</span> Helix Labs</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Cosmic.io</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Latticebase</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">▲</span> Spire</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Quanta</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Beacon &amp; Co</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">●</span> Driftwood</span>
-                    </div>
-                    <div class="flex items-center gap-12 shrink-0 px-6" aria-hidden="true">
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">●</span> Atlasworks</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Pixelpath</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Northbeam</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">◆</span> Helix Labs</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Cosmic.io</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Latticebase</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">▲</span> Spire</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Quanta</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap">Beacon &amp; Co</span>
-                        <span class="font-label-sm text-base sm:text-lg uppercase tracking-[0.3em] text-secondary whitespace-nowrap"><span class="text-primary-container">●</span> Driftwood</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-span-2 hidden md:block relative rounded-xl overflow-hidden border border-surface-variant aspect-[3/4]">
-                <img src="https://images.unsplash.com/photo-1551808525-51a94da548ce?w=600&q=85&auto=format&fit=crop" alt="" aria-hidden="true" class="w-full h-full object-cover" width="600" height="800" loading="lazy" decoding="async"/>
-                <div class="absolute inset-0 bg-primary/20 mix-blend-multiply"></div>
-            </div>
+        <div class="rounded-2xl border border-surface-variant bg-surface-container-lowest px-6 py-10 sm:px-10 sm:py-12">
+            <ul role="list" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-x-6 gap-y-8 items-center justify-items-center">
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/vercel" alt="Vercel" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">Vercel</span></li>
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/stripe" alt="Stripe" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">Stripe</span></li>
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/linear" alt="Linear" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">Linear</span></li>
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/notion" alt="Notion" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">Notion</span></li>
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/discord" alt="Discord" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">Discord</span></li>
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/figma" alt="Figma" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">Figma</span></li>
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/github" alt="GitHub" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">GitHub</span></li>
+                <li class="flex flex-col items-center gap-2"><img src="https://cdn.simpleicons.org/cloudflare" alt="Cloudflare" class="h-9 w-auto" loading="lazy" decoding="async"/><span class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary">Cloudflare</span></li>
+            </ul>
         </div>
         <p class="mt-6 text-center font-body-md text-sm text-secondary">From Series-A teams to Fortune 500 ops orgs — Flowline runs the boring middle.</p>
     </section>
@@ -356,10 +333,10 @@
             <h2 id="integrations-heading" class="mt-3 font-display-lg text-[clamp(2rem,4vw+1rem,2.5rem)] leading-tight text-on-background text-balance max-w-2xl">One control plane. Every tool you already use.</h2>
         </header>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter">
-            <!-- Sticky photo -->
+            <!-- Image column — bottoms align with right column via h-full -->
             <div class="lg:col-span-5">
-                <div class="lg:sticky lg:top-32 relative rounded-xl overflow-hidden border border-surface-variant aspect-[4/5] bg-primary/10">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop" alt="Server racks rendered in cool blue tones suggesting infrastructure backbone" class="w-full h-full object-cover mix-blend-luminosity opacity-90" width="1200" height="1500" loading="lazy" decoding="async"/>
+                <div class="relative rounded-xl overflow-hidden border border-surface-variant aspect-[4/5] lg:aspect-auto lg:h-full bg-primary/10 min-h-[420px]">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop" alt="Server racks rendered in cool blue tones suggesting infrastructure backbone" class="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-90" width="1200" height="1500" loading="lazy" decoding="async"/>
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-primary-container/30 mix-blend-multiply" aria-hidden="true"></div>
                     <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/90">
                         <span>Backbone · v4.2</span>
@@ -409,6 +386,108 @@
         </div>
     </section>
 
+    <!-- Image strip — full-width darker band, rounded coloured plates -->
+    <section aria-label="Flowline in production" class="bg-on-background py-12 sm:py-16">
+        <div class="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter">
+            <header class="mb-8 sm:mb-10 flex items-baseline justify-between gap-4 flex-wrap">
+                <span class="font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/60">Section · 06</span>
+                <span class="font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/60">In production · 2031</span>
+            </header>
+            <ul role="list" class="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
+                <li class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-primary/15">
+                    <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" alt="Architectural curves — control plane room" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/55 via-primary/10 to-transparent mix-blend-multiply" aria-hidden="true"></div>
+                </li>
+                <li class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-primary/15">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop" alt="Circuit board macro — telemetry surface" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary-container/60 via-primary-container/15 to-transparent mix-blend-multiply" aria-hidden="true"></div>
+                </li>
+                <li class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-primary/15">
+                    <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop" alt="Industrial machine bay — backbone" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/55 via-emerald-500/10 to-transparent mix-blend-multiply" aria-hidden="true"></div>
+                </li>
+                <li class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-primary/15">
+                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" alt="Concrete monumental architecture — uptime" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-amber-500/55 via-amber-500/10 to-transparent mix-blend-multiply" aria-hidden="true"></div>
+                </li>
+                <li class="relative rounded-2xl overflow-hidden aspect-[4/5] bg-primary/15 hidden md:block">
+                    <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" alt="Brutalist concrete columns — substrate" class="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-fuchsia-500/55 via-fuchsia-500/10 to-transparent mix-blend-multiply" aria-hidden="true"></div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Image + context A — image left, manifesto right -->
+    <section aria-labelledby="middle-heading" class="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter py-16 sm:py-20 lg:py-xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-center">
+            <div class="lg:col-span-6">
+                <div class="relative rounded-2xl overflow-hidden border border-surface-variant aspect-[4/5] lg:aspect-[5/4] bg-primary/5">
+                    <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop" alt="Industrial machine bay — the boring, repetitive middle of the workflow" class="absolute inset-0 w-full h-full object-cover" width="1400" height="1100" loading="lazy" decoding="async"/>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-on-background/30 via-transparent to-primary-container/15 mix-blend-multiply" aria-hidden="true"></div>
+                    <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/90">
+                        <span>Field study · Stamping line · 2031</span>
+                        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse motion-reduce:animate-none"></span>1,840 hr saved / qtr</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-6 space-y-6 sm:space-y-7">
+                <span class="font-label-sm text-[11px] uppercase tracking-[0.25em] text-secondary">Section · 07</span>
+                <h2 id="middle-heading" class="font-display-lg text-[clamp(1.75rem,3vw+1rem,2.25rem)] leading-tight text-on-background text-balance">Built for the boring middle.</h2>
+                <p class="font-body-md text-body-md text-secondary text-pretty max-w-[58ch]">The flashy parts of an ops org get the demos. The boring middle — the triage, the routing, the status updates that keep three teams aligned — gets the time. Flowline runs that middle so your operators get their week back.</p>
+                <ul role="list" class="space-y-sm">
+                    <li class="flex items-start gap-3 font-body-md text-body-md text-secondary text-pretty"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0 mt-0.5" aria-hidden="true">schedule</span><span><strong class="text-on-background font-semibold">19-min median time-to-route</strong> from inbound signal to owned ticket.</span></li>
+                    <li class="flex items-start gap-3 font-body-md text-body-md text-secondary text-pretty"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0 mt-0.5" aria-hidden="true">repeat</span><span><strong class="text-on-background font-semibold">Replays every 15 min</strong> against a deterministic state machine — no quiet drift.</span></li>
+                    <li class="flex items-start gap-3 font-body-md text-body-md text-secondary text-pretty"><span class="material-symbols-outlined text-[20px] text-primary-container shrink-0 mt-0.5" aria-hidden="true">groups</span><span><strong class="text-on-background font-semibold">Operators stay in their existing tools</strong> — no new dashboard to learn.</span></li>
+                </ul>
+                <div class="flex items-end gap-6 border-t border-surface-variant pt-5 flex-wrap">
+                    <div>
+                        <p class="font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary mb-1.5">Hours reclaimed · per operator · 2031</p>
+                        <p class="font-display-lg text-[2.25rem] text-on-background tabular-nums leading-none">1,840 / yr</p>
+                    </div>
+                    <a class="ml-auto inline-flex items-center gap-2 font-label-sm text-[11px] uppercase tracking-[0.2em] text-primary-container hover:text-on-background transition-colors" href="#"><span>Read the field study</span><span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image + context B — image right, customer story left -->
+    <section aria-labelledby="ship-heading" class="max-w-container-max mx-auto px-5 sm:px-8 lg:px-gutter pb-16 sm:pb-20 lg:pb-xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-gutter items-center">
+            <div class="lg:col-span-6 lg:order-1 order-2 space-y-6 sm:space-y-7">
+                <span class="font-label-sm text-[11px] uppercase tracking-[0.25em] text-secondary">Section · 08</span>
+                <h2 id="ship-heading" class="font-display-lg text-[clamp(1.75rem,3vw+1rem,2.25rem)] leading-tight text-on-background text-balance">From triage to ship — in one place.</h2>
+                <p class="font-body-md text-body-md text-secondary text-pretty max-w-[58ch]">Atlasworks moved their incident-to-postmortem loop onto Flowline in one week. Pages stay in PagerDuty, threads stay in Slack, decisions land in Notion — and Flowline keeps the spine across all three so nothing falls between channels.</p>
+                <figure class="bg-surface-container-lowest border border-surface-variant rounded-2xl p-6 sm:p-7">
+                    <span class="material-symbols-outlined text-primary-container text-3xl leading-none mb-3 block" aria-hidden="true">format_quote</span>
+                    <blockquote class="font-headline-md text-lg text-on-background leading-relaxed text-pretty">"Two of our three on-call rotations folded into one channel after we shipped Flowline. We stopped writing the same status update three times. That alone paid for a year of the contract."</blockquote>
+                    <figcaption class="mt-5 flex items-center gap-3">
+                        <span class="w-9 h-9 rounded-full bg-primary-container/30 flex items-center justify-center font-headline-md text-on-background">MK</span>
+                        <span class="flex flex-col">
+                            <span class="font-label-sm text-sm text-on-background">Maya Kowalski</span>
+                            <span class="font-label-sm text-[11px] uppercase tracking-[0.2em] text-secondary">VP Engineering · Atlasworks</span>
+                        </span>
+                    </figcaption>
+                </figure>
+                <div class="grid grid-cols-3 gap-4 border-t border-surface-variant pt-5">
+                    <div><p class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary mb-1">Loops merged</p><p class="font-headline-md text-2xl text-on-background tabular-nums leading-none">3 → 1</p></div>
+                    <div><p class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary mb-1">Time-to-page</p><p class="font-headline-md text-2xl text-on-background tabular-nums leading-none">42 s</p></div>
+                    <div><p class="font-label-sm text-[10px] uppercase tracking-[0.2em] text-secondary mb-1">Postmortem · auto</p><p class="font-headline-md text-2xl text-on-background tabular-nums leading-none">100%</p></div>
+                </div>
+            </div>
+            <div class="lg:col-span-6 lg:order-2 order-1">
+                <div class="relative rounded-2xl overflow-hidden border border-surface-variant aspect-[4/5] lg:aspect-[5/4] bg-primary/5">
+                    <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1400&q=85&auto=format&fit=crop" alt="Architectural curves — composed structure across teams" class="absolute inset-0 w-full h-full object-cover" width="1400" height="1100" loading="lazy" decoding="async"/>
+                    <div class="absolute inset-0 bg-gradient-to-bl from-primary-container/40 via-transparent to-on-background/25 mix-blend-multiply" aria-hidden="true"></div>
+                    <div class="absolute top-4 left-4 right-4 flex items-center justify-between font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/90">
+                        <span>Atlasworks · Q3 2031</span>
+                        <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse motion-reduce:animate-none"></span>0 missed pages</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonial -->
     <section aria-labelledby="testimonial-heading" class="max-w-container-max mx-auto px-5 py-16 sm:px-8 sm:py-20 lg:px-gutter lg:py-xl">
         <h2 id="testimonial-heading" class="sr-only">Customer Testimonial</h2>
@@ -418,10 +497,10 @@
                 Flowline removed the operational drag from our engineering cycles. We ship 30% faster and have zero arguments about status.
             </p>
             <footer class="flex items-center gap-sm">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=160&q=80" 
-                     alt="Sarah Jenkins" 
-                     class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover grayscale border border-surface-variant" 
-                     width="64" height="64" 
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=160&q=80"
+                     alt="Sarah Jenkins"
+                     class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover grayscale border border-surface-variant"
+                     width="64" height="64"
                      loading="lazy" decoding="async"/>
                 <div class="text-left">
                     <cite class="font-label-sm text-label-sm text-on-background not-italic block">Sarah Jenkins</cite>

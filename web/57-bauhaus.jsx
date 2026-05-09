@@ -19,7 +19,34 @@ export default function T57Bauhaus() {
   const products = [
     { name: "B-3 CHAIR", price: "$1,200", img: "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&q=80&w=800", alt: "Wassily Chair", shape: "rounded-full", borderHover: "group-hover:border-bauhaus-red", aspect: "aspect-square", labelRotate: "rotate-3", offset: "" },
     { name: "KAISER LAMP", price: "$850", img: "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?q=80&w=800&auto=format&fit=crop", alt: "Bauhaus Geometric Lamp", shape: "rounded-t-full", borderHover: "group-hover:border-bauhaus-blue", aspect: "aspect-[3/4]", labelRotate: "-rotate-3", offset: "md:translate-y-16" },
-    { name: "NEST TABLES", price: "$600", img: "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=800", alt: "Nesting Tables", shape: "", borderHover: "group-hover:border-bauhaus-yellow", aspect: "aspect-square", labelRotate: "rotate-2", offset: "", overlay: true },
+    { name: "T-1 SIDE CHAIR", price: "$600", img: "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=800", alt: "Molded shell chair on wood legs against a soft backdrop", shape: "", borderHover: "group-hover:border-bauhaus-yellow", aspect: "aspect-square", labelRotate: "rotate-2", offset: "", overlay: true },
+  ];
+
+  const stockedLogos = [
+    { slug: "ikea", name: "IKEA" },
+    { slug: "etsy", name: "Etsy" },
+    { slug: "pinterest", name: "Pinterest" },
+    { slug: "behance", name: "Behance" },
+    { slug: "dribbble", name: "Dribbble" },
+    { slug: "instagram", name: "Instagram" },
+    { slug: "vimeo", name: "Vimeo" },
+    { slug: "figma", name: "Figma" },
+  ];
+
+  const practicePillars = [
+    { id: "P · 01", img: "https://images.unsplash.com/photo-1517705008128-361805f42e86?w=1200&q=85&auto=format&fit=crop", alt: "Eames-style shell chair beside a side table — modernist composition", badge: "bg-bauhaus-red text-bauhaus-cream", title: "Geometry first", body: "Every form distilled to circle, square, triangle. Ornament is the residue of indecision." },
+    { id: "P · 02", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=1200&q=85&auto=format&fit=crop", alt: "Industrial-style steel floor lamp against a plain wall", badge: "bg-bauhaus-blue text-bauhaus-cream", title: "Industry honest", body: "Tubular steel left tubular. Welds shown. The means of making is the finish." },
+    { id: "P · 03", img: "https://images.unsplash.com/photo-1551298370-9d3d53740c72?w=1200&q=85&auto=format&fit=crop", alt: "A row of plastic shell chairs — yellow, sage, ivory — on slim metal frames", badge: "bg-bauhaus-yellow text-bauhaus-black", title: "Material truth", body: "No veneers. No imitations. Concrete reads as concrete; oak reads as oak." },
+    { id: "P · 04", img: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=1200&q=85&auto=format&fit=crop", alt: "Open lounge with sofa, wood floor and dining table — pieces in daily use", badge: "bg-bauhaus-cream text-bauhaus-black", title: "Built to remain", body: "Numbered editions of 200. Each piece carries a 50-year structural warranty." },
+  ];
+
+  const selectedPieces = [
+    { num: "№ 01", numBg: "bg-bauhaus-red text-bauhaus-cream", title: "B-3 Chair", meta: "$1,200 · Tubular steel", img: "https://images.unsplash.com/photo-1503602642458-232111445657?w=600&q=85&auto=format&fit=crop", alt: "B-3 Chair — three-quarter view" },
+    { num: "№ 02", numBg: "bg-bauhaus-blue text-bauhaus-cream", title: "Kaiser Lamp", meta: "$850 · Brass · Linen", img: "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?w=600&q=85&auto=format&fit=crop", alt: "Kaiser Lamp — table lamp with linen shade" },
+    { num: "№ 03", numBg: "bg-bauhaus-yellow text-bauhaus-black", title: "T-1 Side Chair", meta: "$600 · Moulded shell", img: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=85&auto=format&fit=crop", alt: "T-1 Side Chair — moulded shell on wood legs" },
+    { num: "№ 04", numBg: "bg-bauhaus-red text-bauhaus-cream", title: "Werkstatt Bench", meta: "$1,800 · Leather · Oak", img: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600&q=85&auto=format&fit=crop", alt: "Tan leather three-seater bench sofa with slim wood legs" },
+    { num: "№ 05", numBg: "bg-bauhaus-blue text-bauhaus-cream", title: "Spun Pendant", meta: "$420 · Aluminum · LED", img: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&q=85&auto=format&fit=crop", alt: "Spun aluminum pendant lamp glowing against a teal wall" },
+    { num: "№ 06", numBg: "bg-bauhaus-yellow text-bauhaus-black", title: "Brass Bracket Shelf", meta: "$2,100 · Brass · Oak", img: "https://images.unsplash.com/photo-1593085260707-5377ba37f868?w=600&q=85&auto=format&fit=crop", alt: "Wood shelf with brass bracket holding lamp, books and small objects" },
   ];
 
   const materials = [
@@ -37,7 +64,7 @@ export default function T57Bauhaus() {
   const workshopSteps = [
     {
       num: "01", numBg: "bg-bauhaus-yellow", numText: "text-bauhaus-black", title: "Sketch", offset: "",
-      img: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=900&q=85&auto=format&fit=crop",
       alt: "Drafting table — technical sketches and rulers",
       ruleColor: "bg-bauhaus-yellow", dot: "bg-bauhaus-red rounded-full",
       desc: "Every form begins as a circle, square, triangle. Hand-rendered isometric drafts, never digital, never decorative.",
@@ -46,7 +73,7 @@ export default function T57Bauhaus() {
     },
     {
       num: "02", numBg: "bg-bauhaus-blue", numText: "text-white", title: "Prototype", offset: "md:translate-y-12",
-      img: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop",
       alt: "Tubular steel bending machine",
       ruleColor: "bg-bauhaus-red", dot: "bg-bauhaus-blue",
       desc: "Cold-bent tubular steel, hand-stitched Eisengarn, bent ply. We test seven prototypes before approving the first production run.",
@@ -284,6 +311,55 @@ export default function T57Bauhaus() {
           </div>
         </section>
 
+        {/* Stocked At — real brand logos */}
+        <section id="stocked" className="py-20 border-t border-bauhaus-black bg-bauhaus-cream">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="flex items-end justify-between mb-10 border-b border-bauhaus-black pb-4">
+              <h2 className="text-xs font-bold tracking-[0.3em] uppercase flex items-center gap-4">
+                <span className="w-8 h-8 bg-bauhaus-blue text-white flex items-center justify-center rounded-full">02.5</span>
+                Stocked At
+              </h2>
+              <span className="text-xs font-mono opacity-60 hidden md:block">Editorial · Retail · Press</span>
+            </div>
+            <ul role="list" className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-x-8 gap-y-10 items-center justify-items-center bg-white border-2 border-bauhaus-black px-6 py-10 shadow-[6px_6px_0px_0px_rgba(18,18,18,1)]">
+              {stockedLogos.map(b => (
+                <li key={b.slug} className="flex flex-col items-center gap-2">
+                  <img src={`https://cdn.simpleicons.org/${b.slug}/121212`} alt={b.name} className="h-7 w-auto" loading="lazy" decoding="async" width="28" height="28" />
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em]">{b.name}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Werkstatt Practice — 2x2 Premium image-bg quadrants */}
+        <section id="practice" className="relative py-24 bg-bauhaus-black text-bauhaus-cream border-t border-bauhaus-black overflow-hidden">
+          <div className="absolute top-12 right-12 w-32 h-32 rounded-full bg-bauhaus-yellow/15 hidden md:block"></div>
+          <div className="absolute bottom-16 left-12 w-24 h-24 bg-bauhaus-red/15 hidden md:block"></div>
+          <div className="container mx-auto px-6 md:px-12 relative z-10">
+            <div className="flex items-end justify-between mb-12 md:mb-16 border-b border-bauhaus-cream/30 pb-6">
+              <h2 className="text-xs font-bold tracking-[0.3em] uppercase flex items-center gap-4">
+                <span className="w-8 h-8 bg-bauhaus-yellow text-bauhaus-black flex items-center justify-center rounded-full">02.7</span>
+                The Werkstatt Practice
+              </h2>
+              <span className="text-xs font-mono opacity-60 hidden md:block">Four standing principles</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              {practicePillars.map(p => (
+                <article key={p.id} className="relative group overflow-hidden border-2 border-bauhaus-cream/30 aspect-[4/3] bg-bauhaus-black">
+                  <img src={p.img} alt={p.alt} className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async" width="1200" height="900" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bauhaus-black via-bauhaus-black/55 to-bauhaus-black/15"></div>
+                  <div className={`absolute top-4 left-4 px-3 py-1 ${p.badge} font-mono text-[10px] tracking-widest uppercase`}>{p.id}</div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                    <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight leading-[0.95] mb-2">{p.title}</h3>
+                    <p className="text-sm md:text-base font-medium text-bauhaus-cream/80 max-w-md leading-relaxed">{p.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Workshop / Process Section */}
         <section id="process" className="relative py-24 bg-bauhaus-cream border-t border-bauhaus-black bg-grid">
           <div className="container mx-auto px-6 md:px-12">
@@ -383,6 +459,123 @@ export default function T57Bauhaus() {
                   <span>Read the full archive</span>
                   <i data-lucide="arrow-up-right" className="w-4 h-4"></i>
                 </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Selected Pieces — 6-up static image strip */}
+        <section id="selected" className="py-20 border-t border-bauhaus-black bg-bauhaus-cream">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="flex items-end justify-between mb-12 border-b border-bauhaus-black pb-4">
+              <div>
+                <h2 className="text-xs font-bold tracking-[0.3em] uppercase flex items-center gap-4 mb-3">
+                  <span className="w-8 h-8 bg-bauhaus-yellow text-bauhaus-black flex items-center justify-center rounded-full">05</span>
+                  Selected Pieces
+                </h2>
+                <p className="text-3xl md:text-5xl font-bold leading-[0.95] max-w-xl">FROM THE<br /><span className="text-bauhaus-red">CATALOG.</span></p>
+              </div>
+              <span className="text-xs font-mono opacity-60 hidden md:block">Edition · 2024 · 1,200 pcs</span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+              {selectedPieces.map(s => (
+                <figure key={s.num} className="group relative">
+                  <div className="relative aspect-square overflow-hidden border-2 border-bauhaus-black bg-white">
+                    <span className={`absolute top-2 left-2 z-10 font-mono text-[10px] ${s.numBg} px-1.5 py-0.5 tabular-nums`}>{s.num}</span>
+                    <img src={s.img} alt={s.alt} className="w-full h-full object-cover mix-blend-multiply grayscale contrast-110 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" loading="lazy" decoding="async" width="600" height="600" />
+                  </div>
+                  <figcaption className="pt-3 border-t border-bauhaus-black mt-2">
+                    <h3 className="font-bold text-sm uppercase tracking-tight leading-tight">{s.title}</h3>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] opacity-70 mt-1">{s.meta}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <div className="mt-12 pt-6 border-t border-bauhaus-black flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-[11px] tracking-widest uppercase">
+              <span>Catalog 2024.1 · 6 of 24 pieces</span>
+              <span className="text-bauhaus-red">Each numbered · Each signed</span>
+              <a href="#" className="border-2 border-bauhaus-black px-4 py-2 hover:bg-bauhaus-black hover:text-bauhaus-cream transition-colors">View full catalog →</a>
+            </div>
+          </div>
+        </section>
+
+        {/* Standing Guarantees — 2-column premium (left manifesto · right card stack with matching heights) */}
+        <section id="guarantees" className="py-24 border-t border-bauhaus-black bg-bauhaus-cream bg-grid">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-x-10 lg:gap-x-16 gap-y-10 md:items-stretch">
+
+              <div className="md:col-span-5 flex flex-col h-full">
+                <h2 className="text-xs font-bold tracking-[0.3em] uppercase flex items-center gap-4 mb-8">
+                  <span className="w-8 h-8 bg-bauhaus-blue text-white flex items-center justify-center rounded-full">06</span>
+                  What Each Piece Carries
+                </h2>
+                <h3 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.9] mb-6">
+                  STANDING<br />
+                  <span className="text-bauhaus-red">GUARANTEES.</span>
+                </h3>
+                <p className="text-base font-medium leading-relaxed border-l-4 border-bauhaus-yellow pl-4 mb-5 max-w-md">
+                  Every piece that leaves the Werkstatt carries four written promises. They are stamped on the foot, mirrored in our ledger, and honoured for the life of the object — not the life of a returns policy.
+                </p>
+                <p className="text-sm font-medium opacity-70 leading-relaxed pl-5 max-w-md">
+                  Steel. Oak. Eisengarn. Brass. Each material is sourced for a reason and warranted on its own terms — but the four guarantees below are universal.
+                </p>
+                <div className="mt-auto pt-6 border-t-2 border-bauhaus-black flex flex-col gap-3">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-bauhaus-black">From the bench-log · entry 0184</p>
+                  <p className="text-xl md:text-2xl italic leading-snug">"A chair is finished when it is still standing in fifty years — not when it ships."</p>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-bauhaus-red">— Karl Mayer · Master draughtsman · 2024</p>
+                </div>
+              </div>
+
+              <div className="md:col-span-7 flex flex-col gap-5 md:gap-6 h-full md:justify-between">
+
+                <article className="relative bg-white border-2 border-bauhaus-black p-5 md:p-7 flex items-start gap-5 md:gap-6 shadow-[6px_6px_0px_0px_rgba(18,18,18,1)] hover:shadow-[10px_10px_0px_0px_rgba(208,45,45,1)] hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="shrink-0 w-14 h-14 md:w-16 md:h-16 bg-bauhaus-red blend-multiply"></div>
+                  <div className="flex-1 pt-1">
+                    <div className="flex items-baseline justify-between gap-3 mb-2 border-b border-bauhaus-black/20 pb-2">
+                      <h4 className="text-xl md:text-2xl font-bold uppercase tracking-tight leading-[0.95]">Fifty-year structural warranty</h4>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-bauhaus-black/60 shrink-0">G · 01</span>
+                    </div>
+                    <p className="text-sm md:text-base font-medium opacity-80 leading-relaxed">Frame, joinery, weld, foot — anything that carries weight, we carry for fifty years. Cracked tube, bent mitre, sagging Eisengarn: returned, repaired, sent back.</p>
+                  </div>
+                </article>
+
+                <article className="relative bg-white border-2 border-bauhaus-black p-5 md:p-7 flex items-start gap-5 md:gap-6 shadow-[6px_6px_0px_0px_rgba(18,18,18,1)] hover:shadow-[10px_10px_0px_0px_rgba(45,76,208,1)] hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="shrink-0 w-14 h-14 md:w-16 md:h-16 bg-bauhaus-blue blend-multiply rounded-full"></div>
+                  <div className="flex-1 pt-1">
+                    <div className="flex items-baseline justify-between gap-3 mb-2 border-b border-bauhaus-black/20 pb-2">
+                      <h4 className="text-xl md:text-2xl font-bold uppercase tracking-tight leading-[0.95]">Repair for postage</h4>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-bauhaus-black/60 shrink-0">G · 02</span>
+                    </div>
+                    <p className="text-sm md:text-base font-medium opacity-80 leading-relaxed">Send the broken piece. We mend the joint, replace the cushion, re-weld the frame. Postage one way; no labour charged. The bench is open while the kettle is on.</p>
+                  </div>
+                </article>
+
+                <article className="relative bg-white border-2 border-bauhaus-black p-5 md:p-7 flex items-start gap-5 md:gap-6 shadow-[6px_6px_0px_0px_rgba(18,18,18,1)] hover:shadow-[10px_10px_0px_0px_rgba(242,201,76,1)] hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="shrink-0 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center">
+                    <div className="w-0 h-0 border-l-[28px] md:border-l-[32px] border-r-[28px] md:border-r-[32px] border-b-[48px] md:border-b-[56px] border-l-transparent border-r-transparent border-b-bauhaus-yellow blend-multiply"></div>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <div className="flex items-baseline justify-between gap-3 mb-2 border-b border-bauhaus-black/20 pb-2">
+                      <h4 className="text-xl md:text-2xl font-bold uppercase tracking-tight leading-[0.95]">Every piece numbered</h4>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-bauhaus-black/60 shrink-0">G · 03</span>
+                    </div>
+                    <p className="text-sm md:text-base font-medium opacity-80 leading-relaxed">Stamped on the foot: edition, year, draughtsman, bench. Trace any piece back to the day it left the workshop — clay batch, weld run, fabric roll. Provenance is structural.</p>
+                  </div>
+                </article>
+
+                <article className="relative bg-white border-2 border-bauhaus-black p-5 md:p-7 flex items-start gap-5 md:gap-6 shadow-[6px_6px_0px_0px_rgba(18,18,18,1)] hover:shadow-[10px_10px_0px_0px_rgba(18,18,18,0.5)] hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="shrink-0 w-14 h-14 md:w-16 md:h-16 flex items-center justify-center">
+                    <div className="w-14 md:w-16 h-7 md:h-8 bg-bauhaus-black blend-multiply rounded-t-full"></div>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <div className="flex items-baseline justify-between gap-3 mb-2 border-b border-bauhaus-black/20 pb-2">
+                      <h4 className="text-xl md:text-2xl font-bold uppercase tracking-tight leading-[0.95]">Draughtsman's certificate</h4>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-bauhaus-black/60 shrink-0">G · 04</span>
+                    </div>
+                    <p className="text-sm md:text-base font-medium opacity-80 leading-relaxed">A signed sheet ships with each piece — the drawing set, the materials, the weight, the firing curve. Filed with you, mirrored in our ledger. Insurable, willable, lendable.</p>
+                  </div>
+                </article>
+
               </div>
             </div>
           </div>
