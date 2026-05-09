@@ -14,13 +14,13 @@ export default function T45RealEstateListing() {
   ];
 
   const gallery = [
-    { alt: "Grand drawing room with classical proportions and tall sash windows", className: "md:col-span-2 md:row-span-2 relative group overflow-hidden", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1600&q=85&auto=format&fit=crop" },
-    { alt: "Heritage interior detail — cornicing and shutter against raking light", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" },
-    { alt: "Master suite — tall sash window and panelled wall in soft daylight", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" },
-    { alt: "West-facing landscaped garden bordered by box hedges and stone paving", className: "md:col-span-2 md:row-span-1 relative group overflow-hidden", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1600&q=85&auto=format&fit=crop" },
-    { alt: "Powder room — Portland stone and brass detailing", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" },
+    { alt: "Grand drawing room with classical proportions and tall sash windows", className: "md:col-span-2 md:row-span-2 relative group overflow-hidden", src: "https://images.unsplash.com/photo-1767050325401-9d686f00f8d4?w=1600&q=85&auto=format&fit=crop" },
+    { alt: "Heritage interior detail — cornicing and shutter against raking light", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop" },
+    { alt: "Master suite — tall sash window and panelled wall in soft daylight", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop" },
+    { alt: "West-facing landscaped garden bordered by box hedges and stone paving", className: "md:col-span-2 md:row-span-1 relative group overflow-hidden", src: "https://images.unsplash.com/photo-1777297821426-a8033c40ba59?w=1600&q=85&auto=format&fit=crop" },
+    { alt: "Powder room — Portland stone and brass detailing", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1777014547456-7d94a04382ee?w=900&q=85&auto=format&fit=crop" },
     { alt: "Library landing with bespoke bookcases and leaded glass", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1664786200000-b1424aa47dff?w=900&q=85&auto=format&fit=crop" },
-    { alt: "Rear mews entrance — wrought iron gate detail under raking light", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" }
+    { alt: "Rear mews entrance — wrought iron gate detail under raking light", className: "relative group overflow-hidden", src: "https://images.unsplash.com/photo-1688679179315-327efb896fcf?w=900&q=85&auto=format&fit=crop" }
   ];
 
   const footerLegal = ["Privacy Policy", "Terms of Service", "Accessibility", "Cookie Policy"];
@@ -31,21 +31,21 @@ export default function T45RealEstateListing() {
       caption: "I · Exterior · Grosvenor Facade · 1875",
       aspect: "aspect-[16/9]",
       alt: "Heritage exterior elevation of a classical European townhouse",
-      src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop"
+      src: "https://images.unsplash.com/photo-1764416166527-2081e20fe47c?w=1920&q=85&auto=format&fit=crop"
     },
     {
       plate: "II",
       caption: "II · Piano Nobile · Drawing Room",
       aspect: "aspect-[21/9]",
       alt: "Light-filled interior salon with classical proportions",
-      src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1920&q=85&auto=format&fit=crop"
+      src: "https://images.unsplash.com/photo-1767050325401-9d686f00f8d4?w=1920&q=85&auto=format&fit=crop"
     },
     {
       plate: "III",
       caption: "III · Rear Mews · Garden Entrance",
       aspect: "aspect-[16/9]",
       alt: "Rear mews staircase and private garden entrance in soft daylight",
-      src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=1920&q=85&auto=format&fit=crop"
+      src: "https://images.unsplash.com/photo-1777297821426-a8033c40ba59?w=1920&q=85&auto=format&fit=crop"
     }
   ];
 
@@ -94,14 +94,14 @@ export default function T45RealEstateListing() {
   ];
 
   const interleaveStrip = [
-    { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Heavy stone facade in raking light" },
-    { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Drawing room with classical proportions" },
+    { src: "https://images.unsplash.com/photo-1764416166527-2081e20fe47c?w=900&q=85&auto=format&fit=crop", alt: "Heavy stone facade in raking light" },
+    { src: "https://images.unsplash.com/photo-1767050325401-9d686f00f8d4?w=900&q=85&auto=format&fit=crop", alt: "Drawing room with classical proportions" },
     { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Long architectural corridor in perspective" },
-    { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Heritage interior, soft daylight" },
+    { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Heritage interior, soft daylight" },
     { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Original cornicing detail in raking light" },
     { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "Facade window aperture under hard sun" },
-    { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Heritage exterior elevation" },
-    { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", alt: "Low-key interior detail" }
+    { src: "https://images.unsplash.com/photo-1688679179315-327efb896fcf?w=900&q=85&auto=format&fit=crop", alt: "Heritage exterior elevation" },
+    { src: "https://images.unsplash.com/photo-1777014547456-7d94a04382ee?w=900&q=85&auto=format&fit=crop", alt: "Low-key interior detail" }
   ];
 
   const neighbourhood = [
@@ -232,7 +232,7 @@ export default function T45RealEstateListing() {
         {/* Hero */}
         <section className="relative h-screen w-full pt-24">
           <div className="absolute inset-0 z-0">
-            <img alt="Georgian townhouse facade at dusk — heavy stone, raking late-afternoon light" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop" />
+            <img alt="Georgian townhouse facade at dusk — heavy stone, raking late-afternoon light" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1764416166527-2081e20fe47c?w=1920&q=85&auto=format&fit=crop" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1A2B3C]/80 via-transparent to-transparent" />
           </div>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full p-margin-edge z-10 flex flex-col md:flex-row justify-between items-end gap-stack-lg max-w-container-max">
@@ -390,7 +390,7 @@ export default function T45RealEstateListing() {
                 <h2 className="font-headline-lg text-headline-lg">A Provenance, Quietly Kept</h2>
                 <p className="font-serif italic text-on-surface-variant text-body-md">Four owners across one hundred and forty-nine years. Each chapter recorded in the deeds at the Probate Office, Henrietta Street.</p>
                 <div className="relative aspect-[4/5] overflow-hidden border border-[#1A2B3C]/15">
-                  <img alt="Archival interior detail of cornicing and shutter" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop" />
+                  <img alt="Archival interior detail of cornicing and shutter" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop" />
                 </div>
               </div>
               <ol className="md:col-span-7 md:col-start-6 space-y-stack-lg">
@@ -443,13 +443,13 @@ export default function T45RealEstateListing() {
           <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
             <div className="md:col-span-7 relative">
               <div className="relative aspect-[4/3] overflow-hidden border border-[#1A2B3C]/15">
-                <img alt="Heritage district streetscape with classical facades" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1600&q=85&auto=format&fit=crop" />
+                <img alt="Heritage district streetscape with classical facades" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1688679179315-327efb896fcf?w=1600&q=85&auto=format&fit=crop" />
               </div>
               <div className="hidden md:block absolute -bottom-12 -right-8 w-48 h-60 overflow-hidden border-4 border-background shadow-2xl rotate-2">
-                <img alt="Quiet heritage street corner at dusk" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=85&auto=format&fit=crop" />
+                <img alt="Quiet heritage street corner at dusk" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1707308029017-1f5ce047706c?w=600&q=85&auto=format&fit=crop" />
               </div>
               <div className="hidden md:block absolute top-12 -left-12 w-40 h-32 overflow-hidden border-4 border-background shadow-xl -rotate-3">
-                <img alt="Wrought iron gate detail of a heritage residence" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=500&q=85&auto=format&fit=crop" />
+                <img alt="Wrought iron gate detail of a heritage residence" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1688679179315-327efb896fcf?w=500&q=85&auto=format&fit=crop" />
               </div>
             </div>
             <div className="md:col-span-4 md:col-start-9 space-y-stack-md self-center">

@@ -10,8 +10,8 @@ export default function T109DarkLuxuryOccult() {
     { span: "lg:col-span-7", aspect: "aspect-[4/3]", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=1400&q=85&auto=format&fit=crop", chip: "PLATE · I", title: "Brass & Bone, c. 1730", body: "The apothecary's apparatus, kept in its first arrangement.", roman: "I" },
     { span: "lg:col-span-5", aspect: "aspect-[4/3]", stretch: true, img: "https://images.unsplash.com/photo-1530538987395-032d1800fdd4?w=1100&q=85&auto=format&fit=crop", chip: "PLATE · II", title: "The Reading Vault", body: "Floor 2 · By appointment · Dusk only", roman: "II" },
     { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", chip: "PLATE · III", title: "Antechamber", body: "Stone · Brass · Hush", roman: "III" },
-    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", chip: "PLATE · IV", title: "The West Stair", body: "Heritage facade · MMXXIV", roman: "IV" },
-    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1604147495798-57beb5d6af73?w=900&q=85&auto=format&fit=crop", chip: "PLATE · V", title: "Cathedral, North", body: "Light · Stone · Time", roman: "V" },
+    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1712252865201-3a5b3d2a1f83?w=900&q=85&auto=format&fit=crop", chip: "PLATE · IV", title: "The West Stair", body: "Heritage facade · MMXXIV", roman: "IV" },
+    { span: "lg:col-span-4", aspect: "aspect-square", img: "https://images.unsplash.com/photo-1741983668560-8c6a31e3e771?w=900&q=85&auto=format&fit=crop", chip: "PLATE · V", title: "Cathedral, North", body: "Light · Stone · Time", roman: "V" },
   ];
 
   const manifesto = [
@@ -29,7 +29,7 @@ export default function T109DarkLuxuryOccult() {
       body: "A whole identity for a private members' library — bookplate, letterhead, and a digital reading room cast in candlelight.",
       offset: "",
       alt: "The Obsidian Vault",
-      src: "https://images.unsplash.com/photo-1576613109753-27804de2cba8?w=1000&q=85&auto=format&fit=crop",
+      src: "https://images.unsplash.com/photo-1705299493165-4b2a6bfe3e1f?w=1000&q=85&auto=format&fit=crop",
     },
     {
       num: "II", year: "MMXXV", tags: "PACKAGING · ART DIRECTION",
@@ -45,7 +45,7 @@ export default function T109DarkLuxuryOccult() {
       body: "A nocturnal hotel concept — wayfinding, ambient sound, and a reservation ritual that begins at dusk.",
       offset: "",
       alt: "Hour of the Wolf",
-      src: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=1000&q=85&auto=format&fit=crop",
+      src: "https://images.unsplash.com/photo-1754905947345-b68bebbb0aa5?w=1000&q=85&auto=format&fit=crop",
     },
   ];
   const trustedBy = [
@@ -404,7 +404,7 @@ export default function T109DarkLuxuryOccult() {
                 {/* Editorial plate image */}
                 <figure className="group relative overflow-hidden rounded-lg border border-primary-container/20 bg-surface-container mb-10">
                   <div className="aspect-[16/10] relative overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1499744937866-d7e566a20a61?w=1100&q=85&auto=format&fit=crop" alt="Lamp & Pen" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out" />
+                    <img src="https://images.unsplash.com/photo-1605150934151-b65f23423e93?w=1100&q=85&auto=format&fit=crop" alt="Lamp & Pen" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/15 to-transparent"></div>
                     <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 90% 60% at 50% 50%, transparent 40%, rgba(19,19,19,0.5) 100%)" }}></div>
                     <div className="absolute top-5 left-5 font-label-caps text-label-caps text-primary-container bg-background/60 backdrop-blur-sm border border-primary-container/30 px-3 py-1.5 tracking-[0.3em]">PLATE · 06</div>
