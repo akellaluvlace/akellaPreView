@@ -299,7 +299,7 @@ export default function T54Synthwave() {
             <div className="bg-gray-900/50 border border-neonCyan/30 p-1 md:p-2 rounded-lg max-w-5xl mx-auto shadow-[0_0_30px_rgba(0,255,255,0.1)] reveal">
               <div className="bg-black border border-gray-800 rounded grid grid-cols-1 md:grid-cols-2 overflow-hidden">
                 <div className="relative group h-64 md:h-auto min-h-[300px]">
-                  <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 mix-blend-hard-light" alt="Featured Album" />
+                  <img src="https://images.unsplash.com/photo-1681670251071-49ec1d11cfc7?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 mix-blend-hard-light" alt="Featured Album" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                   <div className="absolute bottom-6 left-6">
                     <h3 className="font-display text-3xl text-white mb-1">CYBER_CITY_RUN</h3>

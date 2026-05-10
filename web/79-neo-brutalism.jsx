@@ -85,8 +85,8 @@ export default function T79NeoBrutalism() {
   ];
 
   const projects = [
-    { title: "CoinCrush", subtitle: "UI/UX - Branding", img: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop", alt: "CoinCrush fintech dashboard", tag: "Fintech", tagBg: "bg-neo-yellow", chips: ["+42% Conv", "6 Week MVP"] },
-    { title: "Neon Street", subtitle: "eCommerce - Social", img: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=1000&auto=format&fit=crop", alt: "Neon Street fashion campaign", tag: "Fashion", tagBg: "bg-neo-red text-white", chips: ["3.1x ROAS", "DTC Launch"] },
+    { title: "CoinCrush", subtitle: "UI/UX - Branding", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop", alt: "CoinCrush fintech dashboard", tag: "Fintech", tagBg: "bg-neo-yellow", chips: ["+42% Conv", "6 Week MVP"] },
+    { title: "Neon Street", subtitle: "eCommerce - Social", img: "https://images.unsplash.com/photo-1545402620-b85fa859e812?q=80&w=1000&auto=format&fit=crop", alt: "Neon Street fashion campaign", tag: "Fashion", tagBg: "bg-neo-red text-white", chips: ["3.1x ROAS", "DTC Launch"] },
     { title: "Pixel Wars", subtitle: "Web Dev - 3D Assets", img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1000&auto=format&fit=crop", alt: "Pixel Wars game environment", tag: "Gaming", tagBg: "bg-neo-bg", chips: ["8k MAU", "Game Launch"] },
     { title: "Sonic Fest", subtitle: "Identity - Print", img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000&auto=format&fit=crop", alt: "Sonic Fest live event", tag: "Event", tagBg: "bg-neo-yellow", chips: ["Sold Out", "20k Attendees"] },
   ];

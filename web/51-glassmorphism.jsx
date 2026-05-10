@@ -34,7 +34,7 @@ export default function T51Glassmorphism() {
   const cities = [
     { id: "1542051841857-5f90071e7989", flag: "🇯🇵", city: "Tokyo",     status: "Open",   pair: "USD / JPY", rate: "154.32", delta: "▲ 0.21%", trend: "up" },
     { id: "1486299267070-83823f5448dd", flag: "🇬🇧", city: "London",    status: "Open",   pair: "USD / GBP", rate: "0.7892", delta: "▼ 0.08%", trend: "down" },
-    { id: "1499856871958-5b9627545d1a", flag: "🇪🇺", city: "Frankfurt", status: "Open",   pair: "USD / EUR", rate: "0.9214", delta: "▲ 0.14%", trend: "up" },
+    { id: "1492967244433-9351912933ec", flag: "🇪🇺", city: "Frankfurt", status: "Open",   pair: "USD / EUR", rate: "0.9214", delta: "▲ 0.14%", trend: "up" },
     { id: "1496442226666-8d4d0e62e6e9", flag: "🇺🇸", city: "NYC",       status: "Open",   pair: "USD · BASE", rate: "1.0000", delta: "— FLAT",  trend: "flat" },
     { id: "1525625293386-3f8f99389edd", flag: "🇸🇬", city: "Singapore", status: "Open",   pair: "USD / SGD", rate: "1.3521", delta: "▲ 0.32%", trend: "up" },
     { id: "1506973035872-a4ec16b8e8d9", flag: "🇦🇺", city: "Sydney",    status: "Closed", pair: "USD / AUD", rate: "1.5189", delta: "▼ 0.18%", trend: "down" },
