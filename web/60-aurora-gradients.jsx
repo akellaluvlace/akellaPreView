@@ -283,14 +283,6 @@ body { background-color: #0F172A; color: white; overflow-x: hidden; -webkit-font
         <main className="flex flex-col items-center relative z-10">
           {/* Hero */}
           <section className="min-h-[100dvh] flex flex-col justify-center items-center text-center px-4 relative w-full max-w-7xl mx-auto pt-24 pb-12">
-            <div className="mb-6 md:mb-8 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md animate-float">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span className="text-xs font-semibold tracking-wide text-emerald-100 uppercase">Version 2.0 Live</span>
-            </div>
-
             <h1 className="font-display font-medium text-5xl sm:text-6xl md:text-8xl lg:text-9xl tracking-tight mb-6 leading-[1.1] md:leading-[0.95]">
               Find Your <br />
               <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-500">Center</span>

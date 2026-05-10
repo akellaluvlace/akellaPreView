@@ -245,7 +245,9 @@ function DocHub() {
 
           {/* Main Content (Center) — content centered between left sidebar (260) and TOC (240) on xl+. Inner mx-auto wrapper caps at 820 so the article doesn't sprawl. */}
           <main className="flex-1 md:ml-nav_width xl:mr-toc_width px-6 sm:px-10 lg:px-14 xl:px-16 py-12 min-w-0">
-            <div className="mx-auto w-full max-w-[820px]">
+            <div className="mx-auto w-full max-w-[984px]">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] gap-8 lg:gap-10">
+            <div className="min-w-0">
             <article className="max-w-prose">
               <h1 className="font-h1 text-h1 text-on-surface mb-stack_md">Getting Started with Palette API</h1>
               <p className="font-body-base text-body-base text-on-surface-variant leading-relaxed mb-stack_lg">
@@ -358,6 +360,71 @@ function DocHub() {
                 </div>
               </div>
             </section>
+            </div>
+
+            {/* Right rail: stats strip — sticky, spans Getting Started → Shipping in production */}
+            <aside className="hidden lg:block self-start sticky top-32 space-y-4">
+              {/* Live API status */}
+              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2 font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)] animate-pulse"></span>
+                    Live · API Status
+                  </span>
+                  <a href="#" className="font-code-base text-[11px] text-primary-container hover:underline">status →</a>
+                </div>
+                <div className="space-y-2.5">
+                  {[
+                    { label: "Uptime · 90d", num: "99.99", suf: "%" },
+                    { label: "p50 latency",  num: "38",    suf: "ms" },
+                    { label: "p99 latency",  num: "112",   suf: "ms" },
+                    { label: "Edges",        num: "38",    suf: "" },
+                  ].map((r, i, a) => (
+                    <div key={r.label} className={`flex items-baseline justify-between ${i < a.length - 1 ? "border-b border-outline-variant/50 pb-2" : ""}`}>
+                      <span className="font-code-base text-[12px] text-on-surface-variant">{r.label}</span>
+                      <span className="font-h3 text-h3 text-on-surface tabular-nums">{r.num}{r.suf && <span className="text-on-surface-variant text-sm">{r.suf}</span>}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Adoption counters */}
+              <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">/ Adoption</span>
+                  <span className="font-code-base text-[11px] text-on-surface-variant">v3.4.0</span>
+                </div>
+                <ul className="space-y-2.5">
+                  {[
+                    { icon: "palette", label: "Palettes generated", num: "12.4M" },
+                    { icon: "hub",     label: "Active integrations", num: "47k" },
+                    { icon: "code",    label: "SDK weekly d/l", num: "2.1M" },
+                    { icon: "public",  label: "Design systems", num: "92" },
+                  ].map(r => (
+                    <li key={r.icon} className="flex items-center gap-2.5">
+                      <span className="material-symbols-outlined text-primary-container text-lg">{r.icon}</span>
+                      <div className="flex-1 flex items-baseline justify-between">
+                        <span className="font-body-sm text-body-sm text-on-surface-variant">{r.label}</span>
+                        <span className="font-code-base text-[12px] text-on-surface tabular-nums">{r.num}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* Mini changelog */}
+              <div className="rounded-xl border border-primary-container/30 bg-primary-container/5 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2 font-label-caps text-label-caps uppercase tracking-wider text-primary-container">
+                    <span className="material-symbols-outlined text-base">bolt</span>
+                    Latest
+                  </span>
+                  <span className="font-code-base text-[11px] text-on-surface-variant">2d ago</span>
+                </div>
+                <h5 className="font-body-sm text-body-sm font-semibold text-on-surface leading-snug">v3.4 · WCAG 2.2 contrast locks</h5>
+                <p className="font-body-sm text-[12px] text-on-surface-variant leading-relaxed">Declare minimum-contrast invariants between named tokens. Generator nudges hue + lightness until satisfied.</p>
+                <a href="#" className="inline-flex items-center gap-1 font-code-base text-[12px] text-primary-container hover:underline">Read changelog <span className="material-symbols-outlined text-sm">arrow_forward</span></a>
+              </div>
+            </aside>
+            </div>
 
             {/* Section: Themes in Production (image strip / marquee) */}
             <section id="themes" className="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="themes-heading">

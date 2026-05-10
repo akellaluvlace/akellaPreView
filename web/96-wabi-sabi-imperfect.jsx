@@ -179,7 +179,7 @@ export default function T96WabiSabiImperfect() {
 
                 <article className="md:col-span-5 md:col-start-3 md:mt-8 transform rotate-[-2.5deg]">
                   <div className="overflow-hidden rounded shadow-[0_8px_28px_-12px_rgba(60,40,20,0.22)] border border-outline-variant/40 bg-surface-container-lowest">
-                    <img alt="Small kohiki chawan tea bowl with subtle crackle glaze" className="w-full aspect-square object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARtg2-cP62x8WVCX-wyEUP7WMMZ8YP2ZQoJ9HDUbUnLe6AIdn8C3HKbr-gvzk5g5BMXVMbrtRP5VAFBgN45G_eLIZQXGGRvBEZ-KC5NfEWeKgG_ANBKKJMJ1bcDAlEhevyUo6BtBoDxXB6VN_nZ2zbn15cyNelhoN03BPPbxVu_VGRRx_UWvKWzohJuT-gsWEQXZCEcIr98IGb52tb9eObQ7OfeZxrxihmo8QqgIfkWxwUqeJrH_u8ItSCTwIrAr98fiJPg-id" loading="lazy" decoding="async" />
+                    <img alt="Small kohiki chawan tea bowl with subtle crackle glaze" className="w-full aspect-square object-cover" src="https://images.unsplash.com/photo-1622947344895-2148f56279f8?w=900&q=85&auto=format&fit=crop" loading="lazy" decoding="async" />
                   </div>
                   <div className="mt-5 flex flex-col gap-1 transform rotate-[2.5deg] origin-top-left">
                     <h3 className="font-headline-md text-body-lg text-on-surface italic">Kohiki Chawan</h3>
@@ -256,7 +256,7 @@ export default function T96WabiSabiImperfect() {
                 </figure>
                 <figure className="group">
                   <div className="relative aspect-[3/4] overflow-hidden rounded bg-surface-container">
-                    <img alt="Kohiki chawan re-cropped from firing 019" className="w-full h-full object-cover grayscale-[0.15] opacity-95" style={{ objectPosition: "40% 50%" }} src="https://lh3.googleusercontent.com/aida-public/AB6AXuARtg2-cP62x8WVCX-wyEUP7WMMZ8YP2ZQoJ9HDUbUnLe6AIdn8C3HKbr-gvzk5g5BMXVMbrtRP5VAFBgN45G_eLIZQXGGRvBEZ-KC5NfEWeKgG_ANBKKJMJ1bcDAlEhevyUo6BtBoDxXB6VN_nZ2zbn15cyNelhoN03BPPbxVu_VGRRx_UWvKWzohJuT-gsWEQXZCEcIr98IGb52tb9eObQ7OfeZxrxihmo8QqgIfkWxwUqeJrH_u8ItSCTwIrAr98fiJPg-id" loading="lazy" decoding="async" />
+                    <img alt="Kohiki chawan re-cropped from firing 019" className="w-full h-full object-cover grayscale-[0.15] opacity-95" style={{ objectPosition: "40% 50%" }} src="https://images.unsplash.com/photo-1622947344895-2148f56279f8?w=900&q=85&auto=format&fit=crop" loading="lazy" decoding="async" />
                     <div className="absolute inset-0 bg-secondary-fixed-dim/20 mix-blend-overlay" />
                   </div>
                   <figcaption className="mt-2 font-headline-md text-xs italic text-surface-tint">Firing 019 · March</figcaption>

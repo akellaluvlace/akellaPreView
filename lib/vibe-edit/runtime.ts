@@ -42,6 +42,62 @@ export function vibeRuntimeJs(): string {
       return el && el.matches && el.matches(VIBE_EDITABLE);
     }
 
+    // Walk up from el to find the nearest editable atom (heading,
+    // text, button, link, image, svg, etc.). ev.target is the deepest
+    // hit element which for SVGs is usually a <path>, for buttons-
+    // with-children is the child, etc. Without the walk-up, clicks on
+    // these never select anything because the immediate target doesnt
+    // match VIBE_EDITABLE. Stops at body/documentElement so a click
+    // on the page background doesnt walk into the document root.
+    function vibeFindEditableAncestor(el) {
+      var cur = el;
+      while (cur && cur !== document.body && cur !== document.documentElement) {
+        if (vibeIsEditable(cur)) return cur;
+        cur = cur.parentElement;
+      }
+      return null;
+    }
+
+    // Card detection — used as the fallback when no editable atom
+    // matched. Vibecoder mental model: I clicked on something that
+    // LOOKS like a box → I want to tweak the box (bg / corners).
+    // Computed-style based so it works with Tailwind utilities,
+    // inline styles, or hand-rolled CSS. Plain wrapper divs (no
+    // bg / no rounding / no shadow / no border) fall through to
+    // selection-clear.
+    function vibeIsCardLike(el) {
+      if (!el || !el.tagName) return false;
+      if (el === document.body || el === document.documentElement) return false;
+      if (vibeIsEditable(el)) return false;
+      var cs = window.getComputedStyle ? getComputedStyle(el) : null;
+      if (!cs) return false;
+      var bg = cs.backgroundColor || '';
+      if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') return true;
+      var rad = cs.borderRadius || '';
+      if (rad && rad !== '0px') {
+        var radNum = parseFloat(rad);
+        if (radNum > 0) return true;
+      }
+      var sh = cs.boxShadow || '';
+      if (sh && sh !== 'none' && sh.length > 0) return true;
+      var bw =
+        (parseFloat(cs.borderTopWidth || '0') || 0) +
+        (parseFloat(cs.borderBottomWidth || '0') || 0) +
+        (parseFloat(cs.borderLeftWidth || '0') || 0) +
+        (parseFloat(cs.borderRightWidth || '0') || 0);
+      if (bw > 0) return true;
+      return false;
+    }
+
+    function vibeFindCardAncestor(el) {
+      var cur = el;
+      while (cur && cur !== document.body && cur !== document.documentElement) {
+        if (vibeIsCardLike(cur)) return cur;
+        cur = cur.parentElement;
+      }
+      return null;
+    }
+
     // CSS-selector path: tag#id (stops at first id) or tag:nth-of-type(N)
     // when ambiguous siblings exist. Mirrors lib/vibe-edit/path.ts
     // exactly; if either drifts the integration test catches it.
@@ -161,16 +217,28 @@ export function vibeRuntimeJs(): string {
     // DROPIN_TOOL global from inspectorRuntimeJs. When the user
     // switches tool away from vibe, the host posts dropin:set-tool
     // and this handler becomes inert until they switch back.
+    //
+    // Resolution order: walk up from ev.target for an editable atom
+    // (heading / text / button / link / image / svg). If none, walk
+    // up for a card-like container (div with bg / rounded / shadow /
+    // border) — vibecoders click somewhere in a card and expect to
+    // edit the card. Plain wrappers fall through to selection-clear.
     document.addEventListener('click', function (ev) {
       if (DROPIN_TOOL !== 'vibe') return;
       ev.preventDefault();
       ev.stopPropagation();
-      var t = ev.target;
-      if (!vibeIsEditable(t)) {
-        if (vibeSelected) vibeClear();
+      var raw = ev.target;
+      var atom = vibeFindEditableAncestor(raw);
+      if (atom) {
+        vibeSelect(atom);
         return;
       }
-      vibeSelect(t);
+      var card = vibeFindCardAncestor(raw);
+      if (card) {
+        vibeSelect(card);
+        return;
+      }
+      if (vibeSelected) vibeClear();
     }, true);
 
     // Direct-mutation handlers. Each finds the element by path; if
@@ -221,6 +289,78 @@ export function vibeRuntimeJs(): string {
         el = d.path ? document.querySelector(d.path) : null;
         if (el && el.tagName === 'A') {
           el.setAttribute('href', d.href || '');
+          if (vibeSelected === el) {
+            dropinPost({ type: 'vibe:selected', info: vibeSerialize(el) });
+          }
+        }
+      } else if (d.type === 'vibe:update-outer') {
+        // Icon swap. Replaces the elements outerHTML with the asset
+        // markup. We re-inject d.oid into the first opening tag so
+        // post-swap OID-based addressing keeps working. After the
+        // outerHTML write the old node is detached, so we re-find by
+        // path and re-emit selection if the user had this element
+        // selected. Manual char-scan (no regex literal) avoids the TS
+        // template backslash-escape trap.
+        el = d.path ? document.querySelector(d.path) : null;
+        if (el && typeof d.newOuter === 'string' && d.newOuter.length > 0) {
+          var wasSelected = (vibeSelected === el);
+          var stamped = d.newOuter;
+          if (d.oid && stamped.indexOf('data-dropin-id') < 0) {
+            // charCode comparisons throughout — avoids '\t' in a TS
+            // template body (which would expand to a literal tab and
+            // make the source visually ambiguous). 60 = '<', 32 = ' ',
+            // 9 = TAB; tag-name chars are A-Z (65-90), a-z (97-122),
+            // 0-9 (48-57), '-' (45).
+            var i = 0;
+            while (i < stamped.length && stamped.charCodeAt(i) !== 60) i++;
+            if (i < stamped.length) {
+              var j = i + 1;
+              while (
+                j < stamped.length &&
+                (stamped.charCodeAt(j) === 32 || stamped.charCodeAt(j) === 9)
+              ) j++;
+              var k = j;
+              while (k < stamped.length) {
+                var ch = stamped.charCodeAt(k);
+                var isAlpha =
+                  (ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122);
+                var isDigit = (ch >= 48 && ch <= 57);
+                var isHyphen = ch === 45;
+                if (!isAlpha && !isDigit && !isHyphen) break;
+                k++;
+              }
+              if (k > j) {
+                stamped =
+                  stamped.slice(0, k) +
+                  ' data-dropin-id="' + d.oid + '"' +
+                  stamped.slice(k);
+              }
+            }
+          }
+          try { el.outerHTML = stamped; } catch (e) {}
+          if (wasSelected && d.path) {
+            var newEl = document.querySelector(d.path);
+            if (newEl) {
+              newEl.setAttribute('data-vibe-selected', '');
+              vibeSelected = newEl;
+              dropinPost({ type: 'vibe:selected', info: vibeSerialize(newEl) });
+            } else {
+              vibeSelected = null;
+              dropinPost({ type: 'vibe:cleared' });
+            }
+          }
+        }
+      } else if (d.type === 'vibe:update-classes') {
+        // Class-list overwrite. Sets the element's class attribute
+        // verbatim and re-emits selection so the host's vibeInfo
+        // .classes echoes back. Empty string clears the attr.
+        el = d.path ? document.querySelector(d.path) : null;
+        if (el && typeof d.classes === 'string') {
+          if (d.classes.length === 0) {
+            el.removeAttribute('class');
+          } else {
+            el.setAttribute('class', d.classes);
+          }
           if (vibeSelected === el) {
             dropinPost({ type: 'vibe:selected', info: vibeSerialize(el) });
           }

@@ -50,7 +50,7 @@ export default function T82Nonprofit() {
     {
       name: "Lala Putri",
       role: "Ranger · ID",
-      img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=900&q=85&auto=format&fit=crop",
       alt: "Marine ranger Lala Putri",
       rot: "-rotate-3",
       quote: "Patrol days start at four. By the time the boats turn back, we already know which reef coughed something up overnight.",
@@ -59,7 +59,7 @@ export default function T82Nonprofit() {
     {
       name: "Tomás Ndoye",
       role: "Elder · SN",
-      img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1743585497068-26fe878c73d4?w=900&q=85&auto=format&fit=crop",
       alt: "Community elder Tomás Ndoye",
       rot: "rotate-2",
       quote: "The reef remembers what we forget. The job is to listen first — to the boats, the women, the tides — and let the science follow.",
@@ -68,12 +68,12 @@ export default function T82Nonprofit() {
     {
       name: "Dr. Anika Reyes",
       role: "Biologist · PH",
-      img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=900&q=85&auto=format&fit=crop",
       alt: "Marine biologist Dr. Anika Reyes",
       rot: "rotate-1",
       quote: "Conservation isn't a verb you finish. It's a relationship that takes a generation, and we're now on year fourteen with the same fishing village.",
       site: "Palawan · 2011–",
-      extraImg: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop",
+      extraImg: "https://images.unsplash.com/photo-1555979864-7a8f9b4fddf8?w=900&q=85&auto=format&fit=crop",
       extraAlt: "Coastline near the field station",
       extraName: "Coastline",
       extraRole: "Field · PH",
@@ -82,7 +82,7 @@ export default function T82Nonprofit() {
     {
       name: "Issa Marwa",
       role: "Volunteer · KE",
-      img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1668049221564-862149a48e10?w=900&q=85&auto=format&fit=crop",
       alt: "Youth volunteer Issa Marwa",
       rot: "-rotate-2",
       quote: "I came for one summer of fieldwork on a scholarship. I stayed because the long answer turned out to be more interesting than my degree.",
@@ -272,7 +272,7 @@ export default function T82Nonprofit() {
           <img
             alt="Aerial view of a coastline where the foundation operates field stations"
             className="absolute inset-0 w-full h-full object-cover opacity-50"
-            src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1920&q=85&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1555979864-7a8f9b4fddf8?w=1920&q=85&auto=format&fit=crop"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary-container/85 via-primary-container/40 to-primary-container/70"></div>
           <div className="relative z-10 max-w-[1440px] mx-auto px-8 md:px-16 py-24 md:py-32 grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
@@ -385,7 +385,7 @@ export default function T82Nonprofit() {
                   <img
                     alt="Marine biologist Dr. Reyes documenting reef"
                     className="w-full aspect-[4/5] object-cover"
-                    src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=1000&q=85&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=1000&q=85&auto=format&fit=crop"
                   />
                   <figcaption className="absolute bottom-4 left-4 right-4 flex items-end justify-between text-surface-container-lowest">
                     <span className="font-['Newsreader'] italic text-lg drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Dr. Anika Reyes</span>

@@ -331,7 +331,115 @@ export default function T29CorporateB2c() {
                 <p className="font-body-lg text-body-lg text-on-primary/70 max-w-md md:text-right">Selected photographs from 2024 engagements. Buildings anonymised. Captured by our research desk during diagnostic visits.</p>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-12 gap-4">
-                {fields.map(f => (
+                {fields.filter(f => f.num !== "FIELD · 47").map(f => (
+                  <figure key={f.num} className={`${f.col} ${f.aspect} relative overflow-hidden rounded border border-white/15 bg-primary-container group`}>
+                    <img alt={f.alt} className="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src={f.src} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />
+                    <figcaption className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                      <div>
+                        <span className="block font-label-caps text-label-caps uppercase text-secondary-container">{f.num}</span>
+                        <span className={`block font-headline-md ${f.titleSize} text-on-primary mt-1`}>{f.title}</span>
+                      </div>
+                      {f.showChip && <span className="bg-secondary-container text-on-secondary-container font-label-caps text-label-caps uppercase px-2 py-1 rounded">{f.chip}</span>}
+                    </figcaption>
+                  </figure>
+                )).slice(0, 1)}
+                {/* Right column: Singapore image + At-a-Glance stats card */}
+                <div className="md:col-span-5 flex flex-col gap-4 md:order-none order-last">
+                  <figure className="aspect-[4/3] relative overflow-hidden rounded border border-white/15 bg-primary-container group">
+                    <img alt="Architectural detail of an executive office tower interior" className="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=900&auto=format&fit=crop" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />
+                    <figcaption className="absolute bottom-4 left-4 right-4">
+                      <span className="block font-label-caps text-label-caps uppercase text-secondary-container">FIELD · 47</span>
+                      <span className="block font-headline-md text-xl text-on-primary mt-1">Tower · Singapore</span>
+                    </figcaption>
+                  </figure>
+                  <div className="flex-grow rounded border border-white/15 bg-primary-container/40 backdrop-blur-sm p-6 flex flex-col gap-5">
+                    {/* Header block */}
+                    <div className="flex flex-col gap-2 border-b border-white/10 pb-4">
+                      <div className="flex items-center justify-between">
+                        <span className="font-label-caps text-label-caps uppercase text-secondary-container tracking-widest">— Operating Footprint</span>
+                        <span className="font-label-caps text-label-caps uppercase text-on-primary/50">2024</span>
+                      </div>
+                      <h3 className="font-headline-md text-2xl text-on-primary leading-tight">Where we are working, in numbers.</h3>
+                      <p className="font-body-md text-sm text-on-primary/70 leading-relaxed">A live snapshot of the institutions, sectors, and operating floors currently inside our consultative perimeter. Refreshed quarterly by the Operations Desk.</p>
+                    </div>
+                    {/* Metrics grid */}
+                    <ul className="grid grid-cols-2 gap-x-6 gap-y-5">
+                      {[
+                        { icon: "work_outline", num: "12", label: "Mandates · active" },
+                        { icon: "layers",       num: "47", label: "Sectors · 2024" },
+                        { icon: "schedule",     num: "23", label: "Years · since 2001" },
+                        { icon: "public",       num: "11", label: "Languages · in-house" },
+                      ].map(s => (
+                        <li key={s.icon} className="flex items-start gap-3">
+                          <span className="material-symbols-outlined text-secondary-container text-2xl mt-0.5">{s.icon}</span>
+                          <div>
+                            <span className="block font-headline-md text-2xl text-on-primary leading-none">{s.num}</span>
+                            <span className="block font-label-caps text-label-caps uppercase text-on-primary/60 mt-1.5 tracking-widest">{s.label}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                    {/* Sector roster */}
+                    <div className="flex flex-col gap-3 border-t border-white/10 pt-4">
+                      <div className="flex items-center justify-between">
+                        <span className="font-label-caps text-label-caps uppercase text-secondary-container tracking-widest">— Recent Sectors</span>
+                        <span className="font-label-caps text-label-caps uppercase text-on-primary/50">Last 4 quarters</span>
+                      </div>
+                      <ul className="flex flex-col gap-2.5">
+                        {[
+                          { icon: "account_balance", name: "Tier-1 Banking", loc: "Frankfurt · 2024" },
+                          { icon: "bolt",            name: "Energy & Grid",  loc: "Oslo · 2024" },
+                          { icon: "local_hospital",  name: "Public Health",  loc: "Brussels · 2023" },
+                          { icon: "dns",             name: "Sovereign Cloud", loc: "Dublin · 2023" },
+                        ].map(r => (
+                          <li key={r.icon} className="flex items-center justify-between gap-3 text-sm">
+                            <span className="flex items-center gap-2.5 text-on-primary/85"><span className="material-symbols-outlined text-secondary-container text-lg">{r.icon}</span>{r.name}</span>
+                            <span className="font-label-caps text-label-caps uppercase text-on-primary/50">{r.loc}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {/* Tag row */}
+                    <div className="flex flex-wrap items-center gap-2 border-t border-white/10 pt-4">
+                      <span className="font-label-caps text-label-caps uppercase text-on-primary/50 mr-1">Method</span>
+                      <span className="bg-white/5 border border-white/10 text-on-primary/80 font-label-caps text-label-caps uppercase px-2 py-0.5 rounded tracking-widest">Diagnostic</span>
+                      <span className="bg-white/5 border border-white/10 text-on-primary/80 font-label-caps text-label-caps uppercase px-2 py-0.5 rounded tracking-widest">Build &amp; Sustain</span>
+                      <span className="bg-white/5 border border-white/10 text-on-primary/80 font-label-caps text-label-caps uppercase px-2 py-0.5 rounded tracking-widest">Fixed-Fee</span>
+                      <span className="bg-secondary-container/15 border border-secondary-container/30 text-secondary-container font-label-caps text-label-caps uppercase px-2 py-0.5 rounded tracking-widest">9-Month Hand-off</span>
+                    </div>
+                    {/* Nested mini-card · On the Desk */}
+                    <a href="#" className="group/nested rounded border border-secondary-container/30 bg-primary/40 p-4 flex flex-col gap-3 hover:border-secondary-container hover:bg-primary/60 transition-colors">
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-2 font-label-caps text-label-caps uppercase text-secondary-container tracking-widest">
+                          <span className="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+                          On the Desk
+                        </span>
+                        <span className="font-label-caps text-label-caps uppercase text-on-primary/50">Brief · 09</span>
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <h4 className="font-headline-md text-base text-on-primary leading-snug">Restructuring the operations floor of a Tier-1 European bank.</h4>
+                        <p className="font-body-md text-xs text-on-primary/65 leading-relaxed">Twelve weeks. One operating model. The matrix that paralysed three product lines, quietly retired by month four.</p>
+                      </div>
+                      <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                        <span className="font-label-caps text-label-caps uppercase text-on-primary/55">Lead · M. Hartmann · CFO Desk</span>
+                        <span className="flex items-center gap-1 font-label-caps text-label-caps uppercase text-secondary-container group-hover/nested:translate-x-1 transition-transform">
+                          Read brief <span className="material-symbols-outlined text-base">arrow_forward</span>
+                        </span>
+                      </div>
+                    </a>
+                    {/* Footer */}
+                    <div className="flex items-center justify-between pt-3 border-t border-white/10 mt-auto">
+                      <span className="flex items-center gap-2 font-label-caps text-label-caps uppercase text-on-primary/50">
+                        <span className="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+                        Verified · Operations Desk
+                      </span>
+                      <span className="font-label-caps text-label-caps uppercase text-secondary-container">Updated Q2 · 2024</span>
+                    </div>
+                  </div>
+                </div>
+                {fields.filter(f => f.num !== "FIELD · 46" && f.num !== "FIELD · 47").map(f => (
                   <figure key={f.num} className={`${f.col} ${f.aspect} relative overflow-hidden rounded border border-white/15 bg-primary-container group`}>
                     <img alt={f.alt} className="w-full h-full object-cover grayscale opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" src={f.src} />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/30 to-transparent" />

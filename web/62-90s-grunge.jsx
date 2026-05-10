@@ -327,7 +327,7 @@ export default function T6290sGrunge() {
 
         {/* DOCTRINE — Premium 3-card row with image bg, squarish */}
         <section className="py-20 bg-grunge-charcoal text-grunge-white relative overflow-hidden border-t-4 border-grunge-red">
-          <div className="paper-tear absolute top-0 left-0 w-full h-8 bg-grunge-red transform rotate-180"></div>
+          <div className="paper-tear absolute top-0 left-0 w-full h-8 transform rotate-180"></div>
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
               <span className="inline-block bg-grunge-red text-grunge-white px-3 py-1 font-glitch text-sm uppercase tracking-widest mb-3 transform -rotate-2">/// MANIFESTO ///</span>
@@ -363,7 +363,7 @@ export default function T6290sGrunge() {
               ))}
             </div>
           </div>
-          <div className="paper-tear absolute bottom-0 left-0 w-full h-8 bg-grunge-red"></div>
+          <div className="paper-tear absolute bottom-0 left-0 w-full h-8"></div>
         </section>
 
         {/* ALTERNATING SECTION A */}
@@ -437,7 +437,7 @@ export default function T6290sGrunge() {
 
         {/* DARKROOM CAROUSEL — replaces cream Newsletter strip with grunge image carousel */}
         <section className="py-20 bg-black text-grunge-white relative overflow-hidden border-t-4 border-grunge-red">
-          <div className="paper-tear absolute top-0 left-0 w-full h-8 bg-grunge-red transform rotate-180"></div>
+          <div className="paper-tear absolute top-0 left-0 w-full h-8 transform rotate-180"></div>
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex items-end justify-between mb-10 flex-wrap gap-4 border-b-2 border-grunge-red pb-4">
               <div>
@@ -474,7 +474,7 @@ export default function T6290sGrunge() {
               </div>
             </div>
           </div>
-          <div className="paper-tear absolute bottom-0 left-0 w-full h-8 bg-grunge-red"></div>
+          <div className="paper-tear absolute bottom-0 left-0 w-full h-8"></div>
         </section>
 
         <footer className="bg-black text-white pt-20 pb-10 relative overflow-hidden">

@@ -1,9 +1,11 @@
 "use client";
 
-// Vibe-edit image controls: src + alt only. The vibecoder either
-// pastes a URL (Unsplash, their own host, a CDN) or types alt text.
-// No size, position, layout — those belong to the surrounding
-// container's spacing controls in the power editor.
+// Vibe-edit image controls: src + alt direct edit, plus a Browse
+// button that opens the host-owned LibraryModal in media mode. The
+// library's Unsplash / Pexels panels emit a full <img> string; the
+// host pick-handler swaps the element's outerHTML wholesale (same
+// patcher path as the icon swap — patchJsxOuterByOid for JSX,
+// patchHtmlOuter for HTML).
 
 import { useEffect, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
@@ -11,11 +13,15 @@ import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 interface ImageControlsProps {
   info: VibeElementInfo;
   onImageChange: (next: { src?: string; alt?: string }) => void;
+  // Open the media-library modal. Host owns the modal mount + the
+  // pick → postMessage routing; this control just signals intent.
+  onSwapClick?: () => void;
 }
 
 export default function ImageControls({
   info,
   onImageChange,
+  onSwapClick,
 }: ImageControlsProps) {
   const [src, setSrc] = useState(info.src ?? "");
   const [alt, setAlt] = useState(info.alt ?? "");
@@ -61,6 +67,23 @@ export default function ImageControls({
           className="mt-1 w-full border-2 border-ink bg-paper p-2 font-mono text-sm focus:outline-none"
         />
       </label>
+
+      <div className="border-t-2 border-ink/15 pt-3">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+          Browse free photos
+        </p>
+        <button
+          type="button"
+          onClick={onSwapClick}
+          disabled={!onSwapClick}
+          className="mt-1 w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Open media library
+        </button>
+        <p className="mt-1 font-mono text-[10px] text-muted">
+          Unsplash + Pexels — click any photo to swap.
+        </p>
+      </div>
     </div>
   );
 }

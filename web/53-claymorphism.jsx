@@ -173,9 +173,6 @@ export default function T53Claymorphism() {
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-200/40 rounded-full blur-3xl"></div>
           <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-200/40 rounded-full blur-3xl"></div>
-          <div className="absolute top-20 left-10 w-24 h-24 bg-clay-pink rounded-full shadow-clay-float opacity-90 animate-float hidden md:block"></div>
-          <div className="absolute bottom-40 left-20 w-16 h-16 bg-clay-blue rounded-full shadow-clay-float opacity-80 animate-float-delayed hidden md:block"></div>
-          <div className="absolute top-40 right-10 w-32 h-32 bg-clay-green rounded-full shadow-clay-float opacity-90 animate-float hidden md:block"></div>
         </div>
 
         <nav className="fixed top-0 left-0 w-full z-50 pt-4 px-4">
@@ -415,13 +412,11 @@ export default function T53Claymorphism() {
         </section>
 
         {/* Three Pillars — full-bleed gradient */}
-        <section className="relative z-10 w-full py-24 px-4 overflow-hidden" style={{ background: "linear-gradient(135deg, #F472B6 0%, #A78BFA 50%, #60A5FA 100%)" }}>
+        <section className="relative z-10 w-full py-24 px-4 overflow-hidden" style={{ background: "linear-gradient(180deg, transparent 0%, transparent 70%, #E0F2FE 100%), linear-gradient(135deg, #F472B6 0%, #A78BFA 50%, #60A5FA 100%)" }}>
           {/* Top blend: fade from sky bg into the pink-leading gradient */}
           <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none" style={{ background: "linear-gradient(180deg, #E0F2FE 0%, rgba(224,242,254,0) 100%)" }} />
           <div className="absolute -top-12 -left-12 w-48 h-48 bg-white/20 rounded-full blur-2xl pointer-events-none" />
           <div className="absolute -bottom-16 right-20 w-64 h-64 bg-white/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-32 right-12 w-24 h-24 bg-yellow-300/60 rounded-full shadow-clay-float animate-float hidden md:block pointer-events-none" />
-          <div className="absolute bottom-24 left-16 w-16 h-16 bg-clay-green rounded-full shadow-clay-float animate-float-delayed hidden md:block pointer-events-none" />
           <div className="relative max-w-6xl mx-auto">
             <div className="text-center mb-14 max-w-2xl mx-auto">
               <span className="bg-white/30 text-white font-extrabold uppercase tracking-widest text-sm mb-4 inline-block px-4 py-1.5 rounded-full shadow-clay-btn backdrop-blur-sm">Our Approach</span>
@@ -450,10 +445,8 @@ export default function T53Claymorphism() {
           </div>
         </section>
 
-        {/* Designed by Educators */}
+        {/* Designed by Educators — meets pillars bottom-fade (which already lands on sky) seamlessly */}
         <section className="relative z-10 py-24 px-4 overflow-hidden">
-          {/* Top blend: fade from pillars-gradient blue end into the sky bg */}
-          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-32 md:h-48 pointer-events-none" style={{ background: "linear-gradient(180deg, #60A5FA 0%, rgba(96,165,250,0) 100%)", opacity: 0.5 }} />
           <div className="max-w-6xl mx-auto relative">
             <div className="text-center mb-14 max-w-2xl mx-auto">
               <span className="text-clay-green font-extrabold uppercase tracking-widest text-sm mb-2 block">The Team</span>

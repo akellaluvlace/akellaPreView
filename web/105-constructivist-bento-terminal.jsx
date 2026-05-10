@@ -155,13 +155,13 @@ DIGITAL_ALCHEMY v0.7.4-alpha
         </nav>
         <main className="flex-grow pt-24 pb-16 px-6 max-w-[1600px] mx-auto w-full flex flex-col gap-12 md:gap-16 lg:gap-20">
           <section className="grid grid-cols-1 md:grid-cols-12 grid-rows-none md:grid-rows-[minmax(300px,_auto)_minmax(200px,_auto)] gap-bento-gap">
-            <div className="bento-card-red md:col-span-8 md:row-span-1 p-8 flex flex-col justify-end bg-[#e82f16] group hover:translate-x-[2px] hover:-translate-y-[2px] transition-transform duration-75 cursor-crosshair relative overflow-hidden">
+            <div className="bento-card-red md:col-span-8 md:row-span-1 p-8 flex flex-col justify-end !bg-[#e82f16] group hover:translate-x-[2px] hover:-translate-y-[2px] transition-transform duration-75 cursor-crosshair relative overflow-hidden">
               {/* Use real <img> instead of CSS bg-image — more reliable in JSX iframe (per playbook §A trap on JSX bg-image rendering). mix-blend-multiply on the img achieves the same red-over-image effect. */}
               <img alt="" aria-hidden="true" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" className="absolute inset-0 w-full h-full object-cover object-center mix-blend-multiply pointer-events-none" />
               <div className="absolute top-4 left-4 bg-surface px-2 py-1 border border-outline z-20">
                 <span className="font-status-code text-status-code text-on-surface">SYS_ERR_001</span>
               </div>
-              <h1 className="font-display-hero text-display-hero text-background leading-none mix-blend-color-burn z-10 italic relative">WE<br />TRANSMUTE<br />CODE.</h1>
+              <h1 className="font-display-hero text-display-hero text-white leading-none z-10 italic relative drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">WE<br />TRANSMUTE<br />CODE.</h1>
             </div>
             <div className="bento-card md:col-span-4 md:row-span-2 p-6 bg-surface-container-lowest flex flex-col font-terminal-body text-terminal-body text-tertiary-fixed-dim">
               <div className="flex justify-between items-center border-b-2 border-outline pb-2 mb-4">

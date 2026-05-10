@@ -383,7 +383,7 @@ export default function T80HorizontalScroll() {
           </section>
         </main>
 
-        <nav aria-label="Section navigation" className="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 md:px-16 pb-6 md:pb-12 bg-background/90 backdrop-blur-md border-t border-outline-variant/30 font-label-sm text-label-sm uppercase transition-colors duration-300">
+        <nav aria-label="Section navigation" className="fixed bottom-0 left-0 w-full z-40 flex justify-around items-center px-4 md:px-16 pb-3 md:pb-4 bg-background/90 backdrop-blur-md border-t border-outline-variant/30 font-label-sm text-label-sm uppercase transition-colors duration-300">
           {navItems.map((n) => (
             <a
               key={n.href}

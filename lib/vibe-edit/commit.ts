@@ -13,10 +13,17 @@
 // that shift line/column positions; if oid is null we bail with
 // unchanged=true rather than guessing.
 
-import { patchHtmlText, patchHtmlAttr } from "../source-patch-html";
+import {
+  patchHtmlText,
+  patchHtmlAttr,
+  patchHtmlOuter,
+  patchHtmlClass,
+} from "../source-patch-html";
 import {
   patchJsxTextByOid,
   patchJsxAttrByOid,
+  patchJsxOuterByOid,
+  patchJsxClassByOid,
 } from "../ast/patch-class-by-oid";
 import type { VibeElementInfo } from "./types";
 
@@ -35,6 +42,18 @@ export interface VibeCommitInput {
     // current cssText whenever any style-affecting field (bg, text
     // colour, radius) drifted from the last-committed snapshot.
     style: string;
+    // Outer-replacement payload used by the icon-swap flow. The
+    // patcher replaces the element's full byte range with this string;
+    // JSX mode re-injects the existing OID into the new opening tag so
+    // post-swap addressing keeps working. Empty string is treated as
+    // "no swap intent" and produces no patch.
+    outer: string;
+    // Full className-attribute overwrite. Drives the typography
+    // sliders. Routed through the existing class-only patchers
+    // (patchJsxClassByOid / patchHtmlClass) so the byte-level edit
+    // stays minimal — only the className value changes, surrounding
+    // attributes / formatting / OID untouched.
+    classes: string;
   }>;
 }
 
@@ -106,6 +125,12 @@ export function buildVibeCommit(input: VibeCommitInput): VibeCommitResult {
     if (next.style !== undefined && next.style !== (old.inlineStyle ?? "")) {
       apply(patchHtmlAttr(source, hp, "style", next.style));
     }
+    if (next.outer !== undefined && next.outer.length > 0) {
+      apply(patchHtmlOuter(source, hp, next.outer));
+    }
+    if (next.classes !== undefined && next.classes !== (old.classes ?? "")) {
+      apply(patchHtmlClass(source, hp, next.classes));
+    }
   } else {
     // JSX mode requires OID. Path-based JSX patching isn't wired
     // yet — vibecoders editing OID-less JSX elements (pre-injection
@@ -135,6 +160,12 @@ export function buildVibeCommit(input: VibeCommitInput): VibeCommitResult {
     // for users who need permanence in JSX mode.
     if (next.style !== undefined && next.style !== (old.inlineStyle ?? "")) {
       // No-op — see comment above.
+    }
+    if (next.outer !== undefined && next.outer.length > 0) {
+      apply(patchJsxOuterByOid(source, old.oid, next.outer));
+    }
+    if (next.classes !== undefined && next.classes !== (old.classes ?? "")) {
+      apply(patchJsxClassByOid(source, old.oid, next.classes));
     }
   }
 

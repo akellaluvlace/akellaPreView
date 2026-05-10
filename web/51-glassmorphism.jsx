@@ -505,7 +505,7 @@ export default function T51Glassmorphism() {
               <p className="text-slate-300 text-base md:text-lg">Three tickers, one feed. Each line below appeared somewhere in the network in the last sixty seconds.</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              <div className="lg:col-span-5 flex flex-col gap-5">
+              <div className="lg:col-span-5 flex flex-col gap-5 justify-center">
                 {/* Big card */}
                 <div className="glass-high-contrast rounded-3xl border border-white/15 p-6 md:p-7 relative overflow-hidden">
                   <div className="absolute -top-12 -right-12 w-40 h-40 bg-teal-500/15 rounded-full blur-[60px] pointer-events-none"></div>

@@ -160,7 +160,7 @@ export default function T84GameStudio() {
             "margin-page": "clamp(1.5rem, 5vw, 4rem)", "stack-xs": "0.5rem",
             "stack-md": "1rem", "stack-xl": "clamp(2rem, 5vw, 3rem)",
             gutter: "clamp(1rem, 3vw, 1.5rem)", unit: "0.5rem",
-            "container-max": "1200px"
+            "container-max": "1440px"
           },
           fontFamily: {
             "headline-md": ["Newsreader", "serif"], "label-sm": ["Inter", "sans-serif"],
@@ -328,7 +328,7 @@ export default function T84GameStudio() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
               {features.map((f) => (
-                <article key={f.title} className="flex flex-col items-center text-center space-y-stack-md p-8 rounded-xl bg-surface-container-low border border-surface-container-highest hover:border-secondary/30 hover:bg-surface-container transition-all duration-300">
+                <article key={f.title} className="flex flex-col items-center text-center space-y-stack-lg p-10 md:p-12 rounded-xl bg-surface-container-low border border-surface-container-highest hover:border-secondary/30 hover:bg-surface-container transition-all duration-300">
                   <span className={`material-symbols-outlined text-4xl ${f.iconCls}`} aria-hidden="true">{f.icon}</span>
                   <h3 className="font-headline-md text-on-surface">{f.title}</h3>
                   <p className="font-body-md text-on-surface-variant text-pretty max-w-[65ch]">{f.body}</p>

@@ -240,6 +240,142 @@ describe("vibe-edit runtime — integration", () => {
     expect(messages.some((m) => m?.type === "vibe:cleared")).toBe(true);
   });
 
+  it("clicking a child of svg (path) walks up and selects the svg", async () => {
+    // Real-world: Lucide / Heroicons render as <svg><path/></svg>.
+    // ev.target is usually the <path> (deepest hit) — runtime must
+    // walk up and select the svg, not bail.
+    const dom = buildIframe(
+      `<main><svg viewBox="0 0 24 24"><path d="M1 1 L23 23" /></svg></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    // jsdom's HTMLElement.click() doesn't dispatch on SVG's child
+    // elements directly; use dispatchEvent with bubbles so the
+    // capture-phase handler on document still receives ev.target =
+    // the path.
+    const path = dom.window.document.querySelector("path") as any;
+    path.dispatchEvent(
+      new dom.window.Event("click", { bubbles: true, cancelable: true }),
+    );
+    await waitMs(50);
+
+    const sel = messages.find((m) => m?.type === "vibe:selected") as any;
+    expect(sel).toBeDefined();
+    expect(sel.info.tag).toBe("svg");
+    expect(sel.info.kind).toBe("icon");
+  });
+
+  it("clicking a child inside a button walks up and selects the button when child is non-editable", async () => {
+    // <button><i class="dot" /></button> — i is not in the editable
+    // set, so walk-up should reach the button.
+    const dom = buildIframe(
+      `<main><button><i class="dot"></i></button></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    const i = dom.window.document.querySelector("i") as HTMLElement;
+    i.dispatchEvent(
+      new dom.window.Event("click", { bubbles: true, cancelable: true }),
+    );
+    await waitMs(50);
+
+    const sel = messages.find((m) => m?.type === "vibe:selected") as any;
+    expect(sel).toBeDefined();
+    expect(sel.info.tag).toBe("button");
+    expect(sel.info.kind).toBe("button");
+  });
+
+  it("clicking a card-like div (has bg + rounded) selects it as a container", async () => {
+    // jsdom's getComputedStyle reflects inline `style="..."` reliably.
+    // The runtime's card-like check trips on background-color,
+    // border-radius, box-shadow, or non-zero border-width.
+    const dom = buildIframe(
+      `<main><div id="card" style="background: white; border-radius: 8px; padding: 16px;"><h2>Title</h2></div></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    const card = dom.window.document.querySelector("#card") as HTMLElement;
+    // dispatchEvent on the card itself (cursor in padding zone, not
+    // on the h2). The capture-phase handler sees ev.target = card.
+    card.dispatchEvent(
+      new dom.window.Event("click", { bubbles: true, cancelable: true }),
+    );
+    await waitMs(50);
+
+    const sel = messages
+      .filter((m) => m?.type === "vibe:selected")
+      .pop() as any;
+    expect(sel).toBeDefined();
+    expect(sel.info.tag).toBe("div");
+    expect(sel.info.kind).toBe("container");
+  });
+
+  it("vibe:update-classes overwrites class attribute + re-emits selected", async () => {
+    const dom = buildIframe(
+      `<main><h2 class="text-xl font-bold">Hi</h2></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    const h2 = dom.window.document.querySelector("h2") as HTMLElement;
+    h2.click();
+    await waitMs(50);
+
+    dom.window.postMessage(
+      {
+        __dropin: true,
+        type: "vibe:update-classes",
+        path: "main > h2",
+        classes: "text-3xl font-extrabold",
+      },
+      "*",
+    );
+    await waitMs(100);
+
+    const fresh = dom.window.document.querySelector("h2") as HTMLElement;
+    expect(fresh.getAttribute("class")).toBe("text-3xl font-extrabold");
+    const refreshed = messages
+      .filter((m) => m?.type === "vibe:selected")
+      .pop() as any;
+    expect(refreshed.info.classes).toBe("text-3xl font-extrabold");
+  });
+
+  it("vibe:update-classes with empty string removes the class attribute", async () => {
+    const dom = buildIframe(
+      `<main><p class="text-base">Hi</p></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+
+    dom.window.postMessage(
+      {
+        __dropin: true,
+        type: "vibe:update-classes",
+        path: "main > p",
+        classes: "",
+      },
+      "*",
+    );
+    await waitMs(50);
+
+    const fresh = dom.window.document.querySelector("p") as HTMLElement;
+    expect(fresh.hasAttribute("class")).toBe(false);
+  });
+
   it("vibe:select command selects an element by path", async () => {
     const dom = buildIframe("<main><h1>X</h1><p>Y</p></main>");
     const messages: CapturedMessage[] = [];

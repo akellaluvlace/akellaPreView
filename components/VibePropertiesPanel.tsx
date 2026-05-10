@@ -29,6 +29,18 @@ interface VibePropertiesPanelProps {
   onImageChange: (next: { src?: string; alt?: string }) => void;
   onLinkChange: (href: string) => void;
   onClose: () => void;
+  // Icon-only swap — opens the host-owned LibraryModal in icons mode.
+  // Optional so callers that don't care about icon swap can omit it
+  // (the IconControls Browse button disables itself when absent).
+  onIconSwap?: () => void;
+  // Image swap — opens the host-owned LibraryModal in media mode.
+  // Same shape contract as onIconSwap: the modal owns the pick →
+  // postMessage routing, this control just signals intent.
+  onImageSwap?: () => void;
+  // Class-list mutation routed through to TextControls' typography
+  // sliders. Optional so panels mounted without class-edit support
+  // (e.g. a future read-only mode) just don't render the section.
+  onClassesChange?: (newClasses: string) => void;
 }
 
 export default function VibePropertiesPanel({
@@ -38,6 +50,9 @@ export default function VibePropertiesPanel({
   onImageChange,
   onLinkChange,
   onClose,
+  onIconSwap,
+  onImageSwap,
+  onClassesChange,
 }: VibePropertiesPanelProps) {
   if (!info) {
     return (
@@ -82,15 +97,24 @@ export default function VibePropertiesPanel({
           info={info}
           onContentChange={onContentChange}
           onStyleChange={onStyleChange}
+          onClassesChange={onClassesChange}
         />
       )}
 
       {info.kind === "image" && (
-        <ImageControls info={info} onImageChange={onImageChange} />
+        <ImageControls
+          info={info}
+          onImageChange={onImageChange}
+          onSwapClick={onImageSwap}
+        />
       )}
 
       {info.kind === "icon" && (
-        <IconControls info={info} onStyleChange={onStyleChange} />
+        <IconControls
+          info={info}
+          onStyleChange={onStyleChange}
+          onSwapClick={onIconSwap}
+        />
       )}
 
       {info.kind === "link" && (

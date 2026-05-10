@@ -303,7 +303,9 @@
 </aside>
 <!-- Main Content (Center) -->
 <main class="flex-1 md:ml-nav_width xl:mr-toc_width px-6 sm:px-10 lg:px-14 xl:px-16 py-12 min-w-0">
-<div class="mx-auto w-full max-w-[820px]">
+<div class="mx-auto w-full max-w-[984px]">
+<div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] gap-8 lg:gap-10">
+<div class="min-w-0">
 <article class="max-w-prose">
 <h1 class="font-h1 text-h1 text-on-surface mb-stack_md">Getting Started with Palette API</h1>
 <p class="font-body-base text-body-base text-on-surface-variant leading-relaxed mb-stack_lg">
@@ -408,6 +410,84 @@
 </div>
 </div>
 </section>
+</div>
+
+<!-- Right rail: stats strip — sticky, spans Getting Started → Shipping in production -->
+<aside class="hidden lg:block self-start sticky top-32 space-y-4">
+<!-- Live API status -->
+<div class="rounded-xl border border-outline-variant bg-surface-container-lowest p-4 space-y-3">
+<div class="flex items-center justify-between">
+<span class="flex items-center gap-2 font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)] animate-pulse"></span>Live · API Status</span>
+<a href="#" class="font-code-base text-[11px] text-primary-container hover:underline">status →</a>
+</div>
+<div class="space-y-2.5">
+<div class="flex items-baseline justify-between border-b border-outline-variant/50 pb-2">
+<span class="font-code-base text-[12px] text-on-surface-variant">Uptime · 90d</span>
+<span class="font-h3 text-h3 text-on-surface tabular-nums">99.99<span class="text-on-surface-variant text-sm">%</span></span>
+</div>
+<div class="flex items-baseline justify-between border-b border-outline-variant/50 pb-2">
+<span class="font-code-base text-[12px] text-on-surface-variant">p50 latency</span>
+<span class="font-h3 text-h3 text-on-surface tabular-nums">38<span class="text-on-surface-variant text-sm">ms</span></span>
+</div>
+<div class="flex items-baseline justify-between border-b border-outline-variant/50 pb-2">
+<span class="font-code-base text-[12px] text-on-surface-variant">p99 latency</span>
+<span class="font-h3 text-h3 text-on-surface tabular-nums">112<span class="text-on-surface-variant text-sm">ms</span></span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-code-base text-[12px] text-on-surface-variant">Edges</span>
+<span class="font-h3 text-h3 text-on-surface tabular-nums">38</span>
+</div>
+</div>
+</div>
+<!-- Adoption counters -->
+<div class="rounded-xl border border-outline-variant bg-surface-container-lowest p-4 space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">/ Adoption</span>
+<span class="font-code-base text-[11px] text-on-surface-variant">v3.4.0</span>
+</div>
+<ul class="space-y-2.5">
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="palette">palette</span>
+<div class="flex-1 flex items-baseline justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Palettes generated</span>
+<span class="font-code-base text-[12px] text-on-surface tabular-nums">12.4M</span>
+</div>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="hub">hub</span>
+<div class="flex-1 flex items-baseline justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Active integrations</span>
+<span class="font-code-base text-[12px] text-on-surface tabular-nums">47k</span>
+</div>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="code">code</span>
+<div class="flex-1 flex items-baseline justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">SDK weekly d/l</span>
+<span class="font-code-base text-[12px] text-on-surface tabular-nums">2.1M</span>
+</div>
+</li>
+<li class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="public">public</span>
+<div class="flex-1 flex items-baseline justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Design systems</span>
+<span class="font-code-base text-[12px] text-on-surface tabular-nums">92</span>
+</div>
+</li>
+</ul>
+</div>
+<!-- Mini changelog -->
+<div class="rounded-xl border border-primary-container/30 bg-primary-container/5 p-4 space-y-3">
+<div class="flex items-center justify-between">
+<span class="flex items-center gap-2 font-label-caps text-label-caps uppercase tracking-wider text-primary-container"><span class="material-symbols-outlined text-base" data-icon="bolt">bolt</span>Latest</span>
+<span class="font-code-base text-[11px] text-on-surface-variant">2d ago</span>
+</div>
+<h5 class="font-body-sm text-body-sm font-semibold text-on-surface leading-snug">v3.4 · WCAG 2.2 contrast locks</h5>
+<p class="font-body-sm text-[12px] text-on-surface-variant leading-relaxed">Declare minimum-contrast invariants between named tokens. Generator nudges hue + lightness until satisfied.</p>
+<a href="#" class="inline-flex items-center gap-1 font-code-base text-[12px] text-primary-container hover:underline">Read changelog <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+</aside>
+</div>
 
 <!-- Section: Themes in Production (image strip / marquee) -->
 <section id="themes" class="mt-stack_lg pt-stack_lg border-t border-outline-variant/40" aria-labelledby="themes-heading">

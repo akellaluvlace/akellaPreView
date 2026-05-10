@@ -12,6 +12,7 @@ import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import FirstOpenTour from "./FirstOpenTour";
 import KindToggle from "./KindToggle";
 import ComponentLibrarySidebar from "./library/Sidebar";
+import LibraryModal from "./library/LibraryModal";
 import WorkspaceLeftRail from "./WorkspaceLeftRail";
 import ResizablePanel from "./ResizablePanel";
 import ElementTree from "./ElementTree";
@@ -283,22 +284,22 @@ export default function Workspace({
   // View also closes any open FocusEditor — view tool is the explicit
   // "step out" state. Insert / Swap mid-flow with no completed action
   // bail when the user switches away (insertTargetOid clears below).
-  // Default to 'vibe' (the new no-code edit mode) so vibecoders land
-  // on the click-to-edit flow without needing to know what the other
-  // tools do. Power users can switch to select/move/insert/swap and
-  // their choice persists. Pre-vibe sessions had View as the default.
-  const [tool, setToolState] = useState<Tool>("vibe");
+  // Default to 'view' so first-time visitors land on the rendered
+  // preview with no chrome — they can tap into vibe / select / etc.
+  // when they want to edit. Their persisted choice (vibe, move, etc.)
+  // wins on return.
+  const [tool, setToolState] = useState<Tool>("view");
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
       const stored = window.localStorage.getItem("dropin:tool");
       // Migrate returning users persisted on the now-hidden Select
-      // tool to Vibe so they don't end up in a state with no toolbar
+      // tool to View so they don't end up in a state with no toolbar
       // button matching their persisted choice.
       if (stored === "select") {
-        setToolState("vibe");
+        setToolState("view");
         try {
-          window.localStorage.setItem("dropin:tool", "vibe");
+          window.localStorage.setItem("dropin:tool", "view");
         } catch {
           // ignore
         }
@@ -380,6 +381,17 @@ export default function Workspace({
   // snapshot, the idle-debounce effect runs buildVibeCommit. Reset
   // when the user picks a different element (path changes).
   const lastVibeCommitRef = useRef<VibeElementInfo | null>(null);
+  // Vibe icon swap modal state. Opened by the Swap button inside
+  // IconControls (vibe panel); closed on pick / cancel / tool change /
+  // selection clear. Mounts the existing LibraryModal in icons-tab
+  // swap mode; the picked SVG routes through buildVibeCommit's
+  // outer-replacement path so the source reconciles without an iframe
+  // rebuild.
+  const [vibeIconSwapOpen, setVibeIconSwapOpen] = useState(false);
+  // Vibe image swap modal state. Same shape as icon swap — opened by
+  // the Browse button in ImageControls, mounts LibraryModal in media
+  // mode, picks route through the same outer-replacement patcher.
+  const [vibeImageSwapOpen, setVibeImageSwapOpen] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
   // Phase 5 / Phase C — Insert / Swap structural-edit context.
   //   · `insertTargetOid` is set when the user clicks a target in
@@ -2524,6 +2536,8 @@ export default function Workspace({
   const handleVibeCleared = useCallback(() => {
     setVibeInfo(null);
     lastVibeCommitRef.current = null;
+    setVibeIconSwapOpen(false);
+    setVibeImageSwapOpen(false);
   }, []);
 
   // Direct-mutation handlers. Each posts to the iframe via
@@ -2582,19 +2596,130 @@ export default function Workspace({
     [vibeInfo],
   );
 
+  // Class-list mutation. Drives the typography sliders in vibe mode.
+  // Posts the full new class string to the iframe (instant DOM
+  // update, runtime re-emits vibe:selected with new info.classes);
+  // source reconciles via the existing class-only patcher on idle.
+  const handleVibeClasses = useCallback(
+    (newClasses: string) => {
+      const info = vibeInfo;
+      if (!info) return;
+      previewHandleRef.current?.postVibe({
+        type: "vibe:update-classes",
+        path: info.path,
+        classes: newClasses,
+      });
+    },
+    [vibeInfo],
+  );
+
   const handleVibeClose = useCallback(() => {
     previewHandleRef.current?.postVibe({ type: "vibe:clear" });
     setVibeInfo(null);
     lastVibeCommitRef.current = null;
+    setVibeIconSwapOpen(false);
+    setVibeImageSwapOpen(false);
   }, []);
 
+  // Icon-swap modal lifecycle. The IconControls "Browse icon library"
+  // button calls this; the modal closes on pick / cancel / tool exit /
+  // selection clear.
+  const handleVibeIconSwapOpen = useCallback(() => {
+    setVibeIconSwapOpen(true);
+  }, []);
+
+  const handleVibeIconSwapClose = useCallback(() => {
+    setVibeIconSwapOpen(false);
+  }, []);
+
+  // Image-swap modal lifecycle. Same contract as icon swap — opened
+  // by ImageControls' Browse button; closed on pick / cancel / tool
+  // exit / selection clear.
+  const handleVibeImageSwapOpen = useCallback(() => {
+    setVibeImageSwapOpen(true);
+  }, []);
+
+  const handleVibeImageSwapClose = useCallback(() => {
+    setVibeImageSwapOpen(false);
+  }, []);
+
+  // Shared pick callback used by BOTH the icon and image swap modals.
+  // The library's icon / media panels emit a self-contained <svg> /
+  // <img> string; we replace the existing element's outerHTML
+  // wholesale via the same patchJsxOuterByOid / patchHtmlOuter path.
+  // The targetOid arg from LibraryModal is shape-only — the routing
+  // reads vibeInfo from closure since the modal isn't selection-aware.
+  //
+  // Flow:
+  //   1. Post vibe:update-outer to the iframe → instant DOM mutation,
+  //      runtime re-injects the OID into the new outer + re-emits
+  //      vibe:selected so the panel stays in sync.
+  //   2. Reconcile source synchronously through buildVibeCommit's
+  //      outer-replacement path. JSX requires oid; HTML requires
+  //      htmlPath; both are checked inside buildVibeCommit.
+  //   3. Reset lastVibeCommitRef so the iframe's post-swap re-emit
+  //      establishes a fresh baseline (otherwise the idle commit
+  //      would interpret normal post-swap field shifts as drift).
+  //   4. Close BOTH modals (caller may have opened either).
+  const handleVibeOuterSwap = useCallback(
+    (assetText: string) => {
+      const info = vibeInfo;
+      if (!info) return;
+      previewHandleRef.current?.postVibe({
+        type: "vibe:update-outer",
+        path: info.path,
+        oid: info.oid,
+        newOuter: assetText,
+      });
+      const result = buildVibeCommit({
+        mode: kind,
+        source: code,
+        old: info,
+        next: { outer: assetText },
+      });
+      if (!result.unchanged) {
+        setCodeSilent(result.source);
+      }
+      lastVibeCommitRef.current = null;
+      setVibeIconSwapOpen(false);
+      setVibeImageSwapOpen(false);
+    },
+    [vibeInfo, code, kind, setCodeSilent],
+  );
+
+  // Per-kind pick wrappers. The LibraryModal's onSwapWith signature is
+  // (targetOid, assetText, preserveChildren?) — we ignore the first
+  // and third args here.
+  const handleVibeIconPick = useCallback(
+    (_targetOid: string, assetText: string) => {
+      const info = vibeInfo;
+      if (!info || info.kind !== "icon") return;
+      handleVibeOuterSwap(assetText);
+    },
+    [vibeInfo, handleVibeOuterSwap],
+  );
+
+  const handleVibeImagePick = useCallback(
+    (_targetOid: string, assetText: string) => {
+      const info = vibeInfo;
+      if (!info || info.kind !== "image") return;
+      handleVibeOuterSwap(assetText);
+    },
+    [vibeInfo, handleVibeOuterSwap],
+  );
+
   // Tool-change cleanup: leaving vibe mode wipes vibe state and
-  // tells the iframe to drop the [data-vibe-selected] outline.
+  // tells the iframe to drop the [data-vibe-selected] outline. Also
+  // closes the icon-swap modal if it was open (the modal mount is
+  // gated on vibeInfo + tool, but explicit reset prevents a stale
+  // modal showing if React batches state updates oddly).
   useEffect(() => {
     if (tool !== "vibe" && vibeInfo) {
       previewHandleRef.current?.postVibe({ type: "vibe:clear" });
       setVibeInfo(null);
       lastVibeCommitRef.current = null;
+      setVibeIconSwapOpen(false);
+      setVibeImageSwapOpen(false);
     }
   }, [tool, vibeInfo]);
 
@@ -2623,7 +2748,8 @@ export default function Workspace({
       (vibeInfo.src ?? "") !== (last.src ?? "") ||
       (vibeInfo.alt ?? "") !== (last.alt ?? "") ||
       (vibeInfo.href ?? "") !== (last.href ?? "") ||
-      (vibeInfo.inlineStyle ?? "") !== (last.inlineStyle ?? "");
+      (vibeInfo.inlineStyle ?? "") !== (last.inlineStyle ?? "") ||
+      (vibeInfo.classes ?? "") !== (last.classes ?? "");
     if (!drifted) return;
 
     const id = setTimeout(() => {
@@ -2648,6 +2774,10 @@ export default function Workspace({
           style:
             (vibeInfo.inlineStyle ?? "") !== (last.inlineStyle ?? "")
               ? vibeInfo.inlineStyle ?? ""
+              : undefined,
+          classes:
+            (vibeInfo.classes ?? "") !== (last.classes ?? "")
+              ? vibeInfo.classes ?? ""
               : undefined,
         },
       });
@@ -3382,9 +3512,50 @@ export default function Workspace({
             onImageChange={handleVibeImage}
             onLinkChange={handleVibeLink}
             onClose={handleVibeClose}
+            onIconSwap={handleVibeIconSwapOpen}
+            onImageSwap={handleVibeImageSwapOpen}
+            onClassesChange={handleVibeClasses}
           />
         )}
       </div>
+
+      {tool === "vibe" && vibeIconSwapOpen && vibeInfo && vibeInfo.kind === "icon" && (
+        <LibraryModal
+          mode={kind}
+          swapContext={{
+            // The icon-swap pick handler reads vibeInfo from closure;
+            // targetOid here is shape-only (LibraryModal/Sidebar use it
+            // for the header label, never to address back into source).
+            targetOid: vibeInfo.oid ?? "",
+            targetTag: vibeInfo.tag,
+            // Land on the Icons tab with no category filter — the
+            // user wants to browse the full icon library.
+            suggestedPanel: "icons",
+            suggestedCategory: null,
+            slotEnvelope: null,
+          }}
+          onSwapWith={handleVibeIconPick}
+          onCancelSwap={handleVibeIconSwapClose}
+          onWarn={showWarn}
+        />
+      )}
+
+      {tool === "vibe" && vibeImageSwapOpen && vibeInfo && vibeInfo.kind === "image" && (
+        <LibraryModal
+          mode={kind}
+          swapContext={{
+            targetOid: vibeInfo.oid ?? "",
+            targetTag: vibeInfo.tag,
+            // Land on the Media tab — Unsplash + Pexels.
+            suggestedPanel: "media",
+            suggestedCategory: null,
+            slotEnvelope: null,
+          }}
+          onSwapWith={handleVibeImagePick}
+          onCancelSwap={handleVibeImageSwapClose}
+          onWarn={showWarn}
+        />
+      )}
 
       {previewExpanded && (
         <PreviewModal

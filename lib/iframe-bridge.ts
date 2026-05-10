@@ -377,6 +377,23 @@ export type HostToIframeMessage =
       alt?: string;
     }
   | { type: "vibe:update-link"; path: string; href: string }
+  // Icon swap. Replaces the SVG element's outerHTML wholesale with the
+  // selected library asset. The runtime injects `oid` into the new
+  // outer's first opening tag (when non-null) so post-swap selections
+  // still resolve via OID. After the swap the runtime re-finds the
+  // element at the same `path` and re-emits vibe:selected so the host
+  // panel stays in sync without an iframe rebuild.
+  | {
+      type: "vibe:update-outer";
+      path: string;
+      oid: string | null;
+      newOuter: string;
+    }
+  // Full class-list overwrite. Drives the typography sliders in vibe
+  // mode. Iframe sets the element's class attribute and re-emits
+  // vibe:selected so info.classes propagates back. Source patches
+  // through patchJsxClassByOid / patchHtmlClass on idle.
+  | { type: "vibe:update-classes"; path: string; classes: string }
   | { type: "vibe:select"; path: string }
   | { type: "vibe:clear" };
 

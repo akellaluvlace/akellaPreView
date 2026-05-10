@@ -5,15 +5,15 @@ const footerLinksB = ["Sustainability", "Our Farms", "Privacy"];
 // Marquee tile data — verified §D.1 IDs only.
 const boxTiles = [
   { num: "01", name: "Heirloom tomatoes", farm: "Owl Stream Farm", weight: "800 g", src: "https://images.unsplash.com/photo-1758221055853-479a0de23e66?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(68,103,56,0.22) 100%)", alt: "Warm-toned still life evoking heirloom tomato cluster on linen" },
-  { num: "02", name: "Bronze fennel", farm: "Wren Hollow", weight: "1 bunch", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 50%, rgba(68,103,56,0.30) 100%)", alt: "Cropped architectural facade tinted warm-cream as a textural produce stand-in" },
-  { num: "03", name: "Tuscan kale", farm: "Cedar & Sage", weight: "600 g", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.32) 0%, transparent 60%, rgba(122,85,0,0.18) 100%)", alt: "Brutalist concrete texture cropped tight, recoloured warm-cream and red" },
-  { num: "04", name: "Sungold tomatoes", farm: "Owl Stream Farm", weight: "500 g", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(68,103,56,0.32) 0%, transparent 60%, rgba(179,39,37,0.18) 100%)", alt: "Stone wall texture warm-cream tinted" },
-  { num: "05", name: "Roasting carrots", farm: "Hare's Field", weight: "1 kg", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.28) 0%, transparent 55%, rgba(68,103,56,0.30) 100%)", alt: "Concrete texture cropped, warm-tinted" },
-  { num: "06", name: "Pink lady apples", farm: "Bramble & Nine", weight: "6 ct", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.30) 0%, transparent 60%, rgba(122,85,0,0.20) 100%)", alt: "Architectural cluster warm-tinted" },
-  { num: "07", name: "Marigold squash", farm: "Wren Hollow", weight: "1.4 kg", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(68,103,56,0.30) 0%, transparent 55%, rgba(179,39,37,0.18) 100%)", alt: "Concrete and clay texture, warm-cream tint" },
-  { num: "08", name: "Field rocket", farm: "Cedar & Sage", weight: "220 g", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 55%, rgba(68,103,56,0.22) 100%)", alt: "Architectural detail warm-tinted" },
+  { num: "02", name: "Bronze fennel", farm: "Wren Hollow", weight: "1 bunch", src: "https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 50%, rgba(68,103,56,0.30) 100%)", alt: "Cropped architectural facade tinted warm-cream as a textural produce stand-in" },
+  { num: "03", name: "Tuscan kale", farm: "Cedar & Sage", weight: "600 g", src: "https://images.unsplash.com/photo-1624668430039-0175a0fbf006?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.32) 0%, transparent 60%, rgba(122,85,0,0.18) 100%)", alt: "Brutalist concrete texture cropped tight, recoloured warm-cream and red" },
+  { num: "04", name: "Sungold tomatoes", farm: "Owl Stream Farm", weight: "500 g", src: "https://images.unsplash.com/photo-1760562535158-b1d697464ebc?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(68,103,56,0.32) 0%, transparent 60%, rgba(179,39,37,0.18) 100%)", alt: "Stone wall texture warm-cream tinted" },
+  { num: "05", name: "Roasting carrots", farm: "Hare's Field", weight: "1 kg", src: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.28) 0%, transparent 55%, rgba(68,103,56,0.30) 100%)", alt: "Concrete texture cropped, warm-tinted" },
+  { num: "06", name: "Pink lady apples", farm: "Bramble & Nine", weight: "6 ct", src: "https://images.unsplash.com/photo-1690934164598-99267828e900?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(179,39,37,0.30) 0%, transparent 60%, rgba(122,85,0,0.20) 100%)", alt: "Architectural cluster warm-tinted" },
+  { num: "07", name: "Marigold squash", farm: "Wren Hollow", weight: "1.4 kg", src: "https://images.unsplash.com/photo-1751210769268-85d43ecfcdd8?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(68,103,56,0.30) 0%, transparent 55%, rgba(179,39,37,0.18) 100%)", alt: "Concrete and clay texture, warm-cream tint" },
+  { num: "08", name: "Field rocket", farm: "Cedar & Sage", weight: "220 g", src: "https://images.unsplash.com/photo-1766959481554-5a7bb490758a?w=900&q=85&auto=format&fit=crop", grad: "linear-gradient(160deg, rgba(122,85,0,0.30) 0%, transparent 55%, rgba(68,103,56,0.22) 100%)", alt: "Architectural detail warm-tinted" },
   { num: "09", name: "Black mission figs", farm: "Bramble & Nine", weight: "350 g", src: "https://images.unsplash.com/photo-1758221055853-479a0de23e66?w=900&q=85&auto=format&fit=crop&sat=-15", grad: "linear-gradient(160deg, rgba(179,39,37,0.22) 0%, transparent 60%, rgba(122,85,0,0.28) 100%)", alt: "Brass apothecary still life as warm-toned harvest stand-in" },
-  { num: "10", name: "Soft farm eggs", farm: "Hare's Field", weight: "6 ct", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop&sat=-10", grad: "linear-gradient(160deg, rgba(68,103,56,0.34) 0%, transparent 55%, rgba(179,39,37,0.16) 100%)", alt: "Concrete cluster warm-tinted" }
+  { num: "10", name: "Soft farm eggs", farm: "Hare's Field", weight: "6 ct", src: "https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=900&q=85&auto=format&fit=crop&sat=-10", grad: "linear-gradient(160deg, rgba(68,103,56,0.34) 0%, transparent 55%, rgba(179,39,37,0.16) 100%)", alt: "Concrete cluster warm-tinted" }
 ];
 
 const arrivalSteps = [
@@ -290,7 +290,7 @@ export default function T16SubscriptionBoxLanding() {
                 <div className="md:sticky md:top-32 md:self-start flex flex-col gap-6">
                   <div>
                     <div className="aspect-[4/5] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
-                      <img alt="Architectural facade tinted as ritual portrait" className="w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" />
+                      <img alt="Architectural facade tinted as ritual portrait" className="w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1690934164598-99267828e900?w=1200&q=85&auto=format&fit=crop" />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(255,248,247,0.10) 0%, transparent 30%, rgba(68,103,56,0.40) 100%)" }} />
                       <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(179,39,37,0.18) 0%, transparent 55%, rgba(122,85,0,0.28) 100%)" }} />
                       <div className="absolute bottom-5 left-5 right-5 flex justify-between items-end">
@@ -302,7 +302,7 @@ export default function T16SubscriptionBoxLanding() {
                   </div>
                   <div>
                     <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
-                      <img alt="Hand-packing layer in butcher's paper, Wednesday afternoon" className="w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop" />
+                      <img alt="Hand-packing layer in butcher's paper, Wednesday afternoon" className="w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1760562535158-b1d697464ebc?w=1200&q=85&auto=format&fit=crop" />
                       <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(122,85,0,0.32) 0%, transparent 55%, rgba(68,103,56,0.30) 100%)" }} />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(20,15,8,0.45) 100%)" }} />
                       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
@@ -314,7 +314,7 @@ export default function T16SubscriptionBoxLanding() {
                   </div>
                   <div>
                     <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)]">
-                      <img alt="Refrigerated electric van leaving the shed at 04:30 Thursday" className="w-full h-full object-cover sepia-[55%] saturate-[1.45] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1200&q=85&auto=format&fit=crop" />
+                      <img alt="Refrigerated electric van leaving the shed at 04:30 Thursday" className="w-full h-full object-cover sepia-[55%] saturate-[1.45] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1766959481554-5a7bb490758a?w=1200&q=85&auto=format&fit=crop" />
                       <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(68,103,56,0.32) 0%, transparent 55%, rgba(179,39,37,0.22) 100%)" }} />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(20,15,8,0.45) 100%)" }} />
                       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
@@ -359,7 +359,7 @@ export default function T16SubscriptionBoxLanding() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
               <aside className="lg:col-span-4 flex flex-col gap-5">
                 <div className="relative rounded-xl overflow-hidden border border-outline-variant shadow-[0_8px_32px_rgba(179,39,37,0.10)] flex-1 min-h-[480px] lg:min-h-0">
-                  <img alt="Cooperative cold-pack room at dawn, hand-tinted as harvest still" className="absolute inset-0 w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1200&q=85&auto=format&fit=crop" />
+                  <img alt="Cooperative cold-pack room at dawn, hand-tinted as harvest still" className="absolute inset-0 w-full h-full object-cover sepia-[60%] saturate-[1.5] contrast-110 brightness-95" src="https://images.unsplash.com/photo-1751210769268-85d43ecfcdd8?w=1200&q=85&auto=format&fit=crop" />
                   <div className="absolute inset-0 mix-blend-multiply" style={{ background: "linear-gradient(160deg, rgba(122,85,0,0.32) 0%, transparent 55%, rgba(68,103,56,0.34) 100%)" }} />
                   <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(20,15,8,0.45) 100%)" }} />
                   <div className="absolute top-5 left-5 right-5 flex items-baseline justify-between">

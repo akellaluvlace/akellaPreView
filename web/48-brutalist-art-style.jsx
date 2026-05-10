@@ -527,7 +527,7 @@ export default function T48BrutalistArtStyle() {
             </div>
             <a href="#" className="font-h1 text-primary hover:text-surface relative z-10 flex items-center justify-center w-full h-full focus-visible:outline-none" aria-label="View complete archive">
               <span className="absolute inset-x-0 inset-y-[-20px] scale-y-0 group-hover:scale-y-100 group-focus-within:scale-y-100 transition-transform origin-bottom duration-300 ease-out z-[-1] overflow-hidden" aria-hidden="true">
-                <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=1600&auto=format&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-90" />
+                <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=1600&auto=format&fit=crop" alt="" className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-90" />
                 <span className="absolute inset-0 bg-secondary mix-blend-multiply" />
                 <span className="absolute inset-0 bg-secondary/40" />
               </span>

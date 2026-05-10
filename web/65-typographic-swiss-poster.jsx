@@ -320,7 +320,7 @@ export default function T65TypographicSwissPoster() {
           {/* Day 01 — image left, copy right */}
           <article className="grid grid-cols-1 lg:grid-cols-12 border-b-2 border-swiss-black">
             <div className="lg:col-span-7 border-b-2 lg:border-b-0 lg:border-r-2 border-swiss-black bg-swiss-offwhite">
-              <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=85&auto=format&fit=crop" alt="Bauakademie facade — Day 01" className="w-full h-full object-cover aspect-[4/3] grayscale" />
+              <img src="https://images.unsplash.com/photo-1651342490186-7d3288f567e5?w=1600&q=85&auto=format&fit=crop" alt="Bauakademie facade — Day 01" className="w-full h-full object-cover aspect-[4/3] grayscale" />
             </div>
             <div className="lg:col-span-5 p-6 md:p-12 flex flex-col justify-between gap-6">
               <div className="flex items-baseline gap-4">
@@ -361,14 +361,14 @@ export default function T65TypographicSwissPoster() {
               </ul>
             </div>
             <div className="lg:col-span-7 lg:order-2 order-1 bg-swiss-offwhite">
-              <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1600&q=85&auto=format&fit=crop" alt="Studio interior — Day 02" className="w-full h-full object-cover aspect-[4/3] grayscale" />
+              <img src="https://images.unsplash.com/photo-1765371514743-45bd8e6c0a28?w=1600&q=85&auto=format&fit=crop" alt="Studio interior — Day 02" className="w-full h-full object-cover aspect-[4/3] grayscale" />
             </div>
           </article>
 
           {/* Day 03 — image left, copy right */}
           <article className="grid grid-cols-1 lg:grid-cols-12">
             <div className="lg:col-span-7 border-b-2 lg:border-b-0 lg:border-r-2 border-swiss-black bg-swiss-offwhite">
-              <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1600&q=85&auto=format&fit=crop" alt="Stage interior — Day 03" className="w-full h-full object-cover aspect-[4/3] grayscale" />
+              <img src="https://images.unsplash.com/photo-1759851358346-23ae8c50d31c?w=1600&q=85&auto=format&fit=crop" alt="Stage interior — Day 03" className="w-full h-full object-cover aspect-[4/3] grayscale" />
             </div>
             <div className="lg:col-span-5 p-6 md:p-12 flex flex-col justify-between gap-6">
               <div className="flex items-baseline gap-4">

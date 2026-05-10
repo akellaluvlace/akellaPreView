@@ -13,17 +13,24 @@
 
 import { useEffect, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
+import TextTypographyExtras from "./TextTypographyExtras";
 
 interface TextControlsProps {
   info: VibeElementInfo;
   onContentChange: (text: string) => void;
   onStyleChange: (styles: { color?: string; backgroundColor?: string }) => void;
+  // Optional class-list mutation. Wired through Workspace's
+  // handleVibeClasses → vibe:update-classes postMessage. Absent in
+  // contexts that haven't enabled typography sliders (the panel
+  // section just doesn't render).
+  onClassesChange?: (newClasses: string) => void;
 }
 
 export default function TextControls({
   info,
   onContentChange,
   onStyleChange,
+  onClassesChange,
 }: TextControlsProps) {
   const [text, setText] = useState(info.text);
   const [color, setColor] = useState(rgbToHex(info.textColor));
@@ -94,6 +101,13 @@ export default function TextControls({
           </div>
         </label>
       </div>
+
+      {onClassesChange && (
+        <TextTypographyExtras
+          classes={info.classes ?? ""}
+          onClassesChange={onClassesChange}
+        />
+      )}
     </div>
   );
 }

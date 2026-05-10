@@ -83,6 +83,23 @@ export type VibeCommand =
     }
   | { type: "vibe:update-image"; path: string; src?: string; alt?: string }
   | { type: "vibe:update-link"; path: string; href: string }
+  // Icon swap. Replaces the SVG element's outerHTML wholesale with a
+  // new asset string from the library. `oid` is the source-side
+  // identifier (JSX mode) so the iframe runtime can re-inject it
+  // before the swap and source reconciliation can find the element
+  // post-swap. Null in HTML mode where addressing is by `path`.
+  | {
+      type: "vibe:update-outer";
+      path: string;
+      oid: string | null;
+      newOuter: string;
+    }
+  // Class-list mutation. Drives typography sliders (font-size /
+  // weight / leading / tracking / text-align). The runtime overwrites
+  // the element's class attribute and re-emits vibe:selected so the
+  // host's vibeInfo.classes stays in sync. Source reconciles via the
+  // existing patchJsxClassByOid / patchHtmlClass on idle.
+  | { type: "vibe:update-classes"; path: string; classes: string }
   | { type: "vibe:select"; path: string }
   | { type: "vibe:clear" };
 

@@ -3,7 +3,7 @@ const PAST_ISSUES = [
     no: '№082',
     title: 'On Quiet Tools',
     date: 'Sep 12 · 2023',
-    src: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=85&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=800&q=85&auto=format&fit=crop',
     tilt: 'sb-polaroid-tilt-1',
     tape: true,
   },
@@ -11,7 +11,7 @@ const PAST_ISSUES = [
     no: '№083',
     title: 'The Untyped Margin',
     date: 'Sep 19 · 2023',
-    src: 'https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=800&q=85&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=800&q=85&auto=format&fit=crop',
     tilt: 'sb-polaroid-tilt-2',
     tape: false,
   },
@@ -19,7 +19,7 @@ const PAST_ISSUES = [
     no: '№084',
     title: 'Sundown Code',
     date: 'Sep 26 · 2023',
-    src: 'https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=800&q=85&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=800&q=85&auto=format&fit=crop',
     tilt: 'sb-polaroid-tilt-3',
     tape: true,
   },
@@ -35,7 +35,7 @@ const PAST_ISSUES = [
     no: '№086',
     title: 'On Forgetting',
     date: 'Oct 17 · 2023',
-    src: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=85&auto=format&fit=crop',
+    src: 'https://images.unsplash.com/photo-1622912058707-1b33af81db4f?w=800&q=85&auto=format&fit=crop',
     tilt: 'sb-polaroid-tilt-5',
     tape: true,
   },
@@ -285,7 +285,7 @@ export default function T37NewsletterLanding() {
 
           {/* Featured Latest Issue — image-as-bg under content card (NOVEL #6) */}
           <section className="sb-full-bleed relative overflow-hidden" aria-labelledby="featured-heading">
-            <img alt="This week's issue cover" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1920&q=85&auto=format&fit=crop" />
+            <img alt="This week's issue cover" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1920&q=85&auto=format&fit=crop" />
             <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(30,27,21,0.55) 0%, rgba(30,27,21,0.30) 40%, rgba(30,27,21,0.65) 100%)' }}></div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 70% 60% at 18% 80%, rgba(166,75,42,0.18) 0%, transparent 70%)' }}></div>
             <div className="relative max-w-[1100px] mx-auto px-6 py-24 md:py-32 flex flex-col md:flex-row items-stretch md:items-center gap-10">
@@ -388,10 +388,10 @@ export default function T37NewsletterLanding() {
             {/* Right column: 3 vertically stacked images, height matches the issues list on the left */}
             <div className="md:col-span-3 flex flex-col gap-4">
               <div className="flex-1 overflow-hidden rounded min-h-[180px]">
-                <img alt="Drafts on the desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" />
+                <img alt="Drafts on the desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1732408433038-73d2f6741fc5?w=900&q=85&auto=format&fit=crop" />
               </div>
               <div className="flex-1 overflow-hidden rounded min-h-[180px]">
-                <img alt="Pencils, paper, and morning light" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" />
+                <img alt="Pencils, paper, and morning light" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1642543492366-a92039433543?w=900&q=85&auto=format&fit=crop" />
               </div>
               <div className="flex-1 overflow-hidden rounded min-h-[180px]">
                 <img alt="A second cup of tea" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1458819714733-e5ab3d536722?w=900&q=85&auto=format&fit=crop" />
@@ -466,7 +466,7 @@ export default function T37NewsletterLanding() {
           {/* Frequency / Cadence — wide cinema strip 21:9 (NOVEL #11) */}
           <section className="sb-full-bleed relative overflow-hidden" aria-labelledby="cadence-heading">
             <div className="relative w-full" style={{ aspectRatio: '21 / 9' }}>
-              <img alt="Cadence — light through the studio at the hour the issue ships" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1920&q=85&auto=format&fit=crop" />
+              <img alt="Cadence — light through the studio at the hour the issue ships" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1920&q=85&auto=format&fit=crop" />
               <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(30,27,21,0.20) 0%, rgba(30,27,21,0.05) 40%, rgba(30,27,21,0.85) 100%)' }}></div>
               <div className="absolute top-6 md:top-10 left-6 md:left-12">
                 <span className="font-label-caps text-[10px] text-white/90 uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">Detail · 04 — Cadence</span>
@@ -518,7 +518,7 @@ export default function T37NewsletterLanding() {
                 <img alt="Author desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzSHzJWbV_hpglLnAKO8ofi4soTdth3fsTfox-qnwtIGtCGpdLPZmm7h7naWqEvoVNJ5We8bU49YIOccjXkNjTh6yuV4AR34hzp55TQRKmkH85DZ0MuvAITw9-QKo-tqgZtm9I2mPUZQXZDDvvPtUKlcberoHtGVXKrBQlqkZp8A2M3M3nRaT47A7dRsnoW4NCdn5tQ-4BEPvlDxSXOlIhA3eyRQNg-Ds90s6BJ0lyRQ1a2jr57Nq9ppQ0N3J7vSYpRjGfZLvpKkE" />
               </div>
               <div className="flex-1 overflow-hidden rounded shadow-sm min-h-[180px]">
-                <img alt="Manuscript pages on the desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" />
+                <img alt="Manuscript pages on the desk" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" src="https://images.unsplash.com/photo-1732408433038-73d2f6741fc5?w=900&q=85&auto=format&fit=crop" />
               </div>
             </div>
             {/* Middle col: heading + first half of bio + "currently" card pinned to bottom */}

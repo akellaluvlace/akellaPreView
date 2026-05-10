@@ -32,9 +32,9 @@ const LIBRARY = [
   { num: "No. 02", title: "High Output Management", author: "Andy Grove", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "A pale interior corridor with classical detail" },
   { num: "No. 03", title: "Several short sentences about writing", author: "Verlyn Klinkenborg", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "An architectural cornice photographed against a pale sky" },
   { num: "No. 04", title: "A Field Guide to Getting Lost", author: "Rebecca Solnit", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "A modernist staircase in a pale interior" },
-  { num: "No. 05", title: "The Hard Thing About Hard Things", author: "Ben Horowitz", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "A brutalist concrete corridor" },
-  { num: "No. 06", title: "On Writing Well", author: "William Zinsser", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "A pale interior with a hanging light fixture" },
-  { num: "No. 07", title: "Bird by Bird", author: "Anne Lamott", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "An expansive modernist facade in soft light" },
+  { num: "No. 05", title: "The Hard Thing About Hard Things", author: "Ben Horowitz", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "A brutalist concrete corridor" },
+  { num: "No. 06", title: "On Writing Well", author: "William Zinsser", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "A pale interior with a hanging light fixture" },
+  { num: "No. 07", title: "Bird by Bird", author: "Anne Lamott", img: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?w=900&q=85&auto=format&fit=crop", alt: "An expansive modernist facade in soft light" },
   { num: "No. 08", title: "Status and Culture", author: "W. David Marx", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "A still life of brass apothecary objects on dark wood" }
 ];
 
@@ -46,9 +46,9 @@ const PROCESS = [
 ];
 
 const TESTIMONIALS = [
-  { quote: "The clearest writing on operating I read all year. I keep one essay open in a tab and re-read it before every board meeting.", name: "Mara Kenji", role: "COO · Linear Supply", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Mara Kenji" },
-  { quote: "Tessa writes like an editor and thinks like an operator. The combination is rare and the essays are how I figure out what I think.", name: "Henry Ahn", role: "Editor · Long Form Quarterly", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Henry Ahn" },
-  { quote: "I sent the Operator's Notebook to every founder in our portfolio. Two of them sent it on to their boards within the week.", name: "Iris Vela", role: "Partner · Threadwork Capital", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Iris Vela" }
+  { quote: "The clearest writing on operating I read all year. I keep one essay open in a tab and re-read it before every board meeting.", name: "Mara Kenji", role: "COO · Linear Supply", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Mara Kenji" },
+  { quote: "Tessa writes like an editor and thinks like an operator. The combination is rare and the essays are how I figure out what I think.", name: "Henry Ahn", role: "Editor · Long Form Quarterly", img: "https://images.unsplash.com/photo-1622626426572-c268eb006092?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Henry Ahn" },
+  { quote: "I sent the Operator's Notebook to every founder in our portfolio. Two of them sent it on to their boards within the week.", name: "Iris Vela", role: "Partner · Threadwork Capital", img: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=200&q=85&auto=format&fit=crop", alt: "Portrait of Iris Vela" }
 ];
 
 const EVENTS = [
@@ -169,7 +169,7 @@ export default function T23PersonalBrandStore() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center lg:gap-16">
               <div className="lg:col-span-5 order-2 lg:order-1">
                 <div className="relative w-full aspect-[3/4] bg-secondary-container">
-                  <img alt="Tessa Varga — editorial portrait, soft window light" className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" />
+                  <img alt="Tessa Varga — editorial portrait, soft window light" className="absolute inset-0 w-full h-full object-cover grayscale mix-blend-multiply opacity-90" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop" />
                 </div>
               </div>
               <div className="lg:col-span-7 order-1 lg:order-2 space-y-8 lg:space-y-12">
@@ -279,11 +279,11 @@ export default function T23PersonalBrandStore() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-stretch">
               <div className="md:col-span-6 grid grid-cols-2 gap-4 md:gap-6">
                 <div className="relative aspect-[3/4] bg-surface-container overflow-hidden">
-                  <img alt="A long, brutalist concrete corridor lit from above" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop" />
+                  <img alt="A long, brutalist concrete corridor lit from above" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop" />
                   <span className="absolute top-4 left-4 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · I</span>
                 </div>
                 <div className="relative aspect-[3/4] bg-surface-container overflow-hidden mt-8 md:mt-16">
-                  <img alt="A pale interior with a single hanging light fixture" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop" />
+                  <img alt="A pale interior with a single hanging light fixture" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop" />
                   <span className="absolute top-4 left-4 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Plate · II</span>
                 </div>
               </div>
@@ -332,7 +332,7 @@ export default function T23PersonalBrandStore() {
           {/* NEW: Editorial photo essay - NOVEL #11 wide cinema strip 21:9 full-bleed */}
           <section className="full-bleed py-12 md:py-16">
             <div className="relative w-full overflow-hidden aspect-[21/9] bg-surface-container">
-              <img alt="A long modernist building photographed in soft daylight" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=2400&q=85&auto=format&fit=crop" />
+              <img alt="A long modernist building photographed in soft daylight" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1622912058707-1b33af81db4f?w=2400&q=85&auto=format&fit=crop" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none"></div>
               <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
                 <div>
@@ -439,7 +439,7 @@ export default function T23PersonalBrandStore() {
               <div className="md:col-span-5">
                 <div className="md:sticky md:top-24 self-start">
                   <div className="relative w-full aspect-[3/4] bg-surface-container overflow-hidden">
-                    <img alt="A long, brutalist concrete corridor, soft daylight" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop" />
+                    <img alt="A long, brutalist concrete corridor, soft daylight" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1618488373960-404fe668e524?w=1200&q=85&auto=format&fit=crop" />
                     <span className="absolute bottom-4 left-4 font-label-caps text-label-caps text-white uppercase tracking-widest drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Studio · No. 02</span>
                   </div>
                   <p className="font-body-md text-body-md text-on-surface-variant mt-4">A photograph from the working desk. The studio sits two streets from the Tagus, behind a green door.</p>

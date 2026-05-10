@@ -3,11 +3,11 @@ const CATALOG = [
   { tag: "DX-12 · DAW",           title: "Twelve-fader desktop control surface", edition: "Edition · 80 of 80 · 2019",  img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "DX-12 DAW" },
   { tag: "MIDI-V · MIXER",        title: "Six-channel MIDI router with VU plate", edition: "Edition · 120 of 120 · 2020", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "MIDI-V Mixer" },
   { tag: "SR-09 · SERVER",        title: "1U archival audio file server",        edition: "Edition · 24 of 24 · 2021",  img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "SR-09 Server" },
-  { tag: "EC-02 · ECHO",          title: "Spring-line tape-echo desktop unit",   edition: "Edition · 90 of 90 · 2021",  img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "EC-02 Echo" },
-  { tag: "MN-04 · MONITOR",       title: "Near-field passive reference pair",    edition: "Edition · 40 of 40 · 2022",  img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "MN-04 Monitor" },
-  { tag: "HD-06 · HEADSTAGE",     title: "Class-A headphone amplifier",          edition: "Edition · 150 of 150 · 2023", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "HD-06 Headstage" },
+  { tag: "EC-02 · ECHO",          title: "Spring-line tape-echo desktop unit",   edition: "Edition · 90 of 90 · 2021",  img: "https://images.unsplash.com/photo-1700951372714-98979a8803a4?w=900&q=85&auto=format&fit=crop", alt: "EC-02 Echo" },
+  { tag: "MN-04 · MONITOR",       title: "Near-field passive reference pair",    edition: "Edition · 40 of 40 · 2022",  img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "MN-04 Monitor" },
+  { tag: "HD-06 · HEADSTAGE",     title: "Class-A headphone amplifier",          edition: "Edition · 150 of 150 · 2023", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "HD-06 Headstage" },
   { tag: "MODEL-808 · PLAYER",    title: "High-fidelity FM & tape playback",     edition: "Edition · 240 of 240 · 2024", img: "https://images.unsplash.com/photo-1700951372714-98979a8803a4?w=900&q=85&auto=format&fit=crop", alt: "MODEL-808 Player" },
-  { tag: "LP-01 · LOUDSPEAKER",   title: "Single-driver desktop full-range",     edition: "Edition · 60 of 60 · 2024",  img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "LP-01 Loudspeaker" },
+  { tag: "LP-01 · LOUDSPEAKER",   title: "Single-driver desktop full-range",     edition: "Edition · 60 of 60 · 2024",  img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "LP-01 Loudspeaker" },
   { tag: "CL-12 · CLOCK",         title: "Master word-clock for the studio rack", edition: "Edition · 32 of 32 · 2025",  img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "CL-12 Clock" },
 ];
 
@@ -682,7 +682,7 @@ input[type=range].fader::-webkit-slider-thumb {
 
             <figure className="order-1 md:order-2 md:half-bleed-right relative">
               <div className="relative overflow-hidden bg-black aspect-[4/5] md:aspect-[3/4]">
-                <img className="w-full h-full object-cover" style={{ filter: "grayscale(1) contrast(1.15)" }} src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=85&auto=format&fit=crop" alt="Brutalist cellar studio with monitor pair — field-test environment" />
+                <img className="w-full h-full object-cover" style={{ filter: "grayscale(1) contrast(1.15)" }} src="https://images.unsplash.com/photo-1700951372714-98979a8803a4?w=1600&q=85&auto=format&fit=crop" alt="Brutalist cellar studio with monitor pair — field-test environment" />
                 <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: "rgba(255,85,0,0.06)", mixBlendMode: "overlay" }}></div>
                 <span className="absolute bottom-6 left-6 num-chip bg-black/70 backdrop-blur-sm">CELLAR · OSLO · 18.02</span>
               </div>
@@ -714,7 +714,7 @@ input[type=range].fader::-webkit-slider-thumb {
             <figure className="md:col-span-5 relative md:mt-16">
               <div className="relative panel-brushed p-3">
                 <div className="relative overflow-hidden aspect-[3/4] bg-black">
-                  <img className="w-full h-full object-cover" style={{ mixBlendMode: "multiply", filter: "contrast(1.2) brightness(1.1) saturate(0.95)" }} src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1200&q=85&auto=format&fit=crop" alt="MODEL-808 chassis on black studio backdrop" />
+                  <img className="w-full h-full object-cover" style={{ mixBlendMode: "luminosity", filter: "contrast(1.2) brightness(1.1) saturate(0.95)" }} src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1200&q=85&auto=format&fit=crop" alt="MODEL-808 chassis on black studio backdrop" />
                   <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor: "rgba(255,85,0,0.05)", mixBlendMode: "overlay" }}></div>
                 </div>
                 <div className="flex items-center justify-between pt-3 px-1">

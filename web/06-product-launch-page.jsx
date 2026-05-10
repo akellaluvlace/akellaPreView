@@ -1,6 +1,6 @@
 const APV2_GALLERY_FRAMES = [
-  { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop", alt: "Editorial portrait, dramatic side-light, Aperture v2 sample frame", delay: "0s" },
-  { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop", alt: "Brutalist concrete facade in raking light, Aperture v2 sample frame", delay: "4s" },
+  { src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1920&q=85&auto=format&fit=crop", alt: "Editorial portrait, dramatic side-light, Aperture v2 sample frame", delay: "0s" },
+  { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1920&q=85&auto=format&fit=crop", alt: "Brutalist concrete facade in raking light, Aperture v2 sample frame", delay: "4s" },
   { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1920&q=85&auto=format&fit=crop", alt: "Black and white editorial figure with deep shadow, Aperture v2 sample frame", delay: "8s" },
   { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1920&q=85&auto=format&fit=crop", alt: "Architectural cornicing detail, Aperture v2 sample frame", delay: "12s" },
 ];
@@ -76,17 +76,17 @@ const APV2_REVIEWS = [
 ];
 
 const APV2_BOOKEND_TOP = [
-  { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete interior, Aperture v2 in the wild" },
-  { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Highway in raking light, Aperture v2 sample environment" },
+  { src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete interior, Aperture v2 in the wild" },
+  { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Highway in raking light, Aperture v2 sample environment" },
   { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural shadow play on facade, Aperture v2 sample environment" },
   { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait in monochrome, Aperture v2 sample frame" },
 ];
 
 const APV2_BOOKEND_BOTTOM = [
-  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Architectural lobby, Aperture v2 sample environment" },
-  { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait with drape lighting, Aperture v2 sample frame" },
+  { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Architectural lobby, Aperture v2 sample environment" },
+  { src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait with drape lighting, Aperture v2 sample frame" },
   { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "Brutalist staircase under hard sun, Aperture v2 sample environment" },
-  { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop", alt: "Editorial figure with strong contrast, Aperture v2 sample frame" },
+  { src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=900&q=85&auto=format&fit=crop", alt: "Editorial figure with strong contrast, Aperture v2 sample frame" },
 ];
 
 const APV2_FAQ = [
@@ -100,8 +100,8 @@ const APV2_FAQ = [
 
 export default function T06ProductLaunchPage() {
   const features = [
-    { id: "feature-dynamic-range", title: "Dynamic Range", num: "01", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop", alt: "High-contrast editorial portrait — sample frame for dynamic-range testing" },
-    { id: "feature-procolor", title: "ProColor 10-bit", num: "02", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Heavy stone facade in raking light — sample frame for ProColor pipeline" },
+    { id: "feature-dynamic-range", title: "Dynamic Range", num: "01", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop", alt: "High-contrast editorial portrait — sample frame for dynamic-range testing" },
+    { id: "feature-procolor", title: "ProColor 10-bit", num: "02", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Heavy stone facade in raking light — sample frame for ProColor pipeline" },
     { id: "feature-neural-focus", title: "Neural Focus", num: "03", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Editorial figure in deep shadow — sample frame for Neural Focus" },
     { id: "feature-open-gate", title: "Open Gate", num: "04", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural corridor in perspective — sample frame for Open Gate format" },
   ];
@@ -254,7 +254,7 @@ export default function T06ProductLaunchPage() {
 
           <section id="hero" className="relative min-h-[100dvh] w-full flex flex-col justify-end pb-12 pt-32 px-4 overflow-hidden bg-surface-dim sm:pb-16 sm:px-8 md:pb-24 md:px-margin">
             <div className="absolute inset-0 z-0">
-              <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop" alt="Heavy stone facade in raking late-afternoon light — Aperture v2 sample frame" width="1920" height="1080" fetchPriority="high" decoding="async" className="w-full h-full object-cover opacity-80" />
+              <img src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1920&q=85&auto=format&fit=crop" alt="Heavy stone facade in raking late-afternoon light — Aperture v2 sample frame" width="1920" height="1080" fetchPriority="high" decoding="async" className="w-full h-full object-cover opacity-80" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
             </div>
             <div className="relative z-10 max-w-screen-2xl mx-auto w-full">

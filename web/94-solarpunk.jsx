@@ -350,7 +350,7 @@ export default function T94Solarpunk() {
                 <div className="flex flex-col h-full gap-8 md:justify-between">
                   <div>
                     <div className="relative aspect-[4/5] organic-shape-alt overflow-hidden border-4 border-primary-fixed ambient-shadow">
-                      <img alt="restored watershed" className="absolute inset-0 w-full h-full object-cover sepia-[35%] hue-rotate-[55deg] saturate-150 contrast-105 brightness-95" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1400&q=85&auto=format&fit=crop" />
+                      <img alt="restored watershed" className="absolute inset-0 w-full h-full object-cover sepia-[35%] hue-rotate-[55deg] saturate-150 contrast-105 brightness-95" src="https://images.unsplash.com/photo-1759767119537-3ea0e5ff75de?w=1400&q=85&auto=format&fit=crop" />
                       <div className="absolute inset-0 bg-primary/30 mix-blend-color" />
                       <div className="absolute inset-0 bg-gradient-to-tr from-primary/55 via-primary/15 to-tertiary-fixed-dim/20 mix-blend-multiply" />
                     </div>
@@ -363,7 +363,7 @@ export default function T94Solarpunk() {
 
                   <div>
                     <div className="relative aspect-video organic-shape-alt overflow-hidden border-4 border-tertiary-fixed-dim ambient-shadow">
-                      <img alt="cohort earthworks at year zero" className="absolute inset-0 w-full h-full object-cover sepia-[40%] hue-rotate-[40deg] saturate-150 contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" />
+                      <img alt="cohort earthworks at year zero" className="absolute inset-0 w-full h-full object-cover sepia-[40%] hue-rotate-[40deg] saturate-150 contrast-105" src="https://images.unsplash.com/photo-1761429569511-fa812103fc21?w=1200&q=85&auto=format&fit=crop" />
                       <div className="absolute inset-0 bg-secondary/25 mix-blend-color" />
                       <div className="absolute inset-0 bg-gradient-to-bl from-secondary/40 via-tertiary-fixed-dim/15 to-primary/35 mix-blend-multiply" />
                     </div>
@@ -443,7 +443,7 @@ export default function T94Solarpunk() {
                 </div>
               </div>
               <div className="relative md:mr-[calc(50%-50vw)] h-[600px] md:h-[760px] overflow-hidden border-l-4 md:border-l-0 md:border-l-[6px] border-secondary">
-                <img alt="quito greywater commons" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity grayscale-[20%] contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1800&q=85&auto=format&fit=crop" />
+                <img alt="quito greywater commons" className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity grayscale-[20%] contrast-105" src="https://images.unsplash.com/photo-1761429569511-fa812103fc21?w=1800&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-gradient-to-bl from-primary/45 via-tertiary-fixed-dim/15 to-secondary/30 mix-blend-multiply"></div>
                 <div className="absolute top-8 left-8 bg-background/85 backdrop-blur-sm px-5 py-3 rounded-full border-2 border-secondary">
                   <span className="font-['Plus_Jakarta_Sans'] uppercase tracking-[0.25em] text-[11px] font-bold text-secondary">Plate · No. 027 · Solanda</span>

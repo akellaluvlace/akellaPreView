@@ -377,11 +377,11 @@ export default function T2SaasLight() {
               </header>
               <ul role="list" className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
                 {[
-                  { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Architectural curves — control plane room", tint: "from-primary/55 via-primary/10" },
+                  { src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "Architectural curves — control plane room", tint: "from-primary/55 via-primary/10" },
                   { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "Circuit board macro — telemetry surface", tint: "from-primary-container/60 via-primary-container/15" },
                   { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Industrial machine bay — backbone", tint: "from-emerald-500/55 via-emerald-500/10" },
-                  { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Concrete monumental architecture — uptime", tint: "from-amber-500/55 via-amber-500/10" },
-                  { src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete columns — substrate", tint: "from-fuchsia-500/55 via-fuchsia-500/10", hideMobile: true },
+                  { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Concrete monumental architecture — uptime", tint: "from-amber-500/55 via-amber-500/10" },
+                  { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete columns — substrate", tint: "from-fuchsia-500/55 via-fuchsia-500/10", hideMobile: true },
                 ].map((p, i) => (
                   <li key={i} className={`relative rounded-2xl overflow-hidden aspect-[4/5] bg-primary/15 ${p.hideMobile ? "hidden md:block" : ""}`}>
                     <img src={p.src} alt={p.alt} className="absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async" />
@@ -463,7 +463,7 @@ export default function T2SaasLight() {
               </div>
               <div className="lg:col-span-6 lg:order-2 order-1">
                 <div className="relative rounded-2xl overflow-hidden border border-surface-variant aspect-[4/5] lg:aspect-[5/4] bg-primary/5">
-                  <img src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1400&q=85&auto=format&fit=crop" alt="Architectural curves — composed structure across teams" className="absolute inset-0 w-full h-full object-cover" width="1400" height="1100" loading="lazy" decoding="async" />
+                  <img src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1400&q=85&auto=format&fit=crop" alt="Architectural curves — composed structure across teams" className="absolute inset-0 w-full h-full object-cover" width="1400" height="1100" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-bl from-primary-container/40 via-transparent to-on-background/25 mix-blend-multiply" aria-hidden="true"></div>
                   <div className="absolute top-4 left-4 right-4 flex items-center justify-between font-label-sm text-[11px] uppercase tracking-[0.25em] text-white/90">
                     <span>Atlasworks · Q3 2031</span>

@@ -190,41 +190,51 @@ export default function T89EditorialMagazine() {
       <style dangerouslySetInnerHTML={{ __html: folioCss }} />
 
       <div className="bg-[#FDFCFB] text-[#1A1915] antialiased selection:bg-[#A8802C]/20">
-        <header className="flex flex-col items-center pt-8 pb-4 px-12 w-full max-w-[1440px] mx-auto bg-[#FDFCFB] text-[#1A1915] font-serif text-lg tracking-tight top-0 border-b-[0.5px] border-[#1A1915]">
-          <div className="w-full flex justify-between items-center mb-6">
-            <div className="text-sm font-sans uppercase tracking-widest text-[#1A1915]/60">Folio Quarterly</div>
-            <div className="text-sm font-sans uppercase tracking-widest text-[#1A1915]/60">Issue No. 12</div>
+        {/* Compact full-width sticky navbar — single row */}
+        <header className="sticky top-0 z-40 w-full bg-[#FDFCFB]/95 backdrop-blur-sm border-b-[0.5px] border-[#1A1915] text-[#1A1915]">
+          <div className="flex items-center justify-between gap-6 px-6 md:px-12 h-16 md:h-[72px]">
+            <div className="flex items-center gap-4 md:gap-6 shrink-0">
+              <span className="hidden md:inline font-sans uppercase tracking-[0.25em] text-[10px] text-[#1A1915]/55">Folio Q. · No. 12</span>
+              <span className="hidden md:inline-block w-px h-4 bg-[#1A1915]/25"></span>
+              <span className="font-serif italic text-2xl md:text-[28px] leading-none">Folio Quarterly</span>
+            </div>
+            <nav className="flex items-center gap-3 md:gap-7 font-sans uppercase text-[11px] tracking-[0.2em]">
+              {navLinks.map(l => (
+                <a key={l.label} href="#" className={l.active
+                  ? "text-[#1A1915] border-b-[0.5px] border-[#1A1915] pb-0.5 transition-colors hover:text-[#A8802C] hover:border-[#A8802C]"
+                  : "hidden sm:inline text-[#1A1915]/60 hover:text-[#1A1915] transition-colors"}>
+                  {l.label}
+                </a>
+              ))}
+              <span className="hidden lg:inline-block w-px h-4 bg-[#1A1915]/25"></span>
+              <span className="hidden lg:inline font-sans uppercase tracking-[0.25em] text-[10px] text-[#1A1915]/55">Aut · MMXXIV</span>
+            </nav>
           </div>
-          <div className="text-4xl font-serif italic text-[#1A1915] text-center w-full pb-4">Folio Quarterly</div>
-          <nav className="flex space-x-8">
-            {navLinks.map(l => (
-              <a key={l.label} href="#" className={l.active
-                ? "text-[#1A1915] border-b border-[#1A1915] pb-1 hover:bg-[#1A1915] hover:text-[#FDFCFB] transition-colors duration-300"
-                : "text-[#1A1915]/60 font-sans uppercase text-xs tracking-widest hover:bg-[#1A1915] hover:text-[#FDFCFB] transition-colors duration-300"}>
-                {l.label}
-              </a>
-            ))}
-          </nav>
         </header>
 
-        <main className="max-w-[1440px] mx-auto px-12 pb-24">
-          <section className="mt-stack-md mb-stack-xl">
-            <div className="w-full h-[716px] mb-8 relative">
-              <img alt="Hero Image" className="w-full h-full object-cover grayscale opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSi0ohbXrZlMAR_aevXbnvbForUkHmaSPHHBBFyJZ8IhuSAgf4DK4ssWxSmSagUK4a2qdzw-xpDk6uhvCrEXxb_LfOE5F7zOeAu8ombZhc3Ni90VL62AAHHPPKGt9T3GpbvytiQNxIG3ZsLti6auS-IHPi0tzUpcrWwNgZ5JUlq_VoAnTLYPnaa4rP_dmqoJTN5WbeSek9-5bsUv9h7q-siJS4LC5g8n1sdrF336UOIuoLJ9gfZQJXzELLj7UDdVce_ptI4np-eewU" />
-            </div>
-            <div className="grid grid-cols-12 gap-gutter-grid">
-              <div className="col-span-12 md:col-span-8 md:col-start-3 text-center">
-                <h1 className="font-display-hero text-display-hero italic mb-6">The Quiet Years</h1>
-                <p className="font-body-italic text-body-italic text-[#1A1915]/80 mb-6 max-w-2xl mx-auto">An exploration of silence, isolation, and the profound spaces left behind in the wake of relentless modernity.</p>
-                <div className="flex items-center justify-center space-x-4 font-label-caps text-label-caps text-[#1A1915]/60 uppercase tracking-widest">
-                  <span>By Hannah Keats</span>
-                  <span className="w-1 h-1 rounded-full bg-[#1A1915]/60"></span>
-                  <span>8 min read</span>
-                </div>
+        {/* Hero — full-bleed image with overlaid title; navbar + hero fits in viewport */}
+        <section className="relative w-full h-[calc(100vh-72px)] min-h-[560px] overflow-hidden">
+          <img alt="Hero Image" className="absolute inset-0 w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSi0ohbXrZlMAR_aevXbnvbForUkHmaSPHHBBFyJZ8IhuSAgf4DK4ssWxSmSagUK4a2qdzw-xpDk6uhvCrEXxb_LfOE5F7zOeAu8ombZhc3Ni90VL62AAHHPPKGt9T3GpbvytiQNxIG3ZsLti6auS-IHPi0tzUpcrWwNgZ5JUlq_VoAnTLYPnaa4rP_dmqoJTN5WbeSek9-5bsUv9h7q-siJS4LC5g8n1sdrF336UOIuoLJ9gfZQJXzELLj7UDdVce_ptI4np-eewU" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A1915]/85 via-[#1A1915]/30 to-[#1A1915]/15"></div>
+          <div className="absolute top-6 md:top-10 left-0 right-0 px-6 md:px-12 flex items-center justify-between font-label-caps text-label-caps uppercase tracking-[0.3em] text-[#FDFCFB]/75 text-[10px] md:text-[11px]">
+            <span>— Issue No. 12 · Aut. MMXXIV</span>
+            <span className="hidden md:inline">Plate · 01 · Cover</span>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 pb-10 md:pb-16 text-[#FDFCFB]">
+            <div className="max-w-[1100px] mx-auto text-center">
+              <span className="font-label-caps text-label-caps uppercase tracking-[0.3em] text-[#A8802C] block mb-4 text-[10px] md:text-[11px]">— Cover Essay</span>
+              <h1 className="font-display-hero text-display-hero italic leading-[0.95] mb-5 md:mb-6">The Quiet Years</h1>
+              <p className="font-body-italic text-body-italic text-[#FDFCFB]/85 max-w-2xl mx-auto mb-5 md:mb-6">An exploration of silence, isolation, and the profound spaces left behind in the wake of relentless modernity.</p>
+              <div className="flex items-center justify-center gap-4 font-label-caps text-label-caps uppercase tracking-[0.3em] text-[#FDFCFB]/65 text-[10px] md:text-[11px]">
+                <span>By Hannah Keats</span>
+                <span className="w-1 h-1 rounded-full bg-[#FDFCFB]/65"></span>
+                <span>8 min read</span>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
+        <main className="max-w-[1440px] mx-auto px-12 pt-stack-xl pb-24">
           {/* Press masthead — trusted-by, editorial flavor */}
           <section className="border-y-[0.5px] border-[#1A1915] mb-stack-xl py-10 md:py-12">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
@@ -239,29 +249,88 @@ export default function T89EditorialMagazine() {
                 <img key={b.slug} alt={b.name} className="h-6 md:h-7 opacity-50 hover:opacity-100 transition-opacity duration-300" src={`https://cdn.simpleicons.org/${b.slug}/1A1915`} />
               ))}
             </div>
-            <p className="mt-8 pt-6 border-t-[0.5px] border-[#1A1915]/20 font-label-ui text-label-ui text-[#1A1915]/50 uppercase tracking-widest">+ 14 mentions in trade press · Spring 2024 · Folio is read by 2,400 print subscribers in 31 countries.</p>
+            <p className="mt-8 font-label-ui text-label-ui text-[#1A1915]/50 uppercase tracking-widest">+ 14 mentions in trade press · Spring 2024 · Folio is read by 2,400 print subscribers in 31 countries.</p>
           </section>
 
-          <hr className="border-t-[0.5px] border-[#1A1915] w-full mb-stack-lg" />
-
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-gutter-grid mb-stack-xl">
-            <div className="flex flex-col gap-12">
-              {col1.map(a => <Article key={a.title} a={a} />)}
-            </div>
-            <div className="flex flex-col gap-12">
-              {col2.map(a => <Article key={a.title} a={a} />)}
-            </div>
-            <div className="flex flex-col gap-12">
-              <article className="group cursor-pointer">
-                <div className="border-[0.5px] border-[#1A1915] p-6 h-full flex flex-col justify-center bg-[#FDFCFB] hover:bg-[#1A1915] hover:text-[#FDFCFB] transition-colors duration-300">
-                  <div className="font-label-caps text-label-caps text-[#A8802C] mb-4 uppercase">From the Archive</div>
-                  <h3 className="font-headline-lg text-headline-lg italic mb-4">"The Weight of Water"</h3>
-                  <p className="font-body-reading text-label-ui opacity-80 mb-6">Originally published in Issue No. 3, Autumn 2021.</p>
-                  <div className="font-label-ui text-label-ui uppercase tracking-widest mt-auto">Read Again →</div>
-                </div>
-              </article>
-              <Article a={col3Bottom} />
-            </div>
+          {/* Six-feature grid · 2 rows × 3 columns, uniform cards, generous spacing */}
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 lg:gap-x-12 gap-y-14 lg:gap-y-16 mb-stack-xl">
+            {/* 1 — Essay */}
+            <article className="group cursor-pointer flex flex-col">
+              <div className="aspect-[4/3] overflow-hidden mb-6 border-[0.5px] border-[#1A1915]/15">
+                <img alt="Article Thumbnail" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoCTt8LlsDXnHsBdz89kafXCY59_OuldTyNr56PAby89mpJYvU-Lc7mXkhf5vhlfJRzpWcKG083qbqPGlCVNCA9SDLxQ9kWVOuSLs77h-a8fKE3RRudJN7NqTYDbB4TVjsCyS3RZp149LfCspNphdPnuFaVrg5Dad4Vywzn4Pbbz63EKUy7l7jZk5EB7MNtDBvstFz1XSHHNDaxMh64kFvtBrNhH58S9194r7mGZq6iQrQfzLK83hPU4N00ktK9WLlVqlNKmUFlAfG" />
+              </div>
+              <div className="font-label-caps text-label-caps text-[#A8802C] mb-3 uppercase tracking-widest">— Essay · 06</div>
+              <h3 className="font-headline-md text-headline-md mb-3 leading-tight group-hover:underline underline-offset-4 decoration-[0.5px]">Mechanics of Memory</h3>
+              <p className="font-body-reading text-label-ui text-[#1A1915]/70 leading-relaxed line-clamp-3 mb-5">How analog devices shaped our cognitive retention before the digital flood — and what we've quietly forgotten in the migration.</p>
+              <div className="font-label-ui text-label-ui text-[#1A1915]/50 mt-auto pt-4 border-t-[0.5px] border-[#1A1915]/15 flex items-center justify-between">
+                <span>By Julian Barnes</span><span className="uppercase tracking-widest">6 min</span>
+              </div>
+            </article>
+            {/* 2 — Critique */}
+            <article className="group cursor-pointer flex flex-col">
+              <div className="aspect-[4/3] overflow-hidden mb-6 border-[0.5px] border-[#1A1915]/15">
+                <img alt="Article Thumbnail" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeZQ4Iqm-9c8lMRUyQzhSpEtISHfJzTIajKcB8OFHHA3ypQTYs7aESMRha6SIJMKr0V7kxHSc76H0rIOxhFvKDkXyrRzOySTWA9_cOCEEdHQf2unMpWTP7aWuzFAGTvZuJy6LB57W2Kdvbab1Ah61KW5Lpj9L4ZdwysdjS1t4jdRgDAaz0m79iO8bC89tTyJw0-U7IQRNF0Nr4iEbWqKbTkn-iKjveI7QHPuYRg5_jEYxYZE3uGukq5cHNGWWkELg9FDriqpXF3Xhu" />
+              </div>
+              <div className="font-label-caps text-label-caps text-[#A8802C] mb-3 uppercase tracking-widest">— Critique · 11</div>
+              <h3 className="font-headline-md text-headline-md mb-3 leading-tight group-hover:underline underline-offset-4 decoration-[0.5px]">Brutalism Revisited</h3>
+              <p className="font-body-reading text-label-ui text-[#1A1915]/70 leading-relaxed line-clamp-3 mb-5">Re-evaluating the concrete giants that defined post-war civic ambition, and the slow rehabilitation of an unloved canon.</p>
+              <div className="font-label-ui text-label-ui text-[#1A1915]/50 mt-auto pt-4 border-t-[0.5px] border-[#1A1915]/15 flex items-center justify-between">
+                <span>By Elena Rostova</span><span className="uppercase tracking-widest">12 min</span>
+              </div>
+            </article>
+            {/* 3 — Interview */}
+            <article className="group cursor-pointer flex flex-col">
+              <div className="aspect-[4/3] overflow-hidden mb-6 border-[0.5px] border-[#1A1915]/15">
+                <img alt="Article Thumbnail" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl2Ivmu09W8o2vyIbihneVI-gqeu_-Ob1oTlS7YD1mBWTL42LeotPU-LkqB_nUlLcPn6HGL-fx5sfnpJBbRP9TjzXKzIyl6V_hyQhTsFy0RMP6ez2NXviZzCmV9nDy_vpctLCuW_Jyo_6XY5jrlI10G64rdxI4nKkfaKjVflu_Yv0AEoC3MpUDoLtvUYuK0927bvgNFmPu00w4mBqGfmSGPmh6mfWDLwcA1axL597U7wIrjlKccnD5_I4gwRyLjZqVYzjZ0m3SUhP9" />
+              </div>
+              <div className="font-label-caps text-label-caps text-[#A8802C] mb-3 uppercase tracking-widest">— Interview · 18</div>
+              <h3 className="font-headline-md text-headline-md mb-3 leading-tight group-hover:underline underline-offset-4 decoration-[0.5px]">The Empty Stage</h3>
+              <p className="font-body-reading text-label-ui text-[#1A1915]/70 leading-relaxed line-clamp-3 mb-5">A conversation with director Thomas Vance on the power of minimalist theater and what is gained when the set disappears.</p>
+              <div className="font-label-ui text-label-ui text-[#1A1915]/50 mt-auto pt-4 border-t-[0.5px] border-[#1A1915]/15 flex items-center justify-between">
+                <span>By Sarah Chen</span><span className="uppercase tracking-widest">18 min</span>
+              </div>
+            </article>
+            {/* 4 — Notes (typographic block) */}
+            <article className="group cursor-pointer flex flex-col">
+              <div className="aspect-[4/3] overflow-hidden mb-6 border-[0.5px] border-[#1A1915]/40 bg-[#1A1915] text-[#FDFCFB] flex flex-col items-center justify-center px-6 relative">
+                <span className="font-display-hero text-[120px] leading-none italic text-[#A8802C] select-none">§42</span>
+                <span className="font-label-caps text-label-caps uppercase tracking-[0.4em] text-[#FDFCFB]/60 mt-3">Marginalia</span>
+                <span className="absolute top-4 left-4 font-label-ui text-[10px] uppercase tracking-widest text-[#A8802C]">— Folio · 014</span>
+              </div>
+              <div className="font-label-caps text-label-caps text-[#A8802C] mb-3 uppercase tracking-widest">— Notes · 04</div>
+              <h3 className="font-headline-md text-headline-md mb-3 leading-tight group-hover:underline underline-offset-4 decoration-[0.5px]">Marginalia #42</h3>
+              <p className="font-body-reading text-label-ui text-[#1A1915]/70 leading-relaxed line-clamp-3 mb-5">Brief thoughts on the necessity of boredom in the creative process — and the small, accumulating gestures that don't fit anywhere else.</p>
+              <div className="font-label-ui text-label-ui text-[#1A1915]/50 mt-auto pt-4 border-t-[0.5px] border-[#1A1915]/15 flex items-center justify-between">
+                <span>By The Editors</span><span className="uppercase tracking-widest">4 min</span>
+              </div>
+            </article>
+            {/* 5 — Archive (typographic plate) */}
+            <article className="group cursor-pointer flex flex-col">
+              <div className="aspect-[4/3] overflow-hidden mb-6 border-[0.5px] border-[#1A1915] bg-[#FDFCFB] flex flex-col items-center justify-center px-6 relative group-hover:bg-[#1A1915] transition-colors duration-500">
+                <span className="font-label-caps text-label-caps uppercase tracking-[0.4em] text-[#A8802C] absolute top-4 left-4">Issue · No. 03</span>
+                <span className="font-label-caps text-label-caps uppercase tracking-[0.4em] text-[#1A1915]/40 group-hover:text-[#FDFCFB]/40 absolute top-4 right-4">Aut · MMXXI</span>
+                <span className="font-display-hero text-5xl md:text-6xl italic text-[#1A1915] group-hover:text-[#FDFCFB] text-center leading-tight transition-colors duration-500">"The Weight<br />of Water"</span>
+                <span className="font-label-ui text-[10px] uppercase tracking-widest text-[#1A1915]/50 group-hover:text-[#FDFCFB]/50 mt-4 transition-colors duration-500">Read again →</span>
+              </div>
+              <div className="font-label-caps text-label-caps text-[#A8802C] mb-3 uppercase tracking-widest">— From the Archive</div>
+              <h3 className="font-headline-md text-headline-md mb-3 leading-tight group-hover:underline underline-offset-4 decoration-[0.5px]">"The Weight of Water"</h3>
+              <p className="font-body-reading text-label-ui text-[#1A1915]/70 leading-relaxed line-clamp-3 mb-5">Originally published in Issue No. 3, Autumn 2021. A meditation on river-stones, slowness, and the patience of measurement.</p>
+              <div className="font-label-ui text-label-ui text-[#1A1915]/50 mt-auto pt-4 border-t-[0.5px] border-[#1A1915]/15 flex items-center justify-between">
+                <span>Editor's pick</span><span className="uppercase tracking-widest">9 min</span>
+              </div>
+            </article>
+            {/* 6 — Poetry */}
+            <article className="group cursor-pointer flex flex-col">
+              <div className="aspect-[4/3] overflow-hidden mb-6 border-[0.5px] border-[#1A1915]/15">
+                <img alt="Article Thumbnail" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCycn2hwTm4_dmZCQXok5UHhnHq8vzrEIIxvIEFAz8ZWALSCsuH6xr441dy4bKxuBXRvdyaxmvSeb7fZD8cEE0jhSc26vkLgqVZsox5X5rriaSu4b7W9G-wJ62BFu_0ox3FK0-ZFm23Uh70l5eOBKujFYDw2wNP9C1cnDDnNPJvaUzEzyz3e6p_env9QwgHd2FeuQEJ7Lr27vAzUFsFW_Om0KBOYo5ulfgoqFhfuoe5k55VStxy8dkooUn8fQuZi7Hu4iBLAHwVvakm" />
+              </div>
+              <div className="font-label-caps text-label-caps text-[#A8802C] mb-3 uppercase tracking-widest">— Poetry · 03</div>
+              <h3 className="font-headline-md text-headline-md mb-3 leading-tight group-hover:underline underline-offset-4 decoration-[0.5px]">Autumnal Decay</h3>
+              <p className="font-body-reading text-label-ui text-[#1A1915]/70 leading-relaxed line-clamp-3 mb-5">Three new poems observing the slow turning of the season — light, leaf, and the small disappearances they make.</p>
+              <div className="font-label-ui text-label-ui text-[#1A1915]/50 mt-auto pt-4 border-t-[0.5px] border-[#1A1915]/15 flex items-center justify-between">
+                <span>By Arthur Penhaligon</span><span className="uppercase tracking-widest">3 poems</span>
+              </div>
+            </article>
           </section>
         </main>
 

@@ -1,16 +1,14 @@
 "use client";
 
-// Vibe-edit icon controls: color only in v1. Icon kind = SVG
-// element. The runtime applies `color` to el.style.color, which
-// SVGs inherit via `currentColor` for stroke and fill on most
-// icon-library outputs (Lucide, Heroicons, Phosphor, Tabler,
+// Vibe-edit icon controls. v1: color only — the runtime applies
+// `color` to el.style.color which SVGs inherit via `currentColor` on
+// most icon-library outputs (Lucide, Heroicons, Phosphor, Tabler,
 // Simple Icons all use currentColor).
 //
-// Swap-from-library is a planned follow-up — needs LibraryModal
-// integration with a "select-icon-and-replace-svg" callback that
-// rewrites both the iframe DOM (innerHTML/outerHTML) and the source
-// (patchJsxOuterByOid, which doesn't exist yet). Hint text in the
-// panel says "Swap" is coming so the user isn't confused.
+// v2 adds Swap: clicking Swap asks the host to open a LibraryModal in
+// icon-only mode. When the user picks a new icon, the host posts
+// vibe:update-outer (iframe DOM mutation) AND reconciles source through
+// buildVibeCommit's new outer-replacement path. No iframe rebuild.
 
 import { useEffect, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
@@ -18,11 +16,15 @@ import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 interface IconControlsProps {
   info: VibeElementInfo;
   onStyleChange: (styles: Record<string, string>) => void;
+  // Open the icon-library modal. The host owns the modal mount + the
+  // pick → postMessage routing; this control just signals intent.
+  onSwapClick?: () => void;
 }
 
 export default function IconControls({
   info,
   onStyleChange,
+  onSwapClick,
 }: IconControlsProps) {
   const [color, setColor] = useState(rgbToHex(info.textColor));
 
@@ -56,11 +58,18 @@ export default function IconControls({
 
       <div className="border-t-2 border-ink/15 pt-3">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-          Swap (coming soon)
+          Swap icon
         </p>
-        <p className="mt-1 font-mono text-[11px] text-ink">
-          Picking a different icon from the library is the next step.
-          For now, edit the source directly to change the SVG.
+        <button
+          type="button"
+          onClick={onSwapClick}
+          disabled={!onSwapClick}
+          className="mt-1 w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Browse icon library
+        </button>
+        <p className="mt-1 font-mono text-[10px] text-muted">
+          Lucide, Heroicons, Phosphor, Tabler, Brands.
         </p>
       </div>
     </div>

@@ -14,14 +14,14 @@ export default function T22PhotographerPortfolio() {
   const seriesRows = [
     {
       number: "I", status: "In progress", title: "Boundaries", plate: "Plate 04 · Brasília · 2024",
-      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=1600&auto=format&fit=crop&sat=-100",
+      img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=1600&auto=format&fit=crop&sat=-100",
       alt: "Wide modernist plaza in Brasília, long shadows raking across raw concrete.",
       body: "Three years tracing the seam where coastline meets concrete — from the breakwaters of Mar del Plata to the unfinished towers of Recife. Each frame holds a quiet argument with progress.",
       meta: "36 plates · Silver gelatin · Edition of 7"
     },
     {
       number: "II", status: "Closed", title: "Slow Cities", plate: "Plate 11 · Quito · 2023",
-      img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=1600&auto=format&fit=crop&sat=-100",
+      img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=1600&auto=format&fit=crop&sat=-100",
       alt: "Empty colonial street in Quito at dawn, soft mist softening crumbling stucco.",
       body: "A study of South American capitals at the hour they cease to perform — the brief grey window before the streets fill. Photographed entirely on Tri-X, hand-printed.",
       meta: "42 plates · Silver gelatin · Edition of 9",
@@ -29,7 +29,7 @@ export default function T22PhotographerPortfolio() {
     },
     {
       number: "III", status: "Closed", title: "Mothers of the Inland", plate: "Plate 02 · Tucumán · 2022",
-      img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop&sat=-100",
+      img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1600&auto=format&fit=crop&sat=-100",
       alt: "Quiet portrait of a woman in profile against a textured plaster wall.",
       body: "Eighteen months in the dry interior — portraits and interiors that refuse spectacle. The book that came from this series sold out twice and was acquired by the MoMA library.",
       meta: "28 plates · Pigment print · Edition of 12"
@@ -45,16 +45,16 @@ export default function T22PhotographerPortfolio() {
   ];
 
   const polaroids = [
-    { rot: "rotate-[-3deg]", alt: "Silhouette in a doorway, harsh midday light.", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Buenos Aires, 2023" },
+    { rot: "rotate-[-3deg]", alt: "Silhouette in a doorway, harsh midday light.", src: "https://images.unsplash.com/photo-1775283511185-508da6831bfe?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Buenos Aires, 2023" },
     { rot: "rotate-[2deg]", alt: "A woman's hand on a balcony rail, evening light.", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Quito, Field" },
-    { rot: "rotate-[-1deg]", alt: "Concrete stairwell descending into shadow.", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Salta, 2021" },
-    { rot: "rotate-[4deg]", alt: "Editorial portrait, jaw-line and cheekbone.", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Tucumán, 2022" },
+    { rot: "rotate-[-1deg]", alt: "Concrete stairwell descending into shadow.", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Salta, 2021" },
+    { rot: "rotate-[4deg]", alt: "Editorial portrait, jaw-line and cheekbone.", src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Tucumán, 2022" },
     { rot: "rotate-[-2deg]", alt: "Open window onto a textured plaster wall.", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=600&auto=format&fit=crop&sat=-100", caption: "Recife, 2024" }
   ];
 
   const cycleImgs = [
-    { delay: "0s",  alt: "Long-exposure architectural facade, slow erosion of light.", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2000&auto=format&fit=crop&sat=-100" },
-    { delay: "4s",  alt: "Quiet interior of an empty house, tall window, long shadow.",   src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=2000&auto=format&fit=crop&sat=-100" },
+    { delay: "0s",  alt: "Long-exposure architectural facade, slow erosion of light.", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=2000&auto=format&fit=crop&sat=-100" },
+    { delay: "4s",  alt: "Quiet interior of an empty house, tall window, long shadow.",   src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=2000&auto=format&fit=crop&sat=-100" },
     { delay: "8s",  alt: "Portrait, hand resting on a worn wooden surface.",              src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?q=80&w=2000&auto=format&fit=crop&sat=-100" },
     { delay: "12s", alt: "Coastal concrete breakwater, fog softening the horizon.",       src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=2000&auto=format&fit=crop&sat=-100" }
   ];
@@ -68,11 +68,11 @@ export default function T22PhotographerPortfolio() {
   ];
 
   const editions = [
-    { alt: "Print 01 — wide architectural plate.",  src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 04 / Boundaries",     spec: "11 × 14 in · ed. of 7",  price: "USD 480" },
-    { alt: "Print 02 — quiet street, Quito.",        src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 11 / Slow Cities",     spec: "11 × 14 in · ed. of 9",  price: "USD 420" },
-    { alt: "Print 03 — portrait study.",             src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 02 / Mothers",         spec: "16 × 20 in · ed. of 12", price: "USD 740" },
+    { alt: "Print 01 — wide architectural plate.",  src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 04 / Boundaries",     spec: "11 × 14 in · ed. of 7",  price: "USD 480" },
+    { alt: "Print 02 — quiet street, Quito.",        src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 11 / Slow Cities",     spec: "11 × 14 in · ed. of 9",  price: "USD 420" },
+    { alt: "Print 03 — portrait study.",             src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 02 / Mothers",         spec: "16 × 20 in · ed. of 12", price: "USD 740" },
     { alt: "Print 04 — coffered ceiling detail.",    src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 19 / Static Ground",   spec: "11 × 14 in · ed. of 7",  price: "USD 480" },
-    { alt: "Print 05 — concrete stairwell.",         src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 06 / Boundaries",      spec: "16 × 20 in · ed. of 5",  price: "USD 820" },
+    { alt: "Print 05 — concrete stairwell.",         src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 06 / Boundaries",      spec: "16 × 20 in · ed. of 5",  price: "USD 820" },
     { alt: "Print 06 — coastal breakwater.",         src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 22 / Boundaries",      spec: "11 × 14 in · ed. of 7",  price: "USD 480" }
   ];
 
@@ -216,7 +216,7 @@ export default function T22PhotographerPortfolio() {
           {/* Wide Cinema Strip 21:9 (NOVEL #11) */}
           <section className="w-full relative snap-start bg-black overflow-hidden" aria-label="Current series — Boundaries">
             <div className="relative w-full aspect-[21/9]">
-              <img alt="Wide brutalist concrete facade catching directional light, deep shadow gradient." className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="1029" loading="lazy" decoding="async" />
+              <img alt="Wide brutalist concrete facade catching directional light, deep shadow gradient." className="absolute inset-0 w-full h-full object-cover grayscale" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="1029" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-black/40 pointer-events-none" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
               <div className="absolute left-4 sm:left-8 md:left-16 bottom-6 md:bottom-10 max-w-xl">
@@ -306,7 +306,7 @@ export default function T22PhotographerPortfolio() {
                 <p className="font-caption text-caption text-neutral-500 uppercase tracking-[0.15em] mt-stack-sm">Reference plate &middot; Boundaries 18</p>
               </div>
               <div className="md:col-span-7 relative">
-                <img alt="Wide architectural elevation, solitary figure crossing through the frame." className="w-full aspect-[4/3] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1600&auto=format&fit=crop&sat=-100" width="1600" height="1200" loading="lazy" decoding="async" />
+                <img alt="Wide architectural elevation, solitary figure crossing through the frame." className="w-full aspect-[4/3] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=1600&auto=format&fit=crop&sat=-100" width="1600" height="1200" loading="lazy" decoding="async" />
                 <img alt="Detail study, plaster detail." className="hidden sm:block absolute -bottom-8 -right-6 sm:-right-8 w-32 h-40 sm:w-44 sm:h-56 object-cover grayscale rotate-3 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
                 <img alt="Close-up portrait, eyes lowered." className="hidden md:block absolute -top-8 -left-6 w-32 h-44 lg:w-40 lg:h-56 object-cover grayscale -rotate-2 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
               </div>
@@ -353,7 +353,7 @@ export default function T22PhotographerPortfolio() {
           <section className="py-20 sm:py-24 md:py-32 snap-start">
             <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-margin-safe items-stretch">
               <div className="md:col-span-7 relative md:mr-[calc(50%-50vw)]">
-                <img alt="Editorial b&w portrait of the photographer in profile, soft window light." className="w-full h-full min-h-[60vh] md:min-h-[80vh] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2000&auto=format&fit=crop&sat=-100" width="2000" height="1500" loading="lazy" decoding="async" />
+                <img alt="Editorial b&w portrait of the photographer in profile, soft window light." className="w-full h-full min-h-[60vh] md:min-h-[80vh] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?q=80&w=2000&auto=format&fit=crop&sat=-100" width="2000" height="1500" loading="lazy" decoding="async" />
               </div>
               <div className="md:col-span-5 flex flex-col justify-center gap-stack-md">
                 <p className="font-label text-label text-neutral-500 uppercase tracking-[0.2em]">Statement &middot; 08</p>
@@ -401,7 +401,7 @@ export default function T22PhotographerPortfolio() {
 
           {/* Bookended Press / Recognition (NOVEL #9) */}
           <section className="snap-start py-stack-md md:py-stack-lg">
-            <img alt="Top bookend image — soft documentary photograph, urban dusk." className="w-full h-40 sm:h-56 md:h-72 object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="600" loading="lazy" decoding="async" />
+            <img alt="Top bookend image — soft documentary photograph, urban dusk." className="w-full h-40 sm:h-56 md:h-72 object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?q=80&w=2400&auto=format&fit=crop&sat=-100" width="2400" height="600" loading="lazy" decoding="async" />
             <div className="max-w-screen-xl mx-auto px-4 sm:px-8 md:px-16 py-16 md:py-24 flex flex-col gap-stack-lg">
               <div className="flex items-end justify-between border-b border-neutral-900 pb-stack-md">
                 <h3 className="font-headline-lg text-headline-lg text-[#EDEDED] [text-wrap:balance]">Press &amp; Recognition</h3>

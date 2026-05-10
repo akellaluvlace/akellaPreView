@@ -375,3 +375,68 @@ export function patchJsxAttrByOid(
   s.overwrite(nameEnd, existingAttr.end, `="${escapedValue}"`);
   return { source: s.toString(), changed: true, reason: null };
 }
+
+// Outer-replacement patcher used by the vibe-edit icon-swap flow. The
+// user picks a different icon from the library; we replace the
+// JSXElement at `oid` with the asset markup verbatim. To keep OID-based
+// addressing alive across the swap, we inject the OID into the new
+// outer's first opening tag (unless the asset already carries one).
+//
+// Bails on parse error / oid missing / empty newOuter / element missing
+// position info. Returns no-change when the post-injection bytes equal
+// the existing element source (so a "swap to identical SVG" doesn't
+// dirty the buffer).
+
+function injectOidIntoOuter(newOuter: string, oid: string): string {
+  if (newOuter.indexOf("data-dropin-id") >= 0) return newOuter;
+  // Insert right after the first opening tag's name. The match handles
+  // leading whitespace, optional ws between < and tagName, and any tag
+  // name (svg, div, span, etc). Hyphens are allowed in custom-element
+  // names. The injected attr has a leading space so it never collides
+  // with whatever comes next (`>`, `/>`, an existing attr, etc).
+  return newOuter.replace(
+    /^(\s*<\s*[a-zA-Z][\w-]*)/,
+    `$1 ${OID_ATTR}="${oid}"`,
+  );
+}
+
+export function patchJsxOuterByOid(
+  source: string,
+  oid: string,
+  newOuter: string,
+): PatchClassResult {
+  const trimmed = newOuter.trim();
+  if (!trimmed) {
+    return { source, changed: false, reason: "newOuter is empty" };
+  }
+
+  let ast: any;
+  try {
+    ast = parse(source, PARSE_OPTS);
+  } catch (e) {
+    return { source, changed: false, reason: `parse failed: ${String(e)}` };
+  }
+
+  const el = findJsxElementByOid(ast, oid);
+  if (!el) {
+    return { source, changed: false, reason: `oid "${oid}" not found` };
+  }
+
+  if (typeof el.start !== "number" || typeof el.end !== "number") {
+    return {
+      source,
+      changed: false,
+      reason: "element missing position info",
+    };
+  }
+
+  const stamped = injectOidIntoOuter(newOuter, oid);
+  const existing = source.slice(el.start, el.end);
+  if (existing === stamped) {
+    return { source, changed: false, reason: "no change" };
+  }
+
+  const s = new MagicString(source);
+  s.overwrite(el.start, el.end, stamped);
+  return { source: s.toString(), changed: true, reason: null };
+}

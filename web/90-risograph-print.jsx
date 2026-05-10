@@ -39,15 +39,15 @@ const PROCESS_STEPS = [
 
 const RIBBON_PRINTS = [
   { caption: "ZINE 14 · CRACK", num: "№01", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop", alt: "Fashion editorial b&w portrait, treated with riso magenta-cobalt overprint" },
-  { caption: "POSTER · VOID", num: "№02", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Architectural facade study, riso-treated with cobalt overprint" },
+  { caption: "POSTER · VOID", num: "№02", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Architectural facade study, riso-treated with cobalt overprint" },
   { caption: "PRINT 023 · STATIC", num: "№03", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
-  { caption: "FOLIO 07 · BRUISE", num: "№04", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete interior riso-treated" },
+  { caption: "FOLIO 07 · BRUISE", num: "№04", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete interior riso-treated" },
   { caption: "BOOKLET · MARROW", num: "№05", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Fashion editorial portrait riso-treated" },
-  { caption: "ZINE 18 · KIN", num: "№06", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Architectural minimal interior riso-treated" },
+  { caption: "ZINE 18 · KIN", num: "№06", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural minimal interior riso-treated" },
   { caption: "POSTER · MOTH", num: "№07", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
   { caption: "PRINT 041 · QUIET", num: "№08", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural archway riso-treated" },
   { caption: "FOLIO 12 · CINDER", num: "№09", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
-  { caption: "ZINE 22 · PILE", num: "№10", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Marble vestibule architectural detail riso-treated" },
+  { caption: "ZINE 22 · PILE", num: "№10", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Marble vestibule architectural detail riso-treated" },
 ];
 
 const RISO_FAQ = [
@@ -483,7 +483,7 @@ export default function T90RisographPrint() {
         {/* Manifesto Section — content #2 (NOVEL #6 image-as-bg under content card, full-bleed) */}
         <section className="full-bleed relative py-stack-lg overflow-hidden bg-surface-container-high border-y-2 border-on-surface">
           <div className="absolute inset-0 pointer-events-none">
-            <img alt="Risograph press detail with heavy ink residue and brutalist concrete walls" className="w-full h-full object-cover opacity-25 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=85&auto=format&fit=crop" />
+            <img alt="Risograph press detail with heavy ink residue and brutalist concrete walls" className="w-full h-full object-cover opacity-25 multiply-blend grayscale contrast-150 sepia-[.2]" src="https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1920&q=85&auto=format&fit=crop" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(240,232,212,0.6) 0%, rgba(240,232,212,0.85) 50%, rgba(240,232,212,0.6) 100%)" }}></div>
           </div>
           <div className="relative max-w-screen-2xl mx-auto px-margin-site grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">

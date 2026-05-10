@@ -223,7 +223,7 @@ export default function T85CourseEducation() {
 
         <main className="flex-grow pt-20 pb-24 md:pb-32">
           {/* Hero — fullscreen / full-bleed */}
-          <section className="full-bleed relative w-full min-h-[92vh] overflow-hidden bg-gradient-to-br from-surface-container-low via-surface to-surface-container/40 mb-24 md:mb-32 flex items-center">
+          <section className="full-bleed relative w-full min-h-[92vh] overflow-hidden bg-gradient-to-br from-surface-container-low via-surface to-surface-container/40 flex items-center">
             <div className="absolute inset-0 pointer-events-none opacity-60" style={{ backgroundImage: "radial-gradient(circle at 12% 18%, rgba(16,27,52,0.08), transparent 50%), radial-gradient(circle at 92% 88%, rgba(109,254,156,0.10), transparent 55%)" }} />
             <div className="relative z-10 w-full max-w-container-max mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-24 pb-16 md:pt-28 md:pb-24">
               <div className="space-y-stack-md pr-0 lg:pr-8 text-center lg:text-left">

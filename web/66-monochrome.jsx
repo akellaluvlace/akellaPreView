@@ -30,10 +30,10 @@ export default function T66Monochrome() {
   const footerLinks = ["Instagram", "Behance", "Unsplash"];
 
   const atmosphere = [
-    { num: "I", caption: "Concrete", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop" },
-    { num: "II", caption: "Threshold", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop" },
-    { num: "III", caption: "Pasture", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=900&auto=format&fit=crop" },
-    { num: "IV", caption: "Interior", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop" },
+    { num: "I", caption: "Concrete", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=900&auto=format&fit=crop" },
+    { num: "II", caption: "Threshold", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=900&auto=format&fit=crop" },
+    { num: "III", caption: "Pasture", src: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?q=80&w=900&auto=format&fit=crop" },
+    { num: "IV", caption: "Interior", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=900&auto=format&fit=crop" },
     { num: "V", caption: "Cornice", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=900&auto=format&fit=crop" },
   ];
 

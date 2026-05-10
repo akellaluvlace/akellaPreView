@@ -530,56 +530,73 @@ function FitnessWellness() {
             </div>
 
             <div className="bg-surface-container-low border border-surface-variant rounded p-6 md:p-8">
-              <div className="flex items-end gap-2 md:gap-3 h-44 md:h-56" role="img" aria-label="Twelve-week intensity ramp: 4 weeks accumulation, 4 weeks intensification, 3 weeks realization, 1 week deload.">
+              {/* Bars row — explicit pixel heights via Tailwind h-[N%] */}
+              <div className="flex items-end justify-between gap-1.5 md:gap-2 h-56 md:h-64" role="img" aria-label="Twelve-week intensity ramp.">
                 {(() => {
-                  const phaseFx = {
-                    1: "opacity-80",
-                    2: "",
-                    4: "opacity-50",
-                  };
-                  const peakRing = "ring-2 ring-primary-container/40 ring-offset-2 ring-offset-surface-container-low";
-                  const peakRingMax = "ring-2 ring-primary-container/60 ring-offset-2 ring-offset-surface-container-low";
                   const weeks = [
-                    { wk: "W1", h: "32%", phase: 1 }, { wk: "W2", h: "38%", phase: 1 }, { wk: "W3", h: "44%", phase: 1 }, { wk: "W4", h: "50%", phase: 1, sep: true },
-                    { wk: "W5", h: "58%", phase: 2 }, { wk: "W6", h: "66%", phase: 2 }, { wk: "W7", h: "74%", phase: 2 }, { wk: "W8", h: "82%", phase: 2, sep: true },
-                    { wk: "W9", h: "92%", phase: 3, ring: peakRing }, { wk: "W10", h: "96%", phase: 3, ring: peakRing }, { wk: "W11", h: "100%", phase: 3, ring: peakRingMax, sep: true },
-                    { wk: "W12", h: "22%", phase: 4 },
+                    { wk: "W1",  hCls: "h-[20%]",  cls: "opacity-80" }, { wk: "W2", hCls: "h-[28%]", cls: "opacity-80" }, { wk: "W3", hCls: "h-[36%]", cls: "opacity-80" }, { wk: "W4", hCls: "h-[44%]", cls: "opacity-80", sep: true },
+                    { wk: "W5",  hCls: "h-[55%]",  cls: "" },           { wk: "W6", hCls: "h-[64%]", cls: "" },          { wk: "W7", hCls: "h-[72%]", cls: "" },          { wk: "W8", hCls: "h-[80%]", cls: "", sep: true },
+                    { wk: "W9",  hCls: "h-[88%]",  cls: "ring-1 ring-primary-container/50", peak: true }, { wk: "W10", hCls: "h-[94%]", cls: "ring-1 ring-primary-container/60", peak: true }, { wk: "W11", hCls: "h-[100%]", cls: "ring-2 ring-primary-container shadow-[0_0_24px_rgba(255,88,51,0.55)]", peak: true, sep: true },
+                    { wk: "W12", hCls: "h-[18%]",  cls: "opacity-40" },
                   ];
                   const out = [];
                   weeks.forEach((b, i) => {
                     out.push(
-                      <div key={`b-${i}`} className="flex-1 flex flex-col items-center gap-2">
-                        <div className="w-full bg-surface-variant rounded-t" style={{ height: b.h }}>
-                          <div className={`w-full range-bar rounded-t h-full ${b.ring || phaseFx[b.phase] || ""}`}></div>
-                        </div>
-                        <span className={`font-label-bold text-label-bold ${b.phase === 3 ? "text-primary-container" : "text-secondary"} tabular-nums`}>{b.wk}</span>
+                      <div key={`b-${i}`} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
+                        <div className={`w-full range-bar rounded-t ${b.hCls} ${b.cls}`}></div>
+                        <span className={`font-label-bold text-label-bold ${b.peak ? "text-primary-container" : "text-secondary"} tabular-nums`}>{b.wk}</span>
                       </div>
                     );
-                    if (b.sep) out.push(<div key={`s-${i}`} className="w-px h-full bg-surface-variant/60"></div>);
+                    if (b.sep) out.push(<div key={`s-${i}`} className="w-px self-stretch bg-surface-variant/60 mx-1"></div>);
                   });
                   return out;
                 })()}
               </div>
-              <div className="grid grid-cols-12 gap-2 md:gap-3 mt-6 pt-6 border-t border-surface-variant">
-                <div className="col-span-4 flex flex-col gap-1">
-                  <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">Phase I</span>
-                  <span className="font-headline-md text-on-background uppercase text-base leading-tight">Accumulation</span>
-                  <span className="font-body-md text-body-md text-secondary">Volume builds. RPE held at 7.</span>
-                </div>
-                <div className="col-span-4 flex flex-col gap-1">
-                  <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">Phase II</span>
-                  <span className="font-headline-md text-on-background uppercase text-base leading-tight">Intensification</span>
-                  <span className="font-body-md text-body-md text-secondary">Volume drops. RPE rises to 9.</span>
-                </div>
-                <div className="col-span-3 flex flex-col gap-1">
-                  <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">Phase III</span>
-                  <span className="font-headline-md text-on-background uppercase text-base leading-tight">Realization</span>
-                  <span className="font-body-md text-body-md text-secondary">Three top sets. New PRs.</span>
-                </div>
-                <div className="col-span-1 flex flex-col gap-1">
-                  <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">IV</span>
-                  <span className="font-headline-md text-on-background uppercase text-base leading-tight">Deload</span>
-                </div>
+              <div className="mt-3 mb-6 h-px bg-gradient-to-r from-transparent via-surface-variant to-transparent"></div>
+              {/* Phase cards */}
+              <div className="grid grid-cols-12 gap-3">
+                <article className="col-span-12 md:col-span-4 bg-background border border-surface-variant rounded p-5 flex flex-col gap-3 hover:border-primary-container/50 transition-colors">
+                  <div className="flex items-baseline justify-between">
+                    <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-[0.25em]">Phase I</span>
+                    <span className="font-display-lg text-primary-container/30 tabular-nums leading-none text-2xl">01</span>
+                  </div>
+                  <span className="font-headline-md text-on-background uppercase text-lg leading-tight">Accumulation</span>
+                  <span className="font-body-md text-body-md text-secondary">Volume builds. RPE held at 7. The body learns the pattern before it learns the load.</span>
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-surface-variant">
+                    <span className="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Weeks · 4</span>
+                    <span className="font-label-bold text-label-bold text-on-background uppercase tracking-widest">RPE 7</span>
+                  </div>
+                </article>
+                <article className="col-span-12 md:col-span-4 bg-background border border-surface-variant rounded p-5 flex flex-col gap-3 hover:border-primary-container/50 transition-colors">
+                  <div className="flex items-baseline justify-between">
+                    <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-[0.25em]">Phase II</span>
+                    <span className="font-display-lg text-primary-container/30 tabular-nums leading-none text-2xl">02</span>
+                  </div>
+                  <span className="font-headline-md text-on-background uppercase text-lg leading-tight">Intensification</span>
+                  <span className="font-body-md text-body-md text-secondary">Volume drops. RPE rises to 9. Sets get heavier; the count stays honest.</span>
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-surface-variant">
+                    <span className="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Weeks · 4</span>
+                    <span className="font-label-bold text-label-bold text-on-background uppercase tracking-widest">RPE 9</span>
+                  </div>
+                </article>
+                <article className="col-span-12 md:col-span-3 bg-background border border-primary-container/40 rounded p-5 flex flex-col gap-3 relative hover:border-primary-container transition-colors">
+                  <span className="absolute -top-2 right-4 bg-primary-container text-background font-label-bold text-label-bold uppercase px-2 py-0.5 rounded tracking-widest text-[10px]">PEAK</span>
+                  <div className="flex items-baseline justify-between">
+                    <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-[0.25em]">Phase III</span>
+                    <span className="font-display-lg text-primary-container/30 tabular-nums leading-none text-2xl">03</span>
+                  </div>
+                  <span className="font-headline-md text-primary-container uppercase text-lg leading-tight">Realization</span>
+                  <span className="font-body-md text-body-md text-secondary">Three top sets. New PRs. The block earns its receipt.</span>
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-primary-container/30">
+                    <span className="font-label-bold text-label-bold text-secondary uppercase tracking-widest">Weeks · 3</span>
+                    <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-widest">RPE 10</span>
+                  </div>
+                </article>
+                <article className="col-span-12 md:col-span-1 bg-background border border-surface-variant border-dashed rounded p-3 flex md:flex-col items-center md:items-start gap-2 md:gap-1 justify-center md:justify-start hover:border-primary-container/30 transition-colors">
+                  <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-[0.25em]">IV</span>
+                  <span className="font-headline-md text-on-background uppercase text-sm leading-tight">Deload</span>
+                  <span className="font-label-bold text-label-bold text-secondary uppercase tracking-widest text-[10px] mt-auto md:mt-2">1 wk</span>
+                </article>
               </div>
             </div>
 
@@ -676,11 +693,20 @@ function FitnessWellness() {
 
         </main>
 
-        {/* Final CTA */}
-        <section className="bg-surface-container-low border-t border-surface-variant py-[clamp(4rem,10vw,8rem)] text-center px-margin-fluid">
-          <h2 className="font-display-xl text-display-xl text-primary-container uppercase mb-6 md:mb-8 text-balance">Ready to Level Up?</h2>
-          <p className="font-body-lg text-body-lg text-on-background mb-10 max-w-[65ch] mx-auto text-pretty">Stop guessing. Start progressing. Join the elite.</p>
-          <button className="bg-primary-container text-background font-label-bold text-label-bold px-12 py-6 rounded uppercase tracking-wider hover:bg-white hover:text-background hover:shadow-lg hover:shadow-primary-container/20 transition-all duration-300 active:scale-95 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container-low">Get Started</button>
+        {/* Final CTA — full-bleed bg image */}
+        <section className="relative border-t border-surface-variant py-[clamp(4rem,10vw,8rem)] text-center px-margin-fluid overflow-hidden">
+          <img alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover grayscale opacity-50" src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=1920&q=85&auto=format&fit=crop" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background/95"></div>
+          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.65) 85%)" }}></div>
+          <div className="relative z-10">
+            <span className="font-label-bold text-label-bold text-primary-container uppercase tracking-[0.4em] block mb-6">— The Set Begins</span>
+            <h2 className="font-display-xl text-display-xl text-primary-container uppercase mb-6 md:mb-8 text-balance drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">Ready to Level Up?</h2>
+            <p className="font-body-lg text-body-lg text-on-background mb-10 max-w-[65ch] mx-auto text-pretty drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">Stop guessing. Start progressing. Join the elite.</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button className="bg-primary-container text-background font-label-bold text-label-bold px-12 py-6 rounded uppercase tracking-wider hover:bg-white hover:text-background hover:shadow-lg hover:shadow-primary-container/40 transition-all duration-300 active:scale-95 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-background">Get Started</button>
+              <a href="#" className="text-on-background border border-white/30 font-label-bold text-label-bold px-12 py-6 rounded uppercase tracking-wider hover:bg-white/10 transition-all duration-300 text-lg">View a sample week</a>
+            </div>
+          </div>
         </section>
 
         {/* Footer */}

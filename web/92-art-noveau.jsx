@@ -169,7 +169,7 @@ export default function T92ArtNoveau() {
           {/* HERO :: full-bleed art nouveau composition */}
           <section className="relative w-full min-h-[92vh] overflow-hidden">
             <div className="absolute inset-0 -z-30 bg-gradient-to-br from-[#EFE4C8] via-[#F2E8CF] to-[#D4DBC9]" aria-hidden="true"></div>
-            <div className="absolute inset-0 -z-20 an-wave pointer-events-none" aria-hidden="true"></div>
+            <div className="absolute inset-0 -z-20 pointer-events-none" aria-hidden="true"></div>
             <div className="absolute -top-40 -left-32 w-[60vw] h-[60vw] gold-glow blur-3xl pointer-events-none -z-10" aria-hidden="true"></div>
             <div className="absolute -bottom-48 -right-24 w-[55vw] h-[55vw] rose-glow blur-3xl pointer-events-none -z-10" aria-hidden="true"></div>
             <div className="absolute top-1/3 left-1/2 w-[30vw] h-[30vw] sage-glow blur-3xl pointer-events-none -z-10" aria-hidden="true"></div>
@@ -471,7 +471,7 @@ export default function T92ArtNoveau() {
             </div>
 
             <div className="relative botanical-border p-8 md:p-12 bg-gradient-to-r from-[#F5EBD0] via-ivory to-[#F5EBD0]">
-              <div className="absolute inset-0 an-wave opacity-15 pointer-events-none" aria-hidden="true"></div>
+              <div className="absolute inset-0 opacity-15 pointer-events-none" aria-hidden="true"></div>
               <div className="relative grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6 divide-gold/30 md:divide-x">
                 {originStats.map((s) => (
                   <div key={s.label} className="flex flex-col items-center text-center px-2">

@@ -66,11 +66,11 @@ export default function T97Blueprintiachitectural() {
     { id: "PIL.01", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=1200&q=85&auto=format&fit=crop", alt: "Geometric metallic facade in raking light", tickClass: "tick-tl", title: "Site & brief", body: "Topology readings, sun studies, and a single-page brief drafted on tracing paper before a line is committed." },
     { id: "PIL.02", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=85&auto=format&fit=crop", alt: "Minimal interior — drafting in volume", tickClass: "tick-tr", title: "Drawing first", body: "Plans, sections, and elevations at scale 1:50. The model exists to validate the drawing — not the other way around." },
     { id: "PIL.03", img: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=85&auto=format&fit=crop", alt: "Interior with rift-sawn oak floor and warm light", tickClass: "tick-bl", title: "Material honesty", body: "Every specimen handled in the studio before it lands on a sheet. We do not specify what we have not held." },
-    { id: "PIL.04", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop", alt: "Modernist interior gallery — realised work", tickClass: "tick-br", title: "On-site delivery", body: "Weekly site visits, mock-ups before pours, and revision logs that follow the contractor's clipboard, not ours." },
+    { id: "PIL.04", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1200&q=85&auto=format&fit=crop", alt: "Modernist interior gallery — realised work", tickClass: "tick-br", title: "On-site delivery", body: "Weekly site visits, mock-ups before pours, and revision logs that follow the contractor's clipboard, not ours." },
   ];
 
   const folio = [
-    { n: "01", title: "The Ridge House", loc: "Aspen, CO · 2023", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=600&q=85&auto=format&fit=crop", alt: "The Ridge House — gallery interior" },
+    { n: "01", title: "The Ridge House", loc: "Aspen, CO · 2023", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=600&q=85&auto=format&fit=crop", alt: "The Ridge House — gallery interior" },
     { n: "02", title: "Coastal Pavilion", loc: "Big Sur, CA · 2022", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=85&auto=format&fit=crop", alt: "Coastal Pavilion — minimal volume" },
     { n: "03", title: "North Atelier", loc: "Portland, OR · 2022", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=600&q=85&auto=format&fit=crop", alt: "North Atelier — facade study" },
     { n: "04", title: "Mill Bend House", loc: "Hood River, OR · 2021", img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=85&auto=format&fit=crop", alt: "Mill Bend House — living volume" },
@@ -527,7 +527,7 @@ export default function T97Blueprintiachitectural() {
               {/* Featured Editorial */}
               <article className="md:col-span-7 group relative">
                 <div className="relative aspect-[4/3] overflow-hidden border-2 border-ochre/60">
-                  <img src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1600&q=85&auto=format&fit=crop" alt="Editorial photograph of completed home interior" className="w-full h-full object-cover grayscale-[20%] transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                  <img src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1600&q=85&auto=format&fit=crop" alt="Editorial photograph of completed home interior" className="w-full h-full object-cover grayscale-[20%] transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
                   <div className="absolute top-4 left-4 award-seal" aria-hidden="true">
                     <span className="font-mono font-bold text-[9px] tracking-widest text-ochre-dark uppercase">AIA</span>
                     <span className="font-display text-base font-bold text-ochre-dark">2024</span>

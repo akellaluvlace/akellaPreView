@@ -8,6 +8,7 @@ import { describe, it, expect } from "vitest";
 import {
   patchJsxTextByOid,
   patchJsxAttrByOid,
+  patchJsxOuterByOid,
 } from "../lib/ast/patch-class-by-oid";
 
 describe("patchJsxTextByOid", () => {
@@ -146,5 +147,136 @@ describe("patchJsxAttrByOid", () => {
     expect(out.changed).toBe(true);
     expect(out.source).toContain('alt="TWO!"');
     expect(out.source).toContain('alt="one"'); // unchanged
+  });
+});
+
+describe("patchJsxOuterByOid", () => {
+  it("replaces a self-closing svg verbatim and re-injects the OID", () => {
+    const src = `function App() {
+  return <svg data-dropin-id="aaaaa1" width="24" height="24"><path d="M1 1" /></svg>;
+}`;
+    const out = patchJsxOuterByOid(
+      src,
+      "aaaaa1",
+      `<svg width="32" height="32"><circle r="5" /></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    // New svg landed AND the OID was injected so OID addressing survives.
+    expect(out.source).toContain(
+      `<svg data-dropin-id="aaaaa1" width="32" height="32"><circle r="5" /></svg>`,
+    );
+    // Old element is gone.
+    expect(out.source).not.toContain(`<path d="M1 1" />`);
+    expect(out.reason).toBeNull();
+  });
+
+  it("does not double-inject OID when the new outer already carries one", () => {
+    const src = `<svg data-dropin-id="aaaaa1"><path /></svg>`;
+    const out = patchJsxOuterByOid(
+      src,
+      "aaaaa1",
+      `<svg data-dropin-id="aaaaa1" width="40"><rect /></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    // Verify only ONE data-dropin-id occurrence in the new svg.
+    const matches = out.source.match(/data-dropin-id/g) || [];
+    expect(matches.length).toBe(1);
+    expect(out.source).toContain(`width="40"`);
+  });
+
+  it("preserves surrounding bytes (sibling + parent untouched)", () => {
+    const src = `function App() {
+  return (
+    <div>
+      <h1 data-dropin-id="title">Title</h1>
+      <svg data-dropin-id="icon-1" viewBox="0 0 24 24"><path d="M0 0" /></svg>
+      <p data-dropin-id="caption">Caption</p>
+    </div>
+  );
+}`;
+    const out = patchJsxOuterByOid(
+      src,
+      "icon-1",
+      `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" /></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    expect(out.source).toContain(`<h1 data-dropin-id="title">Title</h1>`);
+    expect(out.source).toContain(`<p data-dropin-id="caption">Caption</p>`);
+    expect(out.source).toContain(
+      `<svg data-dropin-id="icon-1" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" /></svg>`,
+    );
+  });
+
+  it("returns no-change when the new outer matches the existing bytes after OID injection", () => {
+    const existing = `<svg data-dropin-id="aaaaa1" width="24"><path /></svg>`;
+    const src = `function App() { return ${existing}; }`;
+    // Pass the new outer WITHOUT the OID — the patcher should inject it
+    // and notice the resulting bytes match the existing element.
+    const out = patchJsxOuterByOid(src, "aaaaa1", `<svg width="24"><path /></svg>`);
+    expect(out.changed).toBe(false);
+    expect(out.source).toBe(src);
+    expect(out.reason).toContain("no change");
+  });
+
+  it("bails when oid is not found", () => {
+    const src = `<svg data-dropin-id="real"><path /></svg>`;
+    const out = patchJsxOuterByOid(src, "missing", `<svg></svg>`);
+    expect(out.changed).toBe(false);
+    expect(out.reason).toContain("not found");
+  });
+
+  it("bails on parse error", () => {
+    const src = `<svg data-dropin-id="aaaaa1" {{{>`;
+    const out = patchJsxOuterByOid(src, "aaaaa1", `<svg></svg>`);
+    expect(out.changed).toBe(false);
+    expect(out.reason).toContain("parse failed");
+  });
+
+  it("bails when the new outer is empty/whitespace", () => {
+    const src = `<svg data-dropin-id="aaaaa1"><path /></svg>`;
+    const out = patchJsxOuterByOid(src, "aaaaa1", `   \n  `);
+    expect(out.changed).toBe(false);
+    expect(out.reason).toContain("empty");
+  });
+
+  it("works on non-self-closing element (paired tags)", () => {
+    const src = `<div><svg data-dropin-id="aaaaa1"><path d="M1 1" /></svg></div>`;
+    const out = patchJsxOuterByOid(
+      src,
+      "aaaaa1",
+      `<svg viewBox="0 0 16 16"></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    expect(out.source).toContain(
+      `<svg data-dropin-id="aaaaa1" viewBox="0 0 16 16"></svg>`,
+    );
+    expect(out.source).not.toContain(`<path d="M1 1" />`);
+  });
+
+  it("scopes correctly when multiple SVGs share parent", () => {
+    const src = `<div>
+      <svg data-dropin-id="a" width="10"><path d="A" /></svg>
+      <svg data-dropin-id="b" width="20"><path d="B" /></svg>
+    </div>`;
+    const out = patchJsxOuterByOid(
+      src,
+      "b",
+      `<svg width="30"><circle /></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    expect(out.source).toContain(`<svg data-dropin-id="b" width="30">`);
+    // Sibling untouched.
+    expect(out.source).toContain(`<svg data-dropin-id="a" width="10"><path d="A" /></svg>`);
+  });
+
+  it("injects OID even when the new outer leads with whitespace", () => {
+    const src = `<svg data-dropin-id="aaaaa1"><path /></svg>`;
+    const out = patchJsxOuterByOid(
+      src,
+      "aaaaa1",
+      `   <svg width="40"></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    expect(out.source).toContain(`<svg data-dropin-id="aaaaa1" width="40">`);
   });
 });
