@@ -10,8 +10,13 @@ import type { VibeKind } from "./kind";
 export interface VibeElementInfo {
   // Selector-path addressing — populated for both modes. Resolves
   // through document.querySelector inside the iframe; round-trip
-  // verified by lib/vibe-edit/path.ts.
+  // verified by lib/vibe-edit/path.ts. Used by the iframe runtime
+  // to find the element on `vibe:update-*` commands.
   path: string;
+  // Element-index chain from <html> (HTML mode only). Used by the
+  // commit translator to drive parse5-based HTML source patchers,
+  // which take number[] not selector strings. Null in JSX mode.
+  htmlPath: number[] | null;
   // OID addressing — present in JSX mode after injectOids has run,
   // null in HTML mode. The commit translator prefers OID over path
   // when patching JSX source because it survives source edits that
