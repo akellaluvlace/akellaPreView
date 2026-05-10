@@ -29,6 +29,12 @@ export interface VibeCommitInput {
     src: string;
     alt: string;
     href: string;
+    // Verbatim el.style.cssText. Written as the element's style
+    // attribute, replacing any existing inline-style value. The
+    // iframe DOM is the source of truth here — caller passes the
+    // current cssText whenever any style-affecting field (bg, text
+    // colour, radius) drifted from the last-committed snapshot.
+    style: string;
   }>;
 }
 
@@ -97,6 +103,9 @@ export function buildVibeCommit(input: VibeCommitInput): VibeCommitResult {
     if (next.href !== undefined && next.href !== (old.href ?? "")) {
       apply(patchHtmlAttr(source, hp, "href", next.href));
     }
+    if (next.style !== undefined && next.style !== (old.inlineStyle ?? "")) {
+      apply(patchHtmlAttr(source, hp, "style", next.style));
+    }
   } else {
     // JSX mode requires OID. Path-based JSX patching isn't wired
     // yet — vibecoders editing OID-less JSX elements (pre-injection
@@ -115,6 +124,17 @@ export function buildVibeCommit(input: VibeCommitInput): VibeCommitResult {
     }
     if (next.href !== undefined && next.href !== (old.href ?? "")) {
       apply(patchJsxAttrByOid(source, old.oid, "href", next.href));
+    }
+    // JSX style writeback intentionally skipped in v1. React rejects
+    // string-valued style props (warns and ignores), and writing
+    // expression-form `style={{...}}` requires a dedicated patcher
+    // that round-trips an existing object expression. Iframe DOM
+    // changes for radius / bg / text colour are visible during the
+    // session but won't survive a reload in JSX mode. Power editor
+    // (FocusEditor) keeps its existing class-based persistence path
+    // for users who need permanence in JSX mode.
+    if (next.style !== undefined && next.style !== (old.inlineStyle ?? "")) {
+      // No-op — see comment above.
     }
   }
 

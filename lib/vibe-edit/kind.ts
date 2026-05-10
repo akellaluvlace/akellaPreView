@@ -18,6 +18,7 @@ export type VibeKind =
   | "image"
   | "link"
   | "button"
+  | "icon"
   | "container";
 
 const HEADING_TAGS: ReadonlySet<string> = new Set([
@@ -53,6 +54,7 @@ export function inferKind(tag: string, role?: string | null): VibeKind {
   if (HEADING_TAGS.has(t)) return "heading";
   if (TEXT_TAGS.has(t)) return "text";
   if (t === "img") return "image";
+  if (t === "svg") return "icon";
   if (t === "a") return "link";
   if (t === "button") return "button";
   return "container";

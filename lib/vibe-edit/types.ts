@@ -35,6 +35,24 @@ export interface VibeElementInfo {
   href: string | null;
   textColor: string;
   bgColor: string;
+  // Computed border-radius (top-left corner, parsed as the slider's
+  // baseline value). For symmetric radii browsers report "8px"; for
+  // asymmetric "8px 12px 16px 4px". The panel shows the first
+  // numeric only — vibe-edit doesn't expose per-corner control.
+  borderRadius: string;
+  // Verbatim el.style.cssText from the iframe DOM at selection time.
+  // The source-writeback path uses this as the canonical inline-style
+  // value when any style-affecting field changes (bg colour, corner
+  // radius, text colour). Lets us write a single style="..." attr
+  // covering all the user's tweaks rather than tracking per-prop
+  // diffs in commit.ts.
+  inlineStyle: string;
+  // Verbatim className attribute (HTML) / className prop (JSX). The
+  // panel uses this for "what knobs does this element already have"
+  // detection — e.g. a div with `bg-white rounded-lg shadow-md` is
+  // card-like and gets corner / bg controls; a plain wrapper div
+  // gets the inert-container hint. Empty string when no class attr.
+  classes: string;
 }
 
 // Iframe → host. Sent via parent.postMessage with the existing
@@ -55,7 +73,13 @@ export type VibeCommand =
   | {
       type: "vibe:update-style";
       path: string;
-      styles: { color?: string; backgroundColor?: string };
+      // camelCase CSS property names (matches CSSStyleDeclaration's
+      // setter API). Empty-string value clears the property; absent
+      // keys leave the existing value alone. Caller-supplied subset:
+      // color, backgroundColor, borderRadius are the v1 controls;
+      // future panels can add boxShadow / borderColor / borderWidth
+      // without a protocol change.
+      styles: Record<string, string>;
     }
   | { type: "vibe:update-image"; path: string; src?: string; alt?: string }
   | { type: "vibe:update-link"; path: string; href: string }

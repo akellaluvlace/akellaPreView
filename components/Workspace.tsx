@@ -2544,7 +2544,7 @@ export default function Workspace({
   );
 
   const handleVibeStyle = useCallback(
-    (styles: { color?: string; backgroundColor?: string }) => {
+    (styles: Record<string, string>) => {
       const info = vibeInfo;
       if (!info) return;
       previewHandleRef.current?.postVibe({
@@ -2622,7 +2622,8 @@ export default function Workspace({
       vibeInfo.text !== last.text ||
       (vibeInfo.src ?? "") !== (last.src ?? "") ||
       (vibeInfo.alt ?? "") !== (last.alt ?? "") ||
-      (vibeInfo.href ?? "") !== (last.href ?? "");
+      (vibeInfo.href ?? "") !== (last.href ?? "") ||
+      (vibeInfo.inlineStyle ?? "") !== (last.inlineStyle ?? "");
     if (!drifted) return;
 
     const id = setTimeout(() => {
@@ -2643,6 +2644,10 @@ export default function Workspace({
           href:
             (vibeInfo.href ?? "") !== (last.href ?? "")
               ? vibeInfo.href ?? ""
+              : undefined,
+          style:
+            (vibeInfo.inlineStyle ?? "") !== (last.inlineStyle ?? "")
+              ? vibeInfo.inlineStyle ?? ""
               : undefined,
         },
       });

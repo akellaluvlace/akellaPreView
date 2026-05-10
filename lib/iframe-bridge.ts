@@ -366,7 +366,9 @@ export type HostToIframeMessage =
   | {
       type: "vibe:update-style";
       path: string;
-      styles: { color?: string; backgroundColor?: string };
+      // camelCase CSS property names — see lib/vibe-edit/types.ts
+      // VibeCommand for the rationale on the open-shape choice.
+      styles: Record<string, string>;
     }
   | {
       type: "vibe:update-image";

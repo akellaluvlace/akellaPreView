@@ -41,6 +41,9 @@ function htmlInfo(over: Partial<VibeElementInfo>): VibeElementInfo {
     href: null,
     textColor: "",
     bgColor: "",
+    borderRadius: "",
+    inlineStyle: "",
+    classes: "",
     ...over,
   };
 }
@@ -58,6 +61,9 @@ function jsxInfo(over: Partial<VibeElementInfo>): VibeElementInfo {
     href: null,
     textColor: "",
     bgColor: "",
+    borderRadius: "",
+    inlineStyle: "",
+    classes: "",
     ...over,
   };
 }

@@ -40,6 +40,11 @@ describe("inferKind", () => {
     expect(inferKind("button")).toBe<VibeKind>("button");
   });
 
+  it("classifies <svg> as icon", () => {
+    expect(inferKind("svg")).toBe<VibeKind>("icon");
+    expect(inferKind("SVG")).toBe<VibeKind>("icon");
+  });
+
   it("classifies role='button' on a div as button", () => {
     expect(inferKind("div", "button")).toBe<VibeKind>("button");
   });

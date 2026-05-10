@@ -29,7 +29,7 @@
 
 export function vibeRuntimeJs(): string {
   return `
-    var VIBE_EDITABLE = 'h1,h2,h3,h4,h5,h6,p,span,li,blockquote,small,figcaption,td,th,label,strong,em,code,pre,a,button,img';
+    var VIBE_EDITABLE = 'h1,h2,h3,h4,h5,h6,p,span,li,blockquote,small,figcaption,td,th,label,strong,em,code,pre,a,button,img,svg';
     var VIBE_TEXT_TAG_SET = {
       h1: 1, h2: 1, h3: 1, h4: 1, h5: 1, h6: 1,
       p: 1, span: 1, li: 1, blockquote: 1, small: 1,
@@ -113,6 +113,7 @@ export function vibeRuntimeJs(): string {
       if (/^h[1-6]$/.test(t)) return 'heading';
       if (VIBE_TEXT_TAG_SET[t]) return 'text';
       if (t === 'img') return 'image';
+      if (t === 'svg') return 'icon';
       if (t === 'a') return 'link';
       if (t === 'button') return 'button';
       return 'container';
@@ -131,7 +132,10 @@ export function vibeRuntimeJs(): string {
         alt: el.getAttribute('alt'),
         href: el.getAttribute('href'),
         textColor: cs ? cs.color : '',
-        bgColor: cs ? cs.backgroundColor : ''
+        bgColor: cs ? cs.backgroundColor : '',
+        borderRadius: cs ? cs.borderRadius : '',
+        inlineStyle: el.style ? (el.style.cssText || '') : '',
+        classes: el.getAttribute('class') || ''
       };
     }
 
@@ -186,12 +190,19 @@ export function vibeRuntimeJs(): string {
         }
       } else if (d.type === 'vibe:update-style') {
         el = d.path ? document.querySelector(d.path) : null;
-        if (el && d.styles) {
-          if (typeof d.styles.color === 'string') {
-            el.style.color = d.styles.color;
-          }
-          if (typeof d.styles.backgroundColor === 'string') {
-            el.style.backgroundColor = d.styles.backgroundColor;
+        if (el && d.styles && typeof d.styles === 'object') {
+          // Generic CSS-prop application. camelCase prop names go
+          // through el.style[prop] = value (CSSStyleDeclaration
+          // setter handles the kebab-case translation internally).
+          // Empty string clears the inline value; absent keys are
+          // left alone naturally because for-in skips undefined.
+          for (var prop in d.styles) {
+            if (Object.prototype.hasOwnProperty.call(d.styles, prop)) {
+              var v = d.styles[prop];
+              if (typeof v === 'string') {
+                try { el.style[prop] = v; } catch (e) {}
+              }
+            }
           }
           if (vibeSelected === el) {
             dropinPost({ type: 'vibe:selected', info: vibeSerialize(el) });

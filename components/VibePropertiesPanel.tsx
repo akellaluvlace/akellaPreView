@@ -12,14 +12,20 @@
 // something broke.
 
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
+import { isCardLike } from "@/lib/vibe-edit/detect";
 import TextControls from "./VibePropertiesPanel/TextControls";
 import ImageControls from "./VibePropertiesPanel/ImageControls";
 import LinkControls from "./VibePropertiesPanel/LinkControls";
+import CardControls from "./VibePropertiesPanel/CardControls";
+import IconControls from "./VibePropertiesPanel/IconControls";
 
 interface VibePropertiesPanelProps {
   info: VibeElementInfo | null;
   onContentChange: (text: string) => void;
-  onStyleChange: (styles: { color?: string; backgroundColor?: string }) => void;
+  // styles is now an open-shape Record so card / icon / future
+  // panels can route any CSS prop through the same channel without
+  // a protocol bump.
+  onStyleChange: (styles: Record<string, string>) => void;
   onImageChange: (next: { src?: string; alt?: string }) => void;
   onLinkChange: (href: string) => void;
   onClose: () => void;
@@ -83,6 +89,10 @@ export default function VibePropertiesPanel({
         <ImageControls info={info} onImageChange={onImageChange} />
       )}
 
+      {info.kind === "icon" && (
+        <IconControls info={info} onStyleChange={onStyleChange} />
+      )}
+
       {info.kind === "link" && (
         <LinkControls
           info={info}
@@ -91,10 +101,14 @@ export default function VibePropertiesPanel({
         />
       )}
 
-      {info.kind === "container" && (
+      {info.kind === "container" && isCardLike(info) && (
+        <CardControls info={info} onStyleChange={onStyleChange} />
+      )}
+
+      {info.kind === "container" && !isCardLike(info) && (
         <div className="p-4 font-mono text-[11px] text-muted">
-          Containers don&apos;t have direct edits in vibe mode. Click on
-          the text or image inside to edit it.
+          This container is just a wrapper — click on the text or
+          image inside to edit it.
         </div>
       )}
     </aside>
@@ -105,7 +119,9 @@ function labelFor(kind: string, tag: string): string {
   if (kind === "heading") return `Heading (${tag.toUpperCase()})`;
   if (kind === "text") return "Text";
   if (kind === "image") return "Image";
+  if (kind === "icon") return "Icon";
   if (kind === "link") return "Link";
   if (kind === "button") return "Button";
+  if (kind === "container") return "Card";
   return tag;
 }
