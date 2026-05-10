@@ -10,12 +10,12 @@ export default function T72HighLuxury() {
   const legalLinks = ["Privacy", "Terms", "Instagram"];
 
   const atelierTiles = [
-    { src: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=900&auto=format&fit=crop", plate: "Plate · I", tag: "Noir", calibre: "Calibre 71", title: "Ceramic 42", meta: "Geneva · 2024", w: "w-72 md:w-80", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/30 to-transparent" },
+    { src: "https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=900&auto=format&fit=crop", plate: "Plate · I", tag: "Noir", calibre: "Calibre 71", title: "Ceramic 42", meta: "Geneva · 2024", w: "w-72 md:w-80", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/30 to-transparent" },
     { src: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?q=80&w=1100&auto=format&fit=crop", plate: "Plate · II", tag: "Movement", calibre: "Tourbillon 18", title: "Open Heart", meta: "25 Jewels · 28,800 vph", w: "w-80 md:w-[26rem]", grad: "bg-gradient-to-tr from-luxury-black/90 via-transparent to-luxury-gold/10" },
-    { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=900&auto=format&fit=crop", plate: "Plate · III", tag: "Gold", calibre: "Calibre 18", title: "Rose 18k", meta: "Hand-finished case", w: "w-64 md:w-72", grad: "bg-gradient-to-t from-luxury-black via-transparent to-transparent" },
-    { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1100&auto=format&fit=crop", plate: "Plate · IV", tag: "Aviator", calibre: "Calibre 96", title: "Sky · 44mm", meta: "Chronograph · matte", w: "w-80 md:w-96", grad: "bg-gradient-to-bl from-luxury-black/80 via-transparent to-luxury-charcoal/60" },
-    { src: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=900&auto=format&fit=crop", plate: "Plate · V", tag: "Tools", calibre: "Of the Bench", title: "Brass · 1924", meta: "Heritage atelier", w: "w-64 md:w-72", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15" },
-    { src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=1100&auto=format&fit=crop", plate: "Plate · VI", tag: "Workshop", calibre: "Salle · No. 02", title: "Geneva", meta: "14 master watchmakers", w: "w-80 md:w-[26rem]", grad: "bg-gradient-to-r from-luxury-black/85 via-luxury-black/30 to-transparent" },
+    { src: "https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=900&auto=format&fit=crop", plate: "Plate · III", tag: "Gold", calibre: "Calibre 18", title: "Rose 18k", meta: "Hand-finished case", w: "w-64 md:w-72", grad: "bg-gradient-to-t from-luxury-black via-transparent to-transparent" },
+    { src: "https://images.unsplash.com/photo-1553119281-99dbc4f4ed33?q=80&w=1100&auto=format&fit=crop", plate: "Plate · IV", tag: "Aviator", calibre: "Calibre 96", title: "Sky · 44mm", meta: "Chronograph · matte", w: "w-80 md:w-96", grad: "bg-gradient-to-bl from-luxury-black/80 via-transparent to-luxury-charcoal/60" },
+    { src: "https://images.unsplash.com/photo-1583611517794-e2afb9d1c7b9?q=80&w=900&auto=format&fit=crop", plate: "Plate · V", tag: "Tools", calibre: "Of the Bench", title: "Brass · 1924", meta: "Heritage atelier", w: "w-64 md:w-72", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/30 to-luxury-gold/15" },
+    { src: "https://images.unsplash.com/photo-1490223966554-5de0fd551b91?q=80&w=1100&auto=format&fit=crop", plate: "Plate · VI", tag: "Workshop", calibre: "Salle · No. 02", title: "Geneva", meta: "14 master watchmakers", w: "w-80 md:w-[26rem]", grad: "bg-gradient-to-r from-luxury-black/85 via-luxury-black/30 to-transparent" },
     { src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?q=80&w=1000&auto=format&fit=crop", plate: "Plate · VII", tag: "Hall", calibre: "Heritage", title: "MMXXIV", meta: "Centennial vault", w: "w-72 md:w-80", grad: "bg-gradient-to-t from-luxury-black via-luxury-black/40 to-transparent" },
   ];
 
@@ -28,9 +28,9 @@ export default function T72HighLuxury() {
   ];
 
   const refRows = [
-    { side: "left", num: "No. I — Calibre 71", title: "Noir, in ceramic.", body: "A 42 mm case carved from monobloc black ceramic, sintered at 1450 °C. The bezel is silent; the lume reads near-violet at midnight.", img: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1600&auto=format&fit=crop", chip: "REF · 71-CER", chipPos: "left-5", grad: "from-luxury-black/70 via-transparent to-transparent", spec: { Case: "Black ceramic · 42 mm", Movement: "Automatic · 72h", Strap: "Horween shell cordovan", Edition: "96 pieces · numbered" } },
-    { side: "right", num: "No. II — Calibre 18", title: "Gold standard, alive.", body: "A flying tourbillon under sapphire, on a rose-gold case hand-finished by a single watchmaker. The dial admits the light without flattering it.", img: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=1600&auto=format&fit=crop", chip: "REF · 18-RG", chipPos: "right-5", grad: "from-luxury-black/70 via-transparent to-luxury-gold/10", bullets: ["18k rose gold case", "Flying tourbillon · 60s", "Anglage · hand-polished", "Edition · 27 pieces"] },
-    { side: "left", num: "No. III — Calibre 96", title: "Aviator, sky-tested.", body: "Built for the cockpit of a Caravelle: anti-magnetic, anti-shock, brushed titanium. The dial survives weather; the chronograph survives habit.", img: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1600&auto=format&fit=crop", chip: "REF · 96-CHR", chipPos: "left-5", grad: "from-luxury-black/65 via-transparent to-luxury-charcoal/40", stats: [{ v: "44", l: "mm case" }, { v: "200", l: "m water" }, { v: "96", l: "edition" }] },
+    { side: "left", num: "No. I — Calibre 71", title: "Noir, in ceramic.", body: "A 42 mm case carved from monobloc black ceramic, sintered at 1450 °C. The bezel is silent; the lume reads near-violet at midnight.", img: "https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=1600&auto=format&fit=crop", chip: "REF · 71-CER", chipPos: "left-5", grad: "from-luxury-black/70 via-transparent to-transparent", spec: { Case: "Black ceramic · 42 mm", Movement: "Automatic · 72h", Strap: "Horween shell cordovan", Edition: "96 pieces · numbered" } },
+    { side: "right", num: "No. II — Calibre 18", title: "Gold standard, alive.", body: "A flying tourbillon under sapphire, on a rose-gold case hand-finished by a single watchmaker. The dial admits the light without flattering it.", img: "https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=1600&auto=format&fit=crop", chip: "REF · 18-RG", chipPos: "right-5", grad: "from-luxury-black/70 via-transparent to-luxury-gold/10", bullets: ["18k rose gold case", "Flying tourbillon · 60s", "Anglage · hand-polished", "Edition · 27 pieces"] },
+    { side: "left", num: "No. III — Calibre 96", title: "Aviator, sky-tested.", body: "Built for the cockpit of a Caravelle: anti-magnetic, anti-shock, brushed titanium. The dial survives weather; the chronograph survives habit.", img: "https://images.unsplash.com/photo-1553119281-99dbc4f4ed33?q=80&w=1600&auto=format&fit=crop", chip: "REF · 96-CHR", chipPos: "left-5", grad: "from-luxury-black/65 via-transparent to-luxury-charcoal/40", stats: [{ v: "44", l: "mm case" }, { v: "200", l: "m water" }, { v: "96", l: "edition" }] },
   ];
 
   const luxFaq = [
@@ -187,7 +187,7 @@ export default function T72HighLuxury() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12">
               <div className="col-span-1 md:col-span-7 group cursor-pointer reveal-on-scroll">
                 <div className="relative img-wrapper border border-gray-200 h-[500px] md:h-[700px]">
-                  <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop" alt="The Noir Series" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100" />
+                  <img src="https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=2080&auto=format&fit=crop" alt="The Noir Series" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100" />
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="absolute bottom-0 left-0 p-6 md:p-10 bg-white border-t border-r border-luxury-gold z-10 transition-transform duration-500 group-hover:-translate-y-2">
                     <h4 className="font-header text-lg md:text-xl tracking-widest text-black">The Noir Series</h4>
@@ -197,7 +197,7 @@ export default function T72HighLuxury() {
               </div>
               <div className="col-span-1 md:col-span-5 flex flex-col justify-between group cursor-pointer mt-8 md:mt-0 reveal-on-scroll" style={{ transitionDelay: "100ms" }}>
                 <div className="relative img-wrapper border border-gray-200 h-[400px] md:h-[500px]">
-                  <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=1974&auto=format&fit=crop" alt="Gold Standard" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100" />
+                  <img src="https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=1974&auto=format&fit=crop" alt="Gold Standard" className="w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100" />
                   <div className="absolute top-0 right-0 p-6 md:p-10 bg-white border-b border-l border-luxury-gold z-10">
                     <h4 className="font-header text-lg md:text-xl tracking-widest text-right text-black">Gold Standard</h4>
                     <p className="font-body text-[10px] md:text-xs mt-2 tracking-widest text-right text-gray-600">Tourbillon &bull; 18k Rose Gold</p>
@@ -209,7 +209,7 @@ export default function T72HighLuxury() {
               </div>
               <div className="col-span-1 md:col-span-12 mt-8 md:mt-16 group cursor-pointer reveal-on-scroll">
                 <div className="relative img-wrapper border border-gray-200 h-[400px] md:h-[600px]">
-                  <img src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1935&auto=format&fit=crop" alt="Aviator Elite" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" />
+                  <img src="https://images.unsplash.com/photo-1553119281-99dbc4f4ed33?q=80&w=1935&auto=format&fit=crop" alt="Aviator Elite" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-black/40">
                     <div className="bg-luxury-black text-luxury-gold px-8 py-4 border border-luxury-gold backdrop-blur-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                       <span className="font-header tracking-widest uppercase text-sm">View Aviator Elite</span>
@@ -533,7 +533,7 @@ export default function T72HighLuxury() {
           <img
             alt="Mechanical watch macro — Inner Circle backdrop"
             className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale"
-            src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1920&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1583611517794-e2afb9d1c7b9?q=80&w=1920&auto=format&fit=crop"
             loading="lazy" decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-luxury-black via-luxury-black/85 to-luxury-black"></div>
