@@ -115,49 +115,49 @@ export default function T25ResumeCvSite() {
       venue: "Tech Today Nordics — 2022",
       title: "Top 50 Product Leaders",
       excerpt: "Among the operators redefining what serious product work looks like in the region.",
-      image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&q=85&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&q=85&auto=format&fit=crop",
       alt: "Editorial portrait, contemplative dark backdrop"
     },
     {
       venue: "Nordic PM Summit — 2023",
       title: "Quiet roadmaps, loud results",
       excerpt: "On choosing fewer bets, naming them clearly and protecting the calendar.",
-      image: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=400&h=400&q=85&auto=format&fit=crop",
       alt: "Editorial portrait in soft light"
     },
     {
       venue: "Lenny's Newsletter — 2024",
       title: "Guest essay on launch reviews",
       excerpt: "A practical playbook for running launch retros that teams actually attend twice.",
-      image: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=400&q=85&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&q=85&auto=format&fit=crop",
       alt: "Editorial portrait, low-key studio"
     },
     {
       venue: "Acme Corp — 2021",
       title: "Innovation Award · Project Phoenix",
       excerpt: "Recognised internally for the cleanest large migration the platform org had run.",
-      image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=400&q=85&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop",
       alt: "Editorial portrait, dramatic dark wardrobe"
     },
     {
       venue: "Mind the Product — 2025",
       title: "Panel: hiring senior PMs in 2025",
       excerpt: "The strongest signal is a candidate who can name a decision they got wrong.",
-      image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&q=85&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=400&h=400&q=85&auto=format&fit=crop",
       alt: "Editorial portrait, fashion studio shot"
     }
   ];
 
   const stripImages = [
-    { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=400&q=85&auto=format&fit=crop", alt: "Press portrait, contemplative" },
-    { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=400&q=85&auto=format&fit=crop", alt: "Conference talk portrait" },
+    { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&q=85&auto=format&fit=crop", alt: "Press portrait, contemplative" },
+    { src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=400&h=400&q=85&auto=format&fit=crop", alt: "Conference talk portrait" },
     { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&q=85&auto=format&fit=crop", alt: "Circuit board macro — platform work" },
     { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop", alt: "Speaker side profile" },
     { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop", alt: "Datacentre wide shot" },
-    { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&h=400&q=85&auto=format&fit=crop", alt: "Editorial portrait, low-key" },
+    { src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&q=85&auto=format&fit=crop", alt: "Editorial portrait, low-key" },
     { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&q=85&auto=format&fit=crop", alt: "Server rack detail" },
-    { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&h=400&q=85&auto=format&fit=crop", alt: "Press portrait, dramatic" },
-    { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=400&q=85&auto=format&fit=crop", alt: "Editorial studio shot" },
+    { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&h=400&q=85&auto=format&fit=crop", alt: "Press portrait, dramatic" },
+    { src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=400&h=400&q=85&auto=format&fit=crop", alt: "Editorial studio shot" },
     { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=400&h=400&q=85&auto=format&fit=crop", alt: "Industrial machinery — infrastructure metaphor" }
   ];
 

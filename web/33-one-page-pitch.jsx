@@ -36,11 +36,11 @@ const TRACTION_STATS = [
 ];
 
 const POLAROIDS = [
-  { rotClass: "polaroid-1", pos: "top-2 left-4 md:left-12", z: "", name: "Maya H. · Atrium", alt: "Maya Hartwell, founder of Atrium", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85&auto=format&fit=crop" },
-  { rotClass: "polaroid-2", pos: "top-12 left-32 md:left-56", z: "z-10", name: "Jonas V. · Vellum", alt: "Jonas Verheyden, founder of Vellum", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop" },
-  { rotClass: "polaroid-3", pos: "top-48 left-16 md:left-32", z: "z-20", name: "Inez C. · Forester", alt: "Inez Caro, founder of Forester", src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85&auto=format&fit=crop" },
-  { rotClass: "polaroid-4", pos: "top-44 right-4 md:right-32", z: "z-10", name: "Alec R. · Northbridge", alt: "Alec Roselund, founder of Northbridge", src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=85&auto=format&fit=crop" },
-  { rotClass: "polaroid-5", pos: "bottom-2 left-48 md:left-64", z: "z-30", name: "Petra L. · Quietest", alt: "Petra Linde, founder of Quietest", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&q=85&auto=format&fit=crop" },
+  { rotClass: "polaroid-1", pos: "top-2 left-4 md:left-12", z: "", name: "Maya H. · Atrium", alt: "Maya Hartwell, founder of Atrium", src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=85&auto=format&fit=crop" },
+  { rotClass: "polaroid-2", pos: "top-12 left-32 md:left-56", z: "z-10", name: "Jonas V. · Vellum", alt: "Jonas Verheyden, founder of Vellum", src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=600&q=85&auto=format&fit=crop" },
+  { rotClass: "polaroid-3", pos: "top-48 left-16 md:left-32", z: "z-20", name: "Inez C. · Forester", alt: "Inez Caro, founder of Forester", src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=600&q=85&auto=format&fit=crop" },
+  { rotClass: "polaroid-4", pos: "top-44 right-4 md:right-32", z: "z-10", name: "Alec R. · Northbridge", alt: "Alec Roselund, founder of Northbridge", src: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=600&q=85&auto=format&fit=crop" },
+  { rotClass: "polaroid-5", pos: "bottom-2 left-48 md:left-64", z: "z-30", name: "Petra L. · Quietest", alt: "Petra Linde, founder of Quietest", src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=600&q=85&auto=format&fit=crop" },
 ];
 
 const FAQS = [

@@ -58,11 +58,11 @@ export default function T13EditorialFashionStyle() {
   const platesStrip = [
     { id: "1685787773514-90e8e14af797", alt: "Light study, atelier corridor", grayscale: true },
     { id: "1622912058707-1b33af81db4f", alt: "Studio gallery interior",        grayscale: true },
-    { id: "1517677208171-0bc6725a3e60", alt: "Editorial portrait, low key",     grayscale: true },
+    { id: "1573497019940-1c28c88b4f3e", alt: "Editorial portrait, low key",     grayscale: true },
     { id: "1762215781547-2ac20ed42cd1", alt: "Cornice detail, salon",           grayscale: true },
     { id: "1618488373960-404fe668e524", alt: "Long perspective corridor",       grayscale: true },
     { id: "1527844817887-9b937993518b", alt: "Apothecary still-life, brass objects", grayscale: false },
-    { id: "1485231183945-fffde7cc051e", alt: "Close portrait, intimate framing", grayscale: true },
+    { id: "1762341124796-530c0085f7d8", alt: "Close portrait, intimate framing", grayscale: true },
     { id: "1766604106308-58b6d0d676bf", alt: "Building aperture, raking light",  grayscale: true },
   ];
   return (
@@ -168,7 +168,7 @@ export default function T13EditorialFashionStyle() {
 
         <main>
           <section className="relative min-h-[100dvh] w-full overflow-hidden bg-primary-container">
-            <img alt="Hero Model" className="absolute inset-0 w-full h-full object-cover object-center" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=2400&q=85&auto=format&fit=crop" />
+            <img alt="Hero Model" className="absolute inset-0 w-full h-full object-cover object-center" src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=2400&q=85&auto=format&fit=crop" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/15 to-black/85 pointer-events-none"></div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 70% at 18% 90%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 70%)" }}></div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 60% at 95% 10%, rgba(255,179,172,0.10) 0%, transparent 60%)" }}></div>
@@ -349,7 +349,7 @@ export default function T13EditorialFashionStyle() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-10 items-stretch">
               <figure className="md:col-span-7 relative aspect-[4/3] md:aspect-auto md:min-h-[480px] overflow-hidden bg-surface-container-low">
-                <img alt="Show portrait — FW24" className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-110" src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1800&q=85&auto=format&fit=crop" loading="lazy" />
+                <img alt="Show portrait — FW24" className="absolute inset-0 w-full h-full object-cover object-center grayscale contrast-110" src="https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=1800&q=85&auto=format&fit=crop" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30 pointer-events-none"></div>
                 <div className="absolute top-6 left-6 flex items-center gap-3 backdrop-blur-sm bg-black/40 border border-white/30 px-3 py-1.5">
                   <span className="material-symbols-outlined text-tertiary text-[18px]">videocam</span>
@@ -458,10 +458,10 @@ export default function T13EditorialFashionStyle() {
               <div className="md:col-span-7">
                 <div className="relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden bg-surface-container-low border border-outline-variant/60">
                   {[
-                    { id: "1490481651871-ab68de25d43d", num: "01", title: "Structured wool overcoat", delay: "0s" },
+                    { id: "1573496359142-b8d87734a5a2", num: "01", title: "Structured wool overcoat", delay: "0s" },
                     { id: "1776275758873-31603dd06112", num: "02", title: "Asymmetric silk drape",     delay: "4s" },
-                    { id: "1539109136881-3be0616acf4b", num: "03", title: "High-collar tunic",         delay: "8s" },
-                    { id: "1483985988355-763728e1935b", num: "04", title: "Geometric harness",        delay: "12s" },
+                    { id: "1776275758873-31603dd06112", num: "03", title: "High-collar tunic",         delay: "8s" },
+                    { id: "1701096374092-bb70915fdc5c", num: "04", title: "Geometric harness",        delay: "12s" },
                   ].map(l => (
                     <img key={l.num} alt={`Look ${l.num}`} className="archive-cycle-img absolute inset-0 w-full h-full object-cover object-center" style={{ animationDelay: l.delay }} src={`https://images.unsplash.com/photo-${l.id}?w=1400&q=85&auto=format&fit=crop`} loading="lazy" />
                   ))}
@@ -492,10 +492,10 @@ export default function T13EditorialFashionStyle() {
 
                 <div className="grid grid-cols-4 gap-3 mt-6">
                   {[
-                    { id: "1490481651871-ab68de25d43d", num: "01", delay: "0s" },
+                    { id: "1573496359142-b8d87734a5a2", num: "01", delay: "0s" },
                     { id: "1776275758873-31603dd06112", num: "02", delay: "4s" },
-                    { id: "1539109136881-3be0616acf4b", num: "03", delay: "8s" },
-                    { id: "1483985988355-763728e1935b", num: "04", delay: "12s" },
+                    { id: "1776275758873-31603dd06112", num: "03", delay: "8s" },
+                    { id: "1701096374092-bb70915fdc5c", num: "04", delay: "12s" },
                   ].map(t => (
                     <button key={t.num} type="button" className="group flex flex-col gap-2 text-left">
                       <div className="aspect-[3/4] overflow-hidden bg-surface-container-low border border-outline-variant/40 relative">

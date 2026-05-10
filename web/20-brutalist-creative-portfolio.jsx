@@ -308,7 +308,7 @@ export default function T20BrutalistCreativePortfolio() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-stretch">
             <div className="md:col-span-5 relative rotate-[-1deg]">
               <div className="border-2 border-primary chunky-shadow-pink p-3">
-                <img className="w-full aspect-[4/5] object-cover grayscale contrast-150 border-2 border-primary" alt="Designer's hands working on a sketch in a brutalist studio" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&q=80&auto=format&fit=crop" />
+                <img className="w-full aspect-[4/5] object-cover grayscale contrast-150 border-2 border-primary" alt="Designer's hands working on a sketch in a brutalist studio" src="https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1100&q=80&auto=format&fit=crop" />
                 <div className="mt-3 flex justify-between font-body-mono text-xs lowercase">
                   <span>[studio_floor / 06.24]</span>
                   <span className="opacity-50 tabular-nums">DOC.05</span>

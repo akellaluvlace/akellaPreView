@@ -70,7 +70,7 @@ export default function T24LinkInBio() {
     },
     {
       size: "w-60 h-72",
-      img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=800&q=85&auto=format&fit=crop",
       alt: "portrait of a young woman laughing in a sunlit kitchen",
       chip: { text: "Story", cls: "bg-primary-container text-on-primary-container border-primary" },
       meta: "12.4k · 3d"
@@ -91,14 +91,14 @@ export default function T24LinkInBio() {
     },
     {
       size: "w-80 h-56",
-      img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop",
       alt: "hands writing in a journal with a steaming cup of tea nearby",
       chip: { text: "Letter · 14", cls: "bg-surface text-on-surface border-on-surface/30" },
       meta: "9.2k · 3w"
     },
     {
       size: "w-60 h-72",
-      img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&q=85&auto=format&fit=crop",
       alt: "hands arranging dried flowers on a wooden table",
       chip: { text: "Studio", cls: "bg-primary-fixed text-on-primary-fixed border-on-primary-fixed" },
       meta: "3.1k · 4w"
@@ -123,7 +123,7 @@ export default function T24LinkInBio() {
     },
     {
       n: "02",
-      img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=85&auto=format&fit=crop",
       alt: "open spiral notebook with pencil and pressed leaf",
       title: "Write the thing first.",
       body: "If I can't write a paragraph about a product or a video, it isn't ready. Captions come from notebooks, not the post box."
@@ -155,21 +155,21 @@ export default function T24LinkInBio() {
   const quotes = [
     {
       body: "The newsletter is the only one I open the morning it lands. Steepwell tea is the one I refill when it runs out.",
-      img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=85&auto=format&fit=crop",
       alt: "portrait of Mira in soft afternoon light",
       name: "Mira A.",
       role: "Reader · since '24"
     },
     {
       body: "Bean & Pickle has carried me through two house moves and a bad winter. Sunday at nine, every week, no skips.",
-      img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop",
       alt: "portrait of a young man with curly hair",
       name: "Tomás L.",
       role: "Vlog viewer · 32 eps"
     },
     {
       body: "Worked with Kaia on a small Steepwell collaboration — small in the best way. Honest, quiet, on time, careful with the pictures.",
-      img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=85&auto=format&fit=crop",
       alt: "portrait of a woman in soft afternoon light",
       name: "Hana W.",
       role: "Studio · ceramics"

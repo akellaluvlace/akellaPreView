@@ -68,12 +68,12 @@ export default function T27CreatorHub() {
 
   const plates = [
     { num: "Plate · 01", aspect: "aspect-[4/3]", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBdZFlz1tVGJ1OLeUbP7o6gYofS5zvnQJD5Uv94QsJ-DRf3L7j1tbBSzFB5hA7Rag8qTWiUVoTU1y8vboSRT9ijMxeuANBTPfCxmr2wOnGmLy0YbWcAILXmCSfvOKH1-XMM3Ywe61JVtQMSRErx8SiojINwwlNqoijR4-hxAl3XZFI5iVW6HyPEQDK5ZNYXaELv4XcMwmN05QsyvPJmMzOvagMIGivQOatHf5r6dbXT-I7KtqKXdSZBQEMZGch6008SVLqV9G5MB9w", alt: "Editorial portrait of Ren Park, B&W treatment" },
-    { num: "Plate · 02", aspect: "aspect-[4/3]", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=900&auto=format&fit=crop", alt: "Editorial portrait, warm colour treatment" },
+    { num: "Plate · 02", aspect: "aspect-[4/3]", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?q=80&w=900&auto=format&fit=crop", alt: "Editorial portrait, warm colour treatment" },
     { num: "Plate · 03", aspect: "aspect-[4/3]", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDPGDaCbkIeis7FNPX-dskaNMPfl0fKOtpuV4_Sh0ShdtGSTiDilJfuQxkuvF4J04WwSJJ2kghSZKQmNuMAcIT6AEsB-3VzdTnMPrd4JfQDV5o2iTe0coQkSA2Iggagf4d6jEb--TN0v56fuf-fBlguvx-1PfRjiRBwwQ8sf4-McS8WoGppGSg0QXrR7QOyeMeuwRYmrp0tp6NWbg55hW-JuHzOfhJcxwzlYUKcirWGTLpH9FJL6lmsHYXHInwRqarKrh9qHVGI3HQ", alt: "Workspace desk setup, B&W treatment" },
     { num: "Plate · 04", aspect: "aspect-[4/3]", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=900&auto=format&fit=crop", alt: "Designer at tablet sketching wireframes" },
     { num: "Plate · 05", aspect: "aspect-square", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=900&auto=format&fit=crop", alt: "Sticky-note storyboarding wall" },
     { num: "Plate · 06", aspect: "aspect-square", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuD3UeVxu95IIiG1EcLqduDtkopQvJRg_croEOzTvx8z1LCiHouN4ej5AXHzU9KtAB33TOy66cxnLL1RS031rnEj6E4zT5mQb3qKKq5TZ3AWxez-tr__2C5VC5tRBLCwxmjG8Cr4cPIvucogZAEGnVOknXa6WkCanItxaDsip1MoCgAcJ3yGL1jhLktrMsMlii5BjyNat9JEzEdlTmjFDyRi5BKVwuIcoLRN8G61jZjqIKncx8HlCN9eWUFUp-Gr64Yo-KSNS__g_38", alt: "Architectural stairs, B&W treatment" },
-    { num: "Plate · 07", aspect: "aspect-square", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=900&auto=format&fit=crop", alt: "Editorial portrait of woman in coat, warm colour" },
+    { num: "Plate · 07", aspect: "aspect-square", treatment: "colour", label: "Colour", src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?q=80&w=900&auto=format&fit=crop", alt: "Editorial portrait of woman in coat, warm colour" },
     { num: "Plate · 08", aspect: "aspect-square", treatment: "bw",     label: "B&W",    src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBjC98mLmNd1GxykooTfayD6BLueLYzSnxrxqr3dzLm5Agc-YGHmO2dkQi-JU4vKiJllDnIao2o6xMaF_cGjrYUVR3xxFipkiESf0onCpfoWxQcyJUZZp-rH_uRtiH-Nv254y1AGZnQJa86BzBu0G31BibwzDvcJAc3rGo6PxKDb7PAhROhwwcoeeJr5qS5R-tu5wsVtJpwa3HruualqCKcPzbo_AfSn35LDoi1NIQYgmEClYs36AN06qjWS-R7u9nDQFkaJNM9l8k", alt: "Notepad and pen, B&W treatment" },
   ];
 
@@ -86,7 +86,7 @@ export default function T27CreatorHub() {
 
   const stripItems = [
     // Row 1
-    { kind: "image", n: "01", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80&auto=format&fit=crop", alt: "Editorial portrait, woman in soft light" },
+    { kind: "image", n: "01", src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&auto=format&fit=crop", alt: "Editorial portrait, woman in soft light" },
     { kind: "card",  eyebrow: "Audience", value: "127K", label: "Followers", meta: "+ 8.4% MoM" },
     { kind: "image", n: "02", src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&q=80&auto=format&fit=crop", alt: "Engineering laptop pair workspace" },
     { kind: "card",  eyebrow: "Cadence",  value: "4h",   label: "Avg edit",  meta: "Per issue · 2024" },
@@ -94,13 +94,13 @@ export default function T27CreatorHub() {
     { kind: "card",  eyebrow: "Revenue",  value: "$8.4K", label: "Monthly",  meta: "Sponsors + memberships" },
     { kind: "image", n: "04", src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80&auto=format&fit=crop", alt: "Pull request review on screen" },
     // Row 2
-    { kind: "image", n: "05", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=80&auto=format&fit=crop", alt: "Low-key studio portrait, woman" },
+    { kind: "image", n: "05", src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80&auto=format&fit=crop", alt: "Low-key studio portrait, woman" },
     { kind: "card",  eyebrow: "Ranking",  value: "Top 3%", label: "Creator", meta: "Substack · 2024" },
     { kind: "image", n: "06", src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&q=80&auto=format&fit=crop", alt: "Remote video call, candid" },
     { kind: "card",  eyebrow: "Reach",    value: "12",     label: "Live cities", meta: "Tour · Q4 2024" },
-    { kind: "image", n: "07", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80&auto=format&fit=crop", alt: "Fashion model studio, dark" },
+    { kind: "image", n: "07", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=80&auto=format&fit=crop", alt: "Fashion model studio, dark" },
     { kind: "card",  eyebrow: "Growth",   value: "47%",    label: "YoY",     meta: "Subscribers · 2023→24" },
-    { kind: "image", n: "08", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80&auto=format&fit=crop", alt: "Younger creator, soft window light" },
+    { kind: "image", n: "08", src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=600&q=80&auto=format&fit=crop", alt: "Younger creator, soft window light" },
   ];
   const stripRow1 = stripItems.slice(0, 7);
   const stripRow2 = stripItems.slice(7, 14);

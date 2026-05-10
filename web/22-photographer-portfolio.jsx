@@ -55,8 +55,8 @@ export default function T22PhotographerPortfolio() {
   const cycleImgs = [
     { delay: "0s",  alt: "Long-exposure architectural facade, slow erosion of light.", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=2000&auto=format&fit=crop&sat=-100" },
     { delay: "4s",  alt: "Quiet interior of an empty house, tall window, long shadow.",   src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=2000&auto=format&fit=crop&sat=-100" },
-    { delay: "8s",  alt: "Portrait, hand resting on a worn wooden surface.",              src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?q=80&w=2000&auto=format&fit=crop&sat=-100" },
-    { delay: "12s", alt: "Coastal concrete breakwater, fog softening the horizon.",       src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=2000&auto=format&fit=crop&sat=-100" }
+    { delay: "8s",  alt: "Portrait, hand resting on a worn wooden surface.",              src: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?q=80&w=2000&auto=format&fit=crop&sat=-100" },
+    { delay: "12s", alt: "Coastal concrete breakwater, fog softening the horizon.",       src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?q=80&w=2000&auto=format&fit=crop&sat=-100" }
   ];
 
   const press = [
@@ -73,7 +73,7 @@ export default function T22PhotographerPortfolio() {
     { alt: "Print 03 — portrait study.",             src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 02 / Mothers",         spec: "16 × 20 in · ed. of 12", price: "USD 740" },
     { alt: "Print 04 — coffered ceiling detail.",    src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 19 / Static Ground",   spec: "11 × 14 in · ed. of 7",  price: "USD 480" },
     { alt: "Print 05 — concrete stairwell.",         src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 06 / Boundaries",      spec: "16 × 20 in · ed. of 5",  price: "USD 820" },
-    { alt: "Print 06 — coastal breakwater.",         src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 22 / Boundaries",      spec: "11 × 14 in · ed. of 7",  price: "USD 480" }
+    { alt: "Print 06 — coastal breakwater.",         src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?q=80&w=600&auto=format&fit=crop&sat=-100", title: "Plate 22 / Boundaries",      spec: "11 × 14 in · ed. of 7",  price: "USD 480" }
   ];
 
   const faqs = [
@@ -308,7 +308,7 @@ export default function T22PhotographerPortfolio() {
               <div className="md:col-span-7 relative">
                 <img alt="Wide architectural elevation, solitary figure crossing through the frame." className="w-full aspect-[4/3] object-cover grayscale bg-neutral-900" src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=1600&auto=format&fit=crop&sat=-100" width="1600" height="1200" loading="lazy" decoding="async" />
                 <img alt="Detail study, plaster detail." className="hidden sm:block absolute -bottom-8 -right-6 sm:-right-8 w-32 h-40 sm:w-44 sm:h-56 object-cover grayscale rotate-3 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
-                <img alt="Close-up portrait, eyes lowered." className="hidden md:block absolute -top-8 -left-6 w-32 h-44 lg:w-40 lg:h-56 object-cover grayscale -rotate-2 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
+                <img alt="Close-up portrait, eyes lowered." className="hidden md:block absolute -top-8 -left-6 w-32 h-44 lg:w-40 lg:h-56 object-cover grayscale -rotate-2 border-4 border-[#141313] shadow-2xl" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=400&auto=format&fit=crop&sat=-100" loading="lazy" decoding="async" />
               </div>
             </div>
           </section>

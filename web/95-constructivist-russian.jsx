@@ -19,10 +19,10 @@ export default function T95ConstructivistRussian() {
 
   const ensemble = [
     { id: "PORT_01", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-1", name: "M. Volkov",      role: "Lead · Act II",   alt: "Black-and-white actor portrait, intense gaze",          src: "https://lh3.googleusercontent.com/aida-public/AB6AXuC59Q-I6Ili_dZfJd8oOhIZmUq06wRmTEVAvEWU8iH0XRA3NBn6aAmYkDj7E2ayRZu54R4GN_XhRcd_xC_TNo-fVDxFfh6ZjvVoY7AiBfly-6WeGVHV2wgux2a5RPNWDzXi68m-LwwjjcFmtkaoPsbFnETPR6i1lZzSFZ62TDJIkPREzmY3jAylRpI3tbN8lw5L3DBWljb4AkS0Am2QvsAbYzpADAUS3m35f1qQt2KWVN1KXv-qsKUvZMjJb0cIhWjkgSB5BPoIzIs" },
-    { id: "PORT_02", chip: "bg-tertiary-fixed text-on-surface border-r-2 border-b-2 border-on-surface",                  rot: "rotate-1",  name: "A. Petrova",     role: "Lead · Act I",    alt: "Stark editorial portrait, theatrical lighting",          src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop" },
-    { id: "PORT_03", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-2", name: "D. Sokolov",     role: "Lead · Act III",  alt: "High-contrast b&w portrait of a stage performer",        src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop" },
+    { id: "PORT_02", chip: "bg-tertiary-fixed text-on-surface border-r-2 border-b-2 border-on-surface",                  rot: "rotate-1",  name: "A. Petrova",     role: "Lead · Act I",    alt: "Stark editorial portrait, theatrical lighting",          src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=900&auto=format&fit=crop" },
+    { id: "PORT_03", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-2", name: "D. Sokolov",     role: "Lead · Act III",  alt: "High-contrast b&w portrait of a stage performer",        src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?q=80&w=900&auto=format&fit=crop" },
     { id: "PORT_04", chip: "bg-tertiary-fixed text-on-surface border-r-2 border-b-2 border-on-surface",                  rot: "rotate-1",  name: "I. Romanenko",   role: "Solo · Act IV",   alt: "Stark portrait, editorial chiaroscuro",                  src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?q=80&w=900&auto=format&fit=crop" },
-    { id: "PORT_05", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-1", name: "L. Mironova",    role: "Director · Mvt 7", alt: "High-contrast monochrome editorial portrait",            src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=900&auto=format&fit=crop" },
+    { id: "PORT_05", chip: "bg-primary-container text-on-primary",                                                      rot: "-rotate-1", name: "L. Mironova",    role: "Director · Mvt 7", alt: "High-contrast monochrome editorial portrait",            src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=900&auto=format&fit=crop" },
   ];
 
   const trustedLogos = [
@@ -51,7 +51,7 @@ export default function T95ConstructivistRussian() {
     { id: "05", alt: "Industrial architecture exterior",                src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
     { id: "06", alt: "Concrete corridor brutalist",                     src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=600&q=80&auto=format&fit=crop", treatment: "bw-triangle" },
     { id: "07", alt: "Stark man profile B&W, Rodchenko-style",          src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
-    { id: "08", alt: "Intimate B&W portrait",                            src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=80&auto=format&fit=crop", treatment: "bw-circle" },
+    { id: "08", alt: "Intimate B&W portrait",                            src: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=600&q=80&auto=format&fit=crop", treatment: "bw-circle" },
   ];
 
   const calendar = [

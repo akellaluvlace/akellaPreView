@@ -26,9 +26,9 @@ export default function T51Glassmorphism() {
   ];
 
   const testimonials = [
-    { quote: "I've never seen a banking app this beautiful and fast. The glass card always gets compliments when I pay.", name: "Sarah Jenkins", role: "Freelance Designer", avatar: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=160&q=80&auto=format&fit=crop" },
+    { quote: "I've never seen a banking app this beautiful and fast. The glass card always gets compliments when I pay.", name: "Sarah Jenkins", role: "Freelance Designer", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=160&q=80&auto=format&fit=crop" },
     { quote: "The transparency is real. I finally understand my fee structure and the international rates are unbeatable.", name: "Michael Chen", role: "Digital Nomad", avatar: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=160&q=80&auto=format&fit=crop" },
-    { quote: "ClearBank has completely replaced my traditional bank. The analytics tools saved me so much money last year.", name: "Elena Rodriguez", role: "Small Business Owner", avatar: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=160&q=80&auto=format&fit=crop" },
+    { quote: "ClearBank has completely replaced my traditional bank. The analytics tools saved me so much money last year.", name: "Elena Rodriguez", role: "Small Business Owner", avatar: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=160&q=80&auto=format&fit=crop" },
   ];
 
   const cities = [

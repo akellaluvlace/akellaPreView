@@ -1,11 +1,11 @@
 const WITNESSED_TILES = [
-  { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=600", alt: "Portrait at dusk", caption: "— at dusk", plate: "PL · I", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-2", mt: "" },
+  { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600", alt: "Portrait at dusk", caption: "— at dusk", plate: "PL · I", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-2", mt: "" },
   { src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=80&w=600", alt: "Concrete stair", caption: "stairwell, slow", plate: "PL · II", w: "w-80", aspect: "aspect-[16/10]", filter: "filter sepia-[.18] contrast-110", rot: "rotate-3", mt: "mt-6" },
-  { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=600", alt: "Hands", caption: "hands · margins", plate: "PL · III", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-1", mt: "" },
+  { src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?auto=format&fit=crop&q=80&w=600", alt: "Hands", caption: "hands · margins", plate: "PL · III", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-1", mt: "" },
   { src: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?auto=format&fit=crop&q=80&w=900", alt: "Wide field", caption: "field, then nothing", plate: "PL · IV", w: "w-96", aspect: "aspect-[16/10]", filter: "filter contrast-110 sepia-[.1]", rot: "rotate-2", mt: "" },
-  { src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=600", alt: "Coat on chair", caption: "coat · empty chair", plate: "PL · V", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-115", rot: "-rotate-3", mt: "mt-4" },
+  { src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?auto=format&fit=crop&q=80&w=600", alt: "Coat on chair", caption: "coat · empty chair", plate: "PL · V", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-115", rot: "-rotate-3", mt: "mt-4" },
   { src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=80&w=600", alt: "Brick wall and shadow", caption: "wall, 4pm", plate: "PL · VI", w: "w-80", aspect: "aspect-[16/10]", filter: "filter sepia-[.15] contrast-110", rot: "rotate-1", mt: "mt-6" },
-  { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600", alt: "Quiet portrait", caption: "— she said nothing", plate: "PL · VII", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-2", mt: "" },
+  { src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?auto=format&fit=crop&q=80&w=600", alt: "Quiet portrait", caption: "— she said nothing", plate: "PL · VII", w: "w-72", aspect: "aspect-[3/4]", filter: "filter grayscale contrast-110", rot: "-rotate-2", mt: "" },
 ];
 
 const WIDTH_CLASS = { "w-72": "w-72", "w-80": "w-80", "w-96": "w-96" };
@@ -18,15 +18,15 @@ const FIELD_NOTES = [
   { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&q=80&w=500", alt: "Window light", caption: "window, soft", filter: "filter contrast-110", pos: "top-2 left-1/3 md:left-[28%]", w: "w-48 md:w-56", rot: "rotate-3", hoverRot: "", deco: "polaroid-tape", z: "z-20 hover:z-30" },
   { src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=80&w=500", alt: "Interior corner", caption: "borrowed room", filter: "filter grayscale contrast-110", pos: "top-8 right-4 md:right-16", w: "w-52 md:w-60", rot: "rotate-6", hoverRot: "hover:rotate-2", deco: "pin-chip", z: "z-10 hover:z-30" },
   { src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?auto=format&fit=crop&q=80&w=500", alt: "Brass objects", caption: "desk · brass", filter: "filter sepia-[0.2] contrast-110", pos: "top-[42%] left-8 md:left-24", w: "w-48 md:w-56", rot: "rotate-2", hoverRot: "", deco: "polaroid-tape", z: "z-20 hover:z-30" },
-  { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=500", alt: "Portrait, looking down", caption: "— v.", filter: "filter grayscale", pos: "top-[44%] right-2 md:right-32", w: "w-52 md:w-60", rot: "-rotate-4", hoverRot: "hover:-rotate-1", deco: "pin-chip", z: "z-20 hover:z-30" },
-  { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500", alt: "Hands at table", caption: "supper, after", filter: "filter sepia-[0.15] contrast-110", pos: "bottom-2 left-1/2 -translate-x-1/2", w: "w-52 md:w-64", rot: "-rotate-1", hoverRot: "", deco: "polaroid-tape", z: "z-30" },
+  { src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=500", alt: "Portrait, looking down", caption: "— v.", filter: "filter grayscale", pos: "top-[44%] right-2 md:right-32", w: "w-52 md:w-60", rot: "-rotate-4", hoverRot: "hover:-rotate-1", deco: "pin-chip", z: "z-20 hover:z-30" },
+  { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=80&w=500", alt: "Hands at table", caption: "supper, after", filter: "filter sepia-[0.15] contrast-110", pos: "bottom-2 left-1/2 -translate-x-1/2", w: "w-52 md:w-64", rot: "-rotate-1", hoverRot: "", deco: "polaroid-tape", z: "z-30" },
 ];
 
 const ATELIER_LOOKS = [
-  { src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=200", alt: "Look 1", filter: "filter grayscale contrast-110", thumbFilter: "filter grayscale", delay: "0s" },
-  { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=200", alt: "Look 2", filter: "filter sepia-[0.18] contrast-110", thumbFilter: "filter sepia-[0.18]", delay: "4s" },
-  { src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&q=80&w=200", alt: "Look 3", filter: "filter grayscale contrast-110", thumbFilter: "filter grayscale", delay: "8s" },
-  { src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=200", alt: "Look 4", filter: "filter sepia-[0.2] contrast-110", thumbFilter: "filter sepia-[0.2]", delay: "12s" },
+  { src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200", alt: "Look 1", filter: "filter grayscale contrast-110", thumbFilter: "filter grayscale", delay: "0s" },
+  { src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?auto=format&fit=crop&q=80&w=200", alt: "Look 2", filter: "filter sepia-[0.18] contrast-110", thumbFilter: "filter sepia-[0.18]", delay: "4s" },
+  { src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?auto=format&fit=crop&q=80&w=200", alt: "Look 3", filter: "filter grayscale contrast-110", thumbFilter: "filter grayscale", delay: "8s" },
+  { src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?auto=format&fit=crop&q=80&w=800", thumb: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?auto=format&fit=crop&q=80&w=200", alt: "Look 4", filter: "filter sepia-[0.2] contrast-110", thumbFilter: "filter sepia-[0.2]", delay: "12s" },
 ];
 
 const ATELIER_DRAFTS = [
@@ -37,9 +37,9 @@ const ATELIER_DRAFTS = [
 ];
 
 const VOICES = [
-  { src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&q=80&w=500", alt: "Reader · Maren", name: "— Maren, illustrator", quote: "It feels like opening someone's drawer. The kind of journal that makes you want to keep your own.", issue: "Issue 03", filter: "filter sepia-[0.2] contrast-110", rot: "-rotate-2", mt: "md:mt-0", ellipse: { cx: 50, cy: 48, rx: 34, ry: 38, dash: "3 5", angle: -6 } },
-  { src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=80&w=500", alt: "Reader · Tomás", name: "— Tomás, archivist", quote: "Half a magazine, half a confession. I read it slowly because the seams feel important.", issue: "Issue 02", filter: "filter grayscale contrast-110", rot: "rotate-2", mt: "md:mt-12", ellipse: { cx: 50, cy: 46, rx: 32, ry: 36, dash: "2 4", angle: 8 } },
-  { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=500", alt: "Reader · Yael", name: "— Yael, photographer", quote: "The torn edges aren't decoration. They're how the writer tells you which part she'd like back.", issue: "Issue 04", filter: "filter sepia-[0.15] contrast-110", rot: "-rotate-1", mt: "md:mt-4", ellipse: { cx: 50, cy: 50, rx: 36, ry: 38, dash: "3 6", angle: -3 } },
+  { src: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?auto=format&fit=crop&q=80&w=500", alt: "Reader · Maren", name: "— Maren, illustrator", quote: "It feels like opening someone's drawer. The kind of journal that makes you want to keep your own.", issue: "Issue 03", filter: "filter sepia-[0.2] contrast-110", rot: "-rotate-2", mt: "md:mt-0", ellipse: { cx: 50, cy: 48, rx: 34, ry: 38, dash: "3 5", angle: -6 } },
+  { src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=500", alt: "Reader · Tomás", name: "— Tomás, archivist", quote: "Half a magazine, half a confession. I read it slowly because the seams feel important.", issue: "Issue 02", filter: "filter grayscale contrast-110", rot: "rotate-2", mt: "md:mt-12", ellipse: { cx: 50, cy: 46, rx: 32, ry: 36, dash: "2 4", angle: 8 } },
+  { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=80&w=500", alt: "Reader · Yael", name: "— Yael, photographer", quote: "The torn edges aren't decoration. They're how the writer tells you which part she'd like back.", issue: "Issue 04", filter: "filter sepia-[0.15] contrast-110", rot: "-rotate-1", mt: "md:mt-4", ellipse: { cx: 50, cy: 50, rx: 36, ry: 38, dash: "3 6", angle: -3 } },
 ];
 
 const FAQS = [
@@ -621,7 +621,7 @@ function PaperCollage() {
                   <span className="absolute top-2 left-3 font-hand text-base text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">— overlap</span>
                 </div>
                 <div className="layered-photo w-40 md:w-48 h-40 md:h-48 top-4 right-0 transform rotate-6 z-30 polaroid-tape">
-                  <img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&q=80&w=500" className="w-full h-full object-cover filter grayscale" alt="Hand" />
+                  <img src="https://images.unsplash.com/photo-1762341124796-530c0085f7d8?auto=format&fit=crop&q=80&w=500" className="w-full h-full object-cover filter grayscale" alt="Hand" />
                 </div>
                 <div className="layered-photo w-28 md:w-36 h-28 md:h-36 bottom-12 right-4 md:right-12 transform -rotate-6 z-30 pin-chip">
                   <img src="https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover filter sepia-[0.2]" alt="Detail" />

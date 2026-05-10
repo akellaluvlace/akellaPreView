@@ -16,13 +16,13 @@ export default function T77MeshGradient() {
 
   // Witnessed marquee tiles — caption pill sub-types pre-computed (no Tailwind interpolation, §M.14)
   const witnessedTiles = [
-    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-indigo-500/5", dot: "bg-indigo-400", label: "Vogue Health", quote: "\"A meditation cathedral in your pocket.\"", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=85&auto=format&fit=crop", alt: "Vogue Health" },
-    { aspect: "w-96 aspect-[16/10]", shadow: "shadow-pink-500/5", dot: "bg-pink-400", label: "Field · Kyoto", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&q=85&auto=format&fit=crop", alt: "Field Note · Kyoto" },
-    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-teal-500/5", dot: "bg-teal-400", label: "The Atlantic", quote: "\"Generative calm, finally.\"", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop", alt: "The Atlantic" },
+    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-indigo-500/5", dot: "bg-indigo-400", label: "Vogue Health", quote: "\"A meditation cathedral in your pocket.\"", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=85&auto=format&fit=crop", alt: "Vogue Health" },
+    { aspect: "w-96 aspect-[16/10]", shadow: "shadow-pink-500/5", dot: "bg-pink-400", label: "Field · Kyoto", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=900&q=85&auto=format&fit=crop", alt: "Field Note · Kyoto" },
+    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-teal-500/5", dot: "bg-teal-400", label: "The Atlantic", quote: "\"Generative calm, finally.\"", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=600&q=85&auto=format&fit=crop", alt: "The Atlantic" },
     { aspect: "w-80 aspect-[16/10]", shadow: "shadow-orange-500/5", dot: "bg-orange-400", label: "Studio · Lisbon", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=800&q=85&auto=format&fit=crop", alt: "Studio · Lisbon" },
     { aspect: "w-72 aspect-[3/4]", shadow: "shadow-purple-500/5", dot: "bg-purple-400", label: "Wired", quote: "\"The first app that listens back.\"", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=85&auto=format&fit=crop", alt: "Wired" },
     { aspect: "w-96 aspect-[16/10]", shadow: "shadow-emerald-500/5", dot: "bg-emerald-400", label: "Atelier · Marfa", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Atelier · Marfa" },
-    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-rose-500/5", dot: "bg-rose-400", label: "Monocle Radio", quote: "\"My new on-air silence.\"", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=85&auto=format&fit=crop", alt: "Monocle Radio" },
+    { aspect: "w-72 aspect-[3/4]", shadow: "shadow-rose-500/5", dot: "bg-rose-400", label: "Monocle Radio", quote: "\"My new on-air silence.\"", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=85&auto=format&fit=crop", alt: "Monocle Radio" },
   ];
 
   const faqItems = [
@@ -429,7 +429,7 @@ export default function T77MeshGradient() {
                 {/* Inner photo disc — a listener mid-session in soft afternoon light. */}
                 <div className="relative z-10 w-[80%] aspect-square rounded-full overflow-hidden border-4 border-white/60 shadow-2xl">
                   <img
-                    src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=900&q=85&auto=format&fit=crop"
                     alt="A listener in soft afternoon light, eyes briefly closed mid-session — the calm Aura Flow is built around"
                     loading="lazy"
                     decoding="async"
@@ -511,7 +511,7 @@ export default function T77MeshGradient() {
               <div aria-hidden="true" className="absolute -inset-6 bg-gradient-to-br from-indigo-300/40 via-purple-300/30 to-pink-300/40 blur-3xl rounded-[3rem] -z-10"></div>
               <div className="relative rounded-[2rem] overflow-hidden glass-panel p-2 shadow-2xl">
                 <div className="rounded-[1.5rem] overflow-hidden aspect-[4/5] relative">
-                  <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop" alt="Listener at rest" />
+                  <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=900&q=85&auto=format&fit=crop" alt="Listener at rest" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/55 via-transparent to-transparent"></div>
                   <div className="absolute top-6 left-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/40 backdrop-blur-md border border-white/50 shadow-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>

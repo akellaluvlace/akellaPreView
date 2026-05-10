@@ -47,17 +47,17 @@ export default function T32StudioShowcase() {
 
   const stripCards = [
     { name: "Riverpath",      meta: "€ / mobility · 2024",      img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=85&w=600", alt: "Brutalist concrete facade in raking light" },
-    { name: "Solon",          meta: "NL / health · 2023",       img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait, dramatic side-light" },
+    { name: "Solon",          meta: "NL / health · 2023",       img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait, dramatic side-light" },
     { name: "Meridian Cargo", meta: "UK / logistics · 2023",    img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?auto=format&fit=crop&q=85&w=600", alt: "Brutalist tower against stark sky" },
-    { name: "Norah & Sons",   meta: "IE / commerce · 2022",     img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=85&w=600", alt: "Portrait of a thoughtful subject in soft window light" },
+    { name: "Norah & Sons",   meta: "IE / commerce · 2022",     img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?auto=format&fit=crop&q=85&w=600", alt: "Portrait of a thoughtful subject in soft window light" },
     { name: "Forge.io",       meta: "DE / industrial · 2022",   img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&q=85&w=600", alt: "Industrial machinery detail" },
     { name: "Verba Press",    meta: "FR / publishing · 2022",   img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait in monochrome" },
     { name: "Anvil Capital",  meta: "IE / fintech · 2021",      img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=85&w=600", alt: "Architectural shadow play on facade" },
-    { name: "Hexall",         meta: "US / SaaS · 2021",         img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=85&w=600", alt: "Black and white editorial figure with deep shadow" },
+    { name: "Hexall",         meta: "US / SaaS · 2021",         img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=85&w=600", alt: "Black and white editorial figure with deep shadow" },
     { name: "Lumen Hotel Co.",meta: "PT / hospitality · 2020",  img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=85&w=600", alt: "Architectural lobby" },
-    { name: "Garda Bureau",   meta: "IE / public · 2020",       img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait with drape lighting" },
+    { name: "Garda Bureau",   meta: "IE / public · 2020",       img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait with drape lighting" },
     { name: "Tollwise",       meta: "UK / mobility · 2019",     img: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?auto=format&fit=crop&q=85&w=600", alt: "Highway in raking light" },
-    { name: "Ostro Atelier",  meta: "IT / fashion · 2019",      img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=85&w=600", alt: "Editorial figure with strong contrast" }
+    { name: "Ostro Atelier",  meta: "IT / fashion · 2019",      img: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?auto=format&fit=crop&q=85&w=600", alt: "Editorial figure with strong contrast" }
   ];
 
   const commissions = [

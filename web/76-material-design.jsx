@@ -52,7 +52,7 @@ export default function T76MaterialDesign() {
   // ===== Foundations rows =====
   const foundations = [
     { roman: "I", numeral: "I — Color", chipBg: "bg-primary-50", chipText: "text-primary-600", title: <>Tonal palettes, not <span className="font-bold">paint chips</span>.</>, body: "Every brand colour expands into a 13-step tonal palette. Light surfaces, dark surfaces, contrast pairs, and on-state variants are derivations, not authored states. Pick one seed; ship the whole product.", img: "https://images.unsplash.com/photo-1690743300892-cb813b420c36?w=1400&q=85&auto=format&fit=crop", reverse: false, kind: "list", listDot: "bg-primary-500", list: ["13 tones · 4 contrast pairs", "Auto-derived dark mode", "WCAG AA pre-checked"] },
-    { roman: "II", numeral: "II — Typography", chipBg: "bg-pink-50", chipText: "text-pink-600", title: <>A type stack that <span className="font-bold">reads at every step</span>.</>, body: "Display, headline, title, body, label — five rolls, one weight scale, four sizes each. Roboto loaded once, applied everywhere. The cascade is opinionated so designers don't have to be.", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=85&auto=format&fit=crop", reverse: true, kind: "type", typeBorder: "border-pink-300" },
+    { roman: "II", numeral: "II — Typography", chipBg: "bg-pink-50", chipText: "text-pink-600", title: <>A type stack that <span className="font-bold">reads at every step</span>.</>, body: "Display, headline, title, body, label — five rolls, one weight scale, four sizes each. Roboto loaded once, applied everywhere. The cascade is opinionated so designers don't have to be.", img: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=1400&q=85&auto=format&fit=crop", reverse: true, kind: "type", typeBorder: "border-pink-300" },
     { roman: "III", numeral: "III — Motion", chipBg: "bg-secondary-50", chipText: "text-secondary-600", title: <>Easing is a <span className="font-bold">design decision</span>, not a default.</>, body: "Standard, decelerated, accelerated. Three curves, expressive variants for hero moments. Reduced-motion respected by default. Ripples, sheet transitions and FAB rotations all share one timing language.", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop", reverse: false, kind: "pills", pillBg: "bg-secondary-50", pillText: "text-secondary-600", pills: ["cubic-bezier(.4,0,.2,1)", "200ms · 300ms · 500ms", "prefers-reduced-motion"] },
   ];
 
@@ -62,19 +62,19 @@ export default function T76MaterialDesign() {
   const stepUpcomingCircle = "w-14 h-14 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center z-10 shadow-md-1";
 
   const processSteps = [
-    { state: "done", quarter: "Q1 · Done", quarterColor: "text-emerald-600", title: "Discovery", desc: "12 user interviews · 4 ecosystem audits", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-800", descColor: "text-gray-500" },
-    { state: "done", quarter: "Q1 · Done", quarterColor: "text-emerald-600", title: "Tokenize", desc: "Color, type, spacing, motion · 412 tokens", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-800", descColor: "text-gray-500" },
-    { state: "current", quarter: "Q2 · In flight", quarterColor: "text-secondary-600", title: "Compose", desc: "132 components live · 28 in review", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-800", descColor: "text-gray-500" },
-    { state: "upcoming", quarter: "Q3 · Planned", quarterColor: "text-gray-400", title: "Validate", desc: "Council review · A11y audit · WCAG AA", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-700", descColor: "text-gray-400" },
-    { state: "upcoming", quarter: "Q4 · Planned", quarterColor: "text-gray-400", title: "Release", desc: "v4.0 · Migration guides · Office hours", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-700", descColor: "text-gray-400" },
+    { state: "done", quarter: "Q1 · Done", quarterColor: "text-emerald-600", title: "Discovery", desc: "12 user interviews · 4 ecosystem audits", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-800", descColor: "text-gray-500" },
+    { state: "done", quarter: "Q1 · Done", quarterColor: "text-emerald-600", title: "Tokenize", desc: "Color, type, spacing, motion · 412 tokens", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-800", descColor: "text-gray-500" },
+    { state: "current", quarter: "Q2 · In flight", quarterColor: "text-secondary-600", title: "Compose", desc: "132 components live · 28 in review", img: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-800", descColor: "text-gray-500" },
+    { state: "upcoming", quarter: "Q3 · Planned", quarterColor: "text-gray-400", title: "Validate", desc: "Council review · A11y audit · WCAG AA", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-700", descColor: "text-gray-400" },
+    { state: "upcoming", quarter: "Q4 · Planned", quarterColor: "text-gray-400", title: "Release", desc: "v4.0 · Migration guides · Office hours", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=85&auto=format&fit=crop", titleColor: "text-gray-700", descColor: "text-gray-400" },
   ];
 
   // ===== Dynamic color cycling images =====
   const cyclePalettes = [
-    { src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1400&q=85&auto=format&fit=crop", delay: "0s",  alt: "Sage palette" },
-    { src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1400&q=85&auto=format&fit=crop", delay: "4s",  alt: "Peach palette" },
-    { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1400&q=85&auto=format&fit=crop", delay: "8s",  alt: "Mint palette" },
-    { src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1400&q=85&auto=format&fit=crop", delay: "12s", alt: "Coral palette" },
+    { src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=1400&q=85&auto=format&fit=crop", delay: "0s",  alt: "Sage palette" },
+    { src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=1400&q=85&auto=format&fit=crop", delay: "4s",  alt: "Peach palette" },
+    { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1400&q=85&auto=format&fit=crop", delay: "8s",  alt: "Mint palette" },
+    { src: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1400&q=85&auto=format&fit=crop", delay: "12s", alt: "Coral palette" },
   ];
   const cycleSwatches = [
     { dot: "bg-primary-500", label: "Sage" },
@@ -85,8 +85,8 @@ export default function T76MaterialDesign() {
 
   // ===== Voices =====
   const voices = [
-    { quoteColor: "text-primary-200", quote: "Tokens removed five rounds of theming back-and-forth from every release. Two weeks back, every quarter, in our pocket.", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop", border: "border-primary-100", name: "Sasha Linde", role: "Head of Design · Aurora", chipText: "text-primary-600", chipBg: "bg-primary-50", chipLabel: "Sage" },
-    { quoteColor: "text-pink-200", quote: "The motion library is the part nobody mentions until it's gone. We swapped to G_TASK and three engineers stopped writing custom easing.", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop", border: "border-pink-100", name: "Marie-Rose Otieno", role: "Principal Eng · Halcyon", chipText: "text-pink-600", chipBg: "bg-pink-50", chipLabel: "Peach" },
+    { quoteColor: "text-primary-200", quote: "Tokens removed five rounds of theming back-and-forth from every release. Two weeks back, every quarter, in our pocket.", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=85&auto=format&fit=crop", border: "border-primary-100", name: "Sasha Linde", role: "Head of Design · Aurora", chipText: "text-primary-600", chipBg: "bg-primary-50", chipLabel: "Sage" },
+    { quoteColor: "text-pink-200", quote: "The motion library is the part nobody mentions until it's gone. We swapped to G_TASK and three engineers stopped writing custom easing.", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", border: "border-pink-100", name: "Marie-Rose Otieno", role: "Principal Eng · Halcyon", chipText: "text-pink-600", chipBg: "bg-pink-50", chipLabel: "Peach" },
     { quoteColor: "text-secondary-200", quote: "Our brand colour got a 13-step palette overnight. The dashboard, the mobile app, the marketing site — all reading from the same seed.", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", border: "border-secondary-100", name: "Daniel Ng", role: "Director · Atrium Health", chipText: "text-secondary-600", chipBg: "bg-secondary-50", chipLabel: "Mint" },
   ];
 

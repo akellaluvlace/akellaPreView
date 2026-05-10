@@ -1,11 +1,11 @@
 const DRIFT_INVENTORY = [
-  { sku: "DRF · 03·14 — Bench Proof", title: "Sleep Tincture · Lot 24·R3", place: "Kyoto · 04:12", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop", alt: "Field study — Kyoto bench" },
+  { sku: "DRF · 03·14 — Bench Proof", title: "Sleep Tincture · Lot 24·R3", place: "Kyoto · 04:12", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=900&q=85&auto=format&fit=crop", alt: "Field study — Kyoto bench" },
   { sku: "DRF · 03·15 — Apothecary",  title: "Tincture decant · Brass dropper", place: "Copenhagen · 21:48", img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "Apothecary still life" },
   { sku: "DRF · 03·17 — Clinic Bay",  title: "Cohort handoff · n=22", place: "Lisbon · 09:02", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop", alt: "Sage interior — Lisbon clinic" },
-  { sku: "DRF · 03·18 — Night Proof", title: "Subject log · Restful 7h22m", place: "Brooklyn · 23:11", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&q=85&auto=format&fit=crop", alt: "Night-table proof — portrait" },
+  { sku: "DRF · 03·18 — Night Proof", title: "Subject log · Restful 7h22m", place: "Brooklyn · 23:11", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=900&q=85&auto=format&fit=crop", alt: "Night-table proof — portrait" },
   { sku: "DRF · 03·19 — Editorial",   title: "Evening regimen · Pre-press", place: "Antwerp · 18:55", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait" },
   { sku: "DRF · 03·21 — Shelf Audit", title: "Inventory rotation · Q1·24", place: "Helsinki · 14:30", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Architectural shelf — apothecary" },
-  { sku: "DRF · 03·22 — Restoration", title: "Cohort review · Week 04", place: "Reykjavík · 06:40", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Quiet portrait — restoration" },
+  { sku: "DRF · 03·22 — Restoration", title: "Cohort review · Week 04", place: "Reykjavík · 06:40", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Quiet portrait — restoration" },
   { sku: "DRF · 03·24 — Light Study", title: "Bottle stability · 21°C", place: "Geneva · 11:15", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "Light study — facade" },
 ];
 
@@ -50,7 +50,7 @@ const DRIFT_LEDGER = [
     body: "A clean carrier that mirrors the skin's own sebum. 12% by volume is what we settled on: dense enough to slow the active's release through the night, light enough to leave no residue on linen.",
     role: "Carrier · time-release",
     origin: "Pernambuco · BR",
-    img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop",
     alt: "Squalane carrier oil — bottle in light",
     overlay: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=600&q=85&auto=format&fit=crop",
     overlayPos: "-top-6 -right-6 rotate-2",
@@ -367,7 +367,7 @@ function SingleProductDtc() {
           <section id="ritual" className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-margin items-start">
             <div className="md:col-span-5 md:sticky md:top-[120px] md:self-start">
               <div className="aspect-[3/4] rounded-xl overflow-hidden border border-outline-variant/30 bg-surface-container-low relative">
-                <img alt="Hands cradling tincture bottle, sage interior" className="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop" />
+                <img alt="Hands cradling tincture bottle, sage interior" className="absolute inset-0 w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=1000&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-secondary/15 mix-blend-overlay pointer-events-none"></div>
                 <div className="absolute inset-0 bg-gradient-to-t from-primary-container/30 via-transparent to-transparent pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-md flex items-end justify-between gap-3">

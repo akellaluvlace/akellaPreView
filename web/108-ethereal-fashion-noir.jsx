@@ -1,13 +1,13 @@
 export default function T108EtherealFashionNoir() {
   const studies = [
-    { num: "I", title: "Form", suffix: "01", offset: "", alt: "Form study", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop" },
-    { num: "II", title: "Light", suffix: "02", offset: "md:mt-16", alt: "Light study", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop" },
-    { num: "III", title: "Silence", suffix: "03", offset: "", alt: "Silence study", src: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=900&q=85&auto=format&fit=crop" },
+    { num: "I", title: "Form", suffix: "01", offset: "", alt: "Form study", src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop" },
+    { num: "II", title: "Light", suffix: "02", offset: "md:mt-16", alt: "Light study", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop" },
+    { num: "III", title: "Silence", suffix: "03", offset: "", alt: "Silence study", src: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=900&q=85&auto=format&fit=crop" },
   ];
   const lookbookSquares = [
     { num: "03", caption: "SHADOW / GEOMETRY", alt: "Lookbook 3", src: "https://images.unsplash.com/photo-1636471758054-06c6e8c433f7?w=1000&q=85&auto=format&fit=crop" },
     { num: "04", caption: "SPACE / DAYLIGHT", alt: "Lookbook 4", src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1000&q=85&auto=format&fit=crop" },
-    { num: "05", caption: "FIGURE / VOLTAGE", alt: "Lookbook 5", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1000&q=85&auto=format&fit=crop" },
+    { num: "05", caption: "FIGURE / VOLTAGE", alt: "Lookbook 5", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1000&q=85&auto=format&fit=crop" },
   ];
   const trustedBrands = [
     { slug: "hermes", alt: "Hermès" },
@@ -145,7 +145,7 @@ export default function T108EtherealFashionNoir() {
         <main className="pt-16">
           <section className="relative min-h-screen flex flex-col justify-center items-center px-4 md:px-margin-edge overflow-hidden">
             <div className="absolute inset-0 z-0">
-              <img alt="Hero Background" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover opacity-50 grayscale mix-blend-luminosity" />
+              <img alt="Hero Background" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover opacity-50 grayscale mix-blend-luminosity" />
               <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
               <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/40" />
             </div>
@@ -184,7 +184,7 @@ export default function T108EtherealFashionNoir() {
                   <div className="absolute -inset-4 rounded-full border border-white/10" />
                   <div className="absolute -inset-10 rounded-full border border-white/5" />
                   <div className="absolute inset-0 rounded-full overflow-hidden border border-white/30 shadow-[inset_0_0_80px_rgba(255,255,255,0.08),0_0_120px_rgba(207,188,255,0.18)]">
-                    <img alt="Editorial portrait" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-95" />
+                    <img alt="Editorial portrait" src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=900&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-95" />
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-tertiary/15 mix-blend-overlay" />
                   </div>
                   <div className="absolute -bottom-2 -right-2 bg-background border border-white/30 px-4 py-2 font-label-caps text-label-caps text-tertiary tracking-widest">SPEC · 001</div>
@@ -275,7 +275,7 @@ export default function T108EtherealFashionNoir() {
                 <div className="md:col-span-7 flex flex-col gap-gutter">
                   <div className="relative group rounded-xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 p-4 transition-all duration-700 hover:bg-white/10 hover:shadow-[0_0_60px_rgba(231,195,101,0.18)]">
                     <div className="aspect-[16/9] rounded-lg overflow-hidden relative">
-                      <img alt="Fashion Detail" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                      <img alt="Fashion Detail" src="https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=1600&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/85 to-transparent" />
                       <div className="absolute top-4 left-4 font-label-caps text-label-caps text-tertiary bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">A · 02</div>
                       <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
@@ -313,7 +313,7 @@ export default function T108EtherealFashionNoir() {
                 <div className="md:col-span-4 md:mt-8">
                   <div className="relative group rounded-xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 p-4 transition-all duration-700 hover:bg-white/10">
                     <div className="aspect-square rounded-lg overflow-hidden relative">
-                      <img alt="Atmosphere" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                      <img alt="Atmosphere" src="https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/85 to-transparent" />
                       <div className="absolute top-4 left-4 font-label-caps text-label-caps text-tertiary bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">A · 03</div>
                       <div className="absolute bottom-6 left-6 right-6">
@@ -365,7 +365,7 @@ export default function T108EtherealFashionNoir() {
               <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
                 <div className="md:col-span-7 flex flex-col gap-gutter">
                   <div className="relative aspect-[16/10] rounded-md overflow-hidden border border-white/10 group">
-                    <img alt="Lookbook 1" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out" />
+                    <img alt="Lookbook 1" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1600&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out" />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
                     <div className="absolute top-4 left-4 font-label-caps text-label-caps text-on-surface bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">LB · 01</div>
                     <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
@@ -386,7 +386,7 @@ export default function T108EtherealFashionNoir() {
                   </div>
                 </div>
                 <div className="md:col-span-5 relative aspect-[3/4] rounded-md overflow-hidden border border-white/10 group">
-                  <img alt="Lookbook 2" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out" />
+                  <img alt="Lookbook 2" src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out" />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
                   <div className="absolute top-4 left-4 font-label-caps text-label-caps text-on-surface bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">LB · 02</div>
                   <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">

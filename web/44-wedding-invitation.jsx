@@ -18,7 +18,7 @@ export default function T44WeddingInvitation() {
     { caption: "The Chapel", alt: "The chapel", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&w=600&q=80" },
     { caption: "First Look", alt: "The couple", overlay: "bg-primary-fixed-dim/15", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAOtsdLW3lPeNipqZ7On12BgQtEj_aJD6yfO99WRRolYRboYOErF6gWJf5tU33Gex-gV7Y4QDNBZRyKYEQuaTzjx8KogELWRAN--NBcMuY_S-uFAhhbCMgdB1zRqoaFr9i5GKJmNgCyi1yTVt6pray9MGbp67plq2UCfmRmYnIvYbxCDfBHQjkuvHPjGeX91Af2nb1qHDW28nP_lG50h4dlQzElVhH1ork0nHVnMC6UpuauQZ-h2m7PZcecXrdAakIedgGg_8kSAZU" },
     { caption: "The Orchard Walk", alt: "Orchard path", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&w=600&q=80" },
-    { caption: "A Guest, Arriving", alt: "A guest", overlay: "bg-primary-fixed-dim/20", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80" },
+    { caption: "A Guest, Arriving", alt: "A guest", overlay: "bg-primary-fixed-dim/20", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?auto=format&fit=crop&w=600&q=80" },
     { caption: "The Long Table", alt: "Long table", overlay: "bg-primary-fixed-dim/30", img: "https://images.unsplash.com/photo-1743793054819-37e412d65295?auto=format&fit=crop&w=600&q=80" },
     { caption: "Last Light, the Hall", alt: "Last light", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&w=600&q=80" }
   ];
@@ -39,13 +39,13 @@ export default function T44WeddingInvitation() {
   ];
 
   const archive = [
-    { caption: "Edinburgh · 2018", alt: "Edinburgh 2018", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=400&q=80" },
+    { caption: "Edinburgh · 2018", alt: "Edinburgh 2018", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?auto=format&fit=crop&w=400&q=80" },
     { caption: "Rome · 2019", alt: "Rome 2019", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&w=400&q=80" },
-    { caption: "Cork · 2020", alt: "Cork 2020", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=400&q=80" },
-    { caption: "Lisbon · 2021", alt: "Lisbon 2021", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=400&q=80" },
-    { caption: "Donegal · 2022", alt: "Donegal 2022", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=400&q=80" },
-    { caption: "Paris · 2023", alt: "Paris 2023", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80" },
-    { caption: "Wicklow · 2024", alt: "Wicklow 2024", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?auto=format&fit=crop&w=400&q=80" },
+    { caption: "Cork · 2020", alt: "Cork 2020", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80" },
+    { caption: "Lisbon · 2021", alt: "Lisbon 2021", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&w=400&q=80" },
+    { caption: "Donegal · 2022", alt: "Donegal 2022", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?auto=format&fit=crop&w=400&q=80" },
+    { caption: "Paris · 2023", alt: "Paris 2023", img: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?auto=format&fit=crop&w=400&q=80" },
+    { caption: "Wicklow · 2024", alt: "Wicklow 2024", img: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?auto=format&fit=crop&w=400&q=80" },
     { caption: "Glendalough · 2025", alt: "Glendalough 2025", img: "https://images.unsplash.com/photo-1670463016037-86e95c96529c?auto=format&fit=crop&w=400&q=80" }
   ];
 
@@ -208,7 +208,7 @@ export default function T44WeddingInvitation() {
           {/* Hero */}
           <section className="relative h-screen w-full flex items-end pb-24 md:pb-32 px-8 md:px-16 overflow-hidden">
             <div className="absolute inset-0 z-0 bg-surface-variant">
-              <img alt="Editorial portrait" className="w-full h-full object-cover object-center opacity-100" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1900&q=80" />
+              <img alt="Editorial portrait" className="w-full h-full object-cover object-center opacity-100" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1900&q=80" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-90" />
               <div className="absolute inset-0 bg-primary-fixed-dim/15 mix-blend-multiply" />
             </div>

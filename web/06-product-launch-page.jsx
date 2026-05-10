@@ -1,7 +1,7 @@
 const APV2_GALLERY_FRAMES = [
   { src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1920&q=85&auto=format&fit=crop", alt: "Editorial portrait, dramatic side-light, Aperture v2 sample frame", delay: "0s" },
   { src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1920&q=85&auto=format&fit=crop", alt: "Brutalist concrete facade in raking light, Aperture v2 sample frame", delay: "4s" },
-  { src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1920&q=85&auto=format&fit=crop", alt: "Black and white editorial figure with deep shadow, Aperture v2 sample frame", delay: "8s" },
+  { src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1920&q=85&auto=format&fit=crop", alt: "Black and white editorial figure with deep shadow, Aperture v2 sample frame", delay: "8s" },
   { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1920&q=85&auto=format&fit=crop", alt: "Architectural cornicing detail, Aperture v2 sample frame", delay: "12s" },
 ];
 
@@ -102,7 +102,7 @@ export default function T06ProductLaunchPage() {
   const features = [
     { id: "feature-dynamic-range", title: "Dynamic Range", num: "01", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop", alt: "High-contrast editorial portrait — sample frame for dynamic-range testing" },
     { id: "feature-procolor", title: "ProColor 10-bit", num: "02", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Heavy stone facade in raking light — sample frame for ProColor pipeline" },
-    { id: "feature-neural-focus", title: "Neural Focus", num: "03", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Editorial figure in deep shadow — sample frame for Neural Focus" },
+    { id: "feature-neural-focus", title: "Neural Focus", num: "03", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Editorial figure in deep shadow — sample frame for Neural Focus" },
     { id: "feature-open-gate", title: "Open Gate", num: "04", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural corridor in perspective — sample frame for Open Gate format" },
   ];
   return (

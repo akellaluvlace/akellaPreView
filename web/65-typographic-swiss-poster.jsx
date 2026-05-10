@@ -279,14 +279,14 @@ export default function T65TypographicSwissPoster() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 p-4 md:p-6">
             {[
-              { n: "01", id: "1490481651871-ab68de25d43d", name: "Anya Reuter", role: "Director, Edition.werk · DE", dot: true },
-              { n: "02", id: "1488161628813-04466f872be2", name: "Lior Mensch", role: "Variable Type Lead · IL" },
+              { n: "01", id: "1573496359142-b8d87734a5a2", name: "Anya Reuter", role: "Director, Edition.werk · DE", dot: true },
+              { n: "02", id: "1767175620484-1ed37931a0d1", name: "Lior Mensch", role: "Variable Type Lead · IL" },
               { n: "03", id: "1776275758873-31603dd06112", name: "Marisol Cano", role: "Editorial Critic · ES" },
-              { n: "04", id: "1517677208171-0bc6725a3e60", name: "Theo Vance", role: "Foundry Programmer · UK" },
-              { n: "05", id: "1539109136881-3be0616acf4b", name: "Hana Sato", role: "Kanji System Design · JP" },
-              { n: "06", id: "1502716119720-b23a93e5fe1b", name: "Daniel Okafor", role: "Brand Systems · NG" },
-              { n: "07", id: "1483985988355-763728e1935b", name: "Iris Halberg", role: "Newspaper Type · SE" },
-              { n: "08", id: "1485231183945-fffde7cc051e", name: "Marco Pellegrini", role: "Lead Type Engineer · IT" },
+              { n: "04", id: "1573497019940-1c28c88b4f3e", name: "Theo Vance", role: "Foundry Programmer · UK" },
+              { n: "05", id: "1776275758873-31603dd06112", name: "Hana Sato", role: "Kanji System Design · JP" },
+              { n: "06", id: "1758600587391-338f5376b7ed", name: "Daniel Okafor", role: "Brand Systems · NG" },
+              { n: "07", id: "1701096374092-bb70915fdc5c", name: "Iris Halberg", role: "Newspaper Type · SE" },
+              { n: "08", id: "1762341124796-530c0085f7d8", name: "Marco Pellegrini", role: "Lead Type Engineer · IT" },
             ].map((s) => (
               <figure key={s.n} className="flex flex-col">
                 <span className="font-display text-xs md:text-sm uppercase mb-1">

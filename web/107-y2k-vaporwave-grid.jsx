@@ -510,7 +510,7 @@ export default function T107Y2kVaporwaveGrid() {
                   </article>
                 ))}
                 <div className="relative aspect-[5/1] overflow-hidden y2k-bevel border border-secondary-container/40 bg-surface-container shadow-[0_0_30px_rgba(254,0,254,0.25)]">
-                  <img alt="Closing transmission" className="absolute inset-0 w-full h-full object-cover object-[center_30%]" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1600&q=85&auto=format&fit=crop" />
+                  <img alt="Closing transmission" className="absolute inset-0 w-full h-full object-cover object-[center_30%]" src="https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1600&q=85&auto=format&fit=crop" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary-fixed/35 via-transparent to-secondary-container/40 vaporwave-aberration pointer-events-none" />
                   <div className="absolute inset-0 scanlines opacity-50 pointer-events-none" />
                   <div className="absolute inset-0 bg-gradient-to-r from-surface/85 via-surface/30 to-surface/50 pointer-events-none" />
@@ -585,7 +585,7 @@ export default function T107Y2kVaporwaveGrid() {
               ))}
             </div>
             <div className="md:col-span-6 relative min-h-[420px] md:min-h-full md:mr-[calc(50%-50vw)] overflow-hidden y2k-bevel border border-primary-fixed/40 shadow-[0_0_40px_rgba(254,0,254,0.25)]">
-              <img alt="Editorial portrait" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1600&q=85&auto=format&fit=crop" />
+              <img alt="Editorial portrait" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1600&q=85&auto=format&fit=crop" />
               <div className="absolute inset-0 bg-gradient-to-br from-secondary-container/40 via-transparent to-primary-fixed/40 vaporwave-aberration pointer-events-none" />
               <div className="absolute inset-0 scanlines opacity-40 pointer-events-none" />
               <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-surface/40 pointer-events-none" />

@@ -355,7 +355,7 @@ export default function T53Claymorphism() {
             <div className="relative">
               <div className="absolute -top-8 -left-8 w-40 h-40 bg-clay-pinkLight rounded-full blur-2xl opacity-70 pointer-events-none"></div>
               <div className="relative rounded-[2.5rem] overflow-hidden shadow-clay-card bg-white p-3">
-                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80&auto=format&fit=crop" alt="Child reading and exploring an illustrated story together with parent" className="w-full aspect-[4/5] object-cover rounded-[2rem]" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80&auto=format&fit=crop" alt="Child reading and exploring an illustrated story together with parent" className="w-full aspect-[4/5] object-cover rounded-[2rem]" loading="lazy" />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-clay-float p-4 hidden md:flex items-center gap-3">
                 <div className="w-12 h-12 bg-clay-pink rounded-xl shadow-clay-btn flex items-center justify-center text-white">

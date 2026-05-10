@@ -36,14 +36,14 @@ const STEWARDS = [
   {
     name: "Inés Carrasco",
     region: "Oaxaca Highlands · MX",
-    img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1000&q=85&auto=format&fit=crop",
     p1: "Inés tends a 240-hectare cloud-forest commons above the Sierra Norte. She came to the project as a hydrologist seconded from the regional water agency and stayed when the agency was dissolved in 2031. Today she splits her year between site work — leading the spring weir-rebuilding cohort, hand-mapping seeps, mentoring the apprentice stewards — and the unglamorous half of any commons, which is governance.",
     p2: "She chairs the watershed's bioregional council, mediates the seasonal harvest disputes, keeps the commons' MIT-licensed sensor specs current, and writes the field journal that every member receives quarterly. Her stated horizon is forty years. \"I will not see this canopy mature,\" she says. \"That is a feature of how we work, not a bug.\""
   },
   {
     name: "Tomás Reis",
     region: "Portuguese Coast · PT",
-    img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1000&q=85&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=1000&q=85&auto=format&fit=crop",
     p1: "Tomás stewards a string of dune-stabilisation and freshwater-spring restoration sites along forty kilometres of Atlantic coast south of Lisbon. He started as an off-grid builder in the early 2020s, joined Sunroot Commons during its second cohort, and now coordinates with three municipal councils, two fishing co-operatives, and the regional university's marine biology department.",
     p2: "His work is almost entirely about boundaries: where the public beach ends and the commons begins, where private vineyards drain into shared aquifers, where state law conflicts with traditional gleaning rights. He insists this is the actual content of stewardship. \"The plants know what to do. The hard part is the room they need from us. That room is a legal question, not an ecological one.\""
   },

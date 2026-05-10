@@ -1,18 +1,18 @@
 const STRIP_LEFT = [
-  { id: "1490481651871-ab68de25d43d", caption: "2024 · NYC",  tone: "grayscale opacity-80" },
+  { id: "1573496359142-b8d87734a5a2", caption: "2024 · NYC",  tone: "grayscale opacity-80" },
   { id: "1609530142110-7af0a038c723", caption: "field notes", tone: "grayscale-0 opacity-100" },
   { id: "1776275758873-31603dd06112", caption: "Mar · studio", tone: "grayscale opacity-80" },
   { id: "1622912058707-1b33af81db4f", caption: "Brooklyn",    tone: "grayscale-0 opacity-100" },
-  { id: "1517677208171-0bc6725a3e60", caption: "portrait",    tone: "grayscale opacity-80" },
+  { id: "1573497019940-1c28c88b4f3e", caption: "portrait",    tone: "grayscale opacity-80" },
   { id: "1685787773514-90e8e14af797", caption: "window",      tone: "grayscale-0 opacity-100" }
 ];
 
 const STRIP_RIGHT = [
-  { id: "1539109136881-3be0616acf4b", caption: "desk · ix",    tone: "grayscale-0 opacity-100" },
+  { id: "1776275758873-31603dd06112", caption: "desk · ix",    tone: "grayscale-0 opacity-100" },
   { id: "1618488373960-404fe668e524", caption: "corridor",     tone: "grayscale opacity-80" },
-  { id: "1502716119720-b23a93e5fe1b", caption: "2023 · ME",    tone: "grayscale-0 opacity-100" },
+  { id: "1758600587391-338f5376b7ed", caption: "2023 · ME",    tone: "grayscale-0 opacity-100" },
   { id: "1762215781547-2ac20ed42cd1", caption: "interior",     tone: "grayscale opacity-80" },
-  { id: "1483985988355-763728e1935b", caption: "portrait, ii", tone: "grayscale-0 opacity-100" },
+  { id: "1701096374092-bb70915fdc5c", caption: "portrait, ii", tone: "grayscale-0 opacity-100" },
   { id: "1766604106308-58b6d0d676bf", caption: "building",     tone: "grayscale opacity-80" }
 ];
 
@@ -55,16 +55,16 @@ const FIELD_PLATES = [
 
 // B&W image rails flanking the centered masthead (full-width navbar fill)
 const MASTHEAD_LEFT = [
-  "1490481651871-ab68de25d43d",
-  "1488161628813-04466f872be2",
+  "1573496359142-b8d87734a5a2",
+  "1767175620484-1ed37931a0d1",
   "1776275758873-31603dd06112",
-  "1517677208171-0bc6725a3e60",
-  "1539109136881-3be0616acf4b"
+  "1573497019940-1c28c88b4f3e",
+  "1776275758873-31603dd06112"
 ];
 const MASTHEAD_RIGHT = [
-  "1502716119720-b23a93e5fe1b",
-  "1483985988355-763728e1935b",
-  "1485231183945-fffde7cc051e",
+  "1758600587391-338f5376b7ed",
+  "1701096374092-bb70915fdc5c",
+  "1762341124796-530c0085f7d8",
   "1609530142110-7af0a038c723",
   "1622912058707-1b33af81db4f"
 ];
@@ -279,13 +279,13 @@ export default function T35PersonalBlog() {
               </div>
               <div className="relative">
                 <div className="overflow-hidden rounded bg-surface-container-low aspect-[4/3]">
-                  <img alt="Large editorial portrait in deep contrast." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1200&q=85&auto=format&fit=crop" />
+                  <img alt="Large editorial portrait in deep contrast." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1200&q=85&auto=format&fit=crop" />
                 </div>
                 <div className="absolute -bottom-8 -right-4 sm:-right-12 w-32 sm:w-44 aspect-[3/4] overflow-hidden rounded bg-surface-container-low border-4 border-background rotate-3 shadow-lg">
                   <img alt="A still-life of brass and amber objects." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1527844817887-9b937993518b?w=600&q=85&auto=format&fit=crop" />
                 </div>
                 <div className="absolute -top-6 -left-4 sm:-left-10 w-28 sm:w-36 aspect-[3/4] overflow-hidden rounded bg-surface-container-low border-4 border-background -rotate-2 shadow-lg hidden sm:block">
-                  <img alt="A b&w portrait, half in shadow." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=85&auto=format&fit=crop" />
+                  <img alt="A b&w portrait, half in shadow." loading="lazy" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=600&q=85&auto=format&fit=crop" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4 pt-12">
@@ -328,7 +328,7 @@ export default function T35PersonalBlog() {
                 <figure className="md:col-span-5 md:sticky md:top-24 md:self-start flex flex-col gap-4">
                   {/* Plain B&W photo — no overlay */}
                   <div className="overflow-hidden rounded bg-surface-container-low aspect-[4/5]">
-                    <img alt="Portrait of the writer at a desk." loading="lazy" className="w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop" />
+                    <img alt="Portrait of the writer at a desk." loading="lazy" className="w-full h-full object-cover grayscale contrast-105" src="https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=900&q=85&auto=format&fit=crop" />
                   </div>
 
                   {/* PLATE_HEADER — modeled on the FILE_HEADER from 61-brutalism-raw */}

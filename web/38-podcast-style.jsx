@@ -88,7 +88,7 @@ const FEATURED_GUESTS = [
     quote: "Civic infrastructure used to be measured in lifespans. We measure it in budget cycles. The mismatch is what's breaking things, not the politics.",
     cite: "Iola Bremner, civic strategist — on infrastructures that take a generation to climb.",
     listen: "Listen to Episode 10",
-    src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=900&q=85&auto=format&fit=crop",
     alt: "Editorial portrait — Bremner, in a soft outdoor light",
     reverse: false
   }
@@ -208,7 +208,7 @@ export default function T38PodcastStyle() {
           <section className="relative bg-primary-container text-on-primary-container py-[80px] md:py-section-gap px-margin-mobile md:px-gutter overflow-hidden">
             {/* Atmospheric backdrop */}
             <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=85&auto=format&fit=crop" alt="" className="w-full h-full object-cover opacity-15 mix-blend-luminosity grayscale contrast-110" />
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&q=85&auto=format&fit=crop" alt="" className="w-full h-full object-cover opacity-15 mix-blend-luminosity grayscale contrast-110" />
               <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(249,180,197,0.18) 0%, transparent 70%)" }}></div>
               <div className="absolute inset-0 bg-gradient-to-b from-primary-container via-primary-container/85 to-primary-container"></div>
             </div>

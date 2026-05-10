@@ -43,13 +43,13 @@ export default function T34EditorialMagazine() {
   ];
 
   const photographers = [
-    { id: "1490481651871-ab68de25d43d", name: "Renaud Vidal",   city: "PARIS",       caption: "Cover · & the Cartographer.",          aspect: "aspect-[3/4]",  width: "w-72" },
+    { id: "1573496359142-b8d87734a5a2", name: "Renaud Vidal",   city: "PARIS",       caption: "Cover · & the Cartographer.",          aspect: "aspect-[3/4]",  width: "w-72" },
     { id: "1609530142110-7af0a038c723", name: "Hana Sato",      city: "TOKYO",       caption: "Architecture plates · Concrete Utopias.", aspect: "aspect-[16/10]", width: "w-80" },
     { id: "1776275758873-31603dd06112", name: "Lior Halpern",   city: "BERLIN",      caption: "Reportage · Field Notes I.",          aspect: "aspect-[3/4]",  width: "w-72" },
     { id: "1622912058707-1b33af81db4f", name: "Inès Moreau",    city: "MARSEILLE",   caption: "Long-form · Faroe diary.",            aspect: "aspect-[16/10]", width: "w-80" },
-    { id: "1485231183945-fffde7cc051e", name: "Theo Almeida",   city: "LISBON",      caption: "Portraits · Silence is a Language.",  aspect: "aspect-[3/4]",  width: "w-72" },
+    { id: "1762341124796-530c0085f7d8", name: "Theo Almeida",   city: "LISBON",      caption: "Portraits · Silence is a Language.",  aspect: "aspect-[3/4]",  width: "w-72" },
     { id: "1685787773514-90e8e14af797", name: "Eli Cano",       city: "MEXICO CITY", caption: "Travel essay · Field Notes III.",     aspect: "aspect-[16/10]", width: "w-80" },
-    { id: "1517677208171-0bc6725a3e60", name: "Margit Reier",   city: "REYKJAVÍK",   caption: "Documentary · Algorithms of Grief.",  aspect: "aspect-[3/4]",  width: "w-72" },
+    { id: "1573497019940-1c28c88b4f3e", name: "Margit Reier",   city: "REYKJAVÍK",   caption: "Documentary · Algorithms of Grief.",  aspect: "aspect-[3/4]",  width: "w-72" },
   ];
 
   const fieldNotes = [
@@ -80,11 +80,11 @@ export default function T34EditorialMagazine() {
   ];
 
   const contributors = [
-    { numeral: "I",   name: "Renaud Vidal",  img: "1490481651871-ab68de25d43d", body: <>Cover photograph &amp; portfolio. Has worked the Sahel, the Sicilian salt flats, the Highlands. Is rarely in the same country twice in a calendar year.</>, tags: ["Photography", "Reportage"] },
+    { numeral: "I",   name: "Renaud Vidal",  img: "1573496359142-b8d87734a5a2", body: <>Cover photograph &amp; portfolio. Has worked the Sahel, the Sicilian salt flats, the Highlands. Is rarely in the same country twice in a calendar year.</>, tags: ["Photography", "Reportage"] },
     { numeral: "II",  name: "Elena Vranas",  img: "1776275758873-31603dd06112", body: <>Author of <em>The Last Cartographer</em>. Greek-Namibian writer, longtime contributor since 2014. This is her ninth feature for Periphery.</>, tags: ["Long-form", "Memoir"] },
-    { numeral: "III", name: "Sarah Jenkins", img: "1485231183945-fffde7cc051e", body: <>Architecture critic. <em>Concrete Utopias</em> began as a footnote in her 2022 monograph and grew into the longest essay in this issue.</>, tags: ["Criticism", "Architecture"] },
-    { numeral: "IV",  name: "David Chen",    img: "1502716119720-b23a93e5fe1b", body: <>Memoirist. <em>The Mechanics of Memory</em> is the first piece he has published since the 2021 closure of <em>Lapham's</em>. We are pleased he chose us.</>, tags: ["Essay", "Memoir"] },
-    { numeral: "V",   name: "Maria Rossi",   img: "1483985988355-763728e1935b", body: <>Subject of our cover interview, <em>Silence is a Language</em>. Ms Rossi's first published words since 2004 appear in these pages.</>, tags: ["Interview", "Fiction"] },
+    { numeral: "III", name: "Sarah Jenkins", img: "1762341124796-530c0085f7d8", body: <>Architecture critic. <em>Concrete Utopias</em> began as a footnote in her 2022 monograph and grew into the longest essay in this issue.</>, tags: ["Criticism", "Architecture"] },
+    { numeral: "IV",  name: "David Chen",    img: "1758600587391-338f5376b7ed", body: <>Memoirist. <em>The Mechanics of Memory</em> is the first piece he has published since the 2021 closure of <em>Lapham's</em>. We are pleased he chose us.</>, tags: ["Essay", "Memoir"] },
+    { numeral: "V",   name: "Maria Rossi",   img: "1701096374092-bb70915fdc5c", body: <>Subject of our cover interview, <em>Silence is a Language</em>. Ms Rossi's first published words since 2004 appear in these pages.</>, tags: ["Interview", "Fiction"] },
   ];
 
   const readingOrder = [
@@ -142,7 +142,7 @@ export default function T34EditorialMagazine() {
     { id: "1455390582262-044cdead277a", alt: "Wall of bound back-issues in the production office." },
     { id: "1481627834876-b7833e8f5570", alt: "Open spread of the previous issue, gutter centred." },
     { id: "1495446815901-a7297e633e8d", alt: "Reading lamp, marked-up galley, and a felt-tip pen." },
-    { id: "1483985988355-763728e1935b", alt: "Studio portrait — feature subject, between sittings." },
+    { id: "1701096374092-bb70915fdc5c", alt: "Studio portrait — feature subject, between sittings." },
     { id: "1499744937866-d7e566a20a61", alt: "An old typewriter on a writing desk, daylight from the left." },
     { id: "1499951360447-b19be8fe80f5", alt: "Stack of essays in proof, page numbers visible at the corner." },
   ];

@@ -5,14 +5,14 @@ export default function T11LongFormSalesLetter() {
     { label: "The Verge", className: "font-bold text-sm uppercase" },
   ];
   const students = [
-    { tag: "No. 01 · Strategy", name: "Maren Lindqvist", meta: "$11,400 MRR · 1,840 paid subs", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
-    { tag: "No. 02 · Personal Finance", name: "Devontae Reyes", meta: "$8,200 MRR · launched in 9 weeks", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1100&q=85&auto=format&fit=crop", shape: "w-80 aspect-[16/10]" },
-    { tag: "No. 03 · Design Weekly", name: "Aiko Tanaka", meta: "$14,900 MRR · 12,300 free / 980 paid", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
+    { tag: "No. 01 · Strategy", name: "Maren Lindqvist", meta: "$11,400 MRR · 1,840 paid subs", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
+    { tag: "No. 02 · Personal Finance", name: "Devontae Reyes", meta: "$8,200 MRR · launched in 9 weeks", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=1100&q=85&auto=format&fit=crop", shape: "w-80 aspect-[16/10]" },
+    { tag: "No. 03 · Design Weekly", name: "Aiko Tanaka", meta: "$14,900 MRR · 12,300 free / 980 paid", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
     { tag: "No. 04 · Climate Policy", name: "Henrik Sørensen", meta: "$22,000 MRR · corporate seats x 18", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1200&q=85&auto=format&fit=crop", shape: "w-96 aspect-[16/10]" },
-    { tag: "No. 05 · Founder Letter", name: "Priya Nair", meta: "$9,600 MRR · quit consulting Q2", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
-    { tag: "No. 06 · Wine Letter", name: "Rosa Bellini", meta: "$6,400 MRR · 92% renewal", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&q=85&auto=format&fit=crop", shape: "w-80 aspect-[16/10]" },
-    { tag: "No. 07 · Strength Digest", name: "Marcus Adeyemi", meta: "$13,200 MRR · 760 paid coaches", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
-    { tag: "No. 08 · AI Research", name: "Elena Park", meta: "$31,500 MRR · sponsored x 4", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&q=85&auto=format&fit=crop", shape: "w-80 aspect-[16/10]" },
+    { tag: "No. 05 · Founder Letter", name: "Priya Nair", meta: "$9,600 MRR · quit consulting Q2", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
+    { tag: "No. 06 · Wine Letter", name: "Rosa Bellini", meta: "$6,400 MRR · 92% renewal", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=1100&q=85&auto=format&fit=crop", shape: "w-80 aspect-[16/10]" },
+    { tag: "No. 07 · Strength Digest", name: "Marcus Adeyemi", meta: "$13,200 MRR · 760 paid coaches", img: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=900&q=85&auto=format&fit=crop", shape: "w-72 aspect-[3/4]" },
+    { tag: "No. 08 · AI Research", name: "Elena Park", meta: "$31,500 MRR · sponsored x 4", img: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1100&q=85&auto=format&fit=crop", shape: "w-80 aspect-[16/10]" },
   ];
   const stats = [
     { value: "2,500+", label: "Operators in the room" },
@@ -67,19 +67,19 @@ export default function T11LongFormSalesLetter() {
       quote: "I rewrote my welcome sequence on the first weekend. Open rates went from 38% to 64% — and three readers replied asking how to pay me before I'd even built the checkout.",
       name: "Lin Toh",
       role: "Cohort 04 · Strategy Letter",
-      img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=85&auto=format&fit=crop",
     },
     {
       quote: "The Bindery week alone was worth the whole tuition. I shipped a back-catalogue product on a Sunday and it covered the cost by Tuesday.",
       name: "Devontae Reyes",
       role: "Cohort 06 · Personal Finance",
-      img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=200&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=200&q=85&auto=format&fit=crop",
     },
     {
       quote: "I'd been a freelancer for nine years and never had a real renewal letter. The one in module six is the most cynical, generous piece of writing I've ever copied.",
       name: "Aiko Tanaka",
       role: "Cohort 03 · Design Weekly",
-      img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=85&auto=format&fit=crop",
     },
   ];
   const faqs = [

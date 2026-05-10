@@ -11,11 +11,11 @@ export default function T79NeoBrutalism() {
   // Portrait tiles fill their height naturally and stay clean.
   // Landscape cards use flex-1 to absorb whitespace below the short image and carry a 3-stat grid.
   const plates = [
-    { id: "PLATE_01", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=900&auto=format&fit=crop", alt: "Plate 01 — Seoul backstreet", loc: "SEL · 02:14", locColor: "text-neo-red", frameBg: "bg-white", txtColor: "", rot: "transform -rotate-2", w: "w-72 sm:w-80", aspect: "aspect-[4/5]" },
+    { id: "PLATE_01", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=900&auto=format&fit=crop", alt: "Plate 01 — Seoul backstreet", loc: "SEL · 02:14", locColor: "text-neo-red", frameBg: "bg-white", txtColor: "", rot: "transform -rotate-2", w: "w-72 sm:w-80", aspect: "aspect-[4/5]" },
     { id: "PLATE_02", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop", alt: "Plate 02 — Circuit close-up", loc: "BER · 14:08", locColor: "", frameBg: "bg-neo-yellow", txtColor: "", rot: "", w: "w-96", aspect: "aspect-[16/10]",
       hasCard: true, icon: "terminal", iconBg: "bg-neo-black", iconColor: "text-white", cardBg: "bg-white", cardTitle: "Hardware", cardMeta: "Sprint 03 · OK",
       stats: [{ label: "Audit", value: "12d" }, { label: "Build", value: "22d" }, { label: "QA", value: "5d" }] },
-    { id: "PLATE_03", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?q=80&w=900&auto=format&fit=crop", alt: "Plate 03 — Studio portrait", loc: "LIS · 09:42", locColor: "text-neo-red", frameBg: "bg-white", txtColor: "", rot: "transform rotate-2", w: "w-72 sm:w-80", aspect: "aspect-[3/4]" },
+    { id: "PLATE_03", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?q=80&w=900&auto=format&fit=crop", alt: "Plate 03 — Studio portrait", loc: "LIS · 09:42", locColor: "text-neo-red", frameBg: "bg-white", txtColor: "", rot: "transform rotate-2", w: "w-72 sm:w-80", aspect: "aspect-[3/4]" },
     { id: "PLATE_04", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=1000&auto=format&fit=crop", alt: "Plate 04 — Brutalist facade", loc: "SEL · 17:01", locColor: "", frameBg: "bg-neo-red", txtColor: "text-white", rot: "transform -rotate-1", w: "w-96", aspect: "aspect-[16/10]",
       hasCard: true, icon: "bar-chart-3", iconBg: "bg-neo-yellow", iconColor: "text-black", cardBg: "bg-white", cardTitle: "Identity", cardMeta: "+48% lift · launch",
       stats: [{ label: "Logos", value: "3" }, { label: "Pages", value: "24" }, { label: "Tokens", value: "86" }] },

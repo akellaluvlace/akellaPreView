@@ -40,8 +40,8 @@ const NUMBERS = [
 ];
 
 const VOICES = [
-  { name: "Maren V.",    role: "Architect · Aarhus", quote: "The first week I kept testing it. The second week I forgot it was there. That's the highest compliment I have for software.", note: "Note · I",   since: "Owner since '23", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=240&q=85&auto=format&fit=crop" },
-  { name: "Joaquín R.",  role: "Composer · Lisbon",  quote: "I needed a thermostat. I got a small companion that lowers the lights when I sit at the piano. I am unreasonably fond of it.", note: "Note · II",  since: "Owner since '22", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=240&q=85&auto=format&fit=crop" },
+  { name: "Maren V.",    role: "Architect · Aarhus", quote: "The first week I kept testing it. The second week I forgot it was there. That's the highest compliment I have for software.", note: "Note · I",   since: "Owner since '23", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=240&q=85&auto=format&fit=crop" },
+  { name: "Joaquín R.",  role: "Composer · Lisbon",  quote: "I needed a thermostat. I got a small companion that lowers the lights when I sit at the piano. I am unreasonably fond of it.", note: "Note · II",  since: "Owner since '22", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=240&q=85&auto=format&fit=crop" },
   { name: "Priya M.",    role: "Editor · Brooklyn",  quote: "Every other home app yelled at me with red dots and notifications. This one just sits there, beige and patient, and the house works.", note: "Note · III", since: "Owner since '24", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=240&q=85&auto=format&fit=crop" },
 ];
 

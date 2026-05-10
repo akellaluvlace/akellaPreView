@@ -58,14 +58,14 @@ export default function T18MarketplaceHome() {
   const TILE_LANDSCAPE_L = "shrink-0 w-96 aspect-[16/10] relative overflow-hidden rounded-lg bg-surface-container";
 
   const makers = [
-    { name: "Elena Rust", city: "Brooklyn, NY · Painter", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
-    { name: "Marcus Chen", city: "Mexico City · Photographer", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 },
-    { name: "Sarah Jenkins", city: "Lisbon · Ceramicist", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
+    { name: "Elena Rust", city: "Brooklyn, NY · Painter", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
+    { name: "Marcus Chen", city: "Mexico City · Photographer", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 },
+    { name: "Sarah Jenkins", city: "Lisbon · Ceramicist", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
     { name: "David Alis", city: "Berlin · Photographer", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=1300&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_L, w: 1300 },
-    { name: "Ana Vidal", city: "São Paulo · Printmaker", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
-    { name: "Yuki Watanabe", city: "Kyoto · Painter", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 },
-    { name: "Theo Marin", city: "Marseille · Sculptor", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
-    { name: "Imani Cole", city: "Detroit · Mixed Media", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 }
+    { name: "Ana Vidal", city: "São Paulo · Printmaker", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
+    { name: "Yuki Watanabe", city: "Kyoto · Painter", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 },
+    { name: "Theo Marin", city: "Marseille · Sculptor", img: "https://images.unsplash.com/photo-1701096374092-bb70915fdc5c?w=900&q=85&auto=format&fit=crop", cls: TILE_PORTRAIT, w: 900 },
+    { name: "Imani Cole", city: "Detroit · Mixed Media", img: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1100&q=85&auto=format&fit=crop", cls: TILE_LANDSCAPE_S, w: 1100 }
   ];
 
   // Steps — image-context cleanup 2026-05-06: original src list was all §D.1 architectural
@@ -146,7 +146,7 @@ export default function T18MarketplaceHome() {
     {
       name: "Felix Albright",
       meta: "Collector · Copenhagen",
-      portrait: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=300&q=85&auto=format&fit=crop",
+      portrait: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=85&auto=format&fit=crop",
       portraitAlt: "Three-quarter portrait of a man in a wool coat against a textured wall, soft side light",
       quote: "I've bought from auction houses for years. The difference here is the artist replies — and the print I ordered for my study now has a little story attached to it.",
       piece: "\"Structure 04\"",
@@ -155,7 +155,7 @@ export default function T18MarketplaceHome() {
     {
       name: "Priya Singh",
       meta: "Collector · Toronto",
-      portrait: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=300&q=85&auto=format&fit=crop",
+      portrait: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=300&q=85&auto=format&fit=crop",
       portraitAlt: "Portrait of a woman with cropped hair beside a south-facing window in an art-filled apartment",
       quote: "The vessel I bought lived on a shelf for a year before I figured out where it really belonged. Sarah told me to take my time — that kind of patience is rare.",
       piece: "\"Vessel II\"",

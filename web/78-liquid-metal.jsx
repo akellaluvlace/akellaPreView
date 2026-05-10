@@ -110,12 +110,12 @@ export default function T78LiquidMetal() {
   ];
 
   const forgePeople = [
-    { img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=200&q=85&auto=format&fit=crop", name: "M. Aoki", role: "FORGE_LEAD" },
-    { img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=200&q=85&auto=format&fit=crop", name: "L. Reyes", role: "POLISH_CHIEF" },
+    { img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=85&auto=format&fit=crop", name: "M. Aoki", role: "FORGE_LEAD" },
+    { img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=200&q=85&auto=format&fit=crop", name: "L. Reyes", role: "POLISH_CHIEF" },
     { img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", name: "S. Vidal", role: "METALLURGY" },
-    { img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=200&q=85&auto=format&fit=crop", name: "K. Halloran", role: "CASTING" },
-    { img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=200&q=85&auto=format&fit=crop", name: "D. Park", role: "CRYO_OPS" },
-    { img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=200&q=85&auto=format&fit=crop", name: "E. Mori", role: "QC // SECTOR_7" },
+    { img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=85&auto=format&fit=crop", name: "K. Halloran", role: "CASTING" },
+    { img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=200&q=85&auto=format&fit=crop", name: "D. Park", role: "CRYO_OPS" },
+    { img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=200&q=85&auto=format&fit=crop", name: "E. Mori", role: "QC // SECTOR_7" },
   ];
 
   const atelierFrames = [
@@ -591,7 +591,7 @@ export default function T78LiquidMetal() {
               <div className="md:col-span-4 space-y-6">
                 <figure className="relative border border-white/10 bg-black overflow-hidden">
                   <div className="aspect-[3/4] relative">
-                    <img className="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop" alt="Witness portrait" />
+                    <img className="absolute inset-0 w-full h-full object-cover mercury-photo" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85&auto=format&fit=crop" alt="Witness portrait" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                     <figcaption className="absolute bottom-4 left-4 right-4">
                       <p className="font-syncopate text-white text-xs uppercase tracking-widest">— H. Vance</p>

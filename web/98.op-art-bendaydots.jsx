@@ -246,7 +246,7 @@ export default function T98OpArtBendaydots() {
             </div>
             <div className="w-full md:w-1/2 min-h-[400px] md:min-h-full comic-border border-l-0 md:border-l-[5px] border-t-[5px] md:border-t-0 relative">
               <div className="absolute inset-0 halftone-blue opacity-80 z-0"></div>
-              <img alt="Dramatic high-contrast editorial portrait reading as a halftone-print comic panel close-up" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=85&auto=format&fit=crop" width="1000" height="800" fetchpriority="high" />
+              <img alt="Dramatic high-contrast editorial portrait reading as a halftone-print comic panel close-up" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1600&q=85&auto=format&fit=crop" width="1000" height="800" fetchpriority="high" />
               <div className="absolute inset-0 bg-primary/20 mix-blend-color z-20"></div>
             </div>
           </section>
@@ -401,7 +401,7 @@ export default function T98OpArtBendaydots() {
               <div className="md:col-span-7 relative">
                 <div className="relative aspect-[4/3] overflow-hidden comic-border bg-tertiary">
                   <div className="absolute inset-0 halftone-blue opacity-70 z-0"></div>
-                  <img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=1400&q=85&auto=format&fit=crop" alt="Editorial portrait — close framing in dramatic light, halftone print register" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" loading="lazy" decoding="async" width="1400" height="1050" />
+                  <img src="https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=1400&q=85&auto=format&fit=crop" alt="Editorial portrait — close framing in dramatic light, halftone print register" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-90 z-10 grayscale contrast-150" loading="lazy" decoding="async" width="1400" height="1050" />
                   <div className="absolute inset-0 bg-primary/20 mix-blend-color z-20"></div>
                   <div className="absolute top-4 left-4 z-30 bg-secondary-container text-on-surface comic-border px-3 py-1 font-label-bold text-[10px] uppercase tracking-[0.3em] rotate-[-3deg]">Issue 042 · cover</div>
                 </div>
@@ -454,13 +454,13 @@ export default function T98OpArtBendaydots() {
               </div>
               <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3 md:gap-4">
                 {[
-                  { n: "042", img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=85&auto=format&fit=crop", alt: "Cover 042 · editorial portrait halftone", bg: "bg-primary", halftone: "halftone-red" },
-                  { n: "041", img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&q=85&auto=format&fit=crop", alt: "Cover 041 · younger figure in soft light", bg: "bg-tertiary", halftone: "halftone-blue" },
+                  { n: "042", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=85&auto=format&fit=crop", alt: "Cover 042 · editorial portrait halftone", bg: "bg-primary", halftone: "halftone-red" },
+                  { n: "041", img: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=400&q=85&auto=format&fit=crop", alt: "Cover 041 · younger figure in soft light", bg: "bg-tertiary", halftone: "halftone-blue" },
                   { n: "040", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&q=85&auto=format&fit=crop", alt: "Cover 040 · profile in chiaroscuro", bg: "bg-secondary-container", halftone: "halftone-yellow" },
-                  { n: "039", img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=400&q=85&auto=format&fit=crop", alt: "Cover 039 · low-key studio portrait", bg: "bg-primary", halftone: "halftone-red" },
-                  { n: "038", img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=85&auto=format&fit=crop", alt: "Cover 038 · dramatic editorial figure", bg: "bg-tertiary", halftone: "halftone-blue" },
-                  { n: "037", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=400&q=85&auto=format&fit=crop", alt: "Cover 037 · figure in coat", bg: "bg-secondary-container", halftone: "halftone-yellow" },
-                  { n: "036", img: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=400&q=85&auto=format&fit=crop", alt: "Cover 036 · close framing portrait", bg: "bg-primary", halftone: "halftone-red" },
+                  { n: "039", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=85&auto=format&fit=crop", alt: "Cover 039 · low-key studio portrait", bg: "bg-primary", halftone: "halftone-red" },
+                  { n: "038", img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=400&q=85&auto=format&fit=crop", alt: "Cover 038 · dramatic editorial figure", bg: "bg-tertiary", halftone: "halftone-blue" },
+                  { n: "037", img: "https://images.unsplash.com/photo-1758600587391-338f5376b7ed?w=400&q=85&auto=format&fit=crop", alt: "Cover 037 · figure in coat", bg: "bg-secondary-container", halftone: "halftone-yellow" },
+                  { n: "036", img: "https://images.unsplash.com/photo-1762341124796-530c0085f7d8?w=400&q=85&auto=format&fit=crop", alt: "Cover 036 · close framing portrait", bg: "bg-primary", halftone: "halftone-red" },
                 ].map(c => (
                   <figure key={c.n} className="group relative">
                     <div className={`relative aspect-square overflow-hidden comic-border ${c.bg}`}>

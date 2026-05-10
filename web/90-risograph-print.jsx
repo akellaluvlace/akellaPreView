@@ -38,15 +38,15 @@ const PROCESS_STEPS = [
 ];
 
 const RIBBON_PRINTS = [
-  { caption: "ZINE 14 · CRACK", num: "№01", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop", alt: "Fashion editorial b&w portrait, treated with riso magenta-cobalt overprint" },
+  { caption: "ZINE 14 · CRACK", num: "№01", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=85&auto=format&fit=crop", alt: "Fashion editorial b&w portrait, treated with riso magenta-cobalt overprint" },
   { caption: "POSTER · VOID", num: "№02", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Architectural facade study, riso-treated with cobalt overprint" },
-  { caption: "PRINT 023 · STATIC", num: "№03", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
+  { caption: "PRINT 023 · STATIC", num: "№03", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1767175620484-1ed37931a0d1?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
   { caption: "FOLIO 07 · BRUISE", num: "№04", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete interior riso-treated" },
   { caption: "BOOKLET · MARROW", num: "№05", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Fashion editorial portrait riso-treated" },
   { caption: "ZINE 18 · KIN", num: "№06", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural minimal interior riso-treated" },
-  { caption: "POSTER · MOTH", num: "№07", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
+  { caption: "POSTER · MOTH", num: "№07", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
   { caption: "PRINT 041 · QUIET", num: "№08", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Architectural archway riso-treated" },
-  { caption: "FOLIO 12 · CINDER", num: "№09", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
+  { caption: "FOLIO 12 · CINDER", num: "№09", swatch: "bg-primary-container", numColor: "text-primary-container", src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=900&q=85&auto=format&fit=crop", alt: "Editorial portrait riso-treated" },
   { caption: "ZINE 22 · PILE", num: "№10", swatch: "bg-secondary", numColor: "text-secondary", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "Marble vestibule architectural detail riso-treated" },
 ];
 
