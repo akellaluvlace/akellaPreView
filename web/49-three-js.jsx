@@ -7,15 +7,15 @@ export default function T49ThreeJs() {
   ];
 
   const categories = [
-    { id: "abstract", label: "Abstract", img: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=800", alt: "Abstract flowing 3D geometric liquid shapes in deep metallic tones.", w: 600, h: 600, span: "col-span-1", overlay: "via-surface-container-lowest/20" },
+    { id: "abstract", label: "Abstract", img: "https://images.unsplash.com/photo-1626362073981-75205f952cf3?auto=format&fit=crop&q=80&w=800", alt: "Abstract flowing 3D geometric liquid shapes in deep metallic tones.", w: 600, h: 600, span: "col-span-1", overlay: "via-surface-container-lowest/20" },
     { id: "characters", label: "Characters", img: "https://images.unsplash.com/photo-1616277240703-53735be020fc?auto=format&fit=crop&q=80&w=800", alt: "High detail 3D cyberpunk character helmet render with neon accents on dark background.", w: 600, h: 600, span: "col-span-1", overlay: "via-surface-container-lowest/20" },
     { id: "environments", label: "Environments", img: "https://images.unsplash.com/photo-1633120737906-55ff0677e41c?auto=format&fit=crop&q=80&w=800", alt: "Vast sci-fi interior environment 3D render with massive scale, atmospheric fog and dramatic cinematic lighting.", w: 600, h: 1200, span: "lg:col-span-1 lg:row-span-2", overlay: "via-surface-container-lowest/40" },
-    { id: "vehicles", label: "Vehicles", img: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&q=80&w=800", alt: "Futuristic hovering vehicle 3D model with intricate mechanical details and glowing engine parts.", w: 600, h: 600, span: "col-span-1", overlay: "via-surface-container-lowest/20" },
-    { id: "props", label: "Props", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800", alt: "Close up of stylized 3D vintage camera prop with highly detailed textures and depth of field.", w: 600, h: 600, span: "col-span-1", overlay: "via-surface-container-lowest/20" },
+    { id: "vehicles", label: "Vehicles", img: "https://images.unsplash.com/photo-1641799185120-184619b22895?auto=format&fit=crop&q=80&w=800", alt: "Futuristic hovering vehicle 3D model with intricate mechanical details and glowing engine parts.", w: 600, h: 600, span: "col-span-1", overlay: "via-surface-container-lowest/20" },
+    { id: "props", label: "Props", img: "https://images.unsplash.com/photo-1511184059754-e4b5bbbcef75?auto=format&fit=crop&q=80&w=800", alt: "Close up of stylized 3D vintage camera prop with highly detailed textures and depth of field.", w: 600, h: 600, span: "col-span-1", overlay: "via-surface-container-lowest/20" },
   ];
 
   const trending = [
-    { id: 1, title: "Aether Core", artist: "SYNTHTECH", price: "$45", tag: ".OBJ", tagColor: "bg-secondary/10 border-secondary/30 text-secondary", img: "https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&q=80&w=600", alt: "Abstract 3D rendering of a glowing geometric sphere resembling a futuristic energy core." },
+    { id: 1, title: "Aether Core", artist: "SYNTHTECH", price: "$45", tag: ".OBJ", tagColor: "bg-secondary/10 border-secondary/30 text-secondary", img: "https://images.unsplash.com/photo-1625014618427-fbc980b974f5?auto=format&fit=crop&q=80&w=600", alt: "Abstract 3D rendering of a glowing geometric sphere resembling a futuristic energy core." },
     { id: 2, title: "Mecha Organism 01", artist: "NXO", price: "$120", tag: ".BLEND", tagColor: "bg-primary-container/10 border-primary-container/30 text-primary-fixed", img: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&q=80&w=600", alt: "Detailed 3D render of a futuristic mechanical heart with glowing red elements." },
     { id: 3, title: "Data Silo Asset Pack", artist: "Environmentals", price: "$89", tag: ".FBX", tagColor: "bg-secondary/10 border-secondary/30 text-secondary", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600", alt: "Row of high-tech server racks with glowing blue lights in a data center." },
     { id: 4, title: "Iridescent Scales", artist: "Materialize", price: "$15", tag: "MAT", tagColor: "bg-tertiary/10 border-tertiary/30 text-tertiary", img: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=600", alt: "Iridescent and holographic 3D wave texture showing smooth, colorful gradient surfaces." },
@@ -27,9 +27,9 @@ export default function T49ThreeJs() {
     { id: "03", code: "VOL-031 · INTERIOR", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=400", alt: "High-tech server racks bathed in cyan LED — referenced for data-silo asset pack." },
     { id: "04", code: "VOL-046 · HARDSURFACE", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&q=80&w=400", alt: "Industrial mechanical cluster — dense pipe geometry reference." },
     { id: "05", code: "VOL-058 · SCUFF KIT", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=400", alt: "Macro detail of polished metal manifold — surface scuff library." },
-    { id: "06", code: "VOL-067 · LIGHTRIG", img: "https://images.unsplash.com/photo-1614728263952-84ea256f9679?auto=format&fit=crop&q=80&w=400", alt: "Glowing geometric sphere render — referenced for energy-core preset." },
+    { id: "06", code: "VOL-067 · LIGHTRIG", img: "https://images.unsplash.com/photo-1625014618427-fbc980b974f5?auto=format&fit=crop&q=80&w=400", alt: "Glowing geometric sphere render — referenced for energy-core preset." },
     { id: "07", code: "VOL-073 · SHADER", img: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&q=80&w=400", alt: "Iridescent chromatic wave texture — used as default look-dev shader." },
-    { id: "08", code: "VOL-088 · CHROME", img: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=400", alt: "Abstract chrome liquid 3D forms — flagship abstract preset." },
+    { id: "08", code: "VOL-088 · CHROME", img: "https://images.unsplash.com/photo-1626362073981-75205f952cf3?auto=format&fit=crop&q=80&w=400", alt: "Abstract chrome liquid 3D forms — flagship abstract preset." },
   ];
 
   const doctrineNotes = [
@@ -231,7 +231,7 @@ export default function T49ThreeJs() {
         <header className="relative w-full min-h-screen flex items-center md:items-end pb-20 md:pb-32 pt-32 px-margin max-w-container-max mx-auto overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none opacity-20" aria-hidden="true" style={{ backgroundImage: "linear-gradient(to right, #343439 1px, transparent 1px), linear-gradient(to bottom, #343439 1px, transparent 1px)", backgroundSize: "64px 64px", transform: "perspective(1000px) rotateX(60deg) scale(2)", transformOrigin: "bottom" }}></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 md:-translate-x-1/3 -translate-y-1/2 w-[500px] h-[500px] md:w-[800px] md:h-[800px] z-0 pointer-events-none" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=1920&q=90&auto=format&fit=crop" alt="" width="800" height="800" className="w-full h-full object-cover mix-blend-screen opacity-90 md:opacity-100 rounded-full blur-[2px]" loading="eager" decoding="async" />
+            <img src="https://images.unsplash.com/photo-1626362073981-75205f952cf3?w=1920&q=90&auto=format&fit=crop" alt="" width="800" height="800" className="w-full h-full object-cover mix-blend-screen opacity-90 md:opacity-100 rounded-full blur-[2px]" loading="eager" decoding="async" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary-container/20 rounded-full blur-[80px] md:blur-[120px] mix-blend-screen"></div>
             <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-secondary/20 rounded-full blur-[60px] md:blur-[100px] mix-blend-screen"></div>
           </div>

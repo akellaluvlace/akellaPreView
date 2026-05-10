@@ -1,6 +1,6 @@
 function BentoGridLanding() {
   const integrations = [
-    { slug: "slack", name: "Slack" },
+    { slug: "slack", name: "Slack", url: "https://api.iconify.design/logos:slack-icon.svg" },
     { slug: "linear", name: "Linear" },
     { slug: "gmail", name: "Gmail" },
     { slug: "notion", name: "Notion" },
@@ -9,7 +9,7 @@ function BentoGridLanding() {
     { slug: "asana", name: "Asana" },
     { slug: "discord", name: "Discord" },
     { slug: "zoom", name: "Zoom" },
-    { slug: "microsoftteams", name: "Teams" },
+    { slug: "microsoftteams", name: "Teams", url: "https://api.iconify.design/logos:microsoft-teams.svg" },
     { slug: "trello", name: "Trello" },
     { slug: "intercom", name: "Intercom" }
   ];
@@ -557,12 +557,15 @@ function BentoGridLanding() {
             </div>
             <div className="relative">
               <div className="marquee-x py-2">
-                {[...integrations, ...integrations].map((it, i) => (
+                {[...integrations, ...integrations].map((it, i) => {
+                  const iconSrc = it.url || `https://cdn.simpleicons.org/${it.slug}`;
+                  return (
                   <span key={i} className="integration-pill">
-                    <img src={`https://cdn.simpleicons.org/${it.slug}`} alt="" aria-hidden="true" className="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20" />
+                    <img src={iconSrc} alt="" aria-hidden="true" className="h-5 w-5 shrink-0" loading="lazy" decoding="async" width="20" height="20" />
                     <span className="font-medium text-on-background">{it.name}</span>
                   </span>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </section>
