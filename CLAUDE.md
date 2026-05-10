@@ -2,6 +2,163 @@
 
 Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generated HTML/JSX and see it render live, or pick from a gallery of templates. Audience: people with no terminal, no Node install, no dev background.
 
+## Active branches (2026-05-10 PM)
+
+- **`main`** — codebase. Last commit `0878566 backup: web templates state before 94/10/32/16/69 batch`.
+- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + **vibe-edit functionality phase**. **14 commits ahead of main, all LOCAL ONLY — never pushed.** Earlier audit commits: `d26288b`, `c3ec4a5`, `ddda61e`. UI/UX redesign commits (per the 2026-05-10 status block below). Vibe-edit commits 2026-05-10 PM: `b48c746` `aa6deb8` `9c2536a` `cd4e281` `1386967` `30dd8dc` `6602746` `c97fc62` `720c523` `db17a0c` `03bd12e`.
+
+## Current status (2026-05-10 PM — vibe-edit no-code flow SHIPPED through Phases 1-4 + card/icon kinds. Plan at `docs/superpowers/plans/2026-05-10-vibecoder-edit-flow.md`.)
+
+After the morning's many small fixes (props panel filtering / iframe lib loading / log noise / view-mode default / etc.), user redirected to a **structural** rework: mirror MoodScape's `editorScript.ts` approach (branch `step-3b-modes-advanced-ai`) since "we did it right at moodscape". Plan written, then 4 phases shipped end-to-end this afternoon.
+
+**Branch `audit-phase2-cascade-ids`. 11 commits this session. tsc 0. vitest 6146/6148 (the 2 fails are the documented envelope-channel jsdom flake from `project_manipulation_phase1_progress.md` — unchanged by this work).**
+
+### Architectural pivot (vs the old FocusEditor flow)
+
+| Concern | Old | New (vibe-edit) |
+|---|---|---|
+| Source of truth at edit time | Source file → AST rewrite → bundle → srcDoc rebuild on every keystroke (visible flicker) | **Iframe DOM is the truth.** Mutations land via `postMessage(vibe:update-*)`. Source reconciled lazily after 600ms idle via `buildVibeCommit`. **No iframe rebuild on edit = no flicker.** |
+| Editable scope | Universal (any DOM node) | Constrained: `h1-h6, p, span, li, blockquote, small, figcaption, td, th, label, strong, em, code, pre, a, button, img, svg`. Plain wrapper containers inert; card-like containers (have bg/rounded/shadow/border) get `CardControls`. |
+| Selection UX | Click → fullscreen FocusEditor modal opens with a SECOND iframe + focus chrome that hides/dims siblings | In-place coral outline. Side panel populates on the right. No modal. |
+| Props panel | 12 sections regardless of selection | **Per-kind controls only:** text/heading/button → text+colors; image → src+alt; link → text+href; icon → color; card → bg+corners; plain wrapper → inert hint |
+| Default tool | `view` | `vibe` (vibecoders land on click-to-edit on first visit). Returning users on `select` migrate to `vibe`. |
+
+### Files added this session
+
+**Pure-logic (`lib/vibe-edit/`):**
+- `path.ts` — CSS-selector path round-trip (12 prod-import tests)
+- `kind.ts` — 7-bucket classifier `heading|text|image|icon|link|button|container` (13 tests)
+- `types.ts` — `VibeElementInfo` + `VibeMessage` + `VibeCommand` shapes
+- `commit.ts` — `buildVibeCommit({mode,source,old,next})` translates DOM → source via existing byte patchers (12 tests)
+- `detect.ts` — per-element prop detection: `isCardLike`, `hasBackground`, `hasRounding`, `hasShadow`, `hasBorder`, `parseRadiusPx` (17 tests)
+- `runtime.ts` — iframe-side script emitted into `inspectorRuntimeJs`'s template; constrained editable set, click-select, 4 direct-mutation handlers + select/clear commands
+
+**Iframe-bridge extensions (`lib/iframe-bridge.ts`):**
+- `Tool` union extended with `vibe`. `components/ToolBar.tsx` now re-exports `Tool` from iframe-bridge (was duplicated → drift risk eliminated).
+- `IframeToHostMessage`: `vibe:ready` / `vibe:selected` / `vibe:cleared` (+ exhaustiveness array).
+- `HostToIframeMessage`: `vibe:update-content` / `-style` / `-image` / `-link` / `vibe:select` / `vibe:clear`.
+- `vibe:update-style.styles` is open-shape `Record<string, string>` (camelCase CSS prop names) for future panel extensions without protocol bumps.
+
+**JSX patchers (`lib/ast/patch-class-by-oid.ts`):**
+- `patchJsxTextByOid` — rewrites text content; bails on self-closing / non-text children.
+- `patchJsxAttrByOid` — sets/inserts string-literal attribute; bails on expression-form values.
+- 17 prod-import tests in `tests/patch-by-oid-prod.test.ts`.
+
+**Host components:**
+- `components/VibePropertiesPanel.tsx` — kind-routing orchestrator; close button; empty-state hint.
+- `components/VibePropertiesPanel/TextControls.tsx` — content textarea + text/bg color (text/heading/button).
+- `components/VibePropertiesPanel/ImageControls.tsx` — src + alt URL fields (image).
+- `components/VibePropertiesPanel/LinkControls.tsx` — text + href fields (link).
+- `components/VibePropertiesPanel/CardControls.tsx` — bg color + corner radius slider 0-48px (card-like container).
+- `components/VibePropertiesPanel/IconControls.tsx` — color picker + "swap coming soon" hint (svg).
+
+**Workspace wiring (`components/Workspace.tsx`):**
+- `vibeInfo` + `lastVibeCommitRef` state.
+- 5 callbacks routing edits to `previewHandleRef.current.postVibe`.
+- Tool-change cleanup: leaving vibe mode posts `vibe:clear` and resets state.
+- 600ms idle-debounce effect calling `buildVibeCommit` on detected drift; `setCodeSilent` writes through without iframe rebuild.
+- `<VibePropertiesPanel>` rendered alongside Code/Tree/Library on the right when `tool === "vibe"`.
+- Default `tool` flipped from `view` → `vibe`. Persisted `select` migrates to `vibe`. Toolbar's `TOOL_LIST` no longer surfaces Select (lives in the union for internal callers / cancel handlers).
+
+**Preview surface (`components/Preview.tsx`):**
+- `PreviewHandle.postVibe(cmd)` typed wrapper over `postToIframe` constrained to `vibe:*` commands.
+- `onVibeSelected` / `onVibeCleared` optional props fed from new message branches.
+
+**Tests added: +95 cases, +6 files** (`tests/vibe-edit-{path,kind,detect,commit}-prod.test.ts` + `tests/patch-by-oid-prod.test.ts` + `tests/integration/vibe-edit-roundtrip.test.ts`).
+
+### Decisions locked this session
+
+- **D1**: Iframe DOM is source of truth at edit time. Direct postMessage mutation. **No srcDoc rebuild per edit.**
+- **D2**: Per-kind panel routing — no "show all sections always".
+- **D3**: Card detection heuristic (`isCardLike` checks classes + computed styles). Plain wrapper containers stay inert.
+- **D4**: HTML mode source writeback for inline style attribute works. **JSX mode is a documented no-op in v1** (React rejects string-valued style; expression-form writeback needs a new patcher → deferred). JSX users get session-only style edits.
+- **D5**: jsdom postMessage round-trip needs ≥100ms wait for the runtime's re-emit-after-mutation. Captured in integration tests as `waitMs(100)` for update-* assertions.
+- **D6**: Select tool is hidden but kept in the `Tool` union — internal callers (cancel handlers, FocusEditor close) still emit it. `TOOL_LIST` doesn't include it; persisted `select` migrates to `vibe`.
+- **D7**: Power editor (FocusEditor) stays available — `Select` still auto-opens it for power users. Vibe is **additive, not destructive.**
+
+### Open follow-ups (start here next session)
+
+User explicitly asked for these, in rough effort order:
+
+1. **Image → replace via Unsplash picker.** Wire existing `LibraryModal`'s Unsplash/Pexels panels as a "Browse" button next to the URL field in `ImageControls`. Click photo → set `src` in iframe + commit to source. **Medium effort.**
+2. **Icon → swap from library.** Same shape — wire icon panels (Lucide / Heroicons / Phosphor / Tabler / Simple Icons) as a "Swap" button in `IconControls`. Replace `<svg>` outerHTML in iframe DOM + source. Need new patcher `patchJsxOuterByOid` (and HTML equivalent). **Medium-high effort.**
+3. **Text → expose typography props that already exist.** When a text element has `text-2xl font-bold leading-tight` etc., show font-size / weight / line-height sliders. Reuse existing `lib/tailwind-slider-maps.ts` logic (already used by FocusEditor). Render only when matching classes are present. **Medium effort.**
+4. **JSX style persistence.** Translate inline-style writes to Tailwind arbitrary-class writes (e.g., `borderRadius: 12px` → append `rounded-[12px]` class) so they survive reload in JSX mode. Pure-logic helper + class-merger that strips conflicts. **High effort.**
+
+User's framing (verbatim from last message before this status update):
+> "if its text - what props text already has? then we can change manioulate them, if its icon, card - the same, so it depends on what kind of item we click on. if we click on image - we can replace it with unspalsh for example, icon we can replace and change colour maybe"
+
+So: panel detects what knobs the element already has and shows ONLY those. Card detection is the first instance of this pattern. Items 1-3 above extend it.
+
+### Files NOT touched this session (intentional)
+
+- `components/FocusEditor.tsx` — power editor stays for users who need the full inspector
+- `components/IsolatedPreview.tsx` — only used by FocusEditor
+- `lib/ast/**` (apart from the new patchers) — used by both flows
+
+### Traps caught + fixed
+
+- **Backtick-in-comment** trap (per `memory/project_ts_template_backtick_trap.md`) — almost hit it again in `runtime.ts`. Used single quotes throughout the JS template literal.
+- **HTML patcher signature** — `patchHtmlText`/`patchHtmlAttr` take `path: number[]` (parse5 element-index chain), NOT a CSS selector string. Plan originally wrong on this; added `htmlPath: number[] | null` field to `VibeElementInfo`; iframe runtime computes via `vibeGetHtmlPath`.
+- **JSDOM postMessage timing** — runtime's re-emit lands ~50-100ms after the test's own postMessage. 10ms wait was too short; integration tests use 100ms.
+- **`Tool` type duplicated** between `lib/iframe-bridge.ts` and `components/ToolBar.tsx`. Switched ToolBar to re-export from iframe-bridge.
+
+---
+
+## Current status (2026-05-10 — UI/UX redesign across landing / gallery / template workspace / preview SHIPPED. Functionality phase is next.)
+
+Multi-day UI/UX pass refactoring every public surface. Engineering tests untouched: tsc 0 throughout; vitest still passing (no library logic changed). After this, the user is moving to **functionality work** — clear context and re-read this section to start there.
+
+### What shipped (high-level, by surface)
+
+- **Landing (`app/page.tsx`)** — added card 04 ("Do whatever you want — host, change, remix, free") to the Hero rail. Replaced the 6-card grid with **`<TasteCarousel>`** (3 marquee lanes, middle reverses, full-bleed). Footer redesigned: wolf logo (`/assets/logo.png`) on the left, **Akella inMotion** as a big display link on the right + LinkedIn (Founder + Company) buttons. Full SEO baseline: `metadataBase`, OG/Twitter, robots directives, icons; new **`app/sitemap.ts`** + **`app/robots.ts`**; inline JSON-LD (Organization + WebSite + WebApplication) on the landing.
+- **Gallery (`app/gallery/page.tsx`, `components/GalleryView.tsx`)** — heading moved into navbar, body became a sticky-sidebar + bounded-viewport layout. Single sidebar (no double-pane): toolbar items (KindToggle / SortSelect / ViewSelect / SearchToggle) + one flat filter list (All + 7 functional categories + 5 styles). Filter is single-select (clicking any pill replaces the previous). **`ListView`** mode added next to `Carousel` (hover popover with thumb + Select/Preview). Sidebar buttons stretch (`flex-1 min-h-9`) to fill available height so the bottom of RETRO aligns with the bottom of the carousel column. Carousel's 3 lanes use `lg:flex lg:flex-1 lg:flex-col lg:justify-between` so lane 3's bottom matches the sidebar's bottom across viewports. Below `MARQUEE_THRESHOLD` (15) → static flex-wrap grid via `<TemplateTile>` instead of half-empty marquee. Adaptive lane reversals; round-robin lane split.
+- **Template style assignment (`lib/templates.ts`)** — added `TemplateStyle = "Stylish" | "Cyber" | "Brutal" | "Editorial" | "Retro"`. **`STYLE_BY_SLUG`** maps 107 of 111 templates by hand (54 Stylish, 13 Cyber, 6 Brutal, 21 Editorial, 13 Retro). Untagged on purpose: `15-artisan-handmade-store`, `94-solarpunk`, `coming-soon`, `product-card`. New `getStyles()` returns the present styles in canonical order.
+- **Template tile (`components/TemplateTile.tsx`)** — single source of truth for the card. **No longer a single Link**: hovering / focus-within reveals an overlay with two buttons — **Select** → `/t/[slug]` (editor) and **Preview** → `/preview/[slug]` (fullscreen). Used by both the gallery's MarqueeLanes / StaticGrid / ListView and the landing's TasteCarousel.
+- **Fullscreen preview (`components/PreviewModal.tsx`, new `components/PreviewRoute.tsx`, new route `app/preview/[slug]/page.tsx`)** — PreviewModal redesigned: bar in its own flex row (no overlap with iframe), iframe takes the rest. New `/preview/[slug]` route uses the same modal as a full page (close → `router.back()` with `/gallery` fallback). Workspace's ⤢ Expand button uses the same component.
+- **Workspace top chrome (`components/Workspace.tsx`)** — minimal navbar (`← Dropin | Title / Subtitle` only). All action buttons consolidated into the existing **ToolBar** via a new `children` slot. ToolBar has 4 button groups separated by `gap-4`: **JSX/HTML** · **INSTANCE/EVERYWHERE** (disabled in HTML mode with explanatory tooltip) · **DESKTOP/TABLET/MOBILE** (with monitor/tablet/phone glyphs) · **EXPAND · COPY · DOWNLOAD** (each wrapped in the same `inline-flex border-2` shell as segmented groups so all outer boxes match). Removed the duplicate breakpoint chooser; `setViewportSynced` now drives both iframe viewport AND inspector breakpoint. Tool button group `border-x-2` only (active coral fills h-12 fully top-to-bottom). `WorkspaceActions` outer carries no chrome — ToolBar's parent supplies bg + padding.
+- **Workspace body layout** — new **`<WorkspaceLeftRail>`** with three vertical icon buttons (Code / Tree / Library, 64px wide). All three panels open on the **RIGHT** of the preview. Order from left to right: `Rail (64px) | Preview (flex-1) | Code (resizable, handle="left") | Tree (ElementTree, internal resize flipped to left edge) | Library (resizable, handle="left")`. New shared **`<ResizablePanel>`** with localStorage-persisted widths.
+- **Default panel state** — `editorHidden` defaults to **`true`** with localStorage persistence (key `dropin:editor:hidden`). First-time visitors land on the rendered preview with all panels closed; LeftRail is the only chrome. Tips/`FirstOpenTour` still pop on first open.
+- **Template edits are ephemeral** — new `persistEdits?: boolean` prop on Workspace, defaults to **`false`**. The `/t/[slug]` page doesn't pass it, so edits live only in React state for the current window — survive Copy/Download but vanish on refresh. Hook honors via `useEditHistory({ disablePersistence: !persistEdits })`. Pre-existing IDB records sit unused; harmless.
+- **`lib/preview.ts` view-mode anchor click guard** — clicking `<a href>` inside the iframe in View / Insert / Swap modes now `preventDefault`s. Closes the "double Workspace chrome" bug (template's own anchor was navigating the srcdoc iframe to `localhost:3001/`, which rendered the gallery inside the preview).
+- **ElementTree** — moved to right side. `border-r-2` → `border-l-2`. Drag handle moved from `right: -3` → `left: -3`; drag math negated (`startWidth - dx`) so dragging LEFT grows the panel. Header `flex-wrap` so depth/subtree controls don't overflow at narrow widths.
+- **`components/library/Sidebar.tsx`** — width fixed → `w-full` (parent ResizablePanel controls actual width). Border switched to `border-l-2` (now sits on right, not far-right).
+
+### Known follow-ups for the functionality phase
+
+- Pre-existing IDB records for templates aren't cleaned up — they're skipped on read but stay in browser storage. Add a one-shot cleanup if the user cares.
+- Mobile (`<lg`) layout for the workspace right-side panels isn't perfected — fine on desktop, the bounded-viewport layout falls back to natural flow on mobile but the ResizablePanel widths ignore mobile.
+- `MANUAL-TEST-CHECKLIST.md` is from before this UI/UX pass — the surfaces have changed enough that it's stale for click-through testing of the redesigned flows. Worth refreshing if a manual QA pass happens.
+- Landing OG image is the wolf logo (1024×1024 square). Replace with a proper 1200×630 designed asset before public launch.
+- `NEXT_PUBLIC_SITE_URL` env var defaults to `https://dropin.akellainmotion.com` — set this when the production domain is locked.
+
+### Files touched in this UI/UX phase
+
+**New**:
+- `components/TasteCarousel.tsx`
+- `components/MarqueeLanes.tsx`
+- `components/TemplateTile.tsx`
+- `components/WorkspaceLeftRail.tsx`
+- `components/ResizablePanel.tsx`
+- `components/PreviewRoute.tsx`
+- `app/sitemap.ts`
+- `app/robots.ts`
+- `app/preview/[slug]/page.tsx`
+
+**Heavily edited**:
+- `app/layout.tsx` (full SEO metadata)
+- `app/page.tsx` (hero card 04, TasteCarousel, JSON-LD, footer with Akella inMotion + LinkedIn)
+- `app/gallery/page.tsx` (sticky footer + bounded viewport, slim masthead)
+- `components/GalleryView.tsx` (single sidebar, View toggle, filter unification, list mode, lane fill)
+- `components/Workspace.tsx` (LeftRail wiring, ToolBar children slot, panels-on-right, ephemeral default)
+- `components/PreviewModal.tsx` (flex-column layout, no iframe overlap)
+- `components/ElementTree.tsx` (right-side placement + flipped resize handle)
+- `components/library/Sidebar.tsx` (w-full + border-l)
+- `components/ToolBar.tsx` (children prop, vertical-borders-only on tool group, items-center)
+- `components/KindToggle.tsx` (h-9 small + block size variants for sidebar/toolbar)
+- `lib/templates.ts` (TemplateStyle + STYLE_BY_SLUG + getStyles)
+- `lib/preview.ts` (anchor-click guard in non-edit modes)
+
 ## Current status (2026-05-08 — second-grind: parseServerStreamPayload union + F5/F6/F7/F8 + Domain 1/2/5 MEDs + ~14 export demotions SHIPPED: 6066/103, +16/+0 since the morning's 6050/103)
 
 **Same-day second-grind across 11 wins** (audit-2026-05-06 MED+LOW close-out, all type-design + Domain-5 cleanup):
