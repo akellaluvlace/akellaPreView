@@ -64,7 +64,7 @@ const ENGAGEMENT_PILLARS = [
 
 // Hoisted: 8 worklog photos before footer (§R.17). All HEAD-checked 200.
 const WORKLOG_FRAMES = [
-  { id: "1454165804606-c3d57bc86b40", alt: "Dual-monitor terminal workspace", tag: "term" },
+  { id: "1593486544625-13ef2368e43a", alt: "Dual-monitor terminal workspace", tag: "term" },
   { id: "1517245386807-bb43f82c33c4", alt: "Engineer pair-debugging on laptop", tag: "pair" },
   { id: "1573164574001-518958d9baa2", alt: "Whiteboard sprint planning", tag: "brd" },
   { id: "1517048676732-d65bc937f952", alt: "Pull-request review", tag: "pr" },

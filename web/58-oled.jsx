@@ -1,26 +1,26 @@
 const OLED_CYCLE_IMAGES = [
   { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Onyx", label: "01 Onyx", delay: "0s" },
-  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Sapphire", label: "02 Sapphire", delay: "4s" },
-  { src: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Aurum", label: "03 Aurum", delay: "8s" },
-  { src: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Obsidian", label: "04 Obsidian", delay: "12s" },
+  { src: "https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Sapphire", label: "02 Sapphire", delay: "4s" },
+  { src: "https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Aurum", label: "03 Aurum", delay: "8s" },
+  { src: "https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=1600&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=400&auto=format&fit=crop", alt: "Eclipse Noir — Obsidian", label: "04 Obsidian", delay: "12s" },
 ];
 
 const OLED_POLAROIDS = [
   { src: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?q=80&w=600&auto=format&fit=crop", caption: "Tokyo · 03.07", pos: "top-4 left-[6%] w-44 md:w-56", rot: "oled-polaroid-rot-1", z: "" },
   { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=600&auto=format&fit=crop", caption: "Geneva · 05.18", pos: "top-12 left-[28%] w-48 md:w-60", rot: "oled-polaroid-rot-2", z: "z-10" },
-  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=600&auto=format&fit=crop", caption: "Reykjavík · 10.02", pos: "top-2 right-[18%] w-44 md:w-56", rot: "oled-polaroid-rot-3", z: "" },
-  { src: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=600&auto=format&fit=crop", caption: "Marrakech · 12.20", pos: "bottom-4 left-[18%] w-44 md:w-52", rot: "oled-polaroid-rot-4", z: "z-10" },
-  { src: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600&auto=format&fit=crop", caption: "Private · ⌀", pos: "bottom-8 right-[6%] w-40 md:w-52", rot: "oled-polaroid-rot-2", z: "" },
+  { src: "https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=600&auto=format&fit=crop", caption: "Reykjavík · 10.02", pos: "top-2 right-[18%] w-44 md:w-56", rot: "oled-polaroid-rot-3", z: "" },
+  { src: "https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=600&auto=format&fit=crop", caption: "Marrakech · 12.20", pos: "bottom-4 left-[18%] w-44 md:w-52", rot: "oled-polaroid-rot-4", z: "z-10" },
+  { src: "https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=600&auto=format&fit=crop", caption: "Private · ⌀", pos: "bottom-8 right-[6%] w-40 md:w-52", rot: "oled-polaroid-rot-2", z: "" },
 ];
 
 const OLED_ATELIER_TILES = [
   { src: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Calibre · 09", title: "Movement Lift", meta: "412 hrs · M. Vasseur" },
   { src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Atelier · I", title: "Case Polish", meta: "196 hrs · Grade 5 Ti" },
-  { src: "https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Strap · IV", title: "Hand Stitch", meta: "38 hrs · L. Roche" },
-  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Vault · 03", title: "Final Inspection", meta: "22 hrs · 14 checks" },
-  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Crystal · II", title: "Sapphire Cut", meta: "82 hrs · Double dome" },
-  { src: "https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Dial · V", title: "Lume Application", meta: "14 hrs · Gold flake" },
-  { src: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Vault · 09", title: "Allocation", meta: "500 / 500 reserved" },
+  { src: "https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Strap · IV", title: "Hand Stitch", meta: "38 hrs · L. Roche" },
+  { src: "https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Vault · 03", title: "Final Inspection", meta: "22 hrs · 14 checks" },
+  { src: "https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Crystal · II", title: "Sapphire Cut", meta: "82 hrs · Double dome" },
+  { src: "https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=800&auto=format&fit=crop", aspect: "w-80 aspect-[16/10]", chip: "Dial · V", title: "Lume Application", meta: "14 hrs · Gold flake" },
+  { src: "https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=600&auto=format&fit=crop", aspect: "w-72 aspect-[3/4]", chip: "Vault · 09", title: "Allocation", meta: "500 / 500 reserved" },
 ];
 
 const OLED_FAQ = [
@@ -232,7 +232,7 @@ function Oled() {
 
           <div className="relative w-full h-[280px] md:h-[420px] oled-diagonal-band overflow-hidden" data-aos="fade-up" data-aos-delay="200">
             <img
-              src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=2000&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=2000&auto=format&fit=crop"
               alt="Spectrum calibration display"
               className="absolute inset-0 w-full h-full object-cover opacity-70 grayscale contrast-125"
             />
@@ -448,7 +448,7 @@ function Oled() {
 
               <div className="group relative aspect-[3/4] overflow-hidden border border-white/5 bg-neutral-900/10" data-aos="fade-up" data-aos-delay="0">
                 <img
-                  src="https://images.unsplash.com/photo-1594576722512-582bcd46fba3?q=80&w=800&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1684766288396-1fd5c7d92112?q=80&w=800&auto=format&fit=crop"
                   alt="Sapphire Crystal Macro"
                   className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                 />
@@ -461,7 +461,7 @@ function Oled() {
 
               <div className="group relative aspect-[3/4] overflow-hidden border border-white/5 bg-neutral-900/10 md:-mt-16" data-aos="fade-up" data-aos-delay="200">
                 <img
-                  src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=800&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1541778480-fc1752bbc2a9?q=80&w=800&auto=format&fit=crop"
                   alt="Gold Watch Hands"
                   className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                 />
@@ -474,7 +474,7 @@ function Oled() {
 
               <div className="group relative aspect-[3/4] overflow-hidden border border-white/5 bg-neutral-900/10" data-aos="fade-up" data-aos-delay="400">
                 <img
-                  src="https://images.unsplash.com/photo-1623998021450-85c29c644e0d?q=80&w=800&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1612771409641-b0478cab8b69?q=80&w=800&auto=format&fit=crop"
                   alt="Leather Strap Detail"
                   className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                 />

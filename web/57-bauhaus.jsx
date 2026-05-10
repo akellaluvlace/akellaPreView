@@ -17,7 +17,7 @@ export default function T57Bauhaus() {
   ];
 
   const products = [
-    { name: "B-3 CHAIR", price: "$1,200", img: "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&q=80&w=800", alt: "Wassily Chair", shape: "rounded-full", borderHover: "group-hover:border-bauhaus-red", aspect: "aspect-square", labelRotate: "rotate-3", offset: "" },
+    { name: "B-3 CHAIR", price: "$1,200", img: "https://images.unsplash.com/photo-1671383548194-2dcdf67c3475?auto=format&fit=crop&q=80&w=800", alt: "Wassily Chair", shape: "rounded-full", borderHover: "group-hover:border-bauhaus-red", aspect: "aspect-square", labelRotate: "rotate-3", offset: "" },
     { name: "KAISER LAMP", price: "$850", img: "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?q=80&w=800&auto=format&fit=crop", alt: "Bauhaus Geometric Lamp", shape: "rounded-t-full", borderHover: "group-hover:border-bauhaus-blue", aspect: "aspect-[3/4]", labelRotate: "-rotate-3", offset: "md:translate-y-16" },
     { name: "T-1 SIDE CHAIR", price: "$600", img: "https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=800", alt: "Molded shell chair on wood legs against a soft backdrop", shape: "", borderHover: "group-hover:border-bauhaus-yellow", aspect: "aspect-square", labelRotate: "rotate-2", offset: "", overlay: true },
   ];
@@ -41,7 +41,7 @@ export default function T57Bauhaus() {
   ];
 
   const selectedPieces = [
-    { num: "№ 01", numBg: "bg-bauhaus-red text-bauhaus-cream", title: "B-3 Chair", meta: "$1,200 · Tubular steel", img: "https://images.unsplash.com/photo-1503602642458-232111445657?w=600&q=85&auto=format&fit=crop", alt: "B-3 Chair — three-quarter view" },
+    { num: "№ 01", numBg: "bg-bauhaus-red text-bauhaus-cream", title: "B-3 Chair", meta: "$1,200 · Tubular steel", img: "https://images.unsplash.com/photo-1671383548194-2dcdf67c3475?w=600&q=85&auto=format&fit=crop", alt: "B-3 Chair — three-quarter view" },
     { num: "№ 02", numBg: "bg-bauhaus-blue text-bauhaus-cream", title: "Kaiser Lamp", meta: "$850 · Brass · Linen", img: "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?w=600&q=85&auto=format&fit=crop", alt: "Kaiser Lamp — table lamp with linen shade" },
     { num: "№ 03", numBg: "bg-bauhaus-yellow text-bauhaus-black", title: "T-1 Side Chair", meta: "$600 · Moulded shell", img: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=85&auto=format&fit=crop", alt: "T-1 Side Chair — moulded shell on wood legs" },
     { num: "№ 04", numBg: "bg-bauhaus-red text-bauhaus-cream", title: "Werkstatt Bench", meta: "$1,800 · Leather · Oak", img: "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=600&q=85&auto=format&fit=crop", alt: "Tan leather three-seater bench sofa with slim wood legs" },

@@ -249,7 +249,7 @@ export default function T27CreatorHub() {
           {/* Editorial Spread 1 — image LEFT / content RIGHT */}
           <section className="mb-xl border-t border-secondary-container pt-xl grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-center">
             <div className="md:col-span-7 aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-lg border border-secondary-container bg-surface-container">
-              <img alt="Dual-monitor terminal workstation" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1400&q=80&auto=format&fit=crop" />
+              <img alt="Dual-monitor terminal workstation" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1593486544625-13ef2368e43a?w=1400&q=80&auto=format&fit=crop" />
             </div>
             <div className="md:col-span-5 flex flex-col gap-5 justify-center">
               <span className="font-label-sm text-label-sm text-primary-container uppercase tracking-widest">— The Studio</span>

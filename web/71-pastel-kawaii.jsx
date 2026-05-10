@@ -12,7 +12,7 @@ const KAWAII_MARQUEE_TILES = [
     metaColor: "text-kawaii-text",
   },
   {
-    src: "https://images.unsplash.com/photo-1598214886806-c87b84b7078b?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1604498149220-bfb7c7cfd19b?w=900&q=85&auto=format&fit=crop",
     alt: "Matcha batch",
     width: "w-72 md:w-80",
     aspect: "aspect-[16/10]",
@@ -24,7 +24,7 @@ const KAWAII_MARQUEE_TILES = [
     metaColor: "text-kawaii-green",
   },
   {
-    src: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=600&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1635355347994-b79177b77e5c?w=600&q=85&auto=format&fit=crop",
     alt: "Vanilla batch",
     width: "w-56 md:w-64",
     aspect: "aspect-[3/4]",
@@ -48,7 +48,7 @@ const KAWAII_MARQUEE_TILES = [
     metaColor: "text-kawaii-pinkdark",
   },
   {
-    src: "https://images.unsplash.com/photo-1534938665420-4193effeacc4?w=600&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1662499866669-e7cf3acc5e1a?w=600&q=85&auto=format&fit=crop",
     alt: "Mango batch",
     width: "w-56 md:w-64",
     aspect: "aspect-[3/4]",
@@ -60,7 +60,7 @@ const KAWAII_MARQUEE_TILES = [
     metaColor: "text-kawaii-text",
   },
   {
-    src: "https://images.unsplash.com/photo-1516919549054-e08258825f80?w=900&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1623133894375-ce20135ee521?w=900&q=85&auto=format&fit=crop",
     alt: "Hands shaping mochi",
     width: "w-72 md:w-80",
     aspect: "aspect-[16/10]",
@@ -436,14 +436,14 @@ function PastelKawaii() {
 
               <figure className="absolute polaroid-tape bg-white p-3 pb-10 rounded-lg shadow-card border border-kawaii-pink/30 -rotate-12 -translate-x-32 md:-translate-x-40 -translate-y-8 hover:-rotate-6 hover:-translate-y-12 transition-transform duration-500 z-10">
                 <div className="w-36 h-36 md:w-48 md:h-48 overflow-hidden rounded-sm bg-kawaii-pink/20">
-                  <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=600&q=85&auto=format&fit=crop" alt="Vanilla mochi polaroid" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1635355347994-b79177b77e5c?w=600&q=85&auto=format&fit=crop" alt="Vanilla mochi polaroid" className="w-full h-full object-cover" />
                 </div>
                 <figcaption className="absolute bottom-2 left-0 right-0 text-center font-heading text-kawaii-text text-sm md:text-base">vanilla sky 🌤</figcaption>
               </figure>
 
               <figure className="absolute polaroid-tape bg-white p-3 pb-10 rounded-lg shadow-card border border-kawaii-blue/30 rotate-[14deg] translate-x-32 md:translate-x-44 -translate-y-4 hover:rotate-6 hover:-translate-y-8 transition-transform duration-500 z-10">
                 <div className="w-36 h-36 md:w-48 md:h-48 overflow-hidden rounded-sm bg-kawaii-blue/20">
-                  <img src="https://images.unsplash.com/photo-1598214886806-c87b84b7078b?w=600&q=85&auto=format&fit=crop" alt="Matcha mochi polaroid" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1604498149220-bfb7c7cfd19b?w=600&q=85&auto=format&fit=crop" alt="Matcha mochi polaroid" className="w-full h-full object-cover" />
                 </div>
                 <figcaption className="absolute bottom-2 left-0 right-0 text-center font-heading text-kawaii-text text-sm md:text-base">matcha magic 🍵</figcaption>
               </figure>
@@ -458,7 +458,7 @@ function PastelKawaii() {
 
               <figure className="absolute polaroid-tape bg-white p-3 pb-9 rounded-lg shadow-card border border-kawaii-green/40 rotate-[8deg] translate-x-20 md:translate-x-24 translate-y-24 md:translate-y-28 hover:rotate-3 hover:translate-y-20 transition-transform duration-500 z-20">
                 <div className="w-32 h-32 md:w-40 md:h-40 overflow-hidden rounded-sm bg-kawaii-green/20">
-                  <img src="https://images.unsplash.com/photo-1534938665420-4193effeacc4?w=600&q=85&auto=format&fit=crop" alt="Mango mochi polaroid" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1662499866669-e7cf3acc5e1a?w=600&q=85&auto=format&fit=crop" alt="Mango mochi polaroid" className="w-full h-full object-cover" />
                 </div>
                 <figcaption className="absolute bottom-2 left-0 right-0 text-center font-heading text-kawaii-text text-xs md:text-sm">mango tango 🥭</figcaption>
               </figure>
@@ -518,7 +518,7 @@ function PastelKawaii() {
               {/* Matcha */}
               <div className="sticker-card group bg-white rounded-[35px] p-4 border-4 border-white shadow-card">
                 <div className="relative bg-[#E6F4E2] rounded-[25px] h-48 md:h-56 mb-5 overflow-hidden flex items-center justify-center">
-                  <img src="https://images.unsplash.com/photo-1598214886806-c87b84b7078b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Matcha Mochi" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src="https://images.unsplash.com/photo-1604498149220-bfb7c7cfd19b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Matcha Mochi" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="text-left px-2">
                   <h3 className="font-heading text-xl text-kawaii-text mb-1">Matcha Magic</h3>
@@ -535,7 +535,7 @@ function PastelKawaii() {
               {/* Vanilla */}
               <div className="sticker-card group bg-white rounded-[35px] p-4 border-4 border-white shadow-card">
                 <div className="relative bg-[#F0F7FF] rounded-[25px] h-48 md:h-56 mb-5 overflow-hidden flex items-center justify-center">
-                  <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vanilla Mochi" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src="https://images.unsplash.com/photo-1635355347994-b79177b77e5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vanilla Mochi" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="text-left px-2">
                   <h3 className="font-heading text-xl text-kawaii-text mb-1">Vanilla Sky</h3>
@@ -552,7 +552,7 @@ function PastelKawaii() {
               {/* Mango */}
               <div className="sticker-card group bg-white rounded-[35px] p-4 border-4 border-white shadow-card">
                 <div className="relative bg-[#FFFBE6] rounded-[25px] h-48 md:h-56 mb-5 overflow-hidden flex items-center justify-center">
-                  <img src="https://images.unsplash.com/photo-1534938665420-4193effeacc4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mango Mochi" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src="https://images.unsplash.com/photo-1662499866669-e7cf3acc5e1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mango Mochi" className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-kawaii-text shadow-sm">
                     Seasonal
                   </div>
@@ -597,19 +597,19 @@ function PastelKawaii() {
               </div>
 
               <div className="absolute top-12 left-[42%] w-24 h-24 md:w-32 md:h-32 rounded-3xl overflow-hidden border-4 border-white shadow-soft rotate-[10deg] hover:rotate-0 transition-transform duration-500 z-30">
-                <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=400&q=85&auto=format&fit=crop" alt="Vanilla mochi" className="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1635355347994-b79177b77e5c?w=400&q=85&auto=format&fit=crop" alt="Vanilla mochi" className="w-full h-full object-cover" />
               </div>
 
               <div className="absolute top-4 right-[18%] md:right-[28%] w-20 h-20 md:w-24 md:h-24 bg-kawaii-cream rounded-full border-4 border-white shadow-card flex items-center justify-center text-4xl md:text-5xl rotate-12 animate-float z-30">🍡</div>
 
               <div className="absolute top-0 right-[2%] md:right-[8%] w-32 h-40 md:w-40 md:h-52 rounded-3xl overflow-hidden border-4 border-white shadow-card rotate-[8deg] hover:rotate-0 hover:scale-105 transition-transform duration-500 z-20">
-                <img src="https://images.unsplash.com/photo-1598214886806-c87b84b7078b?w=600&q=85&auto=format&fit=crop" alt="Matcha mochi mood" className="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1604498149220-bfb7c7cfd19b?w=600&q=85&auto=format&fit=crop" alt="Matcha mochi mood" className="w-full h-full object-cover" />
               </div>
 
               <div className="absolute top-[42%] left-[2%] md:left-[6%] bg-kawaii-pink text-white font-heading text-sm md:text-base px-4 py-2 rounded-full shadow-lg -rotate-6 z-30">cute mode: ON</div>
 
               <div className="absolute top-[40%] left-[36%] w-28 h-28 md:w-36 md:h-36 rounded-3xl overflow-hidden border-4 border-white shadow-soft -rotate-3 hover:rotate-0 transition-transform duration-500 z-20">
-                <img src="https://images.unsplash.com/photo-1534938665420-4193effeacc4?w=400&q=85&auto=format&fit=crop" alt="Mango mochi mood" className="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1662499866669-e7cf3acc5e1a?w=400&q=85&auto=format&fit=crop" alt="Mango mochi mood" className="w-full h-full object-cover" />
               </div>
 
               <div className="absolute top-[38%] right-[10%] md:right-[18%] w-16 h-16 md:w-20 md:h-20 bg-kawaii-blue/80 rounded-full border-4 border-white shadow-card flex items-center justify-center text-3xl md:text-4xl -rotate-12 animate-wiggle z-30">🌸</div>
@@ -621,7 +621,7 @@ function PastelKawaii() {
               <div className="absolute bottom-12 left-[44%] bg-kawaii-green/90 text-kawaii-text font-heading text-sm md:text-base px-4 py-2 rounded-full shadow-lg rotate-3 z-30">freshly baked</div>
 
               <div className="absolute bottom-4 right-[14%] md:right-[22%] w-28 h-32 md:w-36 md:h-44 rounded-3xl overflow-hidden border-4 border-white shadow-soft -rotate-[8deg] hover:rotate-0 hover:scale-105 transition-transform duration-500 z-20">
-                <img src="https://images.unsplash.com/photo-1516919549054-e08258825f80?w=600&q=85&auto=format&fit=crop" alt="Hands making mochi" className="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1623133894375-ce20135ee521?w=600&q=85&auto=format&fit=crop" alt="Hands making mochi" className="w-full h-full object-cover" />
               </div>
 
               <div className="absolute bottom-2 right-[2%] md:right-[8%] w-20 h-20 md:w-24 md:h-24 bg-kawaii-lavender/90 rounded-full border-4 border-white shadow-card flex items-center justify-center text-4xl md:text-5xl rotate-6 animate-float-slow z-30">💌</div>
@@ -644,7 +644,7 @@ function PastelKawaii() {
             <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
               <div className="w-full md:w-1/2 relative px-4 md:px-0">
                 <div className="absolute inset-0 bg-kawaii-lavender rounded-[40px] rotate-3 transform translate-y-2 translate-x-2"></div>
-                <img src="https://images.unsplash.com/photo-1516919549054-e08258825f80?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Making Mochi" className="relative rounded-[40px] shadow-xl rotate-[-3deg] hover:rotate-0 transition-transform duration-500 border-4 border-white w-full h-64 md:h-[400px] object-cover" />
+                <img src="https://images.unsplash.com/photo-1623133894375-ce20135ee521?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Making Mochi" className="relative rounded-[40px] shadow-xl rotate-[-3deg] hover:rotate-0 transition-transform duration-500 border-4 border-white w-full h-64 md:h-[400px] object-cover" />
               </div>
               <div className="w-full md:w-1/2 text-center md:text-left px-4 md:px-0">
                 <span className="text-kawaii-pink font-bold tracking-widest uppercase mb-2 block">Our Story</span>
@@ -694,13 +694,13 @@ function PastelKawaii() {
                     <img src="https://res.cloudinary.com/dsa31toc5/image/upload/v1769178998/rimsha-noor-p6-O0Cc5RAc-unsplash_axlq9s.jpg" alt="Strawberry thumb" className="w-full h-full object-cover" />
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-kawaii-green/20">
-                    <img src="https://images.unsplash.com/photo-1598214886806-c87b84b7078b?w=300&q=85&auto=format&fit=crop" alt="Matcha thumb" className="w-full h-full object-cover" />
+                    <img src="https://images.unsplash.com/photo-1604498149220-bfb7c7cfd19b?w=300&q=85&auto=format&fit=crop" alt="Matcha thumb" className="w-full h-full object-cover" />
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-kawaii-blue/20">
-                    <img src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=300&q=85&auto=format&fit=crop" alt="Vanilla thumb" className="w-full h-full object-cover" />
+                    <img src="https://images.unsplash.com/photo-1635355347994-b79177b77e5c?w=300&q=85&auto=format&fit=crop" alt="Vanilla thumb" className="w-full h-full object-cover" />
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden border-2 border-white shadow-sm bg-kawaii-cream">
-                    <img src="https://images.unsplash.com/photo-1534938665420-4193effeacc4?w=300&q=85&auto=format&fit=crop" alt="Mango thumb" className="w-full h-full object-cover" />
+                    <img src="https://images.unsplash.com/photo-1662499866669-e7cf3acc5e1a?w=300&q=85&auto=format&fit=crop" alt="Mango thumb" className="w-full h-full object-cover" />
                   </div>
                 </div>
               </div>
@@ -710,9 +710,9 @@ function PastelKawaii() {
 
                 <div className="relative w-full aspect-[4/5] md:aspect-[5/4] rounded-[40px] overflow-hidden border-[8px] md:border-[10px] border-white shadow-glow-pink bg-kawaii-cream">
                   <img className="kawaii-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: "0s" }} src="https://res.cloudinary.com/dsa31toc5/image/upload/v1769178998/rimsha-noor-p6-O0Cc5RAc-unsplash_axlq9s.jpg" alt="Strawberry mochi today" />
-                  <img className="kawaii-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: "4s" }} src="https://images.unsplash.com/photo-1598214886806-c87b84b7078b?w=1200&q=85&auto=format&fit=crop" alt="Matcha mochi today" />
-                  <img className="kawaii-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: "8s" }} src="https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?w=1200&q=85&auto=format&fit=crop" alt="Vanilla mochi today" />
-                  <img className="kawaii-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: "12s" }} src="https://images.unsplash.com/photo-1534938665420-4193effeacc4?w=1200&q=85&auto=format&fit=crop" alt="Mango mochi today" />
+                  <img className="kawaii-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: "4s" }} src="https://images.unsplash.com/photo-1604498149220-bfb7c7cfd19b?w=1200&q=85&auto=format&fit=crop" alt="Matcha mochi today" />
+                  <img className="kawaii-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: "8s" }} src="https://images.unsplash.com/photo-1635355347994-b79177b77e5c?w=1200&q=85&auto=format&fit=crop" alt="Vanilla mochi today" />
+                  <img className="kawaii-cycle-img absolute inset-0 w-full h-full object-cover" style={{ animationDelay: "12s" }} src="https://images.unsplash.com/photo-1662499866669-e7cf3acc5e1a?w=1200&q=85&auto=format&fit=crop" alt="Mango mochi today" />
 
                   <div className="absolute top-5 left-5 bg-white/90 backdrop-blur-sm border-2 border-kawaii-pink/40 px-4 py-2 rounded-full shadow-md font-heading text-kawaii-pinkdark text-sm md:text-base rotate-[-4deg]">
                     fresh @ 9:00am

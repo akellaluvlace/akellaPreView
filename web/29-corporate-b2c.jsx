@@ -73,7 +73,7 @@ export default function T29CorporateB2c() {
     { plate: "PLATE · 04 · STAND",  alt: "Cross-functional standup at a shared workstation",        src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=80&auto=format&fit=crop" },
     { plate: "PLATE · 05 · REVIEW", alt: "Engineer reviewing code on a large display",              src: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400&q=80&auto=format&fit=crop" },
     { plate: "PLATE · 06 · CALL",   alt: "Remote team video call across two continents",            src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80&auto=format&fit=crop" },
-    { plate: "PLATE · 07 · DEEP",   alt: "Dual-monitor terminal at a focused workstation",          src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80&auto=format&fit=crop" }
+    { plate: "PLATE · 07 · DEEP",   alt: "Dual-monitor terminal at a focused workstation",          src: "https://images.unsplash.com/photo-1593486544625-13ef2368e43a?w=400&q=80&auto=format&fit=crop" }
   ];
 
   const tailwindConfig = `
