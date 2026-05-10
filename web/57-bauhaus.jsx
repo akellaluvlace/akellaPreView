@@ -82,7 +82,7 @@ export default function T57Bauhaus() {
     },
     {
       num: "03", numBg: "bg-bauhaus-red", numText: "text-white", title: "Production", offset: "",
-      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop",
       alt: "Workshop interior with finished pieces",
       ruleColor: "bg-bauhaus-blue", dot: "bg-bauhaus-yellow clip-triangle",
       desc: "Limited runs of 200 pieces, numbered and stamped. Each chair receives a final hand-inspection by a master craftsman before shipping.",
@@ -427,7 +427,7 @@ export default function T57Bauhaus() {
                 <div className="absolute -top-6 -left-6 w-32 h-32 md:w-48 md:h-48 bg-bauhaus-red z-0"></div>
                 <div className="absolute -bottom-6 -right-6 w-28 h-28 md:w-40 md:h-40 rounded-full bg-bauhaus-yellow z-0"></div>
                 <figure className="relative aspect-[4/5] overflow-hidden border-4 border-bauhaus-cream z-10">
-                  <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop" alt="Architectural facade in Bauhaus style" className="w-full h-full object-cover grayscale contrast-125" />
+                  <img src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1400&q=85&auto=format&fit=crop" alt="Architectural facade in Bauhaus style" className="w-full h-full object-cover grayscale contrast-125" />
                   <figcaption className="absolute bottom-4 left-4 right-4 bg-bauhaus-cream text-bauhaus-black px-4 py-3 flex justify-between items-center">
                     <span className="font-mono text-[10px] tracking-widest uppercase">Plate · IV</span>
                     <span className="text-xs font-bold uppercase">Bauhaus Building, Dessau · 1925</span>

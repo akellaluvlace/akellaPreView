@@ -83,7 +83,7 @@ export default function T78LiquidMetal() {
     {
       tilt: "study-tilt-l",
       reverse: false,
-      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1400&q=85&auto=format&fit=crop",
       alt: "Brutalist concrete architecture",
       tag: "03 — The Vault",
       plate: "PLATE · III",
@@ -105,7 +105,7 @@ export default function T78LiquidMetal() {
     { cls: forgeWide, img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1100&q=85&auto=format&fit=crop", label: "Trace_03", meta: "SECTOR_7" },
     { cls: forgePortrait80, img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", label: "Apothecary_11", meta: ".925" },
     { cls: forgeWide, img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1100&q=85&auto=format&fit=crop", label: "Vault_02", meta: "METAVAULT" },
-    { cls: forgePortrait72, img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", label: "Facade_05", meta: "PARIS" },
+    { cls: forgePortrait72, img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop", label: "Facade_05", meta: "PARIS" },
     { cls: forgeWide80, img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=85&auto=format&fit=crop", label: "Rack_19", meta: "UPLINK" },
   ];
 
@@ -122,7 +122,7 @@ export default function T78LiquidMetal() {
     { delay: "0s",  src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — pour",   caption: "01 — The Pour" },
     { delay: "4s",  src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — file room, server-rack tooling close-up",   caption: "02 — The File" },
     { delay: "8s",  src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — polish floor, mirror-finish reflections under fluorescents", caption: "03 — The Polish" },
-    { delay: "12s", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — vault",  caption: "04 — The Vault" },
+    { delay: "12s", src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1400&q=85&auto=format&fit=crop", alt: "Atelier — vault",  caption: "04 — The Vault" },
   ];
 
   const atelierSteps = [

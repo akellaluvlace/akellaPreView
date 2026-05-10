@@ -4,14 +4,14 @@ const SWISS_INDEX_TILES = [
   { n: "02", name: "Vertex Tower",   yr: "2024", typ: "COMMERCIAL · BS",  img: "1609530142110-7af0a038c723" },
   { n: "03", name: "Gallery X",      yr: "2024", typ: "CULTURAL · GE",    img: "1777661274241-2f636e3534b2" },
   { n: "04", name: "Atelier Nord",   yr: "2024", typ: "STUDIO · ZH",      img: "1618488373960-404fe668e524" },
-  { n: "05", name: "Maison Rive",    yr: "2023", typ: "RESIDENTIAL · GE", img: "1502672260266-1c1ef2d93688" },
+  { n: "05", name: "Maison Rive",    yr: "2023", typ: "RESIDENTIAL · GE", img: "1685787773514-90e8e14af797" },
   { n: "06", name: "Stadtbibliothek",yr: "2023", typ: "CIVIC · BE",       img: "1762215781547-2ac20ed42cd1" },
   { n: "07", name: "Werkhof",        yr: "2023", typ: "INDUSTRIAL · ZH",  img: "1766604106308-58b6d0d676bf" },
   { n: "08", name: "Pavillon Léman", yr: "2022", typ: "PAVILION · VD",    img: "1609924480239-ed5cf2b4b672" },
   { n: "09", name: "Lager 12",       yr: "2022", typ: "ADAPTIVE · ZH",    img: "1609530142110-7af0a038c723" },
   { n: "10", name: "Schule Aspen",   yr: "2021", typ: "EDUCATION · GR",   img: "1777661274241-2f636e3534b2" },
   { n: "11", name: "Höhenweg",       yr: "2021", typ: "RESIDENTIAL · VS", img: "1618488373960-404fe668e524" },
-  { n: "12", name: "Kontor Nord",    yr: "2020", typ: "OFFICE · SG",      img: "1502672260266-1c1ef2d93688" },
+  { n: "12", name: "Kontor Nord",    yr: "2020", typ: "OFFICE · SG",      img: "1685787773514-90e8e14af797" },
 ];
 
 const SWISS_METHOD_STEPS = [

@@ -106,8 +106,8 @@ export default function T99MidcenturyModern() {
   // alongside the Sketch / Joinery / Finish narrative.
   const processSteps = [
     { numeral: "I", title: "Sketch", body: "Drawn at 1:1, on tracing vellum, in graphite. Each piece begins with a stack of failed lines and one that holds.", season: "Studio · January", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "South-facing aperture of the studio at first light, the room where the sketches begin" },
-    { numeral: "II", title: "Joinery", body: "Mortise, tenon, dovetail. No fasteners hidden by stain. Each joint cut by hand and tapped together once, then disassembled, then closed.", season: "Bench · February — April", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "The atelier's east stair, climbed every morning between the bench and the drying floor" },
-    { numeral: "III", title: "Finish", body: "Linseed, beeswax, time. Three coats minimum, four when the wood asks for it. Signed underneath, then shipped without a card.", season: "Atelier · May", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Atelier corridor in late afternoon — between coats of linseed, the wood is left to breathe" },
+    { numeral: "II", title: "Joinery", body: "Mortise, tenon, dovetail. No fasteners hidden by stain. Each joint cut by hand and tapped together once, then disassembled, then closed.", season: "Bench · February — April", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop", alt: "The atelier's east stair, climbed every morning between the bench and the drying floor" },
+    { numeral: "III", title: "Finish", body: "Linseed, beeswax, time. Three coats minimum, four when the wood asks for it. Signed underneath, then shipped without a card.", season: "Atelier · May", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "Atelier corridor in late afternoon — between coats of linseed, the wood is left to breathe" },
   ];
 
   // Stats
@@ -504,7 +504,7 @@ export default function T99MidcenturyModern() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-brand-orange translate-x-2 translate-y-2 -z-10"></div>
                   <div className="relative aspect-[4/5] border border-brand-teak overflow-hidden bg-surface-variant">
-                    <img alt="The atelier in afternoon light" className="w-full h-full object-cover sepia-[.18] contrast-105" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop" />
+                    <img alt="The atelier in afternoon light" className="w-full h-full object-cover sepia-[.18] contrast-105" src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1000&q=85&auto=format&fit=crop" />
                   </div>
                 </div>
                 <div className="bg-[#F5F2ED] border border-brand-teak p-6 mt-6">

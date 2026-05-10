@@ -1,10 +1,10 @@
 const STRIP_LEFT = [
   { id: "1490481651871-ab68de25d43d", caption: "2024 · NYC",  tone: "grayscale opacity-80" },
-  { id: "1487958449943-2429e8be8625", caption: "field notes", tone: "grayscale-0 opacity-100" },
+  { id: "1609530142110-7af0a038c723", caption: "field notes", tone: "grayscale-0 opacity-100" },
   { id: "1776275758873-31603dd06112", caption: "Mar · studio", tone: "grayscale opacity-80" },
-  { id: "1469041797191-50ace28483c3", caption: "Brooklyn",    tone: "grayscale-0 opacity-100" },
+  { id: "1622912058707-1b33af81db4f", caption: "Brooklyn",    tone: "grayscale-0 opacity-100" },
   { id: "1517677208171-0bc6725a3e60", caption: "portrait",    tone: "grayscale opacity-80" },
-  { id: "1502672260266-1c1ef2d93688", caption: "window",      tone: "grayscale-0 opacity-100" }
+  { id: "1685787773514-90e8e14af797", caption: "window",      tone: "grayscale-0 opacity-100" }
 ];
 
 const STRIP_RIGHT = [
@@ -19,17 +19,17 @@ const STRIP_RIGHT = [
 const ARCHIVE_POSTS = [
   { id: "1518770660439-4636190af475", date: "Apr 12 · 2023", kind: "Notes", read: "8 min",  title: "Parsing attention.", href: "/archive/parsing-attention", alt: "A circuit board macro photograph." },
   { id: "1762215781547-2ac20ed42cd1", date: "Feb 03 · 2023", kind: "Essay", read: "14 min", title: "A long, quiet tool.", href: "/archive/long-quiet-tools", alt: "An empty architectural interior." },
-  { id: "1502672260266-1c1ef2d93688", date: "Nov 18 · 2022", kind: "Field", read: "6 min",  title: "The notebook as operating system.", href: "/archive/notebook-as-os", alt: "A still architectural light study." },
+  { id: "1685787773514-90e8e14af797", date: "Nov 18 · 2022", kind: "Field", read: "6 min",  title: "The notebook as operating system.", href: "/archive/notebook-as-os", alt: "A still architectural light study." },
   { id: "1518770660439-4636190af475", date: "Jul 22 · 2022", kind: "Essay", read: "11 min", title: "The computer as instrument.", href: "/archive/computer-as-instrument", alt: "Macro photograph of a green circuit board." },
   { id: "1527844817887-9b937993518b", date: "May 06 · 2022", kind: "Notes", read: "9 min",  title: "Keeping a commonplace.", href: "/archive/keeping-a-commonplace", alt: "A still life of small objects in amber light." },
-  { id: "1487958449943-2429e8be8625", date: "Mar 11 · 2022", kind: "Essay", read: "12 min", title: "Against launch week.", href: "/archive/against-launch-week", alt: "A heavy concrete facade in raking light." }
+  { id: "1609530142110-7af0a038c723", date: "Mar 11 · 2022", kind: "Essay", read: "12 min", title: "Against launch week.", href: "/archive/against-launch-week", alt: "A heavy concrete facade in raking light." }
 ];
 
 const SHELF = [
-  { id: "1487958449943-2429e8be8625", title: "A Pattern Language", author: "Christopher Alexander", note: '"The first design book that ever made me cry."' },
-  { id: "1469041797191-50ace28483c3", title: "In Praise of Shadows", author: "Junichirō Tanizaki", note: '"On the dignity of dim rooms."' },
+  { id: "1609530142110-7af0a038c723", title: "A Pattern Language", author: "Christopher Alexander", note: '"The first design book that ever made me cry."' },
+  { id: "1622912058707-1b33af81db4f", title: "In Praise of Shadows", author: "Junichirō Tanizaki", note: '"On the dignity of dim rooms."' },
   { id: "1664786200000-b1424aa47dff", title: "The Craftsman", author: "Richard Sennett", note: '"Why we make things, even badly."' },
-  { id: "1502672260266-1c1ef2d93688", title: "How To Do Nothing", author: "Jenny Odell", note: '"Attention as a kind of refusal."' },
+  { id: "1685787773514-90e8e14af797", title: "How To Do Nothing", author: "Jenny Odell", note: '"Attention as a kind of refusal."' },
   { id: "1762215781547-2ac20ed42cd1", title: "The Order of Time", author: "Carlo Rovelli", note: '"A small physics book about waiting."' },
   { id: "1664786200000-b1424aa47dff", title: "Getting Lost", author: "Rebecca Solnit", note: '"Maps as confession."' }
 ];
@@ -65,8 +65,8 @@ const MASTHEAD_RIGHT = [
   "1502716119720-b23a93e5fe1b",
   "1483985988355-763728e1935b",
   "1485231183945-fffde7cc051e",
-  "1487958449943-2429e8be8625",
-  "1469041797191-50ace28483c3"
+  "1609530142110-7af0a038c723",
+  "1622912058707-1b33af81db4f"
 ];
 
 const customCss = `
@@ -254,7 +254,7 @@ export default function T35PersonalBlog() {
               </div>
               <figure className="flex flex-col gap-4">
                 <div className="overflow-hidden rounded bg-surface-container-low aspect-[21/9]">
-                  <img alt="A cinematic wide architectural interior in muted tones." loading="lazy" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1600&q=85&auto=format&fit=crop" />
+                  <img alt="A cinematic wide architectural interior in muted tones." loading="lazy" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1600&q=85&auto=format&fit=crop" />
                 </div>
                 <figcaption className="flex flex-col gap-3">
                   <h3 className="font-h2 text-h2 text-on-surface italic">Slow software, or: how I learned to wait again.</h3>

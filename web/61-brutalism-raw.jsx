@@ -54,7 +54,7 @@ export default function T61BrutalismRaw() {
 
   const plates = [
     { id: "PLATE_001", file: "circuit.jpg", desc: "[ TRACES // 320×320 ]", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85&auto=format&fit=crop", alt: "Macro photograph of a green circuit board", filter: "grayscale contrast-125 brightness-90" },
-    { id: "PLATE_002", file: "form.jpg", desc: "[ CONCRETE // FACADE ]", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=85&auto=format&fit=crop", alt: "Brutalist concrete architectural facade", filter: "grayscale contrast-125 brightness-95" },
+    { id: "PLATE_002", file: "form.jpg", desc: "[ CONCRETE // FACADE ]", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=600&q=85&auto=format&fit=crop", alt: "Brutalist concrete architectural facade", filter: "grayscale contrast-125 brightness-95" },
     { id: "PLATE_003", file: "rack_42u.jpg", desc: "[ MIRROR // EU_WEST ]", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=85&auto=format&fit=crop", alt: "Server rack with status LEDs", filter: "grayscale contrast-125 brightness-90" },
     { id: "PLATE_004", file: "spec.jpg", desc: "[ ANNOTATED // V1.0 ]", img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=600&q=85&auto=format&fit=crop", alt: "Technical drafting drawings on graph paper", filter: "grayscale contrast-125 brightness-95" }
   ];

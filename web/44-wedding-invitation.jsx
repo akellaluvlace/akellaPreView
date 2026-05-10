@@ -15,9 +15,9 @@ export default function T44WeddingInvitation() {
   ];
 
   const dayGrid = [
-    { caption: "The Chapel", alt: "The chapel", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600&q=80" },
+    { caption: "The Chapel", alt: "The chapel", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&w=600&q=80" },
     { caption: "First Look", alt: "The couple", overlay: "bg-primary-fixed-dim/15", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAOtsdLW3lPeNipqZ7On12BgQtEj_aJD6yfO99WRRolYRboYOErF6gWJf5tU33Gex-gV7Y4QDNBZRyKYEQuaTzjx8KogELWRAN--NBcMuY_S-uFAhhbCMgdB1zRqoaFr9i5GKJmNgCyi1yTVt6pray9MGbp67plq2UCfmRmYnIvYbxCDfBHQjkuvHPjGeX91Af2nb1qHDW28nP_lG50h4dlQzElVhH1ork0nHVnMC6UpuauQZ-h2m7PZcecXrdAakIedgGg_8kSAZU" },
-    { caption: "The Orchard Walk", alt: "Orchard path", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80" },
+    { caption: "The Orchard Walk", alt: "Orchard path", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&w=600&q=80" },
     { caption: "A Guest, Arriving", alt: "A guest", overlay: "bg-primary-fixed-dim/20", img: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80" },
     { caption: "The Long Table", alt: "Long table", overlay: "bg-primary-fixed-dim/30", img: "https://images.unsplash.com/photo-1743793054819-37e412d65295?auto=format&fit=crop&w=600&q=80" },
     { caption: "Last Light, the Hall", alt: "Last light", overlay: "bg-primary-fixed-dim/25", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&w=600&q=80" }
@@ -77,7 +77,7 @@ export default function T44WeddingInvitation() {
       time: "2pm",
       title: "Ceremony, the orchard chapel",
       body: "Doors open at 1.30 — please be seated by ten to two so the celebrant can begin on the hour. The chapel sits at the south end of the orchard and seats about ninety; pews are unreserved apart from immediate family. The ceremony is short, mostly in plain English, with one reading and one piece of music. There will be no order of service printed; we wanted everyone simply present. Confetti is dried lavender from the kitchen garden, in baskets at the door — feel free to throw it generously. After we walk out, please follow us back along the orchard path to the lawn for drinks.",
-      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1400&q=80",
+      img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&w=1400&q=80",
       alt: "Orchard chapel"
     },
     {
@@ -402,7 +402,7 @@ export default function T44WeddingInvitation() {
                 </div>
               </div>
               <div className="relative h-[420px] sm:h-[560px] lg:h-[680px] w-full lg:-mr-16">
-                <img alt="Wicklow valley" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1900&q=80" />
+                <img alt="Wicklow valley" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&w=1900&q=80" />
                 <div className="absolute inset-0 bg-primary-fixed-dim/15 mix-blend-multiply" />
                 <div className="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10 bg-surface/90 backdrop-blur-sm border border-outline/20 p-5 sm:p-6 max-w-md">
                   <p className="font-h2-editorial italic text-on-background text-base sm:text-lg leading-snug">Brookwood Estate — Co. Wicklow</p>

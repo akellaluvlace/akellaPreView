@@ -1,13 +1,13 @@
 const IMG_BUST = "https://images.unsplash.com/photo-1644508047668-9210042f8eaa?w=900&q=85&auto=format&fit=crop";
-const IMG_BRUTAL = "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop";
+const IMG_BRUTAL = "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop";
 const IMG_CIRCUIT = "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop";
-const IMG_HALL = "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop";
+const IMG_HALL = "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop";
 const IMG_RACK = "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop";
 const IMG_BRASS = "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop";
 const IMG_CORNICE = "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1200&q=85&auto=format&fit=crop";
 const IMG_RACK_WIDE = "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=85&auto=format&fit=crop";
 const IMG_LEVER = "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop";
-const IMG_BRUTAL_WIDE = "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop";
+const IMG_BRUTAL_WIDE = "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1200&q=85&auto=format&fit=crop";
 
 export default function T106NeoClassicalEditorial() {
   const navLinks = [
@@ -46,7 +46,7 @@ export default function T106NeoClassicalEditorial() {
   ];
   const atelierPlates = [
     { roman: "I", img: "https://images.unsplash.com/photo-1644508047668-9210042f8eaa?w=1600&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1644508047668-9210042f8eaa?w=300&q=85&auto=format&fit=crop", delay: "0s", alt: "marble texture monochrome" },
-    { roman: "II", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=300&q=85&auto=format&fit=crop", delay: "4s", alt: "brutalist concrete facade" },
+    { roman: "II", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1600&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=300&q=85&auto=format&fit=crop", delay: "4s", alt: "brutalist concrete facade" },
     { roman: "III", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&q=85&auto=format&fit=crop", delay: "8s", alt: "circuit board macro" },
     { roman: "IV", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=1600&q=85&auto=format&fit=crop", thumb: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=300&q=85&auto=format&fit=crop", delay: "12s", alt: "industrial instrument detail" },
   ];

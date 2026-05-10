@@ -46,17 +46,17 @@ export default function T32StudioShowcase() {
   ];
 
   const stripCards = [
-    { name: "Riverpath",      meta: "€ / mobility · 2024",      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=85&w=600", alt: "Brutalist concrete facade in raking light" },
+    { name: "Riverpath",      meta: "€ / mobility · 2024",      img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=85&w=600", alt: "Brutalist concrete facade in raking light" },
     { name: "Solon",          meta: "NL / health · 2023",       img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait, dramatic side-light" },
-    { name: "Meridian Cargo", meta: "UK / logistics · 2023",    img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=85&w=600", alt: "Brutalist tower against stark sky" },
+    { name: "Meridian Cargo", meta: "UK / logistics · 2023",    img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?auto=format&fit=crop&q=85&w=600", alt: "Brutalist tower against stark sky" },
     { name: "Norah & Sons",   meta: "IE / commerce · 2022",     img: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=85&w=600", alt: "Portrait of a thoughtful subject in soft window light" },
     { name: "Forge.io",       meta: "DE / industrial · 2022",   img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?auto=format&fit=crop&q=85&w=600", alt: "Industrial machinery detail" },
     { name: "Verba Press",    meta: "FR / publishing · 2022",   img: "https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait in monochrome" },
     { name: "Anvil Capital",  meta: "IE / fintech · 2021",      img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=85&w=600", alt: "Architectural shadow play on facade" },
     { name: "Hexall",         meta: "US / SaaS · 2021",         img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=85&w=600", alt: "Black and white editorial figure with deep shadow" },
-    { name: "Lumen Hotel Co.",meta: "PT / hospitality · 2020",  img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=85&w=600", alt: "Architectural lobby" },
+    { name: "Lumen Hotel Co.",meta: "PT / hospitality · 2020",  img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=85&w=600", alt: "Architectural lobby" },
     { name: "Garda Bureau",   meta: "IE / public · 2020",       img: "https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&q=85&w=600", alt: "Editorial portrait with drape lighting" },
-    { name: "Tollwise",       meta: "UK / mobility · 2019",     img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&q=85&w=600", alt: "Highway in raking light" },
+    { name: "Tollwise",       meta: "UK / mobility · 2019",     img: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?auto=format&fit=crop&q=85&w=600", alt: "Highway in raking light" },
     { name: "Ostro Atelier",  meta: "IT / fashion · 2019",      img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=85&w=600", alt: "Editorial figure with strong contrast" }
   ];
 
@@ -64,14 +64,14 @@ export default function T32StudioShowcase() {
     {
       n: "01", client: "Riverpath · 2024", reverse: false,
       title: "Operations console for a 14-route ferry network",
-      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=85&w=1200",
+      img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?auto=format&fit=crop&q=85&w=1200",
       alt: "Brutalist tower against stark sky, evoking the Riverpath operations interior",
       body: "Riverpath operates passenger and freight crossings along the Liffey corridor and across to Holyhead. They came to us with a brief to replace a creaking dispatcher screen — eight years of accumulated half-features, ten dispatchers all using it differently. Our deliverable was an opinionated console: one route view, one delay queue, one manifest editor. We rewrote the booking ingestion pipeline, redesigned the dispatcher loop around what the senior crew actually did at 06:00, and shipped to all terminals over a six-week phased rollout. Mean time to acknowledge a delay dropped from 12 minutes to under 90 seconds in the first month."
     },
     {
       n: "02", client: "Solon Health · 2023", reverse: true,
       title: "Clinician-facing triage AI with end-to-end audit",
-      img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=85&w=1200",
+      img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=85&w=1200",
       alt: "Architectural lobby in soft natural light, evoking the Solon clinical reception space",
       body: "Solon runs nine GP practices in the Randstad. The clinical lead wanted an LLM-powered triage assistant for the front desk, but every previous vendor had stumbled on the same wall: GDPR-grade audit on every model call. We built the assistant on a regional inference endpoint, wrote a token-level audit log that fed straight into their DPIA dashboard, and gave clinicians a one-click revert that quarantined any flagged interaction. The system now handles roughly 1,400 triages per week. Solon's clinical board ships its postmortem template — refined from ours — to two adjacent networks under a permissive licence."
     },
@@ -373,7 +373,7 @@ export default function T32StudioShowcase() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
               <div className="md:col-span-5 md:sticky md:top-28 md:self-start flex flex-col gap-6">
                 <div className="aspect-[3/4] overflow-hidden bg-surface-variant border border-charcoal relative">
-                  <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=85&w=900" alt="Tall brutalist concrete facade catching warm raking light — evoking sustained build cadence" width="900" height="1200" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale" />
+                  <img src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=85&w=900" alt="Tall brutalist concrete facade catching warm raking light — evoking sustained build cadence" width="900" height="1200" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale" />
                   <div className="absolute inset-0 bg-surface-variant/40 mix-blend-overlay pointer-events-none" />
                   <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-charcoal/80 via-charcoal/30 to-transparent">
                     <span className="font-technical-label uppercase tracking-widest text-[10px] text-offwhite block mb-2">[ figure 01 ]</span>

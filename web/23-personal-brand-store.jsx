@@ -29,7 +29,7 @@ const ESSAYS = [
 
 const LIBRARY = [
   { num: "No. 01", title: "The Lonely City", author: "Olivia Laing", img: "https://images.unsplash.com/photo-1664786200000-b1424aa47dff?w=900&q=85&auto=format&fit=crop", alt: "A library shelf, photographed in soft light" },
-  { num: "No. 02", title: "High Output Management", author: "Andy Grove", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "A pale interior corridor with classical detail" },
+  { num: "No. 02", title: "High Output Management", author: "Andy Grove", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop", alt: "A pale interior corridor with classical detail" },
   { num: "No. 03", title: "Several short sentences about writing", author: "Verlyn Klinkenborg", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=900&q=85&auto=format&fit=crop", alt: "An architectural cornice photographed against a pale sky" },
   { num: "No. 04", title: "A Field Guide to Getting Lost", author: "Rebecca Solnit", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop", alt: "A modernist staircase in a pale interior" },
   { num: "No. 05", title: "The Hard Thing About Hard Things", author: "Ben Horowitz", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "A brutalist concrete corridor" },

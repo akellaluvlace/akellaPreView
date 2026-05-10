@@ -1,9 +1,9 @@
 const SHOWCASE_TILES = [
-  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop",  alt: "Living room",      title: "Living Room",      plate: "Plate · I",   width: "w-72", aspect: "aspect-[3/4]",   temp: "22°", devices: "04", scene: "Home" },
+  { src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop",  alt: "Living room",      title: "Living Room",      plate: "Plate · I",   width: "w-72", aspect: "aspect-[3/4]",   temp: "22°", devices: "04", scene: "Home" },
   { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop", alt: "Master bedroom",   title: "Master Bedroom",   plate: "Plate · II",  width: "w-80", aspect: "aspect-[16/10]", temp: "19°", devices: "03", scene: "Sleep" },
   { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop",  alt: "Hallway",          title: "Hallway",          plate: "Plate · III", width: "w-72", aspect: "aspect-[3/4]",   temp: "20°", devices: "02", scene: "Auto" },
-  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop", alt: "Kitchen",          title: "Kitchen",          plate: "Plate · IV",  width: "w-96", aspect: "aspect-[16/10]", temp: "21°", devices: "06", scene: "Cook" },
-  { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop",  alt: "Studio",           title: "Studio",           plate: "Plate · V",   width: "w-72", aspect: "aspect-[3/4]",   temp: "23°", devices: "05", scene: "Focus" },
+  { src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1200&q=85&auto=format&fit=crop", alt: "Kitchen",          title: "Kitchen",          plate: "Plate · IV",  width: "w-96", aspect: "aspect-[16/10]", temp: "21°", devices: "06", scene: "Cook" },
+  { src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop",  alt: "Studio",           title: "Studio",           plate: "Plate · V",   width: "w-72", aspect: "aspect-[3/4]",   temp: "23°", devices: "05", scene: "Focus" },
   { src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1000&q=85&auto=format&fit=crop", alt: "Sunroom",          title: "Sunroom",          plate: "Plate · VI",  width: "w-80", aspect: "aspect-[16/10]", temp: "24°", devices: "02", scene: "Read" },
   { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=900&q=85&auto=format&fit=crop",  alt: "Atrium",           title: "Atrium",           plate: "Plate · VII", width: "w-72", aspect: "aspect-[3/4]",   temp: "21°", devices: "03", scene: "Auto" },
 ];
@@ -698,7 +698,7 @@ function Neumorphism() {
               <div className="lg:col-span-4">
                 <div className="rounded-3xl shadow-neu-flat p-2">
                   <div className="rounded-3xl shadow-neu-pressed-sm overflow-hidden aspect-[3/4]">
-                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop" alt="Quiet apartment" className="w-full h-full object-cover" />
+                    <img src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop" alt="Quiet apartment" className="w-full h-full object-cover" />
                   </div>
                 </div>
                 <p className="mt-5 text-sm text-neu-text-sub italic leading-relaxed px-1">

@@ -7,10 +7,10 @@ export default function T48BrutalistArtStyle() {
   ];
 
   const photoIndex = [
-    { fig: "FIG.02", title: "FACADE_03", size: "94×120", filled: false, src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop", alt: "Brutalist concrete facade with shadow grid" },
-    { fig: "FIG.03", title: "TOWER_M",   size: "88×120", filled: false, src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop", alt: "High-rise concrete tower in stark light" },
+    { fig: "FIG.02", title: "FACADE_03", size: "94×120", filled: false, src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=900&auto=format&fit=crop", alt: "Brutalist concrete facade with shadow grid" },
+    { fig: "FIG.03", title: "TOWER_M",   size: "88×120", filled: false, src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=900&auto=format&fit=crop", alt: "High-rise concrete tower in stark light" },
     { fig: "FIG.04", title: "INT_RAW",   size: "72×96",  filled: true,  src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?q=80&w=900&auto=format&fit=crop", alt: "Stripped industrial interior with raw concrete" },
-    { fig: "FIG.05", title: "CANTILEVER",size: "96×72",  filled: false, src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop", alt: "Geometric concrete cantilever roofline" },
+    { fig: "FIG.05", title: "CANTILEVER",size: "96×72",  filled: false, src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?q=80&w=900&auto=format&fit=crop", alt: "Geometric concrete cantilever roofline" },
     { fig: "FIG.06", title: "COL_DET",   size: "120×80", filled: false, src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=900&auto=format&fit=crop", alt: "Architectural detail of columns and shadow" }
   ];
 
@@ -112,7 +112,7 @@ export default function T48BrutalistArtStyle() {
       body: "Permanent occupation of an unfinished concrete wing. Every wall is load-bearing; every constraint is the curatorial brief.",
       chip: "HALL_03",
       featured: true,
-      img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1400&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?q=80&w=1400&auto=format&fit=crop",
       alt: "Brutalist concrete cantilever exhibition wing"
     },
     {
@@ -122,7 +122,7 @@ export default function T48BrutalistArtStyle() {
       body: "Silver-gelatin documentation of every installation, every dismantling. The negative is the canonical artefact.",
       chip: "REF_0046",
       axisLabel: "AXIS_02",
-      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=1400&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=1400&auto=format&fit=crop",
       alt: "Concrete tower block in stark light"
     },
     {
@@ -132,7 +132,7 @@ export default function T48BrutalistArtStyle() {
       body: "Risograph monographs printed in-house each season. Distribution is institutional, not commercial.",
       chip: "VOL_07",
       axisLabel: "AXIS_03",
-      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=1400&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=1400&auto=format&fit=crop",
       alt: "Brutalist facade with shadow grid"
     },
     {

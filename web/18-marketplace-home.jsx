@@ -27,7 +27,7 @@ export default function T18MarketplaceHome() {
       count: "214 pieces",
       cta: "Browse Photography",
       plate: "Plate · II",
-      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1400&q=85&auto=format&fit=crop",
+      img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1400&q=85&auto=format&fit=crop",
       alt: "Architectural photography example — the kind of editions printed by hand and framed in our studios",
       reverse: true
     },

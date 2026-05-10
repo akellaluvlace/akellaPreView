@@ -24,7 +24,7 @@ export default function T20BrutalistCreativePortfolio() {
       title: "RAW INTERFACES",
       body: "Brutalist UI for products that refuse to look like everyone else. Naked grids, exposed seams, type that bites. Built native, hand-tuned, no design-system templates.",
       meta: "// 28 SHIPPED · 7 SOTD",
-      img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=80&auto=format&fit=crop"
+      img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1200&q=80&auto=format&fit=crop"
     },
     {
       roman: "II",
@@ -60,7 +60,7 @@ export default function T20BrutalistCreativePortfolio() {
       title: "DIGITAL DECAY",
       body: "Glitch, datamosh, deliberate corruption. Builds that wear their bytecount on the outside. Where the bug is a design feature and the artefact is the whole point.",
       meta: "// 11 ARTEFACTS · 03 ARCHIVED",
-      img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1200&q=80&auto=format&fit=crop"
+      img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1200&q=80&auto=format&fit=crop"
     }
   ];
 
@@ -73,9 +73,9 @@ export default function T20BrutalistCreativePortfolio() {
   ];
 
   const plates = [
-    { col: "md:col-span-3", mt: "",          rot: "rotate-[-1deg]",   shadow: "chunky-shadow-pink",   alt: "Stripped concrete interior with shadow grid", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=900&auto=format&fit=crop", caption: "[plate_01_concrete]", date: "04.24" },
+    { col: "md:col-span-3", mt: "",          rot: "rotate-[-1deg]",   shadow: "chunky-shadow-pink",   alt: "Stripped concrete interior with shadow grid", src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=900&auto=format&fit=crop", caption: "[plate_01_concrete]", date: "04.24" },
     { col: "md:col-span-3", mt: "mt-4 md:mt-12", rot: "rotate-[1.5deg]",  shadow: "chunky-shadow-yellow", alt: "Macro circuit board traces",                  src: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=900&auto=format&fit=crop", caption: "[plate_02_traces]",   date: "04.24" },
-    { col: "md:col-span-3", mt: "",          rot: "rotate-[-2deg]",   shadow: "chunky-shadow-lime",   alt: "Brutalist tower against stark sky",           src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=900&auto=format&fit=crop", caption: "[plate_03_tower]",    date: "05.24" },
+    { col: "md:col-span-3", mt: "",          rot: "rotate-[-2deg]",   shadow: "chunky-shadow-lime",   alt: "Brutalist tower against stark sky",           src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=900&auto=format&fit=crop", caption: "[plate_03_tower]",    date: "05.24" },
     { col: "md:col-span-3", mt: "mt-4 md:mt-16", rot: "rotate-[1deg]",    shadow: "chunky-shadow-pink",   alt: "Industrial machinery detail",                 src: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?q=80&w=900&auto=format&fit=crop", caption: "[plate_04_machine]",  date: "05.24" }
   ];
 

@@ -44,11 +44,11 @@ export default function T34EditorialMagazine() {
 
   const photographers = [
     { id: "1490481651871-ab68de25d43d", name: "Renaud Vidal",   city: "PARIS",       caption: "Cover · & the Cartographer.",          aspect: "aspect-[3/4]",  width: "w-72" },
-    { id: "1487958449943-2429e8be8625", name: "Hana Sato",      city: "TOKYO",       caption: "Architecture plates · Concrete Utopias.", aspect: "aspect-[16/10]", width: "w-80" },
+    { id: "1609530142110-7af0a038c723", name: "Hana Sato",      city: "TOKYO",       caption: "Architecture plates · Concrete Utopias.", aspect: "aspect-[16/10]", width: "w-80" },
     { id: "1776275758873-31603dd06112", name: "Lior Halpern",   city: "BERLIN",      caption: "Reportage · Field Notes I.",          aspect: "aspect-[3/4]",  width: "w-72" },
-    { id: "1469041797191-50ace28483c3", name: "Inès Moreau",    city: "MARSEILLE",   caption: "Long-form · Faroe diary.",            aspect: "aspect-[16/10]", width: "w-80" },
+    { id: "1622912058707-1b33af81db4f", name: "Inès Moreau",    city: "MARSEILLE",   caption: "Long-form · Faroe diary.",            aspect: "aspect-[16/10]", width: "w-80" },
     { id: "1485231183945-fffde7cc051e", name: "Theo Almeida",   city: "LISBON",      caption: "Portraits · Silence is a Language.",  aspect: "aspect-[3/4]",  width: "w-72" },
-    { id: "1502672260266-1c1ef2d93688", name: "Eli Cano",       city: "MEXICO CITY", caption: "Travel essay · Field Notes III.",     aspect: "aspect-[16/10]", width: "w-80" },
+    { id: "1685787773514-90e8e14af797", name: "Eli Cano",       city: "MEXICO CITY", caption: "Travel essay · Field Notes III.",     aspect: "aspect-[16/10]", width: "w-80" },
     { id: "1517677208171-0bc6725a3e60", name: "Margit Reier",   city: "REYKJAVÍK",   caption: "Documentary · Algorithms of Grief.",  aspect: "aspect-[3/4]",  width: "w-72" },
   ];
 
@@ -74,7 +74,7 @@ export default function T34EditorialMagazine() {
       title: "The dancers who measure the year.",
       body: "Carnival in Port of Spain is not a single event. It is a calendar in motion — a sequence of small disciplines kept by an extended family of dressmakers, drummers, and bookkeepers. We followed three of them for the eight months between October and the parade.",
       byline: "by Eli Cano",
-      img: "1502672260266-1c1ef2d93688", alt: "Trinidad street at dusk",
+      img: "1685787773514-90e8e14af797", alt: "Trinidad street at dusk",
       reverse: false,
     },
   ];

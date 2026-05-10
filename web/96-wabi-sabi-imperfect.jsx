@@ -365,7 +365,7 @@ export default function T96WabiSabiImperfect() {
               <div className="flex flex-col gap-20 md:gap-24">
                 <article className="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
                   <div className="md:col-span-6 order-1">
-                    <img alt="Quiet wabi-sabi tea-house interior with low table and earthen walls, soft natural light from shoji" className="w-full aspect-[4/3] object-cover rounded sepia-[0.08] opacity-95" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=900" loading="lazy" decoding="async" />
+                    <img alt="Quiet wabi-sabi tea-house interior with low table and earthen walls, soft natural light from shoji" className="w-full aspect-[4/3] object-cover rounded sepia-[0.08] opacity-95" src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=80&w=900" loading="lazy" decoding="async" />
                   </div>
                   <div className="md:col-span-6 order-2 md:pr-6">
                     <p className="font-japanese-accent text-japanese-accent text-tertiary uppercase tracking-[0.2em] mb-2">三島 · 2023</p>

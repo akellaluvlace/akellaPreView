@@ -15,12 +15,12 @@ const EPISODES = [
 ];
 
 const ARCHIVE = [
-  { ep: "S03 · E14", date: "2024-04-22", display: "Apr 22, 2024", duration: "52:14", title: "The Patience of Concrete", desc: "Architect Mira Halász on slow-cure materials and the ethics of the hundred-year building.", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete facade in raking afternoon light" },
+  { ep: "S03 · E14", date: "2024-04-22", display: "Apr 22, 2024", duration: "52:14", title: "The Patience of Concrete", desc: "Architect Mira Halász on slow-cure materials and the ethics of the hundred-year building.", src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop", alt: "Brutalist concrete facade in raking afternoon light" },
   { ep: "S03 · E13", date: "2024-04-15", display: "Apr 15, 2024", duration: "1:04:22", title: "Apothecaries of Attention", desc: "Cognitive scientist Wren Okafor on the small economies of focus we trade away each morning.", src: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "Brass apothecary objects on a dark surface" },
   { ep: "S03 · E12", date: "2024-04-08", display: "Apr 8, 2024", duration: "49:08", title: "Latent Hardware", desc: "Hardware historian Toma Ren on the long, quiet half-lives of forgotten silicon.", src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "Macro detail of a printed circuit board" },
-  { ep: "S03 · E11", date: "2024-04-01", display: "Apr 1, 2024", duration: "57:46", title: "Rooms That Listen", desc: "Acoustic designer Pell Inman on the architecture of conversation and the quiet rooms we keep returning to.", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Minimal interior with diffuse window light" },
+  { ep: "S03 · E11", date: "2024-04-01", display: "Apr 1, 2024", duration: "57:46", title: "Rooms That Listen", desc: "Acoustic designer Pell Inman on the architecture of conversation and the quiet rooms we keep returning to.", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "Minimal interior with diffuse window light" },
   { ep: "S03 · E10", date: "2024-03-25", display: "Mar 25, 2024", duration: "1:11:30", title: "The Long Stair", desc: "Civic strategist Iola Bremner on infrastructures that take a generation to climb, and how to keep faith with them.", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Concrete stairwell receding into shadow" },
-  { ep: "S03 · E09", date: "2024-03-18", display: "Mar 18, 2024", duration: "43:55", title: "Sharp Shadows", desc: "Photographer Sune Castell on negative space, raking light, and the discipline of leaving a frame mostly empty.", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Modernist building with sharp shadows" }
+  { ep: "S03 · E09", date: "2024-03-18", display: "Mar 18, 2024", duration: "43:55", title: "Sharp Shadows", desc: "Photographer Sune Castell on negative space, raking light, and the discipline of leaving a frame mostly empty.", src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop", alt: "Modernist building with sharp shadows" }
 ];
 
 const HOSTS = [
@@ -410,7 +410,7 @@ export default function T38PodcastStyle() {
           <section id="studio" className="py-[80px] md:py-section-gap px-margin-mobile md:px-gutter bg-surface-container-low scroll-mt-20">
             <div className="max-w-container-max mx-auto grid md:grid-cols-2 items-center gap-10 md:gap-16">
               <figure className="relative aspect-[4/5] md:aspect-[5/6] overflow-hidden rounded-2xl bg-surface-container shadow-xl">
-                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" alt="Recording-room interior — soft daylight in a converted carriage house" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110" loading="lazy" decoding="async" />
+                <img src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1200&q=85&auto=format&fit=crop" alt="Recording-room interior — soft daylight in a converted carriage house" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/35 via-transparent to-transparent pointer-events-none"></div>
                 <figcaption className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
                   <p className="font-label-caps text-label-caps text-on-primary uppercase tracking-[0.3em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">Studio · Carriage House</p>

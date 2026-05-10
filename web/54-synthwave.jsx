@@ -78,11 +78,11 @@ const CONSOLE_STEPS = [
 ];
 
 const CATALOG_CARDS = [
-  { code: "MN-014", name: "NEON DRIFT", side: "A1", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPink/35 to-neonCyan/30" },
-  { code: "MN-013", name: "CHROMA", side: "A2", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/35 to-neonPurple/30" },
-  { code: "MN-012", name: "SUNSET PROTOCOL", side: "A3", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?q=80&w=600&auto=format&fit=crop", overlay: "from-retroOrange/35 to-neonPink/30" },
+  { code: "MN-014", name: "NEON DRIFT", side: "A1", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPink/35 to-neonCyan/30" },
+  { code: "MN-013", name: "CHROMA", side: "A2", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/35 to-neonPurple/30" },
+  { code: "MN-012", name: "SUNSET PROTOCOL", side: "A3", img: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?q=80&w=600&auto=format&fit=crop", overlay: "from-retroOrange/35 to-neonPink/30" },
   { code: "MN-011", name: "TAPE HISS", side: "A4", img: "https://images.unsplash.com/photo-1700951372714-98979a8803a4?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPink/35 to-retroYellow/30" },
-  { code: "MN-010", name: "GLASS HIGHWAY", side: "B1", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/35 to-neonPink/30" },
+  { code: "MN-010", name: "GLASS HIGHWAY", side: "B1", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/35 to-neonPink/30" },
   { code: "MN-009", name: "VAPOUR BEACH", side: "B2", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?q=80&w=600&auto=format&fit=crop", overlay: "from-neonPurple/40 to-retroOrange/25" },
   { code: "MN-008", name: "SUBWAY LIGHTS", side: "B3", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?q=80&w=600&auto=format&fit=crop", overlay: "from-retroYellow/35 to-neonPink/30" },
   { code: "MN-007", name: "SERVER SUNRISE", side: "B4", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop", overlay: "from-neonCyan/40 to-neonPurple/25" },

@@ -56,8 +56,8 @@ export default function T13EditorialFashionStyle() {
     { icon: "mail",  label: "Allotment", value: "96 invitations only" },
   ];
   const platesStrip = [
-    { id: "1502672260266-1c1ef2d93688", alt: "Light study, atelier corridor", grayscale: true },
-    { id: "1469041797191-50ace28483c3", alt: "Studio gallery interior",        grayscale: true },
+    { id: "1685787773514-90e8e14af797", alt: "Light study, atelier corridor", grayscale: true },
+    { id: "1622912058707-1b33af81db4f", alt: "Studio gallery interior",        grayscale: true },
     { id: "1517677208171-0bc6725a3e60", alt: "Editorial portrait, low key",     grayscale: true },
     { id: "1762215781547-2ac20ed42cd1", alt: "Cornice detail, salon",           grayscale: true },
     { id: "1618488373960-404fe668e524", alt: "Long perspective corridor",       grayscale: true },

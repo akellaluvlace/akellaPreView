@@ -284,7 +284,7 @@ function OnePagePitch() {
               </div>
               <div className="md:col-span-6 relative h-full min-h-[420px] md:min-h-0">
                 <div className="absolute inset-0 half-bleed-img overflow-hidden filter grayscale">
-                  <img alt="Architectural facade detail" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&q=85&auto=format&fit=crop" />
+                  <img alt="Architectural facade detail" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1600&q=85&auto=format&fit=crop" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-[#1F1F1F]/50 via-transparent to-transparent pointer-events-none"></div>
                   <div className="absolute bottom-6 left-12 right-6 flex items-end justify-between gap-3">
                     <p className="font-label-caps text-white uppercase tracking-[0.3em] text-xs drop-shadow-[0_2px_8px_rgba(0,0,0,0.75)]">Plate · I — Sameness</p>

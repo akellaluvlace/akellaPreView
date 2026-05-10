@@ -59,7 +59,7 @@ const archiveTiles = [
   },
   {
     alt: "Archive 02",
-    src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1100&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1100&q=85&auto=format&fit=crop",
     figCls: "shrink-0 w-80 md:w-96 h-96 relative bg-on-tertiary-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(116,92,255,1)] overflow-hidden",
     imgCls: "absolute inset-0 w-full h-full object-cover grayscale opacity-50 mix-blend-multiply",
     overlayCls: "absolute inset-0 bg-gradient-to-bl from-on-tertiary-container/70 via-transparent to-black/60",
@@ -115,7 +115,7 @@ const archiveTiles = [
   },
   {
     alt: "Archive 06",
-    src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1100&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1100&q=85&auto=format&fit=crop",
     figCls: "shrink-0 w-80 md:w-96 h-96 relative bg-black border-2 border-on-tertiary-container shadow-[6px_6px_0px_0px_rgba(116,92,255,1)] overflow-hidden",
     imgCls: "absolute inset-0 w-full h-full object-cover grayscale opacity-55",
     overlayCls: "absolute inset-0 bg-gradient-to-bl from-on-tertiary-container/40 via-transparent to-black/80",
@@ -143,7 +143,7 @@ const archiveTiles = [
   },
   {
     alt: "Archive 08",
-    src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&q=85&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1100&q=85&auto=format&fit=crop",
     figCls: "shrink-0 w-80 md:w-96 h-96 relative bg-surface-container border-2 border-white shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] overflow-hidden",
     imgCls: "absolute inset-0 w-full h-full object-cover grayscale opacity-65",
     overlayCls: "absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-error/20",

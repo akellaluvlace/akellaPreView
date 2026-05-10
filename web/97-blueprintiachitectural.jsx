@@ -33,7 +33,7 @@ export default function T97Blueprintiachitectural() {
   const footerLinks = ["SPECIFICATIONS", "LEGAL", "ARCHIVE"];
 
   const materials = [
-    { id: "MTL.01", title: "BOARD-FORMED CONCRETE", spec: [["FINISH", "NATURAL CURE"], ["DENSITY", "2,400 KG/M³"], ["SOURCE", "CASCADIA AGGREGATES"]], img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Board-formed concrete facade in raking light", filter: "grayscale-[15%]", stamp: "In Stock", tickClass: "tick-tl tick-br", offset: "" },
+    { id: "MTL.01", title: "BOARD-FORMED CONCRETE", spec: [["FINISH", "NATURAL CURE"], ["DENSITY", "2,400 KG/M³"], ["SOURCE", "CASCADIA AGGREGATES"]], img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop", alt: "Board-formed concrete facade in raking light", filter: "grayscale-[15%]", stamp: "In Stock", tickClass: "tick-tl tick-br", offset: "" },
     { id: "MTL.02", title: "RIFT-SAWN WHITE OAK", spec: [["FINISH", "HARDWAX OIL"], ["JANKA", "1,360 LBF"], ["SOURCE", "OREGON COAST RANGE"]], img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=900&q=85&auto=format&fit=crop", alt: "Rift-sawn white oak floor in raking light", filter: "", stamp: "FSC Cert.", tickClass: "tick-tr", offset: "md:translate-y-8 lg:translate-y-12" },
     { id: "MTL.03", title: "PATINATED COPPER", spec: [["FINISH", "NATURAL VERDIGRIS"], ["GAUGE", "16 OZ / 0.55MM"], ["SOURCE", "REVERE COPPER"]], img: "https://images.unsplash.com/photo-1527844817887-9b937993518b?w=900&q=85&auto=format&fit=crop", alt: "Patinated copper sheet", filter: "", stamp: "Patina · 5yr", tickClass: "tick-bl", offset: "" }
   ];
@@ -41,8 +41,8 @@ export default function T97Blueprintiachitectural() {
   const microMaterials = [
     { num: "№ 04", title: "Cor-Ten Steel", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=200&q=85&auto=format&fit=crop", alt: "Cor-Ten Steel", imgClass: "grayscale" },
     { num: "№ 11", title: "Honed Limestone", img: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=200&q=85&auto=format&fit=crop", alt: "Limestone", imgClass: "" },
-    { num: "№ 18", title: "Cast Bronze", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=200&q=85&auto=format&fit=crop", alt: "Cast bronze", imgClass: "sepia-[40%]" },
-    { num: "№ 27", title: "Smooth Stucco", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=200&q=85&auto=format&fit=crop", alt: "Stucco", imgClass: "" }
+    { num: "№ 18", title: "Cast Bronze", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=200&q=85&auto=format&fit=crop", alt: "Cast bronze", imgClass: "sepia-[40%]" },
+    { num: "№ 27", title: "Smooth Stucco", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=200&q=85&auto=format&fit=crop", alt: "Stucco", imgClass: "" }
   ];
 
   const awards = [
@@ -74,12 +74,12 @@ export default function T97Blueprintiachitectural() {
     { n: "02", title: "Coastal Pavilion", loc: "Big Sur, CA · 2022", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=85&auto=format&fit=crop", alt: "Coastal Pavilion — minimal volume" },
     { n: "03", title: "North Atelier", loc: "Portland, OR · 2022", img: "https://images.unsplash.com/photo-1488972685288-c3fd157d7c7a?w=600&q=85&auto=format&fit=crop", alt: "North Atelier — facade study" },
     { n: "04", title: "Mill Bend House", loc: "Hood River, OR · 2021", img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=600&q=85&auto=format&fit=crop", alt: "Mill Bend House — living volume" },
-    { n: "05", title: "Quarry Studio", loc: "Marfa, TX · 2020", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=85&auto=format&fit=crop", alt: "Quarry Studio — light study" },
+    { n: "05", title: "Quarry Studio", loc: "Marfa, TX · 2020", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=600&q=85&auto=format&fit=crop", alt: "Quarry Studio — light study" },
     { n: "06", title: "Cedar Hollow Cabin", loc: "Methow Valley, WA · 2019", img: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=600&q=85&auto=format&fit=crop", alt: "Cedar Hollow Cabin — facade aperture" },
   ];
 
   const clippings = [
-    { source: "The New York Times", title: "\"Quietly radical.\"", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Magazine spread of architectural feature" },
+    { source: "The New York Times", title: "\"Quietly radical.\"", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop", alt: "Magazine spread of architectural feature" },
     { source: "Domus", title: "\"On the line.\"", img: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=900&q=85&auto=format&fit=crop", alt: "Drafting interview portrait" },
     { source: "Wallpaper*", title: "\"Drawing first.\"", img: "https://images.unsplash.com/photo-1576250670488-4a00a3ed480e?w=900&q=85&auto=format&fit=crop", alt: "Studio interview reportage" }
   ];

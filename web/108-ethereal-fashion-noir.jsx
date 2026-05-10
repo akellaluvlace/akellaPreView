@@ -6,7 +6,7 @@ export default function T108EtherealFashionNoir() {
   ];
   const lookbookSquares = [
     { num: "03", caption: "SHADOW / GEOMETRY", alt: "Lookbook 3", src: "https://images.unsplash.com/photo-1636471758054-06c6e8c433f7?w=1000&q=85&auto=format&fit=crop" },
-    { num: "04", caption: "SPACE / DAYLIGHT", alt: "Lookbook 4", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1000&q=85&auto=format&fit=crop" },
+    { num: "04", caption: "SPACE / DAYLIGHT", alt: "Lookbook 4", src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1000&q=85&auto=format&fit=crop" },
     { num: "05", caption: "FIGURE / VOLTAGE", alt: "Lookbook 5", src: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=1000&q=85&auto=format&fit=crop" },
   ];
   const trustedBrands = [
@@ -262,7 +262,7 @@ export default function T108EtherealFashionNoir() {
                 <div className="md:col-span-5 md:mt-32">
                   <div className="relative group rounded-xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 p-4 transition-all duration-700 hover:bg-white/10 hover:shadow-[0_0_60px_rgba(103,80,164,0.18)]">
                     <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                      <img alt="Architecture" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                      <img alt="Architecture" src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1200&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/85 to-transparent" />
                       <div className="absolute top-4 left-4 font-label-caps text-label-caps text-tertiary bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">A · 01</div>
                       <div className="absolute bottom-6 left-6 right-6">
@@ -301,7 +301,7 @@ export default function T108EtherealFashionNoir() {
                       </div>
                     </div>
                     <div className="md:col-span-2 rounded-xl overflow-hidden border border-white/10 relative group min-h-[260px]">
-                      <img alt="Detail" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out" />
+                      <img alt="Detail" src="https://images.unsplash.com/photo-1622912058707-1b33af81db4f?w=900&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 ease-out" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
                       <div className="absolute top-4 left-4 font-label-caps text-label-caps text-on-surface bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">A · 02b</div>
                       <div className="absolute bottom-4 left-4 right-4">
@@ -326,7 +326,7 @@ export default function T108EtherealFashionNoir() {
                 <div className="md:col-span-4">
                   <div className="relative group rounded-xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 p-4 transition-all duration-700 hover:bg-white/10">
                     <div className="aspect-square rounded-lg overflow-hidden relative">
-                      <img alt="Material" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                      <img alt="Material" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1000&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/85 to-transparent" />
                       <div className="absolute top-4 left-4 font-label-caps text-label-caps text-tertiary bg-background/50 backdrop-blur-sm px-3 py-1 border border-white/15">A · 04</div>
                       <div className="absolute bottom-6 left-6 right-6">

@@ -375,7 +375,7 @@ export default function T89EditorialMagazine() {
           <div className="flex flex-col gap-stack-xl">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter-grid items-center">
               <figure className="md:col-span-7 relative">
-                <img alt="Reading rooms" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1400&q=85&auto=format&fit=crop" />
+                <img alt="Reading rooms" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1400&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1915]/55 via-transparent to-transparent"></div>
                 <span className="absolute top-5 left-5 bg-[#FDFCFB] text-[#1A1915] font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 border-[0.5px] border-[#1A1915]">PLATE · I</span>
                 <span className="absolute bottom-5 right-5 bg-[#1A1915] text-[#FDFCFB] font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5">Reading rooms</span>
@@ -395,7 +395,7 @@ export default function T89EditorialMagazine() {
                 <blockquote className="border-l-2 border-[#A8802C] pl-5 font-pull-quote text-[#1A1915]/90 italic">"The thing about a quiet room is the moment you describe it, you've furnished it." — Sarah Chen</blockquote>
               </div>
               <figure className="md:col-span-7 md:order-2 order-1 relative">
-                <img alt="Quiet places" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1400&q=85&auto=format&fit=crop" />
+                <img alt="Quiet places" className="w-full aspect-[16/10] object-cover grayscale" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1400&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-gradient-to-bl from-[#1A1915]/55 via-transparent to-[#A8802C]/10"></div>
                 <span className="absolute top-5 right-5 bg-[#FDFCFB] text-[#1A1915] font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5 border-[0.5px] border-[#1A1915]">PLATE · II</span>
                 <span className="absolute bottom-5 left-5 bg-[#A8802C] text-[#FDFCFB] font-label-caps text-label-caps uppercase tracking-widest px-3 py-1.5">Photo Essay · 9 frames</span>

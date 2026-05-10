@@ -48,8 +48,8 @@ export default function T95ConstructivistRussian() {
     { id: "02", alt: "Circuit-board macro, modernist tech",             src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80&auto=format&fit=crop", treatment: "bw-triangle" },
     { id: "03", alt: "Server room wide, industrial corridor",           src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
     { id: "04", alt: "Server rack with blue LEDs, propaganda mood",     src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80&auto=format&fit=crop", treatment: "bw-circle" },
-    { id: "05", alt: "Industrial architecture exterior",                src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
-    { id: "06", alt: "Concrete corridor brutalist",                     src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=600&q=80&auto=format&fit=crop", treatment: "bw-triangle" },
+    { id: "05", alt: "Industrial architecture exterior",                src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
+    { id: "06", alt: "Concrete corridor brutalist",                     src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=600&q=80&auto=format&fit=crop", treatment: "bw-triangle" },
     { id: "07", alt: "Stark man profile B&W, Rodchenko-style",          src: "https://images.unsplash.com/photo-1776275758873-31603dd06112?w=600&q=80&auto=format&fit=crop", treatment: "redtint" },
     { id: "08", alt: "Intimate B&W portrait",                            src: "https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=600&q=80&auto=format&fit=crop", treatment: "bw-circle" },
   ];

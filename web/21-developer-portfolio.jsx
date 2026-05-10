@@ -845,14 +845,14 @@ function DeveloperPortfolio() {
                   { id: "1518770660439-4636190af475", w: "w-72", q: 900, label: "[ TRACE.MAP ]", meta: "macro · 01x", alt: "Circuit board macro" },
                   { id: "1558494949-ef010cbdcc31", w: "w-96", q: 1200, label: "[ AISLE_B / RACK_14 ]", meta: "stockholm · prd", alt: "Server-room wide shot" },
                   { id: "1776524039930-ea1ed83b0f97", w: "w-72", q: 900, label: "[ COOL_LOOP ]", meta: "delta-T · 04°", alt: "Industrial machinery" },
-                  { id: "1487958449943-2429e8be8625", w: "w-80", q: 1100, label: "[ DC_FACADE ]", meta: "site_a · ext", alt: "Architecture" },
-                  { id: "1517021897933-0e0319cfbc28", w: "w-72", q: 900, label: "[ ENV.CTRL ]", meta: "hvac · 21°c", alt: "Architecture detail" },
+                  { id: "1609530142110-7af0a038c723", w: "w-80", q: 1100, label: "[ DC_FACADE ]", meta: "site_a · ext", alt: "Architecture" },
+                  { id: "1601993957728-1e56ab70c5a8", w: "w-72", q: 900, label: "[ ENV.CTRL ]", meta: "hvac · 21°c", alt: "Architecture detail" },
                   { id: "1558494949-ef010cbdcc31", w: "w-72", q: 900, label: "[ NODE_07 ]", meta: "FRA · 02:14", alt: "" },
                   { id: "1518770660439-4636190af475", w: "w-72", q: 900, label: "[ TRACE.MAP ]", meta: "macro · 01x", alt: "" },
                   { id: "1558494949-ef010cbdcc31", w: "w-96", q: 1200, label: "[ AISLE_B / RACK_14 ]", meta: "stockholm · prd", alt: "" },
                   { id: "1776524039930-ea1ed83b0f97", w: "w-72", q: 900, label: "[ COOL_LOOP ]", meta: "delta-T · 04°", alt: "" },
-                  { id: "1487958449943-2429e8be8625", w: "w-80", q: 1100, label: "[ DC_FACADE ]", meta: "site_a · ext", alt: "" },
-                  { id: "1517021897933-0e0319cfbc28", w: "w-72", q: 900, label: "[ ENV.CTRL ]", meta: "hvac · 21°c", alt: "" },
+                  { id: "1609530142110-7af0a038c723", w: "w-80", q: 1100, label: "[ DC_FACADE ]", meta: "site_a · ext", alt: "" },
+                  { id: "1601993957728-1e56ab70c5a8", w: "w-72", q: 900, label: "[ ENV.CTRL ]", meta: "hvac · 21°c", alt: "" },
                 ].map((p, i) => (
                   <figure key={i} className={`shrink-0 ${p.w} h-44 relative overflow-hidden border border-outline-variant rounded-[2px]`} aria-hidden={i >= 6 ? true : undefined}>
                     <img className="absolute inset-0 w-full h-full object-cover grayscale contrast-110 opacity-90" src={`https://images.unsplash.com/photo-${p.id}?w=${p.q}&q=80&auto=format&fit=crop`} alt={p.alt} loading="lazy" />
@@ -936,7 +936,7 @@ function DeveloperPortfolio() {
               {[
                 { id: "1518770660439-4636190af475", code: "site_b", name: "aurora-stg-04", meta: "helsinki · 32 nodes · staging", alt: "Site b" },
                 { id: "1776524039930-ea1ed83b0f97", code: "site_c", name: "pyrite-dev-09", meta: "frankfurt · 12 nodes · dev", alt: "Site c" },
-                { id: "1487958449943-2429e8be8625", code: "site_d", name: "solstice-edge-22", meta: "london · pop · canary", alt: "Site d" },
+                { id: "1609530142110-7af0a038c723", code: "site_d", name: "solstice-edge-22", meta: "london · pop · canary", alt: "Site d" },
               ].map((s, i) => (
                 <article key={i} className={`p-4 flex gap-4 items-center ${i > 0 ? "border-t md:border-t-0 border-outline-variant" : ""}`}>
                   <div className="w-16 h-16 shrink-0 overflow-hidden border border-outline-variant relative rounded-[2px]">

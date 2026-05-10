@@ -1,9 +1,9 @@
 const WORLD_TILES = [
-  { id: "T-014", caption: "PALE_CITY", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", alt: "Architecture facade" },
-  { id: "T-022", caption: "CONCRETE_HUM", img: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=900&q=85&auto=format&fit=crop", alt: "Brutalist hall" },
-  { id: "T-031", caption: "SPIRAL_AXIS", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=900&q=85&auto=format&fit=crop", alt: "Tower stair" },
+  { id: "T-014", caption: "PALE_CITY", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop", alt: "Architecture facade" },
+  { id: "T-022", caption: "CONCRETE_HUM", img: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=900&q=85&auto=format&fit=crop", alt: "Brutalist hall" },
+  { id: "T-031", caption: "SPIRAL_AXIS", img: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?w=900&q=85&auto=format&fit=crop", alt: "Tower stair" },
   { id: "T-047", caption: "GLASS_LATTICE", img: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=900&q=85&auto=format&fit=crop", alt: "Geometric facade" },
-  { id: "T-058", caption: "VAULT_NULL", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", alt: "Modern interior" },
+  { id: "T-058", caption: "VAULT_NULL", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop", alt: "Modern interior" },
   { id: "T-066", caption: "SERVER_HYMN", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=900&q=85&auto=format&fit=crop", alt: "Server rack" },
   { id: "T-073", caption: "TRACE_FIELD", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=85&auto=format&fit=crop", alt: "Circuit macro" },
   { id: "T-089", caption: "METAL_DRIFT", img: "https://images.unsplash.com/photo-1776524039930-ea1ed83b0f97?w=900&q=85&auto=format&fit=crop", alt: "Industrial machinery" },
@@ -458,7 +458,7 @@ export default function T107Y2kVaporwaveGrid() {
           <section className="mb-xl relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-5 md:sticky md:top-32 md:self-start flex flex-col gap-4">
               <div className="relative aspect-[3/4] overflow-hidden y2k-bevel border border-secondary-container/40 bg-surface-container shadow-[0_0_40px_rgba(254,0,254,0.3)]">
-                <img alt="Brutalist concrete facade" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop" />
+                <img alt="Brutalist concrete facade" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1200&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-gradient-to-br from-secondary-container/35 via-transparent to-primary-fixed/35 vaporwave-aberration pointer-events-none" />
                 <div className="absolute inset-0 scanlines opacity-50 pointer-events-none" />
                 <div className="absolute top-3 left-3 font-accent-pixel text-accent-pixel text-primary-container tracking-widest bg-surface/60 px-2 py-1 y2k-bevel">MANIFEST_001</div>
@@ -470,7 +470,7 @@ export default function T107Y2kVaporwaveGrid() {
                 <div className="font-accent-pixel text-[8px] text-primary-fixed tracking-widest border border-primary-fixed/30 y2k-bevel bg-surface-variant/40 px-2 py-2 text-center">DRIFT · 04</div>
               </div>
               <div className="relative aspect-video overflow-hidden y2k-bevel border border-primary-fixed/40 bg-surface-container shadow-[0_0_30px_rgba(0,251,251,0.25)]">
-                <img alt="Architectural detail" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop" />
+                <img alt="Architectural detail" className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1200&q=85&auto=format&fit=crop" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary-fixed/40 via-transparent to-secondary-container/35 vaporwave-aberration pointer-events-none" />
                 <div className="absolute inset-0 scanlines opacity-50 pointer-events-none" />
                 <div className="absolute top-2 left-2 font-accent-pixel text-[7px] text-primary tracking-widest bg-surface/60 px-2 py-1 y2k-bevel">PLATE · II</div>

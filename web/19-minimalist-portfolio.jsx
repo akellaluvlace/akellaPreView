@@ -19,20 +19,20 @@ export default function T19MinimalistPortfolio() {
   // actually depicts (architectural / brutalist subset — see playbook §Q.1). The "Now Reading"
   // strip reads as a wall of architectural reference plates rather than fake content shots.
   const reading = [
-    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=600&h=800", alt: "Concrete stair · raking afternoon shadow", title: "Concrete · Vol. II", num: "001" },
-    { w: "w-80", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=800&h=500", alt: "Brutalist corridor · perspective deep into the building", title: "Corridor · Vol. III", num: "002" },
+    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=80&w=600&h=800", alt: "Concrete stair · raking afternoon shadow", title: "Concrete · Vol. II", num: "001" },
+    { w: "w-80", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?auto=format&fit=crop&q=80&w=800&h=500", alt: "Brutalist corridor · perspective deep into the building", title: "Corridor · Vol. III", num: "002" },
     { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600&h=800", alt: "Archival fashion plate, high-contrast monochrome", title: "Plate · Helvetica", num: "003" },
     { w: "w-96", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=900&h=560", alt: "Interior cornice detail · raking shadow across the wall", title: "Atrium · Berlin", num: "004" },
-    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=600&h=800", alt: "Minimal architectural light study · single window, slow shadow", title: "Field Note · 12", num: "005" },
+    { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=80&w=600&h=800", alt: "Minimal architectural light study · single window, slow shadow", title: "Field Note · 12", num: "005" },
     { w: "w-80", aspect: "aspect-[16/10]", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?auto=format&fit=crop&q=80&w=800&h=500", alt: "Building aperture · facade window in late light", title: "Aperture · South", num: "006" },
     { w: "w-72", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?auto=format&fit=crop&q=80&w=600&h=800", alt: "Brick wall study · long-form weathering", title: "Wall · Mute", num: "007" }
   ];
 
   // studioFrames rewritten to fit architectural source imagery — process narrative still scans.
   const studioFrames = [
-    { delay: "0s", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 01 — the studio's east-wall reference plate, photographed first thing", stage: "Stage 01 — Research", caption: "Field interviews, archive review, audit of the existing surface." },
-    { delay: "4s", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 02 — working corridor of the studio at midday, after the wireframes are pinned", stage: "Stage 02 — Wireframe", caption: "Pencil first, Figma second. Information architecture is decided here." },
-    { delay: "8s", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 03 — material light study, the room where the system is decided", stage: "Stage 03 — System", caption: "Tokens, primitives, and the smallest set of components that carry the work." },
+    { delay: "0s", src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 01 — the studio's east-wall reference plate, photographed first thing", stage: "Stage 01 — Research", caption: "Field interviews, archive review, audit of the existing surface." },
+    { delay: "4s", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 02 — working corridor of the studio at midday, after the wireframes are pinned", stage: "Stage 02 — Wireframe", caption: "Pencil first, Figma second. Information architecture is decided here." },
+    { delay: "8s", src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 03 — material light study, the room where the system is decided", stage: "Stage 03 — System", caption: "Tokens, primitives, and the smallest set of components that carry the work." },
     { delay: "12s", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=1200&h=1500", thumb: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?auto=format&fit=crop&q=80&w=200&h=200", alt: "Stage 04 — final-stage interior detail, photographed before the project ships", stage: "Stage 04 — Build", caption: "Pairing with engineering. Polishing under daylight and real data." }
   ];
 
@@ -265,7 +265,7 @@ export default function T19MinimalistPortfolio() {
             <div className="grid grid-cols-12 gap-8">
               <div className="col-span-12 md:col-span-4 flex flex-col">
                 <div className="aspect-[3/4] w-full border border-primary bg-surface-container overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=900&h=1200" alt="Hairline-paper architectural detail with strong perpendicular shadows" width="900" height="1200" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale" />
+                  <img src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&q=80&w=900&h=1200" alt="Hairline-paper architectural detail with strong perpendicular shadows" width="900" height="1200" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale" />
                 </div>
                 <p className="text-pretty mt-6 max-w-[42ch] font-body-md text-body-md text-on-surface-variant">
                   A small set of operating rules. Worked out across ten years of shipping interfaces for fintech, logistics, and health. Held loosely. Reviewed often.
@@ -409,7 +409,7 @@ export default function T19MinimalistPortfolio() {
             <div className="grid grid-cols-12 gap-8">
               <div className="col-span-12 md:col-span-4">
                 <div className="aspect-[4/5] w-full border border-primary bg-surface-container overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800&h=1000" alt="Studio interior — light study, the room where most of the work happens before it reaches the screen" width="800" height="1000" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale" />
+                  <img src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&q=80&w=800&h=1000" alt="Studio interior — light study, the room where most of the work happens before it reaches the screen" width="800" height="1000" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale" />
                 </div>
                 <p className="text-pretty mt-6 max-w-[40ch] font-body-md text-body-md text-on-surface-variant">
                   Practical answers, kept short. For anything not covered, the studio replies inside two working days.

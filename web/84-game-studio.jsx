@@ -34,7 +34,7 @@ export default function T84GameStudio() {
     { src: "https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?q=80&w=600&auto=format&fit=crop", alt: "Raven on branch",   num: "07", title: "Carrion Hymn",        dur: "03:21", tempo: "ALLEGRO", variant: "red" },
     { src: "https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&w=600&auto=format&fit=crop", alt: "Moon over clouds",  num: "09", title: "Eclipse, Final",      dur: "05:44", tempo: "GRAVE",   variant: "emerald" },
     { src: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600&auto=format&fit=crop", alt: "Plate armor in dark", num: "11", title: "Harness of Iron",    dur: "07:56", tempo: "MARCIA",  variant: "red" },
-    { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop", alt: "Architectural detail", num: "12", title: "Vault & Vow",       dur: "04:02", tempo: "LENTO",   variant: "emerald" },
+    { src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=600&auto=format&fit=crop", alt: "Architectural detail", num: "12", title: "Vault & Vow",       dur: "04:02", tempo: "LENTO",   variant: "emerald" },
     { src: "https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&w=600&auto=format&fit=crop", alt: "Lone figure & cathedral", num: "14", title: "Ravenlight (End Theme)", dur: "11:08", tempo: "ANDANTE", variant: "emerald" },
   ];
 
@@ -119,7 +119,7 @@ export default function T84GameStudio() {
     { src: "https://images.unsplash.com/photo-1517586979036-b7d1e86b3345?q=80&w=600&auto=format&fit=crop", alt: "Raven on branch, plate III",      label: "PLATE · 03 · III CARRION" },
     { src: "https://images.unsplash.com/photo-1532767153582-b1a0e5145009?q=80&w=600&auto=format&fit=crop", alt: "Moon over clouds, plate IV",      label: "PLATE · 04 · IV ECLIPSE" },
     { src: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600&auto=format&fit=crop", alt: "Plate armor, plate V",            label: "PLATE · 05 · V HARNESS" },
-    { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=600&auto=format&fit=crop", alt: "Architectural detail, plate VI",  label: "PLATE · 06 · VI VAULT" },
+    { src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?q=80&w=600&auto=format&fit=crop", alt: "Architectural detail, plate VI",  label: "PLATE · 06 · VI VAULT" },
     { src: "https://images.unsplash.com/photo-1444090542259-0af8fa96557e?q=80&w=600&auto=format&fit=crop", alt: "Lone figure & cathedral, plate VII", label: "PLATE · 07 · VII END" },
     { src: "https://images.unsplash.com/photo-1519452575417-564c1401ecc0?q=80&w=600&auto=format&fit=crop", alt: "Cathedral chamber reprise, plate VIII", label: "PLATE · 08 · VIII WAKE" },
   ];

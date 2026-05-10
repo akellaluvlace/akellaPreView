@@ -60,17 +60,17 @@ export default function T26AboutMeCard() {
   const verticalGallery = [
     { cut: "cut-v1", src: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=600&q=80&auto=format&fit=crop", alt: "Studio still-life — minimal flatlay with brass-finish pens, glasses and notepad" },
     { cut: "cut-v2", src: "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=600&q=80&auto=format&fit=crop", alt: "Minimal interior bathed in natural light, soft shadow study" },
-    { cut: "cut-v3", src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=600&q=80&auto=format&fit=crop", alt: "Quiet architectural composition with a soft palette" },
+    { cut: "cut-v3", src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=600&q=80&auto=format&fit=crop", alt: "Quiet architectural composition with a soft palette" },
     { cut: "cut-v4", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=600&q=80&auto=format&fit=crop", alt: "Editorial architecture frame in soft daylight" },
-    { cut: "cut-v5", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80&auto=format&fit=crop", alt: "Studio detail — concrete and texture in mid-tone" },
-    { cut: "cut-v6", src: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=600&q=80&auto=format&fit=crop", alt: "Architectural fragment, hand-tactile reference" },
+    { cut: "cut-v5", src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=600&q=80&auto=format&fit=crop", alt: "Studio detail — concrete and texture in mid-tone" },
+    { cut: "cut-v6", src: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?w=600&q=80&auto=format&fit=crop", alt: "Architectural fragment, hand-tactile reference" },
   ];
 
   const horizontalGallery = [
-    { cut: "cut-h1", src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=480&q=80&auto=format&fit=crop", alt: "Soft architectural plane in low light" },
+    { cut: "cut-h1", src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=800&h=480&q=80&auto=format&fit=crop", alt: "Soft architectural plane in low light" },
     { cut: "cut-h2", src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=800&h=480&q=80&auto=format&fit=crop", alt: "Minimal interior corner with warm wash" },
     { cut: "cut-h3", src: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=800&h=480&q=80&auto=format&fit=crop&crop=entropy", alt: "Studio still-life — minimal flatlay with brass-finish writing instruments" },
-    { cut: "cut-h4", src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=480&q=80&auto=format&fit=crop&crop=edges", alt: "Concrete shelf and texture study" },
+    { cut: "cut-h4", src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=800&h=480&q=80&auto=format&fit=crop&crop=edges", alt: "Concrete shelf and texture study" },
     { cut: "cut-h5", src: "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=800&h=480&q=80&auto=format&fit=crop&crop=top", alt: "Soft daylight on architectural fragment" },
   ];
 
@@ -354,10 +354,10 @@ export default function T26AboutMeCard() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
               {[
-                { id: "N · 01", icon: "edit", title: "Sketch first, type second.", body: "Every brief leaves the bench as graphite on bond paper before it touches a screen. The hand finds the shape; the cursor confirms it.", left: "Notebook · 0214", right: "Bond · 100 gsm", img: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1200&q=85&auto=format&fit=crop", alt: "Board-formed concrete facade in raking light" },
-                { id: "N · 02", icon: "grid_view", title: "Grid, then break it.", body: "Every layout starts on a 12-column baseline. The break — the one element that ignores the grid — is what gives the page its register.", left: "Baseline · 8 px", right: "Break · always 1", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=85&auto=format&fit=crop", alt: "Minimal architectural light study" },
+                { id: "N · 01", icon: "edit", title: "Sketch first, type second.", body: "Every brief leaves the bench as graphite on bond paper before it touches a screen. The hand finds the shape; the cursor confirms it.", left: "Notebook · 0214", right: "Bond · 100 gsm", img: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=1200&q=85&auto=format&fit=crop", alt: "Board-formed concrete facade in raking light" },
+                { id: "N · 02", icon: "grid_view", title: "Grid, then break it.", body: "Every layout starts on a 12-column baseline. The break — the one element that ignores the grid — is what gives the page its register.", left: "Baseline · 8 px", right: "Break · always 1", img: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1200&q=85&auto=format&fit=crop", alt: "Minimal architectural light study" },
                 { id: "N · 03", icon: "format_quote", title: "One voice per page.", body: "Two type-faces, never three. One italic for the editorial line; one mono for the metadata. Anything that asks for a third is asking for a redesign.", left: "Faces · 2 max", right: "Cuts · per project", img: "https://images.unsplash.com/photo-1542435503-956c469947f6?w=1200&q=85&auto=format&fit=crop", alt: "Minimal studio flatlay — keyboard, pens and glasses" },
-                { id: "N · 04", icon: "handshake", title: "Show the working.", body: "Every commission ships with the source — sketch, file, version log. Clients should be able to read the path the work took, not just admire the destination.", left: "Source · always", right: "Log · per release", img: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?w=1200&q=85&auto=format&fit=crop", alt: "Modernist gallery interior in soft daylight" },
+                { id: "N · 04", icon: "handshake", title: "Show the working.", body: "Every commission ships with the source — sketch, file, version log. Clients should be able to read the path the work took, not just admire the destination.", left: "Source · always", right: "Log · per release", img: "https://images.unsplash.com/photo-1622912058707-1b33af81db4f?w=1200&q=85&auto=format&fit=crop", alt: "Modernist gallery interior in soft daylight" },
               ].map(n => (
                 <article key={n.id} className="group relative overflow-hidden rounded-2xl border border-outline-variant aspect-[5/3] md:aspect-[7/4] bg-surface-container-low">
                   <img src={n.img} alt={n.alt} className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-30 grayscale-[20%] transition-opacity duration-500" loading="lazy" decoding="async" width="1200" height="685" />

@@ -12,8 +12,8 @@ const ATELIER_IMG = "https://lh3.googleusercontent.com/aida-public/AB6AXuDFIaLSy
 // not the alts the template claimed. Process Frame I now uses KNIFE_IMG, Frame III uses
 // BOWL_IMG, FAQ left rail uses ATELIER_IMG. UNSPLASH_DAWN kept (architectural perspective).
 const UNSPLASH_INTERIOR = "https://images.unsplash.com/photo-1762215781547-2ac20ed42cd1?w=1400&q=85&auto=format&fit=crop";
-const UNSPLASH_WINDOW = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1100&q=85&auto=format&fit=crop";
-const UNSPLASH_WINDOW_SM = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop";
+const UNSPLASH_WINDOW = "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=1100&q=85&auto=format&fit=crop";
+const UNSPLASH_WINDOW_SM = "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop";
 const UNSPLASH_DAWN = "https://images.unsplash.com/photo-1618488373960-404fe668e524?w=1920&q=85&auto=format&fit=crop";
 
 const products = [

@@ -29,11 +29,11 @@ export default function T80HorizontalScroll() {
   ];
 
   const plates = [
-    { src: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=85&auto=format&fit=crop", n: "I", title: "Concrete bay.", meta: "Berlin · 11/24", w: "w-72", grad: "from-inverse-surface via-inverse-surface/30 to-transparent", dir: "t", extra: "opacity-90" },
-    { src: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=1000&q=85&auto=format&fit=crop", n: "II", title: "North light.", meta: "Lisbon · 12/24", w: "w-80", grad: "from-inverse-surface/60 via-transparent to-tertiary-fixed-dim/15", dir: "bl", extra: "" },
+    { src: "https://images.unsplash.com/photo-1609530142110-7af0a038c723?w=900&q=85&auto=format&fit=crop", n: "I", title: "Concrete bay.", meta: "Berlin · 11/24", w: "w-72", grad: "from-inverse-surface via-inverse-surface/30 to-transparent", dir: "t", extra: "opacity-90" },
+    { src: "https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?w=1000&q=85&auto=format&fit=crop", n: "II", title: "North light.", meta: "Lisbon · 12/24", w: "w-80", grad: "from-inverse-surface/60 via-transparent to-tertiary-fixed-dim/15", dir: "bl", extra: "" },
     { src: "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=900&q=85&auto=format&fit=crop", n: "III", title: "Stair, mid-day.", meta: "Madrid · 02/25", w: "w-64", grad: "from-inverse-surface via-transparent to-transparent", dir: "t", extra: "" },
     { src: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&q=85&auto=format&fit=crop", n: "IV", title: "Vault & fold.", meta: "Paris · 03/25", w: "w-80", grad: "from-inverse-surface via-transparent to-tertiary-fixed-dim/10", dir: "tr", extra: "" },
-    { src: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85&auto=format&fit=crop", n: "V", title: "Cornice study.", meta: "Rome · 04/25", w: "w-72", grad: "from-inverse-surface/80 via-transparent to-transparent", dir: "t", extra: "" },
+    { src: "https://images.unsplash.com/photo-1685787773514-90e8e14af797?w=900&q=85&auto=format&fit=crop", n: "V", title: "Cornice study.", meta: "Rome · 04/25", w: "w-72", grad: "from-inverse-surface/80 via-transparent to-transparent", dir: "t", extra: "" },
     { src: "https://images.unsplash.com/photo-1766604106308-58b6d0d676bf?w=1000&q=85&auto=format&fit=crop", n: "VI", title: "Studio interior.", meta: "Geneva · 05/25", w: "w-80", grad: "from-inverse-surface via-transparent to-tertiary-fixed-dim/15", dir: "r", extra: "" },
   ];
 

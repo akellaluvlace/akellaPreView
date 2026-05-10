@@ -316,19 +316,19 @@ export default function T55Y2kWeb10() {
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1609530142110-7af0a038c723?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover -rotate-3 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1601993957728-1e56ab70c5a8?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover rotate-2 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1469041797191-50ace28483c3?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1622912058707-1b33af81db4f?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover -rotate-1 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1776275758873-31603dd06112?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
@@ -340,7 +340,7 @@ export default function T55Y2kWeb10() {
               </div>
 
               <div className="relative aspect-square overflow-hidden bevel-outset bg-winGray">
-                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
+                <img className="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1685787773514-90e8e14af797?auto=format&fit=crop&w=400&q=70" alt="" loading="lazy" />
                 <img className="absolute top-2 left-2 w-3/5 h-3/5 object-cover -rotate-3 border-2 border-white shadow-md" src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=300&q=70" alt="" loading="lazy" />
                 <span className="absolute bottom-1 right-1 bg-winBlue text-white text-[9px] font-pixel px-1 py-0.5">★ FRIEND</span>
               </div>
