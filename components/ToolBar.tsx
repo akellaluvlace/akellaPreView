@@ -25,13 +25,18 @@
 export type { Tool } from "@/lib/iframe-bridge";
 import type { Tool } from "@/lib/iframe-bridge";
 
+// 'select' is intentionally hidden from the toolbar — Vibe ('Edit')
+// is the no-code-friendly replacement for the click-an-element-to-
+// edit flow. Select remains in the Tool union and the message
+// protocol because internal callers (cancel handlers, FocusEditor
+// close, persisted-localStorage migration) still emit it; the
+// toolbar just doesn't surface a button for it.
 export const TOOL_LIST: ReadonlyArray<Tool> = [
   "view",
-  "select",
+  "vibe",
   "move",
   "insert",
   "swap",
-  "vibe",
 ];
 
 interface ToolBarProps {

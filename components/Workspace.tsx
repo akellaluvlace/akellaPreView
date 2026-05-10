@@ -292,9 +292,20 @@ export default function Workspace({
     if (typeof window === "undefined") return;
     try {
       const stored = window.localStorage.getItem("dropin:tool");
+      // Migrate returning users persisted on the now-hidden Select
+      // tool to Vibe so they don't end up in a state with no toolbar
+      // button matching their persisted choice.
+      if (stored === "select") {
+        setToolState("vibe");
+        try {
+          window.localStorage.setItem("dropin:tool", "vibe");
+        } catch {
+          // ignore
+        }
+        return;
+      }
       if (
         stored === "view" ||
-        stored === "select" ||
         stored === "move" ||
         stored === "insert" ||
         stored === "swap" ||
