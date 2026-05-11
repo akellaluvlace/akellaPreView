@@ -25,7 +25,7 @@ export default function T68BentoGridDev() {
     { src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85&auto=format&fit=crop", alt: "Circuit board macro", tag: "Hardware", aspect: "aspect-square", w: "w-48 md:w-56" },
     { src: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=85&auto=format&fit=crop", alt: "Workspace", tag: "Workspace", aspect: "aspect-[3/4]", w: "w-44 md:w-52" },
     { src: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=900&q=85&auto=format&fit=crop", alt: "Setup at night", tag: "Late · 23:48", aspect: "aspect-[4/3]", w: "w-64 md:w-80" },
-    { src: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=600&q=85&auto=format&fit=crop", alt: "Code on screen", tag: "main.tsx", aspect: "aspect-square", w: "w-48 md:w-56" },
+    { src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&q=85&auto=format&fit=crop", alt: "Code on screen", tag: "main.tsx", aspect: "aspect-square", w: "w-48 md:w-56" },
     { src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=85&auto=format&fit=crop", alt: "Desk view", tag: "Desk · Tokyo", aspect: "aspect-[3/4]", w: "w-44 md:w-52" },
     { src: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=900&q=85&auto=format&fit=crop", alt: "Developer at work", tag: "Build · v2.4", aspect: "aspect-[4/3]", w: "w-64 md:w-80" }
   ];

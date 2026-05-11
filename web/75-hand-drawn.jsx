@@ -5,7 +5,7 @@ const PINBOARD_TILES = [
   { src: "https://images.unsplash.com/photo-1606327054629-64c8b0fd6e4f?w=720&q=85&auto=format&fit=crop", title: "Recipe Tests", meta: "12 sketches · 3 stains", w: "w-72", bg: "bg-red-100", rot: "rotate-3", aspect: "aspect-[5/4]", extra: "" },
   { src: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=640&q=85&auto=format&fit=crop", title: "Camera Notes", meta: "Lens diagram · sun-side", w: "w-64", bg: "bg-green-100", rot: "-rotate-2", aspect: "aspect-[4/5]", extra: "" },
   { src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=720&q=85&auto=format&fit=crop", title: "Trip · Lisbon", meta: "14 maps · 4 doodles", w: "w-72", bg: "bg-white", rot: "rotate-1", aspect: "aspect-[5/4]", extra: "" },
-  { src: "https://images.unsplash.com/photo-1503602642458-232111445657?w=640&q=85&auto=format&fit=crop", title: "Letter Draft", meta: "3 attempts · 1 keep", w: "w-64", bg: "bg-highlight", rot: "-rotate-3", aspect: "aspect-[4/5]", extra: "" },
+  { src: "https://images.unsplash.com/photo-1568041799811-58a50b955ea2?w=640&q=85&auto=format&fit=crop", title: "Letter Draft", meta: "3 attempts · 1 keep", w: "w-64", bg: "bg-highlight", rot: "-rotate-3", aspect: "aspect-[4/5]", extra: "" },
   { src: "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?w=720&q=85&auto=format&fit=crop", title: "Weekend Plan", meta: "Lists · 2 wishes · 1 lie", w: "w-72", bg: "bg-blue-100", rot: "rotate-2", aspect: "aspect-[5/4]", extra: "grayscale" },
 ];
 
