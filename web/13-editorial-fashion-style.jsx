@@ -258,7 +258,7 @@ export default function T13EditorialFashionStyle() {
                   </div>
                   <div className="grid grid-cols-2 gap-2 p-2">
                     <figure className="aspect-square overflow-hidden bg-surface-container-low">
-                      <img alt="Atelier paper studies, hand-marked patterns" className="w-full h-full object-cover object-center grayscale contrast-110 hover:scale-105 transition-transform duration-[2000ms] ease-out" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&q=85&auto=format&fit=crop" loading="lazy" />
+                      <img alt="Atelier paper studies, hand-marked patterns" className="w-full h-full object-cover object-center grayscale contrast-110 hover:scale-105 transition-transform duration-[2000ms] ease-out" src="https://images.unsplash.com/photo-1461099059505-2dabdfc447b8?w=600&q=85&auto=format&fit=crop" loading="lazy" />
                     </figure>
                     <figure className="aspect-square overflow-hidden bg-surface-container-low">
                       <img alt="Studio workbench, ink and graphite drafts" className="w-full h-full object-cover object-center grayscale contrast-110 hover:scale-105 transition-transform duration-[2000ms] ease-out" src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&q=85&auto=format&fit=crop" loading="lazy" />
@@ -273,7 +273,7 @@ export default function T13EditorialFashionStyle() {
                     <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">SOLO STUDY</span>
                   </div>
                   <div className="aspect-[4/3] relative">
-                    <img alt="Atelier proof, single matte print on Hahnemühle paper" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1499744937866-d7e566a20a61?w=900&q=85&auto=format&fit=crop" loading="lazy" />
+                    <img alt="Atelier proof, single matte print on Hahnemühle paper" className="absolute inset-0 w-full h-full object-cover grayscale contrast-110" src="https://images.unsplash.com/photo-1591926870242-9b01d19110d0?w=900&q=85&auto=format&fit=crop" loading="lazy" />
                   </div>
                   <div className="px-3 py-2 border-t border-white/10 flex items-center justify-between">
                     <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest italic">SS-2026 · No. 04 · matte print on Hahnemühle</span>

@@ -72,8 +72,8 @@ export default function T108EtherealFashionNoir() {
   ];
   const stripImages = [
     { id: "1527844817887-9b937993518b", alt: "Studio still life" },
-    { id: "1611224923853-80b023f02d71", alt: "Atelier interior" },
-    { id: "1499744937866-d7e566a20a61", alt: "Paper editorial" },
+    { id: "1461099059505-2dabdfc447b8", alt: "Atelier interior" },
+    { id: "1591926870242-9b01d19110d0", alt: "Paper editorial" },
     { id: "1457369804613-52c61a468e7d", alt: "Workspace fragment" },
     { id: "1481627834876-b7833e8f5570", alt: "Press fragment" },
     { id: "1521405924368-64c5b84bec60", alt: "Editorial paper" },
@@ -446,7 +446,7 @@ export default function T108EtherealFashionNoir() {
           </section>
           <section className="py-section-gap px-4 md:px-margin-edge relative overflow-hidden">
             <div className="absolute inset-0 z-0">
-              <img alt="Atelier interior" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-30 mix-blend-luminosity" />
+              <img alt="Atelier interior" src="https://images.unsplash.com/photo-1461099059505-2dabdfc447b8?w=1920&q=85&auto=format&fit=crop" className="w-full h-full object-cover grayscale opacity-30 mix-blend-luminosity" />
               <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
               <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background" />
             </div>

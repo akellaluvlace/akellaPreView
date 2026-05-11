@@ -138,12 +138,12 @@ export default function T34EditorialMagazine() {
   // Subjects: type / paper / shelves / printer / light-on-desk / portrait studio / typewriter / page-spread.
   const closingPlates = [
     { id: "1521405924368-64c5b84bec60", alt: "Type cases and metal sorts laid out on the editor's desk." },
-    { id: "1611224923853-80b023f02d71", alt: "A folded broadsheet beside a black coffee, raking morning light." },
+    { id: "1502458051560-7f33ac46fda3", alt: "A folded broadsheet beside a black coffee, raking morning light." },
     { id: "1455390582262-044cdead277a", alt: "Wall of bound back-issues in the production office." },
     { id: "1481627834876-b7833e8f5570", alt: "Open spread of the previous issue, gutter centred." },
     { id: "1495446815901-a7297e633e8d", alt: "Reading lamp, marked-up galley, and a felt-tip pen." },
     { id: "1701096374092-bb70915fdc5c", alt: "Studio portrait — feature subject, between sittings." },
-    { id: "1499744937866-d7e566a20a61", alt: "An old typewriter on a writing desk, daylight from the left." },
+    { id: "1535546204504-586398ee6677", alt: "An old typewriter on a writing desk, daylight from the left." },
     { id: "1499951360447-b19be8fe80f5", alt: "Stack of essays in proof, page numbers visible at the corner." },
   ];
 

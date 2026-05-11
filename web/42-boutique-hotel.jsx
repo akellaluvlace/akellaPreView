@@ -494,7 +494,7 @@ export default function T42BoutiqueHotel() {
               alt=""
               aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover opacity-15 grayscale pointer-events-none"
-              src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1800&q=80&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1461099059505-2dabdfc447b8?w=1800&q=80&auto=format&fit=crop"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/75 to-background/90 pointer-events-none"></div>
             <div className="relative z-10 px-6 md:px-12 lg:px-16">

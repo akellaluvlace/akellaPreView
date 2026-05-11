@@ -90,9 +90,9 @@ export default function T89EditorialMagazine() {
   );
 
   const studioPlates = [
-    { id: "1611224923853-80b023f02d71", alt: "The desk, before the proof comes back" },
+    { id: "1535546204504-586398ee6677", alt: "The desk, before the proof comes back" },
     { id: "1521405924368-64c5b84bec60", alt: "Galley sheets, marked up" },
-    { id: "1499744937866-d7e566a20a61", alt: "The press, end of run" },
+    { id: "1604516087408-a7cde81ecf0f", alt: "The press, end of run" },
     { id: "1457369804613-52c61a468e7d", alt: "A second draft, in pencil" },
     { id: "1481627834876-b7833e8f5570", alt: "The bindery shelf" },
     { id: "1495446815901-a7297e633e8d", alt: "Type case, slanted light" },
