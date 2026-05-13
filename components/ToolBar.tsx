@@ -2,19 +2,20 @@
 
 // Phase 5 / Phase B — horizontal tool toolbar that gates every canvas
 // interaction in the workspace. Replaces the eighteenth-pass DiceBar
-// slot (between WorkspaceHeader and PaneTabs). Five tools:
+// slot (between WorkspaceHeader and PaneTabs). Four user-facing tools:
 //
 //   View    — read-only canvas. Clicks do nothing.
-//   Select  — click an element to enter FocusEditor.
+//   Edit    — (kind="vibe") click any text/image/link to edit it in
+//             place. Includes Browse-library swap from inside the vibe
+//             panel (icons + media), replacing the retired Swap tool.
 //   Move    — drag-to-reorder / drag-to-reparent.
 //   Insert  — click a container to add a child from the library.
-//   Swap    — replace the selected element with a library asset.
 //
 // The component itself is presentational — Workspace owns the actual
-// `tool` state, persists it to localStorage, and binds the V/S/M/I/W
+// `tool` state, persists it to localStorage, and binds the V/E/M/I
 // keyboard shortcuts at window level (skipping when focus is in
 // Monaco / inputs / contenteditable). FocusEditor uses the same
-// component but passes `omitView` so its 4-tool variant renders without
+// component but passes `omitView` so its 3-tool variant renders without
 // the View button.
 
 // Re-export the canonical Tool union from lib/iframe-bridge.ts so
@@ -36,16 +37,11 @@ export const TOOL_LIST: ReadonlyArray<Tool> = [
   "vibe",
   "move",
   "insert",
-  "swap",
 ];
 
 interface ToolBarProps {
   tool: Tool;
   onToolChange: (next: Tool) => void;
-  // Swap is only meaningful when an element is already selected. When
-  // false, the Swap button shows opacity-disabled with a "Select an
-  // element first" tooltip; clicks no-op.
-  hasSelection?: boolean;
   // Default false. When true, the View button is hidden — used by
   // FocusEditor where the user is explicitly in edit mode.
   omitView?: boolean;
@@ -161,24 +157,6 @@ function VibeIcon() {
   );
 }
 
-function SwapIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M4 7h13l-3-3M20 17H7l3 3" />
-    </svg>
-  );
-}
-
 const TOOL_META: Record<Tool, ToolMeta> = {
   view: {
     id: "view",
@@ -208,13 +186,6 @@ const TOOL_META: Record<Tool, ToolMeta> = {
     tooltip: "Click a container to add a new element from the library. (I)",
     icon: <InsertIcon />,
   },
-  swap: {
-    id: "swap",
-    label: "Swap",
-    shortcut: "W",
-    tooltip: "Replace the selected element with one from the library. (W)",
-    icon: <SwapIcon />,
-  },
   vibe: {
     id: "vibe",
     label: "Edit",
@@ -228,7 +199,6 @@ const TOOL_META: Record<Tool, ToolMeta> = {
 export default function ToolBar({
   tool,
   onToolChange,
-  hasSelection = false,
   omitView = false,
   children,
 }: ToolBarProps) {
@@ -243,31 +213,19 @@ export default function ToolBar({
         {visible.map((id, i) => {
           const meta = TOOL_META[id];
           const active = tool === id;
-          // Swap requires a selection — disable when none.
-          const disabled = id === "swap" && !hasSelection;
-          const tooltip = disabled
-            ? "Select an element first"
-            : meta.tooltip;
           return (
             <button
               key={id}
               type="button"
-              onClick={() => {
-                if (disabled) return;
-                onToolChange(id);
-              }}
-              disabled={disabled}
+              onClick={() => onToolChange(id)}
               aria-pressed={active}
               aria-keyshortcuts={meta.shortcut}
-              title={tooltip}
+              title={meta.tooltip}
               className={
-                "group relative flex h-12 min-w-[64px] flex-col items-center justify-center gap-0.5 px-3 font-mono text-[10px] uppercase tracking-[0.15em] transition-colors " +
+                "group relative flex h-12 min-w-[64px] cursor-pointer flex-col items-center justify-center gap-0.5 px-3 font-mono text-[10px] uppercase tracking-[0.15em] transition-colors " +
                 (active
                   ? "bg-coral text-paper"
                   : "bg-paper text-ink hover:bg-soft") +
-                (disabled
-                  ? " cursor-not-allowed opacity-40 hover:bg-paper"
-                  : " cursor-pointer") +
                 (i > 0 ? " border-l-2 border-ink" : "")
               }
             >

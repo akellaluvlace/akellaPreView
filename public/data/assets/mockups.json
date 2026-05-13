@@ -1,0 +1,50 @@
+[
+  {
+    "id": "browser-generic",
+    "name": "Browser",
+    "kind": "browser",
+    "template": "<div class=\"mx-auto max-w-4xl overflow-hidden rounded-xl border border-gray-300 bg-white shadow-2xl\">\n  <div class=\"flex items-center gap-2 border-b border-gray-200 bg-gray-100 px-4 py-3\">\n    <div class=\"h-3 w-3 rounded-full bg-red-400\"></div>\n    <div class=\"h-3 w-3 rounded-full bg-yellow-400\"></div>\n    <div class=\"h-3 w-3 rounded-full bg-green-400\"></div>\n    <div class=\"ml-4 flex-1 rounded-md bg-white px-3 py-1 text-xs text-gray-500\">https://yoursite.com</div>\n  </div>\n  <img src=\"{{IMAGE_SRC}}\" alt=\"Browser preview\" class=\"block w-full h-auto\" />\n</div>"
+  },
+  {
+    "id": "browser-safari",
+    "name": "Safari Browser",
+    "kind": "browser",
+    "template": "<div class=\"mx-auto max-w-4xl overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-2xl\">\n  <div class=\"flex items-center gap-3 border-b border-gray-200 bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-2.5\">\n    <div class=\"flex gap-1.5\">\n      <div class=\"h-3 w-3 rounded-full bg-red-400 border border-red-500/20\"></div>\n      <div class=\"h-3 w-3 rounded-full bg-yellow-400 border border-yellow-500/20\"></div>\n      <div class=\"h-3 w-3 rounded-full bg-green-400 border border-green-500/20\"></div>\n    </div>\n    <div class=\"flex-1 mx-12 rounded-md bg-white border border-gray-300 px-3 py-1 text-xs text-gray-600 text-center\">yoursite.com</div>\n  </div>\n  <img src=\"{{IMAGE_SRC}}\" alt=\"Safari preview\" class=\"block w-full h-auto\" />\n</div>"
+  },
+  {
+    "id": "iphone-15",
+    "name": "iPhone 15",
+    "kind": "phone",
+    "template": "<div class=\"relative mx-auto\" style=\"width: 320px;\">\n  <div class=\"relative overflow-hidden rounded-[3rem] border-[10px] border-black bg-black shadow-2xl\" style=\"aspect-ratio: 9/19.5;\">\n    <div class=\"absolute left-1/2 top-2 z-10 h-6 w-32 -translate-x-1/2 rounded-full bg-black\"></div>\n    <img src=\"{{IMAGE_SRC}}\" alt=\"iPhone preview\" class=\"absolute inset-0 h-full w-full object-cover\" />\n  </div>\n</div>"
+  },
+  {
+    "id": "ipad-air",
+    "name": "iPad",
+    "kind": "tablet",
+    "template": "<div class=\"relative mx-auto\" style=\"width: 480px;\">\n  <div class=\"relative overflow-hidden rounded-[2rem] border-[14px] border-gray-800 bg-white shadow-2xl\" style=\"aspect-ratio: 4/3;\">\n    <img src=\"{{IMAGE_SRC}}\" alt=\"iPad preview\" class=\"absolute inset-0 h-full w-full object-cover\" />\n  </div>\n</div>"
+  },
+  {
+    "id": "macbook-pro",
+    "name": "MacBook Pro",
+    "kind": "laptop",
+    "template": "<div class=\"relative mx-auto\" style=\"width: 600px;\">\n  <div class=\"relative overflow-hidden rounded-t-2xl border-[12px] border-gray-800 bg-black shadow-2xl\" style=\"aspect-ratio: 16/10;\">\n    <img src=\"{{IMAGE_SRC}}\" alt=\"MacBook preview\" class=\"absolute inset-0 h-full w-full object-cover\" />\n  </div>\n  <div class=\"mx-auto h-3 rounded-b-xl border-x border-b border-gray-700 bg-gray-300\" style=\"width: 100%;\"></div>\n  <div class=\"mx-auto h-1 rounded-b-3xl bg-gray-400\" style=\"width: 30%;\"></div>\n</div>"
+  },
+  {
+    "id": "watch-ultra",
+    "name": "Apple Watch",
+    "kind": "watch",
+    "template": "<div class=\"relative mx-auto\" style=\"width: 200px;\">\n  <div class=\"relative overflow-hidden rounded-[2.5rem] border-[10px] border-gray-900 bg-black shadow-2xl\" style=\"aspect-ratio: 4/5;\">\n    <img src=\"{{IMAGE_SRC}}\" alt=\"Watch preview\" class=\"absolute inset-0 h-full w-full object-cover\" />\n  </div>\n</div>"
+  },
+  {
+    "id": "browser-minimal",
+    "name": "Minimal Browser",
+    "kind": "browser",
+    "template": "<div class=\"mx-auto max-w-4xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-xl\">\n  <div class=\"flex items-center gap-2 border-b border-gray-100 px-4 py-2\">\n    <div class=\"h-2 w-2 rounded-full bg-gray-300\"></div>\n    <div class=\"h-2 w-2 rounded-full bg-gray-300\"></div>\n    <div class=\"h-2 w-2 rounded-full bg-gray-300\"></div>\n  </div>\n  <img src=\"{{IMAGE_SRC}}\" alt=\"Browser preview\" class=\"block w-full h-auto\" />\n</div>"
+  },
+  {
+    "id": "phone-android",
+    "name": "Android Phone",
+    "kind": "phone",
+    "template": "<div class=\"relative mx-auto\" style=\"width: 320px;\">\n  <div class=\"relative overflow-hidden rounded-[2.5rem] border-[8px] border-gray-900 bg-black shadow-2xl\" style=\"aspect-ratio: 9/19\">\n    <div class=\"absolute left-1/2 top-3 z-10 h-2 w-2 -translate-x-1/2 rounded-full bg-gray-900\"></div>\n    <img src=\"{{IMAGE_SRC}}\" alt=\"Phone preview\" class=\"absolute inset-0 h-full w-full object-cover\" />\n  </div>\n</div>"
+  }
+]

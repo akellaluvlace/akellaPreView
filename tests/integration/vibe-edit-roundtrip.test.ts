@@ -161,6 +161,154 @@ describe("vibe-edit runtime — integration", () => {
     expect(fresh.getAttribute("alt")).toBe("new alt");
   });
 
+  it("vibe:update-outer replaces svg outerHTML and re-injects OID", async () => {
+    // The complex char-scan walker in runtime.ts that re-injects
+    // data-dropin-id into the new outer's first opening tag had zero
+    // JSDOM coverage pre-LOW-grind. This test exercises the full
+    // mutation path: outer payload arrives → outerHTML is set → new
+    // element is found at the same path → vibe:selected re-emits with
+    // the new info.
+    const dom = buildIframe(
+      `<main><svg data-dropin-id="icon-1" viewBox="0 0 24 24"><path d="M1 1" /></svg></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    const svg = dom.window.document.querySelector("svg") as any;
+    svg.dispatchEvent(
+      new dom.window.Event("click", { bubbles: true, cancelable: true }),
+    );
+    await waitMs(50);
+
+    dom.window.postMessage(
+      {
+        __dropin: true,
+        type: "vibe:update-outer",
+        path: "main > svg",
+        oid: "icon-1",
+        newOuter: `<svg viewBox="0 0 16 16"><circle r="8" /></svg>`,
+      },
+      "*",
+    );
+    // Outer-swap re-emits after a small delay because outerHTML detaches
+    // the old node and the runtime has to re-find by path.
+    await waitMs(100);
+
+    const fresh = dom.window.document.querySelector("svg") as any;
+    expect(fresh).not.toBeNull();
+    // OID re-injected into the new opening tag.
+    expect(fresh.getAttribute("data-dropin-id")).toBe("icon-1");
+    expect(fresh.getAttribute("viewBox")).toBe("0 0 16 16");
+    // Old child gone, new child present.
+    expect(fresh.querySelector("path")).toBeNull();
+    expect(fresh.querySelector("circle")).not.toBeNull();
+    // Selection re-emitted with the new info.
+    const refreshed = messages
+      .filter((m) => m?.type === "vibe:selected")
+      .pop() as any;
+    expect(refreshed).toBeDefined();
+    expect(refreshed.info.oid).toBe("icon-1");
+  });
+
+  it("vibe:update-outer strips foreign OID from asset markup before re-injecting target OID", async () => {
+    // Asset library payloads sometimes carry their own data-dropin-id
+    // (an asset exported from a prior vibe-edit session). Pre-fix the
+    // runtime would inject NOTHING (the indexOf guard saw an existing
+    // OID and bailed) → the target's OID was lost. Phase 1 (morning)
+    // M2 fix strips foreign OID first, then re-injects.
+    const dom = buildIframe(
+      `<main><svg data-dropin-id="real-icon" viewBox="0 0 24 24"></svg></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+
+    dom.window.postMessage(
+      {
+        __dropin: true,
+        type: "vibe:update-outer",
+        path: "main > svg",
+        oid: "real-icon",
+        newOuter: `<svg data-dropin-id="stale-foreign" viewBox="0 0 16 16"></svg>`,
+      },
+      "*",
+    );
+    await waitMs(100);
+
+    const fresh = dom.window.document.querySelector("svg") as any;
+    expect(fresh.getAttribute("data-dropin-id")).toBe("real-icon");
+    expect(fresh.getAttribute("data-dropin-id")).not.toBe("stale-foreign");
+  });
+
+  it("vibe:update-outer injects OID correctly for namespace-prefixed tag (svg:use)", async () => {
+    // M1-revised LOW fix — char-scan tag-name now accepts ':' so
+    // <svg:use> doesn't stall at the colon. The iframe's HTML parser
+    // will treat <svg:use> as a custom element / SVG-like element
+    // depending on browser, but the OID injection should still happen
+    // at the correct position (right after `svg:use`).
+    const dom = buildIframe(
+      `<main><svg data-dropin-id="parent-svg" viewBox="0 0 24 24"><svg:use data-dropin-id="ns-use" href="#icon" /></svg></main>`,
+    );
+    await waitMs(30);
+
+    dom.window.postMessage(
+      {
+        __dropin: true,
+        type: "vibe:update-outer",
+        path: "main > svg",
+        oid: "parent-svg",
+        // Replacement uses namespace-prefixed inner tag. OID injection
+        // happens on the outer <svg>, not <svg:use>, but the scan must
+        // not break on `:`.
+        newOuter: `<svg viewBox="0 0 16 16"><svg:use href="#new" /></svg>`,
+      },
+      "*",
+    );
+    await waitMs(100);
+
+    const fresh = dom.window.document.querySelector("svg") as any;
+    expect(fresh).not.toBeNull();
+    expect(fresh.getAttribute("data-dropin-id")).toBe("parent-svg");
+    expect(fresh.getAttribute("viewBox")).toBe("0 0 16 16");
+  });
+
+  it("vibe:update-outer injects OID right after tag name in multi-line attribute markup", async () => {
+    // WU6's char-scan terminates the tag-name scan on LF/CR (in addition
+    // to space/tab) so the OID injection point is between the tag name
+    // and the first attribute even when attributes are on subsequent
+    // lines (asset libraries often emit `<svg\n  viewBox="…"\n  fill="…">`).
+    // Pre-fix the LF after `svg` was treated as a continuing tag-name
+    // character (no LF entry in the loop) and the OID got injected
+    // somewhere wrong / never. Verify the OID lands as a sibling attr.
+    const dom = buildIframe(
+      `<main><svg data-dropin-id="multi-1"></svg></main>`,
+    );
+    await waitMs(30);
+
+    dom.window.postMessage(
+      {
+        __dropin: true,
+        type: "vibe:update-outer",
+        path: "main > svg",
+        oid: "multi-1",
+        newOuter:
+          '<svg\n  viewBox="0 0 16 16"\n  fill="currentColor">\n  <circle r="8" />\n</svg>',
+      },
+      "*",
+    );
+    await waitMs(100);
+
+    const fresh = dom.window.document.querySelector("svg") as any;
+    expect(fresh).not.toBeNull();
+    expect(fresh.getAttribute("data-dropin-id")).toBe("multi-1");
+    expect(fresh.getAttribute("viewBox")).toBe("0 0 16 16");
+    expect(fresh.getAttribute("fill")).toBe("currentColor");
+  });
+
   it("vibe:update-link rewrites href on anchor", async () => {
     const dom = buildIframe(
       `<main><a href="/old">click</a></main>`,
@@ -374,6 +522,81 @@ describe("vibe-edit runtime — integration", () => {
 
     const fresh = dom.window.document.querySelector("p") as HTMLElement;
     expect(fresh.hasAttribute("class")).toBe(false);
+  });
+
+  it("clicking a span inside a button selects the button (span walk-up override)", async () => {
+    // Real-world: <button><span>Sign up</span></button>. ev.target is
+    // the span (deepest editable hit). Pre-fix the runtime returned the
+    // span; vibecoders had no way to click their literal "Sign up"
+    // button. Phase 1 walk-up override prefers the button parent within
+    // 3 ancestor levels.
+    const dom = buildIframe(
+      `<main><button><span>Sign up</span></button></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    const span = dom.window.document.querySelector("span") as HTMLElement;
+    span.dispatchEvent(
+      new dom.window.Event("click", { bubbles: true, cancelable: true }),
+    );
+    await waitMs(50);
+
+    const sel = messages.find((m) => m?.type === "vibe:selected") as any;
+    expect(sel).toBeDefined();
+    expect(sel.info.tag).toBe("button");
+    expect(sel.info.kind).toBe("button");
+  });
+
+  it("clicking a span inside a card-like div selects the card div", async () => {
+    // <div class="card"><span class="badge">NEW</span></div> — the
+    // wrapper has bg + rounded so vibeIsCardLike returns true. Span
+    // walk-up override prefers the card container.
+    const dom = buildIframe(
+      `<main><div id="card" style="background: white; border-radius: 8px; padding: 16px;"><span class="badge">NEW</span></div></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    const span = dom.window.document.querySelector("span") as HTMLElement;
+    span.dispatchEvent(
+      new dom.window.Event("click", { bubbles: true, cancelable: true }),
+    );
+    await waitMs(50);
+
+    const sel = messages.find((m) => m?.type === "vibe:selected") as any;
+    expect(sel).toBeDefined();
+    expect(sel.info.tag).toBe("div");
+    expect(sel.info.kind).toBe("container");
+  });
+
+  it("clicking a standalone span (no button/card parent) selects the span itself", async () => {
+    // Stat-block pattern: <div><span class="text-6xl">42%</span></div>
+    // — plain wrapper div has no bg / no rounding / no shadow / no
+    // border, so vibeIsCardLike returns false. Walk-up finds no
+    // qualifying ancestor → span keeps the selection as expected.
+    const dom = buildIframe(
+      `<main><div><span class="text-6xl">42%</span></div></main>`,
+    );
+    const messages: CapturedMessage[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    await waitMs(30);
+    const span = dom.window.document.querySelector("span") as HTMLElement;
+    span.dispatchEvent(
+      new dom.window.Event("click", { bubbles: true, cancelable: true }),
+    );
+    await waitMs(50);
+
+    const sel = messages.find((m) => m?.type === "vibe:selected") as any;
+    expect(sel).toBeDefined();
+    expect(sel.info.tag).toBe("span");
+    expect(sel.info.kind).toBe("text");
   });
 
   it("vibe:select command selects an element by path", async () => {

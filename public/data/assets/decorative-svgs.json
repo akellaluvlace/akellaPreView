@@ -1,0 +1,143 @@
+[
+  {
+    "id": "dots-grid",
+    "name": "Dot Grid",
+    "kind": "pattern",
+    "viewBox": "0 0 40 40",
+    "tags": ["dots", "grid", "minimal"],
+    "body": "<circle cx='4' cy='4' r='1.5' fill='#6c63ff' opacity='0.4'/><circle cx='24' cy='4' r='1.5' fill='#6c63ff' opacity='0.4'/><circle cx='4' cy='24' r='1.5' fill='#6c63ff' opacity='0.4'/><circle cx='24' cy='24' r='1.5' fill='#6c63ff' opacity='0.4'/>"
+  },
+  {
+    "id": "diagonal-lines",
+    "name": "Diagonal Lines",
+    "kind": "pattern",
+    "viewBox": "0 0 40 40",
+    "tags": ["lines", "diagonal", "stripe"],
+    "body": "<line x1='0' y1='40' x2='40' y2='0' stroke='#6c63ff' stroke-width='1' opacity='0.3'/><line x1='-10' y1='30' x2='30' y2='-10' stroke='#6c63ff' stroke-width='1' opacity='0.3'/><line x1='10' y1='50' x2='50' y2='10' stroke='#6c63ff' stroke-width='1' opacity='0.3'/>"
+  },
+  {
+    "id": "hexagons",
+    "name": "Hexagons",
+    "kind": "pattern",
+    "viewBox": "0 0 60 52",
+    "tags": ["hex", "geometric"],
+    "body": "<polygon points='15,0 30,8 30,22 15,30 0,22 0,8' fill='none' stroke='#6c63ff' stroke-width='1' opacity='0.4'/><polygon points='45,0 60,8 60,22 45,30 30,22 30,8' fill='none' stroke='#6c63ff' stroke-width='1' opacity='0.4'/><polygon points='30,22 45,30 45,44 30,52 15,44 15,30' fill='none' stroke='#6c63ff' stroke-width='1' opacity='0.4'/>"
+  },
+  {
+    "id": "grid-square",
+    "name": "Square Grid",
+    "kind": "pattern",
+    "viewBox": "0 0 40 40",
+    "tags": ["grid", "square", "graph"],
+    "body": "<path d='M 40 0 L 0 0 0 40' fill='none' stroke='#6c63ff' stroke-width='0.5' opacity='0.3'/>"
+  },
+  {
+    "id": "cross",
+    "name": "Crosses",
+    "kind": "pattern",
+    "viewBox": "0 0 40 40",
+    "tags": ["cross", "plus", "minimal"],
+    "body": "<path d='M 18 8 L 22 8 L 22 18 L 32 18 L 32 22 L 22 22 L 22 32 L 18 32 L 18 22 L 8 22 L 8 18 L 18 18 Z' fill='#6c63ff' opacity='0.3'/>"
+  },
+  {
+    "id": "triangles",
+    "name": "Triangles",
+    "kind": "pattern",
+    "viewBox": "0 0 40 40",
+    "tags": ["triangle", "geometric"],
+    "body": "<polygon points='20,4 36,32 4,32' fill='#6c63ff' opacity='0.2'/>"
+  },
+  {
+    "id": "topography",
+    "name": "Topography",
+    "kind": "pattern",
+    "viewBox": "0 0 80 80",
+    "tags": ["lines", "topo", "organic"],
+    "body": "<path d='M0 40 Q 20 20 40 40 T 80 40' fill='none' stroke='#6c63ff' stroke-width='0.6' opacity='0.4'/><path d='M0 30 Q 20 50 40 30 T 80 30' fill='none' stroke='#6c63ff' stroke-width='0.6' opacity='0.4'/><path d='M0 50 Q 20 70 40 50 T 80 50' fill='none' stroke='#6c63ff' stroke-width='0.6' opacity='0.4'/>"
+  },
+  {
+    "id": "circuit",
+    "name": "Circuit Board",
+    "kind": "pattern",
+    "viewBox": "0 0 60 60",
+    "tags": ["circuit", "tech"],
+    "body": "<path d='M5 5 L 25 5 L 25 25 L 45 25 L 45 45 L 5 45 L 5 5' fill='none' stroke='#6c63ff' stroke-width='1' opacity='0.4'/><circle cx='5' cy='5' r='2' fill='#6c63ff' opacity='0.6'/><circle cx='25' cy='25' r='2' fill='#6c63ff' opacity='0.6'/><circle cx='45' cy='45' r='2' fill='#6c63ff' opacity='0.6'/>"
+  },
+  {
+    "id": "wave-soft",
+    "name": "Soft Wave",
+    "kind": "wave",
+    "viewBox": "0 0 1440 320",
+    "preserveAspectRatio": "none",
+    "tags": ["wave", "soft", "divider"],
+    "body": "<path d='M0,160 C320,240 640,80 960,160 C1280,240 1440,160 1440,160 L1440,320 L0,320 Z' fill='#6c63ff' opacity='0.7'/><path d='M0,200 C320,280 640,120 960,200 C1280,280 1440,200 1440,200 L1440,320 L0,320 Z' fill='#6c63ff'/>"
+  },
+  {
+    "id": "wave-sharp",
+    "name": "Sharp Wave",
+    "kind": "wave",
+    "viewBox": "0 0 1440 320",
+    "preserveAspectRatio": "none",
+    "tags": ["wave", "sharp", "divider"],
+    "body": "<path d='M0,256 L240,128 L480,224 L720,96 L960,192 L1200,64 L1440,176 L1440,320 L0,320 Z' fill='#6c63ff'/>"
+  },
+  {
+    "id": "wave-deep",
+    "name": "Deep Wave",
+    "kind": "wave",
+    "viewBox": "0 0 1440 320",
+    "preserveAspectRatio": "none",
+    "tags": ["wave", "deep", "ocean"],
+    "body": "<path d='M0,96 C480,288 960,0 1440,160 L1440,320 L0,320 Z' fill='#6c63ff' opacity='0.6'/><path d='M0,160 C480,320 960,32 1440,224 L1440,320 L0,320 Z' fill='#6c63ff'/>"
+  },
+  {
+    "id": "wave-gentle",
+    "name": "Gentle Wave",
+    "kind": "wave",
+    "viewBox": "0 0 1440 200",
+    "preserveAspectRatio": "none",
+    "tags": ["wave", "gentle"],
+    "body": "<path d='M0,100 Q360,40 720,100 T1440,100 L1440,200 L0,200 Z' fill='#6c63ff'/>"
+  },
+  {
+    "id": "wave-steps",
+    "name": "Stepped Wave",
+    "kind": "wave",
+    "viewBox": "0 0 1440 320",
+    "preserveAspectRatio": "none",
+    "tags": ["wave", "steps"],
+    "body": "<path d='M0,160 L120,160 L120,128 L240,128 L240,192 L360,192 L360,144 L480,144 L480,176 L600,176 L600,112 L720,112 L720,160 L1440,160 L1440,320 L0,320 Z' fill='#6c63ff'/>"
+  },
+  {
+    "id": "blob-organic",
+    "name": "Organic Blob",
+    "kind": "blob",
+    "viewBox": "0 0 800 800",
+    "tags": ["blob", "organic", "soft"],
+    "body": "<path d='M 400,80 C 540,80 700,180 720,360 C 740,520 620,680 460,720 C 280,760 100,640 80,460 C 60,280 200,100 400,80 Z' fill='#6c63ff' opacity='0.7'/>"
+  },
+  {
+    "id": "blob-fluid",
+    "name": "Fluid Blob",
+    "kind": "blob",
+    "viewBox": "0 0 800 800",
+    "tags": ["blob", "fluid"],
+    "body": "<path d='M 400,100 C 600,80 760,260 700,460 C 640,640 440,740 260,680 C 100,620 60,420 140,260 C 200,140 280,120 400,100 Z' fill='#6c63ff' opacity='0.6'/><path d='M 400,180 C 540,160 660,300 620,440 C 580,580 420,640 280,600 C 160,560 140,420 200,300 C 240,220 320,200 400,180 Z' fill='#6c63ff'/>"
+  },
+  {
+    "id": "blob-sharp",
+    "name": "Sharp Blob",
+    "kind": "blob",
+    "viewBox": "0 0 800 800",
+    "tags": ["blob", "sharp", "abstract"],
+    "body": "<path d='M 100,200 L 400,80 L 700,180 L 740,500 L 580,720 L 280,700 L 80,500 Z' fill='#6c63ff' opacity='0.8'/>"
+  },
+  {
+    "id": "blob-double",
+    "name": "Double Blob",
+    "kind": "blob",
+    "viewBox": "0 0 800 800",
+    "tags": ["blob", "layered"],
+    "body": "<path d='M 200,200 C 360,140 540,200 600,400 C 660,600 480,720 300,660 C 120,600 40,360 200,200 Z' fill='#6c63ff' opacity='0.4'/><path d='M 280,260 C 420,220 560,300 580,460 C 600,620 440,700 300,640 C 180,580 160,340 280,260 Z' fill='#6c63ff' opacity='0.7'/>"
+  }
+]

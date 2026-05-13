@@ -1819,6 +1819,16 @@ document.addEventListener('pointerleave', function () {
   dropinSetInsertHover(null);
 }, true);
 
+// SINGLE CAPTURE-PHASE CLICK HANDLER for the inspector runtime. Tool
+// coordination is via the DROPIN_TOOL global; vibe-edit's runtime.ts
+// adds its own DROPIN_TOOL === 'vibe' handler that lives alongside
+// this one (registered later, but only one of them ever does work per
+// click because of the tool gate). A future inspector tool MUST hook
+// into one of these two handlers via a DROPIN_TOOL === 'mytool'
+// branch — do NOT register a third addEventListener('click', …, true)
+// on document. Capture-phase stopPropagation kills bubble listeners
+// and there's no clean way to multiplex multiple capture handlers
+// without an explicit dispatcher. WU2 lock-the-design (2026-05-12).
 document.addEventListener('click', function (ev) {
   if (dropinEditing) {
     // clicks inside the editing element are for text editing; don't intercept

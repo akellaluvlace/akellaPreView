@@ -388,13 +388,22 @@ export function patchJsxAttrByOid(
 // dirty the buffer).
 
 function injectOidIntoOuter(newOuter: string, oid: string): string {
-  if (newOuter.indexOf("data-dropin-id") >= 0) return newOuter;
+  // If the asset markup already carries an OID — either because it
+  // was previously inserted via vibe-edit and now lives in a saved
+  // export, or because the catalog baked one in — strip it. Without
+  // this strip we'd keep the asset's foreign OID and lose the target
+  // element's OID continuity: future vibe-edit operations on this
+  // element by its original OID would silently miss.
+  const stripped = newOuter.replace(
+    /\s*data-dropin-id\s*=\s*("[^"]*"|'[^']*')/g,
+    "",
+  );
   // Insert right after the first opening tag's name. The match handles
   // leading whitespace, optional ws between < and tagName, and any tag
   // name (svg, div, span, etc). Hyphens are allowed in custom-element
   // names. The injected attr has a leading space so it never collides
   // with whatever comes next (`>`, `/>`, an existing attr, etc).
-  return newOuter.replace(
+  return stripped.replace(
     /^(\s*<\s*[a-zA-Z][\w-]*)/,
     `$1 ${OID_ATTR}="${oid}"`,
   );

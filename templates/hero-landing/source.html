@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumen — Ship product faster, together.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-x: clip; }
+    .full-bleed {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      max-width: none;
+    }
+    .lumen-marquee {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      animation: lumen-x 60s linear infinite;
+    }
+    .lumen-marquee:hover { animation-play-state: paused; }
+    @keyframes lumen-x {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 8px)); }
+    }
+    .lumen-faq summary { list-style: none; cursor: pointer; }
+    .lumen-faq summary::-webkit-details-marker { display: none; }
+    .lumen-faq summary .lumen-chevron { transition: transform 250ms ease; }
+    .lumen-faq[open] summary .lumen-chevron { transform: rotate(180deg); }
+    .pulse-dot {
+      animation: pulse-ring 2s ease-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+      70%  { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .lumen-marquee { animation: none; }
+      .pulse-dot { animation: none; }
+      .lumen-faq summary .lumen-chevron { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen bg-white font-sans text-slate-900">
+    <header class="border-b border-slate-200 bg-white/80 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+        <div class="flex items-center gap-2">
+          <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-orange-400 to-rose-500"></div>
+          <span class="text-lg font-semibold tracking-tight">Lumen</span>
+        </div>
+        <nav class="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
+          <a href="#features" class="hover:text-slate-900">Features</a>
+          <a href="#pricing" class="hover:text-slate-900">Pricing</a>
+          <a href="#about" class="hover:text-slate-900">About</a>
+        </nav>
+        <a href="#" class="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800">
+          Start free
+        </a>
+      </div>
+    </header>
+
+    <section class="bg-gradient-to-br from-orange-50 via-white to-blue-50">
+      <div class="mx-auto max-w-5xl px-6 py-24 text-center md:py-32">
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600 shadow-sm">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          v1.4 — Real-time collab is here
+        </span>
+        <h1 class="mt-8 text-5xl font-semibold tracking-tight text-slate-900 md:text-7xl">
+          Ship product faster,
+          <br />
+          <span class="bg-gradient-to-r from-orange-500 via-rose-500 to-blue-600 bg-clip-text text-transparent">
+            together.
+          </span>
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-600 md:text-xl">
+          Lumen is the collaborative workspace where product, design, and
+          engineering turn ideas into releases — without the meetings.
+        </p>
+        <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href="#" class="rounded-full bg-slate-900 px-6 py-3 text-sm font-medium text-white hover:bg-slate-800">
+            Start free — no credit card
+          </a>
+          <a href="#features" class="rounded-full border border-slate-300 px-6 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100">
+            See how it works →
+          </a>
+        </div>
+        <p class="mt-6 text-xs text-slate-500">
+          Free 14-day trial · Cancel anytime · SOC 2 compliant
+        </p>
+      </div>
+    </section>
+
+    <section id="features" class="mx-auto max-w-6xl px-6 py-24">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="text-sm font-medium uppercase tracking-wider text-orange-600">
+          Why teams switch
+        </p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+          Everything a product team needs, in one room.
+        </h2>
+      </div>
+      <div class="mt-16 grid gap-8 md:grid-cols-3">
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
+          <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 text-lg text-orange-600">
+            ✶
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900">Live whiteboards</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Sketch flows, pin screenshots, and comment in the same canvas. No context lost to Slack.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
+          <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 text-lg text-orange-600">
+            ◆
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900">Spec-to-ticket</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Turn any doc into a backlog with one click. Linear, Jira, and GitHub Issues supported.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-xl">
+          <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 text-lg text-orange-600">
+            ●
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900">Release notes that write themselves</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            We watch your PRs and draft the changelog. You review and ship.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workspace strip — paused-on-hover marquee, NOT a bento -->
+    <section class="full-bleed border-y border-slate-200 bg-slate-50 py-16 overflow-hidden">
+      <div class="mx-auto max-w-6xl px-6 mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <p class="text-sm font-medium uppercase tracking-wider text-orange-600">// Inside Lumen · 03</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">A glance across active rooms.</h2>
+        </div>
+        <p class="max-w-md text-sm text-slate-600">Eight workspaces from this morning's spread of teams. Hover the strip to halt the conveyor — every tile is a real room.</p>
+      </div>
+      <div class="overflow-hidden relative">
+        <div class="lumen-marquee">
+          <figure class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Atlas" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 12</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_07</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Atlas · Onboarding flow</div><div class="text-xs text-slate-500">Design · Stockholm</div></div>
+              <div class="flex -space-x-2"><div class="h-6 w-6 rounded-full bg-orange-400 border-2 border-white"></div><div class="h-6 w-6 rounded-full bg-rose-500 border-2 border-white"></div><div class="h-6 w-6 rounded-full bg-blue-600 border-2 border-white"></div></div>
+            </figcaption>
+          </figure>
+          <figure class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Beacon" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1000&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-slate-700">v2.4 · ship</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_12</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Beacon · Pricing rework</div><div class="text-xs text-slate-500">PM · Seoul</div></div>
+              <span class="text-xs text-emerald-700 font-semibold">+47 commits</span>
+            </figcaption>
+          </figure>
+          <figure class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Cedar" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1573164574001-518958d9baa2?w=900&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 8</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_19</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Cedar · Spec → tickets</div><div class="text-xs text-slate-500">Eng · Berlin</div></div>
+              <span class="text-xs text-orange-600 font-semibold">37 issues</span>
+            </figcaption>
+          </figure>
+          <figure class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Dune" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1000&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 rounded-full bg-orange-100 text-orange-700 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest">REVIEW</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_22</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Dune · Q1 retrospective</div><div class="text-xs text-slate-500">Cross · Lisbon</div></div>
+              <span class="text-xs text-slate-500">14 voices</span>
+            </figcaption>
+          </figure>
+          <figure class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Echo" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 21</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_28</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Echo · Mobile rebuild</div><div class="text-xs text-slate-500">Eng · Toronto</div></div>
+              <span class="text-xs text-rose-600 font-semibold">3 reviewers</span>
+            </figcaption>
+          </figure>
+          <figure class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Forge" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1000&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest">DRAFT</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_31</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Forge · API redraft</div><div class="text-xs text-slate-500">Platform · Austin</div></div>
+              <span class="text-xs text-slate-500">Updated 6m</span>
+            </figcaption>
+          </figure>
+          <figure class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Glow" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest">SHIPPED</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_36</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Glow · v3.0 launch</div><div class="text-xs text-slate-500">All hands · NYC</div></div>
+              <span class="text-xs text-slate-500">14:02 · 2026-04</span>
+            </figcaption>
+          </figure>
+          <figure class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+            <div class="relative h-44">
+              <img alt="Lumen workspace · Halo" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1000&q=85&auto=format&fit=crop"/>
+              <span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 4</span>
+              <span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_44</span>
+            </div>
+            <figcaption class="px-4 py-3 flex justify-between items-center">
+              <div><div class="text-sm font-semibold text-slate-900">Halo · Pricing v2</div><div class="text-xs text-slate-500">PM · Remote</div></div>
+              <span class="text-xs text-orange-600 font-semibold">2 unresolved</span>
+            </figcaption>
+          </figure>
+          <!-- Duplicate set -->
+          <figure aria-hidden="true" class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 12</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_07</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Atlas · Onboarding flow</div><div class="text-xs text-slate-500">Design · Stockholm</div></div><div class="flex -space-x-2"><div class="h-6 w-6 rounded-full bg-orange-400 border-2 border-white"></div><div class="h-6 w-6 rounded-full bg-rose-500 border-2 border-white"></div><div class="h-6 w-6 rounded-full bg-blue-600 border-2 border-white"></div></div></figcaption></figure>
+          <figure aria-hidden="true" class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1000&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-slate-700">v2.4 · ship</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_12</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Beacon · Pricing rework</div><div class="text-xs text-slate-500">PM · Seoul</div></div><span class="text-xs text-emerald-700 font-semibold">+47 commits</span></figcaption></figure>
+          <figure aria-hidden="true" class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1573164574001-518958d9baa2?w=900&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 8</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_19</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Cedar · Spec → tickets</div><div class="text-xs text-slate-500">Eng · Berlin</div></div><span class="text-xs text-orange-600 font-semibold">37 issues</span></figcaption></figure>
+          <figure aria-hidden="true" class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1000&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 rounded-full bg-orange-100 text-orange-700 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest">REVIEW</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_22</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Dune · Q1 retrospective</div><div class="text-xs text-slate-500">Cross · Lisbon</div></div><span class="text-xs text-slate-500">14 voices</span></figcaption></figure>
+          <figure aria-hidden="true" class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=900&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 21</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_28</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Echo · Mobile rebuild</div><div class="text-xs text-slate-500">Eng · Toronto</div></div><span class="text-xs text-rose-600 font-semibold">3 reviewers</span></figcaption></figure>
+          <figure aria-hidden="true" class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1000&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest">DRAFT</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_31</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Forge · API redraft</div><div class="text-xs text-slate-500">Platform · Austin</div></div><span class="text-xs text-slate-500">Updated 6m</span></figcaption></figure>
+          <figure aria-hidden="true" class="shrink-0 w-72 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest">SHIPPED</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_36</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Glow · v3.0 launch</div><div class="text-xs text-slate-500">All hands · NYC</div></div><span class="text-xs text-slate-500">14:02 · 2026-04</span></figcaption></figure>
+          <figure aria-hidden="true" class="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden"><div class="relative h-44"><img alt="" class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1000&q=85&auto=format&fit=crop"/><span class="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Live · 4</span><span class="absolute top-3 right-3 rounded-full bg-slate-900/85 text-white px-2 py-0.5 text-[10px] font-semibold tracking-wider">ROOM_44</span></div><figcaption class="px-4 py-3 flex justify-between items-center"><div><div class="text-sm font-semibold text-slate-900">Halo · Pricing v2</div><div class="text-xs text-slate-500">PM · Remote</div></div><span class="text-xs text-orange-600 font-semibold">2 unresolved</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 alternating image+content rows (NOT a bento) -->
+    <section id="how" class="mx-auto max-w-6xl px-6 py-24">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="text-sm font-medium uppercase tracking-wider text-orange-600">From spec to ship</p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">Three rituals, one workspace.</h2>
+      </div>
+      <div class="mt-20 flex flex-col gap-24">
+        <!-- Row 1: image-left -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+          <figure class="md:col-span-7 relative">
+            <div class="absolute -inset-4 -rotate-2 bg-gradient-to-tr from-orange-100 via-rose-50 to-blue-50 rounded-3xl"></div>
+            <img alt="Whiteboard collaboration" class="relative w-full aspect-[16/10] object-cover rounded-2xl border border-slate-200 shadow-xl" src="https://images.unsplash.com/photo-1573164574001-518958d9baa2?w=1400&q=85&auto=format&fit=crop"/>
+            <span class="absolute top-6 left-6 inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500 pulse-dot"></span>Whiteboard · live</span>
+          </figure>
+          <div class="md:col-span-5">
+            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-rose-600">RITUAL · 01</span>
+            <h3 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Sketch first, doc second.</h3>
+            <p class="mt-4 text-slate-600">A blank canvas where engineering can pin a screenshot, design can draw the flow, and PM can vote on which lane wins. The whiteboard has its own URL — pin it in your Slack, your Linear, your inbox.</p>
+            <ul class="mt-6 space-y-2.5 text-sm">
+              <li class="flex items-start gap-3"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0"></span> Live cursors and per-user colour rails</li>
+              <li class="flex items-start gap-3"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0"></span> Comment threads tied to canvas regions</li>
+              <li class="flex items-start gap-3"><span class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-500 shrink-0"></span> One-click export → spec doc</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Row 2: image-right (reversed) -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+          <div class="md:col-span-5 md:order-1 order-2">
+            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">RITUAL · 02</span>
+            <h3 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Spec to ticket, in one keystroke.</h3>
+            <p class="mt-4 text-slate-600">Highlight a paragraph; press <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 text-xs">⌘ K</kbd>; pick a board. The ticket shows up with full context — your figure pinned, your acceptance criteria copied, your reviewers notified.</p>
+            <div class="mt-6 grid grid-cols-3 gap-3">
+              <div class="rounded-xl border border-slate-200 bg-white p-3 text-center"><div class="text-2xl font-semibold text-blue-600">37</div><div class="text-[11px] uppercase tracking-widest text-slate-500">Issues today</div></div>
+              <div class="rounded-xl border border-slate-200 bg-white p-3 text-center"><div class="text-2xl font-semibold text-rose-600">12s</div><div class="text-[11px] uppercase tracking-widest text-slate-500">Median open</div></div>
+              <div class="rounded-xl border border-slate-200 bg-white p-3 text-center"><div class="text-2xl font-semibold text-emerald-600">94%</div><div class="text-[11px] uppercase tracking-widest text-slate-500">First-pass</div></div>
+            </div>
+          </div>
+          <figure class="md:col-span-7 md:order-2 order-1 relative">
+            <div class="absolute -inset-4 rotate-2 bg-gradient-to-bl from-blue-100 via-white to-orange-50 rounded-3xl"></div>
+            <img alt="Spec converted to tickets" class="relative w-full aspect-[16/10] object-cover rounded-2xl border border-slate-200 shadow-xl" src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1400&q=85&auto=format&fit=crop"/>
+            <span class="absolute top-6 right-6 rounded-full bg-slate-900 text-white px-3 py-1 text-[11px] font-semibold tracking-widest">⌘ K · ship</span>
+          </figure>
+        </div>
+        <!-- Row 3: image-left -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+          <figure class="md:col-span-7 relative">
+            <div class="absolute -inset-4 -rotate-1 bg-gradient-to-tr from-emerald-50 via-white to-blue-50 rounded-3xl"></div>
+            <img alt="Release notes panel" class="relative w-full aspect-[16/10] object-cover rounded-2xl border border-slate-200 shadow-xl" src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1400&q=85&auto=format&fit=crop"/>
+            <span class="absolute bottom-6 left-6 rounded-full bg-emerald-500 text-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-widest">v3.0 · pushed</span>
+          </figure>
+          <div class="md:col-span-5">
+            <span class="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">RITUAL · 03</span>
+            <h3 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Release notes that write themselves.</h3>
+            <p class="mt-4 text-slate-600">Lumen watches your merged PRs, groups them by feature flag, and drafts the changelog the night before launch. You read, you trim, you ship — even on Fridays.</p>
+            <a class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 border-b-2 border-slate-900 pb-0.5 hover:gap-3 transition-all" href="#">See an example release note →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Numbered "Rollout" doctrine list -->
+    <section class="full-bleed bg-slate-900 text-white py-24">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
+          <aside class="lg:col-span-4 flex flex-col">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-400">Rollout playbook</p>
+            <h2 class="mt-4 text-3xl font-semibold tracking-tight md:text-4xl">Five moves teams make in week one.</h2>
+            <p class="mt-4 text-slate-300">Pulled from 240 onboarding interviews. The teams who ship in week one do these five things, in this order. The teams who don't, don't.</p>
+            <a class="mt-8 inline-flex items-center gap-2 text-sm font-semibold border border-white/30 rounded-full px-5 py-2 hover:bg-white hover:text-slate-900 transition-colors self-start" href="#">Read the full handbook →</a>
+            <!-- Bottom-aligned card so the left column stretches to match the 5-item ordered list on the right (mt-auto pushes to floor of the flex column). -->
+            <div class="mt-auto pt-10 hidden lg:block">
+              <div class="rounded-2xl border border-white/15 bg-white/[0.04] backdrop-blur p-6">
+                <div class="flex items-center justify-between mb-5">
+                  <span class="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-orange-400">
+                    <span class="h-1.5 w-1.5 rounded-full bg-orange-400 pulse-dot"></span>
+                    Telemetry · live
+                  </span>
+                  <span class="text-[10px] uppercase tracking-widest text-slate-500">N = 240</span>
+                </div>
+                <h3 class="text-base font-semibold mb-1 text-white">Week-one outcomes.</h3>
+                <p class="text-xs text-slate-400 leading-relaxed mb-5">Pulled live from cohorts that finished onboarding in the last six months.</p>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="text-center">
+                    <div class="text-2xl font-semibold tabular-nums text-orange-400">31</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-500 mt-0.5">cohorts</div>
+                  </div>
+                  <div class="text-center border-x border-white/10">
+                    <div class="text-2xl font-semibold tabular-nums text-rose-400">14d</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-500 mt-0.5">to first ship</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl font-semibold tabular-nums text-emerald-400">94%</div>
+                    <div class="text-[10px] uppercase tracking-widest text-slate-500 mt-0.5">stuck through</div>
+                  </div>
+                </div>
+                <p class="mt-5 pt-4 border-t border-white/10 text-[10px] uppercase tracking-widest text-slate-500">Rolling 6-month window · refreshed nightly</p>
+              </div>
+            </div>
+          </aside>
+          <ol class="lg:col-span-8 divide-y divide-white/10 border-t border-b border-white/10">
+            <li class="grid grid-cols-12 gap-4 py-6 hover:bg-white/[0.03] transition-colors">
+              <span class="col-span-2 lg:col-span-1 text-4xl font-semibold tabular-nums text-orange-400 leading-none">01</span>
+              <div class="col-span-10 lg:col-span-9">
+                <h3 class="text-lg font-semibold mb-1">Import one repo, not all of them.</h3>
+                <p class="text-sm text-slate-400">Start with the loudest one. Watch the changelog roll in. The rest will follow themselves.</p>
+              </div>
+              <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">~ 4 minutes</span>
+            </li>
+            <li class="grid grid-cols-12 gap-4 py-6 hover:bg-white/[0.03] transition-colors">
+              <span class="col-span-2 lg:col-span-1 text-4xl font-semibold tabular-nums text-orange-400 leading-none">02</span>
+              <div class="col-span-10 lg:col-span-9">
+                <h3 class="text-lg font-semibold mb-1">Pin the noisiest channel.</h3>
+                <p class="text-sm text-slate-400">Whichever Slack channel ate yesterday: pin it. Lumen turns its threads into rooms automatically.</p>
+              </div>
+              <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">~ 2 minutes</span>
+            </li>
+            <li class="grid grid-cols-12 gap-4 py-6 hover:bg-white/[0.03] transition-colors">
+              <span class="col-span-2 lg:col-span-1 text-4xl font-semibold tabular-nums text-orange-400 leading-none">03</span>
+              <div class="col-span-10 lg:col-span-9">
+                <h3 class="text-lg font-semibold mb-1">Hold one ritual on the canvas.</h3>
+                <p class="text-sm text-slate-400">Your standup, your retro, your post-mortem — pick one. The team learns the canvas in one ritual.</p>
+              </div>
+              <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">~ 25 minutes</span>
+            </li>
+            <li class="grid grid-cols-12 gap-4 py-6 hover:bg-white/[0.03] transition-colors">
+              <span class="col-span-2 lg:col-span-1 text-4xl font-semibold tabular-nums text-orange-400 leading-none">04</span>
+              <div class="col-span-10 lg:col-span-9">
+                <h3 class="text-lg font-semibold mb-1">Convert one spec into tickets.</h3>
+                <p class="text-sm text-slate-400">Take the longest doc on your wiki. Press ⌘K. Watch a sprint plan walk out of it.</p>
+              </div>
+              <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">~ 8 minutes</span>
+            </li>
+            <li class="grid grid-cols-12 gap-4 py-6 hover:bg-white/[0.03] transition-colors">
+              <span class="col-span-2 lg:col-span-1 text-4xl font-semibold tabular-nums text-orange-400 leading-none">05</span>
+              <div class="col-span-10 lg:col-span-9">
+                <h3 class="text-lg font-semibold mb-1">Ship a draft release note before Friday.</h3>
+                <p class="text-sm text-slate-400">Don't polish. Just publish. The first one is the hardest; everything after writes itself.</p>
+              </div>
+              <span class="col-span-12 lg:col-span-2 text-[10px] uppercase tracking-widest text-slate-500 self-center lg:text-right">~ 12 minutes</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trusted by — brand wall via simpleicons.org CDN. All slugs curl-verified 200. -->
+    <section class="full-bleed border-y border-slate-200 bg-white py-16">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="text-center mb-10">
+          <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-600">Stack-native</p>
+          <h2 class="mt-3 text-2xl font-semibold tracking-tight md:text-3xl text-slate-900">Lumen sits next to the tools your team already opens.</h2>
+          <p class="mt-3 text-sm text-slate-600 max-w-xl mx-auto">Two-way sync with the surfaces below. Set it up once, ignore it forever.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 md:gap-x-16">
+          <span class="group inline-flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors">
+            <img src="https://cdn.simpleicons.org/linear/64748b" alt="Linear logo" width="24" height="24" loading="lazy" decoding="async" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity"/>
+            <span class="text-sm font-semibold tracking-wide">Linear</span>
+          </span>
+          <span class="group inline-flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors">
+            <img src="https://cdn.simpleicons.org/github/64748b" alt="GitHub logo" width="24" height="24" loading="lazy" decoding="async" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity"/>
+            <span class="text-sm font-semibold tracking-wide">GitHub</span>
+          </span>
+          <span class="group inline-flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors">
+            <img src="https://cdn.simpleicons.org/notion/64748b" alt="Notion logo" width="24" height="24" loading="lazy" decoding="async" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity"/>
+            <span class="text-sm font-semibold tracking-wide">Notion</span>
+          </span>
+          <span class="group inline-flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors">
+            <img src="https://cdn.simpleicons.org/figma/64748b" alt="Figma logo" width="24" height="24" loading="lazy" decoding="async" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity"/>
+            <span class="text-sm font-semibold tracking-wide">Figma</span>
+          </span>
+          <span class="group inline-flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors">
+            <img src="https://cdn.simpleicons.org/vercel/64748b" alt="Vercel logo" width="24" height="24" loading="lazy" decoding="async" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity"/>
+            <span class="text-sm font-semibold tracking-wide">Vercel</span>
+          </span>
+          <span class="group inline-flex items-center gap-3 text-slate-500 hover:text-slate-900 transition-colors">
+            <img src="https://cdn.simpleicons.org/hubspot/64748b" alt="HubSpot logo" width="24" height="24" loading="lazy" decoding="async" class="w-6 h-6 opacity-70 group-hover:opacity-100 transition-opacity"/>
+            <span class="text-sm font-semibold tracking-wide">HubSpot</span>
+          </span>
+        </div>
+        <p class="mt-10 text-center text-[10px] uppercase tracking-[0.3em] text-slate-400">Plus 28 more via Zapier · OAuth · API · webhook</p>
+      </div>
+    </section>
+
+    <!-- Premium — security & compliance, four cards with inline SVG icons -->
+    <section class="bg-slate-50 py-24">
+      <div class="mx-auto max-w-6xl px-6">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+          <div class="max-w-xl">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-600">Built for buyers</p>
+            <h2 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl text-slate-900">Security your procurement team will sign on Friday.</h2>
+          </div>
+          <p class="text-sm text-slate-600 max-w-md">No questionnaire scramble. Trust centre, audit log, and DPA are linkable on day one.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <article class="rounded-2xl border border-slate-200 bg-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+            <div class="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 text-emerald-600">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/></svg>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 mb-2">SOC 2 Type II</h3>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1">Audited annually by a Big Four firm. Latest report dated Q1 2026 — request access through the trust centre.</p>
+            <span class="mt-5 pt-4 border-t border-slate-200 text-[10px] font-semibold uppercase tracking-widest text-emerald-600">Audited · Q1 26</span>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+            <div class="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 text-blue-600">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 mb-2">Single sign-on</h3>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1">Okta, Azure AD, Google Workspace, JumpCloud. SAML and OIDC. Provisioning via SCIM 2.0.</p>
+            <span class="mt-5 pt-4 border-t border-slate-200 text-[10px] font-semibold uppercase tracking-widest text-blue-600">On Pro+</span>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+            <div class="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 text-rose-600">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z"/></svg>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 mb-2">Audit log streaming</h3>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1">Every click, comment, and command — streamed to Datadog, Splunk, or your S3 bucket. JSON-Lines; back-fillable.</p>
+            <span class="mt-5 pt-4 border-t border-slate-200 text-[10px] font-semibold uppercase tracking-widest text-rose-600">JSONL · 12mo</span>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-white p-6 hover:-translate-y-1 hover:shadow-xl transition-all flex flex-col">
+            <div class="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-slate-100 text-orange-600">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/></svg>
+            </div>
+            <h3 class="text-base font-semibold text-slate-900 mb-2">Customer-managed keys</h3>
+            <p class="text-sm text-slate-600 leading-relaxed flex-1">BYOK with AWS KMS or GCP KMS. Rotate, suspend, and revoke from your own console — Lumen never holds the master.</p>
+            <span class="mt-5 pt-4 border-t border-slate-200 text-[10px] font-semibold uppercase tracking-widest text-orange-600">BYOK · KMS</span>
+          </article>
+        </div>
+        <div class="mt-12 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-xs text-slate-500">
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>ISO 27001 · in progress</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>GDPR · DPA on file</span>
+          <span class="inline-flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-orange-500"></span>HIPAA · Enterprise BAA</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ accordion -->
+    <section class="mx-auto max-w-4xl px-6 py-24">
+      <div class="text-center mb-12">
+        <p class="text-sm font-medium uppercase tracking-wider text-orange-600">Pre-flight checks</p>
+        <h2 class="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Questions teams ask in week zero.</h2>
+      </div>
+      <div class="divide-y divide-slate-200 border-y border-slate-200">
+        <details class="lumen-faq group p-5 md:p-6" open>
+          <summary class="flex items-center gap-6">
+            <span class="text-2xl font-semibold tabular-nums text-orange-600 shrink-0 w-10">01</span>
+            <h3 class="flex-1 text-lg font-semibold text-slate-900">Will Lumen replace our existing tools?</h3>
+            <svg class="lumen-chevron w-5 h-5 text-slate-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">No. Lumen sits next to Linear, Jira, Notion, GitHub and Slack. It indexes them, draws on them, and makes the seams disappear. Most teams keep every tool they had — they just stop tab-hopping.</p>
+        </details>
+        <details class="lumen-faq group p-5 md:p-6">
+          <summary class="flex items-center gap-6">
+            <span class="text-2xl font-semibold tabular-nums text-rose-600 shrink-0 w-10">02</span>
+            <h3 class="flex-1 text-lg font-semibold text-slate-900">How long does the trial run?</h3>
+            <svg class="lumen-chevron w-5 h-5 text-slate-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">14 days. No card, no calls. If you ship one release note in week one, you'll know whether it works for your team.</p>
+        </details>
+        <details class="lumen-faq group p-5 md:p-6">
+          <summary class="flex items-center gap-6">
+            <span class="text-2xl font-semibold tabular-nums text-blue-600 shrink-0 w-10">03</span>
+            <h3 class="flex-1 text-lg font-semibold text-slate-900">Where is our data hosted?</h3>
+            <svg class="lumen-chevron w-5 h-5 text-slate-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">EU and US regions, your choice at workspace creation. SOC 2 Type II, ISO 27001, and GDPR-aligned. Customer-managed keys (CMK) on Pro and above.</p>
+        </details>
+        <details class="lumen-faq group p-5 md:p-6">
+          <summary class="flex items-center gap-6">
+            <span class="text-2xl font-semibold tabular-nums text-emerald-600 shrink-0 w-10">04</span>
+            <h3 class="flex-1 text-lg font-semibold text-slate-900">Does the AI train on our content?</h3>
+            <svg class="lumen-chevron w-5 h-5 text-slate-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">No. Drafts are generated per-workspace and discarded after rendering. We never use your content as training data. The full data-handling brief is in the security centre.</p>
+        </details>
+        <details class="lumen-faq group p-5 md:p-6">
+          <summary class="flex items-center gap-6">
+            <span class="text-2xl font-semibold tabular-nums text-orange-600 shrink-0 w-10">05</span>
+            <h3 class="flex-1 text-lg font-semibold text-slate-900">Can we self-host?</h3>
+            <svg class="lumen-chevron w-5 h-5 text-slate-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="pl-16 mt-3 text-sm leading-relaxed text-slate-600">Yes — single-tenant on AWS, GCP, or Azure on the Enterprise plan. We help you wire SSO, audit log forwarding, and the changelog connector.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Square image strip — full-width, 8 rounded-corner photos. All Unsplash IDs HEAD-checked 200. -->
+    <section class="full-bleed border-t border-slate-200 bg-white py-12">
+      <div class="mx-auto max-w-6xl px-6 mb-8 text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-600">// Inside Lumen · 04</p>
+        <h2 class="mt-3 text-2xl font-semibold tracking-tight md:text-3xl text-slate-900">Eight rooms, one Friday afternoon.</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 px-3 md:px-6">
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Engineering pair-debugging at a laptop" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Designer sketching wireframes on tablet" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Standup in front of a wall of sticky notes" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Dual-monitor coding setup with terminal open" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1573164574001-518958d9baa2?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Whiteboard sprint planning session" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Cross-functional design review at long table" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Engineer reviewing pull request on screen" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+        <figure class="aspect-square rounded-2xl overflow-hidden border border-slate-200 bg-slate-100"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&amp;q=80&amp;auto=format&amp;fit=crop" alt="Remote teammate on video call laptop" loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/></figure>
+      </div>
+    </section>
+
+    <footer class="border-t border-slate-200 bg-slate-50">
+      <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm text-slate-500 md:flex-row">
+        <p>© 2026 Lumen Labs</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-slate-900">Privacy</a>
+          <a href="#" class="hover:text-slate-900">Terms</a>
+          <a href="#" class="hover:text-slate-900">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

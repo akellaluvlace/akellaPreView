@@ -42,6 +42,31 @@ export function vibeRuntimeJs(): string {
       return el && el.matches && el.matches(VIBE_EDITABLE);
     }
 
+    // Walk up from el looking for a button or card-like ancestor
+    // within maxDepth levels. Used by vibeFindEditableAncestor to
+    // override a span-first match with the spans parent intent — the
+    // dominant real-template pattern is <button><span>Label</span>
+    // </button> or <div class="card"><span class="badge">NEW</span>
+    // </div> where the user wants the parent, not the label/badge.
+    // Stops at body/documentElement to avoid walking into doc root.
+    // Returns the ancestor or null.
+    function vibeFindButtonOrCardAncestorWithin(el, maxDepth) {
+      var cur = el && el.parentElement;
+      var depth = 0;
+      while (
+        cur &&
+        depth < maxDepth &&
+        cur !== document.body &&
+        cur !== document.documentElement
+      ) {
+        if (cur.tagName === 'BUTTON') return cur;
+        if (vibeIsCardLike(cur)) return cur;
+        cur = cur.parentElement;
+        depth++;
+      }
+      return null;
+    }
+
     // Walk up from el to find the nearest editable atom (heading,
     // text, button, link, image, svg, etc.). ev.target is the deepest
     // hit element which for SVGs is usually a <path>, for buttons-
@@ -49,10 +74,25 @@ export function vibeRuntimeJs(): string {
     // these never select anything because the immediate target doesnt
     // match VIBE_EDITABLE. Stops at body/documentElement so a click
     // on the page background doesnt walk into the document root.
+    //
+    // Span override: when the first editable match is a <span>, look
+    // for a <button> or card-like container within 3 ancestor levels
+    // and prefer THAT. Rationale: 34 of 108 templates wrap button /
+    // card labels in <span> for typography control — clicking the
+    // visible label should select the user-intended parent, not the
+    // wrapper. Standalone spans (no button/card parent within 3)
+    // still get selected normally so <span class="text-6xl">42%
+    // </span> in a stat block still works as an atom.
     function vibeFindEditableAncestor(el) {
       var cur = el;
       while (cur && cur !== document.body && cur !== document.documentElement) {
-        if (vibeIsEditable(cur)) return cur;
+        if (vibeIsEditable(cur)) {
+          if (cur.tagName === 'SPAN') {
+            var parent = vibeFindButtonOrCardAncestorWithin(cur, 3);
+            if (parent) return parent;
+          }
+          return cur;
+        }
         cur = cur.parentElement;
       }
       return null;
@@ -89,6 +129,17 @@ export function vibeRuntimeJs(): string {
       return false;
     }
 
+    // Performance note (WU3, 2026-05-12): walks up to ~10 levels in
+    // realistic templates, calling vibeIsCardLike (4 getComputedStyle
+    // reads per ancestor) each step. Looks expensive but isn't —
+    // getComputedStyle is free by itself; reads within a single task
+    // share the browser's style cache. ~10 ancestor walks fold into
+    // ~1 forced style recalc total = sub-millisecond on modern
+    // hardware, far below the 16ms one-frame threshold. If templates
+    // ever grow past 30 levels OR if profiling flags this as a hot
+    // path, switch to a per-click WeakMap<Element, boolean> cache
+    // reset at handler entry (see docs/superpowers/plans/2026-05-11-
+    // pm-deferred-decisions.md Option B for the implementation).
     function vibeFindCardAncestor(el) {
       var cur = el;
       while (cur && cur !== document.body && cur !== document.documentElement) {
@@ -223,6 +274,20 @@ export function vibeRuntimeJs(): string {
     // up for a card-like container (div with bg / rounded / shadow /
     // border) — vibecoders click somewhere in a card and expect to
     // edit the card. Plain wrappers fall through to selection-clear.
+    //
+    // SINGLE CAPTURE-PHASE HANDLER BY DESIGN (WU2 lock-the-design,
+    // 2026-05-12). Tool coordination is via the DROPIN_TOOL global
+    // from inspectorRuntimeJs; any future inspector that wants to
+    // handle clicks adds an else-if (DROPIN_TOOL === "mytool")
+    // branch inside THIS handler OR an else-arm in inspectorRuntimeJs.
+    // Do NOT register a parallel addEventListener click capture
+    // listener — capture-phase stopPropagation kills bubble-phase
+    // handlers and there is no clean way for two capture-phase
+    // listeners on the same target to coexist. Pattern matches
+    // tldraw single-active-tool dispatcher and Plasmic/Builder.io
+    // host-frame-owns-clicks architecture (see
+    // docs/superpowers/plans/2026-05-11-pm-deferred-decisions.md
+    // for citations).
     document.addEventListener('click', function (ev) {
       if (DROPIN_TOOL !== 'vibe') return;
       ev.preventDefault();
@@ -268,7 +333,12 @@ export function vibeRuntimeJs(): string {
             if (Object.prototype.hasOwnProperty.call(d.styles, prop)) {
               var v = d.styles[prop];
               if (typeof v === 'string') {
-                try { el.style[prop] = v; } catch (e) {}
+                try { el.style[prop] = v; }
+                catch (e) {
+                  if (window.console && console.warn) {
+                    console.warn('[vibe-edit] style assign failed', prop, e);
+                  }
+                }
               }
             }
           }
@@ -305,19 +375,39 @@ export function vibeRuntimeJs(): string {
         if (el && typeof d.newOuter === 'string' && d.newOuter.length > 0) {
           var wasSelected = (vibeSelected === el);
           var stamped = d.newOuter;
+          // Strip any foreign OID baked into the asset markup so we
+          // can replant the target element's OID below — without this,
+          // the swap would silently lose OID continuity on assets that
+          // ship pre-stamped (e.g. assets exported from a prior vibe-
+          // edit session).
+          if (d.oid) {
+            stamped = stamped.replace(
+              /\s*data-dropin-id\s*=\s*("[^"]*"|'[^']*')/g,
+              ''
+            );
+          }
           if (d.oid && stamped.indexOf('data-dropin-id') < 0) {
             // charCode comparisons throughout — avoids '\t' in a TS
             // template body (which would expand to a literal tab and
             // make the source visually ambiguous). 60 = '<', 32 = ' ',
-            // 9 = TAB; tag-name chars are A-Z (65-90), a-z (97-122),
-            // 0-9 (48-57), '-' (45).
+            // 9 = TAB, 10 = LF, 13 = CR; tag-name chars are A-Z
+            // (65-90), a-z (97-122), 0-9 (48-57), '-' (45). LF/CR
+            // matter for asset library outputs that format multi-line
+            // markup (e.g. an SVG icon with the open tag on its own
+            // line) — without them the scan stalls before the tag
+            // name and the OID injection silently no-ops.
             var i = 0;
             while (i < stamped.length && stamped.charCodeAt(i) !== 60) i++;
             if (i < stamped.length) {
               var j = i + 1;
               while (
                 j < stamped.length &&
-                (stamped.charCodeAt(j) === 32 || stamped.charCodeAt(j) === 9)
+                (
+                  stamped.charCodeAt(j) === 32 ||
+                  stamped.charCodeAt(j) === 9 ||
+                  stamped.charCodeAt(j) === 10 ||
+                  stamped.charCodeAt(j) === 13
+                )
               ) j++;
               var k = j;
               while (k < stamped.length) {
@@ -326,7 +416,14 @@ export function vibeRuntimeJs(): string {
                   (ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122);
                 var isDigit = (ch >= 48 && ch <= 57);
                 var isHyphen = ch === 45;
-                if (!isAlpha && !isDigit && !isHyphen) break;
+                // 58 = colon. Accepts namespace-prefixed tags like
+                // <svg:use> and <xlink:href> — rare in modern HTML5
+                // but legal XHTML / inlined SVG-as-XML still emits
+                // them. Without this the scan would stop AT the colon
+                // and inject OID between the namespace prefix and the
+                // local name, producing broken markup.
+                var isColon = ch === 58;
+                if (!isAlpha && !isDigit && !isHyphen && !isColon) break;
                 k++;
               }
               if (k > j) {
@@ -337,7 +434,16 @@ export function vibeRuntimeJs(): string {
               }
             }
           }
-          try { el.outerHTML = stamped; } catch (e) {}
+          try { el.outerHTML = stamped; }
+          catch (e) {
+            // CSP nonce mismatch, sandboxed-iframe innerHTML restrictions,
+            // and parser-rejection of malformed asset markup all land
+            // here. Without this log a swap that silently failed in the
+            // DOM would still post vibe:selected with stale info.
+            if (window.console && console.warn) {
+              console.warn('[vibe-edit] outerHTML assign failed', e);
+            }
+          }
           if (wasSelected && d.path) {
             var newEl = document.querySelector(d.path);
             if (newEl) {

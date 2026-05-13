@@ -11,9 +11,23 @@
 // without any source rebuild. Source reconciliation happens lazily
 // in Workspace via buildVibeCommit on idle.
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
+import { rgbToHex } from "@/lib/vibe-edit/rgb-to-hex";
 import TextTypographyExtras from "./TextTypographyExtras";
+
+// TextControls owns the background colour picker, so transparent bg
+// should NOT render as a black square (indistinguishable from a black
+// text-colour swatch). White is the readable fallback.
+const RGB_OPTS = { transparentFallback: "#ffffff" } as const;
+
+// 80ms is the sweet spot: typing at 80wpm is ~6.7 chars/sec, one char
+// every ~150ms. An 80ms debounce coalesces back-to-back fast keystrokes
+// (the kind that fire when the user holds a key or does an autocomplete
+// paste) without adding perceptible lag for normal typing rhythms.
+// Lower than 80ms isn't useful — keystroke timing IS the bound. Higher
+// feels laggy on the preview.
+const CONTENT_DEBOUNCE_MS = 80;
 
 interface TextControlsProps {
   info: VibeElementInfo;
@@ -33,17 +47,53 @@ export default function TextControls({
   onClassesChange,
 }: TextControlsProps) {
   const [text, setText] = useState(info.text);
-  const [color, setColor] = useState(rgbToHex(info.textColor));
-  const [bg, setBg] = useState(rgbToHex(info.bgColor));
+  const [color, setColor] = useState(rgbToHex(info.textColor, RGB_OPTS));
+  const [bg, setBg] = useState(rgbToHex(info.bgColor, RGB_OPTS));
 
   // Sync local input state with whatever the iframe last reported.
   // Keyed on path so switching to a different element reseeds; text
   // / colour deps reseed when an external edit changes the element.
   useEffect(() => {
     setText(info.text);
-    setColor(rgbToHex(info.textColor));
-    setBg(rgbToHex(info.bgColor));
+    setColor(rgbToHex(info.textColor, RGB_OPTS));
+    setBg(rgbToHex(info.bgColor, RGB_OPTS));
   }, [info.path, info.text, info.textColor, info.bgColor]);
+
+  // Debounced post of onContentChange. Without this every keystroke
+  // posts vibe:update-content to the iframe → runtime does a
+  // querySelector → textContent write → vibeSerialize (forces reflow
+  // via getComputedStyle) → re-emits vibe:selected to host → Workspace
+  // re-renders the panel. At 80wpm that's ~10 messages/sec each doing
+  // a forced reflow — the kind of thing that makes editors feel laggy
+  // without an obvious cause.
+  const debouncedPostRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const postText = useCallback(
+    (v: string) => {
+      if (debouncedPostRef.current !== null) {
+        clearTimeout(debouncedPostRef.current);
+      }
+      debouncedPostRef.current = setTimeout(() => {
+        onContentChange(v);
+        debouncedPostRef.current = null;
+      }, CONTENT_DEBOUNCE_MS);
+    },
+    [onContentChange],
+  );
+
+  // Cleanup pending timer on path change + unmount. Without this a
+  // fast-typing vibecoder who clicks a different element gets one
+  // stale post arriving after the new element is selected, mutating
+  // the WRONG path (the runtime resolves d.path at fire-time, not at
+  // queue-time). Path is the selection key, so this fires on selection
+  // change as well as full unmount.
+  useEffect(() => {
+    return () => {
+      if (debouncedPostRef.current !== null) {
+        clearTimeout(debouncedPostRef.current);
+        debouncedPostRef.current = null;
+      }
+    };
+  }, [info.path]);
 
   return (
     <div className="space-y-3 p-4">
@@ -54,8 +104,8 @@ export default function TextControls({
         <textarea
           value={text}
           onChange={(e) => {
-            setText(e.target.value);
-            onContentChange(e.target.value);
+            setText(e.target.value);  // instant local state — no input lag
+            postText(e.target.value); // debounced iframe post
           }}
           rows={3}
           className="mt-1 w-full border-2 border-ink bg-paper p-2 font-mono text-sm focus:outline-none"
@@ -112,40 +162,3 @@ export default function TextControls({
   );
 }
 
-// Convert any computed-style colour string the iframe might emit to
-// a 6-digit hex. Edge cases:
-//   - empty / nullish → black
-//   - 'transparent' / rgba(0,0,0,0) → white (so the picker isn't a
-//     misleading black square the user can't tell from text colour)
-//   - rgb(r,g,b) / rgba(r,g,b,a) → '#rrggbb' (alpha dropped)
-//   - '#xxx' / '#xxxxxx' → returned as-is (lowercase'd)
-//
-// The vibecoder doesn't reason about RGB; the picker just wants a
-// hex value. If we ever need alpha we can extend this later.
-function rgbToHex(rgb: string): string {
-  if (!rgb) return "#000000";
-  if (rgb.startsWith("#")) {
-    return rgb.length === 4
-      ? "#" +
-          rgb
-            .slice(1)
-            .split("")
-            .map((c) => c + c)
-            .join("")
-            .toLowerCase()
-      : rgb.toLowerCase();
-  }
-  if (rgb === "transparent" || /^rgba?\(\s*0\s*,\s*0\s*,\s*0\s*,\s*0\s*\)$/.test(rgb)) {
-    return "#ffffff";
-  }
-  const m = rgb.match(/\d+(?:\.\d+)?/g);
-  if (!m || m.length < 3) return "#000000";
-  return (
-    "#" +
-    m
-      .slice(0, 3)
-      .map((n) => Math.max(0, Math.min(255, Math.round(Number(n)))))
-      .map((n) => n.toString(16).padStart(2, "0"))
-      .join("")
-  );
-}

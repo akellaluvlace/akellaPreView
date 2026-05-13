@@ -1,0 +1,6 @@
+node_modules/
+.next/
+web/
+public/
+package-lock.json
+phase5-prettier-diff-preview.txt

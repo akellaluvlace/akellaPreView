@@ -18,12 +18,17 @@ import type { VibeElementInfo } from "./vibe-edit/types";
 // In vibe mode the iframe runtime emits selection / mutation events
 // against a constrained element set (text/heading/image/link/button)
 // and bypasses the FocusEditor modal entirely. See lib/vibe-edit/.
+//
+// 'swap' was retired in Phase 6 (2026-05-11 PM) — asset swap-from-
+// library now lives INSIDE vibe mode (the per-kind Browse buttons
+// drive vibe:update-outer + buildVibeCommit's outer-replacement
+// path). The standalone tool was redundant. Persisted localStorage
+// values of "swap" are migrated to "view" on next mount.
 export type Tool =
   | "view"
   | "select"
   | "move"
   | "insert"
-  | "swap"
   | "vibe";
 
 export interface JsxLoc {

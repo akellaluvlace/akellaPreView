@@ -1,6 +1,22 @@
 import { describe, it, expect } from "vitest";
-import { buildVibeCommit } from "../lib/vibe-edit/commit";
+import {
+  buildVibeCommit,
+  type VibeCommitResult,
+} from "../lib/vibe-edit/commit";
 import type { VibeElementInfo } from "../lib/vibe-edit/types";
+
+// Narrowing helper. Phase 2 migrated buildVibeCommit from
+// { unchanged, source } to a discriminated union — `source` only lives
+// on the "ok" arm. Asserting via the helper both fails the test on a
+// wrong-kind result AND narrows the type for the follow-on `.source`
+// assertions, keeping the assertion-style flat.
+function expectOk(
+  r: VibeCommitResult,
+): asserts r is { kind: "ok"; source: string } {
+  if (r.kind !== "ok") {
+    throw new Error(`expected kind="ok", got "${r.kind}"`);
+  }
+}
 
 const HTML_FIXTURE = `<!doctype html><html><body>
 <h1>Original heading</h1>
@@ -76,7 +92,7 @@ describe("buildVibeCommit — HTML mode", () => {
       old: htmlInfo({}),
       next: { text: "New heading" },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain("<h1>New heading</h1>");
     expect(out.source).not.toContain("Original heading");
   });
@@ -96,7 +112,7 @@ describe("buildVibeCommit — HTML mode", () => {
       }),
       next: { src: "/new.jpg", alt: "new alt" },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain('src="/new.jpg"');
     expect(out.source).toContain('alt="new alt"');
     expect(out.source).not.toContain("/old.jpg");
@@ -116,10 +132,11 @@ describe("buildVibeCommit — HTML mode", () => {
       }),
       next: { href: "/new" },
     });
+    expectOk(out);
     expect(out.source).toContain('href="/new"');
   });
 
-  it("returns unchanged=true when next is identical to old", () => {
+  it("returns no-op when next is identical to old", () => {
     const out = buildVibeCommit({
       mode: "html",
       source: HTML_FIXTURE,
@@ -132,8 +149,7 @@ describe("buildVibeCommit — HTML mode", () => {
       }),
       next: { text: "Original paragraph" },
     });
-    expect(out.unchanged).toBe(true);
-    expect(out.source).toBe(HTML_FIXTURE);
+    expect(out.kind).toBe("no-op");
   });
 
   it("escapes HTML entities when writing text", () => {
@@ -149,18 +165,18 @@ describe("buildVibeCommit — HTML mode", () => {
       }),
       next: { text: "5 < 10 & 3 > 2" },
     });
+    expectOk(out);
     expect(out.source).toContain("5 &lt; 10 &amp; 3 &gt; 2");
   });
 
-  it("ignores undefined next fields", () => {
+  it("ignores undefined next fields (no-op)", () => {
     const out = buildVibeCommit({
       mode: "html",
       source: HTML_FIXTURE,
       old: htmlInfo({}),
       next: {},
     });
-    expect(out.unchanged).toBe(true);
-    expect(out.source).toBe(HTML_FIXTURE);
+    expect(out.kind).toBe("no-op");
   });
 });
 
@@ -172,7 +188,7 @@ describe("buildVibeCommit — JSX mode", () => {
       old: jsxInfo({}),
       next: { text: "New heading" },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain(">New heading<");
   });
 
@@ -191,6 +207,7 @@ describe("buildVibeCommit — JSX mode", () => {
       }),
       next: { src: "/new.jpg" },
     });
+    expectOk(out);
     expect(out.source).toContain('src="/new.jpg"');
   });
 
@@ -208,10 +225,11 @@ describe("buildVibeCommit — JSX mode", () => {
       }),
       next: { href: "/new" },
     });
+    expectOk(out);
     expect(out.source).toContain('href="/new"');
   });
 
-  it("returns unchanged when patcher reports no diff", () => {
+  it("returns no-op when patcher reports no diff", () => {
     const out = buildVibeCommit({
       mode: "jsx",
       source: JSX_FIXTURE,
@@ -224,17 +242,17 @@ describe("buildVibeCommit — JSX mode", () => {
       }),
       next: {},
     });
-    expect(out.unchanged).toBe(true);
+    expect(out.kind).toBe("no-op");
   });
 
-  it("returns unchanged when oid missing in JSX mode", () => {
+  it("returns bail (missing-oid) when JSX mode lacks oid", () => {
     const out = buildVibeCommit({
       mode: "jsx",
       source: JSX_FIXTURE,
       old: jsxInfo({ oid: null }),
       next: { text: "would-be-new" },
     });
-    expect(out.unchanged).toBe(true);
+    expect(out).toEqual({ kind: "bail", reason: "missing-oid" });
   });
 
   it("applies multiple field changes in one call", () => {
@@ -252,7 +270,7 @@ describe("buildVibeCommit — JSX mode", () => {
       }),
       next: { src: "/x.jpg", alt: "new alt" },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain('src="/x.jpg"');
     expect(out.source).toContain('alt="new alt"');
   });
@@ -288,7 +306,7 @@ describe("buildVibeCommit — outer (icon swap)", () => {
       }),
       next: { outer: `<svg viewBox="0 0 16 16"><circle r="8" /></svg>` },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain(`<svg viewBox="0 0 16 16"><circle r="8" /></svg>`);
     expect(out.source).not.toContain(`<path d="M0 0" />`);
     // Surrounding bytes preserved.
@@ -309,14 +327,14 @@ describe("buildVibeCommit — outer (icon swap)", () => {
       }),
       next: { outer: `<svg viewBox="0 0 16 16"><circle /></svg>` },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain(
       `<svg data-dropin-id="icon-1" viewBox="0 0 16 16"><circle /></svg>`,
     );
     expect(out.source).not.toContain(`<path d="M1 1" />`);
   });
 
-  it("JSX mode: bails (unchanged) when oid is null", () => {
+  it("JSX mode: returns bail (missing-oid) when oid is null", () => {
     const out = buildVibeCommit({
       mode: "jsx",
       source: SVG_JSX_FIXTURE,
@@ -329,11 +347,10 @@ describe("buildVibeCommit — outer (icon swap)", () => {
       }),
       next: { outer: `<svg></svg>` },
     });
-    expect(out.unchanged).toBe(true);
-    expect(out.source).toBe(SVG_JSX_FIXTURE);
+    expect(out).toEqual({ kind: "bail", reason: "missing-oid" });
   });
 
-  it("HTML mode: bails (unchanged) when htmlPath is null", () => {
+  it("HTML mode: returns bail (missing-html-path) when htmlPath is null", () => {
     const out = buildVibeCommit({
       mode: "html",
       source: SVG_HTML_FIXTURE,
@@ -346,11 +363,10 @@ describe("buildVibeCommit — outer (icon swap)", () => {
       }),
       next: { outer: `<svg></svg>` },
     });
-    expect(out.unchanged).toBe(true);
-    expect(out.source).toBe(SVG_HTML_FIXTURE);
+    expect(out).toEqual({ kind: "bail", reason: "missing-html-path" });
   });
 
-  it("returns unchanged when newOuter is empty", () => {
+  it("returns no-op when newOuter is empty", () => {
     const out = buildVibeCommit({
       mode: "jsx",
       source: SVG_JSX_FIXTURE,
@@ -365,8 +381,8 @@ describe("buildVibeCommit — outer (icon swap)", () => {
     });
     // Empty string is treated as "no swap intent" — same as text=""
     // semantics elsewhere: it would commit an empty patch, which the
-    // patcher rejects. Net result: unchanged.
-    expect(out.unchanged).toBe(true);
+    // patcher rejects. Net result: no-op.
+    expect(out.kind).toBe("no-op");
   });
 });
 
@@ -401,7 +417,7 @@ describe("buildVibeCommit — classes (typography)", () => {
       }),
       next: { classes: "text-2xl font-bold leading-tight" },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain(`class="text-2xl font-bold leading-tight"`);
     expect(out.source).not.toContain(`class="text-xl`);
     // Surrounding bytes unchanged.
@@ -423,13 +439,13 @@ describe("buildVibeCommit — classes (typography)", () => {
       }),
       next: { classes: "text-3xl font-extrabold tracking-wide" },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).toContain(
       `className="text-3xl font-extrabold tracking-wide"`,
     );
   });
 
-  it("returns unchanged when classes match the old snapshot", () => {
+  it("returns no-op when classes match the old snapshot", () => {
     const out = buildVibeCommit({
       mode: "jsx",
       source: TYPO_JSX_FIXTURE,
@@ -443,10 +459,10 @@ describe("buildVibeCommit — classes (typography)", () => {
       }),
       next: { classes: "text-xl font-bold leading-tight" },
     });
-    expect(out.unchanged).toBe(true);
+    expect(out.kind).toBe("no-op");
   });
 
-  it("JSX mode: bails (unchanged) when oid is null", () => {
+  it("JSX mode: returns bail (missing-oid) when oid is null (classes change)", () => {
     const out = buildVibeCommit({
       mode: "jsx",
       source: TYPO_JSX_FIXTURE,
@@ -460,8 +476,7 @@ describe("buildVibeCommit — classes (typography)", () => {
       }),
       next: { classes: "text-2xl" },
     });
-    expect(out.unchanged).toBe(true);
-    expect(out.source).toBe(TYPO_JSX_FIXTURE);
+    expect(out).toEqual({ kind: "bail", reason: "missing-oid" });
   });
 
   it("supports empty classes (removes the className attribute)", () => {
@@ -478,7 +493,275 @@ describe("buildVibeCommit — classes (typography)", () => {
       }),
       next: { classes: "" },
     });
-    expect(out.unchanged).toBe(false);
+    expectOk(out);
     expect(out.source).not.toContain(`className=`);
+  });
+});
+
+const STYLE_JSX_FIXTURE = `function App() {
+  return (
+    <div>
+      <h2 data-dropin-id="head-1" className="text-red-500 bg-blue-500 rounded-md p-4">Headline</h2>
+    </div>
+  );
+}`;
+
+const STYLE_JSX_NO_CLASSES = `function App() {
+  return (
+    <div>
+      <p data-dropin-id="p-1">Plain paragraph</p>
+    </div>
+  );
+}`;
+
+describe("buildVibeCommit — styleDelta (JSX persistence)", () => {
+  it("translates color delta to text-[#hex] and patches className", () => {
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_FIXTURE,
+      old: jsxInfo({
+        path: "div > h2",
+        oid: "head-1",
+        tag: "h2",
+        kind: "heading",
+        text: "Headline",
+        classes: "text-red-500 bg-blue-500 rounded-md p-4",
+      }),
+      next: { styleDelta: { color: "rgb(0, 255, 0)" } },
+    });
+    expectOk(out);
+    expect(out.source).toContain(`text-[#00ff00]`);
+    expect(out.source).not.toContain(`text-red-500`);
+    // Untouched bits.
+    expect(out.source).toContain(`bg-blue-500`);
+    expect(out.source).toContain(`rounded-md`);
+    expect(out.source).toContain(`p-4`);
+  });
+
+  it("translates color + bg + radius delta in one call", () => {
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_FIXTURE,
+      old: jsxInfo({
+        path: "div > h2",
+        oid: "head-1",
+        tag: "h2",
+        kind: "heading",
+        text: "Headline",
+        classes: "text-red-500 bg-blue-500 rounded-md p-4",
+      }),
+      next: {
+        styleDelta: {
+          color: "#000000",
+          backgroundColor: "rgb(255, 255, 255)",
+          borderRadius: "16px",
+        },
+      },
+    });
+    expectOk(out);
+    expect(out.source).toContain(`text-[#000000]`);
+    expect(out.source).toContain(`bg-[#ffffff]`);
+    expect(out.source).toContain(`rounded-[16px]`);
+    expect(out.source).not.toContain(`text-red-500`);
+    expect(out.source).not.toContain(`bg-blue-500`);
+    expect(out.source).not.toContain(`rounded-md`);
+  });
+
+  it("returns no-op when styleDelta is empty", () => {
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_FIXTURE,
+      old: jsxInfo({
+        path: "div > h2",
+        oid: "head-1",
+        tag: "h2",
+        kind: "heading",
+        text: "Headline",
+        classes: "text-red-500 bg-blue-500 rounded-md p-4",
+      }),
+      next: { styleDelta: {} },
+    });
+    expect(out.kind).toBe("no-op");
+  });
+
+  it("transparent color: strips text colour, no add", () => {
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_FIXTURE,
+      old: jsxInfo({
+        path: "div > h2",
+        oid: "head-1",
+        tag: "h2",
+        kind: "heading",
+        text: "Headline",
+        classes: "text-red-500 bg-blue-500 rounded-md p-4",
+      }),
+      next: { styleDelta: { color: "transparent" } },
+    });
+    expectOk(out);
+    expect(out.source).not.toContain(`text-red-500`);
+    expect(out.source).not.toMatch(/text-\[/);
+    expect(out.source).toContain(`bg-blue-500`);
+  });
+
+  it("0px borderRadius: strips rounded classes, no add", () => {
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_FIXTURE,
+      old: jsxInfo({
+        path: "div > h2",
+        oid: "head-1",
+        tag: "h2",
+        kind: "heading",
+        text: "Headline",
+        classes: "text-red-500 bg-blue-500 rounded-md p-4",
+      }),
+      next: { styleDelta: { borderRadius: "0px" } },
+    });
+    expectOk(out);
+    expect(out.source).not.toContain(`rounded-md`);
+    expect(out.source).not.toMatch(/rounded-\[/);
+  });
+
+  it("works on element with no existing className (creates one)", () => {
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_NO_CLASSES,
+      old: jsxInfo({
+        path: "div > p",
+        oid: "p-1",
+        tag: "p",
+        kind: "text",
+        text: "Plain paragraph",
+        classes: "",
+      }),
+      next: { styleDelta: { color: "#ff8800" } },
+    });
+    expectOk(out);
+    expect(out.source).toContain(`className="text-[#ff8800]"`);
+  });
+
+  it("HTML mode ignores styleDelta (no-op — uses next.style for inline-style writeback)", () => {
+    const html =
+      `<!doctype html><html><head></head><body>` +
+      `<h2 class="text-red-500">Hi</h2>` +
+      `</body></html>`;
+    const out = buildVibeCommit({
+      mode: "html",
+      source: html,
+      old: htmlInfo({
+        path: "body > h2",
+        htmlPath: [1, 0],
+        tag: "h2",
+        kind: "heading",
+        text: "Hi",
+        classes: "text-red-500",
+      }),
+      next: { styleDelta: { color: "#000000" } },
+    });
+    // HTML mode ignores styleDelta — class wasn't touched.
+    expect(out.kind).toBe("no-op");
+  });
+
+  it("JSX mode: returns bail (missing-oid) when oid is null (styleDelta change)", () => {
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_FIXTURE,
+      old: jsxInfo({
+        path: "div > h2",
+        oid: null,
+        tag: "h2",
+        kind: "heading",
+        text: "Headline",
+        classes: "text-red-500",
+      }),
+      next: { styleDelta: { color: "#000000" } },
+    });
+    expect(out).toEqual({ kind: "bail", reason: "missing-oid" });
+  });
+});
+
+describe("buildVibeCommit — styleDelta reads CURRENT classes (M3 hardening)", () => {
+  // Audit M3: pre-fix, styleDelta computed its strip+add against
+  // old.classes — fine when only ONE of next.classes / next.styleDelta
+  // was set per commit (Workspace maintains the invariant) but fragile
+  // for a future caller that batches both. Post-fix reads current class
+  // bytes from source after the next.classes patch lands.
+
+  it("when both next.classes and next.styleDelta are set, styleDelta strips against the patched classes", () => {
+    // Initial: text-red-500 (gets replaced via next.classes with
+    // text-blue-500), then styleDelta color rgb(0,255,0) should strip
+    // the just-patched text-blue-500 and add text-[#00ff00]. Pre-fix
+    // bug: styleDelta read old.classes = "text-red-500" → stripped
+    // text-red-500 (already gone) → text-blue-500 survived → final
+    // source had BOTH text-blue-500 AND text-[#00ff00]. Post-fix the
+    // strip operates against text-blue-500 (the current value) and
+    // correctly removes it.
+    const out = buildVibeCommit({
+      mode: "jsx",
+      source: STYLE_JSX_FIXTURE,
+      old: jsxInfo({
+        path: "div > h2",
+        oid: "head-1",
+        tag: "h2",
+        kind: "heading",
+        text: "Headline",
+        classes: "text-red-500 bg-blue-500 rounded-md p-4",
+      }),
+      next: {
+        classes: "text-blue-500 bg-blue-500 rounded-md p-4",
+        styleDelta: { color: "rgb(0, 255, 0)" },
+      },
+    });
+    expectOk(out);
+    // The final source should reflect the styleDelta's resolution —
+    // no text-blue-500 (stripped by styleDelta) and the arbitrary class.
+    expect(out.source).toContain("text-[#00ff00]");
+    expect(out.source).not.toContain("text-blue-500");
+    expect(out.source).not.toContain("text-red-500");
+  });
+});
+
+describe("buildVibeCommit — bail semantics (Phase 2 SF-M6)", () => {
+  // Crisp dedicated tests for the bail kinds — the surrounding test
+  // groups also exercise these reasons via various next-field shapes,
+  // but these two are the single source of truth that the reason
+  // strings are stable for the Workspace toast routing.
+
+  it("JSX mode with oid=null returns bail reason 'missing-oid' regardless of next fields", () => {
+    const inputs = [
+      { text: "anything" },
+      { src: "/new.jpg" },
+      { classes: "text-2xl" },
+      { outer: "<span>foo</span>" },
+      { styleDelta: { color: "#abcdef" } },
+    ];
+    for (const next of inputs) {
+      const out = buildVibeCommit({
+        mode: "jsx",
+        source: JSX_FIXTURE,
+        old: jsxInfo({ oid: null }),
+        next,
+      });
+      expect(out).toEqual({ kind: "bail", reason: "missing-oid" });
+    }
+  });
+
+  it("HTML mode with htmlPath=null returns bail reason 'missing-html-path' regardless of next fields", () => {
+    const inputs = [
+      { text: "anything" },
+      { src: "/new.jpg" },
+      { classes: "text-2xl" },
+      { outer: "<span>foo</span>" },
+    ];
+    for (const next of inputs) {
+      const out = buildVibeCommit({
+        mode: "html",
+        source: HTML_FIXTURE,
+        old: htmlInfo({ htmlPath: null }),
+        next,
+      });
+      expect(out).toEqual({ kind: "bail", reason: "missing-html-path" });
+    }
   });
 });

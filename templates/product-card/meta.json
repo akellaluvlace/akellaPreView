@@ -1,0 +1,7 @@
+{
+  "title": "Product Card",
+  "description": "Clean ecommerce product detail with image, variants, and add-to-cart.",
+  "category": "Ecommerce",
+  "tags": ["product", "shop", "card"],
+  "kind": "jsx"
+}

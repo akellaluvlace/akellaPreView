@@ -1164,6 +1164,14 @@ export default function Preview({
               srcDoc={srcDoc}
               sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               className="block h-full w-full bg-white"
+              // touchAction:auto + overscroll-y-contain: explicit native
+              // touch-pan support inside the iframe content (iOS Safari
+              // + Chrome DevTools mobile emulation occasionally lose this
+              // implicit default when the iframe is nested inside a
+              // height-bounded flex chain). overscroll prevents the
+              // page-level pull-to-refresh from triggering when the user
+              // hits the top of the iframe content.
+              style={{ touchAction: "auto", overscrollBehaviorY: "contain" }}
             />
             {/* Phase 5 / Phase B — overlay mounts only when the user has
                 a gesture-bearing tool active. View / Insert / Swap don't

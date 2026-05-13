@@ -1,0 +1,7 @@
+{
+  "title": "Hero Landing",
+  "description": "SaaS landing with gradient hero, feature grid, and CTA.",
+  "category": "Landing",
+  "tags": ["saas", "hero", "features"],
+  "kind": "jsx"
+}

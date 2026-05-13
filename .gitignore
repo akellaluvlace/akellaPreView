@@ -36,3 +36,21 @@ next-env.d.ts
 
 # ingestion clone cache (uiverse-io/galaxy + markmead/hyperui)
 /.cache
+
+# Claude Code workspace — local-only agent settings + per-session artifacts
+.claude/
+
+# IDE clutter
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Working-tree screenshots (Windows + macOS naming conventions)
+Screenshot*.png
+screenshot-*.png
+
+# Local-only diff previews & one-off scratch
+phase5-prettier-diff-preview.txt
+*.tmp
+*.log

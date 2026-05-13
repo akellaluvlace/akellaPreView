@@ -3,15 +3,20 @@
 //
 // Inputs: mode (html | jsx), source string, the old VibeElementInfo
 // captured at selection time, and a `next` partial of fields to
-// overwrite. Output: { unchanged, source } where source is the
-// rewritten text and unchanged is true iff no fields actually
-// changed OR every patcher reported no diff (e.g. trim-equal text).
+// overwrite. Output: a discriminated union distinguishing:
+//   - "ok"   — patchers landed bytes; consumer should setCode(source)
+//   - "no-op" — legit no-op (no fields drifted OR patchers all clean)
+//   - "bail" — silently couldn't reach source (missing-oid / missing-
+//              html-path); consumer SHOULD surface a toast so the
+//              vibecoder doesn't see "I clicked and the swap appeared
+//              in preview" → reload-reverts (the SF-M6 trust killer)
 //
 // HTML mode addresses elements via the path field (parse5 byte-offset
-// math in patchHtmlText / patchHtmlAttr).
+// math in patchHtmlText / patchHtmlAttr). Bails with reason
+// "missing-html-path" when old.htmlPath is null.
 // JSX mode prefers OID over path because OID survives source edits
-// that shift line/column positions; if oid is null we bail with
-// unchanged=true rather than guessing.
+// that shift line/column positions; bails with reason "missing-oid"
+// when old.oid is null.
 
 import {
   patchHtmlText,
@@ -25,6 +30,11 @@ import {
   patchJsxOuterByOid,
   patchJsxClassByOid,
 } from "../ast/patch-class-by-oid";
+import { readJsxClassByOid } from "../ast/read-class-by-oid";
+import {
+  mergeStyleDeltaIntoClasses,
+  type StyleDelta,
+} from "./style-to-class";
 import type { VibeElementInfo } from "./types";
 
 export interface VibeCommitInput {
@@ -54,12 +64,33 @@ export interface VibeCommitInput {
     // stays minimal — only the className value changes, surrounding
     // attributes / formatting / OID untouched.
     classes: string;
+    // Per-property style delta used by JSX mode to persist colour /
+    // background / radius edits as Tailwind arbitrary-value classes
+    // (text-[#hex] / bg-[#hex] / rounded-[Npx]). React rejects
+    // string-valued style props, so we can't write `style="..."` as a
+    // JSX attribute — translating to className is the v1 workaround.
+    // HTML mode ignores this field; its `next.style` cssText path
+    // writes the inline-style attribute directly (survives reload
+    // natively in HTML).
+    styleDelta: StyleDelta;
   }>;
 }
 
-export interface VibeCommitResult {
-  unchanged: boolean;
-  source: string;
+export type VibeCommitBailReason = "missing-oid" | "missing-html-path";
+
+export type VibeCommitResult =
+  | { kind: "ok"; source: string }
+  | { kind: "no-op" }
+  | { kind: "bail"; reason: VibeCommitBailReason };
+
+// Convenience for callers that just want the patched source (or a
+// fallback when the result isn't "ok"). Mirrors the pattern used in
+// other discriminated-union flows (parseServerStreamPayload, etc.).
+export function commitSourceOr(
+  result: VibeCommitResult,
+  fallback: string,
+): string {
+  return result.kind === "ok" ? result.source : fallback;
 }
 
 interface PatcherOk {
@@ -107,7 +138,7 @@ export function buildVibeCommit(input: VibeCommitInput): VibeCommitResult {
     // mode. If absent we bail clean rather than guess from the
     // selector string.
     if (!old.htmlPath) {
-      return { unchanged: true, source };
+      return { kind: "bail", reason: "missing-html-path" };
     }
     const hp = old.htmlPath;
     if (next.text !== undefined && next.text !== old.text) {
@@ -136,7 +167,7 @@ export function buildVibeCommit(input: VibeCommitInput): VibeCommitResult {
     // yet — vibecoders editing OID-less JSX elements (pre-injection
     // window) get a clean no-op rather than a guess.
     if (!old.oid) {
-      return { unchanged: true, source };
+      return { kind: "bail", reason: "missing-oid" };
     }
     if (next.text !== undefined && next.text !== old.text) {
       apply(patchJsxTextByOid(source, old.oid, next.text));
@@ -167,7 +198,26 @@ export function buildVibeCommit(input: VibeCommitInput): VibeCommitResult {
     if (next.classes !== undefined && next.classes !== (old.classes ?? "")) {
       apply(patchJsxClassByOid(source, old.oid, next.classes));
     }
+    if (next.styleDelta) {
+      // Translate the style delta into a className mutation. Read the
+      // CURRENT class value from `source` (post next.classes patch
+      // above, if any) so a future caller passing BOTH next.classes
+      // AND next.styleDelta in the same commit doesn't compute the
+      // strip+add against stale bytes and clobber the next.classes
+      // write. Falls back to old.classes when the source read can't
+      // resolve (parse fail / no className / expression-form className
+      // — same conditions under which patchJsxClassByOid would also
+      // bail, so the strip math stays internally consistent).
+      const currentClasses = readJsxClassByOid(source, old.oid) ?? old.classes ?? "";
+      const merged = mergeStyleDeltaIntoClasses(
+        next.styleDelta,
+        currentClasses,
+      );
+      if (merged.changed) {
+        apply(patchJsxClassByOid(source, old.oid, merged.classes));
+      }
+    }
   }
 
-  return { unchanged: !anyChanged, source };
+  return anyChanged ? { kind: "ok", source } : { kind: "no-op" };
 }

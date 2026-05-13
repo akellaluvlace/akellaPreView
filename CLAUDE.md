@@ -2,10 +2,142 @@
 
 Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generated HTML/JSX and see it render live, or pick from a gallery of templates. Audience: people with no terminal, no Node install, no dev background.
 
-## Active branches (2026-05-10 PM)
+## Active branches (2026-05-11)
 
 - **`main`** — codebase. Last commit `0878566 backup: web templates state before 94/10/32/16/69 batch`.
-- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + **vibe-edit functionality phase**. **14 commits ahead of main, all LOCAL ONLY — never pushed.** Earlier audit commits: `d26288b`, `c3ec4a5`, `ddda61e`. UI/UX redesign commits (per the 2026-05-10 status block below). Vibe-edit commits 2026-05-10 PM: `b48c746` `aa6deb8` `9c2536a` `cd4e281` `1386967` `30dd8dc` `6602746` `c97fc62` `720c523` `db17a0c` `03bd12e`.
+- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + **vibe-edit functionality phase** + image-context-fit audit. **19 commits ahead of main, all LOCAL ONLY — never pushed.** Earlier audit commits: `d26288b`, `c3ec4a5`, `ddda61e`. UI/UX redesign + vibe-edit scaffold per the 2026-05-10 PM block below. Image-audit by parallel terminal 2026-05-11: `b194939` `6ac82b8` `ab87cbd` `dec08e9` `215c2b9` `60efb3d` `4ac1fa7` `2804e61` (+ wip snapshot `c659862` that grabbed then-uncommitted vibe-edit work). Backup at `backup/pre-master-id-sweep-2026-05-10` (= `c659862`).
+
+## Current status (2026-05-11 PM — audit shipped 10 HIGH/MED fixes, 5-phase follow-up plan locked in. 6256/6258 vitest, tsc 0.)
+
+Comprehensive audit run by 7 parallel specialized agents over the freshly shipped 2026-05-10 PM + morning vibe-edit work. **10 HIGH/MED bugs shipped fixed in-session** (+18 new tests, zero regressions, tsc 0 throughout). Full audit report at repo-root `AUDIT-2026-05-11.md`. Plan for the 5-phase follow-up at `docs/superpowers/plans/2026-05-11-edit-flow-hardening.md`.
+
+### Fixed this session (10)
+
+1. **H1** — variant-prefixed colour classes (`hover:text-red-500`, `md:bg-blue-500`, chained `md:hover:...`, hyphenated `group-hover:`) survived the strip pass in `lib/vibe-edit/style-to-class.ts`. Replaced the imported `colorMatch` (anchors at unprefixed only by design) with a local `colorVariantMatcher` allowing `(?:[\w-]+:)*` leading prefix segments. Same broadening to `ROUNDED_MATCH`. Tailwind opacity-slash form (`text-red-500/50`) also now strips. +8 tests.
+2. **PX1+PX7** — Pixabay XSS via photographer-name `-->` / `*/` in attribution comments + `"` in `alt="…"` fallback. New `sanitizeForComment` + `sanitizeForAttr` helpers in `lib/asset-library/insert-pixabay.ts`. Photographer name + profileUrl + pageUrl all routed through the sanitizers before joining into the comment lines. Author-name alt fallback now strips `"`. Also fixed `small` resolution → `previewURL` (was mapping to webformat = same as medium). +6 tests.
+3. **SF-H3** — `app/api/assets/pixabay/route.ts` returned `detail: String(e)` on fetch failure. Node's undici fetch error message format may include the full URL with `key=PIXABAY_KEY` in the query string → API key leak path. Replaced with static `"Could not reach Pixabay…"` + `console.error` server-side. Same idiom for the new defensive `res.json()` try/catch.
+4. **SF-M7** — Pixabay 400-not-invalid-key fall-through double-consumed the response body via `res.text()` → next `res.json()` threw → generic 500. 400-branch now always returns (401 for invalid-key match, 400 with bounded `text.slice(0, 200)` detail otherwise).
+5. **UI1+UI5** — `code` in dep arrays reset the 600ms idle-commit timer per Monaco keystroke + recreated `handleVibeOuterSwap` on every render. Added `codeRef: useRef<string>("")` + sync `useEffect([code])` mirroring `code → codeRef.current`. Both consumers read `codeRef.current` at fire time + dropped `code` from deps. Same ref-on-write pattern as the existing `previewHandleRef` / `lastVibeCommitRef`.
+6. **UI3** — Swap modal stayed open when user clicked a different element after opening it → pick from library mutated the new element, not the originally-intended one. `handleVibeSelected` now compares `prev.path !== info.path` and closes both `vibeIconSwapOpen` / `vibeImageSwapOpen` on a path-changing selection. The vibe runtime's own re-emits after our mutations carry the same path so this only fires on genuine user-driven changes.
+7. **GP1** — Our Picks filter broken by `viewMode === "list"` override. `ListView` rendered the 18 picks in a responsive 4-column grid, destroying the 1D curated editorial read order. Render-priority gate now `viewMode === "list" && activeFilter?.kind !== "picks"`. Picks always falls through to `StaticTemplateGrid` (matches the marquee guard pattern).
+8. **GP2** — Sort dropdown silent no-op on picks (picks's filter memo short-circuits to curated order regardless of `sort`). Added `disabled` + `title` props to `SortSelect` + `ViewSelect`. Both visibly disable with `opacity-50 cursor-not-allowed` + tooltip on picks.
+9. **UI4** — TextTypographyExtras slider initialized to 0 when `currentIndex` returned -1. If `detectTypographyProps` matched an arbitrary class like `text-[12px]`, dragging the slider one notch would silently overwrite with `text-xs`. Now: slider disables (opacity-40 + cursor-not-allowed) when `idx < 0` with title `"Remove the custom value (×) to use the scale slider"`; remove (×) button always renders; display label changes from `"—"` to `"custom"`.
+10. **M2 + WU6 + SF-H2 + SF-H4** — Runtime hardening: (a) `patchJsxOuterByOid` + `runtime.ts` vibe:update-outer handler both strip foreign `data-dropin-id` from asset markup before injecting target OID (preserves OID continuity on assets that ship pre-stamped); (b) OID char-scan whitespace skip now includes LF (10) + CR (13) for multi-line asset markup; (c) empty catches at `el.outerHTML = stamped` and `el.style[prop] = v` now `console.warn` instead of swallowing CSP / sandbox / parse-rejection errors. +2 tests for the foreign-OID strip.
+
+### Files touched (10 production files + 3 test files)
+
+**Production:**
+- `lib/vibe-edit/style-to-class.ts` (H1 — broader strip regex)
+- `lib/asset-library/insert-pixabay.ts` (PX1+PX7 sanitizers + PX3 small→preview)
+- `app/api/assets/pixabay/route.ts` (SF-H3 + SF-M7 + JSON parse guard)
+- `components/Workspace.tsx` (UI1+UI5 codeRef + UI3 modal close)
+- `components/GalleryView.tsx` (GP1 list-picks override + GP2 disable)
+- `components/VibePropertiesPanel/TextTypographyExtras.tsx` (UI4 arbitrary-class guard)
+- `lib/vibe-edit/runtime.ts` (WU6 + SF-H2 + SF-H4 + M2 mirror)
+- `lib/ast/patch-class-by-oid.ts` (M2 foreign-OID strip)
+
+**Tests (+18 cases):**
+- `tests/vibe-edit-style-to-class-prod.test.ts` (+8 variant-prefixed cases)
+- `tests/insert-pixabay-prod.test.ts` (+6 XSS-defence cases, +1 fallback case, -1 obsolete resolution-confirmed-broken-mapping case → net +6)
+- `tests/patch-by-oid-prod.test.ts` (+2 foreign-OID-strip cases)
+
+### What's deferred — 5-phase plan at `docs/superpowers/plans/2026-05-11-edit-flow-hardening.md`
+
+After user discussion ("we want this for vibecoders easy, i'm mostly concerned with edit feature… swap is now redundant since we're swapping basically in edit mode"), three audit findings + two LOW items got triaged into a phased follow-up:
+
+| Phase | Item | Time | Why |
+|---|---|---|---|
+| 1 | WU1 — span walk-up: `<button><span>Label</span></button>` selects span, not button (34 occurrences in 20/108 templates) | 1 hr | Edit-flow BLOCKER for the most common interaction |
+| 2 | SF-M6 — `buildVibeCommit` returns `unchanged:true` for 2 silent bails + 1 legit no-op; discriminated union + bail toast | 2 hr | Silent-failure trust killer; mirrors F1/F9/parseServerStreamPayload pattern |
+| 3 | SF-M2 — opacity dropped silently on `#ffffff80` / `rgba(255,0,0,0.5)`; emit Tailwind `text-[#hex]/N` slash form | 45 min | "Editor ate my change" pattern |
+| 4 | TextControls 80ms keystroke debounce | 30 min | Typing lag at 80wpm = 10 msgs/sec to iframe each forcing getComputedStyle reflow |
+| 5 | Extract `rgbToHex` to `lib/vibe-edit/rgb-to-hex.ts` with `transparentFallback` param (kill divergence: TextControls returns white, IconControls black) | 30 min | Prevent future weird-color bugs from a future "DRY" refactor |
+| 6 (parking lot) | Kill standalone Swap tool — swap-from-library lives inside vibe mode now | 1-1.5 hr | Mental-model simplification; ask user before executing |
+
+**Total Phases 1-5: ~5 hours.** Final target ~6285/6258+ baseline. Plan file has line-level changes, helper code, test cases, definition-of-done, and locked research findings (span-pattern frequency, buildVibeCommit's 3 unchanged paths, rgbToHex divergence, keystroke-flood evidence, swap-tool surface area).
+
+### Defer-don't-fix (14 LOW items)
+
+Documented in `AUDIT-2026-05-11.md` under "NOT FIXED". 11 don't impact vibecoders (a11y labels, copy stale, perf-minor, defensive logging). 3 do but live in the Phase 4-5 plan above. Worth clearing in a quiet week (~3-4hr total).
+
+## Current status (2026-05-11 morning — all 4 vibe-edit follow-ups SHIPPED + walk-up click fix + view default + Pixabay default + Our Picks default filter. 6238/6240 vitest, tsc 0.)
+
+Session continued from the 2026-05-10 PM scaffold. All four open follow-ups from the prior session's status block closed end-to-end, in order:
+
+1. **Icon → swap from library.** New patchers `patchJsxOuterByOid` (re-injects existing OID into new outer's first opening tag, so OID-addressing survives the wholesale element replacement) + `patchHtmlOuter` (parse5 byte-range overwrite). New iframe message `vibe:update-outer` (carries `path` + `oid` + `newOuter`); runtime handler does manual char-scan to inject OID, sets `el.outerHTML`, re-finds element at same path, re-emits `vibe:selected`. `buildVibeCommit.next.outer` routes per mode. `IconControls.tsx` got "Browse icon library" button → `onSwapClick`. Workspace: `vibeIconSwapOpen` state + `handleVibeIconPick` + `LibraryModal` mount with `swapContext.suggestedPanel: "icons"`.
+
+2. **Image → Unsplash picker.** Mirrors icon swap exactly. `ImageControls.tsx` got "Open media library" button. `vibeImageSwapOpen` + `handleVibeImagePick` + second `LibraryModal` mount with `suggestedPanel: "media"`. Both icon and image picks route through shared `handleVibeOuterSwap` helper.
+
+3. **Text → typography sliders.** New `lib/vibe-edit/typography.ts` — `detectTypographyProps(classes)` returns flags for fontSize / fontWeight / lineHeight / tracking / textAlign present in unprefixed Tailwind class set (17 tests). New `vibe:update-classes` iframe message → runtime overwrites `class` attr + re-emits selected. `buildVibeCommit.next.classes` routes to `patchJsxClassByOid` / `patchHtmlClass`. New `components/VibePropertiesPanel/TextTypographyExtras.tsx` renders ONLY sliders for props detected on the element (per the user's "show what knobs exist" framing). Reuses `currentIndex` / `setScale` / `unsetScale` / `setToken` + `TEXT_ALIGN_MATCH` from `lib/tailwind-slider-maps.ts`. TextAlign as segmented control. Idle commit useEffect drift now includes `vibeInfo.classes` against baseline so slider drags reconcile after 600ms.
+
+4. **JSX style persistence.** New `lib/vibe-edit/style-to-class.ts` — `mergeStyleDeltaIntoClasses({color?, backgroundColor?, borderRadius?}, currentClasses) → {classes, changed}` strips conflicting Tailwind palette/arbitrary/named classes (uses `colorMatch("text"|"bg")` from `tailwind-slider-maps`), adds `text-[#hex]` / `bg-[#hex]` / `rounded-[Npx]`. `transparent` / `0px` strip without adding. Colour values normalize from `rgb(r,g,b)` / `rgba(...)` / 3-6-8-digit hex to canonical `#rrggbb`. Radius parses `Npx` / `Nrem` / multi-value (first wins) / plain numbers; `calc(...)` returns null (caller no-op). 26 tests. `buildVibeCommit.next.styleDelta` field — JSX branch routes through merger → `patchJsxClassByOid`; HTML branch ignores (continues using `next.style` for direct inline-style writeback — HTML survives reloads natively without translation). Workspace idle commit now compares per-property style drift (`textColor` / `bgColor` / `borderRadius`) on top of `inlineStyle` and builds `styleDelta` with only the changed props.
+
+### Bug fix: walk-up click resolution for icons / buttons / cards
+
+User reported clicks on icons/buttons/cards did nothing. Root cause: vibe runtime's click handler did `if (!vibeIsEditable(ev.target)) return;`. `ev.target` is the DEEPEST hit element — for SVG icons that's a `<path>`, for buttons-with-children it's the inner span/svg, for card padding clicks it's the wrapping div. None match the editable selector. Fix in `lib/vibe-edit/runtime.ts`: added `vibeFindEditableAncestor(el)` (walks up to first editable atom) + `vibeFindCardAncestor(el)` (walks up to first card-like container; computed-style check for bg / rounded / shadow / non-zero border-width). Click handler order: editable atom → card → clear. +3 integration tests (svg-path → svg; button-child → button; card-div → container kind).
+
+### Default tool reverted to `view`
+
+User flipped during this session: `useState<Tool>("view")` (was `"vibe"`). Persisted-`select` migration now lands on `"view"` instead of `"vibe"`. First-time visitors land on rendered preview with no editing chrome; they click "Edit" (vibe) when ready.
+
+### Pixabay added as default photo source
+
+User wanted Unsplash but registration is days-to-weeks for Production tier. Pixabay instant-key (`PIXABAY_API_KEY=55811267-…` in `.env.local`), 100 req/60s, 4M+ CC0-equivalent photos. New `app/api/assets/pixabay/route.ts` (key in query param), `lib/asset-library/insert-pixabay.ts` (`buildPixabayInsert` with attribution comment + 4-tier resolution mapping), `components/library/asset-panels/sub-panels/PixabayPanel.tsx` (UI clone of UnsplashPanel; 250ms debounced search, IndexedDB recents). `MediaPanel.tsx` `PhotoSource` union now `pixabay | pexels | unsplash` — Pixabay is the default for new users (existing localStorage choices preserved). `lib/asset-library/types.ts` extended with `PixabayPhoto` + `PixabaySearchResponse` + `"pixabay"` `RecentKind`. 10 prod-import tests. Unsplash and Pexels remain wired; Unsplash shows "API not configured" empty state when `UNSPLASH_ACCESS_KEY` is missing (still missing — user not registered yet).
+
+### Our Picks default filter on /gallery
+
+18 curated slugs (8 user-locked + 10 from the parallel image-audit terminal) seeded in `OUR_PICKS_SLUGS` at the top of `components/GalleryView.tsx`. `OUR_PICKS_INDEX` Map for O(1) lookup. New `{ kind: "picks" }` arm on `ActiveFilter`. Default `activeFilter` is `{ kind: "picks" }`. "Our picks" pill renders FIRST in the FilterSidebar (above All), uses existing `FilterButton` so it inherits the `lg:flex-1 lg:basis-0` stretch — sidebar height unchanged. Count chip reflects how many of 18 match the current search. When picks active, the sort dropdown is IGNORED and order locks to the curated sequence. Render: picks always use `StaticTemplateGrid` (240px tiles, flex-wrap, 6-per-row at desktop = 3 rows for 18) — bypasses `useMarquee` threshold (would otherwise fire at 18 ≥ 15). Render switch: `useMarquee && activeFilter?.kind !== "picks"` for marquee.
+
+### Files touched this session
+
+**New (untracked at session close):**
+- `lib/vibe-edit/typography.ts` + `style-to-class.ts`
+- `lib/asset-library/insert-pixabay.ts`
+- `app/api/assets/pixabay/route.ts`
+- `components/VibePropertiesPanel/TextTypographyExtras.tsx`
+- `components/library/asset-panels/sub-panels/PixabayPanel.tsx`
+- `tests/vibe-edit-typography-prod.test.ts` (17 cases)
+- `tests/vibe-edit-style-to-class-prod.test.ts` (26 cases)
+- `tests/insert-pixabay-prod.test.ts` (10 cases)
+
+**Edited (mostly untracked but include tracked-modified files):**
+- `lib/vibe-edit/runtime.ts` (walk-up + vibe:update-outer + vibe:update-classes handlers)
+- `lib/vibe-edit/types.ts` (vibe:update-outer + vibe:update-classes message variants)
+- `lib/iframe-bridge.ts` (host→iframe message union extension)
+- `lib/vibe-edit/commit.ts` (next.outer + next.classes + next.styleDelta routing) — **tracked modified**
+- `lib/ast/patch-class-by-oid.ts` (patchJsxOuterByOid added)
+- `lib/source-patch-html.ts` (patchHtmlOuter added)
+- `lib/asset-library/types.ts` (PixabayPhoto + Pixabay search response)
+- `components/VibePropertiesPanel.tsx` (forwards onIconSwap / onImageSwap / onClassesChange)
+- `components/VibePropertiesPanel/IconControls.tsx` + `ImageControls.tsx` + `TextControls.tsx` (Browse buttons + onSwapClick / typography slot)
+- `components/Workspace.tsx` (vibe modal state + handlers + idle-commit drift extension + tool default flip) — **tracked modified**
+- `components/library/asset-panels/MediaPanel.tsx` (Pixabay as 3rd source + default)
+- `components/GalleryView.tsx` (Our Picks filter + curated-order sort + StaticGrid override)
+- `tests/patch-by-oid-prod.test.ts` + `tests/source-patch-html-prod.test.ts` + `tests/vibe-edit-commit-prod.test.ts` (+28 cases for new patchers + commit fields) — **last one tracked modified**
+- `tests/integration/vibe-edit-roundtrip.test.ts` (+5 cases for walk-up + vibe:update-classes + vibe:update-outer)
+- `.env.local` (`PIXABAY_API_KEY` + `PEXELS_API_KEY` filled; `UNSPLASH_ACCESS_KEY` empty) — gitignored, never committed
+- `.env.example` (Pixabay key template added)
+
+### Parallel image-audit terminal — 9 commits (web/ only, no overlap)
+
+Another terminal ran in parallel this morning. Image-context-fit audit across all 108 templates. Commit list (top-down): `2804e61` / `4ac1fa7` / `60efb3d` / `215c2b9` / `dec08e9` / `ab87cbd` / `6ac82b8` / `b194939` / `c659862` (wip snapshot, grabbed this session's prior uncommitted work — see `project_vibe_edit_session.md` for full file list). Backup `backup/pre-master-id-sweep-2026-05-10` points at `c659862`. All 11 wrong-subject offender IDs (4 master + 7 secondary) = **0 residuals** across `web/`. All `cdn.simpleicons.org` + `api.iconify.design` URLs HEAD 200. None of these commits touch `components/`, `lib/`, `app/`, `tests/`, or any non-`web/` path — zero overlap with vibe-edit work.
+
+**Note:** `templates/coming-soon/source.{html,jsx}` got master-ID swaps applied but the `templates/` folder is still untracked in git. Working-tree-only; decision pending.
+
+### Test totals at session close
+
+tsc 0. vitest **6238/6240** across **112** test files (was 6146/100 baseline pre-session → +92 tests / +3 test files net). Only the documented `tests/integration/envelope-channel.test.ts` jsdom flake fails (1-3 fluctuates per run, pre-existing, unrelated to any vibe-edit code).
+
+### Next session pre-flight
+
+User scheduled manual browser testing post-lunch 2026-05-11. Surfaces NOT yet validated end-to-end in a real browser:
+- Icon swap via library: pick icon → outerHTML mutation → source commit → reload survival
+- Image swap via Pixabay: pick photo → outerHTML mutation → attribution comment in source → reload survival
+- Typography sliders: drag font-size / weight / leading / tracking → DOM updates → idle commit class write → reload preserves
+- JSX style persistence: pick colour / bg / radius → translates to `text-[#hex]` / `bg-[#hex]` / `rounded-[Npx]` in source → reload preserves
+- Walk-up click: click SVG path → selects parent svg; click inner span of button → selects button; click card padding → selects card div
+- View default: first visit lands on view (no editing chrome); click "Edit" to enter vibe mode
+- Our Picks default: gallery lands on curated 18 in locked order; 6×3 static grid (no marquee); switching to All / category / style returns to marquee for ≥15 items
 
 ## Current status (2026-05-10 PM — vibe-edit no-code flow SHIPPED through Phases 1-4 + card/icon kinds. Plan at `docs/superpowers/plans/2026-05-10-vibecoder-edit-flow.md`.)
 

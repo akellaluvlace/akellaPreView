@@ -60,7 +60,6 @@ import { assessBboxDrift } from "@/lib/swap/bbox-drift";
 import { planEverywhereSwap } from "@/lib/swap/plan-everywhere-swap";
 import { findAllInstancesOfDefinition } from "@/lib/ast/instance-graph";
 import type { SlotEnvelope } from "@/lib/swap/slot-capacity";
-import { inferSwapCategory } from "@/lib/swap-category-hint";
 import { applyPalette } from "@/lib/ast/operations/palette";
 import { collectDescendantOids } from "@/lib/ast/scope";
 import { findInlineComponentDefRootOid } from "@/lib/ast/component-def";
@@ -242,6 +241,15 @@ export default function Workspace({
   // The flag flips back to false after one onChange cycle.
   const suppressHistoryRef = useRef(false);
 
+  // Mirror code → codeRef on every render. The ref reads inside vibe-
+  // edit handlers + the idle-commit setTimeout pick up the latest
+  // source without forcing those closures to list `code` as a dep,
+  // which would otherwise reset the 600ms debounce on every Monaco
+  // keystroke and rebuild the swap callbacks on every render.
+  useEffect(() => {
+    codeRef.current = code;
+  }, [code]);
+
   const handleEditorChange = useCallback(
     (value: string) => {
       if (suppressHistoryRef.current) {
@@ -291,12 +299,24 @@ export default function Workspace({
   const [tool, setToolState] = useState<Tool>("view");
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Mobile lockdown (2026-05-12): edit chrome is hidden via Tailwind
+    // `hidden lg:*` at <lg viewports, but the persisted tool can still
+    // restore to vibe/insert/move and produce ghost iframe-side state
+    // (clicks land on hidden panels). Force the view-only default on
+    // mobile so the iframe runtime stays inert. Desktop sessions still
+    // restore from localStorage normally. lg breakpoint = 1024px per
+    // tailwind default; the check matches the `lg:` gate on the chrome.
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) return;
     try {
       const stored = window.localStorage.getItem("dropin:tool");
       // Migrate returning users persisted on the now-hidden Select
-      // tool to View so they don't end up in a state with no toolbar
-      // button matching their persisted choice.
-      if (stored === "select") {
+      // tool OR the retired Swap tool to View so they don't end up
+      // in a state with no toolbar button matching their persisted
+      // choice. Swap-from-library lives inside vibe mode now (Phase
+      // 6 — 2026-05-11 PM) — see the "Browse icon library" /
+      // "Open media library" buttons in the Edit (vibe) panel.
+      if (stored === "select" || stored === "swap") {
         setToolState("view");
         try {
           window.localStorage.setItem("dropin:tool", "view");
@@ -309,7 +329,6 @@ export default function Workspace({
         stored === "view" ||
         stored === "move" ||
         stored === "insert" ||
-        stored === "swap" ||
         stored === "vibe"
       ) {
         setToolState(stored);
@@ -361,14 +380,15 @@ export default function Workspace({
   // and the post-swap drift assessment. Stays null when Preview hasn't
   // mounted yet (initial render before iframe load).
   const previewHandleRef = useRef<PreviewHandle | null>(null);
-  // Phase E proper — swap-time slot envelope cache. When the user enters
-  // Swap mode with a live selection, an effect below fetches the parent
-  // envelope via the iframe channel and caches it here so the LibraryModal
-  // compatibility filter can classify each asset against the slot before
-  // the user picks one. Cleared on tool exit / selection change /
-  // selection clear. Null when the iframe hasn't measured yet (modal
-  // falls back to "all unknown" = default-allow).
-  const [swapEnvelope, setSwapEnvelope] = useState<SlotEnvelope | null>(null);
+  // Mirror `code` into a ref so vibe-edit handlers + the idle-commit
+  // setTimeout can read the latest source without listing `code` in
+  // their dep arrays. Without this, every Monaco keystroke while a
+  // vibe element is selected re-creates the swap callbacks AND
+  // cancels-then-restarts the 600ms idle-commit timer — the timer
+  // never fires until typing stops, and the callbacks lose referential
+  // stability. Synced from a single useEffect below, so the ref leads
+  // the React state by at most one paint frame.
+  const codeRef = useRef<string>("");
   // Vibe-edit selection. Owned by Workspace because the panel (right
   // side) and the source-reconciliation effect both need it. The
   // info object IS the snapshot — Workspace doesn't track a separate
@@ -381,6 +401,11 @@ export default function Workspace({
   // snapshot, the idle-debounce effect runs buildVibeCommit. Reset
   // when the user picks a different element (path changes).
   const lastVibeCommitRef = useRef<VibeElementInfo | null>(null);
+  // Rate-limit the idle-commit bail toast — that effect fires invisibly
+  // on field drift, so without throttling a vibecoder editing a JSX
+  // element with a missing OID would see a toast every 600ms while
+  // colour-picking. console.warn always fires for diagnosis.
+  const lastVibeBailToastRef = useRef<number>(0);
   // Vibe icon swap modal state. Opened by the Swap button inside
   // IconControls (vibe panel); closed on pick / cancel / tool change /
   // selection clear. Mounts the existing LibraryModal in icons-tab
@@ -403,10 +428,11 @@ export default function Workspace({
   //     "Insert into <tag>" header label. Stored alongside the OID so
   //     the sidebar doesn't need to query the iframe to render the
   //     label.
-  //   · Swap context is derived from `selection.oid` when tool === "swap"
-  //     — no separate stash; the toolbar disables Swap when no
-  //     selection, and switching to Swap with a live selection opens
-  //     the library scoped to that element.
+  //   · Swap context (legacy — Swap tool retired in Phase 6, 2026-05-11
+  //     PM). Asset swap from library now lives inside vibe mode via
+  //     vibeIconSwapOpen / vibeImageSwapOpen. The LibraryModal /
+  //     FocusEditor swapContext props remain on those components for
+  //     internal addressability but always pass null from this surface.
   const [insertTargetOid, setInsertTargetOid] = useState<string | null>(null);
   const [insertTargetTag, setInsertTargetTag] = useState<string>("");
   // Phase 6 ramp — accumulated additional insert targets. When the user
@@ -485,49 +511,6 @@ export default function Workspace({
   useEffect(() => {
     setEditorMounted(true);
   }, []);
-  // Phase E proper — fetch the slot envelope whenever the user enters
-  // Swap mode with a live selection. The cached envelope feeds the
-  // LibraryModal compatibility filter so each asset's static-analysis
-  // capacity can be checked against the slot. Best-effort: if the iframe
-  // hasn't booted, the read times out, or the parent has no measurable
-  // box, the cache stays null and the filter degrades to "unknown for
-  // everything" (which is default-allow per `classifyAssets`).
-  //
-  // Re-runs whenever `tool` or `selection.oid` changes — exiting swap
-  // clears it, picking a different element re-fetches.
-  useEffect(() => {
-    const targetOid = selection?.oid ?? null;
-    if (tool !== "swap" || !targetOid) {
-      setSwapEnvelope(null);
-      return;
-    }
-    const handle = previewHandleRef.current;
-    if (!handle) {
-      setSwapEnvelope(null);
-      return;
-    }
-    let cancelled = false;
-    handle
-      .requestEnvelope(targetOid)
-      .then((readback) => {
-        if (cancelled) return;
-        if (!readback) {
-          setSwapEnvelope(null);
-          return;
-        }
-        setSwapEnvelope(
-          composeEnvelopeFromBbox(parentBoxFromRect(readback.parent)),
-        );
-      })
-      .catch(() => {
-        if (cancelled) return;
-        setSwapEnvelope(null);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [tool, selection?.oid]);
-
   // Surfaces a patcher's "nothing changed" reason so users aren't left
   // wondering why Delete / Duplicate / class change did nothing. Falls through
   // the same bottom-of-workspace toast slot as dice rolls, just with a ⚠.
@@ -2529,8 +2512,23 @@ export default function Workspace({
   // vibe:selected with a fresh VibeElementInfo on every click and
   // every direct-mutation re-emit; the panel reads from the latest
   // info to populate its fields.
+  //
+  // Closing swap modals when the user clicks a DIFFERENT element
+  // prevents the stale-target swap bug: user opens the icon library
+  // for element A, clicks element B (different icon) on the canvas,
+  // then picks from the library → without this guard, the pick would
+  // mutate element B because the modal stays open and reads vibeInfo
+  // from closure. The vibe:selected re-emits that follow our OWN
+  // direct mutations carry the same path, so this only closes on a
+  // genuine user-driven selection change.
   const handleVibeSelected = useCallback((info: VibeElementInfo) => {
-    setVibeInfo(info);
+    setVibeInfo((prev) => {
+      if (prev && prev.path !== info.path) {
+        setVibeIconSwapOpen(false);
+        setVibeImageSwapOpen(false);
+      }
+      return info;
+    });
   }, []);
 
   const handleVibeCleared = useCallback(() => {
@@ -2671,20 +2669,33 @@ export default function Workspace({
         oid: info.oid,
         newOuter: assetText,
       });
+      // Read source from the ref so a stale-closure typing race doesn't
+      // patch against pre-keystroke bytes — the codeRef effect above
+      // keeps this in sync with the latest setCode / setCodeSilent.
       const result = buildVibeCommit({
         mode: kind,
-        source: code,
+        source: codeRef.current,
         old: info,
         next: { outer: assetText },
       });
-      if (!result.unchanged) {
+      if (result.kind === "ok") {
         setCodeSilent(result.source);
+      } else if (result.kind === "bail") {
+        // Silent-failure surface: outer-swap landed in the iframe DOM
+        // but couldn't reach source. Without this toast the vibecoder
+        // sees the swap apparently "succeed" then reload-reverts —
+        // classic trust killer (SF-M6).
+        showWarn(
+          result.reason === "missing-oid"
+            ? "Couldn't save the swap — element has no ID. Reselect and try again."
+            : "Couldn't save the swap — element location isn't tracked. Reselect and try again.",
+        );
       }
       lastVibeCommitRef.current = null;
       setVibeIconSwapOpen(false);
       setVibeImageSwapOpen(false);
     },
-    [vibeInfo, code, kind, setCodeSilent],
+    [vibeInfo, kind, setCodeSilent, showWarn],
   );
 
   // Per-kind pick wrappers. The LibraryModal's onSwapWith signature is
@@ -2749,13 +2760,46 @@ export default function Workspace({
       (vibeInfo.alt ?? "") !== (last.alt ?? "") ||
       (vibeInfo.href ?? "") !== (last.href ?? "") ||
       (vibeInfo.inlineStyle ?? "") !== (last.inlineStyle ?? "") ||
-      (vibeInfo.classes ?? "") !== (last.classes ?? "");
+      (vibeInfo.classes ?? "") !== (last.classes ?? "") ||
+      (vibeInfo.textColor ?? "") !== (last.textColor ?? "") ||
+      (vibeInfo.bgColor ?? "") !== (last.bgColor ?? "") ||
+      (vibeInfo.borderRadius ?? "") !== (last.borderRadius ?? "");
     if (!drifted) return;
 
     const id = setTimeout(() => {
+      // Build the per-property style delta. JSX mode uses this to
+      // translate inline-style writes into Tailwind arbitrary-value
+      // class writes (since React rejects string-valued style props,
+      // class-based writeback is the only reload-survival path).
+      // HTML mode ignores styleDelta and uses next.style instead —
+      // see commit.ts. Only emit fields that actually changed.
+      const styleDelta: {
+        color?: string;
+        backgroundColor?: string;
+        borderRadius?: string;
+      } = {};
+      if ((vibeInfo.textColor ?? "") !== (last.textColor ?? "")) {
+        styleDelta.color = vibeInfo.textColor ?? "";
+      }
+      if ((vibeInfo.bgColor ?? "") !== (last.bgColor ?? "")) {
+        styleDelta.backgroundColor = vibeInfo.bgColor ?? "";
+      }
+      if ((vibeInfo.borderRadius ?? "") !== (last.borderRadius ?? "")) {
+        styleDelta.borderRadius = vibeInfo.borderRadius ?? "";
+      }
+      const hasStyleDelta =
+        styleDelta.color !== undefined ||
+        styleDelta.backgroundColor !== undefined ||
+        styleDelta.borderRadius !== undefined;
+
+      // Read source from codeRef at fire time — without this, every
+      // Monaco keystroke would re-run this effect (via `code` in deps),
+      // cancel the existing timer, and start a new 600ms wait. Result:
+      // the vibe commit never fires until the user stops typing in
+      // Monaco — meaning vibe edits made WHILE typing get lost.
       const result = buildVibeCommit({
         mode: kind,
-        source: code,
+        source: codeRef.current,
         old: last,
         next: {
           text: vibeInfo.text !== last.text ? vibeInfo.text : undefined,
@@ -2779,15 +2823,34 @@ export default function Workspace({
             (vibeInfo.classes ?? "") !== (last.classes ?? "")
               ? vibeInfo.classes ?? ""
               : undefined,
+          styleDelta: hasStyleDelta ? styleDelta : undefined,
         },
       });
-      if (!result.unchanged) {
+      if (result.kind === "ok") {
         setCodeSilent(result.source);
         lastVibeCommitRef.current = vibeInfo;
+      } else if (result.kind === "bail") {
+        if (typeof console !== "undefined" && console.warn) {
+          console.warn(
+            "[vibe-edit] idle-commit bail",
+            result.reason,
+            "for path",
+            last.path,
+          );
+        }
+        const now = Date.now();
+        if (now - lastVibeBailToastRef.current > 60_000) {
+          lastVibeBailToastRef.current = now;
+          showWarn(
+            result.reason === "missing-oid"
+              ? "Your edits aren't saving — element has no ID. Reselect and try again."
+              : "Your edits aren't saving — element location isn't tracked. Reselect and try again.",
+          );
+        }
       }
     }, 600);
     return () => clearTimeout(id);
-  }, [vibeInfo, code, kind, setCodeSilent]);
+  }, [vibeInfo, kind, setCodeSilent, showWarn]);
 
   const handlePreviewReady = useCallback((h: PreviewHandle) => {
     previewHandleRef.current = h;
@@ -3043,22 +3106,9 @@ export default function Workspace({
         setAdditionalInsertTargetOids([]);
         if (next === "insert") setLibraryOpen(false);
       }
-      // Phase 5 / Phase C — Swap tool flow. Entering Swap with a live
-      // selection opens the library with swapContext (built JIT from
-      // selectionRef in the JSX below). The toolbar already disables
-      // Swap when no selection so this branch is a safe one-liner.
-      if (next === "swap") {
-        if (selectionRef.current?.oid) {
-          setLibraryOpen(true);
-        }
-      } else if (prev === "swap") {
-        // Leaving Swap — close the library if it was opened by the
-        // swap entry. Cheap to always close on swap exit; user can
-        // Cmd+J to reopen for a free-form library browse.
-        // No-op for now; library stays as the user left it. If users
-        // complain about the library hanging open after a swap commit,
-        // flip this to setLibraryOpen(false).
-      }
+      // Phase 6 (2026-05-11 PM) — standalone Swap tool retired. Asset
+      // swap-from-library lives inside vibe mode via the per-kind
+      // Browse buttons (vibeIconSwapOpen / vibeImageSwapOpen handlers).
     },
     [tool, setTool],
   );
@@ -3086,12 +3136,11 @@ export default function Workspace({
       else if (k === "s") next = "select";
       else if (k === "m") next = "move";
       else if (k === "i") next = "insert";
-      else if (k === "w") next = "swap";
+      else if (k === "e") next = "vibe";
+      // 'w' (Swap) retired in Phase 6 (2026-05-11 PM). Swap-from-
+      // library lives inside vibe mode now — press E to enter Edit
+      // and use the Browse buttons in the per-kind panel.
       if (!next) return;
-      // Swap requires a selection — fall through to no-op (don't
-      // preventDefault) so the user's "w" tap doesn't feel
-      // unresponsive when they haven't selected an element yet.
-      if (next === "swap" && !selection?.oid) return;
       e.preventDefault();
       handleToolChange(next);
     }
@@ -3214,65 +3263,77 @@ export default function Workspace({
   );
 
   return (
-    <div className="flex h-screen flex-col bg-paper">
+    // h-dvh (dynamic viewport height) on mobile so iOS Safari's URL-bar
+    // collapse/expand doesn't leave the iframe extending past the visible
+    // viewport (h-screen = 100vh includes the URL bar area). On desktop
+    // dvh and vh resolve to the same value.
+    <div className="flex h-dvh flex-col bg-paper">
       <WorkspaceHeader title={title} subtitle={subtitle} />
 
-      <ToolBar
-        tool={tool}
-        onToolChange={handleToolChange}
-        hasSelection={Boolean(selection?.oid)}
-      >
-        <WorkspaceActions
-          allowKindToggle={allowKindToggle}
-          urlKindToggle={urlKindToggle}
-          kind={kind}
-          onKindChange={handleKindChange}
-          code={code}
-          filename={filename}
-          viewport={viewport}
-          onViewportChange={setViewportSynced}
-          propagationMode={propagationMode}
-          onPropagationModeChange={setPropagationMode}
-          onExpand={() => setPreviewExpanded(true)}
-          showWarn={showWarn}
-        />
-      </ToolBar>
+      {/* Edit chrome — desktop only (lg+). Mobile gets a view-only
+          experience: just the WorkspaceHeader nav + the Preview iframe.
+          The tool persistence effect above also bails to "view" on
+          mobile so the iframe runtime stays inert. */}
+      <div className="hidden lg:contents">
+        <ToolBar
+          tool={tool}
+          onToolChange={handleToolChange}
+        >
+          <WorkspaceActions
+            allowKindToggle={allowKindToggle}
+            urlKindToggle={urlKindToggle}
+            kind={kind}
+            onKindChange={handleKindChange}
+            code={code}
+            filename={filename}
+            viewport={viewport}
+            onViewportChange={setViewportSynced}
+            propagationMode={propagationMode}
+            onPropagationModeChange={setPropagationMode}
+            onExpand={() => setPreviewExpanded(true)}
+            showWarn={showWarn}
+          />
+        </ToolBar>
 
-      <PaneTabs activePane={activePane} onSelect={setActivePane} />
+        <PaneTabs activePane={activePane} onSelect={setActivePane} />
+      </div>
 
       <div className="flex min-h-0 flex-1">
-        <WorkspaceLeftRail
-          codeOpen={!editorHidden}
-          onToggleCode={() => {
-            if (editorHidden) {
-              setEditorHidden(false);
-              setTreeOpen(false);
-              setLibraryOpen(false);
-            } else {
-              setEditorHidden(true);
-            }
-          }}
-          treeOpen={treeOpen}
-          onToggleTree={() => {
-            if (!treeOpen) {
-              setTreeOpen(true);
-              setEditorHidden(true);
-              setLibraryOpen(false);
-            } else {
-              setTreeOpen(false);
-            }
-          }}
-          libraryOpen={libraryOpen}
-          onToggleLibrary={() => {
-            if (!libraryOpen) {
-              setLibraryOpen(true);
-              setEditorHidden(true);
-              setTreeOpen(false);
-            } else {
-              setLibraryOpen(false);
-            }
-          }}
-        />
+        {/* LeftRail (Code/Tree/Library icon column) — desktop only. */}
+        <div className="hidden lg:contents">
+          <WorkspaceLeftRail
+            codeOpen={!editorHidden}
+            onToggleCode={() => {
+              if (editorHidden) {
+                setEditorHidden(false);
+                setTreeOpen(false);
+                setLibraryOpen(false);
+              } else {
+                setEditorHidden(true);
+              }
+            }}
+            treeOpen={treeOpen}
+            onToggleTree={() => {
+              if (!treeOpen) {
+                setTreeOpen(true);
+                setEditorHidden(true);
+                setLibraryOpen(false);
+              } else {
+                setTreeOpen(false);
+              }
+            }}
+            libraryOpen={libraryOpen}
+            onToggleLibrary={() => {
+              if (!libraryOpen) {
+                setLibraryOpen(true);
+                setEditorHidden(true);
+                setTreeOpen(false);
+              } else {
+                setLibraryOpen(false);
+              }
+            }}
+          />
+        </div>
 
         <div className="min-h-0 flex-1">
           <Preview
@@ -3410,7 +3471,7 @@ export default function Workspace({
           </ResizablePanel>
         )}
 
-        {treeOpen && <ElementTree
+        {treeOpen && <div className="hidden lg:contents"><ElementTree
           tree={tree}
           selectedKey={selectedTreeKey}
           onSelect={handleTreeSelect}
@@ -3450,7 +3511,7 @@ export default function Workspace({
             kind === "jsx" ? handleSelectAllInTree : undefined
           }
           onWarn={showWarn}
-        />}
+        /></div>}
 
         {libraryOpen && (
           <ResizablePanel
@@ -3480,23 +3541,10 @@ export default function Workspace({
               onInsertInto={handleInsertInto}
               onInsertIntoMulti={handleInsertIntoMulti}
               onCancelInsert={handleCancelInsert}
-              swapContext={
-                tool === "swap" && selection?.oid
-                  ? (() => {
-                      const hint = inferSwapCategory(
-                        selection.tag,
-                        selection.classes,
-                      );
-                      return {
-                        targetOid: selection.oid,
-                        targetTag: selection.tag,
-                        suggestedPanel: hint?.panel ?? null,
-                        suggestedCategory: hint?.category ?? null,
-                        slotEnvelope: swapEnvelope,
-                      };
-                    })()
-                  : null
-              }
+              // Phase 6 — standalone Swap tool retired; vibe-mode
+              // owns swap-from-library via vibeIconSwapOpen /
+              // vibeImageSwapOpen + their own modal mounts below.
+              swapContext={null}
               onSwapWith={handleSwap}
               onCancelSwap={handleCancelSwap}
               onApplyPalette={handleApplyPalette}
@@ -3505,17 +3553,19 @@ export default function Workspace({
         )}
 
         {tool === "vibe" && (
-          <VibePropertiesPanel
-            info={vibeInfo}
-            onContentChange={handleVibeContent}
-            onStyleChange={handleVibeStyle}
-            onImageChange={handleVibeImage}
-            onLinkChange={handleVibeLink}
-            onClose={handleVibeClose}
-            onIconSwap={handleVibeIconSwapOpen}
-            onImageSwap={handleVibeImageSwapOpen}
-            onClassesChange={handleVibeClasses}
-          />
+          <div className="hidden lg:contents">
+            <VibePropertiesPanel
+              info={vibeInfo}
+              onContentChange={handleVibeContent}
+              onStyleChange={handleVibeStyle}
+              onImageChange={handleVibeImage}
+              onLinkChange={handleVibeLink}
+              onClose={handleVibeClose}
+              onIconSwap={handleVibeIconSwapOpen}
+              onImageSwap={handleVibeImageSwapOpen}
+              onClassesChange={handleVibeClasses}
+            />
+          </div>
         )}
       </div>
 
@@ -3594,32 +3644,10 @@ export default function Workspace({
                 }
               : null
           }
-          swapContext={
-            tool === "swap" && selection?.oid
-              ? (() => {
-                  // Thirty-third-pass — auto-category routing. Compute
-                  // the hint from tag + classes; null when no confident
-                  // mapping exists. Sidebar reads suggestedPanel +
-                  // suggestedCategory and routes to the matching tab +
-                  // pre-fills the filter for this swap session.
-                  const hint = inferSwapCategory(
-                    selection.tag,
-                    selection.classes,
-                  );
-                  return {
-                    targetOid: selection.oid,
-                    targetTag: selection.tag,
-                    suggestedPanel: hint?.panel ?? null,
-                    suggestedCategory: hint?.category ?? null,
-                    // Phase E proper — slot envelope cached by the
-                    // tool/selection effect. Drives the LibraryModal
-                    // compatibility filter (dim + sort + counts) so the
-                    // user sees which assets fit before they pick one.
-                    slotEnvelope: swapEnvelope,
-                  };
-                })()
-              : null
-          }
+          // Phase 6 — standalone Swap tool retired; FocusEditor no
+          // longer surfaces a Swap entry. Prop stays for interface
+          // compat but is always null from this surface.
+          swapContext={null}
           onInsertTarget={handleInsertTargetConfirmed}
           onInsertInto={handleInsertInto}
           onInsertIntoMulti={handleInsertIntoMulti}

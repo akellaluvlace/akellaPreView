@@ -184,6 +184,37 @@ describe("patchJsxOuterByOid", () => {
     expect(out.source).toContain(`width="40"`);
   });
 
+  it("replaces a FOREIGN OID in newOuter with the caller-supplied OID", () => {
+    // Asset library could ship a pre-stamped svg (export from a prior
+    // vibe-edit session, or baked-in catalog item). Without stripping,
+    // we'd keep the asset's OID and lose continuity with the target
+    // element's OID.
+    const src = `<svg data-dropin-id="target-1" width="24"><path /></svg>`;
+    const out = patchJsxOuterByOid(
+      src,
+      "target-1",
+      `<svg data-dropin-id="foreign-asset-99" width="40"><rect /></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    const matches = out.source.match(/data-dropin-id="([^"]+)"/g) || [];
+    expect(matches.length).toBe(1);
+    expect(out.source).toContain(`data-dropin-id="target-1"`);
+    expect(out.source).not.toContain(`foreign-asset-99`);
+    expect(out.source).toContain(`width="40"`);
+  });
+
+  it("strips single-quoted foreign OID variant too", () => {
+    const src = `<svg data-dropin-id="target-2"><path /></svg>`;
+    const out = patchJsxOuterByOid(
+      src,
+      "target-2",
+      `<svg data-dropin-id='foreign-2' viewBox="0 0 24 24"><rect /></svg>`,
+    );
+    expect(out.changed).toBe(true);
+    expect(out.source).toContain(`data-dropin-id="target-2"`);
+    expect(out.source).not.toContain(`foreign-2`);
+  });
+
   it("preserves surrounding bytes (sibling + parent untouched)", () => {
     const src = `function App() {
   return (

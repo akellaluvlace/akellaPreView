@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background-color: #f5f1ea;
+  color: #0f0f0f;
+  /* Defensive: force the document root + body to span the entire
+     viewport horizontally. Prevents any unforeseen layout context
+     (browser extensions injecting wrappers, Reader-mode resets,
+     forced color-scheme injectors) from collapsing the page into
+     a narrower centered box. overflow-x-hidden prevents a stray
+     wide child (e.g. an over-wide marquee track) from pushing the
+     body wider than viewport and giving the user a horizontal-
+     scroll affordance they don't want on a content site. */
+  width: 100%;
+  min-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-instrument), system-ui, sans-serif;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(15, 15, 15, 0.025) 1px,
+    transparent 0
+  );
+  background-size: 3px 3px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #ff4d2e;
+  color: #f5f1ea;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #ede6d9;
+}
+::-webkit-scrollbar-thumb {
+  background: #0f0f0f;
+  border: 2px solid #ede6d9;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff4d2e;
+}
+
+@layer components {
+  /* All non-accent surface elements (chips, secondary buttons,
+     masthead, footer, sections) share the same lighter-cream tint —
+     `bg-white/70` over the body's bg-paper resolves to ~#FCFBF9, a
+     shade or two lighter than the Hero's surface, so these elements
+     read as a distinct layer without breaking the cream palette. */
+  .chip {
+    @apply inline-flex items-center px-2 py-0.5 text-[10px] font-mono uppercase
+           tracking-[0.15em] border border-ink bg-white/70;
+  }
+  .chip-accent {
+    @apply bg-coral text-paper border-coral;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-3 font-mono text-xs
+           uppercase tracking-[0.15em] border-2 border-ink bg-white/70 transition-colors
+           hover:bg-ink hover:text-paper;
+  }
+  .btn-accent {
+    @apply bg-coral text-paper border-ink hover:bg-ink hover:text-coral;
+  }
+
+  .card {
+    @apply bg-card border-2 border-ink;
+  }
+
+  .link-thick {
+    @apply relative no-underline after:content-[''] after:absolute after:left-0
+           after:right-0 after:-bottom-0.5 after:h-[2px] after:bg-ink;
+  }
+
+  .h-rule {
+    @apply border-t-2 border-ink;
+  }
+
+  /* ---- Brutalist slider (input[type=range]) ---- */
+  .dropin-slider {
+    @apply h-5 w-full cursor-pointer appearance-none bg-transparent;
+  }
+  .dropin-slider:focus {
+    outline: none;
+  }
+  .dropin-slider::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #0f0f0f;
+  }
+  .dropin-slider::-moz-range-track {
+    height: 4px;
+    background: #0f0f0f;
+  }
+  .dropin-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    background: #ff4d2e;
+    border: 2px solid #0f0f0f;
+    margin-top: -6px;
+    cursor: grab;
+  }
+  .dropin-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+  }
+  .dropin-slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    background: #ff4d2e;
+    border: 2px solid #0f0f0f;
+    border-radius: 0;
+    cursor: grab;
+  }
+  .dropin-slider::-moz-range-thumb:active {
+    cursor: grabbing;
+  }
+  .dropin-slider:focus::-webkit-slider-thumb {
+    outline: 2px solid #ff4d2e;
+    outline-offset: 2px;
+  }
+  .dropin-slider:focus::-moz-range-thumb {
+    outline: 2px solid #ff4d2e;
+    outline-offset: 2px;
+  }
+
+  /* Coarse-pointer (touch / pen) overrides for the brutalist slider. The
+     thumb grows to 44px (Apple HIG / Material 44pt target) so finger-tipped
+     users can grab it without fat-fingering off the track; the rail height
+     grows to 44px so the thumb fits flush. Track stays 4px so the slider's
+     visual identity survives the touch upsize. webkit recenters the thumb
+     via margin-top = -(thumb-track)/2 = -20; Firefox positions via the moz
+     thumb intrinsically. */
+  @media (pointer: coarse) {
+    .dropin-slider {
+      @apply h-11;
+    }
+    .dropin-slider::-webkit-slider-thumb {
+      height: 44px;
+      width: 44px;
+      margin-top: -20px;
+    }
+    .dropin-slider::-moz-range-thumb {
+      height: 44px;
+      width: 44px;
+    }
+  }
+
+  /* ---- Segmented group (for align / display / flex controls) ---- */
+  .seg-group {
+    @apply inline-flex w-full overflow-hidden border-2 border-ink;
+  }
+  .seg-btn {
+    @apply flex-1 cursor-pointer border-0 px-2 py-1.5 font-mono text-[10px] uppercase
+           tracking-[0.15em] transition-colors;
+    background: #f5f1ea;
+    color: #0f0f0f;
+  }
+  .seg-btn:not(:first-child) {
+    border-left: 2px solid #0f0f0f;
+  }
+  .seg-btn:hover {
+    background: #ede6d9;
+  }
+  .seg-btn[aria-pressed="true"] {
+    background: #0f0f0f;
+    color: #f5f1ea;
+  }
+
+  /* ---- Color chip (native color input shown as brutalist swatch) ---- */
+  .dropin-color {
+    @apply h-7 w-10 cursor-pointer border-2 border-ink;
+    padding: 0;
+    background: transparent;
+  }
+  .dropin-color::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  .dropin-color::-webkit-color-swatch {
+    border: none;
+  }
+  .dropin-color::-moz-color-swatch {
+    border: none;
+  }
+
+  /* Coarse-pointer (touch / pen) overrides for the segmented group + color
+     chip. Both are tappable controls that benefit from a 44-px-ish minimum
+     so fingers don't fat-finger the wrong segment. */
+  @media (pointer: coarse) {
+    .seg-btn {
+      @apply min-h-[44px] py-2.5 text-[11px];
+    }
+    .dropin-color {
+      @apply h-11 w-14;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Premium "How it works" step reveal — staggered fade-up. Each step
+   carries `animation-delay: ${i * 140}ms` set inline so they appear
+   one-by-one on first paint. easeOutQuint curve for a fast-then-settle
+   feel. `backwards` fill-mode applies the from-state during the delay
+   so steps start invisible until their turn. Respects reduced-motion.
+   --------------------------------------------------------------------------- */
+@keyframes dropin-step-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.dropin-step-reveal {
+  animation: dropin-step-reveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dropin-step-reveal {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Landing-page taste-of-the-gallery marquee.
+   Two-copy seamless loop: each row's content is duplicated once and the track
+   translates -50% over the cycle, so the second copy lands exactly where the
+   first started. animation-delay (set client-side per row) shifts each visit's
+   visible window so users land on different templates each time. The middle
+   row uses marquee-r so the eye gets a horizontal counterpoint.
+   --------------------------------------------------------------------------- */
+@keyframes dropin-marquee-l {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes dropin-marquee-r {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+.dropin-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: dropin-marquee-l var(--dropin-marquee-duration, 80s) linear infinite;
+}
+.dropin-marquee.dropin-marquee-r {
+  animation-name: dropin-marquee-r;
+}
+.dropin-marquee-viewport:hover .dropin-marquee,
+.dropin-marquee-viewport:focus-within .dropin-marquee {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dropin-marquee {
+    animation: none;
+    transform: none;
+  }
+}
+
