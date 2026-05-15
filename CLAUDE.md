@@ -2,10 +2,18 @@
 
 Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generated HTML/JSX and see it render live, or pick from a gallery of templates. Audience: people with no terminal, no Node install, no dev background.
 
-## Active branches (2026-05-14)
+## Active branches (2026-05-15)
 
 - **`main`** — codebase. Last commit `0878566 backup: web templates state before 94/10/32/16/69 batch`.
-- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + vibe-edit + image-context-fit audit + 2026-05-14 vibecoder simplification. **19 commits ahead of main + uncommitted 2026-05-14 work in tree (Workspace, VibePropertiesPanel/*, ToolBar, lib/vibe-edit/*). All LOCAL ONLY — never pushed.** Backup at `backup/pre-master-id-sweep-2026-05-10` (= `c659862`). Full per-session log in `CLAUDE-archive-status.md`.
+- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + vibe-edit + image-context-fit audit + 2026-05-14 vibecoder simplification + 2026-05-14 PM inline browser + 2026-05-15 design plans. **20 commits ahead of main, all LOCAL ONLY — never pushed.** Full per-session log in `CLAUDE-archive-status.md`.
+
+## Backup checkpoints (rollback refs)
+
+| Date | Commit | Restore command | What it captures |
+|---|---|---|---|
+| 2026-05-15 | `d656e21` | `git reset --hard d656e21` | Pre-cascade-detach + pre-move-fix work. Vibe-edit 5-phase simplification + inline component browser + 2026-05-15 plans. Two new SVG logos. CLAUDE.md trimmed + archive. tsc 0, vitest 6291/6293. |
+| 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
+| 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
 ## Current status (2026-05-14 — vibecoder simplification SHIPPED: toggle gone, Insert hidden, swap-anywhere wired, BG-image control for cards + sections, Plasmic-style cascade badge. 6291/6293 vitest, tsc 0.)
 
