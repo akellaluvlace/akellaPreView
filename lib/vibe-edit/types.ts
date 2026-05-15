@@ -53,6 +53,50 @@ export interface VibeElementInfo {
   // card-like and gets corner / bg controls; a plain wrapper div
   // gets the inert-container hint. Empty string when no class attr.
   classes: string;
+  // Resolved background-image URL parsed out of the computed style's
+  // `background-image` property. The runtime reads `cs.backgroundImage`
+  // (raw form `url("…")` / `none` / `linear-gradient(…)`) and strips
+  // to either the URL string or null. Used by the BG-image picker in
+  // CardControls to seed the "current value" state + by the idle-
+  // commit drift detector. Non-`url(…)` backgrounds (gradients,
+  // patterns) come back as null so the picker doesn't pretend to
+  // own them. Optional for backwards-compatibility with test fixtures
+  // and pre-2026-05-14 message shapes; absent ↔ null at the type
+  // boundary (callers should `info.bgImage ?? null`).
+  bgImage?: string | null;
+  // Number of DOM elements sharing this element's source OID. >1
+  // means the user clicked an instance rendered by a `.map()`-style
+  // loop (or any duplicated-OID source). Edits to a single instance
+  // in the iframe cascade to all instances on the next source rebuild
+  // because they all read from the same source location — this field
+  // exists so the panel can surface the cascade up front ("Editing
+  // all N copies") rather than letting the user discover it after
+  // reload. Matches Plasmic Studio's `repeatedElement()` UX pattern:
+  // edits land on "the first replica" and propagate to siblings,
+  // signalled clearly in the chrome. Optional for backwards-compat;
+  // absent / 0 / 1 all mean "single instance".
+  instanceCount?: number;
+  // Pre-swap visual footprint, captured at selection time via
+  // getBoundingClientRect + getComputedStyle. The component-swap path
+  // uses this to wrap the swapped asset in a same-dimension container
+  // so the surrounding layout doesn't shift when a larger / smaller
+  // Uiverse tile takes the slot. Width/height are CSS pixels;
+  // `display` is the resolved CSS display value (block / inline-block
+  // / flex / inline / etc.) so the wrapper preserves flow semantics.
+  // Optional for backwards-compat with test fixtures.
+  bbox?: {
+    width: number;
+    height: number;
+    display: string;
+    // Computed margin (per-side, integer px). The wrapper applies
+    // these so the swapped element keeps the same offset from
+    // neighbors that the original had baked in via Tailwind classes
+    // or inline styles (e.g. `mb-4` on a button → 16px bottom margin).
+    marginTop: number;
+    marginRight: number;
+    marginBottom: number;
+    marginLeft: number;
+  };
 }
 
 // Iframe → host. Sent via parent.postMessage with the existing

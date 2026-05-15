@@ -15,15 +15,29 @@
 import { useEffect, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import { parseRadiusPx } from "@/lib/vibe-edit/detect";
+import { SwapComponentButton } from "../VibePropertiesPanel";
 
 interface CardControlsProps {
   info: VibeElementInfo;
   onStyleChange: (styles: Record<string, string>) => void;
+  // Opens the Components library modal so the user can swap the card
+  // for a different tile. Optional.
+  onComponentSwap?: () => void;
+  // Opens the Media library modal so the user can pick a background
+  // image. The pick handler at the host treats the URL as CSS bg,
+  // NOT an outerHTML swap. Optional.
+  onBgImagePick?: () => void;
+  // Clears the current background image (both inline style + the
+  // corresponding Tailwind arbitrary class via idle-commit drift).
+  onBgImageRemove?: () => void;
 }
 
 export default function CardControls({
   info,
   onStyleChange,
+  onComponentSwap,
+  onBgImagePick,
+  onBgImageRemove,
 }: CardControlsProps) {
   const [bg, setBg] = useState(rgbToHex(info.bgColor));
   const [radius, setRadius] = useState(parseRadiusPx(info.borderRadius));
@@ -74,6 +88,46 @@ export default function CardControls({
           aria-label="Corner radius"
         />
       </label>
+
+      <div className="border-t-2 border-ink/15 pt-3">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+          Background image
+        </p>
+        {info.bgImage && (
+          <p
+            className="mt-1 truncate font-mono text-[10px] text-ink"
+            title={info.bgImage}
+          >
+            Current: {info.bgImage}
+          </p>
+        )}
+        <div className="mt-1 flex gap-2">
+          <button
+            type="button"
+            onClick={onBgImagePick}
+            disabled={!onBgImagePick}
+            className="flex-1 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {info.bgImage ? "Replace" : "Pick image"}
+          </button>
+          {info.bgImage && (
+            <button
+              type="button"
+              onClick={onBgImageRemove}
+              disabled={!onBgImageRemove}
+              className="border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Remove
+            </button>
+          )}
+        </div>
+        <p className="mt-1 font-mono text-[10px] text-muted">
+          Free photos from Unsplash + Pexels + Pixabay. Set as `cover`
+          + centered.
+        </p>
+      </div>
+
+      <SwapComponentButton onClick={onComponentSwap} />
     </div>
   );
 }

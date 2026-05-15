@@ -144,6 +144,12 @@ export default function ComponentsPanel({
   // override read doesn't propagate to storage.
   const overrideActiveRef = useRef(false);
   useEffect(() => {
+    console.log("[dropin:ComponentsPanel] override-effect-fired", {
+      hydrated: hydratedRef.current,
+      initialCategory,
+      initialCategoryKey,
+      currentCategory: category,
+    });
     if (!hydratedRef.current) return;
     if (typeof initialCategory === "undefined") return;
     if (initialCategoryKey === null || initialCategoryKey === undefined) return;
@@ -151,6 +157,7 @@ export default function ComponentsPanel({
     // category change (user-initiated) will clear the flag so writes
     // resume normally.
     overrideActiveRef.current = true;
+    console.log("[dropin:ComponentsPanel] setCategory →", initialCategory);
     setCategory(initialCategory);
     // Reset the override flag after the same effect's next render —
     // letting the persisted-write effect skip ONE write, then resume.

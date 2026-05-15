@@ -60,7 +60,12 @@ export function vibeRuntimeJs(): string {
         cur !== document.documentElement
       ) {
         if (cur.tagName === 'BUTTON') return cur;
-        if (vibeIsCardLike(cur)) return cur;
+        // Use vibeHasCardChrome (not vibeIsCardLike) so a span inside
+        // <main><div>…</div></main> is NOT hijacked into selecting
+        // <main> just because semantic sections always qualify as
+        // card-like for the post-editable-atom fallback. Only "real"
+        // card chrome counts here.
+        if (vibeHasCardChrome(cur)) return cur;
         cur = cur.parentElement;
         depth++;
       }
@@ -105,7 +110,12 @@ export function vibeRuntimeJs(): string {
     // inline styles, or hand-rolled CSS. Plain wrapper divs (no
     // bg / no rounding / no shadow / no border) fall through to
     // selection-clear.
-    function vibeIsCardLike(el) {
+    // Computed-chrome flavour of the card check — bg / rounding /
+    // shadow / border. Used by the span-override (a span inside a
+    // <main> wrapper with no chrome SHOULDN'T be hijacked into
+    // selecting the main; only "real" cards count there) AND as the
+    // chrome arm of vibeIsCardLike below.
+    function vibeHasCardChrome(el) {
       if (!el || !el.tagName) return false;
       if (el === document.body || el === document.documentElement) return false;
       if (vibeIsEditable(el)) return false;
@@ -127,6 +137,32 @@ export function vibeRuntimeJs(): string {
         (parseFloat(cs.borderRightWidth || '0') || 0);
       if (bw > 0) return true;
       return false;
+    }
+
+    // Semantic-section short-circuit. Sections / headers / mains /
+    // etc. ALWAYS qualify as card-like for the post-editable-atom
+    // fallback so vibecoders can select a hero section to set its
+    // background image even when the section has no chrome of its
+    // own. Excluded from the span-override above so a span inside
+    // <main><div>…</div></main> doesn't have its selection hijacked
+    // to <main>.
+    function vibeIsSemanticSection(el) {
+      if (!el || !el.tagName) return false;
+      var tag = el.tagName.toUpperCase();
+      return (
+        tag === 'SECTION' ||
+        tag === 'HEADER' ||
+        tag === 'FOOTER' ||
+        tag === 'MAIN' ||
+        tag === 'ASIDE' ||
+        tag === 'ARTICLE' ||
+        tag === 'NAV'
+      );
+    }
+
+    function vibeIsCardLike(el) {
+      if (vibeIsSemanticSection(el)) return true;
+      return vibeHasCardChrome(el);
     }
 
     // Performance note (WU3, 2026-05-12): walks up to ~10 levels in
@@ -226,12 +262,77 @@ export function vibeRuntimeJs(): string {
       return 'container';
     }
 
+    function vibeParseBgImageUrl(raw) {
+      // cs.backgroundImage form is url("https://…") / url('…') / url(…)
+      // for plain image bgs, 'none' for unset, and 'linear-gradient(…)'
+      // / 'repeating-…' / multi-layer comma-joined values for richer
+      // styling. We only own the plain-url case; everything else
+      // surfaces as null so the picker doesnt pretend to manage it.
+      if (!raw || raw === 'none') return null;
+      var m = raw.match(/^url\(\s*(?:"([^"]+)"|'([^']+)'|([^)]+))\s*\)$/);
+      if (!m) return null;
+      return m[1] || m[2] || (m[3] ? m[3].trim() : null);
+    }
+
+    // Count DOM elements sharing this elements source OID. >1 means
+    // the user clicked into a .map()-rendered (or otherwise duplicated)
+    // source location — edits will cascade to siblings on the next
+    // source rebuild because all N rendered instances read from the
+    // same source bytes. Surface to the host panel so it can show
+    // "Editing all N copies" instead of letting the user discover
+    // after reload. OID is 8 alphanumeric chars (per lib/ast/oids.ts)
+    // so attribute-selector interpolation is safe without escaping.
+    // Returns 1 for elements with no OID (HTML mode, or pre-injection
+    // JSX) so the panel doesnt misreport singletons. NB: backticks
+    // are forbidden in this entire template literal — they would
+    // close the outer TS template at parse time (project memory:
+    // ts_template_backtick_trap).
+    function vibeInstanceCount(oid) {
+      if (!oid) return 1;
+      try {
+        var nodes = document.querySelectorAll(
+          '[data-dropin-id="' + oid + '"]'
+        );
+        return nodes ? nodes.length : 1;
+      } catch (e) {
+        return 1;
+      }
+    }
+
     function vibeSerialize(el) {
       var cs = window.getComputedStyle ? getComputedStyle(el) : null;
+      var oid = el.getAttribute('data-dropin-id');
+      // Visual footprint at selection time. Drives the component-swap
+      // path's same-dimension wrap so larger/smaller Uiverse tiles
+      // don't push surrounding layout around. Round to integer CSS
+      // pixels for stable inline style output.
+      var bbox = null;
+      try {
+        if (typeof el.getBoundingClientRect === 'function') {
+          var rect = el.getBoundingClientRect();
+          var disp = cs ? cs.display : 'block';
+          // parseFloat handles "8px" → 8, "auto" → NaN (rounded to 0).
+          function parsePx(s) {
+            var n = parseFloat(s);
+            return isFinite(n) ? Math.round(n) : 0;
+          }
+          bbox = {
+            width: Math.max(0, Math.round(rect.width || 0)),
+            height: Math.max(0, Math.round(rect.height || 0)),
+            display: disp || 'block',
+            marginTop: cs ? parsePx(cs.marginTop) : 0,
+            marginRight: cs ? parsePx(cs.marginRight) : 0,
+            marginBottom: cs ? parsePx(cs.marginBottom) : 0,
+            marginLeft: cs ? parsePx(cs.marginLeft) : 0
+          };
+        }
+      } catch (e) {
+        bbox = null;
+      }
       return {
         path: vibeGetPath(el),
         htmlPath: vibeGetHtmlPath(el),
-        oid: el.getAttribute('data-dropin-id'),
+        oid: oid,
         tag: el.tagName.toLowerCase(),
         kind: vibeKind(el.tagName, el.getAttribute('role')),
         text: el.textContent || '',
@@ -242,7 +343,10 @@ export function vibeRuntimeJs(): string {
         bgColor: cs ? cs.backgroundColor : '',
         borderRadius: cs ? cs.borderRadius : '',
         inlineStyle: el.style ? (el.style.cssText || '') : '',
-        classes: el.getAttribute('class') || ''
+        classes: el.getAttribute('class') || '',
+        bgImage: cs ? vibeParseBgImageUrl(cs.backgroundImage) : null,
+        instanceCount: vibeInstanceCount(oid),
+        bbox: bbox
       };
     }
 
@@ -289,20 +393,34 @@ export function vibeRuntimeJs(): string {
     // docs/superpowers/plans/2026-05-11-pm-deferred-decisions.md
     // for citations).
     document.addEventListener('click', function (ev) {
+      // Diagnostic: log every click that reaches the iframe regardless
+      // of tool state. Tells us whether a "click does nothing" report
+      // is (a) the click never reached the iframe, (b) tool was not
+      // vibe, (c) walk-up found no editable atom + no card ancestor.
+      try {
+        var rawForLog = ev.target;
+        var tagForLog = rawForLog && rawForLog.tagName
+          ? rawForLog.tagName.toLowerCase() : 'unknown';
+        console.log('[dropin:iframe-vibe-click] tool=' + DROPIN_TOOL
+          + ' target=' + tagForLog);
+      } catch (e) {}
       if (DROPIN_TOOL !== 'vibe') return;
       ev.preventDefault();
       ev.stopPropagation();
       var raw = ev.target;
       var atom = vibeFindEditableAncestor(raw);
       if (atom) {
+        try { console.log('[dropin:iframe-vibe-click] hit atom', atom.tagName); } catch (e) {}
         vibeSelect(atom);
         return;
       }
       var card = vibeFindCardAncestor(raw);
       if (card) {
+        try { console.log('[dropin:iframe-vibe-click] hit card', card.tagName); } catch (e) {}
         vibeSelect(card);
         return;
       }
+      try { console.log('[dropin:iframe-vibe-click] no editable + no card ancestor → clear'); } catch (e) {}
       if (vibeSelected) vibeClear();
     }, true);
 

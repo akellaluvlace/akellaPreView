@@ -30,6 +30,12 @@ export interface StyleDelta {
   color?: string;
   backgroundColor?: string;
   borderRadius?: string;
+  // Background image URL. Omit to leave alone, set to a non-empty
+  // string to add `bg-[url('…')] bg-cover bg-center`, set to `null`
+  // or `""` to strip the existing image (and its cover/position
+  // classes). null is the "explicit remove" intent vs undefined =
+  // "don't touch".
+  bgImageUrl?: string | null;
 }
 
 export interface MergeResult {
@@ -65,6 +71,31 @@ const BG_COLOR_MATCH = colorVariantMatcher("bg");
 // on a borderRadius write is "set all corners to N", so we wipe every
 // rounded* token including hover:/md:/dark: variants.
 const ROUNDED_MATCH = /^(?:[\w-]+:)*rounded(?:-[\w[\]#%./-]+)*$/;
+
+// Tailwind arbitrary bg-image: bg-[url('…')] (single OR double quotes
+// inside, encoded chars common). The arbitrary-value form is the only
+// way to set a background-image URL via Tailwind classes. Matches with
+// optional leading variant prefixes so md:bg-[url(…)] also strips on
+// rewrite.
+const BG_IMAGE_MATCH = /^(?:[\w-]+:)*bg-\[url\([^\]]+\)\]$/;
+// Background-size classes — Tailwind ships bg-auto / bg-cover /
+// bg-contain plus arbitrary bg-[size:…]. We control all three when
+// owning the bg-image write so a stale `bg-contain` doesnt fight the
+// `bg-cover` we emit.
+const BG_SIZE_MATCH =
+  /^(?:[\w-]+:)*bg-(?:auto|cover|contain|\[size:[^\]]+\])$/;
+// Background-position classes — Tailwind named positions + arbitrary
+// `bg-[position:…]`. Strip on rewrite so the new `bg-center` lands
+// alone. NOTE: name overlap with bg-color (bg-{family}-{shade}) is
+// avoided because the COLOR strip uses a tighter family|named regex
+// and runs FIRST.
+const BG_POSITION_MATCH =
+  /^(?:[\w-]+:)*bg-(?:center|top|bottom|left|right|left-top|left-bottom|right-top|right-bottom|top-left|top-right|bottom-left|bottom-right|\[position:[^\]]+\])$/;
+// bg-repeat / bg-no-repeat / bg-repeat-x / bg-repeat-y / bg-repeat-round
+// / bg-repeat-space. Always wipe on rewrite — we emit no-repeat
+// implicitly via bg-cover (cover fills the box; repeat would be
+// undefined behaviour and the user never asks for it).
+const BG_REPEAT_MATCH = /^(?:[\w-]+:)*bg-(?:repeat|no-repeat|repeat-x|repeat-y|repeat-round|repeat-space)$/;
 
 const REM_TO_PX = 16;
 
@@ -124,10 +155,66 @@ export function mergeStyleDeltaIntoClasses(
     }
   }
 
+  // Background image → bg-[url('…')] bg-cover bg-center bg-no-repeat
+  // (or strip on null/empty). The picker is presentational and emits
+  // single-line URLs only; we wrap in single quotes inside the arb
+  // value so Tailwind's parser treats the whole thing as one literal.
+  if (delta.bgImageUrl !== undefined) {
+    const before = next.length;
+    next = next.filter(
+      (c) =>
+        !BG_IMAGE_MATCH.test(c) &&
+        !BG_SIZE_MATCH.test(c) &&
+        !BG_POSITION_MATCH.test(c) &&
+        !BG_REPEAT_MATCH.test(c),
+    );
+    const adds: string[] = [];
+    if (typeof delta.bgImageUrl === "string" && delta.bgImageUrl.length > 0) {
+      const encoded = encodeBgImageUrl(delta.bgImageUrl);
+      if (encoded) {
+        adds.push(
+          `bg-[url('${encoded}')]`,
+          "bg-cover",
+          "bg-center",
+          "bg-no-repeat",
+        );
+      }
+    }
+    for (const cls of adds) next.push(cls);
+    const stripped = next.length !== before;
+    const added = adds.some((cls) => !tokens.includes(cls));
+    if (stripped || added) {
+      changed = true;
+    }
+  }
+
   return {
     classes: next.join(" "),
     changed,
   };
+}
+
+// URL guard for the `bg-[url('…')]` arbitrary class. Tailwinds parser
+// accepts arbitrary-value strings up to the closing `]`, so a URL
+// containing `]` (rare but legal in path segments) would terminate
+// the class early and trash the rest of the className. Single quotes
+// inside the URL would terminate the wrapping. Both are encoded.
+// Newlines / CR are stripped outright — Tailwind class strings must
+// be one line.
+function encodeBgImageUrl(raw: string): string | null {
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  // Block javascript: / data: prefixes — vibecoders cant author them
+  // intentionally and treating them as user input would route XSS
+  // surface through the picker. The Components picker only emits
+  // https://… URLs from Unsplash / Pexels / Pixabay so this is a
+  // belt-and-suspenders guard.
+  if (/^\s*(?:javascript|data|vbscript):/i.test(trimmed)) return null;
+  return trimmed
+    .replace(/\r/g, "")
+    .replace(/\n/g, "")
+    .replace(/'/g, "%27")
+    .replace(/\]/g, "%5D");
 }
 
 // ---- helpers ----------------------------------------------------------

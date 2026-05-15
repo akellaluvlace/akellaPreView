@@ -109,7 +109,7 @@ function JsonLd({ templateCount }: { templateCount: number }) {
         "@id": `${SITE_URL}/#org`,
         name: "Akella inMotion",
         url: STUDIO_URL,
-        logo: `${SITE_URL}/assets/logo.png`,
+        logo: `${SITE_URL}/assets/logo.svg`,
         sameAs: [STUDIO_URL, COMPANY_LINKEDIN, FOUNDER_LINKEDIN],
         founder: {
           "@type": "Person",
@@ -121,7 +121,7 @@ function JsonLd({ templateCount }: { templateCount: number }) {
         "@type": "WebSite",
         "@id": `${SITE_URL}/#site`,
         url: SITE_URL,
-        name: "Dropin",
+        name: "AiM Dropin",
         description:
           "Paste AI-generated HTML or JSX and watch it render live. No install, no terminal, no sign-in.",
         publisher: { "@id": `${SITE_URL}/#org` },
@@ -129,7 +129,7 @@ function JsonLd({ templateCount }: { templateCount: number }) {
       },
       {
         "@type": "WebApplication",
-        name: "Dropin Playground",
+        name: "AiM Dropin Playground",
         url: `${SITE_URL}/playground`,
         applicationCategory: "DeveloperApplication",
         operatingSystem: "Any",
@@ -154,9 +154,24 @@ function Masthead() {
     // the Hero already speaks to what Dropin is. The wordmark + CTA is
     // all the masthead needs to do.
     <header className="w-screen border-b-2 border-ink bg-white/70">
-      <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3 px-4 py-4 md:gap-4 md:px-6 md:py-5 lg:px-10">
-        <Link href="/" className="font-display text-2xl leading-none tracking-tight md:text-3xl">
-          Dropin
+      {/* Tight vertical padding (py-2 md:py-2.5) so the 1.7x-bigger
+          logo doesn't push the navbar down — total bar height stays
+          ~same as before. The wordmark is just "Dropin" because the
+          SVG logo carries the coral "AiM" inside it; no need to
+          duplicate "AiM" as separate text. */}
+      <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3 px-4 py-2 md:gap-4 md:px-6 md:py-2.5 lg:px-10">
+        <Link
+          href="/"
+          aria-label="AiM Dropin — home"
+          className="flex items-center gap-2 font-display text-2xl leading-none tracking-tight md:gap-2.5 md:text-3xl"
+        >
+          <img
+            src="/assets/logo.svg"
+            alt=""
+            aria-hidden="true"
+            className="h-12 w-12 md:h-14 md:w-14"
+          />
+          <span>Dropin</span>
         </Link>
         <nav className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] md:gap-6 md:text-[11px] md:tracking-[0.2em]">
           {/* Mobile (<sm): only Gallery is surfaced — the hero CTAs
@@ -314,15 +329,6 @@ function Hero({ templateCount }: { templateCount: number }) {
             src="/assets/logo.png"
             alt=""
             aria-hidden="true"
-            // Scaled up: mobile 1.5x (w-[195%] / max-w-780),
-            // desktop 1.8x (lg:w-[144%] / lg:max-w-1300). Image
-            // intentionally overflows the column for a dramatic
-            // watermark presence — body `overflow-x-hidden` clips
-            // the mobile overflow at viewport edges; on desktop the
-            // overflow extends into the adjacent aside area but
-            // stays below the aside's content via the column's
-            // isolated stacking context. Desktop also keeps the
-            // left anchor (`lg:left-[28%]`).
             className="pointer-events-none absolute left-1/2 top-[40%] -z-10 h-auto w-[195%] max-w-[780px] -translate-x-1/2 -translate-y-1/2 select-none opacity-30 lg:left-[28%] lg:top-1/2 lg:w-[144%] lg:max-w-[1300px]"
             style={{ filter: "invert(1) brightness(1.05)" }}
           />
@@ -600,12 +606,12 @@ function Footer() {
         <div className="flex items-center gap-5">
           <Link
             href="/"
-            aria-label="Dropin — back to home"
+            aria-label="AiM Dropin — back to home"
             className="shrink-0 inline-flex"
           >
             <img
               src="/assets/logo.png"
-              alt="Dropin · a project by Akella inMotion"
+              alt="AiM Dropin · a project by Akella inMotion"
               width={112}
               height={112}
               loading="lazy"
@@ -614,7 +620,9 @@ function Footer() {
             />
           </Link>
           <div className="flex flex-col gap-1">
-            <p className="font-display text-xl leading-tight">Dropin</p>
+            <p className="font-display text-xl leading-tight">
+              <em className="not-italic text-coral" style={{ fontStyle: "normal" }}>AiM</em>{" "}Dropin
+            </p>
             <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
               © 2026 · Built for vibecoders
             </p>

@@ -15,6 +15,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import { rgbToHex } from "@/lib/vibe-edit/rgb-to-hex";
 import TextTypographyExtras from "./TextTypographyExtras";
+import { SwapComponentButton } from "../VibePropertiesPanel";
 
 // TextControls owns the background colour picker, so transparent bg
 // should NOT render as a black square (indistinguishable from a black
@@ -38,6 +39,10 @@ interface TextControlsProps {
   // contexts that haven't enabled typography sliders (the panel
   // section just doesn't render).
   onClassesChange?: (newClasses: string) => void;
+  // Opens the Components library modal so the user can swap this
+  // text / heading / button for a different component. Optional so
+  // contexts without library access just don't render the button.
+  onComponentSwap?: () => void;
 }
 
 export default function TextControls({
@@ -45,6 +50,7 @@ export default function TextControls({
   onContentChange,
   onStyleChange,
   onClassesChange,
+  onComponentSwap,
 }: TextControlsProps) {
   const [text, setText] = useState(info.text);
   const [color, setColor] = useState(rgbToHex(info.textColor, RGB_OPTS));
@@ -158,6 +164,8 @@ export default function TextControls({
           onClassesChange={onClassesChange}
         />
       )}
+
+      <SwapComponentButton onClick={onComponentSwap} />
     </div>
   );
 }

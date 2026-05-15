@@ -10,7 +10,7 @@ import {
 } from "@/lib/templates";
 
 export const metadata = {
-  title: "Gallery — Dropin",
+  title: "Gallery — AiM Dropin",
   description:
     "Browse every ready-to-ship HTML / JSX template. Filter by category, search by name, sort by order.",
 };
@@ -59,14 +59,21 @@ export default async function GalleryPage({
 
 function GalleryMasthead() {
   return (
-    <header className="border-b-2 border-ink">
-      <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-3 md:gap-x-4 md:px-6 lg:px-10">
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 md:gap-x-4">
+    <header className="border-b-2 border-ink bg-white/70">
+      <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-2 md:gap-x-4 md:px-6 md:py-2.5 lg:px-10">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 md:gap-x-4">
           <Link
             href="/"
-            className="font-display text-2xl leading-none tracking-tight hover:text-coral md:text-3xl"
+            aria-label="AiM Dropin — home"
+            className="flex items-center gap-2 font-display text-2xl leading-none tracking-tight hover:text-coral md:gap-2.5 md:text-3xl"
           >
-            Dropin
+            <img
+              src="/assets/logo.svg"
+              alt=""
+              aria-hidden="true"
+              className="h-12 w-12 md:h-14 md:w-14"
+            />
+            <span>Dropin</span>
           </Link>
           <span
             aria-hidden="true"
@@ -99,9 +106,9 @@ function GalleryMasthead() {
 
 function GalleryFooter() {
   return (
-    <footer className="border-t-2 border-ink">
+    <footer className="border-t-2 border-ink bg-white/70">
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-4 px-6 py-4 font-mono text-[10px] uppercase tracking-[0.3em] text-muted lg:px-10">
-        <p>© 2026 Dropin · Made for vibecoders</p>
+        <p>© 2026 AiM Dropin · Made for vibecoders</p>
         <div className="flex gap-6">
           <Link href="/" className="hover:text-coral">
             Home

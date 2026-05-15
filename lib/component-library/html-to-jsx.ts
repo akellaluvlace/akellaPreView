@@ -37,6 +37,123 @@ const VOID_ELEMENTS = new Set([
 // expects camelCase for. We camelCase everything except those prefixes.
 const PRESERVE_PREFIXES = ["aria-", "data-"];
 
+// SVG element names that React requires in camelCase. The HTML parser
+// lowercases everything (`<linearGradient>` → `lineargradient` tagName),
+// so we recase on the way out. Without this, React renders the element
+// as unknown HTML (not SVG) and the visual breaks silently. Names below
+// are React's canonical SVG element list (per react-dom/src/shared/
+// DOMProperty + the React SVG docs). Lowercase key → camelCase value.
+const SVG_TAG_MAP: Record<string, string> = {
+  animatemotion: "animateMotion",
+  animatetransform: "animateTransform",
+  clippath: "clipPath",
+  feblend: "feBlend",
+  fecolormatrix: "feColorMatrix",
+  fecomponenttransfer: "feComponentTransfer",
+  fecomposite: "feComposite",
+  feconvolvematrix: "feConvolveMatrix",
+  fediffuselighting: "feDiffuseLighting",
+  fedisplacementmap: "feDisplacementMap",
+  fedistantlight: "feDistantLight",
+  fedropshadow: "feDropShadow",
+  feflood: "feFlood",
+  fefunca: "feFuncA",
+  fefuncb: "feFuncB",
+  fefuncg: "feFuncG",
+  fefuncr: "feFuncR",
+  fegaussianblur: "feGaussianBlur",
+  feimage: "feImage",
+  femerge: "feMerge",
+  femergenode: "feMergeNode",
+  femorphology: "feMorphology",
+  feoffset: "feOffset",
+  fepointlight: "fePointLight",
+  fespecularlighting: "feSpecularLighting",
+  fespotlight: "feSpotLight",
+  fetile: "feTile",
+  feturbulence: "feTurbulence",
+  foreignobject: "foreignObject",
+  lineargradient: "linearGradient",
+  radialgradient: "radialGradient",
+  textpath: "textPath",
+};
+
+// SVG attributes React requires in camelCase. `viewbox` → `viewBox`,
+// `preserveaspectratio` → `preserveAspectRatio`, etc. Without these,
+// React passes them through as DOM attributes and the SVG renders
+// without the constraint (e.g. wrong aspect, wrong gradient stops).
+// Lowercase key → React canonical name.
+const SVG_ATTR_MAP: Record<string, string> = {
+  viewbox: "viewBox",
+  preserveaspectratio: "preserveAspectRatio",
+  gradientunits: "gradientUnits",
+  gradienttransform: "gradientTransform",
+  patternunits: "patternUnits",
+  patterntransform: "patternTransform",
+  patterncontentunits: "patternContentUnits",
+  spreadmethod: "spreadMethod",
+  pathlength: "pathLength",
+  clippath: "clipPath",
+  clippathunits: "clipPathUnits",
+  clipruleerror: "clipRule",
+  maskunits: "maskUnits",
+  maskcontentunits: "maskContentUnits",
+  markerend: "markerEnd",
+  markermid: "markerMid",
+  markerstart: "markerStart",
+  markerheight: "markerHeight",
+  markerwidth: "markerWidth",
+  markerunits: "markerUnits",
+  refx: "refX",
+  refy: "refY",
+  textlength: "textLength",
+  lengthadjust: "lengthAdjust",
+  filterunits: "filterUnits",
+  primitiveunits: "primitiveUnits",
+  basefrequency: "baseFrequency",
+  baseprofile: "baseProfile",
+  numoctaves: "numOctaves",
+  stitchtiles: "stitchTiles",
+  surfacescale: "surfaceScale",
+  edgemode: "edgeMode",
+  kernelmatrix: "kernelMatrix",
+  kernelunitlength: "kernelUnitLength",
+  diffuseconstant: "diffuseConstant",
+  specularconstant: "specularConstant",
+  specularexponent: "specularExponent",
+  limitingconeangle: "limitingConeAngle",
+  pointsatx: "pointsAtX",
+  pointsaty: "pointsAtY",
+  pointsatz: "pointsAtZ",
+  startoffset: "startOffset",
+  attributename: "attributeName",
+  attributetype: "attributeType",
+  begin: "begin",
+  calcmode: "calcMode",
+  keytimes: "keyTimes",
+  keysplines: "keySplines",
+  keypoints: "keyPoints",
+  repeatcount: "repeatCount",
+  repeatdur: "repeatDur",
+  fillrule: "fillRule",
+  strokewidth: "strokeWidth",
+  strokelinecap: "strokeLinecap",
+  strokelinejoin: "strokeLinejoin",
+  strokemiterlimit: "strokeMiterlimit",
+  strokeopacity: "strokeOpacity",
+  strokedasharray: "strokeDasharray",
+  strokedashoffset: "strokeDashoffset",
+  stopcolor: "stopColor",
+  stopopacity: "stopOpacity",
+  floodcolor: "floodColor",
+  floodopacity: "floodOpacity",
+  textanchor: "textAnchor",
+  dominantbaseline: "dominantBaseline",
+  fontfamily: "fontFamily",
+  fontsize: "fontSize",
+  fontweight: "fontWeight",
+};
+
 // React's canonical name map. If an attribute isn't in here, we fall back to
 // hyphen-to-camelCase conversion which covers the bulk of SVG attributes.
 const ATTR_MAP: Record<string, string> = {
@@ -77,6 +194,20 @@ function mapAttrName(name: string): string | null {
   if (lower.startsWith("on")) return null; // strip event handlers
   if (PRESERVE_PREFIXES.some((p) => lower.startsWith(p))) return lower;
   if (ATTR_MAP[lower]) return ATTR_MAP[lower];
+  // SVG attrs needing specific camelCase (viewBox, preserveAspectRatio,
+  // stopColor, etc.). React doesn't auto-recase these — passes the lower
+  // form to the DOM where SVG ignores it. Check the map BEFORE the
+  // hyphen fallback so a hypothetical `stop-color` source still hits
+  // the SVG canonical name via the lowercased `stopcolor` lookup.
+  if (SVG_ATTR_MAP[lower]) return SVG_ATTR_MAP[lower];
+  // Colon-namespaced SVG/XML attrs: `xmlns:xlink`, `xml:space`,
+  // `xlink:href`. JSX disallows colons in attribute names — convert
+  // `ns:name` → `nsName` (camelCase). React maps a fixed set of these
+  // to the DOM-correct namespaced attr at render (xmlnsXlink, xmlSpace,
+  // xlinkHref are all recognized).
+  if (lower.includes(":")) {
+    return lower.replace(/:([a-z])/g, (_, c: string) => c.toUpperCase());
+  }
   if (lower.includes("-")) return camelize(lower);
   return lower;
 }
@@ -151,10 +282,16 @@ function nodeToJsx(node: Node, indent: number): string {
 
   if (node.nodeType !== 1) return "";
   const el = node as Element;
-  const tag = el.tagName.toLowerCase();
+  const lowerTag = el.tagName.toLowerCase();
+  // SVG element names that React requires in camelCase. HTML parsers
+  // lowercase all tags, so `<linearGradient>` arrives as tagName
+  // "LINEARGRADIENT". Without this recase React renders the element
+  // as an unknown HTML tag instead of an SVG element — gradients
+  // disappear, masks no-op, animations silently fail.
+  const tag = SVG_TAG_MAP[lowerTag] ?? lowerTag;
   const attrStr = attrsToJsx(el.attributes);
 
-  if (VOID_ELEMENTS.has(tag)) {
+  if (VOID_ELEMENTS.has(lowerTag)) {
     return `${pad}<${tag}${attrStr} />`;
   }
 

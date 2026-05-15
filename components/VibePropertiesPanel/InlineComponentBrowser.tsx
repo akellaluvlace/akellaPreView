@@ -1,0 +1,260 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+  ComponentIndex,
+  ComponentMeta,
+} from "@/lib/component-library/types";
+import {
+  getComponentIndex,
+  getComponentFull,
+} from "@/lib/component-library/client";
+import { buildInsertPayload } from "@/lib/component-library/insert";
+import type { PreviewKind } from "@/lib/preview";
+
+interface Props {
+  mode: PreviewKind;
+  category: string | null;
+  onPick: (
+    assetText: string,
+    opts?: { forceRebuild?: boolean },
+  ) => void;
+  onWarn?: (message: string) => void;
+  // Pre-swap visual footprint of the target element. When provided,
+  // the swapped asset gets wrapped in a same-dimension container so
+  // the surrounding layout doesn't shift on swap. Null = no wrap
+  // (caller can opt out via passing null; bbox absent on the
+  // VibeElementInfo also lands here as null).
+  preserveBbox?: {
+    width: number;
+    height: number;
+    display: string;
+    marginTop: number;
+    marginRight: number;
+    marginBottom: number;
+    marginLeft: number;
+  } | null;
+}
+
+export default function InlineComponentBrowser({
+  mode,
+  category,
+  onPick,
+  onWarn,
+  preserveBbox,
+}: Props) {
+  const [index, setIndex] = useState<ComponentIndex | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const [picking, setPicking] = useState<string | null>(null);
+  const hoverRectRef = useRef<DOMRect | null>(null);
+  const [, forceRender] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    getComponentIndex()
+      .then((idx) => {
+        if (!cancelled) setIndex(idx);
+      })
+      .catch((e) => {
+        if (!cancelled) setError(String(e?.message ?? e));
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (!index) return [];
+    const all = index.components;
+    if (!category) return all;
+    return all.filter((c) => c.category === category);
+  }, [index, category]);
+
+  const hovered = useMemo<ComponentMeta | null>(() => {
+    if (!hoveredSlug) return null;
+    return filtered.find((c) => c.slug === hoveredSlug) ?? null;
+  }, [hoveredSlug, filtered]);
+
+  const handlePick = async (slug: string) => {
+    if (picking) return;
+    setPicking(slug);
+    try {
+      const full = await getComponentFull(slug);
+      const payload = buildInsertPayload(full, mode);
+      // Outer-swap replaces a single JSX element. buildInsertPayload
+      // emits multiple top-level siblings when the component has CSS
+      // (attribution comment + `<style>{`...`}</style>` + scoped
+      // wrapper div). JSX parents only accept ONE child where the
+      // swapped element was — multi-root assets break the parse:
+      //   "Unexpected token (n:8)" at the inner `<style>{` line.
+      // HTML mode tolerates this natively (sibling Comment+Element
+      // nodes), so wrap only for JSX. The fragment marker
+      // `<>...</>` collapses at render time and adds no DOM bloat.
+      const innerText =
+        mode === "jsx" ? `<>\n${payload.text}\n</>` : payload.text;
+
+      // Same-dimension wrap. The target element's pre-swap bbox locks
+      // the swapped asset's footprint so the surrounding layout stays
+      // put: a 320x200 button slot doesn't become 600x80 because the
+      // user picked a wider Uiverse tile. Width + height are hard-
+      // locked (the asset can overflow visually if its intrinsic size
+      // is larger, but the parent flow isn't disturbed). `display`
+      // matches the original's computed display so block-vs-inline
+      // semantics survive. `overflow: hidden` prevents oversized
+      // content from leaking into neighboring slots.
+      // Skipped when preserveBbox is null (iframe didn't measure, or
+      // caller opted out) — falls back to the asset's natural size.
+      let finalText = innerText;
+      if (preserveBbox && preserveBbox.width > 0 && preserveBbox.height > 0) {
+        const {
+          width,
+          height,
+          display,
+          marginTop,
+          marginRight,
+          marginBottom,
+          marginLeft,
+        } = preserveBbox;
+        // Margins preserve the original element's offset from
+        // neighbors. The wrapper takes the slot — without these the
+        // surrounding flow would close up the gap that the original
+        // element's margin classes (`mb-4`, `mx-auto`, etc.) had been
+        // creating.
+        if (mode === "jsx") {
+          finalText =
+            `<div style={{ ` +
+            `width: "${width}px", height: "${height}px", ` +
+            `display: "${display}", overflow: "hidden", ` +
+            `marginTop: "${marginTop}px", marginRight: "${marginRight}px", ` +
+            `marginBottom: "${marginBottom}px", marginLeft: "${marginLeft}px" ` +
+            `}}>` +
+            `\n${innerText}\n</div>`;
+        } else {
+          const styleStr =
+            `width: ${width}px; height: ${height}px; ` +
+            `display: ${display}; overflow: hidden; ` +
+            `margin: ${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px;`;
+          finalText = `<div style="${styleStr}">\n${innerText}\n</div>`;
+        }
+      }
+
+      // JSX assets carry JSX-only syntax ({/* */} comments, template
+      // literals inside <style>) that the iframe's outerHTML write
+      // can't evaluate — request a full iframe rebuild so React/Babel
+      // re-render the new source correctly. HTML assets render fine
+      // via outerHTML and skip the rebuild for the no-flicker path.
+      onPick(finalText, { forceRebuild: mode === "jsx" });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      onWarn?.(`Couldn't load component: ${msg}`);
+    } finally {
+      setPicking(null);
+    }
+  };
+
+  return (
+    <div className="border-t-2 border-ink/15 p-3">
+      <div className="mb-2 flex items-baseline justify-between">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+          {category ? `${category}` : "Components"}
+        </p>
+        <p className="font-mono text-[10px] text-muted">
+          {index ? `${filtered.length}` : "…"}
+        </p>
+      </div>
+
+      {error && (
+        <p className="font-mono text-[11px] text-red-600">
+          Couldn&apos;t load components: {error}
+        </p>
+      )}
+
+      {!index && !error && (
+        <p className="font-mono text-[11px] text-muted">Loading…</p>
+      )}
+
+      {index && filtered.length === 0 && (
+        <p className="font-mono text-[11px] text-muted">
+          No {category ?? "components"} found.
+        </p>
+      )}
+
+      {index && filtered.length > 0 && (
+        <div className="grid grid-cols-2 gap-2">
+          {filtered.map((c) => (
+            <button
+              type="button"
+              key={c.slug}
+              disabled={picking !== null}
+              onClick={() => handlePick(c.slug)}
+              onMouseEnter={(ev) => {
+                hoverRectRef.current = (ev.currentTarget as HTMLElement).getBoundingClientRect();
+                setHoveredSlug(c.slug);
+                forceRender((n) => n + 1);
+              }}
+              onMouseLeave={() => setHoveredSlug((s) => (s === c.slug ? null : s))}
+              className="group relative aspect-[4/3] overflow-hidden border-2 border-ink bg-white text-left transition-colors hover:border-coral disabled:cursor-not-allowed disabled:opacity-40"
+              title={c.title}
+            >
+              {c.thumbUrl && (
+                <img
+                  src={c.thumbUrl}
+                  alt={c.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              )}
+              <span className="absolute inset-x-0 bottom-0 truncate bg-ink/80 px-1 py-0.5 font-mono text-[9px] text-paper">
+                {c.title}
+              </span>
+              {picking === c.slug && (
+                <span className="absolute inset-0 flex items-center justify-center bg-paper/80 font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
+                  Swapping…
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Hover popover — fixed position to the left of the hovered tile.
+          Pure-CSS would require absolute positioning relative to each tile;
+          using a single portal-like fixed div + the hover rect ref keeps the
+          popover above the panel scrollbar without per-tile DOM bloat. */}
+      {hovered && hoverRectRef.current && (
+        <div
+          className="pointer-events-none fixed z-50 border-2 border-ink bg-paper shadow-xl"
+          style={{
+            top: Math.max(
+              8,
+              Math.min(
+                window.innerHeight - 320,
+                hoverRectRef.current.top - 40,
+              ),
+            ),
+            left: Math.max(8, hoverRectRef.current.left - 360),
+            width: 340,
+          }}
+        >
+          {hovered.thumbUrl && (
+            <img
+              src={hovered.thumbUrl}
+              alt={hovered.title}
+              className="aspect-[4/3] w-full bg-white object-cover"
+            />
+          )}
+          <div className="border-t-2 border-ink p-2">
+            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink">
+              {hovered.title}
+            </p>
+            <p className="mt-0.5 font-mono text-[9px] text-muted">
+              {hovered.source} · {hovered.category}
+              {hovered.author ? ` · ${hovered.author}` : ""}
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -7,17 +7,22 @@
 
 import { useEffect, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
+import { SwapComponentButton } from "../VibePropertiesPanel";
 
 interface LinkControlsProps {
   info: VibeElementInfo;
   onLinkChange: (href: string) => void;
   onContentChange: (text: string) => void;
+  // Opens the Components library modal so the user can swap the link
+  // for a different block (e.g. a button-styled CTA). Optional.
+  onComponentSwap?: () => void;
 }
 
 export default function LinkControls({
   info,
   onLinkChange,
   onContentChange,
+  onComponentSwap,
 }: LinkControlsProps) {
   const [href, setHref] = useState(info.href ?? "");
   const [text, setText] = useState(info.text);
@@ -59,6 +64,8 @@ export default function LinkControls({
           className="mt-1 w-full border-2 border-ink bg-paper p-2 font-mono text-sm focus:outline-none"
         />
       </label>
+
+      <SwapComponentButton onClick={onComponentSwap} />
     </div>
   );
 }

@@ -14,8 +14,24 @@ import type { VibeElementInfo } from "./types";
 // vibecoder mental model: "I clicked something that LOOKS like a
 // box → I want to tweak the box". Plain wrapper divs (no styling)
 // fall through to the inert hint.
+// Semantic section tags always qualify as card-like in the panel
+// router (matches the iframe-side vibeIsCardLike branch). Without
+// this, plain `<section>` / `<header>` blocks with no visible chrome
+// fall through to the inert hint and the BG-image picker becomes
+// unreachable from those elements.
+const SECTION_TAGS = new Set([
+  "section",
+  "header",
+  "footer",
+  "main",
+  "aside",
+  "article",
+  "nav",
+]);
+
 export function isCardLike(info: VibeElementInfo): boolean {
   if (info.kind !== "container") return false;
+  if (SECTION_TAGS.has((info.tag || "").toLowerCase())) return true;
   return hasBackground(info) || hasRounding(info) || hasShadow(info) || hasBorder(info);
 }
 

@@ -17,7 +17,7 @@ export async function generateMetadata({
     preferKind: readKind(searchParams),
   });
   return {
-    title: t ? `Preview: ${t.title} — Dropin` : "Preview — Dropin",
+    title: t ? `Preview: ${t.title} — AiM Dropin` : "Preview — AiM Dropin",
     // The preview route is a transient, full-bleed render of a single
     // template. Don't dilute search results with N preview pages — the
     // canonical landing for each template is /t/[slug].

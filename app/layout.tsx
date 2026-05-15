@@ -24,7 +24,7 @@ const jetbrains = JetBrains_Mono({
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
   "https://dropin.akellainmotion.com";
-const SITE_NAME = "Dropin";
+const SITE_NAME = "AiM Dropin";
 const TAGLINE = "Paste code. See page.";
 const DESCRIPTION =
   "Paste AI-generated HTML or JSX and watch it render live. Pick from 111 ready-to-ship templates. No install, no terminal, no sign-in — just drop in code and ship.";
@@ -49,16 +49,17 @@ export const metadata: Metadata = {
     "no-install code editor",
     "Tailwind preview",
     "landing page templates",
-    "Dropin",
+    "AiM Dropin",
     "Akella inMotion",
   ],
   category: "technology",
   alternates: { canonical: "/" },
   icons: {
     icon: [
+      { url: "/assets/logo-plain.svg", type: "image/svg+xml", sizes: "any" },
       { url: "/assets/logo.png", type: "image/png", sizes: "any" },
     ],
-    shortcut: "/assets/logo.png",
+    shortcut: "/assets/logo-plain.svg",
     apple: "/assets/logo.png",
   },
   openGraph: {
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
         url: "/assets/logo.png",
         width: 1024,
         height: 1024,
-        alt: "Dropin · paste code, see page",
+        alt: "AiM Dropin · paste code, see page",
       },
     ],
   },

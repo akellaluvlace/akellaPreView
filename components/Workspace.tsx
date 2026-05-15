@@ -9,6 +9,8 @@ import FocusEditor from "./FocusEditor";
 import VibePropertiesPanel from "./VibePropertiesPanel";
 import { buildVibeCommit } from "@/lib/vibe-edit/commit";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
+import { inferSwapCategory } from "@/lib/swap-category-hint";
+import { isCardLike } from "@/lib/vibe-edit/detect";
 import FirstOpenTour from "./FirstOpenTour";
 import KindToggle from "./KindToggle";
 import ComponentLibrarySidebar from "./library/Sidebar";
@@ -57,15 +59,9 @@ import {
   parentBoxFromRect,
 } from "@/lib/swap/envelope-from-bbox";
 import { assessBboxDrift } from "@/lib/swap/bbox-drift";
-import { planEverywhereSwap } from "@/lib/swap/plan-everywhere-swap";
-import { findAllInstancesOfDefinition } from "@/lib/ast/instance-graph";
 import type { SlotEnvelope } from "@/lib/swap/slot-capacity";
 import { applyPalette } from "@/lib/ast/operations/palette";
 import { collectDescendantOids } from "@/lib/ast/scope";
-import { findInlineComponentDefRootOid } from "@/lib/ast/component-def";
-import { findCrossFileDefinition } from "@/lib/ast/cross-file-query";
-import { createEdit } from "@/lib/edits/operations";
-import { patchJsxClassByOid } from "@/lib/ast/patch-class-by-oid";
 import { getPaletteById } from "@/lib/palettes";
 import { readSourceStyle } from "@/lib/ast/style-source-read";
 import { useEditHistory } from "@/lib/use-edit-history";
@@ -205,7 +201,6 @@ export default function Workspace({
     code,
     setCode,
     setCodeSilent,
-    applyEditDirect,
     undo,
     redo,
     canUndo,
@@ -310,13 +305,17 @@ export default function Workspace({
     if (isMobile) return;
     try {
       const stored = window.localStorage.getItem("dropin:tool");
-      // Migrate returning users persisted on the now-hidden Select
-      // tool OR the retired Swap tool to View so they don't end up
-      // in a state with no toolbar button matching their persisted
-      // choice. Swap-from-library lives inside vibe mode now (Phase
-      // 6 — 2026-05-11 PM) — see the "Browse icon library" /
-      // "Open media library" buttons in the Edit (vibe) panel.
-      if (stored === "select" || stored === "swap") {
+      // Migrate returning users persisted on tools that no longer
+      // surface in the toolbar — Select (hidden in favour of vibe),
+      // Swap (retired 2026-05-11 PM, lives in vibe panel), Insert
+      // (retired 2026-05-14, library swap covers the use case). All
+      // route to View so users don't land in a state with no toolbar
+      // button matching their persisted choice.
+      if (
+        stored === "select" ||
+        stored === "swap" ||
+        stored === "insert"
+      ) {
         setToolState("view");
         try {
           window.localStorage.setItem("dropin:tool", "view");
@@ -325,12 +324,7 @@ export default function Workspace({
         }
         return;
       }
-      if (
-        stored === "view" ||
-        stored === "move" ||
-        stored === "insert" ||
-        stored === "vibe"
-      ) {
+      if (stored === "view" || stored === "move" || stored === "vibe") {
         setToolState(stored);
       }
     } catch {
@@ -338,6 +332,7 @@ export default function Workspace({
     }
   }, []);
   const setTool = useCallback((next: Tool) => {
+    track("setTool", { next });
     setToolState(next);
     if (typeof window !== "undefined") {
       try {
@@ -417,6 +412,18 @@ export default function Workspace({
   // the Browse button in ImageControls, mounts LibraryModal in media
   // mode, picks route through the same outer-replacement patcher.
   const [vibeImageSwapOpen, setVibeImageSwapOpen] = useState(false);
+  // Vibe component-swap modal state. Mounted in addition to icon / image
+  // for kinds that have no kind-specific library (text/heading/button/
+  // link/card/plain container). Opens LibraryModal with suggestedPanel
+  // "components" so users land on Uiverse / HyperUI tiles. Same outer-
+  // replacement flow as icon + image.
+  const [vibeComponentSwapOpen, setVibeComponentSwapOpen] = useState(false);
+  // Vibe background-image modal state. Opened from CardControls' "Pick
+  // background image" button. Mounts LibraryModal with suggestedPanel
+  // "media" but the pick handler routes URL → styleDelta.bgImageUrl
+  // (Tailwind arbitrary class), NOT an outerHTML swap. Card / section
+  // stays intact; only its bg gets a new image.
+  const [vibeBgImageOpen, setVibeBgImageOpen] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
   // Phase 5 / Phase C — Insert / Swap structural-edit context.
   //   · `insertTargetOid` is set when the user clicks a target in
@@ -445,38 +452,6 @@ export default function Workspace({
   const [additionalInsertTargetOids, setAdditionalInsertTargetOids] = useState<
     string[]
   >([]);
-  // Phase 5 / Phase C / C3 — propagation toggle. When "instance",
-  // edits affect only the clicked element (current behaviour). When
-  // "everywhere", edits also propagate to the inline component
-  // definition for capitalized JSX tags within the same source file.
-  // Persists per-tab in localStorage. Default "instance".
-  const [propagationMode, setPropagationModeState] = useState<
-    "instance" | "everywhere"
-  >("instance");
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    try {
-      const stored = window.localStorage.getItem("dropin:propagation");
-      if (stored === "instance" || stored === "everywhere") {
-        setPropagationModeState(stored);
-      }
-    } catch {
-      // localStorage unavailable; stick with the default.
-    }
-  }, []);
-  const setPropagationMode = useCallback(
-    (next: "instance" | "everywhere") => {
-      setPropagationModeState(next);
-      if (typeof window !== "undefined") {
-        try {
-          window.localStorage.setItem("dropin:propagation", next);
-        } catch {
-          // ignore
-        }
-      }
-    },
-    []
-  );
   // Code/Tree/Library panels are mutually exclusive (only one open at a
   // time, see the rail-button handlers below) and never persist — every
   // entry into the workspace lands on the bare rendered preview.
@@ -918,128 +893,7 @@ export default function Workspace({
         showWarn(result.reason || "className not writable");
         return;
       }
-      let nextSource = result.source;
-      // Phase 5 / Phase C / C3 — single-file inline propagation.
-      // Phase D — cross-file propagation when no inline def exists.
-      //
-      // When `propagationMode === "everywhere"` AND the edit lands on a
-      // capitalized JSX tag (component instance), try to also patch the
-      // component's definition. Two paths:
-      //
-      //   1. **Inline def** (single-file, today's behavior): the
-      //      definition lives in the same file as the call site — fire a
-      //      second `patchJsxClassByOid` on the same source, both edits
-      //      land in one setCode below. One Cmd-Z reverts both.
-      //
-      //   2. **Cross-file def** (Phase D): the definition lives in a
-      //      different file (`import Card from './Card'`). Resolve via
-      //      `findCrossFileDefinition`, build a multi-file Edit with two
-      //      FileDiffs (call-site + def file), commit via
-      //      `applyEditDirect`. One atomic undo/redo entry spans both
-      //      files. Bails (with toast) on HOC / class component /
-      //      re-export / non-relative import / unresolvable spec.
-      //
-      // Whichever path matches, we apply EXACTLY ONE write (setCode for
-      // single-file path, applyEditDirect for cross-file path). The
-      // cross-file path returns early so the trailing setCode doesn't
-      // double-fire.
-      let crossFileApplied = false;
-      if (
-        propagationMode === "everywhere" &&
-        loc.kind === "jsx" &&
-        kind === "jsx"
-      ) {
-        const sel = selectionRef.current;
-        const tag = sel?.tag ?? "";
-        if (tag && /^[A-Z]/.test(tag)) {
-          const inlineDefOid = findInlineComponentDefRootOid(nextSource, tag);
-          if (inlineDefOid) {
-            // Single-file inline definition. Skip when instance and
-            // definition share an OID (means we're editing the def itself).
-            if (inlineDefOid !== sel?.oid) {
-              const defPatch = patchJsxClassByOid(
-                nextSource,
-                inlineDefOid,
-                newClass
-              );
-              if (defPatch.changed) {
-                nextSource = defPatch.source;
-                showInfo(`Applied to <${tag}> definition`);
-              } else if (defPatch.reason && defPatch.reason !== "no change") {
-                log("propagation: definition patch bailed", {
-                  tag,
-                  defRootOid: inlineDefOid,
-                  reason: defPatch.reason,
-                });
-              }
-            }
-          } else {
-            // No inline definition — try cross-file.
-            const crossDef = findCrossFileDefinition(project, activeFileId, tag);
-            if (crossDef.ok) {
-              const defFile = getFile(project, crossDef.def.fileId);
-              if (defFile) {
-                const defPatch = patchJsxClassByOid(
-                  defFile.source,
-                  crossDef.def.rootOid,
-                  newClass
-                );
-                if (defPatch.changed) {
-                  // Build multi-file Edit. The call-site diff carries the
-                  // post-`patchJsxClass` source; the def diff carries the
-                  // post-`patchJsxClassByOid` source. before/after pairs
-                  // are validated by applyEdit's two-phase atomicity check.
-                  const editResult = createEdit({
-                    diffs: [
-                      {
-                        fileId: activeFileId,
-                        before: code,
-                        after: nextSource,
-                      },
-                      {
-                        fileId: crossDef.def.fileId,
-                        before: defFile.source,
-                        after: defPatch.source,
-                      },
-                    ],
-                    reason: `everywhere-cross-file:<${tag}>`,
-                  });
-                  if (editResult.ok && applyEditDirect(editResult.edit)) {
-                    showInfo(
-                      `Applied to <${tag}> across ${defFile.path}`,
-                    );
-                    crossFileApplied = true;
-                  } else if (!editResult.ok) {
-                    log("propagation: createEdit failed", {
-                      tag,
-                      reason: editResult.error,
-                    });
-                  }
-                  // applyEditDirect's failure already surfaces via onError.
-                } else if (defPatch.reason && defPatch.reason !== "no change") {
-                  log("propagation: cross-file def patch bailed", {
-                    tag,
-                    defFileId: crossDef.def.fileId,
-                    reason: defPatch.reason,
-                  });
-                }
-              }
-            } else if (
-              crossDef.reason &&
-              !crossDef.reason.includes("not imported")
-            ) {
-              // "not imported" is the common case for top-level elements
-              // (the user is editing a tag that has no cross-file def).
-              // Surface the OTHER reasons (HOC / re-export / non-relative /
-              // unresolvable) so the user knows why everywhere mode bailed.
-              showWarn(`Everywhere mode: ${crossDef.reason}`);
-            }
-          }
-        }
-      }
-      if (!crossFileApplied) {
-        setCode(nextSource);
-      }
+      setCode(result.source);
       setSelection((s) => {
         if (!s) return s;
         const trimmed = newClass.trim();
@@ -1049,17 +903,7 @@ export default function Workspace({
         };
       });
     },
-    [
-      code,
-      kind,
-      propagationMode,
-      project,
-      activeFileId,
-      setCode,
-      applyEditDirect,
-      showInfo,
-      showWarn,
-    ],
+    [code, setCode, showWarn],
   );
 
   const handleAttrSet = useCallback(
@@ -2272,113 +2116,6 @@ export default function Workspace({
         }
       }
 
-      // Phase F — everywhere-mode swap. When propagationMode is
-      // "everywhere" AND the selection is a component instance
-      // (capitalized tag), pre-flight every call site's envelope
-      // against the new asset's capacity and replace the def's body
-      // atomically. Q10 locked: any envelope failure aborts the swap
-      // (no partial commit). Falls through to single-instance flow on
-      // skip / no def resolution.
-      const sel = selectionRef.current;
-      const selTag = sel?.tag ?? "";
-      if (
-        propagationMode === "everywhere" &&
-        selTag &&
-        /^[A-Z]/.test(selTag)
-      ) {
-        // Find all instances first so we know which OIDs need envelopes.
-        // We only fetch envelopes for instances in the entry file (the
-        // currently-rendered iframe). Cross-file instances stay
-        // unmeasured → preflight reports them in `missingEnvelope` and
-        // aborts atomically.
-        const inlineDefOid = findInlineComponentDefRootOid(code, selTag);
-        let defFileIdF = activeFileId;
-        let defRootOidF: string | null = null;
-        if (inlineDefOid) {
-          defRootOidF = inlineDefOid;
-        } else {
-          const cross = findCrossFileDefinition(project, activeFileId, selTag);
-          if (cross.ok) {
-            defFileIdF = cross.def.fileId;
-            defRootOidF = cross.def.rootOid;
-          }
-        }
-        if (defRootOidF) {
-          const instGraph = findAllInstancesOfDefinition(
-            project,
-            defFileIdF,
-            defRootOidF,
-          );
-          if (instGraph.ok) {
-            const envMap = new Map<string, SlotEnvelope | null>();
-            const entryFileIdLocal = project.entryFileId;
-            if (handle) {
-              const measurable = instGraph.instances.filter(
-                (i) => i.fileId === entryFileIdLocal,
-              );
-              await Promise.all(
-                measurable.map(async (inst) => {
-                  try {
-                    const r = await handle.requestEnvelope(inst.oid);
-                    if (r) {
-                      envMap.set(
-                        inst.oid,
-                        composeEnvelopeFromBbox(parentBoxFromRect(r.parent)),
-                      );
-                    } else {
-                      envMap.set(inst.oid, null);
-                    }
-                  } catch {
-                    envMap.set(inst.oid, null);
-                  }
-                }),
-              );
-            }
-            const plan = planEverywhereSwap(
-              project,
-              activeFileId,
-              code,
-              targetOid,
-              selTag,
-              jsx,
-              !!preserveChildren,
-              {
-                envelopeForInstance: (inst) => envMap.get(inst.oid) ?? null,
-              },
-            );
-            if (plan.kind === "abort-preflight") {
-              log("swap everywhere aborted by preflight", {
-                summary: plan.summary,
-              });
-              showWarn(`Swap (everywhere): ${plan.summary}`);
-              setTool("select");
-              return;
-            }
-            if (plan.kind === "abort-bail") {
-              log("swap everywhere aborted by applySwap", {
-                reason: plan.reason,
-              });
-              showWarn(`Swap (everywhere): ${plan.reason}`);
-              setTool("select");
-              return;
-            }
-            if (plan.kind === "ok") {
-              if (applyEditDirect(plan.edit)) {
-                showInfo(
-                  `Swapped <${plan.tag}> across ${plan.affectedCount} instance${
-                    plan.affectedCount === 1 ? "" : "s"
-                  }`,
-                );
-              }
-              setTool("select");
-              return;
-            }
-            // plan.kind === "skip" → fall through to single-instance.
-            log("swap everywhere skipped", { reason: plan.reason });
-          }
-        }
-      }
-
       const result = applySwapWithFit(
         code,
         {
@@ -2522,10 +2259,20 @@ export default function Workspace({
   // direct mutations carry the same path, so this only closes on a
   // genuine user-driven selection change.
   const handleVibeSelected = useCallback((info: VibeElementInfo) => {
+    track("vibe:selected", {
+      tag: info.tag,
+      kind: info.kind,
+      oid: info.oid,
+      path: info.path,
+      classes: info.classes,
+      hasInstanceCount: typeof info.instanceCount === "number" ? info.instanceCount : null,
+    });
     setVibeInfo((prev) => {
       if (prev && prev.path !== info.path) {
         setVibeIconSwapOpen(false);
         setVibeImageSwapOpen(false);
+        setVibeComponentSwapOpen(false);
+        setVibeBgImageOpen(false);
       }
       return info;
     });
@@ -2536,6 +2283,8 @@ export default function Workspace({
     lastVibeCommitRef.current = null;
     setVibeIconSwapOpen(false);
     setVibeImageSwapOpen(false);
+    setVibeComponentSwapOpen(false);
+    setVibeBgImageOpen(false);
   }, []);
 
   // Direct-mutation handlers. Each posts to the iframe via
@@ -2641,6 +2390,159 @@ export default function Workspace({
     setVibeImageSwapOpen(false);
   }, []);
 
+  // Component-swap modal lifecycle. Opened by the Browse-components
+  // button in TextControls / LinkControls / CardControls + the plain-
+  // container hint area. Same contract as icon / image — modal closes
+  // on pick / cancel / tool exit / selection clear.
+  const handleVibeComponentSwapOpen = useCallback(() => {
+    track("vibe:component-swap-toggle", {
+      vibeInfoPresent: !!vibeInfo,
+      tag: vibeInfo?.tag,
+      oid: vibeInfo?.oid,
+      classes: vibeInfo?.classes,
+    });
+    setVibeComponentSwapOpen((prev) => !prev);
+  }, [vibeInfo]);
+
+  const handleVibeComponentSwapClose = useCallback(() => {
+    setVibeComponentSwapOpen(false);
+  }, []);
+
+  // Computed swapContext for the Components LibraryModal. Memoized off
+  // vibeInfo so we don't recreate it every render (LibraryModal +
+  // ComponentsPanel ride on the targetOid as the override key — a fresh
+  // object identity each render with same .targetOid is fine, but
+  // keeping it stable keeps logs clean and makes the heuristic-derived
+  // category visible in one place.
+  const vibeComponentSwapContext = useMemo(() => {
+    if (!vibeInfo) return null;
+    const classList = vibeInfo.classes
+      ? vibeInfo.classes.split(/\s+/).filter(Boolean)
+      : [];
+    // Layer 1: tag + class-token heuristic. Hits when the element is
+    // a semantic <button>/<nav>/<footer>, OR has a literal `btn` /
+    // `card` / `modal` / etc. class token. Modern Tailwind designs
+    // typically use utility chrome (bg-white rounded-lg shadow-md)
+    // with no semantic token, so this layer often misses.
+    const hint = inferSwapCategory(vibeInfo.tag, classList);
+    let suggestedCategory: string | null =
+      hint?.panel === "components" ? hint.category ?? null : null;
+    let categorySource = suggestedCategory ? "hint" : "none";
+
+    // Layer 2: kind-based fallback. The iframe runtime already
+    // classified the element into kind = heading/text/button/link/
+    // icon/image/container. Use it to back-fill when the token
+    // heuristic missed.
+    if (!suggestedCategory) {
+      if (vibeInfo.kind === "button") {
+        suggestedCategory = "buttons";
+        categorySource = "kind:button";
+      } else if (vibeInfo.kind === "container" && isCardLike(vibeInfo)) {
+        // Card-like containers without an explicit `card` class token
+        // (the common "Tailwind utility card" pattern: bg-white +
+        // rounded + shadow). isCardLike() is the same check the
+        // properties panel uses to decide CardControls rendering, so
+        // anything with the Card panel ALSO filters to cards here.
+        suggestedCategory = "cards";
+        categorySource = "kind:container+cardLike";
+      }
+    }
+
+    const ctx = {
+      targetOid: vibeInfo.oid ?? "",
+      targetTag: vibeInfo.tag,
+      suggestedPanel: "components" as const,
+      suggestedCategory,
+      slotEnvelope: null,
+    };
+    track("vibe:component-swap-context", {
+      tag: vibeInfo.tag,
+      kind: vibeInfo.kind,
+      classList,
+      hint,
+      suggestedCategory,
+      categorySource,
+      targetOid: ctx.targetOid,
+    });
+    return ctx;
+  }, [vibeInfo]);
+
+  // BG-image modal lifecycle. Opened from CardControls' "Pick
+  // background image" button on card / section elements. Picks
+  // route through handleVibeBgImagePick (URL → styleDelta), NOT
+  // the outerHTML-swap path.
+  const handleVibeBgImageOpen = useCallback(() => {
+    setVibeBgImageOpen(true);
+  }, []);
+
+  const handleVibeBgImageClose = useCallback(() => {
+    setVibeBgImageOpen(false);
+  }, []);
+
+  // Extract the `src` URL from an `<img …>` asset block emitted by the
+  // media panels (Unsplash / Pexels / Pixabay). All three builders
+  // emit the same shape: `<img src="…" alt="…" …loading=…/>`. We only
+  // need the URL — the alt / width / loading fields aren't relevant
+  // for a CSS background.
+  const extractImageSrc = useCallback((assetText: string): string | null => {
+    const m = assetText.match(/\bsrc\s*=\s*("([^"]+)"|'([^']+)')/);
+    if (!m) return null;
+    return m[2] || m[3] || null;
+  }, []);
+
+  // BG-image pick. The Media panel emits a full `<img>` block; we pull
+  // its src, post vibe:update-style for instant iframe visual feedback,
+  // and let the idle-commit drift detector write the styleDelta to
+  // source (the runtime's re-emit after vibe:update-style includes the
+  // new `bgImage` field — drift fires → 600ms idle → styleDelta lands
+  // in className as a Tailwind arbitrary background-image + cover/center/no-repeat).
+  const handleVibeBgImagePick = useCallback(
+    (_targetOid: string, assetText: string) => {
+      const info = vibeInfo;
+      if (!info) {
+        setVibeBgImageOpen(false);
+        return;
+      }
+      const url = extractImageSrc(assetText);
+      if (!url) {
+        showWarn("Couldn't read the picked image URL.");
+        setVibeBgImageOpen(false);
+        return;
+      }
+      previewHandleRef.current?.postVibe({
+        type: "vibe:update-style",
+        path: info.path,
+        styles: {
+          backgroundImage: `url("${url}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        },
+      });
+      setVibeBgImageOpen(false);
+    },
+    [vibeInfo, extractImageSrc, showWarn],
+  );
+
+  // BG-image remove. Same shape as pick but clears the props back to
+  // their unset state. The iframe runtime's idle re-emit then reports
+  // bgImage=null → drift → styleDelta.bgImageUrl=null → merger strips
+  // the arbitrary background-image + cover/center classes back out of the className.
+  const handleVibeBgImageRemove = useCallback(() => {
+    const info = vibeInfo;
+    if (!info) return;
+    previewHandleRef.current?.postVibe({
+      type: "vibe:update-style",
+      path: info.path,
+      styles: {
+        backgroundImage: "",
+        backgroundSize: "",
+        backgroundPosition: "",
+        backgroundRepeat: "",
+      },
+    });
+  }, [vibeInfo]);
+
   // Shared pick callback used by BOTH the icon and image swap modals.
   // The library's icon / media panels emit a self-contained <svg> /
   // <img> string; we replace the existing element's outerHTML
@@ -2660,7 +2562,7 @@ export default function Workspace({
   //      would interpret normal post-swap field shifts as drift).
   //   4. Close BOTH modals (caller may have opened either).
   const handleVibeOuterSwap = useCallback(
-    (assetText: string) => {
+    (assetText: string, opts?: { forceRebuild?: boolean }) => {
       const info = vibeInfo;
       if (!info) return;
       previewHandleRef.current?.postVibe({
@@ -2679,7 +2581,20 @@ export default function Workspace({
         next: { outer: assetText },
       });
       if (result.kind === "ok") {
-        setCodeSilent(result.source);
+        // Component-library assets in JSX mode carry JSX-specific syntax
+        // ({/* comments */}, `<style>{`...`}</style>` template literals,
+        // multi-root Fragment wraps) that the iframe's outerHTML write
+        // can't render natively — the DOM ends up with literal text where
+        // the JSX should evaluate. Caller passes forceRebuild:true to
+        // route through setCode (rebuilds iframe with real React/Babel),
+        // wiping the broken-DOM intermediate state. Icon / image swaps
+        // emit plain HTML/SVG that outerHTML handles fine — those keep
+        // the no-rebuild fast path via setCodeSilent.
+        if (opts?.forceRebuild) {
+          setCode(result.source);
+        } else {
+          setCodeSilent(result.source);
+        }
       } else if (result.kind === "bail") {
         // Silent-failure surface: outer-swap landed in the iframe DOM
         // but couldn't reach source. Without this toast the vibecoder
@@ -2694,8 +2609,9 @@ export default function Workspace({
       lastVibeCommitRef.current = null;
       setVibeIconSwapOpen(false);
       setVibeImageSwapOpen(false);
+      setVibeComponentSwapOpen(false);
     },
-    [vibeInfo, kind, setCodeSilent, showWarn],
+    [vibeInfo, kind, setCode, setCodeSilent, showWarn],
   );
 
   // Per-kind pick wrappers. The LibraryModal's onSwapWith signature is
@@ -2719,6 +2635,20 @@ export default function Workspace({
     [vibeInfo, handleVibeOuterSwap],
   );
 
+  // Component-swap pick. Unlike icon / image picks, this isn't kind-
+  // gated — it fires for whatever element is currently selected
+  // (text / heading / button / link / card / plain container). The
+  // library's Components panel emits a full Uiverse / HyperUI block
+  // and we replace the selected element's outerHTML wholesale.
+  const handleVibeComponentPick = useCallback(
+    (_targetOid: string, assetText: string) => {
+      const info = vibeInfo;
+      if (!info) return;
+      handleVibeOuterSwap(assetText);
+    },
+    [vibeInfo, handleVibeOuterSwap],
+  );
+
   // Tool-change cleanup: leaving vibe mode wipes vibe state and
   // tells the iframe to drop the [data-vibe-selected] outline. Also
   // closes the icon-swap modal if it was open (the modal mount is
@@ -2731,6 +2661,8 @@ export default function Workspace({
       lastVibeCommitRef.current = null;
       setVibeIconSwapOpen(false);
       setVibeImageSwapOpen(false);
+      setVibeComponentSwapOpen(false);
+      setVibeBgImageOpen(false);
     }
   }, [tool, vibeInfo]);
 
@@ -2763,7 +2695,8 @@ export default function Workspace({
       (vibeInfo.classes ?? "") !== (last.classes ?? "") ||
       (vibeInfo.textColor ?? "") !== (last.textColor ?? "") ||
       (vibeInfo.bgColor ?? "") !== (last.bgColor ?? "") ||
-      (vibeInfo.borderRadius ?? "") !== (last.borderRadius ?? "");
+      (vibeInfo.borderRadius ?? "") !== (last.borderRadius ?? "") ||
+      (vibeInfo.bgImage ?? null) !== (last.bgImage ?? null);
     if (!drifted) return;
 
     const id = setTimeout(() => {
@@ -2777,6 +2710,7 @@ export default function Workspace({
         color?: string;
         backgroundColor?: string;
         borderRadius?: string;
+        bgImageUrl?: string | null;
       } = {};
       if ((vibeInfo.textColor ?? "") !== (last.textColor ?? "")) {
         styleDelta.color = vibeInfo.textColor ?? "";
@@ -2787,10 +2721,14 @@ export default function Workspace({
       if ((vibeInfo.borderRadius ?? "") !== (last.borderRadius ?? "")) {
         styleDelta.borderRadius = vibeInfo.borderRadius ?? "";
       }
+      if ((vibeInfo.bgImage ?? null) !== (last.bgImage ?? null)) {
+        styleDelta.bgImageUrl = vibeInfo.bgImage ?? null;
+      }
       const hasStyleDelta =
         styleDelta.color !== undefined ||
         styleDelta.backgroundColor !== undefined ||
-        styleDelta.borderRadius !== undefined;
+        styleDelta.borderRadius !== undefined ||
+        styleDelta.bgImageUrl !== undefined;
 
       // Read source from codeRef at fire time — without this, every
       // Monaco keystroke would re-run this effect (via `code` in deps),
@@ -3135,8 +3073,10 @@ export default function Workspace({
       if (k === "v") next = "view";
       else if (k === "s") next = "select";
       else if (k === "m") next = "move";
-      else if (k === "i") next = "insert";
       else if (k === "e") next = "vibe";
+      // 'i' (Insert) retired 2026-05-14 — insertion now happens via the
+      // Swap-from-library affordance inside vibe-edit mode (every element
+      // gets a "Browse library" button in its properties panel).
       // 'w' (Swap) retired in Phase 6 (2026-05-11 PM). Swap-from-
       // library lives inside vibe mode now — press E to enter Edit
       // and use the Browse buttons in the per-kind panel.
@@ -3288,8 +3228,6 @@ export default function Workspace({
             filename={filename}
             viewport={viewport}
             onViewportChange={setViewportSynced}
-            propagationMode={propagationMode}
-            onPropagationModeChange={setPropagationMode}
             onExpand={() => setPreviewExpanded(true)}
             showWarn={showWarn}
           />
@@ -3563,7 +3501,17 @@ export default function Workspace({
               onClose={handleVibeClose}
               onIconSwap={handleVibeIconSwapOpen}
               onImageSwap={handleVibeImageSwapOpen}
+              onComponentSwap={handleVibeComponentSwapOpen}
+              onBgImagePick={handleVibeBgImageOpen}
+              onBgImageRemove={handleVibeBgImageRemove}
               onClassesChange={handleVibeClasses}
+              componentBrowserOpen={vibeComponentSwapOpen}
+              componentBrowserCategory={
+                vibeComponentSwapContext?.suggestedCategory ?? null
+              }
+              onComponentPick={handleVibeOuterSwap}
+              onWarn={showWarn}
+              mode={kind}
             />
           </div>
         )}
@@ -3603,6 +3551,30 @@ export default function Workspace({
           }}
           onSwapWith={handleVibeImagePick}
           onCancelSwap={handleVibeImageSwapClose}
+          onWarn={showWarn}
+        />
+      )}
+
+      {/* Components swap landed inline in VibePropertiesPanel (2026-05-14).
+          The grid renders below the Browse-components button with hover-
+          popover preview. Old LibraryModal mount retired here. */}
+
+      {tool === "vibe" && vibeBgImageOpen && vibeInfo && (
+        <LibraryModal
+          mode={kind}
+          swapContext={{
+            targetOid: vibeInfo.oid ?? "",
+            targetTag: vibeInfo.tag,
+            // Land on the Media tab — Unsplash + Pexels + Pixabay.
+            // The pick handler intercepts the asset block and writes
+            // the URL into the element's background via styleDelta
+            // (NOT an outerHTML swap).
+            suggestedPanel: "media",
+            suggestedCategory: null,
+            slotEnvelope: null,
+          }}
+          onSwapWith={handleVibeBgImagePick}
+          onCancelSwap={handleVibeBgImageClose}
           onWarn={showWarn}
         />
       )}
@@ -3752,12 +3724,12 @@ function WorkspaceHeader({
   subtitle?: string;
 }) {
   return (
-    <header className="flex shrink-0 flex-wrap items-center gap-4 border-b-2 border-ink px-4 py-3 md:px-6">
+    <header className="flex shrink-0 flex-wrap items-center gap-4 border-b-2 border-ink bg-white/70 px-4 py-3 md:px-6">
       <Link
         href="/"
         className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink hover:text-coral"
       >
-        ← Dropin
+        ← AiM Dropin
       </Link>
       {(title || subtitle) && (
         <div className="flex flex-col">
@@ -3790,8 +3762,6 @@ function WorkspaceActions({
   filename,
   viewport,
   onViewportChange,
-  propagationMode,
-  onPropagationModeChange,
   onExpand,
   showWarn,
 }: {
@@ -3803,8 +3773,6 @@ function WorkspaceActions({
   filename?: string;
   viewport: Viewport;
   onViewportChange: (v: Viewport) => void;
-  propagationMode: "instance" | "everywhere";
-  onPropagationModeChange: (m: "instance" | "everywhere") => void;
   onExpand: () => void;
   showWarn: (msg: string) => void;
 }) {
@@ -3884,47 +3852,6 @@ function WorkspaceActions({
           })}
         </div>
       ) : null}
-
-      <div
-        className="inline-flex overflow-hidden border-2 border-ink"
-        role="group"
-        aria-label="Apply scope — instance or component-wide"
-        title={
-          kind === "jsx"
-            ? "Apply: edits affect only this element (instance) or every instance via the component definition (everywhere)"
-            : "Apply scope only applies to JSX templates — HTML pages have no component definitions to ripple changes through."
-        }
-      >
-        {(["instance", "everywhere"] as const).map((m, i) => {
-          const active = m === propagationMode;
-          const disabled = kind !== "jsx";
-          return (
-            <button
-              key={m}
-              type="button"
-              onClick={() => {
-                if (disabled) return;
-                onPropagationModeChange(m);
-              }}
-              disabled={disabled}
-              aria-disabled={disabled}
-              className={
-                SEG_BTN +
-                " " +
-                (disabled
-                  ? "cursor-not-allowed bg-paper text-ink opacity-40"
-                  : active
-                    ? "bg-ink text-paper"
-                    : "bg-paper text-ink hover:bg-soft") +
-                (i > 0 ? " border-l-2 border-ink" : "")
-              }
-              aria-pressed={!disabled && active}
-            >
-              {m}
-            </button>
-          );
-        })}
-      </div>
 
       <div
         className="inline-flex overflow-hidden border-2 border-ink"
