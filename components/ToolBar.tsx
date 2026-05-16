@@ -26,14 +26,19 @@
 export type { Tool } from "@/lib/iframe-bridge";
 import type { Tool } from "@/lib/iframe-bridge";
 
-// 'select' and 'insert' are intentionally hidden from the toolbar —
-// Vibe ('Edit') is the no-code-friendly replacement for both. Click an
-// element to edit it in place; use the per-kind "Browse library" button
-// to swap it. Both names stay in the Tool union + message protocol
-// because internal callers (cancel handlers, FocusEditor close,
-// persisted-localStorage migration) still emit them; the toolbar just
-// doesn't surface a button.
-export const TOOL_LIST: ReadonlyArray<Tool> = ["view", "vibe", "move"];
+// 'select', 'insert', and 'move' are intentionally hidden from the
+// toolbar. Vibe ('Edit') is the no-code-friendly replacement for select
+// + insert; the canvas Move tool was retired 2026-05-15 because (a) it
+// only worked in JSX (no OIDs in HTML), (b) the live-translate visual
+// distorted the layout for viewport-sized elements + lost original CSS
+// transforms on the source, and (c) the engine bailed on parents with
+// non-whitespace text children (separator characters between elements).
+// The full canvas-drag rebuild is a Plasmic-grade undertaking deferred
+// indefinitely. Tree-side DnD still works via the Tree panel for users
+// who need to reorder. All names stay in the Tool union + message
+// protocol because internal callers + persisted-localStorage migration
+// still emit them; the toolbar just doesn't surface a button.
+export const TOOL_LIST: ReadonlyArray<Tool> = ["view", "vibe"];
 
 interface ToolBarProps {
   tool: Tool;

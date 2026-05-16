@@ -30,6 +30,10 @@ interface CardControlsProps {
   // Clears the current background image (both inline style + the
   // corresponding Tailwind arbitrary class via idle-commit drift).
   onBgImageRemove?: () => void;
+  // 2026-05-15 — Fire a Pixabay-driven shuffle that derives the query
+  // from the card's text content. Async at the host level; this
+  // control just invokes it and lets the host toast on error.
+  onBgImageShuffle?: () => void;
 }
 
 export default function CardControls({
@@ -38,7 +42,21 @@ export default function CardControls({
   onComponentSwap,
   onBgImagePick,
   onBgImageRemove,
+  onBgImageShuffle,
 }: CardControlsProps) {
+  // 2026-05-15 — local shuffling flag prevents back-to-back clicks
+  // while the network call is in flight. Resets after the handler
+  // resolves (even on error).
+  const [shuffling, setShuffling] = useState(false);
+  async function handleShuffle() {
+    if (!onBgImageShuffle || shuffling) return;
+    setShuffling(true);
+    try {
+      await onBgImageShuffle();
+    } finally {
+      setShuffling(false);
+    }
+  }
   const [bg, setBg] = useState(rgbToHex(info.bgColor));
   const [radius, setRadius] = useState(parseRadiusPx(info.borderRadius));
 
@@ -102,13 +120,32 @@ export default function CardControls({
           </p>
         )}
         <div className="mt-1 flex gap-2">
+          {/* 2026-05-15 — Shuffle uses Pixabay to fetch a fresh photo
+              matching the card's text content. Sits BEFORE Pick so the
+              vibecoder can try a random match first and only open the
+              full library if they want fine-grained control. */}
+          {onBgImageShuffle && (
+            <button
+              type="button"
+              onClick={handleShuffle}
+              disabled={shuffling}
+              title={
+                shuffling
+                  ? "Finding a background…"
+                  : "Shuffle — fetch a random photo matching the card's text"
+              }
+              className="flex-1 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {shuffling ? "Shuffling…" : "Shuffle ↻"}
+            </button>
+          )}
           <button
             type="button"
             onClick={onBgImagePick}
             disabled={!onBgImagePick}
             className="flex-1 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {info.bgImage ? "Replace" : "Pick image"}
+            {info.bgImage ? "Replace" : "Browse"}
           </button>
           {info.bgImage && (
             <button
@@ -122,8 +159,7 @@ export default function CardControls({
           )}
         </div>
         <p className="mt-1 font-mono text-[10px] text-muted">
-          Free photos from Unsplash + Pexels + Pixabay. Set as `cover`
-          + centered.
+          Shuffle picks a random photo from Pixabay. Browse opens the full library.
         </p>
       </div>
 

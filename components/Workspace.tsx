@@ -19,6 +19,17 @@ import WorkspaceLeftRail from "./WorkspaceLeftRail";
 import ResizablePanel from "./ResizablePanel";
 import ElementTree from "./ElementTree";
 import PreviewModal from "./PreviewModal";
+import WhatsNextModal from "./WhatsNextModal";
+// 2026-05-16 — Try Variations retired per user direction: "we remove
+// entirely swaps on whole page - only surgical ones." Per-image
+// Shuffle (in ImageControls.tsx) is the surgical alternative + maps
+// to the industry pattern (Plasmic / Onlook / Webflow all do
+// per-element image swap, not site-wide). VariationsModal.tsx +
+// lib/template-remix/shuffle-images.ts left on disk with retirement
+// comments — recoverable if a future Plasmic-grade implementation
+// surfaces. See docs/research/2026-05-16-shuffle-features-research.md
+// section 3.1 for the viability discussion.
+import { getJsxElementSource } from "@/lib/vibe-edit/get-element-source";
 import ToolBar, { type Tool } from "./ToolBar";
 import type { EditorHandle } from "./Editor";
 
@@ -308,13 +319,15 @@ export default function Workspace({
       // Migrate returning users persisted on tools that no longer
       // surface in the toolbar — Select (hidden in favour of vibe),
       // Swap (retired 2026-05-11 PM, lives in vibe panel), Insert
-      // (retired 2026-05-14, library swap covers the use case). All
-      // route to View so users don't land in a state with no toolbar
-      // button matching their persisted choice.
+      // (retired 2026-05-14, library swap covers the use case), Move
+      // (retired 2026-05-15, see TOOL_LIST comment in ToolBar.tsx).
+      // All route to View so users don't land in a state with no
+      // toolbar button matching their persisted choice.
       if (
         stored === "select" ||
         stored === "swap" ||
-        stored === "insert"
+        stored === "insert" ||
+        stored === "move"
       ) {
         setToolState("view");
         try {
@@ -324,7 +337,7 @@ export default function Workspace({
         }
         return;
       }
-      if (stored === "view" || stored === "move" || stored === "vibe") {
+      if (stored === "view" || stored === "vibe") {
         setToolState(stored);
       }
     } catch {
@@ -457,6 +470,10 @@ export default function Workspace({
   // entry into the workspace lands on the bare rendered preview.
   const [editorHidden, setEditorHidden] = useState<boolean>(true);
   const [previewExpanded, setPreviewExpanded] = useState(false);
+  // 2026-05-15 — "What's next?" helper modal. Wraps three sections:
+  // copy code, AI iteration prompts, hosting walkthroughs. State lives
+  // here so the button in WorkspaceActions can toggle it.
+  const [whatsNextOpen, setWhatsNextOpen] = useState(false);
   // ROADMAP §3.3 — element tree sidebar. Tree comes from the iframe on
   // `dropin:ready`; open state persists across sessions so the user
   // returns to the layout they preferred. Default: closed (most pages
@@ -1379,14 +1396,87 @@ export default function Workspace({
     [code, kind, setCode, showWarn]
   );
 
+  // 2026-05-15 — "Copy this section" handler. Pulls the selected
+  // vibe element's source bytes (OIDs stripped, dedented) and writes
+  // them to the clipboard. JSX mode only — HTML mode users get a
+  // friendly redirect to the chrome-level Copy button. Errors all
+  // route through showWarn; success surfaces a one-line confirmation
+  // that names the AI-iteration use case so the vibecoder knows what
+  // to do with the clipboard contents.
+  const handleCopySection = useCallback(async () => {
+    const info = vibeInfo;
+    if (!info) return;
+    if (kind !== "jsx") {
+      showWarn(
+        "Per-section copy needs JSX mode. Use the top Copy button to grab the whole template.",
+      );
+      return;
+    }
+    if (!info.oid) {
+      showWarn(
+        "Couldn't find this element in the source. Reload the template and try again.",
+      );
+      return;
+    }
+    const result = getJsxElementSource(code, info.oid);
+    if (!result.ok || !result.source) {
+      showWarn(`Couldn't extract section: ${result.reason ?? "unknown error"}`);
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(result.source);
+      showInfo(
+        "Section copied. Paste into ChatGPT/Claude to iterate on just this part.",
+      );
+    } catch (e) {
+      showWarn(
+        e instanceof Error
+          ? `Clipboard failed: ${e.message}`
+          : "Clipboard unavailable in this browser",
+      );
+    }
+  }, [vibeInfo, kind, code, showWarn, showInfo]);
+
+  // 2026-05-15 — Reset template. Walks the undo stack to the start
+  // via a bounded loop. Works because `useEditHistory.undo()` reads
+  // `historyRef.current` (synchronous) and `commitState` updates that
+  // ref synchronously — so a tight loop unwinds the entire stack in
+  // one render. Past the actual depth, `popUndo` returns null and
+  // each call is a microsecond no-op. 1000 is a generous cap; real
+  // sessions rarely exceed ~50 edits.
+  //
+  // The window.confirm prompt is intentionally explicit: this is the
+  // ONE flow in the app that can wipe a lot of work without an undo
+  // path back. Wording calls that out so the user can't blame the
+  // chrome for an accidental click.
+  const handleResetTemplate = useCallback(() => {
+    if (!canUndo) return;
+    const ok = window.confirm(
+      "Reset this template?\n\nThis discards every change you've made and restores the original template. Once you click OK there's no undo path back.",
+    );
+    if (!ok) return;
+    for (let i = 0; i < 1000; i += 1) undo();
+    showInfo("Template restored to original.");
+  }, [canUndo, undo, showInfo]);
+
   // Phase 3 — reorder commit. Routes the position-handle drag's
   // same-parent drop through `applyReorder`. Returns true iff source
   // changed; gesture overlay reads the boolean to decide whether to
   // clear the optimistic Track A live-stylesheet rule (clear on bail).
   const handleReorder = useCallback(
     (oid: string, parentOid: string, toIndex: number): boolean => {
-      if (kind !== "jsx") return false;
+      // 2026-05-15 move-tool tracer — every entry, even the kind-bail.
+      console.log("[dropin:Workspace] handleReorder called", { oid, parentOid, toIndex, kind });
+      if (kind !== "jsx") {
+        console.log("[dropin:Workspace] handleReorder → bailed (kind !== jsx)", { kind });
+        return false;
+      }
       const result = applyReorder(code, { oid, parentOid, toIndex });
+      console.log("[dropin:Workspace] handleReorder → applyReorder result", {
+        unchanged: result.unchanged,
+        reason: result.reason,
+        sourceChanged: result.source !== code,
+      });
       if (result.unchanged) {
         if (result.reason) {
           log("reorder bailed", { oid, parentOid, toIndex, reason: result.reason });
@@ -1395,6 +1485,7 @@ export default function Workspace({
         return false;
       }
       setCode(result.source);
+      console.log("[dropin:Workspace] handleReorder → setCode applied, returning true");
       return true;
     },
     [code, kind, setCode, showWarn]
@@ -1653,12 +1744,29 @@ export default function Workspace({
       propsToRemove?: string[],
       newParentTag?: string
     ): boolean => {
-      if (kind !== "jsx") return false;
+      // 2026-05-15 move-tool tracer — every entry, even the kind-bail.
+      console.log("[dropin:Workspace] handleReparent called", {
+        oid,
+        newParentOid,
+        insertIndex,
+        propsToRemove,
+        newParentTag,
+        kind,
+      });
+      if (kind !== "jsx") {
+        console.log("[dropin:Workspace] handleReparent → bailed (kind !== jsx)", { kind });
+        return false;
+      }
       const result = applyReparent(code, {
         oid,
         newParentOid,
         insertIndex,
         propsToRemove,
+      });
+      console.log("[dropin:Workspace] handleReparent → applyReparent result", {
+        unchanged: result.unchanged,
+        reason: result.reason,
+        sourceChanged: result.source !== code,
       });
       if (result.unchanged) {
         if (result.reason) {
@@ -2490,6 +2598,131 @@ export default function Workspace({
     return m[2] || m[3] || null;
   }, []);
 
+  // 2026-05-15 — Apply a resolved image URL as a CSS background on the
+  // currently-selected vibe element. Shared by both the pick handler
+  // (media library → src extraction → here) and the new shuffle handler
+  // (Pixabay → url → here). Bails silently when no vibe selection so
+  // the caller doesn't have to re-check.
+  const applyVibeBgImageUrl = useCallback(
+    (url: string) => {
+      const info = vibeInfo;
+      if (!info) return;
+      previewHandleRef.current?.postVibe({
+        type: "vibe:update-style",
+        path: info.path,
+        styles: {
+          backgroundImage: `url("${url}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        },
+      });
+    },
+    [vibeInfo],
+  );
+
+  // 2026-05-15 — BG-image shuffle. Mirrors the Image-vibe-panel
+  // Shuffle button: derive a query from the element's text content
+  // (since bg-images don't have an alt), fetch a fresh Pixabay image,
+  // apply via applyVibeBgImageUrl.
+  //
+  // 2026-05-16 — Query falls through a chain instead of a single
+  // attempt, after user hit "no photos found for 'witnessed // 004a
+  // reading-room of borrowed'" on a poetic card title. Pixabay
+  // doesn't have results for hyper-specific phrases. Chain:
+  //   1. First 3 words of the card's text content
+  //   2. First word only (often the most conceptual)
+  //   3. "background"
+  //   4. "abstract texture"
+  // Stop at the first query that returns hits. Toast only on final
+  // failure (all 4 returned 0 results — would be remarkable).
+  const handleVibeBgImageShuffle = useCallback(async () => {
+    const info = vibeInfo;
+    if (!info) return;
+    const trimmed = (info.text || "").trim();
+    const words = trimmed.split(/\s+/).filter((w) => w.length > 0);
+    // Keep only alphabetic tokens for the query — strip leading
+    // section labels like "004A", "//", "PLATE", numerals, etc.
+    const alphaWords = words.filter((w) => /[a-zA-Z]/.test(w));
+    const queries: string[] = [];
+    if (alphaWords.length >= 3) {
+      queries.push(alphaWords.slice(0, 3).join(" "));
+    }
+    if (alphaWords.length >= 1) {
+      queries.push(alphaWords[0]!);
+    }
+    queries.push("background");
+    queries.push("abstract texture");
+    // Dedup (e.g. text is just one word "Witnessed" → "Witnessed" gets
+    // pushed once into queries, no duplicate retry).
+    const uniqueQueries = Array.from(new Set(queries));
+    console.log("[dropin:BGShuffle] query chain", {
+      trimmedText: trimmed,
+      alphaWords,
+      queries: uniqueQueries,
+    });
+    for (const query of uniqueQueries) {
+      try {
+        const params = new URLSearchParams({
+          q: query,
+          per_page: "20",
+          page: String(1 + Math.floor(Math.random() * 5)),
+          orientation: "horizontal",
+        });
+        const res = await fetch(`/api/assets/pixabay?${params.toString()}`);
+        if (!res.ok) {
+          const body = await res.json().catch(() => null);
+          const detail =
+            body && typeof body.detail === "string"
+              ? body.detail
+              : `${res.status}`;
+          console.log("[dropin:BGShuffle] non-OK response, aborting chain", {
+            query,
+            detail,
+          });
+          showWarn(`Background shuffle: ${detail}`);
+          return;
+        }
+        // 2026-05-16 — Proxy at `app/api/assets/pixabay/route.ts` slims
+        // upstream Pixabay fields: `webformatURL → webformat`,
+        // `largeImageURL → large`. Earlier code used the upstream names
+        // and silently never matched, then fell through to "no usable
+        // URL." That's the bug user reported as "background shuffle
+        // does nothing." Both bg + per-image shuffle had the same miss.
+        const body = (await res.json()) as {
+          hits?: Array<{ webformat?: string; large?: string }>;
+        };
+        const hits = body?.hits ?? [];
+        console.log("[dropin:BGShuffle] hits", {
+          query,
+          hitCount: hits.length,
+        });
+        if (hits.length === 0) continue; // try next query in chain
+        const pick = hits[Math.floor(Math.random() * hits.length)]!;
+        const nextSrc = pick.webformat || pick.large;
+        if (!nextSrc) continue;
+        console.log("[dropin:BGShuffle] applying", { query, nextSrc });
+        applyVibeBgImageUrl(nextSrc);
+        return;
+      } catch (e) {
+        console.log("[dropin:BGShuffle] caught error", {
+          query,
+          message: e instanceof Error ? e.message : String(e),
+        });
+        showWarn(
+          e instanceof Error
+            ? `Background shuffle: ${e.message}`
+            : "Background shuffle: network error",
+        );
+        return;
+      }
+    }
+    // All queries returned 0 hits — extraordinary, but report honestly.
+    showWarn(
+      "Background shuffle: nothing matched. Try different alt text on the card.",
+    );
+  }, [vibeInfo, applyVibeBgImageUrl, showWarn]);
+
   // BG-image pick. The Media panel emits a full `<img>` block; we pull
   // its src, post vibe:update-style for instant iframe visual feedback,
   // and let the idle-commit drift detector write the styleDelta to
@@ -2765,7 +2998,24 @@ export default function Workspace({
         },
       });
       if (result.kind === "ok") {
-        setCodeSilent(result.source);
+        // 2026-05-16 — Route through setCode (history-aware) instead
+        // of setCodeSilent. Per user feedback: "undo redo doesnt work.
+        // we need to add button to when something is changed, to
+        // apply button below it so it registered as changed."
+        //
+        // The silent path leaves vibe edits invisible to history, so
+        // even the new Apply button has nothing to commit after this
+        // useEffect fires. By routing every 600ms idle batch through
+        // setCode, each "session of typing" becomes one undo step —
+        // the natural cadence for keystroke-driven edits.
+        //
+        // Trade-off: setCode triggers an iframe rebuild, so the
+        // preview briefly flickers ~600ms after each stable edit.
+        // Acceptable cost for working undo. The vibe edits remain
+        // INSTANT in the iframe (via postVibe live updates) before
+        // the rebuild; what flickers is the source-driven re-render,
+        // which lands the same visual result.
+        setCode(result.source);
         lastVibeCommitRef.current = vibeInfo;
       } else if (result.kind === "bail") {
         if (typeof console !== "undefined" && console.warn) {
@@ -2788,7 +3038,136 @@ export default function Workspace({
       }
     }, 600);
     return () => clearTimeout(id);
-  }, [vibeInfo, kind, setCodeSilent, showWarn]);
+  }, [vibeInfo, kind, setCode, showWarn]);
+
+  // 2026-05-16 — Explicit Apply for vibe edits. The idle-commit above
+  // writes through `setCodeSilent` (no history entry) so undo can't
+  // revert vibe-edited fields. Per user direction ("undo redo doesnt
+  // work. we need to add button to when something is changed, to
+  // apply button below it so it registered as changed"), this
+  // callback runs the SAME buildVibeCommit logic but routes through
+  // `setCode` instead → history entry created → undo works on the
+  // committed batch.
+  //
+  // Trade-off: setCode triggers an iframe rebuild, so applying causes
+  // a momentary blink + selection re-establish. Acceptable for a
+  // deliberate user gesture; would be annoying for the 600ms idle
+  // path (kept silent).
+  //
+  // Duplicates the field-diff and styleDelta logic from the idle-
+  // commit useEffect above. Refactoring to a shared helper is
+  // deferred — the risk of regressing the idle path right now is
+  // higher than the cost of two copies.
+  const handleVibeApply = useCallback(() => {
+    console.log("[dropin:Workspace] handleVibeApply entry", {
+      hasVibeInfo: !!vibeInfo,
+      hasBaseline: !!lastVibeCommitRef.current,
+    });
+    const info = vibeInfo;
+    if (!info) {
+      console.log("[dropin:Workspace] Apply bailed — no vibeInfo");
+      return;
+    }
+    const last = lastVibeCommitRef.current;
+    if (!last) {
+      // 2026-05-16 — Reframed from "Nothing to apply yet" to a
+      // positive confirmation. Now that idle-commit routes through
+      // setCode (creating history entries automatically), the user
+      // hitting Apply with no baseline yet just means they haven't
+      // made changes since selecting — those changes that ARE there
+      // got auto-saved already. Tell them everything is saved.
+      console.log("[dropin:Workspace] Apply: no baseline yet — auto-saves are working");
+      showInfo("All saved ✓");
+      return;
+    }
+    const drifted =
+      info.text !== last.text ||
+      (info.src ?? "") !== (last.src ?? "") ||
+      (info.alt ?? "") !== (last.alt ?? "") ||
+      (info.href ?? "") !== (last.href ?? "") ||
+      (info.inlineStyle ?? "") !== (last.inlineStyle ?? "") ||
+      (info.classes ?? "") !== (last.classes ?? "") ||
+      (info.textColor ?? "") !== (last.textColor ?? "") ||
+      (info.bgColor ?? "") !== (last.bgColor ?? "") ||
+      (info.borderRadius ?? "") !== (last.borderRadius ?? "") ||
+      (info.bgImage ?? null) !== (last.bgImage ?? null);
+    console.log("[dropin:Workspace] Apply drift check", { drifted });
+    if (!drifted) {
+      // 2026-05-16 — Same reframe. No drift means idle-commit already
+      // wrote everything to source via setCode (which DOES create a
+      // history entry). Apply was effectively a no-op because the
+      // user beat the system to it — but their work IS saved.
+      showInfo("All saved ✓ — Undo to revert.");
+      return;
+    }
+    const styleDelta: {
+      color?: string;
+      backgroundColor?: string;
+      borderRadius?: string;
+      bgImageUrl?: string | null;
+    } = {};
+    if ((info.textColor ?? "") !== (last.textColor ?? "")) {
+      styleDelta.color = info.textColor ?? "";
+    }
+    if ((info.bgColor ?? "") !== (last.bgColor ?? "")) {
+      styleDelta.backgroundColor = info.bgColor ?? "";
+    }
+    if ((info.borderRadius ?? "") !== (last.borderRadius ?? "")) {
+      styleDelta.borderRadius = info.borderRadius ?? "";
+    }
+    if ((info.bgImage ?? null) !== (last.bgImage ?? null)) {
+      styleDelta.bgImageUrl = info.bgImage ?? null;
+    }
+    const hasStyleDelta =
+      styleDelta.color !== undefined ||
+      styleDelta.backgroundColor !== undefined ||
+      styleDelta.borderRadius !== undefined ||
+      styleDelta.bgImageUrl !== undefined;
+    const result = buildVibeCommit({
+      mode: kind,
+      source: codeRef.current,
+      old: last,
+      next: {
+        text: info.text !== last.text ? info.text : undefined,
+        src:
+          (info.src ?? "") !== (last.src ?? "")
+            ? info.src ?? ""
+            : undefined,
+        alt:
+          (info.alt ?? "") !== (last.alt ?? "")
+            ? info.alt ?? ""
+            : undefined,
+        href:
+          (info.href ?? "") !== (last.href ?? "")
+            ? info.href ?? ""
+            : undefined,
+        style:
+          (info.inlineStyle ?? "") !== (last.inlineStyle ?? "")
+            ? info.inlineStyle ?? ""
+            : undefined,
+        classes:
+          (info.classes ?? "") !== (last.classes ?? "")
+            ? info.classes ?? ""
+            : undefined,
+        styleDelta: hasStyleDelta ? styleDelta : undefined,
+      },
+    });
+    console.log("[dropin:Workspace] Apply buildVibeCommit result", {
+      kind: result.kind,
+      reason: result.kind === "bail" ? result.reason : null,
+    });
+    if (result.kind === "ok") {
+      setCode(result.source);
+      lastVibeCommitRef.current = info;
+      showInfo("Changes saved. Undo to revert.");
+    } else if (result.kind === "bail") {
+      showWarn(
+        result.reason === "missing-oid"
+          ? "Couldn't save — element has no ID. Reselect and try again."
+          : "Couldn't save — element location isn't tracked. Reselect and try again.",
+      );
+    }
+  }, [vibeInfo, kind, setCode, showInfo, showWarn]);
 
   const handlePreviewReady = useCallback((h: PreviewHandle) => {
     previewHandleRef.current = h;
@@ -3072,11 +3451,13 @@ export default function Workspace({
       let next: Tool | null = null;
       if (k === "v") next = "view";
       else if (k === "s") next = "select";
-      else if (k === "m") next = "move";
       else if (k === "e") next = "vibe";
       // 'i' (Insert) retired 2026-05-14 — insertion now happens via the
       // Swap-from-library affordance inside vibe-edit mode (every element
       // gets a "Browse library" button in its properties panel).
+      // 'm' (Move) retired 2026-05-15 — canvas-drag move tool removed
+      // (see TOOL_LIST comment in ToolBar.tsx). Tree-side DnD still
+      // works for the legitimate reorder/reparent use case.
       // 'w' (Swap) retired in Phase 6 (2026-05-11 PM). Swap-from-
       // library lives inside vibe mode now — press E to enter Edit
       // and use the Browse buttons in the per-kind panel.
@@ -3230,6 +3611,12 @@ export default function Workspace({
             onViewportChange={setViewportSynced}
             onExpand={() => setPreviewExpanded(true)}
             showWarn={showWarn}
+            onUndo={undo}
+            onRedo={redo}
+            canUndo={canUndo}
+            canRedo={canRedo}
+            onReset={handleResetTemplate}
+            onOpenWhatsNext={() => setWhatsNextOpen(true)}
           />
         </ToolBar>
 
@@ -3504,6 +3891,9 @@ export default function Workspace({
               onComponentSwap={handleVibeComponentSwapOpen}
               onBgImagePick={handleVibeBgImageOpen}
               onBgImageRemove={handleVibeBgImageRemove}
+              onBgImageShuffle={handleVibeBgImageShuffle}
+              onCopySection={kind === "jsx" ? handleCopySection : undefined}
+              onApply={handleVibeApply}
               onClassesChange={handleVibeClasses}
               componentBrowserOpen={vibeComponentSwapOpen}
               componentBrowserCategory={
@@ -3588,6 +3978,17 @@ export default function Workspace({
           onClose={() => setPreviewExpanded(false)}
         />
       )}
+
+      {/* 2026-05-15 — "What's next?" helper. exportSource strips OIDs in JSX
+          mode (same path as WorkspaceActions.handleCopy / handleDownload) so
+          the copy-to-clipboard inside the modal yields clean code. */}
+      {whatsNextOpen && (
+        <WhatsNextModal
+          onClose={() => setWhatsNextOpen(false)}
+          exportSource={kind === "jsx" ? stripOids(code).source : code}
+        />
+      )}
+
 
       {focusOpen && selection && (
         <FocusEditor
@@ -3705,6 +4106,54 @@ function DownloadGlyph() {
     </svg>
   );
 }
+function UndoGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 7v6h6" />
+      <path d="M3 13a9 9 0 1 0 3-7L3 13" />
+    </svg>
+  );
+}
+function RedoGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 7v6h-6" />
+      <path d="M21 13a9 9 0 1 1-3-7L21 13" />
+    </svg>
+  );
+}
+function WhatsNextGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 4l8 8-8 8" />
+      <path d="M3 12h13" />
+    </svg>
+  );
+}
+function ResetGlyph() {
+  // Counter-clockwise rotation arrow with a center dot — communicates
+  // "go all the way back to start" rather than the Undo glyph's "step
+  // back one." Avoids visual confusion with Undo since they're sibling
+  // buttons.
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 4v6h6" />
+      <path d="M20 12a8 8 0 0 1-15.5 2.5L4 10" />
+      <circle cx="12" cy="12" r="1.2" fill="currentColor" />
+    </svg>
+  );
+}
+function VariationsGlyph() {
+  // Two-arrow shuffle/rotate glyph — communicates "try alternatives".
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M16 3l4 4-4 4" />
+      <path d="M20 7H10a6 6 0 0 0-6 6" />
+      <path d="M8 21l-4-4 4-4" />
+      <path d="M4 17h10a6 6 0 0 0 6-6" />
+    </svg>
+  );
+}
 
 const VIEWPORTS_LIST: { id: Viewport; label: string; icon: React.ReactNode }[] = [
   { id: "desktop", label: "Desktop", icon: <MonitorGlyph /> },
@@ -3764,6 +4213,12 @@ function WorkspaceActions({
   onViewportChange,
   onExpand,
   showWarn,
+  onUndo,
+  onRedo,
+  canUndo,
+  canRedo,
+  onReset,
+  onOpenWhatsNext,
 }: {
   allowKindToggle: boolean;
   urlKindToggle: boolean;
@@ -3775,6 +4230,12 @@ function WorkspaceActions({
   onViewportChange: (v: Viewport) => void;
   onExpand: () => void;
   showWarn: (msg: string) => void;
+  onUndo: () => void;
+  onRedo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
+  onReset: () => void;
+  onOpenWhatsNext: () => void;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -3884,6 +4345,73 @@ function WorkspaceActions({
       </div>
 
       <div className="ml-auto flex flex-wrap items-center gap-2">
+        {/* 2026-05-15 — Undo / Redo surfaced as visible buttons. The
+            Cmd+Z / Cmd+Y keybindings still work (and the discoverable-
+            shortcut is part of the tooltip); the buttons exist for
+            vibecoders who don't know the keyboard pattern. Segmented
+            into one inline-flex shell so they sit as a single visual
+            unit, matching the rest of the action row. */}
+        <div
+          className="inline-flex overflow-hidden border-2 border-ink"
+          role="group"
+          aria-label="History"
+        >
+          <button
+            type="button"
+            onClick={onUndo}
+            disabled={!canUndo}
+            title="Undo (⌘Z) — step back one change"
+            aria-label="Undo"
+            className={
+              SEG_BTN +
+              " gap-1.5 " +
+              (canUndo
+                ? "bg-paper text-ink hover:bg-ink hover:text-paper"
+                : "bg-paper text-muted opacity-40 cursor-not-allowed")
+            }
+          >
+            <UndoGlyph />
+            <span>Undo</span>
+          </button>
+          <button
+            type="button"
+            onClick={onRedo}
+            disabled={!canRedo}
+            title="Redo (⇧⌘Z) — step forward one change"
+            aria-label="Redo"
+            className={
+              SEG_BTN +
+              " gap-1.5 border-l-2 border-ink " +
+              (canRedo
+                ? "bg-paper text-ink hover:bg-ink hover:text-paper"
+                : "bg-paper text-muted opacity-40 cursor-not-allowed")
+            }
+          >
+            <RedoGlyph />
+            <span>Redo</span>
+          </button>
+          {/* 2026-05-15 — Reset: wipe all changes back to the original
+              template. Sits third in the History group, only enabled
+              when there's something to wipe. Confirmation prompt at
+              the handler level — no accidental nukes. */}
+          <button
+            type="button"
+            onClick={onReset}
+            disabled={!canUndo}
+            title="Reset — discard ALL changes, restore the original template (confirmed)"
+            aria-label="Reset template"
+            className={
+              SEG_BTN +
+              " gap-1.5 border-l-2 border-ink " +
+              (canUndo
+                ? "bg-paper text-ink hover:bg-ink hover:text-paper"
+                : "bg-paper text-muted opacity-40 cursor-not-allowed")
+            }
+          >
+            <ResetGlyph />
+            <span>Reset</span>
+          </button>
+        </div>
         {/* Each standalone button wrapped in the same `inline-flex border-2`
             shell as the segmented groups so the outer box matches exactly
             (h-9 button + wrapper's 4px borders = same outer height across
@@ -3927,6 +4455,24 @@ function WorkspaceActions({
           >
             <DownloadGlyph />
             <span>Download</span>
+          </button>
+        </div>
+        {/* 2026-05-15 — "What's next?" — vibecoder helper. Coral background
+            so it reads as the "next thing to try" instead of a peer of
+            the chrome buttons. Sits at the end of the action row where
+            the eye lands after Download. */}
+        <div className="inline-flex overflow-hidden border-2 border-ink">
+          <button
+            type="button"
+            onClick={onOpenWhatsNext}
+            title="What can you do with this template? Copy, iterate with AI, host it online."
+            className={
+              SEG_BTN +
+              " gap-1.5 bg-coral text-paper hover:bg-ink"
+            }
+          >
+            <WhatsNextGlyph />
+            <span>What's next?</span>
           </button>
         </div>
       </div>

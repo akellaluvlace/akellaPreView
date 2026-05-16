@@ -53,6 +53,22 @@ interface VibePropertiesPanelProps {
   // Background-image remove — clears the inline `background-image`
   // CSS + the corresponding Tailwind arbitrary class via idle-commit.
   onBgImageRemove?: () => void;
+  // 2026-05-15 — Background-image shuffle. Same Pixabay query-from-text
+  // mechanism as the regular image shuffle, scoped to the selected
+  // card/section's text content. Async because the network call is
+  // surfaced via showWarn on error.
+  onBgImageShuffle?: () => void;
+  // 2026-05-15 — Copy just THIS element's source bytes (OIDs stripped,
+  // dedented). Used by vibecoders who want to paste a single section
+  // into AI for focused iteration without dragging the entire template
+  // along. JSX mode only; HTML callers leave this undefined and the
+  // button doesn't render.
+  onCopySection?: () => void;
+  // 2026-05-16 — Commit current live vibe state to source via the
+  // history-aware setCode path. Without this, vibe edits route through
+  // setCodeSilent and undo can't see them. The Apply button below the
+  // panel content surfaces this gesture explicitly.
+  onApply?: () => void;
   // Class-list mutation routed through to TextControls' typography
   // sliders. Optional so panels mounted without class-edit support
   // (e.g. a future read-only mode) just don't render the section.
@@ -83,6 +99,9 @@ export default function VibePropertiesPanel({
   onComponentSwap,
   onBgImagePick,
   onBgImageRemove,
+  onBgImageShuffle,
+  onCopySection,
+  onApply,
   onClassesChange,
   componentBrowserOpen,
   componentBrowserCategory,
@@ -126,6 +145,24 @@ export default function VibePropertiesPanel({
         </button>
       </header>
 
+      {/* 2026-05-15 — "Copy this section" — extracts the selected
+          element's source bytes (with OIDs stripped + dedented) so the
+          vibecoder can paste JUST this section into ChatGPT/Claude for
+          focused iteration. The full template Copy button up in the
+          chrome stays as-is for "give me the whole thing" workflow. */}
+      {onCopySection && (
+        <div className="border-b-2 border-ink/15 px-4 py-2">
+          <button
+            type="button"
+            onClick={onCopySection}
+            title="Copy just this element's code — paste it into ChatGPT/Claude to iterate on this section alone"
+            className="w-full border-2 border-ink bg-paper px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper"
+          >
+            Copy this section's code
+          </button>
+        </div>
+      )}
+
       {(info.instanceCount ?? 1) > 1 && (
         <div
           className="border-b-2 border-ink bg-coral/10 px-4 py-2 font-mono text-[10px] text-ink"
@@ -163,6 +200,7 @@ export default function VibePropertiesPanel({
           info={info}
           onImageChange={onImageChange}
           onSwapClick={onImageSwap}
+          onWarn={onWarn}
         />
       )}
 
@@ -191,6 +229,7 @@ export default function VibePropertiesPanel({
           onComponentSwap={onComponentSwap}
           onBgImagePick={onBgImagePick}
           onBgImageRemove={onBgImageRemove}
+          onBgImageShuffle={onBgImageShuffle}
         />
       )}
 
@@ -212,6 +251,29 @@ export default function VibePropertiesPanel({
           onWarn={onWarn}
           preserveBbox={info.bbox ?? null}
         />
+      )}
+
+      {/* 2026-05-16 — "Save now" button. Vibe edits auto-save every
+          600ms after you stop (via the idle-commit useEffect, which
+          NOW routes through setCode so undo captures every batch).
+          This button is the explicit "lock it in immediately" gesture
+          for users who don't want to wait the 600ms. Always toasts
+          positively — confirms saved state whether a force-commit was
+          needed or auto-save already handled it. */}
+      {onApply && (
+        <div className="border-t-2 border-ink/15 bg-soft/30 px-4 py-3">
+          <button
+            type="button"
+            onClick={onApply}
+            title="Force-save now (auto-save also runs every 600ms after you stop)"
+            className="w-full border-2 border-ink bg-coral px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-paper hover:bg-ink"
+          >
+            Save now ✓
+          </button>
+          <p className="mt-1.5 text-center font-mono text-[10px] text-muted">
+            Auto-saves run after you stop editing. Click to save right now.
+          </p>
+        </div>
       )}
     </aside>
   );

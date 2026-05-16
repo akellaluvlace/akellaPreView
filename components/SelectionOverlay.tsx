@@ -875,6 +875,22 @@ export default function SelectionOverlay({
   const showSpacingHandles = tool === "select";
   const showActionToolbar = tool === "select";
   const showMoveHandle = tool === "move";
+  // 2026-05-15 move-tool tracer — render-gate state visible when tool=move.
+  // Fires only when the relevant inputs change (selectedOid / move binding
+  // presence) so we don't drown the console on every parent re-render.
+  if (typeof window !== "undefined" && tool === "move") {
+    const w = window as unknown as { __dropinShowMoveHandleLog?: string };
+    const sig = `${showMoveHandle}|${!!move}|${selectedOid ?? "null"}`;
+    if (w.__dropinShowMoveHandleLog !== sig) {
+      w.__dropinShowMoveHandleLog = sig;
+      console.log("[dropin:SelectionOverlay] move-handle render gate", {
+        tool,
+        showMoveHandle,
+        hasMoveBinding: !!move,
+        selectedOid,
+      });
+    }
+  }
   // Mobile/touch — handle hit areas expand to 44×44 on coarse pointers
   // per platform conventions (Apple HIG / Material). Visual size is
   // unchanged; only the invisible hit area grows.
@@ -2227,7 +2243,18 @@ export default function SelectionOverlay({
   // sets up state + listeners, pointermove updates the live visual,
   // pointerup commits or bails.
   function handleMovePointerDown(e: ReactPointerEvent<HTMLDivElement>) {
-    if (!selectedOid || !rect || !move) return;
+    // 2026-05-15 move-tool tracer — entry with bail-gate state visible.
+    console.log("[dropin:SelectionOverlay] handleMovePointerDown entry", {
+      selectedOid,
+      hasRect: !!rect,
+      hasMove: !!move,
+      button: e.button,
+      additionalCount: additionalOids.length,
+    });
+    if (!selectedOid || !rect || !move) {
+      console.log("[dropin:SelectionOverlay] handleMovePointerDown → bailed (missing oid/rect/move)");
+      return;
+    }
     if (e.button !== 0) return;
 
     e.preventDefault();
@@ -2280,15 +2307,23 @@ export default function SelectionOverlay({
         if (result) {
           localG.dropTargets = result.targets;
           localG.ineligibleTargets = result.ineligible;
+          // 2026-05-15 move-tool tracer — count of resolved targets.
+          console.log("[dropin:SelectionOverlay] requestDropTargets resolved", {
+            eligibleCount: result.targets.length,
+            ineligibleCount: result.ineligible.length,
+            firstEligibleOids: result.targets.slice(0, 3).map((t) => t.oid),
+          });
         } else {
           localG.dropTargets = [];
           localG.ineligibleTargets = [];
+          console.log("[dropin:SelectionOverlay] requestDropTargets resolved null/empty");
         }
       },
-      () => {
+      (err) => {
         if (gestureRef.current !== localG) return;
         localG.dropTargets = [];
         localG.ineligibleTargets = [];
+        console.log("[dropin:SelectionOverlay] requestDropTargets REJECTED", { err: String(err) });
       }
     );
 
@@ -2473,6 +2508,16 @@ export default function SelectionOverlay({
           prev.target.oid !== target.oid ||
           prev.insertIndex !== insertIndex
         ) {
+          // 2026-05-15 move-tool tracer — log ONLY on change (prevents
+          // 60fps spam during steady-state drag). Captures the key
+          // commit inputs that pointerup will rely on.
+          console.log("[dropin:SelectionOverlay] currentTarget changed", {
+            targetOid: target.oid,
+            targetTag: target.tag,
+            insertIndex,
+            childCount: target.children.length,
+            direction: target.direction,
+          });
           localG.currentTarget = { target, insertIndex };
           setMoveTargetSnapshot({ targetOid: target.oid, insertIndex, target });
         }
@@ -2514,6 +2559,20 @@ export default function SelectionOverlay({
 
       const ct = localG.currentTarget;
       let committed = false;
+      // 2026-05-15 move-tool tracer — pointerup commit decision inputs.
+      // ct=null means user released over no eligible drop target → snap back.
+      console.log("[dropin:SelectionOverlay] onUp commit decision", {
+        hasCurrentTarget: !!ct,
+        currentTargetOid: ct?.target.oid ?? null,
+        insertIndex: ct?.insertIndex ?? null,
+        oldParentOid: localG.oldParentOid,
+        sameParent:
+          ct !== null &&
+          localG.oldParentOid !== null &&
+          ct.target.oid === localG.oldParentOid,
+        movingOid: localG.oid,
+        additionalCount: localG.additionalOids.length,
+      });
       if (ct && move) {
         const sameParent =
           localG.oldParentOid !== null &&
@@ -2671,6 +2730,11 @@ export default function SelectionOverlay({
           }
         }
       }
+      // 2026-05-15 move-tool tracer — final commit outcome.
+      console.log("[dropin:SelectionOverlay] onUp final outcome", {
+        committed,
+        willSnapBack: !committed,
+      });
       // On bail / no-target / no-op: clear the live stylesheet so the
       // element (and any multi-select participants) snap back to origin.
       if (!committed) {

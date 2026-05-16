@@ -1124,6 +1124,24 @@ export default function Preview({
           onReparentMultiCommit: onReparentMulti,
         }
       : undefined;
+  // 2026-05-15 move-tool tracer — moveBindings shape every render. Only
+  // logs WHEN tool === "move" so non-move renders stay quiet. Throttled
+  // by a ref so identical-state renders don't spam.
+  if (tool === "move" && typeof window !== "undefined") {
+    const w = window as unknown as { __dropinMoveBindingsLog?: string };
+    const sig = `${!!moveBindings}|${!!onReorder}|${!!onReparent}|${!!onReorderMulti}|${!!onReparentMulti}|${!!selectedOid}`;
+    if (w.__dropinMoveBindingsLog !== sig) {
+      w.__dropinMoveBindingsLog = sig;
+      console.log("[dropin:Preview] moveBindings status (tool=move)", {
+        hasMoveBindings: !!moveBindings,
+        hasOnReorder: !!onReorder,
+        hasOnReparent: !!onReparent,
+        hasOnReorderMulti: !!onReorderMulti,
+        hasOnReparentMulti: !!onReparentMulti,
+        hasSelectedOid: !!selectedOid,
+      });
+    }
+  }
 
   // Phase 3 polish (seventeenth pass) — duplicate / delete toolbar
   // bindings. Wired only when both single-element handlers are

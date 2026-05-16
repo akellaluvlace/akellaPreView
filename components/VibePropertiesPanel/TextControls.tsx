@@ -116,6 +116,37 @@ export default function TextControls({
           rows={3}
           className="mt-1 w-full border-2 border-ink bg-paper p-2 font-mono text-sm focus:outline-none"
         />
+        {/* 2026-05-15 — text-case transforms. Vibecoders frequently get
+            text from AI in an unwanted case (everything lowercase, or
+            ALL CAPS for emphasis where they want title). Pure JS string
+            transforms, no API, no risk. Each button mutates local state
+            + posts through the same debounced path so the iframe sees
+            the change instantly. */}
+        <div className="mt-1 flex flex-wrap gap-1.5" role="group" aria-label="Text case">
+          {(
+            [
+              { id: "upper", label: "ALL CAPS", fn: (s: string) => s.toUpperCase() },
+              { id: "title", label: "Title", fn: titleCase },
+              { id: "sentence", label: "Sentence", fn: sentenceCase },
+              { id: "lower", label: "lowercase", fn: (s: string) => s.toLowerCase() },
+            ] as const
+          ).map((t) => (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => {
+                const next = t.fn(text);
+                if (next === text) return;
+                setText(next);
+                postText(next);
+              }}
+              title={`Transform text to ${t.label}`}
+              className="border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper"
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
       </label>
 
       <div className="grid grid-cols-2 gap-2">
@@ -167,6 +198,23 @@ export default function TextControls({
 
       <SwapComponentButton onClick={onComponentSwap} />
     </div>
+  );
+}
+
+// 2026-05-15 — Title Case: uppercase first letter of every word.
+// Doesn't try to be smart about minor words ("the", "of") — keep it
+// predictable so the vibecoder gets exactly what they see.
+function titleCase(s: string): string {
+  return s.replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+// 2026-05-15 — Sentence case: lowercase everything, then uppercase the
+// first letter of each sentence. Sentence boundary = start-of-string OR
+// `.!?` followed by whitespace. Tolerates multi-line input.
+function sentenceCase(s: string): string {
+  const lower = s.toLowerCase();
+  return lower.replace(/(^|[.!?]\s+)(\p{L})/gu, (_, prefix, letter) =>
+    prefix + (letter as string).toUpperCase(),
   );
 }
 

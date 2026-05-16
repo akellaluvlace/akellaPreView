@@ -465,10 +465,43 @@ export function vibeRuntimeJs(): string {
           }
         }
       } else if (d.type === 'vibe:update-image') {
+        // 2026-05-16 — Tracer: log every step so we can see if the
+        // path resolves, if the element is an IMG, what the src
+        // before/after setAttribute looks like, and what the actual
+        // DOM src reads back as one tick later (catches React
+        // reconciliation reverts).
         el = d.path ? document.querySelector(d.path) : null;
+        console.log('[dropin:iframe] update-image dispatch', {
+          path: d.path,
+          elFound: !!el,
+          elTag: el ? el.tagName : null,
+          newSrc: d.src,
+          newAlt: d.alt
+        });
         if (el && el.tagName === 'IMG') {
+          var beforeSrc = el.getAttribute('src');
           if (typeof d.src === 'string') el.setAttribute('src', d.src);
           if (typeof d.alt === 'string') el.setAttribute('alt', d.alt);
+          var afterSrc = el.getAttribute('src');
+          console.log('[dropin:iframe] update-image setAttribute done', {
+            beforeSrc: beforeSrc,
+            afterSrc: afterSrc,
+            srcChanged: beforeSrc !== afterSrc
+          });
+          // Check 50ms later whether React (or anything else) reverted
+          // the DOM src. If a parent component re-renders, React's
+          // reconciliation will reset src to whatever the VDOM says —
+          // which for templates using <img src={var}> is the original
+          // const-array URL.
+          setTimeout(function () {
+            try {
+              var laterSrc = el.getAttribute('src');
+              console.log('[dropin:iframe] update-image 50ms-later check', {
+                srcStillSet: laterSrc,
+                reverted: laterSrc !== afterSrc
+              });
+            } catch (e) {}
+          }, 50);
           if (vibeSelected === el) {
             dropinPost({ type: 'vibe:selected', info: vibeSerialize(el) });
           }

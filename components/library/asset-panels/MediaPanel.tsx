@@ -1,11 +1,18 @@
 "use client";
 
-// Media tab. Sub-tabs: Photos (Unsplash + Pexels source toggle), Videos
+// Media tab. Sub-tabs: Photos (Pixabay + Pexels source toggle), Videos
 // (Pexels), Illustrations (unDraw), Mockups (frame templates).
+//
+// 2026-05-15 — Retired the Unsplash photo sub-panel per user direction
+// ("we're not using unsplash, remove that entirely"). UI hides Unsplash;
+// Pixabay + Pexels Photos remain as the two photo sources. Pexels
+// Videos is the separate Videos sub-tab — untouched. UnsplashPanel code
+// + its API route + the "unsplash" literal in PhotoSource left in
+// place (same pattern as Move retirement) — recoverable, zero cost
+// to keep.
 
 import { useEffect, useState } from "react";
 import type { Mode } from "@/lib/asset-library/types";
-import UnsplashPanel from "./sub-panels/UnsplashPanel";
 import PexelsPhotosPanel from "./sub-panels/PexelsPhotosPanel";
 import PexelsVideosPanel from "./sub-panels/PexelsVideosPanel";
 import PixabayPanel from "./sub-panels/PixabayPanel";
@@ -18,7 +25,7 @@ interface Props {
 }
 
 type SubTab = "photos" | "videos" | "illustrations" | "mockups";
-type PhotoSource = "pixabay" | "pexels" | "unsplash";
+type PhotoSource = "pixabay" | "pexels";
 
 const SUB_KEY = "dropin:media:subtab";
 const PHOTO_SRC_KEY = "dropin:media:photo-source";
@@ -29,7 +36,7 @@ const SUBS: Array<{ id: SubTab; label: string }> = [
   { id: "mockups",       label: "Mockups" },
 ];
 
-const PHOTO_SOURCES: PhotoSource[] = ["pixabay", "pexels", "unsplash"];
+const PHOTO_SOURCES: PhotoSource[] = ["pixabay", "pexels"];
 
 export default function MediaPanel({ mode, onInsert }: Props) {
   const [sub, setSub] = useState<SubTab>(() => {
@@ -38,12 +45,12 @@ export default function MediaPanel({ mode, onInsert }: Props) {
     return SUBS.some((s) => s.id === v) ? (v as SubTab) : "photos";
   });
   const [photoSrc, setPhotoSrc] = useState<PhotoSource>(() => {
-    // Default to Pixabay — instant API key, generous rate limit, no
-    // production-tier gating. Existing users who picked Unsplash or
-    // Pexels keep their choice.
     if (typeof window === "undefined") return "pixabay";
     const v = window.localStorage.getItem(PHOTO_SRC_KEY);
-    return PHOTO_SOURCES.includes(v as PhotoSource) ? (v as PhotoSource) : "pixabay";
+    // 2026-05-15 — Migrate Unsplash-stuck users to Pixabay; only the
+    // two current options pass through verbatim.
+    if (v === "pixabay" || v === "pexels") return v;
+    return "pixabay";
   });
 
   useEffect(() => {
@@ -98,9 +105,8 @@ export default function MediaPanel({ mode, onInsert }: Props) {
       )}
 
       <div className="min-h-0 flex-1">
-        {sub === "photos" && photoSrc === "pixabay"  && <PixabayPanel mode={mode} onInsert={onInsert} />}
-        {sub === "photos" && photoSrc === "pexels"   && <PexelsPhotosPanel mode={mode} onInsert={onInsert} />}
-        {sub === "photos" && photoSrc === "unsplash" && <UnsplashPanel mode={mode} onInsert={onInsert} />}
+        {sub === "photos" && photoSrc === "pixabay" && <PixabayPanel mode={mode} onInsert={onInsert} />}
+        {sub === "photos" && photoSrc === "pexels"  && <PexelsPhotosPanel mode={mode} onInsert={onInsert} />}
         {sub === "videos"        && <PexelsVideosPanel mode={mode} onInsert={onInsert} />}
         {sub === "illustrations" && <UndrawPanel mode={mode} onInsert={onInsert} />}
         {sub === "mockups"       && <MockupsPanel mode={mode} onInsert={onInsert} />}
