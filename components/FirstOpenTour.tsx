@@ -2,23 +2,23 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// 3-step tooltip tour shown to first-time users on their first interaction
-// with the workspace. Dismissed permanently in `localStorage` so returning
-// users never see it. ROADMAP §4.1 #10.
+// First-open tooltip tour for vibecoders. Auto-fires on first workspace
+// mount; dismissed permanently in `localStorage` so returning users
+// never see it.
 //
-// Phase 5 / Phase B / B6 — v2 steps for the tool-mediated model. The tour
-// now fires on FIRST WORKSPACE MOUNT (not first selection — selection
-// only happens after the user picks Select). Storage key bumped to v2 so
-// existing users who completed v1 see this tour exactly once. Past
-// dismissals of v1 stay in localStorage (we don't clear them) — they
-// just no longer satisfy the v2 gate.
+// 2026-05-16 v3 — Storage key bumped to v3. Earlier v1/v2 steps described
+// the Select / Move / Insert / Swap tool model. Move retired 2026-05-15;
+// Try Variations retired 2026-05-16; Select + Insert hidden long before
+// that. Tour content now reflects the current "Edit tool + per-element
+// vibe panel" model with Shuffle / Save Now / What's Next callouts.
+// Existing v2-completed users see this refreshed tour exactly once
+// (v1/v2 dismissals stay in localStorage but no longer satisfy the v3 gate).
 //
 // Design:
 // - Bottom-right floating card; doesn't block iframe interaction.
 // - Single Next/Done button + a small Skip link (closes & marks complete).
-// - Steps walk through the read-only-by-default → pick-a-tool model.
 
-const STORAGE_KEY = "dropin:tour-completed-v2";
+const STORAGE_KEY = "dropin:tour-completed-v3";
 
 interface Step {
   title: string;
@@ -27,27 +27,20 @@ interface Step {
 
 const STEPS: Step[] = [
   {
-    title: "Pick a tool",
-    body: "Workspace starts in View — clicks pass through. Pick a tool from the toolbar to interact: Select, Move, Insert, Swap.",
+    title: "Click anything to edit it",
+    body: "Press E (or click Edit in the toolbar). Then click any text, image, icon, or card. The right rail shows what you can change for that element.",
   },
   {
-    title: "Each tool does one thing",
-    body: "Select clicks an element to edit it. Move drags to reorder or move. Insert adds a child. Swap replaces a selection with a library asset.",
+    title: "Shuffle for fresh images",
+    body: "Click any image → hit Shuffle ↻ in the right rail. We'll fetch a new photo from Pixabay matching your alt text. Works on background images on cards too.",
   },
   {
-    title: "Press V anytime to return to View",
-    body: "Keyboard: V · S · M · I · W. Esc closes the editor. The tool persists across reloads.",
+    title: "Edits auto-save · Undo walks back",
+    body: "Your tweaks auto-save every second. The Save now ✓ button locks in immediately. ⌘Z (or the Undo button) walks back through every save point.",
   },
-  // Thirty-fifth-pass chunk (ll) — Tree shortcut hint. Surfaces the
-  // chunk-gg D / S shortcuts (toggle Depth / Subtree dropdowns) added
-  // 34th-pass. Discoverable otherwise via the toolbar button title
-  // attributes, but a tour mention catches new users who never hover.
-  // The tour storage key is intentionally NOT bumped past v2 — adding
-  // a step doesn't warrant re-running the entire tour for existing
-  // users; new users see all four steps, returning users see none.
   {
-    title: "Tree shortcuts",
-    body: "Inside the tree rail (left): D opens the Depth menu, S opens the Subtree menu for the focused row. ← / → collapse / expand. Type / to filter.",
+    title: "What's next?",
+    body: "Hit the coral What's next? button up top — copy your code, get AI prompts for further iteration in ChatGPT/Claude, and walk-throughs for hosting your page online.",
   },
 ];
 

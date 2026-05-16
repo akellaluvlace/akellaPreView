@@ -20,6 +20,11 @@ interface ImageControlsProps {
   // host's onWarn for empty-alt + network-error feedback so toasts
   // route through the existing notification system.
   onWarn?: (msg: string) => void;
+  // 2026-05-16 — positive-path feedback for successful Shuffle. Without
+  // this, the only signal of success is the image visibly changing —
+  // which a vibecoder on a slow connection might not see for a moment.
+  // Toast routes through host's showInfo (↪, 2.6s, bottom-center).
+  onInfo?: (msg: string) => void;
 }
 
 // 2026-05-16 — Matches the SLIMMED shape returned by
@@ -42,6 +47,7 @@ export default function ImageControls({
   onImageChange,
   onSwapClick,
   onWarn,
+  onInfo,
 }: ImageControlsProps) {
   const [src, setSrc] = useState(typeof info.src === "string" ? info.src : "");
   const [alt, setAlt] = useState(typeof info.alt === "string" ? info.alt : "");
@@ -166,6 +172,11 @@ export default function ImageControls({
         setSrc(nextSrc);
         onImageChange({ src: nextSrc });
         console.log("[dropin:Shuffle] applied", { query, nextSrc });
+        // 2026-05-16 — positive-path toast so the vibecoder gets explicit
+        // feedback the shuffle landed. The image swap is visible too, but
+        // on a slow connection there can be a delay before the new photo
+        // loads — toast bridges that gap.
+        onInfo?.("Photo updated · Undo to revert");
         setRecentSrcs((prev) => {
           const next = [nextSrc, ...prev.filter((s) => s !== nextSrc)];
           return next.slice(0, 5);
@@ -242,7 +253,13 @@ export default function ImageControls({
             }
             className="flex-1 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {shuffling ? "Shuffling…" : "Shuffle ↻"}
+            {shuffling ? (
+              <>
+                <span className="inline-block animate-spin">↻</span> Shuffling…
+              </>
+            ) : (
+              "Shuffle ↻"
+            )}
           </button>
           <button
             type="button"

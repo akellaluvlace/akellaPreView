@@ -107,61 +107,83 @@ export default function CardControls({
         />
       </label>
 
-      <div className="border-t-2 border-ink/15 pt-3">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-          Background image
-        </p>
-        {info.bgImage && (
-          <p
-            className="mt-1 truncate font-mono text-[10px] text-ink"
-            title={info.bgImage}
-          >
-            Current: {info.bgImage}
+      {/* 2026-05-16 — Background-image section. When the card already
+          has an <img> descendant, hide the picker entirely and show a
+          redirect message. Picking a bg-image on a card with an inner
+          img stacks the new bg under the inner img → visual overlay
+          mess. The honest UX: tell the user where to click instead. */}
+      {info.hasInnerImg ? (
+        <div className="border-t-2 border-ink/15 pt-3">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+            Background image
           </p>
-        )}
-        <div className="mt-1 flex gap-2">
-          {/* 2026-05-15 — Shuffle uses Pixabay to fetch a fresh photo
-              matching the card's text content. Sits BEFORE Pick so the
-              vibecoder can try a random match first and only open the
-              full library if they want fine-grained control. */}
-          {onBgImageShuffle && (
+          <p className="mt-1 font-mono text-[11px] leading-relaxed text-ink/70">
+            This card has an image inside — click the image directly to swap it.
+          </p>
+        </div>
+      ) : (
+        <div className="border-t-2 border-ink/15 pt-3">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+            Background image
+          </p>
+          {info.bgImage && (
+            <p
+              className="mt-1 truncate font-mono text-[10px] text-ink"
+              title={info.bgImage}
+            >
+              Current: {info.bgImage}
+            </p>
+          )}
+          <div className="mt-1 flex gap-2">
+            {/* 2026-05-15 — Shuffle uses Pixabay to fetch a fresh photo
+                matching the card's text content. Sits BEFORE Pick so the
+                vibecoder can try a random match first and only open the
+                full library if they want fine-grained control. */}
+            {onBgImageShuffle && (
+              <button
+                type="button"
+                onClick={handleShuffle}
+                disabled={shuffling}
+                title={
+                  shuffling
+                    ? "Finding a background…"
+                    : "Shuffle — fetch a random photo matching the card's text"
+                }
+                className="flex-1 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {shuffling ? (
+                  <>
+                    <span className="inline-block animate-spin">↻</span> Shuffling…
+                  </>
+                ) : (
+                  "Shuffle ↻"
+                )}
+              </button>
+            )}
             <button
               type="button"
-              onClick={handleShuffle}
-              disabled={shuffling}
-              title={
-                shuffling
-                  ? "Finding a background…"
-                  : "Shuffle — fetch a random photo matching the card's text"
-              }
+              onClick={onBgImagePick}
+              disabled={!onBgImagePick}
               className="flex-1 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {shuffling ? "Shuffling…" : "Shuffle ↻"}
+              {info.bgImage ? "Replace" : "Browse"}
             </button>
-          )}
-          <button
-            type="button"
-            onClick={onBgImagePick}
-            disabled={!onBgImagePick}
-            className="flex-1 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {info.bgImage ? "Replace" : "Browse"}
-          </button>
-          {info.bgImage && (
-            <button
-              type="button"
-              onClick={onBgImageRemove}
-              disabled={!onBgImageRemove}
-              className="border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Remove
-            </button>
-          )}
+            {info.bgImage && (
+              <button
+                type="button"
+                onClick={onBgImageRemove}
+                disabled={!onBgImageRemove}
+                className="border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+          <p className="mt-1 font-mono text-[10px] text-muted">
+            Shuffle picks a random photo from Pixabay. Browse opens the full library.
+          </p>
         </div>
-        <p className="mt-1 font-mono text-[10px] text-muted">
-          Shuffle picks a random photo from Pixabay. Browse opens the full library.
-        </p>
-      </div>
+      )}
 
       <SwapComponentButton onClick={onComponentSwap} />
     </div>

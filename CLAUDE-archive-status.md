@@ -1,8 +1,143 @@
 # CLAUDE-archive-status.md
 
-Archived "Current status" blocks from CLAUDE.md, ordered newest-first. Trimmed from CLAUDE.md on 2026-05-14 to keep that file ~30-35k chars. The live status block in CLAUDE.md is the 2026-05-14 vibecoder simplification.
+Archived "Current status" blocks from CLAUDE.md, ordered newest-first. Trimmed periodically to keep CLAUDE.md lean (~30k chars). The live status blocks in CLAUDE.md are 2026-05-16 (post-research polish plan locked) and 2026-05-15 (Move tool retired + 6 vibecoder wins).
 
 See also: `CLAUDE-archive.md` (AST engines / stack / template playbook) and `~/.claude/projects/C--Users-nikit-akellaPreView/memory/MEMORY.md` (auto-memory index).
+
+---
+
+## Current status (2026-05-14 PM — inline Browse Components grid + JSX-safety + same-dim swap wrap. User signed off: "not perfect but working better")
+
+Same-day follow-up after the morning's 5-phase simplification. User flagged 3 problems in sequence — each got a real fix (instrumented first, then targeted patch).
+
+### Tailwind comment-scan trap (dev-server 500)
+
+`Workspace.tsx:2422,2454` had `bg-[url('…')]` literal strings in COMMENTS describing the bg-image flow. Tailwind's content scanner regex-matches class candidates anywhere in `./components/**/*.{ts,tsx}` (doesn't strip comments) and emitted `background-image: url('…')` CSS. webpack's css-loader tried to resolve `'…'` as a relative module → "Module not found: Can't resolve './…'" at `globals.css:4:1`. Rewrote both comments to describe the class semantically without writing it in `bg-[...]` form. **Generic gotcha** — never put Tailwind-class-shaped strings inside comments in scanned dirs.
+
+### Inline Browse Components grid (LibraryModal-for-components retired)
+
+User's spec: "click → components appear below that button. user can hover over them and either preview or select - preview being modal showing them in full". Implemented as the picker for component swap; icon / image / bg-image modals stay on LibraryModal.
+
+- **New**: `components/VibePropertiesPanel/InlineComponentBrowser.tsx`. Fetches `ComponentIndex` lazily, filters by `category` prop, renders 2-col `<button>` thumb grid. Hover → fixed-position popover to the left with larger thumb + title + source/category/author. Click tile → `getComponentFull(slug)` → `buildInsertPayload(full, mode)` → `onPick(text, opts)`.
+- **Kind-aware filtering**: `Workspace.tsx vibeComponentSwapContext` memo runs Layer 1 (`inferSwapCategory` tag+class tokens) then Layer 2 fallback for utility-Tailwind cases the token heuristic misses: `kind === "button"` → `buttons`; `kind === "container" + isCardLike(info)` → `cards`. New diagnostic field `categorySource`: `hint` / `kind:button` / `kind:container+cardLike` / `none`.
+- **Toggle**: `handleVibeComponentSwapOpen` flips with `setVibeComponentSwapOpen(p => !p)` — second click on Browse components collapses the grid.
+- **Modal mount retired** at `Workspace.tsx:3538` — comment marks the location.
+
+### Same-dimension wrap on component swap (the "doesn't move neighbors" fix)
+
+Component swaps were resizing the slot → surrounding layout shifted. Fix: capture original bbox at selection time, wrap swapped asset in a same-dim container.
+
+- `lib/vibe-edit/runtime.ts vibeSerialize` extended: `bbox: { width, height, display, marginTop, marginRight, marginBottom, marginLeft }` from `getBoundingClientRect()` + `getComputedStyle()` (integer-rounded px; margins parsed via `parseFloat`).
+- `VibeElementInfo.bbox?` field added.
+- `InlineComponentBrowser.handlePick` wraps asset in `<div style={{ width, height, display, overflow: "hidden", margin... }}>` (JSX) or HTML `style="..."` form before calling `onPick`. JSX uses React `style={{}}` object literal; HTML uses semicolon-delimited.
+- **Trade-off chosen**: `overflow: hidden` (layout stays, oversized content clips visually). Alternative `overflow: visible` would let neighbors overlap.
+- **Not handled**: flex `flex-grow/shrink/basis` and grid `grid-column/row` from the original element. If the original was `flex: 1` in a flex container, wrapper takes absolute px instead — neighbors don't shift but the slot also won't auto-fill remaining space. Easy to layer in (capture + apply) if it shows up.
+
+### JSX safety layer (3 fixes)
+
+CSS-bearing Uiverse components + SVG-heavy ones broke JSX-mode swaps:
+
+1. **Fragment wrap for multi-root assets**. `buildInsertPayload` emits comment + `<style>{`...`}</style>` + scoped `<div>` for components with CSS — three top-level JSX siblings, but outer-swap replaces ONE JSXElement → babel "Unexpected token (n:8)". `InlineComponentBrowser.handlePick` wraps in `<>...</>` for JSX mode only (HTML accepts sibling outerHTML natively).
+
+2. **forceRebuild flag** on component swaps. JSX comments `{/* */}` and `<style>{`...`}</style>` template literals don't render via `el.outerHTML = jsxString` in the iframe — DOM ends up with literal text. New `opts.forceRebuild` parameter on `handleVibeOuterSwap` routes through `setCode` (rebuild) instead of `setCodeSilent` (no rebuild). InlineComponentBrowser passes `{ forceRebuild: mode === "jsx" }`; icon/image modals don't pass it → fast path preserved.
+
+3. **`html-to-jsx` converter SVG fixes**. Uiverse cards with SVG icons broke twice:
+   - **Colon-namespaced attrs** (`xmlns:xlink`, `xml:space`, `xlink:href`) → JSX rejects colons in attr names. Added `:([a-z])` → camelCase: `xmlnsXlink`, `xmlSpace`, `xlinkHref`. React maps these to namespaced DOM attrs at render.
+   - **SVG element recasing** — HTML parser lowercases all tags but React requires camelCase for SVG: `lineargradient` → `linearGradient`, `clippath` → `clipPath`, `foreignobject` → `foreignObject`, all `fe*` filter primitives, `animateMotion`, `animateTransform`, etc. 32-entry `SVG_TAG_MAP`.
+   - **SVG attribute recasing** — `viewbox` → `viewBox`, `stopcolor` → `stopColor`, `gradientunits` → `gradientUnits`, etc. 50+ entry `SVG_ATTR_MAP`. Without this React passes them lowercase to DOM and SVG ignores them silently (gradient stops without colors, viewBox unconstrained).
+
+### Diagnostic instrumentation (kept in place — don't remove without reason)
+
+When the swap-category bug initially looked unfixable, added always-on `track()` / `console.log()` at every decision point:
+- `[dropin:Workspace] setTool { next }` — tool button click reached state setter
+- `[dropin:Workspace] vibe:selected { tag, kind, oid, path, classes }` — iframe selection reached host
+- `[dropin:Workspace] vibe:component-swap-toggle { vibeInfoPresent, tag, oid, classes }` — Browse-components clicked
+- `[dropin:Workspace] vibe:component-swap-context { tag, kind, classList, hint, suggestedCategory, categorySource, targetOid }` — heuristic decision visible
+- `[dropin:ComponentsPanel] override-effect-fired { hydrated, initialCategory, initialCategoryKey, currentCategory }`
+- `[dropin:iframe-vibe-click] tool=X target=Y` then `hit atom` / `hit card` / `no editable + no card ancestor → clear`
+
+### Files touched
+
+**New**:
+- `components/VibePropertiesPanel/InlineComponentBrowser.tsx` (~170 LOC — fetches index, filters by category, renders grid, hover popover, click→pick with Fragment wrap + bbox wrap + forceRebuild flag routing)
+
+**Edited**:
+- `components/Workspace.tsx` — CSS comment fix; `inferSwapCategory` import + `isCardLike` import; `vibeComponentSwapContext` memo with Layer 1 + Layer 2 fallback; `handleVibeOuterSwap` accepts `opts.forceRebuild`; toggle on `handleVibeComponentSwapOpen`; component-swap LibraryModal mount removed; diagnostic `track()` calls
+- `components/VibePropertiesPanel.tsx` — accepts `componentBrowserOpen`/`componentBrowserCategory`/`onComponentPick`/`onWarn`/`mode` props; renders `<InlineComponentBrowser preserveBbox={info.bbox ?? null}>`
+- `components/library/asset-panels/ComponentsPanel.tsx` — `console.log` on override-effect-fired
+- `lib/vibe-edit/runtime.ts` — `vibeSerialize` extended with `bbox`; iframe-side click handler logs every click + walk-up branch result
+- `lib/vibe-edit/types.ts` — `VibeElementInfo.bbox?` field with margin × 4
+- `lib/component-library/html-to-jsx.ts` — `SVG_TAG_MAP` (32 entries) + `SVG_ATTR_MAP` (50+ entries) + colon-attr handler in `mapAttrName`
+
+### What's NOT working perfectly (per user "not perfect but working better")
+
+- **Flex/grid context not preserved on swap** — Wrapper takes abs-px width even when original was `flex: 1`.
+- **Existing in-source picks pre-fix don't auto-heal** — anything swapped during the broken-converter window is literal text in user-source.jsx now. Won't fix itself; user re-picks to clean up.
+- **Single-root JSX components also get Fragment-wrapped + forceRebuild** — harmless but a tiny unnecessary rebuild.
+
+---
+
+## Current status (2026-05-14 — vibecoder simplification SHIPPED: toggle gone, Insert hidden, swap-anywhere wired, BG-image control for cards + sections, Plasmic-style cascade badge. 6291/6293 vitest, tsc 0.)
+
+User-driven simplification of the no-code edit flow. Five surgical phases, all green tsc, no regressions. Scope: "we want to remove everywhere/instance toggle... insert feature as well... then any element should have swap function... every element where it makes sense should have background image replacement... fix the bug that if 3 cards in a same section and we change one icon it changes all".
+
+### Phase 1 — Everywhere/Instance toggle REMOVED, locked to instance mode
+
+- `propagationMode` state + localStorage persistence + setter all deleted from `Workspace.tsx`.
+- Phase D cross-file branch + Phase F multi-instance preflight branch deleted from `handleClassChange` + `handleSwap`. Both code paths only fired when toggle === "everywhere".
+- Imports of `findCrossFileDefinition` / `findInlineComponentDefRootOid` / `findAllInstancesOfDefinition` / `planEverywhereSwap` / `patchJsxClassByOid` / `createEdit` dropped from Workspace. `applyEditDirect` removed from `useEditHistory` destructure (no consumers left).
+- `WorkspaceActions` segmented control + props (`propagationMode` / `onPropagationModeChange`) gone.
+- **NB**: The Phase D/F **pure-logic libs** (`lib/swap/plan-everywhere-swap.ts`, `lib/ast/instance-graph.ts`, `lib/ast/cross-file-query.ts`, `lib/ast/component-def.ts`, `lib/edits/operations.ts` `createEdit` half, `lib/ast/patch-class-by-oid.ts` `patchJsxClassByOid` only) + their ~150 prod-import tests REMAIN. Dead-but-tested.
+
+### Phase 2 — Insert tool HIDDEN
+
+- `TOOL_LIST` in `components/ToolBar.tsx` now `["view", "vibe", "move"]`.
+- `'i'` keyboard shortcut removed.
+- Persisted `dropin:tool === "insert"` migrates to `"view"` on next mount.
+- `Tool` union member + `insert` message type stay (internal callers still emit).
+- All `lib/ast/operations/insert.ts` + insert-target tracking + LibraryModal insertContext code paths intact and untouched.
+
+### Phase 3 — Kind-aware Swap, everywhere
+
+- New `vibeComponentSwapOpen` state. `handleVibeComponentSwapOpen` / `Close` / `Pick` callbacks (kind-agnostic).
+- Third `LibraryModal` mount with `suggestedPanel: "components"`. Same outer-replacement flow as the existing icon + image modals.
+- New shared `SwapComponentButton` exported from `components/VibePropertiesPanel.tsx`. Rendered at the bottom of `TextControls` (text/heading/button), `LinkControls`, `CardControls`.
+- Closes on pick + on selection-path change + on tool exit.
+
+### Phase 4 — Background-image control for cards + semantic sections
+
+- `VibeElementInfo.bgImage?: string | null` field added.
+- Iframe runtime's `vibeSerialize` reads `cs.backgroundImage`, parses `url("…")` → URL string OR null.
+- Iframe runtime `vibeIsCardLike` split into two predicates: **`vibeHasCardChrome`** (bg / rounded / shadow / border) used by the span-override walk-up; **`vibeIsCardLike`** = `vibeIsSemanticSection(el) || vibeHasCardChrome(el)` used by the post-editable-atom card-ancestor fallback.
+- Host-side `lib/vibe-edit/detect.ts isCardLike` extends with `SECTION_TAGS` Set so the panel routes section elements to CardControls.
+- `StyleDelta.bgImageUrl?: string | null` added to `lib/vibe-edit/style-to-class.ts`. null/"" = strip; string = strip + add `bg-[url('…')] bg-cover bg-center bg-no-repeat`. `encodeBgImageUrl` helper encodes `'` and `]`; rejects `javascript:` / `data:` / `vbscript:` URL prefixes (XSS guard).
+- Workspace idle-commit drift detector extended with `bgImage` field check + `styleDelta.bgImageUrl` emission.
+- `handleVibeBgImagePick` extracts URL from Media-panel asset block, posts `vibe:update-style`.
+- `handleVibeBgImageRemove` clears the bg.
+- `CardControls` gets a new "Background image" section with Pick/Replace + Remove buttons.
+
+### Phase 5 — Plasmic-style "Editing all N copies" badge for cascading edits
+
+Research finding before locking the design: industry-best-practice in mature React visual editors **is** cascade. Plasmic's docs explicitly: "edits are applied to the first replica only, those edits automatically propagate to all other replicas in the loop". Onlook (the visual editor the OID system was modelled on per `lib/ast/oids.ts`) has the same limitation.
+
+- Iframe runtime: new `vibeInstanceCount(oid)` does `document.querySelectorAll('[data-dropin-id="<oid>"]').length`.
+- `vibeSerialize` emits `instanceCount`. `VibeElementInfo.instanceCount?: number` optional field.
+- `VibePropertiesPanel` renders coral info chip when `instanceCount > 1`: "**Editing all N copies** — This element appears N times."
+- No AST surgery. No auto-expansion.
+- **Trap caught + recorded**: chip-comment used backticks (`` `.map()` ``) inside the runtime template literal block → backtick closed the outer TS template at parse time. Per `memory: ts_template_backtick_trap`.
+
+### Files touched (Phase 1-5)
+
+- `components/Workspace.tsx` — net -147 LOC (Phase D/F branches + toggle UI + propagation state/setter), +180 LOC (3 swap-state lifecycles + bgImage flow)
+- `components/ToolBar.tsx` — TOOL_LIST minus `insert`
+- `components/VibePropertiesPanel.tsx` — onComponentSwap + onBgImagePick + onBgImageRemove props; SwapComponentButton; instance-count chip; section-tag routing to CardControls
+- `components/VibePropertiesPanel/TextControls.tsx` + `LinkControls.tsx` + `CardControls.tsx` — Browse-components button. CardControls also gets the bg-image section
+- `lib/vibe-edit/types.ts` — bgImage? + instanceCount? on VibeElementInfo
+- `lib/vibe-edit/runtime.ts` — vibeParseBgImageUrl + vibeHasCardChrome + vibeIsSemanticSection + vibeInstanceCount + extended vibeSerialize
+- `lib/vibe-edit/detect.ts` — SECTION_TAGS Set + extended isCardLike
+- `lib/vibe-edit/style-to-class.ts` — bgImageUrl on StyleDelta + bg-image regex constants + encodeBgImageUrl URL guard
+
+### Tests: tsc 0; vitest 6291/6293 across 114 files. Zero regressions.
 
 ---
 

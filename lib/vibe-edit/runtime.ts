@@ -346,7 +346,13 @@ export function vibeRuntimeJs(): string {
         classes: el.getAttribute('class') || '',
         bgImage: cs ? vibeParseBgImageUrl(cs.backgroundImage) : null,
         instanceCount: vibeInstanceCount(oid),
-        bbox: bbox
+        bbox: bbox,
+        // 2026-05-16 — flag for the CardControls bg-image picker so it
+        // hides itself when the card already has an <img> descendant.
+        // Otherwise picking a bg-image stacks the new bg under the
+        // existing inner img → visual overlay mess. querySelector
+        // short-circuits at the first hit so cost is O(1) effectively.
+        hasInnerImg: el.querySelector ? !!el.querySelector('img') : false
       };
     }
 

@@ -2703,6 +2703,11 @@ export default function Workspace({
         if (!nextSrc) continue;
         console.log("[dropin:BGShuffle] applying", { query, nextSrc });
         applyVibeBgImageUrl(nextSrc);
+        // 2026-05-16 — positive-path toast paired with the per-image
+        // Shuffle success toast in ImageControls. Bg-image change is
+        // visible but the cover-positioned background can be subtle
+        // on the first photo load — toast confirms the intent landed.
+        showInfo("Background updated · Undo to revert");
         return;
       } catch (e) {
         console.log("[dropin:BGShuffle] caught error", {
@@ -3901,6 +3906,7 @@ export default function Workspace({
               }
               onComponentPick={handleVibeOuterSwap}
               onWarn={showWarn}
+              onInfo={showInfo}
               mode={kind}
             />
           </div>
@@ -4038,6 +4044,24 @@ export default function Workspace({
           role="status"
         >
           {rollToast.icon} {rollToast.text}
+        </div>
+      )}
+
+      {/* 2026-05-16 — Empty-state hint for view mode. When the user is in
+          View (read-only) tool with no selection, surface the "Press E
+          to start editing" prompt so first-time vibecoders don't bounce
+          off a non-responsive canvas. Bottom-right placement avoids
+          conflict with the bottom-center toast slot and the bottom-right
+          FirstOpenTour card (which only fires once-per-user). pointer-
+          events: none keeps iframe clicks pass-through. Hides on any
+          non-view tool to avoid clutter during active editing. */}
+      {tool === "view" && (
+        <div
+          className="pointer-events-none fixed bottom-6 right-6 z-[60] hidden lg:block border-2 border-ink bg-paper px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink shadow-[4px_4px_0_0_#FF4D2E]"
+          role="status"
+          aria-label="View mode hint"
+        >
+          Press <span className="bg-ink px-1.5 text-paper">E</span> to start editing
         </div>
       )}
 

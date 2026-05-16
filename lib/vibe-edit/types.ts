@@ -97,6 +97,13 @@ export interface VibeElementInfo {
     marginBottom: number;
     marginLeft: number;
   };
+  // 2026-05-16 — true when the element has an <img> descendant. Used
+  // by CardControls to hide the bg-image picker on cards/figures that
+  // already contain an inner image, since picking a bg-image would
+  // stack under the existing img instead of replacing it. The user
+  // should click the inner img directly to swap that image. Optional
+  // for backwards-compat with older test fixtures + message shapes.
+  hasInnerImg?: boolean;
 }
 
 // Iframe → host. Sent via parent.postMessage with the existing

@@ -84,6 +84,10 @@ interface VibePropertiesPanelProps {
     opts?: { forceRebuild?: boolean },
   ) => void;
   onWarn?: (message: string) => void;
+  // 2026-05-16 — positive-path toast routing. Passed through to
+  // ImageControls (per-image Shuffle success) and used directly in
+  // CardControls bg-image flow. Wired from Workspace.showInfo.
+  onInfo?: (message: string) => void;
   mode?: PreviewKind;
 }
 
@@ -107,6 +111,7 @@ export default function VibePropertiesPanel({
   componentBrowserCategory,
   onComponentPick,
   onWarn,
+  onInfo,
   mode,
 }: VibePropertiesPanelProps) {
   if (!info) {
@@ -201,6 +206,7 @@ export default function VibePropertiesPanel({
           onImageChange={onImageChange}
           onSwapClick={onImageSwap}
           onWarn={onWarn}
+          onInfo={onInfo}
         />
       )}
 
