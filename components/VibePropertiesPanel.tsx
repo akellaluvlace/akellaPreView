@@ -258,6 +258,12 @@ export default function VibePropertiesPanel({
           onPick={onComponentPick}
           onWarn={onWarn}
           preserveBbox={info.bbox ?? null}
+          preserveContent={{
+            text: info.text || undefined,
+            href: info.href || undefined,
+            src: info.src || undefined,
+            alt: info.alt || undefined,
+          }}
         />
       )}
 

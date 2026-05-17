@@ -10,6 +10,10 @@ import {
   getComponentFull,
 } from "@/lib/component-library/client";
 import { buildInsertPayload } from "@/lib/component-library/insert";
+import {
+  applyPreservedContent,
+  type PreserveContent,
+} from "@/lib/component-library/preserve-content";
 import type { PreviewKind } from "@/lib/preview";
 
 interface Props {
@@ -34,6 +38,13 @@ interface Props {
     marginBottom: number;
     marginLeft: number;
   } | null;
+  // 2026-05-17 — Original element's content (text, href, src, alt).
+  // Applied to the library asset BEFORE outer-replace so the swap
+  // adapts to the vibecoder's existing text instead of clobbering it
+  // with the library's hardcoded label. Null/undefined skips the
+  // transform (asset retains its library defaults). See
+  // lib/component-library/preserve-content.ts for the heuristic.
+  preserveContent?: PreserveContent | null;
 }
 
 export default function InlineComponentBrowser({
@@ -42,6 +53,7 @@ export default function InlineComponentBrowser({
   onPick,
   onWarn,
   preserveBbox,
+  preserveContent,
 }: Props) {
   const [index, setIndex] = useState<ComponentIndex | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -82,6 +94,17 @@ export default function InlineComponentBrowser({
     try {
       const full = await getComponentFull(slug);
       const payload = buildInsertPayload(full, mode);
+      // 2026-05-17 — Preserve original content (text label, href, src,
+      // alt) by transforming the library asset BEFORE wrapping. The
+      // longest visible text node wins; the first literal href/src/alt
+      // attrs get swapped. Without this, the swap clobbers the user's
+      // "Sign up" label with the library's "Click me" — the user-
+      // reported "feature is completely useless" case. See
+      // lib/component-library/preserve-content.ts for heuristic + edge
+      // cases.
+      const adaptedText = preserveContent
+        ? applyPreservedContent(payload.text, preserveContent)
+        : payload.text;
       // Outer-swap replaces a single JSX element. buildInsertPayload
       // emits multiple top-level siblings when the component has CSS
       // (attribution comment + `<style>{`...`}</style>` + scoped
@@ -92,7 +115,7 @@ export default function InlineComponentBrowser({
       // nodes), so wrap only for JSX. The fragment marker
       // `<>...</>` collapses at render time and adds no DOM bloat.
       const innerText =
-        mode === "jsx" ? `<>\n${payload.text}\n</>` : payload.text;
+        mode === "jsx" ? `<>\n${adaptedText}\n</>` : adaptedText;
 
       // Same-dimension wrap. The target element's pre-swap bbox locks
       // the swapped asset's footprint so the surrounding layout stays
