@@ -134,12 +134,13 @@ export default function AiScopeChip({
           {copied ? "Copied!" : "Copy"}
         </button>
       </div>
-      {/* Ephemeral warning per plan §10 Q#2. AI edits live in the iframe
-          DOM only — they survive selection changes but NOT iframe rebuilds
-          (Monaco edit, file switch, Reset). Source persistence is deferred
-          to Phase 4+. Set vibecoder expectations upfront. */}
+      {/* Phase 4 — Source persistence shipped: HTML mode patches by path,
+          JSX mode patches by OID after html→jsx conversion. Caveat for
+          JSX templates: dynamic expressions (e.g. {label}) inside the
+          edited element get baked into their current rendered text. The
+          warning makes that tradeoff visible upfront. */}
       <div className="font-sans text-[10px] normal-case tracking-normal text-muted">
-        Edits live for this session — switch tools or Save in Monaco to persist.
+        Saves to source · JSX expressions in edited elements get baked in
       </div>
     </div>
   );

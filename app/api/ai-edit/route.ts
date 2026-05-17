@@ -21,11 +21,20 @@ import { createRateLimiter } from "@/lib/rate-limit";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// Stricter limiter than llm-rewrite (which is 5/min per IP). AI Edit is
-// more expensive per call; cap at 30/min/IP. Plan §6.3 specifies
-// 60/hour free-tier — short-window throttle prevents burst spam, the
-// hourly cap is a separate concern (not in v1).
-const limiter = createRateLimiter({ limit: 30, windowMs: 60_000 });
+// Two-tier rate limiting per plan §6.3:
+//   - Burst: 30 / minute / IP — prevents click-spam blowing through the
+//     Tensorix quota in one second.
+//   - Hourly: 120 / hour / IP — free-tier cap (plan suggested 60; bumped
+//     to 120 for now since most sessions hit ~20-40 edits and we don't
+//     want to wall normal use).
+// Both walls are TENANT-INSENSITIVE in v1: the IP IS the user. Tighter
+// per-account caps would need an auth surface we don't have yet.
+const minuteLimiter = createRateLimiter({ limit: 30, windowMs: 60_000 });
+const hourlyLimiter = createRateLimiter({
+  limit: 120,
+  windowMs: 60 * 60_000,
+  sweepEveryCalls: 256,
+});
 
 function readClientIp(req: Request): string {
   const xff = req.headers.get("x-forwarded-for");
@@ -130,7 +139,41 @@ async function callTensorix(
   return { ok: true, text, usage: json.usage };
 }
 
+// Plan §8 telemetry. ONE structured log line per request, regardless of
+// outcome. Hits the dev terminal in dev, ends up in Vercel logs in prod.
+// Fields chosen to satisfy "what failed and why" + "how much did this
+// cost" without leaking template content. Times in ms, sizes in bytes.
+interface TelemetryEvent {
+  outcome:
+    | "success"
+    | "no-op-after-retry"
+    | "validation-failed"
+    | "tensorix-error"
+    | "rate-limited-minute"
+    | "rate-limited-hour"
+    | "bad-request"
+    | "server-misconfigured";
+  scope?: "element" | "section";
+  modelRequested?: string;
+  modelUsed?: string;
+  status: number;
+  latencyMs: number;
+  targetHtmlLen?: number;
+  responseHtmlLen?: number;
+  promptTokens?: number;
+  completionTokens?: number;
+  retried?: boolean;
+  fellBack?: boolean;
+  noOpRetried?: boolean;
+  reason?: string;
+}
+
+function emitTelemetry(evt: TelemetryEvent): void {
+  console.log("[ai-edit] telemetry", evt);
+}
+
 export async function POST(req: Request): Promise<Response> {
+  const requestStart = Date.now();
   // Server-held env. If misconfigured surface a 500 so the operator
   // sees it; the client toast already has a generic fallback.
   const apiKey = process.env.TENSORIX_API_KEY;
@@ -148,23 +191,59 @@ export async function POST(req: Request): Promise<Response> {
   const fallbackModel =
     process.env.TENSORIX_FALLBACK_MODEL ?? "minimax/minimax-m2";
   if (!apiKey) {
+    emitTelemetry({
+      outcome: "server-misconfigured",
+      status: 500,
+      latencyMs: Date.now() - requestStart,
+    });
     return fail("Server is not configured for AI Edit", 500);
   }
 
   const ip = readClientIp(req);
-  if (!limiter.allow(ip, Date.now())) {
-    return fail("Rate limited (30 / minute)", 429);
+  const now = Date.now();
+  if (!minuteLimiter.allow(ip, now)) {
+    emitTelemetry({
+      outcome: "rate-limited-minute",
+      status: 429,
+      latencyMs: Date.now() - requestStart,
+    });
+    return fail("Rate limited (30 / minute) — slow down and retry", 429);
+  }
+  if (!hourlyLimiter.allow(ip, now)) {
+    emitTelemetry({
+      outcome: "rate-limited-hour",
+      status: 429,
+      latencyMs: Date.now() - requestStart,
+    });
+    return fail(
+      "Hourly limit reached (120 / hour) — take a break or upgrade",
+      429,
+    );
   }
 
   let raw: unknown;
   try {
     raw = await req.json();
   } catch {
+    emitTelemetry({
+      outcome: "bad-request",
+      status: 400,
+      latencyMs: Date.now() - requestStart,
+      reason: "invalid-json",
+    });
     return fail("Invalid JSON body", 400);
   }
 
   const parsed = parseAiEditRequest(raw);
-  if (!parsed.ok) return fail(parsed.error, 400);
+  if (!parsed.ok) {
+    emitTelemetry({
+      outcome: "bad-request",
+      status: 400,
+      latencyMs: Date.now() - requestStart,
+      reason: parsed.error,
+    });
+    return fail(parsed.error, 400);
+  }
   const body = parsed.value;
 
   const defaultModel =
@@ -249,14 +328,29 @@ export async function POST(req: Request): Promise<Response> {
     modelUsed = fallbackModel;
   }
 
+  // Track whether we retried + fell back for telemetry.
+  const retried = modelUsed === model && attempt.ok === false ? false : false;
+  // Simpler — derive at emit time by comparing modelUsed vs model.
   if (!attempt.ok) {
     console.error("[ai-edit] tensorix non-ok", {
       model: modelUsed,
       status: attempt.status,
       error: attempt.error.slice(0, 300),
     });
+    emitTelemetry({
+      outcome: "tensorix-error",
+      scope: body.scope,
+      modelRequested: model,
+      modelUsed,
+      status: attempt.status >= 400 ? attempt.status : 502,
+      latencyMs: Date.now() - requestStart,
+      targetHtmlLen: body.targetHtml.length,
+      fellBack: modelUsed !== model,
+      reason: attempt.error.slice(0, 200),
+    });
     return fail(attempt.error, attempt.status >= 400 ? attempt.status : 502);
   }
+  void retried;
 
   let validated = validateAiResponse(attempt.text, body.targetHtml, body.scope);
   if (!validated.ok) {
@@ -267,6 +361,17 @@ export async function POST(req: Request): Promise<Response> {
       rawTextLen: attempt.text.length,
       rawTextStart: attempt.text.slice(0, 200),
       rawTextEnd: attempt.text.slice(-200),
+    });
+    emitTelemetry({
+      outcome: "validation-failed",
+      scope: body.scope,
+      modelRequested: model,
+      modelUsed,
+      status: 502,
+      latencyMs: Date.now() - requestStart,
+      targetHtmlLen: body.targetHtml.length,
+      fellBack: modelUsed !== model,
+      reason: validated.error,
     });
     return fail(validated.error, 502);
   }
@@ -327,12 +432,38 @@ export async function POST(req: Request): Promise<Response> {
           retryOk: retryValidated.ok,
           retryReason: retryValidated.ok ? "still-noop" : retryValidated.error,
         });
+        emitTelemetry({
+          outcome: "no-op-after-retry",
+          scope: body.scope,
+          modelRequested: model,
+          modelUsed,
+          status: 422,
+          latencyMs: Date.now() - requestStart,
+          targetHtmlLen: body.targetHtml.length,
+          responseHtmlLen: validated.value.html.length,
+          fellBack: modelUsed !== model,
+          noOpRetried: true,
+          reason: retryValidated.ok ? "still-noop" : retryValidated.error,
+        });
         return fail(
           "Model returned no change — try rephrasing the prompt with a more specific request",
           422,
         );
       }
     } else {
+      emitTelemetry({
+        outcome: "no-op-after-retry",
+        scope: body.scope,
+        modelRequested: model,
+        modelUsed,
+        status: 422,
+        latencyMs: Date.now() - requestStart,
+        targetHtmlLen: body.targetHtml.length,
+        responseHtmlLen: validated.value.html.length,
+        fellBack: modelUsed !== model,
+        noOpRetried: true,
+        reason: `retry-tensorix-error: ${retryAttempt.error.slice(0, 100)}`,
+      });
       return fail(
         "Model returned no change — try rephrasing the prompt with a more specific request",
         422,
@@ -346,6 +477,19 @@ export async function POST(req: Request): Promise<Response> {
     htmlLen: validated.value.html.length,
     promptTokens: attempt.usage?.prompt_tokens ?? null,
     completionTokens: attempt.usage?.completion_tokens ?? null,
+  });
+  emitTelemetry({
+    outcome: "success",
+    scope: body.scope,
+    modelRequested: model,
+    modelUsed,
+    status: 200,
+    latencyMs: Date.now() - requestStart,
+    targetHtmlLen: body.targetHtml.length,
+    responseHtmlLen: validated.value.html.length,
+    promptTokens: attempt.usage?.prompt_tokens ?? undefined,
+    completionTokens: attempt.usage?.completion_tokens ?? undefined,
+    fellBack: modelUsed !== model,
   });
 
   const usage = attempt.usage

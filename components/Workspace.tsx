@@ -99,9 +99,12 @@ import {
   extractHtmlElement,
   patchHtmlAttr,
   patchHtmlClass,
+  patchHtmlOuter,
   patchHtmlRemoveAttr,
   patchHtmlText,
 } from "@/lib/source-patch-html";
+import { patchJsxOuterByOid } from "@/lib/ast/patch-class-by-oid";
+import { htmlToJsx } from "@/lib/component-library/html-to-jsx";
 import type {
   ElementLoc,
   ElementSelection,
@@ -2580,41 +2583,121 @@ export default function Workspace({
         completionTokens: result.usage?.completion ?? 0,
       });
 
-      // Push the swap to the iframe. The iframe will re-emit
-      // ai:applied → handleAiApplied flips aiBusy off + updates the chip.
+      // Push the swap to the iframe FIRST for instant visual feedback —
+      // ai:apply-outer mutates DOM in ~5ms; the rebuild from setCode that
+      // follows is closer to 50-100ms and would flicker without this
+      // optimistic step. Iframe will re-emit ai:applied → handleAiApplied
+      // flips aiBusy off.
       previewHandleRef.current?.postVibe({
         type: "ai:apply-outer",
         path: info.path,
         newOuterHtml: result.html,
       });
 
+      // Phase 4 — Source persistence. Route through setCode so the edit
+      // survives iframe rebuild, Monaco edits, undo via Ctrl+Z, page
+      // reload. HTML mode uses path-based patch. JSX mode uses OID-based
+      // patch + html-to-jsx conversion. Either failure mode keeps the
+      // iframe mutation alive (session-only) + surfaces a warn so the
+      // user knows it's not persisted.
+      let persisted = false;
+      let persistReason: string | null = null;
+      if (kind === "html") {
+        if (info.htmlPath) {
+          const patch = patchHtmlOuter(code, info.htmlPath, result.html);
+          if (patch.changed) {
+            setCode(patch.source);
+            persisted = true;
+          } else {
+            persistReason =
+              ("reason" in patch && patch.reason) || "html patch unchanged";
+          }
+        } else {
+          persistReason = "html element has no path";
+        }
+      } else {
+        // JSX mode. Convert rendered HTML to JSX first (className, void
+        // self-closing, camelCase attrs). Then patch by OID.
+        if (info.oid) {
+          let jsx: string | null = null;
+          try {
+            jsx = htmlToJsx(result.html);
+          } catch (e) {
+            persistReason = `html→jsx failed: ${String(e)}`;
+          }
+          if (jsx) {
+            const patch = patchJsxOuterByOid(code, info.oid, jsx);
+            if (patch.changed) {
+              setCode(patch.source);
+              persisted = true;
+            } else {
+              persistReason = patch.reason || "jsx patch unchanged";
+            }
+          }
+        } else {
+          persistReason = "jsx element has no OID — can't persist";
+        }
+      }
+
       // Toast surfaces immediately on success — the iframe swap is
       // synchronous + we'd rather give feedback now than wait the
       // round-trip. handleAiApplied will reconcile state.
       const notes = result.notes ? ` · ${result.notes}` : "";
+      const persistTag = persisted ? "" : " · session only";
       const snapshot = aiLastEditRef.current;
       const undoEntry = {
         icon: "✨",
-        text: `Edit applied${notes}`,
+        text: `Edit applied${persistTag}${notes}`,
         action: snapshot
           ? {
               label: "Undo",
               onAction: () => {
-                // Revert by re-posting the original outerHTML at the same
-                // path. handleAiApplied will fire on the iframe round-trip
-                // and re-emit ai:selected for the reverted node. Clear the
-                // snapshot afterwards so a stale undo can't double-fire.
+                // Phase 4 — Undo routes through source patch when the
+                // edit was persisted, so Ctrl+Z + history-redo lines up.
+                // For session-only edits, falls back to direct iframe
+                // mutation.
+                if (persisted) {
+                  if (kind === "html" && snapshot && info.htmlPath) {
+                    const p = patchHtmlOuter(
+                      code,
+                      info.htmlPath,
+                      snapshot.originalHtml,
+                    );
+                    if (p.changed) setCode(p.source);
+                  } else if (kind !== "html" && snapshot && info.oid) {
+                    try {
+                      const j = htmlToJsx(snapshot.originalHtml);
+                      const p = patchJsxOuterByOid(code, info.oid, j);
+                      if (p.changed) setCode(p.source);
+                    } catch {
+                      // Ignore — fall through to iframe-only undo below
+                    }
+                  }
+                }
+                // Iframe-DOM revert in either path: when persisted, the
+                // setCode above already triggered a rebuild that will
+                // overwrite the iframe DOM anyway, so this is a no-op for
+                // those cases. When session-only it's the actual undo.
                 previewHandleRef.current?.postVibe({
                   type: "ai:apply-outer",
                   path: snapshot.path,
                   newOuterHtml: snapshot.originalHtml,
                 });
                 aiLastEditRef.current = null;
-                track("ai:undo");
+                track("ai:undo", { persisted });
               },
             }
           : undefined,
       };
+      if (!persisted && persistReason) {
+        console.warn("[dropin:Workspace] ai-edit persist skipped", {
+          reason: persistReason,
+          kind,
+          path: info.path,
+          oid: info.oid,
+        });
+      }
+      track("ai:persisted", { persisted, kind, reason: persistReason });
       setRollToast(undoEntry);
       setTimeout(
         () => setRollToast((s) => (s === undoEntry ? null : s)),
@@ -2624,7 +2707,7 @@ export default function Workspace({
         6000,
       );
     },
-    [aiInfo, aiBusy, showWarn],
+    [aiInfo, aiBusy, code, kind, setCode, showWarn],
   );
 
   // Phase 2 — Iframe confirmed the swap. Re-emitted ai:selected has

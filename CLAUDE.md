@@ -15,7 +15,7 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-17 PM — AI Edit Phase 2 + 3 polish shipped end-to-end. Element edits land in 2-3s on qwen3-coder default. Section mode routed to minimax-m2 default. tsc 0 throughout. vitest 6291/6293 (+2 pre-existing envelope failures unrelated). Uncommitted — ready for commit.)
+## Current status (2026-05-17 PM — AI Edit Phase 2 + 3 + 4 shipped end-to-end. Element edits land in 2-3s on qwen3-coder default + persist to source via existing patchHtmlOuter / patchJsxOuterByOid. Telemetry + two-tier rate limits live. tsc 0 throughout. vitest 6291/6293 (+2 pre-existing envelope failures unrelated). Phase 2+3 committed at `4c80cc8`; Phase 4 uncommitted, ready for commit.)
 
 ### Phase 2 — Tensorix API integration (uncommitted)
 
@@ -93,12 +93,43 @@ qwen's known limit: conservative on creative prompts ("redesign as glass-morphis
 - **HTML-to-JSX export on Copy** — plan §10 Q#2 mentions it; plain HTML copy ships in this batch + JSX flavor lands when user requests.
 - **Telemetry / streaming responses / "Report bad edit"** — Phase 4+ hardening.
 
-### What's next: Phase 4 (after user manual-test signal)
+### Phase 4 — Hardening + source persistence (uncommitted)
 
-- Telemetry: capture (scope, template ID, model used, input/output tokens, latency, success/failure/aborted) per edit. Plan §8.
-- Rate limiting tighter: 60/hour and 200/session ceilings per plan §6.3+§6.4.
-- Section-mode quality testing across all 108 templates — current heavy testing was element-mode only.
-- Source-persistence design: ephemeral edits work for the single-session case; if vibecoders complain about iframe rebuilds wiping work, design an opt-in "Save these AI edits to source" button.
+**Telemetry** — single structured `[ai-edit] telemetry` log per request emitted from `app/api/ai-edit/route.ts`. Fields: outcome (success / no-op-after-retry / validation-failed / tensorix-error / rate-limited-minute / rate-limited-hour / bad-request / server-misconfigured), scope, modelRequested, modelUsed, status, latencyMs, targetHtmlLen, responseHtmlLen, promptTokens, completionTokens, fellBack, noOpRetried, reason. Hits dev terminal in dev, Vercel logs in prod. Never logs template content — only sizes + counts.
+
+**Two-tier rate limiting** — 30/minute (burst protection) + 120/hour (free-tier cap, plan §6.3 spec'd 60 but bumped because most sessions hit 20-40 edits). Both via `lib/rate-limit` instances. IP-keyed in v1 (no auth surface yet). Hourly limiter uses sweepEveryCalls=256 to amortize the larger windowMs.
+
+**Source persistence** (the big one — plan §10 Q#2 had this deferred; pragmatic version shipped). After ai:applied lands in the iframe, Workspace also writes the swap to source via existing patch infra:
+- **HTML mode**: `patchHtmlOuter(code, info.htmlPath, result.html)` from `lib/source-patch-html` → `setCode(patched)`.
+- **JSX mode**: `htmlToJsx(result.html)` from `lib/component-library/html-to-jsx` (the retired-on-disk converter) → `patchJsxOuterByOid(code, info.oid, jsx)` from `lib/ast/patch-class-by-oid` → `setCode(patched)`.
+- Persist failure (no htmlPath / no OID / patch unchanged / html→jsx threw): keep the iframe DOM mutation alive (session-only) + console.warn. Toast suffixed with `· session only` so the user knows.
+- Undo button now also routes through `setCode` with original-html-patched source when persistence succeeded, so Ctrl+Z + redo line up. Falls back to iframe-DOM-only undo when persistence was skipped.
+
+**JSX caveat** — dynamic expressions (e.g. `{label}`, `{count + 1}`, ternaries) inside the edited element get baked into their current rendered text. This is the fundamental tradeoff the plan flagged. AiScopeChip's second-line caption surfaces this explicitly: `Saves to source · JSX expressions in edited elements get baked in`. User signs up for this by clicking AI tool.
+
+**Iframe rebuild trade-off** — `setCode` triggers a full iframe rebuild (~50-100ms). User sees: instant `ai:apply-outer` mutation → brief rebuild flash → final rendered state from new source. Selection chip clears on rebuild (consistent with vibe-edit setCode flow). Undo toast (6s) is the bridge — user can revert before the toast disappears even after rebuild.
+
+### Files touched (Phase 4 batch)
+
+- `app/api/ai-edit/route.ts` — telemetry events, two-tier rate limiter.
+- `components/Workspace.tsx` — persistAiEditToSource inline in handleAiSubmit, undo routes through setCode when persisted, deps updated `[aiInfo, aiBusy, code, kind, setCode, showWarn]`.
+- `components/AiScopeChip.tsx` — caption updated from "Edits live this session" to "Saves to source · JSX expressions get baked in".
+
+tsc 0. vitest 6291/6293 (2 envelope-channel failures pre-existing, unrelated to AI Edit).
+
+### What's NOT in this batch (still deferred)
+
+- bbox-anchored prompt bar (needs wrapper-ref + watchBbox).
+- 50-action session history side panel (toast-undo + Ctrl+Z cover 90%).
+- HTML-to-JSX flavor on Copy chip button (plain HTML ships).
+- Streaming responses (Phase 5 polish).
+- Section-mode quality testing across all 108 templates — needs manual user signal.
+
+### What's next (when user signals)
+
+- Manual stress test source persistence across HTML + JSX templates. Particularly: does the AI's rendered HTML round-trip through htmlToJsx cleanly on the 108 templates' edge cases (SVG namespaces, `<picture>`, `<video>`, custom elements)?
+- bbox-anchored prompt bar polish.
+- Per-edit cost dashboard (telemetry already in place — just needs a consumer).
 
 ---
 
