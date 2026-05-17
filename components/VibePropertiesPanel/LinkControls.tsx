@@ -17,8 +17,26 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import { rgbToHex } from "@/lib/vibe-edit/rgb-to-hex";
+import { isLinkStyledAsButton } from "@/lib/vibe-edit/detect";
 import TextTypographyExtras from "./TextTypographyExtras";
 import { SwapComponentButton } from "../VibePropertiesPanel";
+
+// 2026-05-17 — Default button chrome applied by "Style as button". Uses
+// Tailwind palette utilities everyone has (no custom theme tokens) so
+// the action lands cleanly regardless of the template's design. After
+// application, the existing color pickers + Browse components are
+// immediately useful for further customization.
+//   inline-block: <a> defaults to inline; padding doesn't render
+//                 vertically on pure inline. inline-block makes the
+//                 padding take.
+//   bg-blue-600 + text-white: high-contrast default — vibecoder
+//                 can override with the color pickers in seconds.
+//   px-4 py-2: comfortable button padding.
+//   rounded: subtle corner that reads as "button" not "card".
+//   font-medium: visual weight match to most button design systems.
+//   no-underline: <a> defaults to underlined; buttons don't.
+const BUTTON_CHROME_CLASSES =
+  "inline-block bg-blue-600 text-white px-4 py-2 rounded font-medium no-underline";
 
 // TextControls owns the background colour picker, so transparent bg
 // should NOT render as a black square (indistinguishable from a black
@@ -177,6 +195,36 @@ export default function LinkControls({
           classes={info.classes ?? ""}
           onClassesChange={onClassesChange}
         />
+      )}
+
+      {/* 2026-05-17 — "Style as button" action. Only shown when this
+          link doesn't already have button chrome (per isLinkStyledAsButton).
+          One-click conversion: appends Tailwind utility chrome to the
+          class list. After application, the iframe re-emits vibe:selected
+          with the new classes → isLinkStyledAsButton flips true → this
+          chip hides, header flips to "Button", swap-category flips to
+          "buttons". Vibecoder can immediately tweak color via the picker
+          above. Undo (or Save now's history entry) reverts cleanly. */}
+      {onClassesChange && !isLinkStyledAsButton(info) && (
+        <button
+          type="button"
+          onClick={() => {
+            const current = (info.classes || "").trim();
+            // Naive append — Tailwind tolerates duplicate utility classes
+            // (last-wins at the cascade level for declarations; class
+            // tokens themselves dedupe in the class attribute parser).
+            // If a vibecoder clicks twice somehow, we get a harmless
+            // double token.
+            const next = current
+              ? `${current} ${BUTTON_CHROME_CLASSES}`
+              : BUTTON_CHROME_CLASSES;
+            onClassesChange(next);
+          }}
+          title="Make this link look like a button — adds bg color, rounded corners, padding. Customize with the color pickers above."
+          className="w-full border-2 border-coral bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-coral hover:bg-coral hover:text-paper"
+        >
+          ✨ Style as button
+        </button>
       )}
 
       <SwapComponentButton onClick={onComponentSwap} />
