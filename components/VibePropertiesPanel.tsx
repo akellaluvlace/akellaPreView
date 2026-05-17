@@ -224,6 +224,8 @@ export default function VibePropertiesPanel({
           info={info}
           onLinkChange={onLinkChange}
           onContentChange={onContentChange}
+          onStyleChange={onStyleChange}
+          onClassesChange={onClassesChange}
           onComponentSwap={onComponentSwap}
         />
       )}
