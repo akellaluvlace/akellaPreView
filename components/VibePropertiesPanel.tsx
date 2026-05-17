@@ -12,7 +12,7 @@
 // something broke.
 
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
-import { isCardLike } from "@/lib/vibe-edit/detect";
+import { isCardLike, isLinkStyledAsButton } from "@/lib/vibe-edit/detect";
 import type { PreviewKind } from "@/lib/preview";
 import TextControls from "./VibePropertiesPanel/TextControls";
 import ImageControls from "./VibePropertiesPanel/ImageControls";
@@ -137,7 +137,7 @@ export default function VibePropertiesPanel({
     >
       <header className="flex items-center justify-between border-b-2 border-ink px-4 py-3">
         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
-          {labelFor(info.kind, info.tag)}
+          {labelFor(info)}
         </span>
         <button
           type="button"
@@ -320,7 +320,14 @@ export function SwapComponentButton({
   );
 }
 
-function labelFor(kind: string, tag: string): string {
+function labelFor(info: VibeElementInfo): string {
+  const kind = info.kind;
+  const tag = info.tag;
+  // 2026-05-17 — Button-styled <a> (Tailwind utility chrome) shows as
+  // "Button" so the vibecoder's mental model matches what they see.
+  // The href field is still visible in LinkControls below, so they
+  // can edit the link target without losing the "Button" framing.
+  if (kind === "link" && isLinkStyledAsButton(info)) return "Button";
   if (kind === "heading") return `Heading (${tag.toUpperCase()})`;
   if (kind === "text") return "Text";
   if (kind === "image") return "Image";

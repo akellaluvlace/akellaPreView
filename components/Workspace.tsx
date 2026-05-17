@@ -10,7 +10,7 @@ import VibePropertiesPanel from "./VibePropertiesPanel";
 import { buildVibeCommit } from "@/lib/vibe-edit/commit";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import { inferSwapCategory } from "@/lib/swap-category-hint";
-import { isCardLike } from "@/lib/vibe-edit/detect";
+import { isCardLike, isLinkStyledAsButton } from "@/lib/vibe-edit/detect";
 import FirstOpenTour from "./FirstOpenTour";
 import KindToggle from "./KindToggle";
 import ComponentLibrarySidebar from "./library/Sidebar";
@@ -2554,6 +2554,18 @@ export default function Workspace({
         suggestedCategory = "cards";
         categorySource = "kind:container+cardLike";
       }
+    }
+
+    // 2026-05-17 Layer 3: visual-role disambiguator for the most
+    // common tag-vs-role mismatch — an <a> styled with Tailwind utility
+    // chrome that visually IS a button. Layer 1 misses (no `btn` token),
+    // Layer 2 misses (kind="link" not "button"). Without this, Browse-
+    // components opens to the full mixed library on a CTA link and the
+    // vibecoder can't actually swap it for another button. Predicate
+    // lives in detect.ts alongside isCardLike.
+    if (!suggestedCategory && isLinkStyledAsButton(vibeInfo)) {
+      suggestedCategory = "buttons";
+      categorySource = "visual:button-link";
     }
 
     const ctx = {
