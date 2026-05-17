@@ -9,6 +9,9 @@ import FocusEditor from "./FocusEditor";
 import VibePropertiesPanel from "./VibePropertiesPanel";
 import { buildVibeCommit } from "@/lib/vibe-edit/commit";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
+import type { AiSelectionInfo, AiSelectionPayload } from "@/lib/ai-edit/types";
+import { makeFingerprint } from "@/lib/ai-edit/fingerprint";
+import { estimateTokens } from "@/lib/ai-edit/scope";
 import { inferSwapCategory } from "@/lib/swap-category-hint";
 import { isCardLike, isLinkStyledAsButton } from "@/lib/vibe-edit/detect";
 import FirstOpenTour from "./FirstOpenTour";
@@ -20,6 +23,7 @@ import ResizablePanel from "./ResizablePanel";
 import ElementTree from "./ElementTree";
 import PreviewModal from "./PreviewModal";
 import WhatsNextModal from "./WhatsNextModal";
+import AiScopeChip from "./AiScopeChip";
 // 2026-05-16 — Try Variations retired per user direction: "we remove
 // entirely swaps on whole page - only surgical ones." Per-image
 // Shuffle (in ImageControls.tsx) is the surgical alternative + maps
@@ -404,6 +408,12 @@ export default function Workspace({
   // (mutations land via postVibe), and `info` is the most recent
   // echo of the live element's values.
   const [vibeInfo, setVibeInfo] = useState<VibeElementInfo | null>(null);
+  // 2026-05-17 — AI Edit selection state. Distinct from vibeInfo because
+  // the iframe runtime gates on DROPIN_TOOL (vibe vs ai) — only one is
+  // active at a time. Host-enriched: fingerprint + tokenEstimate are
+  // computed from the iframe payload's tag/classes/outerHtml via the
+  // lib/ai-edit/ helpers before storing.
+  const [aiInfo, setAiInfo] = useState<AiSelectionInfo | null>(null);
   // Snapshot of the last vibeInfo we successfully reconciled to
   // source. When vibeInfo's mutable fields drift away from this
   // snapshot, the idle-debounce effect runs buildVibeCommit. Reset
@@ -2395,6 +2405,55 @@ export default function Workspace({
     setVibeBgImageOpen(false);
   }, []);
 
+  // 2026-05-17 — AI Edit selection handler. Enriches the iframe-emitted
+  // payload with fingerprint (via makeFingerprint, which filters
+  // Tailwind utility chrome out so the scope chip stays readable) and
+  // tokenEstimate (chars/3.5 for the §6.1 large-section warning).
+  const handleAiSelected = useCallback((payload: AiSelectionPayload) => {
+    track("ai:selected", {
+      tag: payload.tag,
+      path: payload.path,
+      scope: payload.scope,
+      outerHtmlLen: payload.outerHtml.length,
+    });
+    const enriched: AiSelectionInfo = {
+      ...payload,
+      fingerprint: makeFingerprint(payload.tag, payload.classes),
+      tokenEstimate: estimateTokens(payload.outerHtml),
+    };
+    setAiInfo(enriched);
+  }, []);
+
+  const handleAiCleared = useCallback(() => {
+    track("ai:cleared");
+    setAiInfo(null);
+  }, []);
+
+  // 2026-05-17 — Tab / Shift+Tab handler from AiScopeChip. Re-resolves
+  // the current selection at the new scope by posting ai:set-scope to
+  // the iframe (the iframe walks up via aiFindSectionScope when scope
+  // === "section", then re-emits ai:selected with the new outerHtml +
+  // bbox + scope). No-op when no selection or path is missing.
+  const handleAiSetScope = useCallback(
+    (scope: "element" | "section") => {
+      if (!aiInfo || !aiInfo.path) return;
+      previewHandleRef.current?.postVibe({
+        type: "ai:set-scope",
+        path: aiInfo.path,
+        scope,
+      });
+    },
+    [aiInfo],
+  );
+
+  // Escape from AiScopeChip. Clears host state immediately AND posts
+  // ai:clear to iframe so the data-ai-selected outline + iframe-side
+  // selection state both drop.
+  const handleAiClearFromChip = useCallback(() => {
+    setAiInfo(null);
+    previewHandleRef.current?.postVibe({ type: "ai:clear" });
+  }, []);
+
   // Direct-mutation handlers. Each posts to the iframe via
   // previewHandleRef.current.postVibe; the runtime mutates the live
   // DOM and re-emits vibe:selected so handleVibeSelected updates the
@@ -3440,6 +3499,14 @@ export default function Workspace({
         setAdditionalInsertTargetOids([]);
         if (next === "insert") setLibraryOpen(false);
       }
+      // 2026-05-17 — Clear AI selection when leaving AI tool. The
+      // iframe runtime won't emit fresh ai:* events when DROPIN_TOOL
+      // changes, so the host state would otherwise persist a stale
+      // selection through tool switches.
+      if (prev === "ai" && next !== "ai") {
+        setAiInfo(null);
+        previewHandleRef.current?.postVibe({ type: "ai:clear" });
+      }
       // Phase 6 (2026-05-11 PM) — standalone Swap tool retired. Asset
       // swap-from-library lives inside vibe mode via the per-kind
       // Browse buttons (vibeIconSwapOpen / vibeImageSwapOpen handlers).
@@ -3714,6 +3781,8 @@ export default function Workspace({
             onReady={handlePreviewReady}
             onVibeSelected={handleVibeSelected}
             onVibeCleared={handleVibeCleared}
+            onAiSelected={handleAiSelected}
+            onAiCleared={handleAiCleared}
           />
         </div>
 
@@ -4070,6 +4139,18 @@ export default function Workspace({
         >
           Press <span className="bg-ink px-1.5 text-paper">E</span> to start editing
         </div>
+      )}
+
+      {/* 2026-05-17 — AI Edit Phase 1 scope chip. Visible only when
+          tool === "ai" AND a selection is active. Hosts the Tab /
+          Shift+Tab / Escape keybindings. Prompt bar (Phase 2) will
+          render alongside this when Tensorix wiring lands. */}
+      {tool === "ai" && (
+        <AiScopeChip
+          info={aiInfo}
+          onSetScope={handleAiSetScope}
+          onClear={handleAiClearFromChip}
+        />
       )}
 
       <FirstOpenTour hasSelection={selection !== null} />

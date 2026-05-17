@@ -366,6 +366,104 @@ export function vibeRuntimeJs(): string {
       dropinPost({ type: 'vibe:selected', info: vibeSerialize(el) });
     }
 
+    // 2026-05-17 — AI Edit selection state. Mirrors vibeSelected /
+    // vibeClear pattern but with its own data-attr so the two tools
+    // can coexist without their outlines fighting. The host gates
+    // which is active via DROPIN_TOOL.
+    var aiSelected = null;
+
+    // 2026-05-17 — Section scope walker. Mirrors findSectionScope
+    // from lib/ai-edit/scope.ts (ES5 inline copy since the iframe
+    // runtime is a template-literal-emitted string with no module
+    // loader). Walks up from el looking for semantic section tags,
+    // section ARIA roles, or class fingerprints (hero/features/etc.).
+    // Returns el unchanged when no qualifying ancestor exists before
+    // body (section mode silently collapses to element mode).
+    var AI_SECTION_TAGS = {
+      SECTION: 1, HEADER: 1, FOOTER: 1, NAV: 1,
+      ASIDE: 1, MAIN: 1, ARTICLE: 1
+    };
+    var AI_SECTION_ROLES = { region: 1, banner: 1, contentinfo: 1 };
+    var AI_SECTION_CLASS_RX = /\\b(hero|features?|pricing|cta|testimonials?|bento|footer|navbar|nav-|faq|stats?|logos?|gallery|about|contact|newsletter)\\b/i;
+
+    function aiFindSectionScope(el) {
+      var node = el;
+      var root = (el && el.ownerDocument && el.ownerDocument.body) || null;
+      while (node && node !== root) {
+        if (AI_SECTION_TAGS[node.tagName]) return node;
+        var role = node.getAttribute ? node.getAttribute('role') : '';
+        if (role && AI_SECTION_ROLES[role]) return node;
+        var cls = node.getAttribute ? (node.getAttribute('class') || '') : '';
+        if (cls && AI_SECTION_CLASS_RX.test(cls)) return node;
+        if (node.parentElement === root) return node;
+        node = node.parentElement;
+      }
+      return el;
+    }
+
+    // Lightweight serialization for AI Edit. Includes addressing
+    // fields (path / htmlPath / oid / tag / classes), the outerHTML
+    // (capped to 64KB to protect against bizarre bento grids with
+    // multi-megabyte embedded SVGs), and bbox for prompt-bar
+    // positioning. Fingerprint + token count are computed HOST-SIDE
+    // via the imported helpers from lib/ai-edit/ — keeps the iframe
+    // payload small and lets the host use the proper Tailwind utility
+    // filter list without duplicating it as ES5 inline.
+    function aiSerialize(el, scope) {
+      var bbox = null;
+      try {
+        if (typeof el.getBoundingClientRect === 'function') {
+          var r = el.getBoundingClientRect();
+          bbox = {
+            x: Math.round(r.left || 0),
+            y: Math.round(r.top || 0),
+            width: Math.round(r.width || 0),
+            height: Math.round(r.height || 0)
+          };
+        }
+      } catch (e) {
+        bbox = null;
+      }
+      var outer = '';
+      try {
+        outer = el.outerHTML || '';
+        // 64KB cap. Plan §6.1 large-section warning kicks in well
+        // before this at 8k tokens (~28KB), but a hard cap here
+        // protects the postMessage channel from absurd payloads.
+        if (outer.length > 65536) outer = outer.slice(0, 65536);
+      } catch (e) {
+        outer = '';
+      }
+      return {
+        path: vibeGetPath(el),
+        htmlPath: vibeGetHtmlPath(el),
+        oid: el.getAttribute ? el.getAttribute('data-dropin-id') : null,
+        tag: el.tagName ? el.tagName.toLowerCase() : 'unknown',
+        classes: el.getAttribute ? (el.getAttribute('class') || '') : '',
+        scope: scope || 'element',
+        outerHtml: outer,
+        bbox: bbox
+      };
+    }
+
+    function aiSelect(el, scope) {
+      if (!el) return;
+      if (aiSelected && aiSelected !== el) {
+        aiSelected.removeAttribute('data-ai-selected');
+      }
+      aiSelected = el;
+      el.setAttribute('data-ai-selected', '');
+      dropinPost({ type: 'ai:selected', info: aiSerialize(el, scope) });
+    }
+
+    function aiClear() {
+      if (aiSelected) {
+        aiSelected.removeAttribute('data-ai-selected');
+        aiSelected = null;
+      }
+      dropinPost({ type: 'ai:cleared' });
+    }
+
     function vibeClear() {
       if (vibeSelected) {
         vibeSelected.removeAttribute('data-vibe-selected');
@@ -410,6 +508,29 @@ export function vibeRuntimeJs(): string {
         console.log('[dropin:iframe-vibe-click] tool=' + DROPIN_TOOL
           + ' target=' + tagForLog);
       } catch (e) {}
+      // 2026-05-17 — AI Edit branch. Per the plan §3.1 user clicks
+      // ANY element; we don't filter to "editable atoms" like the
+      // vibe handler does — the model is told the element + parent
+      // context and figures out what to change. Just preventDefault
+      // (so links/buttons don't navigate), walk up text nodes if
+      // needed, then aiSelect.
+      if (DROPIN_TOOL === 'ai') {
+        ev.preventDefault();
+        ev.stopPropagation();
+        var aiRaw = ev.target;
+        // ev.target on a click usually IS the element, but defensive
+        // re-target for text-node edges (browsers normally retarget
+        // but iframes have surprised us before).
+        if (aiRaw && aiRaw.nodeType === 3) aiRaw = aiRaw.parentElement;
+        if (!aiRaw || !aiRaw.tagName) {
+          try { console.log('[dropin:iframe-ai-click] no element → clear'); } catch (e) {}
+          if (aiSelected) aiClear();
+          return;
+        }
+        try { console.log('[dropin:iframe-ai-click] hit', aiRaw.tagName); } catch (e) {}
+        aiSelect(aiRaw, 'element');
+        return;
+      }
       if (DROPIN_TOOL !== 'vibe') return;
       ev.preventDefault();
       ev.stopPropagation();
@@ -633,6 +754,21 @@ export function vibeRuntimeJs(): string {
         if (el) vibeSelect(el);
       } else if (d.type === 'vibe:clear') {
         vibeClear();
+      } else if (d.type === 'ai:set-scope') {
+        // 2026-05-17 — Tab / Shift+Tab from host. Re-resolve the
+        // element by path, walk up via aiFindSectionScope for
+        // section-mode expansion (or stay put for element-mode),
+        // re-emit ai:selected with the new scope. Section walker
+        // logic mirrors lib/ai-edit/scope.ts findSectionScope.
+        el = d.path ? document.querySelector(d.path) : null;
+        if (!el) return;
+        var target = el;
+        if (d.scope === 'section') {
+          target = aiFindSectionScope(el);
+        }
+        aiSelect(target, d.scope || 'element');
+      } else if (d.type === 'ai:clear') {
+        aiClear();
       }
     });
 
@@ -644,8 +780,14 @@ export function vibeRuntimeJs(): string {
     (function () {
       var s = document.createElement('style');
       s.setAttribute('data-vibe-style', 'true');
+      // 2026-05-17 — Two outline rules: vibe tool uses 3px coral
+      // (existing), AI Edit uses 2px coral with smaller offset to
+      // read as a different mode. Both !important to win against
+      // template styles. The data-attr swap (vibe vs ai) is the
+      // tool-active flag; only one is set at a time per element.
       s.textContent =
-        '[data-vibe-selected] { outline: 3px solid #FF4D2E !important; outline-offset: 2px !important; cursor: pointer !important; }';
+        '[data-vibe-selected] { outline: 3px solid #FF4D2E !important; outline-offset: 2px !important; cursor: pointer !important; }\\n' +
+        '[data-ai-selected] { outline: 2px solid #FF4D2E !important; outline-offset: 1px !important; cursor: crosshair !important; }';
       (document.head || document.documentElement).appendChild(s);
     })();
 

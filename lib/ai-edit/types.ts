@@ -7,16 +7,13 @@
 export type AiScope = "element" | "section";
 
 /**
- * Snapshot the iframe runtime posts to the host when the user clicks
- * something in AI Edit tool mode. Mirrors VibeElementInfo's selector-
- * addressing fields so the host can resolve back to the element later
- * (for apply / history-restore paths in later phases).
- *
- * Phase 1 (this scaffold) populates the selection-related fields and
- * leaves payload fields (parent_context, design_system_hints) empty.
- * Phase 2 will extend the emitter to compute those on click.
+ * Raw snapshot the IFRAME runtime emits on click in AI Edit tool mode.
+ * Lean shape — only what the iframe can cheaply compute. The host
+ * enriches with fingerprint + token estimate via lib/ai-edit/ helpers
+ * (which have access to the full Tailwind utility list without needing
+ * to inline it as ES5 in the iframe runtime template literal).
  */
-export interface AiSelectionInfo {
+export interface AiSelectionPayload {
   // Selector path from <html>. Used to re-find the element for apply +
   // history restore. Same shape as VibeElementInfo.path.
   path: string;
@@ -24,37 +21,40 @@ export interface AiSelectionInfo {
   // is the authoritative addressing key.
   htmlPath: number[] | null;
   // OID when the element has one (JSX templates after injectOids ran).
-  // Null when no OID is present (HTML mode, or pre-injection).
   oid: string | null;
   // Lowercased tag name (`button`, `section`, `div`).
   tag: string;
-  // Fingerprint for the scope chip: tag + concise class summary.
-  // E.g. `section.hero`, `button.cta-primary`, `div.flex.items-center`.
-  // The host renders this in the floating chip during hover + selection.
-  fingerprint: string;
+  // Raw class attribute. Host runs makeFingerprint(tag, classes) to
+  // build the scope chip's display string.
+  classes: string;
   // Current scope state. Default `element` on click; `section` after
-  // the user presses Tab (and the section walker finds a qualifying
-  // ancestor). Collapses back to `element` on Shift+Tab.
+  // Tab (the iframe runs aiFindSectionScope before re-emitting).
   scope: AiScope;
-  // OuterHTML of the selected element. Used for the AI Edit payload
-  // (target_html in plan §4.2) and for history before/after diffing.
-  // Capped in size by the iframe emitter; the host re-fetches if it
-  // needs the live current value (e.g. between Tab presses).
+  // OuterHTML of the selected element. Capped at 64KB iframe-side.
   outerHtml: string;
-  // Approximate token count of outerHtml. Computed iframe-side via
-  // `estimateTokens` so the host can render the chip + decide whether
-  // to surface the §6.1 large-section warning.
-  tokenEstimate: number;
-  // Bounding box of the selected element in iframe-viewport coords.
-  // Used to position the floating prompt bar (plan §3.3) below the
-  // selection. Null when getBoundingClientRect throws (detached node
-  // edge case).
+  // Bounding box in iframe-viewport coords. Null when
+  // getBoundingClientRect throws.
   bbox: {
     x: number;
     y: number;
     width: number;
     height: number;
   } | null;
+}
+
+/**
+ * Host-stored AI Edit selection. Same fields as the iframe payload
+ * plus `fingerprint` (computed via makeFingerprint) and `tokenEstimate`
+ * (computed via estimateTokens). The host enriches at the
+ * `ai:selected` message handler boundary so the rest of the host code
+ * works with the full shape.
+ */
+export interface AiSelectionInfo extends AiSelectionPayload {
+  // Fingerprint for the scope chip: tag + concise class summary.
+  // E.g. `section.hero`, `button.cta-primary`, `div.flex.items-center`.
+  fingerprint: string;
+  // Approximate token count of outerHtml (chars / 3.5 ceiling).
+  tokenEstimate: number;
 }
 
 /**
@@ -99,7 +99,7 @@ export interface AiEditEntry {
  * (after successful swap) and `ai:apply-failed` for telemetry.
  */
 export type AiMessage =
-  | { type: "ai:selected"; info: AiSelectionInfo }
+  | { type: "ai:selected"; info: AiSelectionPayload }
   | { type: "ai:cleared" };
 
 /**
