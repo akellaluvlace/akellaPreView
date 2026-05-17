@@ -35,6 +35,156 @@ export interface PreserveContent {
   href?: string | null;
   src?: string | null;
   alt?: string | null;
+  // 2026-05-17 — Full class string from the original element. We
+  // extract the SIZING / LAYOUT classes (w-, h-, max-w-, max-h-,
+  // mx-, my-, m-, mt-, etc.) and append them to the new component's
+  // first opening tag. Reason: the library button might be 280px
+  // wide by default; the original might have been `w-full max-w-sm
+  // mx-auto`. Transferring those keeps the swapped element in the
+  // same flow position + footprint. We DON'T transfer chrome classes
+  // (bg-, text-, rounded-, shadow-, border-) — those are what the
+  // user is swapping FOR. Optional. Empty string skips the transfer.
+  classes?: string;
+}
+
+// 2026-05-17 — Tailwind utility class prefixes that affect sizing
+// and layout placement. Transferred from the original element onto
+// the new component's root so swaps preserve "this is the full-width
+// CTA in this container" semantics. Chrome (color/radius/shadow/
+// border/padding) is intentionally NOT in this list — those are
+// what the user is changing by swapping.
+const SIZING_CLASS_PREFIXES = [
+  "w-",
+  "h-",
+  "max-w-",
+  "max-h-",
+  "min-w-",
+  "min-h-",
+  "m-",
+  "mx-",
+  "my-",
+  "mt-",
+  "mr-",
+  "mb-",
+  "ml-",
+  "grow",
+  "shrink",
+  "basis-",
+  "col-",
+  "row-",
+  "self-",
+  "place-self-",
+  "justify-self-",
+];
+
+function isSizingClass(token: string): boolean {
+  for (const prefix of SIZING_CLASS_PREFIXES) {
+    // Exact match (e.g. "grow" / "shrink") OR prefix match (e.g.
+    // "w-full", "max-w-sm"). Variant-prefixed forms ("md:w-full",
+    // "hover:mt-2") also count — strip the variant chain first.
+    const bare = token.replace(/^(?:[a-z-]+:)+/, "");
+    if (bare === prefix) return true;
+    if (bare.startsWith(prefix) && prefix.endsWith("-")) return true;
+  }
+  return false;
+}
+
+function extractSizingClasses(classes: string): string[] {
+  if (!classes) return [];
+  const tokens = classes.split(/\s+/).filter(Boolean);
+  const sizing: string[] = [];
+  const seen = new Set<string>();
+  for (const t of tokens) {
+    if (seen.has(t)) continue;
+    if (isSizingClass(t)) {
+      sizing.push(t);
+      seen.add(t);
+    }
+  }
+  return sizing;
+}
+
+// Find the first real opening tag in markup (skipping comments, style
+// blocks, JSX fragments, and the attribution comment). Returns the
+// tag's position info so caller can splice an attribute into it.
+// Returns null when no real opening tag is found (markup is all
+// comments / styles / empty).
+function findFirstOpeningTag(markup: string): {
+  tagStart: number; // index of `<`
+  tagNameEnd: number; // index AFTER the tag name (next is whitespace or `>` or `/`)
+  tagEnd: number; // index of `>`
+} | null {
+  // Strip masking for comments + style blocks: replace content with
+  // same-length spaces so subsequent indexOf scans on the ORIGINAL
+  // string still hit at the right offsets.
+  const stripped = markup
+    .replace(HTML_COMMENT_REGEX, (m) => " ".repeat(m.length))
+    .replace(JSX_COMMENT_REGEX, (m) => " ".repeat(m.length))
+    .replace(STYLE_BLOCK_REGEX, (m) => " ".repeat(m.length));
+  // Skip JSX fragment open `<>` — it has no attrs. Same for the
+  // matching `</>`.
+  // Match the first `<tagname`. Tag name must start with a letter
+  // (skips fragments which start with `<>`).
+  const re = /<([a-zA-Z][a-zA-Z0-9]*)/g;
+  const m = re.exec(stripped);
+  if (!m) return null;
+  const tagStart = m.index;
+  const tagNameEnd = tagStart + 1 + m[1]!.length;
+  // Find the matching `>` (handles attributes with `>` inside quoted
+  // values — find first `>` not inside a quoted attr value).
+  let i = tagNameEnd;
+  let inQuote: '"' | "'" | null = null;
+  while (i < markup.length) {
+    const ch = markup[i];
+    if (inQuote) {
+      if (ch === inQuote) inQuote = null;
+    } else if (ch === '"' || ch === "'") {
+      inQuote = ch;
+    } else if (ch === ">") {
+      return { tagStart, tagNameEnd, tagEnd: i };
+    }
+    i += 1;
+  }
+  return null;
+}
+
+// Append sizing classes onto the first opening tag's className /
+// class attribute. Detects JSX (`className`) vs HTML (`class`) by
+// looking for which is present, defaulting to JSX style if neither
+// is found (mode parameter from caller).
+function appendClassesToFirstTag(
+  markup: string,
+  sizingClasses: string[],
+  mode: "jsx" | "html",
+): string {
+  if (sizingClasses.length === 0) return markup;
+  const loc = findFirstOpeningTag(markup);
+  if (!loc) return markup;
+  const tagText = markup.slice(loc.tagStart, loc.tagEnd + 1);
+  const sizingStr = sizingClasses.join(" ");
+  const attrName = mode === "jsx" ? "className" : "class";
+  // Does the tag already have a className/class attribute?
+  const classAttrRegex = new RegExp(`\\b${attrName}\\s*=\\s*"([^"]*)"`);
+  const existing = classAttrRegex.exec(tagText);
+  if (existing) {
+    // Append to existing class string. Don't dedupe against the
+    // existing — both sets coexist; sizing classes override chrome
+    // for the same property because they're added later in the
+    // string (the cascade still resolves by specificity though, so
+    // some duplication can happen; Tailwind tolerates this).
+    const newClassValue = `${existing[1]} ${sizingStr}`;
+    const replacedTag = tagText.replace(
+      classAttrRegex,
+      `${attrName}="${newClassValue}"`,
+    );
+    return (
+      markup.slice(0, loc.tagStart) + replacedTag + markup.slice(loc.tagEnd + 1)
+    );
+  }
+  // No class attribute exists — inject one right after the tag name.
+  const before = markup.slice(0, loc.tagNameEnd);
+  const after = markup.slice(loc.tagNameEnd);
+  return `${before} ${attrName}="${sizingStr}"${after}`;
 }
 
 const HTML_COMMENT_REGEX = /<!--[\s\S]*?-->/g;
@@ -138,6 +288,7 @@ function replaceFirstLiteralAttr(
 export function applyPreservedContent(
   markup: string,
   content: PreserveContent,
+  mode: "jsx" | "html" = "jsx",
 ): string {
   let result = markup;
 
@@ -161,6 +312,20 @@ export function applyPreservedContent(
   }
   if (content.alt != null && content.alt.length > 0) {
     result = replaceFirstLiteralAttr(result, "alt", content.alt);
+  }
+
+  // 2026-05-17 — Sizing class transfer. Replaces the OLD bbox `<div
+  // style="width:Xpx">` wrapper approach which caused nested-wrapper
+  // duplication on sequential swaps (each swap added another wrapper
+  // INSIDE the prior because vibeClick selected the inner element,
+  // not the wrapper). New approach: copy w-/h-/max-/mx-/etc. classes
+  // from original directly onto the new component's root tag. No
+  // wrapper, no nesting, sizing context preserved.
+  if (content.classes) {
+    const sizing = extractSizingClasses(content.classes);
+    if (sizing.length > 0) {
+      result = appendClassesToFirstTag(result, sizing, mode);
+    }
   }
 
   return result;

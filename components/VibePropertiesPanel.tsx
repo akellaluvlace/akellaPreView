@@ -263,6 +263,13 @@ export default function VibePropertiesPanel({
             href: info.href || undefined,
             src: info.src || undefined,
             alt: info.alt || undefined,
+            // 2026-05-17 — Original class string. preserve-content
+            // extracts only the SIZING / LAYOUT classes (w-, h-,
+            // max-w-, mx-, etc.) and transfers them to the new
+            // component. Chrome classes (bg-, text-, rounded-,
+            // shadow-) stay as the library defined them — that's
+            // what the user is swapping FOR.
+            classes: info.classes || undefined,
           }}
         />
       )}

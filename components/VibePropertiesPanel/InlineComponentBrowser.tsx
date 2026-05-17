@@ -95,15 +95,13 @@ export default function InlineComponentBrowser({
       const full = await getComponentFull(slug);
       const payload = buildInsertPayload(full, mode);
       // 2026-05-17 — Preserve original content (text label, href, src,
-      // alt) by transforming the library asset BEFORE wrapping. The
-      // longest visible text node wins; the first literal href/src/alt
-      // attrs get swapped. Without this, the swap clobbers the user's
-      // "Sign up" label with the library's "Click me" — the user-
-      // reported "feature is completely useless" case. See
-      // lib/component-library/preserve-content.ts for heuristic + edge
-      // cases.
+      // alt, sizing classes) by transforming the library asset BEFORE
+      // wrapping. The longest visible text node wins; first literal
+      // href/src/alt swap; sizing classes (w-, h-, max-w-, mx-, etc.)
+      // get appended to the new component's first opening tag. See
+      // lib/component-library/preserve-content.ts.
       const adaptedText = preserveContent
-        ? applyPreservedContent(payload.text, preserveContent)
+        ? applyPreservedContent(payload.text, preserveContent, mode)
         : payload.text;
       // Outer-swap replaces a single JSX element. buildInsertPayload
       // emits multiple top-level siblings when the component has CSS
@@ -117,50 +115,29 @@ export default function InlineComponentBrowser({
       const innerText =
         mode === "jsx" ? `<>\n${adaptedText}\n</>` : adaptedText;
 
-      // Same-dimension wrap. The target element's pre-swap bbox locks
-      // the swapped asset's footprint so the surrounding layout stays
-      // put: a 320x200 button slot doesn't become 600x80 because the
-      // user picked a wider Uiverse tile. Width + height are hard-
-      // locked (the asset can overflow visually if its intrinsic size
-      // is larger, but the parent flow isn't disturbed). `display`
-      // matches the original's computed display so block-vs-inline
-      // semantics survive. `overflow: hidden` prevents oversized
-      // content from leaking into neighboring slots.
-      // Skipped when preserveBbox is null (iframe didn't measure, or
-      // caller opted out) — falls back to the asset's natural size.
-      let finalText = innerText;
-      if (preserveBbox && preserveBbox.width > 0 && preserveBbox.height > 0) {
-        const {
-          width,
-          height,
-          display,
-          marginTop,
-          marginRight,
-          marginBottom,
-          marginLeft,
-        } = preserveBbox;
-        // Margins preserve the original element's offset from
-        // neighbors. The wrapper takes the slot — without these the
-        // surrounding flow would close up the gap that the original
-        // element's margin classes (`mb-4`, `mx-auto`, etc.) had been
-        // creating.
-        if (mode === "jsx") {
-          finalText =
-            `<div style={{ ` +
-            `width: "${width}px", height: "${height}px", ` +
-            `display: "${display}", overflow: "hidden", ` +
-            `marginTop: "${marginTop}px", marginRight: "${marginRight}px", ` +
-            `marginBottom: "${marginBottom}px", marginLeft: "${marginLeft}px" ` +
-            `}}>` +
-            `\n${innerText}\n</div>`;
-        } else {
-          const styleStr =
-            `width: ${width}px; height: ${height}px; ` +
-            `display: ${display}; overflow: hidden; ` +
-            `margin: ${marginTop}px ${marginRight}px ${marginBottom}px ${marginLeft}px;`;
-          finalText = `<div style="${styleStr}">\n${innerText}\n</div>`;
-        }
-      }
+      // 2026-05-17 — bbox `<div style="width:Xpx">` wrapper REMOVED.
+      // The wrapper was meant to lock the asset's footprint to the
+      // original element's dimensions, but it caused a real bug user
+      // reported as "post another component on top of another instead
+      // of replacing it" — every sequential swap added a new wrapper
+      // INSIDE the previous because vibeClick selected the inner
+      // element (atom-rule), not the wrapper (which had the OID).
+      // Nesting accumulated per swap.
+      //
+      // New approach: drop the wrapper entirely. Component takes its
+      // natural size. Sizing context (w-full / max-w-sm / mx-auto)
+      // is preserved by transferring those classes from the original
+      // onto the new component's root via applyPreservedContent above.
+      // No wrapper → no nesting → no duplication. Layout may shift if
+      // the new component is intrinsically wider/taller than the
+      // original (e.g. swapping a tiny nav link for a big hero card);
+      // accepted as the trade-off for a working swap.
+      const finalText = innerText;
+      // preserveBbox is intentionally unused now (kept as a prop for
+      // future use if a smaller, non-wrapper-based sizing constraint
+      // becomes needed). Acknowledge to satisfy unused-arg lint without
+      // changing the prop shape.
+      void preserveBbox;
 
       // JSX assets carry JSX-only syntax ({/* */} comments, template
       // literals inside <style>) that the iframe's outerHTML write
