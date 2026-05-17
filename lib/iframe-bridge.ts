@@ -24,12 +24,18 @@ import type { VibeElementInfo } from "./vibe-edit/types";
 // drive vibe:update-outer + buildVibeCommit's outer-replacement
 // path). The standalone tool was redundant. Persisted localStorage
 // values of "swap" are migrated to "view" on next mount.
+// 'ai' added 2026-05-17 for the AI Edit element + section flow. The
+// iframe runtime gates a NEW click handler on DROPIN_TOOL === 'ai'
+// (parallel to the vibe handler) that emits `ai:selected` events with
+// AiSelectionInfo (fingerprint + bbox + outerHtml + token estimate).
+// Plan: `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md`.
 export type Tool =
   | "view"
   | "select"
   | "move"
   | "insert"
-  | "vibe";
+  | "vibe"
+  | "ai";
 
 export interface JsxLoc {
   kind: "jsx";

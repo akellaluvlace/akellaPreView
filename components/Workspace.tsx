@@ -337,7 +337,7 @@ export default function Workspace({
         }
         return;
       }
-      if (stored === "view" || stored === "vibe") {
+      if (stored === "view" || stored === "vibe" || stored === "ai") {
         setToolState(stored);
       }
     } catch {
@@ -3469,6 +3469,7 @@ export default function Workspace({
       if (k === "v") next = "view";
       else if (k === "s") next = "select";
       else if (k === "e") next = "vibe";
+      else if (k === "a") next = "ai";
       // 'i' (Insert) retired 2026-05-14 — insertion now happens via the
       // Swap-from-library affordance inside vibe-edit mode (every element
       // gets a "Browse library" button in its properties panel).

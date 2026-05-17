@@ -38,7 +38,12 @@ import type { Tool } from "@/lib/iframe-bridge";
 // who need to reorder. All names stay in the Tool union + message
 // protocol because internal callers + persisted-localStorage migration
 // still emit them; the toolbar just doesn't surface a button.
-export const TOOL_LIST: ReadonlyArray<Tool> = ["view", "vibe"];
+// 2026-05-17 — 'ai' surfaces the AI Edit element + section flow.
+// Plan at `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md`.
+// Phase 1 ships selection only (click → scope chip, Tab to expand to
+// section, Esc to clear). Prompt bar + Tensorix integration land in
+// Phases 2-3.
+export const TOOL_LIST: ReadonlyArray<Tool> = ["view", "vibe", "ai"];
 
 interface ToolBarProps {
   tool: Tool;
@@ -158,6 +163,31 @@ function VibeIcon() {
   );
 }
 
+// 2026-05-17 — AI Edit icon: four-pointed sparkle. The "magic" visual
+// language vibecoders associate with AI features (matches Cursor /
+// GitHub Copilot conventions). Same stroke style as other tool icons
+// for visual consistency in the toolbar row.
+function AiIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {/* Main sparkle */}
+      <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
+      {/* Small accent sparkle */}
+      <path d="M19 17l.7 1.8L21 19.5l-1.3.7L19 22l-.7-1.8L17 19.5l1.3-.7z" />
+    </svg>
+  );
+}
+
 const TOOL_META: Record<Tool, ToolMeta> = {
   view: {
     id: "view",
@@ -194,6 +224,14 @@ const TOOL_META: Record<Tool, ToolMeta> = {
     tooltip:
       "Click any text, image, or link to edit it in place. (E)",
     icon: <VibeIcon />,
+  },
+  ai: {
+    id: "ai",
+    label: "AI",
+    shortcut: "A",
+    tooltip:
+      "Click any element and describe a change in plain language. (A)",
+    icon: <AiIcon />,
   },
 };
 
