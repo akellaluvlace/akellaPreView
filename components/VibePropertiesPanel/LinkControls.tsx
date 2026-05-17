@@ -19,7 +19,9 @@ import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import { rgbToHex } from "@/lib/vibe-edit/rgb-to-hex";
 import { isLinkStyledAsButton } from "@/lib/vibe-edit/detect";
 import TextTypographyExtras from "./TextTypographyExtras";
-import { SwapComponentButton } from "../VibePropertiesPanel";
+// 2026-05-17 — SwapComponentButton retired with the component-library
+// swap. Import dropped; the button no longer renders. See
+// `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md` Phase 0.
 
 // 2026-05-17 — Default button chrome applied by "Style as button". Uses
 // Tailwind palette utilities everyone has (no custom theme tokens) so
@@ -227,7 +229,6 @@ export default function LinkControls({
         </button>
       )}
 
-      <SwapComponentButton onClick={onComponentSwap} />
     </div>
   );
 }

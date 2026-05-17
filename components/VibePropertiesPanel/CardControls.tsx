@@ -15,7 +15,9 @@
 import { useEffect, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import { parseRadiusPx } from "@/lib/vibe-edit/detect";
-import { SwapComponentButton } from "../VibePropertiesPanel";
+// 2026-05-17 — SwapComponentButton retired with the component-library
+// swap. Import dropped; the button no longer renders. See
+// `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md` Phase 0.
 
 interface CardControlsProps {
   info: VibeElementInfo;
@@ -185,7 +187,6 @@ export default function CardControls({
         </div>
       )}
 
-      <SwapComponentButton onClick={onComponentSwap} />
     </div>
   );
 }

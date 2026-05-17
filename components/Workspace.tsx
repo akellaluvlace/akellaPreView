@@ -3905,18 +3905,12 @@ export default function Workspace({
               onClose={handleVibeClose}
               onIconSwap={handleVibeIconSwapOpen}
               onImageSwap={handleVibeImageSwapOpen}
-              onComponentSwap={handleVibeComponentSwapOpen}
               onBgImagePick={handleVibeBgImageOpen}
               onBgImageRemove={handleVibeBgImageRemove}
               onBgImageShuffle={handleVibeBgImageShuffle}
               onCopySection={kind === "jsx" ? handleCopySection : undefined}
               onApply={handleVibeApply}
               onClassesChange={handleVibeClasses}
-              componentBrowserOpen={vibeComponentSwapOpen}
-              componentBrowserCategory={
-                vibeComponentSwapContext?.suggestedCategory ?? null
-              }
-              onComponentPick={handleVibeOuterSwap}
               onWarn={showWarn}
               onInfo={showInfo}
               mode={kind}

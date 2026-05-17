@@ -245,34 +245,14 @@ export default function VibePropertiesPanel({
         <div className="space-y-3 p-4">
           <p className="font-mono text-[11px] text-muted">
             This container is just a wrapper — click the text or image
-            inside to edit it, or swap the whole block below.
+            inside to edit it.
           </p>
-          <SwapComponentButton onClick={onComponentSwap} />
         </div>
       )}
 
-      {componentBrowserOpen && onComponentPick && mode && (
-        <InlineComponentBrowser
-          mode={mode}
-          category={componentBrowserCategory ?? null}
-          onPick={onComponentPick}
-          onWarn={onWarn}
-          preserveBbox={info.bbox ?? null}
-          preserveContent={{
-            text: info.text || undefined,
-            href: info.href || undefined,
-            src: info.src || undefined,
-            alt: info.alt || undefined,
-            // 2026-05-17 — Original class string. preserve-content
-            // extracts only the SIZING / LAYOUT classes (w-, h-,
-            // max-w-, mx-, etc.) and transfers them to the new
-            // component. Chrome classes (bg-, text-, rounded-,
-            // shadow-) stay as the library defined them — that's
-            // what the user is swapping FOR.
-            classes: info.classes || undefined,
-          }}
-        />
-      )}
+      {/* 2026-05-17 — InlineComponentBrowser mount retired with the
+          rest of the component-library swap. Replaced by the AI Edit
+          plan at `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md`. */}
 
       {/* 2026-05-16 — "Save now" button. Vibe edits auto-save every
           600ms after you stop (via the idle-commit useEffect, which

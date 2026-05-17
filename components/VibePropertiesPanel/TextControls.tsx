@@ -15,7 +15,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import { rgbToHex } from "@/lib/vibe-edit/rgb-to-hex";
 import TextTypographyExtras from "./TextTypographyExtras";
-import { SwapComponentButton } from "../VibePropertiesPanel";
+// 2026-05-17 — SwapComponentButton retired with the component-library
+// swap. Import dropped; the button no longer renders. See
+// `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md` Phase 0.
 
 // TextControls owns the background colour picker, so transparent bg
 // should NOT render as a black square (indistinguishable from a black
@@ -196,7 +198,6 @@ export default function TextControls({
         />
       )}
 
-      <SwapComponentButton onClick={onComponentSwap} />
     </div>
   );
 }
