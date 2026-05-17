@@ -32,6 +32,13 @@ export interface AiSelectionPayload {
   scope: AiScope;
   // OuterHTML of the selected element. Capped at 64KB iframe-side.
   outerHtml: string;
+  // Phase 3a — Parent outerHTML with the target node replaced by the
+  // literal string `{{TARGET}}`. Lets the model see the surrounding
+  // styling context (utility classes, parent layout direction) without
+  // doubling the input token budget. Null for section scope (the
+  // section IS its own context) and when parent is <body>/<html> or
+  // exceeds 32KB.
+  parentContext: string | null;
   // Bounding box in iframe-viewport coords. Null when
   // getBoundingClientRect throws.
   bbox: {

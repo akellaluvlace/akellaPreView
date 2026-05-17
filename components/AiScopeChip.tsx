@@ -15,7 +15,7 @@
 // (plan §3.3) lands in Phase 2 once the Tensorix client + API path is
 // wired.
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { AiSelectionInfo } from "@/lib/ai-edit/types";
 import { formatTokenCount } from "@/lib/ai-edit/scope";
 
@@ -36,6 +36,27 @@ export default function AiScopeChip({
   onSetScope,
   onClear,
 }: AiScopeChipProps) {
+  // Phase 3 — Copy code feedback. Flips to "Copied!" for 1.5s after a
+  // successful clipboard write so the user gets a visual confirmation.
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 1500);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  async function handleCopy() {
+    if (!info) return;
+    try {
+      await navigator.clipboard.writeText(info.outerHtml);
+      setCopied(true);
+    } catch {
+      // Fallback for the rare browser without clipboard API permission.
+      // Stay silent — better than a confusing error toast for a button
+      // the user can just retry.
+    }
+  }
+
   // Tab / Shift+Tab / Escape keybindings. Window-level so the user
   // doesn't need to focus a specific element. Skipped when no
   // selection is active — falls through to default browser behavior
@@ -89,20 +110,37 @@ export default function AiScopeChip({
     <div
       role="status"
       aria-label="AI Edit selection"
-      className="pointer-events-auto fixed bottom-6 left-1/2 z-[80] -translate-x-1/2 flex items-center gap-3 border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink shadow-[4px_4px_0_0_#FF4D2E]"
+      className="pointer-events-auto fixed bottom-6 left-1/2 z-[80] -translate-x-1/2 flex flex-col items-center gap-1 border-2 border-ink bg-paper px-3 py-2 shadow-[4px_4px_0_0_#FF4D2E]"
     >
-      <span className="text-coral">✨</span>
-      <span className="font-bold">{scopeLabel}</span>
-      <span className="text-muted">·</span>
-      <span>{fingerprint}</span>
-      <span className="text-muted">·</span>
-      <span className="text-muted">~{tokens} tokens</span>
-      <span className="text-muted">·</span>
-      <span className="text-[10px] text-muted">
-        {info.scope === "element" ? "Tab to expand" : "Shift+Tab to collapse"}
-        {" · "}
-        Esc to clear
-      </span>
+      <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.15em] text-ink">
+        <span className="text-coral">✨</span>
+        <span className="font-bold">{scopeLabel}</span>
+        <span className="text-muted">·</span>
+        <span>{fingerprint}</span>
+        <span className="text-muted">·</span>
+        <span className="text-muted">~{tokens} tokens</span>
+        <span className="text-muted">·</span>
+        <span className="text-[10px] text-muted">
+          {info.scope === "element" ? "Tab to expand" : "Shift+Tab to collapse"}
+          {" · "}
+          Esc to clear
+        </span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          aria-label="Copy element HTML to clipboard"
+          className="border border-ink bg-paper px-1.5 py-0.5 text-[9px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+        >
+          {copied ? "Copied!" : "Copy"}
+        </button>
+      </div>
+      {/* Ephemeral warning per plan §10 Q#2. AI edits live in the iframe
+          DOM only — they survive selection changes but NOT iframe rebuilds
+          (Monaco edit, file switch, Reset). Source persistence is deferred
+          to Phase 4+. Set vibecoder expectations upfront. */}
+      <div className="font-sans text-[10px] normal-case tracking-normal text-muted">
+        Edits live for this session — switch tools or Save in Monaco to persist.
+      </div>
     </div>
   );
 }

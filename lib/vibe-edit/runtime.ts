@@ -434,6 +434,50 @@ export function vibeRuntimeJs(): string {
       } catch (e) {
         outer = '';
       }
+      // Phase 3a — Parent context for element scope. We emit the
+      // parent's outerHTML with the target replaced by a {{TARGET}}
+      // placeholder so the model sees the surrounding styling
+      // (utility classes, layout context) without doubling the input
+      // token budget. Skipped for section scope where the section IS
+      // its own context.
+      var parentContext = null;
+      try {
+        if (
+          (scope || 'element') === 'element' &&
+          el.parentElement &&
+          el.parentElement.tagName !== 'BODY' &&
+          el.parentElement.tagName !== 'HTML' &&
+          typeof el.parentElement.cloneNode === 'function'
+        ) {
+          var parentClone = el.parentElement.cloneNode(false);
+          // Walk parent children in order, swap the target node out
+          // for a marker text node so we can string-replace it cleanly.
+          for (var ci = 0; ci < el.parentElement.childNodes.length; ci++) {
+            var child = el.parentElement.childNodes[ci];
+            if (child === el) {
+              parentClone.appendChild(
+                el.ownerDocument.createTextNode('__DROPIN_AI_TARGET__'),
+              );
+            } else {
+              parentClone.appendChild(child.cloneNode(true));
+            }
+          }
+          var parentOuter = parentClone.outerHTML || '';
+          // Replace the marker with the placeholder string the prompt
+          // builder uses. Using a non-HTML-encoded marker avoids
+          // textContent escaping issues — the marker has no special
+          // characters, and the replacement is a pure string swap.
+          parentContext = parentOuter.replace(
+            '__DROPIN_AI_TARGET__',
+            '{{TARGET}}',
+          );
+          // 32KB cap on parent context — half the target cap. If the
+          // parent is huge, drop it; the model still has the target.
+          if (parentContext.length > 32768) parentContext = null;
+        }
+      } catch (e) {
+        parentContext = null;
+      }
       return {
         path: vibeGetPath(el),
         htmlPath: vibeGetHtmlPath(el),
@@ -442,6 +486,7 @@ export function vibeRuntimeJs(): string {
         classes: el.getAttribute ? (el.getAttribute('class') || '') : '',
         scope: scope || 'element',
         outerHtml: outer,
+        parentContext: parentContext,
         bbox: bbox
       };
     }
@@ -769,6 +814,96 @@ export function vibeRuntimeJs(): string {
         aiSelect(target, d.scope || 'element');
       } else if (d.type === 'ai:clear') {
         aiClear();
+      } else if (d.type === 'ai:apply-outer') {
+        // 2026-05-17 — Phase 2. Host sends AI-returned outerHTML +
+        // the path of the element to swap. We re-find the element,
+        // replace outerHTML wholesale, then re-emit ai:applied so
+        // the host can update the scope chip / history snapshot
+        // without an iframe rebuild.
+        el = d.path ? document.querySelector(d.path) : null;
+        if (!el) {
+          dropinPost({
+            type: 'ai:apply-failed',
+            path: d.path || '',
+            reason: 'Element no longer in DOM',
+          });
+          return;
+        }
+        if (typeof d.newOuterHtml !== 'string' || d.newOuterHtml.length === 0) {
+          dropinPost({
+            type: 'ai:apply-failed',
+            path: d.path || '',
+            reason: 'Empty newOuterHtml',
+          });
+          return;
+        }
+        try {
+          // Capture the parent so we can re-find the new node after
+          // the swap (outerHTML replaces el itself, so the host-side
+          // reference becomes stale).
+          var parent = el.parentElement;
+          if (!parent) {
+            dropinPost({
+              type: 'ai:apply-failed',
+              path: d.path || '',
+              reason: 'Element has no parent (cannot swap <html>/<body>)',
+            });
+            return;
+          }
+          // Mark the parent so we can find the new node after swap —
+          // outerHTML replaces el in-place; we identify the new node
+          // by being the only child of parent without our marker
+          // before swap. The simplest stable identification: the new
+          // node lands at the same index as the old one.
+          var childIndex = -1;
+          for (var ci = 0; ci < parent.children.length; ci++) {
+            if (parent.children[ci] === el) {
+              childIndex = ci;
+              break;
+            }
+          }
+          // Clear AI selection marker before swap so the new node
+          // doesn't inherit a stale data-attr.
+          if (aiSelected === el) {
+            try { el.removeAttribute('data-ai-selected'); } catch (e) {}
+            aiSelected = null;
+          }
+          el.outerHTML = d.newOuterHtml;
+          // Re-find the new node. After outerHTML assignment, the
+          // node at childIndex is the replacement.
+          var newNode = childIndex >= 0 && childIndex < parent.children.length
+            ? parent.children[childIndex]
+            : null;
+          if (!newNode) {
+            dropinPost({
+              type: 'ai:apply-failed',
+              path: d.path || '',
+              reason: 'Swap completed but new node could not be located',
+            });
+            return;
+          }
+          // Re-select the new node so the chip stays visible at the
+          // same scope. aiSelect() will set data-ai-selected + push
+          // a fresh ai:selected event.
+          aiSelect(newNode, 'element');
+          var bbox = null;
+          try {
+            var r = newNode.getBoundingClientRect();
+            bbox = { x: r.left, y: r.top, width: r.width, height: r.height };
+          } catch (e) {}
+          dropinPost({
+            type: 'ai:applied',
+            path: d.path,
+            newOuterHtml: newNode.outerHTML || '',
+            bbox: bbox,
+          });
+        } catch (err) {
+          dropinPost({
+            type: 'ai:apply-failed',
+            path: d.path || '',
+            reason: String(err && err.message ? err.message : err),
+          });
+        }
       }
     });
 

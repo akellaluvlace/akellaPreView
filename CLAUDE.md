@@ -5,7 +5,7 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 ## Active branches (2026-05-17)
 
 - **`main`** — codebase. Last commit `0878566 backup: web templates state before 94/10/32/16/69 batch`.
-- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + vibe-edit + 2026-05-14 vibecoder simplification + 2026-05-15 Move retirement + 2026-05-15 vibecoder feature batch + 2026-05-16 polish + 2026-05-17 component-swap retirement + AI Edit Phase 0-1. **~30 commits ahead of main, all LOCAL ONLY — never pushed.** Latest: `711023a feat: Phase 1 complete — AI Edit selection layer end-to-end`. Full per-session log in `CLAUDE-archive-status.md`.
+- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + vibe-edit + 2026-05-14 vibecoder simplification + 2026-05-15 Move retirement + 2026-05-15 vibecoder feature batch + 2026-05-16 polish + 2026-05-17 component-swap retirement + AI Edit Phase 0-3. **~30+ commits ahead of main, all LOCAL ONLY — never pushed.** Latest pre-commit: Phase 2 + Phase 3 polish (model routing, undo button, parent context, ephemeral warning, copy export, 4 bugs hunted). Full per-session log in `CLAUDE-archive-status.md`.
 
 ## Backup checkpoints (rollback refs)
 
@@ -15,7 +15,96 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-17 — AI Edit Phase 0+1 shipped: component-library swap retired, selection layer end-to-end. tsc 0 throughout. Awaiting manual test before Phase 2.)
+## Current status (2026-05-17 PM — AI Edit Phase 2 + 3 polish shipped end-to-end. Element edits land in 2-3s on qwen3-coder default. Section mode routed to minimax-m2 default. tsc 0 throughout. vitest 6291/6293 (+2 pre-existing envelope failures unrelated). Uncommitted — ready for commit.)
+
+### Phase 2 — Tensorix API integration (uncommitted)
+
+**Server-side** (`app/api/ai-edit/route.ts`):
+- POST handler, OpenAI-compatible call to Tensorix `/chat/completions`.
+- Reads `TENSORIX_API_KEY` / `TENSORIX_BASE_URL` from env. Scope-aware default model:
+  - Element scope → `TENSORIX_DEFAULT_MODEL` (qwen/qwen3-coder-30b-a3b-instruct).
+  - Section scope → `TENSORIX_SECTION_MODEL` (minimax/minimax-m2).
+  - User can override per-request via body.model.
+- Retry strategy: same-model retry after 250ms on 5xx/429/network → cross-model fallback (`TENSORIX_FALLBACK_MODEL`) → no-op detection (trigram-overlap ≥98%) + emphatic-suffix retry → 422 with rephrase hint.
+- max_tokens: 2000 element, 16000 section.
+- Per-IP rate limit 30/min via `lib/rate-limit` shared limiter.
+- Diagnostic console logs: `[ai-edit] request` / `success` / `retry-same` / `fallback-model` / `no-op response` / `tensorix non-ok` / `validation failed`.
+
+**Pure-logic libs**:
+- `lib/ai-edit/parse-request.ts` — parse-don't-validate (mirrors `lib/llm-rewrite-parser`). Caps targetHtml ≤100KB, parentContext ≤50KB, prompt ≤2000 chars, model regex-filtered.
+- `lib/ai-edit/prompts/system.ts` — rewritten 2026-05-17 PM after qwen returned no-op outputs. New first line: `PRIMARY DIRECTIVE: APPLY THE USER'S REQUESTED CHANGE. Returning identical or near-identical HTML is a failure.`
+- `lib/ai-edit/prompts/user-message.ts` — element + section builders. Element-mode includes parent_context block.
+- `lib/ai-edit/validate-response.ts` — JSON parse + fence strip → root-tag match → forbidden-tag scan (script/iframe/object/embed/on-handlers/javascript:/non-image data:) → length sanity (≤1.5× element, ≥20% section).
+- `lib/ai-edit/payload.ts` — `buildApiRequestBody(info, prompt)`. Forwards `info.parentContext` (emitted by iframe) to API.
+- `lib/ai-edit/client.ts` — `callAiEdit(body, signal)`. AbortError → `error: "aborted"` so caller suppresses toast.
+
+**Iframe runtime** (`lib/vibe-edit/runtime.ts`):
+- `aiSerialize` now emits `parentContext` for element scope. Walks the parent's childNodes, replaces the target with a marker text node, serializes via `parentClone.outerHTML`, swaps marker → `{{TARGET}}`. 32KB cap on parent context (half the target cap); null when parent is body/html.
+- `ai:apply-outer` handler: re-finds via querySelector(path), snapshots parent + child-index, swaps outerHTML, re-locates new node, re-emits `ai:applied` with bbox/outerHtml or `ai:apply-failed`.
+
+**Iframe-bridge types** (`lib/iframe-bridge.ts`):
+- Tool union: added `"ai"`. Iframe runtime's `dropin:set-tool` allowlist also extended (caught a runtime allowlist bug — see `feedback_runtime_allowlist_after_union_widen.md`).
+- `ai:apply-outer` (host→iframe) / `ai:applied` + `ai:apply-failed` (iframe→host) variants typed end-to-end. Exhaustiveness guard updated.
+
+**Host wiring** (`components/Workspace.tsx` + `components/Preview.tsx`):
+- `aiBusy` + `aiBusyModel` + `aiAborterRef` + `aiLastEditRef` state.
+- `handleAiSubmit` (abort prior → call → post ai:apply-outer → showInfo with Undo action on success toast).
+- `handleAiApplied` (flip busy off) / `handleAiApplyFailed` (flip busy + clear aiLastEditRef + clear toast + showWarn).
+- Optimistic shimmer label scope-aware (qwen for element, minimax for section).
+
+**Prompt bar UI** (`components/AiPromptBar.tsx`):
+- Floating bottom-center bar with single-line autoexpand textarea.
+- Enter submits / Shift+Enter newline / Escape cancels + clears.
+- Shimmer label while busy showing the active model name.
+
+### Phase 3 polish (uncommitted)
+
+**Scope-aware model routing** — element scope routes to qwen3-coder, section to minimax-m2. Both env-driven (`TENSORIX_DEFAULT_MODEL` / `TENSORIX_SECTION_MODEL` / `TENSORIX_FALLBACK_MODEL`). Cost dropped ~25x by moving away from glm-5.1 default.
+
+**Undo button on AI success toast** — `rollToast` extended with optional `action: { label, onAction }`. AI success populates with `{ label: "Undo", onAction: postAiApplyOuterWithOriginalHtml }`. Toast auto-dismiss bumped to 6s for AI (vs 2.6s for other info toasts). Toast also stacks at `bottom-36` when AI tool is active so it doesn't overlap the prompt bar.
+
+**Parent context** — iframe emits parent outerHTML with `{{TARGET}}` placeholder for element scope. Plan §4.2. Improves qwen's awareness of surrounding utility classes (flex direction, gap, alignment) so it generates layout-coherent changes.
+
+**Ephemeral-edit warning** — second line on AiScopeChip: `"Edits live for this session — switch tools or Save in Monaco to persist."` Sets vibecoder expectation upfront so they don't think the feature is broken when iframe rebuild wipes edits. Per plan §10 Q#2 source persistence is intentionally deferred to Phase 4+.
+
+**Copy code button on chip** — copies current selection's outerHTML to clipboard via `navigator.clipboard.writeText`. Feedback flips label to "Copied!" for 1.5s. No JSX conversion yet — plain HTML export per plan §10 Q#2 ("Copy as JSX export" planned for later if user demand surfaces).
+
+### Bug hunt (this batch, all fixed)
+
+1. **Stale request applied to wrong selection** — user clicks A → submits → clicks B → result was being applied to A. Fix: `handleAiSelected` aborts in-flight aborter when `payload.path !== prev.path` (treats same-path re-emit from `ai:applied` / Tab as continuation, not new selection).
+2. **`aiLastEditRef` not cleared on `ai:apply-failed`** — undo toast would point at an un-changed element. Fix: `handleAiApplyFailed` clears both snapshot + toast.
+3. **Stale toast survives tool switch** — Undo button in View mode after leaving AI was confusing. Fix: `handleToolChange` clears rollToast when leaving AI.
+4. **Shimmer model label hardcoded** — section scope was showing "qwen" while server actually called minimax. Fix: scope-aware optimistic label.
+
+### Model selection rationale (2026-05-17 PM after manual testing)
+
+User tested minimax-m2 default → ~30% transient 502 rate + 8-15s latency (it's a reasoning model). Switched to GLM-5.1 briefly (worked but 18x expensive). Read full Tensorix catalog with user; settled on:
+- **qwen/qwen3-coder-30b-a3b-instruct** as element default — coding-tagged, no-reasoning, $0.06/$0.25 per M, 2-3s typical, MoE 30B-with-3B-active. ~25x cheaper than GLM with comparable quality for surgical edits.
+- **minimax/minimax-m2** as section default + cross-model fallback. Reasoning helps section composition; flakier but only fires after qwen + retry fail.
+- Monthly cost projection at 1k active users dropped from ~€800-1000 (minimax-default) → ~€60-80 (qwen-default).
+
+qwen's known limit: conservative on creative prompts ("redesign as glass-morphism"). The retry + minimax fallback chain absorbs this. If qwen no-ops, server retries qwen with emphatic suffix → if still no-op, returns 422 "Model returned no change — try rephrasing." User-facing toast surfaces the rephrase hint.
+
+### What's NOT in this batch (deliberately deferred)
+
+- **Source persistence** — plan §10 Q#2 defers this; JSX-mode fundamentally hard (dynamic expressions like `{IMAGES.foo}` get flattened on swap). Spec'd for Phase 4+ when user demand justifies the cost.
+- **bbox-anchored prompt bar** — needs iframe-wrapper-ref + watchBbox subscription plumbing. Phase 3.5+.
+- **50-action session history side panel** — plan §3.5; toast-undo covers the single-action case (90% of needs).
+- **HTML-to-JSX export on Copy** — plan §10 Q#2 mentions it; plain HTML copy ships in this batch + JSX flavor lands when user requests.
+- **Telemetry / streaming responses / "Report bad edit"** — Phase 4+ hardening.
+
+### What's next: Phase 4 (after user manual-test signal)
+
+- Telemetry: capture (scope, template ID, model used, input/output tokens, latency, success/failure/aborted) per edit. Plan §8.
+- Rate limiting tighter: 60/hour and 200/session ceilings per plan §6.3+§6.4.
+- Section-mode quality testing across all 108 templates — current heavy testing was element-mode only.
+- Source-persistence design: ephemeral edits work for the single-session case; if vibecoders complain about iframe rebuilds wiping work, design an opt-in "Save these AI edits to source" button.
+
+---
+
+## Archived (pre-Phase-2 status — keep for reference)
+
+### Phase 0 — Component-library swap retired (commit `20dae4e`)
 
 User locked the AI Edit plan at `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md` after honest assessment that the broken component-library swap couldn't be made viable (rigid library tiles, compounding bugs). Path C: AI does the structural work; library tiles retired. Tensorix API key + base URL + default/fallback models live in `.env.local` (gitignored) + `.env.example` (committed).
 

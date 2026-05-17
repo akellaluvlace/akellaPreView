@@ -216,7 +216,19 @@ export type IframeToHostMessage =
   // enriches with fingerprint + token estimate via lib/ai-edit/.
   // Plan: docs/superpowers/plans/2026-05-17-ai-edit-element-section.md.
   | { type: "ai:selected"; info: AiSelectionPayload }
-  | { type: "ai:cleared" };
+  | { type: "ai:cleared" }
+  // Phase 2 — apply outcome. `ai:applied` carries the freshly-swapped
+  // element's new bbox + outerHtml so the host can update the scope chip
+  // and history snapshot without an iframe rebuild. `ai:apply-failed`
+  // fires when querySelector(path) returns null (rare; structural edits
+  // between submit and apply could in principle invalidate the path).
+  | {
+      type: "ai:applied";
+      path: string;
+      newOuterHtml: string;
+      bbox: { x: number; y: number; width: number; height: number } | null;
+    }
+  | { type: "ai:apply-failed"; path: string; reason: string };
 
 // Phase E proper — Composite payload for `dropin:envelope-result`. Carries
 // the parent's raw CSSOM-shaped fields (host calls `parentBoxFromRect` then
@@ -421,7 +433,12 @@ export type HostToIframeMessage =
   // aiFindSectionScope when scope === "section", re-emits ai:selected
   // with the new scope. `ai:clear` fires on Escape / tool change.
   | { type: "ai:set-scope"; path: string; scope: "element" | "section" }
-  | { type: "ai:clear" };
+  | { type: "ai:clear" }
+  // Phase 2 — apply AI-returned outerHTML at the given path. Iframe runs
+  // querySelector(path), replaces outerHTML wholesale, then re-emits
+  // `ai:applied` (with the new node's bbox + outerHtml) or
+  // `ai:apply-failed` if the path no longer resolves.
+  | { type: "ai:apply-outer"; path: string; newOuterHtml: string };
 
 export const DROPIN_SOURCE = "dropin-preview";
 
@@ -449,6 +466,8 @@ const IFRAME_MESSAGE_TYPES = [
   "vibe:cleared",
   "ai:selected",
   "ai:cleared",
+  "ai:applied",
+  "ai:apply-failed",
 ] as const satisfies readonly IframeToHostMessage["type"][];
 
 // Compile-time exhaustiveness guard: makes TS error if a new variant is added

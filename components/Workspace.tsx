@@ -24,6 +24,9 @@ import ElementTree from "./ElementTree";
 import PreviewModal from "./PreviewModal";
 import WhatsNextModal from "./WhatsNextModal";
 import AiScopeChip from "./AiScopeChip";
+import AiPromptBar from "./AiPromptBar";
+import { callAiEdit } from "@/lib/ai-edit/client";
+import { buildApiRequestBody } from "@/lib/ai-edit/payload";
 // 2026-05-16 — Try Variations retired per user direction: "we remove
 // entirely swaps on whole page - only surgical ones." Per-image
 // Shuffle (in ImageControls.tsx) is the surgical alternative + maps
@@ -380,6 +383,10 @@ export default function Workspace({
   const [rollToast, setRollToast] = useState<{
     icon: string;
     text: string;
+    // Phase 3a — optional inline action button rendered to the right of
+    // the toast text. AI Edit success uses this for "Undo". Click fires
+    // onAction + dismisses the toast.
+    action?: { label: string; onAction: () => void };
   } | null>(null);
   // Sidebar plumbing: Monaco hands us an `insertAtCursor` via onReady (see
   // Editor.tsx — callback prop avoids the forwardRef-through-next/dynamic
@@ -414,6 +421,23 @@ export default function Workspace({
   // computed from the iframe payload's tag/classes/outerHtml via the
   // lib/ai-edit/ helpers before storing.
   const [aiInfo, setAiInfo] = useState<AiSelectionInfo | null>(null);
+  // Phase 2 — AI Edit request lifecycle. `aiBusy` gates the prompt bar
+  // shimmer + disables submit during in-flight requests. `aiBusyModel`
+  // shows the active model name in the shimmer. `aiAborterRef` holds
+  // the AbortController so a tool change / escape / re-submit can
+  // cancel an in-flight fetch (plan §6.3: 1 in-flight request per
+  // session). `aiLastEdit` holds the pre-swap snapshot for the undo
+  // toast — null while idle, populated for a few seconds post-apply.
+  const [aiBusy, setAiBusy] = useState(false);
+  const [aiBusyModel, setAiBusyModel] = useState<string | null>(null);
+  const aiAborterRef = useRef<AbortController | null>(null);
+  // Pre-swap snapshot needed by the undo toast button. Kept on a ref
+  // (not state) because the toast's onClick reads it once at click
+  // time; we don't want toast re-renders on every snapshot update.
+  const aiLastEditRef = useRef<{
+    path: string;
+    originalHtml: string;
+  } | null>(null);
   // Snapshot of the last vibeInfo we successfully reconciled to
   // source. When vibeInfo's mutable fields drift away from this
   // snapshot, the idle-debounce effect runs buildVibeCommit. Reset
@@ -2416,12 +2440,36 @@ export default function Workspace({
       scope: payload.scope,
       outerHtmlLen: payload.outerHtml.length,
     });
-    const enriched: AiSelectionInfo = {
-      ...payload,
-      fingerprint: makeFingerprint(payload.tag, payload.classes),
-      tokenEstimate: estimateTokens(payload.outerHtml),
-    };
-    setAiInfo(enriched);
+    // Bug #1 fix — abort any in-flight AI request when the user clicks
+    // a new element. Otherwise the stale request lands and swaps the
+    // PREVIOUSLY selected element while the user is staring at a
+    // different one. Only abort when the path actually changed (the
+    // iframe re-emits ai:selected after every apply with the same
+    // path, which is NOT a user-initiated selection change).
+    setAiInfo((prev) => {
+      if (prev && prev.path === payload.path) {
+        // Same node, possibly different scope after Tab — keep
+        // in-flight request alive. Refresh fingerprint + tokens for
+        // the updated outerHtml.
+        return {
+          ...payload,
+          fingerprint: makeFingerprint(payload.tag, payload.classes),
+          tokenEstimate: estimateTokens(payload.outerHtml),
+        };
+      }
+      // Different node — invalidate any pending request.
+      if (aiAborterRef.current) {
+        aiAborterRef.current.abort();
+        aiAborterRef.current = null;
+      }
+      setAiBusy(false);
+      setAiBusyModel(null);
+      return {
+        ...payload,
+        fingerprint: makeFingerprint(payload.tag, payload.classes),
+        tokenEstimate: estimateTokens(payload.outerHtml),
+      };
+    });
   }, []);
 
   const handleAiCleared = useCallback(() => {
@@ -2452,7 +2500,162 @@ export default function Workspace({
   const handleAiClearFromChip = useCallback(() => {
     setAiInfo(null);
     previewHandleRef.current?.postVibe({ type: "ai:clear" });
+    if (aiAborterRef.current) {
+      aiAborterRef.current.abort();
+      aiAborterRef.current = null;
+    }
+    setAiBusy(false);
+    setAiBusyModel(null);
   }, []);
+
+  // Phase 2 — Submit handler. Fires the API request, swaps outerHTML
+  // in the iframe on success, surfaces toasts on error. Plan §3.4.
+  // The iframe re-emits ai:applied after the swap → handleAiApplied
+  // updates state. We capture aiInfo at submit time (closed over the
+  // current selection) so a fast tool change can still process the
+  // pending response without panicking.
+  const handleAiSubmit = useCallback(
+    async (userPrompt: string) => {
+      const info = aiInfo;
+      if (!info) return;
+      if (aiBusy) return;
+      // Abort any prior in-flight request (defensive; UI gates submit
+      // when busy, but a stale aborter could exist from a tool change
+      // mid-request).
+      if (aiAborterRef.current) {
+        aiAborterRef.current.abort();
+      }
+      const aborter = new AbortController();
+      aiAborterRef.current = aborter;
+
+      const body = buildApiRequestBody(info, userPrompt);
+      // Optimistic UI: show shimmer with the default model name. If the
+      // server falls back to a different model we update on the response.
+      // Bug #4 fix — scope-aware shimmer label. Server routes section to
+      // minimax-m2 (reasoning helps composition); element to qwen-coder
+      // (fast surgical edits). Shimmer should reflect what's actually
+      // being called.
+      const optimisticModel =
+        info.scope === "section"
+          ? process.env.NEXT_PUBLIC_TENSORIX_SECTION_MODEL ?? "minimax/minimax-m2"
+          : process.env.NEXT_PUBLIC_TENSORIX_DEFAULT_MODEL ??
+            "qwen/qwen3-coder-30b-a3b-instruct";
+      setAiBusy(true);
+      setAiBusyModel(optimisticModel);
+      track("ai:submit", { scope: info.scope, promptLen: userPrompt.length });
+
+      let result;
+      try {
+        result = await callAiEdit(body, aborter.signal);
+      } finally {
+        if (aiAborterRef.current === aborter) {
+          aiAborterRef.current = null;
+        }
+      }
+
+      // The user aborted (Escape, tool change) — drop silently.
+      if (aborter.signal.aborted) {
+        setAiBusy(false);
+        setAiBusyModel(null);
+        return;
+      }
+
+      if (!result.ok) {
+        setAiBusy(false);
+        setAiBusyModel(null);
+        if (result.error === "aborted") return;
+        showWarn(`AI Edit failed: ${result.error}`);
+        track("ai:fail", { error: result.error, status: result.status });
+        return;
+      }
+
+      // Snapshot the pre-swap outerHTML for the undo toast.
+      aiLastEditRef.current = {
+        path: info.path,
+        originalHtml: info.outerHtml,
+      };
+      track("ai:success", {
+        model: result.model,
+        promptTokens: result.usage?.prompt ?? 0,
+        completionTokens: result.usage?.completion ?? 0,
+      });
+
+      // Push the swap to the iframe. The iframe will re-emit
+      // ai:applied → handleAiApplied flips aiBusy off + updates the chip.
+      previewHandleRef.current?.postVibe({
+        type: "ai:apply-outer",
+        path: info.path,
+        newOuterHtml: result.html,
+      });
+
+      // Toast surfaces immediately on success — the iframe swap is
+      // synchronous + we'd rather give feedback now than wait the
+      // round-trip. handleAiApplied will reconcile state.
+      const notes = result.notes ? ` · ${result.notes}` : "";
+      const snapshot = aiLastEditRef.current;
+      const undoEntry = {
+        icon: "✨",
+        text: `Edit applied${notes}`,
+        action: snapshot
+          ? {
+              label: "Undo",
+              onAction: () => {
+                // Revert by re-posting the original outerHTML at the same
+                // path. handleAiApplied will fire on the iframe round-trip
+                // and re-emit ai:selected for the reverted node. Clear the
+                // snapshot afterwards so a stale undo can't double-fire.
+                previewHandleRef.current?.postVibe({
+                  type: "ai:apply-outer",
+                  path: snapshot.path,
+                  newOuterHtml: snapshot.originalHtml,
+                });
+                aiLastEditRef.current = null;
+                track("ai:undo");
+              },
+            }
+          : undefined,
+      };
+      setRollToast(undoEntry);
+      setTimeout(
+        () => setRollToast((s) => (s === undoEntry ? null : s)),
+        // Longer than the default 2.6s — undo is the whole point of the
+        // toast and the user needs a beat to register the change before
+        // deciding to revert.
+        6000,
+      );
+    },
+    [aiInfo, aiBusy, showWarn],
+  );
+
+  // Phase 2 — Iframe confirmed the swap. Re-emitted ai:selected has
+  // already updated aiInfo via handleAiSelected; we just flip the busy
+  // flag off.
+  const handleAiApplied = useCallback(() => {
+    setAiBusy(false);
+    setAiBusyModel(null);
+  }, []);
+
+  const handleAiApplyFailed = useCallback(
+    (data: { path: string; reason: string }) => {
+      setAiBusy(false);
+      setAiBusyModel(null);
+      // Bug #2 fix — the optimistic toast may have already populated
+      // aiLastEditRef expecting the swap to land. If the iframe rejected
+      // the swap, undo would target an un-changed element. Clear the
+      // snapshot AND the undo-bearing toast so the user doesn't see a
+      // false "Edit applied · Undo" button.
+      aiLastEditRef.current = null;
+      setRollToast(null);
+      showWarn(`Apply failed: ${data.reason}`);
+      track("ai:apply-failed", data);
+    },
+    [showWarn],
+  );
+
+  // Escape inside the prompt bar — clear selection + abort.
+  const handleAiPromptEscape = useCallback(() => {
+    handleAiClearFromChip();
+  }, [handleAiClearFromChip]);
 
   // Direct-mutation handlers. Each posts to the iframe via
   // previewHandleRef.current.postVibe; the runtime mutates the live
@@ -3506,6 +3709,22 @@ export default function Workspace({
       if (prev === "ai" && next !== "ai") {
         setAiInfo(null);
         previewHandleRef.current?.postVibe({ type: "ai:clear" });
+        // Phase 2 — abort any in-flight AI request when leaving the tool.
+        // Otherwise a slow Tensorix response could land seconds after the
+        // user switched away + try to swap an element they no longer have
+        // selected.
+        if (aiAborterRef.current) {
+          aiAborterRef.current.abort();
+          aiAborterRef.current = null;
+        }
+        setAiBusy(false);
+        setAiBusyModel(null);
+        aiLastEditRef.current = null;
+        // Bug #3 fix — clear any AI success toast on tool exit. The toast
+        // has an Undo action that's only meaningful while AI tool is active
+        // + the prompt bar context is visible. A lingering toast in View
+        // mode would be confusing.
+        setRollToast(null);
       }
       // Phase 6 (2026-05-11 PM) — standalone Swap tool retired. Asset
       // swap-from-library lives inside vibe mode via the per-kind
@@ -3783,6 +4002,8 @@ export default function Workspace({
             onVibeCleared={handleVibeCleared}
             onAiSelected={handleAiSelected}
             onAiCleared={handleAiCleared}
+            onAiApplied={handleAiApplied}
+            onAiApplyFailed={handleAiApplyFailed}
           />
         </div>
 
@@ -4116,10 +4337,35 @@ export default function Workspace({
 
       {rollToast && (
         <div
-          className="pointer-events-none fixed bottom-6 left-1/2 z-[70] -translate-x-1/2 border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-paper shadow-[4px_4px_0_0_#FF4D2E]"
+          // Action toasts need pointer events for the button; status-only
+          // toasts stay pointer-events-none so they don't intercept clicks
+          // on the iframe behind them.
+          // When AI tool is active the prompt bar lives at bottom-20 +
+          // scope chip at bottom-6, so the toast bumps up to bottom-36 to
+          // stack above both. Other tools keep the original bottom-6.
+          className={
+            "fixed left-1/2 z-[70] -translate-x-1/2 flex items-center gap-3 border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] uppercase tracking-[0.2em] text-paper shadow-[4px_4px_0_0_#FF4D2E] " +
+            (tool === "ai" ? "bottom-36 " : "bottom-6 ") +
+            (rollToast.action ? "pointer-events-auto" : "pointer-events-none")
+          }
           role="status"
         >
-          {rollToast.icon} {rollToast.text}
+          <span>
+            {rollToast.icon} {rollToast.text}
+          </span>
+          {rollToast.action && (
+            <button
+              type="button"
+              onClick={() => {
+                const a = rollToast.action;
+                setRollToast(null);
+                if (a) a.onAction();
+              }}
+              className="border border-paper bg-paper px-2 py-0.5 text-[10px] text-ink transition-colors hover:bg-coral hover:text-paper"
+            >
+              {rollToast.action.label}
+            </button>
+          )}
         </div>
       )}
 
@@ -4146,11 +4392,20 @@ export default function Workspace({
           Shift+Tab / Escape keybindings. Prompt bar (Phase 2) will
           render alongside this when Tensorix wiring lands. */}
       {tool === "ai" && (
-        <AiScopeChip
-          info={aiInfo}
-          onSetScope={handleAiSetScope}
-          onClear={handleAiClearFromChip}
-        />
+        <>
+          <AiScopeChip
+            info={aiInfo}
+            onSetScope={handleAiSetScope}
+            onClear={handleAiClearFromChip}
+          />
+          <AiPromptBar
+            info={aiInfo}
+            busy={aiBusy}
+            busyModel={aiBusyModel}
+            onSubmit={handleAiSubmit}
+            onEscape={handleAiPromptEscape}
+          />
+        </>
       )}
 
       <FirstOpenTour hasSelection={selection !== null} />

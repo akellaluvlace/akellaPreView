@@ -2128,7 +2128,8 @@ window.addEventListener('message', function (ev) {
     // host shouldn't be able to push 'undefined' and break gating).
     if (
       d.tool === 'view' || d.tool === 'select' || d.tool === 'move' ||
-      d.tool === 'insert' || d.tool === 'swap' || d.tool === 'vibe'
+      d.tool === 'insert' || d.tool === 'swap' || d.tool === 'vibe' ||
+      d.tool === 'ai'
     ) {
       DROPIN_TOOL = d.tool;
       // Drop any lingering hover paint when a non-painting tool
