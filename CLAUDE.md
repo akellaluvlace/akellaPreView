@@ -2,10 +2,10 @@
 
 Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generated HTML/JSX and see it render live, or pick from a gallery of templates. Audience: people with no terminal, no Node install, no dev background.
 
-## Active branches (2026-05-15)
+## Active branches (2026-05-17)
 
 - **`main`** — codebase. Last commit `0878566 backup: web templates state before 94/10/32/16/69 batch`.
-- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + vibe-edit + image-context-fit audit + 2026-05-14 vibecoder simplification + 2026-05-14 PM inline browser + 2026-05-15 Move retirement + 2026-05-15 vibecoder feature batch (6 features). **20 commits ahead of main + 1 uncommitted session, all LOCAL ONLY — never pushed.** Full per-session log in `CLAUDE-archive-status.md`.
+- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + vibe-edit + 2026-05-14 vibecoder simplification + 2026-05-15 Move retirement + 2026-05-15 vibecoder feature batch + 2026-05-16 polish + 2026-05-17 component-swap retirement + AI Edit Phase 0-1. **~30 commits ahead of main, all LOCAL ONLY — never pushed.** Latest: `711023a feat: Phase 1 complete — AI Edit selection layer end-to-end`. Full per-session log in `CLAUDE-archive-status.md`.
 
 ## Backup checkpoints (rollback refs)
 
@@ -15,7 +15,125 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-16 PM — post-dinner polish shipped: tour refresh, success toasts, spinner, figure-bg fix, empty-state hint. CLAUDE.md cleaned + 2026-05-14 archived. tsc 0.)
+## Current status (2026-05-17 — AI Edit Phase 0+1 shipped: component-library swap retired, selection layer end-to-end. tsc 0 throughout. Awaiting manual test before Phase 2.)
+
+User locked the AI Edit plan at `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md` after honest assessment that the broken component-library swap couldn't be made viable (rigid library tiles, compounding bugs). Path C: AI does the structural work; library tiles retired. Tensorix API key + base URL + default/fallback models live in `.env.local` (gitignored) + `.env.example` (committed).
+
+### Phase 0 — Component-library swap retired (commit `20dae4e`)
+
+Same retirement pattern as Move + Try Variations:
+- `SwapComponentButton` renders dropped from TextControls / LinkControls / CardControls.
+- `InlineComponentBrowser` mount dropped from VibePropertiesPanel.
+- `onComponentSwap` / `onComponentPick` / `componentBrowserOpen` / `componentBrowserCategory` prop pass-through dropped at the Workspace ↔ panel boundary.
+- Left on disk for recoverability + Phase 2+ reuse:
+  - `components/VibePropertiesPanel/InlineComponentBrowser.tsx`
+  - `lib/component-library/insert.ts`
+  - `lib/component-library/preserve-content.ts` (sizing-class transfer helpers may be useful for AI response normalization)
+  - `lib/component-library/html-to-jsx.ts` (needed for AI Edit "Copy as JSX" export per plan Open Q #2)
+  - `lib/swap-category-hint.ts` (visual-role disambiguator — useful for AI prompt context generation)
+- Workspace unused handlers (handleVibeComponentSwapOpen/Close, vibeComponentSwapContext memo) kept dormant; setter calls in cleanup paths are harmless no-ops.
+
+### Phase 1 — AI Edit selection layer end-to-end (commits `b97037e`, `a2e6038`, `711023a`)
+
+Click any element in AI tool → see floating scope chip with fingerprint + token estimate. Tab expands to nearest semantic section, Shift+Tab collapses, Escape clears. NO AI INTEGRATION YET — Phase 2 wires Tensorix.
+
+**New files:**
+- `lib/ai-edit/scope.ts` — `findSectionScope(el)` walks up to SECTION/HEADER/FOOTER/NAV/ASIDE/MAIN/ARTICLE tags, region/banner/contentinfo ARIA roles, or class fingerprints (hero/features/pricing/cta/testimonial/bento/navbar/faq/stats/logos/gallery/about/contact/newsletter). Plus `estimateTokens` (chars/3.5 ceil) + `formatTokenCount` ("847" or "2.3k").
+- `lib/ai-edit/types.ts` — `AiScope` ("element" | "section"), `AiSelectionPayload` (iframe-emit shape: path/htmlPath/oid/tag/classes/scope/outerHtml/bbox), `AiSelectionInfo` (host-stored: extends payload with fingerprint + tokenEstimate computed via host helpers), `AiEditEntry` (history record), `AiMessage` / `AiCommand` (iframe ↔ host envelopes).
+- `lib/ai-edit/fingerprint.ts` — `makeFingerprint(tag, classes)` builds scope chip label. Strips Tailwind utility chrome (bg-*/text-*/px-*/flex/items-/etc.), variant chains (md:hover:bg-blue-500), arbitrary-value classes (bg-[#hex]). Caps at ~40 chars.
+- `components/AiScopeChip.tsx` — bottom-center HUD chip (Phase 1 uses fixed positioning; bbox-anchored chip lands in Phase 3 with the prompt bar). Window-level Tab/Shift+Tab/Escape keybindings; skips when focus is in input/textarea/contenteditable/Monaco editor.
+
+**Iframe runtime additions (`lib/vibe-edit/runtime.ts`):**
+- `aiSelected` global + `aiSelect(el, scope)` / `aiClear()` mirror vibe pattern. Own `data-ai-selected` data-attr so vibe + AI outlines don't fight.
+- `aiSerialize(el, scope)` — lean payload (no fingerprint/tokens; host enriches). 64KB outerHTML cap.
+- `aiFindSectionScope(el)` — ES5 inline copy of `findSectionScope` from `lib/ai-edit/scope.ts` (template-literal runtime can't import).
+- Click handler extended with `DROPIN_TOOL === 'ai'` branch BEFORE the vibe branch. Selects ANY element (no editable-atom filter — AI handles styling, host just needs the target).
+- Message handler extended with `ai:set-scope` (Tab → re-resolve via aiFindSectionScope, re-emit ai:selected) and `ai:clear` (Escape).
+- Outline rule for `data-ai-selected`: 2px coral with crosshair cursor (differentiates from vibe's 3px outline + pointer cursor).
+
+**Types + bridge (`lib/iframe-bridge.ts`):**
+- `Tool` union extended with `"ai"`.
+- `IframeToHostMessage` extended with `ai:selected` (carries `AiSelectionPayload`) / `ai:cleared`.
+- `HostToIframeMessage` extended with `ai:set-scope` / `ai:clear`.
+- `IFRAME_MESSAGE_TYPES` exhaustiveness tuple updated.
+- `Preview.postVibe` signature widened to accept both `vibe:*` and `ai:*` commands.
+
+**Host wiring (`components/Preview.tsx` + `components/Workspace.tsx`):**
+- Preview: `onAiSelected` / `onAiCleared` props with ref pattern matching vibe equivalents.
+- Workspace: `aiInfo` state (`AiSelectionInfo | null`). `handleAiSelected` enriches via `makeFingerprint` + `estimateTokens` before setState. `handleAiSetScope` posts `ai:set-scope` through previewHandleRef. `handleAiClearFromChip` clears state + posts `ai:clear`. Tool change away from "ai" auto-clears + posts ai:clear (defensive cleanup).
+
+**Toolbar (`components/ToolBar.tsx`):**
+- `"ai"` added to `TOOL_LIST` (now `["view", "vibe", "ai"]`).
+- `AiIcon` sparkle SVG (Cursor / Copilot convention).
+- `TOOL_META.ai` — label "AI", shortcut "A", tooltip "Click any element and describe a change in plain language."
+- Workspace keyboard handler binds `a` → `setTool('ai')`. localStorage migration recognizes `"ai"` as a valid persisted choice.
+
+**Env (`.env.local` cleaned, `.env.example` updated):**
+- `TENSORIX_API_KEY` (loaded from local), `TENSORIX_BASE_URL=https://api.tensorix.ai/v1`, `TENSORIX_DEFAULT_MODEL=minimax/minimax-m2`, `TENSORIX_FALLBACK_MODEL=z-ai/glm-5.1`. Model catalog documented in env comment.
+
+### What's next: Phase 2
+
+Per plan §9 Phase 2:
+- Server-side `/api/ai-edit/route.ts` reading Tensorix env vars, OpenAI-compatible POST to `/v1/chat/completions`, JSON-mode response.
+- System prompt + user-message builders (`lib/ai-edit/prompts/`).
+- Element-mode payload construction (target HTML + parent context with `{{TARGET}}` placeholder + tailwind config excerpt).
+- Floating prompt bar UI anchored to the AI selection.
+- JSON response validation pipeline: parse → root-tag-match → forbidden-tag check (no script/iframe/event handlers) → length sanity (element <1.5× input, section >20% input).
+- outerHTML swap + push to per-session history stack (up to 50 actions, per plan §3.5).
+
+---
+
+## Phase 1 manual test checklist (2026-05-17, run on user's existing dev server at port 3001)
+
+Each line is one ~30s confirmation. STOP at the first failure and capture: which step + what you saw + any console output prefixed `[dropin:iframe-ai-click]` or `[dropin:Workspace] ai:`.
+
+**Toolbar surface:**
+- [ ] Toolbar shows three buttons: **View · Edit · AI**.
+- [ ] AI button shows a sparkle icon (four-pointed star).
+- [ ] Hover AI button → tooltip reads "Click any element and describe a change in plain language. (A)".
+- [ ] Press **A** key → toolbar highlights AI as active. Press **V** → back to View. Press **E** → Edit.
+- [ ] Reload page → if AI was active, persists across reload. Otherwise lands on previously persisted tool.
+
+**Selection on click (element mode):**
+- [ ] Switch to AI tool. Hover over an element in the iframe → no special hover visual yet (that's a Phase 3 polish).
+- [ ] Click any element (text, image, button, card, section) → 2px coral outline appears with 1px offset.
+- [ ] Cursor while AI tool is active changes to crosshair (vs vibe's pointer).
+- [ ] Floating chip appears at bottom-center reading: `✨ Element · <fingerprint> · ~Xk tokens · Tab to expand · Esc to clear`.
+- [ ] The `<fingerprint>` part shows readable identity (e.g. `section.hero`, `button.cta-primary`, `div`) — NOT a Tailwind-utility wall.
+- [ ] Token count looks plausible (small elements ~50-500, sections ~1k-10k).
+- [ ] Click a DIFFERENT element → outline + chip update to new target.
+
+**Scope expansion (Tab):**
+- [ ] With an element selected, press **Tab** → outline jumps to nearest semantic section ancestor. Chip updates: `✨ Section · <new-fingerprint> · ~Yk tokens · Shift+Tab to collapse · Esc to clear`.
+- [ ] Token count increases (section is bigger than element).
+- [ ] Press **Shift+Tab** → outline collapses back to original element. Chip back to "Element".
+- [ ] Click an element that IS its own nearest section (e.g. `<section class="hero">` directly) → Tab → outline stays put, chip stays at "Section". (Iframe walker returns the element unchanged when it IS the section.)
+- [ ] Click an element with no semantic section ancestor (rare; deeply-nested div in body) → Tab → outline stays put, chip stays at "Element". (Walker falls back to direct-child-of-body, then to the element itself.)
+
+**Escape + clear:**
+- [ ] With a selection active, press **Escape** → outline disappears, chip disappears.
+- [ ] Switch tool from AI to View → outline disappears, chip disappears.
+- [ ] Switch back to AI → no selection until you click again (state was cleared on tool exit).
+
+**Keybinding coexistence:**
+- [ ] Open the Code editor (Monaco) on the right. Click into Monaco. Press Tab → moves focus in Monaco, does NOT trigger scope-expand (AI handler skips when focus is in Monaco).
+- [ ] Same for any `<input>` / `<textarea>` (e.g. the alt-text input in Edit mode).
+
+**Cleanup signals:**
+- [ ] Open dev console. Click an element in AI tool → see `[dropin:iframe-ai-click] hit <TAG>` + `[dropin:Workspace] ai:selected { tag, path, scope }`.
+- [ ] Press Escape → see `[dropin:Workspace] ai:cleared`.
+- [ ] Press Tab → see another `ai:selected` with `scope: "section"`.
+
+**No regressions on prior surfaces:**
+- [ ] Switch to Edit tool → per-image Shuffle still works.
+- [ ] Bg-image Shuffle still works.
+- [ ] Save now ✓ button still toasts positively.
+- [ ] Undo / Redo / Reset buttons still functional.
+- [ ] First-open tour (if you cleared localStorage `dropin:tour-completed-v3`) shows the four updated steps.
+
+If anything diverges, paste the failed step + console line back. The diagnosis-by-tracer pattern from `feedback_tracer_first_on_broken_features` applies — we look at the actual log values, not guess.
+
+---
 
 Resumed after dinner with the polish plan locked at `docs/superpowers/plans/2026-05-16-post-dinner-polish.md`. Phases 1-4 + 6 shipped (Phase 5 mood slider intentionally deferred — Phases 1-4 are pure polish/fix; mood slider would be the one new feature and lighter/darker can wait for manual-test signal first).
 
