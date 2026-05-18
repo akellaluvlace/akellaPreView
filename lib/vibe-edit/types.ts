@@ -104,6 +104,12 @@ export interface VibeElementInfo {
   // should click the inner img directly to swap that image. Optional
   // for backwards-compat with older test fixtures + message shapes.
   hasInnerImg?: boolean;
+  // 2026-05-18 — outerHTML capture used by AI swap. Iframe-side cap at
+  // 64KB so payloads stay small for elements that don't trigger swap.
+  // Empty/absent when serialization fails. Phase 6 only consumer:
+  // handleAiSwapPick in components/Workspace.tsx feeds this as
+  // <dropin_target> into the swap prompt.
+  outerHtml?: string;
 }
 
 // Iframe → host. Sent via parent.postMessage with the existing

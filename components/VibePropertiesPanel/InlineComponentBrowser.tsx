@@ -19,10 +19,19 @@ import type { PreviewKind } from "@/lib/preview";
 interface Props {
   mode: PreviewKind;
   category: string | null;
-  onPick: (
+  // Direct-paste mode (legacy / pre-AI-Edit). Fires with the full
+  // insert payload (attribution + style block + body, content-preserved).
+  // When `onPickReference` is provided, this callback is NOT used.
+  onPick?: (
     assetText: string,
     opts?: { forceRebuild?: boolean },
   ) => void;
+  // Phase 6 — AI swap mode. When provided, the browser bypasses the
+  // direct-paste insert pipeline entirely and fires this callback with
+  // the RAW component HTML (no insert payload, no content preservation —
+  // the AI does the fusion server-side). `onPick` is ignored in this
+  // mode.
+  onPickReference?: (component: ComponentMeta, rawHtml: string) => void;
   onWarn?: (message: string) => void;
   // Pre-swap visual footprint of the target element. When provided,
   // the swapped asset gets wrapped in a same-dimension container so
@@ -51,6 +60,7 @@ export default function InlineComponentBrowser({
   mode,
   category,
   onPick,
+  onPickReference,
   onWarn,
   preserveBbox,
   preserveContent,
@@ -93,6 +103,17 @@ export default function InlineComponentBrowser({
     setPicking(slug);
     try {
       const full = await getComponentFull(slug);
+      // Phase 6 — AI swap mode. Skip the insert pipeline entirely; just
+      // hand the raw HTML to the caller, who'll send it to /api/ai-edit
+      // as `referenceHtml`. The AI does the content fusion server-side.
+      if (onPickReference) {
+        onPickReference(full, full.html ?? "");
+        return;
+      }
+      if (!onPick) {
+        onWarn?.("Component browser misconfigured — no pick handler");
+        return;
+      }
       const payload = buildInsertPayload(full, mode);
       // 2026-05-17 — Preserve original content (text label, href, src,
       // alt, sizing classes) by transforming the library asset BEFORE

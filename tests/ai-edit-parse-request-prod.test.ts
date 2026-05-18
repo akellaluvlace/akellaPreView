@@ -39,6 +39,100 @@ describe("ai-edit parse-request — accepts valid input", () => {
   });
 });
 
+describe("ai-edit parse-request — swap mode (Phase 6)", () => {
+  it("defaults mode to 'edit' when omitted", () => {
+    const r = parseAiEditRequest({
+      scope: "element",
+      targetHtml: "<button>Hi</button>",
+      userPrompt: "make it red",
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.value.mode).toBe("edit");
+  });
+
+  it("accepts mode='swap' with referenceHtml", () => {
+    const r = parseAiEditRequest({
+      scope: "element",
+      mode: "swap",
+      targetHtml: "<button>Buy</button>",
+      referenceHtml: "<button class='glass'>Click</button>",
+      userPrompt: "",
+    });
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.value.mode).toBe("swap");
+      expect(r.value.referenceHtml).toBe("<button class='glass'>Click</button>");
+    }
+  });
+
+  it("rejects mode='swap' WITHOUT referenceHtml", () => {
+    const r = parseAiEditRequest({
+      scope: "element",
+      mode: "swap",
+      targetHtml: "<button>Hi</button>",
+      userPrompt: "",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toContain("referenceHtml");
+  });
+
+  it("rejects mode='swap' with EMPTY referenceHtml", () => {
+    const r = parseAiEditRequest({
+      scope: "element",
+      mode: "swap",
+      targetHtml: "<button>Hi</button>",
+      referenceHtml: "",
+      userPrompt: "",
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("allows empty userPrompt in swap mode (library pick conveys intent)", () => {
+    const r = parseAiEditRequest({
+      scope: "element",
+      mode: "swap",
+      targetHtml: "<button>Buy</button>",
+      referenceHtml: "<button>X</button>",
+      userPrompt: "",
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("still requires non-empty userPrompt in edit mode", () => {
+    const r = parseAiEditRequest({
+      scope: "element",
+      mode: "edit",
+      targetHtml: "<button>Hi</button>",
+      userPrompt: "",
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("rejects invalid mode value", () => {
+    const r = parseAiEditRequest({
+      scope: "element",
+      mode: "delete",
+      targetHtml: "<button>Hi</button>",
+      userPrompt: "x",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toContain("mode");
+  });
+
+  it("rejects oversized referenceHtml (>50KB)", () => {
+    const giant = "<div>" + "x".repeat(50_001) + "</div>";
+    const r = parseAiEditRequest({
+      scope: "element",
+      mode: "swap",
+      targetHtml: "<button>Hi</button>",
+      referenceHtml: giant,
+      userPrompt: "",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toContain("50KB");
+  });
+});
+
 describe("ai-edit parse-request — rejects malformed input", () => {
   it("rejects non-object body", () => {
     expect(parseAiEditRequest("hello")).toMatchObject({

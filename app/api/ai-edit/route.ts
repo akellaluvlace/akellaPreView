@@ -15,6 +15,10 @@ import { NextResponse } from "next/server";
 import { parseAiEditRequest } from "@/lib/ai-edit/parse-request";
 import { AI_EDIT_SYSTEM_PROMPT } from "@/lib/ai-edit/prompts/system";
 import { buildUserMessage } from "@/lib/ai-edit/prompts/user-message";
+import {
+  AI_SWAP_SYSTEM_PROMPT,
+  buildSwapUserMessage,
+} from "@/lib/ai-edit/prompts/swap";
 import { validateAiResponse } from "@/lib/ai-edit/validate-response";
 import { createRateLimiter } from "@/lib/rate-limit";
 
@@ -77,6 +81,7 @@ async function callTensorix(
   apiKey: string,
   baseUrl: string,
   model: string,
+  systemPrompt: string,
   userMessage: string,
   maxTokens: number,
 ): Promise<
@@ -94,7 +99,7 @@ async function callTensorix(
       body: JSON.stringify({
         model,
         messages: [
-          { role: "system", content: AI_EDIT_SYSTEM_PROMPT },
+          { role: "system", content: systemPrompt },
           { role: "user", content: userMessage },
         ],
         response_format: { type: "json_object" },
@@ -255,14 +260,19 @@ export async function POST(req: Request): Promise<Response> {
   // output budget plus reasoning overhead. minimax-m2 supports 197k
   // context; we're nowhere near a hard limit.
   const maxTokens = body.scope === "section" ? 16000 : 2000;
-  const userMessage = buildUserMessage(body);
-  // Diagnostic: log the request shape (sizes only — never the full
-  // body or HTML, to keep terminal output readable and avoid leaking
-  // template-source if user shares a screenshot).
+  // Phase 6 — Mode dispatch. Swap mode fuses target + reference via a
+  // separate system prompt (Pattern 3 inverted framing). Edit mode is
+  // the existing natural-language path.
+  const systemPrompt =
+    body.mode === "swap" ? AI_SWAP_SYSTEM_PROMPT : AI_EDIT_SYSTEM_PROMPT;
+  const userMessage =
+    body.mode === "swap" ? buildSwapUserMessage(body) : buildUserMessage(body);
   console.log("[ai-edit] request", {
     scope: body.scope,
+    mode: body.mode,
     model,
     targetHtmlLen: body.targetHtml.length,
+    referenceHtmlLen: body.referenceHtml?.length ?? 0,
     promptLen: body.userPrompt.length,
     maxTokens,
   });
@@ -285,6 +295,7 @@ export async function POST(req: Request): Promise<Response> {
     apiKey,
     baseUrl,
     model,
+    systemPrompt,
     userMessage,
     maxTokens,
   );
@@ -301,6 +312,7 @@ export async function POST(req: Request): Promise<Response> {
       apiKey,
       baseUrl,
       model,
+      systemPrompt,
       userMessage,
       maxTokens,
     );
@@ -322,6 +334,7 @@ export async function POST(req: Request): Promise<Response> {
       apiKey,
       baseUrl,
       fallbackModel,
+      systemPrompt,
       userMessage,
       maxTokens,
     );
@@ -405,15 +418,23 @@ export async function POST(req: Request): Promise<Response> {
   if (isNoOp(validated.value.html, body.targetHtml)) {
     console.warn("[ai-edit] no-op response — retrying with emphatic suffix", {
       model: modelUsed,
+      mode: body.mode,
       htmlLen: validated.value.html.length,
     });
+    // Phase 6 — Mode-aware emphatic suffix. Swap mode's failure mode is
+    // "ignored the reference" — the model returned target nearly intact.
+    // The fix-up has to specifically push the model back toward the
+    // reference's design DNA, not a generic "apply a change."
     const retryUserMessage =
       userMessage +
-      "\n\nYour previous response returned HTML that is nearly identical to the input. The user explicitly asked for a change. Apply a real, visible modification this time. Output JSON only.";
+      (body.mode === "swap"
+        ? "\n\nYour previous response was nearly identical to <dropin_target>. You ignored <dropin_reference>. You MUST adopt REFERENCE's classes, colors, typography, and spacing while keeping TARGET's text/images. Try again."
+        : "\n\nYour previous response returned HTML that is nearly identical to the input. The user explicitly asked for a change. Apply a real, visible modification this time. Output JSON only.");
     const retryAttempt = await callTensorix(
       apiKey,
       baseUrl,
       modelUsed,
+      systemPrompt,
       retryUserMessage,
       maxTokens,
     );
@@ -466,6 +487,71 @@ export async function POST(req: Request): Promise<Response> {
       });
       return fail(
         "Model returned no change — try rephrasing the prompt with a more specific request",
+        422,
+      );
+    }
+  }
+
+  // Phase 6 — Reference-clone detection (swap mode only). If the output
+  // is ~identical to the reference, the model regurgitated REFERENCE
+  // verbatim and lost TARGET's content. Mirror of the no-op check, with
+  // a slightly looser 0.95 threshold since reference + target's content
+  // slotted in won't be byte-identical to reference. Retry once with a
+  // sharper "you ignored TARGET's content" suffix.
+  if (
+    body.mode === "swap" &&
+    body.referenceHtml &&
+    isNoOp(validated.value.html, body.referenceHtml)
+  ) {
+    console.warn("[ai-edit] reference-clone — retrying with target-emphasis", {
+      model: modelUsed,
+      htmlLen: validated.value.html.length,
+    });
+    const retryUserMessage =
+      userMessage +
+      "\n\nYour previous response was nearly identical to <dropin_reference>. You ignored TARGET's content. You MUST keep TARGET's actual text, images, and links while adopting REFERENCE's visual design. Slot TARGET's content INTO REFERENCE's structure — don't return REFERENCE unchanged.";
+    const retryAttempt = await callTensorix(
+      apiKey,
+      baseUrl,
+      modelUsed,
+      systemPrompt,
+      retryUserMessage,
+      maxTokens,
+    );
+    if (retryAttempt.ok) {
+      const retryValidated = validateAiResponse(
+        retryAttempt.text,
+        body.targetHtml,
+        body.scope,
+      );
+      if (
+        retryValidated.ok &&
+        !isNoOp(retryValidated.value.html, body.referenceHtml)
+      ) {
+        validated = retryValidated;
+        attempt = retryAttempt;
+      } else {
+        emitTelemetry({
+          outcome: "no-op-after-retry",
+          scope: body.scope,
+          modelRequested: model,
+          modelUsed,
+          status: 422,
+          latencyMs: Date.now() - requestStart,
+          targetHtmlLen: body.targetHtml.length,
+          responseHtmlLen: validated.value.html.length,
+          fellBack: modelUsed !== model,
+          noOpRetried: true,
+          reason: "still-reference-clone",
+        });
+        return fail(
+          "Model regurgitated the reference — try a different reference or add a refinement prompt",
+          422,
+        );
+      }
+    } else {
+      return fail(
+        "Model regurgitated the reference — try a different reference or add a refinement prompt",
         422,
       );
     }

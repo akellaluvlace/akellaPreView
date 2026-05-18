@@ -352,7 +352,20 @@ export function vibeRuntimeJs(): string {
         // Otherwise picking a bg-image stacks the new bg under the
         // existing inner img → visual overlay mess. querySelector
         // short-circuits at the first hit so cost is O(1) effectively.
-        hasInnerImg: el.querySelector ? !!el.querySelector('img') : false
+        hasInnerImg: el.querySelector ? !!el.querySelector('img') : false,
+        // 2026-05-18 — outerHTML capture for the Phase 6 AI swap flow.
+        // Capped at 64KB iframe-side; large sections beyond that fall
+        // back to empty + the swap dialog refuses. Inline try/catch
+        // because some custom elements throw on outerHTML read.
+        outerHtml: (function () {
+          try {
+            var o = el.outerHTML || '';
+            if (o.length > 65536) return '';
+            return o;
+          } catch (e) {
+            return '';
+          }
+        })()
       };
     }
 

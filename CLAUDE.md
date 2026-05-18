@@ -15,7 +15,57 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-18 AM — AI Edit Phase 5 polish: token-budget warning, Copy HTML/JSX flavors, JSX expression pre-detection, +66 new tests. tsc 0. vitest 6357/6359 (the 2 envelope-channel failures still pre-existing unrelated). Tests caught 2 real bugs (length-sanity too strict on small inputs, model regex allowed leading dash). Phase 2+3 committed at `4c80cc8`; Phase 4 at `029eda1`; Phase 5 uncommitted, ready for commit.)
+## Current status (2026-05-18 PM — AI Edit Phase 6 shipped: AI-powered component swap. User clicks element → "Swap with AI" → library opens filtered by element kind → picks reference → AI fuses target's content with reference's design DNA. Replaces the retired direct-paste swap (which couldn't preserve content + dimensions) with AI doing the structural work. tsc 0. vitest 6378/6380 (+21 swap tests). Phase 2+3 at `4c80cc8`, Phase 4 at `029eda1`, Phase 5 at `a84831f`, Phase 6 uncommitted ready for commit.)
+
+### Phase 6 — AI-powered component swap (uncommitted)
+
+User requested 2026-05-18: bring back the retired component-library swap UX (button on cards/buttons/sections → modal of references → pick one) but have AI do the work instead of the rigid direct-paste that failed in Phase 0. Researched it with 4 parallel agents (codebase mapping, industry patterns, prompt engineering, Tensorix capabilities), then shipped.
+
+**Architecture decisions** (synthesized from research):
+- **Pattern 3 inverted prompt** — system prompt frames REFERENCE as the skeleton, TARGET as the content source. The naive framing ("edit target to look like reference") triggered no-op outputs on coder models. Inversion forces the model to commit to the reference's visual identity from token 1.
+- **XML-delimited inputs** — `<dropin_target>...</dropin_target><dropin_reference>...</dropin_reference>` works across qwen3-coder + minimax + glm without the ~15% escape-character bloat that JSON-string wrapping causes for HTML payloads.
+- **Custom delimiter names** with `dropin_` prefix per OWASP LLM cheatsheet — defensive against templates containing literal `</target>` strings.
+- **Two-way no-op detection** — existing isNoOp(output, target) catches "ignored reference"; new isNoOp(output, reference) for swap mode catches "ignored target's content." Each has a mode-aware emphatic retry suffix.
+- **Reuse existing AI Edit infra** — same /api/ai-edit route (with `mode: "edit" | "swap"` discriminator), same iframe ai:apply-outer message, same source-persistence path (patchHtmlOuter / htmlToJsx + patchJsxOuterByOid), same undo toast pattern.
+
+**Files added/modified**:
+- New: `lib/ai-edit/prompts/swap.ts` — AI_SWAP_SYSTEM_PROMPT + buildSwapUserMessage. ~100 LOC including thorough comments.
+- New: `tests/ai-edit-swap-prompt-prod.test.ts` — 13 prod-import tests covering system-prompt invariants + builder shape + edge cases.
+- Modified `lib/ai-edit/parse-request.ts` — adds `mode: "edit" | "swap"` (default edit) + `referenceHtml?: string` (required when swap). 50KB cap on referenceHtml. Empty userPrompt allowed in swap mode (library pick conveys intent). +8 new tests.
+- Modified `lib/ai-edit/payload.ts` — buildApiRequestBody accepts options.mode + options.referenceHtml, forwards to API.
+- Modified `app/api/ai-edit/route.ts` — callTensorix takes systemPrompt param; route picks AI_SWAP_SYSTEM_PROMPT + buildSwapUserMessage when mode=swap, AI_EDIT_SYSTEM_PROMPT + buildUserMessage when mode=edit. Mode-aware no-op retry suffix. New reference-clone guardrail (output ≈ reference → retry with target-emphasis suffix).
+- Modified `lib/vibe-edit/types.ts` + `lib/vibe-edit/runtime.ts` — VibeElementInfo + vibeSerialize emit `outerHtml` (64KB cap) so the AI swap can use vibe-selected elements as targets.
+- Modified `components/VibePropertiesPanel/InlineComponentBrowser.tsx` — new `onPickReference` prop. When provided, browser bypasses the direct-paste insert pipeline and hands raw component HTML to caller. Legacy `onPick` flow preserved for back-compat.
+- Modified `components/VibePropertiesPanel.tsx` — new "✨ Swap with AI" button rendered above the kind-specific controls when onComponentSwap is wired. Visible for all element kinds since the modal filters by category.
+- Modified `components/Workspace.tsx` — aiSwapOpen / aiSwapCategory state, aiSwapTargetRef for race-safe frozen target snapshot, handleAiSwapOpen / handleAiSwapClose / handleAiSwapPick. Wired `onComponentSwap={handleAiSwapOpen}` on VibePropertiesPanel mount. AI swap modal overlay mounted under tool=vibe + aiSwapOpen.
+
+**UX flow**:
+1. User in vibe tool, clicks any element (button / card / link / section / etc).
+2. Vibe panel renders with the standard kind-specific controls + new "✨ Swap with AI" button at the top.
+3. Click button → backdrop-dimmed modal opens with InlineComponentBrowser pre-filtered by inferSwapCategory(tag, classes). Backdrop click or "Close (Esc)" dismisses.
+4. User picks a reference tile from the grid → modal closes immediately → "Restyling to match {title}…" toast shows.
+5. /api/ai-edit fires with mode:"swap" + target's outerHTML + reference's raw HTML.
+6. Server: Pattern 3 prompt → qwen3-coder (or minimax-m2 fallback) → validate → if no-op or reference-clone, retry with sharper suffix → if still bad, 422 with rephrase hint.
+7. Success → ai:apply-outer mutates iframe DOM instantly → source persistence via patchHtmlOuter / patchJsxOuterByOid → toast switches to "Restyled to match {title} · Undo".
+8. Undo button reverts via setCode with original HTML patched back in (works in HTML + JSX modes).
+
+**Bugs caught by the new tests**: zero in this batch. The architecture was specced from the research up front so first-pass code passed tests. Worth noting because the Phase 5 tests caught 2 real bugs; Phase 6 had less surface to be wrong about since it reuses the (already-tested) Phase 2-5 pipeline.
+
+### Files touched (Phase 6 batch)
+
+New:
+- `lib/ai-edit/prompts/swap.ts`
+- `tests/ai-edit-swap-prompt-prod.test.ts`
+
+Modified:
+- `lib/ai-edit/parse-request.ts`, `lib/ai-edit/payload.ts`
+- `app/api/ai-edit/route.ts`
+- `lib/vibe-edit/types.ts`, `lib/vibe-edit/runtime.ts`
+- `components/VibePropertiesPanel.tsx`, `components/VibePropertiesPanel/InlineComponentBrowser.tsx`
+- `components/Workspace.tsx`
+- `tests/ai-edit-parse-request-prod.test.ts` (+8 swap-mode tests)
+
+tsc 0. vitest 6378/6380 (+21 tests since last commit, 2 envelope-channel failures pre-existing).
 
 ### Phase 5 — Polish + tests (uncommitted)
 

@@ -4,16 +4,32 @@
 
 export type AiEditScope = "element" | "section";
 
+// Phase 6 — Two edit modes:
+//   - "edit" (default): user typed a natural-language change request.
+//     Goes through the existing edit prompt path.
+//   - "swap": user picked a reference design from the component library.
+//     Goes through the new swap prompt (Pattern 3 inverted) that
+//     transplants target's content into reference's design DNA.
+export type AiEditMode = "edit" | "swap";
+
 export interface AiEditRequest {
   // Scope of the edit. Drives prompt + max_tokens budget.
   scope: AiEditScope;
+  // Edit vs swap. Default is "edit" so existing callers don't need to
+  // change.
+  mode: AiEditMode;
   // OuterHTML of the selected element. The thing the model rewrites.
   targetHtml: string;
   // OuterHTML of the parent with the target replaced by `{{TARGET}}`.
   // Element-mode only; section-mode parents are usually <body> and
   // not informative.
   parentContext?: string;
-  // User's natural-language change request.
+  // Reference outerHTML from the component library (swap mode only).
+  // The design DNA the model should adopt.
+  referenceHtml?: string;
+  // User's natural-language change request. Required in "edit" mode;
+  // optional in "swap" mode (a curated library pick already conveys
+  // intent — extra prompt text refines it).
   userPrompt: string;
   // Optional model override. When absent, route uses TENSORIX_DEFAULT_MODEL.
   model?: string;
@@ -29,6 +45,10 @@ export type ParseResult<T> =
 // allowing accidental megabyte uploads.
 const MAX_HTML_LENGTH = 100_000;
 const MAX_PARENT_CONTEXT_LENGTH = 50_000;
+// Reference HTML comes from our own component library (HyperUI / UIverse)
+// which is reasonably bounded but can include long scoped <style> blocks.
+// 50KB matches parent-context cap.
+const MAX_REFERENCE_HTML_LENGTH = 50_000;
 const MAX_PROMPT_LENGTH = 2_000;
 
 function isPlainObject(v: unknown): v is Record<string, unknown> {
@@ -41,6 +61,16 @@ export function parseAiEditRequest(raw: unknown): ParseResult<AiEditRequest> {
   const scope = raw.scope;
   if (scope !== "element" && scope !== "section") {
     return { ok: false, error: "scope must be 'element' or 'section'" };
+  }
+
+  // Phase 6 — mode is optional, default "edit" for back-compat with the
+  // existing AI Edit callers that don't set it.
+  let mode: AiEditMode = "edit";
+  if (raw.mode !== undefined) {
+    if (raw.mode !== "edit" && raw.mode !== "swap") {
+      return { ok: false, error: "mode must be 'edit' or 'swap'" };
+    }
+    mode = raw.mode;
   }
 
   const targetHtml = raw.targetHtml;
@@ -62,9 +92,33 @@ export function parseAiEditRequest(raw: unknown): ParseResult<AiEditRequest> {
     parentContext = raw.parentContext;
   }
 
+  // Phase 6 — referenceHtml is required for swap mode, forbidden for
+  // edit mode (defensive: edit-mode callers shouldn't send it).
+  let referenceHtml: string | undefined;
+  if (raw.referenceHtml !== undefined) {
+    if (typeof raw.referenceHtml !== "string") {
+      return { ok: false, error: "referenceHtml must be a string" };
+    }
+    if (raw.referenceHtml.length === 0) {
+      return { ok: false, error: "referenceHtml is empty" };
+    }
+    if (raw.referenceHtml.length > MAX_REFERENCE_HTML_LENGTH) {
+      return { ok: false, error: "referenceHtml exceeds 50KB" };
+    }
+    referenceHtml = raw.referenceHtml;
+  }
+  if (mode === "swap" && !referenceHtml) {
+    return { ok: false, error: "referenceHtml is required in swap mode" };
+  }
+
   const userPrompt = raw.userPrompt;
-  if (typeof userPrompt !== "string" || userPrompt.trim().length === 0) {
-    return { ok: false, error: "userPrompt is required" };
+  // Swap mode allows empty prompt (the library pick conveys intent).
+  // Edit mode still requires a non-empty natural-language prompt.
+  if (typeof userPrompt !== "string") {
+    return { ok: false, error: "userPrompt must be a string" };
+  }
+  if (mode === "edit" && userPrompt.trim().length === 0) {
+    return { ok: false, error: "userPrompt is required in edit mode" };
   }
   if (userPrompt.length > MAX_PROMPT_LENGTH) {
     return { ok: false, error: "userPrompt exceeds 2000 characters" };
@@ -86,6 +140,14 @@ export function parseAiEditRequest(raw: unknown): ParseResult<AiEditRequest> {
 
   return {
     ok: true,
-    value: { scope, targetHtml, parentContext, userPrompt, model },
+    value: {
+      scope,
+      mode,
+      targetHtml,
+      parentContext,
+      referenceHtml,
+      userPrompt,
+      model,
+    },
   };
 }

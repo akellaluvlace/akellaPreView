@@ -27,6 +27,8 @@ import AiScopeChip from "./AiScopeChip";
 import AiPromptBar from "./AiPromptBar";
 import { callAiEdit } from "@/lib/ai-edit/client";
 import { buildApiRequestBody } from "@/lib/ai-edit/payload";
+import InlineComponentBrowser from "./VibePropertiesPanel/InlineComponentBrowser";
+import type { ComponentMeta } from "@/lib/component-library/types";
 // 2026-05-16 — Try Variations retired per user direction: "we remove
 // entirely swaps on whole page - only surgical ones." Per-image
 // Shuffle (in ImageControls.tsx) is the surgical alternative + maps
@@ -2526,6 +2528,222 @@ export default function Workspace({
     return jsxElementHasExpressions(code, aiInfo.oid);
   }, [code, kind, aiInfo?.oid]);
 
+  // Phase 6 — AI swap modal state. Opened from "Swap with AI" button
+  // on the vibe panel. The modal renders InlineComponentBrowser in
+  // reference-pick mode; pick fires handleAiSwapPick which routes
+  // through /api/ai-edit with mode:"swap" + referenceHtml.
+  const [aiSwapOpen, setAiSwapOpen] = useState(false);
+  const [aiSwapCategory, setAiSwapCategory] = useState<string | null>(null);
+  // Frozen vibeInfo snapshot at swap-open time. Prevents racing: if the
+  // user clicks a different element while the modal is open, the swap
+  // still targets the originally-selected element.
+  const aiSwapTargetRef = useRef<VibeElementInfo | null>(null);
+
+  const handleAiSwapOpen = useCallback(() => {
+    const info = vibeInfo;
+    if (!info) return;
+    track("ai:swap-open", { tag: info.tag, kind: info.kind });
+    // inferSwapCategory takes a ReadonlyArray<string>; vibe carries
+    // classes as a space-separated string. Split + filter empties.
+    const classList = (info.classes ?? "")
+      .split(/\s+/)
+      .filter((c) => c.length > 0);
+    const hint = inferSwapCategory(info.tag, classList);
+    // inferSwapCategory may return null when the kind is unknown or
+    // routes to media/icons (which have their own dedicated swap
+    // flows). For AI swap we fall back to null = "all components".
+    const category =
+      hint && hint.panel === "components" ? hint.category ?? null : null;
+    aiSwapTargetRef.current = info;
+    setAiSwapCategory(category);
+    setAiSwapOpen(true);
+  }, [vibeInfo]);
+
+  const handleAiSwapClose = useCallback(() => {
+    setAiSwapOpen(false);
+    setAiSwapCategory(null);
+    aiSwapTargetRef.current = null;
+  }, []);
+
+  const handleAiSwapPick = useCallback(
+    async (component: ComponentMeta, rawHtml: string) => {
+      const target = aiSwapTargetRef.current;
+      if (!target) {
+        showWarn("Swap target lost — re-open the swap dialog");
+        handleAiSwapClose();
+        return;
+      }
+      if (!rawHtml || rawHtml.length === 0) {
+        showWarn("Reference component has no HTML");
+        return;
+      }
+      // Close modal immediately for UX — toast shows progress.
+      setAiSwapOpen(false);
+      setAiSwapCategory(null);
+
+      // Abort any in-flight AI request (defensive).
+      if (aiAborterRef.current) aiAborterRef.current.abort();
+      const aborter = new AbortController();
+      aiAborterRef.current = aborter;
+
+      // Build a synthetic AiSelectionInfo from the vibe selection so
+      // buildApiRequestBody works the same way as the AI Edit flow.
+      // path/htmlPath/oid/outerHtml come from vibeInfo; parentContext
+      // is null for swap (the prompt's framing already conveys what
+      // to do without surrounding context).
+      const swapInfo: AiSelectionInfo = {
+        path: target.path,
+        htmlPath: target.htmlPath ?? null,
+        oid: target.oid ?? null,
+        tag: target.tag,
+        classes: target.classes ?? "",
+        scope: "element",
+        outerHtml: target.outerHtml ?? "",
+        parentContext: null,
+        // VibeElementInfo's bbox shape is layout-style
+        // (width/height/display/margin*); AiSelectionInfo's bbox is
+        // iframe-viewport coords (x/y/width/height). Set to null for
+        // swap — the AI prompt doesn't use bbox + we don't need it
+        // for the apply path.
+        bbox: null,
+        fingerprint: target.tag,
+        tokenEstimate: estimateTokens(target.outerHtml ?? ""),
+      };
+      const body = buildApiRequestBody(swapInfo, "", {
+        mode: "swap",
+        referenceHtml: rawHtml,
+      });
+
+      setAiBusy(true);
+      setAiBusyModel(
+        process.env.NEXT_PUBLIC_TENSORIX_DEFAULT_MODEL ??
+          "qwen/qwen3-coder-30b-a3b-instruct",
+      );
+      showInfo(`Restyling to match ${component.title}…`);
+      track("ai:swap-submit", {
+        tag: target.tag,
+        kind: target.kind,
+        referenceSlug: component.slug,
+        referenceTitle: component.title,
+      });
+
+      let result;
+      try {
+        result = await callAiEdit(body, aborter.signal);
+      } finally {
+        if (aiAborterRef.current === aborter) aiAborterRef.current = null;
+      }
+
+      if (aborter.signal.aborted) {
+        setAiBusy(false);
+        setAiBusyModel(null);
+        return;
+      }
+      if (!result.ok) {
+        setAiBusy(false);
+        setAiBusyModel(null);
+        if (result.error === "aborted") return;
+        showWarn(`AI swap failed: ${result.error}`);
+        track("ai:swap-fail", { error: result.error });
+        return;
+      }
+
+      // Same apply + persist path as handleAiSubmit. Snapshot original
+      // for undo, post iframe swap, patch source, toast with undo.
+      const originalHtml = target.outerHtml ?? "";
+      aiLastEditRef.current = { path: target.path, originalHtml };
+      previewHandleRef.current?.postVibe({
+        type: "ai:apply-outer",
+        path: target.path,
+        newOuterHtml: result.html,
+      });
+
+      let persisted = false;
+      let persistReason: string | null = null;
+      if (kind === "html") {
+        if (target.htmlPath) {
+          const patch = patchHtmlOuter(code, target.htmlPath, result.html);
+          if (patch.changed) {
+            setCode(patch.source);
+            persisted = true;
+          } else {
+            persistReason =
+              ("reason" in patch && patch.reason) || "html patch unchanged";
+          }
+        } else {
+          persistReason = "html element has no path";
+        }
+      } else {
+        if (target.oid) {
+          let jsx: string | null = null;
+          try {
+            jsx = htmlToJsx(result.html);
+          } catch (e) {
+            persistReason = `html→jsx failed: ${String(e)}`;
+          }
+          if (jsx) {
+            const patch = patchJsxOuterByOid(code, target.oid, jsx);
+            if (patch.changed) {
+              setCode(patch.source);
+              persisted = true;
+            } else {
+              persistReason = patch.reason || "jsx patch unchanged";
+            }
+          }
+        } else {
+          persistReason = "jsx element has no OID — can't persist";
+        }
+      }
+
+      const persistTag = persisted ? "" : " · session only";
+      const notes = result.notes ? ` · ${result.notes}` : "";
+      setRollToast({
+        icon: "✨",
+        text: `Restyled to match ${component.title}${persistTag}${notes}`,
+        action: {
+          label: "Undo",
+          onAction: () => {
+            if (persisted) {
+              if (kind === "html" && target.htmlPath) {
+                const p = patchHtmlOuter(code, target.htmlPath, originalHtml);
+                if (p.changed) setCode(p.source);
+              } else if (kind !== "html" && target.oid) {
+                try {
+                  const j = htmlToJsx(originalHtml);
+                  const p = patchJsxOuterByOid(code, target.oid, j);
+                  if (p.changed) setCode(p.source);
+                } catch {
+                  /* fall through */
+                }
+              }
+            }
+            previewHandleRef.current?.postVibe({
+              type: "ai:apply-outer",
+              path: target.path,
+              newOuterHtml: originalHtml,
+            });
+            aiLastEditRef.current = null;
+            track("ai:swap-undo", { persisted });
+          },
+        },
+      });
+      if (persistReason) {
+        console.warn("[dropin:Workspace] ai-swap persist skipped", {
+          reason: persistReason,
+          kind,
+          oid: target.oid,
+        });
+      }
+      track("ai:swap-success", {
+        persisted,
+        kind,
+        referenceSlug: component.slug,
+        model: result.model,
+      });
+    },
+    [vibeInfo, code, kind, setCode, showInfo, showWarn, handleAiSwapClose],
+  );
+
   // Phase 2 — Submit handler. Fires the API request, swaps outerHTML
   // in the iframe on success, surfaces toasts on error. Plan §3.4.
   // The iframe re-emits ai:applied after the swap → handleAiApplied
@@ -4298,6 +4516,7 @@ export default function Workspace({
               onBgImageRemove={handleVibeBgImageRemove}
               onBgImageShuffle={handleVibeBgImageShuffle}
               onCopySection={kind === "jsx" ? handleCopySection : undefined}
+              onComponentSwap={handleAiSwapOpen}
               onApply={handleVibeApply}
               onClassesChange={handleVibeClasses}
               onWarn={showWarn}
@@ -4349,6 +4568,55 @@ export default function Workspace({
       {/* Components swap landed inline in VibePropertiesPanel (2026-05-14).
           The grid renders below the Browse-components button with hover-
           popover preview. Old LibraryModal mount retired here. */}
+
+      {/* Phase 6 (2026-05-18) — AI swap modal. Mounted when tool is vibe,
+          a selection exists, and the user clicked "Swap with AI" on the
+          panel. InlineComponentBrowser in onPickReference mode hands the
+          raw component HTML to handleAiSwapPick which routes through
+          /api/ai-edit with mode:"swap" + referenceHtml. */}
+      {tool === "vibe" && aiSwapOpen && vibeInfo && (
+        <div
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/40 p-4"
+          role="dialog"
+          aria-label="Swap with AI"
+          onClick={(e) => {
+            // Click-outside dismiss. Only when the click hit the backdrop
+            // directly, not bubbled from the content.
+            if (e.target === e.currentTarget) handleAiSwapClose();
+          }}
+        >
+          <div className="flex h-[80vh] w-[min(900px,calc(100vw-32px))] flex-col border-2 border-ink bg-paper shadow-[8px_8px_0_0_#FF4D2E]">
+            <div className="flex items-center justify-between border-b-2 border-ink bg-soft px-4 py-2">
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-coral">
+                  ✨ Swap with AI
+                </span>
+                <p className="mt-0.5 font-mono text-[10px] text-muted">
+                  Pick a design — AI restyles your{" "}
+                  <span className="font-bold">{vibeInfo.tag}</span> to match
+                  while keeping your content + size.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleAiSwapClose}
+                aria-label="Close AI swap dialog"
+                className="border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper"
+              >
+                Close (Esc)
+              </button>
+            </div>
+            <div className="min-h-0 flex-1 overflow-auto">
+              <InlineComponentBrowser
+                mode={kind}
+                category={aiSwapCategory}
+                onPickReference={handleAiSwapPick}
+                onWarn={showWarn}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {tool === "vibe" && vibeBgImageOpen && vibeInfo && (
         <LibraryModal

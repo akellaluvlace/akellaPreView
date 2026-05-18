@@ -188,6 +188,28 @@ export default function VibePropertiesPanel({
         </div>
       )}
 
+      {/* Phase 6 — AI swap button. Shown whenever the host has wired
+          onComponentSwap. Triggers the component-library modal in AI
+          mode (Pattern 3 inverted prompt fuses user's content with
+          picked reference's design DNA). See lib/ai-edit/prompts/swap.ts.
+          Visible for ALL element kinds — the modal filters by category
+          via inferSwapCategory(tag, classes). */}
+      {onComponentSwap && (
+        <div className="border-b-2 border-ink/15 px-4 py-3">
+          <button
+            type="button"
+            onClick={onComponentSwap}
+            title="Pick a reference design from the library; AI restyles this element to match while keeping your content."
+            className="w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+          >
+            ✨ Swap with AI
+          </button>
+          <p className="mt-1.5 text-center font-mono text-[10px] text-muted">
+            Pick a design from the library — AI keeps your content + size.
+          </p>
+        </div>
+      )}
+
       {(info.kind === "text" ||
         info.kind === "heading" ||
         info.kind === "button") && (

@@ -21,8 +21,13 @@ import type { AiSelectionInfo } from "@/lib/ai-edit/types";
 
 export interface ApiEditRequestBody {
   scope: "element" | "section";
+  // Phase 6 — Optional mode. Defaults to "edit" server-side when omitted.
+  // "swap" fires the reference-fusion prompt and requires referenceHtml.
+  mode?: "edit" | "swap";
   targetHtml: string;
   parentContext?: string;
+  // Phase 6 — Reference outerHTML for swap mode (from component library).
+  referenceHtml?: string;
   userPrompt: string;
   model?: string;
 }
@@ -30,7 +35,12 @@ export interface ApiEditRequestBody {
 export function buildApiRequestBody(
   info: AiSelectionInfo,
   userPrompt: string,
-  options: { model?: string; parentContext?: string } = {},
+  options: {
+    model?: string;
+    parentContext?: string;
+    mode?: "edit" | "swap";
+    referenceHtml?: string;
+  } = {},
 ): ApiEditRequestBody {
   // Phase 3a — Prefer the explicit override, then the parentContext
   // emitted by the iframe (element-mode only). Iframe sends null for
@@ -40,8 +50,10 @@ export function buildApiRequestBody(
     options.parentContext ?? info.parentContext ?? undefined;
   return {
     scope: info.scope,
+    mode: options.mode,
     targetHtml: info.outerHtml,
     parentContext,
+    referenceHtml: options.referenceHtml,
     userPrompt,
     model: options.model,
   };
