@@ -103,7 +103,10 @@ import {
   patchHtmlRemoveAttr,
   patchHtmlText,
 } from "@/lib/source-patch-html";
-import { patchJsxOuterByOid } from "@/lib/ast/patch-class-by-oid";
+import {
+  jsxElementHasExpressions,
+  patchJsxOuterByOid,
+} from "@/lib/ast/patch-class-by-oid";
 import { htmlToJsx } from "@/lib/component-library/html-to-jsx";
 import type {
   ElementLoc,
@@ -2511,6 +2514,18 @@ export default function Workspace({
     setAiBusyModel(null);
   }, []);
 
+  // Phase 5 — JSX-expression pre-detection. Parses the source once per
+  // (code, oid) change, walks the JSX subtree under the OID, returns
+  // true when any expression child exists. Drives the upfront "Saves
+  // will bake in {expression}" warning in AiScopeChip. Memo prevents
+  // re-parsing on every Workspace render — only re-runs when the user
+  // selects a new element OR types into Monaco (changing code).
+  const aiHasJsxExpressions = useMemo(() => {
+    if (kind !== "jsx") return false;
+    if (!aiInfo?.oid) return false;
+    return jsxElementHasExpressions(code, aiInfo.oid);
+  }, [code, kind, aiInfo?.oid]);
+
   // Phase 2 — Submit handler. Fires the API request, swaps outerHTML
   // in the iframe on success, surfaces toasts on error. Plan §3.4.
   // The iframe re-emits ai:applied after the swap → handleAiApplied
@@ -4480,6 +4495,7 @@ export default function Workspace({
             info={aiInfo}
             onSetScope={handleAiSetScope}
             onClear={handleAiClearFromChip}
+            hasJsxExpressions={aiHasJsxExpressions}
           />
           <AiPromptBar
             info={aiInfo}

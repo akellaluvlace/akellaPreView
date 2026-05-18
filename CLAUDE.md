@@ -15,7 +15,43 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-17 PM — AI Edit Phase 2 + 3 + 4 shipped end-to-end. Element edits land in 2-3s on qwen3-coder default + persist to source via existing patchHtmlOuter / patchJsxOuterByOid. Telemetry + two-tier rate limits live. tsc 0 throughout. vitest 6291/6293 (+2 pre-existing envelope failures unrelated). Phase 2+3 committed at `4c80cc8`; Phase 4 uncommitted, ready for commit.)
+## Current status (2026-05-18 AM — AI Edit Phase 5 polish: token-budget warning, Copy HTML/JSX flavors, JSX expression pre-detection, +66 new tests. tsc 0. vitest 6357/6359 (the 2 envelope-channel failures still pre-existing unrelated). Tests caught 2 real bugs (length-sanity too strict on small inputs, model regex allowed leading dash). Phase 2+3 committed at `4c80cc8`; Phase 4 at `029eda1`; Phase 5 uncommitted, ready for commit.)
+
+### Phase 5 — Polish + tests (uncommitted)
+
+User went AFK + told me to grind. Shipped four polish items + a 66-test suite for the AI Edit modules. Tests caught two real bugs the implementation tests didn't notice.
+
+**Token-budget warning** (plan §6.1) — `AiScopeChip` now flips the `~Xk tokens` chip from muted-grey to bold-coral with a `⚠` glyph when `info.tokenEstimate >= 8000`. A second-line "Large selection — edit may take 10+ seconds + cost more" hint also appears so the user isn't surprised by the latency.
+
+**Copy HTML / Copy JSX flavors** (plan §10 Q#2) — split the single `Copy` button on `AiScopeChip` into two: `HTML` (raw outerHTML) and `JSX` (routed through `lib/component-library/html-to-jsx.ts` — the converter kept on disk after Phase 0 retirement). Each shows `Copied!` for 1.5s after a successful clipboard write. JSX conversion failure falls back to raw HTML rather than failing silently.
+
+**JSX expression pre-detection** — new `jsxElementHasExpressions(source, oid)` in `lib/ast/patch-class-by-oid.ts`. Babel-parses the source, walks the JSX subtree under the OID, returns true if any `JSXExpressionContainer` child (not attribute — children only, since attribute expressions round-trip cleanly via the converter). Workspace memoizes on `(code, kind, aiInfo?.oid)` via `useMemo`. AiScopeChip surfaces a stronger upfront warning when true: `⚠ This element has JSX expressions — they'll be baked into static text on save` (red bold) vs the generic `Saves to source · JSX expressions get baked in` (grey).
+
+**bbox-anchored prompt bar** — DEFERRED again. Concluded it's not worth the risk for AFK ship: needs iframe wrapper-ref + watchBbox subscription + iframe→host coord translation, all without user signal to validate UX. Current bottom-center placement + the bottom-36 toast offset already handle the original overlap concern. Spec'd at plan §3.3 — revisit when user asks.
+
+**Tests** — 4 new test files, 66 tests, all passing:
+- `tests/ai-edit-parse-request-prod.test.ts` — 11 tests. Valid + invalid input shapes. Model regex prompt-injection guards.
+- `tests/ai-edit-validate-response-prod.test.ts` — 26 tests. Fence strip, JSON parse, shape, root-tag match, forbidden tags (script/iframe/object/embed/on-handlers/javascript:/non-image data:), length sanity.
+- `tests/ai-edit-scope-and-fingerprint-prod.test.ts` — 18 tests. Section walker (semantic tags, ARIA roles, class fingerprints, false-positive guard via `heroku-deploy`), token estimation, formatter, Tailwind utility stripping.
+- `tests/ai-edit-jsx-expressions-prod.test.ts` — 11 tests. Direct + deep children, conditional renders, `.map()`, attribute-only expressions (false positive case), graceful degradation on parse fail / missing OID.
+
+### Bugs caught + fixed by the test suite
+
+1. **Length-sanity rule too tight on small element inputs.** `<button>Hi</button>` (19 chars) + a class addition → 38-char output → 38 > 1.5 × 19 = 28.5 → REJECTED legitimate edits. Fix: `cap = Math.max(originalHtml.length * 1.5, originalHtml.length + 500)` — the absolute +500 fallback gives small edits headroom while the ratio still bites on big inputs. Three tests previously failing now pass.
+2. **Model regex allowed leading `-` (prompt injection vector).** `^[a-zA-Z0-9._/-]+$` accepted `--system` as a "model name." Fix: `^[a-zA-Z0-9][a-zA-Z0-9._/-]*$` — first char must be alphanumeric. One test previously failing now passes.
+
+These were caught in 10 minutes of test writing. Worth highlighting because the implementation-level testing (manual prompts in the iframe) never surfaced them.
+
+### Files touched (Phase 5 batch)
+
+- `components/AiScopeChip.tsx` — large-budget chip styling + second-line warning, Copy HTML/JSX flavors, hasJsxExpressions prop with sharper warning, htmlToJsx import.
+- `components/Workspace.tsx` — useMemo'd `aiHasJsxExpressions` + pass-through to AiScopeChip.
+- `lib/ast/patch-class-by-oid.ts` — new `jsxElementHasExpressions` export.
+- `lib/ai-edit/parse-request.ts` — tightened model regex.
+- `lib/ai-edit/validate-response.ts` — relaxed element length-sanity cap with +500 floor.
+- `tests/ai-edit-*.test.ts` — 4 new test files, 66 prod-import tests.
+
+tsc 0. vitest 6357/6359 (2 envelope failures pre-existing, unrelated).
 
 ### Phase 2 — Tensorix API integration (uncommitted)
 

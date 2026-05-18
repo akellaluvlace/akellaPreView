@@ -18,6 +18,7 @@
 import { useEffect, useState } from "react";
 import type { AiSelectionInfo } from "@/lib/ai-edit/types";
 import { formatTokenCount } from "@/lib/ai-edit/scope";
+import { htmlToJsx } from "@/lib/component-library/html-to-jsx";
 
 interface AiScopeChipProps {
   // Current AI selection. Chip + keybindings render only when truthy.
@@ -29,31 +30,45 @@ interface AiScopeChipProps {
   // Clear the current selection (Escape). Posts ai:clear to iframe
   // AND clears local host state.
   onClear: () => void;
+  // Phase 5 — Host pre-detects whether the selected JSX element has
+  // any expression children ({label}, {count}, ternaries). When true
+  // the chip surfaces a stronger upfront warning so the user can
+  // think before submitting an edit that bakes those expressions in.
+  // False in HTML mode + when source parse fails + when OID missing.
+  hasJsxExpressions?: boolean;
 }
 
 export default function AiScopeChip({
   info,
   onSetScope,
   onClear,
+  hasJsxExpressions = false,
 }: AiScopeChipProps) {
-  // Phase 3 — Copy code feedback. Flips to "Copied!" for 1.5s after a
-  // successful clipboard write so the user gets a visual confirmation.
-  const [copied, setCopied] = useState(false);
+  // Phase 5 — Copy code feedback. Tracks which flavor was last copied
+  // ("html" / "jsx") and shows that briefly in the label. null = idle.
+  const [copied, setCopied] = useState<"html" | "jsx" | null>(null);
   useEffect(() => {
     if (!copied) return;
-    const t = setTimeout(() => setCopied(false), 1500);
+    const t = setTimeout(() => setCopied(null), 1500);
     return () => clearTimeout(t);
   }, [copied]);
 
-  async function handleCopy() {
+  async function handleCopy(flavor: "html" | "jsx") {
     if (!info) return;
+    let payload = info.outerHtml;
+    if (flavor === "jsx") {
+      try {
+        payload = htmlToJsx(info.outerHtml);
+      } catch {
+        // htmlToJsx failure: fall back to raw HTML rather than fail
+        // silently. JSX-ish input is still more useful than nothing.
+      }
+    }
     try {
-      await navigator.clipboard.writeText(info.outerHtml);
-      setCopied(true);
+      await navigator.clipboard.writeText(payload);
+      setCopied(flavor);
     } catch {
-      // Fallback for the rare browser without clipboard API permission.
-      // Stay silent — better than a confusing error toast for a button
-      // the user can just retry.
+      // Clipboard API permission denied (rare). Silent — user can retry.
     }
   }
 
@@ -105,6 +120,11 @@ export default function AiScopeChip({
   const fingerprint = info.fingerprint;
   const scopeLabel = info.scope === "section" ? "Section" : "Element";
   const tokens = formatTokenCount(info.tokenEstimate);
+  // Plan §6.1 — token-budget warning. Anything past ~8k input tokens
+  // tips the reasoning model into 10s+ latency territory. Section mode
+  // routinely lands at 4-6k; the warning fires at 8k so the user gets
+  // a heads-up before the 10-12s wait that follows.
+  const largeBudget = info.tokenEstimate >= 8000;
 
   return (
     <div
@@ -118,7 +138,10 @@ export default function AiScopeChip({
         <span className="text-muted">·</span>
         <span>{fingerprint}</span>
         <span className="text-muted">·</span>
-        <span className="text-muted">~{tokens} tokens</span>
+        <span className={largeBudget ? "text-coral font-bold" : "text-muted"}>
+          ~{tokens} tokens
+          {largeBudget && " ⚠"}
+        </span>
         <span className="text-muted">·</span>
         <span className="text-[10px] text-muted">
           {info.scope === "element" ? "Tab to expand" : "Shift+Tab to collapse"}
@@ -127,11 +150,19 @@ export default function AiScopeChip({
         </span>
         <button
           type="button"
-          onClick={handleCopy}
+          onClick={() => handleCopy("html")}
           aria-label="Copy element HTML to clipboard"
           className="border border-ink bg-paper px-1.5 py-0.5 text-[9px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
         >
-          {copied ? "Copied!" : "Copy"}
+          {copied === "html" ? "Copied!" : "HTML"}
+        </button>
+        <button
+          type="button"
+          onClick={() => handleCopy("jsx")}
+          aria-label="Copy element as JSX to clipboard"
+          className="border border-ink bg-paper px-1.5 py-0.5 text-[9px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+        >
+          {copied === "jsx" ? "Copied!" : "JSX"}
         </button>
       </div>
       {/* Phase 4 — Source persistence shipped: HTML mode patches by path,
@@ -139,9 +170,21 @@ export default function AiScopeChip({
           JSX templates: dynamic expressions (e.g. {label}) inside the
           edited element get baked into their current rendered text. The
           warning makes that tradeoff visible upfront. */}
-      <div className="font-sans text-[10px] normal-case tracking-normal text-muted">
-        Saves to source · JSX expressions in edited elements get baked in
+      <div
+        className={
+          "font-sans text-[10px] normal-case tracking-normal " +
+          (hasJsxExpressions ? "text-coral font-bold" : "text-muted")
+        }
+      >
+        {hasJsxExpressions
+          ? "⚠ This element has JSX expressions — they'll be baked into static text on save"
+          : "Saves to source · JSX expressions in edited elements get baked in"}
       </div>
+      {largeBudget && (
+        <div className="font-sans text-[10px] normal-case tracking-normal text-coral">
+          Large selection — edit may take 10+ seconds + cost more
+        </div>
+      )}
     </div>
   );
 }

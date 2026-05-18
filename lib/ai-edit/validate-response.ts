@@ -111,13 +111,22 @@ export function validateAiResponse(
   if (forbidden) {
     return { ok: false, error: forbidden };
   }
-  // Length sanity. Element mode: cap at 1.5× input (no big additions).
+  // Length sanity. Element mode: cap at MAX(1.5× input, input + 500
+  // chars) — pure-ratio caps are too tight for small elements where a
+  // few utility-class additions easily double the markup. Adding
+  // "bg-red-500 text-white p-4 rounded-lg" to a 20-char `<button>Hi</button>`
+  // already blows the 1.5× rule without being hallucinated. The 500-char
+  // absolute fallback gives legitimate small edits room while still
+  // catching genuine hallucinations on bigger inputs.
   // Section mode: floor at 20% input (no truncation).
-  if (scope === "element" && html.length > originalHtml.length * 1.5) {
-    return {
-      ok: false,
-      error: "Element response is larger than 1.5× input — likely hallucinated",
-    };
+  if (scope === "element") {
+    const cap = Math.max(originalHtml.length * 1.5, originalHtml.length + 500);
+    if (html.length > cap) {
+      return {
+        ok: false,
+        error: "Element response is much larger than input — likely hallucinated",
+      };
+    }
   }
   if (scope === "section" && html.length < originalHtml.length * 0.2) {
     return {

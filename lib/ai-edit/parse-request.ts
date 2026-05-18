@@ -76,8 +76,9 @@ export function parseAiEditRequest(raw: unknown): ParseResult<AiEditRequest> {
       return { ok: false, error: "model must be a non-empty string" };
     }
     // Slash-form is OpenRouter / Tensorix convention. Reject anything
-    // weird that could be a prompt injection ("--system" etc).
-    if (!/^[a-zA-Z0-9._/-]+$/.test(raw.model)) {
+    // that could be a prompt injection ("--system" etc) — requires the
+    // first char to be alphanumeric so leading-dash flags are rejected.
+    if (!/^[a-zA-Z0-9][a-zA-Z0-9._/-]*$/.test(raw.model)) {
       return { ok: false, error: "model contains invalid characters" };
     }
     model = raw.model;

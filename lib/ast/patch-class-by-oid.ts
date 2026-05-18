@@ -449,3 +449,59 @@ export function patchJsxOuterByOid(
   s.overwrite(el.start, el.end, stamped);
   return { source: s.toString(), changed: true, reason: null };
 }
+
+// Phase 5 — AI Edit JSX expression pre-detection. Walks the JSX subtree
+// rooted at `oid` and returns true if any JSXExpressionContainer child
+// exists (e.g. `{label}`, `{count + 1}`, conditional renders). Used to
+// fire a stronger "Expressions will be baked in" warning UPFRONT before
+// the user submits an edit, so they can think before pressing Enter.
+//
+// Returns false when:
+//   - source parse fails
+//   - OID not found
+//   - element is purely string/static children
+//
+// Cheap enough to call on every AI selection (parse is a few ms for
+// typical template files); the caller can memoize on (source, oid) if
+// it becomes a hotspot.
+export function jsxElementHasExpressions(source: string, oid: string): boolean {
+  let ast: any;
+  try {
+    ast = parse(source, PARSE_OPTS);
+  } catch {
+    return false;
+  }
+  const el = findJsxElementByOid(ast, oid);
+  if (!el) return false;
+  let found = false;
+  function walk(node: any): void {
+    if (found || !node || typeof node !== "object") return;
+    if (node.type === "JSXExpressionContainer") {
+      if (
+        node.expression &&
+        node.expression.type !== "JSXEmptyExpression"
+      ) {
+        found = true;
+        return;
+      }
+    }
+    for (const key in node) {
+      if (SKIP_KEYS.has(key)) continue;
+      const child = (node as any)[key];
+      if (Array.isArray(child)) {
+        for (const c of child) walk(c);
+      } else if (child && typeof child === "object" && child.type) {
+        walk(child);
+      }
+      if (found) return;
+    }
+  }
+  // Walk children only, not the element itself — attribute expressions
+  // (className={...}) round-trip cleanly via the converter. Children
+  // (text + element expressions) are where bake-in risk lives.
+  for (const child of el.children || []) {
+    walk(child);
+    if (found) return true;
+  }
+  return false;
+}
