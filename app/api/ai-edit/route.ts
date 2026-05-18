@@ -251,8 +251,19 @@ export async function POST(req: Request): Promise<Response> {
   }
   const body = parsed.value;
 
+  // Phase 6 hotfix #2 — Swap mode defaults to minimax-m2 (reasoning).
+  // Manual testing showed qwen-coder returns target nearly unchanged
+  // on swap requests (no-op trap) even with the inverted prompt.
+  // Restructuring tasks need composition reasoning, which is exactly
+  // what minimax-m2 does. Cost goes up ~5x per swap edit but reliability
+  // matters more than cost at this stage. Scope routing still applies
+  // for edit mode (qwen-coder element, minimax-m2 section).
   const defaultModel =
-    body.scope === "section" ? sectionDefault : elementDefault;
+    body.mode === "swap"
+      ? sectionDefault
+      : body.scope === "section"
+        ? sectionDefault
+        : elementDefault;
   const model = body.model ?? defaultModel;
   // Plan §4.3 max_tokens: 1500 element, 6000 section. Bump section to
   // 16000 — many real hero/feature sections in the template library
@@ -365,6 +376,17 @@ export async function POST(req: Request): Promise<Response> {
   }
   void retried;
 
+  // Paranoid diagnostic for the 2026-05-18 hotfix manual-test —
+  // confirm the validator receives mode + referenceHtml correctly.
+  // If `validatorMode` ever shows 'edit' on a swap request, the route
+  // is dropping the field between parse + validator-call (HMR cache
+  // bug or similar). If `validatorRefHtmlLen` shows 0 with mode=swap,
+  // the parser stripped it.
+  console.log("[ai-edit] validator-input", {
+    validatorMode: body.mode,
+    validatorRefHtmlLen: body.referenceHtml?.length ?? 0,
+    rawTextLen: attempt.text.length,
+  });
   let validated = validateAiResponse(attempt.text, body.targetHtml, body.scope, body.mode, body.referenceHtml);
   if (!validated.ok) {
     console.error("[ai-edit] validation failed", {

@@ -138,25 +138,29 @@ export function validateAiResponse(
   if (forbidden) {
     return { ok: false, error: forbidden };
   }
-  // Length sanity.
-  //   Edit mode element: cap at MAX(1.5× input, input + 500 chars).
-  //   Edit mode section: floor at 20% input (no truncation).
-  //   Swap mode: output should be similar size to the REFERENCE
-  //     (since reference is the structural template), with a generous
-  //     [0.3×, 3.0×] band to absorb content-volume differences.
-  if (mode === "swap" && referenceHtml) {
-    const ref = referenceHtml.length;
-    if (html.length < ref * 0.3) {
-      return {
-        ok: false,
-        error: "Swap output is much smaller than reference — likely truncated",
-      };
-    }
-    if (html.length > ref * 3) {
-      return {
-        ok: false,
-        error: "Swap output is much larger than reference — likely hallucinated",
-      };
+  // Length sanity. SWAP MODE NEVER FALLS THROUGH TO ELEMENT/SECTION
+  // bounds — the target-relative caps are meaningless when the
+  // reference is the structural template. If a swap call arrives
+  // without referenceHtml (shouldn't happen — parser rejects it),
+  // skip length checks entirely rather than misapply the element
+  // rule that triggered the Phase 6 hotfix #1 manual-test failure.
+  if (mode === "swap") {
+    if (referenceHtml) {
+      const ref = referenceHtml.length;
+      if (html.length < ref * 0.3) {
+        return {
+          ok: false,
+          error: "Swap output is much smaller than reference — likely truncated",
+        };
+      }
+      if (html.length > ref * 3) {
+        return {
+          ok: false,
+          error: "Swap output is much larger than reference — likely hallucinated",
+        };
+      }
+    } else {
+      console.warn("[ai-edit:validator] swap mode without referenceHtml — length check skipped");
     }
   } else if (scope === "element") {
     const cap = Math.max(originalHtml.length * 1.5, originalHtml.length + 500);

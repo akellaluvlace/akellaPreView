@@ -2597,6 +2597,22 @@ export default function Workspace({
         showWarn("Reference component has no HTML");
         return;
       }
+      // Phase 6 hotfix #2 — reject useless references. The library has
+      // some entries with ~30 char HTML (e.g. tiny icon-only buttons
+      // with no class chrome). Qwen-coder looks at 30 chars of HTML and
+      // concludes there's no design pattern to adopt → returns target
+      // unchanged. Surface this BEFORE the API call so the user can
+      // pick a different reference.
+      if (rawHtml.length < 80) {
+        console.warn("[dropin:swap] reference-too-small", {
+          slug: component.slug,
+          length: rawHtml.length,
+        });
+        showWarn(
+          `${component.title} is too small to be a useful design reference. Pick a more elaborate one.`,
+        );
+        return;
+      }
       // 2026-05-18 hotfix — KEEP MODAL OPEN during the AI call so the
       // user has a clear visual indicator that something's happening.
       // The modal's busy overlay (rendered when aiBusy is true)

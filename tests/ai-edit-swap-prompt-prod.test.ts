@@ -34,24 +34,26 @@ describe("AI_SWAP_SYSTEM_PROMPT — invariants", () => {
     expect(AI_SWAP_SYSTEM_PROMPT).toContain("<dropin_reference>");
   });
 
-  it("instructs output is REFERENCE's structure filled with TARGET's content (2026-05-18 hotfix wording)", () => {
-    // Phase 6 hotfix: prompt rewritten after manual testing showed the
-    // model was returning target unchanged because the original prompt
-    // contradicted itself ("re-root to target"). New prompt is explicit:
-    // output IS reference's structure, with target's content slotted.
+  it("instructs the model to COPY reference's markup first, then slot in target's content (Phase 6 hotfix #2)", () => {
+    // Phase 6 hotfix #2: strengthened the inversion to "start by COPYING
+    // reference verbatim, THEN walk target and slot content in." Earlier
+    // phrasings ("output IS reference's structure") were too abstract;
+    // qwen-coder still drifted to target-edit behavior. The literal
+    // step-1-copy instruction defeats that.
     expect(AI_SWAP_SYSTEM_PROMPT).toMatch(
-      /REFERENCE'S STRUCTURE FILLED WITH TARGET'S CONTENT/i,
+      /COPY.{0,30}reference.{0,30}verbatim/i,
     );
+    expect(AI_SWAP_SYSTEM_PROMPT.toLowerCase()).toContain("slot");
   });
 
-  it("explicitly mandates root tag = REFERENCE's root (not target's)", () => {
+  it("explicitly mandates output root tag = REFERENCE's root (not target's)", () => {
     // The killer Phase 6 bug was validator rejecting root-tag changes.
     // Both prompt + validator are now aligned: output root MUST match
     // reference's root, NOT target's. Without this assertion, anyone
     // editing the prompt to "re-root to target" would silently regress
     // the swap to no-op.
     expect(AI_SWAP_SYSTEM_PROMPT).toMatch(
-      /root tag = REFERENCE's root tag\. NOT target's/i,
+      /OUTPUT'S ROOT TAG MUST EQUAL REFERENCE'S ROOT TAG/i,
     );
   });
 
@@ -69,9 +71,9 @@ describe("AI_SWAP_SYSTEM_PROMPT — invariants", () => {
   it("forbids the two anti-patterns explicitly (target-unchanged, reference-unchanged)", () => {
     const p = AI_SWAP_SYSTEM_PROMPT.toLowerCase();
     // Anti-no-op rule
-    expect(p).toMatch(/target unchanged|visually differ from target/);
-    // Anti-reference-clone rule
-    expect(p).toMatch(/reference unchanged|lost user's content|contain target's actual/);
+    expect(p).toMatch(/nearly identical to target|target's root tag/);
+    // Anti-reference-clone rule (placeholder text still intact)
+    expect(p).toMatch(/nearly identical to reference|placeholder text intact|skipped step 2/);
   });
 
   it("forbids dangerous output (script/iframe/handlers)", () => {
