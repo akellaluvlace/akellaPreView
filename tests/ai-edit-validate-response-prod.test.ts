@@ -130,6 +130,93 @@ describe("ai-edit validate-response — root tag matching", () => {
   });
 });
 
+describe("ai-edit validate-response — swap mode (Phase 6 hotfix)", () => {
+  // The killer Phase 6 bug: in edit mode, root tag MUST match input.
+  // In swap mode, the WHOLE POINT is to replace the element, so root
+  // tag should match REFERENCE's root, not target's. Without these
+  // tests we'd lose the bugfix on the next prompt iteration.
+  it("ALLOWS root tag change in swap mode (button → div.card)", () => {
+    const targetHtml = "<button>Buy now</button>";
+    const referenceHtml =
+      "<div class='card-pricing bg-black text-white p-4'>$X / mo</div>";
+    const output = '<div class="card-pricing bg-black text-white p-4">Buy now</div>';
+    const r = validateAiResponse(
+      JSON.stringify({ html: output }),
+      targetHtml,
+      "element",
+      "swap",
+      referenceHtml,
+    );
+    expect(r.ok).toBe(true);
+  });
+
+  it("REJECTS swap output that doesn't match REFERENCE's root tag", () => {
+    const targetHtml = "<button>Buy now</button>";
+    const referenceHtml = "<section class='hero'>...</section>";
+    // Model returned <article> but reference's root was <section>.
+    const output = "<article class='hero'>Buy now</article>";
+    const r = validateAiResponse(
+      JSON.stringify({ html: output }),
+      targetHtml,
+      "element",
+      "swap",
+      referenceHtml,
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(r.error).toMatch(/match reference root/i);
+    }
+  });
+
+  it("swap mode length sanity uses REFERENCE not target", () => {
+    // Target is a tiny button (~25 chars). Reference is a 500-char
+    // card. Output should be in [0.3x, 3x] of reference = [150, 1500],
+    // NOT bounded by target's tiny size.
+    const targetHtml = "<button>Buy</button>";
+    const referenceHtml = "<div class='card'>" + "x".repeat(480) + "</div>";
+    const output =
+      "<div class='card'>" + "y".repeat(480) + "Buy</div>";
+    const r = validateAiResponse(
+      JSON.stringify({ html: output }),
+      targetHtml,
+      "element",
+      "swap",
+      referenceHtml,
+    );
+    expect(r.ok).toBe(true);
+  });
+
+  it("rejects swap output much smaller than reference (truncation)", () => {
+    const targetHtml = "<button>x</button>";
+    const referenceHtml = "<div class='card'>" + "x".repeat(500) + "</div>";
+    const output = "<div>x</div>";
+    const r = validateAiResponse(
+      JSON.stringify({ html: output }),
+      targetHtml,
+      "element",
+      "swap",
+      referenceHtml,
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/smaller than reference|truncated/i);
+  });
+
+  it("rejects swap output much larger than reference (hallucination)", () => {
+    const targetHtml = "<button>x</button>";
+    const referenceHtml = "<div class='card'>" + "x".repeat(200) + "</div>";
+    const output = "<div class='card'>" + "x".repeat(2000) + "</div>";
+    const r = validateAiResponse(
+      JSON.stringify({ html: output }),
+      targetHtml,
+      "element",
+      "swap",
+      referenceHtml,
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/larger than reference|hallucinated/i);
+  });
+});
+
 describe("ai-edit validate-response — forbidden tags + URLs", () => {
   it("rejects added <script>", () => {
     const r = validateAiResponse(

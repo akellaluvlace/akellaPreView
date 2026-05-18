@@ -74,6 +74,8 @@ export function validateAiResponse(
   rawText: string,
   originalHtml: string,
   scope: "element" | "section",
+  mode: "edit" | "swap" = "edit",
+  referenceHtml?: string,
 ): ValidationResult {
   if (!rawText || typeof rawText !== "string") {
     return { ok: false, error: "Empty response from model" };
@@ -98,28 +100,65 @@ export function validateAiResponse(
   }
   const inputRoot = extractRootTag(originalHtml);
   const outputRoot = extractRootTag(html);
-  if (!inputRoot || !outputRoot) {
-    return { ok: false, error: "Could not determine root tag for comparison" };
+  if (!outputRoot) {
+    return { ok: false, error: "Could not determine output root tag" };
   }
-  if (inputRoot !== outputRoot) {
-    return {
-      ok: false,
-      error: `Root tag changed: <${inputRoot}> → <${outputRoot}>`,
-    };
+  // Phase 6 (2026-05-18) BUGFIX — root tag match is ONLY for edit mode.
+  // In swap mode the whole POINT is to replace the element with the
+  // reference's structure, so the output root tag should match the
+  // REFERENCE's root tag, not the target's. Without this exception
+  // the swap silently fails on every reference whose tag differs from
+  // the target (e.g. button → div.card swap).
+  if (mode === "edit") {
+    if (!inputRoot) {
+      return {
+        ok: false,
+        error: "Could not determine input root tag for comparison",
+      };
+    }
+    if (inputRoot !== outputRoot) {
+      return {
+        ok: false,
+        error: `Root tag changed: <${inputRoot}> → <${outputRoot}>`,
+      };
+    }
+  } else if (mode === "swap" && referenceHtml) {
+    // Swap-mode root tag check: output must match REFERENCE's root.
+    // Skipped silently when reference root can't be determined (rare;
+    // would only happen on malformed reference HTML).
+    const refRoot = extractRootTag(referenceHtml);
+    if (refRoot && refRoot !== outputRoot) {
+      return {
+        ok: false,
+        error: `Swap output root <${outputRoot}> does not match reference root <${refRoot}>`,
+      };
+    }
   }
   const forbidden = findForbidden(html, originalHtml);
   if (forbidden) {
     return { ok: false, error: forbidden };
   }
-  // Length sanity. Element mode: cap at MAX(1.5× input, input + 500
-  // chars) — pure-ratio caps are too tight for small elements where a
-  // few utility-class additions easily double the markup. Adding
-  // "bg-red-500 text-white p-4 rounded-lg" to a 20-char `<button>Hi</button>`
-  // already blows the 1.5× rule without being hallucinated. The 500-char
-  // absolute fallback gives legitimate small edits room while still
-  // catching genuine hallucinations on bigger inputs.
-  // Section mode: floor at 20% input (no truncation).
-  if (scope === "element") {
+  // Length sanity.
+  //   Edit mode element: cap at MAX(1.5× input, input + 500 chars).
+  //   Edit mode section: floor at 20% input (no truncation).
+  //   Swap mode: output should be similar size to the REFERENCE
+  //     (since reference is the structural template), with a generous
+  //     [0.3×, 3.0×] band to absorb content-volume differences.
+  if (mode === "swap" && referenceHtml) {
+    const ref = referenceHtml.length;
+    if (html.length < ref * 0.3) {
+      return {
+        ok: false,
+        error: "Swap output is much smaller than reference — likely truncated",
+      };
+    }
+    if (html.length > ref * 3) {
+      return {
+        ok: false,
+        error: "Swap output is much larger than reference — likely hallucinated",
+      };
+    }
+  } else if (scope === "element") {
     const cap = Math.max(originalHtml.length * 1.5, originalHtml.length + 500);
     if (html.length > cap) {
       return {
@@ -127,8 +166,7 @@ export function validateAiResponse(
         error: "Element response is much larger than input — likely hallucinated",
       };
     }
-  }
-  if (scope === "section" && html.length < originalHtml.length * 0.2) {
+  } else if (scope === "section" && html.length < originalHtml.length * 0.2) {
     return {
       ok: false,
       error: "Section response is shorter than 20% of input — likely truncated",

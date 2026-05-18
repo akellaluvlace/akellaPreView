@@ -34,14 +34,28 @@ describe("AI_SWAP_SYSTEM_PROMPT — invariants", () => {
     expect(AI_SWAP_SYSTEM_PROMPT).toContain("<dropin_reference>");
   });
 
-  it("encodes Pattern 3 inversion — start from REFERENCE, transplant TARGET", () => {
-    // Key phrase from the research: model should treat REFERENCE as the
-    // skeleton and slot TARGET's content INTO it, not the reverse.
-    expect(AI_SWAP_SYSTEM_PROMPT).toMatch(/REFERENCE.{0,40}skeleton/i);
-    expect(AI_SWAP_SYSTEM_PROMPT.toLowerCase()).toContain("slot");
+  it("instructs output is REFERENCE's structure filled with TARGET's content (2026-05-18 hotfix wording)", () => {
+    // Phase 6 hotfix: prompt rewritten after manual testing showed the
+    // model was returning target unchanged because the original prompt
+    // contradicted itself ("re-root to target"). New prompt is explicit:
+    // output IS reference's structure, with target's content slotted.
+    expect(AI_SWAP_SYSTEM_PROMPT).toMatch(
+      /REFERENCE'S STRUCTURE FILLED WITH TARGET'S CONTENT/i,
+    );
   });
 
-  it("enumerates fields to preserve (text/img/href/svg/root-tag)", () => {
+  it("explicitly mandates root tag = REFERENCE's root (not target's)", () => {
+    // The killer Phase 6 bug was validator rejecting root-tag changes.
+    // Both prompt + validator are now aligned: output root MUST match
+    // reference's root, NOT target's. Without this assertion, anyone
+    // editing the prompt to "re-root to target" would silently regress
+    // the swap to no-op.
+    expect(AI_SWAP_SYSTEM_PROMPT).toMatch(
+      /root tag = REFERENCE's root tag\. NOT target's/i,
+    );
+  });
+
+  it("enumerates fields to preserve (text/img/href/svg/sizing-classes)", () => {
     // Per the research: abstract "preserve" causes no-ops. Concrete
     // enumeration works.
     const p = AI_SWAP_SYSTEM_PROMPT.toLowerCase();
@@ -49,15 +63,15 @@ describe("AI_SWAP_SYSTEM_PROMPT — invariants", () => {
     expect(p).toContain("<img");
     expect(p).toContain("<a href");
     expect(p).toContain("<svg");
-    expect(p).toMatch(/root tag/);
+    expect(p).toMatch(/sizing classes/i);
   });
 
-  it("forbids the two anti-patterns explicitly (target-identical, reference-identical)", () => {
+  it("forbids the two anti-patterns explicitly (target-unchanged, reference-unchanged)", () => {
     const p = AI_SWAP_SYSTEM_PROMPT.toLowerCase();
     // Anti-no-op rule
-    expect(p).toMatch(/visually differ from target|identical to target/);
+    expect(p).toMatch(/target unchanged|visually differ from target/);
     // Anti-reference-clone rule
-    expect(p).toMatch(/target.{0,30}actual.{0,30}text.{0,30}images|placeholder content/);
+    expect(p).toMatch(/reference unchanged|lost user's content|contain target's actual/);
   });
 
   it("forbids dangerous output (script/iframe/handlers)", () => {

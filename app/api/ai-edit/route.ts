@@ -365,7 +365,7 @@ export async function POST(req: Request): Promise<Response> {
   }
   void retried;
 
-  let validated = validateAiResponse(attempt.text, body.targetHtml, body.scope);
+  let validated = validateAiResponse(attempt.text, body.targetHtml, body.scope, body.mode, body.referenceHtml);
   if (!validated.ok) {
     console.error("[ai-edit] validation failed", {
       model: modelUsed,
@@ -443,6 +443,8 @@ export async function POST(req: Request): Promise<Response> {
         retryAttempt.text,
         body.targetHtml,
         body.scope,
+        body.mode,
+        body.referenceHtml,
       );
       if (retryValidated.ok && !isNoOp(retryValidated.value.html, body.targetHtml)) {
         validated = retryValidated;
@@ -523,6 +525,8 @@ export async function POST(req: Request): Promise<Response> {
         retryAttempt.text,
         body.targetHtml,
         body.scope,
+        body.mode,
+        body.referenceHtml,
       );
       if (
         retryValidated.ok &&

@@ -2542,6 +2542,13 @@ export default function Workspace({
   const handleAiSwapOpen = useCallback(() => {
     const info = vibeInfo;
     if (!info) return;
+    console.log("[dropin:swap] open", {
+      tag: info.tag,
+      kind: info.kind,
+      oid: info.oid,
+      classesPreview: (info.classes ?? "").slice(0, 80),
+      outerHtmlLen: info.outerHtml?.length ?? 0,
+    });
     track("ai:swap-open", { tag: info.tag, kind: info.kind });
     // inferSwapCategory takes a ReadonlyArray<string>; vibe carries
     // classes as a space-separated string. Split + filter empties.
@@ -2568,6 +2575,19 @@ export default function Workspace({
   const handleAiSwapPick = useCallback(
     async (component: ComponentMeta, rawHtml: string) => {
       const target = aiSwapTargetRef.current;
+      console.log("[dropin:swap] picked", {
+        slug: component.slug,
+        title: component.title,
+        category: component.category,
+        referenceHtmlLen: rawHtml.length,
+        target: target
+          ? {
+              tag: target.tag,
+              oid: target.oid,
+              outerHtmlLen: target.outerHtml?.length ?? 0,
+            }
+          : null,
+      });
       if (!target) {
         showWarn("Swap target lost — re-open the swap dialog");
         handleAiSwapClose();
@@ -2577,9 +2597,11 @@ export default function Workspace({
         showWarn("Reference component has no HTML");
         return;
       }
-      // Close modal immediately for UX — toast shows progress.
-      setAiSwapOpen(false);
-      setAiSwapCategory(null);
+      // 2026-05-18 hotfix — KEEP MODAL OPEN during the AI call so the
+      // user has a clear visual indicator that something's happening.
+      // The modal's busy overlay (rendered when aiBusy is true)
+      // explains what's running. We close only AFTER the swap lands
+      // (success or failure).
 
       // Abort any in-flight AI request (defensive).
       if (aiAborterRef.current) aiAborterRef.current.abort();
@@ -2619,13 +2641,18 @@ export default function Workspace({
         process.env.NEXT_PUBLIC_TENSORIX_DEFAULT_MODEL ??
           "qwen/qwen3-coder-30b-a3b-instruct",
       );
-      showInfo(`Restyling to match ${component.title}…`);
       track("ai:swap-submit", {
         tag: target.tag,
         kind: target.kind,
         referenceSlug: component.slug,
         referenceTitle: component.title,
       });
+      console.log("[dropin:swap] api-fire", {
+        slug: component.slug,
+        targetHtmlLen: body.targetHtml.length,
+        referenceHtmlLen: body.referenceHtml?.length ?? 0,
+      });
+      const apiStart = Date.now();
 
       let result;
       try {
@@ -2633,16 +2660,32 @@ export default function Workspace({
       } finally {
         if (aiAborterRef.current === aborter) aiAborterRef.current = null;
       }
+      console.log("[dropin:swap] api-return", {
+        ok: result.ok,
+        latencyMs: Date.now() - apiStart,
+        error: result.ok ? null : result.error,
+        htmlLen: result.ok ? result.html.length : 0,
+        model: result.ok ? result.model : null,
+      });
 
       if (aborter.signal.aborted) {
         setAiBusy(false);
         setAiBusyModel(null);
+        setAiSwapOpen(false);
+        setAiSwapCategory(null);
+        console.log("[dropin:swap] aborted-after-return");
         return;
       }
       if (!result.ok) {
         setAiBusy(false);
         setAiBusyModel(null);
+        setAiSwapOpen(false);
+        setAiSwapCategory(null);
         if (result.error === "aborted") return;
+        console.error("[dropin:swap] fail", {
+          error: result.error,
+          status: result.status,
+        });
         showWarn(`AI swap failed: ${result.error}`);
         track("ai:swap-fail", { error: result.error });
         return;
@@ -2652,11 +2695,19 @@ export default function Workspace({
       // for undo, post iframe swap, patch source, toast with undo.
       const originalHtml = target.outerHtml ?? "";
       aiLastEditRef.current = { path: target.path, originalHtml };
+      console.log("[dropin:swap] iframe-post", {
+        path: target.path,
+        newOuterHtmlLen: result.html.length,
+      });
       previewHandleRef.current?.postVibe({
         type: "ai:apply-outer",
         path: target.path,
         newOuterHtml: result.html,
       });
+      // Close the swap modal NOW that the iframe has the new HTML.
+      // The toast (with undo) takes over as the affordance.
+      setAiSwapOpen(false);
+      setAiSwapCategory(null);
 
       let persisted = false;
       let persistReason: string | null = null;
@@ -2695,6 +2746,12 @@ export default function Workspace({
         }
       }
 
+      console.log("[dropin:swap] persist", {
+        kind,
+        persisted,
+        reason: persistReason,
+        codeLenAfter: persisted ? code.length : null,
+      });
       const persistTag = persisted ? "" : " · session only";
       const notes = result.notes ? ` · ${result.notes}` : "";
       setRollToast({
@@ -4581,8 +4638,9 @@ export default function Workspace({
           aria-label="Swap with AI"
           onClick={(e) => {
             // Click-outside dismiss. Only when the click hit the backdrop
-            // directly, not bubbled from the content.
-            if (e.target === e.currentTarget) handleAiSwapClose();
+            // directly, not bubbled from the content. Blocked while AI
+            // is busy — the overlay's Cancel button is the affordance.
+            if (e.target === e.currentTarget && !aiBusy) handleAiSwapClose();
           }}
         >
           <div className="flex h-[80vh] w-[min(900px,calc(100vw-32px))] flex-col border-2 border-ink bg-paper shadow-[8px_8px_0_0_#FF4D2E]">
@@ -4600,19 +4658,65 @@ export default function Workspace({
               <button
                 type="button"
                 onClick={handleAiSwapClose}
+                disabled={aiBusy}
                 aria-label="Close AI swap dialog"
-                className="border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper"
+                className="border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Close (Esc)
               </button>
             </div>
-            <div className="min-h-0 flex-1 overflow-auto">
+            <div className="relative min-h-0 flex-1 overflow-auto">
               <InlineComponentBrowser
                 mode={kind}
                 category={aiSwapCategory}
                 onPickReference={handleAiSwapPick}
                 onWarn={showWarn}
               />
+              {/* 2026-05-18 hotfix — Busy overlay. Renders ON TOP of the
+                  grid when an AI swap request is in flight. Blocks
+                  further picks + gives the user a clear visual that
+                  something is happening during the 3-15s Tensorix call.
+                  Without this the user sees the modal stay open and
+                  thinks the pick didn't register. */}
+              {aiBusy && (
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-paper/85 backdrop-blur-sm">
+                  <div className="text-3xl">
+                    <span className="inline-block animate-pulse">✨</span>
+                  </div>
+                  <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink">
+                    AI is restyling…
+                  </div>
+                  <div className="font-mono text-[10px] text-muted">
+                    {aiBusyModel
+                      ? aiBusyModel.split("/").pop()
+                      : "thinking…"}
+                  </div>
+                  <div className="mt-2 h-1 w-40 overflow-hidden border border-ink/30 bg-paper">
+                    {/* Indeterminate progress bar — coral block slides
+                        left↔right via Tailwind's built-in animate-pulse.
+                        Cheaper than a custom keyframe; reads as activity
+                        regardless of duration. */}
+                    <div className="h-full w-1/3 animate-pulse bg-coral" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      console.log("[dropin:swap] user-cancel");
+                      if (aiAborterRef.current) {
+                        aiAborterRef.current.abort();
+                        aiAborterRef.current = null;
+                      }
+                      setAiBusy(false);
+                      setAiBusyModel(null);
+                      setAiSwapOpen(false);
+                      setAiSwapCategory(null);
+                    }}
+                    className="mt-1 border border-ink bg-paper px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
