@@ -60,7 +60,35 @@ OUTPUT FORMAT — raw JSON, no markdown fences, no prose before/after:
 FAILURE MODES (these are auto-rejected by the server):
 - Output's root tag equals TARGET's root tag. You forgot to COPY reference's markup in step 1.
 - Output is nearly identical to TARGET. You "edited" target instead of copying reference. Restart from step 1.
-- Output is nearly identical to REFERENCE (placeholder text intact). You skipped step 2.`;
+- Output is nearly identical to REFERENCE (placeholder text intact). You skipped step 2.
+
+WORKED EXAMPLE — study this carefully, your live task follows the same pattern:
+
+<dropin_example>
+<example_target>
+<button class="px-4 py-2">Get Started</button>
+</example_target>
+
+<example_reference>
+<div class="relative rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 p-8 shadow-2xl overflow-hidden">
+  <div class="absolute -top-12 -right-12 w-40 h-40 bg-fuchsia-500/30 blur-3xl rounded-full"></div>
+  <h3 class="text-white text-2xl font-semibold tracking-tight mb-2">Pro Plan</h3>
+  <p class="text-slate-300 text-sm mb-6">Everything you need to ship.</p>
+  <a href="#" class="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 to-cyan-400 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-fuchsia-500/30 hover:shadow-fuchsia-500/50 transition">Click me</a>
+</example_reference>
+
+<example_output>
+<div class="relative rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-white/10 p-8 shadow-2xl overflow-hidden px-4 py-2">
+  <div class="absolute -top-12 -right-12 w-40 h-40 bg-fuchsia-500/30 blur-3xl rounded-full"></div>
+  <a href="#" class="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-fuchsia-500 to-cyan-400 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-fuchsia-500/30 hover:shadow-fuchsia-500/50 transition">Get Started</a>
+</example_output>
+
+<example_notes>
+Root tag is <div> (from REFERENCE), not <button> (from TARGET). The string "Get Started" replaces REFERENCE's "Click me" placeholder in the CTA pill. REFERENCE's "Pro Plan" heading and "Everything you need to ship." paragraph are DROPPED because TARGET supplied only one text node — no placeholder text survives. TARGET's sizing utilities "px-4 py-2" are appended to the root's class list. All REFERENCE chrome (glass bg, blur orb, gradient pill) is preserved verbatim.
+</example_notes>
+</dropin_example>
+
+Apply this same pattern to the live <dropin_target> and <dropin_reference> below.`;
 
 /**
  * Build the swap-mode user message. Combines target outerHTML +

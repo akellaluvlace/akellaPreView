@@ -28,6 +28,7 @@ import AiPromptBar from "./AiPromptBar";
 import { callAiEdit } from "@/lib/ai-edit/client";
 import { buildApiRequestBody } from "@/lib/ai-edit/payload";
 import InlineComponentBrowser from "./VibePropertiesPanel/InlineComponentBrowser";
+import AiSwapBusyOverlay from "./AiSwapBusyOverlay";
 import type { ComponentMeta } from "@/lib/component-library/types";
 // 2026-05-16 — Try Variations retired per user direction: "we remove
 // entirely swaps on whole page - only surgical ones." Per-image
@@ -2588,6 +2589,17 @@ export default function Workspace({
             }
           : null,
       });
+      // Phase 7 bug hunt — ignore picks while a swap is already in
+       // flight. The modal's busy overlay should be blocking clicks
+       // (absolute inset-0 z-10), but defensive guard for the case where
+       // pick fires before overlay paints OR for keyboard-driven picks
+       // that bypass the overlay's pointer-events.
+      if (aiBusy) {
+        console.warn("[dropin:swap] pick-while-busy — ignored", {
+          slug: component.slug,
+        });
+        return;
+      }
       if (!target) {
         showWarn("Swap target lost — re-open the swap dialog");
         handleAiSwapClose();
@@ -2814,7 +2826,7 @@ export default function Workspace({
         model: result.model,
       });
     },
-    [vibeInfo, code, kind, setCode, showInfo, showWarn, handleAiSwapClose],
+    [aiBusy, vibeInfo, code, kind, setCode, showInfo, showWarn, handleAiSwapClose],
   );
 
   // Phase 2 — Submit handler. Fires the API request, swaps outerHTML
@@ -4695,43 +4707,20 @@ export default function Workspace({
                   Without this the user sees the modal stay open and
                   thinks the pick didn't register. */}
               {aiBusy && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-paper/85 backdrop-blur-sm">
-                  <div className="text-3xl">
-                    <span className="inline-block animate-pulse">✨</span>
-                  </div>
-                  <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink">
-                    AI is restyling…
-                  </div>
-                  <div className="font-mono text-[10px] text-muted">
-                    {aiBusyModel
-                      ? aiBusyModel.split("/").pop()
-                      : "thinking…"}
-                  </div>
-                  <div className="mt-2 h-1 w-40 overflow-hidden border border-ink/30 bg-paper">
-                    {/* Indeterminate progress bar — coral block slides
-                        left↔right via Tailwind's built-in animate-pulse.
-                        Cheaper than a custom keyframe; reads as activity
-                        regardless of duration. */}
-                    <div className="h-full w-1/3 animate-pulse bg-coral" />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      console.log("[dropin:swap] user-cancel");
-                      if (aiAborterRef.current) {
-                        aiAborterRef.current.abort();
-                        aiAborterRef.current = null;
-                      }
-                      setAiBusy(false);
-                      setAiBusyModel(null);
-                      setAiSwapOpen(false);
-                      setAiSwapCategory(null);
-                    }}
-                    className="mt-1 border border-ink bg-paper px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink hover:bg-ink hover:text-paper"
-                  >
-                    Cancel
-                  </button>
-                </div>
+                <AiSwapBusyOverlay
+                  model={aiBusyModel}
+                  onCancel={() => {
+                    console.log("[dropin:swap] user-cancel");
+                    if (aiAborterRef.current) {
+                      aiAborterRef.current.abort();
+                      aiAborterRef.current = null;
+                    }
+                    setAiBusy(false);
+                    setAiBusyModel(null);
+                    setAiSwapOpen(false);
+                    setAiSwapCategory(null);
+                  }}
+                />
               )}
             </div>
           </div>

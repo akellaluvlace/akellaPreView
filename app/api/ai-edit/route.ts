@@ -19,6 +19,11 @@ import {
   AI_SWAP_SYSTEM_PROMPT,
   buildSwapUserMessage,
 } from "@/lib/ai-edit/prompts/swap";
+import {
+  APPLY_EDIT_TOOL,
+  APPLY_EDIT_TOOL_CHOICE,
+  extractToolCallArgs,
+} from "@/lib/ai-edit/tools";
 import { validateAiResponse } from "@/lib/ai-edit/validate-response";
 import { createRateLimiter } from "@/lib/rate-limit";
 
@@ -62,8 +67,21 @@ function fail(error: string, status = 400): NextResponse<ApiResponse> {
   return NextResponse.json<ApiResponse>({ ok: false, error }, { status });
 }
 
+interface TensorixToolCall {
+  id?: string;
+  type?: string;
+  function?: {
+    name?: string;
+    arguments?: string;
+  };
+}
+
 interface TensorixChoice {
-  message?: { content?: string };
+  message?: {
+    content?: string | null;
+    tool_calls?: TensorixToolCall[];
+  };
+  finish_reason?: string;
 }
 
 interface TensorixUsage {
@@ -77,6 +95,13 @@ interface TensorixResponse {
   usage?: TensorixUsage;
 }
 
+// Hard per-call timeout. Manual testing showed Tensorix occasionally
+// taking 90s+ on minimax-m2 — user-facing latency that crosses into
+// "is this broken?" territory. 45s is generous enough to absorb
+// reasoning-model passes on big payloads while still aborting clear
+// hangs. Plan §3.4 SLA was 6s median; this is the upper bound.
+const TENSORIX_CALL_TIMEOUT_MS = 45_000;
+
 async function callTensorix(
   apiKey: string,
   baseUrl: string,
@@ -88,8 +113,16 @@ async function callTensorix(
   | { ok: true; text: string; usage?: TensorixUsage }
   | { ok: false; status: number; error: string }
 > {
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), TENSORIX_CALL_TIMEOUT_MS);
   let res: Response;
   try {
+    // Phase 7 — tool calling. Forces the model to return its result
+    // via `tool_calls[0].function.arguments` (stringified JSON matching
+    // our schema). vLLM/SGLang enforce the schema at decode time, so
+    // syntactically-invalid JSON essentially can't happen. Fallback
+    // path below handles the rare model that ignores `tools` and
+    // returns prose in `message.content` instead.
     res = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
@@ -102,15 +135,36 @@ async function callTensorix(
           { role: "system", content: systemPrompt },
           { role: "user", content: userMessage },
         ],
+        tools: [APPLY_EDIT_TOOL],
+        tool_choice: APPLY_EDIT_TOOL_CHOICE,
+        // Keep response_format as a belt-and-braces — if the model
+        // refuses the tool call and falls back to content, we still
+        // want valid JSON there.
         response_format: { type: "json_object" },
         temperature: 0.4,
         max_tokens: maxTokens,
         stream: false,
       }),
+      signal: ac.signal,
     });
   } catch (e) {
+    clearTimeout(timer);
+    // Distinguish a timeout-driven abort from other network errors so
+    // the toast can be specific ("AI is taking too long" vs generic
+    // "Network error"). DOMException with name "AbortError" is the
+    // standard shape for both fetch-aborts and signal-driven aborts.
+    const isAbort =
+      (e instanceof Error && e.name === "AbortError") || ac.signal.aborted;
+    if (isAbort) {
+      return {
+        ok: false,
+        status: 504,
+        error: `Tensorix call exceeded ${TENSORIX_CALL_TIMEOUT_MS / 1000}s timeout`,
+      };
+    }
     return { ok: false, status: 0, error: `Network: ${String(e)}` };
   }
+  clearTimeout(timer);
   if (!res.ok) {
     // Don't leak the response body — it can contain the model name + the
     // request preview which is fine, but provider error envelopes are
@@ -133,12 +187,43 @@ async function callTensorix(
   } catch {
     return { ok: false, status: 502, error: "Tensorix returned non-JSON" };
   }
-  const text = json.choices?.[0]?.message?.content ?? "";
+  // Phase 7 — Prefer tool_calls (constrained-decode JSON, ~99% parse
+  // reliability). Fall back to message.content (json_object mode) when
+  // the model refuses the tool call or the gateway dropped the tools
+  // field. Both paths converge on a single `text` string the caller
+  // passes through validateAiResponse.
+  const choice = json.choices?.[0];
+  const toolCall = choice?.message?.tool_calls?.[0];
+  if (toolCall && toolCall.function?.name === "apply_edit") {
+    const args = toolCall.function?.arguments ?? "";
+    // Sanity-extract — confirms args is parseable JSON with `html` field.
+    // If extractToolCallArgs returns null, args was malformed; fall
+    // through to the content path rather than fail outright (the model
+    // might have ALSO emitted prose content).
+    const parsed = extractToolCallArgs(args);
+    if (parsed) {
+      // Re-encode as JSON so callers downstream can run the same
+      // validation pipeline. Drop notes when absent rather than
+      // emit `null` (avoids the SGLang minimax-m2 union-type bug).
+      const rebuilt: { html: string; notes?: string } = { html: parsed.html };
+      if (parsed.notes) rebuilt.notes = parsed.notes;
+      return {
+        ok: true,
+        text: JSON.stringify(rebuilt),
+        usage: json.usage,
+      };
+    }
+    console.warn("[ai-edit] tool_call args malformed — falling back to content", {
+      model,
+      argsPreview: args.slice(0, 200),
+    });
+  }
+  const text = choice?.message?.content ?? "";
   if (!text) {
     return {
       ok: false,
       status: 502,
-      error: "Tensorix response had no content",
+      error: "Tensorix response had neither tool_call nor content",
     };
   }
   return { ok: true, text, usage: json.usage };

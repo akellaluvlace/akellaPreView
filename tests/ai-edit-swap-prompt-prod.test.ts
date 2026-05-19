@@ -76,6 +76,50 @@ describe("AI_SWAP_SYSTEM_PROMPT — invariants", () => {
     expect(p).toMatch(/nearly identical to reference|placeholder text intact|skipped step 2/);
   });
 
+  it("includes a worked few-shot example (Phase 7) wrapped in <dropin_example>", () => {
+    // Per research: one annotated target/reference/output triple defeats
+    // the "edit target" drift mode on coder + reasoning models. Tag name
+    // is custom (dropin_example) to avoid collision if user HTML
+    // contains literal <example> tags.
+    expect(AI_SWAP_SYSTEM_PROMPT).toContain("<dropin_example>");
+    expect(AI_SWAP_SYSTEM_PROMPT).toContain("</dropin_example>");
+    expect(AI_SWAP_SYSTEM_PROMPT).toContain("<example_target>");
+    expect(AI_SWAP_SYSTEM_PROMPT).toContain("<example_reference>");
+    expect(AI_SWAP_SYSTEM_PROMPT).toContain("<example_output>");
+    expect(AI_SWAP_SYSTEM_PROMPT).toContain("<example_notes>");
+  });
+
+  it("few-shot output demonstrates root-tag inheritance (div from reference, not button from target)", () => {
+    // Annotated example must show the correct invariant — output starts
+    // with <div, not <button. Regression-protects against an edit that
+    // accidentally inverts the example.
+    const ex = AI_SWAP_SYSTEM_PROMPT.match(
+      /<example_output>([\s\S]+?)<\/example_output>/,
+    );
+    expect(ex).not.toBeNull();
+    if (ex) {
+      expect(ex[1].trim()).toMatch(/^<div/);
+      // And the target was a <button>, so output starting with <button
+      // would be the exact bug we're trying to prevent.
+      expect(ex[1].trim()).not.toMatch(/^<button/);
+    }
+  });
+
+  it("few-shot notes explicitly call out the structural pattern", () => {
+    const notes = AI_SWAP_SYSTEM_PROMPT.match(
+      /<example_notes>([\s\S]+?)<\/example_notes>/,
+    );
+    expect(notes).not.toBeNull();
+    if (notes) {
+      // Notes must mention root tag, dropped placeholder text, sizing
+      // class transfer — the three structural invariants.
+      const lc = notes[1].toLowerCase();
+      expect(lc).toMatch(/root tag/);
+      expect(lc).toMatch(/drop|removed|replaced/);
+      expect(lc).toMatch(/sizing|px-|w-|h-/);
+    }
+  });
+
   it("forbids dangerous output (script/iframe/handlers)", () => {
     const p = AI_SWAP_SYSTEM_PROMPT.toLowerCase();
     expect(p).toContain("<script");

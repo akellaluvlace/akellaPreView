@@ -15,7 +15,49 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-18 PM — AI Edit Phase 6 shipped: AI-powered component swap. User clicks element → "Swap with AI" → library opens filtered by element kind → picks reference → AI fuses target's content with reference's design DNA. Replaces the retired direct-paste swap (which couldn't preserve content + dimensions) with AI doing the structural work. tsc 0. vitest 6378/6380 (+21 swap tests). Phase 2+3 at `4c80cc8`, Phase 4 at `029eda1`, Phase 5 at `a84831f`, Phase 6 uncommitted ready for commit.)
+## Current status (2026-05-19 — Phase 7 reliability + UX grind. Hard 45s timeout, tool-calling migration, few-shot exemplar in swap prompt, double-click race guard, elapsed-time counter in busy overlay. tsc 0. vitest 6402/6405 (+49 tests since Phase 6, 3 envelope-channel failures pre-existing + unrelated). Phase 2+3 at `4c80cc8`, Phase 4 at `029eda1`, Phase 5 at `a84831f`, Phase 6 at `c3786dd` + hotfixes `f1d92a1` + `7f1de0e`, Phase 7 uncommitted.)
+
+### Phase 7 — Production-readiness grind (uncommitted)
+
+After user manual-tested Phase 6 + hotfixes and reported "nowhere production level," ran 2 parallel research agents (tool-calling specifics, few-shot exemplar design) then shipped 5 fixes/improvements:
+
+**Hard 45s API timeout** — manual test showed a 91s Tensorix call. Unacceptable UX. `callTensorix` now uses an `AbortController` with `TENSORIX_CALL_TIMEOUT_MS = 45_000`. Aborted calls surface as status 504 — fall into the existing transient-retry chain (504 ≥ 500), so a single timeout doesn't kill the request; both same-model retry + cross-model fallback get a shot before giving up.
+
+**Tool calling migration** (`response_format: json_object` → OpenAI tool calling) — per research, lifts parse reliability from ~85-92% to ~95-99% because vLLM/SGLang enforce the JSON Schema at decode time. New `lib/ai-edit/tools.ts` defines `APPLY_EDIT_TOOL` (function `apply_edit({ html: string, notes?: string })`) and `APPLY_EDIT_TOOL_CHOICE` (forces exactly one call). Route's `callTensorix` adds `tools` + `tool_choice` to the request, parses response from `choices[0].message.tool_calls[0].function.arguments` first, falls back to `message.content` if model refused the tool call. `extractToolCallArgs` validates the parsed shape (rejects nulls, empty html, non-objects, malformed JSON). `response_format: json_object` kept as belt-and-braces for the fallback path.
+
+**Model-specific defensive measures**:
+- `notes` is `string` (not `string | null`) per minimax-m2's SGLang parser bug (sglang #16057 — union types crash the tool-call parser).
+- `additionalProperties: false` on the schema — defensive against hallucinated extra fields.
+- Tool-call path drops non-string notes silently (keeps html) rather than rejecting the whole response.
+
+**Few-shot exemplar** in the swap prompt — per research, ONE annotated target/reference/output triple defeats the "edit target" drift mode coder models exhibit. Exemplar shows a `<button>Get Started</button>` target swapped onto a glass-morphism `<div class="card">` reference. Output's root tag is `<div>` (NOT `<button>`); "Get Started" replaces reference's "Click me" placeholder; reference's "Pro Plan" heading + "Everything you need to ship." paragraph are DROPPED (no placeholder bleed); target's `px-4 py-2` sizing classes append to root. `<example_notes>` block explicitly calls out the structural invariants so the model can mimic them, not just the surface style. Custom delimiter names (`<dropin_example>`, `<example_target>`, `<example_reference>`, `<example_output>`, `<example_notes>`) avoid collision with user content. ~310 input tokens cost per call (~$0.0001 on minimax-m2).
+
+**Double-click race guard** — `handleAiSwapPick` early-returns if `aiBusy` is already true. The modal's busy overlay (absolute inset-0 z-10) should block clicks, but keyboard-driven picks or pre-overlay-paint clicks could slip through. Defensive guard prevents two concurrent swap requests.
+
+**Elapsed-time counter** in the busy overlay (new `components/AiSwapBusyOverlay.tsx`) — live 0.1s-precision ticker showing "12.3s / 45s". Goes coral-bold + "taking longer than usual" at 66% of timeout. User sees concrete progress instead of just the indeterminate progress bar. Cancel button + same component (extracted from inline Workspace render).
+
+### Files added/modified (Phase 7)
+
+New:
+- `lib/ai-edit/tools.ts` — tool-call schema + `extractToolCallArgs`.
+- `components/AiSwapBusyOverlay.tsx` — busy overlay with elapsed-time ticker.
+- `tests/ai-edit-tools-prod.test.ts` — 16 tests for schema invariants + arg extraction edge cases.
+
+Modified:
+- `app/api/ai-edit/route.ts` — 45s timeout via AbortController, tool-calling request, tool_calls → content parse cascade.
+- `lib/ai-edit/prompts/swap.ts` — appended few-shot `<dropin_example>` triple after the failure-modes section.
+- `components/Workspace.tsx` — `aiBusy` early-return guard in handleAiSwapPick, AiSwapBusyOverlay mount (replaces inline overlay), `aiBusy` added to handleAiSwapPick deps.
+- `tests/ai-edit-swap-prompt-prod.test.ts` — +3 tests for few-shot exemplar (presence, root-tag inheritance, notes content).
+
+tsc 0. vitest 6402/6405 (+19 from tools tests +3 from swap-prompt tests — 22 net new, total 49 since Phase 6).
+
+### What's still NOT in this batch (deferred)
+
+- **Streaming SSE** — tool calling + streaming coexist per research, but SGLang minimax-m2 streaming has known fragmentation bugs (sglang #23071). Defer to Phase 8.
+- **Vision/screenshot reference** — Tensorix pricing for vision models still unconfirmed. Phase 8+.
+- **Edit mode also needs tool calling** — current shipment uses tool calling for ALL ai-edit calls (both edit + swap), so this is implicitly done. Verify in manual test.
+- **Iframe rebuild during AI call** — theoretical race where source changes mid-call invalidates the target path. Defer until real-world triggers.
+- **bbox-anchored prompt bar** — still deferred (Phase 3 spec).
 
 ### Phase 6 — AI-powered component swap (uncommitted)
 
