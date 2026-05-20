@@ -718,6 +718,38 @@ export async function POST(req: Request): Promise<Response> {
     promptTokens: attempt.usage?.prompt_tokens ?? null,
     completionTokens: attempt.usage?.completion_tokens ?? null,
   });
+  // 2026-05-20 — Full content dump. Browser console collapses Objects;
+  // this lets us see exactly what the model returned without expanding.
+  // Counts same-class root duplicates in both input + output so we can
+  // diagnose whether source pollution from prior bad edits is the
+  // cause when the nested-duplicate detector doesn't fire.
+  const dupSig = (() => {
+    const m = body.targetHtml.match(
+      /^<[a-zA-Z][\w-]*\b[^>]*\bclass="([^"]*)"/,
+    );
+    if (!m) return null;
+    const cls = m[1].split(/\s+/).filter(Boolean);
+    return cls.find((c) => c.length >= 4) ?? null;
+  })();
+  function countSig(html: string, sig: string): number {
+    const esc = sig.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(
+      `<[a-zA-Z][\\w-]*\\b[^>]*\\bclass="[^"]*\\b${esc}\\b[^"]*"`,
+      "g",
+    );
+    let n = 0;
+    while (re.exec(html) !== null) n++;
+    return n;
+  }
+  console.log("[ai-edit] FULL-TARGET ", body.targetHtml);
+  console.log("[ai-edit] FULL-OUTPUT ", validated.value.html);
+  if (dupSig) {
+    console.log("[ai-edit] dup-check", {
+      sig: dupSig,
+      targetCount: countSig(body.targetHtml, dupSig),
+      outputCount: countSig(validated.value.html, dupSig),
+    });
+  }
   emitTelemetry({
     outcome: "success",
     scope: body.scope,
