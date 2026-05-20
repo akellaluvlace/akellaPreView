@@ -57,6 +57,34 @@ const FAMILY_500: Record<Family, string> = {
   rose: "#f43f5e",
 };
 
+// Reverse index hex -> { family, shade }. Built from the verified
+// `lib/tailwind-palette.ts` TAILWIND_PALETTE table (single source of
+// truth, version-pinned to Tailwind 3.4.x). Used by applyPalette to
+// remap arbitrary-value tokens like bg-[#6366f1] (indigo-500).
+//
+// Without this, AI-generated templates that emit `bg-[#hex]` for
+// one-off accent colors bypass the palette swap entirely — the
+// named-token path only matches `bg-blue-500`, not `bg-[#3b82f6]`.
+//
+// Lookup is lowercase only; callers normalize before lookup.
+// Forward lookup (family, shade) -> hex via lookupFamilyHex below.
+import { TAILWIND_PALETTE } from "./tailwind-palette";
+
+export const FAMILY_HEX_SHADES: ReadonlyMap<string, { family: Family; shade: string }> = (() => {
+  const m = new Map<string, { family: Family; shade: string }>();
+  for (const family of ALL_FAMILIES) {
+    for (const shade of ["50","100","200","300","400","500","600","700","800","900","950"]) {
+      const hex = TAILWIND_PALETTE[`${family}-${shade}`];
+      if (hex) m.set(hex.toLowerCase(), { family, shade });
+    }
+  }
+  return m;
+})();
+
+export function lookupFamilyHex(family: Family, shade: string): string | null {
+  return TAILWIND_PALETTE[`${family}-${shade}`]?.toLowerCase() ?? null;
+}
+
 export interface PaletteFamilies {
   primary: Family;
   neutral: Family;

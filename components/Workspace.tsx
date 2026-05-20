@@ -344,7 +344,9 @@ export default function Workspace({
         stored === "select" ||
         stored === "swap" ||
         stored === "insert" ||
-        stored === "move"
+        stored === "move" ||
+        // 2026-05-20 — AI tool retired. Migrate persisted "ai" → "view".
+        stored === "ai"
       ) {
         setToolState("view");
         try {
@@ -354,7 +356,7 @@ export default function Workspace({
         }
         return;
       }
-      if (stored === "view" || stored === "vibe" || stored === "ai") {
+      if (stored === "view" || stored === "vibe") {
         setToolState(stored);
       }
     } catch {
@@ -4309,7 +4311,10 @@ export default function Workspace({
       if (k === "v") next = "view";
       else if (k === "s") next = "select";
       else if (k === "e") next = "vibe";
-      else if (k === "a") next = "ai";
+      // 'a' (AI) retired 2026-05-20 — feature dropped per user direction.
+      // Quality wasn't reliable enough; code left on disk for future
+      // recovery. localStorage migration in the persist effect below
+      // remaps any persisted "ai" → "view".
       // 'i' (Insert) retired 2026-05-14 — insertion now happens via the
       // Swap-from-library affordance inside vibe-edit mode (every element
       // gets a "Browse library" button in its properties panel).

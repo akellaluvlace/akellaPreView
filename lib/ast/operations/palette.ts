@@ -38,6 +38,7 @@ import { parse, type ParserOptions } from "@babel/parser";
 import { OID_ATTR } from "../oids";
 import {
   ALL_FAMILIES,
+  FAMILY_HEX_SHADES,
   NEUTRAL_FAMILIES,
   type Family,
   type Palette,
@@ -161,8 +162,8 @@ interface TokenParts {
 // family / shade / optional alpha. Returns null if the token doesn't
 // match the {prefix}-{family}-{shade}[/{alpha}] shape.
 function parseToken(core: string): TokenParts | null {
-  // Reject arbitrary-value classes — they contain `[` which the
-  // shade rule below wouldn't match anyway, but cheaper to bail early.
+  // Reject arbitrary-value classes — handled separately by
+  // parseArbitraryHexToken below.
   if (core.includes("[")) return null;
   for (const p of PREFIXES) {
     if (!core.startsWith(p + "-")) continue;
@@ -173,9 +174,6 @@ function parseToken(core: string): TokenParts | null {
       const m = shadePart.match(/^(\d{2,4})(\/\d+(?:\.\d+)?)?$/);
       if (!m) continue;
       const shadeNum = m[1];
-      // Tailwind shades are 50, 100, 200, ..., 950. Keep loose — any
-      // 2-4 digit number passes the structural check; rare bogus
-      // tokens like `bg-blue-1234` round-trip unchanged.
       return {
         prefix: p,
         family: f,
@@ -189,6 +187,71 @@ function parseToken(core: string): TokenParts | null {
 
 function rebuildToken(parts: TokenParts, destFamily: Family): string {
   return `${parts.prefix}-${destFamily}-${parts.shade}${parts.alpha}`;
+}
+
+// 2026-05-20 — Arbitrary-value Tailwind tokens like `bg-[#6366f1]` are
+// the AI's favorite output format (one-off hex colors) and a huge chunk
+// of any AI-generated template's color surface. The named-token path
+// above skips them. This parser maps them back to the Tailwind palette
+// when the hex matches a known (family, shade) pair.
+//
+// Examples handled:
+//   bg-[#6366f1]      → indigo-500
+//   text-[#10b981]    → emerald-500
+//   border-[#3b82f6]  → blue-500
+//   hover:bg-[#a855f7] → variant preserved, purple-500 inside
+//
+// Examples NOT handled (returned null, left untouched):
+//   bg-[rgb(...)]     → non-hex syntax
+//   bg-[url(...)]     → image URL
+//   text-[14px]       → not a color
+//   bg-[#abc]         → 3-digit hex; we only match 6-digit Tailwind hex
+function parseArbitraryHexToken(
+  core: string,
+): { prefix: string; family: Family; shade: string; alpha: string } | null {
+  for (const p of PREFIXES) {
+    if (!core.startsWith(p + "-[")) continue;
+    // Match `prefix-[#rrggbb]` or `prefix-[#rrggbb]/{alpha}`.
+    const rest = core.slice(p.length + 1);
+    const m = rest.match(/^\[#([0-9a-fA-F]{6})\](\/\d+(?:\.\d+)?)?$/);
+    if (!m) return null;
+    const hex = "#" + m[1].toLowerCase();
+    const lookup = FAMILY_HEX_SHADES.get(hex);
+    if (!lookup) return null;
+    return {
+      prefix: p,
+      family: lookup.family,
+      shade: lookup.shade,
+      alpha: m[2] ?? "",
+    };
+  }
+  return null;
+}
+
+function rebuildArbitraryHexToken(
+  parts: { prefix: string; shade: string; alpha: string },
+  destFamily: Family,
+): string | null {
+  const destHexShades = (
+    (
+      [
+        "slate","gray","zinc","neutral","stone",
+        "red","orange","amber","yellow","lime","green","emerald","teal",
+        "cyan","sky","blue","indigo","violet","purple","fuchsia","pink","rose",
+      ] as Family[]
+    ).includes(destFamily)
+  );
+  if (!destHexShades) return null;
+  // Look up destination hex from the palettes module's full table.
+  // We don't import lookupFamilyHex directly here to avoid a circular
+  // import surface — the FAMILY_HEX_SHADES map covers reverse lookup,
+  // and we re-derive forward by scanning entries.
+  for (const [hex, info] of FAMILY_HEX_SHADES) {
+    if (info.family === destFamily && info.shade === parts.shade) {
+      return `${parts.prefix}-[${hex}]${parts.alpha}`;
+    }
+  }
+  return null;
 }
 
 export function applyPalette(
@@ -235,7 +298,10 @@ export function applyPalette(
     return scopeOidSet.has(oid);
   }
 
-  // Pass 1: family usage counts within scope.
+  // Pass 1: family usage counts within scope. Counts BOTH named tokens
+  // (bg-blue-500) AND arbitrary-hex tokens (bg-[#3b82f6]) since the
+  // mapping should consider both shapes when picking which family is
+  // "the primary."
   const counts = new Map<Family, number>();
   for (const slot of slots) {
     if (!inScope(slot.oid)) continue;
@@ -243,9 +309,15 @@ export function applyPalette(
     for (const tok of value.split(/\s+/)) {
       if (!tok) continue;
       const { core } = splitVariants(tok);
-      const parts = parseToken(core);
-      if (!parts) continue;
-      counts.set(parts.family, (counts.get(parts.family) ?? 0) + 1);
+      const namedParts = parseToken(core);
+      if (namedParts) {
+        counts.set(namedParts.family, (counts.get(namedParts.family) ?? 0) + 1);
+        continue;
+      }
+      const hexParts = parseArbitraryHexToken(core);
+      if (hexParts) {
+        counts.set(hexParts.family, (counts.get(hexParts.family) ?? 0) + 1);
+      }
     }
   }
 
@@ -297,25 +369,41 @@ export function applyPalette(
       .map((chunk) => {
         if (/^\s+$/.test(chunk) || !chunk) return chunk;
         const { variant, core } = splitVariants(chunk);
-        const parts = parseToken(core);
-        if (!parts) return chunk;
-        const dest = mapping.get(parts.family);
-        if (!dest) return chunk;
-        if (dest === parts.family) return chunk;
-        // Defensive: if a non-neutral source family is mapped to a
-        // neutral destination (shouldn't happen with our mapping
-        // construction), skip — preserves text readability. Same the
-        // other way: a neutral source mapped to a non-neutral dest.
-        if (
-          NEUTRAL_FAMILIES.has(parts.family) !==
-          NEUTRAL_FAMILIES.has(dest)
-        ) {
-          return chunk;
+        // Try named token first (bg-blue-500). Then arbitrary hex
+        // (bg-[#3b82f6]). Both route through the same family-mapping
+        // logic but use different rebuild functions.
+        const named = parseToken(core);
+        if (named) {
+          const dest = mapping.get(named.family);
+          if (!dest) return chunk;
+          if (dest === named.family) return chunk;
+          if (
+            NEUTRAL_FAMILIES.has(named.family) !==
+            NEUTRAL_FAMILIES.has(dest)
+          ) {
+            return chunk;
+          }
+          if (!FAMILY_SET.has(named.family)) return chunk;
+          updated = true;
+          return variant + rebuildToken(named, dest);
         }
-        // Token is in FAMILY_SET (we matched it). Rebuild with dest.
-        if (!FAMILY_SET.has(parts.family)) return chunk;
-        updated = true;
-        return variant + rebuildToken(parts, dest);
+        const hex = parseArbitraryHexToken(core);
+        if (hex) {
+          const dest = mapping.get(hex.family);
+          if (!dest) return chunk;
+          if (dest === hex.family) return chunk;
+          if (
+            NEUTRAL_FAMILIES.has(hex.family) !==
+            NEUTRAL_FAMILIES.has(dest)
+          ) {
+            return chunk;
+          }
+          const rebuilt = rebuildArbitraryHexToken(hex, dest);
+          if (!rebuilt) return chunk;
+          updated = true;
+          return variant + rebuilt;
+        }
+        return chunk;
       })
       .join("");
     if (updated && rebuilt !== value) {
