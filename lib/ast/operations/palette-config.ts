@@ -34,6 +34,71 @@ export interface PaletteConfigResult {
   tokensRewritten: number;
 }
 
+// 2026-05-20 — Detect dark-themed templates. If the surface/background
+// hex in the colors block is dark (luminance < 0.4), the template is
+// designed for white text on dark bg. Mapping surfaces to neutral-50
+// (near-white) would INVERT the theme and break readability across
+// the board. We flip the shade outputs instead so dark stays dark.
+//
+// Examples that need this:
+//   102-neon-glitch-brutalist: surface-container-lowest #0c0f0f
+//   107-y2k-vaporwave-grid:    surface dark hexes
+//   any AI-generated dark mode template
+//
+// Heuristic: read first 2-3 surface hexes from the colors block, take
+// average luminance via WCAG luminance formula. Returns true when avg
+// luminance < 0.4 (dark theme), false otherwise.
+function isDarkTheme(source: string): boolean {
+  // Find a colors block (quoted or unquoted key).
+  const blockMatch = source.match(/["']?colors["']?\s*:\s*\{/);
+  if (!blockMatch || blockMatch.index === undefined) return false;
+  const start = blockMatch.index + blockMatch[0].length;
+  // Walk a reasonable window (8KB) past the opener to sample entries.
+  const window = source.slice(start, start + 8000);
+  // 2026-05-20 bugfix — anchor name with negative lookbehind/lookahead
+  // for letters and hyphens so `on-surface` and `surface-container`
+  // DO NOT match. Only bare `surface` and `background` count.
+  // Without this, on-surface's light text hex (#e2e2e2) averaged with
+  // surface's dark bg hex (#0c0f0f) to land above the dark threshold,
+  // misclassifying dark templates as light.
+  const surfaceRe =
+    /(?<![a-zA-Z-])["']?(surface|background)["']?(?![a-zA-Z-])\s*:\s*["'](#[0-9a-fA-F]{6})["']/g;
+  const lums: number[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = surfaceRe.exec(window)) !== null) {
+    const hex = m[2].toLowerCase();
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    // Simple weighted luminance (not full WCAG sRGB — good enough).
+    const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    lums.push(lum);
+    if (lums.length >= 3) break;
+  }
+  if (lums.length === 0) return false;
+  const avg = lums.reduce((a, b) => a + b, 0) / lums.length;
+  return avg < 0.4;
+}
+
+// Flip a Tailwind shade for dark themes. shade-50 → shade-950, shade-100
+// → shade-900, etc. Keeps the same family but inverts brightness.
+function flipShade(shade: RoleAssignment["shade"]): RoleAssignment["shade"] {
+  const map: Record<RoleAssignment["shade"], RoleAssignment["shade"]> = {
+    "50": "950",
+    "100": "900",
+    "200": "800",
+    "300": "700",
+    "400": "600",
+    "500": "500",
+    "600": "400",
+    "700": "300",
+    "800": "200",
+    "900": "100",
+    "950": "50",
+  };
+  return map[shade];
+}
+
 // Token-name → (role, shade) classification. Role picks which family
 // from the palette (primary / accent / neutral). Shade picks how dark.
 // Mapping follows Material 3 conventions but is forgiving on naming.
@@ -257,6 +322,11 @@ export function applyPaletteToConfigColors(
   source: string,
   palette: Palette,
 ): PaletteConfigResult {
+  // 2026-05-20 — Detect dark-theme templates upfront. When true, ALL
+  // shade outputs get flipped (50↔950, 100↔900, etc.) so dark templates
+  // stay dark across palette swaps instead of inverting to light.
+  const isDark = isDarkTheme(source);
+
   // Find the `colors: {` block (with optional whitespace, optional
   // surrounding quotes on the key — `"colors":`, `'colors':`, or
   // unquoted) anywhere in the source. Some templates have multiple
@@ -345,7 +415,14 @@ export function applyPaletteToConfigColors(
           : assignment.role === "accent"
             ? palette.families.accent
             : palette.families.neutral;
-      const destHex = lookupFamilyHex(destFamily, assignment.shade);
+      // 2026-05-20 — Dark-theme flip. For dark templates, flip every
+      // shade so the new hex stays in the dark end of the family.
+      // Light template `surface: #fbf9fa` → mapped to neutral-100
+      // (#f5f5f4) — stays light. Dark template `surface: #0c0f0f` →
+      // would map to neutral-100 if not flipped (turns dark to light,
+      // ruining the theme); flipped to neutral-900 (#171717) stays dark.
+      const finalShade = isDark ? flipShade(assignment.shade) : assignment.shade;
+      const destHex = lookupFamilyHex(destFamily, finalShade);
       if (!destHex) continue;
       if (destHex.toLowerCase() === entry.hex.toLowerCase()) continue;
       newBlock += block.slice(lastIndex, entry.index);

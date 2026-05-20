@@ -14,6 +14,57 @@ function findPalette(id: string) {
   return p;
 }
 
+describe("applyPaletteToConfigColors — dark-theme flip (2026-05-20)", () => {
+  // Templates with dark surfaces (102-neon-glitch-brutalist, AI-generated
+  // dark themes) were broken — surface mapped to neutral-50 (light), which
+  // INVERTED the theme. New isDarkTheme detection + flipShade keeps dark
+  // templates dark after palette swap.
+  it("flips shades on dark-theme template (surface hex is dark)", () => {
+    const src = `colors: {
+      "primary": "#00fbfb",
+      "surface": "#0c0f0f",
+      "surface-container": "#1a1c1c",
+      "on-surface": "#e2e2e2",
+    }`;
+    const r = applyPaletteToConfigColors(src, findPalette("forest"));
+    expect(r.unchanged).toBe(false);
+    // surface (would be neutral-100 light theme → flipped to neutral-900 dark)
+    // forest neutral = stone. stone-900 = #1c1917
+    expect(r.source.toLowerCase()).toContain("#1c1917");
+    // surface-container (would be neutral-200 light → flipped to neutral-800)
+    // stone-800 = #292524
+    expect(r.source.toLowerCase()).toContain("#292524");
+  });
+
+  it("does NOT flip shades on light-theme template", () => {
+    const src = `colors: {
+      "primary": "#6750a4",
+      "surface": "#fef7ff",
+      "on-surface": "#1d1b20",
+    }`;
+    const r = applyPaletteToConfigColors(src, findPalette("forest"));
+    expect(r.unchanged).toBe(false);
+    // surface stays light: neutral-100. forest neutral = stone-100 = #f5f5f4
+    expect(r.source).toContain("#f5f5f4");
+  });
+
+  it("detects dark theme even when first surface entry is mid-luminance", () => {
+    // Average luminance check — first hex is grey but rest are dark.
+    // Window-based scan should still classify as dark.
+    const src = `colors: {
+      "surface": "#3a3a3a",
+      "surface-container-lowest": "#0a0a0a",
+      "surface-container-low": "#151515",
+      "primary": "#00ff00",
+    }`;
+    const r = applyPaletteToConfigColors(src, findPalette("forest"));
+    expect(r.unchanged).toBe(false);
+    // Average of (0.227, 0.039, 0.082) = 0.116 → dark → flipped shades
+    // surface (neutral-100 flipped → neutral-900 = stone-900 = #1c1917)
+    expect(r.source).toContain("#1c1917");
+  });
+});
+
 describe("applyPaletteToConfigColors — Material 3 design tokens", () => {
   it("rewrites primary + primary-container", () => {
     const src = `
