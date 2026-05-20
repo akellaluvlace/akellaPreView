@@ -496,17 +496,13 @@ export async function POST(req: Request): Promise<Response> {
     return fail(validated.error, 502);
   }
 
-  // No-op detection — tightened 2026-05-20 after manual test showed
-  // the model returning target with classes REORDERED but content
-  // identical, slipping past the 0.98 trigram threshold. New approach:
-  //   1. Normalize both: strip OID/dropin attrs, sort class lists,
-  //      collapse whitespace.
-  //   2. Direct equality check after normalize → catches reorder-only.
-  //   3. Trigram fallback at 0.92 threshold (lowered from 0.98) →
-  //      catches "nearly identical with one class added."
-  // Aggressive normalization risks false positives (legitimately tiny
-  // edits like "add bg-red-500" flagged as no-op) — mitigated by the
-  // 0.92 trigram floor leaving 8% room for real changes.
+  // No-op detection — 2026-05-20 hotfix after the previous round's
+  // 0.92 trigram threshold false-positived legit single-class edits
+  // ("bg-stone-200" → "bg-red-500" had ~93% trigram overlap and got
+  // wrongly flagged as no-op). New rule: ONLY exact-equality post-
+  // normalize. If the strings are byte-identical after stripping
+  // OIDs + sorting class lists + collapsing whitespace → it's truly
+  // a no-op. Any meaningful char change survives normalization.
   function normalizeForCompare(s: string): string {
     return (
       s
@@ -531,24 +527,7 @@ export async function POST(req: Request): Promise<Response> {
     if (a === b) return true;
     const na = normalizeForCompare(a);
     const nb = normalizeForCompare(b);
-    if (na === nb) return true; // Pure reorder / attr-strip diff.
-    if (Math.abs(na.length - nb.length) > Math.max(na.length, nb.length) * 0.08) {
-      return false;
-    }
-    // Trigram overlap — robust to whitespace/attr-order shuffles
-    // without computing edit distance on 10k-char inputs.
-    function trigrams(s: string): Set<string> {
-      const out = new Set<string>();
-      for (let i = 0; i <= s.length - 3; i++) out.add(s.slice(i, i + 3));
-      return out;
-    }
-    const A = trigrams(na);
-    const B = trigrams(nb);
-    let inter = 0;
-    for (const t of A) if (B.has(t)) inter++;
-    const union = A.size + B.size - inter;
-    if (union === 0) return false;
-    return inter / union >= 0.92;
+    return na === nb;
   };
 
   if (isNoOp(validated.value.html, body.targetHtml)) {
