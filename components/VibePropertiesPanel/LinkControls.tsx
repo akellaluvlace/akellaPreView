@@ -58,9 +58,6 @@ interface LinkControlsProps {
   // handleVibeClasses → vibe:update-classes postMessage. Drives the
   // typography sliders.
   onClassesChange?: (newClasses: string) => void;
-  // Opens the Components library modal so the user can swap the link
-  // for a different block (e.g. a button-styled CTA). Optional.
-  onComponentSwap?: () => void;
 }
 
 export default function LinkControls({
@@ -69,7 +66,6 @@ export default function LinkControls({
   onContentChange,
   onStyleChange,
   onClassesChange,
-  onComponentSwap,
 }: LinkControlsProps) {
   const [href, setHref] = useState(info.href ?? "");
   const [text, setText] = useState(info.text);

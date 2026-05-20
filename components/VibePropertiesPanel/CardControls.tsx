@@ -22,9 +22,6 @@ import { parseRadiusPx } from "@/lib/vibe-edit/detect";
 interface CardControlsProps {
   info: VibeElementInfo;
   onStyleChange: (styles: Record<string, string>) => void;
-  // Opens the Components library modal so the user can swap the card
-  // for a different tile. Optional.
-  onComponentSwap?: () => void;
   // Opens the Media library modal so the user can pick a background
   // image. The pick handler at the host treats the URL as CSS bg,
   // NOT an outerHTML swap. Optional.
@@ -41,7 +38,6 @@ interface CardControlsProps {
 export default function CardControls({
   info,
   onStyleChange,
-  onComponentSwap,
   onBgImagePick,
   onBgImageRemove,
   onBgImageShuffle,

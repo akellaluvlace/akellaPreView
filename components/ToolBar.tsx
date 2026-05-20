@@ -56,9 +56,15 @@ interface ToolBarProps {
   // Default false. When true, the View button is hidden — used by
   // FocusEditor where the user is explicitly in edit mode.
   omitView?: boolean;
+  // 2026-05-20 — extra-tools slot. Renders BETWEEN the View/Edit tool
+  // group and the hint text. Workspace uses this to add Palette
+  // (popover) / Code (slide-out toggle) / Tree (slide-out toggle)
+  // buttons so the user has one horizontal row of all editor controls
+  // instead of a vertical left rail. FocusEditor leaves it undefined.
+  extraTools?: React.ReactNode;
   // Optional right-aligned slot. Workspace passes the action group
-  // (kind toggle / Apply / viewport / Expand / Copy / Download) so the
-  // entire chrome lives in one row instead of stacking.
+  // (viewport / history / Expand / Copy / Download / What's-next /
+  // Publish) so the entire chrome lives in one row.
   children?: React.ReactNode;
 }
 
@@ -244,16 +250,22 @@ export default function ToolBar({
   tool,
   onToolChange,
   omitView = false,
+  extraTools,
   children,
 }: ToolBarProps) {
   const visible = TOOL_LIST.filter((id) => !(omitView && id === "view"));
   return (
+    // 2026-05-20 — flex-nowrap with min-w-0 on the hint text ensures
+    // the entire row stays one line at typical widths. Hint truncates
+    // with ellipsis on narrow viewports rather than wrapping the action
+    // group below. On very narrow viewports the hint hides entirely
+    // (md:flex) so chrome buttons keep their full width.
     <div
-      className="flex shrink-0 flex-wrap items-center gap-2 bg-paper px-3 py-3 md:px-6"
+      className="flex shrink-0 flex-nowrap items-center gap-2 bg-paper px-3 py-3 md:px-6"
       role="toolbar"
       aria-label="Editor tools"
     >
-      <div className="inline-flex overflow-hidden border-2 border-ink">
+      <div className="inline-flex shrink-0 overflow-hidden border-2 border-ink">
         {visible.map((id, i) => {
           const meta = TOOL_META[id];
           const active = tool === id;
@@ -283,14 +295,19 @@ export default function ToolBar({
           );
         })}
       </div>
-      <div className="ml-3 hidden items-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted md:flex">
-        <span className="opacity-70">
+      {extraTools && (
+        <div className="flex shrink-0 items-center gap-2">{extraTools}</div>
+      )}
+      <div className="ml-3 hidden min-w-0 items-center overflow-hidden font-mono text-[10px] uppercase tracking-[0.2em] text-muted xl:flex">
+        <span className="shrink-0 opacity-70">
           {TOOL_META[tool].shortcut.toLowerCase()}·
         </span>
-        <span className="ml-1">{TOOL_META[tool].tooltip.replace(/\s\([A-Z]\)$/, "")}</span>
+        <span className="ml-1 truncate">
+          {TOOL_META[tool].tooltip.replace(/\s\([A-Z]\)$/, "")}
+        </span>
       </div>
       {children && (
-        <div className="ml-auto flex flex-wrap items-center gap-2">
+        <div className="ml-auto flex shrink-0 flex-nowrap items-center gap-2">
           {children}
         </div>
       )}

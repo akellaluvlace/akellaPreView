@@ -39,12 +39,10 @@ interface VibePropertiesPanelProps {
   // Same shape contract as onIconSwap: the modal owns the pick →
   // postMessage routing, this control just signals intent.
   onImageSwap?: () => void;
-  // Component swap — opens the host-owned LibraryModal in components
-  // mode (Uiverse + HyperUI tiles). Wired for every element kind that
-  // doesn't already have a kind-specific library (text / heading /
-  // button / link / card / plain container). Same shape contract as
-  // onIconSwap / onImageSwap.
-  onComponentSwap?: () => void;
+  // 2026-05-20 — onComponentSwap prop removed. Used to power the
+  // AI swap surface from VibePropertiesPanel; AI feature retired
+  // entirely. Code stays on disk in lib/ai-edit/* + Workspace
+  // handlers for future recovery.
   // Background-image pick — opens the host-owned LibraryModal in media
   // mode. Pick handler treats the URL as a CSS background (NOT an
   // outerHTML swap). Wired only for card-like containers + semantic
@@ -100,7 +98,6 @@ export default function VibePropertiesPanel({
   onClose,
   onIconSwap,
   onImageSwap,
-  onComponentSwap,
   onBgImagePick,
   onBgImageRemove,
   onBgImageShuffle,
@@ -188,27 +185,11 @@ export default function VibePropertiesPanel({
         </div>
       )}
 
-      {/* Phase 6 — AI swap button. Shown whenever the host has wired
-          onComponentSwap. Triggers the component-library modal in AI
-          mode (Pattern 3 inverted prompt fuses user's content with
-          picked reference's design DNA). See lib/ai-edit/prompts/swap.ts.
-          Visible for ALL element kinds — the modal filters by category
-          via inferSwapCategory(tag, classes). */}
-      {onComponentSwap && (
-        <div className="border-b-2 border-ink/15 px-4 py-3">
-          <button
-            type="button"
-            onClick={onComponentSwap}
-            title="Pick a reference design from the library; AI restyles this element to match while keeping your content."
-            className="w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
-          >
-            ✨ Swap with AI
-          </button>
-          <p className="mt-1.5 text-center font-mono text-[10px] text-muted">
-            Pick a design from the library — AI keeps your content + size.
-          </p>
-        </div>
-      )}
+      {/* 2026-05-20 — AI Swap button retired per user direction (the
+          AI tool itself was retired earlier the same day; this was the
+          last AI surface in the vibe panel). Code kept on disk:
+          handleAiSwapOpen/Close/Pick in Workspace + lib/ai-edit/*.
+          Recoverable when the model landscape improves. */}
 
       {(info.kind === "text" ||
         info.kind === "heading" ||
@@ -218,7 +199,6 @@ export default function VibePropertiesPanel({
           onContentChange={onContentChange}
           onStyleChange={onStyleChange}
           onClassesChange={onClassesChange}
-          onComponentSwap={onComponentSwap}
         />
       )}
 
@@ -248,7 +228,6 @@ export default function VibePropertiesPanel({
           onContentChange={onContentChange}
           onStyleChange={onStyleChange}
           onClassesChange={onClassesChange}
-          onComponentSwap={onComponentSwap}
         />
       )}
 
@@ -256,7 +235,6 @@ export default function VibePropertiesPanel({
         <CardControls
           info={info}
           onStyleChange={onStyleChange}
-          onComponentSwap={onComponentSwap}
           onBgImagePick={onBgImagePick}
           onBgImageRemove={onBgImageRemove}
           onBgImageShuffle={onBgImageShuffle}

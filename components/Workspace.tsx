@@ -19,6 +19,9 @@ import KindToggle from "./KindToggle";
 import ComponentLibrarySidebar from "./library/Sidebar";
 import LibraryModal from "./library/LibraryModal";
 import WorkspaceLeftRail from "./WorkspaceLeftRail";
+// 2026-05-20 — Palette button + popover replaces the right-sidebar's
+// Palettes tab. Mounted in the top toolbar's extraTools slot.
+import PalettePopover from "./PalettePopover";
 import ResizablePanel from "./ResizablePanel";
 import ElementTree from "./ElementTree";
 import PreviewModal from "./PreviewModal";
@@ -2728,15 +2731,16 @@ export default function Workspace({
     return jsxElementHasExpressions(code, aiInfo.oid);
   }, [code, kind, aiInfo?.oid]);
 
-  // Phase 6 — AI swap modal state. Opened from "Swap with AI" button
-  // on the vibe panel. The modal renders InlineComponentBrowser in
-  // reference-pick mode; pick fires handleAiSwapPick which routes
-  // through /api/ai-edit with mode:"swap" + referenceHtml.
+  // 2026-05-20 — AI Swap removed from the UI. The handlers below
+  // (handleAiSwapOpen/Close/Pick) + state stay scaffolded but unused
+  // so the cascade-detach + iframe-apply codepaths they reference can
+  // be revived without re-typing if/when the AI feature returns.
+  // Workspace doesn't mount the modal anymore + no UI surface calls
+  // handleAiSwapOpen, so the handlers are dead-code-eliminable by
+  // any tooling that walks the call graph. Kept inline for now to
+  // avoid a coordinated delete across ~370 LOC of related logic.
   const [aiSwapOpen, setAiSwapOpen] = useState(false);
   const [aiSwapCategory, setAiSwapCategory] = useState<string | null>(null);
-  // Frozen vibeInfo snapshot at swap-open time. Prevents racing: if the
-  // user clicks a different element while the modal is open, the swap
-  // still targets the originally-selected element.
   const aiSwapTargetRef = useRef<VibeElementInfo | null>(null);
 
   const handleAiSwapOpen = useCallback(() => {
@@ -4658,6 +4662,25 @@ export default function Workspace({
         <ToolBar
           tool={tool}
           onToolChange={handleToolChange}
+          extraTools={
+            <>
+              <PalettePopover onApplyPalette={handleApplyPalette} />
+              <ChromeToggleButton
+                active={!editorHidden}
+                onClick={() => setEditorHidden((v) => !v)}
+                title="Toggle the code editor (Monaco) panel"
+                label="Code"
+                icon={<CodeGlyph />}
+              />
+              <ChromeToggleButton
+                active={treeOpen}
+                onClick={() => setTreeOpen((v) => !v)}
+                title="Toggle the element tree panel"
+                label="Tree"
+                icon={<TreeGlyph />}
+              />
+            </>
+          }
         >
           <WorkspaceActions
             allowKindToggle={allowKindToggle}
@@ -4684,41 +4707,12 @@ export default function Workspace({
       </div>
 
       <div className="flex min-h-0 flex-1">
-        {/* LeftRail (Code/Tree/Library icon column) — desktop only. */}
-        <div className="hidden lg:contents">
-          <WorkspaceLeftRail
-            codeOpen={!editorHidden}
-            onToggleCode={() => {
-              if (editorHidden) {
-                setEditorHidden(false);
-                setTreeOpen(false);
-                setLibraryOpen(false);
-              } else {
-                setEditorHidden(true);
-              }
-            }}
-            treeOpen={treeOpen}
-            onToggleTree={() => {
-              if (!treeOpen) {
-                setTreeOpen(true);
-                setEditorHidden(true);
-                setLibraryOpen(false);
-              } else {
-                setTreeOpen(false);
-              }
-            }}
-            libraryOpen={libraryOpen}
-            onToggleLibrary={() => {
-              if (!libraryOpen) {
-                setLibraryOpen(true);
-                setEditorHidden(true);
-                setTreeOpen(false);
-              } else {
-                setLibraryOpen(false);
-              }
-            }}
-          />
-        </div>
+        {/* 2026-05-20 — WorkspaceLeftRail removed. Its three toggles
+            (Code / Tree / Library) moved into the top toolbar's
+            extraTools slot as Palette + Code + Tree buttons. Library
+            still exists (state + ComponentLibrarySidebar mount) but
+            has no UI trigger anymore — kept on disk while we decide
+            the next form factor. */}
 
         <div className="min-h-0 flex-1">
           <Preview
@@ -4956,7 +4950,6 @@ export default function Workspace({
               onBgImageRemove={handleVibeBgImageRemove}
               onBgImageShuffle={handleVibeBgImageShuffle}
               onCopySection={kind === "jsx" ? handleCopySection : undefined}
-              onComponentSwap={handleAiSwapOpen}
               onApply={handleVibeApply}
               onClassesChange={handleVibeClasses}
               onWarn={showWarn}
@@ -5009,78 +5002,10 @@ export default function Workspace({
           The grid renders below the Browse-components button with hover-
           popover preview. Old LibraryModal mount retired here. */}
 
-      {/* Phase 6 (2026-05-18) — AI swap modal. Mounted when tool is vibe,
-          a selection exists, and the user clicked "Swap with AI" on the
-          panel. InlineComponentBrowser in onPickReference mode hands the
-          raw component HTML to handleAiSwapPick which routes through
-          /api/ai-edit with mode:"swap" + referenceHtml. */}
-      {tool === "vibe" && aiSwapOpen && vibeInfo && (
-        <div
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/40 p-4"
-          role="dialog"
-          aria-label="Swap with AI"
-          onClick={(e) => {
-            // Click-outside dismiss. Only when the click hit the backdrop
-            // directly, not bubbled from the content. Blocked while AI
-            // is busy — the overlay's Cancel button is the affordance.
-            if (e.target === e.currentTarget && !aiBusy) handleAiSwapClose();
-          }}
-        >
-          <div className="flex h-[80vh] w-[min(900px,calc(100vw-32px))] flex-col border-2 border-ink bg-paper shadow-[8px_8px_0_0_#FF4D2E]">
-            <div className="flex items-center justify-between border-b-2 border-ink bg-soft px-4 py-2">
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-coral">
-                  ✨ Swap with AI
-                </span>
-                <p className="mt-0.5 font-mono text-[10px] text-muted">
-                  Pick a design — AI restyles your{" "}
-                  <span className="font-bold">{vibeInfo.tag}</span> to match
-                  while keeping your content + size.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={handleAiSwapClose}
-                disabled={aiBusy}
-                aria-label="Close AI swap dialog"
-                className="border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                Close (Esc)
-              </button>
-            </div>
-            <div className="relative min-h-0 flex-1 overflow-auto">
-              <InlineComponentBrowser
-                mode={kind}
-                category={aiSwapCategory}
-                onPickReference={handleAiSwapPick}
-                onWarn={showWarn}
-              />
-              {/* 2026-05-18 hotfix — Busy overlay. Renders ON TOP of the
-                  grid when an AI swap request is in flight. Blocks
-                  further picks + gives the user a clear visual that
-                  something is happening during the 3-15s Tensorix call.
-                  Without this the user sees the modal stay open and
-                  thinks the pick didn't register. */}
-              {aiBusy && (
-                <AiSwapBusyOverlay
-                  model={aiBusyModel}
-                  onCancel={() => {
-                    console.log("[dropin:swap] user-cancel");
-                    if (aiAborterRef.current) {
-                      aiAborterRef.current.abort();
-                      aiAborterRef.current = null;
-                    }
-                    setAiBusy(false);
-                    setAiBusyModel(null);
-                    setAiSwapOpen(false);
-                    setAiSwapCategory(null);
-                  }}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* 2026-05-20 — AI swap modal mount retired. The state +
+          handlers above are unreachable from the UI now (no surface
+          calls handleAiSwapOpen). Modal markup left out entirely so
+          we don't ship dead JSX. */}
 
       {tool === "vibe" && vibeBgImageOpen && vibeInfo && (
         <LibraryModal
@@ -5341,6 +5266,69 @@ function PublishGlyph() {
     </svg>
   );
 }
+// 2026-05-20 — Code + Tree icons for the top toolbar's chrome toggles.
+// 24×24 matches the tool-row buttons (View/Edit/Palette) so they read
+// as part of the same row.
+function CodeGlyph() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M8 6l-5 6 5 6" />
+      <path d="M16 6l5 6-5 6" />
+      <path d="M14 4l-4 16" />
+    </svg>
+  );
+}
+function TreeGlyph() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="6" height="4" />
+      <rect x="13" y="3" width="8" height="4" />
+      <rect x="13" y="11" width="8" height="4" />
+      <rect x="13" y="19" width="8" height="2" />
+      <path d="M6 7v13M6 13h7M6 20h7" />
+    </svg>
+  );
+}
+
+// 2026-05-20 — Generic toolbar toggle button. Used for Code + Tree
+// (and any future chrome toggles). Matches the View/Edit tool button
+// shape (h-12 + 24×24 icon + label below) so the whole row reads as
+// one continuous control surface even though some buttons are tools
+// and some are chrome.
+function ChromeToggleButton({
+  active,
+  onClick,
+  title,
+  label,
+  icon,
+}: {
+  active: boolean;
+  onClick: () => void;
+  title: string;
+  label: string;
+  icon: JSX.Element;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      title={title}
+      className={
+        "flex h-12 min-w-[64px] cursor-pointer flex-col items-center justify-center gap-0.5 border-2 border-ink px-3 font-mono text-[10px] uppercase tracking-[0.15em] transition-colors " +
+        (active
+          ? "bg-coral text-paper"
+          : "bg-paper text-ink hover:bg-soft")
+      }
+    >
+      <span aria-hidden="true" className="leading-none">
+        {icon}
+      </span>
+      <span className="hidden leading-none md:inline">{label}</span>
+    </button>
+  );
+}
+
 function ResetGlyph() {
   // Counter-clockwise rotation arrow with a center dot — communicates
   // "go all the way back to start" rather than the Undo glyph's "step
@@ -5494,39 +5482,14 @@ function WorkspaceActions({
     // side by side. gap-4 gives the four groups (Language / Apply / Viewport
     // / Expand+Copy+Download) noticeable breathing room. The outer ToolBar
     // already supplies bg-paper + padding.
-    <div className="flex flex-wrap items-center gap-4">
-      {urlKindToggle ? (
-        <KindToggle current={kind} size="small" />
-      ) : allowKindToggle ? (
-        <div
-          className="inline-flex overflow-hidden border-2 border-ink"
-          role="group"
-          aria-label="Language"
-        >
-          {(["jsx", "html"] as PreviewKind[]).map((k, i) => {
-            const active = k === kind;
-            return (
-              <button
-                key={k}
-                type="button"
-                onClick={() => onKindChange(k)}
-                className={
-                  SEG_BTN +
-                  " " +
-                  (active
-                    ? "bg-coral text-paper"
-                    : "bg-paper text-ink hover:bg-soft") +
-                  (i > 0 ? " border-l-2 border-ink" : "")
-                }
-                aria-pressed={active}
-              >
-                {k.toUpperCase()}
-              </button>
-            );
-          })}
-        </div>
-      ) : null}
-
+    // 2026-05-20 — JSX/HTML toggle removed from the action row. Each
+    // template opens in its own mode (file picker resolves which file
+    // to load); switching modes was a power-user crossover that ate
+    // valuable toolbar width + forced the row to wrap. `kind` still
+    // exists end-to-end; just not visible UI. onKindChange/allowKindToggle/
+    // urlKindToggle props retained so URL-toggle pages + FocusEditor
+    // (which uses KindToggle from /t/[slug]/ paths) keep working.
+    <div className="flex flex-nowrap items-center gap-2">
       <div
         className="inline-flex overflow-hidden border-2 border-ink"
         role="group"
@@ -5557,7 +5520,7 @@ function WorkspaceActions({
         })}
       </div>
 
-      <div className="ml-auto flex flex-wrap items-center gap-2">
+      <div className="ml-auto flex flex-nowrap items-center gap-2">
         {/* 2026-05-15 — Undo / Redo surfaced as visible buttons. The
             Cmd+Z / Cmd+Y keybindings still work (and the discoverable-
             shortcut is part of the tooltip); the buttons exist for
