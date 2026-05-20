@@ -56,10 +56,17 @@ describe("buildPublishPackage — HTML mode", () => {
 
 describe("buildPublishPackage — JSX mode", () => {
   it("uses iframeHtml when provided + sanitizes it", async () => {
-    const iframeHtml = `<!DOCTYPE html><html><body>
+    // Padded to clear the 200-char rebuild-race threshold. Real iframe
+    // snapshots are always well past 200 (Tailwind CDN <link> alone
+    // adds ~80 chars to the head); the test payload synthesizes that.
+    const iframeHtml = `<!DOCTYPE html><html><head>
+      <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+      <style>body{font-family:Inter,sans-serif;}</style>
+    </head><body>
       <div data-dropin-id="x1" data-dropin-selected="">Hi</div>
-      <script>var DROPIN_MODE = "jsx";</script>
+      <script>var DROPIN_MODE = "jsx"; var DROPIN_VOID_TAGS = ["br"];</script>
     </body></html>`;
+    expect(iframeHtml.length).toBeGreaterThan(200);
     const r = buildPublishPackage({
       code: "export default function X() { return <div>Hi</div>; }",
       kind: "jsx",
@@ -93,10 +100,43 @@ describe("buildPublishPackage — JSX mode", () => {
       code: "export default function X() { return <div>Hi</div>; }",
       kind: "jsx",
       filename: "x",
-      iframeHtml: "<html>x</html>", // 14 chars — under the 50-char threshold
+      iframeHtml: "<html>x</html>", // 14 chars — under the 200-char threshold
     });
     expect(r.mode).toBe("source");
     expect(r.warnings.length).toBe(1);
+  });
+
+  it("falls back when iframeHtml is doctype-only (typical mid-rebuild state)", async () => {
+    // M5 + H2 bug fix: a 100-char snapshot that's just doctype + empty
+    // html shell is the iframe-rebuild race we now reject. A real
+    // template snapshot ALWAYS comes out > 200 chars (Tailwind CDN
+    // <link> alone is ~80 chars).
+    const r = buildPublishPackage({
+      code: "export default function X() { return <div>Hi</div>; }",
+      kind: "jsx",
+      filename: "x",
+      iframeHtml:
+        "<!DOCTYPE html><html><head></head><body><div></div></body></html>", // 66 chars
+    });
+    expect(r.mode).toBe("source");
+    expect(r.warnings.length).toBe(1);
+  });
+
+  it("accepts iframeHtml comfortably above the 200-char floor", async () => {
+    const realisticSnapshot =
+      "<!DOCTYPE html><html><head>" +
+      `<link rel="stylesheet" href="https://cdn.tailwindcss.com">` +
+      `<style>body{font-family:Inter,sans-serif;}</style>` +
+      `</head><body><div class="hero"><h1>My site</h1></div></body></html>`;
+    expect(realisticSnapshot.length).toBeGreaterThan(200);
+    const r = buildPublishPackage({
+      code: "export default function X() { return <div>Hi</div>; }",
+      kind: "jsx",
+      filename: "x",
+      iframeHtml: realisticSnapshot,
+    });
+    expect(r.mode).toBe("snapshot");
+    expect(r.warnings).toEqual([]);
   });
 });
 
@@ -128,5 +168,33 @@ describe("buildPublishPackage — README inclusion", () => {
     expect(decoded).toContain("Vercel");
     // "anywhere else" section — static host pattern.
     expect(decoded).toMatch(/GitHub Pages|Cloudflare Pages|S3/);
+  });
+
+  it("README recommends the folder-first path per Netlify Drop docs", async () => {
+    // L3 bug fix: Netlify recommends folder over zip. The README now
+    // surfaces both, with folder listed first.
+    const r = buildPublishPackage({
+      code: "<html></html>",
+      kind: "html",
+      filename: "x",
+    });
+    const decoded = new TextDecoder().decode(
+      new Uint8Array(await r.blob.arrayBuffer()),
+    );
+    expect(decoded).toMatch(/unzip|Drag the unzipped folder/i);
+  });
+
+  it("README does NOT include the unverified dropin.dev claim", async () => {
+    // L2 bug fix: dropin.dev domain claim removed until verified to
+    // avoid shipping a phishing-bait URL into every user download.
+    const r = buildPublishPackage({
+      code: "<html></html>",
+      kind: "html",
+      filename: "x",
+    });
+    const decoded = new TextDecoder().decode(
+      new Uint8Array(await r.blob.arrayBuffer()),
+    );
+    expect(decoded).not.toContain("dropin.dev");
   });
 });

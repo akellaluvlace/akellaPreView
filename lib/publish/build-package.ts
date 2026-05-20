@@ -61,16 +61,24 @@ This zip contains your site, ready to host.
 
 ## Quick host on Netlify Drop (free, no signup)
 
+Two ways — pick whichever is easier:
+
+**A) Drag the unzipped folder (recommended by Netlify):**
+1. Unzip this file. You'll get a folder with index.html in it.
+2. Go to https://app.netlify.com/drop
+3. Drag the folder onto the drop zone.
+
+**B) Drag the zip directly (works too, just slower):**
 1. Go to https://app.netlify.com/drop
-2. Drag this ENTIRE zip file into the drop zone (you do not need to
-   unzip it first).
-3. Netlify gives you a live URL within seconds.
+2. Drag this .zip file straight onto the drop zone.
+
+Either way, Netlify gives you a live URL within seconds.
 
 ## Quick host on Vercel (free)
 
 1. Unzip this folder.
 2. Go to https://vercel.com/new
-3. Click "Import" → drag the unzipped folder into the import panel.
+3. Drag the unzipped folder into the import panel.
 
 ## Quick host anywhere else
 
@@ -81,8 +89,6 @@ The only file you need is index.html. Drop it on any static host
 
 - index.html  — your site
 - README.md   — this file
-
-Made with Dropin · https://dropin.dev
 `;
 
 export function buildPublishPackage(opts: PublishOptions): PublishResult {
@@ -98,8 +104,12 @@ export function buildPublishPackage(opts: PublishOptions): PublishResult {
     indexHtml = stripOids(opts.code).source;
     mode = "source";
   } else {
-    // JSX mode requires the iframe snapshot.
-    if (!opts.iframeHtml || opts.iframeHtml.length < 50) {
+    // JSX mode requires the iframe snapshot. The threshold catches
+    // "iframe rebuild in progress" / cross-origin throw / about:blank
+    // states where snapshotHtml returned a near-empty doctype-only
+    // string. A real rendered template — even the most minimal one —
+    // is well over 200 chars after Tailwind CDN + React UMD bootstrap.
+    if (!opts.iframeHtml || opts.iframeHtml.length < 200) {
       // Defensive fallback — ship the raw JSX with a clear warning.
       // This won't render standalone, but the user gets SOMETHING
       // back rather than a silent failure. Toast surfaces the warning.

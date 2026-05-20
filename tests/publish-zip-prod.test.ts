@@ -111,6 +111,23 @@ describe("buildZip — basic shape", () => {
     const decoded = new TextDecoder().decode(bytes);
     expect(decoded).toContain("café 🎉");
   });
+
+  it("sets the UTF-8 filename flag (bit 11 / 0x0800) on local + central headers", async () => {
+    // APPNOTE 4.4.4 — strict unzippers (Info-ZIP, some Java tools) need
+    // this set or non-ASCII filenames get mis-decoded as CP-437.
+    const blob = buildZip([{ path: "café.html", content: "x" }]);
+    const bytes = await blobToBytes(blob);
+    const localOffset = findSignature(bytes, SIG_LOCAL)[0];
+    const centralOffset = findSignature(bytes, SIG_CENTRAL)[0];
+    // Local header flag is at offset +6 (2 bytes LE).
+    const localFlag =
+      bytes[localOffset + 6] | (bytes[localOffset + 7] << 8);
+    // Central header flag is at offset +8 (2 bytes LE).
+    const centralFlag =
+      bytes[centralOffset + 8] | (bytes[centralOffset + 9] << 8);
+    expect(localFlag & 0x0800).toBe(0x0800);
+    expect(centralFlag & 0x0800).toBe(0x0800);
+  });
 });
 
 describe("buildZip — CRC32 sanity", () => {

@@ -88,15 +88,28 @@ describe("sanitizeIframeHtml — strips dropin runtime <script>", () => {
     expect(r.strippedScripts).toBe(0);
   });
 
-  it("strips runtime script even when mixed with other inline scripts", () => {
+  it("strips runtime script when 2+ needles coincide (DROPIN_MODE + DROPIN_VOID_TAGS)", () => {
     const html = `<!DOCTYPE html><html><head>
-      <script>var DROPIN_VOID_TAGS = ["area","br"];</script>
+      <script>var DROPIN_MODE = "jsx"; var DROPIN_VOID_TAGS = ["area","br"];</script>
       <script>window.__TEMPLATE_THEME = "dark";</script>
     </head><body>x</body></html>`;
     const r = sanitizeIframeHtml(html);
     expect(r.html).not.toContain("DROPIN_VOID_TAGS");
     expect(r.html).toContain("__TEMPLATE_THEME");
     expect(r.strippedScripts).toBe(1);
+  });
+
+  it("does NOT strip a user script that only quotes ONE Dropin name (false-positive guard)", () => {
+    // H4 bug fix: a docs site quoting `DROPIN_MODE` once in a code
+    // sample shouldn't lose its script. Real runtime declares all
+    // four globals in the same block, so the 2-of-N coincidence rule
+    // separates them cleanly.
+    const html = `<!DOCTYPE html><html><head>
+      <script>const docsExample = 'set DROPIN_MODE if you want';</script>
+    </head><body>x</body></html>`;
+    const r = sanitizeIframeHtml(html);
+    expect(r.html).toContain("DROPIN_MODE");
+    expect(r.strippedScripts).toBe(0);
   });
 });
 

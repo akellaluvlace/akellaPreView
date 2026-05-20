@@ -10,6 +10,9 @@
 // File-format reference: PKWARE APPNOTE 6.3.10, sections 4.3.6
 // (local file header), 4.3.12 (central directory header), 4.3.16
 // (end-of-central-directory). CRC-32 = ISO 3309 polynomial 0xEDB88320.
+// Bit 11 of the general purpose flag (0x0800) declares filename bytes
+// are UTF-8 — required by APPNOTE 4.4.4 for non-ASCII filenames or
+// strict extractors will mis-decode CP-437. We set it unconditionally.
 //
 // Caller passes string contents; we encode to UTF-8 here. Returns a
 // Blob with type "application/zip" suitable for triggering a download
@@ -85,7 +88,7 @@ export function buildZip(entries: ZipEntry[]): Blob {
     const view = new DataView(header);
     writeU32(view, 0, 0x04034b50); // local file header signature
     writeU16(view, 4, 20); // version needed
-    writeU16(view, 6, 0); // general purpose bit flag
+    writeU16(view, 6, 0x0800); // general purpose bit flag — UTF-8 filename
     writeU16(view, 8, 0); // STORED (no compression)
     writeU16(view, 10, time);
     writeU16(view, 12, date);
@@ -107,7 +110,7 @@ export function buildZip(entries: ZipEntry[]): Blob {
     writeU32(view, 0, 0x02014b50); // central directory header signature
     writeU16(view, 4, 20); // version made by
     writeU16(view, 6, 20); // version needed
-    writeU16(view, 8, 0); // general purpose bit flag
+    writeU16(view, 8, 0x0800); // general purpose bit flag — UTF-8 filename
     writeU16(view, 10, 0); // STORED
     writeU16(view, 12, time);
     writeU16(view, 14, date);

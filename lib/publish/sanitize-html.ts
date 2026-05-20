@@ -46,15 +46,23 @@ const DROPIN_DATA_ATTRS = [
 ] as const;
 
 // Heuristic markers that identify the in-iframe runtime <script>. The
-// runtime declares these globals at the top; any user-authored script
-// that happens to mention DROPIN_MODE would be a deliberate collision
-// (vanishingly unlikely — `DROPIN_` is a Dropin-internal namespace).
+// runtime declares all four globals at the top of the same script;
+// requiring at least 2 distinct needles to coincide means a user-
+// authored script that quotes ONE of these names (e.g. a docs site
+// mentioning Dropin's API surface) won't be falsely stripped.
+//
+// We deliberately don't switch to a single-attribute marker like
+// `data-dropin-runtime` because that would require coordinated edits
+// across multiple <script> injection sites in lib/preview.ts and
+// risks unrelated breakage. The 2-of-N coincidence rule is sufficient
+// for the false-positive surface vibecoders actually face.
 const DROPIN_RUNTIME_NEEDLES = [
   "DROPIN_MODE",
   "DROPIN_RESTORE_SCROLL",
-  "var DROPIN_VOID_TAGS",
+  "DROPIN_VOID_TAGS",
   "DROPIN_TOOL",
 ];
+const DROPIN_RUNTIME_MIN_COINCIDENCES = 2;
 
 export interface SanitizeResult {
   html: string;
@@ -95,8 +103,12 @@ export function sanitizeIframeHtml(iframeHtml: string): SanitizeResult {
   const scripts = doc.querySelectorAll("script:not([src])");
   for (const script of Array.from(scripts)) {
     const text = script.textContent ?? "";
-    const isDropinRuntime = DROPIN_RUNTIME_NEEDLES.some((needle) => text.includes(needle));
-    if (isDropinRuntime) {
+    let coincidences = 0;
+    for (const needle of DROPIN_RUNTIME_NEEDLES) {
+      if (text.includes(needle)) coincidences++;
+      if (coincidences >= DROPIN_RUNTIME_MIN_COINCIDENCES) break;
+    }
+    if (coincidences >= DROPIN_RUNTIME_MIN_COINCIDENCES) {
       script.parentNode?.removeChild(script);
       strippedScripts++;
     }

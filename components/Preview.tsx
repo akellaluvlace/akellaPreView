@@ -858,12 +858,30 @@ export default function Preview({
   // documentElement.outerHTML) for the host to sanitize and zip. Cross-
   // origin contentDocument access throws — we catch and return null so
   // the caller falls back to the source-only publish path.
+  //
+  // Returns null when:
+  //   - iframe ref hasn't mounted yet
+  //   - contentDocument is cross-origin / inaccessible (shouldn't happen
+  //     with our srcdoc + allow-same-origin sandbox, but defensive)
+  //   - the iframe is mid-rebuild (readyState !== "complete" OR <body>
+  //     has no children — both indicate the user's code hasn't rendered
+  //     into the new srcdoc yet). The caller falls back to source-only
+  //     publish, which the toast will explain.
   const snapshotHtml = useCallback((): string | null => {
     const frame = iframeRef.current;
     if (!frame) return null;
     try {
       const doc = frame.contentDocument;
       if (!doc || !doc.documentElement) return null;
+      // Rebuild race guard. setCode (called by vibe-edit / palette /
+      // AI patches) swaps srcdoc which kicks off a fresh load. Until
+      // the new document fully parses + the user's React/Babel tree
+      // has rendered, contentDocument might be either the empty
+      // about:blank skeleton OR a partially-parsed page. Either way
+      // we'd snapshot garbage. readyState "complete" + non-empty body
+      // is the safe signal; the host should retry or fall back.
+      if (doc.readyState !== "complete") return null;
+      if (!doc.body || doc.body.children.length === 0) return null;
       const doctype = doc.doctype
         ? `<!DOCTYPE ${doc.doctype.name}>\n`
         : "<!DOCTYPE html>\n";

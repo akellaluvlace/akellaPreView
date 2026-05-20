@@ -126,6 +126,13 @@ const Editor = dynamic(() => import("./Editor"), {
   loading: () => <EditorLoadingFallback />,
 });
 
+// Netlify Drop URL — anonymous drag-and-drop publish endpoint. Pulled
+// out as a constant so we have one place to update if Netlify ever
+// migrates the URL (they kept this stable since 2017 but the constant
+// pattern is cheap insurance + makes grep find the publish dependency
+// trivially).
+const NETLIFY_DROP_URL = "https://app.netlify.com/drop";
+
 // Extracted so the same loading visual renders both during dynamic import
 // resolution AND during the post-hydration mount gate (see `editorMounted`
 // state in Workspace). Keeping them visually identical guarantees zero
@@ -1518,10 +1525,28 @@ export default function Workspace({
   // post-render outerHTML via PreviewHandle.snapshotHtml and sanitize
   // out the editor's internal markers (OIDs, runtime <script>, selection
   // chrome). See lib/publish/build-package.ts.
+  //
+  // Concurrency: publishBusyRef gates re-entry. window.open is called
+  // SYNCHRONOUSLY before any await — Safari's user-activation tracker
+  // does not survive awaits even for cached dynamic imports, so we
+  // open the tab first, then do the work. Pre-warm happens via a mount
+  // effect below (see [publish: pre-warm import] useEffect) so the
+  // dynamic-import await resolves from cache for the actual click.
+  // Previous object URL is revoked on each new click so rapid clicks
+  // can't pile up.
+  const publishBusyRef = useRef(false);
+  const publishPrevUrlRef = useRef<string | null>(null);
   const handlePublish = useCallback(async () => {
+    if (publishBusyRef.current) return;
+    publishBusyRef.current = true;
+    // Open Netlify Drop synchronously — Safari's popup blocker treats
+    // any await between the click and window.open as "not a user
+    // gesture" and silently blocks. Pre-opening means the worst case
+    // is a blank tab the user can close; the best case is a perfect
+    // hand-off with the zip download landing as they click into the
+    // tab. We close it if the zip build itself throws.
+    const netlifyTab = window.open(NETLIFY_DROP_URL, "_blank", "noopener");
     try {
-      // Lazy-load to keep zip writer + sanitizer out of the initial
-      // bundle. ~5KB gz, only fetched when the user clicks Publish.
       const { buildPublishPackage } = await import("@/lib/publish/build-package");
       const iframeHtml =
         kind === "jsx"
@@ -1533,8 +1558,17 @@ export default function Workspace({
         filename: filename || "dropin-site",
         iframeHtml,
       });
-      // Trigger browser download.
+      // Revoke the prior object URL before creating a new one so back-
+      // to-back Publish clicks can't pile up multiple live URLs.
+      if (publishPrevUrlRef.current) {
+        try {
+          URL.revokeObjectURL(publishPrevUrlRef.current);
+        } catch {
+          // revoke on an already-revoked URL is harmless; just continue.
+        }
+      }
       const url = URL.createObjectURL(result.blob);
+      publishPrevUrlRef.current = url;
       const a = document.createElement("a");
       a.href = url;
       a.download = result.zipFilename;
@@ -1543,28 +1577,67 @@ export default function Workspace({
       a.remove();
       // Defer revoke so Safari has time to start the download (Chrome
       // is fine with immediate revoke; Safari occasionally cancels).
-      setTimeout(() => URL.revokeObjectURL(url), 4000);
-      // Surface any caveats (e.g. JSX iframe snapshot missed).
+      // The ref-tracked revoke above is the primary path; this is the
+      // session-end fallback for the last-clicked URL.
+      const capturedUrl = url;
+      setTimeout(() => {
+        try {
+          URL.revokeObjectURL(capturedUrl);
+        } catch {
+          // ignored — see above.
+        }
+      }, 4000);
+      // Surface every warning the orchestrator surfaced (e.g. iframe
+      // snapshot missed). On warning-paths the zip still got downloaded
+      // (with source-only contents), so the download confirmation goes
+      // through too — the user knows what they have.
       for (const w of result.warnings) {
         showWarn(w);
       }
-      if (result.warnings.length === 0) {
-        // Pop the Netlify Drop tab. Browsers gate window.open behind a
-        // user gesture — we're still inside the click handler chain
-        // because handlePublish was invoked synchronously, so this is
-        // allowed. (The await above only crosses one tick of the
-        // microtask queue; the gesture-grant survives.)
-        window.open("https://app.netlify.com/drop", "_blank", "noopener");
+      if (result.mode === "source" && kind === "jsx") {
+        // JSX fallback: zip has raw JSX, not a renderable page. Tell
+        // the user honestly what they got so they don't drag a broken
+        // archive onto Netlify.
+        showInfo(
+          `Saved ${result.zipFilename} (JSX source only — switch to HTML mode or try Publish again).`,
+        );
+      } else {
         showInfo(
           `Downloaded ${result.zipFilename} · drag it into the Netlify tab to publish`,
         );
       }
     } catch (e) {
+      // If we opened a Netlify tab but the build itself failed, close
+      // the now-pointless tab so the user isn't staring at it wondering
+      // what happened.
+      if (netlifyTab && !netlifyTab.closed) {
+        try {
+          netlifyTab.close();
+        } catch {
+          // some browsers refuse close() on cross-origin tabs; best-
+          // effort cleanup is fine.
+        }
+      }
       const msg =
         e instanceof Error ? e.message : "Publish failed for an unknown reason.";
       showWarn(`Publish failed: ${msg}`);
+    } finally {
+      publishBusyRef.current = false;
     }
   }, [code, kind, filename, showInfo, showWarn]);
+
+  // [publish: pre-warm import] — fetch the publish chunk on workspace
+  // mount so the actual click's `await import(...)` resolves from cache
+  // synchronously (single microtask). Without this, first-click would
+  // wait 50-100ms for the network fetch + Safari's user-activation
+  // window would tick down. We still need the synchronous window.open
+  // in handlePublish to actually be safe, but pre-warm makes the
+  // download trigger feel instant.
+  useEffect(() => {
+    // Best-effort prefetch — failures are silent because we don't want
+    // to spam logs for a backgrounded optimization.
+    import("@/lib/publish/build-package").catch(() => {});
+  }, []);
 
   // Phase 3 — reorder commit. Routes the position-handle drag's
   // same-parent drop through `applyReorder`. Returns true iff source
