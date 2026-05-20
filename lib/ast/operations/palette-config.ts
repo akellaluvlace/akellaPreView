@@ -107,7 +107,15 @@ function classifyToken(name: string): RoleAssignment | null {
     return { role: "accent", shade: "500" };
   }
 
-  // Neutral surfaces.
+  // Neutral surfaces. Kept as neutral family on purpose — they MUST
+  // stay near-white so dark text remains readable. Tinting them with
+  // primary at light shades was tested and rejected: forest-tinted
+  // surfaces + dark text reads fine, but warm-paper-tinted surfaces
+  // become unreadable cream, candy-tinted becomes ugly pink, etc.
+  // The "themed everywhere" feel users sometimes want WOULD break the
+  // bulk of templates' readability. Selective change (only brand
+  // accents) is the right design decision even though it feels less
+  // dramatic.
   if (n.startsWith("surface") || n.startsWith("background") || n === "foreground") {
     if (n.includes("container-lowest")) return { role: "neutral", shade: "50" };
     if (n.includes("container-low")) return { role: "neutral", shade: "100" };
@@ -118,6 +126,7 @@ function classifyToken(name: string): RoleAssignment | null {
     if (n.includes("bright")) return { role: "neutral", shade: "50" };
     if (n.includes("variant")) return { role: "neutral", shade: "200" };
     if (n.includes("inverse")) return { role: "neutral", shade: "900" };
+    if (n.includes("tint")) return { role: "primary", shade: "300" };
     return { role: "neutral", shade: "100" };
   }
 
