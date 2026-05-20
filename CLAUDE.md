@@ -15,7 +15,43 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-19 — Phase 7 reliability + UX grind. Hard 45s timeout, tool-calling migration, few-shot exemplar in swap prompt, double-click race guard, elapsed-time counter in busy overlay. tsc 0. vitest 6402/6405 (+49 tests since Phase 6, 3 envelope-channel failures pre-existing + unrelated). Phase 2+3 at `4c80cc8`, Phase 4 at `029eda1`, Phase 5 at `a84831f`, Phase 6 at `c3786dd` + hotfixes `f1d92a1` + `7f1de0e`, Phase 7 uncommitted.)
+## Current status (2026-05-20 — Phase 8 diagnostic + no-op tightening. User reports "edit applied but isnt rendered" — added comprehensive before/after diff tracers + iframe DOM-verification + tighter no-op detection that catches class-reorder cases the old 0.98 threshold missed. Pulse-highlight on swapped elements so user can SEE what changed. tsc 0. vitest 6402/6405 (3 envelope-channel pre-existing). Phase 7 at `8d4961b`, Phase 8 uncommitted.)
+
+### Phase 8 — Diagnostic + no-op tightening (uncommitted)
+
+User reported swap and edit both look broken — toast says "applied" but no visible change. Investigated the trace:
+- Several runs returned target with classes reordered (e.g. 706 → 706 char identical-length response with completionTokens=485). Old `isNoOp` used 0.98 trigram threshold on raw strings — class-reorder kept similarity below 0.98 (because trigrams differ when "bg-red-500 text-white" becomes "text-white bg-red-500") so retry never fired.
+- Recent edit-mode run: 694→716 chars (22-char diff). Real change but visually subtle. User couldn't tell if anything happened.
+
+**Three fixes shipped:**
+
+1. **Before/after diff tracers** in Workspace `handleAiSubmit` and `handleAiSwapPick`. After every successful API return, console.log dumps:
+   - `[dropin:edit] BEFORE { len, head, tail }`
+   - `[dropin:edit] AFTER { len, head, tail }`
+   - `[dropin:edit] DIFF { lenDelta, classesAdded[], classesRemoved[], rootTagChanged }`
+   Same shape for `[dropin:swap]`. Filter for "BEFORE/AFTER/DIFF" to see EXACTLY what the AI changed at the class level.
+
+2. **Iframe DOM-verification tracer**. After the `el.outerHTML = newOuterHtml` assignment in the iframe runtime's `ai:apply-outer` handler, captures pre-swap + post-swap outerHTML and logs:
+   - `[dropin:iframe-ai-swap] dom-verify { preLen, postLen, preHead, postHead, actualChange, identicalToRequested }`
+   `actualChange: false` means the iframe DOM REJECTED the assignment (rare browser quirk). `identicalToRequested: true` confirms iframe took the exact bytes we sent.
+
+3. **Pulse-highlight** on swapped element. Iframe runtime sets `data-ai-just-applied` on the new node for 1.2s, with a CSS keyframe that pulses a 3px coral outline + box-shadow halo. User SEES exactly which element was touched even when the AI made a subtle change (single class addition).
+
+4. **No-op detection tightened**: new `normalizeForCompare()` strips `data-dropin-*` attrs and SORTS class-attribute values before comparing. Direct equality check post-normalize catches "model returned same content with classes reordered." Trigram fallback lowered from 0.98 to 0.92 to catch "nearly identical with one trivial class added." Length-diff prefilter widened 5% → 8% so small legit edits don't bypass.
+
+### What you'll see in dev console next test
+
+For every AI edit + swap:
+```
+[dropin:edit] BEFORE { len: 694, head: "<button class=\"bg-stone-200 ...\">", tail: "</button>" }
+[dropin:edit] AFTER  { len: 716, head: "<button class=\"bg-red-500 ...\">",   tail: "</button>" }
+[dropin:edit] DIFF { lenDelta: +22, classesAdded: ["bg-red-500"], classesRemoved: ["bg-stone-200"], rootTagChanged: false }
+[dropin:iframe-ai-swap] dom-verify { preLen: 694, postLen: 716, actualChange: true, identicalToRequested: true }
+```
+
+If `DIFF.classesAdded` is empty + `lenDelta` is near zero → model returned a no-op. The tightened detector should catch most of these now and retry. If `actualChange: false` → iframe rejected the swap. If `identicalToRequested: false` → iframe normalized the HTML somehow (rare).
+
+tsc 0. vitest 6402/6405 (no new tests this round — the changes are diagnostic + threshold tweaks, both observable in the existing manual-test flow).
 
 ### Phase 7 — Production-readiness grind (uncommitted)
 

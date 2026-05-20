@@ -2780,6 +2780,40 @@ export default function Workspace({
         reason: persistReason,
         codeLenAfter: persisted ? code.length : null,
       });
+      // 2026-05-20 — Diff tracer. Print before/after for swaps too.
+      try {
+        const before = target.outerHtml ?? "";
+        const after = result.html;
+        const headLen = 240;
+        console.log("[dropin:swap] BEFORE", {
+          len: before.length,
+          head: before.slice(0, headLen),
+          tail: before.slice(-headLen),
+        });
+        console.log("[dropin:swap] AFTER", {
+          len: after.length,
+          head: after.slice(0, headLen),
+          tail: after.slice(-headLen),
+        });
+        const beforeRoot = (before.match(/^<(\w+)/) ?? [])[1] ?? "?";
+        const afterRoot = (after.match(/^<(\w+)/) ?? [])[1] ?? "?";
+        const beforeClasses = before.match(/class="([^"]*)"/)?.[1] ?? "";
+        const afterClasses = after.match(/class="([^"]*)"/)?.[1] ?? "";
+        console.log("[dropin:swap] DIFF", {
+          lenDelta: after.length - before.length,
+          rootTagChanged: beforeRoot !== afterRoot,
+          rootTag: `<${beforeRoot}> -> <${afterRoot}>`,
+          beforeClassesPreview: beforeClasses.slice(0, 120),
+          afterClassesPreview: afterClasses.slice(0, 120),
+          referenceUsed: {
+            slug: component.slug,
+            len: rawHtml.length,
+          },
+        });
+      } catch (e) {
+        console.warn("[dropin:swap] diff trace failed", e);
+      }
+
       const persistTag = persisted ? "" : " · session only";
       const notes = result.notes ? ` · ${result.notes}` : "";
       setRollToast({
@@ -2955,6 +2989,46 @@ export default function Workspace({
         } else {
           persistReason = "jsx element has no OID — can't persist";
         }
+      }
+
+      // 2026-05-20 — Diff tracer. Print the actual before/after HTML
+      // so you can SEE what the AI changed, even when the toast text
+      // is opaque or the iframe rebuild flicker hides the change.
+      // Logs head + tail of each side + char-length delta. Look at
+      // this in the browser console when "edit applied but nothing
+      // visibly happened."
+      try {
+        const before = info.outerHtml;
+        const after = result.html;
+        const headLen = 240;
+        console.log("[dropin:edit] BEFORE", {
+          len: before.length,
+          head: before.slice(0, headLen),
+          tail: before.slice(-headLen),
+        });
+        console.log("[dropin:edit] AFTER", {
+          len: after.length,
+          head: after.slice(0, headLen),
+          tail: after.slice(-headLen),
+        });
+        const beforeClasses = before.match(/class="([^"]*)"/)?.[1] ?? "";
+        const afterClasses = after.match(/class="([^"]*)"/)?.[1] ?? "";
+        const beforeSet = new Set(
+          beforeClasses.split(/\s+/).filter(Boolean),
+        );
+        const afterSet = new Set(afterClasses.split(/\s+/).filter(Boolean));
+        const added = [...afterSet].filter((c) => !beforeSet.has(c));
+        const removed = [...beforeSet].filter((c) => !afterSet.has(c));
+        console.log("[dropin:edit] DIFF", {
+          lenDelta: after.length - before.length,
+          classesAdded: added,
+          classesRemoved: removed,
+          rootTagChanged:
+            (before.match(/^<(\w+)/) ?? [])[1] !==
+            (after.match(/^<(\w+)/) ?? [])[1],
+        });
+      } catch (e) {
+        console.warn("[dropin:edit] diff trace failed", e);
       }
 
       // Toast surfaces immediately on success — the iframe swap is

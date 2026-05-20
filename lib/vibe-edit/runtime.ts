@@ -881,12 +881,39 @@ export function vibeRuntimeJs(): string {
             try { el.removeAttribute('data-ai-selected'); } catch (e) {}
             aiSelected = null;
           }
+          // 2026-05-20 — Tracer: capture pre-swap outerHTML so we can
+          // verify the DOM actually changed after el.outerHTML = ....
+          // Without this, when "edit applied but I see nothing changed"
+          // there's no way to know whether iframe DOM rejected the
+          // assignment (rare browser quirk) vs the swap landing but
+          // being visually subtle.
+          var preSwapOuter = '';
+          try { preSwapOuter = el.outerHTML || ''; } catch (e) {}
           el.outerHTML = d.newOuterHtml;
           // Re-find the new node. After outerHTML assignment, the
           // node at childIndex is the replacement.
           var newNode = childIndex >= 0 && childIndex < parent.children.length
             ? parent.children[childIndex]
             : null;
+          // Post-swap tracer — what did the iframe DOM actually take?
+          try {
+            var postSwapOuter = newNode ? (newNode.outerHTML || '') : '';
+            var preview = function (s, n) {
+              if (!s) return '';
+              return s.length > n ? (s.slice(0, n) + '…') : s;
+            };
+            console.log('[dropin:iframe-ai-swap] dom-verify', {
+              preLen: preSwapOuter.length,
+              postLen: postSwapOuter.length,
+              preHead: preview(preSwapOuter, 160),
+              postHead: preview(postSwapOuter, 160),
+              actualChange: preSwapOuter !== postSwapOuter,
+              identicalToRequested:
+                postSwapOuter === d.newOuterHtml ||
+                postSwapOuter.replace(/\\s+/g, ' ').trim() ===
+                  (d.newOuterHtml || '').replace(/\\s+/g, ' ').trim()
+            });
+          } catch (e) {}
           if (!newNode) {
             dropinPost({
               type: 'ai:apply-failed',
@@ -899,6 +926,23 @@ export function vibeRuntimeJs(): string {
           // same scope. aiSelect() will set data-ai-selected + push
           // a fresh ai:selected event.
           aiSelect(newNode, 'element');
+          // 2026-05-20 — Pulse-highlight the just-swapped element so the
+          // user can see EXACTLY which element was touched, even when
+          // the AI made a subtle change (single class addition, etc).
+          // Coral outline + scale pulse for 1.2s, then auto-removes.
+          // The keyframe lives in the iframe's vibe-style sheet (added
+          // below). Use a data-attr so the rule's selector is specific
+          // enough to override anything else painting the element.
+          try {
+            newNode.setAttribute('data-ai-just-applied', '');
+            setTimeout(function () {
+              try {
+                if (newNode && newNode.removeAttribute) {
+                  newNode.removeAttribute('data-ai-just-applied');
+                }
+              } catch (e) {}
+            }, 1200);
+          } catch (e) {}
           var bbox = null;
           try {
             var r = newNode.getBoundingClientRect();
@@ -935,7 +979,15 @@ export function vibeRuntimeJs(): string {
       // tool-active flag; only one is set at a time per element.
       s.textContent =
         '[data-vibe-selected] { outline: 3px solid #FF4D2E !important; outline-offset: 2px !important; cursor: pointer !important; }\\n' +
-        '[data-ai-selected] { outline: 2px solid #FF4D2E !important; outline-offset: 1px !important; cursor: crosshair !important; }';
+        '[data-ai-selected] { outline: 2px solid #FF4D2E !important; outline-offset: 1px !important; cursor: crosshair !important; }\\n' +
+        // 2026-05-20 — Post-swap pulse-highlight. Fires for 1.2s
+        // immediately after ai:apply-outer lands so the user sees
+        // EXACTLY which element changed, even when the AI made a
+        // subtle change (single class addition). Stronger 3px outline
+        // + brief box-shadow pulse so it reads as "look here, this
+        // just changed" rather than "this is currently selected."
+        '@keyframes dropin-ai-pulse { 0% { outline-color: rgba(255,77,46,1); box-shadow: 0 0 0 0 rgba(255,77,46,0.6); } 60% { outline-color: rgba(255,77,46,1); box-shadow: 0 0 0 12px rgba(255,77,46,0); } 100% { outline-color: rgba(255,77,46,0.4); box-shadow: 0 0 0 16px rgba(255,77,46,0); } }\\n' +
+        '[data-ai-just-applied] { outline: 3px solid #FF4D2E !important; outline-offset: 3px !important; animation: dropin-ai-pulse 1.2s ease-out 1 !important; }';
       (document.head || document.documentElement).appendChild(s);
     })();
 

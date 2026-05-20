@@ -496,30 +496,59 @@ export async function POST(req: Request): Promise<Response> {
     return fail(validated.error, 502);
   }
 
-  // No-op detection. If the model returned essentially the input back
-  // (>= 98% character similarity), the swap will be invisible to the
-  // user — exactly what just happened in manual testing. Retry once
-  // with an emphatic suffix that demands a real change.
+  // No-op detection — tightened 2026-05-20 after manual test showed
+  // the model returning target with classes REORDERED but content
+  // identical, slipping past the 0.98 trigram threshold. New approach:
+  //   1. Normalize both: strip OID/dropin attrs, sort class lists,
+  //      collapse whitespace.
+  //   2. Direct equality check after normalize → catches reorder-only.
+  //   3. Trigram fallback at 0.92 threshold (lowered from 0.98) →
+  //      catches "nearly identical with one class added."
+  // Aggressive normalization risks false positives (legitimately tiny
+  // edits like "add bg-red-500" flagged as no-op) — mitigated by the
+  // 0.92 trigram floor leaving 8% room for real changes.
+  function normalizeForCompare(s: string): string {
+    return (
+      s
+        // Strip Dropin-injected attrs that vary by re-render
+        .replace(/\s*data-dropin-id="[^"]*"/g, "")
+        .replace(/\s*data-dropin-loc="[^"]*"/g, "")
+        // Sort class attribute values so reordering doesn't fool us
+        .replace(/class="([^"]*)"/g, (_, classes: string) => {
+          const sorted = classes
+            .split(/\s+/)
+            .filter(Boolean)
+            .sort()
+            .join(" ");
+          return `class="${sorted}"`;
+        })
+        // Collapse whitespace
+        .replace(/\s+/g, " ")
+        .trim()
+    );
+  }
   const isNoOp = (a: string, b: string): boolean => {
     if (a === b) return true;
-    if (Math.abs(a.length - b.length) > Math.max(a.length, b.length) * 0.05) {
+    const na = normalizeForCompare(a);
+    const nb = normalizeForCompare(b);
+    if (na === nb) return true; // Pure reorder / attr-strip diff.
+    if (Math.abs(na.length - nb.length) > Math.max(na.length, nb.length) * 0.08) {
       return false;
     }
     // Trigram overlap — robust to whitespace/attr-order shuffles
     // without computing edit distance on 10k-char inputs.
     function trigrams(s: string): Set<string> {
-      const norm = s.replace(/\s+/g, " ").trim();
       const out = new Set<string>();
-      for (let i = 0; i <= norm.length - 3; i++) out.add(norm.slice(i, i + 3));
+      for (let i = 0; i <= s.length - 3; i++) out.add(s.slice(i, i + 3));
       return out;
     }
-    const A = trigrams(a);
-    const B = trigrams(b);
+    const A = trigrams(na);
+    const B = trigrams(nb);
     let inter = 0;
     for (const t of A) if (B.has(t)) inter++;
     const union = A.size + B.size - inter;
     if (union === 0) return false;
-    return inter / union >= 0.98;
+    return inter / union >= 0.92;
   };
 
   if (isNoOp(validated.value.html, body.targetHtml)) {
