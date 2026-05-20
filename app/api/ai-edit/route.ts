@@ -336,19 +336,19 @@ export async function POST(req: Request): Promise<Response> {
   }
   const body = parsed.value;
 
-  // Phase 6 hotfix #2 — Swap mode defaults to minimax-m2 (reasoning).
-  // Manual testing showed qwen-coder returns target nearly unchanged
-  // on swap requests (no-op trap) even with the inverted prompt.
-  // Restructuring tasks need composition reasoning, which is exactly
-  // what minimax-m2 does. Cost goes up ~5x per swap edit but reliability
-  // matters more than cost at this stage. Scope routing still applies
-  // for edit mode (qwen-coder element, minimax-m2 section).
-  const defaultModel =
-    body.mode === "swap"
-      ? sectionDefault
-      : body.scope === "section"
-        ? sectionDefault
-        : elementDefault;
+  // 2026-05-20 hotfix — Switch EDIT mode default to minimax-m2 too.
+  // Manual testing exposed qwen-coder's failure pattern: interprets
+  // ambiguous prompts ("patterned" → Unsplash URL), changes root tags
+  // semantically (<div> → <article>), occasionally emits JSX expressions
+  // (`{cardCls}`) into rendered HTML output. Reasoning models follow
+  // strict instructions more reliably. Cost goes up ~5x ($60→$300/mo
+  // at 1k users) but production quality demands it. qwen-coder retained
+  // as cross-model fallback when minimax flakes.
+  //
+  // All defaults now route to sectionDefault (minimax-m2 from env).
+  // Caller can still override per-request via body.model.
+  const defaultModel = sectionDefault;
+  void elementDefault; // unused for now; kept for future scope-aware routing
   const model = body.model ?? defaultModel;
   // Plan §4.3 max_tokens: 1500 element, 6000 section. Bump section to
   // 16000 — many real hero/feature sections in the template library

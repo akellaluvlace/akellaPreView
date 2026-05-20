@@ -124,6 +124,51 @@ function detectNestedRootDuplicate(
   return `Output contains ${newCount} elements with class "${sig}" — likely nested-duplicate hallucination`;
 }
 
+// 2026-05-20 — Detect JSX expressions leaking into rendered-HTML output.
+// User session caught `cardCls is not defined` runtime error after the
+// AI emitted `<div className={cardCls}>` as if writing JSX. Such output
+// breaks the iframe when patched into source (the identifier doesnt
+// exist in the JSX scope). Reject any attribute value or text node that
+// looks like a bare JSX expression: `{identifier}` or `{`template`}`.
+//
+// False-positive guard: legitimate CSS arbitrary-value classes use
+// curly braces inside square brackets (`bg-[url('x')]`, `text-[14px]`)
+// but those are INSIDE class="..." attribute values, surrounded by `[`
+// and `]`. The detection regex matches `{...}` OUTSIDE square brackets.
+function findJsxExpressionLeak(html: string): string | null {
+  // Match unquoted `{...}` patterns that look like JSX expressions.
+  // Patterns to catch:
+  //   className={foo}
+  //   class="{cardCls}"           (model confused HTML with JSX in string)
+  //   {expression} as text node
+  //   attr={`template ${x}`}
+  //
+  // What to allow:
+  //   bg-[url(...)] inside class="..."
+  //   text-[14px] inside class="..."
+  //   {{ in inline style (rare CSS escape)
+  //
+  // Conservative: flag `attr={...}` (any attribute with unquoted curly
+  // braces) and any `="{...}"` (string-quoted curly braces in attr).
+  if (/=\{[^}]+\}/.test(html)) {
+    return "Output contains JSX expression attribute (use class=, not className={...})";
+  }
+  // Check for quoted-string attributes containing { not within square brackets.
+  // Match: ="..." or '...' where the value contains {ident}
+  const attrMatches = html.match(/=["']([^"']+)["']/g);
+  if (attrMatches) {
+    for (const am of attrMatches) {
+      const inner = am.slice(2, -1);
+      // Skip if all braces are inside square brackets (Tailwind arbitrary)
+      const stripped = inner.replace(/\[[^\]]*\]/g, "");
+      if (/\{[a-zA-Z_$][\w$]*\}/.test(stripped)) {
+        return `Output contains JSX-expression-like literal "${am.slice(0, 60)}..." — model emitted JSX syntax in HTML output`;
+      }
+    }
+  }
+  return null;
+}
+
 function findForbidden(html: string, original: string): string | null {
   // Allow forbidden tags that were already in the original. The user's
   // template might legitimately have a <script> for inline JS; we just
@@ -207,6 +252,10 @@ export function validateAiResponse(
   const forbidden = findForbidden(html, originalHtml);
   if (forbidden) {
     return { ok: false, error: forbidden };
+  }
+  const jsxLeak = findJsxExpressionLeak(html);
+  if (jsxLeak) {
+    return { ok: false, error: jsxLeak };
   }
   // 2026-05-20 — Nested-duplicate-root detection. Manual test caught
   // qwen-coder hallucinating a NESTED <div class="glass-card"> inside

@@ -130,6 +130,53 @@ describe("ai-edit validate-response — root tag matching", () => {
   });
 });
 
+describe("ai-edit validate-response — JSX-expression leak detection (2026-05-20)", () => {
+  // Manual test caught the AI emitting `<div className={cardCls}>` in
+  // its rendered-HTML output, which broke iframe at runtime with
+  // "cardCls is not defined". Validator now rejects.
+  it("rejects className={identifier} unquoted attribute", () => {
+    const r = validateAiResponse(
+      JSON.stringify({ html: "<div className={cardCls}>hi</div>" }),
+      "<div>hi</div>",
+      "element",
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/JSX expression|className/i);
+  });
+
+  it("rejects class=\"{cardCls}\" string-quoted JSX-like value", () => {
+    const r = validateAiResponse(
+      JSON.stringify({ html: '<div class="{cardCls}">hi</div>' }),
+      "<div>hi</div>",
+      "element",
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/JSX-expression/i);
+  });
+
+  it("ALLOWS Tailwind arbitrary classes with curly braces in square brackets", () => {
+    // bg-[url(...)] and similar contain curly braces inside [...] —
+    // those are CSS, not JSX. Validator must not false-positive.
+    const r = validateAiResponse(
+      JSON.stringify({
+        html: '<div class="bg-[linear-gradient(45deg,#abc_25%,transparent_25%)] text-[14px]">hi</div>',
+      }),
+      "<div>hi</div>",
+      "element",
+    );
+    expect(r.ok).toBe(true);
+  });
+
+  it("ALLOWS clean class attribute with no curly braces", () => {
+    const r = validateAiResponse(
+      JSON.stringify({ html: '<div class="bg-red-500 p-4">hi</div>' }),
+      "<div>hi</div>",
+      "element",
+    );
+    expect(r.ok).toBe(true);
+  });
+});
+
 describe("ai-edit validate-response — nested-duplicate-root detection (2026-05-20)", () => {
   // The Phase 9 manual-test bug: qwen-coder hallucinated a nested
   // duplicate of <div class="glass-card"> inside the original
