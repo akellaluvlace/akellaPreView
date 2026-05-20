@@ -151,6 +151,11 @@ export interface PreviewHandle {
       | Extract<HostToIframeMessage, { type: `vibe:${string}` }>
       | Extract<HostToIframeMessage, { type: `ai:${string}` }>,
   ) => void;
+  // 2026-05-20 — Publish flow: capture the iframe's current rendered
+  // HTML so the host can sanitize + zip it for Netlify Drop. Returns
+  // null when the iframe ref is unmounted or the contentDocument is
+  // cross-origin (shouldn't happen — srcdoc + same-origin sandbox).
+  snapshotHtml: () => string | null;
 }
 
 interface PreviewProps {
@@ -848,6 +853,26 @@ export default function Preview({
     [postToIframe],
   );
 
+  // 2026-05-20 — Publish flow snapshot. Reads the iframe's current
+  // contentDocument and returns the full document HTML (doctype +
+  // documentElement.outerHTML) for the host to sanitize and zip. Cross-
+  // origin contentDocument access throws — we catch and return null so
+  // the caller falls back to the source-only publish path.
+  const snapshotHtml = useCallback((): string | null => {
+    const frame = iframeRef.current;
+    if (!frame) return null;
+    try {
+      const doc = frame.contentDocument;
+      if (!doc || !doc.documentElement) return null;
+      const doctype = doc.doctype
+        ? `<!DOCTYPE ${doc.doctype.name}>\n`
+        : "<!DOCTYPE html>\n";
+      return doctype + doc.documentElement.outerHTML;
+    } catch {
+      return null;
+    }
+  }, []);
+
   useEffect(() => {
     if (!onReady) return;
     onReady({
@@ -861,6 +886,7 @@ export default function Preview({
       requestDropTargets,
       requestEnvelope,
       postVibe,
+      snapshotHtml,
     });
   }, [
     onReady,
@@ -874,6 +900,7 @@ export default function Preview({
     requestDropTargets,
     requestEnvelope,
     postVibe,
+    snapshotHtml,
   ]);
 
   // Tree-row hover highlight. Pushes a coral dashed outline via the

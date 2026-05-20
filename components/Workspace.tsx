@@ -1506,6 +1506,66 @@ export default function Workspace({
     showInfo("Template restored to original.");
   }, [canUndo, undo, showInfo]);
 
+  // 2026-05-20 — Publish flow. Builds a hostable zip from the current
+  // workspace state, triggers a browser download, then opens Netlify
+  // Drop in a new tab. The user drags the just-downloaded zip from
+  // their Downloads folder onto Netlify and gets a live URL within
+  // seconds. Zero cost to Dropin: the user's host runs the build, not
+  // ours.
+  //
+  // HTML mode: the source IS the publishable page (full <!DOCTYPE html>
+  // doc with Tailwind CDN embedded). JSX mode: we capture the iframe's
+  // post-render outerHTML via PreviewHandle.snapshotHtml and sanitize
+  // out the editor's internal markers (OIDs, runtime <script>, selection
+  // chrome). See lib/publish/build-package.ts.
+  const handlePublish = useCallback(async () => {
+    try {
+      // Lazy-load to keep zip writer + sanitizer out of the initial
+      // bundle. ~5KB gz, only fetched when the user clicks Publish.
+      const { buildPublishPackage } = await import("@/lib/publish/build-package");
+      const iframeHtml =
+        kind === "jsx"
+          ? previewHandleRef.current?.snapshotHtml() ?? undefined
+          : undefined;
+      const result = buildPublishPackage({
+        code,
+        kind,
+        filename: filename || "dropin-site",
+        iframeHtml,
+      });
+      // Trigger browser download.
+      const url = URL.createObjectURL(result.blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = result.zipFilename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // Defer revoke so Safari has time to start the download (Chrome
+      // is fine with immediate revoke; Safari occasionally cancels).
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+      // Surface any caveats (e.g. JSX iframe snapshot missed).
+      for (const w of result.warnings) {
+        showWarn(w);
+      }
+      if (result.warnings.length === 0) {
+        // Pop the Netlify Drop tab. Browsers gate window.open behind a
+        // user gesture — we're still inside the click handler chain
+        // because handlePublish was invoked synchronously, so this is
+        // allowed. (The await above only crosses one tick of the
+        // microtask queue; the gesture-grant survives.)
+        window.open("https://app.netlify.com/drop", "_blank", "noopener");
+        showInfo(
+          `Downloaded ${result.zipFilename} · drag it into the Netlify tab to publish`,
+        );
+      }
+    } catch (e) {
+      const msg =
+        e instanceof Error ? e.message : "Publish failed for an unknown reason.";
+      showWarn(`Publish failed: ${msg}`);
+    }
+  }, [code, kind, filename, showInfo, showWarn]);
+
   // Phase 3 — reorder commit. Routes the position-handle drag's
   // same-parent drop through `applyReorder`. Returns true iff source
   // changed; gesture overlay reads the boolean to decide whether to
@@ -4543,6 +4603,7 @@ export default function Workspace({
             canRedo={canRedo}
             onReset={handleResetTemplate}
             onOpenWhatsNext={() => setWhatsNextOpen(true)}
+            onPublish={handlePublish}
           />
         </ToolBar>
 
@@ -5194,6 +5255,19 @@ function WhatsNextGlyph() {
     </svg>
   );
 }
+function PublishGlyph() {
+  // Rocket — reads as "ship it / launch it" globally. Reuses the
+  // 14px / strokeWidth 1.75 sizing convention of the rest of the
+  // action-row glyphs.
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4.5 16.5c-1.5 1-2 5 -2 5s4-0.5 5-2c.5-1 .5-2.5-1-3.5-1-1-2.5-1-3.5-.5z" />
+      <path d="M12 15l-3-3a22 22 0 0 1 7-10 9 9 0 0 1 4 4 22 22 0 0 1-10 7z" />
+      <path d="M9 12H4s.5-2.5 2-4 5-1.5 5-1.5" />
+      <path d="M12 15v5s2.5-.5 4-2 1.5-5 1.5-5" />
+    </svg>
+  );
+}
 function ResetGlyph() {
   // Counter-clockwise rotation arrow with a center dot — communicates
   // "go all the way back to start" rather than the Undo glyph's "step
@@ -5283,6 +5357,7 @@ function WorkspaceActions({
   canRedo,
   onReset,
   onOpenWhatsNext,
+  onPublish,
 }: {
   allowKindToggle: boolean;
   urlKindToggle: boolean;
@@ -5300,6 +5375,7 @@ function WorkspaceActions({
   canRedo: boolean;
   onReset: () => void;
   onOpenWhatsNext: () => void;
+  onPublish: () => void;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -5521,10 +5597,9 @@ function WorkspaceActions({
             <span>Download</span>
           </button>
         </div>
-        {/* 2026-05-15 — "What's next?" — vibecoder helper. Coral background
-            so it reads as the "next thing to try" instead of a peer of
-            the chrome buttons. Sits at the end of the action row where
-            the eye lands after Download. */}
+        {/* 2026-05-15 — "What's next?" — vibecoder helper. Sits before
+            Publish so the action row reads left-to-right as "do stuff with
+            this template" → "publish the result." */}
         <div className="inline-flex overflow-hidden border-2 border-ink">
           <button
             type="button"
@@ -5532,11 +5607,30 @@ function WorkspaceActions({
             title="What can you do with this template? Copy, iterate with AI, host it online."
             className={
               SEG_BTN +
-              " gap-1.5 bg-coral text-paper hover:bg-ink"
+              " gap-1.5 bg-paper text-ink hover:bg-ink hover:text-paper"
             }
           >
             <WhatsNextGlyph />
             <span>What's next?</span>
+          </button>
+        </div>
+        {/* 2026-05-20 — Publish flow. Coral background reads as the
+            primary CTA of the action row. One click: builds a zip,
+            triggers browser download, opens Netlify Drop in a new tab.
+            User drags the zip in; Netlify gives them a live URL.
+            Zero cost to Dropin (user's Netlify free tier, user's host). */}
+        <div className="inline-flex overflow-hidden border-2 border-ink">
+          <button
+            type="button"
+            onClick={onPublish}
+            title="Download a zip + open Netlify Drop — drag the zip in to publish for free."
+            className={
+              SEG_BTN +
+              " gap-1.5 bg-coral text-paper hover:bg-ink"
+            }
+          >
+            <PublishGlyph />
+            <span>Publish</span>
           </button>
         </div>
       </div>
