@@ -130,6 +130,68 @@ describe("ai-edit validate-response — root tag matching", () => {
   });
 });
 
+describe("ai-edit validate-response — nested-duplicate-root detection (2026-05-20)", () => {
+  // The Phase 9 manual-test bug: qwen-coder hallucinated a nested
+  // duplicate of <div class="glass-card"> inside the original
+  // <div class="glass-card"> when prompted for "patterned background."
+  // The validator now detects this and rejects → route retries with
+  // explicit "no nesting" instruction.
+  it("rejects output with a nested duplicate of the root element's signature class", () => {
+    const orig = '<div class="glass-card p-6 rounded-3xl">Original content</div>';
+    const bad =
+      '<div class="glass-card p-6 rounded-3xl bg-gradient">Header<div class="glass-card p-6 rounded-3xl">Nested duplicate</div></div>';
+    const r = validateAiResponse(
+      JSON.stringify({ html: bad }),
+      orig,
+      "element",
+    );
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(/nested-duplicate/i);
+  });
+
+  it("ALLOWS output when original ALREADY had multiple of that signature", () => {
+    // Some templates render multiple cards via direct nesting (rare
+    // but valid). If the original had 2 cards, output with 2 cards
+    // is fine — not a hallucination.
+    const orig =
+      '<div class="card-grid"><div class="card-tile">A</div><div class="card-tile">B</div></div>';
+    const goodOutput =
+      '<div class="card-grid bg-emerald"><div class="card-tile">A</div><div class="card-tile">B</div></div>';
+    const r = validateAiResponse(
+      JSON.stringify({ html: goodOutput }),
+      orig,
+      "element",
+    );
+    expect(r.ok).toBe(true);
+  });
+
+  it("ALLOWS clean class-only changes (no nesting)", () => {
+    const orig = '<div class="glass-card p-6">Content</div>';
+    const good =
+      '<div class="glass-card p-6 bg-gradient-to-br from-emerald-500 to-green-500">Content</div>';
+    const r = validateAiResponse(
+      JSON.stringify({ html: good }),
+      orig,
+      "element",
+    );
+    expect(r.ok).toBe(true);
+  });
+
+  it("ignores generic Tailwind utilities as root signature (won't false-positive on common classes)", () => {
+    // `flex` is generic — shouldn't be picked as signature, so output
+    // with multiple <div class="flex"> is fine.
+    const orig = '<div class="flex p-4">Content</div>';
+    const good =
+      '<div class="flex p-4 bg-red-500"><div class="flex items-center">Inner</div></div>';
+    const r = validateAiResponse(
+      JSON.stringify({ html: good }),
+      orig,
+      "element",
+    );
+    expect(r.ok).toBe(true);
+  });
+});
+
 describe("ai-edit validate-response — swap mode (Phase 6 hotfix)", () => {
   // The killer Phase 6 bug: in edit mode, root tag MUST match input.
   // In swap mode, the WHOLE POINT is to replace the element, so root

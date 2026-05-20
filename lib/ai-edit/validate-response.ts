@@ -54,6 +54,76 @@ const ON_HANDLER_RX = /\son[a-z]+\s*=/i;
 const DANGEROUS_URL_RX =
   /(?:href|src|action|formaction)\s*=\s*["']?\s*(?:javascript:|data:(?!image\/))/i;
 
+// Extract the root tag's first 3 class tokens as a "signature." Used
+// by detectNestedRootDuplicate to spot hallucinated nested copies of
+// the root element. Returns null when root has no class attribute or
+// fewer than 3 distinctive classes.
+function extractRootClassSignature(html: string): string | null {
+  const m = html.match(/^<[a-zA-Z][\w-]*\b[^>]*\bclass="([^"]*)"/);
+  if (!m) return null;
+  const classes = m[1].split(/\s+/).filter(Boolean);
+  if (classes.length < 1) return null;
+  // Use the first distinctive class (skip generic Tailwind utilities
+  // that appear everywhere). If none are distinctive, take any.
+  const generic = new Set([
+    "flex",
+    "block",
+    "inline",
+    "grid",
+    "relative",
+    "absolute",
+    "fixed",
+    "static",
+    "p-0",
+    "p-1",
+    "p-2",
+    "p-3",
+    "p-4",
+    "p-5",
+    "p-6",
+    "p-8",
+    "m-0",
+    "m-1",
+    "m-2",
+    "m-4",
+  ]);
+  for (const c of classes) {
+    if (!generic.has(c) && c.length >= 4) return c;
+  }
+  return classes[0];
+}
+
+// Count how many times the given root signature (tag + distinctive
+// class) appears in `html`, starting from the FIRST opening tag (the
+// root itself counts as 1). Returns total count.
+function countRootSignature(html: string, signature: string): number {
+  // Match `<tag ... class="...signature...">` anywhere in the html.
+  // Build a regex that escapes regex specials in the class name.
+  const escaped = signature.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // Match the class attribute containing the signature as a whole token.
+  const re = new RegExp(
+    `<[a-zA-Z][\\w-]*\\b[^>]*\\bclass="[^"]*\\b${escaped}\\b[^"]*"`,
+    "g",
+  );
+  let count = 0;
+  while (re.exec(html) !== null) count++;
+  return count;
+}
+
+function detectNestedRootDuplicate(
+  html: string,
+  original: string,
+): string | null {
+  const sig = extractRootClassSignature(html);
+  if (!sig) return null;
+  const newCount = countRootSignature(html, sig);
+  if (newCount < 2) return null;
+  // Allow legitimate cases where the ORIGINAL already had this many.
+  const originalCount = countRootSignature(original, sig);
+  if (newCount <= originalCount) return null;
+  return `Output contains ${newCount} elements with class "${sig}" — likely nested-duplicate hallucination`;
+}
+
 function findForbidden(html: string, original: string): string | null {
   // Allow forbidden tags that were already in the original. The user's
   // template might legitimately have a <script> for inline JS; we just
@@ -137,6 +207,19 @@ export function validateAiResponse(
   const forbidden = findForbidden(html, originalHtml);
   if (forbidden) {
     return { ok: false, error: forbidden };
+  }
+  // 2026-05-20 — Nested-duplicate-root detection. Manual test caught
+  // qwen-coder hallucinating a NESTED <div class="glass-card"> inside
+  // the user's existing <div class="glass-card"> when the prompt was
+  // ambiguous ("change background to patterned one"). The model
+  // interpreted "patterned" as a decorative card nested inside. Reject
+  // any output where the root element's distinctive class signature
+  // appears MORE than once in the output's tree — unless the original
+  // ALREADY had multiple of that signature (rare; templates with
+  // intentional nested same-class elements exist).
+  const dupCheck = detectNestedRootDuplicate(html, originalHtml);
+  if (dupCheck) {
+    return { ok: false, error: dupCheck };
   }
   // Length sanity. SWAP MODE NEVER FALLS THROUGH TO ELEMENT/SECTION
   // bounds — the target-relative caps are meaningless when the

@@ -16,6 +16,7 @@ Output rules:
 - Do not add inline style="..." attributes unless the input already had them.
 - Do not add <script>, <iframe>, <object>, <embed>, or event handler attributes (onclick, onload, etc.).
 - Do not use href="javascript:..." or href="data:..." URLs (image data URLs are fine in <img src=>).
+- DO NOT nest a duplicate of the input element inside itself. If the input is <div class="glass-card">...</div>, your output must NOT contain a second <div class="glass-card"> inside it. Style the element directly via classes — never insert a sibling card/section/wrapper of the same kind to achieve a visual effect. Treat "patterned background", "shadow", "border", etc. as CLASS modifications on the existing root, not as new nested elements.
 - The "notes" field is a short human-readable summary of what you changed (max one sentence).
 
 Return raw JSON only. No markdown fences. No preamble. No explanation outside the JSON.`;

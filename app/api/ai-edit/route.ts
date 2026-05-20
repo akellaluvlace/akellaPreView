@@ -473,6 +473,41 @@ export async function POST(req: Request): Promise<Response> {
     rawTextLen: attempt.text.length,
   });
   let validated = validateAiResponse(attempt.text, body.targetHtml, body.scope, body.mode, body.referenceHtml);
+  // 2026-05-20 — Retry once for the specific nested-duplicate case.
+  // Manual test caught qwen-coder inserting a <div class="glass-card">
+  // INSIDE the existing <div class="glass-card"> when the prompt was
+  // ambiguous ("patterned background"). One emphatic retry with an
+  // explicit "do not nest" instruction recovers most cases.
+  if (!validated.ok && /nested-duplicate/i.test(validated.error)) {
+    console.warn("[ai-edit] nested-duplicate detected — retrying with explicit suffix", {
+      model: modelUsed,
+      reason: validated.error,
+    });
+    const nestRetryMsg =
+      userMessage +
+      "\n\nYour previous response NESTED a duplicate of the input element inside itself. This is forbidden. Do NOT insert a new <div>, <section>, or wrapper of the same kind to achieve visual effects. Apply class-level changes ONLY to the existing root element. Try again.";
+    const nestRetry = await callTensorix(
+      apiKey,
+      baseUrl,
+      modelUsed,
+      systemPrompt,
+      nestRetryMsg,
+      maxTokens,
+    );
+    if (nestRetry.ok) {
+      const reValidated = validateAiResponse(
+        nestRetry.text,
+        body.targetHtml,
+        body.scope,
+        body.mode,
+        body.referenceHtml,
+      );
+      if (reValidated.ok) {
+        validated = reValidated;
+        attempt = nestRetry;
+      }
+    }
+  }
   if (!validated.ok) {
     console.error("[ai-edit] validation failed", {
       model: modelUsed,
