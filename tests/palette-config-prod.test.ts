@@ -90,14 +90,24 @@ describe("applyPaletteToConfigColors — Material 3 design tokens", () => {
     expect(r.tokensRewritten).toBe(2);
   });
 
-  it("returns unchanged when no recognizable tokens", () => {
-    const src = `colors: {
-      "brand-blue": "#0044ff",
-      "custom-thing": "#abcdef",
-    }`;
+  it("now remaps custom-named tokens via usage-count fallback (Swiss case)", () => {
+    // 2026-05-20 — Templates with non-M3 custom names (swiss-orange,
+    // brand-blue, etc.) were previously skipped. New fallback
+    // remaps them by classifying via usage count + hex saturation:
+    // most-used non-neutral → primary, etc.
+    // Source includes class usage so the count > 0:
+    const src = `
+      <div className="bg-brand-blue text-brand-blue border-brand-blue">x</div>
+      const cfg = { colors: {
+        "brand-blue": "#0044ff",
+        "custom-thing": "#abcdef",
+      }};
+    `;
     const r = applyPaletteToConfigColors(src, findPalette("forest"));
-    expect(r.unchanged).toBe(true);
-    expect(r.tokensRewritten).toBe(0);
+    // brand-blue is used 3 times → most-used non-neutral → primary.
+    // forest primary = emerald-500 = #10b981
+    expect(r.unchanged).toBe(false);
+    expect(r.source).toContain("#10b981");
   });
 
   it("returns unchanged when no colors block exists", () => {

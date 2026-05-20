@@ -130,10 +130,118 @@ function classifyToken(name: string): RoleAssignment | null {
     return { role: "neutral", shade: "900" };
   }
 
+  // 2026-05-20 — M3 inverse tokens: inverse-primary, inverse-surface,
+  // inverse-on-surface. These flip light/dark for dark-mode contrast.
+  // Map to opposite end of the chosen palette's family.
+  if (n.startsWith("inverse-on-")) {
+    return { role: "neutral", shade: "900" }; // dark text on inverse-surface
+  }
+  if (n.startsWith("inverse-primary")) {
+    return { role: "primary", shade: "200" }; // light primary for dark bg
+  }
+  if (n.startsWith("inverse-surface") || n.startsWith("inverse-")) {
+    return { role: "neutral", shade: "800" }; // dark surface for light text
+  }
+
   // Leave semantic colors alone: error, warning, success, info.
   // These convey state, not brand identity — recoloring them confuses
   // users (red errors becoming green is harmful).
   return null;
+}
+
+// 2026-05-20 — Usage-count classifier for custom-named colors that
+// don't match M3 conventions (e.g. "swiss-orange", "clay-green",
+// "brand-purple"). For each non-conventional token, count how many
+// class tokens reference it across the source (`bg-swiss-orange`,
+// `text-swiss-orange`, etc.). Most-used non-neutral → palette.primary,
+// second-most-used non-neutral → palette.accent, most-used "neutral
+// looking" (low saturation hex) → palette.neutral. Same heuristic the
+// class-token engine uses, applied to custom names.
+// Semantic colors that must never be remapped (preserves UX meaning:
+// red errors stay red, green success stays green, etc.). Checked in
+// both the M3 classifier (returns null for these) AND the usage-count
+// fallback (skips entries matching these names).
+const SEMANTIC_PREFIXES = [
+  "error",
+  "warning",
+  "success",
+  "info",
+  "danger",
+  "destructive",
+  "positive",
+  "negative",
+];
+
+function isSemanticName(name: string): boolean {
+  const lc = name.toLowerCase();
+  for (const p of SEMANTIC_PREFIXES) {
+    if (lc === p || lc.startsWith(p + "-") || lc.startsWith("on-" + p)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function classifyCustomTokensByUsage(
+  source: string,
+  customEntries: Array<{ name: string; hex: string }>,
+): Map<string, RoleAssignment> {
+  // Heuristic: "neutral looking" hex = low saturation. Compute via
+  // max-min of RGB channels < 30 (rough but works).
+  function isNeutralHex(hex: string): boolean {
+    const h = hex.toLowerCase().replace("#", "");
+    if (h.length < 6) return false;
+    const r = parseInt(h.slice(0, 2), 16);
+    const g = parseInt(h.slice(2, 4), 16);
+    const b = parseInt(h.slice(4, 6), 16);
+    return Math.max(r, g, b) - Math.min(r, g, b) < 30;
+  }
+
+  // Filter out semantic colors — error/warning/success/info preserve
+  // their meaning across palette swaps and must stay as-is.
+  const eligible = customEntries.filter((e) => !isSemanticName(e.name));
+
+  // Count usage of each custom name in class tokens.
+  const counts = new Map<string, number>();
+  for (const { name } of eligible) {
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(
+      `\\b(?:bg|text|border|ring|fill|stroke|from|via|to|decoration|placeholder|caret|accent|divide|outline|shadow)-${escaped}(?:\\b|[/-])`,
+      "g",
+    );
+    const matches = source.match(re);
+    counts.set(name, matches ? matches.length : 0);
+  }
+
+  // Sort by usage desc. Split into neutral/non-neutral by hex.
+  const byUsage = [...eligible]
+    .map((e) => ({ ...e, count: counts.get(e.name) ?? 0 }))
+    .sort((a, b) => b.count - a.count);
+
+  const neutralPool = byUsage.filter((e) => isNeutralHex(e.hex));
+  const accentPool = byUsage.filter((e) => !isNeutralHex(e.hex));
+
+  const result = new Map<string, RoleAssignment>();
+  if (neutralPool[0]) {
+    result.set(neutralPool[0].name, { role: "neutral", shade: "100" });
+  }
+  if (accentPool[0]) {
+    result.set(accentPool[0].name, { role: "primary", shade: "500" });
+  }
+  if (accentPool[1]) {
+    result.set(accentPool[1].name, { role: "accent", shade: "500" });
+  }
+  // Map any remaining tokens with usage > 0 to neutral/accent best-guess.
+  for (const e of byUsage) {
+    if (result.has(e.name) || e.count === 0) continue;
+    result.set(
+      e.name,
+      isNeutralHex(e.hex)
+        ? { role: "neutral", shade: "200" }
+        : { role: "accent", shade: "400" },
+    );
+  }
+  return result;
 }
 
 export function applyPaletteToConfigColors(
@@ -175,18 +283,49 @@ export function applyPaletteToConfigColors(
     // Also bare:           primary: '#abcdef',
     // Both quote styles, both key forms (quoted or bare), optional trailing comma.
     const entryRe = /(["']?)([a-zA-Z][\w-]*)\1\s*:\s*(["'])(#[0-9a-fA-F]{3,8})\3/g;
-    let newBlock = "";
-    let lastIndex = 0;
+
+    // PASS A — collect all entries first so we can also run the
+    // usage-count classifier for custom-named tokens that don't fit
+    // M3 conventions (e.g. "swiss-orange", "clay-green").
+    interface Entry {
+      fullMatch: string;
+      index: number;
+      keyQuote: string;
+      name: string;
+      valQuote: string;
+      hex: string;
+    }
+    const entries: Entry[] = [];
     let e: RegExpExecArray | null;
     while ((e = entryRe.exec(block)) !== null) {
-      const fullMatch = e[0];
-      const tokenName = e[2];
-      const hex = e[4];
-      const assignment = classifyToken(tokenName);
-      if (!assignment) {
-        // Untouched — append from lastIndex up to and including the match.
-        continue;
-      }
+      entries.push({
+        fullMatch: e[0],
+        index: e.index,
+        keyQuote: e[1] ?? "",
+        name: e[2],
+        valQuote: e[3],
+        hex: e[4],
+      });
+    }
+
+    // PASS B — classify each. Try M3 convention first (classifyToken),
+    // then fall back to usage-count for the custom-named entries.
+    const m3Assignments = new Map<string, RoleAssignment>();
+    const unrecognized: Array<{ name: string; hex: string }> = [];
+    for (const entry of entries) {
+      const a = classifyToken(entry.name);
+      if (a) m3Assignments.set(entry.name, a);
+      else unrecognized.push({ name: entry.name, hex: entry.hex });
+    }
+    const customAssignments = classifyCustomTokensByUsage(out, unrecognized);
+
+    // PASS C — emit replacement block.
+    let newBlock = "";
+    let lastIndex = 0;
+    for (const entry of entries) {
+      const assignment =
+        m3Assignments.get(entry.name) ?? customAssignments.get(entry.name);
+      if (!assignment) continue;
       const destFamily =
         assignment.role === "primary"
           ? palette.families.primary
@@ -195,14 +334,10 @@ export function applyPaletteToConfigColors(
             : palette.families.neutral;
       const destHex = lookupFamilyHex(destFamily, assignment.shade);
       if (!destHex) continue;
-      if (destHex.toLowerCase() === hex.toLowerCase()) continue;
-      // Splice the replacement into newBlock buffer.
-      newBlock += block.slice(lastIndex, e.index);
-      // Reconstruct entry with new hex (preserve key style + quote style).
-      const keyQuote = e[1] ?? "";
-      const valQuote = e[3];
-      newBlock += `${keyQuote}${tokenName}${keyQuote}: ${valQuote}${destHex}${valQuote}`;
-      lastIndex = e.index + fullMatch.length;
+      if (destHex.toLowerCase() === entry.hex.toLowerCase()) continue;
+      newBlock += block.slice(lastIndex, entry.index);
+      newBlock += `${entry.keyQuote}${entry.name}${entry.keyQuote}: ${entry.valQuote}${destHex}${entry.valQuote}`;
+      lastIndex = entry.index + entry.fullMatch.length;
       tokensRewritten++;
     }
     if (lastIndex > 0) {
