@@ -2371,17 +2371,53 @@ export default function Workspace({
       const passOneSource = classResult.unchanged ? code : classResult.source;
       const configResult = applyPaletteToConfigColors(passOneSource, palette);
 
+      // 2026-05-20 — LOUD diagnostic. User reports "palette does nothing"
+      // and the muted log() wrapper isn't visible. Print raw to console
+      // so the actual return values are inspectable in browser DevTools.
+      console.log("[dropin:palette] RESULTS", {
+        paletteId,
+        codeLen: code.length,
+        classPass: {
+          unchanged: classResult.unchanged,
+          reason: classResult.reason,
+          newLen: classResult.source.length,
+          diffBytes: classResult.source.length - code.length,
+        },
+        configPass: {
+          unchanged: configResult.unchanged,
+          tokensRewritten: configResult.tokensRewritten,
+          newLen: configResult.source.length,
+          diffBytes: configResult.source.length - passOneSource.length,
+        },
+      });
+      // Sniff what's actually IN the source so we can diagnose mismatch
+      // when the engine returns unchanged. Counts named Tailwind family
+      // tokens, arbitrary hex tokens, and the presence of a `colors: {`
+      // design-system block.
+      const namedTailwindCount =
+        (code.match(/\b(bg|text|border|ring|fill|stroke|from|via|to|decoration|placeholder|caret|accent|divide|outline|shadow)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,4}\b/g) ?? []).length;
+      const arbitraryHexCount =
+        (code.match(/\b(bg|text|border|ring|fill|stroke|from|via|to|decoration|placeholder|caret|accent|divide|outline|shadow)-\[#[0-9a-fA-F]{6}\]/g) ?? []).length;
+      const hasConfigBlock = /colors\s*:\s*\{/.test(code);
+      const m3TokenCount =
+        (code.match(/["']?(primary|secondary|tertiary|surface|outline|background|foreground)[\w-]*["']?\s*:\s*["']#[0-9a-fA-F]{3,8}["']/g) ?? []).length;
+      console.log("[dropin:palette] SOURCE-SCAN", {
+        namedTailwindCount,
+        arbitraryHexCount,
+        hasConfigBlock,
+        m3TokenCount,
+        verdict:
+          namedTailwindCount + arbitraryHexCount + m3TokenCount === 0
+            ? "this template has NO colors the engine knows how to remap"
+            : `engine should rewrite at most ${namedTailwindCount + arbitraryHexCount + m3TokenCount} tokens`,
+      });
+
       const finalSource = configResult.unchanged
         ? passOneSource
         : configResult.source;
       const anyChange = !classResult.unchanged || !configResult.unchanged;
 
       if (!anyChange) {
-        log("palette bailed", {
-          paletteId,
-          classReason: classResult.reason,
-          configTokens: configResult.tokensRewritten,
-        });
         showWarn(
           classResult.reason
             ? `Palette: ${classResult.reason}`
@@ -2392,8 +2428,6 @@ export default function Workspace({
       setCode(finalSource);
       const parts: string[] = [];
       if (!classResult.unchanged) parts.push("classes");
-      if (!classResult.unchanged && classResult.reason)
-        log("palette class-pass reason", classResult.reason);
       if (configResult.tokensRewritten > 0)
         parts.push(`${configResult.tokensRewritten} design tokens`);
       showInfo(`Applied ${palette.name} — ${parts.join(" + ")}`);
