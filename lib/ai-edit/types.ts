@@ -39,6 +39,12 @@ export interface AiSelectionPayload {
   // section IS its own context) and when parent is <body>/<html> or
   // exceeds 32KB.
   parentContext: string | null;
+  // 2026-05-20 — Cascade detach support. Host reads instanceCount > 1
+  // + instanceIndex >= 0 as "this element is one of N rendered from
+  // a .map() — auto-detach before applying the edit/swap so only the
+  // clicked instance changes." Mirrors VibeElementInfo's fields.
+  instanceCount?: number;
+  instanceIndex?: number;
   // Bounding box in iframe-viewport coords. Null when
   // getBoundingClientRect throws.
   bbox: {

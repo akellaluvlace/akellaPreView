@@ -15,7 +15,57 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-20 — Phase 8 diagnostic + no-op tightening. User reports "edit applied but isnt rendered" — added comprehensive before/after diff tracers + iframe DOM-verification + tighter no-op detection that catches class-reorder cases the old 0.98 threshold missed. Pulse-highlight on swapped elements so user can SEE what changed. tsc 0. vitest 6402/6405 (3 envelope-channel pre-existing). Phase 7 at `8d4961b`, Phase 8 uncommitted.)
+## Current status (2026-05-20 — Phase 9 cascade detach shipped: when user edits/swaps one card in a 3-card `.map()`, ONLY that card changes. AI edit/swap auto-detaches the clicked instance via applyDetachFromMap before applying. tsc 0. vitest 6421/6423 (+18 detach tests, 2 envelope-channel pre-existing). Phase 7 at `8d4961b`, Phase 8 at `35f2e9d` + `22b9aea` hotfix, Phase 9 uncommitted.)
+
+### Phase 9 — Cascade detach (uncommitted)
+
+User reported 2026-05-20: "ai changed all 3 cards when i wanted one." Known cascade limitation: cards rendered from `.map()` share ONE source OID — edits by OID hit all rendered copies. Plan at `docs/superpowers/plans/2026-05-15-cascade-detach.md` was specced months ago for exactly this; finally shipped.
+
+**How it works**:
+1. Iframe runtime (`lib/vibe-edit/runtime.ts`) tracks `instanceIndex` — the 0-based DOM-position of the clicked element among all siblings sharing its OID. Vibe + AI selectors both emit this field now.
+2. When user submits AI edit / swap on an element with `instanceCount > 1` + `instanceIndex >= 0`, `handleAiSubmit` / `handleAiSwapPick` calls `applyDetachFromMap(code, { oid, index })` BEFORE patching.
+3. `applyDetachFromMap` (new at `lib/ast/operations/detach-from-map.ts`) rewrites the source:
+   ```
+   {items.map((x, i) => <Card .../>)}
+   ↓
+   {items.slice(0, K).map((x, i) => <Card .../>)}        ← left cascade
+   {((x) => <Card .../>)(items[K])}                       ← detached IIFE, fresh OID
+   {items.slice(K+1).map((x, i) => <Card key={i+K+1} .../>)}  ← right cascade
+   ```
+4. Strips OIDs from middle IIFE bytes only, re-injects globally → middle gets a fresh OID, left + right keep originals.
+5. Returns `newOid` pointing at the detached element.
+6. Host patches AI result onto `newOid` → only the detached copy changes. Other cascade siblings continue rendering from the unchanged callback.
+
+**Bail conditions** (~20% of templates per the spec's audit):
+- Element isn't inside a `.map()` call → "isn't rendered by a .map() call"
+- Source is a CallExpression chain like `.filter().map()` → "filter/sort chains unsupported"
+- Callback isn't an arrow → "named refs unsupported"
+- Callback body has multiple JSX roots / null returns → "must return a single JSX element"
+- `param1` (the index var) used outside `key=` → "rewrite would change runtime behavior"
+
+On bail, surfaces a clear `showWarn` toast: "Edit will apply to all N copies — couldn't isolate this one: <reason>". Edit STILL proceeds but cascades (preserves user agency over "I can edit anyway, just know it cascades").
+
+**+18 prod-import tests** covering happy paths (8: index 0/mid/last/single-arg/two-arg-with-key/block-body/destructured-param/MemberExpression-source/ArrayExpression-source), bails (5), OID regeneration (3), newOid extraction (1), instanceIndex round-trip via iframe runtime.
+
+### Bug caught during Phase 9 build
+
+My newOid extraction initially anchored on `((x) =>` to find the IIFE — but `.map((x) =>` (the left slice's callback) ALSO matches that pattern, so I was returning the LEFT slice's OID (which equals the original cascade OID), not the middle's. Fix: anchor on the IIFE's distinctive argument call `)(arrSrc[K])`, walk backwards to find the OID inside the IIFE range. Plus a fallback that skips any OID matching `op.oid` (cascade OID, which left+right slices retain).
+
+### Files touched (Phase 9)
+
+New:
+- `lib/ast/operations/detach-from-map.ts` — applyDetachFromMap + bail conditions.
+- `tests/detach-from-map-prod.test.ts` — 18 prod-import tests.
+
+Modified:
+- `lib/vibe-edit/runtime.ts` — vibeInstanceIndex helper, populated in vibeSerialize + aiSerialize.
+- `lib/vibe-edit/types.ts` — VibeElementInfo.instanceIndex?.
+- `lib/ai-edit/types.ts` — AiSelectionPayload.instanceCount? + instanceIndex?.
+- `components/Workspace.tsx` — detach call in handleAiSubmit + handleAiSwapPick before patch; bail toast on failure.
+
+### Bug also fixed in this batch (Phase 8 hotfix #2 `22b9aea`)
+
+The earlier 0.92 trigram no-op threshold was false-positiving legit single-class edits. Dropped trigram fallback entirely. Now uses ONLY normalized-string equality (strip OIDs + sort class lists + collapse whitespace + byte-identical check). Real edits with any meaningful char diff pass through.
 
 ### Phase 8 — Diagnostic + no-op tightening (uncommitted)
 

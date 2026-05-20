@@ -104,6 +104,12 @@ export interface VibeElementInfo {
   // should click the inner img directly to swap that image. Optional
   // for backwards-compat with older test fixtures + message shapes.
   hasInnerImg?: boolean;
+  // 2026-05-20 — Cascade detach support. 0-based DOM index of THIS
+  // clicked instance among all rendered copies sharing the OID. -1
+  // when undetermined. Pairs with instanceCount: count > 1 + index
+  // in [0, count-1] indicates the clicked element is part of a
+  // cascade. Used by applyDetachFromMap on the host side.
+  instanceIndex?: number;
   // 2026-05-18 — outerHTML capture used by AI swap. Iframe-side cap at
   // 64KB so payloads stay small for elements that don't trigger swap.
   // Empty/absent when serialization fails. Phase 6 only consumer:

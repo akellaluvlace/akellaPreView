@@ -287,6 +287,22 @@ export function vibeRuntimeJs(): string {
     // are forbidden in this entire template literal — they would
     // close the outer TS template at parse time (project memory:
     // ts_template_backtick_trap).
+    // 2026-05-20 — Cascade detach support. Returns the 0-based index
+    // of el among all DOM nodes sharing its OID. -1 if el isnt found
+    // (shouldnt happen since we just clicked it). Used by
+    // applyDetachFromMap on the host side: K = vibeInstanceIndex(el, oid).
+    function vibeInstanceIndex(el, oid) {
+      if (!el || !oid) return -1;
+      try {
+        var nodes = document.querySelectorAll(
+          '[data-dropin-id="' + oid + '"]'
+        );
+        for (var i = 0; i < nodes.length; i++) {
+          if (nodes[i] === el) return i;
+        }
+      } catch (e) {}
+      return -1;
+    }
     function vibeInstanceCount(oid) {
       if (!oid) return 1;
       try {
@@ -346,6 +362,9 @@ export function vibeRuntimeJs(): string {
         classes: el.getAttribute('class') || '',
         bgImage: cs ? vibeParseBgImageUrl(cs.backgroundImage) : null,
         instanceCount: vibeInstanceCount(oid),
+        // 2026-05-20 — Cascade detach support. -1 when el isn't found
+        // (defensive). Host reads this to know K for applyDetachFromMap.
+        instanceIndex: vibeInstanceIndex(el, oid),
         bbox: bbox,
         // 2026-05-16 — flag for the CardControls bg-image picker so it
         // hides itself when the card already has an <img> descendant.
@@ -491,16 +510,22 @@ export function vibeRuntimeJs(): string {
       } catch (e) {
         parentContext = null;
       }
+      // 2026-05-20 — Cascade detach support. AI Edit needs to know
+      // when the clicked element is part of a .map()-rendered cascade
+      // so it can auto-detach before applying.
+      var aiOid = el.getAttribute ? el.getAttribute('data-dropin-id') : null;
       return {
         path: vibeGetPath(el),
         htmlPath: vibeGetHtmlPath(el),
-        oid: el.getAttribute ? el.getAttribute('data-dropin-id') : null,
+        oid: aiOid,
         tag: el.tagName ? el.tagName.toLowerCase() : 'unknown',
         classes: el.getAttribute ? (el.getAttribute('class') || '') : '',
         scope: scope || 'element',
         outerHtml: outer,
         parentContext: parentContext,
-        bbox: bbox
+        bbox: bbox,
+        instanceCount: vibeInstanceCount(aiOid),
+        instanceIndex: vibeInstanceIndex(el, aiOid)
       };
     }
 

@@ -111,6 +111,7 @@ import {
   patchJsxOuterByOid,
 } from "@/lib/ast/patch-class-by-oid";
 import { htmlToJsx } from "@/lib/component-library/html-to-jsx";
+import { applyDetachFromMap } from "@/lib/ast/operations/detach-from-map";
 import type {
   ElementLoc,
   ElementSelection,
@@ -2739,9 +2740,47 @@ export default function Workspace({
 
       let persisted = false;
       let persistReason: string | null = null;
+      // 2026-05-20 — Phase 9 cascade detach for swap. Same logic as
+      // handleAiSubmit: if the target is one of N cascade instances,
+      // detach FIRST, then patch the result onto the detached copy's
+      // new OID so other cascade siblings stay untouched.
+      let swapWorkingCode = code;
+      let swapWorkingOid: string | null = target.oid ?? null;
+      const swapIsCascade =
+        kind !== "html" &&
+        target.oid &&
+        typeof target.instanceCount === "number" &&
+        target.instanceCount > 1 &&
+        typeof target.instanceIndex === "number" &&
+        target.instanceIndex >= 0;
+      if (swapIsCascade && target.oid) {
+        const detach = applyDetachFromMap(code, {
+          oid: target.oid,
+          index: target.instanceIndex!,
+        });
+        if (detach.unchanged) {
+          console.warn("[dropin:swap] cascade-detach bailed", {
+            reason: detach.reason,
+            oid: target.oid,
+            index: target.instanceIndex,
+          });
+          showWarn(
+            `Swap will apply to all ${target.instanceCount} copies — couldn't isolate this one: ${detach.reason}`,
+          );
+        } else {
+          console.log("[dropin:swap] cascade-detach applied", {
+            oid: target.oid,
+            index: target.instanceIndex,
+            newOid: detach.newOid,
+          });
+          swapWorkingCode = detach.source;
+          swapWorkingOid = detach.newOid ?? null;
+        }
+      }
+
       if (kind === "html") {
         if (target.htmlPath) {
-          const patch = patchHtmlOuter(code, target.htmlPath, result.html);
+          const patch = patchHtmlOuter(swapWorkingCode, target.htmlPath, result.html);
           if (patch.changed) {
             setCode(patch.source);
             persisted = true;
@@ -2753,7 +2792,7 @@ export default function Workspace({
           persistReason = "html element has no path";
         }
       } else {
-        if (target.oid) {
+        if (swapWorkingOid) {
           let jsx: string | null = null;
           try {
             jsx = htmlToJsx(result.html);
@@ -2761,7 +2800,7 @@ export default function Workspace({
             persistReason = `html→jsx failed: ${String(e)}`;
           }
           if (jsx) {
-            const patch = patchJsxOuterByOid(code, target.oid, jsx);
+            const patch = patchJsxOuterByOid(swapWorkingCode, swapWorkingOid, jsx);
             if (patch.changed) {
               setCode(patch.source);
               persisted = true;
@@ -2954,9 +2993,49 @@ export default function Workspace({
       // user knows it's not persisted.
       let persisted = false;
       let persistReason: string | null = null;
+      // 2026-05-20 — Phase 9 cascade detach. If the clicked element is
+      // part of a .map()-rendered cascade (instanceCount > 1 + index),
+      // detach THAT instance first so the edit only changes the clicked
+      // copy. Builds a new source via applyDetachFromMap, then patches
+      // the AI result onto the detached element's NEW OID.
+      let workingCode = code;
+      let workingOid: string | null = info.oid;
+      const isCascade =
+        kind !== "html" &&
+        info.oid &&
+        typeof info.instanceCount === "number" &&
+        info.instanceCount > 1 &&
+        typeof info.instanceIndex === "number" &&
+        info.instanceIndex >= 0;
+      if (isCascade && info.oid) {
+        const detach = applyDetachFromMap(code, {
+          oid: info.oid,
+          index: info.instanceIndex!,
+        });
+        if (detach.unchanged) {
+          console.warn("[dropin:edit] cascade-detach bailed", {
+            reason: detach.reason,
+            oid: info.oid,
+            index: info.instanceIndex,
+          });
+          showWarn(
+            `Edit will apply to all ${info.instanceCount} copies — couldn't isolate this one: ${detach.reason}`,
+          );
+          // Continue with the original code — edit will cascade.
+        } else {
+          console.log("[dropin:edit] cascade-detach applied", {
+            oid: info.oid,
+            index: info.instanceIndex,
+            newOid: detach.newOid,
+          });
+          workingCode = detach.source;
+          workingOid = detach.newOid ?? null;
+        }
+      }
+
       if (kind === "html") {
         if (info.htmlPath) {
-          const patch = patchHtmlOuter(code, info.htmlPath, result.html);
+          const patch = patchHtmlOuter(workingCode, info.htmlPath, result.html);
           if (patch.changed) {
             setCode(patch.source);
             persisted = true;
@@ -2970,7 +3049,7 @@ export default function Workspace({
       } else {
         // JSX mode. Convert rendered HTML to JSX first (className, void
         // self-closing, camelCase attrs). Then patch by OID.
-        if (info.oid) {
+        if (workingOid) {
           let jsx: string | null = null;
           try {
             jsx = htmlToJsx(result.html);
@@ -2978,7 +3057,7 @@ export default function Workspace({
             persistReason = `html→jsx failed: ${String(e)}`;
           }
           if (jsx) {
-            const patch = patchJsxOuterByOid(code, info.oid, jsx);
+            const patch = patchJsxOuterByOid(workingCode, workingOid, jsx);
             if (patch.changed) {
               setCode(patch.source);
               persisted = true;
