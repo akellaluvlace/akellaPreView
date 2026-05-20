@@ -82,6 +82,7 @@ import {
 import { assessBboxDrift } from "@/lib/swap/bbox-drift";
 import type { SlotEnvelope } from "@/lib/swap/slot-capacity";
 import { applyPalette } from "@/lib/ast/operations/palette";
+import { applyPaletteToConfigColors } from "@/lib/ast/operations/palette-config";
 import { collectDescendantOids } from "@/lib/ast/scope";
 import { getPaletteById } from "@/lib/palettes";
 import { readSourceStyle } from "@/lib/ast/style-source-read";
@@ -2358,16 +2359,44 @@ export default function Workspace({
           scope = { oids };
         }
       }
-      const result = applyPalette(code, { palette, scope });
-      if (result.unchanged) {
-        if (result.reason) {
-          log("palette bailed", { paletteId, reason: result.reason });
-          showWarn(`Palette: ${result.reason}`);
-        }
+      // 2026-05-20 — Two-pass palette swap:
+      //   (1) applyPalette rewrites class tokens (bg-blue-500,
+      //       bg-[#hex]).
+      //   (2) applyPaletteToConfigColors rewrites the embedded
+      //       tailwind.config.theme.extend.colors block (Material 3
+      //       design tokens like "primary-container", "surface-
+      //       container-low", "on-surface-variant").
+      // Templates use either or both; we run both passes and combine.
+      const classResult = applyPalette(code, { palette, scope });
+      const passOneSource = classResult.unchanged ? code : classResult.source;
+      const configResult = applyPaletteToConfigColors(passOneSource, palette);
+
+      const finalSource = configResult.unchanged
+        ? passOneSource
+        : configResult.source;
+      const anyChange = !classResult.unchanged || !configResult.unchanged;
+
+      if (!anyChange) {
+        log("palette bailed", {
+          paletteId,
+          classReason: classResult.reason,
+          configTokens: configResult.tokensRewritten,
+        });
+        showWarn(
+          classResult.reason
+            ? `Palette: ${classResult.reason}`
+            : "Palette: this template uses colors that can't be auto-remapped",
+        );
         return;
       }
-      setCode(result.source);
-      showInfo(`Applied ${palette.name}`);
+      setCode(finalSource);
+      const parts: string[] = [];
+      if (!classResult.unchanged) parts.push("classes");
+      if (!classResult.unchanged && classResult.reason)
+        log("palette class-pass reason", classResult.reason);
+      if (configResult.tokensRewritten > 0)
+        parts.push(`${configResult.tokensRewritten} design tokens`);
+      showInfo(`Applied ${palette.name} — ${parts.join(" + ")}`);
     },
     [code, kind, focusOpen, setCode, showWarn, showInfo]
   );
