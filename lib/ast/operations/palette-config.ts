@@ -248,10 +248,14 @@ export function applyPaletteToConfigColors(
   source: string,
   palette: Palette,
 ): PaletteConfigResult {
-  // Find the `colors: {` block (with optional whitespace) anywhere in
-  // the source. Some templates have multiple colors blocks (light /
-  // dark themes); we rewrite all of them.
-  const blockRe = /colors\s*:\s*\{/g;
+  // Find the `colors: {` block (with optional whitespace, optional
+  // surrounding quotes on the key — `"colors":`, `'colors':`, or
+  // unquoted) anywhere in the source. Some templates have multiple
+  // colors blocks (light / dark themes); we rewrite all of them.
+  // 2026-05-20 hotfix — previous regex didn't allow quoted keys,
+  // which meant templates using `"colors": {` (Material 3 + many AI-
+  // generated) silently bypassed the config pass entirely.
+  const blockRe = /["']?colors["']?\s*:\s*\{/g;
   const matches: Array<{ openIdx: number; closeIdx: number }> = [];
   let m: RegExpExecArray | null;
   while ((m = blockRe.exec(source)) !== null) {

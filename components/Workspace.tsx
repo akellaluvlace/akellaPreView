@@ -2398,7 +2398,7 @@ export default function Workspace({
         (code.match(/\b(bg|text|border|ring|fill|stroke|from|via|to|decoration|placeholder|caret|accent|divide|outline|shadow)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,4}\b/g) ?? []).length;
       const arbitraryHexCount =
         (code.match(/\b(bg|text|border|ring|fill|stroke|from|via|to|decoration|placeholder|caret|accent|divide|outline|shadow)-\[#[0-9a-fA-F]{6}\]/g) ?? []).length;
-      const hasConfigBlock = /colors\s*:\s*\{/.test(code);
+      const hasConfigBlock = /["']?colors["']?\s*:\s*\{/.test(code);
       const m3TokenCount =
         (code.match(/["']?(primary|secondary|tertiary|surface|outline|background|foreground)[\w-]*["']?\s*:\s*["']#[0-9a-fA-F]{3,8}["']/g) ?? []).length;
       console.log("[dropin:palette] SOURCE-SCAN", {

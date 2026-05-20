@@ -110,6 +110,36 @@ describe("applyPaletteToConfigColors — Material 3 design tokens", () => {
     expect(r.source).toContain("#10b981");
   });
 
+  it("handles QUOTED colors-block key (`\"colors\": {`) — common in M3 templates", () => {
+    // 2026-05-20 hotfix: the original regex /colors\s*:\s*\{/ failed
+    // on quoted keys like `"colors": {`, silently skipping the whole
+    // block. Templates with this shape (Material 3 + many AI-emitted
+    // configs) bypassed the config pass entirely. Regex now accepts
+    // ["']?colors["']?\s*:\s*\{ — quoted or unquoted.
+    const src = `
+      tailwind.config = {
+        theme: {
+          extend: {
+            "colors": {
+              "primary": "#6750a4",
+              "surface": "#fef7ff",
+            }
+          }
+        }
+      };
+    `;
+    const r = applyPaletteToConfigColors(src, findPalette("forest"));
+    expect(r.unchanged).toBe(false);
+    expect(r.tokensRewritten).toBeGreaterThanOrEqual(2);
+  });
+
+  it("handles single-quoted colors-block key (`'colors': {`)", () => {
+    const src = `'colors': { 'primary': '#6750a4', 'surface': '#fef7ff' }`;
+    const r = applyPaletteToConfigColors(src, findPalette("forest"));
+    expect(r.unchanged).toBe(false);
+    expect(r.tokensRewritten).toBeGreaterThanOrEqual(2);
+  });
+
   it("returns unchanged when no colors block exists", () => {
     const src = `function X() { return <div className="bg-red-500">Hi</div>; }`;
     const r = applyPaletteToConfigColors(src, findPalette("forest"));
