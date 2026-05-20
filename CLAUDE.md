@@ -15,9 +15,40 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-20 — Phase 9 cascade detach shipped: when user edits/swaps one card in a 3-card `.map()`, ONLY that card changes. AI edit/swap auto-detaches the clicked instance via applyDetachFromMap before applying. tsc 0. vitest 6421/6423 (+18 detach tests, 2 envelope-channel pre-existing). Phase 7 at `8d4961b`, Phase 8 at `35f2e9d` + `22b9aea` hotfix, Phase 9 uncommitted.)
+## Current status (2026-05-20 PM — AI feature retired entirely from UI + Publish flow shipped + Palette/Code/Tree moved to top toolbar + sidebar gone + BYO-AI swap plan LOCKED for next session. tsc 0. vitest 6496/6498 — 2 pre-existing envelope-channel flakes. Latest commit `357e542 refactor(toolbar)`.)
 
-### Phase 9 — Cascade detach (uncommitted)
+### Today's deliverables (2026-05-20)
+
+1. **Palette dark-theme fix** (`f338219`) — `isDarkTheme` regex was matching `surface` inside `on-surface` entries, averaging light text hex with dark bg hex, misclassifying dark templates as light. Added word-boundary negative lookbehind/lookahead.
+
+2. **Publish flow** (`a76bdfe` + `a593608` bug-hunt sweep) — One-click "publish to Netlify Drop." Builds zip (hand-rolled STORED-only writer with CRC32 + UTF-8 flag), captures iframe snapshot for JSX mode + sanitizes dropin internals, downloads + opens Netlify Drop tab synchronously (popup-blocker-safe), README inside zip explains folder-vs-zip + alternative hosts. 42 prod-import tests covering zip format, sanitizer false-positive guard, build-package orchestration.
+
+3. **Toolbar refactor** (`357e542`) —
+   - **AI swap removed from UI everywhere** (vibe panel button + modal mount + `onComponentSwap` prop chain). Handlers/state kept as dead code in Workspace.tsx for future revival; `lib/ai-edit/*` + `detach-from-map.ts` on disk.
+   - **Palette button + popover** (`components/PalettePopover.tsx`) — new top-toolbar affordance with 12-tile grid, outside-click + Escape dismiss, replaces the right-sidebar Palettes tab.
+   - **JSX/HTML toggle removed** — was eating row width + forcing wrap. Templates open in their own mode; toggle was power-user crossover anyway.
+   - **WorkspaceLeftRail removed** — Code/Tree toggles moved to top toolbar's new `extraTools` slot via `ChromeToggleButton` helper. Library button has no UI surface anymore (state + sidebar component on disk per user's hold-on-library directive).
+   - **Single-line toolbar** — `flex-nowrap` + `min-w-0` truncate on hint + `shrink-0` on every group + `xl:flex` on hint (hides below 1280px). All chrome stays on one row at common laptop widths.
+
+### Next: BYO-AI component swap (PLAN LOCKED, READY TO EXECUTE)
+
+User pivot: instead of Dropin paying for an AI vendor, let user pick their own (ChatGPT/Claude/Gemini). Browse component library → pick reference → Dropin composes prompt → clipboard-copy + new tab to user's AI → user pastes reply back → Dropin applies via existing patchHtmlOuter / patchJsxOuterByOid pipeline.
+
+Full plan: `docs/superpowers/plans/2026-05-20-byo-ai-swap.md`.
+
+**Key research findings**:
+- ChatGPT `?q=` URL prefill works (~1800 char cap for browser compat).
+- Claude.ai `?q=` was **removed Oct 2025** for prompt-injection security. Web URL prefill is dead.
+- Gemini has no native URL prefill (only Chrome extensions).
+- Clipboard-primary, URL prefill best-effort is the locked pattern.
+
+**Why this design**: Zero AI cost to Dropin (same model as Publish). Frontier models (Claude 4.6 Sonnet / GPT-5 / Gemini 3 Pro) ~10× better than coder fine-tunes on this task. No vendor lock-in. Reuses 90% of Phase 6 infrastructure (validate-response, cascade-detach, iframe ai:apply-outer, patch pipelines).
+
+**Estimated effort**: One session, ~600-800 LOC + ~30-50 prod-import tests. New files: `components/ByoAiSwapModal.tsx`, `lib/byo-ai/{compose-prompt,providers,extract-code}.ts`.
+
+---
+
+### Phase 9 — Cascade detach (committed today)
 
 User reported 2026-05-20: "ai changed all 3 cards when i wanted one." Known cascade limitation: cards rendered from `.map()` share ONE source OID — edits by OID hit all rendered copies. Plan at `docs/superpowers/plans/2026-05-15-cascade-detach.md` was specced months ago for exactly this; finally shipped.
 
