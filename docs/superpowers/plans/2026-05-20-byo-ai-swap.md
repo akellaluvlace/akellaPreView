@@ -1,203 +1,207 @@
 # BYO-AI Component Swap
 
-**Date**: 2026-05-20
-**Status**: LOCKED — ready to execute
+**Date**: 2026-05-20 · **Revised**: 2026-05-21 (full-page payload, simpler modal)
+**Status**: LOCKED — executing now
 **Replaces**: Phase 6 Tensorix-backed AI swap (retired 2026-05-20)
-**Estimated effort**: One session, ~600–800 LOC + ~30–50 prod-import tests
+**Estimated effort**: One session, ~400–600 LOC + ~30 prod-import tests
 
 ## Why this design
 
-The Tensorix-backed AI swap (Phase 6) failed because:
-- qwen-coder-30b returned no-op or root-tag-changed outputs ~40% of the time
-- Tensorix uptime + 502 rates made the UX unreliable
-- Dropin paid ~€60–80/month at 1k users
-- We were stuck with whatever model Tensorix offered
+Tensorix Phase 6 failed because qwen-coder-30b returned no-op / root-tag-changed outputs ~40% of the time, 502 rates were high, and Dropin paid ~€60-80/mo at 1k users for unreliable quality.
 
-User's pivot: **Browse component library → compose prompt → send to user's own AI (ChatGPT/Claude/Gemini) → paste response back → apply.** Zero cost to Dropin. User picks frontier model (10× smarter than coder fine-tunes). No vendor lock-in.
+User's pivot (locked 2026-05-20, refined 2026-05-21):
 
-This is the same pattern Publish uses (user's own Netlify, zero cost to Dropin) — applied to AI.
+1. **Browse component library** → pick reference design
+2. **Click provider button** → clipboard gets prompt + new tab opens to ChatGPT/Claude/Gemini
+3. **Paste the AI's reply** (full file, from its code box)
+4. **Click Apply** → `setCode(response)` after light validation
 
-## Research findings that constrain the design
+Zero AI cost to Dropin (user pays own provider). Frontier model quality (Claude 4.6 Sonnet / GPT-5 / Gemini 3 Pro ~10× better than coder fine-tunes). Reuses 90% of Phase 6's iframe + source persistence infrastructure.
 
-| Provider | URL prefill | Works in 2026 | Notes |
-|---|---|---|---|
-| ChatGPT | `https://chatgpt.com/?q=<encoded>` | YES | URL-encoded; browser ~2K–8K char cap |
-| Claude.ai | `claude.ai/new?q=<encoded>` | **NO — removed Oct 2025** | Prompt-injection vulnerability fix |
-| Claude desktop | `claude://?q=<encoded>` | Yes if installed | Requires desktop app; skip for MVP |
-| Gemini | No native support | No | Chrome extensions only — unreliable |
-| Perplexity | `https://www.perplexity.ai/?q=<encoded>` | YES | Search-focused; weak for code gen |
+## Key research findings
 
-**Implication**: Clipboard copy must be the PRIMARY mechanism. URL prefill is a best-effort optimization for ChatGPT only when payload is short enough.
+| Provider | URL prefill | Notes |
+|---|---|---|
+| ChatGPT | `?q=` works at ~1800 char cap | **Not usable for full-page** (30–60KB) — must use clipboard |
+| Claude.ai | `?q=` removed Oct 2025 | Security fix (prompt injection) — gone from web |
+| Gemini | No native URL prefill | Chrome extensions only — unreliable |
+| Perplexity | `?q=` works | Search-focused, weak for code gen |
 
-## Architecture
+**Implication for v1**: clipboard-only, always. URL prefill is technically possible for ChatGPT with short payloads but our full-page payloads always exceed the cap. Skip URL prefill entirely.
 
-### Entry point
+## Full-page payload — the key simplification
 
-"Swap with your AI" button returns to `VibePropertiesPanel` (above the kind-specific controls). Same surface as the retired AI Swap button. Visible for every element kind (modal filters references by category via existing `inferSwapCategory`).
+Instead of sending just the target element + reference (Tensorix Phase 6 approach), send **the FULL source code** + target element snippet + reference + clear instructions. AI returns the full updated file.
 
-### Modal layout — single modal, 3 stacked sections
+**Consequences**:
+- No `patchHtmlOuter` / `patchJsxOuterByOid` math — `setCode(response)` after re-injecting OIDs
+- No cascade-detach needed — AI sees the whole `.map()` and handles in-context (or user picks a non-cascade element)
+- No root-tag-match validation — AI returns the full file, root tag stays correct by definition
+- AI matches the target by pattern (target.outerHtml as a quoted snippet in the prompt)
+- 10× simpler apply pipeline; much less risk of broken patches
+
+**Tradeoff**: payload is bigger (30–60KB vs 1–5KB). Frontier models handle this trivially; only the URL-prefill optimization dies (which we already gave up because of Claude's removal).
+
+## Modal UX — 4 actions inside the modal
 
 ```
-┌─ Swap with your AI ──────────────────────────────┐
-│                                                  │
-│ STEP 1 — Pick a reference design                 │
-│  ┌──────────────────────────────────────────┐    │
-│  │ [InlineComponentBrowser, filtered]       │    │
-│  │ [Hover preview popover stays]            │    │
-│  └──────────────────────────────────────────┘    │
-│                                                  │
-│ STEP 2 — Send to your AI                         │
-│  Edit prompt if you want (default works):       │
-│  ┌──────────────────────────────────────────┐    │
-│  │ I have a <button> in my code. Restyle it │    │
-│  │ to match the reference below while       │    │
-│  │ keeping my content + tags. Return ONE    │    │
-│  │ ```jsx code block.                       │    │
-│  │                                          │    │
-│  │ MY ELEMENT: <button class="…">Submit…    │    │
-│  │ REFERENCE:  <button class="…">…</button> │    │
-│  └──────────────────────────────────────────┘    │
-│  [ChatGPT] [Claude] [Gemini] [Just copy]         │
-│                                                  │
-│ STEP 3 — Paste the AI's reply                    │
-│  ┌──────────────────────────────────────────┐    │
-│  │ (paste here)                             │    │
-│  └──────────────────────────────────────────┘    │
-│  [Apply to my site]                              │
-│                                                  │
-└──────────────────────────────────────────────────┘
+┌─ Swap with AI ─────────────────────────────────┐
+│                                                │
+│ 1. Pick a design          [grid of references] │
+│                                                │
+│ 2. Send to your AI                             │
+│    [Open ChatGPT] [Open Claude] [Open Gemini]  │
+│    [Just copy]                                 │
+│    Paste in your AI → copy its reply → come    │
+│    back & paste below.                         │
+│                                                │
+│ 3. Paste the AI's reply here                   │
+│    ┌──────────────────────────────────────┐    │
+│    │ (textarea — paste full response)     │    │
+│    └──────────────────────────────────────┘    │
+│    [ Apply to my site ]                        │
+│                                                │
+└────────────────────────────────────────────────┘
 ```
 
-Single modal, NOT three pages. The user can move backward (re-pick reference, re-edit prompt, re-send to a different AI) without losing context.
+**Action count**: (1) pick reference → (2) click provider button → (3) paste → (4) click Apply. **No stepper, no progressive disclosure, no disabled states.** Trust the user to do them top-to-bottom.
 
-### Payload structure
+### Locked UX decisions
 
-The composed prompt sent to the user's AI is **NOT the full file** — only:
-- Static prompt template (~200 chars) explaining the task + return format
-- Target element's outerHTML (typically 200–2000 chars)
-- Reference component's HTML (typically 500–3000 chars)
+- **All 3 sections always visible.** Simpler mental model than progressive disclosure.
+- **No editable prompt textarea.** Vibecoders don't need to see the prompt details — provider buttons just do the right thing.
+- **Provider buttons: 4-in-a-row.** ChatGPT, Claude, Gemini, Just copy. localStorage remembers the last-clicked button and floats it left on next open.
+- **Paste anywhere in modal routes to textarea.** If user pastes in section 2 area by accident, we catch the paste and forward it to section 3's textarea.
+- **sessionStorage silently saves textarea contents.** Accidental modal close doesn't lose the AI reply. Restored quietly on reopen — no "Resume?" banner.
+- **Subtle success pulse.** After Apply, reuse `data-ai-just-applied` from Phase 6 → 1.2s coral pulse on the swapped element so user sees what changed.
+- **Failure recovery in-place.** If Apply rejects (length cap, forbidden tag, parse error), keep response in textarea + show specific reason. User can edit manually + retry. No "go back to ChatGPT" dead-end.
 
-**Typical total: 1000–5000 chars.** Most fit ChatGPT's URL cap.
+## Prompt template
 
-Example:
 ```
-I have an element in my code. Please restyle it to match the design of
-the reference, while KEEPING my element's text content, attributes
-(like href, src, alt), and root tag. Return ONE code block (```html or
-```jsx, whichever matches the input) with the restyled element. No
-explanation needed — just the code block.
+I have a [HTML/JSX/TSX] file. Please replace ONE element in it.
 
-MY ELEMENT:
-<button class="bg-stone-200 px-4 py-2">Get Started</button>
-
-REFERENCE DESIGN (use this as the style template):
-<button class="rounded-full bg-gradient-to-r from-fuchsia-500 to-rose-500 px-6 py-3 text-white shadow-xl">Click me</button>
+THE ELEMENT TO REPLACE (find it in the file below):
+```[html or jsx]
+[target.outerHtml]
 ```
 
-### Provider button strategy
+THE REFERENCE DESIGN (use this as your style template):
+```html
+[reference HTML]
+```
 
-Each button:
-1. Copies the composed prompt to clipboard (always, regardless of provider)
-2. Opens the provider URL in a new tab — synchronously, before any await (popup-blocker rules)
-3. For ChatGPT: if `payload.length < 1800` (conservative cap for IE/Edge legacy + modern margin), uses URL prefill `?q=`; otherwise opens homepage
-4. For Claude/Gemini: always opens homepage (URL prefill unsupported)
-5. Shows toast: "Prompt copied. Paste it in {Provider} → copy the response → come back to paste below."
+INSTRUCTIONS:
+- Keep my element's text content (the visible words inside).
+- Keep meaningful attributes (href, src, alt, type, name).
+- Otherwise, make the element look like the reference — colors, layout, shape, sizing, classes.
+- Leave ALL other elements in the file untouched.
+- Return the FULL UPDATED FILE as a single code block. No explanation.
 
-URL length cutoff: **1800 chars**. Sources: Chrome ~32K, Firefox unlimited but server-side ~8K, Edge ~2083 (IE legacy). 1800 keeps every browser happy with margin for URL encoding overhead (~2.5× for special chars).
+THE FULL FILE:
+```[html or jsx]
+[full source code]
+```
+```
 
-**localStorage**: `dropin:byo-ai:preferred-provider` ∈ `{chatgpt, claude, gemini, copy}`. The remembered provider's button moves to first position on next open.
+Typical payload: 15-60KB. Fits well within frontier-model context windows.
 
-### Apply pipeline (Receive stage)
+## Apply pipeline
 
-1. User pastes raw response in textarea
-2. Click "Apply to my site"
-3. **Code extraction** (`lib/byo-ai/extract-code.ts`):
-   - First try: `/```(?:jsx|tsx|html|javascript)?\n([\s\S]*?)```/` — match first fenced code block
+1. User pastes AI's full reply in textarea
+2. Click Apply
+3. **Extract code fence** (`lib/byo-ai/extract-code.ts`):
+   - First try: `/```(?:jsx|tsx|html|javascript|js)?\n([\s\S]*?)```/` — first fenced block
    - Fallback: entire textarea contents (trimmed)
-4. **Validation** (reuse `lib/ai-edit/validate-response.ts`):
-   - Parse as HTML via DOMParser
-   - Verify root tag matches target's root tag (reject root-tag-changed outputs)
-   - Reject `<script>`, `<iframe>`, `<object>`, `<embed>`, on-handlers, `javascript:`, non-image `data:` URIs
-   - Length sanity: output should be within `max(originalLen * 4, originalLen + 2000)` (4× because frontier models may add more chrome than coder models did)
-5. **Apply** (reuse Phase 6 infrastructure):
-   - HTML mode: `patchHtmlOuter(code, target.htmlPath, response)` → `setCode`
-   - JSX mode: `htmlToJsx(response)` → `patchJsxOuterByOid(code, target.oid, jsx)` → `setCode`
-   - Cascade-detach if applicable (reuse `applyDetachFromMap`)
-   - Iframe live-apply via `previewHandleRef.current?.postVibe({ type: "ai:apply-outer", ... })`
-   - Toast with Undo
+4. **Validate** (`lib/byo-ai/validate-response.ts`):
+   - Length within `[0.5×, 1.5×]` of original source length
+   - No `<script>` (other than user-original `<script type="tailwindcss">` style), `<iframe>`, `<object>`, `<embed>`
+   - No `on*=` event handler attributes
+   - No `javascript:` URIs
+   - Parses without throwing (Babel for JSX/TSX, parse5 for HTML)
+   - Target's `outerHtml` snippet is NO LONGER present in response (proves AI did the swap — no-op detection)
+5. **Re-inject OIDs** via existing `injectOids` (idempotent — adds OIDs to elements without them)
+6. **`setCode(result)`** — history-aware via `useEditHistory`; undo works via Ctrl+Z + the toast button
+7. Subtle pulse on the swapped element (reuse `data-ai-just-applied` CSS rule from `lib/preview.ts`)
 
 ## Files
 
 ### New
-- `components/ByoAiSwapModal.tsx` — the 3-section modal
-- `lib/byo-ai/compose-prompt.ts` — `composeSwapPrompt(target, reference)` → prompt string
-- `lib/byo-ai/providers.ts` — provider registry + URL builders
-- `lib/byo-ai/extract-code.ts` — first-code-fence extractor with fallback
-- `tests/byo-ai-compose-prompt-prod.test.ts`
-- `tests/byo-ai-providers-prod.test.ts`
-- `tests/byo-ai-extract-code-prod.test.ts`
-- `tests/byo-ai-swap-modal-prod.test.ts` (integration — modal flow without network)
+
+- `lib/byo-ai/compose-prompt.ts` — `composeSwapPrompt({ fullSource, kind, targetOuterHtml, referenceHtml }) → string`
+- `lib/byo-ai/providers.ts` — provider registry: `{ id, name, openUrl, color }`. ChatGPT → `https://chatgpt.com/`, Claude → `https://claude.ai/new`, Gemini → `https://gemini.google.com/app`, just-copy → no open.
+- `lib/byo-ai/extract-code.ts` — `extractCodeFence(text) → { code, hadFence }` (hadFence false → returned raw input)
+- `lib/byo-ai/validate-response.ts` — `validateResponse({ input, output, kind, targetOuterHtml }) → { ok, reason?: string }`
+- `components/ByoAiSwapModal.tsx` — the modal
+- Tests: `byo-ai-compose-prompt-prod.test.ts`, `byo-ai-extract-code-prod.test.ts`, `byo-ai-validate-response-prod.test.ts`, `byo-ai-providers-prod.test.ts`
 
 ### Modified
-- `components/VibePropertiesPanel.tsx` — re-add "Swap with your AI" button (similar shape to retired Phase 6 button)
-- `components/VibePropertiesPanel/{TextControls,LinkControls,CardControls}.tsx` — re-add `onComponentSwap` prop
+
+- `components/VibePropertiesPanel.tsx` — re-add `onComponentSwap?: () => void` prop + button at top of panel ("✨ Swap with AI")
+- `components/VibePropertiesPanel/{TextControls,LinkControls,CardControls}.tsx` — re-add `onComponentSwap` prop pass-through if needed (just for the kind-specific paths). Actually NOT needed — the button lives in the parent panel, not the sub-controls.
 - `components/Workspace.tsx`:
-  - Re-wire `onComponentSwap={handleByoAiSwapOpen}` on VibePropertiesPanel mount
-  - New `handleByoAiSwapOpen` (just opens modal; no API call) + `handleByoAiApply` (the receive-side apply)
-  - Mount `<ByoAiSwapModal>` (replaces the retired AI swap modal block)
-  - Remove old `aiSwap*` dead-code state
+  - New `handleByoAiSwapOpen` (just opens modal — captures the current vibeInfo)
+  - New `handleByoAiApply(rawResponse: string)` (extract → validate → setCode)
+  - Re-wire `onComponentSwap={handleByoAiSwapOpen}` on `<VibePropertiesPanel>`
+  - Mount `<ByoAiSwapModal>` (replaces the dead Phase 6 modal block)
+  - **Clean up dead AI swap state** while we're here: remove `aiSwapOpen`, `aiSwapCategory`, `aiSwapTargetRef`, `handleAiSwapOpen`, `handleAiSwapClose`, `handleAiSwapPick` (they were left as dead code in toolbar refactor commit `357e542` — finally deleting now). Also `handleAiSubmit` and AI-tool selection state if they're not referenced elsewhere.
 
-### Removed (dead code from old AI swap, finally)
-- `handleAiSwapOpen`, `handleAiSwapClose`, `handleAiSwapPick` from Workspace
-- `aiSwapOpen`, `aiSwapCategory`, `aiSwapTargetRef` state
-- AI swap retired modal block (already removed in toolbar refactor)
-- Other AI-tool-only handlers (`handleAiSubmit`, AI selection state, etc.) — assess in a separate cleanup pass
+### Reuse without changes
 
-Keep on disk (still useful):
-- `lib/ai-edit/validate-response.ts` — reused for BYO validation
-- `lib/ast/operations/detach-from-map.ts` — reused for cascade detach
-- `app/api/ai-edit/route.ts` — leave for now, decide on cleanup later
+- `InlineComponentBrowser` — reference picker (already supports `onPickReference` mode)
+- `injectOids` from `lib/ast/oids.ts`
+- `useEditHistory` (host owns history)
+- `data-ai-just-applied` CSS rule from `lib/preview.ts`
+- Vibe panel's `onComponentSwap` plumbing (we removed it yesterday; re-adding)
 
-## Open decisions — LOCKED
+## Open decisions — LOCKED 2026-05-21
 
 | Decision | Choice | Why |
 |---|---|---|
-| Provider list (MVP) | ChatGPT + Claude + Gemini + Just copy | 90% market coverage; "Just copy" is universal fallback |
-| Entry point | VibePropertiesPanel "Swap with your AI" button | Matches retired Phase 6; user knows where to find it |
-| Free-form prompt (no reference) | Defer to v2 | MVP focuses on component-first flow per user idea |
-| Persist provider preference | Yes, in localStorage | First-button surface adapts to user habit |
-| URL prefill threshold | 1800 chars | Conservative cap covering all browsers |
-| Code extraction | Regex first fence, fallback to whole textarea | Robust against chatty preambles + plain-paste edge case |
-| Validation | Reuse `validate-response.ts` | Battle-tested via 26 tests; length cap loosened to 4× for frontier outputs |
-| Round-trip UX | Single modal, 3 stacked sections | User stays in one place; no menu hunting after pasting |
-| Mobile support | Same modal renders; provider tabs open + user can use mobile AI apps | Drag-paste works on mobile (unlike Publish flow) |
+| Payload shape | **Full source + target snippet + reference + instructions** | Drops the patch pipeline entirely; AI does the work |
+| Target identification | Prose ("find this element in the file") | No marker comments needed; frontier models match by pattern |
+| Provider count (MVP) | 4: ChatGPT, Claude, Gemini, Just copy | 90% market coverage + universal fallback |
+| URL prefill | None | Full page exceeds any provider's cap; clipboard-only |
+| Modal layout | All 3 sections visible, no stepper | Vibecoder UX: trust them to do steps in order |
+| Persistence | sessionStorage on textarea only, silent restore | Saves AI reply across accidental close, no "Resume?" banner |
+| Failure UX | Keep response in textarea, show reason, allow manual edit | No dead-end → back-to-AI |
+| Action count target | 4 actions inside modal | (1) pick reference (2) click provider (3) paste (4) apply |
 
-## Manual test checklist (pre-ship)
+## Manual test checklist
 
-- [ ] Click any element → vibe panel → "Swap with your AI" button visible
-- [ ] Click button → modal opens with reference grid populated, filtered by element kind
-- [ ] Pick a reference → Step 2 prompt textarea populates with composed prompt
-- [ ] Verify prompt contains: instruction template, MY ELEMENT block, REFERENCE block
-- [ ] Click "Just copy" → clipboard contains the prompt, no tab opens, toast shows
-- [ ] Click "ChatGPT" with short prompt → new tab opens at `chatgpt.com/?q=...` with prefill, clipboard also populated
-- [ ] Click "ChatGPT" with long prompt (>1800 chars) → tab opens at homepage, clipboard populated
-- [ ] Click "Claude" → tab opens at `claude.ai/new`, clipboard populated (no URL prefill)
-- [ ] Click "Gemini" → tab opens at `gemini.google.com/app`, clipboard populated
-- [ ] Last-used provider remembered across sessions (close + reopen browser → first button is what user clicked last)
-- [ ] Paste AI's full response (with chatty preamble + code fence) → click Apply → only the code fence content gets applied
-- [ ] Paste raw code with no fence → click Apply → whole textarea applies (with validation)
-- [ ] AI returns a response with `<script>` tag → Apply rejects with clear warn toast
-- [ ] AI changes root tag (`<button>` → `<div>`) → Apply rejects
-- [ ] AI returns valid response → iframe updates instantly, source persists, undo toast appears
-- [ ] Undo works (single click reverts the swap, both iframe + source)
-- [ ] Cascade-detach fires when target is one of N cascade instances (only the clicked instance swaps)
+- [ ] Click any element → vibe panel → "✨ Swap with AI" button visible
+- [ ] Click button → modal opens with reference grid filtered by element kind
+- [ ] Pick a reference → reference highlights, prompt is composed silently
+- [ ] Click "Just copy" → clipboard has prompt, NO tab opens, toast confirms
+- [ ] Click "Open ChatGPT" → new tab to chatgpt.com, clipboard has prompt, toast
+- [ ] Click "Open Claude" → new tab to claude.ai/new, clipboard has prompt
+- [ ] Click "Open Gemini" → new tab to gemini.google.com/app, clipboard has prompt
+- [ ] localStorage remembers last-clicked provider across browser sessions
+- [ ] Paste AI reply (with chatty preamble + code fence) → click Apply → only code fence content applied
+- [ ] Paste raw code (no fence) → Apply → whole textarea applied (with validation)
+- [ ] AI returns response with `<script>` tag → Apply rejects with specific reason
+- [ ] AI returns response with same content as input (no-op) → Apply rejects "looks identical"
+- [ ] AI returns valid response → iframe rebuilds, source persists, swapped element pulses coral
+- [ ] Ctrl+Z restores prior code (history-aware setCode)
+- [ ] Accidentally close modal mid-flow → reopen on same element → textarea contents restored
+- [ ] Paste outside the textarea (e.g. in section 2 area) → still routes to textarea
+- [ ] Apply rejects → response stays in textarea + reason shown → user edits + retries
+- [ ] Cascade element (one of N from `.map()`) → AI sees the .map() and either detaches or restyles all — user has Undo if they don't like the cascade behavior
 
 ## Why this is the right design
 
-1. **Zero AI cost to Dropin** — same pattern as Publish (user pays own host)
-2. **Frontier-model quality** — Claude 4.6 Sonnet / GPT-5 / Gemini 3 Pro are ~10× better than coder fine-tunes on this task
-3. **Pragmatic about provider URL limits** — clipboard-primary handles every provider reliably; URL prefill is a bonus for ChatGPT
-4. **Reuses 90% of Phase 6 infrastructure** — validation, apply, undo, cascade-detach, iframe runtime, toast — all existing
-5. **User stays in one modal** — round-trip is more steps than the failed one-click, but the modal-as-home design minimizes context loss
-6. **Honest UX** — user sees the exact prompt being sent, edits it if they want, knows what's happening
-7. **BYO-LLM is validated as a 2026 pattern** — n8n, Budibase, Kodus, AnythingLLM all ship variants
+1. **Zero AI cost to Dropin** — same model as Publish (user pays own host)
+2. **Frontier-model quality** — Claude 4.6 / GPT-5 / Gemini 3 Pro ~10× better than coder fine-tunes
+3. **Simpler apply pipeline** — `setCode(response)` after light validation; no patch math
+4. **No vendor lock-in** — Dropin works if any individual AI provider is down
+5. **User can iterate freely** — if they don't like the first AI's output, paste a different one or switch providers
+6. **Honest about the round-trip** — vibecoder sees exactly what's happening; no opaque "AI magic"
+7. **BYO-LLM is a validated 2026 pattern** — n8n, Budibase, Kodus, AnythingLLM all ship variants
+
+## What we deliberately punt to v2
+
+- Free-form prompt (no reference picker) — if user demand surfaces
+- `claude://` desktop protocol shortcut — requires installed app
+- Auto-paste from clipboard on tab-refocus — requires permission prompt
+- Streaming UI for the AI's response — out of scope (user pastes the full reply)
+- "Edit the prompt" mode — vibecoders don't need it; power users can copy + edit before pasting in AI

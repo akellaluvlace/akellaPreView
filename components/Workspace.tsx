@@ -22,6 +22,10 @@ import WorkspaceLeftRail from "./WorkspaceLeftRail";
 // 2026-05-20 — Palette button + popover replaces the right-sidebar's
 // Palettes tab. Mounted in the top toolbar's extraTools slot.
 import PalettePopover from "./PalettePopover";
+// 2026-05-21 — BYO-AI swap modal. User picks reference → sends prompt
+// to ChatGPT/Claude/Gemini → pastes reply back. Replaces failed
+// Tensorix Phase 6.
+import ByoAiSwapModal from "./ByoAiSwapModal";
 import ResizablePanel from "./ResizablePanel";
 import ElementTree from "./ElementTree";
 import PreviewModal from "./PreviewModal";
@@ -1515,6 +1519,66 @@ export default function Workspace({
     for (let i = 0; i < 1000; i += 1) undo();
     showInfo("Template restored to original.");
   }, [canUndo, undo, showInfo]);
+
+  // 2026-05-21 — BYO-AI swap flow. Replaces the failed Tensorix
+  // Phase 6 with a paste-the-reply pattern. Modal owns the prompt
+  // composition + provider buttons + paste + validation; host owns
+  // the actual setCode call. See docs/superpowers/plans/2026-05-20-
+  // byo-ai-swap.md for the full design.
+  const [byoAiSwapOpen, setByoAiSwapOpen] = useState(false);
+  // Frozen vibeInfo snapshot at modal-open time. If the user clicks
+  // a different element while the modal is open (rare, but iframe
+  // selection still works), the swap still targets the original.
+  const byoAiSwapTargetRef = useRef<VibeElementInfo | null>(null);
+
+  const handleByoAiSwapOpen = useCallback(() => {
+    const info = vibeInfo;
+    if (!info) return;
+    byoAiSwapTargetRef.current = info;
+    setByoAiSwapOpen(true);
+  }, [vibeInfo]);
+
+  const handleByoAiSwapClose = useCallback(() => {
+    setByoAiSwapOpen(false);
+    byoAiSwapTargetRef.current = null;
+  }, []);
+
+  const handleByoAiApply = useCallback(
+    (newCode: string): boolean => {
+      // Modal already validated length / forbidden tags / no-op. We
+      // just run the new code through the history-aware setCode and
+      // surface a toast with Undo via the existing rollToast.
+      try {
+        setCode(newCode);
+      } catch (e) {
+        console.error("[dropin:byo-ai] setCode threw", e);
+        return false;
+      }
+      const target = byoAiSwapTargetRef.current;
+      console.log("[dropin:byo-ai] applied", {
+        kind,
+        targetTag: target?.tag ?? null,
+        oldLen: code.length,
+        newLen: newCode.length,
+      });
+      // Reuse the rollToast shape with an Undo action. Undo restores
+      // the pre-apply code via setCode — same pattern as palette /
+      // shuffle / vibe-apply.
+      const previousCode = code;
+      setRollToast({
+        icon: "✨",
+        text: `Swapped with your AI · ${newCode.length - code.length >= 0 ? "+" : ""}${newCode.length - code.length} chars`,
+        action: {
+          label: "Undo",
+          onAction: () => {
+            setCode(previousCode);
+          },
+        },
+      });
+      return true;
+    },
+    [code, kind, setCode],
+  );
 
   // 2026-05-20 — Publish flow. Builds a hostable zip from the current
   // workspace state, triggers a browser download, then opens Netlify
@@ -4950,6 +5014,7 @@ export default function Workspace({
               onBgImageRemove={handleVibeBgImageRemove}
               onBgImageShuffle={handleVibeBgImageShuffle}
               onCopySection={kind === "jsx" ? handleCopySection : undefined}
+              onComponentSwap={handleByoAiSwapOpen}
               onApply={handleVibeApply}
               onClassesChange={handleVibeClasses}
               onWarn={showWarn}
@@ -5002,10 +5067,21 @@ export default function Workspace({
           The grid renders below the Browse-components button with hover-
           popover preview. Old LibraryModal mount retired here. */}
 
-      {/* 2026-05-20 — AI swap modal mount retired. The state +
-          handlers above are unreachable from the UI now (no surface
-          calls handleAiSwapOpen). Modal markup left out entirely so
-          we don't ship dead JSX. */}
+      {/* 2026-05-21 — BYO-AI swap modal. Replaces the retired
+          Tensorix Phase 6 modal. Self-contained — owns reference
+          picker, provider buttons, paste textarea, validation.
+          Host receives validated code via onApply and routes through
+          history-aware setCode. */}
+      <ByoAiSwapModal
+        open={tool === "vibe" && byoAiSwapOpen && vibeInfo !== null}
+        onClose={handleByoAiSwapClose}
+        vibeInfo={byoAiSwapTargetRef.current ?? vibeInfo}
+        fullSource={code}
+        kind={kind}
+        onApply={handleByoAiApply}
+        onWarn={showWarn}
+        onInfo={showInfo}
+      />
 
       {tool === "vibe" && vibeBgImageOpen && vibeInfo && (
         <LibraryModal

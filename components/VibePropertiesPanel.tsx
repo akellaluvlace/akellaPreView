@@ -39,10 +39,11 @@ interface VibePropertiesPanelProps {
   // Same shape contract as onIconSwap: the modal owns the pick →
   // postMessage routing, this control just signals intent.
   onImageSwap?: () => void;
-  // 2026-05-20 — onComponentSwap prop removed. Used to power the
-  // AI swap surface from VibePropertiesPanel; AI feature retired
-  // entirely. Code stays on disk in lib/ai-edit/* + Workspace
-  // handlers for future recovery.
+  // 2026-05-21 — onComponentSwap restored. Now powers the BYO-AI
+  // swap modal (user picks reference + sends prompt to ChatGPT/
+  // Claude/Gemini + pastes reply back). See components/ByoAiSwapModal
+  // + lib/byo-ai/*.
+  onComponentSwap?: () => void;
   // Background-image pick — opens the host-owned LibraryModal in media
   // mode. Pick handler treats the URL as a CSS background (NOT an
   // outerHTML swap). Wired only for card-like containers + semantic
@@ -98,6 +99,7 @@ export default function VibePropertiesPanel({
   onClose,
   onIconSwap,
   onImageSwap,
+  onComponentSwap,
   onBgImagePick,
   onBgImageRemove,
   onBgImageShuffle,
@@ -185,11 +187,27 @@ export default function VibePropertiesPanel({
         </div>
       )}
 
-      {/* 2026-05-20 — AI Swap button retired per user direction (the
-          AI tool itself was retired earlier the same day; this was the
-          last AI surface in the vibe panel). Code kept on disk:
-          handleAiSwapOpen/Close/Pick in Workspace + lib/ai-edit/*.
-          Recoverable when the model landscape improves. */}
+      {/* 2026-05-21 — BYO-AI swap button. Opens ByoAiSwapModal.
+          Host wires onComponentSwap to a handler that just opens the
+          modal (no API call here; that happens external-AI side).
+          User browses references, picks one, sends prompt to their
+          chosen AI, pastes reply back. See docs/superpowers/plans/
+          2026-05-20-byo-ai-swap.md. */}
+      {onComponentSwap && (
+        <div className="border-b-2 border-ink/15 px-4 py-3">
+          <button
+            type="button"
+            onClick={onComponentSwap}
+            title="Pick a reference design + send a prompt to ChatGPT/Claude/Gemini. Paste the reply back to swap. Zero AI cost to Dropin — you use your own AI."
+            className="w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+          >
+            ✨ Swap with AI
+          </button>
+          <p className="mt-1.5 text-center font-mono text-[10px] text-muted">
+            Pick a design → send to your AI → paste the reply.
+          </p>
+        </div>
+      )}
 
       {(info.kind === "text" ||
         info.kind === "heading" ||
