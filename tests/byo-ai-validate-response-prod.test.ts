@@ -57,8 +57,10 @@ describe("validateResponse — length sanity", () => {
   });
 
   it("rejects response over 1.5× input length (runaway expansion)", () => {
-    const input = pad("<html></html>", 500);
-    const output = pad("<html></html>", 1000);
+    // 6000 chars vs 4000 source: ratio 1.5+, additive floor (+2000)
+    // ALSO blown (6000 > 4000 + 2000 = 6000 is the boundary, so go +1)
+    const input = pad("<html></html>", 4000);
+    const output = pad("<html></html>", 6001);
     const r = validateResponse({
       inputSource: input,
       outputSource: output,
@@ -67,6 +69,24 @@ describe("validateResponse — length sanity", () => {
     });
     expect(r.ok).toBe(false);
     expect(r.reason?.toLowerCase()).toContain("long");
+  });
+
+  it("accepts small-file expansion past 1.5× via the +2000 additive floor (H4)", () => {
+    // 800 chars → 2200 chars (2.75× ratio) — would have been
+    // rejected before the additive floor. Now: max(1.5×, +2000)
+    // → max(1200, 2800) = 2800 → 2200 < 2800 → accepts.
+    const input = pad("<html><body><button>x</button></body></html>", 800);
+    const output = pad(
+      "<html><body><button>x</button></body></html>",
+      2200,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: "<button>x</button>",
+      kind: "html",
+    });
+    expect(r.ok).toBe(true);
   });
 });
 
@@ -122,6 +142,56 @@ describe("validateResponse — no-op detection", () => {
       kind: "html",
     });
     expect(r.ok).toBe(true);
+  });
+
+  it("accepts cascade swap: input has 3 copies, output has 2 (H1 fix)", () => {
+    // Cascade case: .map() renders 3 buttons; user picks one; AI
+    // detaches and swaps one. Input has 3 instances of the target's
+    // outerHtml; output has 2 (the detached one became something
+    // else). Pre-H1 fix: binary `includes` check rejected this as
+    // no-op. Post-fix: count occurrences and accept when count
+    // dropped.
+    const target =
+      '<button class="bg-stone-200 px-4 py-2 text-base">Card Title</button>';
+    const input = pad(
+      `<html><body>${target}${target}${target}</body></html>`,
+      500,
+    );
+    const newButton =
+      '<button class="rounded-full bg-fuchsia-500">Card Title</button>';
+    const output = pad(
+      `<html><body>${target}${target}${newButton}</body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: target,
+      kind: "html",
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("rejects when input had 3 copies and output STILL has 3 (real no-op)", () => {
+    // Confirms the new count-based check still rejects the actual
+    // no-op case for cascade elements.
+    const target =
+      '<button class="bg-stone-200 px-4 py-2 text-base">Card Title</button>';
+    const input = pad(
+      `<html><body>${target}${target}${target}</body></html>`,
+      500,
+    );
+    const output = pad(
+      `<html><body>${target}${target}${target}</body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: target,
+      kind: "html",
+    });
+    expect(r.ok).toBe(false);
   });
 });
 

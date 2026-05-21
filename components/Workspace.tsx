@@ -1534,9 +1534,19 @@ export default function Workspace({
   const handleByoAiSwapOpen = useCallback(() => {
     const info = vibeInfo;
     if (!info) return;
+    // H3 fix — guard against empty outerHtml. vibe runtime emits
+    // outerHtml opportunistically (64KB cap → empty if too big, plus
+    // edge cases like detached elements). Empty target → AI gets an
+    // empty code fence and either bails or guesses; surface clearly.
+    if (!info.outerHtml || !info.outerHtml.trim()) {
+      showWarn(
+        "Can't capture this element for AI swap — try clicking a child element instead.",
+      );
+      return;
+    }
     byoAiSwapTargetRef.current = info;
     setByoAiSwapOpen(true);
-  }, [vibeInfo]);
+  }, [vibeInfo, showWarn]);
 
   const handleByoAiSwapClose = useCallback(() => {
     setByoAiSwapOpen(false);
@@ -1546,10 +1556,33 @@ export default function Workspace({
   const handleByoAiApply = useCallback(
     (newCode: string): boolean => {
       // Modal already validated length / forbidden tags / no-op. We
-      // just run the new code through the history-aware setCode and
-      // surface a toast with Undo via the existing rollToast.
+      // run the new code through history-aware setCode and surface a
+      // toast with Undo.
+      //
+      // C1 fix — JSX mode: re-inject OIDs on the AI's response.
+      // setCode itself doesn't run injectOids (that's only the lazy
+      // initializer in useEditHistory). Without this, vibe-edit /
+      // cascade-detach / swap-anywhere all break on the swapped
+      // subtree because the AI either dropped OIDs or hallucinated
+      // stale ones. injectOids is idempotent on JSX with valid OIDs +
+      // adds OIDs to anything without them.
+      let finalCode = newCode;
+      if (kind === "jsx") {
+        try {
+          finalCode = injectOids(newCode).source;
+        } catch (e) {
+          console.warn(
+            "[dropin:byo-ai] injectOids failed on AI response; applying raw",
+            e,
+          );
+          // Fall through with the raw response — better than rejecting.
+        }
+      }
+      // C2 fix — capture previousCode BEFORE setCode so the Undo
+      // closure restores the pre-swap state, not the post-swap state.
+      const previousCode = code;
       try {
-        setCode(newCode);
+        setCode(finalCode);
       } catch (e) {
         console.error("[dropin:byo-ai] setCode threw", e);
         return false;
@@ -1559,22 +1592,23 @@ export default function Workspace({
         kind,
         targetTag: target?.tag ?? null,
         oldLen: code.length,
-        newLen: newCode.length,
+        newLen: finalCode.length,
       });
-      // Reuse the rollToast shape with an Undo action. Undo restores
-      // the pre-apply code via setCode — same pattern as palette /
-      // shuffle / vibe-apply.
-      const previousCode = code;
-      setRollToast({
+      // H2 fix — toast now auto-dismisses (was indefinite). Use the
+      // same 6s window as other Undo-bearing toasts in the project
+      // (AI Edit Phase 4 set this convention).
+      const entry = {
         icon: "✨",
-        text: `Swapped with your AI · ${newCode.length - code.length >= 0 ? "+" : ""}${newCode.length - code.length} chars`,
+        text: `Swapped with your AI · ${finalCode.length - code.length >= 0 ? "+" : ""}${finalCode.length - code.length} chars`,
         action: {
           label: "Undo",
           onAction: () => {
             setCode(previousCode);
           },
         },
-      });
+      };
+      setRollToast(entry);
+      setTimeout(() => setRollToast((s) => (s === entry ? null : s)), 6000);
       return true;
     },
     [code, kind, setCode],

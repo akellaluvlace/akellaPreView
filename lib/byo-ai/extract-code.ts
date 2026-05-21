@@ -24,18 +24,23 @@ export interface ExtractCodeResult {
   hadFence: boolean;
 }
 
-// Match the first ```lang\n...\n``` block. Language tag is optional
-// (some models omit it). Multi-line non-greedy match captures content
-// between the opening fence's newline and the closing fence.
+// Match the FIRST ```lang...``` block. Language tag is optional;
+// the body separator may be `\n`, whitespace, or nothing at all
+// (Claude fast-mode occasionally emits ```jsx<code>``` with no
+// newline). Non-greedy so we stop at the first closing fence — for
+// the rare case where the file content itself contains a nested
+// fence, we'd false-truncate; that's an accepted trade-off vs the
+// greedy alternative which would cross-capture multiple separate
+// code blocks (worse).
+//
+// L3 fix (2026-05-21): removed required `\n` after the lang tag so
+// compact fences match.
 //
 // Pattern notes:
-//   - `\\s*\\n` after the opening fence allows any whitespace + a
-//     newline before the body (handles `````jsx\n` and `````\n` shapes)
-//   - `[\\s\\S]*?` non-greedy so we stop at the FIRST closing fence,
-//     not the last (some replies have multiple code blocks)
-//   - We don't require a specific language; any alphanumeric tag is
-//     allowed (jsx, tsx, html, javascript, js, react, etc.)
-const FENCE_RE = /```[a-zA-Z]*\s*\n([\s\S]*?)```/;
+//   - `\\s*` (no \\n required) handles compact frontier-model replies
+//   - `[\\s\\S]*?` non-greedy — first closing fence wins
+//   - Language tag is `[a-zA-Z]*` (lowercase + uppercase letters)
+const FENCE_RE = /```[a-zA-Z]*\s*([\s\S]*?)```/;
 
 export function extractCodeFence(input: string): ExtractCodeResult {
   if (!input) return { code: "", hadFence: false };

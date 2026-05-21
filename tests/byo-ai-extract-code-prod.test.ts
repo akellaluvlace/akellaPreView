@@ -123,6 +123,15 @@ I've kept the "Get Started" text and applied the reference's gradient + rounded-
     expect(result.code).not.toContain("I've kept");
   });
 
+  it("handles compact ```jsx<code>``` with no newline after lang (L3 fix)", () => {
+    // Claude in fast-mode occasionally emits fences without a
+    // newline between the lang tag and the body.
+    const input = "Here you go: ```jsx<div>compact</div>```";
+    const result = extractCodeFence(input);
+    expect(result.hadFence).toBe(true);
+    expect(result.code).toContain("<div>compact</div>");
+  });
+
   it("handles GPT's typical multi-paragraph preamble", () => {
     const input = `I'll update the element to match the reference style while keeping the content.
 

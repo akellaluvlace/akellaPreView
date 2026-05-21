@@ -68,9 +68,16 @@ export function validateResponse(
     };
   }
 
-  // Length sanity — within [0.5×, 1.5×]. Frontier models occasionally
-  // truncate long files or add extensive comments; the band catches
-  // truncation (too short) and runaway expansion (too long).
+  // Length sanity — within [0.5×, 1.5×] of input, with an additive
+  // +2000 floor for small files. Frontier models occasionally
+  // truncate long files or add extensive comments; the ratio catches
+  // both. The +2000 floor handles the edge case where a swap from a
+  // tiny button to a complex animated card legitimately doubles a
+  // small file's size (1KB → 2.5KB is fine; 30KB → 75KB is not).
+  //
+  // H4 fix (2026-05-21): mirrors the Phase 5 ai-edit length-cap fix.
+  // Without the additive floor, small-file swaps were rejected for
+  // legitimate expansion.
   const inLen = inputSource.length;
   const outLen = outputSource.length;
   const ratio = outLen / Math.max(inLen, 1);
@@ -80,28 +87,54 @@ export function validateResponse(
       reason: `Response is suspiciously short (${outLen} chars vs ${inLen} in your source). The AI may have truncated the file.`,
     };
   }
-  if (ratio > 1.5) {
+  const upperCap = Math.max(inLen * 1.5, inLen + 2000);
+  if (outLen > upperCap) {
     return {
       ok: false,
       reason: `Response is suspiciously long (${outLen} chars vs ${inLen}). The AI may have added extra content beyond the swap.`,
     };
   }
 
-  // No-op detection — if the target's original outerHtml snippet is
-  // present verbatim in the response, the swap didn't happen. We
-  // strip whitespace + OID attributes from both sides before
-  // comparing because OIDs can shift even on no-op responses, and
-  // whitespace varies across model serialization styles.
+  // No-op detection — if the target's original outerHtml snippet
+  // appears AS OFTEN in the output as in the input, nothing was
+  // swapped. We strip whitespace + OID attributes before comparing
+  // because OIDs shift legitimately + whitespace varies across model
+  // serializations.
+  //
+  // H1 fix (2026-05-21): was a binary `includes` check, which
+  // false-rejected cascade swaps. Templates with N=3 buttons all
+  // having the same outerHtml would: AI swap one → output has 2
+  // copies + 1 new element → original outerHtml STILL present → old
+  // check rejected as no-op. Now we count occurrences: input had K,
+  // output has K-1 or fewer → at least one was swapped → accept.
   const normalize = (s: string) =>
     s.replace(/\sdata-dropin-id="[^"]*"/g, "").replace(/\s+/g, " ").trim();
   const targetNorm = normalize(targetOuterHtml);
+  const inputNorm = normalize(inputSource);
   const outputNorm = normalize(outputSource);
-  if (targetNorm.length > 20 && outputNorm.includes(targetNorm)) {
-    return {
-      ok: false,
-      reason:
-        "The element you wanted to swap is still in the response unchanged. The AI may have ignored the swap instruction — try a different reference or rephrase.",
+  if (targetNorm.length > 20) {
+    const countOccurrences = (haystack: string, needle: string): number => {
+      if (!needle) return 0;
+      let count = 0;
+      let pos = 0;
+      while ((pos = haystack.indexOf(needle, pos)) !== -1) {
+        count += 1;
+        pos += needle.length;
+      }
+      return count;
     };
+    const inputCount = countOccurrences(inputNorm, targetNorm);
+    const outputCount = countOccurrences(outputNorm, targetNorm);
+    // Catch the unchanged case: output still contains target the same
+    // number of times the input did. If even ONE was swapped, the
+    // count drops by at least 1 — accept.
+    if (inputCount > 0 && outputCount >= inputCount) {
+      return {
+        ok: false,
+        reason:
+          "The element you wanted to swap is still in the response unchanged. The AI may have ignored the swap instruction — try a different reference or rephrase.",
+      };
+    }
   }
 
   // Security: event handler attributes

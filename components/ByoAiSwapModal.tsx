@@ -39,6 +39,7 @@ import {
   BYO_AI_PROVIDERS,
   BYO_AI_PROVIDER_STORAGE_KEY,
   orderProvidersByPreference,
+  getProviderById,
   type ByoAiProvider,
 } from "@/lib/byo-ai/providers";
 
@@ -221,8 +222,17 @@ export default function ByoAiSwapModal({
       // Open the new tab SYNCHRONOUSLY before any async work so popup
       // blockers honor the user gesture. Skip for "copy" provider.
       let opened: Window | null = null;
+      let popupBlocked = false;
       if (provider.openUrl) {
         opened = window.open(provider.openUrl, "_blank", "noopener");
+        // H6 fix (2026-05-21): when the popup is blocked, window.open
+        // returns null (or a Window object that's immediately .closed).
+        // We surface a clear toast so the user knows the prompt is
+        // still copied to their clipboard and they can paste it
+        // wherever themselves, instead of staring at a missing tab.
+        if (!opened || opened.closed) {
+          popupBlocked = true;
+        }
       }
       try {
         await navigator.clipboard.writeText(prompt);
@@ -249,7 +259,12 @@ export default function ByoAiSwapModal({
         // localStorage can be disabled in private browsing — degrade.
       }
       setLastClicked(provider.id);
-      if (provider.openUrl) {
+      if (popupBlocked) {
+        const providerName = provider.label.replace("Open ", "");
+        onWarn(
+          `Popup blocked — couldn't open ${providerName}. Your prompt is copied; paste it in ${providerName} manually, then come back here.`,
+        );
+      } else if (provider.openUrl) {
         onInfo(
           `Prompt copied + ${provider.label.replace("Open ", "")} opened. Paste it there → copy the reply → come back here to paste below.`,
         );
@@ -285,14 +300,18 @@ export default function ByoAiSwapModal({
       );
       return;
     }
-    // Success — clear sessionStorage + close modal.
-    try {
-      sessionStorage.removeItem(SESSION_STORAGE_KEY);
-      sessionStorage.removeItem(SESSION_STORAGE_TARGET_KEY);
-    } catch {
-      // ignored
-    }
-    setPasteText("");
+    // H5 fix (2026-05-21): do NOT clear sessionStorage on success.
+    // The iframe rebuild runs ASYNC after setCode — if the AI's code
+    // had a subtle Babel parse error, the iframe error fires AFTER
+    // this modal has closed. Keeping the textarea in sessionStorage
+    // means the user can reopen on the same target + see their AI
+    // reply still there + edit it. The target-signature key already
+    // protects against cross-pollination (different elements get
+    // different stored payloads).
+    //
+    // The textarea state is also retained on the modal instance so a
+    // subsequent re-open within the same React session works without
+    // a sessionStorage hop.
     setSelectedReference(null);
     setFailureReason(null);
     onClose();
@@ -306,6 +325,7 @@ export default function ByoAiSwapModal({
     <div
       className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/40 p-4"
       role="dialog"
+      aria-modal="true"
       aria-label="Swap with AI"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -368,7 +388,10 @@ export default function ByoAiSwapModal({
               </span>
               {lastClicked && (
                 <span className="ml-2 font-mono text-[10px] text-coral">
-                  Sent to {lastClicked}. Switch AI? Click another button.
+                  Sent to{" "}
+                  {getProviderById(lastClicked)?.label.replace("Open ", "") ??
+                    lastClicked}
+                  . Switch AI? Click another button.
                 </span>
               )}
             </div>
@@ -414,7 +437,21 @@ export default function ByoAiSwapModal({
                 setPasteText(e.target.value);
                 if (failureReason) setFailureReason(null);
               }}
-              placeholder="Paste the AI's full response here — we'll extract the code automatically."
+              onKeyDown={(e) => {
+                // M7 fix (2026-05-21): Cmd/Ctrl+Enter on the textarea
+                // triggers Apply. Common pattern for textarea-based
+                // submit flows; vibecoders familiar with Slack /
+                // Discord / GitHub PR comments will reach for it.
+                if (
+                  (e.metaKey || e.ctrlKey) &&
+                  e.key === "Enter" &&
+                  pasteText.trim()
+                ) {
+                  e.preventDefault();
+                  handleApply();
+                }
+              }}
+              placeholder="Paste the AI's full response here — we'll extract the code automatically. Press ⌘↵ to apply."
               spellCheck={false}
               rows={6}
               className="w-full border-2 border-ink bg-paper p-2 font-mono text-[11px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
