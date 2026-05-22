@@ -110,7 +110,13 @@ export default function ByoAiSwapModal({
     null,
   );
   const [lastClicked, setLastClicked] = useState<string | null>(null);
+  // B (2026-05-22) — clipboard fallback. When navigator.clipboard
+  // .writeText fails (insecure context, permission denied, older
+  // browser), we drop the prompt into a readonly textarea so the user
+  // can select-all + copy manually instead of dead-ending.
+  const [manualCopyPrompt, setManualCopyPrompt] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const manualCopyRef = useRef<HTMLTextAreaElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
   // B (2026-05-22) — snapshot of the source at the moment the prompt
   // was last built (provider-click time). If the user edits the
@@ -189,6 +195,27 @@ export default function ByoAiSwapModal({
     }
     setSourceChanged(promptSourceRef.current !== fullSource);
   }, [fullSource]);
+
+  // D — tab-return focus nudge. When the modal is open AND the user
+  // has already clicked a provider (so they went to their AI tab) AND
+  // the Dropin tab regains visibility, scroll the paste textarea into
+  // view + focus it. This is the smooth "you're back — paste here"
+  // landing without any clipboard read / permission prompt. Only the
+  // visual nudge, per the original UX decision.
+  useEffect(() => {
+    if (!open) return;
+    const onVisible = () => {
+      if (document.visibilityState !== "visible") return;
+      if (!lastClicked) return; // only after they've sent to an AI
+      const ta = textareaRef.current;
+      if (!ta) return;
+      ta.scrollIntoView({ behavior: "smooth", block: "center" });
+      // Defer focus slightly so the scroll settles first.
+      window.setTimeout(() => ta.focus(), 120);
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [open, lastClicked]);
 
   // Persist textarea contents on every change. Throttled by React's
   // batched state updates (already debounced via the controlled
@@ -288,21 +315,31 @@ export default function ByoAiSwapModal({
           popupBlocked = true;
         }
       }
+      console.log("[dropin:byo-ai] provider-click", {
+        provider: provider.id,
+        promptLen: prompt.length,
+        popupBlocked,
+      });
       try {
         await navigator.clipboard.writeText(prompt);
+        // Clear any prior manual-copy fallback now that the modern API
+        // worked.
+        setManualCopyPrompt(null);
       } catch (e) {
+        // B — fallback: surface the prompt in a readonly textarea for
+        // manual copy instead of dead-ending. Keep the opened tab (the
+        // user can still paste manually once they copy from the
+        // fallback box).
+        console.warn("[dropin:byo-ai] clipboard write failed; manual fallback", e);
+        setManualCopyPrompt(prompt);
         onWarn(
-          e instanceof Error
-            ? `Clipboard copy failed: ${e.message}`
-            : "Clipboard copy failed — try selecting the prompt manually.",
+          "Couldn't auto-copy (your browser blocked clipboard access). The prompt is shown below — select all + copy it manually.",
         );
-        if (opened && !opened.closed) {
-          try {
-            opened.close();
-          } catch {
-            // tab close may fail on cross-origin; harmless.
-          }
-        }
+        // Still record the choice + snapshot so the rest of the flow
+        // works after a manual copy.
+        promptSourceRef.current = fullSource;
+        setSourceChanged(false);
+        setLastClicked(provider.id);
         return;
       }
       // Remember the user's choice for next time.
@@ -337,7 +374,13 @@ export default function ByoAiSwapModal({
   const handleApply = useCallback(() => {
     if (!vibeInfo) return;
     setFailureReason(null);
-    const { code: extractedCode } = extractCodeFence(pasteText);
+    const { code: extractedCode, hadFence } = extractCodeFence(pasteText);
+    console.log("[dropin:byo-ai] apply-attempt", {
+      pasteLen: pasteText.length,
+      extractedLen: extractedCode.length,
+      hadFence,
+      kind,
+    });
     if (!extractedCode) {
       setFailureReason("Paste the AI's reply first.");
       return;
@@ -348,11 +391,16 @@ export default function ByoAiSwapModal({
       targetOuterHtml: vibeInfo.outerHtml ?? "",
       kind,
     });
+    console.log("[dropin:byo-ai] validation", {
+      ok: validation.ok,
+      reason: validation.reason,
+    });
     if (!validation.ok) {
       setFailureReason(validation.reason ?? "Response failed validation.");
       return;
     }
     const applied = onApply(extractedCode);
+    console.log("[dropin:byo-ai] apply-result", { applied });
     if (!applied) {
       setFailureReason(
         "Applying the response failed at the source patch step. The code may have a syntax error.",
@@ -484,6 +532,35 @@ export default function ByoAiSwapModal({
                 ? "Paste in your AI → copy its reply → come back here & paste below."
                 : "Pick a reference design first."}
             </p>
+            {/* B — manual-copy fallback. Shown only when the clipboard
+                API was unavailable. The textarea auto-selects on focus
+                so the user can Ctrl+C / Cmd+C the prompt. */}
+            {manualCopyPrompt && (
+              <div className="mt-2 border-2 border-ink/30 bg-soft p-2">
+                <p className="mb-1 font-mono text-[10px] text-ink">
+                  Auto-copy was blocked. Select all + copy this prompt,
+                  then paste it in your AI:
+                </p>
+                <textarea
+                  ref={manualCopyRef}
+                  readOnly
+                  value={manualCopyPrompt}
+                  onFocus={(e) => e.currentTarget.select()}
+                  rows={4}
+                  className="w-full border-2 border-ink bg-paper p-2 font-mono text-[10px] text-ink focus:outline-none focus:ring-2 focus:ring-coral"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    manualCopyRef.current?.focus();
+                    manualCopyRef.current?.select();
+                  }}
+                  className="mt-1 border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+                >
+                  Select all
+                </button>
+              </div>
+            )}
           </section>
 
           {/* STEP 3 — paste + Apply */}
