@@ -1559,20 +1559,25 @@ export default function Workspace({
       // run the new code through history-aware setCode and surface a
       // toast with Undo.
       //
-      // C1 fix — JSX mode: re-inject OIDs on the AI's response.
+      // C1 fix — JSX mode: re-stamp OIDs on the AI's response.
       // setCode itself doesn't run injectOids (that's only the lazy
       // initializer in useEditHistory). Without this, vibe-edit /
       // cascade-detach / swap-anywhere all break on the swapped
       // subtree because the AI either dropped OIDs or hallucinated
-      // stale ones. injectOids is idempotent on JSX with valid OIDs +
-      // adds OIDs to anything without them.
+      // stale ones.
+      //
+      // M1 fix (2026-05-22): stripOids BEFORE injectOids. The AI
+      // commonly returns half-stripped / mangled OIDs; injectOids
+      // alone would leave those as dead bytes (or even a second
+      // data-dropin-id attr on the same element). A clean strip +
+      // re-inject guarantees exactly one fresh OID per element.
       let finalCode = newCode;
       if (kind === "jsx") {
         try {
-          finalCode = injectOids(newCode).source;
+          finalCode = injectOids(stripOids(newCode).source).source;
         } catch (e) {
           console.warn(
-            "[dropin:byo-ai] injectOids failed on AI response; applying raw",
+            "[dropin:byo-ai] strip+inject OIDs failed on AI response; applying raw",
             e,
           );
           // Fall through with the raw response — better than rejecting.

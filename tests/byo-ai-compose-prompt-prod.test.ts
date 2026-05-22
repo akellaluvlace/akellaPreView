@@ -82,14 +82,14 @@ describe("composeSwapPrompt — instruction content", () => {
     expect(prompt.toLowerCase()).toMatch(/href|src|alt/);
   });
 
-  it("instructs to return the FULL UPDATED FILE", () => {
+  it("instructs to return the COMPLETE file", () => {
     const prompt = composeSwapPrompt({
       fullSource: "x",
       kind: "html",
       targetOuterHtml: "x",
       referenceHtml: "x",
     });
-    expect(prompt).toMatch(/full updated file/i);
+    expect(prompt).toMatch(/complete file/i);
   });
 
   it("instructs to use a single code block", () => {
@@ -172,5 +172,86 @@ describe("composeSwapPrompt — trims input snippets", () => {
       referenceHtml: "y",
     });
     expect(prompt).toContain(fullSource);
+  });
+});
+
+describe("composeSwapPrompt — JSX guardrails (C2/H2)", () => {
+  it("forbids TypeScript syntax for JSX mode", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "export default () => null;",
+      kind: "jsx",
+      targetOuterHtml: "<button>x</button>",
+      referenceHtml: "<button>y</button>",
+    });
+    expect(prompt.toLowerCase()).toContain("plain jsx, not typescript");
+  });
+
+  it("instructs not to touch style/config/const for JSX mode", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "export default () => null;",
+      kind: "jsx",
+      targetOuterHtml: "<button>x</button>",
+      referenceHtml: "<button>y</button>",
+    });
+    expect(prompt.toLowerCase()).toContain("tailwind config");
+    expect(prompt.toLowerCase()).toContain("top-level `const`");
+  });
+
+  it("does NOT include the TS guard for HTML mode", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "<html></html>",
+      kind: "html",
+      targetOuterHtml: "<button>x</button>",
+      referenceHtml: "<button>y</button>",
+    });
+    expect(prompt.toLowerCase()).not.toContain("typescript");
+  });
+
+  it("instructs to return the COMPLETE file with no placeholders", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: "x",
+      referenceHtml: "x",
+    });
+    expect(prompt.toLowerCase()).toContain("complete file");
+    expect(prompt.toLowerCase()).toContain("placeholder");
+  });
+});
+
+describe("composeSwapPrompt — reference HTML cleaning (H1)", () => {
+  it("strips HTML comments from the reference", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: "x",
+      referenceHtml: "<!-- attribution: uiverse.io --><button>cool</button>",
+    });
+    expect(prompt).not.toContain("attribution");
+    expect(prompt).toContain("<button>cool</button>");
+  });
+
+  it("caps oversized reference HTML + appends a truncation note", () => {
+    const huge = "<div>" + "x".repeat(8000) + "</div>";
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: "x",
+      referenceHtml: huge,
+    });
+    expect(prompt).toContain("reference truncated for length");
+    // The full 8000-char blob should NOT be present verbatim.
+    expect(prompt).not.toContain("x".repeat(8000));
+  });
+
+  it("leaves small reference HTML intact (no truncation note)", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: "x",
+      referenceHtml: '<button class="cta">Click</button>',
+    });
+    expect(prompt).toContain('<button class="cta">Click</button>');
+    expect(prompt).not.toContain("reference truncated");
   });
 });

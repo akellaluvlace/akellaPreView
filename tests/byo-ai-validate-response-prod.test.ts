@@ -290,6 +290,285 @@ describe("validateResponse — security checks", () => {
     });
     expect(r.ok).toBe(true);
   });
+
+  it("ACCEPTS JSX expression event handlers (onClick={fn}) — L1 fix", () => {
+    // The critical L1 bug: the old regex rejected every JSX onClick.
+    // Interactive templates legitimately carry onClick / onChange /
+    // onSubmit with {expression} values. Only STRING-valued handlers
+    // (the XSS vector) should be rejected.
+    const oldTarget = '<button className="old">Submit</button>';
+    const newTarget = '<button className="new">Submit</button>';
+    const input = pad(
+      `export default function X() {
+        const [n, setN] = React.useState(0);
+        return <div onClick={() => setN(n + 1)}>${oldTarget}</div>;
+      }`,
+      500,
+    );
+    const output = pad(
+      `export default function X() {
+        const [n, setN] = React.useState(0);
+        return <div onClick={() => setN(n + 1)}>${newTarget}</div>;
+      }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("still rejects STRING-valued event handlers (onerror=\"...\")", () => {
+    const output = pad(
+      `<html><body><img src="x" onerror="alert(1)"></body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: pad("<html></html>", 500),
+      outputSource: output,
+      targetOuterHtml: "<button>old</button>",
+      kind: "html",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("event-handler");
+  });
+});
+
+describe("validateResponse — placeholder truncation (C1)", () => {
+  function bigInput(): string {
+    return pad(
+      `const A = [1,2,3];\nconst B = {x:1};\nexport default function App() { return <div><button>old</button></div>; }`,
+      4000,
+    );
+  }
+
+  it("rejects // ... rest of the code unchanged", () => {
+    const output =
+      `const A = [1,2,3];\n// ... rest of the code unchanged ...\n<button>new</button>`;
+    const r = validateResponse({
+      inputSource: bigInput(),
+      outputSource: pad(output, 2100),
+      targetOuterHtml: "<button>old</button>",
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("truncat");
+  });
+
+  it("rejects {/* ... unchanged ... */} JSX placeholder", () => {
+    const output =
+      `export default function App() {\n  {/* ... unchanged ... */}\n  return <button>new</button>;\n}`;
+    const r = validateResponse({
+      inputSource: bigInput(),
+      outputSource: pad(output, 2100),
+      targetOuterHtml: "<button>old</button>",
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("rejects 'rest of the component remains the same'", () => {
+    const output =
+      `export default function App() {\n  // rest of the component remains the same\n  return <button>new</button>;\n}`;
+    const r = validateResponse({
+      inputSource: bigInput(),
+      outputSource: pad(output, 2100),
+      targetOuterHtml: "<button>old</button>",
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("rejects <!-- remaining markup unchanged --> in HTML mode", () => {
+    const output =
+      `<html><body><button>new</button>\n<!-- ... remaining markup unchanged --></body></html>`;
+    const r = validateResponse({
+      inputSource: pad("<html><body><button>old</button><div>lots more</div></body></html>", 4000),
+      outputSource: pad(output, 2100),
+      targetOuterHtml: "<button>old</button>",
+      kind: "html",
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("does NOT false-reject legitimate spread operators ({...props})", () => {
+    // The spread operator is `...identifier` with NO space — distinct
+    // from placeholder `... rest` (with space).
+    const oldTarget = '<button className="old">Submit</button>';
+    const newTarget = '<button className="new">Submit</button>';
+    const input = pad(
+      `function Btn({ className, ...rest }) { return <button {...rest}>x</button>; }\nexport default function App() { return <div>${oldTarget}</div>; }`,
+      500,
+    );
+    const output = pad(
+      `function Btn({ className, ...rest }) { return <button {...rest}>x</button>; }\nexport default function App() { return <div>${newTarget}</div>; }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("does NOT false-reject https:// URLs in comments", () => {
+    const oldTarget = '<a class="old">Link</a>';
+    const newTarget = '<a class="new">Link</a>';
+    const input = pad(
+      `<html><body>\n<!-- see https://example.com/docs -->\n${oldTarget}</body></html>`,
+      500,
+    );
+    const output = pad(
+      `<html><body>\n<!-- see https://example.com/docs -->\n${newTarget}</body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "html",
+    });
+    expect(r.ok).toBe(true);
+  });
+});
+
+describe("validateResponse — top-level decl survival (C1 companion)", () => {
+  it("rejects when 2+ top-level decls vanish (silent truncation)", () => {
+    const input = pad(
+      `const SCREEN_FRAMES = [1,2,3];\nconst VOICES = [4,5,6];\nconst FAQ = [7,8];\nexport default function App() { return <button>old</button>; }`,
+      4000,
+    );
+    // Output dropped SCREEN_FRAMES + VOICES + FAQ (no placeholder
+    // comment — pure silent drop)
+    const output = pad(
+      `export default function App() { return <button>new</button>; }`,
+      2100,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: "<button>old</button>",
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("missing");
+  });
+
+  it("tolerates a single legitimately-removed decl", () => {
+    const input = pad(
+      `const A = [1];\nconst B = [2];\nconst DEAD = [3];\nexport default function App() { return <button>old</button>; }`,
+      500,
+    );
+    // Output kept A + B + App, dropped only DEAD (1 missing → tolerated)
+    const output = pad(
+      `const A = [1];\nconst B = [2];\nexport default function App() { return <button class="new">new</button>; }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: "<button>old</button>",
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+  });
+});
+
+describe("validateResponse — TypeScript detection (C2, JSX mode only)", () => {
+  function tsInput(): string {
+    const oldTarget = '<button className="old">Go</button>';
+    return pad(
+      `export default function App() { return <div>${oldTarget}</div>; }`,
+      500,
+    );
+  }
+
+  it("rejects type annotations (: string)", () => {
+    const output = pad(
+      `export default function App() { const label: string = "Go"; return <div><button className="new">{label}</button></div>; }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: tsInput(),
+      outputSource: output,
+      targetOuterHtml: '<button className="old">Go</button>',
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("typescript");
+  });
+
+  it("rejects interface declarations", () => {
+    const output = pad(
+      `interface Props { x: number }\nexport default function App() { return <button className="new">Go</button>; }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: tsInput(),
+      outputSource: output,
+      targetOuterHtml: '<button className="old">Go</button>',
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("rejects 'as const'", () => {
+    const output = pad(
+      `export default function App() { const x = [1,2] as const; return <button className="new">Go</button>; }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: tsInput(),
+      outputSource: output,
+      targetOuterHtml: '<button className="old">Go</button>',
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+  });
+
+  it("does NOT run TS detection in HTML mode", () => {
+    // HTML can legitimately contain `: string` in text content or CSS.
+    const output = pad(
+      `<html><body><style>.x::after { content: string }</style><button class="new">Go</button></body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: pad(
+        `<html><body><button class="old">Go</button></body></html>`,
+        500,
+      ),
+      outputSource: output,
+      targetOuterHtml: '<button class="old">Go</button>',
+      kind: "html",
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("does NOT false-reject CSS-in-JS object literals (string VALUES)", () => {
+    // `color: '#fff'` is a string VALUE, not the bare type word.
+    const oldTarget = '<button className="old">Go</button>';
+    const newTarget = '<button className="new" style={{ color: "#fff" }}>Go</button>';
+    const input = pad(
+      `export default function App() { return <div>${oldTarget}</div>; }`,
+      500,
+    );
+    const output = pad(
+      `export default function App() { return <div>${newTarget}</div>; }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+  });
 });
 
 describe("validateResponse — happy path", () => {

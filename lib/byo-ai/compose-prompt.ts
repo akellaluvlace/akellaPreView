@@ -31,14 +31,57 @@ export interface ComposeSwapPromptOptions {
   referenceHtml: string;
 }
 
+// Cap on how much reference HTML we embed. Library tiles can be 3-8KB
+// of deeply-nested marketing markup; past ~6KB it just bloats the
+// prompt + risks the model over-copying the reference's structure
+// instead of treating it as a style template. Truncate at a tag
+// boundary near the cap with a clear note.
+const REFERENCE_HTML_CAP = 6000;
+
+// Strip HTML comments from the reference before embedding — library
+// captures sometimes carry attribution / tooling comments that are
+// noise to the model.
+function cleanReferenceHtml(raw: string): string {
+  let html = raw.replace(/<!--[\s\S]*?-->/g, "").trim();
+  if (html.length > REFERENCE_HTML_CAP) {
+    // Truncate at the last '>' before the cap so we don't cut mid-tag.
+    const slice = html.slice(0, REFERENCE_HTML_CAP);
+    const lastTagEnd = slice.lastIndexOf(">");
+    html =
+      (lastTagEnd > 0 ? slice.slice(0, lastTagEnd + 1) : slice) +
+      "\n<!-- reference truncated for length; the style above is enough -->";
+  }
+  return html;
+}
+
 export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
   const kindLabel = opts.kind === "html" ? "HTML" : "JSX";
   const fenceLang = opts.kind === "html" ? "html" : "jsx";
+  const referenceClean = cleanReferenceHtml(opts.referenceHtml);
 
-  // The prompt is plain text — providers' UI textareas will preserve
-  // it verbatim when pasted. Triple-backtick fences inside the prompt
-  // are part of the spec (we want the AI to see code-fence boundaries
-  // so it understands the structure).
+  // JSX-specific guardrails. These keep frontier models from doing the
+  // two things that silently break web/*.jsx templates:
+  //   1. adding TypeScript syntax (iframe Babel is JSX-preset-only)
+  //   2. touching the load-bearing <style> / tailwind.config <script> /
+  //      font <link>s / top-level const data that drive the theme
+  const jsxGuards =
+    opts.kind === "jsx"
+      ? [
+          "- This is PLAIN JSX, not TypeScript. Do NOT add type " +
+            "annotations, `interface`, `type`, `as const`, `satisfies`, " +
+            "or generics.",
+          "- Do NOT modify the <style> blocks, the tailwind config " +
+            "<script>, font <link> tags, or any top-level `const` data. " +
+            "Only change the one target element.",
+        ]
+      : [
+          "- Do NOT modify the <style> blocks, <script> tags, or " +
+            "<link> tags. Only change the one target element.",
+        ];
+
+  // The prompt is plain text — providers' UI textareas preserve it
+  // verbatim. Triple-backtick fences are intentional (the model needs
+  // the code-fence boundaries to understand the structure).
   return [
     `I have a ${kindLabel} file. Please replace ONE element in it.`,
     "",
@@ -49,7 +92,7 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
     "",
     "THE REFERENCE DESIGN (use this as your style template):",
     "```html",
-    opts.referenceHtml.trim(),
+    referenceClean,
     "```",
     "",
     "INSTRUCTIONS:",
@@ -58,8 +101,10 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
     "- Otherwise, make the element look like the reference — colors, " +
       "layout, shape, sizing, classes.",
     "- Leave ALL other elements in the file untouched.",
-    "- Return the FULL UPDATED FILE as a single code block. No " +
-      "explanation needed.",
+    ...jsxGuards,
+    "- Return the COMPLETE file as a single code block. Include EVERY " +
+      "line — do NOT use placeholder comments like `// ... rest " +
+      "unchanged ...` or omit any section. No explanation needed.",
     "",
     "THE FULL FILE:",
     "```" + fenceLang,
