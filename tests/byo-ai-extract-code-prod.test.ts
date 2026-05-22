@@ -103,6 +103,21 @@ describe("extractCodeFence — fallback paths", () => {
     expect(result.hadFence).toBe(false);
     expect(result.code).toBe("");
   });
+
+  it("normalizes Windows CRLF line endings to LF", () => {
+    const input = "```jsx\r\n<div>\r\n  <span>hi</span>\r\n</div>\r\n```";
+    const result = extractCodeFence(input);
+    expect(result.hadFence).toBe(true);
+    expect(result.code).not.toContain("\r");
+    expect(result.code).toContain("<span>hi</span>");
+  });
+
+  it("normalizes classic-Mac CR line endings to LF", () => {
+    const input = "<div>\r<span>x</span>\r</div>";
+    const result = extractCodeFence(input);
+    expect(result.code).not.toContain("\r");
+    expect(result.code).toContain("<span>x</span>");
+  });
 });
 
 describe("extractCodeFence — real-world frontier-model outputs", () => {

@@ -111,6 +111,17 @@ export default function ByoAiSwapModal({
   );
   const [lastClicked, setLastClicked] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  // B (2026-05-22) — snapshot of the source at the moment the prompt
+  // was last built (provider-click time). If the user edits the
+  // template afterward, applying the AI's reply (based on the older
+  // snapshot) would silently discard those edits — we surface a
+  // non-blocking notice instead.
+  const promptSourceRef = useRef<string | null>(null);
+  const [sourceChanged, setSourceChanged] = useState(false);
+  // C (2026-05-22) — track the target signature so we can reset the
+  // picker + paste state when the modal opens on a DIFFERENT element.
+  const lastTargetRef = useRef<string | null>(null);
 
   // Restore the paste textarea contents from sessionStorage on mount
   // ONLY if the stored target matches the current vibeInfo's
@@ -137,6 +148,47 @@ export default function ByoAiSwapModal({
       // Same defensive degradation.
     }
   }, [open, vibeInfo]);
+
+  // C — reset picker + transient state when the modal opens on a NEW
+  // target. Without this, a reference picked for element A would still
+  // show selected when the user reopens on element B. The paste text
+  // restore above is target-keyed, so we don't clobber a legit resume.
+  useEffect(() => {
+    if (!open || !vibeInfo) return;
+    const sig = vibeInfo.outerHtml ?? "";
+    if (lastTargetRef.current !== sig) {
+      lastTargetRef.current = sig;
+      setSelectedReference(null);
+      setFailureReason(null);
+      setLastClicked(null);
+      setSourceChanged(false);
+      promptSourceRef.current = null;
+    }
+  }, [open, vibeInfo]);
+
+  // D — focus management. Move focus into the modal when it opens so
+  // keyboard users + screen readers land inside the dialog (Tab then
+  // stays within the modal's interactive elements). Focusing the panel
+  // container (tabindex -1) is the least-surprising target — it doesn't
+  // hijack into a specific control before the user has read the steps.
+  useEffect(() => {
+    if (!open) return;
+    // Defer to the next frame so the element exists + layout settled.
+    const id = window.requestAnimationFrame(() => {
+      panelRef.current?.focus();
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [open]);
+
+  // B — recompute the source-changed flag whenever the current source
+  // diverges from the snapshot taken at prompt-build time.
+  useEffect(() => {
+    if (promptSourceRef.current === null) {
+      setSourceChanged(false);
+      return;
+    }
+    setSourceChanged(promptSourceRef.current !== fullSource);
+  }, [fullSource]);
 
   // Persist textarea contents on every change. Throttled by React's
   // batched state updates (already debounced via the controlled
@@ -178,10 +230,12 @@ export default function ByoAiSwapModal({
       const target = e.target as HTMLElement | null;
       if (target && target.tagName === "TEXTAREA") return; // native flow
       if (target && target.tagName === "INPUT") return; // don't hijack search boxes
+      if (target && target.isContentEditable) return; // M2 — leave rich inputs alone
       const text = e.clipboardData?.getData("text") ?? "";
       if (!text || text.length < 20) return; // too short to be a real reply
       e.preventDefault();
       setPasteText(text);
+      if (failureReason) setFailureReason(null);
       // Focus the textarea so the user sees the paste landed there.
       textareaRef.current?.focus();
       onInfo("Pasted into the response box.");
@@ -259,6 +313,11 @@ export default function ByoAiSwapModal({
         // localStorage can be disabled in private browsing — degrade.
       }
       setLastClicked(provider.id);
+      // B — snapshot the source the AI is about to see. If the user
+      // edits the template afterward, handleApply's source-changed
+      // notice fires (the AI's reply is based on this snapshot).
+      promptSourceRef.current = fullSource;
+      setSourceChanged(false);
       if (popupBlocked) {
         const providerName = provider.label.replace("Open ", "");
         onWarn(
@@ -272,7 +331,7 @@ export default function ByoAiSwapModal({
         onInfo("Prompt copied. Paste it in your AI, then come back here.");
       }
     },
-    [selectedReference, buildPrompt, onInfo, onWarn],
+    [selectedReference, buildPrompt, onInfo, onWarn, fullSource],
   );
 
   const handleApply = useCallback(() => {
@@ -331,7 +390,11 @@ export default function ByoAiSwapModal({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="flex h-[88vh] w-[min(1000px,calc(100vw-32px))] flex-col border-2 border-ink bg-paper shadow-[8px_8px_0_0_#FF4D2E]">
+      <div
+        ref={panelRef}
+        tabIndex={-1}
+        className="flex h-[88vh] w-[min(1000px,calc(100vw-32px))] flex-col border-2 border-ink bg-paper shadow-[8px_8px_0_0_#FF4D2E] focus:outline-none"
+      >
         {/* Header */}
         <div className="flex shrink-0 items-center justify-between border-b-2 border-ink bg-soft px-4 py-2">
           <div>
@@ -456,6 +519,21 @@ export default function ByoAiSwapModal({
               rows={6}
               className="w-full border-2 border-ink bg-paper p-2 font-mono text-[11px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
             />
+            {/* B — source-changed notice. The AI's reply is based on the
+                template as it was when the prompt was copied. If the user
+                edited the template since, applying will use the AI's
+                (older-baseline) version + lose those edits. Non-blocking
+                — just informs. */}
+            {sourceChanged && (
+              <div className="mt-2 border-2 border-ink/30 bg-soft px-2 py-1.5">
+                <p className="font-mono text-[10px] text-ink">
+                  ⚠ You've edited the template since copying the prompt.
+                  Applying will use your AI's version (based on the earlier
+                  copy) and discard those edits. Re-send to your AI to
+                  include them.
+                </p>
+              </div>
+            )}
             {failureReason && (
               <div
                 role="alert"

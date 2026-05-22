@@ -212,11 +212,24 @@ export function validateResponse(
     }
   }
 
-  // C2 — TypeScript-syntax detection (JSX mode only). web/*.jsx run
-  // through the iframe's JSX-only Babel; TS annotations silently blank
-  // the template. Reject so the user re-prompts instead of shipping a
-  // blank page.
   if (opts.kind === "jsx") {
+    // Wrong-language guard — AI returned a plain HTML document when the
+    // file is a React component. A leading <!DOCTYPE html> is the
+    // unambiguous signal (a JSX module never starts with one). Applying
+    // it would break the iframe (no export default, class= not
+    // className=, etc.).
+    if (/^\s*<!DOCTYPE\s+html/i.test(outputSource)) {
+      return {
+        ok: false,
+        reason:
+          "The response is a plain HTML document, but your file is a React (JSX) component. Ask your AI to keep it as JSX (React component with `export default`), then paste again.",
+      };
+    }
+
+    // C2 — TypeScript-syntax detection. web/*.jsx run through the
+    // iframe's JSX-only Babel; TS annotations silently blank the
+    // template. Reject so the user re-prompts instead of shipping a
+    // blank page.
     for (const pat of TS_SYNTAX_PATTERNS) {
       const match = outputSource.match(pat);
       if (match) {

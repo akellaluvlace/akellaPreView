@@ -192,8 +192,14 @@ export default function VibePropertiesPanel({
           modal (no API call here; that happens external-AI side).
           User browses references, picks one, sends prompt to their
           chosen AI, pastes reply back. See docs/superpowers/plans/
-          2026-05-20-byo-ai-swap.md. */}
-      {onComponentSwap && (
+          2026-05-20-byo-ai-swap.md.
+
+          2026-05-22 — gated to component-like kinds. Images + icons
+          have their own direct-swap flows (Pixabay shuffle / icon
+          library); AI swap doesn't fit them. Per the user's design:
+          "keep library only for icons/images — those quick swaps
+          work — components go through BYO-AI." */}
+      {onComponentSwap && info.kind !== "image" && info.kind !== "icon" && (
         <div className="border-b-2 border-ink/15 px-4 py-3">
           <button
             type="button"

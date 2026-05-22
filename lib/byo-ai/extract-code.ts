@@ -44,11 +44,17 @@ const FENCE_RE = /```[a-zA-Z]*\s*([\s\S]*?)```/;
 
 export function extractCodeFence(input: string): ExtractCodeResult {
   if (!input) return { code: "", hadFence: false };
-  const match = input.match(FENCE_RE);
+  // Normalize Windows / classic-Mac line endings → \n. Pasting from a
+  // browser textarea on Windows often yields \r\n; the downstream
+  // Babel parse + OID injection are newline-sensitive in a few edge
+  // cases, and \r\n in JSX template-literal style blocks can confuse
+  // the iframe runtime.
+  const normalized = input.replace(/\r\n?/g, "\n");
+  const match = normalized.match(FENCE_RE);
   if (match && match[1]) {
     return { code: match[1].trim(), hadFence: true };
   }
   // No fence — return raw input trimmed. User probably pasted just
   // the code OR the AI responded in plain text (some configs do this).
-  return { code: input.trim(), hadFence: false };
+  return { code: normalized.trim(), hadFence: false };
 }

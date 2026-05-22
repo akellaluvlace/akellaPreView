@@ -571,6 +571,69 @@ describe("validateResponse — TypeScript detection (C2, JSX mode only)", () => 
   });
 });
 
+describe("validateResponse — JSX-mode wrong-language guard", () => {
+  it("rejects a plain HTML document returned in JSX mode", () => {
+    const oldTarget = '<button className="old">Go</button>';
+    const input = pad(
+      `export default function App() { return <div>${oldTarget}</div>; }`,
+      500,
+    );
+    // AI returned a full HTML doc instead of the React component.
+    const output = pad(
+      `<!DOCTYPE html><html><body><button class="new">Go</button></body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("html document");
+  });
+
+  it("accepts a normal JSX component (no DOCTYPE) in JSX mode", () => {
+    const oldTarget = '<button className="old">Go</button>';
+    const newTarget = '<button className="new">Go</button>';
+    const input = pad(
+      `export default function App() { return <div>${oldTarget}</div>; }`,
+      500,
+    );
+    const output = pad(
+      `export default function App() { return <div>${newTarget}</div>; }`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("allows DOCTYPE in HTML mode (it's expected there)", () => {
+    const oldTarget = '<button class="old">Go</button>';
+    const newTarget = '<button class="new">Go</button>';
+    const input = pad(
+      `<!DOCTYPE html><html><body>${oldTarget}</body></html>`,
+      500,
+    );
+    const output = pad(
+      `<!DOCTYPE html><html><body>${newTarget}</body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "html",
+    });
+    expect(r.ok).toBe(true);
+  });
+});
+
 describe("validateResponse — happy path", () => {
   it("accepts a clean restyled element response", () => {
     const oldTarget = '<button class="bg-stone-200 px-4 py-2">Submit</button>';
