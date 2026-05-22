@@ -1576,18 +1576,56 @@ export default function Workspace({
             reason = "element has no htmlPath";
           }
         } else {
-          // JSX: the pasted element should already be JSX (className).
-          // If the AI returned HTML (class=), convert it first.
           if (target.oid) {
+            // C-1 fix (2026-05-22) — cascade detach. When the target is
+            // one of N copies rendered from a single `.map()` (they
+            // share ONE source OID), patchJsxOuterByOid would rewrite
+            // the shared callback + change ALL N. Detach the clicked
+            // instance FIRST (same as the old Tensorix swap path) so
+            // only that copy changes. Bails cleanly on un-detachable
+            // map shapes — then the swap cascades (with a warning).
+            let workingCode = code;
+            let workingOid = target.oid;
+            const isCascade =
+              typeof target.instanceCount === "number" &&
+              target.instanceCount > 1 &&
+              typeof target.instanceIndex === "number" &&
+              target.instanceIndex >= 0;
+            if (isCascade) {
+              const detach = applyDetachFromMap(code, {
+                oid: target.oid,
+                index: target.instanceIndex!,
+              });
+              if (detach.unchanged) {
+                showWarn(
+                  `Heads up — this element renders ${target.instanceCount} times and couldn't be isolated (${detach.reason}). The swap will apply to all ${target.instanceCount}.`,
+                );
+              } else {
+                workingCode = detach.source;
+                workingOid = detach.newOid ?? target.oid;
+              }
+            }
+            // M-1 fix — convert to JSX whenever the response carries any
+            // raw-HTML attribute (class=, for=, tabindex=, hyphenated
+            // attrs), not only the all-`class` case. patchJsxOuterByOid
+            // doesn't validate JSX, so raw HTML attrs would land in
+            // source + blank the iframe on the next Babel parse.
             let jsx = newCode;
-            if (/\bclass=/.test(newCode) && !/\bclassName=/.test(newCode)) {
+            const hasRawHtmlAttr =
+              /\bclass=/.test(newCode) ||
+              /\bfor=/.test(newCode) ||
+              /\btabindex=/.test(newCode) ||
+              /\b(stroke-width|stroke-linecap|stroke-linejoin|fill-rule|clip-rule|xmlns:xlink)=/.test(
+                newCode,
+              );
+            if (hasRawHtmlAttr) {
               try {
                 jsx = htmlToJsx(newCode);
               } catch {
                 /* keep raw — patchJsxOuterByOid will surface a reason */
               }
             }
-            const patch = patchJsxOuterByOid(code, target.oid, jsx);
+            const patch = patchJsxOuterByOid(workingCode, workingOid, jsx);
             if (patch.changed) {
               // Re-stamp OIDs so the swapped subtree is selectable again.
               try {

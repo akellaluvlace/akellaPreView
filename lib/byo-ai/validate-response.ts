@@ -51,13 +51,17 @@ export function detectResponseShape(
   source: string,
 ): "element" | "full-file" {
   const trimmed = source.trim();
-  const hasModuleSyntax =
-    /\b(import|export)\s/.test(trimmed) ||
-    /\bfunction\s+\w+\s*\(/.test(trimmed) ||
-    /(^|\n)\s*(const|let|var)\s+\w+\s*=/.test(trimmed) ||
-    /^\s*<!DOCTYPE/i.test(trimmed) ||
-    /<html[\s>]/i.test(trimmed);
-  if (trimmed.startsWith("<") && !hasModuleSyntax) return "element";
+  // Only the START of the response discriminates — scanning the whole
+  // body for module keywords false-positived on element TEXT content
+  // (e.g. `<button>Export to PDF</button>` has "export"). H-2 fix.
+  //   - HTML document → full-file (starts with <!DOCTYPE or <html)
+  //   - a JS/JSX module → full-file (starts with import/export/const/
+  //     let/var/function/class/comment — i.e. NOT a tag)
+  //   - anything else that starts with a tag `<` → a single element
+  if (/^<!DOCTYPE/i.test(trimmed) || /^<html[\s>]/i.test(trimmed)) {
+    return "full-file";
+  }
+  if (trimmed.startsWith("<")) return "element";
   return "full-file";
 }
 

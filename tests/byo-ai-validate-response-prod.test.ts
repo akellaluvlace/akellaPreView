@@ -38,6 +38,20 @@ describe("detectResponseShape", () => {
       "full-file",
     );
   });
+
+  it("treats an element whose TEXT contains module keywords as 'element' (H-2)", () => {
+    // The text content "export"/"import" must NOT trigger full-file —
+    // otherwise setCode would replace the whole template with one button.
+    expect(detectResponseShape("<button>Export to PDF</button>")).toBe(
+      "element",
+    );
+    expect(detectResponseShape("<a href='#'>import your data</a>")).toBe(
+      "element",
+    );
+    expect(
+      detectResponseShape("<p>const tutorials and function guides</p>"),
+    ).toBe("element");
+  });
 });
 
 describe("validateResponse — element mode (2026-05-22)", () => {
