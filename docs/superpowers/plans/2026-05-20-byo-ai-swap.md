@@ -167,6 +167,37 @@ Typical payload: 15-60KB. Fits well within frontier-model context windows.
 | Failure UX | Keep response in textarea, show reason, allow manual edit | No dead-end → back-to-AI |
 | Action count target | 4 actions inside modal | (1) pick reference (2) click provider (3) paste (4) apply |
 
+## Hardening rounds (2026-05-21 → 2026-05-22)
+
+Shipped + audited across 6 rounds after the initial build. Commits on
+`audit-phase2-cascade-ids`.
+
+- **Round 1** (`ada9a30`): OID re-injection (JSX), toast auto-dismiss +
+  pre-swap-state Undo, cascade-aware no-op (count occurrences not
+  binary), additive length-cap floor, empty-outerHtml guard,
+  popup-block warning.
+- **Round 2** (`65aff07`): placeholder-truncation detection (the #1
+  full-file risk — `// ... rest unchanged ...`), TypeScript-syntax
+  detection (JSX-only Babel blanks on TS), event-handler false-positive
+  fix (was rejecting every JSX onClick), top-level decl-survival check,
+  reference HTML cap + comment-strip, prompt guards (no TS, don't touch
+  style/config/consts, return COMPLETE file), stripOids-before-inject.
+- **Round 3** (`f84903a`): JSX-mode wrong-language guard (reject HTML
+  doc when file is JSX), CRLF/CR normalization, source-changed notice,
+  kind-gating (no AI-swap button on image/icon), reset-on-new-target,
+  modal focus management.
+- **Round 4** (`e0d8536`): clipboard fallback (manual-copy textarea
+  when the API is blocked), diagnostic `[dropin:byo-ai]` tracers,
+  tab-return focus nudge.
+- **Round 5** (`1ed3604`): block AI-injected `<script>`/`<iframe>`/
+  `<object>`/`<embed>` (count-based — preview iframe runs scripts),
+  bundle reference CSS (`full.css` was being dropped — Uiverse refs
+  reached the AI styleless).
+- **Round 6**: prompt-size display (KB + est. tokens so users know it
+  fits their AI's context), this documentation pass.
+
+94 prod-import tests across the 4 lib modules. tsc 0 throughout.
+
 ## Manual test checklist
 
 - [ ] Click any element → vibe panel → "✨ Swap with AI" button visible

@@ -289,6 +289,25 @@ export default function ByoAiSwapModal({
     });
   }, [fullSource, kind, vibeInfo, selectedReference]);
 
+  // Approximate prompt size, shown once a reference is picked so the
+  // user knows whether it'll fit their AI's context limit. ~3.5 chars
+  // per token is a rough industry heuristic; we show KB + an estimated
+  // token count. Memoized so we don't rebuild the (potentially 60KB)
+  // prompt string on every render.
+  const promptSize = useMemo(() => {
+    if (!selectedReference || !vibeInfo) return null;
+    const prompt = composeSwapPrompt({
+      fullSource,
+      kind,
+      targetOuterHtml: vibeInfo.outerHtml ?? "",
+      referenceHtml: selectedReference.rawHtml,
+    });
+    const chars = prompt.length;
+    const kb = Math.round(chars / 1024);
+    const kTokens = Math.round(chars / 3.5 / 1000);
+    return { kb, kTokens };
+  }, [fullSource, kind, vibeInfo, selectedReference]);
+
   const handleProviderClick = useCallback(
     async (provider: ByoAiProvider) => {
       if (!selectedReference) {
@@ -528,9 +547,20 @@ export default function ByoAiSwapModal({
               ))}
             </div>
             <p className="mt-2 font-mono text-[10px] text-muted">
-              {selectedReference
-                ? "Paste in your AI → copy its reply → come back here & paste below."
-                : "Pick a reference design first."}
+              {selectedReference ? (
+                <>
+                  Paste in your AI → copy its reply → come back here &
+                  paste below.
+                  {promptSize && (
+                    <span className="ml-1 text-ink/60">
+                      (prompt ~{promptSize.kb} KB · ~{promptSize.kTokens}k
+                      tokens)
+                    </span>
+                  )}
+                </>
+              ) : (
+                "Pick a reference design first."
+              )}
             </p>
             {/* B — manual-copy fallback. Shown only when the clipboard
                 API was unavailable. The textarea auto-selects on focus

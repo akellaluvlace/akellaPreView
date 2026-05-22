@@ -15,7 +15,25 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-20 PM — AI feature retired entirely from UI + Publish flow shipped + Palette/Code/Tree moved to top toolbar + sidebar gone + BYO-AI swap plan LOCKED for next session. tsc 0. vitest 6496/6498 — 2 pre-existing envelope-channel flakes. Latest commit `357e542 refactor(toolbar)`.)
+## Current status (2026-05-22 — BYO-AI swap SHIPPED + hardened across 6 audit rounds. Full-file in/out via user's own ChatGPT/Claude/Gemini, clipboard round-trip, 94 prod-import tests. tsc 0. vitest 6590/6592 — 2 pre-existing envelope flakes. Latest commit `1ed3604` + round-6 docs uncommitted.)
+
+### BYO-AI component swap — SHIPPED 2026-05-22
+
+User's pivot from the failed Tensorix Phase 6: instead of Dropin paying for an AI vendor, the user sends a prompt to their OWN ChatGPT/Claude/Gemini and pastes the reply back. Zero AI cost to Dropin, frontier-model quality. Plan + 6-round hardening log: `docs/superpowers/plans/2026-05-20-byo-ai-swap.md`.
+
+**Flow**: vibe panel → "✨ Swap with AI" → modal (pick reference → click provider → paste reply → Apply). Full-file in / full-file out — no patch pipeline, just `setCode` after validation. Clipboard-only (URL prefill dropped: full-page payloads exceed provider caps + Claude removed `?q=` Oct 2025).
+
+**Files**: `lib/byo-ai/{providers,compose-prompt,extract-code,validate-response}.ts` + `components/ByoAiSwapModal.tsx`. Entry: VibePropertiesPanel button (gated to component kinds, not image/icon). Workspace `handleByoAiSwapOpen` + `handleByoAiApply`.
+
+**The validation pipeline is the reliability core** — full-file swaps have many silent-breakage modes. `validate-response.ts` catches: placeholder-truncation (`// ... rest unchanged ...`, the #1 frontier failure mode), top-level decl-survival, TS-syntax (JSX Babel blanks on it), wrong-language (HTML returned in JSX mode), cascade-aware no-op (count not binary), NEW-script/iframe injection (count-based), string-valued event handlers (NOT JSX onClick — the regex MUST require a quote after `=`), js: URIs, length sanity max(1.5×, +2000). Apply does stripOids→injectOids in JSX mode. Reference picker bundles `full.css` as a `<style>` block.
+
+**6 hardening rounds** (commits): `ada9a30` round-1, `65aff07` round-2, `f84903a` round-3, `e0d8536` round-4, `1ed3604` round-5, round-6 docs. Full per-round log in the plan file.
+
+---
+
+## Prior status (2026-05-20 PM — AI tool retired from UI + Publish flow + toolbar refactor)
+
+AI feature retired entirely from UI + Publish flow shipped + Palette/Code/Tree moved to top toolbar + sidebar gone + BYO-AI swap plan LOCKED. Commit `357e542 refactor(toolbar)`.
 
 ### Today's deliverables (2026-05-20)
 
