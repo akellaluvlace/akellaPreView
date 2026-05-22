@@ -32,6 +32,12 @@ interface Props {
   // the AI does the fusion server-side). `onPick` is ignored in this
   // mode.
   onPickReference?: (component: ComponentMeta, rawHtml: string) => void;
+  // 2026-05-22 — slug of the currently-selected reference (BYO-AI swap
+  // mode). When set, the matching tile gets a coral ring + "✓ Selected"
+  // badge so the user has unmistakable feedback that their pick
+  // registered. Without this the tile looked identical after clicking
+  // and users thought "nothing happened".
+  selectedSlug?: string | null;
   onWarn?: (message: string) => void;
   // Pre-swap visual footprint of the target element. When provided,
   // the swapped asset gets wrapped in a same-dimension container so
@@ -61,6 +67,7 @@ export default function InlineComponentBrowser({
   category,
   onPick,
   onPickReference,
+  selectedSlug,
   onWarn,
   preserveBbox,
   preserveContent,
@@ -99,12 +106,10 @@ export default function InlineComponentBrowser({
   }, [hoveredSlug, filtered]);
 
   const handlePick = async (slug: string) => {
-    console.log("[dropin:byo-ai] tile-click", { slug, picking, hasOnPickReference: !!onPickReference });
     if (picking) return;
     setPicking(slug);
     try {
       const full = await getComponentFull(slug);
-      console.log("[dropin:byo-ai] tile getComponentFull resolved", { slug, htmlLen: full.html?.length ?? 0, hasCss: !!full.css });
       // BYO-AI swap mode (2026-05-21). Skip the insert pipeline; hand
       // the reference markup to the caller, who composes it into the
       // prompt sent to the user's AI.
@@ -124,7 +129,6 @@ export default function InlineComponentBrowser({
         const referenceMarkup = css
           ? `<style>\n${css}\n</style>\n${html}`
           : html;
-        console.log("[dropin:byo-ai] tile → onPickReference firing", { slug, markupLen: referenceMarkup.length });
         onPickReference(full, referenceMarkup);
         return;
       }
@@ -221,7 +225,9 @@ export default function InlineComponentBrowser({
 
       {index && filtered.length > 0 && (
         <div className="grid grid-cols-2 gap-2">
-          {filtered.map((c) => (
+          {filtered.map((c) => {
+            const isSelected = selectedSlug === c.slug;
+            return (
             <button
               type="button"
               key={c.slug}
@@ -233,7 +239,13 @@ export default function InlineComponentBrowser({
                 forceRender((n) => n + 1);
               }}
               onMouseLeave={() => setHoveredSlug((s) => (s === c.slug ? null : s))}
-              className="group relative aspect-[4/3] overflow-hidden border-2 border-ink bg-white text-left transition-colors hover:border-coral disabled:cursor-not-allowed disabled:opacity-40"
+              aria-pressed={isSelected}
+              className={
+                "group relative aspect-[4/3] overflow-hidden border-2 bg-white text-left transition-colors disabled:cursor-not-allowed disabled:opacity-40 " +
+                (isSelected
+                  ? "border-coral ring-2 ring-coral ring-offset-2 ring-offset-paper"
+                  : "border-ink hover:border-coral")
+              }
               title={c.title}
             >
               {c.thumbUrl && (
@@ -247,13 +259,22 @@ export default function InlineComponentBrowser({
               <span className="absolute inset-x-0 bottom-0 truncate bg-ink/80 px-1 py-0.5 font-mono text-[9px] text-paper">
                 {c.title}
               </span>
+              {/* 2026-05-22 — explicit "selected" badge. The pick was
+                  registering correctly all along but gave no per-tile
+                  feedback, so users thought clicking did nothing. */}
+              {isSelected && (
+                <span className="absolute right-1 top-1 flex items-center gap-0.5 bg-coral px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.1em] text-paper">
+                  ✓ Picked
+                </span>
+              )}
               {picking === c.slug && (
                 <span className="absolute inset-0 flex items-center justify-center bg-paper/80 font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
-                  Swapping…
+                  Loading…
                 </span>
               )}
             </button>
-          ))}
+            );
+          })}
         </div>
       )}
 

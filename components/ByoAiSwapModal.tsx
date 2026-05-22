@@ -118,6 +118,7 @@ export default function ByoAiSwapModal({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const manualCopyRef = useRef<HTMLTextAreaElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const providerSectionRef = useRef<HTMLElement | null>(null);
   // B (2026-05-22) — snapshot of the source at the moment the prompt
   // was last built (provider-click time). If the user edits the
   // template afterward, applying the AI's reply (based on the older
@@ -128,17 +129,6 @@ export default function ByoAiSwapModal({
   // C (2026-05-22) — track the target signature so we can reset the
   // picker + paste state when the modal opens on a DIFFERENT element.
   const lastTargetRef = useRef<string | null>(null);
-
-  // TEMP DIAG (2026-05-22) — trace whether the modal receives open=true.
-  // If we see "open=true" the state propagated; if not, something is
-  // resetting byoAiSwapOpen before render (e.g. a Fast Refresh remount).
-  useEffect(() => {
-    console.log("[dropin:byo-ai] MODAL open-prop changed", {
-      open,
-      hasVibeInfo: !!vibeInfo,
-      willRender: open && !!vibeInfo,
-    });
-  }, [open, vibeInfo]);
 
   // Restore the paste textarea contents from sessionStorage on mount
   // ONLY if the stored target matches the current vibeInfo's
@@ -174,10 +164,6 @@ export default function ByoAiSwapModal({
     if (!open || !vibeInfo) return;
     const sig = vibeInfo.outerHtml ?? "";
     if (lastTargetRef.current !== sig) {
-      console.log("[dropin:byo-ai] RESET-EFFECT firing (clears selectedReference)", {
-        prevSig: lastTargetRef.current?.slice(0, 30) ?? null,
-        newSig: sig.slice(0, 30),
-      });
       lastTargetRef.current = sig;
       setSelectedReference(null);
       setFailureReason(null);
@@ -460,11 +446,6 @@ export default function ByoAiSwapModal({
 
   if (!open || !vibeInfo) return null;
 
-  console.log("[dropin:byo-ai] MODAL RENDER", {
-    selectedReference: selectedReference?.component.title ?? null,
-    lastClicked,
-  });
-
   const targetKind = inferCategoryFromKind(vibeInfo);
 
   return (
@@ -508,13 +489,19 @@ export default function ByoAiSwapModal({
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           {/* STEP 1 — reference picker */}
           <section className="border-b-2 border-ink/15">
-            <div className="border-b-2 border-ink/10 bg-paper px-4 py-2">
+            <div
+              className={
+                "border-b-2 border-ink/10 px-4 py-2 transition-colors " +
+                (selectedReference ? "bg-coral/10" : "bg-paper")
+              }
+            >
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
                 1. Pick a design
               </span>
               {selectedReference && (
-                <span className="ml-2 font-mono text-[10px] text-coral">
-                  ✓ {selectedReference.component.title}
+                <span className="ml-2 font-mono text-[10px] font-bold text-coral">
+                  ✓ Picked: {selectedReference.component.title} — now choose
+                  your AI below ↓
                 </span>
               )}
             </div>
@@ -522,12 +509,17 @@ export default function ByoAiSwapModal({
               <InlineComponentBrowser
                 mode={kind}
                 category={targetKind}
+                selectedSlug={selectedReference?.component.slug ?? null}
                 onPickReference={(component, rawHtml) => {
-                  console.log("[dropin:byo-ai] MODAL onPickReference received", {
-                    title: component.title,
-                    rawHtmlLen: rawHtml.length,
-                  });
                   setSelectedReference({ component, rawHtml });
+                  // Scroll the "Send to your AI" step into view so the
+                  // user sees the providers light up right after picking.
+                  window.requestAnimationFrame(() => {
+                    providerSectionRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                      block: "nearest",
+                    });
+                  });
                 }}
                 onWarn={onWarn}
               />
@@ -535,7 +527,10 @@ export default function ByoAiSwapModal({
           </section>
 
           {/* STEP 2 — provider buttons */}
-          <section className="border-b-2 border-ink/15 bg-paper px-4 py-3">
+          <section
+            ref={providerSectionRef}
+            className="border-b-2 border-ink/15 bg-paper px-4 py-3"
+          >
             <div className="mb-2">
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
                 2. Send to your AI

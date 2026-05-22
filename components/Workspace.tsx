@@ -1533,20 +1533,12 @@ export default function Workspace({
 
   const handleByoAiSwapOpen = useCallback(() => {
     const info = vibeInfo;
-    console.log("[dropin:byo-ai] swap-open clicked", {
-      hasInfo: !!info,
-      tag: info?.tag ?? null,
-      kind: info?.kind ?? null,
-      outerHtmlLen: info?.outerHtml?.length ?? 0,
-      tool,
-    });
     if (!info) return;
     // H3 fix — guard against empty outerHtml. vibe runtime emits
     // outerHtml opportunistically (64KB cap → empty if too big, plus
     // edge cases like detached elements). Empty target → AI gets an
     // empty code fence and either bails or guesses; surface clearly.
     if (!info.outerHtml || !info.outerHtml.trim()) {
-      console.warn("[dropin:byo-ai] swap-open BAILED — empty outerHtml");
       showWarn(
         "Can't capture this element for AI swap — try clicking a child element instead.",
       );
@@ -1554,8 +1546,7 @@ export default function Workspace({
     }
     byoAiSwapTargetRef.current = info;
     setByoAiSwapOpen(true);
-    console.log("[dropin:byo-ai] swap-open → modal should open");
-  }, [vibeInfo, showWarn, tool]);
+  }, [vibeInfo, showWarn]);
 
   const handleByoAiSwapClose = useCallback(() => {
     setByoAiSwapOpen(false);
