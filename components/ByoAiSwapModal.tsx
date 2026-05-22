@@ -129,6 +129,17 @@ export default function ByoAiSwapModal({
   // picker + paste state when the modal opens on a DIFFERENT element.
   const lastTargetRef = useRef<string | null>(null);
 
+  // TEMP DIAG (2026-05-22) — trace whether the modal receives open=true.
+  // If we see "open=true" the state propagated; if not, something is
+  // resetting byoAiSwapOpen before render (e.g. a Fast Refresh remount).
+  useEffect(() => {
+    console.log("[dropin:byo-ai] MODAL open-prop changed", {
+      open,
+      hasVibeInfo: !!vibeInfo,
+      willRender: open && !!vibeInfo,
+    });
+  }, [open, vibeInfo]);
+
   // Restore the paste textarea contents from sessionStorage on mount
   // ONLY if the stored target matches the current vibeInfo's
   // outerHtml signature. Otherwise we'd cross-pollinate across
