@@ -99,10 +99,12 @@ export default function InlineComponentBrowser({
   }, [hoveredSlug, filtered]);
 
   const handlePick = async (slug: string) => {
+    console.log("[dropin:byo-ai] tile-click", { slug, picking, hasOnPickReference: !!onPickReference });
     if (picking) return;
     setPicking(slug);
     try {
       const full = await getComponentFull(slug);
+      console.log("[dropin:byo-ai] tile getComponentFull resolved", { slug, htmlLen: full.html?.length ?? 0, hasCss: !!full.css });
       // BYO-AI swap mode (2026-05-21). Skip the insert pipeline; hand
       // the reference markup to the caller, who composes it into the
       // prompt sent to the user's AI.
@@ -122,6 +124,7 @@ export default function InlineComponentBrowser({
         const referenceMarkup = css
           ? `<style>\n${css}\n</style>\n${html}`
           : html;
+        console.log("[dropin:byo-ai] tile → onPickReference firing", { slug, markupLen: referenceMarkup.length });
         onPickReference(full, referenceMarkup);
         return;
       }

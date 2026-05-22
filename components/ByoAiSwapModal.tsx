@@ -513,9 +513,13 @@ export default function ByoAiSwapModal({
               <InlineComponentBrowser
                 mode={kind}
                 category={targetKind}
-                onPickReference={(component, rawHtml) =>
-                  setSelectedReference({ component, rawHtml })
-                }
+                onPickReference={(component, rawHtml) => {
+                  console.log("[dropin:byo-ai] MODAL onPickReference received", {
+                    title: component.title,
+                    rawHtmlLen: rawHtml.length,
+                  });
+                  setSelectedReference({ component, rawHtml });
+                }}
                 onWarn={onWarn}
               />
             </div>
