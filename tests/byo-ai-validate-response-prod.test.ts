@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { validateResponse } from "../lib/byo-ai/validate-response";
+import {
+  validateResponse,
+  detectResponseShape,
+} from "../lib/byo-ai/validate-response";
 
 // Helper — build a "reasonable" input/output pair for length checks.
 // 500 chars is comfortably above the 50-char floor and gives the
@@ -8,6 +11,96 @@ function pad(s: string, len: number): string {
   while (s.length < len) s += " ";
   return s;
 }
+
+describe("detectResponseShape", () => {
+  it("classifies a bare element as 'element'", () => {
+    expect(detectResponseShape('<a href="#" class="x">Go</a>')).toBe("element");
+    expect(
+      detectResponseShape('<button className="b">Hi</button>'),
+    ).toBe("element");
+  });
+
+  it("classifies a JSX module as 'full-file'", () => {
+    expect(
+      detectResponseShape("export default function App() { return <div/>; }"),
+    ).toBe("full-file");
+    expect(detectResponseShape("import React from 'react';\n<div/>")).toBe(
+      "full-file",
+    );
+    expect(detectResponseShape("const X = 1;\n<div/>")).toBe("full-file");
+  });
+
+  it("classifies an HTML document as 'full-file'", () => {
+    expect(detectResponseShape("<!DOCTYPE html><html></html>")).toBe(
+      "full-file",
+    );
+    expect(detectResponseShape("<html><body></body></html>")).toBe(
+      "full-file",
+    );
+  });
+});
+
+describe("validateResponse — element mode (2026-05-22)", () => {
+  it("accepts a bare restyled element + reports mode 'element'", () => {
+    const target = '<a data-dropin-id="aaa" href="#" class="old">Go</a>';
+    const output =
+      '<a data-dropin-id="aaa" href="#" class="rounded-full bg-red-500 px-6 py-3 text-white">Go</a>';
+    const r = validateResponse({
+      inputSource: "x".repeat(50000),
+      outputSource: output,
+      targetOuterHtml: target,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.mode).toBe("element");
+  });
+
+  it("rejects an element identical to the target (no-op)", () => {
+    const target = '<a data-dropin-id="aaa" href="#" class="old">Go</a>';
+    // Same element, only the OID differs — normalized they're equal.
+    const output = '<a data-dropin-id="bbb" href="#" class="old">Go</a>';
+    const r = validateResponse({
+      inputSource: "x".repeat(50000),
+      outputSource: output,
+      targetOuterHtml: target,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.mode).toBe("element");
+    expect(r.reason?.toLowerCase()).toContain("identical");
+  });
+
+  it("rejects an element that smuggles a <script> tag", () => {
+    const target = '<a href="#" class="old">Go</a>';
+    const output =
+      '<a href="#" class="new">Go</a><script>fetch("//evil")</script>';
+    const r = validateResponse({
+      inputSource: "x".repeat(50000),
+      outputSource: output,
+      targetOuterHtml: target,
+      kind: "html",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.mode).toBe("element");
+    expect(r.reason?.toLowerCase()).toContain("script");
+  });
+
+  it("skips full-file length checks for element mode (tiny element vs huge source)", () => {
+    // 56KB source, 200-char element — the old full-file 0.5× floor
+    // would reject this. Element mode must NOT apply that check.
+    const target = '<button class="old px-4 py-2">Submit</button>';
+    const output =
+      '<button class="rounded-full bg-gradient-to-r from-fuchsia-500 to-rose-500 px-6 py-3 text-white shadow-xl">Submit</button>';
+    const r = validateResponse({
+      inputSource: "x".repeat(56000),
+      outputSource: output,
+      targetOuterHtml: target,
+      kind: "html",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.mode).toBe("element");
+  });
+});
 
 describe("validateResponse — length sanity", () => {
   it("accepts response within [0.5×, 1.5×] of input length", () => {

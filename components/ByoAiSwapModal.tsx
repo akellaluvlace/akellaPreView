@@ -53,11 +53,12 @@ interface Props {
   // Full source code of the current file. Composed into the prompt.
   fullSource: string;
   kind: PreviewKind;
-  // Fires when user clicks Apply with a validated response. Host
-  // routes the validated code through setCode. Returns true on
-  // success; false → host signals a failure (e.g. parse error in
-  // setCode pipeline) and the modal keeps the response visible.
-  onApply: (code: string) => boolean;
+  // Fires when user clicks Apply with a validated response. `mode`
+  // tells the host how to apply it: "element" → patch into source via
+  // the target's OID/htmlPath; "full-file" → setCode the whole thing.
+  // Returns true on success; false → host signals a failure (e.g.
+  // patch/parse error) and the modal keeps the response visible.
+  onApply: (code: string, mode: "element" | "full-file") => boolean;
   onWarn: (msg: string) => void;
   onInfo: (msg: string) => void;
 }
@@ -415,8 +416,8 @@ export default function ByoAiSwapModal({
       setFailureReason(validation.reason ?? "Response failed validation.");
       return;
     }
-    const applied = onApply(extractedCode);
-    console.log("[dropin:byo-ai] apply-result", { applied });
+    const applied = onApply(extractedCode, validation.mode ?? "full-file");
+    console.log("[dropin:byo-ai] apply-result", { applied, mode: validation.mode });
     if (!applied) {
       setFailureReason(
         "Applying the response failed at the source patch step. The code may have a syntax error.",

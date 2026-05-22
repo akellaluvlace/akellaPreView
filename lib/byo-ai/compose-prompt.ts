@@ -1,31 +1,32 @@
 // 2026-05-21 — Compose the BYO-AI swap prompt.
 //
-// Strategy: send the FULL source file + the target element's outerHtml
-// snippet + the reference HTML + clear instructions. AI returns the
-// full updated file in a single code block. Dropin pastes the result
-// back via setCode after light validation.
+// 2026-05-22 — ELEMENT-ONLY pivot. Originally sent the full file + asked
+// for the full file back. In practice the AI (and the user) naturally
+// returns just the restyled element — and that's strictly better:
+//   - No truncation risk (the #1 full-file failure mode is moot)
+//   - The AI literally cannot touch other parts of the page
+//   - Tiny clipboard payload, fast response
+//   - We patch it into the source by OID (JSX) / htmlPath (HTML)
 //
-// Why full-page instead of a marker-comment approach:
-//   - Drops the patch pipeline entirely (no patchHtmlOuter /
-//     patchJsxOuterByOid). `setCode(response)` after validation.
-//   - Frontier models match the target by pattern (outerHtml snippet
-//     in the prompt) more reliably than by tracking a marker.
-//   - Cascade case (`.map()` rendering N siblings) is handled in
-//     context — the AI sees the source and decides whether to detach.
+// So we now send the target element + the reference + a short note about
+// the file's styling convention, and ask for JUST the restyled element.
+// The apply path patches it in surgically (see handleByoAiApply). A
+// full-file paste is still accepted as a fallback (the validator +
+// apply path detect which shape was pasted).
 //
-// Why no editable prompt textarea in the modal:
-//   - Vibecoders don't want to think about prompt engineering.
-//   - The template here is good enough for frontier models. Power
-//     users can copy + edit before pasting in their AI.
+// Why no editable prompt textarea in the modal: vibecoders don't want to
+// think about prompt engineering; the template is good enough for
+// frontier models, and power users can edit before pasting in their AI.
 
 export interface ComposeSwapPromptOptions {
-  // Full source code of the current template (HTML or JSX/TSX).
+  // Full source code of the current template. Kept in the options shape
+  // for callers + the prompt-size estimate, but the element-only prompt
+  // no longer embeds it (the AI only needs the target + reference).
   fullSource: string;
-  // Detected mode — drives the code-fence language hint + the file
-  // type description in the prompt.
+  // Detected mode — drives the code-fence language hint.
   kind: "html" | "jsx";
-  // outerHTML of the element being swapped (used by AI to identify
-  // the target within fullSource).
+  // outerHTML of the element being swapped — this is what the AI
+  // restyles + returns.
   targetOuterHtml: string;
   // HTML of the reference design (typically from a library tile).
   referenceHtml: string;
@@ -59,61 +60,46 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
   const fenceLang = opts.kind === "html" ? "html" : "jsx";
   const referenceClean = cleanReferenceHtml(opts.referenceHtml);
 
-  // JSX-specific guardrails. These keep frontier models from doing the
-  // two things that silently break web/*.jsx templates:
-  //   1. adding TypeScript syntax (iframe Babel is JSX-preset-only)
-  //   2. touching the load-bearing <style> / tailwind.config <script> /
-  //      font <link>s / top-level const data that drive the theme
   const jsxGuards =
     opts.kind === "jsx"
       ? [
-          "- This is PLAIN JSX, not TypeScript. Do NOT add type " +
-            "annotations, `interface`, `type`, `as const`, `satisfies`, " +
-            "or generics.",
-          "- Do NOT modify the <style> blocks, the tailwind config " +
-            "<script>, font <link> tags, or any top-level `const` data. " +
-            "Only change the one target element.",
+          "- Write PLAIN JSX, not TypeScript. Use `className` (not " +
+            "`class`). No type annotations, `interface`, `as const`, or " +
+            "generics.",
+          "- If my element has a `data-dropin-id` attribute, keep it " +
+            "exactly as-is on the returned element.",
         ]
       : [
-          "- Do NOT modify the <style> blocks, <script> tags, or " +
-            "<link> tags. Only change the one target element.",
+          "- Keep it valid HTML (use `class`, not `className`).",
         ];
 
   // The prompt is plain text — providers' UI textareas preserve it
   // verbatim. Triple-backtick fences are intentional (the model needs
   // the code-fence boundaries to understand the structure).
   return [
-    `I have a ${kindLabel} file. Please replace ONE element in it.`,
+    "I want to restyle ONE UI element to match a reference design.",
     "",
-    "THE ELEMENT TO REPLACE (find it in the file below):",
+    "MY ELEMENT (restyle this one):",
     "```" + fenceLang,
     opts.targetOuterHtml.trim(),
     "```",
     "",
-    "THE REFERENCE DESIGN (use this as your style template — it may " +
-      "include a <style> block showing how its classes look):",
+    "THE REFERENCE DESIGN (match this look — it may include a <style> " +
+      "block showing how its classes look):",
     "```html",
     referenceClean,
     "```",
     "",
     "INSTRUCTIONS:",
-    "- Keep my element's text content (the visible words inside).",
-    "- Keep meaningful attributes (href, src, alt, type, name).",
-    "- Otherwise, make the element look like the reference — colors, " +
-      "layout, shape, sizing, classes.",
-    "- If the reference includes a <style> block, translate that look " +
-      "into the styling convention my file already uses (Tailwind " +
-      "utility classes, or inline style). Do NOT paste the reference's " +
-      "raw CSS rules into my file.",
-    "- Leave ALL other elements in the file untouched.",
+    "- Keep MY element's text content (the visible words inside).",
+    "- Keep MY element's meaningful attributes (href, src, alt, type, " +
+      "name, and data-* attributes).",
+    "- Restyle it to look like the reference — colors, shape, padding, " +
+      "shadow, hover effects, etc.",
+    "- If the reference uses custom CSS, translate that look into " +
+      "Tailwind utility classes (or inline style). Don't paste raw CSS.",
     ...jsxGuards,
-    "- Return the COMPLETE file as a single code block. Include EVERY " +
-      "line — do NOT use placeholder comments like `// ... rest " +
-      "unchanged ...` or omit any section. No explanation needed.",
-    "",
-    "THE FULL FILE:",
-    "```" + fenceLang,
-    opts.fullSource,
-    "```",
+    "- Return ONLY the single restyled element in one code block — just " +
+      "the one tag, NOT a full file or page. No explanation.",
   ].join("\n");
 }

@@ -1554,23 +1554,85 @@ export default function Workspace({
   }, []);
 
   const handleByoAiApply = useCallback(
-    (newCode: string): boolean => {
-      // Modal already validated length / forbidden tags / no-op. We
-      // run the new code through history-aware setCode and surface a
-      // toast with Undo.
-      //
-      // C1 fix — JSX mode: re-stamp OIDs on the AI's response.
-      // setCode itself doesn't run injectOids (that's only the lazy
-      // initializer in useEditHistory). Without this, vibe-edit /
-      // cascade-detach / swap-anywhere all break on the swapped
-      // subtree because the AI either dropped OIDs or hallucinated
-      // stale ones.
-      //
-      // M1 fix (2026-05-22): stripOids BEFORE injectOids. The AI
-      // commonly returns half-stripped / mangled OIDs; injectOids
-      // alone would leave those as dead bytes (or even a second
-      // data-dropin-id attr on the same element). A clean strip +
-      // re-inject guarantees exactly one fresh OID per element.
+    (newCode: string, mode: "element" | "full-file"): boolean => {
+      const target = byoAiSwapTargetRef.current;
+      const previousCode = code;
+
+      // ── ELEMENT MODE ───────────────────────────────────────────
+      // The AI returned just the restyled element. Patch it into the
+      // source at the target's location (OID for JSX, htmlPath for
+      // HTML) instead of replacing the whole file. This is the common
+      // case + the most reliable (no truncation, can't touch other
+      // parts).
+      if (mode === "element" && target) {
+        let patchedSource: string | null = null;
+        let reason = "";
+        if (kind === "html") {
+          if (target.htmlPath) {
+            const patch = patchHtmlOuter(code, target.htmlPath, newCode);
+            if (patch.changed) patchedSource = patch.source;
+            else reason = ("reason" in patch && patch.reason) || "html patch made no change";
+          } else {
+            reason = "element has no htmlPath";
+          }
+        } else {
+          // JSX: the pasted element should already be JSX (className).
+          // If the AI returned HTML (class=), convert it first.
+          if (target.oid) {
+            let jsx = newCode;
+            if (/\bclass=/.test(newCode) && !/\bclassName=/.test(newCode)) {
+              try {
+                jsx = htmlToJsx(newCode);
+              } catch {
+                /* keep raw — patchJsxOuterByOid will surface a reason */
+              }
+            }
+            const patch = patchJsxOuterByOid(code, target.oid, jsx);
+            if (patch.changed) {
+              // Re-stamp OIDs so the swapped subtree is selectable again.
+              try {
+                patchedSource = injectOids(stripOids(patch.source).source).source;
+              } catch {
+                patchedSource = patch.source;
+              }
+            } else {
+              reason = patch.reason || "jsx patch made no change";
+            }
+          } else {
+            reason = "element has no OID";
+          }
+        }
+        if (!patchedSource) {
+          console.warn("[dropin:byo-ai] element patch failed", { reason });
+          showWarn(
+            `Couldn't apply the element to your source (${reason}). Try pasting the FULL file from your AI instead.`,
+          );
+          return false;
+        }
+        try {
+          setCode(patchedSource);
+        } catch (e) {
+          console.error("[dropin:byo-ai] setCode threw (element)", e);
+          return false;
+        }
+        const entry = {
+          icon: "✨",
+          text: "Swapped with your AI",
+          action: { label: "Undo", onAction: () => setCode(previousCode) },
+        };
+        setRollToast(entry);
+        setTimeout(() => setRollToast((s) => (s === entry ? null : s)), 6000);
+        console.log("[dropin:byo-ai] applied (element)", {
+          kind,
+          targetTag: target.tag,
+        });
+        return true;
+      }
+
+      // ── FULL-FILE MODE ─────────────────────────────────────────
+      // The AI rewrote the whole file (e.g. Claude). setCode it.
+      // JSX: stripOids→injectOids for a clean re-stamp (the AI returns
+      // mangled/missing OIDs).
       let finalCode = newCode;
       if (kind === "jsx") {
         try {
@@ -1580,43 +1642,30 @@ export default function Workspace({
             "[dropin:byo-ai] strip+inject OIDs failed on AI response; applying raw",
             e,
           );
-          // Fall through with the raw response — better than rejecting.
         }
       }
-      // C2 fix — capture previousCode BEFORE setCode so the Undo
-      // closure restores the pre-swap state, not the post-swap state.
-      const previousCode = code;
       try {
         setCode(finalCode);
       } catch (e) {
-        console.error("[dropin:byo-ai] setCode threw", e);
+        console.error("[dropin:byo-ai] setCode threw (full-file)", e);
         return false;
       }
-      const target = byoAiSwapTargetRef.current;
-      console.log("[dropin:byo-ai] applied", {
+      console.log("[dropin:byo-ai] applied (full-file)", {
         kind,
         targetTag: target?.tag ?? null,
         oldLen: code.length,
         newLen: finalCode.length,
       });
-      // H2 fix — toast now auto-dismisses (was indefinite). Use the
-      // same 6s window as other Undo-bearing toasts in the project
-      // (AI Edit Phase 4 set this convention).
       const entry = {
         icon: "✨",
         text: `Swapped with your AI · ${finalCode.length - code.length >= 0 ? "+" : ""}${finalCode.length - code.length} chars`,
-        action: {
-          label: "Undo",
-          onAction: () => {
-            setCode(previousCode);
-          },
-        },
+        action: { label: "Undo", onAction: () => setCode(previousCode) },
       };
       setRollToast(entry);
       setTimeout(() => setRollToast((s) => (s === entry ? null : s)), 6000);
       return true;
     },
-    [code, kind, setCode],
+    [code, kind, setCode, showWarn],
   );
 
   // 2026-05-20 — Publish flow. Builds a hostable zip from the current

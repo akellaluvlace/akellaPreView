@@ -36,6 +36,29 @@ export interface ValidateResponseOptions {
 export interface ValidateResponseResult {
   ok: boolean;
   reason: string | null;
+  // 2026-05-22 — which shape the response is. The apply path uses this:
+  //   "element"   → patch into source via OID (JSX) / htmlPath (HTML)
+  //   "full-file" → setCode the whole thing
+  // null when validation failed before the shape mattered.
+  mode: "element" | "full-file" | null;
+}
+
+// 2026-05-22 — detect whether a pasted response is a single element or
+// a full file. Element: starts with `<` + no module/declaration syntax.
+// Full-file: has import/export/function/const-decl, OR doesn't start
+// with a tag. This drives both validation + the apply path.
+export function detectResponseShape(
+  source: string,
+): "element" | "full-file" {
+  const trimmed = source.trim();
+  const hasModuleSyntax =
+    /\b(import|export)\s/.test(trimmed) ||
+    /\bfunction\s+\w+\s*\(/.test(trimmed) ||
+    /(^|\n)\s*(const|let|var)\s+\w+\s*=/.test(trimmed) ||
+    /^\s*<!DOCTYPE/i.test(trimmed) ||
+    /<html[\s>]/i.test(trimmed);
+  if (trimmed.startsWith("<") && !hasModuleSyntax) return "element";
+  return "full-file";
 }
 
 // Match STRING-valued event handler attributes only: `on*="..."` or
@@ -138,68 +161,169 @@ const FORBIDDEN_TAGS = [
   // additions instead (event handlers + js: URIs below).
 ] as const;
 
+const normalize = (s: string) =>
+  s.replace(/\sdata-dropin-id="[^"]*"/g, "").replace(/\s+/g, " ").trim();
+
+const countOccurrences = (haystack: string, needle: string): number => {
+  if (!needle) return 0;
+  let count = 0;
+  let pos = 0;
+  while ((pos = haystack.indexOf(needle, pos)) !== -1) {
+    count += 1;
+    pos += needle.length;
+  }
+  return count;
+};
+
+// Security checks shared by both shapes. Returns a reason string on
+// failure, null when clean. `scriptBaseline` is the count of dangerous
+// tags allowed (the input's count for full-file; 0 for element).
+function runSecurityChecks(
+  outputSource: string,
+  scriptBaselines: Record<string, number>,
+): string | null {
+  if (EVENT_HANDLER_RE.test(outputSource)) {
+    const sample = outputSource.match(EVENT_HANDLER_RE)?.[0] ?? 'on*="..."';
+    return `Response contains a string event-handler attribute (${sample.trim()}) — refusing for security. Edit it out before applying.`;
+  }
+  if (JAVASCRIPT_URI_RE.test(outputSource)) {
+    return "Response contains a `javascript:` URI — refusing for security. Edit it out before applying.";
+  }
+  const countTag = (src: string, tag: string): number =>
+    (src.match(new RegExp(`<${tag}\\b`, "gi")) ?? []).length;
+  for (const tag of ["script", "iframe", "object", "embed"]) {
+    const baseline = scriptBaselines[tag] ?? 0;
+    if (countTag(outputSource, tag) > baseline) {
+      return `Response adds a new <${tag}> tag that wasn't in your element — refusing for security. Edit it out, or re-prompt your AI.`;
+    }
+  }
+  return null;
+}
+
+// JSX-only syntax guards (TS detection). Returns a reason on failure.
+function runJsxSyntaxChecks(outputSource: string): string | null {
+  for (const pat of TS_SYNTAX_PATTERNS) {
+    const match = outputSource.match(pat);
+    if (match) {
+      return `Response contains TypeScript syntax ("${match[0].trim().slice(0, 30)}") which won't run in this preview. Ask your AI for "plain JSX, no TypeScript types," then paste again.`;
+    }
+  }
+  return null;
+}
+
 export function validateResponse(
   opts: ValidateResponseOptions,
 ): ValidateResponseResult {
   const { inputSource, outputSource, targetOuterHtml } = opts;
+  const trimmed = (outputSource ?? "").trim();
 
-  if (!outputSource || outputSource.length < 50) {
+  if (!trimmed || trimmed.length < 8) {
     return {
       ok: false,
-      reason:
-        "Response looks empty or way too short. Make sure you pasted the full updated file.",
+      mode: null,
+      reason: "Response is empty. Paste the AI's reply first.",
     };
   }
 
-  // Length sanity — within [0.5×, 1.5×] of input, with an additive
-  // +2000 floor for small files. Frontier models occasionally
-  // truncate long files or add extensive comments; the ratio catches
-  // both. The +2000 floor handles the edge case where a swap from a
-  // tiny button to a complex animated card legitimately doubles a
-  // small file's size (1KB → 2.5KB is fine; 30KB → 75KB is not).
-  //
-  // H4 fix (2026-05-21): mirrors the Phase 5 ai-edit length-cap fix.
-  // Without the additive floor, small-file swaps were rejected for
-  // legitimate expansion.
+  const shape = detectResponseShape(trimmed);
+
+  // ── ELEMENT MODE ─────────────────────────────────────────────────
+  // The AI returned just the restyled element. We patch it into the
+  // source by OID (caller). Validation: not a no-op vs the target,
+  // no injected scripts/handlers, JSX syntax sane. No full-file checks
+  // (length-vs-source / placeholder / decl-survival don't apply).
+  if (shape === "element") {
+    // No-op: is the element byte-identical to the target after
+    // normalizing OIDs + whitespace? Then nothing changed.
+    if (normalize(trimmed) === normalize(targetOuterHtml)) {
+      return {
+        ok: false,
+        mode: "element",
+        reason:
+          "The pasted element is identical to your original — the AI didn't change anything. Try a different reference or re-prompt.",
+      };
+    }
+    // The element shouldn't carry ANY script/iframe/etc. (baseline 0).
+    const sec = runSecurityChecks(trimmed, {});
+    if (sec) return { ok: false, mode: "element", reason: sec };
+    if (opts.kind === "jsx") {
+      const ts = runJsxSyntaxChecks(trimmed);
+      if (ts) return { ok: false, mode: "element", reason: ts };
+    }
+    // Sanity: a single restyled element shouldn't be enormous. Cap at
+    // 16KB — far above any real button/card, well below a full file.
+    if (trimmed.length > 16384) {
+      return {
+        ok: false,
+        mode: "element",
+        reason:
+          "That looks too large to be a single element. If your AI returned the whole file, paste all of it — otherwise paste just the one restyled element.",
+      };
+    }
+    return { ok: true, mode: "element", reason: null };
+  }
+
+  // ── FULL-FILE MODE ───────────────────────────────────────────────
+  // The AI rewrote the whole file (e.g. Claude). setCode the result
+  // (caller). Validation guards the full-file failure modes.
+
+  // Wrong-language guard — a JSX file should never come back as a plain
+  // HTML document (no export default, class= not className=, etc.).
+  if (opts.kind === "jsx" && /^\s*<!DOCTYPE\s+html/i.test(trimmed)) {
+    return {
+      ok: false,
+      mode: "full-file",
+      reason:
+        "The response is a plain HTML document, but your file is a React (JSX) component. Ask your AI to keep it as JSX (a React component), then paste again.",
+    };
+  }
+
+  if (outputSource.length < 50) {
+    return {
+      ok: false,
+      mode: "full-file",
+      reason:
+        "Response looks too short to be your full file. Paste the complete reply.",
+    };
+  }
+
+  // Use RAW lengths for the ratio (not the trimmed body) so the
+  // comparison is like-for-like with the un-trimmed inputSource.
   const inLen = inputSource.length;
   const outLen = outputSource.length;
   const ratio = outLen / Math.max(inLen, 1);
   if (ratio < 0.5) {
     return {
       ok: false,
-      reason: `Response is suspiciously short (${outLen} chars vs ${inLen} in your source). The AI may have truncated the file.`,
+      mode: "full-file",
+      reason: `Response is suspiciously short (${outLen} chars vs ${inLen} in your source). The AI may have truncated the file — ask it to return the COMPLETE file.`,
     };
   }
   const upperCap = Math.max(inLen * 1.5, inLen + 2000);
   if (outLen > upperCap) {
     return {
       ok: false,
+      mode: "full-file",
       reason: `Response is suspiciously long (${outLen} chars vs ${inLen}). The AI may have added extra content beyond the swap.`,
     };
   }
 
-  // C1 — placeholder-truncation detection. The single highest-risk
-  // failure mode for full-file swaps: the AI returns the file with
-  // huge unchanged regions collapsed into `// ... rest unchanged ...`
-  // comments. Such a file parses fine + can pass the length floor, so
-  // it would silently apply a half-empty template.
+  // Placeholder-truncation detection (the #1 full-file failure mode).
   for (const pat of PLACEHOLDER_PATTERNS) {
-    const match = outputSource.match(pat);
+    const match = trimmed.match(pat);
     if (match) {
       return {
         ok: false,
-        reason: `The response looks truncated — it contains a placeholder like "${match[0].trim().slice(0, 40)}" instead of the full file. Ask your AI to "return the COMPLETE file with no omissions or placeholder comments," then paste again.`,
+        mode: "full-file",
+        reason: `The response looks truncated — it contains a placeholder like "${match[0].trim().slice(0, 40)}" instead of the full file. Ask your AI to "return the COMPLETE file with no omissions," then paste again.`,
       };
     }
   }
 
-  // C1 companion — top-level declaration survival. A swap should never
-  // delete a top-level const/function/class. If 2+ vanish, the AI
-  // truncated the file (placeholder detection above catches most, this
-  // catches silent drops with no placeholder comment).
+  // Top-level declaration survival.
   const inputDecls = collectTopLevelDecls(inputSource);
   if (inputDecls.size >= 3) {
-    const outputDecls = collectTopLevelDecls(outputSource);
+    const outputDecls = collectTopLevelDecls(trimmed);
     const missing: string[] = [];
     for (const name of inputDecls) {
       if (!outputDecls.has(name)) missing.push(name);
@@ -207,133 +331,51 @@ export function validateResponse(
     if (missing.length >= 2) {
       return {
         ok: false,
-        reason: `The response is missing ${missing.length} of your top-level definitions (${missing.slice(0, 3).join(", ")}${missing.length > 3 ? "…" : ""}). The AI likely truncated the file — ask it to return the COMPLETE file, then paste again.`,
+        mode: "full-file",
+        reason: `The response is missing ${missing.length} of your top-level definitions (${missing.slice(0, 3).join(", ")}${missing.length > 3 ? "…" : ""}). The AI likely truncated the file — ask it to return the COMPLETE file.`,
       };
     }
   }
 
   if (opts.kind === "jsx") {
-    // Wrong-language guard — AI returned a plain HTML document when the
-    // file is a React component. A leading <!DOCTYPE html> is the
-    // unambiguous signal (a JSX module never starts with one). Applying
-    // it would break the iframe (no export default, class= not
-    // className=, etc.).
-    if (/^\s*<!DOCTYPE\s+html/i.test(outputSource)) {
-      return {
-        ok: false,
-        reason:
-          "The response is a plain HTML document, but your file is a React (JSX) component. Ask your AI to keep it as JSX (React component with `export default`), then paste again.",
-      };
-    }
-
-    // C2 — TypeScript-syntax detection. web/*.jsx run through the
-    // iframe's JSX-only Babel; TS annotations silently blank the
-    // template. Reject so the user re-prompts instead of shipping a
-    // blank page.
-    for (const pat of TS_SYNTAX_PATTERNS) {
-      const match = outputSource.match(pat);
-      if (match) {
-        return {
-          ok: false,
-          reason: `The response contains TypeScript syntax ("${match[0].trim().slice(0, 30)}") which won't run in this preview. Ask your AI for "plain JSX, no TypeScript types," then paste again.`,
-        };
-      }
-    }
+    const ts = runJsxSyntaxChecks(trimmed);
+    if (ts) return { ok: false, mode: "full-file", reason: ts };
   }
 
-  // No-op detection — if the target's original outerHtml snippet
-  // appears AS OFTEN in the output as in the input, nothing was
-  // swapped. We strip whitespace + OID attributes before comparing
-  // because OIDs shift legitimately + whitespace varies across model
-  // serializations.
-  //
-  // H1 fix (2026-05-21): was a binary `includes` check, which
-  // false-rejected cascade swaps. Templates with N=3 buttons all
-  // having the same outerHtml would: AI swap one → output has 2
-  // copies + 1 new element → original outerHtml STILL present → old
-  // check rejected as no-op. Now we count occurrences: input had K,
-  // output has K-1 or fewer → at least one was swapped → accept.
-  const normalize = (s: string) =>
-    s.replace(/\sdata-dropin-id="[^"]*"/g, "").replace(/\s+/g, " ").trim();
+  // No-op detection (count-based — survives cascade swaps).
   const targetNorm = normalize(targetOuterHtml);
-  const inputNorm = normalize(inputSource);
-  const outputNorm = normalize(outputSource);
   if (targetNorm.length > 20) {
-    const countOccurrences = (haystack: string, needle: string): number => {
-      if (!needle) return 0;
-      let count = 0;
-      let pos = 0;
-      while ((pos = haystack.indexOf(needle, pos)) !== -1) {
-        count += 1;
-        pos += needle.length;
-      }
-      return count;
-    };
-    const inputCount = countOccurrences(inputNorm, targetNorm);
-    const outputCount = countOccurrences(outputNorm, targetNorm);
-    // Catch the unchanged case: output still contains target the same
-    // number of times the input did. If even ONE was swapped, the
-    // count drops by at least 1 — accept.
+    const inputCount = countOccurrences(normalize(inputSource), targetNorm);
+    const outputCount = countOccurrences(normalize(trimmed), targetNorm);
     if (inputCount > 0 && outputCount >= inputCount) {
       return {
         ok: false,
+        mode: "full-file",
         reason:
-          "The element you wanted to swap is still in the response unchanged. The AI may have ignored the swap instruction — try a different reference or rephrase.",
+          "The element you wanted to swap is still in the response unchanged. The AI may have ignored the swap — try a different reference or rephrase.",
       };
     }
   }
 
-  // Security: event handler attributes
-  if (EVENT_HANDLER_RE.test(outputSource)) {
-    const sample = outputSource.match(EVENT_HANDLER_RE)?.[0] ?? "on*=";
-    return {
-      ok: false,
-      reason: `Response contains an event-handler attribute (${sample.trim()}) — refusing for security. Edit the response to remove it before applying.`,
-    };
-  }
-
-  // Security: javascript: URIs
-  if (JAVASCRIPT_URI_RE.test(outputSource)) {
-    return {
-      ok: false,
-      reason:
-        'Response contains a `javascript:` URI — refusing for security. Edit the response to remove it before applying.',
-    };
-  }
-
-  // Security: NEW dangerous tags. The preview iframe runs with
-  // `allow-scripts allow-same-origin`, so an AI-injected <script> WOULD
-  // execute + an <iframe>/<object>/<embed> could load remote content.
-  // We can't blanket-reject these because templates legitimately carry
-  // <script> (Tailwind config) — so we count: if the output has MORE
-  // of a dangerous tag than the input did, the AI added one → reject.
-  // Mirrors the count-based approach the cascade no-op fix uses.
-  const countTag = (src: string, tag: string): number => {
-    const re = new RegExp(`<${tag}\\b`, "gi");
-    return (src.match(re) ?? []).length;
-  };
+  // Security: count NEW dangerous tags relative to the input.
+  const countTag = (src: string, tag: string): number =>
+    (src.match(new RegExp(`<${tag}\\b`, "gi")) ?? []).length;
+  const baselines: Record<string, number> = {};
   for (const tag of ["script", "iframe", "object", "embed"]) {
-    const inCount = countTag(inputSource, tag);
-    const outCount = countTag(outputSource, tag);
-    if (outCount > inCount) {
-      return {
-        ok: false,
-        reason: `Response adds a new <${tag}> tag that wasn't in your original file — refusing for security. Edit the response to remove it, or re-prompt your AI.`,
-      };
-    }
+    baselines[tag] = countTag(inputSource, tag);
   }
+  const sec = runSecurityChecks(trimmed, baselines);
+  if (sec) return { ok: false, mode: "full-file", reason: sec };
 
-  // FORBIDDEN_TAGS placeholder — kept structurally to make adding
-  // future always-rejected tags trivial without changing the result
-  // shape.
   for (const tag of FORBIDDEN_TAGS) {
-    if (outputSource.toLowerCase().includes(`<${tag}`)) {
+    if (trimmed.toLowerCase().includes(`<${tag}`)) {
       return {
         ok: false,
+        mode: "full-file",
         reason: `Response contains a forbidden <${tag}> tag.`,
       };
     }
   }
 
-  return { ok: true, reason: null };
+  return { ok: true, mode: "full-file", reason: null };
 }

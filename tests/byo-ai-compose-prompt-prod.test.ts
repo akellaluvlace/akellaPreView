@@ -22,7 +22,10 @@ describe("composeSwapPrompt — shape", () => {
     expect(prompt).toContain('<button class="cool">b</button>');
   });
 
-  it("includes the full source in a code fence", () => {
+  it("does NOT embed the full source (element-only prompt)", () => {
+    // 2026-05-22 — element-only pivot. The prompt no longer sends the
+    // whole file; the AI only needs the target + reference + returns
+    // just the restyled element.
     const fullSource =
       "<!DOCTYPE html><html><body><div>HELLO_WORLD_SENTINEL</div></body></html>";
     const prompt = composeSwapPrompt({
@@ -31,20 +34,19 @@ describe("composeSwapPrompt — shape", () => {
       targetOuterHtml: "<button>a</button>",
       referenceHtml: "<button>b</button>",
     });
-    expect(prompt).toContain("HELLO_WORLD_SENTINEL");
+    expect(prompt).not.toContain("HELLO_WORLD_SENTINEL");
   });
 
-  it("uses 'html' fence language for HTML mode", () => {
+  it("uses 'html' fence language for HTML mode (target fence)", () => {
     const prompt = composeSwapPrompt({
       fullSource: "<html></html>",
       kind: "html",
       targetOuterHtml: "<a>x</a>",
       referenceHtml: "<a>y</a>",
     });
-    // The fences around target + full source should be ```html.
-    // (Reference is always ```html regardless of mode.)
+    // Target + reference fences are ```html for HTML mode.
     const htmlFenceCount = (prompt.match(/```html/g) ?? []).length;
-    expect(htmlFenceCount).toBeGreaterThanOrEqual(3);
+    expect(htmlFenceCount).toBeGreaterThanOrEqual(2);
   });
 
   it("uses 'jsx' fence language for JSX mode", () => {
@@ -54,7 +56,7 @@ describe("composeSwapPrompt — shape", () => {
       targetOuterHtml: "<button>x</button>",
       referenceHtml: "<button>y</button>",
     });
-    // Target + full source should be ```jsx; reference stays ```html
+    // Target fence is ```jsx; reference stays ```html
     expect(prompt).toMatch(/```jsx\n/);
     expect(prompt).toMatch(/```html\n/);
   });
@@ -82,56 +84,37 @@ describe("composeSwapPrompt — instruction content", () => {
     expect(prompt.toLowerCase()).toMatch(/href|src|alt/);
   });
 
-  it("instructs to return the COMPLETE file", () => {
+  it("instructs to return ONLY the single restyled element", () => {
     const prompt = composeSwapPrompt({
       fullSource: "x",
       kind: "html",
       targetOuterHtml: "x",
       referenceHtml: "x",
     });
-    expect(prompt).toMatch(/complete file/i);
+    expect(prompt.toLowerCase()).toMatch(/only the single restyled element/);
+    expect(prompt.toLowerCase()).toContain("not a full file");
   });
 
-  it("instructs to use a single code block", () => {
+  it("instructs to use one code block", () => {
     const prompt = composeSwapPrompt({
       fullSource: "x",
       kind: "html",
       targetOuterHtml: "x",
       referenceHtml: "x",
     });
-    expect(prompt.toLowerCase()).toContain("single code block");
-  });
-
-  it("instructs to leave other elements untouched", () => {
-    const prompt = composeSwapPrompt({
-      fullSource: "x",
-      kind: "html",
-      targetOuterHtml: "x",
-      referenceHtml: "x",
-    });
-    expect(prompt.toLowerCase()).toContain("untouched");
+    expect(prompt.toLowerCase()).toContain("one code block");
   });
 });
 
-describe("composeSwapPrompt — file type label", () => {
-  it("describes file as HTML for kind=html", () => {
+describe("composeSwapPrompt — element-only framing", () => {
+  it("frames the task as restyling one element", () => {
     const prompt = composeSwapPrompt({
       fullSource: "x",
       kind: "html",
       targetOuterHtml: "x",
       referenceHtml: "x",
     });
-    expect(prompt).toMatch(/I have a HTML file/);
-  });
-
-  it("describes file as JSX for kind=jsx", () => {
-    const prompt = composeSwapPrompt({
-      fullSource: "x",
-      kind: "jsx",
-      targetOuterHtml: "x",
-      referenceHtml: "x",
-    });
-    expect(prompt).toMatch(/I have a JSX file/);
+    expect(prompt.toLowerCase()).toContain("restyle one ui element");
   });
 });
 
@@ -160,23 +143,20 @@ describe("composeSwapPrompt — trims input snippets", () => {
     expect(prompt).toMatch(/```html\n<b>y<\/b>\n```/);
   });
 
-  it("does NOT trim fullSource (could affect rendering)", () => {
-    // We want the FULL file verbatim — leading/trailing whitespace
-    // could be meaningful (e.g. trailing newline at EOF is a common
-    // convention). Don't strip it.
-    const fullSource = "\n<html></html>\n\n";
+  it("does NOT embed fullSource at all (element-only)", () => {
+    const fullSource = "\nSENTINEL_FULL_SOURCE_42\n\n";
     const prompt = composeSwapPrompt({
       fullSource,
       kind: "html",
       targetOuterHtml: "x",
       referenceHtml: "y",
     });
-    expect(prompt).toContain(fullSource);
+    expect(prompt).not.toContain("SENTINEL_FULL_SOURCE_42");
   });
 });
 
-describe("composeSwapPrompt — JSX guardrails (C2/H2)", () => {
-  it("forbids TypeScript syntax for JSX mode", () => {
+describe("composeSwapPrompt — JSX guardrails", () => {
+  it("forbids TypeScript + tells the AI to use className for JSX mode", () => {
     const prompt = composeSwapPrompt({
       fullSource: "export default () => null;",
       kind: "jsx",
@@ -184,17 +164,17 @@ describe("composeSwapPrompt — JSX guardrails (C2/H2)", () => {
       referenceHtml: "<button>y</button>",
     });
     expect(prompt.toLowerCase()).toContain("plain jsx, not typescript");
+    expect(prompt).toContain("className");
   });
 
-  it("instructs not to touch style/config/const for JSX mode", () => {
+  it("tells the AI to preserve data-dropin-id for JSX mode", () => {
     const prompt = composeSwapPrompt({
       fullSource: "export default () => null;",
       kind: "jsx",
       targetOuterHtml: "<button>x</button>",
       referenceHtml: "<button>y</button>",
     });
-    expect(prompt.toLowerCase()).toContain("tailwind config");
-    expect(prompt.toLowerCase()).toContain("top-level `const`");
+    expect(prompt.toLowerCase()).toContain("data-dropin-id");
   });
 
   it("does NOT include the TS guard for HTML mode", () => {
@@ -205,17 +185,6 @@ describe("composeSwapPrompt — JSX guardrails (C2/H2)", () => {
       referenceHtml: "<button>y</button>",
     });
     expect(prompt.toLowerCase()).not.toContain("typescript");
-  });
-
-  it("instructs to return the COMPLETE file with no placeholders", () => {
-    const prompt = composeSwapPrompt({
-      fullSource: "x",
-      kind: "html",
-      targetOuterHtml: "x",
-      referenceHtml: "x",
-    });
-    expect(prompt.toLowerCase()).toContain("complete file");
-    expect(prompt.toLowerCase()).toContain("placeholder");
   });
 });
 
