@@ -320,49 +320,43 @@ export default function ByoAiSwapModal({
         onWarn("Couldn't build the prompt — missing source or selection.");
         return;
       }
-      // Open the new tab SYNCHRONOUSLY before any async work so popup
-      // blockers honor the user gesture. Skip for "copy" provider.
-      let opened: Window | null = null;
-      let popupBlocked = false;
-      if (provider.openUrl) {
-        opened = window.open(provider.openUrl, "_blank", "noopener");
-        // H6 fix (2026-05-21): when the popup is blocked, window.open
-        // returns null (or a Window object that's immediately .closed).
-        // We surface a clear toast so the user knows the prompt is
-        // still copied to their clipboard and they can paste it
-        // wherever themselves, instead of staring at a missing tab.
-        if (!opened || opened.closed) {
-          popupBlocked = true;
-        }
-      }
       console.log("[dropin:byo-ai] provider-click", {
         provider: provider.id,
         promptLen: prompt.length,
-        popupBlocked,
       });
+
+      // CRITICAL ORDER (2026-05-22): copy to clipboard BEFORE opening
+      // the tab. window.open synchronously focuses the new tab, which
+      // blurs this document — and the Clipboard API rejects writeText
+      // with "Document is not focused" when the page isn't focused. The
+      // earlier order (open tab → write) silently failed every time, so
+      // nothing was on the clipboard to paste. Writing first (while we
+      // still have focus + the user-activation) succeeds, THEN we open
+      // the tab.
+      let copied = false;
       try {
         await navigator.clipboard.writeText(prompt);
-        // Clear any prior manual-copy fallback now that the modern API
-        // worked.
+        copied = true;
         setManualCopyPrompt(null);
       } catch (e) {
-        // B — fallback: surface the prompt in a readonly textarea for
-        // manual copy instead of dead-ending. Keep the opened tab (the
-        // user can still paste manually once they copy from the
-        // fallback box).
+        // Fallback — surface the prompt in a readonly textarea for
+        // manual copy instead of dead-ending.
         console.warn("[dropin:byo-ai] clipboard write failed; manual fallback", e);
         setManualCopyPrompt(prompt);
-        onWarn(
-          "Couldn't auto-copy (your browser blocked clipboard access). The prompt is shown below — select all + copy it manually.",
-        );
-        // Still record the choice + snapshot so the rest of the flow
-        // works after a manual copy.
-        promptSourceRef.current = fullSource;
-        setSourceChanged(false);
-        setLastClicked(provider.id);
-        return;
       }
-      // Remember the user's choice for next time.
+
+      // Open the provider tab. Skip for "copy". On Chrome the user-
+      // activation survives the short clipboard await; if a browser
+      // blocks the popup, the prompt is still on the clipboard (or in
+      // the fallback box) so the user can open the AI + paste manually.
+      let opened: Window | null = null;
+      if (provider.openUrl) {
+        opened = window.open(provider.openUrl, "_blank", "noopener");
+      }
+      const popupBlocked = !!provider.openUrl && (!opened || opened.closed);
+
+      // Remember the user's choice + snapshot the source for the
+      // edit-after-copy notice.
       try {
         localStorage.setItem(BYO_AI_PROVIDER_STORAGE_KEY, provider.id);
         setPreferredProvider(provider.id);
@@ -370,19 +364,21 @@ export default function ByoAiSwapModal({
         // localStorage can be disabled in private browsing — degrade.
       }
       setLastClicked(provider.id);
-      // B — snapshot the source the AI is about to see. If the user
-      // edits the template afterward, handleApply's source-changed
-      // notice fires (the AI's reply is based on this snapshot).
       promptSourceRef.current = fullSource;
       setSourceChanged(false);
-      if (popupBlocked) {
-        const providerName = provider.label.replace("Open ", "");
+
+      const providerName = provider.label.replace("Open ", "");
+      if (!copied) {
         onWarn(
-          `Popup blocked — couldn't open ${providerName}. Your prompt is copied; paste it in ${providerName} manually, then come back here.`,
+          "Couldn't auto-copy — the prompt is shown below the buttons. Select all + copy it manually, then paste in your AI.",
+        );
+      } else if (popupBlocked) {
+        onWarn(
+          `Prompt copied, but ${providerName}'s tab was blocked by your browser. Open ${providerName} yourself + paste — then come back here.`,
         );
       } else if (provider.openUrl) {
         onInfo(
-          `Prompt copied + ${provider.label.replace("Open ", "")} opened. Paste it there → copy the reply → come back here to paste below.`,
+          `Prompt copied + ${providerName} opened. Paste it there → copy the reply → come back here to paste below.`,
         );
       } else {
         onInfo("Prompt copied. Paste it in your AI, then come back here.");
