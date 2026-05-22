@@ -174,6 +174,10 @@ export default function ByoAiSwapModal({
     if (!open || !vibeInfo) return;
     const sig = vibeInfo.outerHtml ?? "";
     if (lastTargetRef.current !== sig) {
+      console.log("[dropin:byo-ai] RESET-EFFECT firing (clears selectedReference)", {
+        prevSig: lastTargetRef.current?.slice(0, 30) ?? null,
+        newSig: sig.slice(0, 30),
+      });
       lastTargetRef.current = sig;
       setSelectedReference(null);
       setFailureReason(null);
@@ -455,6 +459,11 @@ export default function ByoAiSwapModal({
   }, [vibeInfo, pasteText, fullSource, kind, onApply, onClose]);
 
   if (!open || !vibeInfo) return null;
+
+  console.log("[dropin:byo-ai] MODAL RENDER", {
+    selectedReference: selectedReference?.component.title ?? null,
+    lastClicked,
+  });
 
   const targetKind = inferCategoryFromKind(vibeInfo);
 
