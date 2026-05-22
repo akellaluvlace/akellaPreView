@@ -301,8 +301,31 @@ export function validateResponse(
     };
   }
 
+  // Security: NEW dangerous tags. The preview iframe runs with
+  // `allow-scripts allow-same-origin`, so an AI-injected <script> WOULD
+  // execute + an <iframe>/<object>/<embed> could load remote content.
+  // We can't blanket-reject these because templates legitimately carry
+  // <script> (Tailwind config) — so we count: if the output has MORE
+  // of a dangerous tag than the input did, the AI added one → reject.
+  // Mirrors the count-based approach the cascade no-op fix uses.
+  const countTag = (src: string, tag: string): number => {
+    const re = new RegExp(`<${tag}\\b`, "gi");
+    return (src.match(re) ?? []).length;
+  };
+  for (const tag of ["script", "iframe", "object", "embed"]) {
+    const inCount = countTag(inputSource, tag);
+    const outCount = countTag(outputSource, tag);
+    if (outCount > inCount) {
+      return {
+        ok: false,
+        reason: `Response adds a new <${tag}> tag that wasn't in your original file — refusing for security. Edit the response to remove it, or re-prompt your AI.`,
+      };
+    }
+  }
+
   // FORBIDDEN_TAGS placeholder — kept structurally to make adding
-  // future tags trivial without changing the result shape.
+  // future always-rejected tags trivial without changing the result
+  // shape.
   for (const tag of FORBIDDEN_TAGS) {
     if (outputSource.toLowerCase().includes(`<${tag}`)) {
       return {

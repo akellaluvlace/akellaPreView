@@ -103,11 +103,26 @@ export default function InlineComponentBrowser({
     setPicking(slug);
     try {
       const full = await getComponentFull(slug);
-      // Phase 6 — AI swap mode. Skip the insert pipeline entirely; just
-      // hand the raw HTML to the caller, who'll send it to /api/ai-edit
-      // as `referenceHtml`. The AI does the content fusion server-side.
+      // BYO-AI swap mode (2026-05-21). Skip the insert pipeline; hand
+      // the reference markup to the caller, who composes it into the
+      // prompt sent to the user's AI.
+      //
+      // 2026-05-22 — bundle the component's CSS with its HTML. Uiverse
+      // components carry their styling in `full.css` (custom CSS, not
+      // just Tailwind utilities); passing only `full.html` gave the AI
+      // class names with no visual definition. We prepend the CSS as a
+      // <style> block + strip the `__UIV_SCOPE__` descendant-prefix so
+      // the rules read directly against the HTML's class names. HyperUI
+      // components have null css (Tailwind-only) → html alone is enough.
       if (onPickReference) {
-        onPickReference(full, full.html ?? "");
+        const html = full.html ?? "";
+        const css = full.css
+          ? full.css.replace(/__UIV_SCOPE__\s*/g, "")
+          : null;
+        const referenceMarkup = css
+          ? `<style>\n${css}\n</style>\n${html}`
+          : html;
+        onPickReference(full, referenceMarkup);
         return;
       }
       if (!onPick) {
