@@ -505,7 +505,13 @@ export default function ByoAiSwapModal({
                 </span>
               )}
             </div>
-            <div className="h-[40vh] min-h-[300px]">
+            {/* 2026-05-22 — overflow-y-auto is load-bearing. Without it
+                the grid (up to 1257 button tiles) overflows this box
+                with no clip, pushing steps 2 + 3 hundreds of rows down
+                so the provider buttons appear "missing". Constraining +
+                scrolling the picker INTERNALLY keeps steps 2 + 3 right
+                below the picker, always in view. */}
+            <div className="h-[40vh] min-h-[280px] max-h-[40vh] overflow-y-auto">
               <InlineComponentBrowser
                 mode={kind}
                 category={targetKind}
