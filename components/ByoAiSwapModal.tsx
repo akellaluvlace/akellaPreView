@@ -105,6 +105,10 @@ export default function ByoAiSwapModal({
 }: Props) {
   const [selectedReference, setSelectedReference] =
     useState<{ component: ComponentMeta; rawHtml: string } | null>(null);
+  // 2026-05-23 — free-form change description. The user can describe a
+  // change in words ("make it bigger with a blue gradient") instead of
+  // (or in addition to) picking a reference design.
+  const [changeText, setChangeText] = useState("");
   const [pasteText, setPasteText] = useState("");
   const [failureReason, setFailureReason] = useState<string | null>(null);
   const [preferredProvider, setPreferredProvider] = useState<string | null>(
@@ -167,6 +171,7 @@ export default function ByoAiSwapModal({
     if (lastTargetRef.current !== sig) {
       lastTargetRef.current = sig;
       setSelectedReference(null);
+      setChangeText("");
       setFailureReason(null);
       setLastClicked(null);
       setSourceChanged(false);
@@ -278,42 +283,52 @@ export default function ByoAiSwapModal({
     [preferredProvider],
   );
 
+  // The user can proceed with EITHER a picked reference OR a typed
+  // change description (or both). This gates the provider buttons.
+  const hasInput =
+    !!selectedReference || changeText.trim().length > 0;
+
   // Compose the prompt on demand (each button click rebuilds it so
   // we always have the latest full source — Dropin's iframe re-renders
   // between picks and the source may have shifted via other edits).
   const buildPrompt = useCallback((): string | null => {
-    if (!vibeInfo || !selectedReference) return null;
+    if (!vibeInfo) return null;
+    const hasRef = !!selectedReference;
+    const hasChange = changeText.trim().length > 0;
+    if (!hasRef && !hasChange) return null;
     return composeSwapPrompt({
       fullSource,
       kind,
       targetOuterHtml: vibeInfo.outerHtml ?? "",
-      referenceHtml: selectedReference.rawHtml,
+      referenceHtml: selectedReference?.rawHtml,
+      userPrompt: changeText.trim() || undefined,
     });
-  }, [fullSource, kind, vibeInfo, selectedReference]);
+  }, [fullSource, kind, vibeInfo, selectedReference, changeText]);
 
-  // Approximate prompt size, shown once a reference is picked so the
-  // user knows whether it'll fit their AI's context limit. ~3.5 chars
-  // per token is a rough industry heuristic; we show KB + an estimated
-  // token count. Memoized so we don't rebuild the (potentially 60KB)
-  // prompt string on every render.
+  // Approximate prompt size, shown once there's input so the user knows
+  // whether it'll fit their AI's context limit. ~3.5 chars/token.
   const promptSize = useMemo(() => {
-    if (!selectedReference || !vibeInfo) return null;
+    if (!vibeInfo) return null;
+    const hasRef = !!selectedReference;
+    const hasChange = changeText.trim().length > 0;
+    if (!hasRef && !hasChange) return null;
     const prompt = composeSwapPrompt({
       fullSource,
       kind,
       targetOuterHtml: vibeInfo.outerHtml ?? "",
-      referenceHtml: selectedReference.rawHtml,
+      referenceHtml: selectedReference?.rawHtml,
+      userPrompt: changeText.trim() || undefined,
     });
     const chars = prompt.length;
     const kb = Math.round(chars / 1024);
     const kTokens = Math.round(chars / 3.5 / 1000);
     return { kb, kTokens };
-  }, [fullSource, kind, vibeInfo, selectedReference]);
+  }, [fullSource, kind, vibeInfo, selectedReference, changeText]);
 
   const handleProviderClick = useCallback(
     async (provider: ByoAiProvider) => {
-      if (!selectedReference) {
-        onWarn("Pick a reference design first (Step 1).");
+      if (!selectedReference && changeText.trim().length === 0) {
+        onWarn("Pick a reference design OR describe a change first (Step 1).");
         return;
       }
       const prompt = buildPrompt();
@@ -385,7 +400,7 @@ export default function ByoAiSwapModal({
         onInfo("Prompt copied. Paste it in your AI, then come back here.");
       }
     },
-    [selectedReference, buildPrompt, onInfo, onWarn, fullSource],
+    [selectedReference, changeText, buildPrompt, onInfo, onWarn, fullSource],
   );
 
   const handleApply = useCallback(() => {
@@ -437,6 +452,7 @@ export default function ByoAiSwapModal({
     // subsequent re-open within the same React session works without
     // a sessionStorage hop.
     setSelectedReference(null);
+    setChangeText("");
     setFailureReason(null);
     onClose();
   }, [vibeInfo, pasteText, fullSource, kind, onApply, onClose]);
@@ -493,7 +509,7 @@ export default function ByoAiSwapModal({
               }
             >
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
-                1. Pick a design
+                1. Pick a design — or describe a change
               </span>
               {selectedReference && (
                 <span className="ml-2 font-mono text-[10px] font-bold text-coral">
@@ -501,6 +517,24 @@ export default function ByoAiSwapModal({
                   your AI below ↓
                 </span>
               )}
+            </div>
+            {/* 2026-05-23 — free-form change description. Sits above the
+                reference grid so "say what you want" is the first thing
+                the user sees. Works alone OR alongside a picked
+                reference. Either input enables the provider buttons. */}
+            <div className="border-b-2 border-ink/10 bg-paper px-4 py-2">
+              <input
+                type="text"
+                value={changeText}
+                onChange={(e) => setChangeText(e.target.value)}
+                placeholder="Describe a change — e.g. 'make it bigger with a blue gradient and rounded corners'"
+                className="w-full border-2 border-ink bg-paper px-2 py-1.5 font-mono text-[11px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+              />
+              <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
+                {changeText.trim()
+                  ? "✓ Change described — pick a reference too, or just send below ↓"
+                  : "Optional — leave blank if you're matching a reference design below"}
+              </p>
             </div>
             {/* 2026-05-22 — overflow-y-auto is load-bearing. Without it
                 the grid (up to 1257 button tiles) overflows this box
@@ -553,11 +587,11 @@ export default function ByoAiSwapModal({
                   key={p.id}
                   type="button"
                   onClick={() => handleProviderClick(p)}
-                  disabled={!selectedReference}
+                  disabled={!hasInput}
                   title={p.title}
                   className={
                     "border-2 border-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors " +
-                    (selectedReference
+                    (hasInput
                       ? i === 0
                         ? "bg-coral text-paper hover:bg-ink"
                         : "bg-paper text-ink hover:bg-ink hover:text-paper"
@@ -569,7 +603,7 @@ export default function ByoAiSwapModal({
               ))}
             </div>
             <p className="mt-2 font-mono text-[10px] text-muted">
-              {selectedReference ? (
+              {hasInput ? (
                 <>
                   Paste in your AI → copy its reply → come back here &
                   paste below.
@@ -581,7 +615,7 @@ export default function ByoAiSwapModal({
                   )}
                 </>
               ) : (
-                "Pick a reference design first."
+                "Pick a reference design or describe a change first."
               )}
             </p>
             {/* B — manual-copy fallback. Shown only when the clipboard

@@ -118,6 +118,57 @@ describe("composeSwapPrompt — element-only framing", () => {
   });
 });
 
+describe("composeSwapPrompt — free-form change (2026-05-23)", () => {
+  it("composes a description-only prompt (no reference)", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: '<button class="old">Go</button>',
+      userPrompt: "make it bigger with a blue gradient",
+    });
+    expect(prompt).toContain("THE CHANGE I WANT:");
+    expect(prompt).toContain("make it bigger with a blue gradient");
+    // No reference section when there's no reference.
+    expect(prompt).not.toContain("THE REFERENCE DESIGN");
+    // Still asks for one element back.
+    expect(prompt.toLowerCase()).toContain("only the single restyled element");
+  });
+
+  it("composes a combined prompt (reference + description)", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: "<button>Go</button>",
+      referenceHtml: '<button class="ref">Click</button>',
+      userPrompt: "but make the text uppercase",
+    });
+    expect(prompt).toContain("THE REFERENCE DESIGN");
+    expect(prompt).toContain("THE CHANGE I WANT:");
+    expect(prompt).toContain("but make the text uppercase");
+  });
+
+  it("description-only prompt instructs to apply the described change", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: "<button>Go</button>",
+      userPrompt: "add a shadow",
+    });
+    expect(prompt.toLowerCase()).toContain("apply the change described");
+  });
+
+  it("ignores an empty/whitespace userPrompt", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: "<button>Go</button>",
+      referenceHtml: "<button>ref</button>",
+      userPrompt: "   ",
+    });
+    expect(prompt).not.toContain("THE CHANGE I WANT:");
+  });
+});
+
 describe("composeSwapPrompt — design-system context (2026-05-23)", () => {
   it("injects the site's color tokens so the element matches the palette", () => {
     const prompt = composeSwapPrompt({

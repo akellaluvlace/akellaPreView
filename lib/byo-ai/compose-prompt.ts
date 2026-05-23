@@ -22,8 +22,8 @@ import { extractDesignContext } from "./design-context";
 
 export interface ComposeSwapPromptOptions {
   // Full source code of the current template. Kept in the options shape
-  // for callers + the prompt-size estimate, but the element-only prompt
-  // no longer embeds it (the AI only needs the target + reference).
+  // for callers + the prompt-size estimate + design-context extraction,
+  // but the element-only prompt doesn't embed it.
   fullSource: string;
   // Detected mode — drives the code-fence language hint.
   kind: "html" | "jsx";
@@ -31,7 +31,14 @@ export interface ComposeSwapPromptOptions {
   // restyles + returns.
   targetOuterHtml: string;
   // HTML of the reference design (typically from a library tile).
-  referenceHtml: string;
+  // Optional — omitted when the user is describing a change in words
+  // (free-form mode) instead of picking a reference.
+  referenceHtml?: string;
+  // 2026-05-23 — free-form change description (e.g. "make it bigger
+  // with a blue gradient"). Optional — omitted when the user picks a
+  // reference. At least one of referenceHtml / userPrompt should be
+  // present; both can be combined ("match this reference, but bigger").
+  userPrompt?: string;
 }
 
 // Cap on how much reference HTML we embed. Library tiles can be 3-8KB
@@ -58,22 +65,46 @@ function cleanReferenceHtml(raw: string): string {
 }
 
 export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
-  const kindLabel = opts.kind === "html" ? "HTML" : "JSX";
   const fenceLang = opts.kind === "html" ? "html" : "jsx";
-  const referenceClean = cleanReferenceHtml(opts.referenceHtml);
+  const hasReference = !!opts.referenceHtml && opts.referenceHtml.trim().length > 0;
+  const hasUserPrompt = !!opts.userPrompt && opts.userPrompt.trim().length > 0;
 
   // 2026-05-23 — design-system context. A compact summary of the page's
   // color tokens/families + fonts so the AI's restyled element matches
-  // the rest of the site (the coherence full-file rewrites got for
-  // free). Omitted entirely when nothing useful is extractable.
+  // the rest of the site. Omitted when nothing useful is extractable.
   const designContext = extractDesignContext(opts.fullSource);
   const designSection = designContext
     ? [
         "",
-        "YOUR SITE'S DESIGN SYSTEM (use these so the element fits in — " +
-          "prefer the reference's SHAPE/layout but the site's COLORS/" +
-          "fonts where they conflict):",
+        "YOUR SITE'S DESIGN SYSTEM (use these so the element fits in" +
+          (hasReference
+            ? " — prefer the reference's SHAPE/layout but the site's " +
+              "COLORS/fonts where they conflict"
+            : "") +
+          "):",
         designContext,
+      ]
+    : [];
+
+  // The "what to do" block adapts to the inputs:
+  //   reference only → match this design
+  //   description only → apply this change
+  //   both → match this design + also apply this change
+  const referenceSection = hasReference
+    ? [
+        "",
+        "THE REFERENCE DESIGN (match this look — it may include a " +
+          "<style> block showing how its classes look):",
+        "```html",
+        cleanReferenceHtml(opts.referenceHtml!),
+        "```",
+      ]
+    : [];
+  const changeSection = hasUserPrompt
+    ? [
+        "",
+        "THE CHANGE I WANT:",
+        opts.userPrompt!.trim(),
       ]
     : [];
 
@@ -90,32 +121,42 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
           "- Keep it valid HTML (use `class`, not `className`).",
         ];
 
+  // Intro + the style-instruction line adapt to which inputs exist.
+  const intro = hasReference
+    ? "I want to restyle ONE UI element to match a reference design."
+    : "I want to restyle ONE UI element.";
+  const styleInstruction = hasReference
+    ? "- Restyle it to look like the reference — colors, shape, " +
+      "padding, shadow, hover effects, etc." +
+      (hasUserPrompt ? " Then apply the change described above." : "")
+    : "- Apply the change described above. Keep everything else about " +
+      "the element the same.";
+
   // The prompt is plain text — providers' UI textareas preserve it
   // verbatim. Triple-backtick fences are intentional (the model needs
   // the code-fence boundaries to understand the structure).
   return [
-    "I want to restyle ONE UI element to match a reference design.",
+    intro,
     "",
     "MY ELEMENT (restyle this one):",
     "```" + fenceLang,
     opts.targetOuterHtml.trim(),
     "```",
-    "",
-    "THE REFERENCE DESIGN (match this look — it may include a <style> " +
-      "block showing how its classes look):",
-    "```html",
-    referenceClean,
-    "```",
+    ...referenceSection,
+    ...changeSection,
     ...designSection,
     "",
     "INSTRUCTIONS:",
     "- Keep MY element's text content (the visible words inside).",
     "- Keep MY element's meaningful attributes (href, src, alt, type, " +
       "name, and data-* attributes).",
-    "- Restyle it to look like the reference — colors, shape, padding, " +
-      "shadow, hover effects, etc.",
-    "- If the reference uses custom CSS, translate that look into " +
-      "Tailwind utility classes (or inline style). Don't paste raw CSS.",
+    styleInstruction,
+    ...(hasReference
+      ? [
+          "- If the reference uses custom CSS, translate that look into " +
+            "Tailwind utility classes (or inline style). Don't paste raw CSS.",
+        ]
+      : []),
     ...jsxGuards,
     "- Return ONLY the single restyled element in one code block — just " +
       "the one tag, NOT a full file or page. No explanation.",
