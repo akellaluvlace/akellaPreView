@@ -18,6 +18,8 @@
 // think about prompt engineering; the template is good enough for
 // frontier models, and power users can edit before pasting in their AI.
 
+import { extractDesignContext } from "./design-context";
+
 export interface ComposeSwapPromptOptions {
   // Full source code of the current template. Kept in the options shape
   // for callers + the prompt-size estimate, but the element-only prompt
@@ -60,6 +62,21 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
   const fenceLang = opts.kind === "html" ? "html" : "jsx";
   const referenceClean = cleanReferenceHtml(opts.referenceHtml);
 
+  // 2026-05-23 — design-system context. A compact summary of the page's
+  // color tokens/families + fonts so the AI's restyled element matches
+  // the rest of the site (the coherence full-file rewrites got for
+  // free). Omitted entirely when nothing useful is extractable.
+  const designContext = extractDesignContext(opts.fullSource);
+  const designSection = designContext
+    ? [
+        "",
+        "YOUR SITE'S DESIGN SYSTEM (use these so the element fits in — " +
+          "prefer the reference's SHAPE/layout but the site's COLORS/" +
+          "fonts where they conflict):",
+        designContext,
+      ]
+    : [];
+
   const jsxGuards =
     opts.kind === "jsx"
       ? [
@@ -89,6 +106,7 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
     "```html",
     referenceClean,
     "```",
+    ...designSection,
     "",
     "INSTRUCTIONS:",
     "- Keep MY element's text content (the visible words inside).",

@@ -118,6 +118,41 @@ describe("composeSwapPrompt — element-only framing", () => {
   });
 });
 
+describe("composeSwapPrompt — design-system context (2026-05-23)", () => {
+  it("injects the site's color tokens so the element matches the palette", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: `colors: { "primary": "#10b981", "surface": "#fef7ff" }`,
+      kind: "jsx",
+      targetOuterHtml: '<button className="old">Go</button>',
+      referenceHtml: '<button className="ref">Click</button>',
+    });
+    expect(prompt.toLowerCase()).toContain("your site's design system");
+    expect(prompt).toContain("primary=#10b981");
+  });
+
+  it("injects color families + fonts when no config block exists", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: `<link href="https://fonts.googleapis.com/css2?family=Inter">
+        <div class="bg-sky-500 text-slate-800"><button class="bg-sky-600">x</button></div>`,
+      kind: "html",
+      targetOuterHtml: "<button>x</button>",
+      referenceHtml: "<button>y</button>",
+    });
+    expect(prompt).toContain("sky");
+    expect(prompt).toContain("Inter");
+  });
+
+  it("omits the design-system section when nothing is extractable", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "<div><p>plain text</p></div>",
+      kind: "html",
+      targetOuterHtml: "<button>x</button>",
+      referenceHtml: "<button>y</button>",
+    });
+    expect(prompt.toLowerCase()).not.toContain("your site's design system");
+  });
+});
+
 describe("composeSwapPrompt — trims input snippets", () => {
   it("trims targetOuterHtml whitespace", () => {
     const prompt = composeSwapPrompt({
