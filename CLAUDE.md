@@ -15,7 +15,26 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-22 — BYO-AI swap SHIPPED + hardened across 6 audit rounds. Full-file in/out via user's own ChatGPT/Claude/Gemini, clipboard round-trip, 94 prod-import tests. tsc 0. vitest 6590/6592 — 2 pre-existing envelope flakes. Latest commit `1ed3604` + round-6 docs uncommitted.)
+## Current status (2026-05-23 — BYO-AI swap evolved to DUAL-MODE (element + full-file) + design-system context + free-form prompt. 116 prod-import tests. tsc 0. vitest 6612/6614 — 2 pre-existing envelope flakes. Latest commit `bebf5ec`.)
+
+### BYO-AI swap — 2026-05-22/23 evolution (post-ship)
+
+After manual testing surfaced issues, the swap evolved significantly:
+
+- **Clipboard-before-window.open** (`5c0fffd`): opening the AI tab first blurred the doc → Clipboard API silently refused the copy. Copy first, then open.
+- **Reference-tile selection feedback** (`e08316b`): the pick worked but gave no visual feedback (no tile highlight) → users thought it was broken. Added coral ring + "✓ Picked" badge + scroll-to-providers.
+- **Provider buttons off-screen** (`94ed18d`): the 1257-tile grid had no internal scroll → pushed steps 2+3 down. Added `overflow-y-auto max-h-[40vh]`.
+- **DUAL-MODE** (`88aa440`, `de4f580`): accept BOTH element-only AND full-file responses. `detectResponseShape()` routes element → patch by OID (cascade-detach first!), full-file → setCode. Element-only is the default prompt (smaller, no truncation, surgical). detectResponseShape only inspects the response START (text like `<button>Export</button>` was misclassified).
+- **Design-system context** (`8ad...`): `lib/byo-ai/design-context.ts` injects the page's color tokens/families + fonts into the element prompt so the restyle matches the site (recovers full-file coherence without the whole file).
+- **Free-form prompt** (`bebf5ec`): "Describe a change" text input alongside the reference picker. composeSwapPrompt referenceHtml optional + userPrompt added.
+
+Research validated targeted-edit-over-full-rewrite (Framer/v0/Webflow + Aider/Cursor focused-context). Remaining gaps (lower priority): iterative refinement, section/multi-element editing, screenshot reference, diff preview.
+
+---
+
+## Prior status (2026-05-22 — BYO-AI swap shipped + 6 hardening rounds)
+
+Full-file in/out via user's own ChatGPT/Claude/Gemini, clipboard round-trip. Commit `1ed3604`.
 
 ### BYO-AI component swap — SHIPPED 2026-05-22
 
