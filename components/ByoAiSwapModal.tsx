@@ -94,6 +94,45 @@ function inferCategoryFromKind(info: VibeElementInfo): string | null {
   }
 }
 
+// 2026-05-24 — prominent numbered step header. Vibecoders need the
+// 3-step flow obvious at a glance, not buried in tiny mono caps.
+function StepHeader({
+  n,
+  title,
+  hint,
+  done,
+}: {
+  n: number;
+  title: string;
+  hint: string;
+  done?: boolean;
+}) {
+  return (
+    <div
+      className={
+        "flex items-start gap-3 px-4 py-3 transition-colors " +
+        (done ? "bg-coral/10" : "bg-paper")
+      }
+    >
+      <span
+        className={
+          "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-ink font-display text-[14px] font-bold " +
+          (done ? "bg-coral text-paper" : "bg-ink text-paper")
+        }
+        aria-hidden="true"
+      >
+        {done ? "✓" : n}
+      </span>
+      <div className="min-w-0">
+        <div className="font-display text-[15px] font-bold leading-tight text-ink">
+          {title}
+        </div>
+        <div className="mt-0.5 text-[12px] leading-snug text-muted">{hint}</div>
+      </div>
+    </div>
+  );
+}
+
 export default function ByoAiSwapModal({
   open,
   onClose,
@@ -497,65 +536,77 @@ export default function ByoAiSwapModal({
         tabIndex={-1}
         className="flex h-[88vh] w-[min(1000px,calc(100vw-32px))] flex-col border-2 border-ink bg-paper shadow-[8px_8px_0_0_#FF4D2E] focus:outline-none"
       >
-        {/* Header */}
-        <div className="flex shrink-0 items-center justify-between border-b-2 border-ink bg-soft px-4 py-2">
-          <div>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-coral">
-              ✨ Swap with AI
-            </span>
-            <p className="mt-0.5 font-mono text-[10px] text-muted">
-              Pick a design → send to your AI → paste the reply.
-              Restyles your <span className="font-bold">{vibeInfo.tag}</span>{" "}
-              while keeping its content.
-            </p>
+        {/* Header — title + a plain-language explanation of the whole
+            3-step round-trip so vibecoders grok it before scrolling. */}
+        <div className="shrink-0 border-b-2 border-ink bg-soft px-4 py-3">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <span className="font-display text-[18px] font-bold text-ink">
+                ✨ Restyle your{" "}
+                <span className="text-coral">&lt;{vibeInfo.tag}&gt;</span> with
+                AI
+              </span>
+              <p className="mt-1 text-[12px] leading-snug text-ink/80">
+                You use your <span className="font-bold">own</span> AI
+                (ChatGPT, Claude…) — it&apos;s free. Three steps:
+                <span className="font-bold"> ① choose a look</span> →
+                <span className="font-bold"> ② open your AI</span> →
+                <span className="font-bold"> ③ paste its reply back here</span>.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close swap dialog"
+              className="shrink-0 border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+            >
+              Close (Esc)
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close swap dialog"
-            className="border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
-          >
-            Close (Esc)
-          </button>
         </div>
 
         {/* Body — scrolls if needed; reference picker takes most space */}
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           {/* STEP 1 — reference picker */}
           <section className="border-b-2 border-ink/15">
-            <div
-              className={
-                "border-b-2 border-ink/10 px-4 py-2 transition-colors " +
-                (selectedReference ? "bg-coral/10" : "bg-paper")
-              }
-            >
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
-                1. Pick a design — or describe a change
-              </span>
-              {selectedReference && (
-                <span className="ml-2 font-mono text-[10px] font-bold text-coral">
-                  ✓ Picked: {selectedReference.component.title} — now choose
-                  your AI below ↓
+            <StepHeader
+              n={1}
+              title="Choose the new look"
+              hint="Type what you want in plain words, or pick a ready-made design below."
+              done={!!selectedReference || changeText.trim().length > 0}
+            />
+            {selectedReference && (
+              <div className="border-b-2 border-ink/10 bg-coral/10 px-4 py-1.5">
+                <span className="text-[12px] font-bold text-coral">
+                  ✓ Picked “{selectedReference.component.title}” — now do Step 2
+                  below ↓
                 </span>
-              )}
-            </div>
+              </div>
+            )}
             {/* 2026-05-23 — free-form change description. Sits above the
                 reference grid so "say what you want" is the first thing
                 the user sees. Works alone OR alongside a picked
                 reference. Either input enables the provider buttons. */}
-            <div className="border-b-2 border-ink/10 bg-paper px-4 py-2">
+            <div className="bg-paper px-4 py-2">
               <input
                 type="text"
                 value={changeText}
                 onChange={(e) => setChangeText(e.target.value)}
-                placeholder="Describe a change — e.g. 'make it bigger with a blue gradient and rounded corners'"
-                className="w-full border-2 border-ink bg-paper px-2 py-1.5 font-mono text-[11px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+                placeholder="e.g. make it bigger with a blue gradient and rounded corners"
+                className="w-full border-2 border-ink bg-paper px-3 py-2 text-[13px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
               />
-              <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
+              <p className="mt-1 text-[11px] text-muted">
                 {changeText.trim()
-                  ? "✓ Change described — pick a reference too, or just send below ↓"
-                  : "Optional — leave blank if you're matching a reference design below"}
+                  ? "✓ Got it. Pick a reference too if you like, or go to Step 2 ↓"
+                  : "Optional — or skip this and pick a design below."}
               </p>
+            </div>
+            <div className="flex items-center gap-2 px-4 pb-1">
+              <span className="h-px flex-1 bg-ink/15" />
+              <span className="text-[10px] uppercase tracking-[0.2em] text-muted">
+                or pick a design
+              </span>
+              <span className="h-px flex-1 bg-ink/15" />
             </div>
             {/* 2026-05-22 — overflow-y-auto is load-bearing. Without it
                 the grid (up to 1257 button tiles) overflows this box
@@ -587,58 +638,80 @@ export default function ByoAiSwapModal({
           {/* STEP 2 — provider buttons */}
           <section
             ref={providerSectionRef}
-            className="border-b-2 border-ink/15 bg-paper px-4 py-3"
+            className="border-b-2 border-ink/15 bg-paper"
           >
-            <div className="mb-2">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
-                2. Send to your AI
-              </span>
-              {lastClicked && (
-                <span className="ml-2 font-mono text-[10px] text-coral">
-                  Sent to{" "}
-                  {getProviderById(lastClicked)?.label.replace("Open ", "") ??
-                    lastClicked}
-                  . Switch AI? Click another button.
-                </span>
-              )}
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {orderedProviders.map((p, i) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => handleProviderClick(p)}
-                  disabled={!hasInput}
-                  title={p.title}
-                  className={
-                    "border-2 border-ink px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors " +
-                    (hasInput
-                      ? i === 0
-                        ? "bg-coral text-paper hover:bg-ink"
-                        : "bg-paper text-ink hover:bg-ink hover:text-paper"
-                      : "cursor-not-allowed bg-paper text-muted opacity-40")
-                  }
-                >
-                  {p.label}
-                </button>
-              ))}
-            </div>
-            <p className="mt-2 font-mono text-[10px] text-muted">
-              {hasInput ? (
-                <>
-                  Paste in your AI → copy its reply → come back here &
-                  paste below.
-                  {promptSize && (
-                    <span className="ml-1 text-ink/60">
-                      (prompt ~{promptSize.kb} KB · ~{promptSize.kTokens}k
-                      tokens)
-                    </span>
-                  )}
-                </>
+            <StepHeader
+              n={2}
+              title="Open your AI"
+              hint={
+                hasInput
+                  ? "Click the AI you use. It opens in a new tab with your request ready."
+                  : "Do Step 1 first (describe a change or pick a design), then these light up."
+              }
+              done={!!lastClicked}
+            />
+            <div className="px-4 pb-3">
+              <div className="flex flex-wrap items-center gap-2">
+                {orderedProviders.map((p, i) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => handleProviderClick(p)}
+                    disabled={!hasInput}
+                    title={p.title}
+                    className={
+                      "border-2 border-ink px-4 py-2.5 text-[13px] font-bold transition-colors " +
+                      (hasInput
+                        ? i === 0
+                          ? "bg-coral text-paper hover:bg-ink"
+                          : "bg-paper text-ink hover:bg-ink hover:text-paper"
+                        : "cursor-not-allowed bg-paper text-muted opacity-40")
+                    }
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+              {/* After a provider click — spell out what to do over in
+                  the AI tab, then come back. The single clearest signal
+                  for the round-trip. */}
+              {lastClicked ? (
+                <div className="mt-3 border-2 border-coral bg-coral/10 px-3 py-2.5">
+                  <p className="text-[13px] font-bold text-ink">
+                    ✓ Opened{" "}
+                    {getProviderById(lastClicked)?.label.replace("Open ", "") ??
+                      "your AI"}
+                    . Now, over in that tab:
+                  </p>
+                  <ol className="mt-1 list-decimal pl-5 text-[12px] leading-relaxed text-ink/90">
+                    <li>
+                      Send the prompt
+                      {lastClicked === "chatgpt"
+                        ? " (already filled in — just press Enter)"
+                        : " (paste it — it's on your clipboard — then send)"}
+                      .
+                    </li>
+                    <li>Wait for the answer, then copy the whole reply.</li>
+                    <li>
+                      Come back here and paste it in{" "}
+                      <span className="font-bold">Step 3 ↓</span>
+                    </li>
+                  </ol>
+                  <p className="mt-1.5 text-[11px] text-muted">
+                    Want a different AI? Click another button above.
+                  </p>
+                </div>
               ) : (
-                "Pick a reference design or describe a change first."
+                hasInput && (
+                  <p className="mt-2 text-[12px] text-muted">
+                    {promptSize && (
+                      <>Prompt is ready (~{promptSize.kb} KB). </>
+                    )}
+                    Tip: ChatGPT opens with it already typed in.
+                  </p>
+                )
               )}
-            </p>
+            </div>
             {/* B — manual-copy fallback. Shown only when the clipboard
                 API was unavailable. The textarea auto-selects on focus
                 so the user can Ctrl+C / Cmd+C the prompt. */}
@@ -671,12 +744,14 @@ export default function ByoAiSwapModal({
           </section>
 
           {/* STEP 3 — paste + Apply */}
-          <section className="bg-paper px-4 py-3">
-            <div className="mb-2">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
-                3. Paste the AI's reply here
-              </span>
-            </div>
+          <section className="bg-paper">
+            <StepHeader
+              n={3}
+              title="Paste the AI's reply"
+              hint="Paste the whole answer the AI gave you — we pull out the code automatically and apply it."
+              done={pasteText.trim().length > 0}
+            />
+            <div className="px-4 pb-3">
             <textarea
               ref={textareaRef}
               value={pasteText}
@@ -698,10 +773,10 @@ export default function ByoAiSwapModal({
                   handleApply();
                 }
               }}
-              placeholder="Paste the AI's full response here — we'll extract the code automatically. Press ⌘↵ to apply."
+              placeholder="Paste the AI's whole reply here (⌘↵ / Ctrl↵ to apply)"
               spellCheck={false}
               rows={6}
-              className="w-full border-2 border-ink bg-paper p-2 font-mono text-[11px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+              className="w-full border-2 border-ink bg-paper p-2 font-mono text-[12px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
             />
             {/* B — source-changed notice. The AI's reply is based on the
                 template as it was when the prompt was copied. If the user
@@ -739,7 +814,7 @@ export default function ByoAiSwapModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="border-2 border-ink bg-paper px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+                className="border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
               >
                 Cancel
               </button>
@@ -748,7 +823,7 @@ export default function ByoAiSwapModal({
                 onClick={handleApply}
                 disabled={!pasteText.trim()}
                 className={
-                  "border-2 border-ink px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors " +
+                  "border-2 border-ink px-5 py-2 text-[14px] font-bold transition-colors " +
                   (pasteText.trim()
                     ? "bg-coral text-paper hover:bg-ink"
                     : "cursor-not-allowed bg-paper text-muted opacity-40")
@@ -756,6 +831,7 @@ export default function ByoAiSwapModal({
               >
                 Apply to my site
               </button>
+            </div>
             </div>
           </section>
         </div>
