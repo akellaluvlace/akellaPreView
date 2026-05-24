@@ -425,13 +425,17 @@ export default function ByoAiSwapModal({
     });
     console.log("[dropin:byo-ai] validation", {
       ok: validation.ok,
+      mode: validation.mode,
       reason: validation.reason,
     });
     if (!validation.ok) {
       setFailureReason(validation.reason ?? "Response failed validation.");
       return;
     }
-    const applied = onApply(extractedCode, validation.mode ?? "full-file");
+    // Apply the CLEANED code the validator produced (element markup
+    // sliced of prose, or the trimmed full file), not the raw paste.
+    const codeToApply = validation.appliedCode ?? extractedCode;
+    const applied = onApply(codeToApply, validation.mode ?? "full-file");
     console.log("[dropin:byo-ai] apply-result", { applied, mode: validation.mode });
     if (!applied) {
       setFailureReason(

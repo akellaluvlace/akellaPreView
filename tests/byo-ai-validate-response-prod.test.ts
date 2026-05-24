@@ -54,6 +54,87 @@ describe("detectResponseShape", () => {
   });
 });
 
+describe("validateResponse — 787-vs-83879 regression (2026-05-24)", () => {
+  // Reproduces the exact field failure: user pasted a ~787-char restyled
+  // <a> element against an 83879-char source. It was classified
+  // full-file + rejected as "suspiciously short ... truncated file."
+  // A response that's <0.4× the source size is an element, full stop.
+  const HUGE_SOURCE = "x".repeat(83879);
+  const TARGET =
+    '<a data-dropin-id="aaaaae3J" href="#" class="bg-white text-slate-900 px-5 py-2 rounded-full text-sm font-bold hover:bg-teal-50 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">Get Started</a>';
+
+  it("classifies a small element response as element when source is huge", () => {
+    const reply =
+      '<a data-dropin-id="aaaaae3J" href="#" className="bg-teal-500 text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-teal-600 hover:scale-110 transition-all shadow-[0_0_30px_rgba(20,184,166,0.5)] uppercase tracking-wide">Get Started</a>';
+    expect(detectResponseShape(reply, HUGE_SOURCE.length)).toBe("element");
+    const r = validateResponse({
+      inputSource: HUGE_SOURCE,
+      outputSource: reply,
+      targetOuterHtml: TARGET,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.mode).toBe("element");
+    expect(r.appliedCode).toContain("bg-teal-500");
+  });
+
+  it("accepts an element reply even with leading/trailing prose (no fence)", () => {
+    const reply =
+      "Here's your restyled link:\n\n" +
+      '<a data-dropin-id="aaaaae3J" href="#" className="bg-teal-500 text-white px-6 py-3 rounded-full font-bold">Get Started</a>' +
+      "\n\nI kept the text + href and applied the teal gradient. Let me know!";
+    const r = validateResponse({
+      inputSource: HUGE_SOURCE,
+      outputSource: reply,
+      targetOuterHtml: TARGET,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.mode).toBe("element");
+    // The prose is stripped — appliedCode is just the element.
+    expect(r.appliedCode?.startsWith("<a")).toBe(true);
+    expect(r.appliedCode).not.toContain("Here's your");
+    expect(r.appliedCode).not.toContain("Let me know");
+  });
+
+  it("accepts an element reply that leads with an extracted const", () => {
+    // Some AIs hoist the long className into a const, then the element.
+    // The reply doesn't start with `<`, but at <0.4× source it's still
+    // an element — the markup slice grabs the <a>.
+    const reply =
+      'const linkClasses = "bg-teal-500 text-white px-6 py-3 rounded-full";\n' +
+      '<a data-dropin-id="aaaaae3J" href="#" className="bg-teal-500 text-white px-6 py-3 rounded-full font-bold">Get Started</a>';
+    const r = validateResponse({
+      inputSource: HUGE_SOURCE,
+      outputSource: reply,
+      targetOuterHtml: TARGET,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.mode).toBe("element");
+    expect(r.appliedCode?.startsWith("<a")).toBe(true);
+  });
+
+  it("still rejects a genuinely truncated FULL file (source-sized but placeholder)", () => {
+    // A response that IS roughly source-sized but truncated mid-way
+    // should still be caught as full-file (size rule only reroutes the
+    // SMALL ones).
+    const truncated =
+      "export default function App() {\n  // ... rest of the code unchanged ...\n  return <div/>;\n}" +
+      "y".repeat(50000);
+    const r = validateResponse({
+      inputSource: HUGE_SOURCE,
+      outputSource: truncated,
+      targetOuterHtml: TARGET,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    // Placeholder truncation is now caught globally (pre-shape), so the
+    // mode is null — the point is it's REJECTED, not silently applied.
+    expect(r.reason?.toLowerCase()).toContain("truncat");
+  });
+});
+
 describe("validateResponse — element mode (2026-05-22)", () => {
   it("accepts a bare restyled element + reports mode 'element'", () => {
     const target = '<a data-dropin-id="aaa" href="#" class="old">Go</a>';
@@ -604,16 +685,24 @@ describe("validateResponse — placeholder truncation (C1)", () => {
 
 describe("validateResponse — top-level decl survival (C1 companion)", () => {
   it("rejects when 2+ top-level decls vanish (silent truncation)", () => {
-    const input = pad(
-      `const SCREEN_FRAMES = [1,2,3];\nconst VOICES = [4,5,6];\nconst FAQ = [7,8];\nexport default function App() { return <button>old</button>; }`,
-      4000,
-    );
-    // Output dropped SCREEN_FRAMES + VOICES + FAQ (no placeholder
-    // comment — pure silent drop)
-    const output = pad(
-      `export default function App() { return <button>new</button>; }`,
-      2100,
-    );
+    // Realistic full-file fixture — output is ~same size as input
+    // (passes the length check) but silently dropped 3 top-level
+    // const decls. Real content (not whitespace) so it survives trim +
+    // stays structurally full-file. The decl-survival check is what
+    // must catch this.
+    const FILLER =
+      "className='mx-auto max-w-5xl px-6 py-10 grid grid-cols-3 gap-8 items-center text-center'";
+    const input =
+      `const SCREEN_FRAMES = [{a:1},{a:2},{a:3}];\n` +
+      `const VOICES = [{v:'x'},{v:'y'}];\n` +
+      `const FAQ = [{q:'?'}];\n` +
+      `export default function App() { return <div ${FILLER}><button>old</button></div>; }`;
+    // Output: keeps App (similar length via filler) but no SCREEN_FRAMES
+    // / VOICES / FAQ.
+    const output =
+      `export default function App() {\n` +
+      `  const items = [{a:1},{a:2},{a:3},{v:'x'},{v:'y'},{q:'?'}];\n` +
+      `  return <div ${FILLER}><button>new</button></div>;\n}`;
     const r = validateResponse({
       inputSource: input,
       outputSource: output,

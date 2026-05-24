@@ -41,25 +41,45 @@ export interface ValidateResponseResult {
   //   "full-file" → setCode the whole thing
   // null when validation failed before the shape mattered.
   mode: "element" | "full-file" | null;
+  // 2026-05-24 — the cleaned code to actually apply. For element mode
+  // this is the markup sliced from the first `<` to the last `>` (so
+  // leading prose like "Here's your element:" or a trailing "Let me
+  // know!" is stripped). For full-file it's the trimmed source. The
+  // modal applies THIS, not the raw paste.
+  appliedCode?: string;
 }
 
 // 2026-05-22 — detect whether a pasted response is a single element or
-// a full file. Element: starts with `<` + no module/declaration syntax.
-// Full-file: has import/export/function/const-decl, OR doesn't start
-// with a tag. This drives both validation + the apply path.
+// a full file. 2026-05-24 — now SIZE-AWARE: a response dramatically
+// smaller than the source is an element/fragment, never a full rewrite,
+// even if it leads with prose or an extracted `const` (which is why a
+// 787-char reply was wrongly classified full-file + rejected as a
+// "truncated 83879-char file").
+//
+//   - HTML document (<!DOCTYPE / <html) → full-file (it's a document)
+//   - response << source size → element (a rewrite is ~source-sized)
+//   - starts with a tag `<` → element
+//   - else (import/export/const/comment) → full-file
 export function detectResponseShape(
   source: string,
+  sourceLength?: number,
 ): "element" | "full-file" {
   const trimmed = source.trim();
-  // Only the START of the response discriminates — scanning the whole
-  // body for module keywords false-positived on element TEXT content
-  // (e.g. `<button>Export to PDF</button>` has "export"). H-2 fix.
-  //   - HTML document → full-file (starts with <!DOCTYPE or <html)
-  //   - a JS/JSX module → full-file (starts with import/export/const/
-  //     let/var/function/class/comment — i.e. NOT a tag)
-  //   - anything else that starts with a tag `<` → a single element
   if (/^<!DOCTYPE/i.test(trimmed) || /^<html[\s>]/i.test(trimmed)) {
     return "full-file";
+  }
+  // Size signal — dominant when we know the source size. A full-file
+  // rewrite comes back roughly source-sized; anything under 40% of a
+  // non-trivial source is an element/fragment. Requires a `<` somewhere
+  // so we don't misroute a genuinely-truncated full file that lost its
+  // tags (that should still fail the full-file length check).
+  if (
+    typeof sourceLength === "number" &&
+    sourceLength > 2000 &&
+    trimmed.length < sourceLength * 0.4 &&
+    trimmed.includes("<")
+  ) {
+    return "element";
   }
   if (trimmed.startsWith("<")) return "element";
   return "full-file";
@@ -179,6 +199,19 @@ const countOccurrences = (haystack: string, needle: string): number => {
   return count;
 };
 
+// 2026-05-24 — for element mode, strip any leading/trailing prose the
+// AI wrapped around the markup (no code fence present) by slicing from
+// the first `<` to the last `>`. Turns
+//   "Here's your restyled element:\n<a ...>Go</a>\nLet me know!"
+// into "<a ...>Go</a>". Returns the input unchanged when there's no
+// recognizable tag span.
+function sliceElementMarkup(text: string): string {
+  const first = text.indexOf("<");
+  const last = text.lastIndexOf(">");
+  if (first === -1 || last === -1 || last <= first) return text.trim();
+  return text.slice(first, last + 1).trim();
+}
+
 // Security checks shared by both shapes. Returns a reason string on
 // failure, null when clean. `scriptBaseline` is the count of dangerous
 // tags allowed (the input's count for full-file; 0 for element).
@@ -229,17 +262,44 @@ export function validateResponse(
     };
   }
 
-  const shape = detectResponseShape(trimmed);
+  // Placeholder-truncation is invalid in ANY shape (a clean element
+  // never contains `// ... rest unchanged ...`; a full file with it is
+  // truncated). Check globally BEFORE shape routing so the size rule
+  // can't reroute a placeholder-bearing stub into element mode +
+  // silently apply half a page. (2026-05-24 — moved up from full-file.)
+  for (const pat of PLACEHOLDER_PATTERNS) {
+    const match = trimmed.match(pat);
+    if (match) {
+      return {
+        ok: false,
+        mode: null,
+        reason: `The response looks truncated — it contains a placeholder like "${match[0].trim().slice(0, 40)}" instead of the full content. Ask your AI to return the COMPLETE element/file with no omissions, then paste again.`,
+      };
+    }
+  }
+
+  // Size-aware shape detection — pass the source length so a tiny
+  // response can't be mistaken for a truncated full file.
+  const shape = detectResponseShape(trimmed, inputSource.length);
 
   // ── ELEMENT MODE ─────────────────────────────────────────────────
-  // The AI returned just the restyled element. We patch it into the
-  // source by OID (caller). Validation: not a no-op vs the target,
-  // no injected scripts/handlers, JSX syntax sane. No full-file checks
-  // (length-vs-source / placeholder / decl-survival don't apply).
+  // The AI returned just the restyled element (possibly wrapped in
+  // prose). Slice out the markup, then validate: not a no-op vs the
+  // target, no injected scripts/handlers, JSX syntax sane. No full-file
+  // checks (length-vs-source / placeholder / decl-survival don't apply).
   if (shape === "element") {
+    const element = sliceElementMarkup(trimmed);
+    if (!element.startsWith("<") || element.length < 4) {
+      return {
+        ok: false,
+        mode: "element",
+        reason:
+          "Couldn't find an element in the reply. Paste just the one restyled element (e.g. the <button>…</button>), or paste the full file.",
+      };
+    }
     // No-op: is the element byte-identical to the target after
     // normalizing OIDs + whitespace? Then nothing changed.
-    if (normalize(trimmed) === normalize(targetOuterHtml)) {
+    if (normalize(element) === normalize(targetOuterHtml)) {
       return {
         ok: false,
         mode: "element",
@@ -248,15 +308,15 @@ export function validateResponse(
       };
     }
     // The element shouldn't carry ANY script/iframe/etc. (baseline 0).
-    const sec = runSecurityChecks(trimmed, {});
+    const sec = runSecurityChecks(element, {});
     if (sec) return { ok: false, mode: "element", reason: sec };
     if (opts.kind === "jsx") {
-      const ts = runJsxSyntaxChecks(trimmed);
+      const ts = runJsxSyntaxChecks(element);
       if (ts) return { ok: false, mode: "element", reason: ts };
     }
     // Sanity: a single restyled element shouldn't be enormous. Cap at
-    // 16KB — far above any real button/card, well below a full file.
-    if (trimmed.length > 16384) {
+    // 24KB — comfortably above an SVG-heavy card, well below a file.
+    if (element.length > 24576) {
       return {
         ok: false,
         mode: "element",
@@ -264,7 +324,7 @@ export function validateResponse(
           "That looks too large to be a single element. If your AI returned the whole file, paste all of it — otherwise paste just the one restyled element.",
       };
     }
-    return { ok: true, mode: "element", reason: null };
+    return { ok: true, mode: "element", reason: null, appliedCode: element };
   }
 
   // ── FULL-FILE MODE ───────────────────────────────────────────────
@@ -312,17 +372,8 @@ export function validateResponse(
     };
   }
 
-  // Placeholder-truncation detection (the #1 full-file failure mode).
-  for (const pat of PLACEHOLDER_PATTERNS) {
-    const match = trimmed.match(pat);
-    if (match) {
-      return {
-        ok: false,
-        mode: "full-file",
-        reason: `The response looks truncated — it contains a placeholder like "${match[0].trim().slice(0, 40)}" instead of the full file. Ask your AI to "return the COMPLETE file with no omissions," then paste again.`,
-      };
-    }
-  }
+  // (Placeholder-truncation is now checked globally above, before shape
+  // routing — see the top of validateResponse.)
 
   // Top-level declaration survival.
   const inputDecls = collectTopLevelDecls(inputSource);
@@ -381,5 +432,5 @@ export function validateResponse(
     }
   }
 
-  return { ok: true, mode: "full-file", reason: null };
+  return { ok: true, mode: "full-file", reason: null, appliedCode: trimmed };
 }
