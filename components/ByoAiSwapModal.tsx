@@ -110,13 +110,13 @@ function StepHeader({
   return (
     <div
       className={
-        "flex items-start gap-3 px-4 py-3 transition-colors " +
+        "flex items-start gap-4 px-8 py-4 transition-colors " +
         (done ? "bg-coral/10" : "bg-paper")
       }
     >
       <span
         className={
-          "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-ink font-display text-[14px] font-bold " +
+          "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-ink font-display text-[17px] font-bold " +
           (done ? "bg-coral text-paper" : "bg-ink text-paper")
         }
         aria-hidden="true"
@@ -124,10 +124,10 @@ function StepHeader({
         {done ? "✓" : n}
       </span>
       <div className="min-w-0">
-        <div className="font-display text-[15px] font-bold leading-tight text-ink">
+        <div className="font-display text-[18px] font-bold leading-tight text-ink">
           {title}
         </div>
-        <div className="mt-0.5 text-[12px] leading-snug text-muted">{hint}</div>
+        <div className="mt-1 text-[13px] leading-snug text-muted">{hint}</div>
       </div>
     </div>
   );
@@ -523,7 +523,7 @@ export default function ByoAiSwapModal({
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/40 p-4"
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/70 p-6 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Swap with AI"
@@ -534,19 +534,19 @@ export default function ByoAiSwapModal({
       <div
         ref={panelRef}
         tabIndex={-1}
-        className="flex h-[88vh] w-[min(1000px,calc(100vw-32px))] flex-col border-2 border-ink bg-paper shadow-[8px_8px_0_0_#FF4D2E] focus:outline-none"
+        className="flex h-[90vh] w-[min(1240px,calc(100vw-48px))] flex-col overflow-hidden rounded-xl border-2 border-ink bg-paper shadow-2xl focus:outline-none"
       >
         {/* Header — title + a plain-language explanation of the whole
             3-step round-trip so vibecoders grok it before scrolling. */}
-        <div className="shrink-0 border-b-2 border-ink bg-soft px-4 py-3">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <span className="font-display text-[18px] font-bold text-ink">
+        <div className="shrink-0 border-b-2 border-ink bg-soft px-8 py-5">
+          <div className="flex items-start justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="font-display text-[24px] font-bold leading-tight text-ink">
                 ✨ Restyle your{" "}
                 <span className="text-coral">&lt;{vibeInfo.tag}&gt;</span> with
                 AI
               </span>
-              <p className="mt-1 text-[12px] leading-snug text-ink/80">
+              <p className="mt-2 text-[14px] leading-relaxed text-ink/80">
                 You use your <span className="font-bold">own</span> AI
                 (ChatGPT, Claude…) — it&apos;s free. Three steps:
                 <span className="font-bold"> ① choose a look</span> →
@@ -558,7 +558,7 @@ export default function ByoAiSwapModal({
               type="button"
               onClick={onClose}
               aria-label="Close swap dialog"
-              className="shrink-0 border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+              className="shrink-0 rounded-md border-2 border-ink bg-paper px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
             >
               Close (Esc)
             </button>
@@ -576,8 +576,8 @@ export default function ByoAiSwapModal({
               done={!!selectedReference || changeText.trim().length > 0}
             />
             {selectedReference && (
-              <div className="border-b-2 border-ink/10 bg-coral/10 px-4 py-1.5">
-                <span className="text-[12px] font-bold text-coral">
+              <div className="border-b-2 border-ink/10 bg-coral/10 px-8 py-2">
+                <span className="text-[13px] font-bold text-coral">
                   ✓ Picked “{selectedReference.component.title}” — now do Step 2
                   below ↓
                 </span>
@@ -587,23 +587,23 @@ export default function ByoAiSwapModal({
                 reference grid so "say what you want" is the first thing
                 the user sees. Works alone OR alongside a picked
                 reference. Either input enables the provider buttons. */}
-            <div className="bg-paper px-4 py-2">
+            <div className="bg-paper px-8 py-3">
               <input
                 type="text"
                 value={changeText}
                 onChange={(e) => setChangeText(e.target.value)}
                 placeholder="e.g. make it bigger with a blue gradient and rounded corners"
-                className="w-full border-2 border-ink bg-paper px-3 py-2 text-[13px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+                className="w-full rounded-md border-2 border-ink bg-paper px-3 py-2.5 text-[14px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
               />
-              <p className="mt-1 text-[11px] text-muted">
+              <p className="mt-1.5 text-[12px] text-muted">
                 {changeText.trim()
                   ? "✓ Got it. Pick a reference too if you like, or go to Step 2 ↓"
                   : "Optional — or skip this and pick a design below."}
               </p>
             </div>
-            <div className="flex items-center gap-2 px-4 pb-1">
+            <div className="flex items-center gap-3 px-8 pb-2">
               <span className="h-px flex-1 bg-ink/15" />
-              <span className="text-[10px] uppercase tracking-[0.2em] text-muted">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-muted">
                 or pick a design
               </span>
               <span className="h-px flex-1 bg-ink/15" />
@@ -614,7 +614,7 @@ export default function ByoAiSwapModal({
                 so the provider buttons appear "missing". Constraining +
                 scrolling the picker INTERNALLY keeps steps 2 + 3 right
                 below the picker, always in view. */}
-            <div className="h-[40vh] min-h-[280px] max-h-[40vh] overflow-y-auto">
+            <div className="h-[42vh] min-h-[300px] max-h-[42vh] overflow-y-auto px-4">
               <InlineComponentBrowser
                 mode={kind}
                 category={targetKind}
@@ -650,8 +650,8 @@ export default function ByoAiSwapModal({
               }
               done={!!lastClicked}
             />
-            <div className="px-4 pb-3">
-              <div className="flex flex-wrap items-center gap-2">
+            <div className="px-8 pb-4">
+              <div className="flex flex-wrap items-center gap-3">
                 {orderedProviders.map((p, i) => (
                   <button
                     key={p.id}
@@ -660,7 +660,7 @@ export default function ByoAiSwapModal({
                     disabled={!hasInput}
                     title={p.title}
                     className={
-                      "border-2 border-ink px-4 py-2.5 text-[13px] font-bold transition-colors " +
+                      "rounded-md border-2 border-ink px-5 py-3 text-[14px] font-bold transition-colors " +
                       (hasInput
                         ? i === 0
                           ? "bg-coral text-paper hover:bg-ink"
@@ -676,7 +676,7 @@ export default function ByoAiSwapModal({
                   the AI tab, then come back. The single clearest signal
                   for the round-trip. */}
               {lastClicked ? (
-                <div className="mt-3 border-2 border-coral bg-coral/10 px-3 py-2.5">
+                <div className="mt-4 rounded-lg border-2 border-coral bg-coral/10 px-4 py-3.5">
                   <p className="text-[13px] font-bold text-ink">
                     ✓ Opened{" "}
                     {getProviderById(lastClicked)?.label.replace("Open ", "") ??
@@ -751,7 +751,7 @@ export default function ByoAiSwapModal({
               hint="Paste the whole answer the AI gave you — we pull out the code automatically and apply it."
               done={pasteText.trim().length > 0}
             />
-            <div className="px-4 pb-3">
+            <div className="px-8 pb-6">
             <textarea
               ref={textareaRef}
               value={pasteText}
@@ -775,8 +775,8 @@ export default function ByoAiSwapModal({
               }}
               placeholder="Paste the AI's whole reply here (⌘↵ / Ctrl↵ to apply)"
               spellCheck={false}
-              rows={6}
-              className="w-full border-2 border-ink bg-paper p-2 font-mono text-[12px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+              rows={8}
+              className="w-full rounded-md border-2 border-ink bg-paper p-3 font-mono text-[12px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
             />
             {/* B — source-changed notice. The AI's reply is based on the
                 template as it was when the prompt was copied. If the user
@@ -810,11 +810,11 @@ export default function ByoAiSwapModal({
                 </p>
               </div>
             )}
-            <div className="mt-3 flex items-center justify-end gap-2">
+            <div className="mt-4 flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={onClose}
-                className="border-2 border-ink bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+                className="rounded-md border-2 border-ink bg-paper px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
               >
                 Cancel
               </button>
@@ -823,7 +823,7 @@ export default function ByoAiSwapModal({
                 onClick={handleApply}
                 disabled={!pasteText.trim()}
                 className={
-                  "border-2 border-ink px-5 py-2 text-[14px] font-bold transition-colors " +
+                  "rounded-md border-2 border-ink px-6 py-2.5 text-[15px] font-bold transition-colors " +
                   (pasteText.trim()
                     ? "bg-coral text-paper hover:bg-ink"
                     : "cursor-not-allowed bg-paper text-muted opacity-40")
