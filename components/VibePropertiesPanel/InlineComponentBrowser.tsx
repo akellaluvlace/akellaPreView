@@ -38,6 +38,11 @@ interface Props {
   // registered. Without this the tile looked identical after clicking
   // and users thought "nothing happened".
   selectedSlug?: string | null;
+  // 2026-05-24 — grid column count. The 320px vibe-sidebar wants 2; the
+  // full-screen BYO-AI modal wants many more (the old hardcoded 2 showed
+  // ~4 huge tiles total — useless for browsing). Viewport breakpoints
+  // can't be used (the sidebar would also widen), so the caller sets it.
+  columns?: 2 | 3 | 4 | 5 | 6;
   onWarn?: (message: string) => void;
   // Pre-swap visual footprint of the target element. When provided,
   // the swapped asset gets wrapped in a same-dimension container so
@@ -62,12 +67,22 @@ interface Props {
   preserveContent?: PreserveContent | null;
 }
 
+// Static grid-cols classes (Tailwind can't see dynamic ones).
+const GRID_COLS: Record<number, string> = {
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+  5: "grid-cols-5",
+  6: "grid-cols-6",
+};
+
 export default function InlineComponentBrowser({
   mode,
   category,
   onPick,
   onPickReference,
   selectedSlug,
+  columns = 2,
   onWarn,
   preserveBbox,
   preserveContent,
@@ -224,7 +239,7 @@ export default function InlineComponentBrowser({
       )}
 
       {index && filtered.length > 0 && (
-        <div className="grid grid-cols-2 gap-2">
+        <div className={`grid gap-2 ${GRID_COLS[columns] ?? "grid-cols-2"}`}>
           {filtered.map((c) => {
             const isSelected = selectedSlug === c.slug;
             return (

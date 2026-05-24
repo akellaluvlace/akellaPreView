@@ -116,7 +116,7 @@ function StepHeader({
     >
       <span
         className={
-          "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-ink font-display text-[17px] font-bold " +
+          "flex h-9 w-9 shrink-0 items-center justify-center border-2 border-ink font-display text-[17px] font-bold " +
           (done ? "bg-coral text-paper" : "bg-ink text-paper")
         }
         aria-hidden="true"
@@ -149,6 +149,9 @@ export default function ByoAiSwapModal({
   // change in words ("make it bigger with a blue gradient") instead of
   // (or in addition to) picking a reference design.
   const [changeText, setChangeText] = useState("");
+  // 2026-05-24 — the describe input is behind a toggle so it doesn't eat
+  // space by default; the reference grid is the primary path.
+  const [showDescribe, setShowDescribe] = useState(false);
   const [pasteText, setPasteText] = useState("");
   const [failureReason, setFailureReason] = useState<string | null>(null);
   const [preferredProvider, setPreferredProvider] = useState<string | null>(
@@ -212,6 +215,7 @@ export default function ByoAiSwapModal({
       lastTargetRef.current = sig;
       setSelectedReference(null);
       setChangeText("");
+      setShowDescribe(false);
       setFailureReason(null);
       setLastClicked(null);
       setSourceChanged(false);
@@ -523,18 +527,15 @@ export default function ByoAiSwapModal({
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/70 p-6 backdrop-blur-sm"
+      className="fixed inset-0 z-[90] bg-paper"
       role="dialog"
       aria-modal="true"
       aria-label="Swap with AI"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
     >
       <div
         ref={panelRef}
         tabIndex={-1}
-        className="flex h-[90vh] w-[min(1240px,calc(100vw-48px))] flex-col overflow-hidden rounded-xl border-2 border-ink bg-paper shadow-2xl focus:outline-none"
+        className="flex h-full w-full flex-col bg-paper focus:outline-none"
       >
         {/* Header — title + a plain-language explanation of the whole
             3-step round-trip so vibecoders grok it before scrolling. */}
@@ -558,7 +559,7 @@ export default function ByoAiSwapModal({
               type="button"
               onClick={onClose}
               aria-label="Close swap dialog"
-              className="shrink-0 rounded-md border-2 border-ink bg-paper px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+              className="shrink-0 border-2 border-ink bg-paper px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
             >
               Close (Esc)
             </button>
@@ -583,41 +584,45 @@ export default function ByoAiSwapModal({
                 </span>
               </div>
             )}
-            {/* 2026-05-23 — free-form change description. Sits above the
-                reference grid so "say what you want" is the first thing
-                the user sees. Works alone OR alongside a picked
-                reference. Either input enables the provider buttons. */}
-            <div className="bg-paper px-8 py-3">
-              <input
-                type="text"
-                value={changeText}
-                onChange={(e) => setChangeText(e.target.value)}
-                placeholder="e.g. make it bigger with a blue gradient and rounded corners"
-                className="w-full rounded-md border-2 border-ink bg-paper px-3 py-2.5 text-[14px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
-              />
-              <p className="mt-1.5 text-[12px] text-muted">
-                {changeText.trim()
-                  ? "✓ Got it. Pick a reference too if you like, or go to Step 2 ↓"
-                  : "Optional — or skip this and pick a design below."}
-              </p>
+            {/* 2026-05-24 — describe-a-change behind a toggle so it
+                doesn't eat space; the reference grid is the primary
+                path. Either input enables the providers. */}
+            <div className="border-b-2 border-ink/10 bg-paper px-8 py-2">
+              {!showDescribe && !changeText.trim() ? (
+                <button
+                  type="button"
+                  onClick={() => setShowDescribe(true)}
+                  className="text-[13px] font-bold text-coral underline-offset-2 hover:underline"
+                >
+                  ✏️ Or describe a change in words instead →
+                </button>
+              ) : (
+                <>
+                  <input
+                    type="text"
+                    autoFocus
+                    value={changeText}
+                    onChange={(e) => setChangeText(e.target.value)}
+                    placeholder="e.g. make it bigger with a blue gradient and rounded corners"
+                    className="w-full border-2 border-ink bg-paper px-3 py-2.5 text-[14px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+                  />
+                  <p className="mt-1.5 text-[12px] text-muted">
+                    {changeText.trim()
+                      ? "✓ Got it. Pick a reference too if you like, or go to Step 2 ↓"
+                      : "Describe the change, or pick a ready-made design below."}
+                  </p>
+                </>
+              )}
             </div>
-            <div className="flex items-center gap-3 px-8 pb-2">
-              <span className="h-px flex-1 bg-ink/15" />
-              <span className="text-[11px] uppercase tracking-[0.2em] text-muted">
-                or pick a design
-              </span>
-              <span className="h-px flex-1 bg-ink/15" />
-            </div>
-            {/* 2026-05-22 — overflow-y-auto is load-bearing. Without it
-                the grid (up to 1257 button tiles) overflows this box
-                with no clip, pushing steps 2 + 3 hundreds of rows down
-                so the provider buttons appear "missing". Constraining +
-                scrolling the picker INTERNALLY keeps steps 2 + 3 right
-                below the picker, always in view. */}
-            <div className="h-[42vh] min-h-[300px] max-h-[42vh] overflow-y-auto px-4">
+            {/* 2026-05-22 — overflow-y-auto is load-bearing. The grid
+                (up to 1257 tiles) scrolls INSIDE this fixed-height box
+                so steps 2 + 3 stay reachable. Tall on the full-screen
+                modal so many tiles show at once. */}
+            <div className="h-[48vh] min-h-[320px] max-h-[48vh] overflow-y-auto">
               <InlineComponentBrowser
                 mode={kind}
                 category={targetKind}
+                columns={4}
                 selectedSlug={selectedReference?.component.slug ?? null}
                 onPickReference={(component, rawHtml) => {
                   setSelectedReference({ component, rawHtml });
@@ -660,7 +665,7 @@ export default function ByoAiSwapModal({
                     disabled={!hasInput}
                     title={p.title}
                     className={
-                      "rounded-md border-2 border-ink px-5 py-3 text-[14px] font-bold transition-colors " +
+                      "border-2 border-ink px-5 py-3 text-[14px] font-bold transition-colors " +
                       (hasInput
                         ? i === 0
                           ? "bg-coral text-paper hover:bg-ink"
@@ -676,7 +681,7 @@ export default function ByoAiSwapModal({
                   the AI tab, then come back. The single clearest signal
                   for the round-trip. */}
               {lastClicked ? (
-                <div className="mt-4 rounded-lg border-2 border-coral bg-coral/10 px-4 py-3.5">
+                <div className="mt-4 border-2 border-coral bg-coral/10 px-4 py-3.5">
                   <p className="text-[13px] font-bold text-ink">
                     ✓ Opened{" "}
                     {getProviderById(lastClicked)?.label.replace("Open ", "") ??
@@ -776,7 +781,7 @@ export default function ByoAiSwapModal({
               placeholder="Paste the AI's whole reply here (⌘↵ / Ctrl↵ to apply)"
               spellCheck={false}
               rows={8}
-              className="w-full rounded-md border-2 border-ink bg-paper p-3 font-mono text-[12px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+              className="w-full border-2 border-ink bg-paper p-3 font-mono text-[12px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
             />
             {/* B — source-changed notice. The AI's reply is based on the
                 template as it was when the prompt was copied. If the user
@@ -814,7 +819,7 @@ export default function ByoAiSwapModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-md border-2 border-ink bg-paper px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+                className="border-2 border-ink bg-paper px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
               >
                 Cancel
               </button>
@@ -823,7 +828,7 @@ export default function ByoAiSwapModal({
                 onClick={handleApply}
                 disabled={!pasteText.trim()}
                 className={
-                  "rounded-md border-2 border-ink px-6 py-2.5 text-[15px] font-bold transition-colors " +
+                  "border-2 border-ink px-6 py-2.5 text-[15px] font-bold transition-colors " +
                   (pasteText.trim()
                     ? "bg-coral text-paper hover:bg-ink"
                     : "cursor-not-allowed bg-paper text-muted opacity-40")
