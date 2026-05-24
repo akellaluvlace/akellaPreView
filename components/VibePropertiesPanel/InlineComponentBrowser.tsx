@@ -254,26 +254,23 @@ export default function InlineComponentBrowser({
               disabled={picking !== null}
               onClick={() => handlePick(c.slug)}
               onMouseEnter={(ev) => {
-                if (hoverPreview !== "scale") {
-                  hoverRectRef.current = (
-                    ev.currentTarget as HTMLElement
-                  ).getBoundingClientRect();
-                  setHoveredSlug(c.slug);
-                  forceRender((n) => n + 1);
-                }
+                hoverRectRef.current = (
+                  ev.currentTarget as HTMLElement
+                ).getBoundingClientRect();
+                setHoveredSlug(c.slug);
+                forceRender((n) => n + 1);
               }}
               onMouseLeave={() => setHoveredSlug((s) => (s === c.slug ? null : s))}
               aria-pressed={isSelected}
               className={
-                "group relative aspect-[4/3] overflow-hidden border-2 bg-white text-left disabled:cursor-not-allowed disabled:opacity-40 " +
-                // 2026-05-24 — scale mode: tile zooms ~1.7x in place on
-                // hover (origin nudged toward center so edge tiles stay
-                // mostly in view); transition both transform + color.
-                (hoverPreview === "scale"
-                  ? "transition-[transform,border-color] duration-150 hover:z-30 hover:scale-[1.7] "
-                  : "transition-colors ") +
+                "group relative overflow-hidden border-2 bg-white text-left transition-colors disabled:cursor-not-allowed disabled:opacity-40 " +
+                // 2026-05-24 — scale mode uses SHORT fixed-height tiles so
+                // 3 rows × 4 cols fit. The hover zoom is a fixed-position
+                // preview (below) that escapes the scroll container — an
+                // in-place CSS scale would be clipped by overflow-y-auto.
+                (hoverPreview === "scale" ? "h-32 " : "aspect-[4/3] ") +
                 (isSelected
-                  ? "z-20 border-coral ring-2 ring-coral ring-offset-2 ring-offset-paper"
+                  ? "border-coral ring-2 ring-coral ring-offset-2 ring-offset-paper"
                   : "border-ink hover:border-coral")
               }
               title={c.title}
@@ -308,43 +305,74 @@ export default function InlineComponentBrowser({
         </div>
       )}
 
-      {/* Hover popover — fixed position to the left of the hovered tile.
-          Pure-CSS would require absolute positioning relative to each tile;
-          using a single portal-like fixed div + the hover rect ref keeps the
-          popover above the panel scrollbar without per-tile DOM bloat. */}
-      {hovered && hoverRectRef.current && (
-        <div
-          className="pointer-events-none fixed z-50 border-2 border-ink bg-paper shadow-xl"
-          style={{
-            top: Math.max(
-              8,
-              Math.min(
-                window.innerHeight - 320,
-                hoverRectRef.current.top - 40,
-              ),
-            ),
-            left: Math.max(8, hoverRectRef.current.left - 360),
-            width: 340,
-          }}
-        >
-          {hovered.thumbUrl && (
-            <img
-              src={hovered.thumbUrl}
-              alt={hovered.title}
-              className="aspect-[4/3] w-full bg-white object-cover"
-            />
-          )}
-          <div className="border-t-2 border-ink p-2">
-            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink">
-              {hovered.title}
-            </p>
-            <p className="mt-0.5 font-mono text-[9px] text-muted">
-              {hovered.source} · {hovered.category}
-              {hovered.author ? ` · ${hovered.author}` : ""}
-            </p>
+      {/* Hover preview — a single fixed-position card (escapes the
+          scroll container's clip, so the enlarged view is never cut
+          off). Two placements:
+          - "scale": enlarged ~1.8x + CENTERED over the hovered tile, so
+            it reads as the tile zooming out of the grid.
+          - "popover": to the LEFT of the tile (narrow sidebar). */}
+      {hovered && hoverRectRef.current && (() => {
+        const r = hoverRectRef.current;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        if (hoverPreview === "scale") {
+          // Enlarge the tile's footprint ~1.8x, centered on it, clamped
+          // to the viewport so it's fully visible (never cut off).
+          const w = Math.min(r.width * 1.9, vw - 32);
+          const imgH = Math.round(w * 0.62); // shorter, gallery-ish
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const left = Math.max(12, Math.min(vw - w - 12, cx - w / 2));
+          const top = Math.max(12, Math.min(vh - imgH - 56, cy - imgH / 2));
+          return (
+            <div
+              className="pointer-events-none fixed z-[120] border-2 border-ink bg-white shadow-2xl"
+              style={{ left, top, width: w }}
+            >
+              {hovered.thumbUrl && (
+                <img
+                  src={hovered.thumbUrl}
+                  alt={hovered.title}
+                  style={{ height: imgH }}
+                  className="w-full bg-white object-contain"
+                />
+              )}
+              <div className="border-t-2 border-ink bg-paper px-3 py-1.5">
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ink">
+                  {hovered.title}
+                </p>
+              </div>
+            </div>
+          );
+        }
+        return (
+          <div
+            className="pointer-events-none fixed z-[120] border-2 border-ink bg-paper shadow-xl"
+            style={{
+              top: Math.max(8, Math.min(vh - 320, r.top - 40)),
+              left: Math.max(8, r.left - 360),
+              width: 340,
+            }}
+          >
+            {hovered.thumbUrl && (
+              <img
+                src={hovered.thumbUrl}
+                alt={hovered.title}
+                className="aspect-[4/3] w-full bg-white object-cover"
+              />
+            )}
+            <div className="border-t-2 border-ink p-2">
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink">
+                {hovered.title}
+              </p>
+              <p className="mt-0.5 font-mono text-[9px] text-muted">
+                {hovered.source} · {hovered.category}
+                {hovered.author ? ` · ${hovered.author}` : ""}
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

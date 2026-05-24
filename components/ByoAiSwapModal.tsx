@@ -666,10 +666,11 @@ export default function ByoAiSwapModal({
                     </div>
                   )}
                 </div>
-                {/* The grid scrolls INSIDE this tall box. hoverPreview
-                    "scale" zooms a tile in place; columns=4 shows ~3
-                    rows of 4 at once. py gives scaled edge tiles room. */}
-                <div className="h-[52vh] min-h-[340px] max-h-[52vh] overflow-y-auto px-2 py-3">
+                {/* Small fixed-height tiles (h-32) → ~3 rows of 4 fit;
+                    scroll for more. The hover zoom is a fixed-position
+                    preview (escapes this scroll clip), so px/py here is
+                    just grid breathing room. */}
+                <div className="h-[46vh] min-h-[300px] max-h-[46vh] overflow-y-auto px-2 py-3">
                   <InlineComponentBrowser
                     mode={kind}
                     category={targetKind}
