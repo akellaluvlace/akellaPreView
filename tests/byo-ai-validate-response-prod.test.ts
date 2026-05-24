@@ -180,6 +180,37 @@ describe("validateResponse — element mode (2026-05-22)", () => {
     expect(r.reason?.toLowerCase()).toContain("script");
   });
 
+  it("rejects an element with an unbalanced/duplicate closing tag (JSX)", () => {
+    // The 2026-05-24 field bug: AI returned `<a ...>Log In</a></a>` →
+    // patched in → "Expected corresponding JSX closing tag" → blank
+    // preview. Must be caught at validation, not at the iframe.
+    const target = '<a href="#" class="old">Log In</a>';
+    const broken = '<a href="#" className="new text-white">Log In</a>\n</a>';
+    const r = validateResponse({
+      inputSource: "x".repeat(50000),
+      outputSource: broken,
+      targetOuterHtml: target,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.mode).toBe("element");
+    expect(r.reason?.toLowerCase()).toMatch(/valid jsx|unbalanced|duplicate/);
+  });
+
+  it("accepts a well-formed nested element (JSX parses fine)", () => {
+    const target = '<a href="#" class="old">Log In</a>';
+    const good =
+      '<a href="#" className="new"><span className="icon">→</span> Log In</a>';
+    const r = validateResponse({
+      inputSource: "x".repeat(50000),
+      outputSource: good,
+      targetOuterHtml: target,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.mode).toBe("element");
+  });
+
   it("skips full-file length checks for element mode (tiny element vs huge source)", () => {
     // 56KB source, 200-char element — the old full-file 0.5× floor
     // would reject this. Element mode must NOT apply that check.

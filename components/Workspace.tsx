@@ -70,7 +70,7 @@ import {
   patchJsxRemoveAttr,
   patchJsxText,
 } from "@/lib/source-patch-jsx";
-import { buildIndex, injectOids, stripOids } from "@/lib/ast";
+import { buildIndex, injectOids, stripOids, isParseable } from "@/lib/ast";
 import { applySpacing } from "@/lib/ast/operations/spacing";
 import { applyStyleProps } from "@/lib/ast/operations/style";
 import { applyReorder } from "@/lib/ast/operations/reorder";
@@ -1647,6 +1647,18 @@ export default function Workspace({
           );
           return false;
         }
+        // PARSE-GATE (2026-05-24) — refuse to apply a source that won't
+        // parse. The AI's element (or the slice/patch) can produce
+        // unbalanced tags (e.g. a duplicate </a>), which blanks the
+        // preview. Catch it here + keep the modal open so the user can
+        // fix the reply or re-prompt, instead of breaking the page.
+        if (kind === "jsx" && !isParseable(patchedSource)) {
+          console.warn("[dropin:byo-ai] element patch produced unparseable JSX");
+          showWarn(
+            "The AI's element doesn't form valid JSX once placed in your page (often an unbalanced or duplicate tag). Re-prompt your AI for a single clean element, or edit the reply.",
+          );
+          return false;
+        }
         try {
           setCode(patchedSource);
         } catch (e) {
@@ -1681,6 +1693,16 @@ export default function Workspace({
             e,
           );
         }
+      }
+      // PARSE-GATE (2026-05-24) — same safety net for full-file. A
+      // subtly-broken full rewrite (mismatched tag, stray brace) would
+      // otherwise blank the preview after the modal closed.
+      if (kind === "jsx" && !isParseable(finalCode)) {
+        console.warn("[dropin:byo-ai] full-file response is unparseable JSX");
+        showWarn(
+          "The AI's file has a syntax error (it won't parse as JSX). Ask your AI to fix it + return the complete file, then paste again.",
+        );
+        return false;
       }
       try {
         setCode(finalCode);

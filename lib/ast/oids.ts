@@ -218,6 +218,14 @@ function tryParse(source: string): unknown {
   }
 }
 
+// 2026-05-24 — parse-gate. Returns true iff `source` parses as a
+// module under the same plugin set the iframe uses. Callers use this
+// to refuse applying a syntactically-broken source (e.g. an AI swap
+// that produced an unbalanced tag) BEFORE setCode blanks the preview.
+export function isParseable(source: string): boolean {
+  return tryParse(source) !== null;
+}
+
 // Deterministic mint with collision-bumping. The first attempt encodes the
 // parse offset directly. If that string happens to collide with an existing
 // OID in `seen` (rare — would require a stale OID in the source that

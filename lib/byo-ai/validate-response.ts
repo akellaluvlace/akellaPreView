@@ -24,6 +24,8 @@
 // Failure modes return a specific `reason` string the modal can show
 // next to the textarea so the user knows what to fix.
 
+import { isParseable } from "../ast/oids";
+
 export interface ValidateResponseOptions {
   inputSource: string;
   outputSource: string;
@@ -313,6 +315,18 @@ export function validateResponse(
     if (opts.kind === "jsx") {
       const ts = runJsxSyntaxChecks(element);
       if (ts) return { ok: false, mode: "element", reason: ts };
+      // Well-formedness — the sliced element must parse as valid JSX.
+      // Catches the AI returning an unbalanced/duplicate tag (e.g.
+      // `<a>Log In</a></a>`), which would otherwise blank the preview
+      // once patched in. 2026-05-24 field bug.
+      if (!isParseable(element)) {
+        return {
+          ok: false,
+          mode: "element",
+          reason:
+            "The pasted element isn't valid JSX — usually an unbalanced or duplicate tag (like an extra </a>). Re-prompt your AI for ONE clean element, or fix the reply.",
+        };
+      }
     }
     // Sanity: a single restyled element shouldn't be enormous. Cap at
     // 24KB — comfortably above an SVG-heavy card, well below a file.

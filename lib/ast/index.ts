@@ -22,6 +22,7 @@ export {
   isValidOid,
   injectOids,
   stripOids,
+  isParseable,
   walkJsxOpenings,
   type InjectResult,
   type StripResult,
