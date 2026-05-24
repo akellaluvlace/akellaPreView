@@ -625,9 +625,12 @@ export default function ByoAiSwapModal({
             {activeStep === 1 && (
               <>
                 {/* describe-a-change behind a toggle so it doesn't eat
-                    space; the reference grid is the primary path. */}
-                <div className="border-b-2 border-ink/10 bg-paper px-8 py-2">
-                  {!showDescribe && !changeText.trim() ? (
+                    space; the reference grid is the primary path. The
+                    ✕ collapses it back to the link (it was open-only
+                    before). No divider line — it was redundant with the
+                    grid below. */}
+                <div className="bg-paper px-8 py-2">
+                  {!showDescribe ? (
                     <button
                       type="button"
                       onClick={() => setShowDescribe(true)}
@@ -663,14 +666,26 @@ export default function ByoAiSwapModal({
                       >
                         Next →
                       </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowDescribe(false);
+                          setChangeText("");
+                        }}
+                        aria-label="Cancel describe — go back to picking a design"
+                        title="Close — pick a design instead"
+                        className="shrink-0 border-2 border-ink bg-paper px-3 py-2.5 text-[14px] font-bold text-ink transition-colors hover:bg-ink hover:text-paper"
+                      >
+                        ✕
+                      </button>
                     </div>
                   )}
                 </div>
                 {/* Small fixed-height tiles (h-32) → ~3 rows of 4 fit;
                     scroll for more. The hover zoom is a fixed-position
-                    preview (escapes this scroll clip), so px/py here is
-                    just grid breathing room. */}
-                <div className="h-[46vh] min-h-[300px] max-h-[46vh] overflow-y-auto px-2 py-3">
+                    preview (escapes this scroll clip). Custom fat
+                    scrollbar so it's obviously scrollable. */}
+                <div className="byo-scroll h-[46vh] min-h-[300px] max-h-[46vh] overflow-y-auto px-2 py-3">
                   <InlineComponentBrowser
                     mode={kind}
                     category={targetKind}

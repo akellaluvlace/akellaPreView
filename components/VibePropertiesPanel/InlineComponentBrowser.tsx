@@ -216,16 +216,23 @@ export default function InlineComponentBrowser({
     }
   };
 
+  // 2026-05-24 — "scale" mode (BYO-AI modal) drops the top divider +
+  // the count header; the modal supplies its own step header, and the
+  // extra chrome read as redundant divider lines above the grid.
+  const bare = hoverPreview === "scale";
+
   return (
-    <div className="border-t-2 border-ink/15 p-3">
-      <div className="mb-2 flex items-baseline justify-between">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
-          {category ? `${category}` : "Components"}
-        </p>
-        <p className="font-mono text-[10px] text-muted">
-          {index ? `${filtered.length}` : "…"}
-        </p>
-      </div>
+    <div className={bare ? "" : "border-t-2 border-ink/15 p-3"}>
+      {!bare && (
+        <div className="mb-2 flex items-baseline justify-between">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+            {category ? `${category}` : "Components"}
+          </p>
+          <p className="font-mono text-[10px] text-muted">
+            {index ? `${filtered.length}` : "…"}
+          </p>
+        </div>
+      )}
 
       {error && (
         <p className="font-mono text-[11px] text-red-600">

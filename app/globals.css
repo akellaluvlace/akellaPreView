@@ -275,3 +275,25 @@ body {
   }
 }
 
+
+/* 2026-05-24 — BYO-AI swap modal: a fat, obvious scrollbar for the
+   reference grid so it's clearly scrollable. Square (matches the
+   brutalist app), high-contrast ink thumb on a soft track. */
+.byo-scroll {
+  scrollbar-width: auto; /* Firefox: wide */
+  scrollbar-color: #18141C #E8E2D6;
+}
+.byo-scroll::-webkit-scrollbar {
+  width: 16px;
+}
+.byo-scroll::-webkit-scrollbar-track {
+  background: #E8E2D6;
+  border-left: 2px solid #18141C;
+}
+.byo-scroll::-webkit-scrollbar-thumb {
+  background: #18141C;
+  border: 3px solid #E8E2D6;
+}
+.byo-scroll::-webkit-scrollbar-thumb:hover {
+  background: #FF4D2E;
+}
