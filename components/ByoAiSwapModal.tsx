@@ -38,6 +38,7 @@ import { validateResponse } from "@/lib/byo-ai/validate-response";
 import {
   BYO_AI_PROVIDERS,
   BYO_AI_PROVIDER_STORAGE_KEY,
+  PREFILL_URL_MAX,
   orderProvidersByPreference,
   getProviderById,
   type ByoAiProvider,
@@ -361,13 +362,25 @@ export default function ByoAiSwapModal({
         setManualCopyPrompt(prompt);
       }
 
-      // Open the provider tab. Skip for "copy". On Chrome the user-
-      // activation survives the short clipboard await; if a browser
-      // blocks the popup, the prompt is still on the clipboard (or in
-      // the fallback box) so the user can open the AI + paste manually.
+      // Open the provider tab. Skip for "copy". Prefer the prefill URL
+      // (prompt lands in the AI's box automatically — ChatGPT `?q=`)
+      // when the provider supports it AND the encoded URL is under the
+      // browser-safe length. Otherwise open the plain URL + rely on the
+      // clipboard copy. On Chrome the user-activation survives the short
+      // clipboard await; if a browser blocks the popup, the prompt is
+      // still on the clipboard (or fallback box).
       let opened: Window | null = null;
+      let prefilled = false;
       if (provider.openUrl) {
-        opened = window.open(provider.openUrl, "_blank", "noopener");
+        let url = provider.openUrl;
+        if (provider.buildPrefillUrl) {
+          const prefillUrl = provider.buildPrefillUrl(prompt);
+          if (prefillUrl.length <= PREFILL_URL_MAX) {
+            url = prefillUrl;
+            prefilled = true;
+          }
+        }
+        opened = window.open(url, "_blank", "noopener");
       }
       const popupBlocked = !!provider.openUrl && (!opened || opened.closed);
 
@@ -384,13 +397,17 @@ export default function ByoAiSwapModal({
       setSourceChanged(false);
 
       const providerName = provider.label.replace("Open ", "");
-      if (!copied) {
+      if (!copied && !prefilled) {
         onWarn(
           "Couldn't auto-copy — the prompt is shown below the buttons. Select all + copy it manually, then paste in your AI.",
         );
       } else if (popupBlocked) {
         onWarn(
           `Prompt copied, but ${providerName}'s tab was blocked by your browser. Open ${providerName} yourself + paste — then come back here.`,
+        );
+      } else if (prefilled) {
+        onInfo(
+          `${providerName} opened with the prompt pre-filled — just press Enter there, copy the reply, then paste it below.`,
         );
       } else if (provider.openUrl) {
         onInfo(

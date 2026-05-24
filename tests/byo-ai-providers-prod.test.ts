@@ -2,9 +2,42 @@ import { describe, it, expect } from "vitest";
 import {
   BYO_AI_PROVIDERS,
   BYO_AI_PROVIDER_STORAGE_KEY,
+  PREFILL_URL_MAX,
   getProviderById,
   orderProvidersByPreference,
 } from "../lib/byo-ai/providers";
+
+describe("BYO_AI_PROVIDERS — prompt prefill (2026-05-24)", () => {
+  it("ChatGPT builds a ?q= prefill URL", () => {
+    const chatgpt = getProviderById("chatgpt");
+    expect(chatgpt?.buildPrefillUrl).toBeTypeOf("function");
+    const url = chatgpt!.buildPrefillUrl!("make it blue & rounded");
+    expect(url).toContain("https://chatgpt.com/?q=");
+    // URL-encoded (space → %20, & → %26)
+    expect(url).toContain("make%20it%20blue%20%26%20rounded");
+  });
+
+  it("Claude does NOT offer prefill (Anthropic removed ?q= Oct 2025)", () => {
+    const claude = getProviderById("claude");
+    expect(claude?.buildPrefillUrl).toBeUndefined();
+  });
+
+  it("Gemini does NOT offer prefill (no native support)", () => {
+    const gemini = getProviderById("gemini");
+    expect(gemini?.buildPrefillUrl).toBeUndefined();
+  });
+
+  it("'copy' offers neither openUrl nor prefill", () => {
+    const copy = getProviderById("copy");
+    expect(copy?.openUrl).toBeNull();
+    expect(copy?.buildPrefillUrl).toBeUndefined();
+  });
+
+  it("PREFILL_URL_MAX is a conservative browser-safe ceiling", () => {
+    expect(PREFILL_URL_MAX).toBeGreaterThanOrEqual(2000);
+    expect(PREFILL_URL_MAX).toBeLessThanOrEqual(16000);
+  });
+});
 
 describe("BYO_AI_PROVIDERS — registry shape", () => {
   it("has four providers: chatgpt, claude, gemini, copy", () => {
