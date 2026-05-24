@@ -197,6 +197,34 @@ describe("validateResponse — element mode (2026-05-22)", () => {
     expect(r.reason?.toLowerCase()).toMatch(/valid jsx|unbalanced|duplicate/);
   });
 
+  it("repairs a HEADLESS element (opening <a dropped in copy/paste)", () => {
+    // The 2026-05-24 field case: Claude returned a multi-line <a>, but
+    // the opening `<a` line was lost in copy/paste, so the reply starts
+    // with attributes. We reconstruct the opening tag from the closing
+    // </a> + the target tag.
+    const target =
+      '<a data-dropin-id="aaaaaeuZ" href="#" class="bg-white text-deep px-5 py-2.5 rounded-full">Get App</a>';
+    const headless =
+      'data-dropin-id="aaaaaeuZ"\n' +
+      '  href="#"\n' +
+      '  className="relative inline-block bg-deep text-white px-6 py-3 rounded-lg shadow-lg"\n' +
+      '  data-dropin-loc="258:16:258:237:258:226"\n' +
+      '  data-vibe-selected=""\n' +
+      ">\n  Get App\n</a>";
+    const r = validateResponse({
+      inputSource: "x".repeat(50000),
+      outputSource: headless,
+      targetOuterHtml: target,
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(true);
+    expect(r.mode).toBe("element");
+    // Reconstructed markup is a valid <a> opening + content + close.
+    expect(r.appliedCode?.startsWith("<a")).toBe(true);
+    expect(r.appliedCode).toContain("bg-deep");
+    expect(r.appliedCode).toContain("Get App");
+  });
+
   it("accepts a well-formed nested element (JSX parses fine)", () => {
     const target = '<a href="#" class="old">Log In</a>';
     const good =

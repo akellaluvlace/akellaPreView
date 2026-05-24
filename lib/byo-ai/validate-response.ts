@@ -201,17 +201,41 @@ const countOccurrences = (haystack: string, needle: string): number => {
   return count;
 };
 
-// 2026-05-24 — for element mode, strip any leading/trailing prose the
-// AI wrapped around the markup (no code fence present) by slicing from
-// the first `<` to the last `>`. Turns
-//   "Here's your restyled element:\n<a ...>Go</a>\nLet me know!"
-// into "<a ...>Go</a>". Returns the input unchanged when there's no
-// recognizable tag span.
-function sliceElementMarkup(text: string): string {
-  const first = text.indexOf("<");
-  const last = text.lastIndexOf(">");
-  if (first === -1 || last === -1 || last <= first) return text.trim();
-  return text.slice(first, last + 1).trim();
+// 2026-05-24 — for element mode, produce clean element markup from the
+// AI reply. Handles two real-world mangle modes:
+//
+//   1. Prose wrapper (no code fence): "Here's your element:\n<a…>Go</a>
+//      \nLet me know!" → slice first `<` to last `>` → "<a…>Go</a>".
+//
+//   2. HEADLESS element — the opening `<tag` was dropped (a frequent
+//      copy-paste artifact: a multi-line element's first line `<a` gets
+//      lost, or a chat renderer eats it). The reply then looks like
+//      `data-dropin-id="…" href="#" …>Get App</a>` — starts with
+//      attributes, the first `<` is the CLOSING tag. We reconstruct the
+//      opening tag from the closing tag's name + prepend it.
+//
+// `fallbackTag` (the target element's tag) is used when there's no
+// closing tag to read the name from.
+function sliceElementMarkup(text: string, fallbackTag?: string): string {
+  let t = text.trim();
+
+  // Headless repair — doesn't start with a tag, but ends with a
+  // closing tag and the head before the first `>` is attribute-like
+  // (no `<`, so it's not prose-wrapping an intact element).
+  if (!t.startsWith("<")) {
+    const close = t.match(/<\/([a-zA-Z][\w-]*)\s*>\s*$/);
+    const firstGt = t.indexOf(">");
+    const head = firstGt === -1 ? "" : t.slice(0, firstGt);
+    if (firstGt !== -1 && !head.includes("<")) {
+      const tag = close?.[1] ?? fallbackTag;
+      if (tag) t = `<${tag} ${t}`;
+    }
+  }
+
+  const first = t.indexOf("<");
+  const last = t.lastIndexOf(">");
+  if (first === -1 || last === -1 || last <= first) return t.trim();
+  return t.slice(first, last + 1).trim();
 }
 
 // Security checks shared by both shapes. Returns a reason string on
@@ -290,7 +314,10 @@ export function validateResponse(
   // target, no injected scripts/handlers, JSX syntax sane. No full-file
   // checks (length-vs-source / placeholder / decl-survival don't apply).
   if (shape === "element") {
-    const element = sliceElementMarkup(trimmed);
+    // Derive the target's tag (e.g. "a", "button") as a fallback for
+    // headless-element repair.
+    const targetTag = targetOuterHtml.match(/^\s*<([a-zA-Z][\w-]*)/)?.[1];
+    const element = sliceElementMarkup(trimmed, targetTag);
     if (!element.startsWith("<") || element.length < 4) {
       return {
         ok: false,
