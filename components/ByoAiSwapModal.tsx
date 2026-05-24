@@ -94,42 +94,70 @@ function inferCategoryFromKind(info: VibeElementInfo): string | null {
   }
 }
 
-// 2026-05-24 — prominent numbered step header. Vibecoders need the
-// 3-step flow obvious at a glance, not buried in tiny mono caps.
+// 2026-05-24 — prominent numbered step header for the wizard. Shows a
+// numbered badge (→ ✓ when done), title, and either the active-step
+// hint or a collapsed summary + "Change" affordance. When `onClick` is
+// set (a completed step the user can revisit) the whole row is a button.
 function StepHeader({
   n,
   title,
   hint,
+  summary,
   done,
+  active,
+  onClick,
 }: {
   n: number;
   title: string;
   hint: string;
+  summary?: string;
   done?: boolean;
+  active?: boolean;
+  onClick?: () => void;
 }) {
+  const clickable = !!onClick && !active;
+  const Tag = clickable ? "button" : "div";
   return (
-    <div
+    <Tag
+      {...(clickable ? { type: "button" as const, onClick } : {})}
       className={
-        "flex items-start gap-4 px-8 py-4 transition-colors " +
-        (done ? "bg-coral/10" : "bg-paper")
+        "flex w-full items-center gap-4 px-8 py-4 text-left transition-colors " +
+        (done ? "bg-coral/10 " : active ? "bg-paper " : "bg-soft/40 ") +
+        (clickable ? "cursor-pointer hover:bg-coral/15" : "")
       }
     >
       <span
         className={
           "flex h-9 w-9 shrink-0 items-center justify-center border-2 border-ink font-display text-[17px] font-bold " +
-          (done ? "bg-coral text-paper" : "bg-ink text-paper")
+          (done
+            ? "bg-coral text-paper"
+            : active
+              ? "bg-ink text-paper"
+              : "bg-paper text-muted")
         }
         aria-hidden="true"
       >
         {done ? "✓" : n}
       </span>
-      <div className="min-w-0">
-        <div className="font-display text-[18px] font-bold leading-tight text-ink">
+      <div className="min-w-0 flex-1">
+        <div
+          className={
+            "font-display text-[18px] font-bold leading-tight " +
+            (active || done ? "text-ink" : "text-muted")
+          }
+        >
           {title}
         </div>
-        <div className="mt-1 text-[13px] leading-snug text-muted">{hint}</div>
+        <div className="mt-1 truncate text-[13px] leading-snug text-muted">
+          {!active && summary ? summary : hint}
+        </div>
       </div>
-    </div>
+      {clickable && (
+        <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.15em] text-coral">
+          Change
+        </span>
+      )}
+    </Tag>
   );
 }
 
@@ -152,6 +180,10 @@ export default function ByoAiSwapModal({
   // 2026-05-24 — the describe input is behind a toggle so it doesn't eat
   // space by default; the reference grid is the primary path.
   const [showDescribe, setShowDescribe] = useState(false);
+  // 2026-05-24 — wizard: one step open at a time. Picking a look /
+  // sending to an AI auto-advances; collapsed steps are clickable to
+  // go back + change. 1=choose look, 2=open AI, 3=paste reply.
+  const [activeStep, setActiveStep] = useState<1 | 2 | 3>(1);
   const [pasteText, setPasteText] = useState("");
   const [failureReason, setFailureReason] = useState<string | null>(null);
   const [preferredProvider, setPreferredProvider] = useState<string | null>(
@@ -216,6 +248,7 @@ export default function ByoAiSwapModal({
       setSelectedReference(null);
       setChangeText("");
       setShowDescribe(false);
+      setActiveStep(1);
       setFailureReason(null);
       setLastClicked(null);
       setSourceChanged(false);
@@ -436,6 +469,7 @@ export default function ByoAiSwapModal({
         // localStorage can be disabled in private browsing — degrade.
       }
       setLastClicked(provider.id);
+      setActiveStep(3); // advance the wizard to "paste the reply"
       promptSourceRef.current = fullSource;
       setSourceChanged(false);
 
@@ -566,78 +600,92 @@ export default function ByoAiSwapModal({
           </div>
         </div>
 
-        {/* Body — scrolls if needed; reference picker takes most space */}
+        {/* Body — wizard: only the active step's content is expanded;
+            completed steps collapse to a clickable summary. */}
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-          {/* STEP 1 — reference picker */}
+          {/* STEP 1 — choose the look */}
           <section className="border-b-2 border-ink/15">
             <StepHeader
               n={1}
               title="Choose the new look"
-              hint="Type what you want in plain words, or pick a ready-made design below."
+              hint="Pick a ready-made design, or describe a change in words."
+              summary={
+                selectedReference
+                  ? `✓ ${selectedReference.component.title}`
+                  : changeText.trim()
+                    ? `✓ “${changeText.trim()}”`
+                    : undefined
+              }
               done={!!selectedReference || changeText.trim().length > 0}
+              active={activeStep === 1}
+              onClick={
+                activeStep !== 1 ? () => setActiveStep(1) : undefined
+              }
             />
-            {selectedReference && (
-              <div className="border-b-2 border-ink/10 bg-coral/10 px-8 py-2">
-                <span className="text-[13px] font-bold text-coral">
-                  ✓ Picked “{selectedReference.component.title}” — now do Step 2
-                  below ↓
-                </span>
-              </div>
-            )}
-            {/* 2026-05-24 — describe-a-change behind a toggle so it
-                doesn't eat space; the reference grid is the primary
-                path. Either input enables the providers. */}
-            <div className="border-b-2 border-ink/10 bg-paper px-8 py-2">
-              {!showDescribe && !changeText.trim() ? (
-                <button
-                  type="button"
-                  onClick={() => setShowDescribe(true)}
-                  className="text-[13px] font-bold text-coral underline-offset-2 hover:underline"
-                >
-                  ✏️ Or describe a change in words instead →
-                </button>
-              ) : (
-                <>
-                  <input
-                    type="text"
-                    autoFocus
-                    value={changeText}
-                    onChange={(e) => setChangeText(e.target.value)}
-                    placeholder="e.g. make it bigger with a blue gradient and rounded corners"
-                    className="w-full border-2 border-ink bg-paper px-3 py-2.5 text-[14px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+            {activeStep === 1 && (
+              <>
+                {/* describe-a-change behind a toggle so it doesn't eat
+                    space; the reference grid is the primary path. */}
+                <div className="border-b-2 border-ink/10 bg-paper px-8 py-2">
+                  {!showDescribe && !changeText.trim() ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowDescribe(true)}
+                      className="text-[13px] font-bold text-coral underline-offset-2 hover:underline"
+                    >
+                      ✏️ Or describe a change in words instead →
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        autoFocus
+                        value={changeText}
+                        onChange={(e) => setChangeText(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && changeText.trim()) {
+                            setActiveStep(2);
+                          }
+                        }}
+                        placeholder="e.g. make it bigger with a blue gradient and rounded corners"
+                        className="w-full border-2 border-ink bg-paper px-3 py-2.5 text-[14px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setActiveStep(2)}
+                        disabled={!changeText.trim()}
+                        className={
+                          "shrink-0 border-2 border-ink px-4 py-2.5 text-[13px] font-bold transition-colors " +
+                          (changeText.trim()
+                            ? "bg-coral text-paper hover:bg-ink"
+                            : "cursor-not-allowed bg-paper text-muted opacity-40")
+                        }
+                      >
+                        Next →
+                      </button>
+                    </div>
+                  )}
+                </div>
+                {/* The grid scrolls INSIDE this tall box. hoverPreview
+                    "scale" zooms a tile in place; columns=4 shows ~3
+                    rows of 4 at once. py gives scaled edge tiles room. */}
+                <div className="h-[52vh] min-h-[340px] max-h-[52vh] overflow-y-auto px-2 py-3">
+                  <InlineComponentBrowser
+                    mode={kind}
+                    category={targetKind}
+                    columns={4}
+                    hoverPreview="scale"
+                    selectedSlug={selectedReference?.component.slug ?? null}
+                    onPickReference={(component, rawHtml) => {
+                      setSelectedReference({ component, rawHtml });
+                      // Lock it in + advance the wizard to "open your AI".
+                      setActiveStep(2);
+                    }}
+                    onWarn={onWarn}
                   />
-                  <p className="mt-1.5 text-[12px] text-muted">
-                    {changeText.trim()
-                      ? "✓ Got it. Pick a reference too if you like, or go to Step 2 ↓"
-                      : "Describe the change, or pick a ready-made design below."}
-                  </p>
-                </>
-              )}
-            </div>
-            {/* 2026-05-22 — overflow-y-auto is load-bearing. The grid
-                (up to 1257 tiles) scrolls INSIDE this fixed-height box
-                so steps 2 + 3 stay reachable. Tall on the full-screen
-                modal so many tiles show at once. */}
-            <div className="h-[48vh] min-h-[320px] max-h-[48vh] overflow-y-auto">
-              <InlineComponentBrowser
-                mode={kind}
-                category={targetKind}
-                columns={4}
-                selectedSlug={selectedReference?.component.slug ?? null}
-                onPickReference={(component, rawHtml) => {
-                  setSelectedReference({ component, rawHtml });
-                  // Scroll the "Send to your AI" step into view so the
-                  // user sees the providers light up right after picking.
-                  window.requestAnimationFrame(() => {
-                    providerSectionRef.current?.scrollIntoView({
-                      behavior: "smooth",
-                      block: "nearest",
-                    });
-                  });
-                }}
-                onWarn={onWarn}
-              />
-            </div>
+                </div>
+              </>
+            )}
           </section>
 
           {/* STEP 2 — provider buttons */}
@@ -651,10 +699,21 @@ export default function ByoAiSwapModal({
               hint={
                 hasInput
                   ? "Click the AI you use. It opens in a new tab with your request ready."
-                  : "Do Step 1 first (describe a change or pick a design), then these light up."
+                  : "Finish Step 1 first, then these light up."
+              }
+              summary={
+                lastClicked
+                  ? `✓ Sent to ${getProviderById(lastClicked)?.label.replace("Open ", "") ?? lastClicked}`
+                  : undefined
               }
               done={!!lastClicked}
+              active={activeStep === 2}
+              onClick={
+                activeStep !== 2 && hasInput ? () => setActiveStep(2) : undefined
+              }
             />
+            {activeStep === 2 && (
+            <>
             <div className="px-8 pb-4">
               <div className="flex flex-wrap items-center gap-3">
                 {orderedProviders.map((p, i) => (
@@ -746,6 +805,8 @@ export default function ByoAiSwapModal({
                 </button>
               </div>
             )}
+            </>
+            )}
           </section>
 
           {/* STEP 3 — paste + Apply */}
@@ -753,9 +814,16 @@ export default function ByoAiSwapModal({
             <StepHeader
               n={3}
               title="Paste the AI's reply"
-              hint="Paste the whole answer the AI gave you — we pull out the code automatically and apply it."
+              hint="Paste the whole answer the AI gave you — we pull out the code + apply it."
               done={pasteText.trim().length > 0}
+              active={activeStep === 3}
+              onClick={
+                activeStep !== 3 && !!lastClicked
+                  ? () => setActiveStep(3)
+                  : undefined
+              }
             />
+            {activeStep === 3 && (
             <div className="px-8 pb-6">
             <textarea
               ref={textareaRef}
@@ -838,6 +906,7 @@ export default function ByoAiSwapModal({
               </button>
             </div>
             </div>
+            )}
           </section>
         </div>
       </div>

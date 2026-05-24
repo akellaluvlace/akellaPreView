@@ -43,6 +43,10 @@ interface Props {
   // ~4 huge tiles total — useless for browsing). Viewport breakpoints
   // can't be used (the sidebar would also widen), so the caller sets it.
   columns?: 2 | 3 | 4 | 5 | 6;
+  // 2026-05-24 — hover behavior. "popover" (default, sidebar): a fixed
+  // preview card to the left of the tile. "scale": the tile itself
+  // zooms ~1.7x in place (full-screen BYO-AI grid) — no popover.
+  hoverPreview?: "popover" | "scale";
   onWarn?: (message: string) => void;
   // Pre-swap visual footprint of the target element. When provided,
   // the swapped asset gets wrapped in a same-dimension container so
@@ -83,6 +87,7 @@ export default function InlineComponentBrowser({
   onPickReference,
   selectedSlug,
   columns = 2,
+  hoverPreview = "popover",
   onWarn,
   preserveBbox,
   preserveContent,
@@ -249,16 +254,26 @@ export default function InlineComponentBrowser({
               disabled={picking !== null}
               onClick={() => handlePick(c.slug)}
               onMouseEnter={(ev) => {
-                hoverRectRef.current = (ev.currentTarget as HTMLElement).getBoundingClientRect();
-                setHoveredSlug(c.slug);
-                forceRender((n) => n + 1);
+                if (hoverPreview !== "scale") {
+                  hoverRectRef.current = (
+                    ev.currentTarget as HTMLElement
+                  ).getBoundingClientRect();
+                  setHoveredSlug(c.slug);
+                  forceRender((n) => n + 1);
+                }
               }}
               onMouseLeave={() => setHoveredSlug((s) => (s === c.slug ? null : s))}
               aria-pressed={isSelected}
               className={
-                "group relative aspect-[4/3] overflow-hidden border-2 bg-white text-left transition-colors disabled:cursor-not-allowed disabled:opacity-40 " +
+                "group relative aspect-[4/3] overflow-hidden border-2 bg-white text-left disabled:cursor-not-allowed disabled:opacity-40 " +
+                // 2026-05-24 — scale mode: tile zooms ~1.7x in place on
+                // hover (origin nudged toward center so edge tiles stay
+                // mostly in view); transition both transform + color.
+                (hoverPreview === "scale"
+                  ? "transition-[transform,border-color] duration-150 hover:z-30 hover:scale-[1.7] "
+                  : "transition-colors ") +
                 (isSelected
-                  ? "border-coral ring-2 ring-coral ring-offset-2 ring-offset-paper"
+                  ? "z-20 border-coral ring-2 ring-coral ring-offset-2 ring-offset-paper"
                   : "border-ink hover:border-coral")
               }
               title={c.title}
