@@ -2,20 +2,61 @@
 
 Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generated HTML/JSX and see it render live, or pick from a gallery of templates. Audience: people with no terminal, no Node install, no dev background.
 
-## Active branches (2026-05-17)
+## Active branches (2026-05-26)
 
 - **`main`** — codebase. Last commit `0878566 backup: web templates state before 94/10/32/16/69 batch`.
-- **`audit-phase2-cascade-ids`** — long-lived feature branch. Audit work + UI/UX redesign + vibe-edit + 2026-05-14 vibecoder simplification + 2026-05-15 Move retirement + 2026-05-15 vibecoder feature batch + 2026-05-16 polish + 2026-05-17 component-swap retirement + AI Edit Phase 0-3. **~30+ commits ahead of main, all LOCAL ONLY — never pushed.** Latest pre-commit: Phase 2 + Phase 3 polish (model routing, undo button, parent context, ephemeral warning, copy export, 4 bugs hunted). Full per-session log in `CLAUDE-archive-status.md`.
+- **`audit-phase2-cascade-ids`** — long-lived feature branch. **NOW PUSHED to `origin` (github.com/akellaluvlace/akellaPreView), HEAD = `801b891`, 0 unpushed.** Was ~70 commits ahead of the stale remote (which sat at `36ad297`); pushed 2026-05-26. ~95 commits ahead of `main`. Contains: audit work + UI/UX redesign + vibe-edit + vibecoder simplification + Move/Insert/Swap retirements + AI Edit (built then retired) + BYO-AI swap (current flagship) + 2026-05-24..26 (modal UI, cascade group-swap choice, iframe handshake fix, audit + 6 hardening fixes). Full per-session log in `CLAUDE-archive-status.md`.
 
 ## Backup checkpoints (rollback refs)
 
 | Date | Commit | Restore command | What it captures |
 |---|---|---|---|
+| 2026-05-26 | `801b891` | `git reset --hard 801b891` | **Pushed to origin.** Audit + 6 hardening fixes (parse-gate, localStorage key, tracer gating, flake+gallery, route delete + IP). tsc 0, vitest 6646 (envelope flake now stable). The pre-#6-dead-UI-removal snapshot. |
 | 2026-05-15 | `d656e21` | `git reset --hard d656e21` | Pre-cascade-detach + pre-move-fix work. Vibe-edit 5-phase simplification + inline component browser + 2026-05-15 plans. Two new SVG logos. CLAUDE.md trimmed + archive. tsc 0, vitest 6291/6293. |
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-23 — BYO-AI swap evolved to DUAL-MODE (element + full-file) + design-system context + free-form prompt. 116 prod-import tests. tsc 0. vitest 6612/6614 — 2 pre-existing envelope flakes. Latest commit `bebf5ec`.)
+## Current status (2026-05-26 — audit + 6 hardening fixes shipped & PUSHED. HEAD `801b891`. tsc 0, vitest 6646 (envelope flake now stable). One item deferred to next run: full dead-AI-UI removal.)
+
+### ⏭️ NEXT RUN STARTS HERE — finish Fix #6 (remove the dead AI-Edit UI layer)
+
+The retired Tensorix AI-Edit path's **HTTP route was deleted** (`app/api/ai-edit/route.ts` — the cost-DoS surface), but the **dead UI layer is still on disk** and interwoven with LIVE code. Remove it carefully (mostly tsc-guarded + covered by the integration tests; the iframe-runtime edits are the delicate part). Do it in tsc-clean, committed chunks:
+
+1. **Consumers first** (so the lib + components become unreferenced):
+   - `components/ToolBar.tsx` — remove `TOOL_META.ai` + `AiIcon` (the `'ai'` tool is already gone from `TOOL_LIST`).
+   - `components/Workspace.tsx` — remove `handleAiSubmit`, `handleAiSwapPick`, `handleAiSelected`, `handleAiSetScope`, `handleAiClearFromChip`, `aiInfo`/`aiBusy`/related state, the `<AiPromptBar>` + `<AiScopeChip>` mounts (gated on the unreachable `tool === "ai"`), and the `@/lib/ai-edit/*` imports.
+   - `components/Preview.tsx` — remove `onAiSelected`/`onAiCleared`/`onAiApplied`/`onAiApplyFailed` props + the `ai:*` message handling/posting + the `lib/ai-edit` imports.
+   - `lib/iframe-bridge.ts` — remove the `ai:*` variants from `IframeToHostMessage`/`HostToIframeMessage` + the `AiSelectionPayload` import + their entries in the `IFRAME_MESSAGE_TYPES` exhaustiveness tuple (the `Exhaustive` guard will tsc-error if you miss one — lean on it).
+   - `lib/vibe-edit/runtime.ts` — remove `aiSerialize`/`aiSelect`/`aiClear`/`aiFindSectionScope`, the `DROPIN_TOOL === 'ai'` click branch, and the `ai:set-scope`/`ai:clear`/`ai:apply-outer` message handlers. **Delicate (template-literal string, not tsc-checked internally) — verify with `tests/integration/vibe-edit-roundtrip.test.ts` + `iframe-click-to-select.test.ts`.**
+2. **Then delete the orphaned files:** `lib/ai-edit/*` (11 files), `components/AiPromptBar.tsx`, `components/AiScopeChip.tsx`, `components/AiSwapBusyOverlay.tsx`, `tests/ai-edit-*.test.ts` (6 files).
+3. **MUST KEEP** (BYO-AI depends on them): `lib/ast/operations/detach-from-map.ts`, `lib/component-library/html-to-jsx.ts`, `lib/ast/patch-class-by-oid.ts` (`getJsxOuterByOid`), `lib/ast/oids.ts` (`parsesAsPlainJsx`).
+4. ~2,500 LOC + ~115 tests of pure bloat. Verify `npx tsc --noEmit` + full `vitest` after each chunk.
+
+### This session (2026-05-26): codebase audit + 6 hardening fixes (all pushed)
+
+Ran a 4-agent read-only audit (AST layer, BYO-AI/iframe, what's-coming inventory, security/silent-failures) + internet research. Then shipped, in priority order:
+
+- **`dc9c3a6`** backup — all 2026-05-24..26 BYO-AI/handshake/cascade work (see next block + below).
+- **`a25b068`** Fix #2 — `isParseable` was returning `true` for broken JSX because `PARSE_OPTS` has `errorRecovery: true` (Babel recovers, collects errors in `ast.errors` instead of throwing). It's the parse-gate before `setCode` in `handleByoAiApply`, so truncated/unbalanced AI replies could blank the preview. Now inspects `ast.errors`. Stays TS-tolerant (so validate-response's structural-vs-TS distinction holds). `injectOids`/`stripOids` keep the lenient `tryParse`.
+- **`bb68409`** Fix #3 — never persist the BYO AI key to `localStorage` (`FocusEditor` `AIRewriteSection`): the `allow-same-origin` srcdoc iframe can read `window.parent.localStorage`. Key is now in-memory (session) only; provider pref (non-secret) still persists. Documented the sandbox tradeoff at `Preview.tsx`. (FocusEditor is itself unreachable — only opened by the retired Select tool — so this is a latent risk closed.)
+- **`1781afc`** Fix #4 — gated the ~150 `[dropin:*]` console tracers behind `lib/debug.ts` `dlog()` (host) + a runtime `dropinDbg()` (iframe). OFF unless `NODE_ENV!=='production'` OR `localStorage['dropin:debug']==='1'`. Done for Preview/Workspace/ByoAiSwapModal/ImageControls + the iframe runtime (preview.ts + vibe-edit/runtime.ts — self-contained `dropinDbg` defined in both so the vibe runtime works standalone in tests). NOT yet gated (low-freq, deferred): ~30 misc 1-log files (asset panels) + SelectionOverlay (dead Move code).
+- **`5b4d3ce`** Fix #7 — envelope-channel test flake fixed (deadline `waitFor()` poll replaces a fixed `flushTimers(20)` — 6/6 green). `/gallery` pinned `export const dynamic = "force-dynamic"` (latent searchParams static-render crash).
+- **`801b891`** Fix #5 + #6-partial — deleted `app/api/ai-edit/route.ts` (Tensorix cost-DoS HTTP surface, used `TENSORIX_API_KEY`, reachable regardless of dead UI). Hardened `llm-rewrite` `readClientIp` to prefer `x-real-ip` over spoofable XFF-first.
+
+**Audit findings still OPEN (not fixed):** duplicate-OID mis-target when `applyDetachFromMap` bails (the patch hits querySelector's FIRST match, not the clicked instance — the canIsolate dry-run mitigates the BYO-AI path only); `canIsolate` re-parses the full template on every keystroke while the modal is open (perf); `injectOidIntoOuter` regex silently no-ops if the AI reply leads with a comment/whitespace; 7× duplicated `findJsxElementByOid` across operation files. **Research confirmed:** Next.js already on 14.2.35 (CVEs patched — no action); the sandbox warning is an accepted tradeoff; Tailwind Play CDN is dev-only but required in the preview (and embedded in the Publish export → published sites aren't production-grade — future consideration).
+
+---
+
+## Prior status (2026-05-24/25 — modal UI overhaul + cascade group-swap choice + iframe handshake fix)
+
+- **Iframe handshake "editing dead after refresh/navigation" — FIXED.** Root cause (found via lifecycle tracers): the iframe's one-shot `dropin:ready` (setTimeout(0)) raced React attaching the window listener (missed), and `onLoad` is unreliable for srcDoc → `readyRef` stuck false → `set-tool` never sent → `DROPIN_TOOL` stuck `'view'` → clicks ignored. Fix: host POLLS `dropin:request-ready` until the iframe answers; `markReadyAndReplay` re-syncs on EVERY ready/onLoad (idempotent — no de-dupe guard, which had caused a follow-on regression where a post-apply rebuild's live iframe got starved). Added `dropin:request-ready` + `dropin:request-tree`. Preview + IsolatedPreview.
+- **Cascade group-swap choice.** Modal offers "All N cards" vs "Just this one" when an element renders N times via `.map()`. Pre-checks detachability (dry-run `applyDetachFromMap`); if a `.map()` can't be isolated (e.g. index `i` used outside `key=`), disables "Just this one" + forces group mode. "All N" sends the callback's JSX SOURCE (`getJsxOuterByOid`) so the restyle keeps each card's `{expr}` bindings; binding-preservation guard rejects a baked-all-literals reply. `detach-from-map` newOid fix: points at the IIFE ROOT, not the deepest descendant (was nesting the swap onto a trailing `<span>`).
+- **Validation:** regex TS-detection (false-rejected "Export as PDF", "downtime: never") replaced by strict JSX-only parser (`parsesAsPlainJsx`). Anti-nesting prompt instruction.
+- **Modal UI:** full-screen square, full-step-fill layout, fat coral scrollbar, squarer grid tiles, two-column step-2, bigger header copy.
+
+---
+
+## Prior status (2026-05-23 — BYO-AI swap evolved to DUAL-MODE (element + full-file) + design-system context + free-form prompt. 116 prod-import tests. tsc 0. vitest 6612/6614 — 2 pre-existing envelope flakes. Latest commit `bebf5ec`.)
 
 ### BYO-AI swap — 2026-05-22/23 evolution (post-ship)
 
