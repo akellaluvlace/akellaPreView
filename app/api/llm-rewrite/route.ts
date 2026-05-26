@@ -62,10 +62,15 @@ function rateLimitOk(ip: string): boolean {
 }
 
 function readClientIp(req: Request): string {
+  // Prefer x-real-ip: on Vercel/most reverse proxies this is the
+  // platform-injected connecting IP, which the client cannot forge. The
+  // FIRST value of x-forwarded-for is client-controllable (a client can
+  // prepend a fake hop to reset its rate-limit bucket), so only fall back
+  // to it when x-real-ip is absent. (2026-05-26 audit #5.)
+  const real = req.headers.get("x-real-ip");
+  if (real && real.trim()) return real.trim();
   const xff = req.headers.get("x-forwarded-for");
   if (xff) return xff.split(",")[0].trim();
-  const real = req.headers.get("x-real-ip");
-  if (real) return real;
   return "unknown";
 }
 
