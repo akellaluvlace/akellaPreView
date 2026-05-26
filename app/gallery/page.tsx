@@ -9,6 +9,13 @@ import {
   type TemplateSummary,
 } from "@/lib/templates";
 
+// This page reads `searchParams` (?kind=), so it must render dynamically.
+// Without this, Next can try to static-render it during build/prerender and
+// crash ("couldn't be rendered statically because it used searchParams") —
+// a latent trap that resurfaces after npm install / a Next bump. Pin it.
+// See memory/project_gallery_dynamic_searchparams_trap.
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Gallery — AiM Dropin",
   description:

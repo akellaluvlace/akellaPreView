@@ -28,6 +28,29 @@ function flushTimers(
   return new Promise((resolve) => window.setTimeout(() => resolve(), ms));
 }
 
+// 2026-05-26 — deadline-based wait for an async postMessage reply. Replaces
+// the previous fixed `flushTimers(20)` + `messages.find` pattern, which was
+// flaky: 20ms was sometimes too short for the round-trip + the runtime's
+// getComputedStyle/getBoundingClientRect work under load, so the reply
+// hadn't landed when we checked. Polls the collected `messages` array every
+// 10ms up to `timeoutMs`, returning the match as soon as it arrives (or
+// undefined at the deadline, so the assertion still fails clearly).
+async function waitFor(
+  window: { setTimeout: (fn: () => void, ms: number) => unknown },
+  messages: any[],
+  predicate: (m: any) => boolean,
+  timeoutMs = 2000,
+): Promise<any> {
+  const deadline = Date.now() + timeoutMs;
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const hit = messages.find(predicate);
+    if (hit) return hit;
+    if (Date.now() >= deadline) return undefined;
+    await new Promise((r) => window.setTimeout(() => r(undefined), 10));
+  }
+}
+
 function buildDom(userHtml: string): JSDOM {
   const previewHtml = buildPreviewDocument({
     code: userHtml,
@@ -56,9 +79,9 @@ describe("iframe runtime — envelope channel", () => {
       { __dropin: true, type: "dropin:get-envelope", oid: "child-1", requestId: 42 },
       "*",
     );
-    await flushTimers(dom.window, 20);
-
-    const reply = messages.find(
+    const reply = await waitFor(
+      dom.window,
+      messages,
       (m) => m?.type === "dropin:envelope-result" && m.requestId === 42,
     );
     expect(reply).toBeDefined();
@@ -80,9 +103,9 @@ describe("iframe runtime — envelope channel", () => {
       { __dropin: true, type: "dropin:get-envelope", oid: "child-2", requestId: 7 },
       "*",
     );
-    await flushTimers(dom.window, 20);
-
-    const reply = messages.find(
+    const reply = await waitFor(
+      dom.window,
+      messages,
       (m) => m?.type === "dropin:envelope-result" && m.requestId === 7,
     );
     expect(reply).toBeDefined();
@@ -121,9 +144,9 @@ describe("iframe runtime — envelope channel", () => {
       { __dropin: true, type: "dropin:get-envelope", oid: "missing-oid", requestId: 99 },
       "*",
     );
-    await flushTimers(dom.window, 20);
-
-    const reply = messages.find(
+    const reply = await waitFor(
+      dom.window,
+      messages,
       (m) => m?.type === "dropin:envelope-result" && m.requestId === 99,
     );
     expect(reply).toBeDefined();
@@ -144,17 +167,19 @@ describe("iframe runtime — envelope channel", () => {
       { __dropin: true, type: "dropin:get-envelope", oid: "c1", requestId: 1 },
       "*",
     );
-    await flushTimers(dom.window, 20);
     dom.window.postMessage(
       { __dropin: true, type: "dropin:get-envelope", oid: "c2", requestId: 2 },
       "*",
     );
-    await flushTimers(dom.window, 20);
 
-    const r1 = messages.find(
+    const r1 = await waitFor(
+      dom.window,
+      messages,
       (m) => m?.type === "dropin:envelope-result" && m.requestId === 1,
     );
-    const r2 = messages.find(
+    const r2 = await waitFor(
+      dom.window,
+      messages,
       (m) => m?.type === "dropin:envelope-result" && m.requestId === 2,
     );
     expect(r1).toBeDefined();
@@ -187,9 +212,9 @@ describe("iframe runtime — envelope channel", () => {
       { __dropin: true, type: "dropin:get-envelope", oid: "html-root", requestId: 11 },
       "*",
     );
-    await flushTimers(dom.window, 20);
-
-    const reply = messages.find(
+    const reply = await waitFor(
+      dom.window,
+      messages,
       (m) => m?.type === "dropin:envelope-result" && m.requestId === 11,
     );
     expect(reply).toBeDefined();
