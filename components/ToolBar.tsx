@@ -38,16 +38,12 @@ import type { Tool } from "@/lib/iframe-bridge";
 // who need to reorder. All names stay in the Tool union + message
 // protocol because internal callers + persisted-localStorage migration
 // still emit them; the toolbar just doesn't surface a button.
-// 2026-05-20 — AI tool retired from UI per user direction. Quality
-// wasn't reliable enough (interpretation drift on ambiguous prompts,
-// occasional JSX-expression hallucinations, root-tag changes).
-// Phases 1-9 of code left on disk (Workspace handlers, AiPromptBar,
-// AiScopeChip, AiSwapBusyOverlay, /api/ai-edit, lib/ai-edit/*,
-// lib/ast/operations/detach-from-map.ts). Recoverable if the model
-// landscape improves. Persisted localStorage value "ai" migrates to
-// "view" via the existing migration path in Workspace.
-// Same retirement pattern as Move tool, Try Variations, Insert,
-// component-library swap. All on disk, none in the toolbar.
+// The AI tool was retired from the UI 2026-05-20 (quality wasn't
+// reliable enough — interpretation drift, JSX-expression hallucinations,
+// root-tag changes) and its dead code was fully removed 2026-05-26 (the
+// 'ai' member is gone from the Tool union; the BYO-AI swap inside the
+// vibe panel is the live AI affordance now). Same retirement pattern as
+// Move tool, Try Variations, Insert, component-library swap.
 export const TOOL_LIST: ReadonlyArray<Tool> = ["view", "vibe"];
 
 interface ToolBarProps {
