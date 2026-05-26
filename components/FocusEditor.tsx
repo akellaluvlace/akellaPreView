@@ -1242,9 +1242,18 @@ function Divider() {
 
 // Phase 5 / A5.2 — BYO-key AI rewrite. Collapsed by default; first open
 // shows provider toggle + key input. Once saved, flips to a textarea +
-// Rewrite button. The user's key lives in localStorage only — never sent
-// to our server in any persistent form. The route at /api/llm-rewrite
-// relays one request at a time.
+// Rewrite button. The route at /api/llm-rewrite relays one request at a
+// time and never persists the key server-side.
+//
+// SECURITY (2026-05-26): the key is held in component state (memory) for
+// the session ONLY — it is NOT written to localStorage. The preview iframe
+// runs with `allow-same-origin` (the editor needs contentDocument access),
+// which means iframe JS can read `window.parent.localStorage`. Persisting a
+// BYO API key there would expose it to any script running in the preview
+// (a malicious template or pasted AI output). In-memory state lives in a
+// closure the iframe cannot reach. Re-entering the key per session is the
+// accepted trade-off. (Provider preference is not a secret and still
+// persists.)
 //
 // Phase 5 §5 backlog (b) — request now opts into the route's SSE
 // streaming variant. The model's JSON output appears in a live preview
@@ -1255,7 +1264,8 @@ function Divider() {
 // after they walked away. SSE primitives shared with the route live in
 // `lib/sse.ts`.
 type AIProvider = "openai" | "anthropic";
-const AI_KEY_STORE = "dropin:ai-key";
+// NB: no AI_KEY_STORE — the key is intentionally NOT persisted (see the
+// SECURITY note above). Only the non-secret provider preference persists.
 const AI_PROVIDER_STORE = "dropin:ai-provider";
 
 function AIRewriteSection({
@@ -1280,10 +1290,10 @@ function AIRewriteSection({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const k = window.localStorage.getItem(AI_KEY_STORE) || "";
+    // Provider preference only — the API key is never read from storage
+    // (it isn't written there). See the SECURITY note above.
     const p = window.localStorage.getItem(AI_PROVIDER_STORE);
     if (p === "openai" || p === "anthropic") setProvider(p);
-    if (k) setApiKey(k);
   }, []);
 
   // Abort any in-flight stream when the section unmounts (FocusEditor
@@ -1305,7 +1315,7 @@ function AIRewriteSection({
       return;
     }
     if (typeof window !== "undefined") {
-      window.localStorage.setItem(AI_KEY_STORE, k);
+      // Persist provider preference only — NOT the key (see SECURITY note).
       window.localStorage.setItem(AI_PROVIDER_STORE, provider);
     }
     setApiKey(k);

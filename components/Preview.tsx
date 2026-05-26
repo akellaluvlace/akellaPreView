@@ -1371,6 +1371,17 @@ export default function Preview({
                 });
                 markReadyAndReplay("iframe onLoad");
               }}
+              // SECURITY NOTE (2026-05-26): `allow-scripts` + `allow-same-origin`
+              // together let iframe JS reach `window.parent` (the browser warns
+              // about this). It is REQUIRED here — the editor reads the iframe's
+              // contentDocument (selection, bbox, vibe-edit) and bridges via
+              // postMessage, which a cross-origin sandbox would block. The
+              // accepted trade-off: preview content is first-party templates +
+              // the user's own pasted output, and we keep secrets OUT of
+              // window.parent.localStorage (see FocusEditor's BYO-key handling)
+              // so there's nothing worth exfiltrating even if a script escapes.
+              // The "proper" hardening (serve the preview from a separate
+              // origin) is incompatible with same-origin contentDocument access.
               sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               className="block h-full w-full bg-white"
               // touchAction:auto + overscroll-y-contain: explicit native
