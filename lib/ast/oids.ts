@@ -218,12 +218,24 @@ function tryParse(source: string): unknown {
   }
 }
 
-// 2026-05-24 — parse-gate. Returns true iff `source` parses as a
-// module under the same plugin set the iframe uses. Callers use this
-// to refuse applying a syntactically-broken source (e.g. an AI swap
-// that produced an unbalanced tag) BEFORE setCode blanks the preview.
+// 2026-05-24 — parse-gate. Returns true iff `source` parses cleanly as a
+// module under the same plugin set the iframe uses. Callers use this to
+// refuse applying a syntactically-broken source (e.g. an AI swap that
+// produced an unbalanced/duplicate tag) BEFORE setCode blanks the preview.
+//
+// CRITICAL (2026-05-26): PARSE_OPTS sets `errorRecovery: true`, so
+// `parse()` does NOT throw on recoverable syntax errors — it collects them
+// in `ast.errors` and returns a partial AST. A naive `tryParse() !== null`
+// therefore returned `true` for genuinely-broken sources like
+// `<div><span></div>` (Babel recovers), defeating the whole purpose of the
+// gate. We must inspect `ast.errors` to actually detect structural breaks.
+// (injectOids/stripOids deliberately keep the lenient tryParse so they can
+// stamp OIDs into in-progress edits; only this gate is strict.)
 export function isParseable(source: string): boolean {
-  return tryParse(source) !== null;
+  const ast = tryParse(source) as { errors?: unknown[] } | null;
+  if (ast === null) return false;
+  const errors = ast.errors;
+  return !Array.isArray(errors) || errors.length === 0;
 }
 
 // 2026-05-25 — strict JSX-only parse. Mirrors the iframe's Babel-standalone
