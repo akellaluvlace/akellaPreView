@@ -14,7 +14,6 @@ import {
   type TreeNode,
 } from "@/lib/iframe-bridge";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
-import type { AiSelectionPayload } from "@/lib/ai-edit/types";
 import type {
   Bounds,
   DropTarget,
@@ -149,8 +148,7 @@ export interface PreviewHandle {
   // every command shape is self-describing.
   postVibe: (
     cmd:
-      | Extract<HostToIframeMessage, { type: `vibe:${string}` }>
-      | Extract<HostToIframeMessage, { type: `ai:${string}` }>,
+      | Extract<HostToIframeMessage, { type: `vibe:${string}` }>,
   ) => void;
   // 2026-05-20 — Publish flow: capture the iframe's current rendered
   // HTML so the host can sanitize + zip it for Netlify Drop. Returns
@@ -217,24 +215,6 @@ interface PreviewProps {
   // empty stubs.
   onVibeSelected?: (info: VibeElementInfo) => void;
   onVibeCleared?: () => void;
-  // 2026-05-17 — AI Edit selection callbacks. Same shape as the vibe
-  // pair but for DROPIN_TOOL === 'ai'. The iframe runtime emits
-  // ai:selected on any-element click + ai:cleared on Escape /
-  // click-outside. Host enriches the info with fingerprint + token
-  // estimate via lib/ai-edit/ helpers before storing.
-  onAiSelected?: (info: AiSelectionPayload) => void;
-  onAiCleared?: () => void;
-  // Phase 2 — AI Edit apply outcome. Iframe runs the outerHTML swap
-  // and re-emits ai:applied with the new node's bbox/outerHtml so the
-  // host can update the scope chip + history without an iframe rebuild.
-  // ai:apply-failed fires when querySelector(path) returns null at
-  // apply time (rare; structural edits between submit + apply).
-  onAiApplied?: (data: {
-    path: string;
-    newOuterHtml: string;
-    bbox: { x: number; y: number; width: number; height: number } | null;
-  }) => void;
-  onAiApplyFailed?: (data: { path: string; reason: string }) => void;
   // Phase 2 (4b) resize commit. Workspace routes the declarations through
   // `applyStyleProps` against the current source and pushes the result via
   // `setCode` (history-aware via `useEditHistory`). Returns `true` iff the
@@ -396,10 +376,6 @@ export default function Preview({
   onInsertTarget,
   onVibeSelected,
   onVibeCleared,
-  onAiSelected,
-  onAiCleared,
-  onAiApplied,
-  onAiApplyFailed,
 }: PreviewProps) {
   const [debouncedCode, setDebouncedCode] = useState(code);
   const [debouncedKind, setDebouncedKind] = useState(kind);
@@ -430,24 +406,6 @@ export default function Preview({
   useEffect(() => {
     onVibeClearedRef.current = onVibeCleared;
   }, [onVibeCleared]);
-  // 2026-05-17 — Same ref pattern for AI Edit selection callbacks so
-  // the empty-deps message handler always calls the freshest version.
-  const onAiSelectedRef = useRef(onAiSelected);
-  const onAiClearedRef = useRef(onAiCleared);
-  const onAiAppliedRef = useRef(onAiApplied);
-  const onAiApplyFailedRef = useRef(onAiApplyFailed);
-  useEffect(() => {
-    onAiSelectedRef.current = onAiSelected;
-  }, [onAiSelected]);
-  useEffect(() => {
-    onAiClearedRef.current = onAiCleared;
-  }, [onAiCleared]);
-  useEffect(() => {
-    onAiAppliedRef.current = onAiApplied;
-  }, [onAiApplied]);
-  useEffect(() => {
-    onAiApplyFailedRef.current = onAiApplyFailed;
-  }, [onAiApplyFailed]);
   // Latest group-root OIDs, kept on a ref so the dropin:ready handler can
   // re-post the freshest set without taking a stale closure over an older
   // prop value. Empty default keeps the postMessage cheap when the consumer
@@ -945,9 +903,7 @@ export default function Preview({
   // PreviewHandle interface).
   const postVibe = useCallback(
     (
-      cmd:
-        | Extract<HostToIframeMessage, { type: `vibe:${string}` }>
-        | Extract<HostToIframeMessage, { type: `ai:${string}` }>,
+      cmd: Extract<HostToIframeMessage, { type: `vibe:${string}` }>,
     ) => {
       postToIframe(cmd);
     },
@@ -1170,32 +1126,6 @@ export default function Preview({
       } else if (d.type === "vibe:cleared") {
         track("vibe:cleared");
         if (onVibeClearedRef.current) onVibeClearedRef.current();
-      } else if (d.type === "ai:selected") {
-        // 2026-05-17 — AI Edit selection from iframe. Same routing
-        // shape as vibe:selected. Host enriches with fingerprint +
-        // token estimate before storing.
-        track("ai:selected", { tag: d.info.tag, path: d.info.path, scope: d.info.scope });
-        if (onAiSelectedRef.current) onAiSelectedRef.current(d.info);
-      } else if (d.type === "ai:cleared") {
-        track("ai:cleared");
-        if (onAiClearedRef.current) onAiClearedRef.current();
-      } else if (d.type === "ai:applied") {
-        // Phase 2 — AI Edit swap landed. Iframe re-emitted with the new
-        // node's outerHtml + bbox so the host can update the chip +
-        // history snapshot without a full iframe rebuild.
-        track("ai:applied", { path: d.path });
-        if (onAiAppliedRef.current) {
-          onAiAppliedRef.current({
-            path: d.path,
-            newOuterHtml: d.newOuterHtml,
-            bbox: d.bbox,
-          });
-        }
-      } else if (d.type === "ai:apply-failed") {
-        track("ai:apply-failed", { path: d.path, reason: d.reason });
-        if (onAiApplyFailedRef.current) {
-          onAiApplyFailedRef.current({ path: d.path, reason: d.reason });
-        }
       } else if (d.type === "vibe:ready") {
         // No-op host-side. The runtime emits this once per iframe load
         // so an integration test or future health-check can pick it up.

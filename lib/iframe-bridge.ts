@@ -7,7 +7,6 @@ import type {
 } from "./layout-context";
 import type { SoftConstraintWarning } from "./ast/constraints";
 import type { VibeElementInfo } from "./vibe-edit/types";
-import type { AiSelectionPayload } from "./ai-edit/types";
 
 // Phase 5 / Phase B — active tool. Host owns the canonical state
 // (Workspace `tool`); iframe receives the value via `dropin:set-tool`
@@ -25,18 +24,12 @@ import type { AiSelectionPayload } from "./ai-edit/types";
 // drive vibe:update-outer + buildVibeCommit's outer-replacement
 // path). The standalone tool was redundant. Persisted localStorage
 // values of "swap" are migrated to "view" on next mount.
-// 'ai' added 2026-05-17 for the AI Edit element + section flow. The
-// iframe runtime gates a NEW click handler on DROPIN_TOOL === 'ai'
-// (parallel to the vibe handler) that emits `ai:selected` events with
-// AiSelectionInfo (fingerprint + bbox + outerHtml + token estimate).
-// Plan: `docs/superpowers/plans/2026-05-17-ai-edit-element-section.md`.
 export type Tool =
   | "view"
   | "select"
   | "move"
   | "insert"
-  | "vibe"
-  | "ai";
+  | "vibe";
 
 export interface JsxLoc {
   kind: "jsx";
@@ -209,26 +202,7 @@ export type IframeToHostMessage =
   // runtime is wired even before the first selection.
   | { type: "vibe:ready" }
   | { type: "vibe:selected"; info: VibeElementInfo }
-  | { type: "vibe:cleared" }
-  // 2026-05-17 — AI Edit flow. Emitted only when DROPIN_TOOL === 'ai'.
-  // The runtime click handler selects ANY element (no editable-atom
-  // filtering — AI Edit lets the user prompt against anything). Host
-  // enriches with fingerprint + token estimate via lib/ai-edit/.
-  // Plan: docs/superpowers/plans/2026-05-17-ai-edit-element-section.md.
-  | { type: "ai:selected"; info: AiSelectionPayload }
-  | { type: "ai:cleared" }
-  // Phase 2 — apply outcome. `ai:applied` carries the freshly-swapped
-  // element's new bbox + outerHtml so the host can update the scope chip
-  // and history snapshot without an iframe rebuild. `ai:apply-failed`
-  // fires when querySelector(path) returns null (rare; structural edits
-  // between submit and apply could in principle invalidate the path).
-  | {
-      type: "ai:applied";
-      path: string;
-      newOuterHtml: string;
-      bbox: { x: number; y: number; width: number; height: number } | null;
-    }
-  | { type: "ai:apply-failed"; path: string; reason: string };
+  | { type: "vibe:cleared" };
 
 // Phase E proper — Composite payload for `dropin:envelope-result`. Carries
 // the parent's raw CSSOM-shaped fields (host calls `parentBoxFromRect` then
@@ -427,18 +401,6 @@ export type HostToIframeMessage =
   | { type: "vibe:update-classes"; path: string; classes: string }
   | { type: "vibe:select"; path: string }
   | { type: "vibe:clear" }
-  // 2026-05-17 — AI Edit scope-expansion commands. Host posts
-  // `ai:set-scope` on Tab (scope: "section") / Shift+Tab (scope:
-  // "element"); iframe re-resolves the element by path, runs
-  // aiFindSectionScope when scope === "section", re-emits ai:selected
-  // with the new scope. `ai:clear` fires on Escape / tool change.
-  | { type: "ai:set-scope"; path: string; scope: "element" | "section" }
-  | { type: "ai:clear" }
-  // Phase 2 — apply AI-returned outerHTML at the given path. Iframe runs
-  // querySelector(path), replaces outerHTML wholesale, then re-emits
-  // `ai:applied` (with the new node's bbox + outerHtml) or
-  // `ai:apply-failed` if the path no longer resolves.
-  | { type: "ai:apply-outer"; path: string; newOuterHtml: string }
   // 2026-05-25 — re-request the structure tree. The iframe pushes its tree
   // once unprompted on `dropin:ready`; if the host missed that push (same
   // handshake race that can drop the ready message on a fresh mount), it
@@ -477,10 +439,6 @@ const IFRAME_MESSAGE_TYPES = [
   "vibe:ready",
   "vibe:selected",
   "vibe:cleared",
-  "ai:selected",
-  "ai:cleared",
-  "ai:applied",
-  "ai:apply-failed",
 ] as const satisfies readonly IframeToHostMessage["type"][];
 
 // Compile-time exhaustiveness guard: makes TS error if a new variant is added
