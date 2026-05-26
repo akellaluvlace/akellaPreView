@@ -54,3 +54,16 @@ screenshot-*.png
 phase5-prettier-diff-preview.txt
 *.tmp
 *.log
+
+# Internal planning / audit / handoff docs — kept LOCAL only, never shipped
+# to the public GitHub repo or the Vercel deploy. Covers CLAUDE.md +
+# archives, AUDIT-*, phase*, plan, manipulation, playbooks, etc. README.md
+# is the one root doc we keep as the repo's front page.
+/*.md
+!/README.md
+/docs/
+/audit-2026-05-04/
+/audit-2026-05-06/
+
+# One-off scratch scripts used during refactors
+/_*.cjs
