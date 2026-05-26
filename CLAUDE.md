@@ -5,34 +5,31 @@ Project: **Dropin** — Next.js + Vercel site where vibecoders paste AI-generate
 ## Active branches (2026-05-26)
 
 - **`main`** — codebase. Last commit `0878566 backup: web templates state before 94/10/32/16/69 batch`.
-- **`audit-phase2-cascade-ids`** — long-lived feature branch. **NOW PUSHED to `origin` (github.com/akellaluvlace/akellaPreView), HEAD = `801b891`, 0 unpushed.** Was ~70 commits ahead of the stale remote (which sat at `36ad297`); pushed 2026-05-26. ~95 commits ahead of `main`. Contains: audit work + UI/UX redesign + vibe-edit + vibecoder simplification + Move/Insert/Swap retirements + AI Edit (built then retired) + BYO-AI swap (current flagship) + 2026-05-24..26 (modal UI, cascade group-swap choice, iframe handshake fix, audit + 6 hardening fixes). Full per-session log in `CLAUDE-archive-status.md`.
+- **`audit-phase2-cascade-ids`** — long-lived feature branch. Pushed to `origin` (github.com/akellaluvlace/akellaPreView) at `801b891`; **HEAD now `83af117`, 4 commits unpushed** (`6f18017` last-session doc, `f6c5848` CLAUDE trim, `70cf58c` AI-Edit consumer strip, `83af117` AI-Edit file delete). ~99 commits ahead of `main`. Contains: audit work + UI/UX redesign + vibe-edit + vibecoder simplification + Move/Insert/Swap retirements + AI Edit (built then **fully removed 2026-05-26**) + BYO-AI swap (current flagship) + 2026-05-24..26 (modal UI, cascade group-swap choice, iframe handshake fix, audit + 6 hardening fixes + Fix #6 dead-code removal). Full per-session log in `CLAUDE-archive-status.md`.
 
 ## Backup checkpoints (rollback refs)
 
 | Date | Commit | Restore command | What it captures |
 |---|---|---|---|
-| 2026-05-26 | `801b891` | `git reset --hard 801b891` | **Pushed to origin.** Audit + 6 hardening fixes (parse-gate, localStorage key, tracer gating, flake+gallery, route delete + IP). tsc 0, vitest 6646 (envelope flake now stable). The pre-#6-dead-UI-removal snapshot. |
+| 2026-05-26 | `83af117` | `git reset --hard 83af117` | **Fix #6 complete (local, unpushed).** Dead Tensorix AI-Edit layer fully removed (consumer strip + file delete) + CLAUDE.md trim. tsc 0, vitest 6526/6526. |
+| 2026-05-26 | `801b891` | `git reset --hard 801b891` | **Pushed to origin.** Audit + 6 hardening fixes (parse-gate, localStorage key, tracer gating, flake+gallery, route delete + IP). tsc 0, vitest 6646. The pre-#6-dead-UI-removal snapshot. |
 | 2026-05-15 | `d656e21` | `git reset --hard d656e21` | Pre-cascade-detach + pre-move-fix work. Vibe-edit 5-phase simplification + inline component browser + 2026-05-15 plans. Two new SVG logos. CLAUDE.md trimmed + archive. tsc 0, vitest 6291/6293. |
 | 2026-05-10 | `c659862` | `git reset --hard c659862` | Pre-master-ID sweep snapshot (vibe-edit scaffold + audit-phase2 cascade work). Also tagged `backup/pre-master-id-sweep-2026-05-10`. |
 | 2026-04-26 | `36ad297` | `git reset --hard 36ad297` | Initial publish — project source, audit docs, logo brief. The base before this branch diverged. |
 
-## Current status (2026-05-26 — audit + 6 hardening fixes shipped & PUSHED. HEAD `801b891`. tsc 0, vitest 6646 (envelope flake now stable). One item deferred to next run: full dead-AI-UI removal.)
+## Current status (2026-05-26 — Fix #6 DONE: dead Tensorix AI-Edit layer fully removed. CLAUDE.md trimmed. HEAD `83af117`, 4 commits unpushed. tsc 0, vitest 6526/6526.)
 
-### ⏭️ NEXT RUN STARTS HERE — finish Fix #6 (remove the dead AI-Edit UI layer)
+### ✅ Fix #6 COMPLETE — dead AI-Edit UI layer removed (this session)
 
-The retired Tensorix AI-Edit path's **HTTP route was deleted** (`app/api/ai-edit/route.ts` — the cost-DoS surface), but the **dead UI layer is still on disk** and interwoven with LIVE code. Remove it carefully (mostly tsc-guarded + covered by the integration tests; the iframe-runtime edits are the delicate part). Do it in tsc-clean, committed chunks:
+The retired Tensorix AI-Edit path is now gone from the codebase (the HTTP route went in `801b891`; everything else this session). Done in tsc-clean, committed chunks:
 
-1. **Consumers first** (so the lib + components become unreferenced):
-   - `components/ToolBar.tsx` — remove `TOOL_META.ai` + `AiIcon` (the `'ai'` tool is already gone from `TOOL_LIST`).
-   - `components/Workspace.tsx` — remove `handleAiSubmit`, `handleAiSwapPick`, `handleAiSelected`, `handleAiSetScope`, `handleAiClearFromChip`, `aiInfo`/`aiBusy`/related state, the `<AiPromptBar>` + `<AiScopeChip>` mounts (gated on the unreachable `tool === "ai"`), and the `@/lib/ai-edit/*` imports.
-   - `components/Preview.tsx` — remove `onAiSelected`/`onAiCleared`/`onAiApplied`/`onAiApplyFailed` props + the `ai:*` message handling/posting + the `lib/ai-edit` imports.
-   - `lib/iframe-bridge.ts` — remove the `ai:*` variants from `IframeToHostMessage`/`HostToIframeMessage` + the `AiSelectionPayload` import + their entries in the `IFRAME_MESSAGE_TYPES` exhaustiveness tuple (the `Exhaustive` guard will tsc-error if you miss one — lean on it).
-   - `lib/vibe-edit/runtime.ts` — remove `aiSerialize`/`aiSelect`/`aiClear`/`aiFindSectionScope`, the `DROPIN_TOOL === 'ai'` click branch, and the `ai:set-scope`/`ai:clear`/`ai:apply-outer` message handlers. **Delicate (template-literal string, not tsc-checked internally) — verify with `tests/integration/vibe-edit-roundtrip.test.ts` + `iframe-click-to-select.test.ts`.**
-2. **Then delete the orphaned files:** `lib/ai-edit/*` (11 files), `components/AiPromptBar.tsx`, `components/AiScopeChip.tsx`, `components/AiSwapBusyOverlay.tsx`, `tests/ai-edit-*.test.ts` (6 files).
-3. **MUST KEEP** (BYO-AI depends on them): `lib/ast/operations/detach-from-map.ts`, `lib/component-library/html-to-jsx.ts`, `lib/ast/patch-class-by-oid.ts` (`getJsxOuterByOid`), `lib/ast/oids.ts` (`parsesAsPlainJsx`).
-4. ~2,500 LOC + ~115 tests of pure bloat. Verify `npx tsc --noEmit` + full `vitest` after each chunk.
+- **`70cf58c`** step 1 — stripped the `ai:*` layer from the 5 live consumers. iframe-bridge: dropped `'ai'` from the `Tool` union + the `ai:*` message variants + `AiSelectionPayload` import + `IFRAME_MESSAGE_TYPES` tuple entries. ToolBar: removed `TOOL_META.ai` + `AiIcon`. Workspace: removed the AI selection/swap/submit handlers, `aiInfo`/`aiBusy` state, the `AiScopeChip`/`AiPromptBar` mounts, the `tool==='ai'` branches, the `@/lib/ai-edit/*` imports (persisted `"ai"→"view"` migration kept — it's a string compare). Preview: removed the `onAi*` props/refs/effects + `ai:*` message handling. runtime.ts: removed `aiSerialize`/`aiSelect`/`aiClear`/`aiFindSectionScope`, the `DROPIN_TOOL==='ai'` click branch, the `ai:*` message handlers, the `data-ai-*` CSS. (1347 deletions.)
+- **`83af117`** step 2 — deleted the now-orphaned files: `lib/ai-edit/*` (11), `components/{AiPromptBar,AiScopeChip,AiSwapBusyOverlay}.tsx` (3), `tests/ai-edit-*.test.ts` (6). ~2.5k LOC + 120 tests of bloat. (2988 deletions.)
+- **`f6c5848`** docs — trimmed CLAUDE.md 83k→16.5k chars (archived 05-15..05-24/25 status to `CLAUDE-archive-status.md`).
 
-### This session (2026-05-26): codebase audit + 6 hardening fixes (all pushed)
+**KEPT (BYO-AI depends on them, verified still referenced):** `lib/ast/operations/detach-from-map.ts`, `lib/component-library/html-to-jsx.ts`, `lib/ast/patch-class-by-oid.ts` (`getJsxOuterByOid` + `patchJsxOuterByOid`), `lib/ast/oids.ts` (`parsesAsPlainJsx`). The BYO-AI swap flow + vibe-edit are untouched (integration tests `vibe-edit-roundtrip` + `iframe-click-to-select` green).
+
+### Prior this session (2026-05-26): codebase audit + 6 hardening fixes (all pushed at `801b891`)
 
 Ran a 4-agent read-only audit (AST layer, BYO-AI/iframe, what's-coming inventory, security/silent-failures) + internet research. Then shipped, in priority order:
 
@@ -55,7 +52,7 @@ Per-session status logs for **2026-05-15 through 2026-05-24/25** live in `CLAUDE
 
 ## What's left — prioritized
 
-**Now**: branch `audit-phase2-cascade-ids` pushed to origin at `801b891`; doc commit `6f18017` local-only. Working tree clean except pre-existing untracked `wireframe-globe (1).svg`. **Next**: finish **Fix #6** — remove the dead AI-Edit UI layer (see the "⏭️ NEXT RUN STARTS HERE" plan in the 2026-05-26 status block above). Goal: push live today.
+**Now**: Fix #6 done (dead AI-Edit layer removed) + CLAUDE.md trimmed. HEAD `83af117`; **4 commits unpushed** (origin at `801b891`). Working tree clean except pre-existing untracked `wireframe-globe (1).svg`. tsc 0, vitest 6526/6526. **Next**: push the 4 unpushed commits to origin (needs explicit per-push approval per Rule #2 — user signalled "push it live today").
 
 **Deferred (low priority)**:
 - **Visual-role disambiguation (Layer 3 swap-category fallback)** — see `memory/project_visual_kind_disambiguation.md`. HTML tag ≠ visual role: Tailwind-utility-styled `<a>` looks like a button or card; `<button>` styled as a link; `<input type="submit">`; `<div role="button">`. Current Layer 1 (token) + Layer 2 (kind+isCardLike) misses these. Proposed `inferVisualRole(info)` reads bg/rounded/bbox.height/padding/aria-role; wait for concrete failure case before implementing.
