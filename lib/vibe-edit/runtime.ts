@@ -29,6 +29,15 @@
 
 export function vibeRuntimeJs(): string {
   return `
+    // Debug-log gate (2026-05-26) — see lib/preview.ts. Defined here too so
+    // the vibe runtime is self-contained (it's appended after the inspector
+    // runtime in production — harmless redeclaration — but also runs alone
+    // in the integration harness, where the inspector's dropinDbg is absent).
+    // OFF unless localStorage 'dropin:debug' === '1'.
+    var DROPIN_DEBUG = false;
+    try { DROPIN_DEBUG = window.localStorage.getItem('dropin:debug') === '1'; } catch (e) {}
+    function dropinDbg() { if (DROPIN_DEBUG) { try { console.log.apply(console, arguments); } catch (e) {} } }
+
     var VIBE_EDITABLE = 'h1,h2,h3,h4,h5,h6,p,span,li,blockquote,small,figcaption,td,th,label,strong,em,code,pre,a,button,img,svg';
     var VIBE_TEXT_TAG_SET = {
       h1: 1, h2: 1, h3: 1, h4: 1, h5: 1, h6: 1,
@@ -588,7 +597,7 @@ export function vibeRuntimeJs(): string {
         var rawForLog = ev.target;
         var tagForLog = rawForLog && rawForLog.tagName
           ? rawForLog.tagName.toLowerCase() : 'unknown';
-        console.log('[dropin:iframe-vibe-click] tool=' + DROPIN_TOOL
+        dropinDbg('[dropin:iframe-vibe-click] tool=' + DROPIN_TOOL
           + ' target=' + tagForLog);
       } catch (e) {}
       // 2026-05-17 — AI Edit branch. Per the plan §3.1 user clicks
@@ -606,11 +615,11 @@ export function vibeRuntimeJs(): string {
         // but iframes have surprised us before).
         if (aiRaw && aiRaw.nodeType === 3) aiRaw = aiRaw.parentElement;
         if (!aiRaw || !aiRaw.tagName) {
-          try { console.log('[dropin:iframe-ai-click] no element → clear'); } catch (e) {}
+          try { dropinDbg('[dropin:iframe-ai-click] no element → clear'); } catch (e) {}
           if (aiSelected) aiClear();
           return;
         }
-        try { console.log('[dropin:iframe-ai-click] hit', aiRaw.tagName); } catch (e) {}
+        try { dropinDbg('[dropin:iframe-ai-click] hit', aiRaw.tagName); } catch (e) {}
         aiSelect(aiRaw, 'element');
         return;
       }
@@ -620,17 +629,17 @@ export function vibeRuntimeJs(): string {
       var raw = ev.target;
       var atom = vibeFindEditableAncestor(raw);
       if (atom) {
-        try { console.log('[dropin:iframe-vibe-click] hit atom', atom.tagName); } catch (e) {}
+        try { dropinDbg('[dropin:iframe-vibe-click] hit atom', atom.tagName); } catch (e) {}
         vibeSelect(atom);
         return;
       }
       var card = vibeFindCardAncestor(raw);
       if (card) {
-        try { console.log('[dropin:iframe-vibe-click] hit card', card.tagName); } catch (e) {}
+        try { dropinDbg('[dropin:iframe-vibe-click] hit card', card.tagName); } catch (e) {}
         vibeSelect(card);
         return;
       }
-      try { console.log('[dropin:iframe-vibe-click] no editable + no card ancestor → clear'); } catch (e) {}
+      try { dropinDbg('[dropin:iframe-vibe-click] no editable + no card ancestor → clear'); } catch (e) {}
       if (vibeSelected) vibeClear();
     }, true);
 
@@ -681,7 +690,7 @@ export function vibeRuntimeJs(): string {
         // DOM src reads back as one tick later (catches React
         // reconciliation reverts).
         el = d.path ? document.querySelector(d.path) : null;
-        console.log('[dropin:iframe] update-image dispatch', {
+        dropinDbg('[dropin:iframe] update-image dispatch', {
           path: d.path,
           elFound: !!el,
           elTag: el ? el.tagName : null,
@@ -693,7 +702,7 @@ export function vibeRuntimeJs(): string {
           if (typeof d.src === 'string') el.setAttribute('src', d.src);
           if (typeof d.alt === 'string') el.setAttribute('alt', d.alt);
           var afterSrc = el.getAttribute('src');
-          console.log('[dropin:iframe] update-image setAttribute done', {
+          dropinDbg('[dropin:iframe] update-image setAttribute done', {
             beforeSrc: beforeSrc,
             afterSrc: afterSrc,
             srcChanged: beforeSrc !== afterSrc
@@ -706,7 +715,7 @@ export function vibeRuntimeJs(): string {
           setTimeout(function () {
             try {
               var laterSrc = el.getAttribute('src');
-              console.log('[dropin:iframe] update-image 50ms-later check', {
+              dropinDbg('[dropin:iframe] update-image 50ms-later check', {
                 srcStillSet: laterSrc,
                 reverted: laterSrc !== afterSrc
               });
@@ -927,7 +936,7 @@ export function vibeRuntimeJs(): string {
               if (!s) return '';
               return s.length > n ? (s.slice(0, n) + '…') : s;
             };
-            console.log('[dropin:iframe-ai-swap] dom-verify', {
+            dropinDbg('[dropin:iframe-ai-swap] dom-verify', {
               preLen: preSwapOuter.length,
               postLen: postSwapOuter.length,
               preHead: preview(preSwapOuter, 160),

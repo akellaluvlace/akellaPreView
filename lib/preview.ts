@@ -218,6 +218,15 @@ function inspectorRuntimeJs(mode: PreviewKind, restoreScrollY: number): string {
 var DROPIN_MODE = ${JSON.stringify(mode)};
 var DROPIN_RESTORE_SCROLL = ${Number(restoreScrollY) || 0};
 
+// Debug-log gate (2026-05-26). All [dropin:iframe*] tracers route through
+// dropinDbg, which is OFF unless the user opts in via localStorage
+// 'dropin:debug' === '1'. Keeps the iframe console clean in normal use;
+// the full diagnostic trail returns on demand (set it in DevTools + reload).
+// Same-origin srcdoc, so this reads the parent app's localStorage.
+var DROPIN_DEBUG = false;
+try { DROPIN_DEBUG = window.localStorage.getItem('dropin:debug') === '1'; } catch (e) {}
+function dropinDbg() { if (DROPIN_DEBUG) { try { console.log.apply(console, arguments); } catch (e) {} } }
+
 function dropinPost(msg) {
   try {
     var payload = Object.assign({ __dropin: true }, msg);
@@ -1720,7 +1729,7 @@ function dropinSetSelected(el) {
     }
   }
   if (prev !== el) {
-    console.log('[dropin:iframe] selection outline moved', { from: prev ? dropinDesc(prev) : null, to: el ? dropinDesc(el) : null });
+    dropinDbg('[dropin:iframe] selection outline moved', { from: prev ? dropinDesc(prev) : null, to: el ? dropinDesc(el) : null });
   }
 }
 
@@ -1738,7 +1747,7 @@ function dropinApplyReselect(loc, oid, attempt, nonce) {
     if (el) via = 'loc';
   }
   if (el) {
-    console.log('[dropin:iframe] reselect matched element', { via: via, oid: oid, loc: loc, element: dropinDesc(el), attempt: attempt || 0, nonce: nonce });
+    dropinDbg('[dropin:iframe] reselect matched element', { via: via, oid: oid, loc: loc, element: dropinDesc(el), attempt: attempt || 0, nonce: nonce });
     dropinSetSelected(el);
     var payload = dropinSerialize(el);
     if (payload) {
@@ -1761,7 +1770,7 @@ function dropinApplyReselect(loc, oid, attempt, nonce) {
         var vh = window.innerHeight || document.documentElement.clientHeight;
         if (r.bottom < 16 || r.top > vh - 16) {
           elRef.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
-          console.log('[dropin:iframe] reselect: scrolled element into view', { oid: oid });
+          dropinDbg('[dropin:iframe] reselect: scrolled element into view', { oid: oid });
         }
       } catch (e) {}
     }, 320);
@@ -1770,11 +1779,11 @@ function dropinApplyReselect(loc, oid, attempt, nonce) {
   var n = attempt || 0;
   if (n < 12) {
     if (n === 0) {
-      console.log('[dropin:iframe] reselect: no match yet, will retry', { oid: oid, loc: loc, nonce: nonce });
+      dropinDbg('[dropin:iframe] reselect: no match yet, will retry', { oid: oid, loc: loc, nonce: nonce });
     }
     setTimeout(function () { dropinApplyReselect(loc, oid, n + 1, nonce); }, 40);
   } else {
-    console.log('[dropin:iframe] reselect: gave up after 12 retries (oid+loc both stale)', { oid: oid, loc: loc, nonce: nonce });
+    dropinDbg('[dropin:iframe] reselect: gave up after 12 retries (oid+loc both stale)', { oid: oid, loc: loc, nonce: nonce });
     dropinPost({ type: 'dropin:clear-selection', reason: 'reselect-failed' });
   }
 }
@@ -1868,7 +1877,7 @@ document.addEventListener('click', function (ev) {
     var insertAdditive = ev.shiftKey && !ev.altKey;
     var insertMsg = { type: 'dropin:insert-target-confirmed', oid: insertOid, tag: insertTag };
     if (insertAdditive) insertMsg.additive = true;
-    console.log('[dropin:iframe] insert click', { oid: insertOid, tag: insertTag, additive: insertAdditive });
+    dropinDbg('[dropin:iframe] insert click', { oid: insertOid, tag: insertTag, additive: insertAdditive });
     dropinPost(insertMsg);
     return;
   }
@@ -1890,7 +1899,7 @@ document.addEventListener('click', function (ev) {
       navTarget && navTarget.closest ? navTarget.closest('a[href]') : null;
     if (anchorAncestor) {
       ev.preventDefault();
-      console.log('[dropin:iframe] view-mode anchor click blocked', {
+      dropinDbg('[dropin:iframe] view-mode anchor click blocked', {
         href: anchorAncestor.getAttribute('href'),
       });
     }
@@ -1900,11 +1909,11 @@ document.addEventListener('click', function (ev) {
   var raw = ev.target;
   var rawDesc = dropinDesc(raw);
   var chain = dropinAncestorChain(raw);
-  console.log('[dropin:iframe] click raw target', { rawTarget: rawDesc, altKey: ev.altKey, shiftKey: ev.shiftKey, ancestorChain: chain, tool: DROPIN_TOOL });
+  dropinDbg('[dropin:iframe] click raw target', { rawTarget: rawDesc, altKey: ev.altKey, shiftKey: ev.shiftKey, ancestorChain: chain, tool: DROPIN_TOOL });
 
   var t = dropinResolveTarget(raw);
   if (!t) {
-    console.log('[dropin:iframe] click ignored (no addressable target up the chain)', { rawTarget: rawDesc });
+    dropinDbg('[dropin:iframe] click ignored (no addressable target up the chain)', { rawTarget: rawDesc });
     return;
   }
 
@@ -1920,7 +1929,7 @@ document.addEventListener('click', function (ev) {
       if (!parent) break;
       t = parent;
     }
-    console.log('[dropin:iframe] alt-click → walked up', { from: original, steps: steps, landedOn: dropinDesc(t) });
+    dropinDbg('[dropin:iframe] alt-click → walked up', { from: original, steps: steps, landedOn: dropinDesc(t) });
   } else {
     // Plain click: apply group-root resolution. No-op when no ancestor has
     // data-dropin-group; with one, first click selects root, subsequent
@@ -1928,13 +1937,13 @@ document.addEventListener('click', function (ev) {
     var beforeGroup = t;
     t = dropinResolveGroupSelection(t);
     if (t !== beforeGroup) {
-      console.log('[dropin:iframe] group resolution → selected group root', { rawTarget: dropinDesc(beforeGroup), groupRoot: dropinDesc(t) });
+      dropinDbg('[dropin:iframe] group resolution → selected group root', { rawTarget: dropinDesc(beforeGroup), groupRoot: dropinDesc(t) });
     }
   }
 
   ev.preventDefault();
   ev.stopPropagation();
-  console.log('[dropin:iframe] resolved selection', { resolved: dropinDesc(t), wasDirectTarget: t === raw });
+  dropinDbg('[dropin:iframe] resolved selection', { resolved: dropinDesc(t), wasDirectTarget: t === raw });
 
   dropinSetSelected(t);
   var payload = dropinSerialize(t);
@@ -1948,7 +1957,7 @@ document.addEventListener('click', function (ev) {
     var additive = ev.shiftKey && !ev.altKey;
     var msg = { type: 'dropin:select', selection: payload };
     if (additive) msg.additive = true;
-    console.log('[dropin:iframe] → posting dropin:select to host', { tag: payload.tag, loc: payload.loc, breadcrumbDepth: payload.breadcrumb.length, additive: additive });
+    dropinDbg('[dropin:iframe] → posting dropin:select to host', { tag: payload.tag, loc: payload.loc, breadcrumbDepth: payload.breadcrumb.length, additive: additive });
     dropinPost(msg);
   }
   // Centre the freshly-selected element in the iframe viewport. Skips
@@ -1998,7 +2007,7 @@ function dropinFitToViewport(el) {
     var scale = Math.min(sx, sy) * 0.92;
     if (scale > 0 && scale < 1) {
       docEl.style.zoom = String(scale);
-      console.log('[dropin:iframe] fit-to-viewport', { scale: scale, elW: r.width, elH: r.height, vw: vw, vh: vh });
+      dropinDbg('[dropin:iframe] fit-to-viewport', { scale: scale, elW: r.width, elH: r.height, vw: vw, vh: vh });
     }
   } catch (e) {}
 }
@@ -2091,7 +2100,7 @@ window.addEventListener('message', function (ev) {
     d.type !== 'dropin:live-style' &&
     d.type !== 'dropin:set-group-roots'
   ) {
-    console.log('[dropin:iframe] ← host: ' + d.type, d);
+    dropinDbg('[dropin:iframe] ← host: ' + d.type, d);
   }
   if (d.type === 'dropin:reselect') dropinApplyReselect(d.loc, d.oid || null, 0, d.nonce);
   else if (d.type === 'dropin:clear') {
@@ -2161,7 +2170,7 @@ window.addEventListener('message', function (ev) {
       if (DROPIN_TOOL !== 'select' && DROPIN_TOOL !== 'move') {
         dropinResetViewportFit();
       }
-      console.log('[dropin:iframe] tool updated', { tool: DROPIN_TOOL });
+      dropinDbg('[dropin:iframe] tool updated', { tool: DROPIN_TOOL });
     }
   }
   else if (d.type === 'dropin:watch-bbox') {
@@ -2267,7 +2276,7 @@ if (DROPIN_MODE === 'html') {
 }
 
 setTimeout(function () {
-  console.log('[dropin:iframe] ready · mode=' + DROPIN_MODE + ' · restoreScroll=' + DROPIN_RESTORE_SCROLL);
+  dropinDbg('[dropin:iframe] ready · mode=' + DROPIN_MODE + ' · restoreScroll=' + DROPIN_RESTORE_SCROLL);
   dropinPost({ type: 'dropin:ready', kind: DROPIN_MODE });
   dropinPostTree();
 }, 0);

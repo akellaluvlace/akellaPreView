@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { dlog } from "@/lib/debug";
 import { buildPreviewDocument, type PreviewKind } from "@/lib/preview";
 import {
   encodeJsxLoc,
@@ -30,10 +31,10 @@ import SelectionOverlay from "./SelectionOverlay";
 // click an element or hit a real failure.
 const DEBUG_LOGS = false;
 function log(msg: string, data?: unknown) {
-  if (DEBUG_LOGS) console.log(`[dropin:Preview] ${msg}`, data ?? "");
+  if (DEBUG_LOGS) dlog(`[dropin:Preview] ${msg}`, data ?? "");
 }
 function track(msg: string, data?: unknown) {
-  console.log(`[dropin:Preview] ${msg}`, data ?? "");
+  dlog(`[dropin:Preview] ${msg}`, data ?? "");
 }
 
 export type Viewport = "desktop" | "tablet" | "mobile";
@@ -585,7 +586,7 @@ export default function Preview({
   // 1s timeout fires.
   useEffect(() => {
     log("srcDoc rebuilt → iframe will reload", { srcDocLen: srcDoc.length });
-    console.log(
+    dlog(
       `[dropin:lifecycle] srcDoc changed → readyRef=false (len=${srcDoc.length})`,
     );
     readyRef.current = false;
@@ -645,7 +646,7 @@ export default function Preview({
   // safe AND guarantees whichever document is actually live ends up synced.
   const markReadyAndReplay = useCallback((reason: string) => {
     readyRef.current = true;
-    console.log(
+    dlog(
       `[dropin:lifecycle] markReadyAndReplay RUN via ${reason} → set-tool=${toolRef.current}`,
     );
     log(`iframe ready via ${reason} → replaying tool=${toolRef.current} + state`);
@@ -741,12 +742,12 @@ export default function Preview({
   useEffect(() => {
     toolRef.current = tool;
     if (!readyRef.current) {
-      console.log(
+      dlog(
         `[dropin:lifecycle] set-tool effect BAIL (iframe not ready) tool=${tool}`,
       );
       return;
     }
-    console.log(`[dropin:lifecycle] set-tool effect POST tool=${tool}`);
+    dlog(`[dropin:lifecycle] set-tool effect POST tool=${tool}`);
     postToIframe({ type: "dropin:set-tool", tool });
   }, [tool, postToIframe]);
 
@@ -1067,7 +1068,7 @@ export default function Preview({
         log(`← iframe: ${d.type}`, d);
       }
       if (d.type === "dropin:ready") {
-        console.log("[dropin:lifecycle] RECEIVED dropin:ready message");
+        dlog("[dropin:lifecycle] RECEIVED dropin:ready message");
         // Canonical "iframe announced itself" path. markReadyAndReplay is
         // guarded by readyRef, so if the onLoad fallback already replayed
         // (race where this postMessage was missed), this is a no-op.
@@ -1201,9 +1202,9 @@ export default function Preview({
       }
     }
     window.addEventListener("message", handler);
-    console.log("[dropin:lifecycle] message listener attached");
+    dlog("[dropin:lifecycle] message listener attached");
     return () => {
-      console.log("[dropin:lifecycle] message listener detached");
+      dlog("[dropin:lifecycle] message listener detached");
       window.removeEventListener("message", handler);
     };
   }, [onSelectionChange, onTextCommit, onIframeError, postToIframe, markReadyAndReplay]);
@@ -1312,7 +1313,7 @@ export default function Preview({
     const sig = `${!!moveBindings}|${!!onReorder}|${!!onReparent}|${!!onReorderMulti}|${!!onReparentMulti}|${!!selectedOid}`;
     if (w.__dropinMoveBindingsLog !== sig) {
       w.__dropinMoveBindingsLog = sig;
-      console.log("[dropin:Preview] moveBindings status (tool=move)", {
+      dlog("[dropin:Preview] moveBindings status (tool=move)", {
         hasMoveBindings: !!moveBindings,
         hasOnReorder: !!onReorder,
         hasOnReparent: !!onReparent,
@@ -1366,7 +1367,7 @@ export default function Preview({
               // fire. markReadyAndReplay re-syncs on every signal (idempotent),
               // so whichever document is actually live ends up with set-tool.
               onLoad={() => {
-                console.log("[dropin:lifecycle] iframe onLoad fired", {
+                dlog("[dropin:lifecycle] iframe onLoad fired", {
                   hasContentWindow: !!iframeRef.current?.contentWindow,
                 });
                 markReadyAndReplay("iframe onLoad");

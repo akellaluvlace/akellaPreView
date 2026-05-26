@@ -8,6 +8,7 @@
 // patchHtmlOuter for HTML).
 
 import { useEffect, useState } from "react";
+import { dlog } from "@/lib/debug";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 
 interface ImageControlsProps {
@@ -72,7 +73,7 @@ export default function ImageControls({
   }, [info.path, info.src, info.alt]);
 
   async function handleShuffle() {
-    console.log("[dropin:Shuffle] click entry", {
+    dlog("[dropin:Shuffle] click entry", {
       shuffling,
       altState: alt,
       altInfo: info.alt,
@@ -80,7 +81,7 @@ export default function ImageControls({
       srcInfo: info.src,
     });
     if (shuffling) {
-      console.log("[dropin:Shuffle] bailed — already shuffling");
+      dlog("[dropin:Shuffle] bailed — already shuffling");
       return;
     }
     // 2026-05-16 — Query chain. Earlier v1/v2 had a single query and
@@ -106,7 +107,7 @@ export default function ImageControls({
     if (filenameQuery && filenameQuery.length >= 3) queries.push(filenameQuery);
     queries.push("abstract texture");
     const uniqueQueries = Array.from(new Set(queries));
-    console.log("[dropin:Shuffle] query chain", {
+    dlog("[dropin:Shuffle] query chain", {
       altText,
       alphaWords,
       filenameQuery,
@@ -125,9 +126,9 @@ export default function ImageControls({
           orientation: "horizontal",
         });
         const url = `/api/assets/pixabay?${params.toString()}`;
-        console.log("[dropin:Shuffle] trying", { query, url });
+        dlog("[dropin:Shuffle] trying", { query, url });
         const res = await fetch(url);
-        console.log("[dropin:Shuffle] response", {
+        dlog("[dropin:Shuffle] response", {
           query,
           ok: res.ok,
           status: res.status,
@@ -138,7 +139,7 @@ export default function ImageControls({
             body && typeof body.detail === "string"
               ? body.detail
               : `${res.status}`;
-          console.log("[dropin:Shuffle] bail — non-OK response", {
+          dlog("[dropin:Shuffle] bail — non-OK response", {
             query,
             detail,
           });
@@ -147,7 +148,7 @@ export default function ImageControls({
         }
         const body = await res.json();
         const hits: PixabayHit[] = Array.isArray(body?.hits) ? body.hits : [];
-        console.log("[dropin:Shuffle] hits", {
+        dlog("[dropin:Shuffle] hits", {
           query,
           hitCount: hits.length,
         });
@@ -163,7 +164,7 @@ export default function ImageControls({
         // Drop the `|| src` fallback entirely so failures surface
         // explicitly instead of being papered over.
         const nextSrc = pick.webformat || pick.large || "";
-        console.log("[dropin:Shuffle] picked", {
+        dlog("[dropin:Shuffle] picked", {
           query,
           nextSrc,
           usingFresh: fresh.length > 0,
@@ -171,7 +172,7 @@ export default function ImageControls({
         if (!nextSrc) continue;
         setSrc(nextSrc);
         onImageChange({ src: nextSrc });
-        console.log("[dropin:Shuffle] applied", { query, nextSrc });
+        dlog("[dropin:Shuffle] applied", { query, nextSrc });
         // 2026-05-16 — positive-path toast so the vibecoder gets explicit
         // feedback the shuffle landed. The image swap is visible too, but
         // on a slow connection there can be a delay before the new photo
@@ -186,7 +187,7 @@ export default function ImageControls({
       // All queries in the chain returned 0 hits — extraordinary.
       onWarn?.("Shuffle: couldn't find any matching photos. Try different alt text.");
     } catch (e) {
-      console.log("[dropin:Shuffle] caught error", {
+      dlog("[dropin:Shuffle] caught error", {
         message: e instanceof Error ? e.message : String(e),
       });
       onWarn?.(
@@ -196,7 +197,7 @@ export default function ImageControls({
       );
     } finally {
       setShuffling(false);
-      console.log("[dropin:Shuffle] done — shuffling reset");
+      dlog("[dropin:Shuffle] done — shuffling reset");
     }
   }
 

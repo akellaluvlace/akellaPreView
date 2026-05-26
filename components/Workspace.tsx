@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { dlog } from "@/lib/debug";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { PreviewKind } from "@/lib/preview";
@@ -56,10 +57,10 @@ import type { EditorHandle } from "./Editor";
 // trail when diagnosing.
 const DEBUG_LOGS = false;
 function log(msg: string, data?: unknown) {
-  if (DEBUG_LOGS) console.log(`[dropin:Workspace] ${msg}`, data ?? "");
+  if (DEBUG_LOGS) dlog(`[dropin:Workspace] ${msg}`, data ?? "");
 }
 function track(msg: string, data?: unknown) {
-  console.log(`[dropin:Workspace] ${msg}`, data ?? "");
+  dlog(`[dropin:Workspace] ${msg}`, data ?? "");
 }
 import {
   deleteJsxElement,
@@ -346,14 +347,14 @@ export default function Workspace({
     // tailwind default; the check matches the `lg:` gate on the chrome.
     const isMobile = window.innerWidth < 1024;
     if (isMobile) {
-      console.log("[dropin:lifecycle] tool-init SKIPPED (mobile)", {
+      dlog("[dropin:lifecycle] tool-init SKIPPED (mobile)", {
         innerWidth: window.innerWidth,
       });
       return;
     }
     try {
       const stored = window.localStorage.getItem("dropin:tool");
-      console.log("[dropin:lifecycle] tool-init reading localStorage", {
+      dlog("[dropin:lifecycle] tool-init reading localStorage", {
         stored,
       });
       // Migrate returning users persisted on tools that no longer
@@ -380,10 +381,10 @@ export default function Workspace({
         return;
       }
       if (stored === "view" || stored === "vibe") {
-        console.log("[dropin:lifecycle] tool-init RESTORED", { tool: stored });
+        dlog("[dropin:lifecycle] tool-init RESTORED", { tool: stored });
         setToolState(stored);
       } else {
-        console.log("[dropin:lifecycle] tool-init kept default 'view'", {
+        dlog("[dropin:lifecycle] tool-init kept default 'view'", {
           stored,
         });
       }
@@ -393,7 +394,7 @@ export default function Workspace({
   }, []);
   const setTool = useCallback((next: Tool) => {
     track("setTool", { next });
-    console.log("[dropin:lifecycle] setTool", { next });
+    dlog("[dropin:lifecycle] setTool", { next });
     setToolState(next);
     if (typeof window !== "undefined") {
       try {
@@ -1583,7 +1584,7 @@ export default function Workspace({
       //   aiHead/aiTail — what the AI returned (look for the original
       //     element's text living ALONGSIDE the new design = AI nested).
       //   oid / instanceCount / instanceIndex — the cascade shape.
-      console.log("[dropin:byo-ai] APPLY-TRACE entry", {
+      dlog("[dropin:byo-ai] APPLY-TRACE entry", {
         mode,
         kind,
         oid: target?.oid ?? null,
@@ -1635,7 +1636,7 @@ export default function Workspace({
               target.instanceIndex >= 0;
             if (isCascade && scope === "all") {
               // Patch the shared OID as-is → all N instances restyle.
-              console.log("[dropin:byo-ai] APPLY-TRACE group (all)", {
+              dlog("[dropin:byo-ai] APPLY-TRACE group (all)", {
                 oid: target.oid,
                 instanceCount: target.instanceCount,
               });
@@ -1644,7 +1645,7 @@ export default function Workspace({
                 oid: target.oid,
                 index: target.instanceIndex!,
               });
-              console.log("[dropin:byo-ai] APPLY-TRACE detach", {
+              dlog("[dropin:byo-ai] APPLY-TRACE detach", {
                 unchanged: detach.unchanged,
                 reason: "reason" in detach ? detach.reason : null,
                 newOid: "newOid" in detach ? detach.newOid : null,
@@ -1725,7 +1726,7 @@ export default function Workspace({
         };
         setRollToast(entry);
         setTimeout(() => setRollToast((s) => (s === entry ? null : s)), 6000);
-        console.log("[dropin:byo-ai] applied (element)", {
+        dlog("[dropin:byo-ai] applied (element)", {
           kind,
           targetTag: target.tag,
         });
@@ -1763,7 +1764,7 @@ export default function Workspace({
         console.error("[dropin:byo-ai] setCode threw (full-file)", e);
         return false;
       }
-      console.log("[dropin:byo-ai] applied (full-file)", {
+      dlog("[dropin:byo-ai] applied (full-file)", {
         kind,
         targetTag: target?.tag ?? null,
         oldLen: code.length,
@@ -1914,13 +1915,13 @@ export default function Workspace({
   const handleReorder = useCallback(
     (oid: string, parentOid: string, toIndex: number): boolean => {
       // 2026-05-15 move-tool tracer — every entry, even the kind-bail.
-      console.log("[dropin:Workspace] handleReorder called", { oid, parentOid, toIndex, kind });
+      dlog("[dropin:Workspace] handleReorder called", { oid, parentOid, toIndex, kind });
       if (kind !== "jsx") {
-        console.log("[dropin:Workspace] handleReorder → bailed (kind !== jsx)", { kind });
+        dlog("[dropin:Workspace] handleReorder → bailed (kind !== jsx)", { kind });
         return false;
       }
       const result = applyReorder(code, { oid, parentOid, toIndex });
-      console.log("[dropin:Workspace] handleReorder → applyReorder result", {
+      dlog("[dropin:Workspace] handleReorder → applyReorder result", {
         unchanged: result.unchanged,
         reason: result.reason,
         sourceChanged: result.source !== code,
@@ -1933,7 +1934,7 @@ export default function Workspace({
         return false;
       }
       setCode(result.source);
-      console.log("[dropin:Workspace] handleReorder → setCode applied, returning true");
+      dlog("[dropin:Workspace] handleReorder → setCode applied, returning true");
       return true;
     },
     [code, kind, setCode, showWarn]
@@ -2193,7 +2194,7 @@ export default function Workspace({
       newParentTag?: string
     ): boolean => {
       // 2026-05-15 move-tool tracer — every entry, even the kind-bail.
-      console.log("[dropin:Workspace] handleReparent called", {
+      dlog("[dropin:Workspace] handleReparent called", {
         oid,
         newParentOid,
         insertIndex,
@@ -2202,7 +2203,7 @@ export default function Workspace({
         kind,
       });
       if (kind !== "jsx") {
-        console.log("[dropin:Workspace] handleReparent → bailed (kind !== jsx)", { kind });
+        dlog("[dropin:Workspace] handleReparent → bailed (kind !== jsx)", { kind });
         return false;
       }
       const result = applyReparent(code, {
@@ -2211,7 +2212,7 @@ export default function Workspace({
         insertIndex,
         propsToRemove,
       });
-      console.log("[dropin:Workspace] handleReparent → applyReparent result", {
+      dlog("[dropin:Workspace] handleReparent → applyReparent result", {
         unchanged: result.unchanged,
         reason: result.reason,
         sourceChanged: result.source !== code,
@@ -2775,7 +2776,7 @@ export default function Workspace({
       // 2026-05-20 — LOUD diagnostic. User reports "palette does nothing"
       // and the muted log() wrapper isn't visible. Print raw to console
       // so the actual return values are inspectable in browser DevTools.
-      console.log("[dropin:palette] RESULTS", {
+      dlog("[dropin:palette] RESULTS", {
         paletteId,
         codeLen: code.length,
         classPass: {
@@ -2802,7 +2803,7 @@ export default function Workspace({
       const hasConfigBlock = /["']?colors["']?\s*:\s*\{/.test(code);
       const m3TokenCount =
         (code.match(/["']?(primary|secondary|tertiary|surface|outline|background|foreground)[\w-]*["']?\s*:\s*["']#[0-9a-fA-F]{3,8}["']/g) ?? []).length;
-      console.log("[dropin:palette] SOURCE-SCAN", {
+      dlog("[dropin:palette] SOURCE-SCAN", {
         namedTailwindCount,
         arbitraryHexCount,
         hasConfigBlock,
@@ -3011,7 +3012,7 @@ export default function Workspace({
   const handleAiSwapOpen = useCallback(() => {
     const info = vibeInfo;
     if (!info) return;
-    console.log("[dropin:swap] open", {
+    dlog("[dropin:swap] open", {
       tag: info.tag,
       kind: info.kind,
       oid: info.oid,
@@ -3044,7 +3045,7 @@ export default function Workspace({
   const handleAiSwapPick = useCallback(
     async (component: ComponentMeta, rawHtml: string) => {
       const target = aiSwapTargetRef.current;
-      console.log("[dropin:swap] picked", {
+      dlog("[dropin:swap] picked", {
         slug: component.slug,
         title: component.title,
         category: component.category,
@@ -3143,7 +3144,7 @@ export default function Workspace({
         referenceSlug: component.slug,
         referenceTitle: component.title,
       });
-      console.log("[dropin:swap] api-fire", {
+      dlog("[dropin:swap] api-fire", {
         slug: component.slug,
         targetHtmlLen: body.targetHtml.length,
         referenceHtmlLen: body.referenceHtml?.length ?? 0,
@@ -3156,7 +3157,7 @@ export default function Workspace({
       } finally {
         if (aiAborterRef.current === aborter) aiAborterRef.current = null;
       }
-      console.log("[dropin:swap] api-return", {
+      dlog("[dropin:swap] api-return", {
         ok: result.ok,
         latencyMs: Date.now() - apiStart,
         error: result.ok ? null : result.error,
@@ -3169,7 +3170,7 @@ export default function Workspace({
         setAiBusyModel(null);
         setAiSwapOpen(false);
         setAiSwapCategory(null);
-        console.log("[dropin:swap] aborted-after-return");
+        dlog("[dropin:swap] aborted-after-return");
         return;
       }
       if (!result.ok) {
@@ -3191,7 +3192,7 @@ export default function Workspace({
       // for undo, post iframe swap, patch source, toast with undo.
       const originalHtml = target.outerHtml ?? "";
       aiLastEditRef.current = { path: target.path, originalHtml };
-      console.log("[dropin:swap] iframe-post", {
+      dlog("[dropin:swap] iframe-post", {
         path: target.path,
         newOuterHtmlLen: result.html.length,
       });
@@ -3235,7 +3236,7 @@ export default function Workspace({
             `Swap will apply to all ${target.instanceCount} copies — couldn't isolate this one: ${detach.reason}`,
           );
         } else {
-          console.log("[dropin:swap] cascade-detach applied", {
+          dlog("[dropin:swap] cascade-detach applied", {
             oid: target.oid,
             index: target.instanceIndex,
             newOid: detach.newOid,
@@ -3280,7 +3281,7 @@ export default function Workspace({
         }
       }
 
-      console.log("[dropin:swap] persist", {
+      dlog("[dropin:swap] persist", {
         kind,
         persisted,
         reason: persistReason,
@@ -3291,12 +3292,12 @@ export default function Workspace({
         const before = target.outerHtml ?? "";
         const after = result.html;
         const headLen = 240;
-        console.log("[dropin:swap] BEFORE", {
+        dlog("[dropin:swap] BEFORE", {
           len: before.length,
           head: before.slice(0, headLen),
           tail: before.slice(-headLen),
         });
-        console.log("[dropin:swap] AFTER", {
+        dlog("[dropin:swap] AFTER", {
           len: after.length,
           head: after.slice(0, headLen),
           tail: after.slice(-headLen),
@@ -3305,7 +3306,7 @@ export default function Workspace({
         const afterRoot = (after.match(/^<(\w+)/) ?? [])[1] ?? "?";
         const beforeClasses = before.match(/class="([^"]*)"/)?.[1] ?? "";
         const afterClasses = after.match(/class="([^"]*)"/)?.[1] ?? "";
-        console.log("[dropin:swap] DIFF", {
+        dlog("[dropin:swap] DIFF", {
           lenDelta: after.length - before.length,
           rootTagChanged: beforeRoot !== afterRoot,
           rootTag: `<${beforeRoot}> -> <${afterRoot}>`,
@@ -3490,7 +3491,7 @@ export default function Workspace({
           );
           // Continue with the original code — edit will cascade.
         } else {
-          console.log("[dropin:edit] cascade-detach applied", {
+          dlog("[dropin:edit] cascade-detach applied", {
             oid: info.oid,
             index: info.instanceIndex,
             newOid: detach.newOid,
@@ -3547,12 +3548,12 @@ export default function Workspace({
         const before = info.outerHtml;
         const after = result.html;
         const headLen = 240;
-        console.log("[dropin:edit] BEFORE", {
+        dlog("[dropin:edit] BEFORE", {
           len: before.length,
           head: before.slice(0, headLen),
           tail: before.slice(-headLen),
         });
-        console.log("[dropin:edit] AFTER", {
+        dlog("[dropin:edit] AFTER", {
           len: after.length,
           head: after.slice(0, headLen),
           tail: after.slice(-headLen),
@@ -3565,7 +3566,7 @@ export default function Workspace({
         const afterSet = new Set(afterClasses.split(/\s+/).filter(Boolean));
         const added = [...afterSet].filter((c) => !beforeSet.has(c));
         const removed = [...beforeSet].filter((c) => !afterSet.has(c));
-        console.log("[dropin:edit] DIFF", {
+        dlog("[dropin:edit] DIFF", {
           lenDelta: after.length - before.length,
           classesAdded: added,
           classesRemoved: removed,
@@ -3951,7 +3952,7 @@ export default function Workspace({
     // Dedup (e.g. text is just one word "Witnessed" → "Witnessed" gets
     // pushed once into queries, no duplicate retry).
     const uniqueQueries = Array.from(new Set(queries));
-    console.log("[dropin:BGShuffle] query chain", {
+    dlog("[dropin:BGShuffle] query chain", {
       trimmedText: trimmed,
       alphaWords,
       queries: uniqueQueries,
@@ -3971,7 +3972,7 @@ export default function Workspace({
             body && typeof body.detail === "string"
               ? body.detail
               : `${res.status}`;
-          console.log("[dropin:BGShuffle] non-OK response, aborting chain", {
+          dlog("[dropin:BGShuffle] non-OK response, aborting chain", {
             query,
             detail,
           });
@@ -3988,7 +3989,7 @@ export default function Workspace({
           hits?: Array<{ webformat?: string; large?: string }>;
         };
         const hits = body?.hits ?? [];
-        console.log("[dropin:BGShuffle] hits", {
+        dlog("[dropin:BGShuffle] hits", {
           query,
           hitCount: hits.length,
         });
@@ -3996,7 +3997,7 @@ export default function Workspace({
         const pick = hits[Math.floor(Math.random() * hits.length)]!;
         const nextSrc = pick.webformat || pick.large;
         if (!nextSrc) continue;
-        console.log("[dropin:BGShuffle] applying", { query, nextSrc });
+        dlog("[dropin:BGShuffle] applying", { query, nextSrc });
         applyVibeBgImageUrl(nextSrc);
         // 2026-05-16 — positive-path toast paired with the per-image
         // Shuffle success toast in ImageControls. Bg-image change is
@@ -4005,7 +4006,7 @@ export default function Workspace({
         showInfo("Background updated · Undo to revert");
         return;
       } catch (e) {
-        console.log("[dropin:BGShuffle] caught error", {
+        dlog("[dropin:BGShuffle] caught error", {
           query,
           message: e instanceof Error ? e.message : String(e),
         });
@@ -4359,13 +4360,13 @@ export default function Workspace({
   // deferred — the risk of regressing the idle path right now is
   // higher than the cost of two copies.
   const handleVibeApply = useCallback(() => {
-    console.log("[dropin:Workspace] handleVibeApply entry", {
+    dlog("[dropin:Workspace] handleVibeApply entry", {
       hasVibeInfo: !!vibeInfo,
       hasBaseline: !!lastVibeCommitRef.current,
     });
     const info = vibeInfo;
     if (!info) {
-      console.log("[dropin:Workspace] Apply bailed — no vibeInfo");
+      dlog("[dropin:Workspace] Apply bailed — no vibeInfo");
       return;
     }
     const last = lastVibeCommitRef.current;
@@ -4376,7 +4377,7 @@ export default function Workspace({
       // hitting Apply with no baseline yet just means they haven't
       // made changes since selecting — those changes that ARE there
       // got auto-saved already. Tell them everything is saved.
-      console.log("[dropin:Workspace] Apply: no baseline yet — auto-saves are working");
+      dlog("[dropin:Workspace] Apply: no baseline yet — auto-saves are working");
       showInfo("All saved ✓");
       return;
     }
@@ -4391,7 +4392,7 @@ export default function Workspace({
       (info.bgColor ?? "") !== (last.bgColor ?? "") ||
       (info.borderRadius ?? "") !== (last.borderRadius ?? "") ||
       (info.bgImage ?? null) !== (last.bgImage ?? null);
-    console.log("[dropin:Workspace] Apply drift check", { drifted });
+    dlog("[dropin:Workspace] Apply drift check", { drifted });
     if (!drifted) {
       // 2026-05-16 — Same reframe. No drift means idle-commit already
       // wrote everything to source via setCode (which DOES create a
@@ -4452,7 +4453,7 @@ export default function Workspace({
         styleDelta: hasStyleDelta ? styleDelta : undefined,
       },
     });
-    console.log("[dropin:Workspace] Apply buildVibeCommit result", {
+    dlog("[dropin:Workspace] Apply buildVibeCommit result", {
       kind: result.kind,
       reason: result.kind === "bail" ? result.reason : null,
     });

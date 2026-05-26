@@ -28,6 +28,7 @@
 //     reason next to it. User can edit + retry without losing work.
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { dlog } from "@/lib/debug";
 import type { ComponentMeta } from "@/lib/component-library/types";
 import type { PreviewKind } from "@/lib/preview";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
@@ -340,7 +341,7 @@ export default function ByoAiSwapModal({
   // (instanceCount must be > 1, kind must be "jsx", oid must be present).
   useEffect(() => {
     if (!open || !vibeInfo) return;
-    console.log("[dropin:byo-ai] cascade-check", {
+    dlog("[dropin:byo-ai] cascade-check", {
       kind,
       tag: vibeInfo.tag,
       oid: vibeInfo.oid,
@@ -528,7 +529,7 @@ export default function ByoAiSwapModal({
         onWarn("Couldn't build the prompt — missing source or selection.");
         return;
       }
-      console.log("[dropin:byo-ai] provider-click", {
+      dlog("[dropin:byo-ai] provider-click", {
         provider: provider.id,
         promptLen: prompt.length,
       });
@@ -616,7 +617,7 @@ export default function ByoAiSwapModal({
     if (!vibeInfo) return;
     setFailureReason(null);
     const { code: extractedCode, hadFence } = extractCodeFence(pasteText);
-    console.log("[dropin:byo-ai] apply-attempt", {
+    dlog("[dropin:byo-ai] apply-attempt", {
       pasteLen: pasteText.length,
       extractedLen: extractedCode.length,
       hadFence,
@@ -632,7 +633,7 @@ export default function ByoAiSwapModal({
       targetOuterHtml: effectiveTarget,
       kind,
     });
-    console.log("[dropin:byo-ai] validation", {
+    dlog("[dropin:byo-ai] validation", {
       ok: validation.ok,
       mode: validation.mode,
       reason: validation.reason,
@@ -666,7 +667,7 @@ export default function ByoAiSwapModal({
       validation.mode ?? "full-file",
       effectiveIsGroup ? "all" : "one",
     );
-    console.log("[dropin:byo-ai] apply-result", { applied, mode: validation.mode });
+    dlog("[dropin:byo-ai] apply-result", { applied, mode: validation.mode });
     if (!applied) {
       setFailureReason(
         "Applying the response failed at the source patch step. The code may have a syntax error.",
