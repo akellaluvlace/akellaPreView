@@ -345,9 +345,17 @@ export default function Workspace({
     // restore from localStorage normally. lg breakpoint = 1024px per
     // tailwind default; the check matches the `lg:` gate on the chrome.
     const isMobile = window.innerWidth < 1024;
-    if (isMobile) return;
+    if (isMobile) {
+      console.log("[dropin:lifecycle] tool-init SKIPPED (mobile)", {
+        innerWidth: window.innerWidth,
+      });
+      return;
+    }
     try {
       const stored = window.localStorage.getItem("dropin:tool");
+      console.log("[dropin:lifecycle] tool-init reading localStorage", {
+        stored,
+      });
       // Migrate returning users persisted on tools that no longer
       // surface in the toolbar — Select (hidden in favour of vibe),
       // Swap (retired 2026-05-11 PM, lives in vibe panel), Insert
@@ -372,7 +380,12 @@ export default function Workspace({
         return;
       }
       if (stored === "view" || stored === "vibe") {
+        console.log("[dropin:lifecycle] tool-init RESTORED", { tool: stored });
         setToolState(stored);
+      } else {
+        console.log("[dropin:lifecycle] tool-init kept default 'view'", {
+          stored,
+        });
       }
     } catch {
       // localStorage unavailable; stick with the default.
@@ -380,6 +393,7 @@ export default function Workspace({
   }, []);
   const setTool = useCallback((next: Tool) => {
     track("setTool", { next });
+    console.log("[dropin:lifecycle] setTool", { next });
     setToolState(next);
     if (typeof window !== "undefined") {
       try {
@@ -1554,9 +1568,31 @@ export default function Workspace({
   }, []);
 
   const handleByoAiApply = useCallback(
-    (newCode: string, mode: "element" | "full-file"): boolean => {
+    (
+      newCode: string,
+      mode: "element" | "full-file",
+      scope?: "one" | "all",
+    ): boolean => {
       const target = byoAiSwapTargetRef.current;
       const previousCode = code;
+
+      // TRACER (2026-05-24) — nesting diagnosis. Logs the EXACT AI output +
+      // target so we can tell whether nesting is an AI-output problem (the
+      // reply wraps the new design inside the old element) or a patch-
+      // targeting problem (we replaced an inner node). Decisive fields:
+      //   aiHead/aiTail — what the AI returned (look for the original
+      //     element's text living ALONGSIDE the new design = AI nested).
+      //   oid / instanceCount / instanceIndex — the cascade shape.
+      console.log("[dropin:byo-ai] APPLY-TRACE entry", {
+        mode,
+        kind,
+        oid: target?.oid ?? null,
+        instanceCount: target?.instanceCount ?? null,
+        instanceIndex: target?.instanceIndex ?? null,
+        aiLen: newCode.length,
+        aiHead: newCode.slice(0, 240),
+        aiTail: newCode.slice(-160),
+      });
 
       // ── ELEMENT MODE ───────────────────────────────────────────
       // The AI returned just the restyled element. Patch it into the
@@ -1580,10 +1616,16 @@ export default function Workspace({
             // C-1 fix (2026-05-22) — cascade detach. When the target is
             // one of N copies rendered from a single `.map()` (they
             // share ONE source OID), patchJsxOuterByOid would rewrite
-            // the shared callback + change ALL N. Detach the clicked
-            // instance FIRST (same as the old Tensorix swap path) so
-            // only that copy changes. Bails cleanly on un-detachable
-            // map shapes — then the swap cascades (with a warning).
+            // the shared callback + change ALL N.
+            //
+            // 2026-05-25 — scope-aware. The modal lets the user choose:
+            //   scope "all" → restyle the WHOLE group. We WANT to patch the
+            //     shared callback OID directly (no detach) so the .map()
+            //     template is rewritten and every card re-renders with the
+            //     new design, keeping its own {expr} content. The reply was
+            //     composed from the callback's JSX SOURCE (bindings intact).
+            //   scope "one" (default) → isolate the clicked copy: detach the
+            //     instance FIRST, then patch only the detached element.
             let workingCode = code;
             let workingOid = target.oid;
             const isCascade =
@@ -1591,10 +1633,21 @@ export default function Workspace({
               target.instanceCount > 1 &&
               typeof target.instanceIndex === "number" &&
               target.instanceIndex >= 0;
-            if (isCascade) {
+            if (isCascade && scope === "all") {
+              // Patch the shared OID as-is → all N instances restyle.
+              console.log("[dropin:byo-ai] APPLY-TRACE group (all)", {
+                oid: target.oid,
+                instanceCount: target.instanceCount,
+              });
+            } else if (isCascade) {
               const detach = applyDetachFromMap(code, {
                 oid: target.oid,
                 index: target.instanceIndex!,
+              });
+              console.log("[dropin:byo-ai] APPLY-TRACE detach", {
+                unchanged: detach.unchanged,
+                reason: "reason" in detach ? detach.reason : null,
+                newOid: "newOid" in detach ? detach.newOid : null,
               });
               if (detach.unchanged) {
                 showWarn(

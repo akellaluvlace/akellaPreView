@@ -94,6 +94,56 @@ describe("iframe runtime — HTML mode click-to-select", () => {
     expect(treeMsg.tree.length).toBeGreaterThan(0);
   });
 
+  it("re-posts dropin:ready on dropin:request-ready (handshake poll)", async () => {
+    // 2026-05-25 — THE fix for "editing dead after refresh". The iframe's
+    // one-shot ready can land before the host listener exists; the host then
+    // polls dropin:request-ready until the iframe re-announces. Verify it does.
+    const dom = buildDom(`<div><button>Hi</button></div>`);
+    const messages: any[] = [];
+    dom.window.addEventListener("message", (ev: any) => messages.push(ev.data));
+    await flushTimers(dom.window, 50);
+    messages.length = 0; // drop the initial unprompted ready
+
+    dom.window.postMessage(
+      { __dropin: true, type: "dropin:request-ready" },
+      "*",
+    );
+    await flushTimers(dom.window, 50);
+
+    const ready = messages.find((m) => m?.type === "dropin:ready");
+    expect(ready).toBeDefined();
+    expect(ready.__dropin).toBe(true);
+  });
+
+  it("re-pushes dropin:tree on dropin:request-tree (handshake-race recovery)", async () => {
+    // 2026-05-25 — when the host misses the iframe's one unprompted on-ready
+    // tree push (same race that can drop dropin:ready on a fresh mount), it
+    // sends dropin:request-tree to get a fresh snapshot. Verify the runtime
+    // honours it.
+    const dom = buildDom(
+      `<div class="hero"><h1>Hello</h1><p>World</p></div>`,
+    );
+    const messages: any[] = [];
+    dom.window.addEventListener("message", (ev: any) => {
+      messages.push(ev.data);
+    });
+    // Let the initial ready + tree push fire, then clear so we only see the
+    // response to our explicit request.
+    await flushTimers(dom.window, 50);
+    messages.length = 0;
+
+    dom.window.postMessage(
+      { __dropin: true, type: "dropin:request-tree" },
+      "*",
+    );
+    await flushTimers(dom.window, 50);
+
+    const treeMsg = messages.find((m) => m?.type === "dropin:tree");
+    expect(treeMsg).toBeDefined();
+    expect(Array.isArray(treeMsg.tree)).toBe(true);
+    expect(treeMsg.tree.length).toBeGreaterThan(0);
+  });
+
   it("posts dropin:select with the right payload after set-tool=select + click", async () => {
     const dom = buildDom(
       `<div class="hero"><h1 class="title">Hello</h1><button id="cta" class="btn primary">Click me</button></div>`,

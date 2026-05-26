@@ -251,7 +251,9 @@ export default function InlineComponentBrowser({
       )}
 
       {index && filtered.length > 0 && (
-        <div className={`grid gap-2 ${GRID_COLS[columns] ?? "grid-cols-2"}`}>
+        <div
+          className={`grid ${bare ? "gap-8" : "gap-2"} ${GRID_COLS[columns] ?? "grid-cols-2"}`}
+        >
           {filtered.map((c) => {
             const isSelected = selectedSlug === c.slug;
             return (
@@ -271,11 +273,12 @@ export default function InlineComponentBrowser({
               aria-pressed={isSelected}
               className={
                 "group relative overflow-hidden border-2 bg-white text-left transition-colors disabled:cursor-not-allowed disabled:opacity-40 " +
-                // 2026-05-24 — scale mode uses SHORT fixed-height tiles so
-                // 3 rows × 4 cols fit. The hover zoom is a fixed-position
-                // preview (below) that escapes the scroll container — an
-                // in-place CSS scale would be clipped by overflow-y-auto.
-                (hoverPreview === "scale" ? "h-32 " : "aspect-[4/3] ") +
+                // 2026-05-24 — scale mode uses taller, more-squarish tiles
+                // (h-44) so the preview is legible; the grid scrolls for
+                // overflow. The hover zoom is a fixed-position preview
+                // (below) that escapes the scroll container — an in-place
+                // CSS scale would be clipped by overflow-y-auto.
+                (hoverPreview === "scale" ? "h-60 " : "aspect-[4/3] ") +
                 (isSelected
                   ? "border-coral ring-2 ring-coral ring-offset-2 ring-offset-paper"
                   : "border-ink hover:border-coral")

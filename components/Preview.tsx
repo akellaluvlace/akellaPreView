@@ -585,6 +585,9 @@ export default function Preview({
   // 1s timeout fires.
   useEffect(() => {
     log("srcDoc rebuilt → iframe will reload", { srcDocLen: srcDoc.length });
+    console.log(
+      `[dropin:lifecycle] srcDoc changed → readyRef=false (len=${srcDoc.length})`,
+    );
     readyRef.current = false;
     lastReselectKeyRef.current = null;
     const pending = pendingLayoutCtxRef.current;
@@ -625,6 +628,97 @@ export default function Preview({
     frame.contentWindow.postMessage({ __dropin: true, ...msg }, "*");
   }, []);
 
+  // Replay all host-side state into a freshly-loaded iframe: the active
+  // tool (THE critical one — without it DROPIN_TOOL stays 'view' and all
+  // edit clicks are ignored), group roots, live bbox subscriptions, the
+  // current selection, and a fresh tree push.
+  //
+  // Runs on EVERY ready/onLoad signal — NO de-dupe guard. An earlier
+  // srcDoc-identity guard caused a regression (2026-05-25): the handshake
+  // poll can elicit a `ready` from the OLD/transitioning document, which
+  // synced first; when the REAL new iframe then loaded and re-announced, the
+  // guard SKIPPED it, so the live document never got `set-tool` → DROPIN_TOOL
+  // reverted to 'view' → editing died after an apply/rebuild. Because the
+  // re-sync is fully idempotent (set-tool + group-roots are replace-not-merge,
+  // watch-bbox is keyed by subscriptionId, request-tree is last-write, and a
+  // duplicate reselect is de-duped by nonce), running it on every signal is
+  // safe AND guarantees whichever document is actually live ends up synced.
+  const markReadyAndReplay = useCallback((reason: string) => {
+    readyRef.current = true;
+    console.log(
+      `[dropin:lifecycle] markReadyAndReplay RUN via ${reason} → set-tool=${toolRef.current}`,
+    );
+    log(`iframe ready via ${reason} → replaying tool=${toolRef.current} + state`);
+    // Tool first — canonical gating value before any pointer event lands.
+    postToIframe({ type: "dropin:set-tool", tool: toolRef.current });
+    if (groupRootOidsRef.current.length) {
+      postToIframe({
+        type: "dropin:set-group-roots",
+        oids: groupRootOidsRef.current,
+      });
+    }
+    if (bboxSubsRef.current.size > 0) {
+      log(`replaying ${bboxSubsRef.current.size} bbox subscription(s) on ready`);
+      bboxSubsRef.current.forEach((sub, subscriptionId) => {
+        postToIframe({
+          type: "dropin:watch-bbox",
+          oid: sub.oid,
+          subscriptionId,
+        });
+      });
+    }
+    // Re-request the structure tree. The iframe pushes it once unprompted on
+    // its own ready; if that push was missed in the same race that drops the
+    // ready message, the Tree panel would stay stale until the next rebuild.
+    postToIframe({ type: "dropin:request-tree" });
+    if (selectedLocRef.current) {
+      const nonce = nextNonceRef.current++;
+      pendingNonceRef.current = nonce;
+      lastReselectKeyRef.current = selectionKey(
+        selectedOidRef.current,
+        selectedLocRef.current
+      );
+      track("re-selecting after iframe reload", {
+        loc: selectedLocRef.current,
+        oid: selectedOidRef.current,
+      });
+      postToIframe({
+        type: "dropin:reselect",
+        loc: selectedLocRef.current,
+        oid: selectedOidRef.current,
+        nonce,
+      });
+    }
+  }, [postToIframe]);
+
+  // HANDSHAKE POLL (2026-05-25) — THE reliable readiness signal.
+  //
+  // Diagnosed from live lifecycle logs: the iframe's one-shot `dropin:ready`
+  // (setTimeout(0)) fires BEFORE React attaches the window 'message' listener,
+  // so it's dropped; and the iframe's `onLoad` DOM event never fired for the
+  // srcDoc iframe. Result: `markReadyAndReplay` never ran, `readyRef` stayed
+  // false, the set-tool effect bailed on every render, `DROPIN_TOOL` stayed
+  // 'view', and clicks did nothing after a refresh/navigation.
+  //
+  // Fix: actively POLL the iframe with `dropin:request-ready` until it answers
+  // (it re-posts `dropin:ready`, which runs markReadyAndReplay). Bounded —
+  // stops the instant readyRef flips true, hard cap ~3s. Keyed on srcDoc so a
+  // rebuild re-arms it. This is immune to mount/attach ordering; the onLoad +
+  // direct ready paths remain as faster best-effort signals.
+  useEffect(() => {
+    let tries = 0;
+    // Fire one immediately, then retry until the iframe answers.
+    postToIframe({ type: "dropin:request-ready" });
+    const id = setInterval(() => {
+      if (readyRef.current || tries++ > 30) {
+        clearInterval(id);
+        return;
+      }
+      postToIframe({ type: "dropin:request-ready" });
+    }, 100);
+    return () => clearInterval(id);
+  }, [srcDoc, postToIframe]);
+
   // Live-push group roots while the iframe is alive. When srcDoc rebuilds,
   // the iframe loses its set and re-asks via dropin:ready (handled below).
   // Identity-compare on the array reference is fine: Workspace memoizes via
@@ -646,7 +740,13 @@ export default function Preview({
   // before the first user pointer event reaches it.
   useEffect(() => {
     toolRef.current = tool;
-    if (!readyRef.current) return;
+    if (!readyRef.current) {
+      console.log(
+        `[dropin:lifecycle] set-tool effect BAIL (iframe not ready) tool=${tool}`,
+      );
+      return;
+    }
+    console.log(`[dropin:lifecycle] set-tool effect POST tool=${tool}`);
     postToIframe({ type: "dropin:set-tool", tool });
   }, [tool, postToIframe]);
 
@@ -967,53 +1067,11 @@ export default function Preview({
         log(`← iframe: ${d.type}`, d);
       }
       if (d.type === "dropin:ready") {
-        readyRef.current = true;
-        // Phase 5 / Phase B — replay the active tool first thing so
-        // the iframe's `DROPIN_TOOL` is canonical before any user
-        // pointer event lands. This must come BEFORE the group-roots
-        // push (mostly so the most-impactful gating message is the
-        // first one out — order doesn't strictly matter today, but
-        // tightening it preempts a class of "the click POSTed before
-        // set-tool was applied" race in future refactors).
-        postToIframe({ type: "dropin:set-tool", tool: toolRef.current });
-        // Repopulate the host-driven group-root set in the fresh iframe
-        // before any clicks reach it. Selection reselect comes second; the
-        // group-root push affects only future hit-testing, not the current
-        // selection's outline.
-        if (groupRootOidsRef.current.length) {
-          postToIframe({
-            type: "dropin:set-group-roots",
-            oids: groupRootOidsRef.current,
-          });
-        }
-        // Replay all live bbox subscriptions on the freshly-loaded iframe.
-        // Subs persist across rebuilds (they're host-side state); the iframe
-        // forgot them with its IIFE re-execution.
-        if (bboxSubsRef.current.size > 0) {
-          log(`replaying ${bboxSubsRef.current.size} bbox subscription(s) on ready`);
-          bboxSubsRef.current.forEach((sub, subscriptionId) => {
-            postToIframe({
-              type: "dropin:watch-bbox",
-              oid: sub.oid,
-              subscriptionId,
-            });
-          });
-        }
-        if (selectedLocRef.current) {
-          const nonce = nextNonceRef.current++;
-          pendingNonceRef.current = nonce;
-          lastReselectKeyRef.current = selectionKey(
-            selectedOidRef.current,
-            selectedLocRef.current
-          );
-          track("re-selecting after iframe reload", { loc: selectedLocRef.current, oid: selectedOidRef.current });
-          postToIframe({
-            type: "dropin:reselect",
-            loc: selectedLocRef.current,
-            oid: selectedOidRef.current,
-            nonce,
-          });
-        }
+        console.log("[dropin:lifecycle] RECEIVED dropin:ready message");
+        // Canonical "iframe announced itself" path. markReadyAndReplay is
+        // guarded by readyRef, so if the onLoad fallback already replayed
+        // (race where this postMessage was missed), this is a no-op.
+        markReadyAndReplay("dropin:ready message");
       } else if (d.type === "dropin:layout-context") {
         const fn = pendingLayoutCtxRef.current.get(d.requestId);
         if (fn) {
@@ -1143,8 +1201,12 @@ export default function Preview({
       }
     }
     window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
-  }, [onSelectionChange, onTextCommit, onIframeError, postToIframe]);
+    console.log("[dropin:lifecycle] message listener attached");
+    return () => {
+      console.log("[dropin:lifecycle] message listener detached");
+      window.removeEventListener("message", handler);
+    };
+  }, [onSelectionChange, onTextCommit, onIframeError, postToIframe, markReadyAndReplay]);
 
   useEffect(() => {
     if (!readyRef.current) return;
@@ -1298,6 +1360,17 @@ export default function Preview({
               ref={iframeRef}
               title="Preview"
               srcDoc={srcDoc}
+              // Best-effort fast readiness signal. The guaranteed path is the
+              // dropin:request-ready poll (see the effect above); onLoad +
+              // the direct dropin:ready message just sync sooner when they do
+              // fire. markReadyAndReplay re-syncs on every signal (idempotent),
+              // so whichever document is actually live ends up with set-tool.
+              onLoad={() => {
+                console.log("[dropin:lifecycle] iframe onLoad fired", {
+                  hasContentWindow: !!iframeRef.current?.contentWindow,
+                });
+                markReadyAndReplay("iframe onLoad");
+              }}
               sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               className="block h-full w-full bg-white"
               // touchAction:auto + overscroll-y-contain: explicit native

@@ -276,24 +276,54 @@ body {
 }
 
 
-/* 2026-05-24 — BYO-AI swap modal: a fat, obvious scrollbar for the
-   reference grid so it's clearly scrollable. Square (matches the
-   brutalist app), high-contrast ink thumb on a soft track. */
-.byo-scroll {
-  scrollbar-width: auto; /* Firefox: wide */
-  scrollbar-color: #18141C #E8E2D6;
-}
+/* 2026-05-24 — BYO-AI swap modal: a BIG, obvious scrollbar for the
+   reference grid. Coral bar + coral arrow buttons, no track background.
+   CRITICAL: do NOT set the standard `scrollbar-width` / `scrollbar-color`
+   here — in Chromium 121+ setting either property makes the engine ignore
+   ALL `::-webkit-scrollbar` rules for the element (it switches to the
+   standard fluent scrollbar), which silently capped this bar at the
+   default thin width no matter what `::-webkit-scrollbar { width }` said. */
 .byo-scroll::-webkit-scrollbar {
-  width: 16px;
+  width: 34px; /* 0.85x of the earlier 40px */
 }
 .byo-scroll::-webkit-scrollbar-track {
-  background: #E8E2D6;
-  border-left: 2px solid #18141C;
+  background: transparent; /* no background plate — just the bar + arrows */
 }
 .byo-scroll::-webkit-scrollbar-thumb {
-  background: #18141C;
-  border: 3px solid #E8E2D6;
+  background: #FF4D2E; /* coral brand accent */
+  border: 5px solid transparent; /* transparent inset → ~24px solid coral bar */
+  background-clip: padding-box;
+  min-height: 54px; /* tall, easy to grab */
 }
 .byo-scroll::-webkit-scrollbar-thumb:hover {
-  background: #FF4D2E;
+  background: #18141C; /* darken to ink on hover */
+  border: 6px solid transparent;
+  background-clip: padding-box;
+}
+/* Up / down arrow buttons (the "arrows"), ~40px tall, coral, with a white
+   chevron. Sized to match the 40px track. */
+.byo-scroll::-webkit-scrollbar-button:vertical:decrement {
+  display: block;
+  height: 34px;
+  background-color: #FF4D2E;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path d='M8 4l5 6H3z' fill='white'/></svg>");
+}
+.byo-scroll::-webkit-scrollbar-button:vertical:increment {
+  display: block;
+  height: 34px;
+  background-color: #FF4D2E;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path d='M8 12L3 6h10z' fill='white'/></svg>");
+}
+.byo-scroll::-webkit-scrollbar-button:vertical:decrement:hover,
+.byo-scroll::-webkit-scrollbar-button:vertical:increment:hover {
+  background-color: #18141C;
+}
+/* Suppress the doubled buttons WebKit adds at each end. */
+.byo-scroll::-webkit-scrollbar-button:vertical:start:increment,
+.byo-scroll::-webkit-scrollbar-button:vertical:end:decrement {
+  display: none;
 }

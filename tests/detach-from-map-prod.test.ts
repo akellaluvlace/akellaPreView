@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { applyDetachFromMap } from "../lib/ast/operations/detach-from-map";
 import { injectOids } from "../lib/ast/oids";
+import { patchJsxOuterByOid } from "../lib/ast/patch-class-by-oid";
 
 // Prod-import tests for lib/ast/operations/detach-from-map.ts
 // (Phase 9). Source-rewrite operation that splits a .map() call at
@@ -226,5 +227,63 @@ describe("applyDetachFromMap — OID regeneration", () => {
     // Should be at least 2 distinct OIDs (cascade + detached middle).
     const unique = new Set(allLiOids);
     expect(unique.size).toBeGreaterThanOrEqual(2);
+  });
+
+  // REGRESSION (2026-05-24): when the callback body has DESCENDANT
+  // elements, newOid must point at the ROOT element of the IIFE, not the
+  // deepest/last descendant. The old code took the LAST data-dropin-id
+  // before the `)(arr[K])` call (assuming it was the root) — but that's
+  // the final nested child (e.g. a trailing <span>). The host then
+  // patched the swap onto that inner node, so a card swap landed NESTED
+  // inside the card. Reproduced on web/51-glassmorphism.jsx premiumPillars.
+  it("newOid points at the IIFE ROOT, not a nested descendant", () => {
+    const code = srcWith(
+      `<div>{cards.map((c) => (` +
+        `<article className="card">` +
+        `<h4>{c.title}</h4>` +
+        `<p>{c.body}</p>` +
+        `<span>{c.tag}</span>` +
+        `</article>` +
+        `))}</div>`,
+    );
+    const rootOid = findOidForTag(code, "article")!;
+    const r = applyDetachFromMap(code, { oid: rootOid, index: 1 });
+    expect(r.unchanged).toBe(false);
+    expect(r.newOid).toBeTruthy();
+    expect(r.newOid).not.toBe(rootOid);
+    // The element bearing newOid must be the <article> root — assert the
+    // tag immediately preceding the newOid attribute is <article>, NOT
+    // <h4> / <p> / <span>.
+    const pos = r.source.indexOf(`data-dropin-id="${r.newOid}"`);
+    const tagOpen = r.source.lastIndexOf("<", pos);
+    const tagSlice = r.source.slice(tagOpen, pos + 24);
+    expect(tagSlice.startsWith("<article")).toBe(true);
+  });
+
+  // Companion: detach + patch the returned newOid with a clean element
+  // and confirm the IIFE body becomes EXACTLY that element (full replace),
+  // not the original card with the new element appended inside it.
+  it("patching newOid REPLACES the card body (no nesting)", () => {
+    const code = srcWith(
+      `<div>{cards.map((c) => (` +
+        `<article className="card"><h4>{c.title}</h4><span>{c.tag}</span></article>` +
+        `))}</div>`,
+    );
+    const rootOid = findOidForTag(code, "article")!;
+    const r = applyDetachFromMap(code, { oid: rootOid, index: 1 });
+    const patch = patchJsxOuterByOid(
+      r.source,
+      r.newOid!,
+      `<div className="swapped">NEW</div>`,
+    );
+    expect(patch.changed).toBe(true);
+    // Slice the IIFE body precisely (`}{((... => BODY)(cards[1])`).
+    const callPos = patch.source.indexOf(")(cards[1])");
+    const sigPos = patch.source.lastIndexOf("}{((", callPos);
+    const arrowPos = patch.source.indexOf("=>", sigPos);
+    const body = patch.source.slice(arrowPos + 2, callPos).trim();
+    expect(body).toContain("swapped");
+    expect(body).not.toContain("{c.title}");
+    expect(body).not.toContain("{c.tag}");
   });
 });

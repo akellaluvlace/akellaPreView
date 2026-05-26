@@ -226,6 +226,29 @@ export function isParseable(source: string): boolean {
   return tryParse(source) !== null;
 }
 
+// 2026-05-25 — strict JSX-only parse. Mirrors the iframe's Babel-standalone
+// (JSX preset, NO TypeScript plugin) so it answers the exact question
+// "will this run in the preview?". `errorRecovery` is OFF so any syntax
+// error throws (recovery would let TS like `foo as Bar` slip through).
+//
+// This REPLACES the old regex-based TS-syntax heuristics in
+// lib/byo-ai/validate-response.ts, which false-rejected ordinary UI text:
+// "Export as PDF" (matched `as PDF`), "downtime: never" (matched `: never`),
+// "type: string" etc. A parser can't be fooled by prose — text content is
+// valid JSX and parses; only genuine TS syntax in code position throws.
+const JSX_ONLY_PARSE_OPTS: ParserOptions = {
+  sourceType: "module",
+  plugins: ["jsx"],
+};
+export function parsesAsPlainJsx(source: string): boolean {
+  try {
+    parse(source, JSX_ONLY_PARSE_OPTS);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 // Deterministic mint with collision-bumping. The first attempt encodes the
 // parse offset directly. If that string happens to collide with an existing
 // OID in `seen` (rare — would require a stale OID in the source that

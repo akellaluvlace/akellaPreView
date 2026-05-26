@@ -438,7 +438,20 @@ export type HostToIframeMessage =
   // querySelector(path), replaces outerHTML wholesale, then re-emits
   // `ai:applied` (with the new node's bbox + outerHtml) or
   // `ai:apply-failed` if the path no longer resolves.
-  | { type: "ai:apply-outer"; path: string; newOuterHtml: string };
+  | { type: "ai:apply-outer"; path: string; newOuterHtml: string }
+  // 2026-05-25 — re-request the structure tree. The iframe pushes its tree
+  // once unprompted on `dropin:ready`; if the host missed that push (same
+  // handshake race that can drop the ready message on a fresh mount), it
+  // sends this to get a fresh `dropin:tree` snapshot. Iframe responds by
+  // calling dropinPostTree(). Idempotent (full-snapshot, last-write-wins).
+  | { type: "dropin:request-tree" }
+  // 2026-05-25 — handshake poll. The iframe's ONE-SHOT `dropin:ready` (fired
+  // from setTimeout(0)) is frequently missed: it lands before React attaches
+  // the window 'message' listener, and the iframe's `onLoad` DOM event proved
+  // unreliable for srcDoc. So the host POLLS this until the iframe answers
+  // (re-posts `dropin:ready` + tree), then stops. Makes the handshake immune
+  // to who-mounts-first ordering. Idempotent on the iframe side.
+  | { type: "dropin:request-ready" };
 
 export const DROPIN_SOURCE = "dropin-preview";
 

@@ -882,6 +882,44 @@ describe("validateResponse — TypeScript detection (C2, JSX mode only)", () => 
     });
     expect(r.ok).toBe(true);
   });
+
+  // REGRESSION (2026-05-25): the old regex TS heuristics false-rejected
+  // ordinary UI text — "Export as PDF" matched `as PDF`, "downtime: never"
+  // matched `: never`, "type: string" matched `: string`. The parse-based
+  // check (parsesAsPlainJsx) can't be fooled by prose. These element-mode
+  // replies are all legitimate plain JSX and MUST be accepted.
+  const UI_TEXT_FALSE_POSITIVES: Array<[string, string, string]> = [
+    ["Export as PDF", '<button className="old">Go</button>', '<button className="bg-coral text-white px-4 py-2">Export as PDF</button>'],
+    ["Save as Draft", '<a href="#">Go</a>', '<a href="#" className="underline">Save as Draft</a>'],
+    ["Sign in as Admin", '<button className="old">Go</button>', '<button className="px-3 py-2">Sign in as Admin</button>'],
+    ["downtime: never", '<p>Go</p>', '<p className="text-sm text-gray-400">Uptime SLA — downtime: never.</p>'],
+    ["plan cost: number", '<span>Go</span>', '<span className="font-mono">Plan cost: number to be confirmed</span>'],
+    ["field type: string", '<code>Go</code>', '<code className="text-xs">field type: string required</code>'],
+    ["Export as CSV or as JSON", '<div className="old">Go</div>', '<div className="card"><h4>Data</h4><p>Export as CSV or as JSON anytime.</p></div>'],
+  ];
+  for (const [name, target, reply] of UI_TEXT_FALSE_POSITIVES) {
+    it(`accepts UI text that looks like TS: "${name}"`, () => {
+      const r = validateResponse({
+        inputSource: "x".repeat(5000),
+        outputSource: reply,
+        targetOuterHtml: target,
+        kind: "jsx",
+      });
+      expect(r.ok).toBe(true);
+      expect(r.mode).toBe("element");
+    });
+  }
+
+  it("still rejects genuine TS in code position (`as` cast in an expression)", () => {
+    const r = validateResponse({
+      inputSource: "x".repeat(5000),
+      outputSource: '<div className="x">{(count as number)}</div>',
+      targetOuterHtml: '<div className="old">Go</div>',
+      kind: "jsx",
+    });
+    expect(r.ok).toBe(false);
+    expect(r.reason?.toLowerCase()).toContain("typescript");
+  });
 });
 
 describe("validateResponse — JSX-mode wrong-language guard", () => {

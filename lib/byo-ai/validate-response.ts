@@ -24,7 +24,7 @@
 // Failure modes return a specific `reason` string the modal can show
 // next to the textarea so the user knows what to fix.
 
-import { isParseable } from "../ast/oids";
+import { isParseable, parsesAsPlainJsx } from "../ast/oids";
 
 export interface ValidateResponseOptions {
   inputSource: string;
@@ -134,27 +134,13 @@ const PLACEHOLDER_PATTERNS: ReadonlyArray<RegExp> = [
   /\((\s*)?(rest|remaining|unchanged|existing|same)[^)]{0,40}(\.\.\.|…)?[^)]{0,20}\)/i,
 ];
 
-// C2 (2026-05-22) — TypeScript-syntax detection (JSX mode only).
-// web/*.jsx templates run through the iframe's Babel-standalone with
-// the JSX preset ONLY (no TS plugin). Frontier models love to "improve"
-// code with type annotations, which makes the iframe silently blank
-// (per memory feedback_no_ts_cast_in_jsx_templates). injectOids parses
-// TS happily (its plugin list includes "typescript") so it won't catch
-// this — we must.
-//
-// High-signal patterns chosen to minimize false positives against real
-// JSX (CSS-in-JS object literals use string VALUES like `color: '#fff'`,
-// not the bare type word `string`; ternaries put expressions after `:`,
-// not type keywords).
-const TS_SYNTAX_PATTERNS: ReadonlyArray<RegExp> = [
-  /\binterface\s+[A-Za-z_$][\w$]*\b/, // interface Foo
-  /\btype\s+[A-Z][\w$]*\s*=/, // type Foo =
-  /:\s*(string|number|boolean|any|void|never|unknown)\b(?!\s*['"`])/, // : string annotation
-  /\bas\s+const\b/, // as const
-  /\bas\s+[A-Z][\w$]*\b/, // as SomeType
-  /\bsatisfies\s+[A-Za-z_$]/, // satisfies Foo
-  /\)\s*:\s*(JSX\.Element|React\.\w+|string|number|boolean|void|null)\b/, // ): ReturnType
-];
+// TypeScript-in-JSX detection is now done by parsing, NOT regex. The old
+// TS_SYNTAX_PATTERNS heuristics (removed 2026-05-25) false-rejected ordinary
+// UI text — "Export as PDF" (matched `as PDF`), "downtime: never" (matched
+// `: never`), "type: string" — because prose is indistinguishable from type
+// syntax to a regex. `parsesAsPlainJsx` (jsx-only Babel, no TS plugin) mirrors
+// the iframe exactly: prose is valid JSX text and parses; genuine TS in a code
+// position throws. See lib/ast/oids.ts.
 
 // C1 companion (2026-05-22) — top-level declaration survival. Extract
 // `const NAME` / `function NAME` / `class NAME` / `let NAME` from the
@@ -263,17 +249,6 @@ function runSecurityChecks(
   return null;
 }
 
-// JSX-only syntax guards (TS detection). Returns a reason on failure.
-function runJsxSyntaxChecks(outputSource: string): string | null {
-  for (const pat of TS_SYNTAX_PATTERNS) {
-    const match = outputSource.match(pat);
-    if (match) {
-      return `Response contains TypeScript syntax ("${match[0].trim().slice(0, 30)}") which won't run in this preview. Ask your AI for "plain JSX, no TypeScript types," then paste again.`;
-    }
-  }
-  return null;
-}
-
 export function validateResponse(
   opts: ValidateResponseOptions,
 ): ValidateResponseResult {
@@ -340,18 +315,33 @@ export function validateResponse(
     const sec = runSecurityChecks(element, {});
     if (sec) return { ok: false, mode: "element", reason: sec };
     if (opts.kind === "jsx") {
-      const ts = runJsxSyntaxChecks(element);
-      if (ts) return { ok: false, mode: "element", reason: ts };
-      // Well-formedness — the sliced element must parse as valid JSX.
-      // Catches the AI returning an unbalanced/duplicate tag (e.g.
-      // `<a>Log In</a></a>`), which would otherwise blank the preview
-      // once patched in. 2026-05-24 field bug.
+      // Parse-based validation (2026-05-25) — replaces the old regex TS
+      // heuristics that FALSE-REJECTED ordinary UI text ("Export as PDF"
+      // matched `as PDF`; "downtime: never" matched `: never`; "type:
+      // string" matched `: string`). A parser can't be fooled by prose:
+      // text content is valid JSX and parses; only genuine TS syntax in a
+      // code position throws.
+      //
+      //   - isParseable (jsx + TS plugins, error-recovery): isolates a
+      //     STRUCTURAL break — an unbalanced/duplicate tag (`<a>x</a></a>`),
+      //     which the 2026-05-24 field bug showed blanks the preview.
+      //   - parsesAsPlainJsx (jsx-only, strict): a structurally-fine element
+      //     that still fails this must contain TypeScript — exactly what the
+      //     iframe's TS-less Babel would choke on.
       if (!isParseable(element)) {
         return {
           ok: false,
           mode: "element",
           reason:
             "The pasted element isn't valid JSX — usually an unbalanced or duplicate tag (like an extra </a>). Re-prompt your AI for ONE clean element, or fix the reply.",
+        };
+      }
+      if (!parsesAsPlainJsx(element)) {
+        return {
+          ok: false,
+          mode: "element",
+          reason:
+            'The element contains TypeScript syntax (type annotations, `as`/`satisfies`, generics) which won\'t run in this preview. Ask your AI for "plain JSX, no TypeScript types," then paste again.',
         };
       }
     }
@@ -433,9 +423,16 @@ export function validateResponse(
     }
   }
 
-  if (opts.kind === "jsx") {
-    const ts = runJsxSyntaxChecks(trimmed);
-    if (ts) return { ok: false, mode: "full-file", reason: ts };
+  if (opts.kind === "jsx" && !parsesAsPlainJsx(trimmed)) {
+    // Parse-based (2026-05-25) — replaces the regex TS heuristics (same
+    // UI-text false positives as element mode). A full file that won't
+    // parse as plain JSX will blank the iframe; reject with a useful
+    // message. isParseable (TS-tolerant) distinguishes "valid TS but not
+    // plain JSX" (→ type syntax) from a genuine syntax error.
+    const reason = isParseable(trimmed)
+      ? 'The file contains TypeScript syntax (type annotations, `as`/`satisfies`, generics) which won\'t run in this preview. Ask your AI for "plain JSX, no TypeScript types," then paste the complete file again.'
+      : "The file has a syntax error (it won't parse as JSX). Ask your AI to fix it and return the COMPLETE file, then paste again.";
+    return { ok: false, mode: "full-file", reason };
   }
 
   // No-op detection (count-based — survives cascade swaps).

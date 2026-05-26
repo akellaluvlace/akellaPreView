@@ -33,6 +33,8 @@ import type { PreviewKind } from "@/lib/preview";
 import type { VibeElementInfo } from "@/lib/vibe-edit/types";
 import InlineComponentBrowser from "./VibePropertiesPanel/InlineComponentBrowser";
 import { composeSwapPrompt } from "@/lib/byo-ai/compose-prompt";
+import { getJsxOuterByOid } from "@/lib/ast/patch-class-by-oid";
+import { applyDetachFromMap } from "@/lib/ast/operations/detach-from-map";
 import { extractCodeFence } from "@/lib/byo-ai/extract-code";
 import { validateResponse } from "@/lib/byo-ai/validate-response";
 import {
@@ -59,7 +61,15 @@ interface Props {
   // the target's OID/htmlPath; "full-file" → setCode the whole thing.
   // Returns true on success; false → host signals a failure (e.g.
   // patch/parse error) and the modal keeps the response visible.
-  onApply: (code: string, mode: "element" | "full-file") => boolean;
+  // `scope` only matters for element mode on a cascade element:
+  //   "all" → restyle the whole .map() group (patch the shared OID)
+  //   "one" → isolate the clicked copy (cascade-detach then patch)
+  // Omitted/undefined elsewhere → treated as "one" (single element).
+  onApply: (
+    code: string,
+    mode: "element" | "full-file",
+    scope?: "one" | "all",
+  ) => boolean;
   onWarn: (msg: string) => void;
   onInfo: (msg: string) => void;
 }
@@ -206,9 +216,77 @@ export default function ByoAiSwapModal({
   // non-blocking notice instead.
   const promptSourceRef = useRef<string | null>(null);
   const [sourceChanged, setSourceChanged] = useState(false);
+  // 2026-05-25 — "convert all N cards" vs "just this one" for cascade
+  // (.map()-rendered) elements. Defaults to "all" (the common intent when
+  // someone restyles a card in a grid). Only surfaced when isCascade.
+  const [applyScope, setApplyScope] = useState<"all" | "one">("all");
   // C (2026-05-22) — track the target signature so we can reset the
   // picker + paste state when the modal opens on a DIFFERENT element.
   const lastTargetRef = useRef<string | null>(null);
+
+  // A cascade element is one rendered more than once. Gate the choice on
+  // instanceCount ALONE so it shows exactly when the vibe panel's "Editing
+  // all N copies" badge does (VibePropertiesPanel keys that on instanceCount
+  // too) — an earlier `kind === "jsx" && oid` gate hid the banner even when
+  // the panel reported copies.
+  const instanceCount = vibeInfo?.instanceCount ?? 0;
+  const isCascade = instanceCount > 1;
+
+  // Can we isolate JUST the clicked copy? Only if the shared `.map()` is
+  // detachable. Dry-run applyDetachFromMap (same engine the apply uses): if
+  // it bails (e.g. the callback uses the index `i` outside `key=`), isolating
+  // one is impossible — editing one would change all N. We then FORCE "all"
+  // (group restyle of the shared template), which works for any `.map()`.
+  // This prevents the trap where "Just this one" silently cascaded to all N.
+  const canIsolate = useMemo(() => {
+    if (
+      !open || // don't parse the source while the modal is closed
+      !isCascade ||
+      kind !== "jsx" ||
+      !vibeInfo?.oid ||
+      typeof vibeInfo.instanceIndex !== "number" ||
+      vibeInfo.instanceIndex < 0
+    ) {
+      return false; // can't detach → only "all" is possible
+    }
+    try {
+      const r = applyDetachFromMap(fullSource, {
+        oid: vibeInfo.oid,
+        index: vibeInfo.instanceIndex,
+      });
+      return !r.unchanged;
+    } catch {
+      return false;
+    }
+  }, [open, isCascade, kind, vibeInfo, fullSource]);
+
+  // The scope actually used. For a cascade we honour the user's pick ONLY
+  // when isolating is possible; otherwise force "all". Non-cascade = "one".
+  const effectiveScope: "all" | "one" = isCascade
+    ? canIsolate
+      ? applyScope
+      : "all"
+    : "one";
+
+  // For "all" scope we send the AI the JSX SOURCE of the `.map()` callback
+  // (it carries the `{expr}` bindings) so the restyle keeps each card's own
+  // content. JSX-only + needs the OID.
+  const groupSource = useMemo(() => {
+    if (
+      !open || // don't parse the source while the modal is closed
+      !isCascade ||
+      effectiveScope !== "all" ||
+      kind !== "jsx" ||
+      !vibeInfo?.oid
+    ) {
+      return null;
+    }
+    return getJsxOuterByOid(fullSource, vibeInfo.oid);
+  }, [open, isCascade, effectiveScope, kind, vibeInfo, fullSource]);
+  // The effective target string fed to the prompt + validator, and whether
+  // we're truly in group mode (only when we actually got the source).
+  const effectiveIsGroup = !!groupSource;
+  const effectiveTarget = groupSource ?? (vibeInfo?.outerHtml ?? "");
 
   // Restore the paste textarea contents from sessionStorage on mount
   // ONLY if the stored target matches the current vibeInfo's
@@ -252,9 +330,28 @@ export default function ByoAiSwapModal({
       setFailureReason(null);
       setLastClicked(null);
       setSourceChanged(false);
+      setApplyScope("all"); // default to "convert all" on each new target
       promptSourceRef.current = null;
     }
   }, [open, vibeInfo]);
+
+  // TRACER (2026-05-25) — why the All-vs-one cascade banner shows or not.
+  // If isCascade is false the banner is hidden; this logs the exact inputs
+  // (instanceCount must be > 1, kind must be "jsx", oid must be present).
+  useEffect(() => {
+    if (!open || !vibeInfo) return;
+    console.log("[dropin:byo-ai] cascade-check", {
+      kind,
+      tag: vibeInfo.tag,
+      oid: vibeInfo.oid,
+      instanceCount: vibeInfo.instanceCount,
+      instanceIndex: vibeInfo.instanceIndex,
+      isCascade,
+      showsBanner: isCascade,
+      canIsolate,
+      effectiveScope,
+    });
+  }, [open, vibeInfo, kind, isCascade, canIsolate, effectiveScope]);
 
   // D — focus management. Move focus into the modal when it opens so
   // keyboard users + screen readers land inside the dialog (Tab then
@@ -376,11 +473,20 @@ export default function ByoAiSwapModal({
     return composeSwapPrompt({
       fullSource,
       kind,
-      targetOuterHtml: vibeInfo.outerHtml ?? "",
+      targetOuterHtml: effectiveTarget,
       referenceHtml: selectedReference?.rawHtml,
       userPrompt: changeText.trim() || undefined,
+      isGroupTemplate: effectiveIsGroup,
     });
-  }, [fullSource, kind, vibeInfo, selectedReference, changeText]);
+  }, [
+    fullSource,
+    kind,
+    vibeInfo,
+    selectedReference,
+    changeText,
+    effectiveTarget,
+    effectiveIsGroup,
+  ]);
 
   // Approximate prompt size, shown once there's input so the user knows
   // whether it'll fit their AI's context limit. ~3.5 chars/token.
@@ -392,15 +498,24 @@ export default function ByoAiSwapModal({
     const prompt = composeSwapPrompt({
       fullSource,
       kind,
-      targetOuterHtml: vibeInfo.outerHtml ?? "",
+      targetOuterHtml: effectiveTarget,
       referenceHtml: selectedReference?.rawHtml,
       userPrompt: changeText.trim() || undefined,
+      isGroupTemplate: effectiveIsGroup,
     });
     const chars = prompt.length;
     const kb = Math.round(chars / 1024);
     const kTokens = Math.round(chars / 3.5 / 1000);
     return { kb, kTokens };
-  }, [fullSource, kind, vibeInfo, selectedReference, changeText]);
+  }, [
+    fullSource,
+    kind,
+    vibeInfo,
+    selectedReference,
+    changeText,
+    effectiveTarget,
+    effectiveIsGroup,
+  ]);
 
   const handleProviderClick = useCallback(
     async (provider: ByoAiProvider) => {
@@ -514,13 +629,14 @@ export default function ByoAiSwapModal({
     const validation = validateResponse({
       inputSource: fullSource,
       outputSource: extractedCode,
-      targetOuterHtml: vibeInfo.outerHtml ?? "",
+      targetOuterHtml: effectiveTarget,
       kind,
     });
     console.log("[dropin:byo-ai] validation", {
       ok: validation.ok,
       mode: validation.mode,
       reason: validation.reason,
+      group: effectiveIsGroup,
     });
     if (!validation.ok) {
       setFailureReason(validation.reason ?? "Response failed validation.");
@@ -529,7 +645,27 @@ export default function ByoAiSwapModal({
     // Apply the CLEANED code the validator produced (element markup
     // sliced of prose, or the trimmed full file), not the raw paste.
     const codeToApply = validation.appliedCode ?? extractedCode;
-    const applied = onApply(codeToApply, validation.mode ?? "full-file");
+    // Binding-preservation guard (group mode only). The .map() template we
+    // sent carries `{expr}` bindings; if the AI replaced them ALL with
+    // literal text, every card would render identically. Reject the clear
+    // "baked everything" case (source had ≥2 bindings, reply has none) with
+    // a specific, fixable message. Conservative threshold → no false
+    // positives on a legit restyle (which keeps the bindings).
+    if (effectiveIsGroup && groupSource) {
+      const srcBindings = (groupSource.match(/\{[^}]+\}/g) ?? []).length;
+      const replyBindings = (codeToApply.match(/\{[^}]+\}/g) ?? []).length;
+      if (srcBindings >= 2 && replyBindings === 0) {
+        setFailureReason(
+          "Your AI replaced the {…} placeholders with fixed text — all cards would look identical. Re-prompt it to KEEP every {…} expression exactly, then paste again.",
+        );
+        return;
+      }
+    }
+    const applied = onApply(
+      codeToApply,
+      validation.mode ?? "full-file",
+      effectiveIsGroup ? "all" : "one",
+    );
     console.log("[dropin:byo-ai] apply-result", { applied, mode: validation.mode });
     if (!applied) {
       setFailureReason(
@@ -553,7 +689,17 @@ export default function ByoAiSwapModal({
     setChangeText("");
     setFailureReason(null);
     onClose();
-  }, [vibeInfo, pasteText, fullSource, kind, onApply, onClose]);
+  }, [
+    vibeInfo,
+    pasteText,
+    fullSource,
+    kind,
+    onApply,
+    onClose,
+    effectiveTarget,
+    effectiveIsGroup,
+    groupSource,
+  ]);
 
   if (!open || !vibeInfo) return null;
 
@@ -575,19 +721,42 @@ export default function ByoAiSwapModal({
             3-step round-trip so vibecoders grok it before scrolling. */}
         <div className="shrink-0 border-b-2 border-ink bg-soft px-8 py-5">
           <div className="flex items-start justify-between gap-6">
-            <div className="max-w-2xl">
-              <span className="font-display text-[24px] font-bold leading-tight text-ink">
+            <div className="max-w-3xl">
+              <span className="font-display text-[26px] font-bold leading-tight text-ink">
                 ✨ Restyle your{" "}
                 <span className="text-coral">&lt;{vibeInfo.tag}&gt;</span> with
                 AI
               </span>
-              <p className="mt-2 text-[14px] leading-relaxed text-ink/80">
+              {/* Plain-language explainer — bigger + better laid out so
+                  vibecoders grok the round-trip at a glance. */}
+              <p className="mt-3 text-[17px] leading-relaxed text-ink">
                 You use your <span className="font-bold">own</span> AI
-                (ChatGPT, Claude…) — it&apos;s free. Three steps:
-                <span className="font-bold"> ① choose a look</span> →
-                <span className="font-bold"> ② open your AI</span> →
-                <span className="font-bold"> ③ paste its reply back here</span>.
+                (ChatGPT, Claude…) —{" "}
+                <span className="font-bold text-coral">it&apos;s free.</span>
               </p>
+              <p className="mt-3 text-[16px] font-bold text-ink">Three steps:</p>
+              <div className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-2 text-[15px] font-bold text-ink">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-coral text-[13px] text-paper">
+                    1
+                  </span>
+                  choose a look
+                </span>
+                <span className="text-[18px] text-muted">→</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-coral text-[13px] text-paper">
+                    2
+                  </span>
+                  open your AI
+                </span>
+                <span className="text-[18px] text-muted">→</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-coral text-[13px] text-paper">
+                    3
+                  </span>
+                  paste its reply back here
+                </span>
+              </div>
             </div>
             <button
               type="button"
@@ -600,11 +769,72 @@ export default function ByoAiSwapModal({
           </div>
         </div>
 
-        {/* Body — wizard: only the active step's content is expanded;
-            completed steps collapse to a clickable summary. */}
-        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        {/* Body — wizard: the ACTIVE step flexes to fill the viewport
+            (no dead space); completed/future steps collapse to a fixed
+            clickable header row. */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+          {/* CASCADE CHOICE — this element is one of N copies rendered from
+              a single .map(). Let the user pick whether the swap hits all of
+              them (restyle the shared template, keeping each card's content)
+              or just the clicked copy (cascade-detach). Only shown for
+              JSX cascades. */}
+          {isCascade && (
+            <div className="shrink-0 border-b-2 border-ink/15 bg-soft/60 px-8 py-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-[13px] font-bold text-ink">
+                  This is 1 of {instanceCount} matching cards — apply to:
+                </span>
+                <div className="flex border-2 border-ink">
+                  <button
+                    type="button"
+                    onClick={() => setApplyScope("all")}
+                    className={
+                      "px-4 py-1.5 text-[13px] font-bold transition-colors " +
+                      (effectiveScope === "all"
+                        ? "bg-coral text-paper"
+                        : "bg-paper text-ink hover:bg-ink hover:text-paper")
+                    }
+                  >
+                    All {instanceCount} cards
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => canIsolate && setApplyScope("one")}
+                    disabled={!canIsolate}
+                    title={
+                      canIsolate
+                        ? undefined
+                        : "These cards share one list template — they can't be changed individually here."
+                    }
+                    className={
+                      "border-l-2 border-ink px-4 py-1.5 text-[13px] font-bold transition-colors " +
+                      (!canIsolate
+                        ? "cursor-not-allowed bg-paper text-muted opacity-40"
+                        : effectiveScope === "one"
+                          ? "bg-coral text-paper"
+                          : "bg-paper text-ink hover:bg-ink hover:text-paper")
+                    }
+                  >
+                    Just this one
+                  </button>
+                </div>
+              </div>
+              <p className="mt-1.5 text-[12px] text-muted">
+                {effectiveScope === "all"
+                  ? canIsolate
+                    ? `All ${instanceCount} cards get the new design — each keeps its own text + icon.`
+                    : `These ${instanceCount} cards share one template, so they change together — each keeps its own text + icon. (Can't restyle just one here.)`
+                  : "Only the card you clicked changes; the others stay as they are."}
+              </p>
+            </div>
+          )}
           {/* STEP 1 — choose the look */}
-          <section className="border-b-2 border-ink/15">
+          <section
+            className={
+              "border-b-2 border-ink/15 " +
+              (activeStep === 1 ? "flex min-h-0 flex-1 flex-col" : "shrink-0")
+            }
+          >
             <StepHeader
               n={1}
               title="Choose the new look"
@@ -684,8 +914,9 @@ export default function ByoAiSwapModal({
                 {/* Small fixed-height tiles (h-32) → ~3 rows of 4 fit;
                     scroll for more. The hover zoom is a fixed-position
                     preview (escapes this scroll clip). Custom fat
-                    scrollbar so it's obviously scrollable. */}
-                <div className="byo-scroll h-[46vh] min-h-[300px] max-h-[46vh] overflow-y-auto px-2 py-3">
+                    scrollbar so it's obviously scrollable. flex-1 fills
+                    all remaining viewport height — no dead space below. */}
+                <div className="byo-scroll mb-5 mr-5 min-h-0 flex-1 overflow-y-auto pb-4 pl-4 pr-4 pt-2">
                   <InlineComponentBrowser
                     mode={kind}
                     category={targetKind}
@@ -707,7 +938,10 @@ export default function ByoAiSwapModal({
           {/* STEP 2 — provider buttons */}
           <section
             ref={providerSectionRef}
-            className="border-b-2 border-ink/15 bg-paper"
+            className={
+              "border-b-2 border-ink/15 bg-paper " +
+              (activeStep === 2 ? "flex min-h-0 flex-1 flex-col" : "shrink-0")
+            }
           >
             <StepHeader
               n={2}
@@ -729,9 +963,16 @@ export default function ByoAiSwapModal({
               }
             />
             {activeStep === 2 && (
-            <>
-            <div className="px-8 pb-4">
-              <div className="flex flex-wrap items-center gap-3">
+            <div className="flex min-h-0 flex-1 gap-6 px-8 pb-6 pt-6">
+            {/* LEFT container — pick your AI + what to do next. flex-1 +
+                full height (stretch) → equal to the right container; its
+                inner content uses a flex-1 region so the instructions
+                fill the box instead of clustering at the top. */}
+            <div className="flex min-w-0 flex-1 flex-col border-2 border-ink/20 bg-soft/30 p-6">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                Pick your AI
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
                 {orderedProviders.map((p, i) => (
                   <button
                     key={p.id}
@@ -752,81 +993,135 @@ export default function ByoAiSwapModal({
                   </button>
                 ))}
               </div>
-              {/* After a provider click — spell out what to do over in
-                  the AI tab, then come back. The single clearest signal
-                  for the round-trip. */}
-              {lastClicked ? (
-                <div className="mt-4 border-2 border-coral bg-coral/10 px-4 py-3.5">
-                  <p className="text-[13px] font-bold text-ink">
-                    ✓ Opened{" "}
-                    {getProviderById(lastClicked)?.label.replace("Open ", "") ??
-                      "your AI"}
-                    . Now, over in that tab:
-                  </p>
-                  <ol className="mt-1 list-decimal pl-5 text-[12px] leading-relaxed text-ink/90">
-                    <li>
-                      Send the prompt
-                      {lastClicked === "chatgpt"
-                        ? " (already filled in — just press Enter)"
-                        : " (paste it — it's on your clipboard — then send)"}
-                      .
-                    </li>
-                    <li>Wait for the answer, then copy the whole reply.</li>
-                    <li>
-                      Come back here and paste it in{" "}
-                      <span className="font-bold">Step 3 ↓</span>
-                    </li>
-                  </ol>
-                  <p className="mt-1.5 text-[11px] text-muted">
-                    Want a different AI? Click another button above.
-                  </p>
-                </div>
-              ) : (
-                hasInput && (
-                  <p className="mt-2 text-[12px] text-muted">
-                    {promptSize && (
-                      <>Prompt is ready (~{promptSize.kb} KB). </>
-                    )}
-                    Tip: ChatGPT opens with it already typed in.
-                  </p>
-                )
-              )}
-            </div>
-            {/* B — manual-copy fallback. Shown only when the clipboard
-                API was unavailable. The textarea auto-selects on focus
-                so the user can Ctrl+C / Cmd+C the prompt. */}
-            {manualCopyPrompt && (
-              <div className="mt-2 border-2 border-ink/30 bg-soft p-2">
-                <p className="mb-1 font-mono text-[10px] text-ink">
-                  Auto-copy was blocked. Select all + copy this prompt,
-                  then paste it in your AI:
-                </p>
-                <textarea
-                  ref={manualCopyRef}
-                  readOnly
-                  value={manualCopyPrompt}
-                  onFocus={(e) => e.currentTarget.select()}
-                  rows={4}
-                  className="w-full border-2 border-ink bg-paper p-2 font-mono text-[10px] text-ink focus:outline-none focus:ring-2 focus:ring-coral"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    manualCopyRef.current?.focus();
-                    manualCopyRef.current?.select();
-                  }}
-                  className="mt-1 border-2 border-ink bg-paper px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
-                >
-                  Select all
-                </button>
+              {/* Fills the remaining height; the instruction card is
+                  vertically centered so the box reads full + balanced. */}
+              <div className="mt-5 flex min-h-0 flex-1 flex-col justify-center">
+                {lastClicked ? (
+                  <div className="border-2 border-coral bg-coral/10 px-7 py-7">
+                    <p className="text-[20px] font-bold leading-snug text-ink">
+                      ✓ Opened{" "}
+                      {getProviderById(lastClicked)?.label.replace(
+                        "Open ",
+                        "",
+                      ) ?? "your AI"}
+                      . Now, over in that tab:
+                    </p>
+                    <ol className="mt-4 list-decimal space-y-3 pl-6 text-[18px] leading-relaxed text-ink/90">
+                      <li>
+                        Send the prompt
+                        {lastClicked === "chatgpt"
+                          ? " (already filled in — just press Enter)"
+                          : " (paste it — it's on your clipboard — then send)"}
+                        .
+                      </li>
+                      <li>Wait for the answer, then copy the whole reply.</li>
+                      <li>
+                        Come back here and paste it in{" "}
+                        <span className="font-bold">Step 3 ↓</span>
+                      </li>
+                    </ol>
+                    <p className="mt-4 text-[17px] text-muted">
+                      Want a different AI? Click another button above.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="border-2 border-dashed border-ink/25 px-6 py-10 text-center">
+                    <p className="text-[15px] font-bold text-ink">
+                      Click one of the AIs above to begin.
+                    </p>
+                    <p className="mt-2 text-[13px] leading-relaxed text-muted">
+                      {promptSize && <>Your request is ready (~{promptSize.kb} KB). </>}
+                      It opens in a new tab — ChatGPT gets it typed in for
+                      you; the others get it on your clipboard to paste.
+                    </p>
+                  </div>
+                )}
+                {/* manual-copy fallback — only when the clipboard API was
+                    unavailable. Auto-selects on focus for Ctrl+C / Cmd+C. */}
+                {manualCopyPrompt && (
+                  <div className="mt-4 border-2 border-ink/30 bg-soft p-3">
+                    <p className="mb-1 font-mono text-[11px] text-ink">
+                      Auto-copy was blocked. Select all + copy this prompt,
+                      then paste it in your AI:
+                    </p>
+                    <textarea
+                      ref={manualCopyRef}
+                      readOnly
+                      value={manualCopyPrompt}
+                      onFocus={(e) => e.currentTarget.select()}
+                      rows={4}
+                      className="w-full border-2 border-ink bg-paper p-2 font-mono text-[11px] text-ink focus:outline-none focus:ring-2 focus:ring-coral"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        manualCopyRef.current?.focus();
+                        manualCopyRef.current?.select();
+                      }}
+                      className="mt-1 border-2 border-ink bg-paper px-2 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-paper"
+                    >
+                      Select all
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
-            </>
+            </div>
+
+            {/* RIGHT container — how this works. Equal width + full height,
+                mirrors the left box. The step list is a flex-1 region with
+                justify-center so it fills, with the privacy note pinned to
+                the bottom. */}
+            <div className="flex min-w-0 flex-1 flex-col border-2 border-ink/20 bg-soft/30 p-6">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+                How this works
+              </p>
+              <ol className="flex min-h-0 flex-1 flex-col justify-center gap-10 overflow-y-auto text-[28px] font-medium leading-snug text-ink">
+                <li className="flex items-start gap-5">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-coral text-[22px] font-bold text-paper">
+                    1
+                  </span>
+                  <span>
+                    We hand your request to <b>your own</b> AI — copied to
+                    your clipboard (and typed straight in, for ChatGPT).
+                  </span>
+                </li>
+                <li className="flex items-start gap-5">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-coral text-[22px] font-bold text-paper">
+                    2
+                  </span>
+                  <span>
+                    Your AI rewrites just this one element and replies with
+                    the new code.
+                  </span>
+                </li>
+                <li className="flex items-start gap-5">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-coral text-[22px] font-bold text-paper">
+                    3
+                  </span>
+                  <span>
+                    Paste that reply back here — we pull out the code and
+                    apply it live.
+                  </span>
+                </li>
+              </ol>
+              <div className="mt-4 border-t-2 border-ink/15 pt-4">
+                <p className="text-[13px] leading-relaxed text-muted">
+                  🔒 It runs on <b>your</b> AI account, so it&rsquo;s free
+                  and private — Dropin never sees your prompt or your reply.
+                </p>
+              </div>
+            </div>
+            </div>
             )}
           </section>
 
           {/* STEP 3 — paste + Apply */}
-          <section className="bg-paper">
+          <section
+            className={
+              "bg-paper " +
+              (activeStep === 3 ? "flex min-h-0 flex-1 flex-col" : "shrink-0")
+            }
+          >
             <StepHeader
               n={3}
               title="Paste the AI's reply"
@@ -840,7 +1135,9 @@ export default function ByoAiSwapModal({
               }
             />
             {activeStep === 3 && (
-            <div className="px-8 pb-6">
+            <div className="flex min-h-0 flex-1 flex-col px-8 pb-6">
+            {/* Textarea grows to fill the step (flex-1) so there's no dead
+                space below — a big paste target for the AI's reply. */}
             <textarea
               ref={textareaRef}
               value={pasteText}
@@ -864,8 +1161,7 @@ export default function ByoAiSwapModal({
               }}
               placeholder="Paste the AI's whole reply here (⌘↵ / Ctrl↵ to apply)"
               spellCheck={false}
-              rows={8}
-              className="w-full border-2 border-ink bg-paper p-3 font-mono text-[12px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
+              className="min-h-[140px] w-full flex-1 resize-none border-2 border-ink bg-paper p-3 font-mono text-[12px] text-ink placeholder:text-muted/60 focus:outline-none focus:ring-2 focus:ring-coral"
             />
             {/* B — source-changed notice. The AI's reply is based on the
                 template as it was when the prompt was copied. If the user

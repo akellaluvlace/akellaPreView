@@ -2107,6 +2107,19 @@ window.addEventListener('message', function (ev) {
     }
     dropinPost({ type: 'dropin:layout-context', requestId: d.requestId, context: ctx });
   }
+  else if (d.type === 'dropin:request-tree') {
+    // Host missed our unprompted on-ready tree push (handshake race) and is
+    // asking for a fresh snapshot. Cheap — re-walk + post.
+    dropinPostTree();
+  }
+  else if (d.type === 'dropin:request-ready') {
+    // Handshake poll. The host keeps asking until we answer (our one-shot
+    // on-load dropin:ready can land before the host's listener exists). Re-
+    // announce ready + push the tree. Idempotent — host de-dupes via its
+    // srcDoc-identity guard, and stops polling once it hears back.
+    dropinPost({ type: 'dropin:ready', kind: DROPIN_MODE });
+    dropinPostTree();
+  }
   else if (d.type === 'dropin:set-group-roots') {
     // Replace-not-merge: host owns the entire host-driven set on each push.
     // Template-author opt-in via \`data-dropin-group\` attribute is unaffected

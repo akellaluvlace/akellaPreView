@@ -357,48 +357,41 @@ export function applyDetachFromMap(
     return bail(source, `rewrite produced invalid syntax: ${String(e)}`);
   }
 
-  // Locate the new OID assigned to the detached middle IIFE. The
-  // middle bytes were OID-less when we passed them to injectOids,
-  // so it minted a fresh OID at the first JSX opening. We anchor on
-  // the IIFE's distinctive `)(arrSrc[K])` argument injection — that
-  // pattern is unique to the middle (the left/right slices use
-  // `.map(...)` not `(...)(arr[K])`). Then walk BACKWARDS to find
-  // the last OID attribute before the argument call, which sits on
-  // the middle's root JSX element.
+  // Locate the new OID assigned to the detached middle IIFE's ROOT
+  // element. The middle bytes were OID-less when we passed them to
+  // injectOids, so it minted fresh OIDs there — and injectOids stamps
+  // in source order, so the FIRST fresh OID in the middle block sits on
+  // the IIFE's root JSX element (its outermost opening tag).
+  //
+  // BUG FIX (2026-05-24): the previous logic took the LAST OID before
+  // the `)(arr[K])` call, on the false assumption that it was the root.
+  // The last OID is actually the DEEPEST/final child (e.g. a trailing
+  // `<span>↗</span>`), so the host patched the swap onto that inner node
+  // — the new design landed NESTED inside the card instead of replacing
+  // it. Reproduced against web/51-glassmorphism.jsx premiumPillars.
+  //
+  // We bound the search to the middle block precisely: it begins at the
+  // `}{((` boundary we inserted (left/right slices use `.map(` and never
+  // `((`), and ends at the `)(arr[K])` argument call. The first OID in
+  // that window that differs from the original cascade OID is the root
+  // (left/right slices retain `op.oid`; the middle gets a fresh one).
   let newOid: string | null = null;
   const finalSrc = reinjected.source;
   const iifeCallSig = `)(${arrSrc}[${K}])`;
   const iifeCallPos = finalSrc.indexOf(iifeCallSig, replaceStart);
   if (iifeCallPos >= 0) {
-    // Find the last data-dropin-id attribute in [replaceStart, iifeCallPos].
-    // Use a backwards lastIndexOf scan via a global regex bound to that range.
-    const middleRangeText = finalSrc.slice(replaceStart, iifeCallPos);
+    const middleSigStart = finalSrc.indexOf("}{((", replaceStart);
+    const blockStart =
+      middleSigStart >= 0 && middleSigStart < iifeCallPos
+        ? middleSigStart
+        : replaceStart;
+    const middleOnly = finalSrc.slice(blockStart, iifeCallPos);
     const re = /data-dropin-id="([^"]+)"/g;
-    let lastMatch: RegExpExecArray | null = null;
     let m: RegExpExecArray | null;
-    while ((m = re.exec(middleRangeText)) !== null) {
-      lastMatch = m;
-    }
-    if (lastMatch) newOid = lastMatch[1];
-  }
-  // If lastMatch happens to be from the LEFT slice (its closing tag
-  // came before the IIFE arg), filter out OIDs already shared by
-  // left+right slices — those keep the original OID; the middle's
-  // OID is the unique one.
-  if (newOid && newOid === op.oid) {
-    // Walk forward instead: find first OID inside the middle that
-    // differs from op.oid. The middle starts AFTER the left slice's
-    // closing `}{` boundary.
-    const middleBlockStart = finalSrc.indexOf("}{", replaceStart);
-    if (middleBlockStart >= 0 && middleBlockStart < iifeCallPos) {
-      const middleOnly = finalSrc.slice(middleBlockStart, iifeCallPos);
-      const re2 = /data-dropin-id="([^"]+)"/g;
-      let m2: RegExpExecArray | null;
-      while ((m2 = re2.exec(middleOnly)) !== null) {
-        if (m2[1] !== op.oid) {
-          newOid = m2[1];
-          break;
-        }
+    while ((m = re.exec(middleOnly)) !== null) {
+      if (m[1] !== op.oid) {
+        newOid = m[1];
+        break;
       }
     }
   }

@@ -450,6 +450,27 @@ export function patchJsxOuterByOid(
   return { source: s.toString(), changed: true, reason: null };
 }
 
+// 2026-05-25 — return the raw JSX SOURCE slice for the element bearing
+// `oid`, or null if not found / unparseable. Unlike the rendered outerHTML
+// (which the iframe serializes), this is the literal source — so for a
+// `.map()` callback element it INCLUDES the `{expr}` bindings (`{p.title}`,
+// `{f.icon}`) and the `data-dropin-id`. The BYO-AI "convert all N cards"
+// flow sends THIS to the AI so a group restyle keeps each card's own
+// content instead of baking in the clicked card's literal text.
+export function getJsxOuterByOid(source: string, oid: string): string | null {
+  let ast: any;
+  try {
+    ast = parse(source, PARSE_OPTS);
+  } catch {
+    return null;
+  }
+  const el = findJsxElementByOid(ast, oid);
+  if (!el || typeof el.start !== "number" || typeof el.end !== "number") {
+    return null;
+  }
+  return source.slice(el.start, el.end);
+}
+
 // Phase 5 — AI Edit JSX expression pre-detection. Walks the JSX subtree
 // rooted at `oid` and returns true if any JSXExpressionContainer child
 // exists (e.g. `{label}`, `{count + 1}`, conditional renders). Used to

@@ -39,6 +39,13 @@ export interface ComposeSwapPromptOptions {
   // reference. At least one of referenceHtml / userPrompt should be
   // present; both can be combined ("match this reference, but bigger").
   userPrompt?: string;
+  // 2026-05-25 — "convert all N cards" mode. When true, `targetOuterHtml`
+  // is actually the JSX SOURCE of a `.map()` callback element (it contains
+  // `{expr}` bindings like `{p.title}`), NOT rendered HTML. The element is
+  // a TEMPLATE rendered once per list item, so the AI must restyle it while
+  // keeping every `{…}` expression verbatim — otherwise all N cards would
+  // show the same baked-in literal text. Only set in JSX mode.
+  isGroupTemplate?: boolean;
 }
 
 // Cap on how much reference HTML we embed. Library tiles can be 3-8KB
@@ -68,6 +75,8 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
   const fenceLang = opts.kind === "html" ? "html" : "jsx";
   const hasReference = !!opts.referenceHtml && opts.referenceHtml.trim().length > 0;
   const hasUserPrompt = !!opts.userPrompt && opts.userPrompt.trim().length > 0;
+  // Group-template mode is JSX-only (cascades come from `.map()`).
+  const groupMode = !!opts.isGroupTemplate && opts.kind === "jsx";
 
   // 2026-05-23 — design-system context. A compact summary of the page's
   // color tokens/families + fonts so the AI's restyled element matches
@@ -122,9 +131,15 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
         ];
 
   // Intro + the style-instruction line adapt to which inputs exist.
-  const intro = hasReference
-    ? "I want to restyle ONE UI element to match a reference design."
-    : "I want to restyle ONE UI element.";
+  const intro = groupMode
+    ? hasReference
+      ? "I want to restyle a repeated UI element — a JSX template that renders " +
+        "several cards from a list — to match a reference design."
+      : "I want to restyle a repeated UI element — a JSX template that renders " +
+        "several cards from a list."
+    : hasReference
+      ? "I want to restyle ONE UI element to match a reference design."
+      : "I want to restyle ONE UI element.";
   const styleInstruction = hasReference
     ? "- Restyle it to look like the reference — colors, shape, " +
       "padding, shadow, hover effects, etc." +
@@ -138,7 +153,10 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
   return [
     intro,
     "",
-    "MY ELEMENT (restyle this one):",
+    groupMode
+      ? "MY ELEMENT — a JSX template rendered once per card (the `{...}` " +
+        "parts get filled in with each card's own content):"
+      : "MY ELEMENT (restyle this one):",
     "```" + fenceLang,
     opts.targetOuterHtml.trim(),
     "```",
@@ -147,7 +165,12 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
     ...designSection,
     "",
     "INSTRUCTIONS:",
-    "- Keep MY element's text content (the visible words inside).",
+    groupMode
+      ? "- KEEP every `{...}` expression EXACTLY as written (e.g. `{p.title}`, " +
+        "`{item.body}`, `{f.icon}`). They fill in each card's own content — " +
+        "NEVER replace a `{...}` with literal text, or every card becomes " +
+        "identical. Restyle ONLY the wrapper/markup around them."
+      : "- Keep MY element's text content (the visible words inside).",
     "- Keep MY element's meaningful attributes (href, src, alt, type, " +
       "name, and data-* attributes).",
     styleInstruction,
@@ -158,7 +181,16 @@ export function composeSwapPrompt(opts: ComposeSwapPromptOptions): string {
         ]
       : []),
     ...jsxGuards,
-    "- Return ONLY the single restyled element in one code block — just " +
-      "the one tag, NOT a full file or page. No explanation.",
+    // Anti-nesting guard (2026-05-24). Frontier models sometimes KEEP the
+    // original element and place the new design INSIDE it (so the page
+    // renders the old card with a new card nested in it). Be explicit: the
+    // returned element REPLACES mine; the new design IS the element.
+    "- Your returned element REPLACES mine completely. Do NOT keep my " +
+      "element's old wrapper/structure and nest the new design inside it. " +
+      "Output the new design as the element itself, with my text/content " +
+      "placed directly in it.",
+    "- Return EXACTLY ONE top-level element in one code block — just that " +
+      "one tag (with its children), NOT a full file or page, and NOT my " +
+      "old element wrapping a new one. No explanation.",
   ].join("\n");
 }

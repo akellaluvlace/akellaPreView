@@ -23,6 +23,7 @@ export {
   injectOids,
   stripOids,
   isParseable,
+  parsesAsPlainJsx,
   walkJsxOpenings,
   type InjectResult,
   type StripResult,

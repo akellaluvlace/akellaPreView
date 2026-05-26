@@ -84,15 +84,25 @@ describe("composeSwapPrompt — instruction content", () => {
     expect(prompt.toLowerCase()).toMatch(/href|src|alt/);
   });
 
-  it("instructs to return ONLY the single restyled element", () => {
+  it("instructs to return exactly one top-level element", () => {
     const prompt = composeSwapPrompt({
       fullSource: "x",
       kind: "html",
       targetOuterHtml: "x",
       referenceHtml: "x",
     });
-    expect(prompt.toLowerCase()).toMatch(/only the single restyled element/);
+    expect(prompt.toLowerCase()).toMatch(/exactly one top-level element/);
     expect(prompt.toLowerCase()).toContain("not a full file");
+  });
+
+  it("forbids nesting the new design inside the old element", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "jsx",
+      targetOuterHtml: "x",
+      referenceHtml: "x",
+    });
+    expect(prompt.toLowerCase()).toContain("replaces mine completely");
   });
 
   it("instructs to use one code block", () => {
@@ -118,6 +128,47 @@ describe("composeSwapPrompt — element-only framing", () => {
   });
 });
 
+describe("composeSwapPrompt — group/all-cards mode (2026-05-25)", () => {
+  it("reframes as a repeated template + demands {…} bindings be kept", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "jsx",
+      targetOuterHtml: '<div className="card">{p.title}</div>',
+      referenceHtml: "<div>ref</div>",
+      isGroupTemplate: true,
+    });
+    expect(prompt.toLowerCase()).toContain("template");
+    expect(prompt.toLowerCase()).toContain("keep every");
+    // Mentions the expression form so the model knows what NOT to bake in.
+    expect(prompt).toContain("{...}");
+    expect(prompt.toLowerCase()).toContain("rendered once per card");
+  });
+
+  it("single-element framing when isGroupTemplate is false", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "jsx",
+      targetOuterHtml: '<button className="old">Go</button>',
+      referenceHtml: "<div>ref</div>",
+      isGroupTemplate: false,
+    });
+    expect(prompt).toContain("Keep MY element's text content");
+    expect(prompt.toLowerCase()).not.toContain("rendered once per card");
+  });
+
+  it("ignores isGroupTemplate in HTML mode (group is JSX-only)", () => {
+    const prompt = composeSwapPrompt({
+      fullSource: "x",
+      kind: "html",
+      targetOuterHtml: '<div class="card">x</div>',
+      referenceHtml: "<div>r</div>",
+      isGroupTemplate: true,
+    });
+    expect(prompt).toContain("Keep MY element's text content");
+    expect(prompt.toLowerCase()).not.toContain("rendered once per card");
+  });
+});
+
 describe("composeSwapPrompt — free-form change (2026-05-23)", () => {
   it("composes a description-only prompt (no reference)", () => {
     const prompt = composeSwapPrompt({
@@ -131,7 +182,7 @@ describe("composeSwapPrompt — free-form change (2026-05-23)", () => {
     // No reference section when there's no reference.
     expect(prompt).not.toContain("THE REFERENCE DESIGN");
     // Still asks for one element back.
-    expect(prompt.toLowerCase()).toContain("only the single restyled element");
+    expect(prompt.toLowerCase()).toContain("exactly one top-level element");
   });
 
   it("composes a combined prompt (reference + description)", () => {

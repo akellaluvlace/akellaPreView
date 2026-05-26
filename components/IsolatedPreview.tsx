@@ -219,6 +219,30 @@ export default function IsolatedPreview({
     applyFocusChromeRef.current = applyFocusChrome;
   }, [applyFocusChrome]);
 
+  // Replay host state into a freshly-loaded iframe (active tool +
+  // reselect). Same handshake-race fix as Preview.tsx (2026-05-25): the
+  // iframe posts `dropin:ready` ONCE via setTimeout(0); if this window's
+  // message listener wasn't attached yet, that message is missed,
+  // readyRef stays false, set-tool never lands, DROPIN_TOOL stays 'view',
+  // and focus-mode editing dies. Calling this from the iframe's onLoad
+  // DOM event (fires after the runtime + its listener exist) closes the
+  // race. readyRef-guarded → runs once per load epoch (reset on srcDoc
+  // rebuild) regardless of which signal arrives first.
+  // Runs on EVERY ready/onLoad — no de-dupe guard (see the matching note in
+  // Preview.tsx: an srcDoc-identity guard starved the live document when the
+  // poll elicited a ready from a transitioning one). Re-sync is idempotent.
+  const markReadyAndReplay = useCallback(
+    (reason: string) => {
+      readyRef.current = true;
+      // Tool first so DROPIN_TOOL is canonical before the reselect's
+      // matching click goes through dropinSetSelected.
+      post({ type: "dropin:set-tool", tool: toolRef.current });
+      post({ type: "dropin:reselect", loc: locRef.current });
+      void reason;
+    },
+    [post]
+  );
+
   useEffect(() => {
     function handler(ev: MessageEvent) {
       // Mirror Preview's source check — the main preview iframe lives in the
@@ -229,13 +253,8 @@ export default function IsolatedPreview({
       if (!isIframeMessage(ev.data)) return;
       const d = ev.data;
       if (d.type === "dropin:ready") {
-        readyRef.current = true;
-        // Phase 5 / Phase B — replay the active tool first so the
-        // iframe's `DROPIN_TOOL` is canonical before the reselect's
-        // matching click goes through dropinSetSelected. Same order
-        // as Preview.tsx — set-tool first, then reselect.
-        post({ type: "dropin:set-tool", tool: toolRef.current });
-        post({ type: "dropin:reselect", loc: locRef.current });
+        // Guarded — no-op if the onLoad fallback already replayed.
+        markReadyAndReplay("dropin:ready message");
       } else if (d.type === "dropin:select") {
         // Iframe confirms the element is now marked selected — paint chrome.
         applyFocusChromeRef.current();
@@ -252,7 +271,25 @@ export default function IsolatedPreview({
     }
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
-  }, [post]);
+  }, [post, markReadyAndReplay]);
+
+  // HANDSHAKE POLL (2026-05-25) — same reliable readiness signal as
+  // Preview.tsx. The iframe's one-shot dropin:ready / onLoad both lose the
+  // mount-ordering race; poll dropin:request-ready until it answers, then
+  // stop. Without this, focus-mode editing dies the same way (DROPIN_TOOL
+  // stuck 'view'). Bounded: stops on ready, ~3s cap, re-armed per srcDoc.
+  useEffect(() => {
+    let tries = 0;
+    post({ type: "dropin:request-ready" });
+    const id = setInterval(() => {
+      if (readyRef.current || tries++ > 30) {
+        clearInterval(id);
+        return;
+      }
+      post({ type: "dropin:request-ready" });
+    }, 100);
+    return () => clearInterval(id);
+  }, [srcDoc, post]);
 
   // Phase 5 / Phase B — live-push tool changes while the iframe is
   // alive. Mirrors the Preview.tsx pattern. Iframe rebuilds wipe the
@@ -319,6 +356,10 @@ export default function IsolatedPreview({
         ref={iframeRef}
         title="Focused element preview"
         srcDoc={srcDoc}
+        // Handshake-race fallback — see markReadyAndReplay. Guarantees the
+        // tool/reselect replay even if the iframe's single dropin:ready
+        // postMessage was missed by a not-yet-attached listener.
+        onLoad={() => markReadyAndReplay("iframe onLoad")}
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
         className="block h-full w-full bg-white"
       />
