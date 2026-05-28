@@ -74,7 +74,15 @@ export default function TemplateTile({
         </span>
 
         <div
-          aria-hidden="true"
+          // NB: no aria-hidden here — the overlay contains the
+          // real Select / Preview actions (their own aria-labels
+          // describe them). Marking the overlay as aria-hidden
+          // would hide focusable controls from AT, and after a
+          // tap on Preview the browser refuses to keep focus on
+          // an aria-hidden descendant (Chrome logs a warning and
+          // strips focus). The dim is decorative chrome, but the
+          // controls inside are not.
+          //
           // Mobile (<lg): actions always visible — the hover-reveal
           // pattern doesn't work on touch and would otherwise leave
           // tiles completely un-tappable on phones. Lighter dim (35%)
@@ -82,11 +90,15 @@ export default function TemplateTile({
           // hover-reveal with full dim (65%) for the editorial feel.
           className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-ink/35 backdrop-blur-[1px] transition-opacity duration-150 lg:pointer-events-none lg:bg-ink/65 lg:opacity-0 lg:backdrop-blur-[2px] lg:group-hover:pointer-events-auto lg:group-hover:opacity-100 lg:group-focus-within:pointer-events-auto lg:group-focus-within:opacity-100"
         >
+          {/* Select (open in editor) is hidden on mobile (<lg). The
+              editor isn't usable on a phone, and the gallery's job on
+              mobile is preview-only — Preview is the single primary
+              action. Desktop keeps both. */}
           <Link
             href={editorHref}
             tabIndex={tabbable ? 0 : -1}
             aria-label={`Open ${template.title} in editor`}
-            className="min-w-[6.5rem] border-2 border-paper bg-paper px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-ink transition-colors hover:bg-coral hover:text-paper focus-visible:bg-coral focus-visible:text-paper focus-visible:outline-none"
+            className="hidden min-w-[6.5rem] border-2 border-paper bg-paper px-4 py-2 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-ink transition-colors hover:bg-coral hover:text-paper focus-visible:bg-coral focus-visible:text-paper focus-visible:outline-none lg:inline-block"
           >
             Select
           </Link>

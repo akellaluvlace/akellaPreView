@@ -38,6 +38,7 @@ export default function PreviewRoute({
       onClose={handleClose}
       lockBodyScroll={false}
       closeLabel="Close · Esc"
+      publicPreviewMode
     />
   );
 }

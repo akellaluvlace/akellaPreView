@@ -394,7 +394,11 @@ function Hero({ templateCount }: { templateCount: number }) {
             className="dropin-step-reveal mt-auto flex flex-wrap justify-center gap-3 pt-10 lg:mt-8 lg:justify-start lg:pt-0"
             style={{ animationDelay: "560ms" }}
           >
-            <Link href="/playground" className="btn btn-accent">
+            {/* Open-playground CTA hidden on phones — the playground
+                editor isn't usable on a phone-sized screen, and the
+                gallery CTA below is the natural mobile entry point.
+                Matches the masthead's `hidden sm:inline-flex` rule. */}
+            <Link href="/playground" className="btn btn-accent hidden sm:inline-flex">
               Open playground →
             </Link>
             <Link href="/gallery" className="btn">

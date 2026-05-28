@@ -20,6 +20,12 @@ interface PreviewModalProps {
   // closing doesn't fight with the route transition.
   lockBodyScroll?: boolean;
   closeLabel?: string;
+  // /preview/[slug] is the public-facing preview. On phones we strip the
+  // header meta (label / chip / filename) and the viewport switcher so
+  // only the iframe + Close remain, and add a banner telling the user
+  // that editing requires a desktop browser. Desktop is unaffected and
+  // workspace-launched previews (lockBodyScroll: true) ignore this flag.
+  publicPreviewMode?: boolean;
 }
 
 const VIEWPORTS: { id: Viewport; label: string; width: string | null }[] = [
@@ -36,6 +42,7 @@ export default function PreviewModal({
   onClose,
   lockBodyScroll = true,
   closeLabel = "Close · Esc",
+  publicPreviewMode = false,
 }: PreviewModalProps) {
   const [viewport, setViewport] = useState<Viewport>(initialViewport);
   const lastFocusRef = useRef<HTMLElement | null>(null);
@@ -92,7 +99,15 @@ export default function PreviewModal({
           peek through it, and the bar sits cleanly above any navbar that
           the rendered template happens to render at its own y=0. */}
       <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-ink/15 bg-paper/90 px-4 py-2 shadow-[0_2px_12px_rgba(15,15,15,0.08)] backdrop-blur-md backdrop-saturate-150 md:px-6">
-        <div className="flex min-w-0 items-center gap-3">
+        {/* Left meta hides on phones in public-preview mode — the
+            label / chip / filename are useful only on desktop where
+            there's room. On phone we want just the Close button. */}
+        <div
+          className={
+            "flex min-w-0 items-center gap-3 " +
+            (publicPreviewMode ? "hidden lg:flex" : "")
+          }
+        >
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/70">
             Fullscreen preview
           </span>
@@ -107,8 +122,15 @@ export default function PreviewModal({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          {/* Viewport switcher hides on phones in public-preview mode —
+              the user IS on a phone, so the natural full-width iframe
+              already shows the template's mobile rendering. Desktop
+              keeps the desktop / tablet / mobile options. */}
           <div
-            className="inline-flex overflow-hidden rounded-sm border border-ink/30 bg-paper/70"
+            className={
+              "overflow-hidden rounded-sm border border-ink/30 bg-paper/70 " +
+              (publicPreviewMode ? "hidden lg:inline-flex" : "inline-flex")
+            }
             role="group"
             aria-label="Viewport"
           >
@@ -144,6 +166,17 @@ export default function PreviewModal({
           </button>
         </div>
       </header>
+
+      {/* Phone-only banner: tells the user the preview is read-only and
+          editing requires a larger screen. Only renders in public-
+          preview mode (the /preview/[slug] route) — workspace-launched
+          previews never see it. Hidden on lg+ since desktop already has
+          the full editor available a click away. */}
+      {publicPreviewMode && (
+        <div className="shrink-0 border-b border-ink/15 bg-paper px-4 py-2 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-ink/70 lg:hidden">
+          Preview only on mobile · Open on desktop to edit
+        </div>
+      )}
 
       {/* Iframe fills everything below the bar. min-h-0 + flex-1 lets the
           iframe shrink to the remaining height instead of overflowing. On
