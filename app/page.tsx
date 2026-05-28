@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HeroWatermark from "@/components/HeroWatermark";
 import TasteCarousel from "@/components/TasteCarousel";
 import {
   getAllTemplates,
@@ -171,7 +172,7 @@ function Masthead() {
             aria-hidden="true"
             className="h-12 w-12 md:h-14 md:w-14"
           />
-          <span>Dropin</span>
+          <span>Drop In</span>
         </Link>
         <nav className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] md:gap-6 md:text-[11px] md:tracking-[0.2em]">
           {/* Mobile (<sm): only Gallery is surfaced — the hero CTAs
@@ -316,26 +317,26 @@ function Hero({ templateCount }: { templateCount: number }) {
             top-down (lg:contents on the middle wrapper removes the
             flex centering).
             `relative isolate` creates a stacking context for the
-            faint watermark logo (next sibling) so its `-z-10` sits
+            sketched watermark (next child) so its `-z-10` sits
             behind the column's content but stays inside this
-            column's box (won't escape to the parent grid). */}
+            column's box. */}
         <div className="relative isolate flex flex-col lg:col-span-8">
-          {/* Faint watermark — the wolf logo, inverted so the black
-              becomes white, then dropped to ~30% opacity so it reads
-              as a lighter-cream silhouette in roughly the same shade
-              family as the cards / navbar. Centered behind the
-              column's content via absolute positioning. */}
-          <img
-            src="/assets/logo.png"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-[40%] -z-10 h-auto w-[195%] max-w-[780px] -translate-x-1/2 -translate-y-1/2 select-none opacity-30 lg:left-[28%] lg:top-1/2 lg:w-[144%] lg:max-w-[1300px]"
-            style={{ filter: "invert(1) brightness(1.05)" }}
-          />
+          {/* Sketched watermark — same wolf silhouette, same
+              left-column placement and ~30% white-on-cream tone as
+              the previous inverted PNG; only the reveal is new
+              (125deg mask-wipe outline → fill, then outline fades).
+              Inline SVG so the animation timing is reliable on first
+              paint. */}
+          <HeroWatermark />
           {/* Chips lead with a glance-readable icon. gap-2 stays
               tight; icons sit at 11px to preserve the chip's compact
-              all-caps tracking. */}
-          <div className="flex flex-wrap items-center gap-2">
+              all-caps tracking. Staggered reveal pairs with the
+              watermark wipe — chips first, then h1, sub-caption,
+              body, CTAs. Mirrors the right column's per-card cascade. */}
+          <div
+            className="dropin-step-reveal flex flex-wrap items-center gap-2"
+            style={{ animationDelay: "0ms" }}
+          >
             <span className="chip gap-1.5"><EyeChipIcon />Live preview</span>
             <span className="chip gap-1.5"><BoltChipIcon />Zero install</span>
             <span className="chip gap-1.5"><BracketsChipIcon />HTML · JSX</span>
@@ -351,7 +352,10 @@ function Hero({ templateCount }: { templateCount: number }) {
             {/* Templates-led headline — Dropin's whole point: the
                 {templateCount}-template gallery + the freedom to edit
                 and keep them, AND a free asset library bundled in. */}
-            <h1 className="mt-8 font-display text-[52px] leading-[0.95] sm:mt-10 sm:text-[60px] md:text-[68px] lg:mt-7 lg:text-display-xl">
+            <h1
+              className="dropin-step-reveal mt-8 font-display text-[52px] leading-[0.95] sm:mt-10 sm:text-[60px] md:text-[68px] lg:mt-7 lg:text-display-xl"
+              style={{ animationDelay: "140ms" }}
+            >
               {templateCount} templates.
               <br />
               <em className="not-italic text-coral" style={{ fontStyle: "italic" }}>
@@ -363,14 +367,20 @@ function Hero({ templateCount }: { templateCount: number }) {
             {/* Sub-caption split into two lines for graceful wrap on
                 mobile — line 1 holds the visual asset types, line 2
                 surfaces "Our library" as the call-out. */}
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.25em] text-muted sm:text-xs">
+            <p
+              className="dropin-step-reveal mt-4 font-mono text-[11px] uppercase tracking-[0.25em] text-muted sm:text-xs"
+              style={{ animationDelay: "280ms" }}
+            >
               <span className="block">Images · Components · Icons</span>
               <span className="block">Videos · Our library</span>
             </p>
             {/* Body anchors the freedom angle — free, editable, no
                 install — and surfaces the live-preview mechanic as a
                 "plus, also" benefit instead of the lead. */}
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink/80 sm:mt-7 sm:text-lg lg:mx-0">
+            <p
+              className="dropin-step-reveal mx-auto mt-5 max-w-xl text-base leading-relaxed text-ink/80 sm:mt-7 sm:text-lg lg:mx-0"
+              style={{ animationDelay: "420ms" }}
+            >
               <strong className="font-semibold text-ink">Free to remix. Free to keep.</strong>
               {" "}No install, no sign-in. Plus a live playground for any AI-generated HTML or JSX.
             </p>
@@ -380,7 +390,10 @@ function Hero({ templateCount }: { templateCount: number }) {
               the bottom edge). Centered horizontally on mobile
               (`justify-center`), left-aligned on desktop
               (`lg:justify-start`). */}
-          <div className="mt-auto flex flex-wrap justify-center gap-3 pt-10 lg:mt-8 lg:justify-start lg:pt-0">
+          <div
+            className="dropin-step-reveal mt-auto flex flex-wrap justify-center gap-3 pt-10 lg:mt-8 lg:justify-start lg:pt-0"
+            style={{ animationDelay: "560ms" }}
+          >
             <Link href="/playground" className="btn btn-accent">
               Open playground →
             </Link>
