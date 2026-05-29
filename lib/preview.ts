@@ -2539,8 +2539,68 @@ ${buildPackageSetupScript(referencedPkgs)}
   function legacyStrip(src) {
     return src
       .replace(/^[ \\t]*import[ \\t][\\s\\S]*?;[ \\t]*$/gm, function (m) { return m.replace(/[^\\n]/g, ' '); })
-      .replace(/export[ \\t]+default[ \\t]+/, function (m) { return 'return' + new Array(m.length - 5).join(' '); })
+      // Mirror the AST-walker behaviour: replace 'export default ' (15
+      // chars) with '__dropinExport=' (15 chars) — length-preserving so
+      // line numbers stay aligned. The IIFE wrapper hoists the var at
+      // the top and returns it at the bottom, so the assignment is a
+      // module-level statement and any \`const styles = ...\` declared
+      // AFTER the default export still runs before the component is
+      // called. Without this, AI-generated JSX that appends helper
+      // consts below the component hits TDZ when rendered.
+      .replace(/export[ \\t]+default[ \\t]+/, function (m) { var t = '__dropinExport='; return t + new Array(Math.max(0, m.length - t.length) + 1).join(' '); })
       .replace(/^([ \\t]*)(export[ \\t]+)(?!default\\b)/gm, function (_m, pre, kw) { return pre + new Array(kw.length + 1).join(' '); });
+  }
+
+  // Scan source for shadcn/ui imports and build a stub preamble. Used
+  // by the legacy regex path so AI-generated JSX that uses <Button>,
+  // <Card>, etc. still renders even when Babel.parse isn't available.
+  // Matches both single-line and multi-line import statements.
+  function buildShadcnStubsFromRegex(src) {
+    var parts = [];
+    var re = /import\\s*\\{([^}]+)\\}\\s*from\\s*["'](@\\/components\\/ui\\/[^"']+)["']/g;
+    var m;
+    while ((m = re.exec(src)) !== null) {
+      var names = m[1].split(',');
+      for (var i = 0; i < names.length; i++) {
+        var raw = names[i].trim();
+        if (!raw) continue;
+        // Handle \`Foo as Bar\` — bind to the local alias.
+        var localMatch = raw.match(/(?:\\w+)\\s+as\\s+(\\w+)$/);
+        var local = localMatch ? localMatch[1] : raw.replace(/[^\\w].*$/, '');
+        if (!local) continue;
+        var nameLower = local.toLowerCase();
+        var element = 'div';
+        if (nameLower === 'button') element = 'button';
+        else if (nameLower === 'input') element = 'input';
+        else if (nameLower === 'textarea') element = 'textarea';
+        else if (nameLower === 'label') element = 'label';
+        else if (nameLower === 'select') element = 'select';
+        else if (nameLower === 'form') element = 'form';
+        parts.push(
+          'var ' + local + '=function(p){' +
+            'p=p||{};var q={};for(var k in p){' +
+              'if(k!=="variant"&&k!=="size"&&k!=="asChild")q[k]=p[k];' +
+            '}' +
+            'return React.createElement("' + element + '",q,p.children);' +
+          '};'
+        );
+      }
+    }
+    // \`@/lib/utils\` — cn() className joiner stub.
+    var utilsRe = /import\\s*\\{([^}]+)\\}\\s*from\\s*["']@\\/lib\\/utils["']/g;
+    while ((m = utilsRe.exec(src)) !== null) {
+      var ns = m[1].split(',');
+      for (var j = 0; j < ns.length; j++) {
+        var nm = ns[j].trim();
+        var lm = nm.match(/(?:\\w+)\\s+as\\s+(\\w+)$/);
+        var lcl = lm ? lm[1] : nm.replace(/[^\\w].*$/, '');
+        if (!lcl) continue;
+        parts.push(
+          'var ' + lcl + '=function(){var a=[];for(var i=0;i<arguments.length;i++){var v=arguments[i];if(v)a.push(typeof v==="string"?v:Array.isArray(v)?v.filter(Boolean).join(" "):"");}return a.join(" ");};'
+        );
+      }
+    }
+    return parts.join('');
   }
 
   function processModuleSyntax(src) {
@@ -2548,7 +2608,8 @@ ${buildPackageSetupScript(referencedPkgs)}
       // Defensive: should never happen with @babel/standalone 7.x, but if
       // it does, degrade gracefully rather than producing a "Babel.parse is
       // not a function" cryptic error in the user's preview.
-      return { preamble: '', stripped: legacyStrip(src), unsupported: [], relativeImports: [] };
+      try { console.warn('[dropin:dbg] Babel.parse missing — legacy regex fallback active. typeof Babel:', typeof Babel, '· keys:', Object.keys(Babel || {}).join(',')); } catch (e) {}
+      return { preamble: buildShadcnStubsFromRegex(src), stripped: legacyStrip(src), unsupported: [], relativeImports: [] };
     }
     var ast;
     try {
@@ -2583,6 +2644,54 @@ ${buildPackageSetupScript(referencedPkgs)}
         var pkg = node.source.value;
         // Side-effect-only import (\`import 'pkg';\`): nothing to bind, skip.
         if (!node.specifiers || node.specifiers.length === 0) continue;
+
+        // Shadcn/ui stub mode — any \`@/components/ui/<name>\` import gets
+        // stubbed as HTML-element passthroughs. AI-generated JSX uses
+        // shadcn primitives + Tailwind utility classes for all the
+        // styling, so the wrapper just needs to render the right HTML
+        // element with className/children/onClick etc. passed through.
+        // Strips shadcn-only props (variant/size/asChild) so they don't
+        // leak into DOM as invalid attributes.
+        if (pkg.indexOf('@/components/ui/') === 0) {
+          for (var sci = 0; sci < node.specifiers.length; sci++) {
+            var ssc = node.specifiers[sci];
+            if (ssc.type !== 'ImportSpecifier' && ssc.type !== 'ImportDefaultSpecifier') continue;
+            var localName = ssc.local.name;
+            var nameLower = (localName || '').toLowerCase();
+            var element = 'div';
+            if (nameLower === 'button') element = 'button';
+            else if (nameLower === 'input') element = 'input';
+            else if (nameLower === 'textarea') element = 'textarea';
+            else if (nameLower === 'label') element = 'label';
+            else if (nameLower === 'select') element = 'select';
+            else if (nameLower === 'form') element = 'form';
+            preambleParts.push(
+              'var ' + localName + '=function(p){' +
+                'p=p||{};var q={};for(var k in p){' +
+                  'if(k!=="variant"&&k!=="size"&&k!=="asChild")q[k]=p[k];' +
+                '}' +
+                'return React.createElement("' + element + '",q,p.children);' +
+              '};'
+            );
+          }
+          continue;
+        }
+        // \`@/lib/utils\` — shadcn's \`cn()\` className-merge helper.
+        // Minimal stub: filter truthy args and space-join. Doesn't
+        // implement tailwind-merge conflict resolution; templates that
+        // depend on conflict-resolution semantics will still look right
+        // 95% of the time because the LAST class wins via cascade.
+        if (pkg === '@/lib/utils') {
+          for (var sli = 0; sli < node.specifiers.length; sli++) {
+            var sls = node.specifiers[sli];
+            if (sls.type !== 'ImportSpecifier' && sls.type !== 'ImportDefaultSpecifier') continue;
+            preambleParts.push(
+              'var ' + sls.local.name + '=function(){var a=[];for(var i=0;i<arguments.length;i++){var v=arguments[i];if(v)a.push(typeof v==="string"?v:Array.isArray(v)?v.filter(Boolean).join(" "):"");}return a.join(" ");};'
+            );
+          }
+          continue;
+        }
+
         // Relative or absolute path — collect, surface alongside unsupported
         // packages. Earlier behaviour silently stripped these, leading to
         // confusing "Foo is not defined" runtime errors with no hint that
@@ -2619,15 +2728,21 @@ ${buildPackageSetupScript(referencedPkgs)}
       }
 
       if (node.type === 'ExportDefaultDeclaration') {
-        // Replace \`export default \` keyword span with \`return\` + spaces
-        // (length-preserving). The transform target is sourceType:'script'
-        // wrapped in an IIFE — 'return' becomes the value the IIFE returns.
+        // Replace \`export default \` (15 chars) with \`__dropinExport=\`
+        // (also 15 chars — length-preserving so loc-plugin line numbers
+        // stay correct). The IIFE wrapper hoists \`var __dropinExport;\`
+        // at the top and runs \`return __dropinExport;\` at the bottom,
+        // so the assignment is a regular module-level statement and the
+        // rest of the file (e.g. \`const styles = ...\` declared AFTER
+        // the default export) keeps executing instead of being skipped
+        // by an early \`return\`. Without this, AI-generated code that
+        // appends helper consts below the component hits TDZ when the
+        // component renders.
         var keywordEnd = node.declaration.start;
         var keywordLen = keywordEnd - node.start;
-        // 'return' is 6 chars; pad the remainder with spaces. Math.max guards
-        // against the (impossible-but-defensive) keywordLen < 6 case.
-        var pad = Math.max(0, keywordLen - 6);
-        var replacement = 'return' + new Array(pad + 1).join(' ');
+        var target = '__dropinExport='; // 15 chars
+        var pad = Math.max(0, keywordLen - target.length);
+        var replacement = target + new Array(pad + 1).join(' ');
         edits.push({ start: node.start, end: keywordEnd, kind: 'replace', replacement: replacement });
         continue;
       }
@@ -2714,11 +2829,25 @@ ${buildPackageSetupScript(referencedPkgs)}
     var processed = processModuleSyntax(src);
 
     if (processed.unsupported.length) {
-      throw new Error(
-        'Unsupported imports in playground:\\n  ' + processed.unsupported.join(', ') +
-        '\\n\\nSupported packages: ' + SUPPORTED_PKGS_LIST.join(', ') +
-        '\\n\\nESM-only packages (lucide-react ESM build, framer-motion, @radix-ui/*, @heroicons/react, etc.) are deferred to a v2 esm.sh fallback. To request a UMD-shippable package be added, see maniuplation.md gap #5.'
-      );
+      // Detect shadcn/ui (\`@/components/ui/*\`) and other project-local
+      // aliases up front — those crash with the same "X is not defined"
+      // pattern AI-generated code is famous for, and the generic
+      // "Unsupported imports" message buries the real fix (replace
+      // <Button> with a styled <button>, etc.). Surface a targeted hint.
+      var aliased = [];
+      var others = [];
+      for (var u = 0; u < processed.unsupported.length; u++) {
+        var name = processed.unsupported[u];
+        if (name.charAt(0) === '@' && name.indexOf('/') > 0) aliased.push(name);
+        else others.push(name);
+      }
+      var msg = 'Unsupported imports in playground:\\n  ' + processed.unsupported.join(', ');
+      if (aliased.length) {
+        msg += '\\n\\nThese look like project-local aliases (\`@/components/ui/*\` is shadcn/ui, \`@/lib/...\` is your own code). Drop In runs the file as a single self-contained preview, so it cannot resolve them.\\n\\nQuick fix: replace shadcn components (<Button>, <Card>, etc.) with styled native HTML elements (<button className="...">), or inline the helper from your project.';
+      }
+      msg += '\\n\\nSupported packages: ' + SUPPORTED_PKGS_LIST.join(', ');
+      msg += '\\n\\nESM-only packages (lucide-react ESM build, framer-motion, @radix-ui/*, @heroicons/react, etc.) are deferred to a v2 esm.sh fallback. To request a UMD-shippable package be added, see maniuplation.md gap #5.';
+      throw new Error(msg);
     }
 
     if (processed.relativeImports.length) {
@@ -2728,10 +2857,50 @@ ${buildPackageSetupScript(referencedPkgs)}
       );
     }
 
+    // Defensive React hook bindings — every JSX preview gets these
+    // unconditionally, BEFORE the import-walker's per-import preamble.
+    // Belt-and-braces for two situations:
+    //   1. AI-generated code that uses \`useRef()\` directly without
+    //      importing it (rare but happens with some prompts).
+    //   2. The import walker missing a binding because Babel.parse hit
+    //      a recoverable error on an aliased path (e.g. @/components/ui/*)
+    //      and didn't fully populate the import node.
+    // Re-declaring \`var useRef = ...\` after a per-import \`var useRef = ...\`
+    // is legal (same scope, same binding target) so this doesn't conflict
+    // with the existing path.
+    var DEFAULT_HOOKS_PREAMBLE =
+      'var useState=React.useState,useEffect=React.useEffect,' +
+      'useRef=React.useRef,useCallback=React.useCallback,' +
+      'useMemo=React.useMemo,useReducer=React.useReducer,' +
+      'useContext=React.useContext,useLayoutEffect=React.useLayoutEffect,' +
+      'useImperativeHandle=React.useImperativeHandle,useDebugValue=React.useDebugValue,' +
+      'useId=React.useId,useTransition=React.useTransition,' +
+      'useDeferredValue=React.useDeferredValue,useSyncExternalStore=React.useSyncExternalStore,' +
+      'useInsertionEffect=React.useInsertionEffect,Fragment=React.Fragment,' +
+      'createContext=React.createContext,createRef=React.createRef,' +
+      'forwardRef=React.forwardRef,memo=React.memo,Suspense=React.Suspense,lazy=React.lazy;';
+
     // Preamble lives inline with "(function(){" so user-source line offsets
     // are unchanged — the loc plugin's "(line - 1)" offset still maps Babel
     // line N+1 → user-source line N regardless of preamble length.
-    var wrapped = '(function(){' + processed.preamble + '\\n' + processed.stripped + '\\n})()';
+    //
+    // \`var __dropinExport;\` is hoisted at the top so the export-default
+    // walker can assign into it as a regular statement (instead of
+    // emitting an early \`return\`). The trailing \`return __dropinExport;\`
+    // runs AFTER all module-level code (including helper \`const\`s
+    // declared below the component, which would otherwise hit TDZ when
+    // the component renders).
+    var EXPORT_HOIST = 'var __dropinExport;';
+    var EXPORT_RETURN = '\\nreturn __dropinExport;';
+    var wrapped =
+      '(function(){' +
+      EXPORT_HOIST +
+      DEFAULT_HOOKS_PREAMBLE +
+      processed.preamble +
+      '\\n' + processed.stripped +
+      EXPORT_RETURN +
+      '\\n})()';
+
     var compiled = Babel.transform(wrapped, {
       presets: ['react'],
       plugins: ['dropin-loc'],

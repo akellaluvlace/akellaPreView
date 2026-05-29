@@ -278,6 +278,32 @@ export default function Workspace({
     codeRef.current = code;
   }, [code]);
 
+  const [kind, setKind] = useState<PreviewKind>(initialKind);
+
+  // Playground-only: auto-detect HTML vs JSX from the leading tokens. The
+  // JSX/HTML chooser was retired from the toolbar (2026-05-20 — each
+  // gallery template ships with its mode set per file). The playground
+  // doesn't have a template, so pastes from ChatGPT / Claude / a local
+  // file might be either format. Without this, pasting an HTML doc into
+  // the JSX-default playground throws `Unexpected token (2:0)` on
+  // `<!DOCTYPE>`. We only flip on STRONG signals so half-typed JSX
+  // (`<` mid-edit) doesn't swap underneath the user.
+  function detectKindFromCode(src: string): PreviewKind | null {
+    const trimmed = src.trimStart().toLowerCase();
+    if (trimmed.startsWith("<!doctype html") || trimmed.startsWith("<html"))
+      return "html";
+    if (
+      trimmed.startsWith("function ") ||
+      trimmed.startsWith("const ") ||
+      trimmed.startsWith("import ") ||
+      trimmed.startsWith("export ") ||
+      trimmed.startsWith("\"use ") ||
+      trimmed.startsWith("'use ")
+    )
+      return "jsx";
+    return null;
+  }
+
   const handleEditorChange = useCallback(
     (value: string) => {
       if (suppressHistoryRef.current) {
@@ -286,10 +312,16 @@ export default function Workspace({
       } else {
         setCode(value);
       }
+      if (allowKindToggle) {
+        const detected = detectKindFromCode(value);
+        if (detected && detected !== kind) {
+          log("auto-detect kind flip", { from: kind, to: detected });
+          setKind(detected);
+        }
+      }
     },
-    [setCode, setCodeSilent],
+    [setCode, setCodeSilent, allowKindToggle, kind],
   );
-  const [kind, setKind] = useState<PreviewKind>(initialKind);
   const [viewport, setViewport] = useState<Viewport>("desktop");
   // Phase 5 / A6: active breakpoint for inspector reads/writes. "desktop" is
   // the implicit no-prefix cascade in mobile-first Tailwind; "tablet"
