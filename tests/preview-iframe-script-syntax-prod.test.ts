@@ -73,4 +73,18 @@ describe("preview iframe runtime is syntactically valid JS", () => {
     const doc = buildPreviewDocument({ code: JSX_TEMPLATE, kind: "jsx" });
     expect(doc).toContain("Babel.packages.parser.parse");
   });
+
+  it("both docs carry the engine guard, broken-image fallback + mixed-content upgrade", () => {
+    const jsx = buildPreviewDocument({ code: JSX_TEMPLATE, kind: "jsx" });
+    const html = buildPreviewDocument({ code: HTML_TEMPLATE, kind: "html" });
+    // Fix #4 — readable message when the CDN engine fails (JSX path only).
+    expect(jsx).toContain("Could not load the preview engine");
+    // Fix #5 — broken-image listener + placeholder + mixed-content upgrade,
+    // in BOTH preview pipelines.
+    for (const doc of [jsx, html]) {
+      expect(doc).toContain("dropin:imageError");
+      expect(doc).toContain('data-dropin-broken="1"');
+      expect(doc).toContain("upgrade-insecure-requests");
+    }
+  });
 });

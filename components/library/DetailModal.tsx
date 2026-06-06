@@ -164,6 +164,7 @@ function DetailPreview({ full }: { full: ComponentFull }) {
       title={`Preview: ${full.title}`}
       srcDoc={srcDoc}
       sandbox="allow-scripts allow-same-origin"
+      referrerPolicy="no-referrer"
       className="h-full w-full bg-card"
     />
   );

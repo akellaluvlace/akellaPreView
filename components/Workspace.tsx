@@ -1224,6 +1224,17 @@ export default function Workspace({
     showWarn(`Preview error — ${short}`);
   }, [showWarn]);
 
+  // Aggregated broken-image notice from the preview iframe (dead AI
+  // placeholder hosts / 404 relative paths). Guidance, not an error — the
+  // dashed coral boxes already show WHERE; this says WHAT to do.
+  const handleImageError = useCallback((count: number) => {
+    track("iframe image error", count);
+    const n = count > 1 ? `${count} images` : "An image";
+    showWarn(
+      `${n} couldn't load — the URL is a dead placeholder or a relative path. Use Shuffle, Browse, or paste a direct https image URL.`,
+    );
+  }, [showWarn]);
+
   // Phase 2 (4b + twelfth-pass) resize commit. SelectionOverlay calls this on
   // `pointerup` with a declaration map — the gesture has already run the
   // intent resolver to pick CSS prop names per axis (`width` for block
@@ -4212,6 +4223,7 @@ export default function Workspace({
             onSelectionChange={handleSelectionChange}
             onTextCommit={handleTextCommit}
             onIframeError={handleIframeError}
+            onImageError={handleImageError}
             onResize={handleResize}
             onSpacing={handleSpacing}
             onResizeMulti={handleResizeMulti}

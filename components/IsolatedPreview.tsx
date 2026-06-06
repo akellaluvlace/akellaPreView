@@ -361,6 +361,9 @@ export default function IsolatedPreview({
         // postMessage was missed by a not-yet-attached listener.
         onLoad={() => markReadyAndReplay("iframe onLoad")}
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        // Don't leak the host URL as Referer — some image CDNs hotlink-block on
+        // referrer, silently failing pasted/swapped images. Privacy win too.
+        referrerPolicy="no-referrer"
         className="block h-full w-full bg-white"
       />
     </div>

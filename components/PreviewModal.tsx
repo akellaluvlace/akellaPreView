@@ -187,6 +187,7 @@ export default function PreviewModal({
           title="Fullscreen preview"
           srcDoc={srcDoc}
           sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+          referrerPolicy="no-referrer"
           className="block h-full w-full border-0 bg-white"
           style={
             widthForViewport

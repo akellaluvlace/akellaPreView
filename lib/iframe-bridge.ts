@@ -92,6 +92,10 @@ export type IframeToHostMessage =
   | { type: "dropin:clear-selection"; reason?: "user" | "reselect-failed" }
   | { type: "dropin:scroll"; y: number }
   | { type: "dropin:error"; message: string }
+  // Aggregated broken-image notice: one or more <img> failed to load in the
+  // preview (dead placeholder host / 404 relative path). `count` = distinct
+  // failed URLs. The IMAGE_FALLBACK_SCRIPT in lib/preview.ts emits this.
+  | { type: "dropin:imageError"; count: number }
   // Layer 2 layout-context response. `requestId` echoes the originating
   // request so concurrent in-flight queries don't collide. `context: null`
   // means the iframe couldn't find an element with that OID — typically
@@ -428,6 +432,7 @@ const IFRAME_MESSAGE_TYPES = [
   "dropin:clear-selection",
   "dropin:scroll",
   "dropin:error",
+  "dropin:imageError",
   "dropin:layout-context",
   "dropin:bbox",
   "dropin:min-content-result",

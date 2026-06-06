@@ -157,7 +157,41 @@ ${lines}
 // accepted risk: vibecoders paste arbitrary code, the iframe runs it, that
 // is the entire product. The CSP isolates the preview from third parties,
 // not from the user's own pasted code. See `maniuplation.md` gap #4.
-const CSP_META = `<meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self'" />`;
+// `upgrade-insecure-requests` auto-upgrades http:// subresources (e.g. an AI-
+// emitted `<img src="http://...">`) to https on the https deploy, where they
+// would otherwise be silently blocked as mixed content. `frame-ancestors`
+// stays for the clickjacking/exfiltration isolation described above.
+const CSP_META = `<meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self'; upgrade-insecure-requests" />`;
+
+// Broken-image surfacing. AI-generated HTML routinely points <img> at dead
+// placeholder hosts (source.unsplash.com — shut down 2024, via.placeholder.com
+// — offline 2024, example.com) or project-relative paths that 404 against the
+// playground origin. With no handling those are invisible empty boxes — the
+// exact "pasted HTML → images don't render" demo symptom. A capture-phase
+// listener (img load errors don't bubble, so capture is required) marks each
+// failed <img> so the CSS placeholder shows, and posts ONE aggregated
+// dropin:imageError to the host for a guidance toast. Injected into both the
+// HTML and JSX preview heads; works for React-rendered <img> too (document-
+// level capture catches dynamically added nodes).
+const IMAGE_FALLBACK_SCRIPT = `<script>(function(){
+  var seen = {}, total = 0, timer = null;
+  document.addEventListener('error', function (ev) {
+    var t = ev.target;
+    if (!t || t.tagName !== 'IMG') return;
+    if (t.getAttribute('data-dropin-broken') === '1') return;
+    t.setAttribute('data-dropin-broken', '1');
+    var src = (t.currentSrc || t.getAttribute('src') || '');
+    if (!seen[src]) { seen[src] = true; total++; }
+    if (timer) { clearTimeout(timer); }
+    timer = setTimeout(function () {
+      try {
+        if (typeof parent !== 'undefined' && parent !== window) {
+          parent.postMessage({ __dropin: true, type: 'dropin:imageError', count: total }, '*');
+        }
+      } catch (e) {}
+    }, 400);
+  }, true);
+})();</script>`;
 
 const INSPECTOR_CSS = `
   html, body { margin: 0; }
@@ -201,6 +235,17 @@ const INSPECTOR_CSS = `
     outline: 2px solid #FF4D2E !important; outline-offset: 2px !important;
     background-color: rgba(255,77,46,0.06) !important;
     caret-color: #FF4D2E;
+  }
+  /* Broken / placeholder <img> (dead AI hosts, 404 relative paths). Without
+     this they're invisible empty boxes; the dashed coral box makes it obvious
+     WHERE an image failed instead of "images don't render". Set by the
+     capture-phase listener in IMAGE_FALLBACK_SCRIPT. */
+  img[data-dropin-broken="1"] {
+    min-width: 36px !important; min-height: 36px !important;
+    background-color: #FBEAE5 !important;
+    background-image: repeating-linear-gradient(45deg, rgba(255,77,46,0.18) 0, rgba(255,77,46,0.18) 7px, transparent 7px, transparent 14px) !important;
+    border: 2px dashed rgba(255,77,46,0.8) !important;
+    box-sizing: border-box !important;
   }
 `;
 
@@ -2321,13 +2366,13 @@ function buildHtmlDoc(code: string, withTailwind: boolean, restoreScrollY: numbe
     if (hasHead) {
       result = result.replace(
         /<head[^>]*>/i,
-        (match) => `${match}\n    ${CSP_META}\n    ${tailwindTag}\n    ${fontsLink}\n    ${inspectorStyle}`
+        (match) => `${match}\n    ${CSP_META}\n    ${tailwindTag}\n    ${fontsLink}\n    ${inspectorStyle}\n    ${IMAGE_FALLBACK_SCRIPT}`
       );
     } else {
       // Stick a head before <body>
       result = result.replace(
         /<body[^>]*>/i,
-        (match) => `<head>${CSP_META}${tailwindTag}${fontsLink}${inspectorStyle}</head>\n${match}`
+        (match) => `<head>${CSP_META}${tailwindTag}${fontsLink}${inspectorStyle}${IMAGE_FALLBACK_SCRIPT}</head>\n${match}`
       );
     }
     result = result.replace(/<\/body>/i, `${inspectorScript}\n</body>`);
@@ -2343,6 +2388,7 @@ ${CSP_META}
 ${tailwindTag}
 ${fontsLink}
 ${inspectorStyle}
+${IMAGE_FALLBACK_SCRIPT}
 </head>
 <body>
 ${code}
@@ -2490,6 +2536,7 @@ ${buildPackageScriptTags(referencedPkgs)}
 <script src="${BABEL_URL}"></script>
 ${buildPackageSetupScript(referencedPkgs)}
 <style>${INSPECTOR_CSS}</style>
+${IMAGE_FALLBACK_SCRIPT}
 </head>
 <body>
 <div id="root"></div>

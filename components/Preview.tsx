@@ -208,6 +208,10 @@ interface PreviewProps {
   ) => void;
   onTextCommit: (loc: ElementLoc, text: string, tag: string) => void;
   onIframeError?: (message: string) => void;
+  // Fired (debounced, aggregated) when one or more <img> in the preview fail
+  // to load — dead AI placeholder hosts or 404 relative paths. `count` is the
+  // number of distinct failed image URLs. Lets the host show a guidance toast.
+  onImageError?: (count: number) => void;
   onReady?: (handle: PreviewHandle) => void;
   // Vibe-edit selection callbacks. Fire only when DROPIN_TOOL ===
   // 'vibe' (the iframe runtime gates emission). Optional so existing
@@ -357,6 +361,7 @@ export default function Preview({
   onSelectionChange,
   onTextCommit,
   onIframeError,
+  onImageError,
   onReady,
   onResize,
   onSpacing,
@@ -1120,6 +1125,9 @@ export default function Preview({
       } else if (d.type === "dropin:error") {
         track("iframe reported error", d.message);
         if (onIframeError) onIframeError(d.message);
+      } else if (d.type === "dropin:imageError") {
+        track("iframe reported image error", d.count);
+        if (onImageError) onImageError(typeof d.count === "number" ? d.count : 1);
       } else if (d.type === "vibe:selected") {
         track("vibe:selected", { tag: d.info.tag, kind: d.info.kind, path: d.info.path });
         if (onVibeSelectedRef.current) onVibeSelectedRef.current(d.info);
@@ -1137,7 +1145,7 @@ export default function Preview({
       dlog("[dropin:lifecycle] message listener detached");
       window.removeEventListener("message", handler);
     };
-  }, [onSelectionChange, onTextCommit, onIframeError, postToIframe, markReadyAndReplay]);
+  }, [onSelectionChange, onTextCommit, onIframeError, onImageError, postToIframe, markReadyAndReplay]);
 
   useEffect(() => {
     if (!readyRef.current) return;
@@ -1291,6 +1299,10 @@ export default function Preview({
               ref={iframeRef}
               title="Preview"
               srcDoc={srcDoc}
+              // Don't leak the playground URL as Referer — some image CDNs
+              // (e.g. Pixabay) hotlink-block on referrer, which made pasted /
+              // swapped images silently fail to load. Privacy win too.
+              referrerPolicy="no-referrer"
               // Best-effort fast readiness signal. The guaranteed path is the
               // dropin:request-ready poll (see the effect above); onLoad +
               // the direct dropin:ready message just sync sooner when they do
