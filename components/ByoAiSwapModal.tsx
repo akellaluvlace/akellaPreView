@@ -574,7 +574,12 @@ export default function ByoAiSwapModal({
         }
         opened = window.open(url, "_blank", "noopener");
       }
-      const popupBlocked = !!provider.openUrl && (!opened || opened.closed);
+      // NB: window.open(..., "noopener") returns null even on SUCCESS (per
+      // spec), so we can't reliably detect a blocked popup here — and we keep
+      // "noopener" to prevent reverse-tabnabbing. The clipboard copy is the
+      // real fallback: if the tab was blocked, the prompt is still copied and
+      // the user pastes it after opening the provider themselves.
+      void opened;
 
       // Remember the user's choice + snapshot the source for the
       // edit-after-copy notice.
@@ -593,10 +598,6 @@ export default function ByoAiSwapModal({
       if (!copied && !prefilled) {
         onWarn(
           "Couldn't auto-copy — the prompt is shown below the buttons. Select all + copy it manually, then paste in your AI.",
-        );
-      } else if (popupBlocked) {
-        onWarn(
-          `Prompt copied, but ${providerName}'s tab was blocked by your browser. Open ${providerName} yourself + paste — then come back here.`,
         );
       } else if (prefilled) {
         onInfo(

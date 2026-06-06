@@ -331,17 +331,29 @@ export default function Workspace({
   const [breakpoint, setBreakpointState] = useState<Breakpoint>("desktop");
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const stored = window.localStorage.getItem("dropin:breakpoint");
-    if (stored === "mobile" || stored === "tablet" || stored === "desktop") {
-      setBreakpointState(stored);
-      setViewport(stored);
+    // localStorage access THROWS (not returns null) in storage-blocked
+    // contexts — Safari private mode, embedded webviews, hardened browsers.
+    // Unguarded, this throw at mount blanks the whole workspace. Fall through
+    // to the "desktop" default on failure.
+    try {
+      const stored = window.localStorage.getItem("dropin:breakpoint");
+      if (stored === "mobile" || stored === "tablet" || stored === "desktop") {
+        setBreakpointState(stored);
+        setViewport(stored);
+      }
+    } catch {
+      /* storage blocked — keep the desktop default */
     }
   }, []);
   const setBreakpoint = useCallback((bp: Breakpoint) => {
     setBreakpointState(bp);
     setViewport(bp);
     if (typeof window !== "undefined") {
-      window.localStorage.setItem("dropin:breakpoint", bp);
+      try {
+        window.localStorage.setItem("dropin:breakpoint", bp);
+      } catch {
+        /* storage blocked — the in-memory state still applies this session */
+      }
     }
   }, []);
   // Phase 5 / Phase B — active tool. Default View; persists per-tab in
