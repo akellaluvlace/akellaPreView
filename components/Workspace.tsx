@@ -109,6 +109,10 @@ import {
 } from "@/lib/source-patch-html";
 import { patchJsxOuterByOid } from "@/lib/ast/patch-class-by-oid";
 import { stripLeadingAttributionComment } from "@/lib/asset-library/strip-attribution-comment";
+import {
+  detectKindByPrefix,
+  detectFragmentKind,
+} from "@/lib/detect-paste-kind";
 import { htmlToJsx } from "@/lib/component-library/html-to-jsx";
 import { applyDetachFromMap } from "@/lib/ast/operations/detach-from-map";
 import type {
@@ -281,32 +285,17 @@ export default function Workspace({
 
   const [kind, setKind] = useState<PreviewKind>(initialKind);
 
-  // Playground-only: auto-detect HTML vs JSX from the leading tokens. The
-  // JSX/HTML chooser was retired from the toolbar (2026-05-20 — each
-  // gallery template ships with its mode set per file). The playground
-  // doesn't have a template, so pastes from ChatGPT / Claude / a local
-  // file might be either format. Without this, pasting an HTML doc into
-  // the JSX-default playground throws `Unexpected token (2:0)` on
-  // `<!DOCTYPE>`. We only flip on STRONG signals so half-typed JSX
-  // (`<` mid-edit) doesn't swap underneath the user.
-  function detectKindFromCode(src: string): PreviewKind | null {
-    const trimmed = src.trimStart().toLowerCase();
-    if (trimmed.startsWith("<!doctype html") || trimmed.startsWith("<html"))
-      return "html";
-    if (
-      trimmed.startsWith("function ") ||
-      trimmed.startsWith("const ") ||
-      trimmed.startsWith("import ") ||
-      trimmed.startsWith("export ") ||
-      trimmed.startsWith("\"use ") ||
-      trimmed.startsWith("'use ")
-    )
-      return "jsx";
-    return null;
-  }
-
+  // Playground-only: auto-detect HTML vs JSX. The JSX/HTML chooser was
+  // retired from the toolbar (2026-05-20 — each gallery template ships with
+  // its mode set per file). The playground has no template, so pastes from
+  // ChatGPT / Claude / a local file may be either format. detectKindByPrefix
+  // (cheap) flips on strong prefixes — now tolerating a leading markdown fence
+  // or HTML comment; detectFragmentKind (a strict-JSX parse) catches HTML
+  // fragments that don't start with <!doctype/<html. The parse-based pass runs
+  // ONLY on a paste-sized insertion so half-typed JSX never swaps underneath.
   const handleEditorChange = useCallback(
     (value: string) => {
+      const prevLen = codeRef.current?.length ?? 0;
       if (suppressHistoryRef.current) {
         suppressHistoryRef.current = false;
         setCodeSilent(value);
@@ -314,7 +303,14 @@ export default function Workspace({
         setCode(value);
       }
       if (allowKindToggle) {
-        const detected = detectKindFromCode(value);
+        let detected = detectKindByPrefix(value);
+        if (!detected && Math.abs(value.length - prevLen) > 24) {
+          // Paste-sized change only (magnitude, so select-all-then-paste —
+          // which can shrink the buffer — still qualifies). The strict-JSX
+          // parse is heavier and could mis-fire mid-keystroke, so we never
+          // run it on single-character edits.
+          detected = detectFragmentKind(value);
+        }
         if (detected && detected !== kind) {
           log("auto-detect kind flip", { from: kind, to: detected });
           setKind(detected);
