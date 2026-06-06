@@ -51,19 +51,24 @@ const SUPPORTED_PKGS: SupportedPkg[] = [
   // --- pre-loaded UMDs (already in head as react/react-dom scripts) ---
   {
     name: "react",
+    // typeof-guarded: this setup script runs in the HEAD, before the body's
+    // error overlay exists, so a CDN/ad-blocker failure to load React must
+    // NOT throw an uncaught "React is not defined" here — the body engine
+    // guard surfaces a friendly message instead.
     umd: null,
-    setup: "window.__pkgs['react'] = React;",
+    setup: "if (typeof React !== 'undefined') window.__pkgs['react'] = React;",
   },
   {
     name: "react-dom",
     umd: null,
-    setup: "window.__pkgs['react-dom'] = ReactDOM;",
+    setup:
+      "if (typeof ReactDOM !== 'undefined') window.__pkgs['react-dom'] = ReactDOM;",
   },
   {
     name: "react-dom/client",
     umd: null,
     setup:
-      "window.__pkgs['react-dom/client'] = { createRoot: ReactDOM.createRoot, hydrateRoot: ReactDOM.hydrateRoot };",
+      "if (typeof ReactDOM !== 'undefined') window.__pkgs['react-dom/client'] = { createRoot: ReactDOM.createRoot, hydrateRoot: ReactDOM.hydrateRoot };",
   },
   // --- external UMDs (added in head, sync) ---
   {
@@ -2508,6 +2513,20 @@ ${buildPackageSetupScript(referencedPkgs)}
   }
   window.addEventListener('error', function (ev) { showError(ev.error || ev.message); });
   window.addEventListener('unhandledrejection', function (ev) { showError(ev.reason); });
+
+  // Engine load guard. React / ReactDOM / Babel load from a CDN in the head
+  // (sync <script src>); a blocked CDN, an ad-blocker, a content-blocker, or
+  // an offline network leaves their globals undefined. Without this the user
+  // gets a silent white box (or a cryptic "Babel is not defined"). Surface a
+  // readable, actionable message and stop before the transform runs.
+  if (typeof React === 'undefined' || typeof ReactDOM === 'undefined' || typeof Babel === 'undefined') {
+    var __missing = [];
+    if (typeof React === 'undefined') __missing.push('React');
+    if (typeof ReactDOM === 'undefined') __missing.push('ReactDOM');
+    if (typeof Babel === 'undefined') __missing.push('Babel');
+    showError('Could not load the preview engine (' + __missing.join(', ') + '). This is almost always a blocked CDN — disable any ad-blocker / content-blocker for this site (or check your network) and reload.');
+    return;
+  }
 
   // List of npm package names whose imports we'll rewrite to
   // \`var X = window.__pkgs[name]\` instead of stripping. Anything not on this
