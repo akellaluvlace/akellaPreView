@@ -13,6 +13,7 @@
 // Cached for 1 hour at the edge / data layer (revalidate: 3600).
 
 import { NextResponse } from "next/server";
+import { assetProxyRateLimiter, readClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 // Default — overridable per-request via the `revalidate` arg in `fetch`.
@@ -53,6 +54,12 @@ function notConfigured() {
 }
 
 export async function GET(req: Request) {
+  if (!assetProxyRateLimiter.allow(readClientIp(req), Date.now())) {
+    return NextResponse.json(
+      { configured: true, error: "rate-limited", detail: "Too many requests — slow down a moment." },
+      { status: 429 }
+    );
+  }
   const key = process.env.UNSPLASH_ACCESS_KEY;
   if (!key) return notConfigured();
 
@@ -76,6 +83,8 @@ export async function GET(req: Request) {
     res = await fetch(upstream, {
       headers: { Authorization: `Client-ID ${key}`, "Accept-Version": "v1" },
       next: { revalidate: 3600 },
+      // Don't let a hung upstream pin the serverless function — abort + 502.
+      signal: AbortSignal.timeout(8000),
     });
   } catch (e) {
     // Don't echo `String(e)` — undici error messages include the request
@@ -109,7 +118,18 @@ export async function GET(req: Request) {
     );
   }
 
-  const data: UnsplashSearchResponse = await res.json();
+  // Defensive JSON parse — a non-JSON 200 (Cloudflare challenge, proxy HTML)
+  // would otherwise throw an opaque 500 the panel can't model.
+  let data: UnsplashSearchResponse;
+  try {
+    data = (await res.json()) as UnsplashSearchResponse;
+  } catch (e) {
+    console.error("[unsplash] upstream returned non-JSON:", e);
+    return NextResponse.json(
+      { configured: true, error: "upstream-malformed", detail: "Unsplash returned an unexpected response shape." },
+      { status: 502 }
+    );
+  }
 
   // Trim the payload to just what the panel needs — keeps the wire payload
   // small and protects us from upstream schema drift leaking client-side.
@@ -117,7 +137,7 @@ export async function GET(req: Request) {
     configured: true,
     total: data.total,
     total_pages: data.total_pages,
-    results: data.results.map((p) => ({
+    results: (data.results || []).map((p) => ({
       id: p.id,
       description: p.description || p.alt_description || "",
       width: p.width,

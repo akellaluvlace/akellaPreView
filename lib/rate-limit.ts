@@ -96,6 +96,29 @@ export function createRateLimiter(
 // go through `defaultRateLimiter.allow(ip, now)`.
 export const defaultRateLimiter = createRateLimiter();
 
+// Shared limiter for the PUBLIC asset proxies (Pixabay / Unsplash / Pexels +
+// Unsplash download tracking). Looser than the 5/min default because image
+// search legitimately bursts (pagination / shuffle), but still bounds a single
+// IP from draining the owner's free-tier provider key (Unsplash dev = 50/hr).
+// 30 requests / minute / IP.
+export const assetProxyRateLimiter = createRateLimiter({
+  limit: 30,
+  windowMs: 60_000,
+});
+
+// Best-effort client IP for rate-limiting. Prefer x-real-ip — on Vercel / most
+// reverse proxies this is the platform-injected connecting IP, which the client
+// cannot forge. The FIRST x-forwarded-for value IS client-controllable (a
+// client can prepend a fake hop to reset its bucket), so only fall back to it
+// when x-real-ip is absent. (2026-05-26 audit #5.)
+export function readClientIp(req: Request): string {
+  const real = req.headers.get("x-real-ip");
+  if (real && real.trim()) return real.trim();
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim();
+  return "unknown";
+}
+
 // Constants exported for tests + observability.
 export const RATE_LIMIT_CONSTANTS = {
   DEFAULT_LIMIT: DEFAULT_OPTS.limit,

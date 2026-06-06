@@ -4,6 +4,7 @@
 // panel's resolution dropdown can pick the right one at insert time.
 
 import { NextResponse } from "next/server";
+import { assetProxyRateLimiter, readClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const revalidate = 3600;
@@ -22,6 +23,12 @@ function notConfigured() {
 }
 
 export async function GET(req: Request) {
+  if (!assetProxyRateLimiter.allow(readClientIp(req), Date.now())) {
+    return NextResponse.json(
+      { configured: true, error: "rate-limited", detail: "Too many requests — slow down a moment." },
+      { status: 429 }
+    );
+  }
   const key = process.env.PEXELS_API_KEY;
   if (!key) return notConfigured();
 
@@ -39,6 +46,7 @@ export async function GET(req: Request) {
     res = await fetch(upstream, {
       headers: { Authorization: key },
       next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(8000),
     });
   } catch (e) {
     // Don't echo `String(e)` — see pexels-photos/route.ts.
@@ -68,7 +76,17 @@ export async function GET(req: Request) {
     );
   }
 
-  const data = await res.json();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let data: any;
+  try {
+    data = await res.json();
+  } catch (e) {
+    console.error("[pexels-videos] upstream returned non-JSON:", e);
+    return NextResponse.json(
+      { configured: true, error: "upstream-malformed", detail: "Pexels returned an unexpected response shape." },
+      { status: 502 }
+    );
+  }
   return NextResponse.json({
     configured: true,
     total: data.total_results,
@@ -79,8 +97,8 @@ export async function GET(req: Request) {
       url: string;
       image: string;
       duration: number;
-      user: { name: string; url: string };
-      video_files: PexelsVideoFile[];
+      user?: { name?: string; url?: string };
+      video_files?: PexelsVideoFile[];
     }) => ({
       id: v.id,
       width: v.width,
@@ -88,8 +106,10 @@ export async function GET(req: Request) {
       url: v.url,
       image: v.image,
       duration: v.duration,
-      user: { name: v.user.name, url: v.user.url },
-      video_files: v.video_files.map((f) => ({
+      // Guard sparse/legacy upstream shapes (PEXVID-1) — a missing user or
+      // video_files array threw an opaque 500.
+      user: { name: v.user?.name ?? "", url: v.user?.url ?? "" },
+      video_files: (v.video_files ?? []).map((f) => ({
         id: f.id,
         quality: f.quality,
         file_type: f.file_type,

@@ -4,6 +4,7 @@
 // to what `insert-pexels-photo.ts` expects.
 
 import { NextResponse } from "next/server";
+import { assetProxyRateLimiter, readClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const revalidate = 3600;
@@ -22,6 +23,12 @@ function notConfigured() {
 }
 
 export async function GET(req: Request) {
+  if (!assetProxyRateLimiter.allow(readClientIp(req), Date.now())) {
+    return NextResponse.json(
+      { configured: true, error: "rate-limited", detail: "Too many requests — slow down a moment." },
+      { status: 429 }
+    );
+  }
   const key = process.env.PEXELS_API_KEY;
   if (!key) return notConfigured();
 
@@ -43,6 +50,7 @@ export async function GET(req: Request) {
     res = await fetch(upstream, {
       headers: { Authorization: key },
       next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(8000),
     });
   } catch (e) {
     // Don't echo `String(e)` — undici error messages include the request
@@ -76,7 +84,17 @@ export async function GET(req: Request) {
     );
   }
 
-  const data = await res.json();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let data: any;
+  try {
+    data = await res.json();
+  } catch (e) {
+    console.error("[pexels-photos] upstream returned non-JSON:", e);
+    return NextResponse.json(
+      { configured: true, error: "upstream-malformed", detail: "Pexels returned an unexpected response shape." },
+      { status: 502 }
+    );
+  }
   return NextResponse.json({
     configured: true,
     total: data.total_results,

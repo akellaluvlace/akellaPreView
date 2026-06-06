@@ -8,10 +8,14 @@
 // Returns: { ok: true } on success, structured 503 if not configured.
 
 import { NextResponse } from "next/server";
+import { assetProxyRateLimiter, readClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
+  if (!assetProxyRateLimiter.allow(readClientIp(req), Date.now())) {
+    return NextResponse.json({ ok: false, error: "rate-limited" }, { status: 429 });
+  }
   const key = process.env.UNSPLASH_ACCESS_KEY;
   if (!key) {
     return NextResponse.json(
@@ -35,6 +39,7 @@ export async function POST(req: Request) {
   try {
     await fetch(url, {
       headers: { Authorization: `Client-ID ${key}`, "Accept-Version": "v1" },
+      signal: AbortSignal.timeout(8000),
     });
   } catch {
     // Tracking is best-effort. Swallow and return ok so the insert path

@@ -17,6 +17,7 @@
 // Cached for 1 hour at the data layer (revalidate: 3600).
 
 import { NextResponse } from "next/server";
+import { assetProxyRateLimiter, readClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const revalidate = 3600;
@@ -59,6 +60,12 @@ interface PixabayResponse {
 }
 
 export async function GET(req: Request) {
+  if (!assetProxyRateLimiter.allow(readClientIp(req), Date.now())) {
+    return NextResponse.json(
+      { configured: true, error: "rate-limited", detail: "Too many requests — slow down a moment." },
+      { status: 429 },
+    );
+  }
   const key = process.env.PIXABAY_API_KEY;
   if (!key) return notConfigured();
 
@@ -94,7 +101,11 @@ export async function GET(req: Request) {
   const upstream = `https://pixabay.com/api/?${params.toString()}`;
   let res: Response;
   try {
-    res = await fetch(upstream, { next: { revalidate: 3600 } });
+    res = await fetch(upstream, {
+      next: { revalidate: 3600 },
+      // Don't let a hung upstream pin the serverless function — abort + 502.
+      signal: AbortSignal.timeout(8000),
+    });
   } catch (e) {
     // Critical: NEVER include the raw error message verbatim. Node's
     // undici fetch error message includes the offending URL with the
@@ -124,13 +135,15 @@ export async function GET(req: Request) {
       );
     }
     // 400 for any other reason (bad `q`, unsupported param, etc.).
-    // Don't leak the upstream body verbatim — it can echo query params
-    // or include unbounded debug info. Truncate + label.
+    // NEVER echo the upstream body: Pixabay's auth is a `key` query param, so
+    // any 400 that reflects the request URL would forward the API key to the
+    // client. Log the raw text server-side only; return a static label.
+    console.error("[pixabay] upstream 400:", text.slice(0, 500));
     return NextResponse.json(
       {
         configured: true,
         error: "bad-request",
-        detail: text.slice(0, 200),
+        detail: "Pixabay rejected the request parameters.",
       },
       { status: 400 },
     );

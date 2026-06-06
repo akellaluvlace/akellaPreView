@@ -55,23 +55,10 @@ type RewriteResponse =
 // `lib/rate-limit.ts` so it's testable + the bucket-growth fix lives
 // in a pure-logic module. Default-singleton instance for the route;
 // tests use `createRateLimiter` directly.
-import { defaultRateLimiter } from "@/lib/rate-limit";
+import { defaultRateLimiter, readClientIp } from "@/lib/rate-limit";
 
 function rateLimitOk(ip: string): boolean {
   return defaultRateLimiter.allow(ip, Date.now());
-}
-
-function readClientIp(req: Request): string {
-  // Prefer x-real-ip: on Vercel/most reverse proxies this is the
-  // platform-injected connecting IP, which the client cannot forge. The
-  // FIRST value of x-forwarded-for is client-controllable (a client can
-  // prepend a fake hop to reset its rate-limit bucket), so only fall back
-  // to it when x-real-ip is absent. (2026-05-26 audit #5.)
-  const real = req.headers.get("x-real-ip");
-  if (real && real.trim()) return real.trim();
-  const xff = req.headers.get("x-forwarded-for");
-  if (xff) return xff.split(",")[0].trim();
-  return "unknown";
 }
 
 const SYSTEM_PROMPT = `You are a Tailwind CSS class rewriting assistant. Given the user's element source, current Tailwind classes, and a freeform prompt, return ONLY a JSON object with \`classes\` (string[]) — the new full class list to apply. No prose, no markdown fences.
