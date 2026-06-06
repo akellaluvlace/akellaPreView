@@ -2604,16 +2604,27 @@ ${buildPackageSetupScript(referencedPkgs)}
   }
 
   function processModuleSyntax(src) {
-    if (typeof Babel.parse !== 'function') {
-      // Defensive: should never happen with @babel/standalone 7.x, but if
-      // it does, degrade gracefully rather than producing a "Babel.parse is
-      // not a function" cryptic error in the user's preview.
-      try { console.warn('[dropin:dbg] Babel.parse missing — legacy regex fallback active. typeof Babel:', typeof Babel, '· keys:', Object.keys(Babel || {}).join(',')); } catch (e) {}
+    // @babel/standalone exposes its parser at Babel.packages.parser.parse;
+    // the top-level Babel.parse alias is NOT part of the documented API and
+    // is undefined on the shipped 7.24.x UMD build — so this gate used to be
+    // ALWAYS true and every JSX preview silently ran the degraded regex
+    // stripper (per-import bindings, multi-line imports, friendly relative/
+    // unsupported import errors and exact export math were all dead code).
+    // Resolve whichever parser the loaded bundle actually exposes; both
+    // accept the same { sourceType, plugins:['jsx'], errorRecovery } options
+    // and return nodes with numeric start/end (the edit loop below reads
+    // node.start / node.end).
+    var babelParse =
+      (typeof Babel.parse === 'function') ? Babel.parse :
+      (Babel.packages && Babel.packages.parser && typeof Babel.packages.parser.parse === 'function') ? Babel.packages.parser.parse :
+      null;
+    if (!babelParse) {
+      try { console.warn('[dropin:dbg] Babel parser missing — legacy regex fallback active. typeof Babel:', typeof Babel, '· keys:', Object.keys(Babel || {}).join(',')); } catch (e) {}
       return { preamble: buildShadcnStubsFromRegex(src), stripped: legacyStrip(src), unsupported: [], relativeImports: [] };
     }
     var ast;
     try {
-      ast = Babel.parse(src, {
+      ast = babelParse(src, {
         sourceType: 'module',
         plugins: ['jsx'],
         errorRecovery: true
@@ -2826,7 +2837,17 @@ ${buildPackageSetupScript(referencedPkgs)}
     });
 
     var src = ${safeSrc};
-    var processed = processModuleSyntax(src);
+    var processed;
+    try {
+      processed = processModuleSyntax(src);
+    } catch (walkErr) {
+      // Safety net for the now-live import-walker (its Babel parser resolved
+      // to undefined for a long time, so this AST path is freshly activated):
+      // any unexpected node shape degrades to the proven regex stripper
+      // instead of throwing a cryptic error into the user's preview.
+      try { console.warn('[dropin:dbg] processModuleSyntax threw — legacy regex fallback:', walkErr && walkErr.message); } catch (e2) {}
+      processed = { preamble: buildShadcnStubsFromRegex(src), stripped: legacyStrip(src), unsupported: [], relativeImports: [] };
+    }
 
     if (processed.unsupported.length) {
       // Detect shadcn/ui (\`@/components/ui/*\`) and other project-local
