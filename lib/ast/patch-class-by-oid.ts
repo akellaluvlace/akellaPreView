@@ -398,14 +398,26 @@ function injectOidIntoOuter(newOuter: string, oid: string): string {
     /\s*data-dropin-id\s*=\s*("[^"]*"|'[^']*')/g,
     "",
   );
+  // A library media asset can lead with an attribution comment
+  // (`{/* ... */}` in JSX, `<!-- ... -->` in HTML). Skip it — preserving
+  // it verbatim in the output — so the OID stamps onto the first REAL
+  // element rather than no-op'ing on the comment (which previously lost
+  // OID continuity on every image swap). A bare Fragment opener (`<>`)
+  // has no tag name, so the tag regex still correctly no-ops on it — we
+  // must never stamp data-dropin-id onto a Fragment.
+  const lead = stripped.match(
+    /^(\s*(?:\{\/\*[\s\S]*?\*\/\}|<!--[\s\S]*?-->)\s*)/,
+  );
+  const prefix = lead ? lead[1] : "";
+  const rest = lead ? stripped.slice(lead[1].length) : stripped;
   // Insert right after the first opening tag's name. The match handles
   // leading whitespace, optional ws between < and tagName, and any tag
   // name (svg, div, span, etc). Hyphens are allowed in custom-element
   // names. The injected attr has a leading space so it never collides
   // with whatever comes next (`>`, `/>`, an existing attr, etc).
-  return stripped.replace(
-    /^(\s*<\s*[a-zA-Z][\w-]*)/,
-    `$1 ${OID_ATTR}="${oid}"`,
+  return (
+    prefix +
+    rest.replace(/^(\s*<\s*[a-zA-Z][\w-]*)/, `$1 ${OID_ATTR}="${oid}"`)
   );
 }
 

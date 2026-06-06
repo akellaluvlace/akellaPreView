@@ -310,4 +310,41 @@ describe("patchJsxOuterByOid", () => {
     expect(out.changed).toBe(true);
     expect(out.source).toContain(`<svg data-dropin-id="aaaaa1" width="40">`);
   });
+
+  // 2026-06-06 — Regression for the live-demo image-swap crash. Library
+  // media inserts (Unsplash/Pexels/Pixabay) prepend an attribution comment
+  // to the <img> payload. Before the fix, injectOidIntoOuter's `^<tag`
+  // regex no-op'd on the leading `{`, so the swapped image lost its OID and
+  // later vibe edits bailed `missing-oid`.
+  it("injects the OID onto the first element when the new outer leads with a JSX comment", () => {
+    const src = `<div><img data-dropin-id="aaaaa1" src="/old.jpg" /></div>`;
+    const newOuter = `{/*\n  Photo by Jane (https://unsplash.com/@jane) on Unsplash\n*/}\n<img src="/new.jpg" alt="cat" width={640} height={480} loading="lazy" />`;
+    const out = patchJsxOuterByOid(src, "aaaaa1", newOuter);
+    expect(out.changed).toBe(true);
+    // OID re-stamped onto the real <img>, not lost on the leading comment.
+    expect(out.source).toContain(`<img data-dropin-id="aaaaa1" src="/new.jpg"`);
+    // Attribution comment preserved in source.
+    expect(out.source).toContain(`Photo by Jane`);
+    // Exactly one OID in the result.
+    expect((out.source.match(/data-dropin-id/g) || []).length).toBe(1);
+  });
+
+  it("injects the OID onto the first element when the new outer leads with an HTML comment", () => {
+    const src = `<div><img data-dropin-id="bbbbb2" src="/old.jpg" /></div>`;
+    const newOuter = `<!-- Photo by Jane on Pixabay -->\n<img src="/new.jpg" alt="dog" />`;
+    const out = patchJsxOuterByOid(src, "bbbbb2", newOuter);
+    expect(out.changed).toBe(true);
+    expect(out.source).toContain(`<img data-dropin-id="bbbbb2" src="/new.jpg"`);
+    expect(out.source).toContain(`Photo by Jane on Pixabay`);
+  });
+
+  it("never stamps an OID onto a bare Fragment opener", () => {
+    // A multi-root component asset wrapped in a Fragment must NOT receive a
+    // data-dropin-id on the `<>` — it isn't a real element.
+    const src = `<div><span data-dropin-id="ccccc3">x</span></div>`;
+    const newOuter = `<><span>a</span><span>b</span></>`;
+    const out = patchJsxOuterByOid(src, "ccccc3", newOuter);
+    expect(out.source).toContain(`<><span>a</span><span>b</span></>`);
+    expect(out.source).not.toContain(`data-dropin-id`);
+  });
 });

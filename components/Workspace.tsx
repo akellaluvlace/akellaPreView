@@ -108,6 +108,7 @@ import {
   patchHtmlText,
 } from "@/lib/source-patch-html";
 import { patchJsxOuterByOid } from "@/lib/ast/patch-class-by-oid";
+import { stripLeadingAttributionComment } from "@/lib/asset-library/strip-attribution-comment";
 import { htmlToJsx } from "@/lib/component-library/html-to-jsx";
 import { applyDetachFromMap } from "@/lib/ast/operations/detach-from-map";
 import type {
@@ -3324,11 +3325,20 @@ export default function Workspace({
     (assetText: string, opts?: { forceRebuild?: boolean }) => {
       const info = vibeInfo;
       if (!info) return;
+      // Library media inserts prepend an attribution comment to the <img>
+      // payload. On a SWAP that comment makes the payload a 2-node block;
+      // dropped into a single-expression JSX slot (return <img/>, a ternary
+      // arm, a .map(x => <img/>) body) that's two adjacent JSX nodes with no
+      // wrapper → Babel "Adjacent JSX elements must be wrapped" → the preview
+      // blanks. That was the live-demo image-swap crash. Strip the leading
+      // comment so the swap is a single node (no-op for comment-free SVG /
+      // component payloads).
+      const cleanOuter = stripLeadingAttributionComment(assetText);
       previewHandleRef.current?.postVibe({
         type: "vibe:update-outer",
         path: info.path,
         oid: info.oid,
-        newOuter: assetText,
+        newOuter: cleanOuter,
       });
       // Read source from the ref so a stale-closure typing race doesn't
       // patch against pre-keystroke bytes — the codeRef effect above
@@ -3337,19 +3347,30 @@ export default function Workspace({
         mode: kind,
         source: codeRef.current,
         old: info,
-        next: { outer: assetText },
+        next: { outer: cleanOuter },
       });
       if (result.kind === "ok") {
-        // Component-library assets in JSX mode carry JSX-specific syntax
-        // ({/* comments */}, `<style>{`...`}</style>` template literals,
-        // multi-root Fragment wraps) that the iframe's outerHTML write
-        // can't render natively — the DOM ends up with literal text where
-        // the JSX should evaluate. Caller passes forceRebuild:true to
-        // route through setCode (rebuilds iframe with real React/Babel),
-        // wiping the broken-DOM intermediate state. Icon / image swaps
-        // emit plain HTML/SVG that outerHTML handles fine — those keep
-        // the no-rebuild fast path via setCodeSilent.
-        if (opts?.forceRebuild) {
+        // Belt-and-braces parse gate: if the swap produced JSX source that
+        // no longer parses (e.g. a multi-root asset landing in a single-
+        // expression slot), DON'T persist it — setCode would blank the
+        // preview on the next rebuild. Warn instead and leave source as-is
+        // (the optimistic iframe mutation reverts on the user's next edit).
+        // With the comment strip above this rarely fires for image/icon
+        // swaps; it guards component-library swaps and any future shape.
+        if (kind === "jsx" && !isParseable(result.source)) {
+          showWarn(
+            "Couldn't apply that swap here — this spot only holds one element. Try a different element.",
+          );
+        } else if (opts?.forceRebuild) {
+          // Component-library assets in JSX mode carry JSX-specific syntax
+          // ({/* comments */}, `<style>{`...`}</style>` template literals,
+          // multi-root Fragment wraps) that the iframe's outerHTML write
+          // can't render natively — the DOM ends up with literal text where
+          // the JSX should evaluate. Caller passes forceRebuild:true to
+          // route through setCode (rebuilds iframe with real React/Babel),
+          // wiping the broken-DOM intermediate state. Icon / image swaps
+          // emit plain HTML/SVG that outerHTML handles fine — those keep
+          // the no-rebuild fast path via setCodeSilent.
           setCode(result.source);
         } else {
           setCodeSilent(result.source);
