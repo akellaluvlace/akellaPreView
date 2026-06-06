@@ -2777,6 +2777,25 @@ ${IMAGE_FALLBACK_SCRIPT}
         var first = pkg.charAt(0);
         if (first === '.' || first === '/') {
           if (!seenPkg[pkg]) { seenPkg[pkg] = true; relativeImports.push(pkg); }
+          // Dropin runs a single self-contained file, so a relative import
+          // can't be resolved. STUB the local bindings instead of leaving them
+          // undefined — without a binding the import range is whitespaced and
+          // the component hits 'X is not defined' → the WHOLE preview blanks.
+          // Capitalized local → component stub (renders nothing); lowercase →
+          // empty string (an asset URL like \`import logo from './logo.png'\`;
+          // the broken-image fallback handles the empty src). The page renders
+          // minus the imported bit, and the caller posts a non-fatal heads-up.
+          for (var ri = 0; ri < node.specifiers.length; ri++) {
+            var rsp = node.specifiers[ri];
+            if (!rsp.local || !rsp.local.name) continue;
+            var rln = rsp.local.name;
+            var rc0 = rln.charAt(0);
+            if (rc0 >= 'A' && rc0 <= 'Z') {
+              preambleParts.push('var ' + rln + '=function(){return null;};');
+            } else {
+              preambleParts.push('var ' + rln + '="";');
+            }
+          }
           continue;
         }
         if (!SUPPORTED_PKGS_SET[pkg]) {
@@ -2938,10 +2957,20 @@ ${IMAGE_FALLBACK_SCRIPT}
     }
 
     if (processed.relativeImports.length) {
-      throw new Error(
-        'Relative imports not supported in playground:\\n  ' + processed.relativeImports.join(', ') +
-        '\\n\\nDropin runs templates as a single self-contained file. Inline the imported module(s) into the same file, or merge their exports into the main component.'
-      );
+      // Non-fatal: the bindings were stubbed in the walker so the page still
+      // renders. Tell the host so it can toast a heads-up — but DON'T throw,
+      // which would blank the preview (the old behaviour). Drop In runs a
+      // single self-contained file, so multi-file relative imports can't be
+      // resolved; the user inlines them to see those parts.
+      try {
+        if (typeof parent !== 'undefined' && parent !== window) {
+          parent.postMessage({
+            __dropin: true,
+            type: 'dropin:error',
+            message: 'Heads up — relative imports (' + processed.relativeImports.join(', ') + ') can\\'t be resolved here. Drop In runs your file on its own, so those parts are skipped. Inline them into this file to see them.'
+          }, '*');
+        }
+      } catch (_) {}
     }
 
     // Defensive React hook bindings — every JSX preview gets these

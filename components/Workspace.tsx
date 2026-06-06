@@ -109,6 +109,7 @@ import {
 } from "@/lib/source-patch-html";
 import { patchJsxOuterByOid } from "@/lib/ast/patch-class-by-oid";
 import { stripLeadingAttributionComment } from "@/lib/asset-library/strip-attribution-comment";
+import { wrapMultiRootJsxInsert } from "@/lib/asset-library/wrap-insert";
 import {
   detectKindByPrefix,
   detectFragmentKind,
@@ -3743,14 +3744,21 @@ export default function Workspace({
           if (kind === "jsx") h.insertAtJsxRoot(text);
           else h.insertInHtmlHead(text);
         } else {
-          h.insertAtCursor(text);
+          // Multi-node asset inserts (fonts emit comment + <link> + <style>,
+          // patterns/shadows/illustrations similar) become adjacent JSX
+          // siblings at the cursor → "Adjacent JSX elements must be wrapped"
+          // → blank preview. Fragment-wrap multi-node JSX payloads (no-op for
+          // single-node inserts and all of HTML mode).
+          h.insertAtCursor(wrapMultiRootJsxInsert(text, kind));
         }
       } else {
         // Editor not mounted yet (e.g. library opened before Monaco
         // finished loading). For "top" inserts prepend; otherwise append.
         // Either way the user's action isn't lost. The JSX-wrapper
         // insertion path requires Monaco to be live, so we just prepend.
-        setCode((prev) => (pos === "top" ? text + "\n\n" + prev : prev + "\n\n" + text));
+        const safe =
+          pos === "top" ? text : wrapMultiRootJsxInsert(text, kind);
+        setCode((prev) => (pos === "top" ? safe + "\n\n" + prev : prev + "\n\n" + safe));
       }
       setActivePane("preview");
     },

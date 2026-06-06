@@ -2,6 +2,7 @@
 
 import MonacoEditor, { type OnMount } from "@monaco-editor/react";
 import { useCallback, useEffect, useRef } from "react";
+import { findJsxRootInsertOffset } from "@/lib/find-jsx-root-insert-offset";
 
 function log(msg: string, data?: unknown) {
   console.log(`[dropin:Editor] ${msg}`, data ?? "");
@@ -220,21 +221,19 @@ export default function Editor({
       if (!model) return;
       const source = model.getValue();
 
-      // Find `return (` followed by either a fragment `<>` or a normal
-      // opening tag `<Tag ...>`. Insert text right after the opening
-      // tag's closing `>` so it becomes the first child inside the JSX
-      // wrapper. Limitation: the regex doesn't track `>` inside attribute
-      // string literals — pathological cases like
-      // `<div onClick={() => alert('>0')}>` would slot the insert at the
-      // wrong spot. None of our converted templates do that.
-      const re = /return\s*\(\s*(<>|<[A-Za-z][^>]*?>)/;
-      const m = re.exec(source);
-      if (!m) {
+      // Locate the component's outermost returned JSX root via a real parse and
+      // insert right after its opening tag (so the asset becomes the first
+      // child). This handles every return shape — `return (<div>`, bare
+      // `return <div>`, arrow-implicit `() => <div>`, fragment roots — where the
+      // old `return (` regex only matched the parenthesised form and otherwise
+      // dropped the insert at a raw caret, which could break the parse and
+      // blank the preview.
+      const insertOffset = findJsxRootInsertOffset(source);
+      if (insertOffset === null) {
         log("insertAtJsxRoot: no JSX root found, falling back to insertAtCursor");
         insertAtCursor(text);
         return;
       }
-      const insertOffset = m.index + m[0].length;
       const insertPos = model.getPositionAt(insertOffset);
       const range = new mn.Range(
         insertPos.lineNumber,
