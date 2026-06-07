@@ -98,6 +98,42 @@ describe("preview iframe runtime is syntactically valid JS", () => {
     expect(preambleIdx).toBeLessThan(hooksIdx);
   });
 
+  // Babel emits self-optimizing helpers (_extends / _objectSpread) for object
+  // & JSX spread (`{...rest}`). They reassign their OWN name on first call:
+  // `_extends = Object.assign.bind(), _extends.apply(...)`. Babel hoists them
+  // to the TOP of the output, so the leading `return ` in
+  // `new Function('return ' + compiled)` turns that hoisted DECLARATION into a
+  // named function EXPRESSION — whose name is an immutable self-reference — so
+  // the reassignment no-ops and the helper recurses forever (RangeError:
+  // Maximum call stack size exceeded). Live bug hit by any spread-using
+  // component. The two tests below pin the mechanism with a minimal _extends
+  // mimic so a regression is caught without needing @babel/standalone in CI.
+  const EXTENDS_HELPER =
+    "function _extends(){ return _extends = Object.assign.bind(), _extends.apply(null, arguments); }";
+
+  it("documents the bug: `return ` + helper-first compiled infinite-loops", () => {
+    const compiled = `${EXTENDS_HELPER}\n(function(){ return _extends({}, { a: 1 }); })()`;
+    const bad = new Function("return " + compiled);
+    expect(() => bad()).toThrow(RangeError);
+  });
+
+  it("the fix: capture the IIFE result in a var so hoisted helpers stay declarations", () => {
+    // The pipeline now appends `return __dropinResult;` instead of prefixing
+    // `return `, so the helper stays a real (mutable) function declaration.
+    const compiled = `${EXTENDS_HELPER}\nvar __dropinResult = (function(){ return _extends({}, { a: 1 }); })();`;
+    const factory = new Function(compiled + "\nreturn __dropinResult;");
+    expect(() => factory()).not.toThrow();
+    expect(factory()).toEqual({ a: 1 });
+  });
+
+  it("the generated JSX doc captures the component in a var (not `return ` + compiled)", () => {
+    const doc = buildPreviewDocument({ code: JSX_TEMPLATE, kind: "jsx" });
+    expect(doc).toContain("return __dropinResult");
+    // The fragile executable form `new Function(..., 'return ' + compiled)`
+    // must be gone (match the real signature, not the explanatory comment).
+    expect(doc).not.toContain("'ReactDOM', 'return ' + compiled");
+  });
+
   it("both docs carry the engine guard, broken-image fallback + mixed-content upgrade", () => {
     const jsx = buildPreviewDocument({ code: JSX_TEMPLATE, kind: "jsx" });
     const html = buildPreviewDocument({ code: HTML_TEMPLATE, kind: "html" });

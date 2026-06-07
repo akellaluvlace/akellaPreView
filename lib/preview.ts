@@ -3018,14 +3018,24 @@ ${IMAGE_FALLBACK_SCRIPT}
     // "Cannot read properties of undefined (reading 'useState')". (DEFAULT_HOOKS
     // still re-binds any hook the user didn't import; last \`var\` write wins and
     // both sides equal React.useState, so this is loss-free.)
+    // Capture the IIFE result in \`__dropinResult\` and return THAT below, rather
+    // than \`new Function('return ' + compiled)\`. Babel hoists its self-
+    // optimizing spread helpers (_extends / _objectSpread for \`{...rest}\`) to
+    // the TOP of \`compiled\`; a leading \`return \` turns that hoisted DECLARATION
+    // into a named function EXPRESSION whose name is an immutable self-
+    // reference, so the helper's \`_extends = Object.assign.bind()\` reassignment
+    // no-ops and it recurses forever (RangeError: Maximum call stack — hit by
+    // ANY component using object/JSX spread). Keeping the helpers as real
+    // declarations + returning a captured var fixes it. (\`var __dropinResult=\`
+    // stays inline on line 1 so the loc plugin's line mapping is unchanged.)
     var wrapped =
-      '(function(){' +
+      'var __dropinResult=(function(){' +
       EXPORT_HOIST +
       processed.preamble +
       DEFAULT_HOOKS_PREAMBLE +
       '\\n' + processed.stripped +
       EXPORT_RETURN +
-      '\\n})()';
+      '\\n})();';
 
     var compiled = Babel.transform(wrapped, {
       presets: ['react'],
@@ -3034,7 +3044,7 @@ ${IMAGE_FALLBACK_SCRIPT}
       sourceType: 'script'
     }).code;
 
-    var Component = new Function('React', 'ReactDOM', 'return ' + compiled)(React, ReactDOM);
+    var Component = new Function('React', 'ReactDOM', compiled + '\\nreturn __dropinResult;')(React, ReactDOM);
     if (typeof Component !== 'function') {
       throw new Error('Template must export default a React component (function).');
     }
