@@ -74,6 +74,30 @@ describe("preview iframe runtime is syntactically valid JS", () => {
     expect(doc).toContain("Babel.packages.parser.parse");
   });
 
+  it("assembles the import-walker preamble BEFORE the hooks preamble (regression: undefined.useState)", () => {
+    // `import React, { useState } from "react"` makes the import-walker emit
+    // `var React=(window.__pkgs["react"]...)` INSIDE the IIFE, which shadows
+    // the `new Function('React', ...)` param and is hoisted to undefined. The
+    // defensive hooks preamble (`var useState=React.useState`) dereferences
+    // React, so the wrapped IIFE MUST concatenate `processed.preamble` (the
+    // import bindings) BEFORE `DEFAULT_HOOKS_PREAMBLE` — otherwise React is
+    // undefined when the hooks preamble runs → "Cannot read properties of
+    // undefined (reading 'useState')". (Live regression from re-activating the
+    // Babel.parse import-walker.) This guards the concatenation order in the
+    // generated runtime, which is what determines the var-assignment order.
+    const doc = buildPreviewDocument({ code: JSX_TEMPLATE, kind: "jsx" });
+    const start = doc.indexOf("var wrapped =");
+    const end = doc.indexOf("Babel.transform(wrapped");
+    expect(start).toBeGreaterThan(-1);
+    expect(end).toBeGreaterThan(start);
+    const wrappedExpr = doc.slice(start, end);
+    const preambleIdx = wrappedExpr.indexOf("processed.preamble");
+    const hooksIdx = wrappedExpr.indexOf("DEFAULT_HOOKS_PREAMBLE");
+    expect(preambleIdx).toBeGreaterThan(-1);
+    expect(hooksIdx).toBeGreaterThan(-1);
+    expect(preambleIdx).toBeLessThan(hooksIdx);
+  });
+
   it("both docs carry the engine guard, broken-image fallback + mixed-content upgrade", () => {
     const jsx = buildPreviewDocument({ code: JSX_TEMPLATE, kind: "jsx" });
     const html = buildPreviewDocument({ code: HTML_TEMPLATE, kind: "html" });

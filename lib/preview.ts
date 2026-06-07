@@ -3008,11 +3008,21 @@ ${IMAGE_FALLBACK_SCRIPT}
     // the component renders).
     var EXPORT_HOIST = 'var __dropinExport;';
     var EXPORT_RETURN = '\\nreturn __dropinExport;';
+    // ORDER MATTERS: the import-walker's preamble runs FIRST. When user code
+    // does \`import React, { useState } from "react"\`, the walker emits
+    // \`var React=(window.__pkgs["react"]...)\` inside this IIFE — a \`var\` that
+    // SHADOWS the \`new Function('React', ...)\` param and is hoisted to
+    // undefined until its assignment line. The defensive hooks preamble
+    // (\`var useState=React.useState,...\`) dereferences React, so it must come
+    // AFTER the binding is assigned — otherwise React is undefined and you get
+    // "Cannot read properties of undefined (reading 'useState')". (DEFAULT_HOOKS
+    // still re-binds any hook the user didn't import; last \`var\` write wins and
+    // both sides equal React.useState, so this is loss-free.)
     var wrapped =
       '(function(){' +
       EXPORT_HOIST +
-      DEFAULT_HOOKS_PREAMBLE +
       processed.preamble +
+      DEFAULT_HOOKS_PREAMBLE +
       '\\n' + processed.stripped +
       EXPORT_RETURN +
       '\\n})()';
